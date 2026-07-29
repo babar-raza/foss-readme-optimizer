@@ -20,6 +20,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-062427-68c4:aspose-font-foss/Aspose.Font-FOSS-for-Python"
     },
+    "1c5cfe9c8e43091cc85283a511ef50b5cb8a33b61364b6635528793291fa41fc": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "1c5cfe9c8e43091cc85283a511ef50b5cb8a33b61364b6635528793291fa41fc",
+      "completed_at": "2026-07-29T06:25:55.160706+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "ccb366405f975cd66e78ee0ae5fb72d9241fece104e2a9a13536c079db42bc94",
+      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "run_id": "20260729-062427-68c4",
+      "schema_version": 1,
+      "stage": "final_acceptance",
+      "started_at": "2026-07-29T06:25:55.160697+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-062427-68c4:aspose-font-foss/Aspose.Font-FOSS-for-Python"
+    },
     "f5ceac30ead7028fe7365bee347c1ee55a21d3d5c60e4a3fdb6bbb282d702274": {
       "action": null,
       "attempt": 1,
@@ -448,7 +465,7 @@
     "updated_at": "2026-07-29T06:25:46.778116+00:00"
   },
   "schema_version": 2,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
@@ -647,11 +664,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "f5ceac30ead7028fe7365bee347c1ee55a21d3d5c60e4a3fdb6bbb282d702274",
+      "last_checkpoint_id": "1c5cfe9c8e43091cc85283a511ef50b5cb8a33b61364b6635528793291fa41fc",
       "lease_expires_at": "2026-07-29T06:39:43.710496+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-29T06:24:49.128519+00:00"
+      "updated_at": "2026-07-29T06:25:55.160706+00:00"
     }
   },
   "trigger_records": {},
