@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
-    "claim_expires_at": "2026-07-29T05:18:17.498848+00:00",
-    "claim_id": "d38b48620d1c407f87f4195a3195ef7d",
-    "claimed_at": "2026-07-29T04:48:17.498848+00:00",
-    "claimed_by": "Codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "0cad8bab30214dce93dc70d39e537b5b4c67efd504a43101b9b2268f6e7e3f48",
-    "last_evaluated_at": "2026-07-29T05:22:11.533885+00:00",
+    "last_evaluated_at": "2026-07-29T05:22:41.897933+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,17 +59,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "indispensable_safety",
-        "summary": "Give every discovered repository durable identity without weakening policy ownership."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH",
-        "GOAL-AUTONOMY"
-      ],
-      "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -101,7 +91,7 @@
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
-      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "IN_PROGRESS",
+      "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "IMPLEMENTED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "TODO",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
@@ -4786,6 +4776,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "commit:d4d614019855ae85c1e117735016374ce603d7d2",
+          "commit:8f3855a4",
+          "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-29T05:22:41.897927+00:00",
+        "reason": "Stable provider identity schema, migration, reconciliation, and control-registry upgrade are committed.",
+        "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -4794,7 +4797,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 540,
+  "state_version": 541,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
