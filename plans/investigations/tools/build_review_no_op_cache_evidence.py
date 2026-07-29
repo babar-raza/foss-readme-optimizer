@@ -102,6 +102,7 @@ def _validate_inventory(root: Path) -> str:
 def _run_focused_tests(work_root: Path) -> dict[str, Any]:
     if work_root.exists():
         raise ValueError(f"refusing to reuse runtime proof directory: {work_root}")
+    work_root.parent.mkdir(parents=True, exist_ok=True)
     command = [
         str(REPO_ROOT / ".venv" / "Scripts" / "python"),
         "-m",
