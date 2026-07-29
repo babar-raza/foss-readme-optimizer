@@ -47,9 +47,15 @@
     },
     {
       "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
-      "result": "All official checks passed against TREE CLEAN; 2,233 non-live tests passed and 41 live tests were deselected in 1058.23s; Ruff, formatting, mypy, plan structure, verifier wiring, prompt hygiene, requirement coverage, traceability, and actionlint passed.",
+      "result": "The official wrapper completed against TREE CLEAN; 2,233 non-live tests passed and 41 live tests were deselected in 1058.23s; Ruff, formatting, mypy, plan structure, verifier wiring, prompt hygiene, requirement coverage, and traceability passed. Its actionlint step was explicitly skipped because the binary was not on PATH.",
       "raw_log": "official-checks-attempt-1.log",
       "raw_log_sha256": "483200176c749b3daee750381f83930eaaf624cc4f2b7d0b1775ccca4bd7242b"
+    },
+    {
+      "command": "C:\\Users\\prora\\go\\bin\\actionlint.EXE .github/workflows/*.yml",
+      "result": "All 11 workflow files passed actionlint in a separate follow-up invocation using the already-installed binary.",
+      "raw_log": "actionlint-attempt-1.log",
+      "raw_log_sha256": "8c2aef77c6e2af09fddc15539e342bb5b9339de677cc1f412cfb7571c69d2e33"
     }
   ],
   "non_promoting_diagnostics": [
