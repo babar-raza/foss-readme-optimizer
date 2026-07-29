@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+  "requirement_ids": [
+    "L8-036"
+  ],
+  "checks": {
+    "focused_tests_passed": true,
+    "implementation_commit_is_ancestor": true,
+    "worktree_registry_matches_implementation_commit": true,
+    "live_migration_reproduces_committed_registry": true,
+    "schema_v2_rerun_is_entry_no_op": true,
+    "registry_count_preserved": true,
+    "all_entries_have_unique_repository_ids": true,
+    "all_entries_have_unique_node_ids": true,
+    "agent_owned_fields_preserved": true,
+    "every_observation_has_one_reconciliation_record": true,
+    "legacy_entries_migrated_once": true,
+    "current_entries_refresh_without_duplication": true,
+    "known_unmatched_repository_held_by_stable_identity": true,
+    "source_failure_remains_explicit": true,
+    "no_remote_write_operation": true
+  },
+  "failures": [],
+  "migration_action_counts": {
+    "held_unmatched": 1,
+    "migrated": 31
+  },
+  "no_op_action_counts": {
+    "held_unmatched": 1,
+    "refreshed": 31
+  },
+  "inventory_complete": false,
+  "source_failures": [
+    {
+      "source": {
+        "schema_version": 1,
+        "source_id": "github-org:aspose-imaging-foss",
+        "provider": "github",
+        "organization": "aspose-imaging-foss",
+        "family_hint": "imaging",
+        "enabled": true
+      },
+      "status": "failed",
+      "observed_at": "2026-07-29T05:20:58.070789+00:00",
+      "observation_count": 0,
+      "error": "404 Client Error: Not Found for url: https://api.github.com/orgs/aspose-imaging-foss/repos?type=public&per_page=100&sort=pushed"
+    }
+  ],
+  "verdict": "PASS"
+}

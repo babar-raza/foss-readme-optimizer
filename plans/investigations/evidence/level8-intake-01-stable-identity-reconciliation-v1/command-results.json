@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "focused": {
+    "command": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/unit/test_registry_reconciliation.py",
+      "tests/unit/test_registry_discovery.py",
+      "tests/unit/test_registry_self_heal.py",
+      "tests/unit/test_registry_loader.py",
+      "tests/unit/test_registry_priority.py"
+    ],
+    "exit_code": 0
+  },
+  "official_clean_gate": {
+    "command": [
+      ".venv/Scripts/python",
+      "scripts/governance/run_official_checks.py"
+    ],
+    "implementation_commit": "d4d614019855ae85c1e117735016374ce603d7d2",
+    "exit_code": 0,
+    "pytest": "2153 passed, 41 deselected",
+    "actionlint": "skipped_unavailable"
+  },
+  "live_reconciliation": {
+    "command": [
+      ".venv/Scripts/python",
+      "plans/investigations/tools/build_stable_identity_reconciliation_evidence.py"
+    ],
+    "exit_code": 0
+  }
+}
