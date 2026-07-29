@@ -11227,7 +11227,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 502,
+  "state_version": 503,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11752,13 +11752,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0001 failed after 3 attempts: 1 validation error for TrustedReadmeSectionToolDraftV1 segments.0   Value error, preserve_exact segment cannot contain authored Markdown [type=value_error, input_value={'segment_id': 'readme-he...ids': ['readme.header']}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
       "last_checkpoint_id": "b235cbad50b372db5e520ae7e6842679a680bdc2b3a2f848a63a7f9b2472edc4",
-      "lease_expires_at": "2026-07-29T17:56:55.744051+00:00",
+      "lease_expires_at": null,
       "recovery_count": 4,
-      "status": "processing",
-      "updated_at": "2026-07-29T17:42:01.159993+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T17:46:42.759692+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
