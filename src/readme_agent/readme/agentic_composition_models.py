@@ -72,10 +72,22 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+class ReadmeCompositionRepairFindingV1(_StrictModel):
+    """One reviewer finding that the next authoring pass must address."""
+
+    finding_id: str = Field(pattern=r"^[a-z][a-z0-9_.-]*$")
+    section: str = Field(min_length=1)
+    criterion: str = Field(min_length=1)
+    quoted_candidate_span: str
+    required_repair: str = Field(min_length=1)
+
+
 class ReadmeCompositionRepairRequestV1(_StrictModel):
     """Bounded instructions from the independent reviewer to the authoring pass."""
 
+    source_candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     failed_criteria: list[str] = Field(min_length=1)
     sections_affected: list[str] = Field(min_length=1)
     required_repair: str = Field(min_length=1)
     preserve: list[str] = Field(default_factory=list)
+    findings: list[ReadmeCompositionRepairFindingV1] = Field(min_length=1)

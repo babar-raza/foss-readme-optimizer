@@ -1019,6 +1019,17 @@ class TestBasicLoop:
             review["repair_history"][0]["candidate_sha256"]
             != review["repair_history"][1]["candidate_sha256"]
         )
+        receipt = review["repair_history"][0]["repair_receipt"]
+        assert receipt["candidate_changed"] is True
+        assert receipt["changed_spans"]
+        assert receipt["changed_operation_ids"]
+        assert receipt["addressed_finding_ids"] == ["quality.generic-overview"]
+        assert receipt["resolved_finding_ids"] == ["quality.generic-overview"]
+        assert receipt["unresolved_finding_ids"] == []
+        assert receipt["rereview_authorized"] is True
+        assert receipt["reviewer_call_count_before_rereview"] == 1
+        assert receipt["reviewer_call_count_after_rereview"] == 2
+        assert review["review_call_count"] == 2
         lifecycle_bundle = (
             project
             / "runs"
@@ -1050,6 +1061,71 @@ class TestBasicLoop:
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
         assert _RejectThenAcceptBlindReviewClient.calls == 2
         assert _RepairAwareCompositionForcedToolClient.calls == 2
+
+    def test_local_poc_byte_identical_repair_reroutes_before_rereview(
+        self,
+        project,
+        monkeypatch,
+    ):
+        backend = FakeStateBackend()
+        _FakeCompositionForcedToolClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.calls = 0
+        monkeypatch.setattr(
+            agentic_composition,
+            "LiveForcedToolClient",
+            _FakeCompositionForcedToolClient,
+        )
+        monkeypatch.setattr(
+            separated_readme_review,
+            "build_live_role_review_clients",
+            _fake_repair_role_clients,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("rerouted repair must not reach a write effect"),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+
+        state = backend.load(ORG_REPO)
+        lifecycle = state.readme_poc_lifecycle
+        assert lifecycle is not None
+        assert result.status == "BLOCKED"
+        assert result.blocked_category == "agent_fixable"
+        assert lifecycle.status == "README_ASSESSED"
+        assert _RejectThenAcceptBlindReviewClient.calls == 1
+        assert _FakeCompositionForcedToolClient.calls == 2
+        lifecycle_bundle = (
+            project
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Example-FOSS-for-Java"
+            / lifecycle.source_revision
+        )
+        repair_history = json.loads(
+            (lifecycle_bundle / "review" / "repair-history.json").read_text(encoding="utf-8")
+        )
+        assert len(repair_history) == 1
+        assert repair_history[0]["reviewer_call_count"] == 1
+        receipt = repair_history[0]["repair_receipt"]
+        assert receipt["candidate_changed"] is False
+        assert receipt["rereview_authorized"] is False
+        assert receipt["unresolved_finding_ids"] == ["quality.generic-overview"]
+        manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["lifecycle_status"] == "README_ASSESSED"
+        final_verdict = json.loads(
+            (lifecycle_bundle / "review" / "final-verdict.json").read_text(encoding="utf-8")
+        )
+        assert final_verdict["repair_attempts"] == 1
 
     def test_heterogeneous_local_poc_members_share_the_real_supervisor_path(self, project):
         products_path = project / "data" / "products.json"

@@ -14,10 +14,10 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
-from readme_agent.specialists.independent_readme_review import (
+from readme_agent.specialists.readme_review_repair import build_repaired_review_context
+from readme_agent.specialists.readme_review_repair_loop import (
     run_independent_review_with_repair_loop,
 )
-from readme_agent.specialists.readme_review_repair import build_repaired_review_context
 from readme_agent.specialists.readme_review_validation import (
     materialize_and_verify_bundle,
 )
@@ -365,13 +365,17 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             final_context.get("deterministic_validation_passed", True)
         )
         final_lifecycle_status = (
-            {
-                "ACCEPT": "AGENT_APPROVED",
-                "REJECT_REPAIRABLE": "AGENT_REVIEW_REJECTED",
-                "BLOCKED_FACT_CONFLICT": "BLOCKED_FACT_CONFLICT",
-                "BLOCKED_MISSING_EVIDENCE": "BLOCKED_MISSING_EVIDENCE",
-                "SYSTEM_FAILURE": "SYSTEM_FAILURE",
-            }[review_outcome.final_review.verdict]
+            (
+                "README_ASSESSED"
+                if review_outcome.outcome_kind == "repair_rerouted"
+                else {
+                    "ACCEPT": "AGENT_APPROVED",
+                    "REJECT_REPAIRABLE": "AGENT_REVIEW_REJECTED",
+                    "BLOCKED_FACT_CONFLICT": "BLOCKED_FACT_CONFLICT",
+                    "BLOCKED_MISSING_EVIDENCE": "BLOCKED_MISSING_EVIDENCE",
+                    "SYSTEM_FAILURE": "SYSTEM_FAILURE",
+                }[review_outcome.final_review.verdict]
+            )
             if final_deterministic_passed
             else "DETERMINISTIC_VALIDATION_FAILED"
         )

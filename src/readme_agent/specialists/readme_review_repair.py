@@ -16,6 +16,10 @@ from readme_agent.specialists.independent_readme_review import (
     IndependentReadmeReviewResultV1,
 )
 from readme_agent.specialists.readme_factuality import evaluate_candidate_factuality
+from readme_agent.specialists.readme_repair_validation import (
+    repair_findings,
+    validate_repair_source_binding,
+)
 from readme_agent.specialists.readme_review_validation import (
     dispatch_build_presentation_plan,
     dispatch_verify_readme_candidate,
@@ -67,9 +71,12 @@ def _dispatch_repair_composition(
     org_repo: str,
     product_facts_v2: dict,
     review: IndependentReadmeReviewResultV1,
+    source_candidate_text: str,
     *,
     client: object | None,
 ) -> DispatchResult:
+    findings = repair_findings(review)
+    source_candidate_sha256 = validate_repair_source_binding(review, source_candidate_text)
     return dispatch_tool_call(
         {
             "function": {
@@ -83,10 +90,12 @@ def _dispatch_repair_composition(
             "product_facts_v2": product_facts_v2,
             "client": client,
             "review_repair": {
+                "source_candidate_sha256": source_candidate_sha256,
                 "failed_criteria": review.failed_criteria,
                 "sections_affected": review.sections_affected,
                 "required_repair": review.required_repair,
                 "preserve": review.preserve,
+                "findings": [finding.model_dump(mode="json") for finding in findings],
             },
         },
     )
@@ -131,6 +140,7 @@ def build_repaired_review_context(
         org_repo,
         product_facts_v2,
         review,
+        str(original_render_result["final_text"]),
         client=composition_client,
     )
     if composition.outcome != "executed" or composition.result is None:
@@ -149,15 +159,6 @@ def build_repaired_review_context(
     plan_record = presentation_plan_record(presentation_plan)
     evidence_refs: list[str] = []
     local_bundle_dir: Path | None = None
-    if backend is not None:
-        local_bundle_dir = _persist_local_candidate(
-            org_repo,
-            backend,
-            render_result,
-            presentation_plan,
-        )
-        evidence_refs.append(str(local_bundle_dir))
-
     factuality = evaluate_candidate_factuality(
         org_repo,
         render_result["original_text"],
@@ -214,6 +215,21 @@ def build_repaired_review_context(
         "factuality": factuality.model_dump(mode="json"),
         "bundle_verification": bundle_record,
     }
+
+    def promote_repaired_context() -> dict:
+        if backend is None:
+            return {}
+        promoted_bundle_dir = _persist_local_candidate(
+            org_repo,
+            backend,
+            render_result,
+            presentation_plan,
+        )
+        return {
+            "local_bundle_dir": str(promoted_bundle_dir),
+            "evidence_refs": [*evidence_refs, str(promoted_bundle_dir)],
+        }
+
     return {
         "original_text": render_result["original_text"],
         "final_text": render_result["final_text"],
@@ -227,4 +243,5 @@ def build_repaired_review_context(
         "bundle_verification": bundle_record,
         "local_bundle_dir": str(local_bundle_dir) if local_bundle_dir is not None else None,
         "evidence_refs": evidence_refs,
+        "promote_repaired_context": promote_repaired_context,
     }

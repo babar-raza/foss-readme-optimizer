@@ -16,6 +16,7 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.llm import prompt_registry
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
@@ -61,7 +62,7 @@ def test_snapshot_bundle_is_revision_addressed_idempotent_and_checksum_complete(
     assert (bundle / "sha256sums.txt").is_file()
     manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["complete"] is False
-    assert len(manifest["prompt_hashes_by_id"]) == 10
+    assert manifest["prompt_hashes_by_id"] == prompt_registry.prompt_hashes()
     assert manifest["prompt_dependency_hashes"]["FACTS_COLLECTING"]
 
 

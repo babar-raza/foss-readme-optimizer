@@ -78,7 +78,6 @@ making the distinction real and durable, not just documented in a comment.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from collections.abc import Callable
@@ -92,7 +91,6 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.reviewer_client import LiveIndependentReviewClient
 from readme_agent.llm.verification_prompts import (
@@ -102,10 +100,7 @@ from readme_agent.llm.verification_prompts import (
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
-from readme_agent.state.readme_poc_lifecycle import (
-    record_deterministic_validation_failure,
-    transition_readme_poc_status,
-)
+from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
 
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
 _MAX_SEMANTIC_RESPONSE_ATTEMPTS = 2
@@ -414,7 +409,12 @@ def record_review_verdict(
     )
 
 
-RepairLoopOutcomeKindV1 = Literal["accepted", "blocked", "repair_exhausted"]
+RepairLoopOutcomeKindV1 = Literal[
+    "accepted",
+    "blocked",
+    "repair_exhausted",
+    "repair_rerouted",
+]
 
 
 class RepairLoopOutcomeV1(BaseModel):
@@ -432,6 +432,7 @@ class RepairLoopOutcomeV1(BaseModel):
     outcome_kind: RepairLoopOutcomeKindV1
     final_review: SerializeAsAny[IndependentReadmeReviewResultV1]
     attempts: int
+    review_call_count: int = Field(ge=1)
     escalation: dict | None = None
     repair_history: list[dict] = Field(default_factory=list)
     # The caller must continue with the accepted repaired candidate.  This is
@@ -551,39 +552,6 @@ def independent_render_context(
     }
 
 
-def _build_backlog_finding(
-    org_repo: str, review: IndependentReadmeReviewResultV1, attempts: int
-) -> dict:
-    """BACKLOG-shaped finding (`plans/GOVERNANCE.md` `GOV-014` process
-    discipline): a non-blocking-but-must-not-be-silently-dropped issue, in
-    the same `repository`/`reason`/`actionable` dict shape `state/health.py::
-    build_health_report()` already uses for its own backlog items. This
-    module has no durable backlog ledger of its own to write into (none
-    exists in `src/` yet -- `state/health.py`'s own `backlog`/
-    `actionable_backlog` are derived read-only from `trigger_lifecycles`,
-    never written to directly by a specialist); this dict is the caller's
-    evidence to escalate (a `plans/` BACKLOG row, a future dedicated
-    backlog-write capability, or direct operator triage) -- the repo is
-    never silently dropped. The durable lifecycle transition `record_review_
-    verdict()` already recorded (`AGENT_REVIEW_REJECTED`, reason naming the
-    exhausted attempt count) independently makes "still rejected after N
-    repair attempts" mechanically distinguishable from "never reviewed" even
-    without this dict travelling any further."""
-    return {
-        "repository": org_repo,
-        "status": "AGENT_REVIEW_REJECTED",
-        "reason": (
-            f"independent_readme_review: repair attempts exhausted "
-            f"({attempts}/{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}), still {review.verdict}"
-        ),
-        "actionable": True,
-        "repair_attempts": attempts,
-        "verdict": review.verdict,
-        "failed_criteria": list(review.failed_criteria),
-        "required_repair": review.required_repair,
-    }
-
-
 def run_independent_review_with_repair_loop(
     org_repo: str,
     backend: StateBackend | None,
@@ -595,192 +563,19 @@ def run_independent_review_with_repair_loop(
     reviewer_standard_hash: str | None = None,
     review_observed_by: str = _OBSERVED_BY,
 ) -> RepairLoopOutcomeV1:
-    """`RPOC-023`: the bounded regenerate-and-re-review cycle on top of the
-    single check `run_independent_readme_review()` performs.
+    """Compatibility wrapper for the dedicated repair-control module."""
 
-    `initial_context` is the FIRST candidate's already-built context
-    (`{"original_text", "final_text", "presentation_plan",
-    "deterministic_validation_result"}`, `independent_render_context()`'s own
-    return shape) -- producing that first candidate is upstream of this
-    specialist's job (whatever pipeline stage already reached
-    `CANDIDATE_GENERATED`), the same division of labor `readme_factuality.
-    py::evaluate_candidate_factuality()` already keeps from ITS caller.
-
-    `regenerate_context` (dependency injection, defaults to a compatibility
-    force-regeneration): a callable receiving the rejected review and the
-    one-based repair attempt, and producing the same dict shape as
-    `initial_context` for one more repair attempt. Injectable so a test can
-    prove the bound and escalation behavior deterministically, without a
-    real product-registry entry, git clone, or live LLM call for the
-    regeneration step -- and so a future caller with a cheaper regeneration
-    path than the full render/plan/validate capability chain may supply its
-    own.
-
-    `BLOCKED_FACT_CONFLICT`/`BLOCKED_MISSING_EVIDENCE`/`SYSTEM_FAILURE` never
-    reach the `REPAIRING` transition below -- structurally, not just by
-    convention: only `REJECT_REPAIRABLE` falls through past the
-    `outcome_kind == "blocked"` early return. A fact conflict or an
-    unverifiable specific claim needs new evidence, not a reworded README;
-    regenerating prose against the same facts is not expected to fix
-    either."""
-    regenerate = regenerate_context or (
-        lambda _review, _attempt: independent_render_context(
-            org_repo,
-            force_regenerate=True,
-            product_facts_v2=initial_context.get("product_facts_v2"),
-        )
+    from readme_agent.specialists.readme_review_repair_loop import (
+        run_independent_review_with_repair_loop as run_repair_loop,
     )
-    ctx = initial_context
-    attempts = 0
-    repair_history: list[dict] = []
-    standard_hash = reviewer_standard_hash or prompt_registry.prompt_hash(
-        "independent_readme_review"
+
+    return run_repair_loop(
+        org_repo,
+        backend,
+        initial_context,
+        client=client,
+        regenerate_context=regenerate_context,
+        review_runner=review_runner,
+        reviewer_standard_hash=reviewer_standard_hash,
+        review_observed_by=review_observed_by,
     )
-    while True:
-        if review_runner is None:
-            review = run_independent_readme_review(
-                org_repo,
-                ctx["original_text"],
-                ctx["final_text"],
-                ctx["presentation_plan"],
-                ctx["deterministic_validation_result"],
-                client=client,
-                backend=backend,
-                repair_attempt=attempts,
-                product_facts_v2=ctx.get("product_facts_v2"),
-            )
-        else:
-            review = review_runner(org_repo, ctx, attempts)
-        review_record = {
-            "review_pass": len(repair_history) + 1,
-            "repair_attempt": attempts,
-            "candidate_sha256": hashlib.sha256(str(ctx["final_text"]).encode("utf-8")).hexdigest(),
-            "review": review.model_dump(mode="json"),
-            "deterministic_validation": ctx["deterministic_validation_result"],
-            "evidence_refs": list(ctx.get("evidence_refs", [])),
-        }
-        repair_history.append(review_record)
-
-        if review.verdict == "ACCEPT":
-            return RepairLoopOutcomeV1(
-                outcome_kind="accepted",
-                final_review=review,
-                attempts=attempts,
-                repair_history=repair_history,
-                final_context=ctx,
-            )
-
-        if review.verdict in _BLOCKED_VERDICTS:
-            return RepairLoopOutcomeV1(
-                outcome_kind="blocked",
-                final_review=review,
-                attempts=attempts,
-                repair_history=repair_history,
-                final_context=ctx,
-            )
-
-        # REJECT_REPAIRABLE from here on -- the only verdict eligible for a
-        # regenerate-and-reverify cycle.
-        if attempts >= MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS:
-            escalation = _build_backlog_finding(org_repo, review, attempts)
-            return RepairLoopOutcomeV1(
-                outcome_kind="repair_exhausted",
-                final_review=review,
-                attempts=attempts,
-                escalation=escalation,
-                repair_history=repair_history,
-                final_context=ctx,
-            )
-
-        while attempts < MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS:
-            next_attempt = attempts + 1
-            if backend is not None:
-                transition_readme_poc_status(
-                    backend,
-                    org_repo,
-                    "REPAIRING",
-                    observed_by=review_observed_by,
-                    reason=(
-                        f"entering repair attempt {next_attempt}/"
-                        f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}: {review.required_repair}"
-                    ),
-                    evidence_refs=list(review.failed_criteria),
-                )
-            ctx = regenerate(review, next_attempt)
-            attempts = next_attempt
-            deterministic_passed = ctx.get("deterministic_validation_passed")
-            if deterministic_passed is None:
-                deterministic_passed = (
-                    ctx.get("deterministic_validation_result", {}).get("verdict") == "accept"
-                )
-            if backend is not None:
-                current = backend.load(org_repo)
-                lifecycle = current.readme_poc_lifecycle if current is not None else None
-                if lifecycle is None:
-                    raise RuntimeError("README-POC lifecycle disappeared during repair")
-                if lifecycle.status == "REPAIRING":
-                    transition_readme_poc_status(
-                        backend,
-                        org_repo,
-                        "CANDIDATE_GENERATED",
-                        observed_by=review_observed_by,
-                        reason=(
-                            f"candidate regenerated for repair attempt {attempts}/"
-                            f"{MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS}"
-                        ),
-                        evidence_refs=list(ctx.get("evidence_refs", [])),
-                    )
-                if not deterministic_passed:
-                    record_deterministic_validation_failure(
-                        backend,
-                        org_repo,
-                        observed_by=review_observed_by,
-                        reason="repaired candidate failed deterministic validation",
-                        evidence_refs=list(ctx.get("evidence_refs", [])),
-                    )
-                else:
-                    transition_readme_poc_status(
-                        backend,
-                        org_repo,
-                        "DETERMINISTIC_VALIDATED",
-                        observed_by=review_observed_by,
-                        reason="repaired candidate passed all deterministic validation gates",
-                        evidence_refs=list(ctx.get("evidence_refs", [])),
-                    )
-                    transition_readme_poc_status(
-                        backend,
-                        org_repo,
-                        "AGENT_REVIEWING",
-                        observed_by=review_observed_by,
-                        reason="independent review restarted after deterministic validation",
-                        evidence_refs=list(ctx.get("evidence_refs", [])),
-                        reviewer_standard_hash=standard_hash,
-                    )
-            if deterministic_passed:
-                break
-            repair_history.append(
-                {
-                    "review_pass": len(repair_history) + 1,
-                    "repair_attempt": attempts,
-                    "candidate_sha256": hashlib.sha256(
-                        str(ctx.get("final_text", "")).encode("utf-8")
-                    ).hexdigest(),
-                    "review": None,
-                    "deterministic_validation": ctx.get("deterministic_validation_result", {}),
-                    "evidence_refs": list(ctx.get("evidence_refs", [])),
-                }
-            )
-            if attempts >= MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS:
-                escalation = _build_backlog_finding(org_repo, review, attempts)
-                escalation["reason"] = (
-                    "independent_readme_review: repaired candidate still failed "
-                    f"deterministic validation after {attempts} attempts"
-                )
-                return RepairLoopOutcomeV1(
-                    outcome_kind="repair_exhausted",
-                    final_review=review,
-                    attempts=attempts,
-                    escalation=escalation,
-                    repair_history=repair_history,
-                    final_context=ctx,
-                )

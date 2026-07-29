@@ -722,10 +722,20 @@ def test_semantic_retry_preserves_independent_repair_and_exact_source_dispositio
         assessment,
         client=CapturingClient(),
         review_repair={
+            "source_candidate_sha256": hashlib.sha256(source.encode()).hexdigest(),
             "failed_criteria": ["opening clarity"],
             "sections_affected": ["At a glance"],
             "required_repair": "Replace the malformed candidate overview.",
             "preserve": ["maintainer introduction"],
+            "findings": [
+                {
+                    "finding_id": "quality.opening",
+                    "section": "At a glance",
+                    "criterion": "opening clarity",
+                    "quoted_candidate_span": "malformed candidate overview",
+                    "required_repair": "Replace the malformed candidate overview.",
+                }
+            ],
         },
     )
 

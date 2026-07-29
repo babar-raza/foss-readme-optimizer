@@ -89,6 +89,33 @@ def test_deterministic_repair_failure_is_not_recorded_as_agent_rejection(tmp_pat
     assert "DETERMINISTIC_VALIDATION_FAILED" in manifest["completed_stages"]
 
 
+def test_repair_attempt_count_includes_rerouted_receipt_without_rereview(tmp_path):
+    bundle_dir = tmp_path / "bundle"
+    _seed_manifest(bundle_dir)
+
+    write_local_poc_review_evidence(
+        bundle_dir,
+        deterministic_validation={"verdict": "accept"},
+        independent_review={"verdict": "REJECT_REPAIRABLE"},
+        repair_history=[
+            {
+                "repair_attempt": 0,
+                "repair_receipt": {
+                    "repair_attempt": 1,
+                    "candidate_changed": False,
+                    "rereview_authorized": False,
+                },
+            }
+        ],
+        lifecycle_status="README_ASSESSED",
+        deterministic_validation_passed=True,
+        reviewer_standard_hash="review-v1",
+    )
+
+    final = json.loads((bundle_dir / "review" / "final-verdict.json").read_text(encoding="utf-8"))
+    assert final["repair_attempts"] == 1
+
+
 def test_separated_role_records_are_materialized_individually(tmp_path):
     bundle_dir = tmp_path / "bundle"
     _seed_manifest(bundle_dir)

@@ -82,6 +82,25 @@ _PRESENTATION_PLAN = {"executable": True, "presentation_plan": {"dimensions": []
 _DETERMINISTIC_VALIDATION_RESULT = {"verdict": "accept", "reason": "schema/citations ok"}
 
 
+def _repair_plan(candidate_text: str) -> dict:
+    return {
+        **_PRESENTATION_PLAN,
+        "readme_document_plan": {
+            "operations": [
+                {
+                    "operation_id": "replace-intro-and-benefits",
+                    "operation": "replace",
+                    "rationale": (
+                        "Repair intro and Why AcmeCells product_specificity and "
+                        "generic_template_symptoms findings."
+                    ),
+                    "replacement_text": candidate_text,
+                }
+            ]
+        },
+    }
+
+
 def _facts_result() -> dict:
     v1 = ProductFactsV1(org_repo=ORG_REPO, family="acmecells", platform="java", ecosystem="java")
     v2 = migrate_product_facts_v1(v1, source_revision="abc123")
@@ -421,16 +440,11 @@ class TestRepairLoopBound:
     `MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS` regenerations and escalate --
     never loop forever, never silently drop the repo."""
 
-    def test_persistent_rejection_stops_after_max_attempts_and_escalates(self, monkeypatch):
+    def test_byte_identical_repair_reroutes_before_another_reviewer_call(self, monkeypatch):
         backend = FakeReviewBackend()
         _advance_to_candidate_generated(backend, ORG_REPO)
         _mock_get_product_facts(monkeypatch)
-        # One initial review + MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS repair
-        # re-reviews, all REJECT_REPAIRABLE -- exhausts the bound.
-        seeded = [
-            _verdict_result(_reject_repairable_verdict())
-            for _ in range(reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS + 1)
-        ]
+        seeded = [_verdict_result(_reject_repairable_verdict())]
         client = FixtureAnalysisClient(seeded)
         regenerate_calls = []
 
@@ -439,7 +453,7 @@ class TestRepairLoopBound:
             return {
                 "original_text": WELL_GROUNDED_README,
                 "final_text": GENERIC_TEMPLATE_README,
-                "presentation_plan": _PRESENTATION_PLAN,
+                "presentation_plan": _repair_plan(GENERIC_TEMPLATE_README),
                 "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
             }
 
@@ -449,32 +463,66 @@ class TestRepairLoopBound:
             {
                 "original_text": WELL_GROUNDED_README,
                 "final_text": GENERIC_TEMPLATE_README,
-                "presentation_plan": _PRESENTATION_PLAN,
+                "presentation_plan": _repair_plan(GENERIC_TEMPLATE_README),
                 "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
             },
             client=client,
             regenerate_context=fake_regenerate,
         )
 
-        assert outcome.outcome_kind == "repair_exhausted"
-        assert outcome.attempts == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
-        assert len(regenerate_calls) == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
+        assert outcome.outcome_kind == "repair_rerouted"
+        assert outcome.attempts == 1
+        assert len(regenerate_calls) == 1
+        assert outcome.review_call_count == 1
         assert outcome.escalation is not None
         assert outcome.escalation["repository"] == ORG_REPO
         assert outcome.escalation["actionable"] is True
-        assert (
-            outcome.escalation["repair_attempts"] == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
+        assert outcome.escalation["blocked_category"] == "agent_fixable"
+        receipt = outcome.repair_history[0]["repair_receipt"]
+        assert receipt["candidate_changed"] is False
+        assert receipt["rereview_authorized"] is False
+        assert receipt["unresolved_finding_ids"]
+        final_state = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert final_state.status == "README_ASSESSED"
+        assert "agent_fixable" in final_state.history[-1].reason
+
+    def test_changed_repair_can_exhaust_bounded_rereviews(self, monkeypatch):
+        backend = FakeReviewBackend()
+        _advance_to_candidate_generated(backend, ORG_REPO)
+        _mock_get_product_facts(monkeypatch)
+        seeded = [
+            _verdict_result(_reject_repairable_verdict())
+            for _ in range(reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS + 1)
+        ]
+        client = FixtureAnalysisClient(seeded)
+
+        def changed_regenerate(_review, attempt):
+            candidate = GENERIC_TEMPLATE_README + f"\nAttempt {attempt} changed intro.\n"
+            return {
+                "original_text": WELL_GROUNDED_README,
+                "final_text": candidate,
+                "presentation_plan": _repair_plan(candidate),
+                "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
+            }
+
+        outcome = reviewer.run_independent_review_with_repair_loop(
+            ORG_REPO,
+            backend,
+            {
+                "original_text": WELL_GROUNDED_README,
+                "final_text": GENERIC_TEMPLATE_README,
+                "presentation_plan": _repair_plan(GENERIC_TEMPLATE_README),
+                "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
+            },
+            client=client,
+            regenerate_context=changed_regenerate,
         )
 
-        # Final durable status clearly reflects "still rejected after N
-        # attempts" -- distinguishable from a repo that was never reviewed
-        # (which would still read DISCOVERED) and from a first-pass reject
-        # (whose reason would say "review pass 1", not the exhausted count).
-        final_state = backend.load(ORG_REPO).readme_poc_lifecycle
-        assert final_state.status == "AGENT_REVIEW_REJECTED"
-        assert f"review pass {reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS + 1}" in (
-            final_state.history[-1].reason
-        )
+        assert outcome.outcome_kind == "repair_exhausted"
+        assert outcome.attempts == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
+        assert outcome.review_call_count == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS + 1
+        assert outcome.escalation is not None
+        assert outcome.escalation["blocked_category"] == "agent_fixable"
 
     def test_eventual_accept_within_bound_stops_the_loop_early(self, monkeypatch):
         backend = FakeReviewBackend()
@@ -493,7 +541,7 @@ class TestRepairLoopBound:
             return {
                 "original_text": WELL_GROUNDED_README,
                 "final_text": WELL_GROUNDED_README,
-                "presentation_plan": _PRESENTATION_PLAN,
+                "presentation_plan": _repair_plan(WELL_GROUNDED_README),
                 "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
             }
 
@@ -503,7 +551,7 @@ class TestRepairLoopBound:
             {
                 "original_text": WELL_GROUNDED_README,
                 "final_text": GENERIC_TEMPLATE_README,
-                "presentation_plan": _PRESENTATION_PLAN,
+                "presentation_plan": _repair_plan(GENERIC_TEMPLATE_README),
                 "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
             },
             client=client,
@@ -512,8 +560,13 @@ class TestRepairLoopBound:
 
         assert outcome.outcome_kind == "accepted"
         assert outcome.attempts == 1
+        assert outcome.review_call_count == 2
         assert len(regenerate_calls) == 1
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "AGENT_APPROVED"
+        receipt = outcome.repair_history[0]["repair_receipt"]
+        assert receipt["rereview_authorized"] is True
+        assert receipt["resolved_finding_ids"]
+        assert receipt["reviewer_call_count_after_rereview"] == 2
 
     def test_repaired_candidate_repeats_deterministic_gate_before_rereview(self, monkeypatch):
         backend = FakeReviewBackend()
@@ -524,10 +577,11 @@ class TestRepairLoopBound:
 
         def deterministically_rejected(_review, attempt):
             regenerate_calls.append(attempt)
+            candidate = GENERIC_TEMPLATE_README + f"\n<!-- attempt {attempt} -->\n"
             return {
                 "original_text": WELL_GROUNDED_README,
-                "final_text": GENERIC_TEMPLATE_README + f"\n<!-- attempt {attempt} -->\n",
-                "presentation_plan": _PRESENTATION_PLAN,
+                "final_text": candidate,
+                "presentation_plan": _repair_plan(candidate),
                 "deterministic_validation_result": {
                     "verdict": "reject",
                     "reason": "protected content lost",
@@ -541,7 +595,7 @@ class TestRepairLoopBound:
             {
                 "original_text": WELL_GROUNDED_README,
                 "final_text": GENERIC_TEMPLATE_README,
-                "presentation_plan": _PRESENTATION_PLAN,
+                "presentation_plan": _repair_plan(GENERIC_TEMPLATE_README),
                 "deterministic_validation_result": _DETERMINISTIC_VALIDATION_RESULT,
             },
             client=client,

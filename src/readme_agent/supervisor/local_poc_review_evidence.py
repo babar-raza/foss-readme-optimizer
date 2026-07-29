@@ -30,6 +30,16 @@ def _completed_stages(manifest: dict, *new_stages: str) -> list[str]:
     return stages
 
 
+def _repair_attempt_count(repair_history: list[dict]) -> int:
+    attempts = [int(item.get("repair_attempt", 0)) for item in repair_history]
+    attempts.extend(
+        int(receipt.get("repair_attempt", 0))
+        for item in repair_history
+        if isinstance((receipt := item.get("repair_receipt")), dict)
+    )
+    return max(attempts, default=0)
+
+
 def write_local_poc_review_evidence(
     bundle_dir: Path,
     *,
@@ -48,6 +58,7 @@ def write_local_poc_review_evidence(
     allowed_statuses = {
         "AGENT_APPROVED",
         "AGENT_REVIEW_REJECTED",
+        "README_ASSESSED",
         "DETERMINISTIC_VALIDATION_FAILED",
         "BLOCKED_FACT_CONFLICT",
         "BLOCKED_MISSING_EVIDENCE",
@@ -72,27 +83,36 @@ def write_local_poc_review_evidence(
     if combined_review is not None:
         write_redacted_json(review_dir / "combined-review.json", combined_review)
     write_redacted_json(review_dir / "repair-history.json", repair_history)
+    repair_attempts = _repair_attempt_count(repair_history)
     write_redacted_json(
         review_dir / "final-verdict.json",
         {
             "verdict": lifecycle_status,
             "agent_approved": agent_approved,
             "deterministic_validation_passed": deterministic_validation_passed,
-            "repair_attempts": max(0, len(repair_history) - 1),
+            "repair_attempts": repair_attempts,
         },
     )
 
     manifest = _load_manifest(bundle_dir)
-    completed = (
-        _completed_stages(manifest, "DETERMINISTIC_VALIDATION_FAILED")
-        if lifecycle_status == "DETERMINISTIC_VALIDATION_FAILED"
-        else _completed_stages(
+    if lifecycle_status == "DETERMINISTIC_VALIDATION_FAILED":
+        completed = _completed_stages(manifest, "DETERMINISTIC_VALIDATION_FAILED")
+    elif lifecycle_status == "README_ASSESSED":
+        completed = _completed_stages(
+            manifest,
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_REVIEW_REJECTED",
+            "REPAIRING",
+            "README_ASSESSED",
+        )
+    else:
+        completed = _completed_stages(
             manifest,
             "DETERMINISTIC_VALIDATED",
             "AGENT_REVIEWING",
             lifecycle_status,
         )
-    )
     manifest.update(
         {
             "lifecycle_status": lifecycle_status,
