@@ -2798,7 +2798,7 @@
     "updated_at": "2026-07-29T06:05:13.105448+00:00"
   },
   "schema_version": 2,
-  "state_version": 139,
+  "state_version": 140,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -2932,6 +2932,28 @@
       "recovery_count": 0,
       "status": "blocked",
       "updated_at": "2026-07-26T10:14:43.848179+00:00"
+    },
+    "operator:20260729-063059-112a:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
+      "accepted_at": "2026-07-29T06:31:04.046855+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260729-063059-112a:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-29T06:30:59.514216+00:00",
+        "provider_event_id": "20260729-063059-112a",
+        "repository_scope": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-29T06:31:04.046865+00:00"
     }
   },
   "trigger_records": {},
