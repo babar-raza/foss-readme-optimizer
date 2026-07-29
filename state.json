@@ -13485,7 +13485,7 @@
     "updated_at": "2026-07-29T23:29:02.872677+00:00"
   },
   "schema_version": 2,
-  "state_version": 758,
+  "state_version": 759,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -14010,13 +14010,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted candidate introduced duplicate headings: ['h2 format-specific features', 'h3 obj format']",
       "last_checkpoint_id": "b83a30e5633ff6f9dd88d9ff4500f80a2b237a7acf8e28b258af03f4ef34f0a1",
-      "lease_expires_at": "2026-07-29T23:43:16.249219+00:00",
+      "lease_expires_at": null,
       "recovery_count": 15,
-      "status": "processing",
-      "updated_at": "2026-07-29T23:28:22.003353+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T23:31:27.796185+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
