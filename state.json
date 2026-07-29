@@ -2747,7 +2747,7 @@
     "updated_at": "2026-07-29T06:05:13.105448+00:00"
   },
   "schema_version": 2,
-  "state_version": 133,
+  "state_version": 134,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -2853,12 +2853,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IsolatedExecutionError: docker image inspect failed: error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/images/python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91/json\": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "af8f84cab4e1e8c0fc05a06a88a91350109653469e3c5ce6f8c38b1b40109e3c",
       "lease_expires_at": null,
-      "recovery_count": 4,
+      "recovery_count": 5,
       "status": "retryable",
-      "updated_at": "2026-07-29T06:06:17.717251+00:00"
+      "updated_at": "2026-07-29T06:21:42.287201+00:00"
     },
     "operator:20260726-101139-e29d:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-07-26T10:11:46.533648+00:00",
