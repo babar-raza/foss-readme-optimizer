@@ -48,6 +48,12 @@
       "result": "301 passed in 90.83s"
     },
     {
+      "command": ".venv/Scripts/python -m pytest -q --junitxml=runs/verification/trp02/focused-regression.xml tests/unit/test_trusted_readme_composition.py tests/unit/test_trusted_readme_extraction.py tests/unit/test_prompt_registry.py tests/unit/test_capabilities.py tests/unit/test_link_allocation.py tests/unit/test_aspose_link_catalogs.py tests/unit/test_prompt_hygiene.py tests/unit/test_prompt_hash_coupling.py tests/unit/test_llm_call_ledger.py tests/unit/test_readme_presentation_lint.py tests/unit/test_presentation_defect_corpus.py tests/unit/test_document_link_hygiene.py tests/unit/test_readme_renderer.py tests/unit/test_capability_dispatcher.py tests/unit/test_gitsafety.py tests/unit/test_cli.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "400 passed in 133.36s",
+      "raw_log": "runs/verification/trp02/focused-regression.xml",
+      "raw_log_sha256": "d7b9f6adcf4d186b1d3f1ac252f53174788041743eaf9f5b01068cf175288dd5"
+    },
+    {
       "command": ".venv/Scripts/python -m pytest -q tests/unit/test_supervisor_product_truth.py tests/unit/test_supervisor_intake.py tests/unit/test_supervisor_dossier.py tests/unit/test_registry_loader.py",
       "result": "44 passed in 11.21s"
     },
@@ -68,7 +74,8 @@
     {
       "route": "qwen3-next",
       "result": "HTTP 500 from the hosted vLLM gateway because its qwen backend service was unreachable",
-      "disposition": "External provider availability failure; not counted as live composition proof and not represented as an editorial or implementation failure."
+      "disposition": "External provider availability failure; not counted as live composition proof and not represented as an editorial or implementation failure.",
+      "raw_evidence": "plans/investigations/evidence/trp-02-llm-first-composition-v1/live-route-attempt.jsonl"
     },
     {
       "command": "Combined full test_supervisor_loop.py regression batch",

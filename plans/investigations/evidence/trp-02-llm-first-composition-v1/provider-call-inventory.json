@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+  "prompt_id": "trusted_readme_section_transform",
+  "prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+  "fixture_live_like_calls": 1,
+  "provider_attempts": 1,
+  "successful_provider_calls": 0,
+  "failed_provider_calls": 1,
+  "provider_model": "qwen3-next",
+  "provider_outcome": "http_error",
+  "provider_http_status": 500,
+  "disposition": "external_route_outage_non_promoting",
+  "raw_record": "plans/investigations/evidence/trp-02-llm-first-composition-v1/live-route-attempt.jsonl",
+  "note": "Fixture evidence proves the typed composition contract but does not claim successful live authorship."
+}
