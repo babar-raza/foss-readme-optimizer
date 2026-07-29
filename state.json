@@ -7,13 +7,13 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
-    "claim_expires_at": "2026-07-29T02:08:33.314487+00:00",
-    "claim_id": "b62cd6c0e41e41868b1ab9438b1676fb",
-    "claimed_at": "2026-07-29T01:38:33.314487+00:00",
-    "claimed_by": "codex",
+    "active_task_id": null,
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "graph_sha256": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
-    "last_evaluated_at": "2026-07-29T01:38:33.314487+00:00",
+    "last_evaluated_at": "2026-07-29T02:23:05.208711+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -59,16 +59,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Reuse valid facts, composition, and review artifacts by complete input fingerprints while still proving no change."
-      },
-      "goal_ids": [
-        "GOAL-README"
-      ],
-      "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
@@ -127,7 +118,7 @@
       "L8-REVIEW-02-FINDING-GROUNDING": "CLOSED",
       "L8-REVIEW-02A-REPAIR-CONTROLS": "CLOSED",
       "L8-REVIEW-03-EFFECTIVE-REPAIR": "CLOSED",
-      "L8-REVIEW-03A-CACHE-MEASUREMENT": "IN_PROGRESS",
+      "L8-REVIEW-03A-CACHE-MEASUREMENT": "IMPLEMENTED",
       "L8-REVIEW-04-NO-OP-CACHE": "TODO",
       "L8-REVIEW-04A-REAL-CORPUS": "TODO",
       "L8-REVIEW-05-REAL-CAMPAIGN": "TODO",
@@ -4546,6 +4537,18 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-review-cache-measurement-v1/cache-measurement-proof.json",
+          "plans/investigations/evidence/level8-review-cache-measurement-v1/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-29T02:23:05.208704+00:00",
+        "reason": "Complete-input cache decision implemented and committed",
+        "task_id": "L8-REVIEW-03A-CACHE-MEASUREMENT",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -4554,7 +4557,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 514,
+  "state_version": 515,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
