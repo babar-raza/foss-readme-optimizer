@@ -153,22 +153,21 @@ without improving one of those states or removing its evidenced blocker is a dri
 
 ## Status
 
-The repository has substantial capability, safety, authorization, state, specialist, evidence,
-and proposal foundations, but it is **not Level 8**. The Waves 0–8 checklist remains the complete
-program; the immediate critical path is decision #85's trusted POC:
-**trusted qualification → complete authorized-portfolio discovery/intake → trusted local
-portfolio with concurrent verified read-only progress → `act` → disposable staging → hosted
-GitHub App qualification → trusted portfolio PRs → complete repository-verified Gate A/B/C →
-Level 5 → Level 6 → day-30 Level 7 → day-90 Level 8**.
+The repository has substantial foundations, but it is **not Level 8**. The complete Waves 0–8
+program remains mandatory; decision #85's immediate path is **trusted qualification → complete
+discovery/intake → trusted portfolio → `act` → staging → hosted App qualification → trusted PRs
+→ repository-verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
 
-`TRP-00-ASSURANCE-CONTRACT` is regression-proven at `181879c7`; the durable controller derives
-`GOAL-T0-TRUSTED-QUALIFICATION` and keeps trusted lifecycle/effect identity disjoint from verified
-acceptance. `TRP-01-README-DERIVED-FACTS` is independently verified at `2b48ebed`: its registered
-capability inventories immutable README bytes with exact `README_INHERITED` spans, disjoint
-`CONFIGURED_STANDARD` records, checksum-safe reuse, and zero external fact reconciliation. Real
-Python, .NET, Java, and 102 KB Go maps are in `trp-01-readme-derived-facts-v1`; TRP-03 still owns
-LLM-facing prompt isolation/review. `L8-INTAKE-00/01` remain closed; `L8-INTAKE-02` is permitted read-only
-concurrency; `TRP-02-LLM-FIRST-COMPOSITION` is next. The portfolio has 8 `FACTS_READY`,
+`TRP-00` is regression-proven at `181879c7`; its controller derives
+`GOAL-T0-TRUSTED-QUALIFICATION` and isolates trusted identity from verified acceptance. `TRP-01`
+is verified at `2b48ebed` with immutable `README_INHERITED` spans, disjoint configured standards,
+checksum-safe reuse, and Python/.NET/Java/102 KB Go evidence. `TRP-02` is verified at `6804e20e`
+with bounded LLM inventory/drafting, source-accountable assembly, presentation validation, and
+native patches—without a universal template. The hosted `qwen3-next` backend was unavailable
+during the non-promoting diagnostic, so live canary proof remains TRP-04 work.
+`L8-INTAKE-00/01` are closed, `L8-INTAKE-02` may run read-only, and
+`TRP-03-INDEPENDENT-FIDELITY-REVIEW` is next.
+The portfolio has 8 `FACTS_READY`,
 8 candidates/validations, and zero verified approvals/no-ops/human acceptances;
 discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
 

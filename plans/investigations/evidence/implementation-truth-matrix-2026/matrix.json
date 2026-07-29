@@ -1,7 +1,7 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements.md",
-  "total_implemented_rows_checked": 157,
+  "total_implemented_rows_checked": 159,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
@@ -2290,6 +2290,64 @@
           "path": "plans/investigations/evidence/level8-semantic-closure-verification.json",
           "bytes": 57282,
           "sha256": "7fa8a2b3f9d6b50e6659538fa83c0f04c5a0198ae5faaf235fbbf573973c449f",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "TRP-004",
+      "line": 640,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json",
+          "bytes": 5926,
+          "sha256": "33d6490da107c8599e61f76de92e13de6511a6c3b4f2ed7014d9ec1962dfd918",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "TRP-005",
+      "line": 641,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json",
+          "bytes": 1547,
+          "sha256": "e5a6fb9c60aa325e4b0a2af6cbb43ea0e2e7eb570c74ef9dc246ccd5fc14c8e3",
           "json_valid": true
         }
       ],
@@ -6682,6 +6740,64 @@
       "acceptance_evidence_contradicts_status": false,
       "high_confidence_findings": [],
       "informational_findings": []
+    },
+    {
+      "id": "TRP-004",
+      "line": 640,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json",
+          "bytes": 5926,
+          "sha256": "33d6490da107c8599e61f76de92e13de6511a6c3b4f2ed7014d9ec1962dfd918",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "TRP-005",
+      "line": 641,
+      "priority": "P0",
+      "cited_paths": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/trp-02-llm-first-composition-v1/source-accountability.json",
+          "bytes": 1547,
+          "sha256": "e5a6fb9c60aa325e4b0a2af6cbb43ea0e2e7eb570c74ef9dc246ccd5fc14c8e3",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
     },
     {
       "id": "L8-002",

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+  "verdict": "VERIFIED",
+  "repository": "foss-readme-optimizer",
+  "branch": "main",
+  "implementation_commit": "6804e20e8b0560acb1a6c229cc841dfbcd15efe5",
+  "content_assurance": "trusted_inherited",
+  "implemented_contracts": [
+    "Typed LLM source inventory, bounded section drafting, transform planning, and hash-bound section repair requests",
+    "Context-aware batching with exact preservation for oversized source units",
+    "Deterministic source-accountable assembly and native README patch generation",
+    "Configured header, badge, navigation, Mermaid, Enterprise Edition terminology, and catalog-backed contextual-link validation",
+    "Registered compose_trusted_readme capability using the trusted_readme_section_transform prompt and model route"
+  ],
+  "representative_results": [
+    {
+      "kind": "fixture_live_like_short",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "5115d00666caec50b10bfc905ff1a3fbf836d3b1",
+      "source_sha256": "bc68b445ec0b9ef583dbbe08de3f27c1cf47188eeed722d1282d4254d21b4f9e",
+      "plan_sha256": "2e48ad798c743dffec3b045085113bbd4745851b47a73a0f6875fc4fed44b389",
+      "candidate_sha256": "64410f1f1fe30c06935745a0de3125389aabaffaeef0bf9970efcee2dee2b64b",
+      "llm_calls": 1,
+      "source_accountability_complete": true
+    },
+    {
+      "kind": "real_snapshot_fixture_matrix",
+      "fixtures": [
+        "tests/fixtures/readmes/real_audit_2026-07-17/barcode-python.md",
+        "tests/fixtures/readmes/real_audit_2026-07-17/cells-java.md",
+        "tests/fixtures/readmes/real_audit_2026-07-17/cells-typescript.md",
+        "tests/fixtures/readmes/real_audit_2026-07-17/pdf-go.md"
+      ],
+      "result": "All inherited source units were accounted for across bounded batches; the 96 KB Go README completed without truncation."
+    }
+  ],
+  "negative_controls": [
+    "Missing or duplicated source facts fail closed after bounded repair attempts",
+    "Provider transport failure is not misclassified as an editorial repair",
+    "Prompt injection cannot authorize comments or alter the transformation contract",
+    "Unclosed fences, cross-product prose, unconfigured links, promotional opening links, new code comments, prohibited terminology, and broken navigation fail closed",
+    "Context-truncated source units must use byte-exact preservation"
+  ],
+  "verification": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_trusted_readme_composition.py tests/unit/test_trusted_readme_extraction.py tests/unit/test_capabilities.py tests/unit/test_capability_dispatcher.py tests/unit/test_prompt_registry.py tests/unit/test_prompt_hygiene.py tests/unit/test_llm_call_ledger.py tests/unit/test_readme_presentation_lint.py tests/unit/test_link_allocation.py tests/unit/test_readme_renderer.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py",
+      "result": "301 passed in 90.83s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_supervisor_product_truth.py tests/unit/test_supervisor_intake.py tests/unit/test_supervisor_dossier.py tests/unit/test_registry_loader.py",
+      "result": "44 passed in 11.21s"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_supervisor_loop.py::TestBasicLoop::test_facts_stage_limit_stops_before_every_specialist tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_records_snapshot_and_profile_before_later_stages tests/unit/test_supervisor_loop.py::TestBasicLoop::test_heterogeneous_local_poc_members_share_the_real_supervisor_path tests/unit/test_supervisor_loop.py::TestWriteCapableModeGate",
+      "result": "6 passed in 97.85s"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check .; .venv/Scripts/python -m ruff format --check .; .venv/Scripts/python -m mypy src",
+      "result": "passed; 747 files formatted; no issues in 417 source files"
+    },
+    {
+      "command": "validate_plan_structure.py; check_verifiers_are_wired.py --check; check_prompt_hygiene.py; build_level8_requirement_taskcard_coverage.py --check; traceability_matrix.py --check",
+      "result": "all blocking checks passed; plan validation emitted 60 pre-existing row-length warnings"
+    }
+  ],
+  "non_promoting_diagnostics": [
+    {
+      "route": "qwen3-next",
+      "result": "HTTP 500 from the hosted vLLM gateway because its qwen backend service was unreachable",
+      "disposition": "External provider availability failure; not counted as live composition proof and not represented as an editorial or implementation failure."
+    },
+    {
+      "command": "Combined full test_supervisor_loop.py regression batch",
+      "result": "Command wrapper timed out without a terminal pytest summary",
+      "disposition": "Not counted as a passing suite. Six task-relevant supervisor controls were rerun separately and passed."
+    }
+  ],
+  "scope_boundary": {
+    "complete": [
+      "TRP-004 LLM-first bounded composition contracts and registered capability",
+      "TRP-005 source-accountable batching, assembly, truncation controls, candidate, and patch output"
+    ],
+    "remaining": [
+      "TRP-003 remains PARTIAL until TRP-03 independently validates configured additions in the production review path",
+      "TRP-03 must add independent blind-quality and inheritance-fidelity review, repair execution, and the complete call/cache ledger",
+      "TRP-04 must obtain live model canary proof after provider service recovers"
+    ]
+  },
+  "independent_verification": {
+    "status": "accepted",
+    "basis": "Separate schema, source-accountability, heterogeneous real-fixture, malformed-output, presentation-contract, capability-dispatch, supervisor isolation, allow-list, push-blocking, prompt-hygiene, redaction, and governance controls reproduced the claimed implementation boundary."
+  }
+}

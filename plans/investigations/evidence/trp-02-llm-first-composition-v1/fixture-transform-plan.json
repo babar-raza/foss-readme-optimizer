@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "content_assurance": "trusted_inherited",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_revision": "5115d00666caec50b10bfc905ff1a3fbf836d3b1",
+  "source_sha256": "bc68b445ec0b9ef583dbbe08de3f27c1cf47188eeed722d1282d4254d21b4f9e",
+  "fact_graph_hash": "f2ddea6c2df578e582d0025f56308b58ad0375c77f51091c8543c65d5dcdc642",
+  "envelope": {
+    "max_input_characters": 24000,
+    "max_output_characters": 16000,
+    "max_facts_per_batch": 24,
+    "oversize_fact_preview_characters": 2000
+  },
+  "section_drafts": [
+    {
+      "schema_version": 1,
+      "content_assurance": "trusted_inherited",
+      "batch_id": "batch-0001",
+      "editorial_summary": "Organize inherited Python content using the configured presentation contract.",
+      "source_inventory": [
+        {
+          "fact_id": "readme.inherited:9c27a722cd670e7c28437d6e",
+          "action": "rewrite",
+          "rationale": "Retain inherited content in a clearer structure."
+        },
+        {
+          "fact_id": "readme.inherited:6918bee7f18dec46824b31fc",
+          "action": "rewrite",
+          "rationale": "Retain inherited content in a clearer structure."
+        },
+        {
+          "fact_id": "readme.inherited:61bc202f65bb05022c2fd758",
+          "action": "rewrite",
+          "rationale": "Retain inherited content in a clearer structure."
+        },
+        {
+          "fact_id": "readme.inherited:9276e28c3714e13a077bc083",
+          "action": "rewrite",
+          "rationale": "Retain inherited content in a clearer structure."
+        }
+      ],
+      "segments": [
+        {
+          "segment_id": "complete-readme",
+          "kind": "authored",
+          "markdown": "# Widget\n\n![License](https://img.shields.io/license)\n\nA 3D library for Python developers.\n\n[At a glance](#at-a-glance) | [Usage](#usage)\n\n## At a glance\n\n```mermaid\nflowchart LR\n  files[\"3D files\"] --> widget[\"Widget\"]\n```\n\n## Usage\n\nRun the example.\n\nFor broader capabilities, see the [Enterprise Edition](https://products.aspose.com/3d/).\n",
+          "inherited_fact_ids": [
+            "readme.inherited:9c27a722cd670e7c28437d6e",
+            "readme.inherited:6918bee7f18dec46824b31fc",
+            "readme.inherited:61bc202f65bb05022c2fd758",
+            "readme.inherited:9276e28c3714e13a077bc083"
+          ],
+          "configured_standard_ids": [
+            "readme.header",
+            "readme.badges",
+            "readme.navigation",
+            "readme.at_a_glance_mermaid",
+            "readme.enterprise_edition_terminology",
+            "readme.contextual_links"
+          ]
+        }
+      ],
+      "prompt_sha256": "e64af0767d97e386d18b393f27bfdf48db9ad19621a417e1aeffa18d9b2d7798",
+      "tool_schema_sha256": "fce4b600b026fa045e08c4c16c27ffb3d1d0518cce5a8f39381b4aa00b180df9",
+      "input_sha256": "b960ed7483589fb1a39eb3ce62f518d8c09871b94c3ad38646f7d2943bd481a6",
+      "model": "fixture-live-like-author",
+      "attempt_count": 1
+    }
+  ],
+  "inherited_fact_ids": [
+    "readme.inherited:9c27a722cd670e7c28437d6e",
+    "readme.inherited:6918bee7f18dec46824b31fc",
+    "readme.inherited:61bc202f65bb05022c2fd758",
+    "readme.inherited:9276e28c3714e13a077bc083"
+  ],
+  "configured_standard_ids": [
+    "readme.header",
+    "readme.badges",
+    "readme.navigation",
+    "readme.at_a_glance_mermaid",
+    "readme.enterprise_edition_terminology",
+    "readme.contextual_links"
+  ],
+  "candidate_sha256": "64410f1f1fe30c06935745a0de3125389aabaffaeef0bf9970efcee2dee2b64b",
+  "source_accountability_complete": true
+}
