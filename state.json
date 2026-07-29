@@ -13429,7 +13429,7 @@
     "updated_at": "2026-07-29T23:18:30.628574+00:00"
   },
   "schema_version": 2,
-  "state_version": 752,
+  "state_version": 753,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -13954,13 +13954,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: README navigation targets missing heading #about-aspose-3d-foss",
       "last_checkpoint_id": "1e4a78eb49d421ccce3348dfbd039a03ffc6b9868595be422716b7a1733189ec",
-      "lease_expires_at": "2026-07-29T23:32:44.390559+00:00",
+      "lease_expires_at": null,
       "recovery_count": 15,
-      "status": "processing",
-      "updated_at": "2026-07-29T23:17:49.743381+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T23:23:31.538638+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
