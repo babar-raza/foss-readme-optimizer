@@ -578,7 +578,7 @@
     "updated_at": "2026-07-29T06:10:00.050151+00:00"
   },
   "schema_version": 2,
-  "state_version": 45,
+  "state_version": 46,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
@@ -720,6 +720,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-07-29T06:24:15.465810+00:00"
+    },
+    "operator:20260729-063250-9e67:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
+      "accepted_at": "2026-07-29T06:32:55.676949+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260729-063250-9e67:aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-07-29T06:32:50.991945+00:00",
+        "provider_event_id": "20260729-063250-9e67",
+        "repository_scope": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-07-29T06:32:55.676963+00:00"
     }
   },
   "trigger_records": {},
