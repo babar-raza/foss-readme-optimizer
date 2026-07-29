@@ -10972,7 +10972,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 466,
+  "state_version": 467,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11497,13 +11497,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0001 failed after 3 attempts: trusted composition action/segment mismatch for readme.inherited:92386b9aac9984f039d0a1e4: preserve_exact versus authored",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "61de7f8f49c1ffc9b070abec3c990df0d1bdc408cdf375c324af3a91a6dc23a7",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-29T17:16:39.000921+00:00",
       "recovery_count": 1,
-      "status": "retryable",
-      "updated_at": "2026-07-29T17:01:33.002833+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-29T17:01:39.000921+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
