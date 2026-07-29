@@ -567,7 +567,7 @@
     "updated_at": "2026-07-29T06:07:52.960046+00:00"
   },
   "schema_version": 2,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
@@ -701,13 +701,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: SyntaxError: invalid non-printable character U+FEFF (xml_chart_loader.py, line 1)",
       "last_checkpoint_id": "a3b69b592049ae33fc91dd9d276c0a9297f9bf068ac403702e09fe0c7781b3bc",
-      "lease_expires_at": "2026-07-29T06:21:47.678214+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-29T06:07:59.956111+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-29T06:08:33.633934+00:00"
     }
   },
   "trigger_records": {},
