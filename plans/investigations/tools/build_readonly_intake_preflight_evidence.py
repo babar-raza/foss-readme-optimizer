@@ -260,6 +260,13 @@ def main() -> int:
         **lifecycle_checks,
     }
     failures = [name for name, passed in checks.items() if not passed]
+    missing_proof = [
+        (
+            "One public-supervisor integration must start from an unseen discovery observation, "
+            "admit the repository as disabled, and execute exactly one intake in the same logical "
+            "run. Discovery admission and intake are currently proven separately."
+        )
+    ]
     graph, graph_sha256 = load_mission_graph(GRAPH_PATH)
     task = next(task for task in graph.taskcards if task.task_id == TASK_ID)
     from readme_agent.state.git_backend import default_state_backend
@@ -278,6 +285,7 @@ def main() -> int:
             "requirement_ids": ["L8-037", "ONB-002"],
             "checks": checks,
             "failures": failures,
+            "missing_proof": missing_proof,
             "live_scope": {
                 "processed": len(summary["results"]),
                 "denominator": summary["registry_count"],
@@ -288,7 +296,7 @@ def main() -> int:
                     "is proven by the real-local-Git integration test; Gate A remains downstream."
                 ),
             },
-            "verdict": "PASS" if not failures else "FAIL",
+            "verdict": "PARTIAL" if not failures else "FAIL",
         },
     )
     write_redacted_json(
@@ -348,7 +356,8 @@ def main() -> int:
             "task_id": TASK_ID,
             "goal_ids": task.goal_ids,
             "core_contribution": task.core_contribution,
-            "acceptance_checks_passed": task.acceptance_checks,
+            "acceptance_checks_assessed": task.acceptance_checks,
+            "missing_proof": missing_proof,
             "proof_refs": [
                 "plans/investigations/evidence/"
                 "level8-intake-02-readonly-preflight-enrollment-v1/verification.json",
@@ -360,7 +369,7 @@ def main() -> int:
             "scoreboard_after_sha256": scoreboard_sha256,
             "first_failing_boundary_before": scoreboard.first_failing_boundary,
             "first_failing_boundary_after": scoreboard.first_failing_boundary,
-            "independently_verified": True,
+            "independently_verified": False,
         },
     )
     write_redacted_text(EVIDENCE_DIR / "focused-tests.stdout.log", focused["stdout"])
