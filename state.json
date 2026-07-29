@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "5b727beea67b82540fda79c49017b40af69b980841f25ce67574a6322ba17cae",
-    "last_evaluated_at": "2026-07-29T13:56:36.356370+00:00",
+    "last_evaluated_at": "2026-07-29T13:57:03.342972+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -80,7 +80,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Produce the first genuinely LLM-authored trusted README candidates."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "stage_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION",
+      "task_id": "TRP-02-LLM-FIRST-COMPOSITION"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -186,7 +196,7 @@
       "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": "TODO",
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
       "TRP-00-ASSURANCE-CONTRACT": "CLOSED",
-      "TRP-01-README-DERIVED-FACTS": "SCORED",
+      "TRP-01-README-DERIVED-FACTS": "CLOSED",
       "TRP-02-LLM-FIRST-COMPOSITION": "TODO",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
       "TRP-04-CANARY-QUALIFICATION": "TODO",
@@ -4999,6 +5009,18 @@
         "reason": "Visible deliverable contribution is recorded with current lifecycle scoreboard and complete representative source maps",
         "task_id": "TRP-01-README-DERIVED-FACTS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-01-readme-derived-facts-v1/contribution-evidence.json",
+          "plans/investigations/evidence/trp-01-readme-derived-facts-v1/verification-summary.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-goal-ui",
+        "occurred_at": "2026-07-29T13:57:03.342958+00:00",
+        "reason": "TRP-01 acceptance, evidence, contribution, and requirement reconciliation are complete",
+        "task_id": "TRP-01-README-DERIVED-FACTS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -5007,7 +5029,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 574,
+  "state_version": 575,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
