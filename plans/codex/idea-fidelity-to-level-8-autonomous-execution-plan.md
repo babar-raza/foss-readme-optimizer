@@ -220,8 +220,8 @@ to three horizons and may not substitute one horizon's machinery for another hor
 
 | Horizon | Governed goals | Required outcome | Target control |
 | --- | --- | --- | --- |
-| Short | `GOAL-TRUTH`, `GOAL-README` | Close the already-claimed cross-platform truth gate; one latest-contract Python README; seven ecosystem representatives at `NO_OP_PROVEN` in binding platform order | 1–2 working days for the first README; 3–5 for seven |
-| Medium | `GOAL-PROFILE`, `GOAL-DELIVERY` | Full-registry Gate A; Gate B; `act`; staging; Gate C; hosted runtime; Level 5 | 7–12 working days for Gate A; 3–5 weeks for Level 5 |
+| Short | `GOAL-TRUTH`, `GOAL-README` | Repair the common reviewer; seven ecosystem representatives at `NO_OP_PROVEN`; eight total finalized READMEs; eight Python READMEs; then every current Python README | 3 working days for eight total; 5 for eight Python; 7 for all Python |
+| Medium | `GOAL-PROFILE`, `GOAL-DELIVERY` | Finish the remaining .NET, Java, C++, TypeScript, Rust, and Go cohorts; close full-registry Gate A; Gate B; `act`; staging; Gate C; hosted runtime; Level 5 | 7–12 working days for Gate A; 3–5 weeks for Level 5 |
 | Long | `GOAL-MATURITY` | Level-8-grade hosted operation, Level 7 at day 30, Level 8 at day 90 | one uninterrupted day-1-to-day-90 series |
 
 `GOAL-AUTONOMY` is cross-cutting. It enters the critical path only for an evidenced blocker or an
@@ -249,6 +249,45 @@ platform-scoped README output after that is Python. If a higher-priority platfor
 blocked, retain its visible blocked state, advance temporarily, and return to it as soon as the
 block clears. Ecosystem enumerations elsewhere are coverage sets unless explicitly labeled an
 order.
+
+### 2026-07-29 approved visible-output resequencing
+
+The work is resequenced without deleting, weakening, or deferring any acceptance requirement:
+
+```text
+repair and requalify the shared reviewer
+-> seven NO_OP_PROVEN ecosystem representatives, Python promoted first
+-> zero-paid-call readiness inventory for all runtime-loaded Python repositories
+-> eight total finalized READMEs, using the next Python repository for the eighth slot
+-> eight finalized Python READMEs
+-> every current Python README finalized
+-> remaining .NET, Java, C++, TypeScript, Rust, and Go cohorts
+-> complete the dynamic-denominator Gate A and every later gate unchanged
+```
+
+Here, “finalized” means one current-campaign bundle has verified facts, a repository-specific plan,
+candidate and patch, deterministic validation, independent agent approval, effective repair where
+needed, unchanged no-op proof, exact call accounting, a redacted manifest, and valid checksums.
+It does not mean `HUMAN_ACCEPTED`; Gate B remains a separate human action after full Gate A.
+
+The acceleration uses the existing campaign and scheduler rather than a second queue. After the
+seven-representative qualification freezes the shared contract, the sole supervisor may use the
+already-governed two-to-four isolated lanes. Python owns every compatible lane while an eligible
+Python item exists. A later platform may not take a reserved slot; a narrowly externally blocked
+Python repository remains visible while other Python repositories proceed, and all Python entries
+must close before the remaining platform cohorts begin.
+
+The executable milestone taskcards are:
+
+- `L8-ACCEL-00-PYTHON-READINESS`;
+- `L8-ACCEL-01-EIGHT-TOTAL`;
+- `L8-ACCEL-02-EIGHT-PYTHON`;
+- `L8-ACCEL-03-ALL-PYTHON`.
+
+These are inspectable scheduling and outcome boundaries inside Gate A, not new product scope. Their
+evidence is reused by the existing full-registry truth, cohort, healing, no-op, and independent
+reproduction tasks. The 3/5/7-working-day values are planning targets, never waivers: a breach
+records and repairs the first failing boundary while all proof standards remain intact.
 
 The portfolio is executed as 12 family evidence sets, 7 ecosystem evidence sets, and 31 mandatory
 repository deltas:
@@ -283,14 +322,12 @@ reduces lane results into campaign state; resource-specific backpressure lowers 
 admission. A source/toolchain build feeds all dependent checks until its exact key changes. URL,
 registry, workflow, and license evidence is fetched once per normalized freshness key.
 
-The existing authoritative rule remains serial before seven-representative qualification until
-decision #83, `SCL-002`, `L8-017`, and `AGENTS.md` are explicitly synchronized. The production
-recommendation below replaces that coarse rule with a progressive concurrency ladder: keep the
-active shared presentation contract serial; prove lane isolation on fixtures; pass one
-current-contract Python canary; then admit at most two real representative lanes while promotion
-remains platform-ordered. Full-registry execution may increase to a measured two-to-four lanes only
-after the seven-representative contract is frozen. This recommendation is not executable authority
-while the governing documents still require complete serial qualification.
+The authoritative rule remains serial through seven-representative qualification. The active
+shared presentation contract is repaired serially, lane isolation is proven on fixtures, and the
+seven real representatives are promoted in configured order. Only after the representative
+contract, recovery, golden, cost, and campaign-freeze gates close may the sole supervisor admit a
+measured two-to-four real repository lanes. The first P3 capacity is reserved for the Python
+milestones; full-registry work begins only after every current Python README closes.
 
 The complete local official suite runs at four campaign boundaries: before resumed execution,
 after the first latest-contract README, after seven-representative qualification, and at Gate-A
@@ -315,8 +352,8 @@ task IDs, acceptance criteria, transitions, and evidence mappings:
 | Campaign | Included outcome | Shared verification boundary |
 | --- | --- | --- |
 | C1 -- first current-contract README | Finish contextual linking, existing-content reconciliation, complete claim accountability, operation coverage, presentation lint, composition, review, and effective repair for the highest-priority Python representative. | Focused/impact checks during implementation; one complete official suite, real Python lifecycle, independent review, repair control, and unchanged no-op at the accepted README boundary. |
-| C2 -- seven representatives | Extend the identical accepted contract through .NET, Java, C++, TypeScript, Rust, and Go; close reviewer grounding/cache behavior, process-lane isolation, recovery, golden-set qualification, campaign identity, and contract freeze. After governance synchronization and the Python canary, use at most two scheduler-owned lanes. | Adapter/public-seam checks per ecosystem; serial/two-lane equivalence; one seven-repository end-to-end recovery/idempotency campaign; one complete official suite and independent aggregate at qualification closure. |
-| C3 -- full-registry Gate A | Process every current registry entry in platform/family cohorts through adaptive two-to-four process lanes, heal only invalidated boundaries, prove no-op, and reproduce the serialized portfolio aggregate. | Per-repository deterministic gates and manifest checks; lane pressure/recovery/contamination controls; one complete official suite and independent denominator/checksum reconstruction at Gate-A closure. |
+| C2 -- seven representatives | Extend the identical accepted contract through .NET, Java, C++, TypeScript, Rust, and Go; close reviewer grounding/cache behavior, fixture-lane isolation, recovery, golden-set qualification, campaign identity, and contract freeze. Real representatives remain serial and Python is promoted first. | Adapter/public-seam checks per ecosystem; fixture-lane/serial-reference equivalence; one seven-repository end-to-end recovery/idempotency campaign; one complete official suite and independent aggregate at qualification closure. |
+| C3 -- Python milestones and full-registry Gate A | Freeze the Python readiness queue; reach eight total, eight Python, and all-Python finalized milestones; then process .NET, Java, C++, TypeScript, Rust, and Go through adaptive two-to-four process lanes, heal only invalidated boundaries, prove no-op, and reproduce the serialized portfolio aggregate. | Per-repository deterministic gates and manifest checks; milestone denominator reconstruction; lane pressure/recovery/contamination controls; one complete official suite and independent full-registry denominator/checksum reconstruction at Gate-A closure. |
 | C4 -- local profile and workflow | Complete the remaining locally testable presentation surfaces and reproduce the same canonical supervisor under `act`. | Surface-specific integration/safety checks followed by one complete local multi-surface proof and one actual-workflow recovery/idempotency proof. |
 | C5 -- staging and controlled delivery | Prove proposal state in disposable staging, obtain Gate-C per-push approvals, prove the Java draft-PR lifecycle, then provision the hosted runtime. | Scenario matrix for create/no-op/update/drift/dedup/lost response/crash/authorization, default-branch byte identity, and token isolation. |
 | C6 -- Level 5 and heterogeneous rollout | Complete every `idea.md` surface, run the controlled three-Java pilot, then operate and prove the supported portfolio. | Independent Level-5 audit, one authorized lifecycle per ecosystem, portfolio health/recovery proof, and the uninterrupted day-1-to-day-30 evidence series. |
@@ -375,11 +412,11 @@ The following controls are part of the existing mission rather than a separate p
   repositories. Do not patch candidates individually.
 - **Resume, do not replay.** Persist stage outputs and transition receipts after each repository so
   cancellation, machine restart, or a narrow failure resumes from the last checksum-valid boundary.
-- **Progressive, governed lanes.** Keep shared-contract repair serial. After process isolation,
-  campaign fencing, serialized reduction, and a Python canary pass, the sole supervisor may use
-  two representative lanes if the authoritative governance is synchronized. After complete
-  seven-representative qualification it may use the measured safe count of two to four lanes.
-  Concurrent control-repository editing remains prohibited.
+- **Progressive, governed lanes.** Keep shared-contract repair and all seven real representatives
+  serial; fixture isolation may exercise two lanes. After complete seven-representative
+  qualification, recovery/golden/cost proof, and campaign freeze, the sole supervisor may use the
+  measured safe count of two to four lanes, reserving eligible capacity for Python until every
+  Python README closes. Concurrent control-repository editing remains prohibited.
 - **Measure before test parallelism.** Enable pytest-xdist, persistent clone optimization, CI cache
   changes, or physical multi-item LLM batching only after the cost-baseline task proves the change
   safe, faster, deterministic, and isolated. Otherwise keep them off the critical path.
@@ -770,8 +807,8 @@ The stage/resource pipeline starts conservatively:
 | No-op receipt replay and checksum verification | 2 | 4 | Zero provider calls; immutable receipt validation only. |
 | Remote effect per repository | 0 locally | 1 | Inert until its later authorized gate; never shares analysis credentials. |
 
-At P2 the total number of live repository lanes is still two even if individual resource caps are
-higher; those caps become useful at P3. The scheduler applies the minimum of total-lane,
+At P2 the total number of live repository lanes is one even if fixture/resource caps are higher;
+those caps become useful for real repositories at P3. The scheduler applies the minimum of total-lane,
 resource-class, provider, memory, disk, and campaign limits. Additive increase/multiplicative
 decrease adjusts one resource class at a time and can only reduce throughput—not acceptance.
 
@@ -783,15 +820,15 @@ Concurrency is a promoted capability, not a command-line preference:
 | --- | --- | --- | --- |
 | P0 -- contract repair | Current state through the complete `L8-REVIEW-*` repair, cache, real-corpus, and live-campaign chain. | One repository lane. No portfolio fan-out while reviewer/repair acceptance is changing. | A grounded rejection causes a material relevant repair or an agent-fixable reroute before rereview; real-corpus qualification and no-op cache pass. |
 | P1 -- isolation proof | Scheduler contracts, campaign lease/fencing, process cleanup, stage receipts, and serialized reducer exist. | Two fixture lanes using different repositories and stages; no live paid fan-out. | Duplicate, stale-fence, crash, cancellation, lease expiry, cache-contamination, and aggregate-order tests produce the same result as serial reference execution. |
-| P2 -- representative pipeline | One current-contract Python canary reaches `DETERMINISTIC_VALIDATED`; P1 is green; shared contract is frozen. | At most two real repository lanes. One lane is reserved for the highest-priority critical-path item; a second may use a different idle resource class. | Seven representatives reach the required stage with no cross-repository leakage, no quality delta from serial reference, bounded resources, and exact accounting. |
+| P2 -- representative pipeline | One current-contract Python canary reaches `DETERMINISTIC_VALIDATED`; P1 is green; shared contract is frozen. | One real repository lane through all seven representatives; fixture-only isolation may use two lanes. | Seven representatives reach the required stage in configured order with no cross-repository leakage, bounded resources, and exact accounting. |
 | P3 -- Gate A | Seven representatives are `NO_OP_PROVEN`; golden thresholds, recovery, cost baseline, and campaign freeze pass. | Adaptive two-to-four repository lanes inside one supervisor. | Full fault/rate/starvation matrix, measured speedup, no duplicate work/calls, and independent aggregate reproduction. |
 | P4 -- hosted operation | `act` and disposable staging prove the same contracts. | Actions matrix or hosted workers execute scheduler-issued items; per-repository effect lanes remain serialized and authorization-bound. | Trigger deduplication, lost-response/crash recovery, token isolation, default-branch byte identity, and health/backlog proof. |
 
-P2 is the recommended acceleration over the current all-serial qualification rule. Activating it
-requires a fresh governed synchronization of `master.md` decision #83 and its Status, Decision
-Ledger, Architecture, Build Checklist, and Verification Checklist sections, plus `SCL-002`,
-`L8-017`, the mission graph, and `AGENTS.md`. Until that happens, P0/P1 may be designed and tested
-without live fan-out, but representative execution remains serial.
+Representative execution remains serial through P2. The approved acceleration begins at P3, after
+all seven representatives are `NO_OP_PROVEN`, the golden/recovery/cost controls pass, and the
+campaign is frozen. P3 then applies the existing two-to-four-lane contract first to the Python
+milestones and only afterwards to the remaining platforms. No pre-qualification live fan-out is
+authorized by this resequencing.
 
 Platform priority becomes a deterministic admission and promotion policy rather than forced idle
 time:
@@ -799,21 +836,21 @@ time:
 1. dependencies, recovery of an already owned claim, safety, and exact external blocks are handled
    first;
 2. the highest-priority ready platform receives the first compatible resource slot;
-3. a later platform may use an otherwise idle, different resource bulkhead only while it cannot
-   delay the earlier platform;
-4. final qualification promotion and published cohort order remain Python, .NET, Java, C++,
+3. at P3, otherwise idle capacity is assigned to another Python repository or Python stage until
+   the all-Python milestone closes; lower platforms do not begin early;
+4. after all Python repositories close, admission and promotion order remains .NET, Java, C++,
    TypeScript, Rust, Go;
 5. aging prevents indefinite starvation, but never lets later work consume capacity reserved for a
    ready earlier-platform critical-path item.
 
-This distinction preserves the user's priority while permitting Python network wait, for example,
-to overlap with .NET deterministic validation. It does not permit skipping an agent-fixable Python
-defect.
+This distinction preserves the user's priority while permitting independent Python repositories
+and stages to overlap at P3. It does not permit lower-platform promotion before the all-Python
+milestone or skipping an agent-fixable Python defect.
 
 ### Resource bulkheads and backpressure
 
 Do not use one global `max_workers` as the safety control. The stage-pipeline table above is the
-binding initial configuration: at P2 the total live-repository cap is two, and P3 begins with the
+binding initial configuration: at P2 the total live-repository cap is one, and P3 begins with the
 listed per-resource ceilings of four read/CPU lanes, two build/author lanes, and one
 review/reducer lane. A per-repository lifecycle/effect writer always remains one and is protected
 by the renewable run lease and fence. Remote-effect capacity is zero locally and one per
@@ -883,10 +920,11 @@ must pass the identical CAS, fencing, recovery, history, redaction, and reproduc
 No new mission or competing task tree is needed. Reconcile the design into these existing task
 owners:
 
-1. Close the currently claimed `L8-REVIEW-02A-REPAIR-CONTROLS` task and its dependent review chain
-   serially. `L8-REVIEW-03-EFFECTIVE-REPAIR`, cache measurement/no-op, real-corpus review, and the
-   real review campaign must prove the shared reviewer/repair contract before any paid portfolio
-   fan-out. A defect in this contract multiplies across every repository.
+1. Claim the currently regressed `L8-REVIEW-00-CONTEXT-CORPUS` task and repair its bounded factual
+   reviewer output/transport contract serially. Requalify the sealed C++ canary, then return
+   `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY` and complete it plus
+   `L8-REVIEW-05-REAL-CAMPAIGN`. The already closed repair and cache tasks remain reusable unless
+   the repair invalidates them. A defect in this shared contract multiplies across every repository.
 2. Treat closed `L8-COMPOSE-04B-STAGE-TRANSACTIONS` as P0 groundwork, not concurrency closure. Its
    receipts remain valid serial evidence, while qualification tasks extend the identical seam to
    every lifecycle stage and to a real portfolio campaign identity.
@@ -897,34 +935,33 @@ owners:
    - receipt-only acceptance and a reducer-materialized compatibility view;
    - migration that labels the current receipt schema as legacy serial-stage evidence rather than
      silently changing its meaning.
-4. Correct the current reversed qualification sequence in the sole graph:
-   - repurpose `L8-QUAL-01A-REPRESENTATIVE-INPUTS` as the one current-contract Python canary plus
-     immutable seven-representative input freeze, not a seven-repository E2E campaign;
-   - make `L8-QUAL-02A-FAILURE-MATRIX` depend on that canary and own P1 scheduler planning,
+4. Preserve the corrected qualification sequence in the sole graph:
+   - `L8-QUAL-01A-REPRESENTATIVE-INPUTS` freezes the Python-first immutable
+     seven-representative inputs;
+   - `L8-QUAL-02A-FAILURE-MATRIX` depends on those inputs and owns P1 scheduler planning,
      deterministic priority, resource admission, spawned process isolation, lease renewal/fencing,
      private attempts, serialized reduction, cancellation/descendant cleanup, recovery, and
      serial/two-fixture-lane equivalence;
-   - make `L8-QUAL-02-SEVEN-E2E` depend on the P1 failure matrix and remain the only real
-     seven-repository qualification campaign.
-5. Under current decision #83, run the seven real representatives serially. A future fresh
-   section-specific governance approval may promote P2 to two real lanes after the Python canary
-   and P1 fixture proof; until then, fixture concurrency may be proven but paid/live
-   representative fan-out remains disabled.
+   - `L8-QUAL-02-SEVEN-E2E` depends on the P1 failure matrix and remains the only real
+     seven-repository qualification campaign;
+   - `L8-QUAL-03-RECOVERY` follows the real seven-repository campaign.
+5. Under current decision #83, run the seven real representatives serially in Python, .NET, Java,
+   C++, TypeScript, Rust, Go promotion order. Fixture concurrency may be proven, but paid/live
+   representative fan-out remains disabled until all seven qualify and P3 is frozen.
 6. Keep complete crash/recovery and long-duration heartbeat proof in
    `L8-QUAL-03-RECOVERY`; P1 fixture proof is not a substitute for this real boundary.
 7. Measure queue wait, service time, provider pressure, cache reuse, call count, critical-path
    utilization, and serial-versus-parallel equivalence in `L8-QUAL-04B-COST-BASELINE`.
 8. Freeze lane caps and all campaign dependencies in `L8-QUAL-05-FREEZE`.
-9. Implement adaptive P3 admission and cohort execution in
+9. Use adaptive P3 admission first in `L8-ACCEL-00-PYTHON-READINESS` through
+   `L8-ACCEL-03-ALL-PYTHON`, then consume those valid results in
    `L8-GATEA-00-COHORT-CONTROLS` and `L8-GATEA-01-COHORTS`; retain upstream repair and targeted
    invalidation in the existing Gate-A healing tasks.
 
-The executable graph migration must preserve transition history, update the graph hash through the
-existing migration/evaluate path, and never steal the live
-`L8-REVIEW-02A-REPAIR-CONTROLS` claim. The graph currently has
-`L8-QUAL-02A-FAILURE-MATRIX` after `L8-QUAL-02-SEVEN-E2E`; this is a verified planning defect, not an
-implementation detail. Correct both dependency edges together after the current task reaches a
-clean committed transition so the durable migration cannot expose a transient cycle.
+The executable graph migration must preserve transition history and update the graph hash through
+the existing migration/evaluate path. The graph revision corrects the former reversed
+qualification dependencies and adds the Python milestone chain atomically, so durable migration
+cannot expose a transient cycle or bypass either the representative or full-registry gates.
 
 ### Verification and regression controls
 
@@ -952,8 +989,8 @@ except for timing and recorded scheduling metadata:
 - quality tests: serial and concurrent runs use identical inputs and deterministic outputs; all
   current presentation/factual/safety controls have identical verdicts; independent review still
   catches seeded defects;
-- real P1/P2 proof: two fixture lanes, then Python plus one next-priority representative, followed
-  by the full seven-representative campaign;
+- real P1/P2 proof: two fixture lanes, then the full seven-representative campaign serially with
+  Python promoted first;
 - Gate-A proof: two, three, and four lanes with backpressure, cancellation/resume, failure
   isolation, exact LLM accounting, no remote writes, and independently reconstructed aggregate;
 - hosted proof: duplicate events, matrix job loss, scheduler absence, stale lease, lost response,
@@ -1414,7 +1451,7 @@ shared campaign evidence only at the next declared output boundary.
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
 | `L8-QUAL-01-CAMPAIGN-IDENTITY` | Bind HEAD, registry, revisions, dependencies, prompts, templates, facts, renderer, validators, reviewer, and lifecycle hashes into one immutable campaign. | mutation of each dependency invalidates only its dependent stage. | review aggregate closure |
-| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op for one real representative per ecosystem under that campaign. After the Python canary and P1 isolation proof, use at most two process-isolated lanes while preserving configured admission and promotion priority. | seven `NO_OP_PROVEN` manifests; serial/concurrent equivalence; governed order; exact accounting; zero prohibited writes. | QUAL-01 + migrated P1 isolation prerequisite |
+| `L8-QUAL-02-SEVEN-E2E` | Run first proposal and unchanged no-op serially for one real representative per ecosystem under that campaign, promoting Python first and then .NET, Java, C++, TypeScript, Rust, and Go. | seven `NO_OP_PROVEN` manifests; fixture-lane/serial-reference equivalence; governed order; exact accounting; zero prohibited writes. | QUAL-01 + migrated P1 isolation prerequisite |
 | `L8-QUAL-03-RECOVERY` | Complete production-like proof of renewable campaign/repository leases, fencing, mission heartbeat, serialized reduction, cancellation/resume, duplicate trigger, controlled failure, and descendant cleanup. | fault injection at every local lifecycle boundary, including a stale lane that finishes after reclaim and is rejected. | QUAL-02 |
 | `L8-QUAL-04-GOLDEN-SET` | Run at least 100 governed evaluations in three sessions with 100% deterministic and at least 95% agentic accuracy, zero critical false accepts, and auto-disable regression. | three-session result inventory and route-disable proof. | QUAL-03 |
 | `L8-QUAL-04B-COST-BASELINE` | Measure official-check, queue, service, per-stage, clone, registry, Docker, LLM, reducer, and warm/no-op latency, resources, retries, and call counts under the accepted representative contract; determine the safe P3 bulkhead caps. | reproducible cold/warm serial/two-lane distributions, quality equivalence, pressure controls, and explicit optimization triggers. | QUAL-04A |
@@ -1424,8 +1461,12 @@ shared campaign evidence only at the next declared output boundary.
 
 | ID | Complete behavior | Focused proof | Depends on |
 | --- | --- | --- | --- |
-| `L8-TRUTH-08-FULL-REGISTRY` | Run all dynamically loaded registry entries to `FACTS_READY`, isolating narrow essential-fact blocks only after the seven latest-contract lifecycles qualify. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures. | qualification aggregate closure |
-| `L8-GATEA-01-COHORTS` | Execute the frozen denominator through `PortfolioSchedulerV1` in bounded, resumable ecosystem/family cohorts with one renewable campaign lease, fenced process lanes, stage bulkheads, and a serialized monotonic aggregate. Assign and promote ready work by the governed priority policy. | two-, three-, and four-lane interruption, stale-result, pressure, starvation, cache-contamination, and resume controls produce no duplicate work or order drift. | TRUTH-08 + GATEA-00 controls |
+| `L8-ACCEL-00-PYTHON-READINESS` | Reconcile all runtime-loaded Python repositories against the frozen campaign and produce a reuse/evidence-readiness queue without a paid LLM call. | dynamic Python denominator, deterministic ordering, complete cache decisions, and zero-call receipt. | qualification aggregate closure |
+| `L8-ACCEL-01-EIGHT-TOTAL` | Reuse the seven qualified representatives and finalize the highest-readiness unfinished Python repository so at least eight total repositories are current-contract `NO_OP_PROVEN`. | independent reconstruction of eight complete bundles; stale or mixed-campaign verdicts cannot count. | ACCEL-00 |
+| `L8-ACCEL-02-EIGHT-PYTHON` | Use the governed P3 lanes until eight Python repositories are independently approved and no-op-proven. | dynamic Python milestone reconstruction, lane isolation/equivalence, exact calls, checksums, and no writes. | ACCEL-01 |
+| `L8-ACCEL-03-ALL-PYTHON` | Continue the same campaign until every current Python repository is independently approved and no-op-proven. | Python numerator equals its runtime denominator; agent-fixable failures zero; external blocks remain non-success. | ACCEL-02 |
+| `L8-TRUTH-08-FULL-REGISTRY` | Preserve the completed Python cohort, then run every remaining registry entry to `FACTS_READY` in .NET, Java, C++, TypeScript, Rust, Go order, isolating only narrow essential-fact blocks. | `facts_ready + narrow_external_blocks == len(products)`; zero agent-fixable failures; no valid Python stage repeated. | ACCEL-03 |
+| `L8-GATEA-01-COHORTS` | Consume the completed Python cohort and execute the remaining frozen denominator through `PortfolioSchedulerV1` in bounded, resumable platform/family cohorts with one renewable campaign lease, fenced process lanes, stage bulkheads, and a serialized monotonic aggregate. | two-, three-, and four-lane interruption, stale-result, pressure, starvation, cache-contamination, and resume controls produce no duplicate work or order drift. | TRUTH-08 + GATEA-00 controls |
 | `L8-GATEA-02-HEAL-FAILURES` | Repair every agent-fixable failure at its upstream task, requalify the affected representative, and rerun only invalidated repositories. | no agent-fixable terminal remains; external blocks are exact and narrow. | GATEA-01 |
 | `L8-GATEA-03-NO-OP` | Obtain independent approval and unchanged no-op proof for every eligible current registry entry under the identical frozen campaign. | complete per-repository bundles and zero unnecessary second-run calls/effects. | GATEA-02 |
 | `L8-GATEA-04-REPRODUCE` | Independently reconstruct the portfolio result and checksum inventory from registry plus bundles. | approved equals dynamic denominator; failures, unprocessed, and manifest failures equal zero. | GATEA-03 |
@@ -1696,44 +1737,45 @@ Execution resumes in this order; it does not start an official 31-repository cam
    operator with exactly one active top-level command tree. Poll an existing tree instead of
    launching an overlapping test/proof/supervisor run. Treat any run whose HEAD or campaign
    dependencies moved as diagnostic only.
-2. Run mission `status`; if graph drift is reported, run `evaluate` and reconcile through the same
-   mission state without stealing the live claim. The verified starting task for this plan revision
-   is `L8-REVIEW-02A-REPAIR-CONTROLS`; live durable state supersedes that snapshot on restart.
-3. Finish `L8-REVIEW-02A-REPAIR-CONTROLS` without broadening its dirty implementation. Prove that a
-   byte-identical or irrelevant repair reroutes agent-fixably before another reviewer call, while a
-   relevant changed operation records before/after hashes, changed spans, responsible finding IDs,
-   and resolution after acceptance. Run focused, supervisor, safety, and no-remote-write
-   regressions; commit and close only from checksum-complete evidence.
-4. Continue the remaining `L8-REVIEW-*` tasks serially through effective repair, exact cache/no-op
-   measurement, real-corpus qualification, and a real campaign. The reviewer/repair contract is a
-   shared acceptance dependency and must freeze before any paid portfolio fan-out.
+2. Run mission `status`; the committed graph change intentionally causes drift against durable
+   state version 529. Run `evaluate` once to migrate the graph without deleting transition history,
+   then claim only the highest-priority eligible task. The expected task after migration is the
+   regressed `L8-REVIEW-00-CONTEXT-CORPUS`; live durable state supersedes this snapshot.
+3. Repair the bounded factual-review output and length-aware recovery contract. Preserve blind/factual
+   role separation, evidence grounding, fail-closed behavior, exact calls, and candidate retention.
+   Re-run focused, supervisor, safety, and no-remote-write regressions, then require the sealed C++
+   canary to produce a complete governed verdict rather than transport truncation.
+4. Close the repaired owner task only from checksum-complete evidence, return
+   `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`, and complete the real corpus and
+   `L8-REVIEW-05-REAL-CAMPAIGN` serially in Python, .NET, Java, C++, TypeScript, Rust, Go order.
+   The reviewer contract must freeze before any paid portfolio fan-out.
 5. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, version the existing
    serial-stage receipts, implement the complete campaign/dependency/call identity, and make
    receipts—not compatibility files—the acceptance authority.
 6. Use `L8-QUAL-01A-REPRESENTATIVE-INPUTS` for one current-contract Python canary and the immutable
    seven-representative input freeze. Do not mislabel it as seven-repository proof.
-7. Correct both qualification dependency edges at one clean committed transition, then implement
-   P1 in `L8-QUAL-02A-FAILURE-MATRIX`: renewable fenced leases, deterministic planning and priority,
-   resource bulkheads, process-isolated one-stage lanes, sealed results, serialized reduction,
-   recovery, and descendant cleanup. Two fixture lanes must be serial-equivalent before any
-   second real lane is considered.
-8. Execute `L8-QUAL-02-SEVEN-E2E` through the complete public supervisor path. Under current
-   decision #83 this real campaign remains serial. If fresh section-specific approval later
-   synchronizes `master.md`, requirements, graph, and `AGENTS.md` for P2, admit at most two real
-   process lanes after the Python canary and P1 proof. In either mode, require all seven
-   representatives to reach current-contract `AGENT_APPROVED` and unchanged `NO_OP_PROVEN`, with
-   serial equivalence, recovery, idempotency, safety, cache provenance, exact call accounting, and
+7. Verify the migrated qualification edges, then implement P1 in
+   `L8-QUAL-02A-FAILURE-MATRIX`: renewable fenced leases, deterministic planning and priority,
+   resource bulkheads, process-isolated one-stage fixture lanes, sealed results, serialized
+   reduction, recovery, and descendant cleanup. Two fixture lanes must be serial-equivalent; real
+   representative execution remains one lane.
+8. Execute `L8-QUAL-02-SEVEN-E2E` serially through the complete public supervisor path in configured
+   order. Require all seven representatives to reach current-contract `AGENT_APPROVED` and unchanged
+   `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, exact call accounting, and
    measured cost/latency evidence. Run the complete official suite once at this campaign boundary.
 9. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
    hashes, dependency lock, invalidation graph, lane caps, and cost envelope as one named campaign.
-10. Run `L8-TRUTH-08-FULL-REGISTRY` to the facts-only ceiling under the qualified contract, then
-    resume Gate A in adaptive two-to-four-lane family/ecosystem cohorts owned by one supervisor.
-    Reduce sealed results into one monotonic aggregate after each promotion. A new live defect
-    closes admission, reopens the first responsible task, requalifies the affected representative,
-    and resumes only invalidated repositories.
-    Promote one closure evidence package after the final official suite, not one package per failed
-    attempt.
-11. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
+10. Run the Python-first acceleration chain under the frozen P3 contract:
+    `L8-ACCEL-00-PYTHON-READINESS` with zero paid calls, then
+    `L8-ACCEL-01-EIGHT-TOTAL`, `L8-ACCEL-02-EIGHT-PYTHON`, and
+    `L8-ACCEL-03-ALL-PYTHON`. Use adaptive two-to-four supervisor-owned lanes, serialized
+    aggregation, and the same per-repository proof. Do not stop at either eight milestone.
+11. Preserve the closed Python bundles, run `L8-TRUTH-08-FULL-REGISTRY` for the remaining
+    repositories to the facts-only ceiling, then resume Gate A in .NET, Java, C++, TypeScript,
+    Rust, Go cohorts. A new live defect closes admission, reopens the first responsible task,
+    requalifies the affected representative, and resumes only invalidated repositories. Promote
+    one closure evidence package after the final official suite, not one package per failed attempt.
+12. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Continue with
    no-effect `act` work while Gate-B review is pending, then staging, Gate C, Gate D, and Level 5
    as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
    day 1, award Level 7 from days 1–30, and continue the same uninterrupted series to Level 8 at
