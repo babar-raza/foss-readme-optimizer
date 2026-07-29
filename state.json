@@ -10938,7 +10938,7 @@
     "updated_at": "2026-07-29T16:45:34.472575+00:00"
   },
   "schema_version": 2,
-  "state_version": 462,
+  "state_version": 463,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -11463,13 +11463,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0001 failed after 3 attempts: trusted composition segments omitted or duplicated source facts",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "e04c2fd1d1a43c32109b1f80af2c4a3e79685e16250fc34a4276d04b332e512d",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-29T17:10:04.912140+00:00",
       "recovery_count": 1,
-      "status": "retryable",
-      "updated_at": "2026-07-29T16:54:59.752900+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-29T16:55:04.912140+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
