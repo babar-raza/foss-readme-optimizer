@@ -12978,6 +12978,17 @@
         "reason": "begin independent blind-quality and inheritance-fidelity review",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "TRUSTED_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_REVIEWING",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-29T22:23:29.108252+00:00",
+        "reason": "independent trusted review reduced to SYSTEM_FAILURE",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -13005,11 +13016,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "TRUSTED_REVIEWING",
-    "updated_at": "2026-07-29T22:23:23.805808+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-29T22:23:29.108252+00:00"
   },
   "schema_version": 2,
-  "state_version": 706,
+  "state_version": 707,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
