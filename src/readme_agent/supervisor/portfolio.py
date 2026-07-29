@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
@@ -161,83 +160,21 @@ class PortfolioTriggerSelectionV1(BaseModel):
 def completed_local_poc_status(
     state: RunStateV2 | None,
     bundle_dir: Path,
+    *,
+    current_source_revision: str | None,
+    current_control_plane_fingerprint: str,
 ) -> str | None:
-    """Return a complete status only when its revision bundle is checksum-valid."""
+    """Return a completed status only under the complete current cache contract."""
 
-    if state is None or not isinstance(
-        state.readme_poc_lifecycle,
-        ReadmePocLifecycleStateV2,
-    ):
-        return None
-    lifecycle = state.readme_poc_lifecycle
-    if lifecycle.status not in _COMPLETE_LOCAL_POC_STATUSES:
-        return None
+    from readme_agent.supervisor.local_poc_cache import evaluate_completed_local_poc_cache
 
-    manifest_path = bundle_dir / "manifest.json"
-    inventory_path = bundle_dir / "sha256sums.txt"
-    document_plan_path = bundle_dir / "planning" / "readme-document-plan.json"
-    agentic_plan_path = bundle_dir / "planning" / "agentic-composition-plan.json"
-    if (
-        not manifest_path.is_file()
-        or not inventory_path.is_file()
-        or not document_plan_path.is_file()
-        or not agentic_plan_path.is_file()
-    ):
-        return None
-
-    try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        document_plan = json.loads(document_plan_path.read_text(encoding="utf-8"))
-        agentic_plan = json.loads(agentic_plan_path.read_text(encoding="utf-8"))
-        inventory_lines = inventory_path.read_text(encoding="utf-8").splitlines()
-        expected: dict[str, str] = {}
-        for line in inventory_lines:
-            digest, relative = line.split("  ", maxsplit=1)
-            if (
-                len(digest) != 64
-                or any(char not in "0123456789abcdef" for char in digest)
-                or not relative
-                or relative in expected
-            ):
-                return None
-            expected[relative] = digest
-    except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
-        return None
-
-    if (
-        manifest.get("complete") is not True
-        or manifest.get("org_repo") != state.org_repo
-        or manifest.get("source_revision") != lifecycle.source_revision
-        or manifest.get("lifecycle_status") != lifecycle.status
-    ):
-        return None
-
-    from readme_agent.llm import prompt_registry
-    from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
-    from readme_agent.readme.document_templates import document_template_hash
-
-    if document_plan.get("template_sha256") != document_template_hash():
-        return None
-    if agentic_plan and agentic_plan.get("prompt_sha256") != prompt_registry.prompt_hash(
-        "plan_readme_composition"
-    ):
-        return None
-    if manifest.get("reviewer_standard_hash") != separated_reviewer_standard_hash():
-        return None
-
-    actual = {
-        path.relative_to(bundle_dir).as_posix(): path
-        for path in bundle_dir.rglob("*")
-        if path.is_file() and path.name != "sha256sums.txt"
-    }
-    if set(expected) != set(actual):
-        return None
-
-    from readme_agent.evidence.writer import sha256_file
-
-    if any(sha256_file(actual[relative])[0] != digest for relative, digest in expected.items()):
-        return None
-    return lifecycle.status
+    decision = evaluate_completed_local_poc_cache(
+        state,
+        bundle_dir,
+        current_source_revision=current_source_revision,
+        current_control_plane_fingerprint=current_control_plane_fingerprint,
+    )
+    return decision.status if decision.reusable else None
 
 
 def recover_completed_local_poc_status(
@@ -261,7 +198,22 @@ def recover_completed_local_poc_status(
         repo,
         state.readme_poc_lifecycle.source_revision,
     )
-    return completed_local_poc_status(state, bundle_dir)
+    from readme_agent.gitsafety.clone import remote_head_sha
+    from readme_agent.registry.loader import find_entry
+    from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+
+    entry = find_entry(org_repo)
+    if entry is None:
+        return None
+    current_source_revision = remote_head_sha(entry.clone_url)
+    if current_source_revision is None:
+        return None
+    return completed_local_poc_status(
+        state,
+        bundle_dir,
+        current_source_revision=current_source_revision,
+        current_control_plane_fingerprint=compute_control_plane_fingerprint(entry.policy_profile),
+    )
 
 
 def select_portfolio_trigger(state: RunStateV2 | None) -> PortfolioTriggerSelectionV1:

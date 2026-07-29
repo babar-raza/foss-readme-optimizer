@@ -5,7 +5,9 @@ replanning after a real failure, real durable convergence on a second call.
 Mirrors `test_orchestrator.py`'s synthetic-local-repo fixture pattern."""
 
 import json
+import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -55,25 +57,48 @@ _FIXTURE_RELATIONSHIP_PARAGRAPH = (
 
 class TestLocalPocNoOpGate:
     def test_generic_convergence_is_not_a_local_poc_no_op_proof(self):
-        assert _readme_poc_noop_gate_holds(None) is False
-        assert _readme_poc_noop_gate_holds(RunStateV2(org_repo="org/repo")) is False
+        kwargs = {
+            "current_source_revision": "a" * 40,
+            "current_control_plane_fingerprint": "b" * 64,
+        }
+        assert _readme_poc_noop_gate_holds(None, **kwargs) is False
+        assert _readme_poc_noop_gate_holds(RunStateV2(org_repo="org/repo"), **kwargs) is False
         assert (
             _readme_poc_noop_gate_holds(
                 RunStateV2(
                     org_repo="org/repo",
                     readme_poc_lifecycle=ReadmePocLifecycleStateV2(status="AGENT_APPROVED"),
-                )
+                ),
+                **kwargs,
             )
             is False
         )
 
-    def test_no_op_and_later_lifecycle_states_allow_the_freshness_shortcut(self):
+    def test_no_op_and_later_lifecycle_states_require_complete_cache(self, monkeypatch, tmp_path):
+        from readme_agent import paths
+        from readme_agent.supervisor import local_poc_cache
+
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_repository_dir",
+            lambda org, repo, revision: tmp_path / org / repo / revision,
+        )
+        monkeypatch.setattr(
+            local_poc_cache,
+            "evaluate_completed_local_poc_cache",
+            lambda *args, **kwargs: SimpleNamespace(reusable=True),
+        )
         for status in ("NO_OP_PROVEN", "HUMAN_REVIEW_READY", "PR_PROOF_COMPLETE"):
             assert _readme_poc_noop_gate_holds(
                 RunStateV2(
                     org_repo="org/repo",
-                    readme_poc_lifecycle=ReadmePocLifecycleStateV2(status=status),
-                )
+                    readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                        status=status,
+                        source_revision="a" * 40,
+                    ),
+                ),
+                current_source_revision="a" * 40,
+                current_control_plane_fingerprint="b" * 64,
             )
 
 
@@ -86,10 +111,13 @@ class _FakeLiveLLMClient:
     `@pytest.mark.live` convention keeps the offline suite genuinely
     offline."""
 
+    calls = 0
+
     def __init__(self, *args, **kwargs):
         pass
 
     def generate(self, messages: list[dict[str, str]]) -> GeneratedResult:
+        type(self).calls += 1
         return GeneratedResult(
             response=LLMBlockResponse(
                 relationship_paragraph=_FIXTURE_RELATIONSHIP_PARAGRAPH,
@@ -106,10 +134,13 @@ class _FakeNonFlaggingForcedToolClient:
     here (never flagged) so this file's existing accept/commit assertions
     are unaffected, matching `_FakeLiveLLMClient`'s own convention."""
 
+    calls = 0
+
     def __init__(self, *args, **kwargs):
         pass
 
     def call(self, messages, tool_schema):
+        type(self).calls += 1
         return ForcedToolResult(
             arguments={"flagged": False, "reason": "fixture: never flagged"}, meta=LLMResponseMeta()
         )
@@ -121,10 +152,13 @@ class _FakeAnalysisClient:
     analysis call -- faked here for the same reason every other real
     network call in this fixture already is."""
 
+    calls = 0
+
     def __init__(self, *args, **kwargs):
         pass
 
     def analyze(self, messages):
+        type(self).calls += 1
         return AnalysisResult(
             parsed={"criteria_results": [], "overall_summary": "fixture: not evaluated"},
             meta=LLMResponseMeta(),
@@ -177,10 +211,13 @@ class _FakeVisualAccuracyAnalysisClient:
     by an additive, advisory-only vision-accuracy review -- faked here
     (never flags) for the same reason."""
 
+    calls = 0
+
     def __init__(self, *args, **kwargs):
         pass
 
     def analyze(self, messages):
+        type(self).calls += 1
         return AnalysisResult(
             parsed={
                 "depicts_unsupported_content": False,
@@ -205,10 +242,13 @@ class _FakeAcceptingRoleReviewClient:
     taskcard's scope to fix: see `specialists/readme_presentation.py::
     _review_node`'s own docstring)."""
 
+    calls = 0
+
     def __init__(self, *args, **kwargs):
         pass
 
     def analyze(self, messages):
+        type(self).calls += 1
         return GroundedAcceptingRoleReviewClient().analyze(messages)
 
 
@@ -472,6 +512,11 @@ def _fake_repo_summary(org_repo, token):
 @pytest.fixture
 def project(tmp_path, monkeypatch):
     _FakeCompositionForcedToolClient.calls = 0
+    _FakeLiveLLMClient.calls = 0
+    _FakeNonFlaggingForcedToolClient.calls = 0
+    _FakeAnalysisClient.calls = 0
+    _FakeVisualAccuracyAnalysisClient.calls = 0
+    _FakeAcceptingRoleReviewClient.calls = 0
     source = _init_source_repo(tmp_path / "source")
     _setup_project_root(tmp_path, str(source))
     monkeypatch.chdir(tmp_path)
@@ -825,7 +870,15 @@ class TestBasicLoop:
         assert envelope["attempt"] == 2
 
     def test_local_poc_records_snapshot_and_profile_before_later_stages(self, project, monkeypatch):
+        from readme_agent.llm.call_ledger import start_llm_call_accounting
+
         backend = FakeStateBackend()
+        start_llm_call_accounting(
+            ORG_REPO,
+            "local-cache-measurement",
+            campaign_id="local-cache-measurement",
+            stage="SUPERVISING",
+        )
 
         class _PlannerMustNotRun:
             def plan(self, messages, tools):
@@ -847,7 +900,12 @@ class TestBasicLoop:
             track_readme_poc_lifecycle=True,
         )
         first_domain_details = backend.load(ORG_REPO).domain_states["readme_presentation"].details
-        first_composition_call_count = _FakeCompositionForcedToolClient.calls
+        first_readme_llm_calls = {
+            "relationship": _FakeLiveLLMClient.calls,
+            "composition": _FakeCompositionForcedToolClient.calls,
+            "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
+            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+        }
         proposal_root = (
             project / "runs" / "readme-proposal-bundles" / "example-foss__Example-FOSS-for-Java"
         )
@@ -903,8 +961,18 @@ class TestBasicLoop:
             second.blocked_reason,
             second.blocked_category,
         )
-        assert first_composition_call_count == 1
-        assert _FakeCompositionForcedToolClient.calls == first_composition_call_count
+        assert first_readme_llm_calls == {
+            "relationship": 0,
+            "composition": 1,
+            "prose_quality": 0,
+            "independent_review": 2,
+        }
+        assert {
+            "relationship": _FakeLiveLLMClient.calls,
+            "composition": _FakeCompositionForcedToolClient.calls,
+            "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
+            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+        } == first_readme_llm_calls
         assert sorted(path.name for path in proposal_root.iterdir() if path.is_dir()) == (
             proposal_bundles_after_first
         )
@@ -923,6 +991,11 @@ class TestBasicLoop:
         assert (lifecycle_bundle / "review" / "repair-history.json").is_file()
         assert (lifecycle_bundle / "review" / "final-verdict.json").is_file()
         assert (lifecycle_bundle / "review" / "no-op-proof.json").is_file()
+        no_op_proof = json.loads(
+            (lifecycle_bundle / "review" / "no-op-proof.json").read_text(encoding="utf-8")
+        )
+        assert no_op_proof["llm_accounting_status"] == "EXACT"
+        assert no_op_proof["new_provider_call_count"] == 0
         manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["lifecycle_status"] == "NO_OP_PROVEN"
         assert manifest["complete"] is True
@@ -940,6 +1013,40 @@ class TestBasicLoop:
             "NO_OP_PROVEN",
         ]
 
+        history_before_cached_run = list(lifecycle.history)
+        proposal_bundles_before_cached_run = sorted(
+            path.name for path in proposal_root.iterdir() if path.is_dir()
+        )
+        bundle_inventory_before_cached_run = (lifecycle_bundle / "sha256sums.txt").read_text(
+            encoding="utf-8"
+        )
+        cached_started = time.perf_counter()
+        cached = supervise_repo(
+            ORG_REPO,
+            planner_client=_PlannerMustNotRun(),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+        cached_elapsed = time.perf_counter() - cached_started
+        cached_lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert cached_lifecycle is not None
+        assert cached.status == "CONVERGED_NO_CHANGE"
+        assert cached_lifecycle.history == history_before_cached_run
+        assert cached_elapsed < 10
+        assert sorted(path.name for path in proposal_root.iterdir() if path.is_dir()) == (
+            proposal_bundles_before_cached_run
+        )
+        assert (lifecycle_bundle / "sha256sums.txt").read_text(
+            encoding="utf-8"
+        ) == bundle_inventory_before_cached_run
+        assert {
+            "relationship": _FakeLiveLLMClient.calls,
+            "composition": _FakeCompositionForcedToolClient.calls,
+            "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
+            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+        } == first_readme_llm_calls
+
         # Force a real specialist-tier rerun from the already-proven
         # NO_OP_PROVEN state. This reproduces the live portfolio failure
         # where review was invoked again and attempted the illegal
@@ -947,19 +1054,19 @@ class TestBasicLoop:
         from readme_agent.supervisor import loop as loop_module
 
         monkeypatch.setattr(loop_module, "no_change_gate_holds", lambda *args, **kwargs: False)
-        history_before_third = list(lifecycle.history)
-        third = supervise_repo(
+        history_before_forced_run = list(cached_lifecycle.history)
+        forced = supervise_repo(
             ORG_REPO,
             planner_client=_PlannerMustNotRun(),
             state_backend=backend,
             write_evidence_bundle=True,
             track_readme_poc_lifecycle=True,
         )
-        lifecycle_after_third = backend.load(ORG_REPO).readme_poc_lifecycle
-        assert lifecycle_after_third is not None
-        assert third.status == "CONVERGED_NO_TRACKED_CHANGE"
-        assert lifecycle_after_third.status == "NO_OP_PROVEN"
-        assert lifecycle_after_third.history == history_before_third
+        lifecycle_after_forced_run = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert lifecycle_after_forced_run is not None
+        assert forced.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert lifecycle_after_forced_run.status == "NO_OP_PROVEN"
+        assert lifecycle_after_forced_run.history == history_before_forced_run
 
     def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
         self,

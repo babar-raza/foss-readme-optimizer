@@ -49,6 +49,8 @@ def completed_bounded_product_truth_status(
     org_repo: str,
     bundle_dir: Path,
     requested_stage: ReadmePocStageLimitV1,
+    *,
+    current_source_revision: str | None,
 ) -> str | None:
     """Return a reusable bounded status only under current truth contracts."""
 
@@ -57,6 +59,7 @@ def completed_bounded_product_truth_status(
     if (
         not isinstance(lifecycle, ReadmePocLifecycleStateV2)
         or not lifecycle.source_revision
+        or lifecycle.source_revision != current_source_revision
         or not lifecycle_stage_reaches_limit(requested_stage, lifecycle.status)
     ):
         return None

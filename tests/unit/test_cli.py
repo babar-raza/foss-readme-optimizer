@@ -888,6 +888,7 @@ class TestLocalPocPortfolioCommand:
         self, monkeypatch, tmp_path
     ):
         import readme_agent.commands_supervision as supervision_module
+        import readme_agent.gitsafety.clone as clone_module
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
@@ -913,10 +914,15 @@ class TestLocalPocPortfolioCommand:
             loader_module,
             "load_products",
             lambda path: (
-                argparse.Namespace(org_repo="org/one"),
+                argparse.Namespace(
+                    org_repo="org/one",
+                    clone_url="https://example.invalid/org/one.git",
+                    policy_profile=None,
+                ),
                 argparse.Namespace(org_repo="org/two"),
             ),
         )
+        monkeypatch.setattr(clone_module, "remote_head_sha", lambda clone_url: "a" * 40)
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
         monkeypatch.setattr(
             paths,
@@ -926,7 +932,7 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(
             stage_cache_module,
             "completed_bounded_product_truth_status",
-            lambda state_backend, org_repo, bundle_dir, requested_stage: (
+            lambda state_backend, org_repo, bundle_dir, requested_stage, **kwargs: (
                 "FACTS_READY" if org_repo == "org/one" else None
             ),
         )
@@ -955,6 +961,91 @@ class TestLocalPocPortfolioCommand:
         assert '"status": "FACTS_READY"' in rendered
         assert '"llm_cache_reuse_count": 1' in rendered
         assert '"execution_slice_complete": true' in rendered
+
+    def test_complete_cache_uses_live_revision_and_records_inspectable_key(
+        self, monkeypatch, tmp_path
+    ):
+        from types import SimpleNamespace
+
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.gitsafety.clone as clone_module
+        import readme_agent.paths as paths
+        import readme_agent.registry.loader as loader_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.local_poc_cache as cache_module
+        from readme_agent.llm.call_ledger import canonical_call_hash, load_llm_call_records
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.state.schema import RunStateV2
+
+        source_revision = "a" * 40
+        cache_key = "b" * 64
+        backend = _LifecycleFakeBackend()
+        backend._state = RunStateV2(
+            org_repo="org/repo",
+            state_version=1,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                org_repo="org/repo",
+                source_revision=source_revision,
+                status="NO_OP_PROVEN",
+            ),
+        )
+        entry = argparse.Namespace(
+            org_repo="org/repo",
+            clone_url="https://example.invalid/org/repo.git",
+            policy_profile=None,
+        )
+        monkeypatch.setattr(loader_module, "load_products", lambda path: (entry,))
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(clone_module, "remote_head_sha", lambda clone_url: source_revision)
+        monkeypatch.setattr(
+            paths,
+            "readme_poc_portfolio_summary_path",
+            lambda: tmp_path / "summary.json",
+        )
+        monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+        observed: dict[str, object] = {}
+
+        def _cache_decision(state, bundle_dir, **kwargs):
+            observed.update(kwargs)
+            return SimpleNamespace(
+                reusable=True,
+                status="NO_OP_PROVEN",
+                cache_key=cache_key,
+            )
+
+        monkeypatch.setattr(cache_module, "evaluate_completed_local_poc_cache", _cache_decision)
+        monkeypatch.setattr(
+            supervision_module,
+            "cmd_supervise",
+            lambda args: (_ for _ in ()).throw(AssertionError("cache hit must skip execution")),
+        )
+        args = argparse.Namespace(
+            registry="data/products.json",
+            execution_profile="local_poc",
+            domain=None,
+            resume_trigger_key=None,
+            no_registry_heal=False,
+        )
+
+        assert supervision_module._cmd_supervise_registry(args) == 0
+        assert observed["current_source_revision"] == source_revision
+        rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
+        assert '"llm_accounting_status": "EXACT"' in rendered
+        assert '"llm_call_count": 0' in rendered
+        assert '"llm_cache_reuse_count": 1' in rendered
+        ledger = list((tmp_path / "runs" / "llm-calls").rglob("*.jsonl"))
+        assert len(ledger) == 1
+        records = load_llm_call_records(ledger[0])
+        assert len(records) == 1
+        assert records[0].request_sha256 == canonical_call_hash(
+            {
+                "org_repo": "org/repo",
+                "source_revision": source_revision,
+                "status": "NO_OP_PROVEN",
+                "requested_stage": None,
+                "cache_key": cache_key,
+            }
+        )
 
     def test_recovered_terminal_member_still_honors_slice_budget(self, monkeypatch, tmp_path):
         import readme_agent.commands_supervision as supervision_module

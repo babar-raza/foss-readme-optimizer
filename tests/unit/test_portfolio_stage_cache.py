@@ -97,6 +97,7 @@ def test_completed_bounded_status_requires_current_checksum_valid_bundle(
             facts.org_repo,
             bundle_dir,
             "FACTS_READY",
+            current_source_revision=source_revision,
         )
         == "FACTS_READY"
     )
@@ -108,6 +109,7 @@ def test_completed_bounded_status_requires_current_checksum_valid_bundle(
             facts.org_repo,
             bundle_dir,
             "FACTS_READY",
+            current_source_revision=source_revision,
         )
         is None
     )
@@ -186,6 +188,7 @@ def test_candidate_stage_cache_requires_matching_reducer_receipt(monkeypatch, tm
             facts.org_repo,
             bundle_dir,
             "CANDIDATE_GENERATED",
+            current_source_revision=source_revision,
         )
         == "CANDIDATE_GENERATED"
     )
@@ -200,6 +203,7 @@ def test_candidate_stage_cache_requires_matching_reducer_receipt(monkeypatch, tm
             facts.org_repo,
             bundle_dir,
             "CANDIDATE_GENERATED",
+            current_source_revision=source_revision,
         )
         is None
     )

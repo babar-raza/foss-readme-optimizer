@@ -450,13 +450,14 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         return 2
 
     from readme_agent import paths
+    from readme_agent.gitsafety.clone import remote_head_sha
     from readme_agent.registry.loader import load_products
     from readme_agent.registry.priority import order_entries_by_platform_priority
     from readme_agent.state.recovery import recovery_sweep
+    from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
         PortfolioRepositoryResultV1,
-        completed_local_poc_status,
         mark_failed_member_retryable,
         recover_completed_local_poc_status,
         select_portfolio_trigger,
@@ -531,16 +532,31 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     repo,
                     lifecycle.source_revision,
                 )
-                complete_status = (
-                    completed_local_poc_status(persisted, bundle_dir)
-                    if readme_poc_stage_limit is None
-                    else completed_bounded_product_truth_status(
+                current_source_revision = remote_head_sha(entry.clone_url)
+                complete_cache_key: str | None = None
+                if readme_poc_stage_limit is None:
+                    from readme_agent.supervisor.local_poc_cache import (
+                        evaluate_completed_local_poc_cache,
+                    )
+
+                    cache_decision = evaluate_completed_local_poc_cache(
+                        persisted,
+                        bundle_dir,
+                        current_source_revision=current_source_revision,
+                        current_control_plane_fingerprint=compute_control_plane_fingerprint(
+                            entry.policy_profile
+                        ),
+                    )
+                    complete_status = cache_decision.status if cache_decision.reusable else None
+                    complete_cache_key = cache_decision.cache_key
+                else:
+                    complete_status = completed_bounded_product_truth_status(
                         state_backend,
                         entry.org_repo,
                         bundle_dir,
                         readme_poc_stage_limit,
+                        current_source_revision=current_source_revision,
                     )
-                )
                 if complete_status:
                     from readme_agent.evidence.writer import generate_run_id
                     from readme_agent.llm.call_ledger import (
@@ -579,6 +595,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                             "source_revision": lifecycle.source_revision,
                             "status": complete_status,
                             "requested_stage": readme_poc_stage_limit,
+                            "cache_key": complete_cache_key,
                         },
                     )
                     results.append(

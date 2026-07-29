@@ -91,7 +91,12 @@ def _surface_observed_hashes(
     }
 
 
-def _readme_poc_noop_gate_holds(prior: RunStateV2 | None) -> bool:
+def _readme_poc_noop_gate_holds(
+    prior: RunStateV2 | None,
+    *,
+    current_source_revision: str | None,
+    current_control_plane_fingerprint: str,
+) -> bool:
     """A local POC may skip work only after it has proved an unchanged rerun.
 
     The ordinary supervisor freshness shortcut means merely that its prior
@@ -100,13 +105,24 @@ def _readme_poc_noop_gate_holds(prior: RunStateV2 | None) -> bool:
     the dedicated lifecycle has reached the no-op boundary.
     """
     lifecycle = prior.readme_poc_lifecycle if prior is not None else None
-    return lifecycle is not None and lifecycle.status in {
-        "NO_OP_PROVEN",
-        "HUMAN_REVIEW_READY",
-        "HUMAN_ACCEPTED",
-        "PR_ELIGIBLE",
-        "PR_PROOF_COMPLETE",
-    }
+    from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+
+    if (
+        prior is None
+        or not isinstance(lifecycle, ReadmePocLifecycleStateV2)
+        or lifecycle.source_revision is None
+    ):
+        return False
+    from readme_agent.supervisor.local_poc_cache import evaluate_completed_local_poc_cache
+
+    org, repo = prior.org_repo.split("/", maxsplit=1)
+    decision = evaluate_completed_local_poc_cache(
+        prior,
+        paths.readme_poc_repository_dir(org, repo, lifecycle.source_revision),
+        current_source_revision=current_source_revision,
+        current_control_plane_fingerprint=current_control_plane_fingerprint,
+    )
+    return decision.reusable
 
 
 def _local_poc_readme_gate_outcome(
@@ -300,7 +316,14 @@ def supervise_repo(
             now=datetime.now(UTC),
         )
         and readme_poc_stage_limit is None
-        and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state))
+        and (
+            not track_readme_poc_lifecycle
+            or _readme_poc_noop_gate_holds(
+                prior_full_state,
+                current_source_revision=probed_revision,
+                current_control_plane_fingerprint=current_control_plane_fingerprint,
+            )
+        )
     ):
         graph = TaskGraph()
         probe_decisions = [
@@ -529,7 +552,14 @@ def supervise_repo(
             now=datetime.now(UTC),
         )
         and readme_poc_stage_limit is None
-        and (not track_readme_poc_lifecycle or _readme_poc_noop_gate_holds(prior_full_state))
+        and (
+            not track_readme_poc_lifecycle
+            or _readme_poc_noop_gate_holds(
+                prior_full_state,
+                current_source_revision=current_revision,
+                current_control_plane_fingerprint=current_control_plane_fingerprint,
+            )
+        )
     ):
         graph = TaskGraph()
         return SuperviseResult(

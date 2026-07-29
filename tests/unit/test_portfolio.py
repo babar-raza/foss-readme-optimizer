@@ -107,20 +107,40 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
 
 def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
     from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
+    from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+    from readme_agent.facts.local_verification import local_verification_contract_hash
     from readme_agent.llm import prompt_registry
     from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
     from readme_agent.readme.document_templates import document_template_hash
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
-    from readme_agent.state.schema import RunStateV2
+    from readme_agent.state.schema import RunStateV2, SupervisorStateV1
+    from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
 
     source_revision = "a" * 40
+    facts_hash = "b" * 64
+    assessment_hash = "c" * 64
+    presentation_plan_hash = "d" * 64
+    candidate_hash = "e" * 64
+    prompt_hash = "f" * 64
+    fact_contract = current_fact_acceptance_contract()
+    reviewer_standard = separated_reviewer_standard_hash()
+    control_plane = compute_control_plane_fingerprint(None)
     state = RunStateV2(
         org_repo="org/repo",
         readme_poc_lifecycle=ReadmePocLifecycleStateV2(
             org_repo="org/repo",
             source_revision=source_revision,
             status="NO_OP_PROVEN",
+            facts_hash=facts_hash,
+            assessment_hash=assessment_hash,
+            presentation_plan_hash=presentation_plan_hash,
+            candidate_hash=candidate_hash,
+            prompt_hash=prompt_hash,
+            fact_acceptance_contract_hash=fact_contract.canonical_hash(),
+            fact_acceptance_component_hashes=fact_contract.component_hashes,
+            reviewer_standard_hash=reviewer_standard,
         ),
+        supervisor_state=SupervisorStateV1(control_plane_fingerprint=control_plane),
     )
     bundle_dir = tmp_path / source_revision
     write_redacted_json(
@@ -130,7 +150,17 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             "source_revision": source_revision,
             "lifecycle_status": "NO_OP_PROVEN",
             "complete": True,
-            "reviewer_standard_hash": separated_reviewer_standard_hash(),
+            "completed_stages": ["NO_OP_PROVEN"],
+            "facts_hash": facts_hash,
+            "assessment_hash": assessment_hash,
+            "presentation_plan_hash": presentation_plan_hash,
+            "candidate_hash": candidate_hash,
+            "prompt_hash": prompt_hash,
+            "fact_acceptance_contract_hash": fact_contract.canonical_hash(),
+            "fact_acceptance_component_hashes": fact_contract.component_hashes,
+            "local_verification_contract_hash": local_verification_contract_hash(),
+            "prompt_registry_content_hash": prompt_registry.content_hash(),
+            "reviewer_standard_hash": reviewer_standard,
         },
     )
     write_redacted_json(
@@ -141,10 +171,37 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
         bundle_dir / "planning" / "agentic-composition-plan.json",
         {"prompt_sha256": prompt_registry.prompt_hash("plan_readme_composition")},
     )
-    write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"accepted": True})
+    write_redacted_json(
+        bundle_dir / "review" / "final-verdict.json",
+        {
+            "verdict": "AGENT_APPROVED",
+            "agent_approved": True,
+            "deterministic_validation_passed": True,
+        },
+    )
+    write_redacted_json(
+        bundle_dir / "review" / "no-op-proof.json",
+        {
+            "verdict": "NO_OP_PROVEN",
+            "candidate_hash": candidate_hash,
+            "patch_created": False,
+            "duplicate_bundle_created": False,
+            "agentic_review_reused": True,
+            "llm_accounting_status": "EXACT",
+            "new_provider_call_count": 0,
+        },
+    )
     refresh_sha256sums(bundle_dir)
 
-    assert completed_local_poc_status(state, bundle_dir) == "NO_OP_PROVEN"
+    assert (
+        completed_local_poc_status(
+            state,
+            bundle_dir,
+            current_source_revision=source_revision,
+            current_control_plane_fingerprint=control_plane,
+        )
+        == "NO_OP_PROVEN"
+    )
     assert (
         completed_local_poc_status(
             state.model_copy(
@@ -155,12 +212,22 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
                 }
             ),
             bundle_dir,
+            current_source_revision=source_revision,
+            current_control_plane_fingerprint=control_plane,
         )
         is None
     )
 
-    write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"accepted": False})
-    assert completed_local_poc_status(state, bundle_dir) is None
+    write_redacted_json(bundle_dir / "review" / "final-verdict.json", {"agent_approved": False})
+    assert (
+        completed_local_poc_status(
+            state,
+            bundle_dir,
+            current_source_revision=source_revision,
+            current_control_plane_fingerprint=control_plane,
+        )
+        is None
+    )
 
 
 def test_failed_member_returns_its_processing_trigger_to_retryable():
