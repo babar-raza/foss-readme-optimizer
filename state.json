@@ -14,9 +14,9 @@
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 1
     },
-    "claim_expires_at": "2026-07-29T12:51:10.895539+00:00",
-    "claim_id": "8ffa609f91d243358f1ae75312778ce2",
-    "claimed_at": "2026-07-29T12:21:10.895539+00:00",
+    "claim_expires_at": "2026-07-29T13:28:49.790445+00:00",
+    "claim_id": "e9a258f6646e49078f45aab3f666798e",
+    "claimed_at": "2026-07-29T12:58:49.790445+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "fdf1e006a5cd11e543e2fb771e5f8f44711b22808e4710fb9c9b6191c432f726",
@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "fdf1e006a5cd11e543e2fb771e5f8f44711b22808e4710fb9c9b6191c432f726",
-    "last_evaluated_at": "2026-07-29T12:58:14.971482+00:00",
+    "last_evaluated_at": "2026-07-29T12:58:49.790445+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -4906,6 +4906,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "TRP-00-ASSURANCE-CONTRACT",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-07-29T12:58:49.790461+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "TRP-00-ASSURANCE-CONTRACT",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-29T12:58:49.790636+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "TRP-00-ASSURANCE-CONTRACT",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -4914,7 +4932,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 563,
+  "state_version": 564,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
