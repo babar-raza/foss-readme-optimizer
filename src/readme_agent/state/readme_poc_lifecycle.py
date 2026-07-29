@@ -22,7 +22,7 @@ two existing state machines covers.
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import cast
+from typing import Literal, cast
 
 from readme_agent.errors import StateBackendError
 from readme_agent.state.assurance import ContentAssuranceV1, TrustedReadmePocStatusV1
@@ -176,6 +176,20 @@ _TRUSTED_README_POC_TRANSITIONS: dict[
         "TRUSTED_REPAIRING",
     },
 }
+
+# A changed or corrupted trusted source-to-fact graph invalidates every dependent trusted stage.
+# Re-enter extraction without touching repository-verified evidence retained in its own bundle.
+for _trusted_derived_status in (
+    "TRUSTED_FACTS_EXTRACTED",
+    "TRUSTED_PLAN_READY",
+    "TRUSTED_CANDIDATE_GENERATED",
+    "TRUSTED_DETERMINISTIC_VALIDATED",
+    "TRUSTED_REVIEWING",
+    "TRUSTED_REVIEW_REJECTED",
+    "TRUSTED_REPAIRING",
+    "TRUSTED_TRANSFORM_APPROVED",
+):
+    _TRUSTED_README_POC_TRANSITIONS[_trusted_derived_status].add("TRUSTED_FACTS_EXTRACTING")
 
 # A new immutable source revision invalidates every derived stage. The same-
 # revision retry remains an idempotent no-op in ``record_repository_snapshot``;
@@ -352,7 +366,7 @@ def switch_content_assurance(
 def transition_trusted_readme_poc_status(
     backend: StateBackend,
     org_repo: str,
-    to_status: TrustedReadmePocStatusV1,
+    to_status: TrustedReadmePocStatusV1 | Literal["SYSTEM_FAILURE"],
     *,
     observed_by: str,
     reason: str,

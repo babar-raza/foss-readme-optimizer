@@ -13,6 +13,7 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
@@ -215,6 +216,73 @@ def write_local_poc_product_facts(
     )
     refresh_sha256sums(bundle_dir)
     return bundle_dir
+
+
+def write_local_poc_trusted_readme_facts(
+    snapshot: RepositorySnapshotV1,
+    fact_graph: TrustedReadmeFactGraphV1,
+) -> Path:
+    """Persist trusted facts in an assurance-specific root without replacing verified proof."""
+
+    if fact_graph.org_repo != snapshot.org_repo:
+        raise ValueError("trusted fact graph belongs to a different repository")
+    if fact_graph.source_revision != snapshot.source_revision:
+        raise ValueError("trusted fact graph revision differs from the immutable snapshot")
+    if fact_graph.readme_sha256 != snapshot.readme_sha256:
+        raise ValueError("trusted fact graph README checksum differs from the immutable snapshot")
+    org, repo = snapshot.org_repo.split("/", maxsplit=1)
+    bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    trusted_dir = bundle_dir / "assurance" / "trusted_inherited"
+    facts_dir = trusted_dir / "facts"
+    inherited_facts_path = facts_dir / "readme-inherited-facts.json"
+    write_redacted_json(inherited_facts_path, fact_graph)
+    persisted_graph = TrustedReadmeFactGraphV1.model_validate_json(
+        inherited_facts_path.read_text(encoding="utf-8")
+    )
+    if persisted_graph.canonical_hash() != fact_graph.canonical_hash():
+        raise ValueError(
+            "trusted fact evidence changed during redaction and cannot retain source accountability"
+        )
+    write_redacted_json(
+        facts_dir / "source-to-fact-map.json",
+        {
+            fact.fact_id: {
+                "material_kind": fact.material_kind,
+                "heading_path": list(fact.heading_path),
+                "provenance": fact.provenance,
+                "source_span": fact.source_span.model_dump(mode="json"),
+                "instruction_risks": list(fact.instruction_risks),
+            }
+            for fact in fact_graph.inherited_facts
+        },
+    )
+    write_redacted_json(
+        facts_dir / "configured-standards.json",
+        [standard.model_dump(mode="json") for standard in fact_graph.configured_standards],
+    )
+    graph_hash = fact_graph.canonical_hash()
+    write_local_poc_manifest(
+        trusted_dir,
+        {
+            "schema_version": 1,
+            "org_repo": snapshot.org_repo,
+            "source_revision": snapshot.source_revision,
+            "source_bundle": str(bundle_dir / "source"),
+            "readme_sha256": snapshot.readme_sha256,
+            "lifecycle_status": "TRUSTED_FACTS_EXTRACTED",
+            "facts_hash": graph_hash,
+            "complete": False,
+            "completed_stages": [
+                "SNAPSHOTTED",
+                "PROFILED",
+                "TRUSTED_FACTS_EXTRACTING",
+                "TRUSTED_FACTS_EXTRACTED",
+            ],
+        },
+        content_assurance="trusted_inherited",
+    )
+    refresh_sha256sums(trusted_dir)
+    return trusted_dir
 
 
 def bind_local_poc_fact_acceptance(

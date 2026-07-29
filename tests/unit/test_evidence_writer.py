@@ -4,8 +4,10 @@ import re
 from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.writer import (
     generate_run_id,
+    refresh_sha256sums,
     sha256_file,
     unified_diff,
+    verify_sha256sums,
     write_evidence,
     write_run_manifest_v2,
 )
@@ -32,6 +34,20 @@ class TestSha256File:
         digest_crlf, _ = sha256_file(crlf_file)
 
         assert digest_lf == digest_crlf
+
+
+class TestChecksumInventory:
+    def test_exact_inventory_passes_and_corruption_fails(self, tmp_path):
+        evidence_dir = tmp_path / "evidence"
+        evidence_dir.mkdir()
+        artifact = evidence_dir / "artifact.json"
+        artifact.write_text('{"status":"accepted"}\n', encoding="utf-8")
+
+        refresh_sha256sums(evidence_dir)
+
+        assert verify_sha256sums(evidence_dir) is True
+        artifact.write_text('{"status":"corrupted"}\n', encoding="utf-8")
+        assert verify_sha256sums(evidence_dir) is False
 
 
 class TestUnifiedDiff:

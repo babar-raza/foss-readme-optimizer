@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from readme_agent.evidence.writer import sha256_file
+from readme_agent.evidence.writer import verify_sha256sums
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.supervisor.portfolio_scheduler.contracts import StageReceiptV1
@@ -14,34 +14,6 @@ from readme_agent.supervisor.stage_limit import (
     ReadmePocStageLimitV1,
     lifecycle_stage_reaches_limit,
 )
-
-
-def _checksum_inventory_valid(bundle_dir: Path) -> bool:
-    inventory_path = bundle_dir / "sha256sums.txt"
-    if not inventory_path.is_file():
-        return False
-    try:
-        expected: dict[str, str] = {}
-        for line in inventory_path.read_text(encoding="utf-8").splitlines():
-            digest, relative = line.split("  ", maxsplit=1)
-            if (
-                len(digest) != 64
-                or any(character not in "0123456789abcdef" for character in digest)
-                or not relative
-                or relative in expected
-            ):
-                return False
-            expected[relative] = digest
-    except (OSError, UnicodeError, ValueError):
-        return False
-    actual = {
-        path.relative_to(bundle_dir).as_posix(): path
-        for path in bundle_dir.rglob("*")
-        if path.is_file() and path.name != "sha256sums.txt"
-    }
-    return set(expected) == set(actual) and all(
-        sha256_file(actual[relative])[0] == digest for relative, digest in expected.items()
-    )
 
 
 def completed_bounded_product_truth_status(
@@ -82,7 +54,7 @@ def completed_bounded_product_truth_status(
     ):
         return None
     manifest_path = bundle_dir / "manifest.json"
-    if not manifest_path.is_file() or not _checksum_inventory_valid(bundle_dir):
+    if not manifest_path.is_file() or not verify_sha256sums(bundle_dir):
         return None
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))

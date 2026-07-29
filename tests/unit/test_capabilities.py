@@ -165,7 +165,7 @@ class TestCapabilityGap:
 
 
 class TestRegistry:
-    def test_all_twenty_eight_capabilities_registered(self):
+    def test_all_registered_capabilities(self):
         ids = {m.capability_id for m in registry.list_all()}
         assert ids == {
             "inspect_repository",
@@ -173,6 +173,8 @@ class TestRegistry:
             "check_install_path",
             "profile_repository",
             "get_product_facts",
+            # TRP-01: immutable README-only facts for the lower-assurance lane.
+            "extract_trusted_readme_facts",
             # RPOC-033: agentic product_truth drafting for repos with no
             # policy-authored product_truth yet -- read-only, never writes
             # to config/policies/*.yml.
@@ -355,7 +357,7 @@ class TestRegistry:
 
     def test_filter_by_execution_type(self):
         tools = registry.filter_by(execution_type="deterministic_tool")
-        assert len(tools) == 12  # Wave 4 local foundation adds structured planning
+        assert len(tools) == 13
 
     def test_filter_by_execution_type_manual_delivery_preparation(self):
         """Wave 7h: the first capability to use this execution_type,
@@ -546,15 +548,9 @@ class TestRegistryEff001RegistrationGate:
         )
         registry._build((mutator,))  # must not raise
 
-    def test_real_registry_of_twenty_eight_capabilities_still_builds_cleanly(self):
-        """Regression: twenty-six read-only capabilities (agentic README composition adds
-        one to the RPOC-033 set, which added
-        draft_product_truth to the prior twenty-four -- RPOC-050/051/052's own
-        verify_readme_proposal_bundle/verify_cross_pilot_specificity plus the
-        earlier twenty-two) plus the two real mutating capabilities
-        (commit_readme_write, Wave 7g; open_presentation_pr, TC-08) all pass
-        the mutating-only gate."""
-        assert len(registry.list_all()) == 28
+    def test_real_registry_still_builds_cleanly(self):
+        """Regression: the complete current registry still passes the mutating-only gate."""
+        assert len(registry.list_all()) == 29
 
 
 class TestInspectRepositoryCapability:

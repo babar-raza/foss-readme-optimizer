@@ -172,6 +172,36 @@ def refresh_sha256sums(evidence_dir: Path) -> None:
     _write_sha256sums(evidence_dir)
 
 
+def verify_sha256sums(evidence_dir: Path) -> bool:
+    """Verify that the checksum inventory exactly covers every sibling artifact."""
+
+    inventory_path = evidence_dir / "sha256sums.txt"
+    if not inventory_path.is_file():
+        return False
+    try:
+        expected: dict[str, str] = {}
+        for line in inventory_path.read_text(encoding="utf-8").splitlines():
+            digest, relative = line.split("  ", maxsplit=1)
+            if (
+                len(digest) != 64
+                or any(character not in "0123456789abcdef" for character in digest)
+                or not relative
+                or relative in expected
+            ):
+                return False
+            expected[relative] = digest
+    except (OSError, UnicodeError, ValueError):
+        return False
+    actual = {
+        path.relative_to(evidence_dir).as_posix(): path
+        for path in evidence_dir.rglob("*")
+        if path.is_file() and path.name != "sha256sums.txt"
+    }
+    return set(expected) == set(actual) and all(
+        sha256_file(actual[relative])[0] == digest for relative, digest in expected.items()
+    )
+
+
 def write_readme_proposal_bundle(
     bundle_dir: Path,
     *,
