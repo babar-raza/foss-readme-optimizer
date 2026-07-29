@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "fdf1e006a5cd11e543e2fb771e5f8f44711b22808e4710fb9c9b6191c432f726",
-    "last_evaluated_at": "2026-07-29T12:59:30.947429+00:00",
+    "last_evaluated_at": "2026-07-29T12:59:44.837967+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -185,7 +185,7 @@
       "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": "TODO",
       "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": "TODO",
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
-      "TRP-00-ASSURANCE-CONTRACT": "VERIFIED",
+      "TRP-00-ASSURANCE-CONTRACT": "SCORED",
       "TRP-01-README-DERIVED-FACTS": "TODO",
       "TRP-02-LLM-FIRST-COMPOSITION": "TODO",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
@@ -4935,6 +4935,17 @@
         "reason": "Focused negative controls, complete 2190-test non-live regression, and governance checks verify the implemented contract.",
         "task_id": "TRP-00-ASSURANCE-CONTRACT",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-00-assurance-contract-v1/verification-summary.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-29T12:59:44.837952+00:00",
+        "reason": "Independent contribution review accepts indispensable safety with an unchanged truthfully measured portfolio scoreboard.",
+        "task_id": "TRP-00-ASSURANCE-CONTRACT",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -4943,7 +4954,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 566,
+  "state_version": 567,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
