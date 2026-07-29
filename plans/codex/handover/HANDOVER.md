@@ -2,226 +2,213 @@
 
 ## 1. Handover Snapshot
 
-| Field | Verified value |
+| Field | Value |
 |---|---|
 | Verdict | `HANDOVER_READY` |
 | Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
-| Branch / HEAD | `main` / `8737a702ba3a30a7e3dcdc9e1d0222850eb688eb` |
-| Upstream | `origin/main` at `a6db18cff0cf56bdb3d59b9a390adb5c5e776829`; local main is ahead |
-| Working tree | Clean at snapshot |
+| Branch / content checkpoint | `main` / `bb994cf91d3b11e0a1774be092e221a721a0e6f9` |
+| Upstream | `origin/main` at `5fdf77deb3898db4994413d5f77b8470a9ee1290` |
+| Working tree | Clean at the content checkpoint; the containing handover commit is the next commit |
 | Mission | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
-| Durable state | Version 152; graph `2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc`; no drift |
-| Current phase | Atomic local product-truth qualification |
-| Current task | `L8-TRUTH-01-STAGE-LIMIT` (`IN_PROGRESS`) |
-| Exact next action | Run one real read-only `FACTS_READY` bounded proof against the committed ceiling, verify zero later-stage artifacts/calls, then close or repair `L8-TRUTH-01-STAGE-LIMIT`. |
-| Overall status | Mission incomplete: 65 unresolved tasks, one non-current external block. |
+| Durable state | Version 527; graph `471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39`; no drift |
+| Current phase | Independent-review production-route qualification |
+| Active task | None; checkpoint intentionally released the claim |
+| Next eligible task | `L8-REVIEW-00-CONTEXT-CORPUS` (`REGRESSED`) |
+| Exact next action | Claim `L8-REVIEW-00-CONTEXT-CORPUS`, repair the bounded factual-review output/transport contract, and re-run the sealed C++ canary before resuming the seven-representative corpus. |
+| Portfolio boundary | 31 repositories; facts 8, candidates 8, deterministic 8, agent-approved 0, no-op 0, human-accepted 0 |
 
-This snapshot is derived. The supervisor Git-ref state is the live transition and claim authority.
+This is a derived checkpoint. The supervisor Git-ref mission state remains the live claim and
+transition authority and must be re-read before acting.
 
 ## 2. Ultimate Goal
 
-Deliver the system in `plans/idea.md`: autonomously understand each repository, construct
-provenance-complete product truth, decide the relevant presentation work, generate bounded
-repository-specific proposals, independently verify and repair them, safely create authorized
-draft proposals, recover from interruption and duplication, and ultimately earn an independently
-reproducible Level-8 award after 90 production days.
+Deliver and prove the autonomous repository-presentation system defined by `plans/idea.md`. It
+must build verified product truth, generate repository-specific presentation proposals, validate
+and independently review them, safely manage authorized draft effects, recover without duplicate
+effects, and ultimately earn Level 8 through independently reproducible 30-day and 90-day
+production evidence.
 
-The immediate goal is trustworthy local proof. It is deliberately no longer “run all 31 now.”
-The atomic fact, composition, review, recovery, and cost contracts must first work on real
-representatives; only then may the same frozen campaign fan out to the runtime-loaded registry.
+The immediate visible goal remains full-registry local Gate A: every runtime-loaded registry entry
+must have a deterministic-valid, independently agent-approved, unchanged-rerun-proven bundle.
 
 ## 3. Current Mission and Scope
 
-The sole mission is `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`. Mandatory outcomes include:
+The only mission is `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`. Work stays on control-repository
+`main`. No product write, GitHub App request, Gate C/D work, or human review occurs before its
+ordered dependency gate. The system—not a human—selects normal capabilities and repairs.
 
-- one canonical `supervise` runtime and durable state;
-- immutable snapshots and versioned, provenance-complete facts;
-- OS-isolated untrusted build/example execution;
-- complete accountability for generated and inherited README claims;
-- deterministic validation plus independent quality and factual review;
-- effective repair, exact no-op reuse, restart and duplicate safety;
-- all-registry local Gate A, human Gate B, workflow proof under `act`, staging, Gate C draft-PR
-  proof, Gate D hosted runtime, Level 5, Level 7's 30 days, and Level 8's 90 days.
-
-Non-goals now: portfolio fan-out before representative qualification; GitHub App work before Gate
-C; product writes without fresh approval; auto-merge/default-branch/package/release/generated-
-surface writes; another plan/controller/queue; or treating code/tests/reports as completion.
+Completion requires all durable taskcards to be `CLOSED`, truthful requirement/evidence
+reconciliation, Gate A/B, `act`, staging, Gate C, hosted operation, Level 5, 30-day Level 7, and
+90-day Level 8 proof. A test, commit, report, or partial portfolio is not completion.
 
 ## 4. Authority and Reference Map
 
-| Reference | Role | Status |
-|---|---|---|
-| `AGENTS.md` | repository, safety, test, layout, and gate rules | binding/current |
-| `plans/GOVERNANCE.md` | plan and repository governance | binding/current |
-| `plans/idea.md` | final product outcome and ordered gates | authoritative/current |
-| `plans/master.md` | architecture, decisions, sequence, maturity gates | authoritative/current |
-| `plans/requirements.md` | normative acceptance | authoritative/current |
-| `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` | sole executable dependency graph | authoritative/current |
-| supervisor Git-ref mission state | claims, transitions, durable status | authoritative/live |
-| `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` | detailed multi-perspective route | supporting/current |
-| `logs/2026-07-26.md` | audit and replan history | supporting/current |
-| former contents of this directory | old Gate-A snapshot at `e454f7f`/state 132 | stale/contradicted |
+Authority, in order:
 
-Git ancestry checks verified that `f8b83a4`, `a7ac331`, `f89da60`, `80432cc`, and `a6db18c` all
-exist and are ancestors of the snapshot HEAD. No cited main-branch history was lost.
+1. `plans/idea.md` — product outcome and ordered gates.
+2. `plans/master.md` — governed architecture, decisions, sequence, and maturity gates.
+3. `plans/requirements.md` — normative acceptance.
+4. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` — sole executable graph.
+5. Supervisor Git-ref mission state — live statuses, claims, leases, and transitions.
+6. `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` — supporting design only.
 
-## 5. Exact Plan
+`AGENTS.md` and `plans/GOVERNANCE.md` are binding operating and safety rules. This directory is a
+derived restart aid and never overrides durable state.
 
-The detailed phase plan is in
-`plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md`; the task graph is executable.
-The corrected critical path is:
+## 5. Exact Plan and Current Route
 
-1. Stage-limited truth collection and acceptance-contract invalidation.
-2. Product-root roles, evidence polarity, isolated execution, acquisition, examples, visitor
-   views, seven-ecosystem facts, and complete truth preflight.
-3. Real assessment corpus, executable document operations, complete final-claim accountability,
-   presentation lint, and seven differentiated candidates.
-4. Blind quality review, blind fact/plan review, effective repair, exact no-op caching, and real
-   representative campaign.
-5. Single-writer/recovery qualification, governed golden set, freeze controls, measured cost
-   baseline, then campaign freeze.
-6. Bounded cohort execution over every current registry entry and independently reproduced Gate A.
-7. Gate B, `act`, disposable staging, Gate C Java draft PRs, Gate D hosted runtime, Level 5,
-   Level 7, and Level 8.
+The current dependency route is:
 
-Each task closes only through its taskcard outputs, focused/integration/regression/safety/live-like
-proof, independent verification, checksum inventory, and durable transition.
+1. Requalify `L8-REVIEW-00-CONTEXT-CORPUS`.
+2. Return `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`.
+3. Prove good, defective, repairable, conflicting, and missing-evidence behavior across seven real
+   ecosystem representatives under the same frozen reviewer standard.
+4. Continue the graph-selected local heterogeneous qualification and full-registry Gate A tasks.
+5. Gate B human review only after every repository is agent-approved and no-op-proven.
+6. Prove the canonical workflow under `act`, then disposable staging.
+7. Gate C Java draft-PR proof with fresh per-push authorization.
+8. Request GitHub App authority only after Gate C, then hosted runtime and Level 5.
+9. Complete Level 7's 30-day and Level 8's 90-day windows and independent audit.
 
-## 6. Work Completed
+Each task requires focused, integration, regression, safety, real/live-like, recovery,
+idempotency, redaction, checksum, and independent evidence appropriate to its claim.
 
-### Verified complete
+## 6. Work Completed and Truth Classification
 
-- `L8-LOCAL-PORTFOLIO-RUNTIME` is durably `CLOSED`. Its canonical profile, lifecycle foundation,
-  and evidence remain reusable.
-- Plan structure validation and requirement/task coverage are current: 412 requirements mapped.
-- Mission/control plan tests pass: 32 tests.
-- Focused recent implementation regression passed: 249 tests.
-- The current graph loads with 82 unique taskcards.
+Verified and durably closed immediately before this checkpoint:
 
-### Implemented but unverified or regressed
+- `L8-REVIEW-03A-CACHE-MEASUREMENT`: complete-input cache binding and measured invalidation
+  evidence; implementation `40e6e73b`, evidence `4d168c97`.
+- `L8-REVIEW-04-NO-OP-CACHE`: restart-safe exact reuse and stage-scoped invalidation; implementation
+  `e37ba9b`, evidence `5fdf77de`.
 
-- `L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH` is `REROUTED`, not complete under current acceptance.
-- Composition, independent review, heterogeneous qualification, and Gate A are `REGRESSED`.
-- Earlier code and evidence remain valuable component proof, but not current end-to-end acceptance.
+The prior clean full suite at `40e6e73b` passed Ruff, format, mypy, and
+`2129 passed, 41 deselected`. Later focused review/cache regressions passed, but no newer complete
+suite was claimed for this evidence-only checkpoint.
 
-### Contradicted
+Contradicted and reopened:
 
-- The old handover's claim that product truth, composition, review, and qualification were verified
-  is contradicted by current durable status and live bundle replay.
-- Four lifecycle records said `NO_OP_PROVEN`; current `_fact_outcome()` replay gives one Java
-  `FACTS_READY` and three `BLOCKED_MISSING_EVIDENCE`.
-- Independent review accepted output whose material inherited claims were absent from its claim
-  map. Reviewer prose is not proof.
-- Credential-filtered host subprocess execution is not OS isolation and cannot prove safe builds.
+- `L8-REVIEW-00-CONTEXT-CORPUS` had been `CLOSED`. A fresh real C++ run on control HEAD
+  `5fdf77de` proved the factual role still cannot complete its schema under the production route.
+  Durable state now marks it `REGRESSED`.
+- `L8-REVIEW-04A-REAL-CORPUS` was active. It is now `REROUTED` until the owning role route is
+  repaired; the remaining six representatives were deliberately not called against a known-broken
+  route.
 
 ## 7. Current Working State
 
-The plan audit, task-graph migration, and typed facts ceiling are committed through `8737a70`. Mission `evaluate`
-reconciled the graph and retained/claimed `L8-TRUTH-01-STAGE-LIMIT` at durable state 152.
+The sealed C++ candidate is:
 
-Latest successful boundary: the committed canonical runtime stops at `FACTS_READY`; focused
-CLI/profile/portfolio, supervisor, allow-list, push-blocking, evidence-safety, Ruff, and mypy
-checks pass. Latest open boundary: one real read-only representative and artifact/call-inventory
-inspection remain before task closure.
+`runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9`
 
-The intended next action is proof and repair if needed, not another implementation seam.
+The blind review completed. The factual review received about 25,014 prompt tokens and both
+attempts terminated at exactly 2,400 completion tokens with truncated JSON. The second attempt
+repeated the same structurally oversized request. The system correctly retained the candidate,
+denied approval/repair authority, and made no remote write, but fail-closed behavior is not route
+qualification.
 
-## 8. Remaining Gaps
+Evidence is committed at:
 
-| Gap | Severity | First failing boundary | Permanent solution / proof |
-|---|---|---|---|
-| `L8-015` / `L8-TRUTH-01-STAGE-LIMIT` | P0 | no facts-only canonical run | typed stage ceiling; fixture and real proof; zero later calls |
-| `L8-018` / `L8-TRUTH-01A-FACT-CONTRACT` | P0 | stale terminal caches survive new eligibility rules | version full acceptance contract; reopen three false terminal bundles |
-| `L8-019` / `L8-TRUTH-03A-ISOLATED-EXECUTOR` | P0 safety | builds run on operator host | disposable OS isolation with resource/network/process escape controls |
-| `L8-020` / `L8-COMPOSE-02B-FINAL-CLAIM-CORPUS` | P0 trust | preserved claims evade claim map | inventory every final claim; fact/owner/uncertainty binding |
-| independent review | P0 trust | reviewer false accepts | separate blind quality and factual/plan reviewers plus span-grounded findings |
-| Gate A | P0 milestone | no bundle survives corrected full trust standard | frozen representative campaign, then bounded full-registry cohorts |
-| hosted authority | external/deferred | GitHub Actions/App installation | request only after Gates A/B/act/staging/C |
+`plans/investigations/evidence/level8-review-real-corpus-route-failure-v1/`
+
+The evidence records the exact three-call delta, candidate/reviewer hashes, reproduction command,
+root-cause boundary, and checksums. Commit `bb994cf9` contains it.
+
+## 8. Remaining Gap and Permanent Repair
+
+Gap `REVIEW-ROUTE-OUTPUT-BOUND` affects `L8-REVIEW-00-CONTEXT-CORPUS` and blocks
+`L8-REVIEW-04A-REAL-CORPUS`.
+
+- Symptom: invalid unterminated JSON on both factual-review attempts.
+- First failing boundary: fixed 2,400-token completion cap plus an unchanged retry.
+- Structural cause: the response contract is not bounded independently of evidence-rich repository
+  size, while the transport treats length exhaustion like an ordinary invalid response.
+- Preserve: separate blind/factual roles, grounding requirements, deterministic reducer,
+  candidate retention, fail-closed verdicts, exact accounting, and no-write safety.
+- Repair: bound the response schema, compact context without dropping evidence grounding, classify
+  length termination distinctly, and use a bounded deterministic recovery strategy instead of an
+  identical retry.
+- Required proof: focused transport/schema/role tests; review integration and lifecycle tests;
+  allow-list, push-blocking, and evidence-redaction regressions; successful complete C++ canary;
+  then all seven real representatives with zero critical false accepts and effective repair.
+
+Do not solve this only by weakening the schema, dropping fact citations, or blindly raising a
+token cap. A larger bounded cap may be one component, but the contract must remain predictable in
+cost and output size.
 
 ## 9. Ordered Execution Queue
 
-The first task is `L8-TRUTH-01-STAGE-LIMIT`.
+1. Claim `L8-REVIEW-00-CONTEXT-CORPUS`.
+2. Inspect `src/readme_agent/llm/verifier_client.py`,
+   `src/readme_agent/llm/reviewer_client.py`,
+   `src/readme_agent/specialists/independent_readme_review.py`, the verification prompts, and their
+   tests.
+3. Implement the smallest complete bounded-output and length-aware recovery design within the
+   taskcard's allowed paths.
+4. Run focused tests, then review/lifecycle/safety regression.
+5. Re-run only the sealed C++ canary. It must return a complete governed verdict, not
+   `SYSTEM_FAILURE` from truncation.
+6. Write checksum-complete evidence and close the reopened task only if the real canary and
+   regressions pass.
+7. Transition `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`, claim it, and execute the
+   seven-representative corpus.
+8. Continue only through the graph-selected successor.
 
-- Allowed paths: `src/readme_agent/`, `tests/`, `docs/`, `plans/investigations/`, `logs/`.
-- Implement: locate the existing execution-profile and lifecycle dispatch seams; add a typed stage
-  ceiling; stop after persisted `FACTS_READY`; prevent later capability selection and terminal
-  overclaim.
-- Focused proof: CLI/profile unit tests and heterogeneous fixture integration.
-- Regression: supervisor, lifecycle, profile, allow-list, and push-blocking tests.
-- Live-like proof: one real read-only representative stops at facts with a capability-call
-  inventory and checksums.
-- Acceptance: no composition/review artifact or call; no `AGENT_APPROVED`/Gate-A claim.
-
-Then follow durable dependency order: fact-contract invalidation, root roles, evidence polarity,
-isolated executor, acquisition/examples/views, seven-ecosystem truth, composition, split review,
-qualification, Gate A, Gate B, `act`, staging, Gate C, Gate D, Levels 5/7/8.
-
-Unrelated tasks may run only if the graph marks them eligible. The current external hosted-runtime
-block does not block local work.
+No other task currently needs a second editing operator. Later portfolio parallelism must be
+runtime-owned, lease-isolated, and introduced only after representative qualification.
 
 ## 10. Decisions and Constraints
 
-- Control-repository `main` only; no branches.
-- Preserve all work; no reset, restore, clean, force operations, or concurrent overwrite.
-- `.venv/Scripts/` only for Python tooling.
-- Commits include `Co-Authored-By: Codex <noreply@openai.com>`.
-- `supervise` remains the only production runtime; new behavior is a registered typed capability
-  or an existing typed control seam.
-- Default deterministic; LLM output is structured proposal, never direct effect.
-- Repository text is untrusted; prompt safety is not OS sandboxing.
-- Preserve bytes and maintainer intent, but never treat preservation as factual approval.
-- No product remote writes without fresh exact what/why/where approval.
-- No GitHub App request before Gate C prerequisites.
+- One Codex operator; no overlapping top-level test/proof/supervisor process.
+- Work only on `main`; preserve all existing work; no reset, restore, clean, or force-push.
+- Every Codex commit requires the Codex co-author trailer.
+- No `plans/master.md` edit without fresh section-specific approval.
+- No product-repository write without fresh exact what/why/where approval.
+- Use `.venv/Scripts/python`; no second environment or global installation.
+- Prefer proven libraries/reference implementations before bespoke machinery.
+- Deterministic control and safety remain authoritative; LLM output is a proposal.
+- A `BLOCKED` result is agent-fixable unless proven external.
+- No GitHub App request before local Gate A/B, `act`, staging, and Gate C.
 
 ## 11. Tests, Proof, and Evidence
 
-Actually run during reconciliation:
+This checkpoint ran:
 
-```text
-.venv/Scripts/python scripts/governance/validate_plan_structure.py
-  -> clean; 51 pre-existing long-row warnings
-.venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check
-  -> current; 412 rows
-.venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_validate_plan_structure.py
-  -> 32 passed
-.venv/Scripts/python -m ruff check scripts/governance/build_level8_requirement_taskcard_coverage.py
-  -> passed
-.venv/Scripts/python -m ruff format --check scripts/governance/build_level8_requirement_taskcard_coverage.py
-  -> formatted
-```
+- live `readme-agent preflight`: GitHub reads and configured LLM route passed;
+- real C++ reviewer probe: three new calls, `SYSTEM_FAILURE`, candidate retained, no write;
+- `tests/security/test_no_secrets_in_evidence.py`: `2 passed`;
+- commit hooks: Ruff, format, mypy, plan structure, and diff checks passed.
 
-Do not claim a current full `pytest -q` result; it remains to run at the appropriate stable task
-boundary. Diagnostic evidence is under `runs/readme-poc/`; committed audit history is in
-`logs/2026-07-26.md`.
+The next agent must not claim the real-corpus task complete from the current negative evidence.
 
 ## 12. Risks and Uncertainty
 
-- Local main is ahead of upstream; a future agent must not assume an unpublished commit is absent.
-- Runtime lifecycle data was not automatically invalidated by acceptance-rule changes.
-- Large orchestration modules increase regression risk; split only at a concrete acceptance seam.
-- Real builds are supply-chain execution and remain ineligible on the host until isolation closes.
-- LLM reviewer agreement can amplify shared blind spots; deterministic claim coverage and split
-  review are mandatory.
-- Registry size is currently 31 but must always be loaded dynamically.
-- Documentation cannot keep an inactive agent running; durable state is continuity, not scheduling.
+- The production route may need both response-contract compaction and a higher bounded completion
+  budget; current evidence cannot establish which alone is sufficient.
+- The current proof tool's stable campaign ledger accumulates old calls. Evidence therefore uses an
+  explicit set-difference call delta. The eventual campaign tool should report per-invocation and
+  cumulative accounting separately.
+- A complete C++ verdict may expose genuine semantic defects after transport repair. That is
+  expected and must flow through governed repair or fact-block paths.
+- Six representatives remain untested under the corrected route.
 
 ## 13. Receiving Agent Startup Steps
 
-1. Start with `plans/codex/handover/CONTINUE.md`.
-2. Read the authority files and active taskcard completely.
-3. Verify branch, HEAD, status, active processes, graph hash, and mission `status`.
-4. Evaluate graph drift if present; do not steal an unexpired claim.
-5. Execute `L8-TRUTH-01-STAGE-LIMIT` only within allowed paths.
-6. Run focused tests, integration, listed regressions, and one real read-only proof.
-7. Capture command, HEAD, capability calls, outcomes, checksums, and independent review.
-8. Transition with evidence, update requirements/logs/handover, commit to main with trailer.
-9. Rebuild eligibility and claim the next task.
-10. Continue the same loop autonomously through final independent Level-8 closure.
+1. Read `AGENTS.md`, `plans/GOVERNANCE.md`, the five authority layers above, and this handover.
+2. Verify `main`, HEAD, clean tree, no repository-owned process, graph hash, and durable status.
+3. If the snapshot differs, trust live durable state and reconcile this handover.
+4. Claim only `L8-REVIEW-00-CONTEXT-CORPUS` through the supervisor lease mechanism.
+5. Read its complete taskcard and the failure evidence.
+6. Inspect the output contract and transport before editing.
+7. Implement a bounded, length-aware, grounded reviewer route.
+8. Run focused and regression proof, then the sealed C++ live canary.
+9. Record redacted checksummed evidence, transition truthfully, commit to `main`, and rebuild
+   eligibility.
+10. Resume `L8-REVIEW-04A-REAL-CORPUS` and continue autonomously.
 
 ## 14. Closure Standard
 
-The mission closes only when every mandatory durable task is `CLOSED`; requirements truthfully
-match current implementation and production-like evidence; local, recovery, idempotency,
-workflow, staging, authorized effect, hosted, 30-day, and 90-day gates pass; every accepted trigger
-is terminal or visibly blocked/retryable; prohibited writes and false successes are zero; and an
-independent audit reproduces the evidence and awards Level 8.
+The mission may be called complete only when every mandatory durable task is `CLOSED`, requirements
+and evidence agree, all local/workflow/staging/publication/hosted safety and recovery gates pass,
+the 30-day and 90-day operating windows complete, and an independent audit awards Level 8. The
+current state is not Gate A, Level 5, Level 7, or Level 8.

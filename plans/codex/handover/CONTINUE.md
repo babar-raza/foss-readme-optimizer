@@ -1,138 +1,109 @@
-# Continuation Prompt: Resume the Corrected Level-8 Mission
+# Continue the Level-8 Mission
 
-Resume `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` in:
+Resume in:
 
-```text
-D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
-```
+`D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer`
 
-The product goal is the complete autonomous repository-presentation system in `plans/idea.md`,
-ending only after the independently reproducible 90-day Level-8 proof. Do not create another
-plan, controller, queue, state store, branch, or completion narrative.
+Mission: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
 
-## Authority
+The content snapshot immediately before the containing handover commit is `main` at
+`bb994cf91d3b11e0a1774be092e221a721a0e6f9`, with a clean tree, durable mission state version 527,
+graph hash `471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39`,
+no active claim, and `L8-REVIEW-00-CONTEXT-CORPUS` as the next eligible task. Re-read live state;
+this narrative never overrides it.
 
-Read and obey:
+## Authority and Goal
 
-1. `AGENTS.md` and `plans/GOVERNANCE.md`;
-2. `plans/idea.md`;
-3. `plans/master.md`;
-4. `plans/requirements.md`;
-5. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`;
-6. the supervisor Git-ref mission state;
-7. `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` and this handover as
-   derived explanations only.
+Use only this authority chain:
 
-The verified snapshot is `main` at
-`8737a702ba3a30a7e3dcdc9e1d0222850eb688eb`, mission state version 152, graph
-`2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc`, with
-`L8-TRUTH-01-STAGE-LIMIT` active. Re-read live state; never let this snapshot override it.
+1. `plans/idea.md`
+2. `plans/master.md`
+3. `plans/requirements.md`
+4. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
+5. supervisor Git-ref mission state
+6. `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` as supporting design
 
-## What Changed
+Read `AGENTS.md` and `plans/GOVERNANCE.md` first. Do not create a competing plan, controller,
+queue, state store, or branch.
 
-Git history was not lost. Commits `f8b83a4`, `a7ac331`, `f89da60`, `80432cc`, and `a6db18c` are
-all ancestors of the snapshot HEAD. The lost continuity was in derived records:
-
-- the former handover still named HEAD `e454f7f`, state 132, and Gate A;
-- four bundles were labeled `NO_OP_PROVEN`, but replaying the current fact contract left only
-  Java `FACTS_READY`; Python, TypeScript, and BarCode Python reopened as
-  `BLOCKED_MISSING_EVIDENCE`;
-- the Java candidate's claim map omitted material inherited parity, performance,
-  proprietary-format, and no-rewrite claims;
-- repository and dependency build commands were running on the operator host despite credential
-  filtering not being an OS sandbox;
-- synthetic reviewer/qualification success did not prevent obvious real-output false accepts.
-
-The durable graph therefore regressed the broad composition, review, qualification, and Gate-A
-tasks and rerouted product truth into atomic `L8-TRUTH-*` children. Do not restore the former
-full-registry fan-out.
+The goal is not implementation-only closure. Continue through full-registry local Gate A, Gate B,
+`act`, staging, Gate C, hosted operation, Level 5, Level 7's 30 days, Level 8's 90 days, and final
+independent audit.
 
 ## Startup
 
-1. Inspect branch, HEAD, status, recent history, active writers, and relevant diffs. Preserve all
-   work; never reset, restore, clean, force-push, or overwrite concurrent/user-owned changes.
+1. Verify branch, HEAD, tree, repository-owned processes, graph hash, and mission status.
 2. Run:
 
    ```powershell
    .venv/Scripts/readme-agent supervise `
      --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
      --mission-action status `
-     --mission-observer "<agent-identity>"
+     --mission-observer Codex
    ```
 
-3. If graph drift is reported, use `--mission-action evaluate`. Never steal a live claim; reclaim
-   only through the existing lease mechanism.
-4. Read the complete `L8-TRUTH-01-STAGE-LIMIT` taskcard and requirement `L8-015`; its typed
-   implementation is committed and its real read-only proof remains open.
-5. Reconcile its allowed paths and the public `supervise` runtime before editing.
+3. If graph drift exists, evaluate. Never steal a live unexpired claim.
+4. Read the complete `L8-REVIEW-00-CONTEXT-CORPUS` taskcard and
+   `plans/investigations/evidence/level8-review-real-corpus-route-failure-v1/`.
+5. Claim the task through the same supervisor.
 
-## First Task
+## First Failing Boundary
 
-Run and inspect the committed typed stage-limit contract on the existing canonical interface:
+The blind role completed on the sealed real C++ candidate. The factual role used about 25,014
+prompt tokens and exhausted the fixed 2,400-token completion cap twice, returning truncated JSON
+both times. The unchanged retry repeated the structural failure. Fail-closed safety worked, but the
+production route is unqualified.
+
+Preserve the separate roles, grounding, deterministic reduction, candidate retention, exact
+accounting, and no-write behavior. Build a production-grade bounded-output design:
+
+- bound the factual response contract independently of repository size;
+- compact context without dropping fact/plan/claim/evidence grounding;
+- classify `finish_reason=length` separately;
+- use a bounded deterministic recovery strategy instead of repeating an identical request;
+- keep cost and call counts predictable.
+
+Do not merely weaken the schema, remove citations, or increase tokens without a bound.
+
+## Required Proof
+
+Run focused transport/schema/role tests, reviewer integration, lifecycle, allow-list,
+push-blocking, and redaction regressions. Then rerun:
 
 ```powershell
-.venv/Scripts/readme-agent supervise `
-  --registry data/products.json `
-  --execution-profile local_poc `
-  --max-readme-poc-stage FACTS_READY
+.venv/Scripts/python plans/investigations/tools/prove_grounded_review_real.py `
+  --bundle runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/3e1edeacd4c1600507009c3fd3bf122d54f5d3a9 `
+  --output runs/level8-review-real-corpus-probe/cpp-requalified
 ```
 
-Required proof:
+The canary must produce a complete governed verdict. A semantic rejection is valid; transport
+truncation is not. Record exact per-invocation calls, checksums, candidate retention, and zero
+remote writes.
 
-- CLI/profile unit tests;
-- heterogeneous fixture-registry integration;
-- public supervisor reaches `FACTS_READY`;
-- composition, candidate generation, review, repair, and no-op capabilities have zero calls;
-- a stage-limited run cannot claim `AGENT_APPROVED` or Gate A;
-- relevant supervisor, lifecycle, profile, allow-list, and push-blocking regressions;
-- one real read-only representative with command, HEAD, summary, call inventory, and checksums.
+After closing the repaired owner task, transition `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to
+`READY`, claim it, and run the seven real representatives. Acceptance requires zero critical false
+accepts and every repairable case to change and resolve its defect.
 
-Do not run repository or dependency build scripts on the operator host as acceptance proof.
-`L8-TRUTH-03A-ISOLATED-EXECUTOR` must close first.
-
-After closure, claim the graph-selected successor. The critical local order begins:
-
-```text
-L8-TRUTH-01-STAGE-LIMIT
--> L8-TRUTH-01A-FACT-CONTRACT
--> L8-TRUTH-02-ROOT-ROLES
--> L8-TRUTH-03-CLAIM-POLARITY
--> L8-TRUTH-03A-ISOLATED-EXECUTOR
--> acquisition/examples/visitor views/seven-ecosystem truth
--> composition with complete inherited-and-generated claim accountability
--> split independent review and effective repair/no-op proof
--> real heterogeneous qualification and frozen campaign
--> bounded full-registry Gate A
--> Gate B human review -> act -> staging -> Gate C Java draft-PR proof
--> Gate D GitHub App/hosted runtime -> Levels 5, 7, and 8
-```
-
-No GitHub App request occurs before the ordered local, human-review, `act`, staging, and Gate-C
-conditions. No product write occurs without fresh exact what/why/where approval.
-
-## Autonomous Loop
+## Continuous Loop
 
 ```text
 verify authority and live state
--> reconcile graph drift and claim lease
--> claim/reclaim only the highest-priority ready task
--> implement the smallest complete behavior
+-> claim/reclaim only the graph-selected task
+-> implement the smallest complete permanent repair
 -> focused proof
--> integration, regression, safety, and live-like proof
+-> integration/regression/safety/live-like proof
 -> independent verification
--> repair the first failing boundary
+-> heal the first failing boundary
 -> write redacted checksum-complete evidence
--> update the same task, requirements, and logs
--> commit coherent work directly to main
+-> update the same task/requirements/log state
+-> commit coherently to main with the Codex trailer
 -> rebuild eligibility
 -> continue
 ```
 
-Do not stop for a completed subtask, failed test, token/session boundary, report, checkpoint,
-dirty tree, restart, or convenience. Repair agent-fixable failures or reroute them within the
-same governed graph. Stop only when every mandatory task is closed with complete evidence and an
-independent Level-8 award, or when every remaining task is genuinely blocked by unavailable
-external authority/infrastructure and its exact unblock condition is recorded.
+Do not stop for a completed subtask, failed test, report, checkpoint, token/session boundary, or
+convenience. Stop only for explicit user instruction, actual mission completion, or a genuine
+external dependency that blocks every eligible task.
 
-Documentation cannot keep an inactive chat alive. Durable state provides restart continuity;
-hosted unattended scheduling is a later Gate-D deliverable.
+No product write occurs without fresh what/why/where approval. No `plans/master.md` edit occurs
+without fresh section-specific approval. No GitHub App request occurs before Gate C.

@@ -1,129 +1,51 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "handover_status": "HANDOVER_READY",
-  "snapshot": {
-    "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
-    "branch": "main",
-    "head": "8737a702ba3a30a7e3dcdc9e1d0222850eb688eb",
-    "origin_main": "a6db18cff0cf56bdb3d59b9a390adb5c5e776829",
-    "working_tree": "clean",
-    "snapshot_note": "Verified 2026-07-26 after graph migration. Re-read live HEAD, tree, and durable state before acting.",
-    "durable_mission_state_version": 152,
-    "mission_graph_sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc",
-    "graph_drift": false
-  },
-  "mission": {
-    "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "current_phase": "Atomic local product-truth qualification",
-    "current_task": "L8-TRUTH-01-STAGE-LIMIT",
-    "next_action": "Run one real read-only FACTS_READY bounded proof against commit 8737a70, verify zero later-stage artifacts or calls, then close or repair L8-TRUTH-01-STAGE-LIMIT.",
-    "mission_complete": false,
-    "unresolved_task_count": 65,
-    "blocked_external_task_count": 1
-  },
-  "authority": [
-    {
-      "path": "plans/idea.md",
-      "role": "product outcome and ordered gates",
-      "sha256": "942c472154d242a6f3b2de7742f718973fe48a757c580a5088d2ef7351535fc1"
-    },
-    {
-      "path": "plans/master.md",
-      "role": "architecture, decisions, sequence, and maturity gates",
-      "sha256": "47f03530e524a26129b3c13f53b089d1cbe38f6e116061813643a643bc7156cd"
-    },
-    {
-      "path": "plans/requirements.md",
-      "role": "normative obligations and acceptance",
-      "sha256": "048ebcaf5816bd680fb4784fb93fc1d8eea2cb78f244043f72dd046f4648b321"
-    },
-    {
-      "path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-      "role": "sole executable task graph",
-      "sha256": "2dc10819cddaf6ab96770665fa02b850f67fff57c7b44e3cb1fb332f28c86bcc"
-    },
-    {
-      "path": "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
-      "role": "supporting multi-perspective execution design",
-      "sha256": "b06072932215ba95d44a50fd8d1b10720660969ae6df8c2bd60b6f5f9eafdfab"
-    }
+  "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
+  "branch": "main",
+  "content_checkpoint_head": "bb994cf91d3b11e0a1774be092e221a721a0e6f9",
+  "origin_main": "5fdf77deb3898db4994413d5f77b8470a9ee1290",
+  "working_tree_at_content_checkpoint": "clean",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+  "authoritative_plan_hash": "471a0d29f5e772db2845e51cd5ebe421d1a7813bad72671656f4c189a0a8ab39",
+  "durable_state_version": 527,
+  "graph_drift": false,
+  "current_phase": "independent-review production-route qualification",
+  "current_task": null,
+  "next_task": "L8-REVIEW-00-CONTEXT-CORPUS",
+  "next_task_status": "REGRESSED",
+  "next_action": "Claim L8-REVIEW-00-CONTEXT-CORPUS, implement a bounded and length-aware factual-review output contract, then re-run the sealed real C++ canary before resuming L8-REVIEW-04A-REAL-CORPUS.",
+  "mandatory_outcomes": [
+    "full-registry local Gate A with deterministic validation, independent agent approval, and no-op proof",
+    "Gate B human acceptance after agent approval",
+    "canonical workflow proof under act",
+    "disposable GitHub staging and Gate C authorized Java draft-PR proof",
+    "hosted GitHub App runtime and Level 5 proof",
+    "30-day Level 7 and 90-day Level 8 production proof",
+    "final independent reproducible audit"
   ],
-  "history_integrity": {
-    "git_history_intact": true,
-    "verified_ancestor_commits": [
-      "f8b83a41506fb22a6884f494f1b16ffb8213076e",
-      "a7ac3311debe3c1561711e639c59d225748d815e",
-      "f89da6056b13cae19e02a72aa6d5ebf3fc371ee1",
-      "80432cc",
-      "a6db18cff0cf56bdb3d59b9a390adb5c5e776829"
-    ],
-    "lost_or_stale_layer": "The former handover and terminal lifecycle claims were stale; no cited main-branch commit was lost."
-  },
   "completed_verified": [
+    "L8-REVIEW-03A-CACHE-MEASUREMENT",
+    "L8-REVIEW-04-NO-OP-CACHE"
+  ],
+  "implemented_unverified": [],
+  "regressed": [
     {
-      "task_id": "L8-LOCAL-PORTFOLIO-RUNTIME",
-      "status": "CLOSED",
-      "limitation": "Foundation remains usable, but later acceptance assumptions were regressed and atomized."
+      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+      "reason": "Real factual-review output truncated at the fixed 2400-token cap on two identical attempts."
     }
   ],
-  "implemented_unverified": [
+  "rerouted": [
     {
-      "task_id": "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
-      "status": "REROUTED",
-      "reason": "Must close through the L8-TRUTH-* children under the corrected acceptance contract."
-    },
-    {
-      "task_id": "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-      "status": "REGRESSED",
-      "reason": "Preserved material claims are not completely fact/owner/uncertainty bound."
-    },
-    {
-      "task_id": "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
-      "status": "REGRESSED",
-      "reason": "Live reviewer output accepted defective or insufficiently grounded candidates."
-    },
-    {
-      "task_id": "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
-      "status": "REGRESSED",
-      "reason": "Synthetic qualification did not predict current real end-to-end acceptance."
-    },
-    {
-      "task_id": "L8-LOCAL-FULL-REGISTRY-GATE-A",
-      "status": "REGRESSED",
-      "reason": "No current repository bundle satisfies the corrected complete trust standard."
+      "task_id": "L8-REVIEW-04A-REAL-CORPUS",
+      "reason": "Resume only after the owning reviewer route is repaired and requalified on the sealed C++ canary."
     }
   ],
   "remaining_tasks": [
-    "L8-TRUTH-01-STAGE-LIMIT",
-    "L8-TRUTH-01A-FACT-CONTRACT",
-    "L8-TRUTH-02-ROOT-ROLES",
-    "L8-TRUTH-03-CLAIM-POLARITY",
-    "L8-TRUTH-03A-ISOLATED-EXECUTOR",
-    "L8-TRUTH-04-ACQUISITION",
-    "L8-TRUTH-05-PUBLIC-EXAMPLES",
-    "L8-TRUTH-06-INTERPRETIVE-VIEWS",
-    "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
-    "L8-TRUTH-08-FULL-PREFLIGHT",
-    "L8-COMPOSE-01-ASSESSMENT-CORPUS",
-    "L8-COMPOSE-02-EXISTING-SECTIONS",
-    "L8-COMPOSE-02A-OPERATION-REGRESSIONS",
-    "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
-    "L8-COMPOSE-03-OPERATION-COVERAGE",
-    "L8-COMPOSE-04-PRESENTATION-LINT",
-    "L8-COMPOSE-05-SEVEN-CANDIDATES",
-    "L8-REVIEW-01-QUALITY-BLIND",
-    "L8-REVIEW-02-FACTUAL-BLIND",
-    "L8-REVIEW-03-EFFECTIVE-REPAIR",
-    "L8-REVIEW-04-NO-OP-CACHE",
-    "L8-REVIEW-05-REAL-CAMPAIGN",
-    "L8-QUAL-01-CAMPAIGN-PREFLIGHT",
-    "L8-QUAL-02-SEVEN-E2E",
-    "L8-QUAL-03-RECOVERY",
-    "L8-QUAL-04-GOLDEN-SET",
-    "L8-QUAL-04A-FREEZE-CONTROLS",
-    "L8-QUAL-04B-COST-BASELINE",
-    "L8-QUAL-05-FREEZE",
-    "L8-LOCAL-FULL-REGISTRY-GATE-A",
+    "L8-REVIEW-00-CONTEXT-CORPUS",
+    "L8-REVIEW-04A-REAL-CORPUS",
+    "durable graph-selected heterogeneous qualification and full-registry Gate A successors",
     "GATE-B-HUMAN-REVIEW",
     "ACT-CANONICAL-WORKFLOW-PROOF",
     "DISPOSABLE-GITHUB-STAGING",
@@ -141,18 +63,39 @@
       "unblock_condition": "Hosted GitHub authority and infrastructure are requested only after Gates A, B, act, staging, and Gate C."
     }
   ],
-  "critical_evidence": [
-    "logs/2026-07-26.md",
-    "plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json",
-    "runs/readme-poc/portfolio-summary.json",
-    "plans/investigations/evidence/level8-local-readme-assessment-composition-b2679e4/acceptance-manifest.json",
-    "plans/investigations/evidence/level8-local-heterogeneous-qualification-d30a811/agentic-qualification-summary.json"
+  "portfolio_scoreboard": {
+    "denominator": 31,
+    "facts_ready": 8,
+    "candidate_generated": 8,
+    "deterministic_validated": 8,
+    "agent_approved": 0,
+    "no_op_proven": 0,
+    "human_accepted": 0,
+    "first_failing_boundary": "FACTS_READY"
+  },
+  "critical_references": [
+    "AGENTS.md",
+    "plans/GOVERNANCE.md",
+    "plans/idea.md",
+    "plans/master.md",
+    "plans/requirements.md",
+    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
+    "plans/codex/handover/HANDOVER.md",
+    "plans/codex/handover/CONTINUE.md"
+  ],
+  "evidence_paths": [
+    "plans/investigations/evidence/level8-review-cache-measurement-v1",
+    "plans/investigations/evidence/level8-review-no-op-cache-v1",
+    "plans/investigations/evidence/level8-review-real-corpus-route-failure-v1"
   ],
   "resume_protocol": [
-    "Read AGENTS.md, plans/GOVERNANCE.md, plans/idea.md, plans/master.md, plans/requirements.md, the supporting plan, and the active taskcard.",
-    "Verify branch, HEAD, working tree, active processes, graph hash, and mission status.",
-    "If graph drift exists, evaluate; then retain or reclaim only through the durable lease mechanism.",
-    "Execute the real read-only proof for L8-TRUTH-01-STAGE-LIMIT and verify zero later-stage calls or artifacts.",
-    "Repair agent-fixable failures, update the same evidence/task/requirements/log state, commit to main with the Codex trailer, rebuild eligibility, and continue."
+    "Read authority and verify live branch, HEAD, tree, processes, graph hash, and durable mission status.",
+    "Trust live supervisor state over this snapshot if they differ.",
+    "Claim only L8-REVIEW-00-CONTEXT-CORPUS through the durable lease mechanism.",
+    "Repair bounded factual-review output and length-aware recovery without weakening grounding or fail-closed safety.",
+    "Run focused, integration, regression, safety, and sealed C++ live proof.",
+    "Write redacted checksum-complete evidence, transition truthfully, commit to main, and rebuild eligibility.",
+    "Return L8-REVIEW-04A-REAL-CORPUS to READY and continue the graph-selected mission."
   ]
 }
