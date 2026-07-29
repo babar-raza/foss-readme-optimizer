@@ -33,7 +33,7 @@
       }
     ],
     "graph_sha256": "9748dff3603412aa092b57f75cd2b7a11195b351c0f9cc00fee038bc851f11e5",
-    "last_evaluated_at": "2026-07-29T14:52:28.654087+00:00",
+    "last_evaluated_at": "2026-07-29T14:53:29.460900+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 8,
@@ -80,7 +80,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "indispensable_safety",
+        "summary": "Prevent low-quality or content-losing trusted transformations from reaching PRs."
+      },
+      "goal_ids": [
+        "GOAL-README"
+      ],
+      "stage_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION",
+      "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -187,7 +197,7 @@
       "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": "TODO",
       "TRP-00-ASSURANCE-CONTRACT": "CLOSED",
       "TRP-01-README-DERIVED-FACTS": "CLOSED",
-      "TRP-02-LLM-FIRST-COMPOSITION": "SCORED",
+      "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "TODO",
       "TRP-04-CANARY-QUALIFICATION": "TODO",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
@@ -5053,6 +5063,18 @@
         "reason": "TRP-02 SCORED at clean committed HEAD d73d69c8; bounded LLM composition and source-accountability proof accepted.",
         "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-02-llm-first-composition-v1/verification-summary.json",
+          "plans/investigations/evidence/trp-02-llm-first-composition-v1/contribution-evidence.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-29T14:53:29.460885+00:00",
+        "reason": "TRP-004 and TRP-005 are implemented and verified without promoting the unavailable live route; dependent independent-review work may proceed.",
+        "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -5061,7 +5083,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 580,
+  "state_version": 581,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
