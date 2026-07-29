@@ -34,9 +34,11 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
 - **Autonomous operation with passive human review.** `supervise` is the only production runtime.
   The system, not a human, selects product/platform capabilities and prepares local candidates.
   The short-term trusted POC creates clearly labelled, independently reviewed draft pull requests
-  under reviewed authorization records; after its portfolio closes, execution resumes the
-  verified gates in decisions #78/#85. Humans review proposals, authorization changes, blocked
-  facts, and manual UI work rather than operating the pipeline.
+  under reviewed authorization records. After assurance separation and complete discovery,
+  repository-verified work advances read-only in spare capacity while trusted delivery remains
+  primary; it does not wait for the trusted portfolio to close and cannot create a competing
+  product effect. Humans review proposals, authorization changes, blocked facts, and manual UI
+  work rather than operating the pipeline.
 - **GitHub App production identity is qualified by the trusted operational POC.** After local,
   `act`, and disposable-staging proof, trusted Gate T3 requests and qualifies fresh, short-lived
   GitHub App tokens on staging before the full-registry trusted PR campaign. The later verified
@@ -64,13 +66,18 @@ deliverable behind a universal label and can misdirect an executing agent.
 
 The supervisor owns an ordered stage-goal catalog. Exactly one primary goal is derived from the
 earliest incomplete gate, persisted atomically with task claims/transitions, and displayed by
-`status`. Closure evidence advances it automatically. Reopened evidence, a regressed task, an
-invalidated contract, or a newly admitted repository rolls execution back to the earliest
-affected goal without deleting later history:
+`status`. It also derives zero or more concurrent goals whose tasks are dependency-ready,
+read-only, assurance-isolated, and admitted by the primary goal's capacity policy. Concurrent
+goals accelerate the immutable mission but cannot delay the primary goal, consume its reserved
+capacity, authorize an effect, or satisfy its acceptance predicate. Closure evidence advances
+goals automatically. Reopened evidence, a regressed task, an invalidated contract, or a newly
+admitted repository rolls execution back to the earliest affected goal without deleting later
+history:
 
 | Order | Goal ID | Concrete closure outcome |
 |---:|---|---|
 | 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Trusted/verified assurance is disjoint and the real adversarial trusted canaries are transformation-approved and no-op-proven. |
+| 15 | `GOAL-C0-AUTHORIZED-PORTFOLIO` | Every repository visible from every authorized organization/App source has a current observation and evidence-backed admission or exclusion; every admitted repository is disabled/read-only, intake-ready, and bound to one complete registry revision. |
 | 20 | `GOAL-T1-TRUSTED-PORTFOLIO` | Every freshness-valid registry entry has a complete trusted local bundle, independent approval, and no-op proof. |
 | 30 | `GOAL-T2-WORKFLOW-STAGING` | The canonical trusted pipeline passes the actual reusable workflow under `act` and the complete disposable-staging proposal/recovery matrix. |
 | 40 | `GOAL-T3-HOSTED-TRUSTED-DELIVERY` | GitHub App authentication and hosted autonomous operation are qualified on staging, then exactly one disclosed authorized trusted draft PR exists per current registry repository. |
@@ -93,12 +100,24 @@ manually chosen. `evaluate` MUST:
 
 1. load the graph and durable task/repository state under CAS;
 2. find the lowest-order goal whose task set or acceptance predicate is incomplete;
-3. reconcile `active_goal_id`, activation revision, reason, and append-only goal history;
-4. reject a claim whose task does not belong to the active goal;
+3. reconcile `active_goal_id`, `concurrent_goal_ids`, activation revision, reason, capacity policy,
+   and append-only goal history;
+4. reject a claim whose task belongs to neither the primary goal nor an automatically derived
+   concurrent goal;
 5. auto-advance only after all mandatory tasks and the goal acceptance predicate have current,
    independently verified evidence; and
 6. auto-reactivate the earliest affected goal on regression, dependency-hash change, or dynamic
-   denominator growth.
+   denominator growth; and
+7. withdraw a concurrent goal automatically when its dependency, assurance, resource, or
+   effect-isolation predicate stops being true.
+
+Before trusted canaries close, execution remains one repository lane and primary work always wins
+selection. Afterwards the sole supervisor may run at most four isolated repository lanes. While a
+trusted T1, T2, or T3 goal is primary, three lanes are reserved for trusted work and at most one
+lane may perform repository-verified read-only work. Verified work may borrow unused trusted
+capacity; the next free slot returns to trusted work as soon as trusted work is ready, while an
+in-flight verified stage may seal rather than being cancelled. Product effects are serialized per
+repository and belong only to the primary trusted effect goal until T3 closes.
 
 Newly discovered repositories never create ad hoc goals. They reopen the earliest catalogued goal
 whose denominator-dependent acceptance is no longer true. A maturity window already in progress
@@ -137,13 +156,15 @@ without improving one of those states or removing its evidenced blocker is a dri
 The repository has substantial capability, safety, authorization, state, specialist, evidence,
 and proposal foundations, but it is **not Level 8**. The Waves 0–8 checklist remains the complete
 program; the immediate critical path is decision #85's trusted POC:
-**trusted qualification → trusted local portfolio → `act` → disposable staging → hosted GitHub
-App qualification → trusted portfolio PRs → repository-verified Gate A/B/C → Level 5 → Level 6 →
-day-30 Level 7 → day-90 Level 8**.
+**trusted qualification → complete authorized-portfolio discovery/intake → trusted local
+portfolio with concurrent verified read-only progress → `act` → disposable staging → hosted
+GitHub App qualification → trusted portfolio PRs → complete repository-verified Gate A/B/C →
+Level 5 → Level 6 → day-30 Level 7 → day-90 Level 8**.
 
 At the resequencing snapshot, durable state version 550 has no active claim. `L8-INTAKE-00/01`
-are closed and `L8-INTAKE-02` is implemented but lacks its combined public-path proof. That
-verified task is preserved behind `TRP-07`, not falsely closed. The 31-entry checked-in portfolio
+are closed and `L8-INTAKE-02` is implemented but lacks its combined public-path proof. It becomes
+eligible with the common discovery lane after TRP-00 rather than waiting behind `TRP-07`. The
+31-entry checked-in portfolio
 has 8 `FACTS_READY`, 8 candidates, 8 deterministic validations, and zero verified approvals,
 no-ops, or human acceptances. The latest discovery evidence also retains one unmatched PDF Go MCP
 observation and one unavailable imaging source, so it is not source-complete Gate-A evidence.
@@ -158,11 +179,14 @@ through `TRP-07`: assurance separation, README-derived facts, bounded LLM compos
 independent quality/fidelity review, adversarial canaries, full-registry fan-out,
 authorization/access, and exactly one draft PR per repository.
 
-The owner intends to obtain remaining write access and the GitHub App authority when the trusted
-local/`act`/staging gates actually reach that boundary. Live permission checks and reviewed
-authorization records remain required. The one-day target applies only to the qualified
-full-registry hosted PR campaign. After `TRP-07`, the preserved verified
-intake/facts/composition/review path resumes unchanged; trusted operational proof is reused only
+The owner reports organization-owner access. Live credential and per-repository permission checks
+plus reviewed authorization records remain required before effects. GitHub App authority is
+requested only when the trusted local/`act`/staging gates reach that boundary; Codex first attempts
+supported `gh`/API operations and otherwise emits the exact manual creation/installation handoff
+and continues verified read-only work. The one-day target applies only to the qualified
+full-registry hosted PR campaign. Verified intake/facts/composition/review may advance concurrently
+after TRP-00 and complete discovery, under trusted-priority capacity. After `TRP-07`, it becomes
+the primary path; trusted operational proof is reused only
 when its input and control hashes still match, while content assurance is independently reproved.
 Verified Gate B/C, Level 5, Level 6, day-30 Level 7, and day-90 Level 8 remain mandatory.
 
@@ -1989,8 +2013,8 @@ that is the only permanence they carry; text is always the decision as it stands
     `CORE-003`, `CORE-004`, `CORE-023`, `CORE-034`, `OPS-005`, and `OPS-007` are downgraded to
     `PARTIAL`; `L8-035`–`L8-039` define the missing proof. (2026-07-29, user directive.)
 
-85. **Use an LLM-first, README-derived assurance lane for the temporary full-registry POC, then
-    return to repository-verified presentation.** The ultimate goal remains
+85. **Use an LLM-first, README-derived assurance lane as the trusted-priority delivery path while
+    repository-verified work advances read-only in spare capacity.** The ultimate goal remains
     `verified_repository_presentation`. Its facts continue to come from repository source,
     manifests, consumer tooling, tests, examples, releases, verified registries, and approved
     policy—not from README self-assertion. The immediate goal is
@@ -2024,13 +2048,17 @@ that is the only permanence they carry; text is always the decision as it stands
     evidence-dependent boundary and independently reconciles every material claim; trusted
     acceptance never promotes automatically.
 
-    Execution is serial through adversarial canaries spanning Python, .NET, ordinary Java, and the
-    largest current README. After those prove bounded context/output, content preservation,
-    prompt-injection resistance, independent review, effective repair, exact LLM accounting, and
-    no-op reuse, the sole supervisor may run two-to-four isolated repository lanes in the existing
-    platform priority. The qualified full-registry campaign has a one-day target; implementation,
-    canary repair, unavailable permissions, and human authorization are not hidden inside that
-    clock.
+    Execution is serial through assurance migration and adversarial canaries spanning Python, .NET,
+    ordinary Java, and the largest current README. After `ContentAssuranceV1` exists, common
+    discovery/intake work may advance without waiting for trusted PR effects. After the canaries
+    prove bounded context/output, content preservation, prompt-injection resistance, independent
+    review, effective repair, exact LLM accounting, and no-op reuse, the sole supervisor may run
+    at most four isolated repository lanes in the existing platform priority. Trusted work is the
+    primary goal and owns three reserved lanes; at most one lane advances repository-verified
+    read-only work. Verified work may borrow idle capacity but cannot delay trusted work or issue a
+    product effect. The qualified full-registry trusted campaign has a one-day target;
+    implementation, canary repair, unavailable permissions, and human authorization are not hidden
+    inside that clock.
 
     Trusted effects retain the allow-list, effect ledger, reviewed expiring authorization,
     candidate-aware idempotency, fresh-head reconciliation, draft-only behavior, and prohibitions
@@ -2041,21 +2069,36 @@ that is the only permanence they carry; text is always the decision as it stands
     direct access proves unavailable and a separate build-vs-adopt/effect-safety decision
     authorizes the extra machinery.
 
+    Complete authorized-source discovery is a shared prerequisite for portfolio fan-out. It uses
+    authenticated all-visibility pagination, stable provider identity, explicit disposition for
+    every visible repository, disabled/read-only admission, durable preflight, and a
+    freshness-bound `RegistryRevisionV1`. Source failures, unexplained observations, stale scans,
+    and pending intake prevent trusted T1 closure as well as verified Gate A.
+
     The trusted lane exercises the complete operational pipeline rather than stopping at local
     generation. After full-registry local transformation it must run the canonical reusable
     workflow under `act`, prove the proposal/effect matrix in disposable GitHub staging, then
     qualify fresh short-lived GitHub App authentication and hosted scheduling/recovery against
-    staging targets. Only after those gates pass may the hosted runtime open the authorized
+    staging targets. Codex first attempts supported non-interactive `gh` and GitHub API operations.
+    If App registration or organization/repository installation requires a manual owner/browser
+    action, the system emits one exact request containing the app name, permissions, subscribed
+    events, callback/webhook configuration, installation scope, URL, and secret locations; records
+    `WAITING_HUMAN_APP_PROVISIONING`; notifies the owner; and continues every eligible verified
+    read-only task. It validates the supplied installation and resumes automatically. Only after
+    those gates pass may the hosted runtime open the authorized
     full-registry trusted draft-PR portfolio. This operational proof may be reused later when its
     hashes and environment remain current; it cannot prove repository factuality,
-    `VerifiedProposalV1`, verified Gate A/B/C, or maturity. Trusted Gate T3 must close for the
-    dynamic denominator before the preserved `L8-INTAKE-02` verified boundary resumes.
+    `VerifiedProposalV1`, verified Gate A/B/C, or maturity. Trusted Gate T3 remains required before
+    any trusted product effect campaign closes, but it does not block repository-verified
+    read-only discovery, facts, reconciliation, planning, composition, or review.
 
     Runtime goals are stage-derived rather than universal. TRP-00 migrates the legacy
     `GOAL-CORE-PRESENTABLE-PORTFOLIO`/subordinate goal guard into the ordered goal catalog in this
-    plan, binds each task to exactly one current stage goal, and makes `evaluate` atomically
-    advance or reactivate goals from durable evidence. (2026-07-29, user directive, revised
-    2026-07-29 after assurance-pipeline clarification.)
+    plan, binds each task to one owning stage goal, and makes `evaluate` atomically advance or
+    reactivate the primary goal while deriving only permitted concurrent goals. The runtime keeps
+    `active_goal_id` separate from `concurrent_goal_ids`; a concurrent goal has no independent stop
+    authority. (2026-07-29, user directive, revised 2026-07-29 for assurance-pipeline
+    clarification and trusted-priority dual-lane execution.)
 
 ## Architecture
 
@@ -2079,9 +2122,14 @@ immutable repository snapshot
        → authorized effects and maturity evidence
 ```
 
-Both lanes use `supervise`, the same registry, snapshots, durable state, leases, redaction,
-manifests, authorization, effect ledger, and reconciliation. Assurance-specific facts, verdicts,
-proposals, and counters prevent a trusted result from impersonating verified evidence.
+Both lanes use `supervise`, the same registry revision, snapshots, durable state, leases,
+redaction, manifests, authorization, effect ledger, and reconciliation. Assurance-specific facts,
+verdicts, caches, proposals, and counters prevent a trusted result from impersonating verified
+evidence. The scheduler exposes one primary goal and derived concurrent goals, reserves trusted
+capacity, permits only read-only verified concurrency, serializes aggregation and per-repository
+effects, and never creates two active presentation PRs for one repository. A verified successor
+is prepared locally; with fresh authorization it updates or supersedes the trusted draft through
+`OpenProposalV2` reconciliation rather than racing a second PR.
 
 ### Canonical production flow
 
@@ -2659,8 +2707,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 
 - [ ] **Short-term POC — `trusted_readme_transform` full-registry draft PRs**
   - [ ] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
-        dependency fingerprints, and anti-promotion controls without adding another runtime,
-        controller, store, or execution profile.
+        dependency fingerprints, anti-promotion controls, and automatically derived
+        `active_goal_id`/`concurrent_goal_ids` without adding another runtime, controller, store,
+        or execution profile.
+  - [ ] Complete common Gate C0 after TRP-00 and before TRP-05: finish
+        `L8-INTAKE-02/03`, enumerate every authorized source with authenticated all-visibility
+        pagination, disposition every visible repository, admit active products disabled/read-only,
+        preflight each exactly once, and bind the dynamic denominator to `RegistryRevisionV1`.
   - [ ] `TRP-01`: derive typed README facts/claims from the immutable source README with exact
         `README_INHERITED` spans; admit only separately identified `CONFIGURED_STANDARD` additions.
         Do not query repository code, tests, package registries, documentation, or external fact
@@ -2673,10 +2726,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         cache/no-op reuse.
   - [ ] `TRP-04`: qualify short, ordinary, malformed/prompt-injected, and largest-current-README
         canaries across at least Python, .NET, Java, and the large-document outlier before fan-out.
-  - [ ] `TRP-05`: execute the dynamic registry denominator in the configured platform order using
-        two-to-four supervisor-owned isolated lanes; create checksum-valid source, fact, plan,
-        candidate, patch, review, repair, no-op, call-ledger, and manifest artifacts for every
-        repository.
+  - [ ] `TRP-05`: after common Gate C0, execute the dynamic registry denominator in the configured
+        platform order using at most four supervisor-owned isolated lanes. Reserve three lanes for
+        trusted work and permit at most one repository-verified read-only lane; verified work may
+        borrow idle capacity but may not delay trusted work or emit an effect. Create
+        checksum-valid source, fact, plan, candidate, patch, review, repair, no-op, call-ledger,
+        and manifest artifacts for every repository.
   - [ ] `TRP-05A`: run the same canonical trusted supervisor through the actual reusable workflow
         under `act`; prove dispatch variants, matrix isolation, duplicate delivery, checkpoint
         resume, recovery, evidence upload, health aggregation, and production-profile rejection of
@@ -2684,25 +2739,31 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [ ] `TRP-05B`: run the complete proposal/effect lifecycle against disposable GitHub staging;
         prove create/no-op/update/drift/dedup/lost-response/expired-authorization/crash recovery,
         analysis/effect credential isolation, and byte-identical default branches.
-  - [ ] `TRP-05C`: after 05A/05B pass, request and qualify the exact GitHub App installation and
-        secrets against staging. Deploy the canonical hosted workflow and prove fresh installation
-        tokens, scheduling, recovery sweeps, leases, backlog, health, alerts, and dead-man
-        monitoring without touching a product repository.
+  - [ ] `TRP-05C`: after 05A/05B pass, attempt supported `gh`/API GitHub App setup. If a browser,
+        owner confirmation, or unavailable secret is required, record
+        `WAITING_HUMAN_APP_PROVISIONING`, notify the owner with one exact app/permission/event/
+        webhook/scope/secret handoff, and continue verified read-only work. After installation,
+        validate and qualify the App against staging, then prove fresh installation tokens,
+        scheduling, recovery sweeps, leases, backlog, health, alerts, and dead-man monitoring
+        without touching a product repository.
   - [ ] `TRP-06`: generate reviewed authorization records and verify direct write permission for
         every repository. Expected future access is not evidence; missing access is an
         `infra_external` repository-local block while unrelated repositories continue.
   - [ ] `TRP-07`: create or update exactly one clearly labelled trusted draft PR per repository;
         prove candidate update, target drift, duplicate trigger, lost response, authorization
         expiry, recovery, and default-branch byte identity.
-  - **Exit:** `TRUSTED_PR_OPEN == len(data/products.json)` for a freshness-valid registry revision;
+  - **Exit:** `TRUSTED_PR_OPEN == len(data/products.json)` for a freshness-valid, source-complete
+    registry revision;
     trusted system failures, unprocessed entries, duplicate PRs, manifest failures, default-branch
     writes, and undisclosed assurance are zero; `act`, staging, App authentication, hosted
-    scheduling/recovery, and effect reconciliation have current checksum-complete proof. Only after
-    this exit does the preserved verified Gate-A path resume.
+    scheduling/recovery, and effect reconciliation have current checksum-complete proof. Verified
+    read-only work may already be current; after this exit it becomes the primary goal.
 
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
-  - **Precondition (decision #85):** the trusted POC exit above is complete. Trusted README facts,
-    reviews, and PRs are inputs to inspect, not verified evidence and not credit toward this gate.
+  - **Concurrency rule (decision #85):** after TRP-00 and common Gate C0, verified read-only work
+    may advance as a concurrent goal in spare capacity while the trusted POC remains primary.
+    Trusted README facts, reviews, and PRs are inputs to inspect, not verified evidence and not
+    credit toward this gate. Gate-A closure and every verified effect retain their own dependencies.
   - [ ] Establish source-complete discovery and durable read-only intake before reviewer
         qualification: inventory every repository from explicit authorized sources, fix the
         public CLI allow-list/preflight ordering, reconcile by provider repository ID, enroll new

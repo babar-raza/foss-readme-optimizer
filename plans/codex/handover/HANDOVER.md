@@ -3,13 +3,13 @@
 ## 1. Handover Snapshot
 
 - Repository: `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer`
-- Branch/base HEAD: `main` at `0607b65ffbb366ff8e6d9f8a2fe0b59a5a0bcc00`; the plan commit
+- Branch/base HEAD: `main` at `862f0f4a5b9257eedd8d2fcce90254a2cf30f811`; the plan commit
   containing this handover follows that content checkpoint.
 - Executable authority:
   `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
 - Reconciled graph SHA-256:
-  `5e12d81344498f385487949bc0af44896039d587fb0deca870833b6d975fb21a`
-- Durable mission state: version 556, no active claim, no graph drift.
+  `e6e06909e7517fe5e2197a2542b8ad27942129afed2b62f35fc0b182cf57fe7f`
+- Durable mission state: version 557, no active claim, no graph drift.
 - Current phase: T0 trusted qualification—assurance, goal migration, composition, review, and canaries.
 - Current/next task: `TRP-00-ASSURANCE-CONTRACT`, status `TODO`.
 - Exact next action: claim TRP-00 and implement explicit trusted-versus-verified assurance,
@@ -32,13 +32,16 @@ repository, transform the existing README through an LLM-first pipeline, treatin
 as `README_INHERITED` evidence without repository/external fact verification, independently
 approve transformation quality and fidelity, prove no-op, and open one clearly disclosed draft
 PR through the same `act`, staging, GitHub App, hosted workflow, authorization, and effect
-pipeline. After all trusted PRs exist, resume the ultimate verified mission without promoting
-their content assurance.
+pipeline. After assurance separation and complete discovery, verified repository work advances
+read-only in spare capacity while trusted delivery remains primary. After all trusted PRs exist,
+verified work becomes primary without promoting trusted content assurance.
 
-The runtime goal is not a universal mission label. `evaluate` derives exactly one goal in this
-order and automatically advances or reactivates it from evidence:
+The runtime goal is not a universal mission label. `evaluate` derives exactly one primary goal
+plus zero or more permitted concurrent read-only goals and automatically advances, withdraws, or
+reactivates them from evidence:
 
-`GOAL-T0-TRUSTED-QUALIFICATION` → `GOAL-T1-TRUSTED-PORTFOLIO` →
+`GOAL-T0-TRUSTED-QUALIFICATION` → `GOAL-C0-AUTHORIZED-PORTFOLIO` →
+`GOAL-T1-TRUSTED-PORTFOLIO` →
 `GOAL-T2-WORKFLOW-STAGING` → `GOAL-T3-HOSTED-TRUSTED-DELIVERY` →
 `GOAL-V1-VERIFIED-TRUTH` → `GOAL-V2-VERIFIED-GATE-A` →
 `GOAL-V3-HUMAN-AND-JAVA-PROOF` → `GOAL-L5-PRESENTATION-PILOT` →
@@ -57,12 +60,14 @@ Short-term mandatory outcomes:
 4. Deterministic presentation/safety validation.
 5. Independent blind-quality and inheritance-fidelity approval.
 6. Real adversarial canary qualification.
-7. Full-registry transformation/no-op proof.
-8. Actual reusable-workflow proof under `act`.
-9. Disposable staging proposal/effect proof.
-10. GitHub App and hosted autonomous workflow qualification on staging.
-11. Live per-repository write access and reviewed authorization.
-12. Exactly one disclosed trusted draft PR per current registry repository.
+7. Authenticated all-visibility discovery, explicit disposition, disabled/read-only intake, and a
+   complete registry revision.
+8. Full-registry trusted transformation/no-op proof with verified read-only spare-capacity progress.
+9. Actual reusable-workflow proof under `act`.
+10. Disposable staging proposal/effect proof.
+11. GitHub App and hosted autonomous workflow qualification on staging.
+12. Live per-repository write access and reviewed authorization.
+13. Exactly one disclosed trusted draft PR per current registry repository.
 
 Non-goals: repository-source fact reconciliation inside trusted mode, a second controller/store,
 a universal deterministic rewrite engine, fork PR support unless direct access fails and is
@@ -75,7 +80,7 @@ verified.
 |---|---|---|
 | `plans/idea.md` | Product outcome and trusted/verified gate order | Product authority |
 | `plans/master.md` decisions #78/#83/#84/#85 | Architecture, goals, sequence, gates | Executable plan |
-| `plans/requirements.md` `TRP-001`–`TRP-014` | Normative trusted acceptance | Normative |
+| `plans/requirements.md` `TRP-001`–`TRP-015` | Normative trusted and dual-lane acceptance | Normative |
 | `plans/GOVERNANCE.md` rules 14–21 | Governance and assurance/goal separation | Binding |
 | Mission task graph | Sole task/dependency graph | Executable authority |
 | Supervisor Git-ref state | Claims and transitions | Live execution authority |
@@ -87,7 +92,15 @@ verified.
 ### Phase T0 — Assurance separation
 
 Add the typed assurance axis, trusted lifecycle/verdict/proposal/counter identities, dependency
-fingerprints, and durable migration. Trusted and verified records must be mechanically disjoint.
+fingerprints, primary/concurrent goal state, and durable migration. Trusted and verified records
+must be mechanically disjoint.
+
+### Common Phase C0 — Complete discovery and intake
+
+After TRP-00, use an organization-compliant credential and authenticated all-visibility pagination
+for every authorized source. Disposition every visible repository, admit active products
+disabled/read-only, prove exactly-one preflight, and bind one source-complete `RegistryRevisionV1`.
+C0 may interleave with remaining trusted qualification but must close before portfolio fan-out.
 
 ### Phase T1 — README-derived evidence
 
@@ -113,8 +126,10 @@ current README. Fan-out is prohibited until all pass recovery, no-op, and no-eff
 
 ### Phase T5 — Full-registry transformation
 
-Run two-to-four supervisor-owned isolated lanes in platform priority. Close only when every
-current registry entry is trusted-approved/no-op-proven with a checksum-valid PR-ready bundle.
+Run at most four supervisor-owned isolated lanes in platform priority: three trusted-reserved and
+at most one repository-verified read-only lane. Verified work may borrow idle capacity but cannot
+delay trusted work or emit an effect. Close only when every current registry entry is
+trusted-approved/no-op-proven with a checksum-valid PR-ready bundle.
 
 ### Phase T6 — Actual workflow under `act`
 
@@ -130,9 +145,12 @@ never receive a write token.
 
 ### Phase T8 — GitHub App and hosted staging qualification
 
-Only after `act` and staging pass, request the exact App authority and secrets. Prove fresh
-short-lived tokens, analysis/effect isolation, hosted triggers, recovery, leases, backlog, health,
-alerts, dead-man monitoring, and terminal manifests on staging.
+Only after `act` and staging pass, attempt supported non-interactive `gh`/API App setup. If GitHub
+requires a browser, owner confirmation, installation, or unavailable secret, persist
+`WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact handoff, and continue
+eligible verified read-only work. Validate and resume automatically after provisioning, then prove
+fresh short-lived tokens, analysis/effect isolation, hosted triggers, recovery, leases, backlog,
+health, alerts, dead-man monitoring, and terminal manifests on staging.
 
 ### Phase T9/T10 — Authority and draft PRs
 
@@ -142,9 +160,10 @@ expiry, crash recovery, and default-branch byte identity.
 
 ### Verified continuation
 
-After `TRP-07`, resume preserved `L8-INTAKE-02`, verified repository facts and reconciliation,
-verified Gate A/B/C, all surfaces, Level 5, Level 6, Level 7, and Level 8. Reuse prior operational
-proof only when its hashes and environment remain current. No verified requirement is omitted.
+After TRP-00 and C0, verified repository facts and reconciliation may advance read-only in spare
+capacity. After `TRP-07`, that lane becomes primary and completes verified Gate A/B/C, all
+surfaces, Level 5, Level 6, Level 7, and Level 8. Reuse prior operational proof only when its
+hashes and environment remain current. No verified requirement is omitted.
 
 ## 6. Work Completed
 
@@ -154,7 +173,8 @@ leases/CAS, evidence redaction/checksums, LLM call ledger/cache, deterministic p
 contracts, blind-review machinery, allow-list, push blocking, authorization, and effect ledger.
 
 `L8-INTAKE-02` is implemented but unverified. Its missing combined
-discovery → disabled admission → one intake public-path proof is preserved behind TRP-07.
+discovery → disabled admission → one intake public-path proof becomes eligible after TRP-00 and is
+a common prerequisite of portfolio fan-out.
 
 No TRP task is implemented. Existing 8/31 verified fact/candidate/deterministic artifacts are
 reusable where their hashes remain valid, but they provide zero trusted PRs and zero verified
@@ -162,10 +182,10 @@ agent approvals/no-ops.
 
 ## 7. Current Working State
 
-The plan amendment starts from clean `main` HEAD `0607b65f...`. Durable state was evaluated to
-version 556 with `TRP-00` as the sole eligible task and no active claim. The graph uses the legacy
+The plan amendment starts from clean `main` HEAD `862f0f4a...`. Durable state was evaluated to
+version 557 with `TRP-00` as the sole eligible task and no active claim. The graph uses the legacy
 universal/subordinate bindings only for parser bootstrap; TRP-00 must atomically migrate to the
-ordered T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. The immediate target is
+ordered T0/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 primary/concurrent goal catalog. The immediate target is
 `GOAL-T0-TRUSTED-QUALIFICATION`, not the displayed legacy universal goal.
 
 ## 8. Remaining Gaps
@@ -177,27 +197,27 @@ ordered T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. The immediate target is
   assurance; real output has truncated and repair has returned unchanged bytes.
 - `GAP-TRP-LONG-DOCUMENT`: largest current README exceeds reliable single-output generation.
 - `GAP-TRP-PORTFOLIO`: no full-registry trusted approval/no-op campaign.
+- `GAP-C0-DISCOVERY`: scanner is public-only, one PDF Go MCP repository is unmatched, one configured
+  source is unavailable, and no current all-visibility complete registry revision exists.
 - `GAP-TRP-WORKFLOW`: no complete canonical trusted run under the actual reusable workflow.
 - `GAP-TRP-STAGING`: no trusted remote proposal/recovery matrix in disposable GitHub staging.
 - `GAP-TRP-HOSTED`: App authentication, hosted recovery, health, and dead-man behavior are unproved.
-- `GAP-TRP-AUTHORITY`: owner intends to obtain remaining write access, but live access and reviewed
-  authorization are not yet complete.
+- `GAP-TRP-AUTHORITY`: owner reports organization-owner access, but the current credentials,
+  per-repository permission matrix, and reviewed authorization are not yet proven complete.
 - `GAP-TRP-EFFECT`: no assurance-specific trusted proposal and full-registry PR reconciliation.
 
 ## 9. Ordered Execution Queue
 
-1. `TRP-00-ASSURANCE-CONTRACT`
-2. `TRP-01-README-DERIVED-FACTS`
-3. `TRP-02-LLM-FIRST-COMPOSITION`
-4. `TRP-03-INDEPENDENT-FIDELITY-REVIEW`
-5. `TRP-04-CANARY-QUALIFICATION`
-6. `TRP-05-FULL-REGISTRY-TRANSFORM`
-7. `TRP-05A-ACT-WORKFLOW-PARITY`
-8. `TRP-05B-STAGING-EFFECT-PROOF`
-9. `TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION`
-10. `TRP-06-AUTHORIZATION-ACCESS`
-11. `TRP-07-DRAFT-PR-PORTFOLIO`
-12. Resume `L8-INTAKE-02` and the complete verified graph.
+1. `TRP-00-ASSURANCE-CONTRACT`.
+2. Primary trusted chain: `TRP-01` → `TRP-02` → `TRP-03` → `TRP-04`.
+3. Common interleaved chain after TRP-00: `L8-INTAKE-02` → `L8-INTAKE-03`.
+4. After both chains close: `TRP-05-FULL-REGISTRY-TRANSFORM` with 3:1 trusted/verified capacity.
+5. `TRP-05A-ACT-WORKFLOW-PARITY`.
+6. `TRP-05B-STAGING-EFFECT-PROOF`.
+7. `TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION`, including an exact manual handoff only if required.
+8. `TRP-06-AUTHORIZATION-ACCESS`.
+9. `TRP-07-DRAFT-PR-PORTFOLIO`.
+10. Promote the already-advancing verified lane to primary and continue the complete graph.
 
 Every taskcard contains exact allowed paths, dependencies, implementation outputs, focused and
 regression verification, negative controls, evidence, recovery, and closure rules.
@@ -213,7 +233,8 @@ regression verification, negative controls, evidence, recovery, and closure rule
 - Preserve header/badges, Mermaid, natural contextual links, configurable link budgets,
   product-subdomain priority, and exact Enterprise Edition terminology.
 - Platform priority: Python, .NET, Java, C++, TypeScript, Rust, Go.
-- Serial through canaries; two-to-four isolated lanes only after qualification.
+- Serial through trusted canaries; afterwards at most four isolated lanes with three trusted
+  reservations and one verified read-only lane.
 - Every LLM call/retry/cache reuse is attributed per README.
 - Expected write access is not current authority.
 - Draft PR only; no merge, ready transition, force-push, or default-branch write.
@@ -230,7 +251,7 @@ Plan reconciliation currently proves:
 - graph loads with 114 taskcards;
 - 447 requirement rows map deterministically;
 - plan structure passes;
-- mission evaluate migrated state to version 556;
+- mission evaluate migrated state to version 557;
 - graph drift is false and `TRP-00` is sole eligible.
 - focused mission/plan/CLI tests pass: 69 passed, 53 deselected;
 - the pre-commit full official gate passed Ruff, format, mypy, 2,183 non-live tests, plan
@@ -262,9 +283,10 @@ this change is a plan amendment, not implementation closure.
 6. Run relevant integration, regression, safety, recovery, and idempotency checks.
 7. Capture redacted checksum-complete evidence and independent verification.
 8. Update the same requirements/task/log/handover and commit to main.
-9. Evaluate and claim TRP-01.
-10. Continue autonomously through TRP-05A/05B/05C, TRP-06/07, and then the preserved verified
-    mission.
+9. Evaluate and claim TRP-01 as primary while interleaving eligible C0 work after TRP-00.
+10. Continue autonomously through the 3:1 trusted-priority campaign, TRP-05A/05B/05C, TRP-06/07,
+    and the concurrently advancing verified mission. Notify the owner only at a proven manual
+    GitHub App boundary or another true external-authority block.
 
 ## 14. Closure Standard
 

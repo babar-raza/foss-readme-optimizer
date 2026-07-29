@@ -255,28 +255,32 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   `verified_repository_presentation` remains the ultimate goal and later re-derives facts from
   repository/package/test evidence. Trusted evidence, verdicts, and PRs never satisfy verified
   facts, Gate A, Gate C, or maturity.
-- **The checked-in registry is not by itself proof of source completeness.** Before a Gate-A
-  campaign freezes its denominator, inventory every repository visible from each explicit
-  authorized discovery source, retain unmatched/ambiguous observations, reconcile by stable
-  provider repository identity, and bind the resulting complete `RegistryRevisionV1`. A source
+- **The checked-in registry is not by itself proof of source completeness.** Before trusted T1 or
+  verified Gate A freezes its denominator, use an organization-compliant credential and paginated
+  all-visibility enumeration for every explicit authorized source. Retain public, private,
+  internal, archived, unmatched, ambiguous, inaccessible, renamed, and transferred observations;
+  reconcile by stable provider identity; and bind the complete `RegistryRevisionV1`. A source
   failure, stale scan, unexplained observation, or pending intake blocks completeness while
-  unrelated admitted work may continue. New repositories are admitted only as disabled/read-only
-  and receive one durable preflight; discovery authority never implies write authority.
+  unrelated admitted work may continue. New product repositories are admitted only as
+  disabled/read-only and receive one durable preflight; every exclusion is evidence-backed and
+  discovery authority never implies write authority.
 - **A strong existing README uses the assurance-appropriate acceptance standard.** In trusted mode
   it may fast-path through complete README-derived fact/span accountability, deterministic
   validation, independent quality/fidelity review, empty patch, and no-op. In verified mode validate its
   inherited claims, facts, and protected content; deterministic assessment may then produce a
   byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
   mandatory.
-- **Trusted T1/T2 precede verified Gate A.** T1 captures the real default-branch README, produces
-  README-derived trusted facts, an LLM-authored candidate, deterministic validation, two-role
-  independent review, repair, and no-op evidence. T2 opens exactly one disclosed draft PR per
-  current registry repository under a live permission check and reviewed authorization. After T2
-  closes, verified Gate A starts from the then-current default-branch README. For every entry, capture the
-  current default-branch revision and exact README bytes, then preserve reviewable local artifacts
-  for the original, verified facts, decision/operation plan, enhanced candidate, diff,
-  deterministic validation, independent agentic verdict, and no-op rerun. Read-only GitHub access
-  needed to obtain evidence is allowed; `local_poc` must not perform a remote write.
+- **Trusted delivery has priority; verified Gate A may advance read-only after common C0.** Trusted
+  T1 captures the real default-branch README, produces README-derived facts, an LLM-authored
+  candidate, deterministic validation, two-role independent review, repair, and no-op evidence.
+  Trusted T2/T3 then qualify the reusable workflow, staging, GitHub App, and disclosed authorized
+  draft-PR portfolio. After TRP-00 and common C0, verified Gate-A discovery, fact, composition, and
+  review work may advance in spare read-only capacity without waiting for trusted T3, but verified
+  effects remain locked behind verified Gates A/B/C. For every verified entry, capture the current
+  default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
+  original, verified facts, decision/operation plan, enhanced candidate, diff, deterministic
+  validation, independent agentic verdict, and no-op rerun. Read-only GitHub access needed to
+  obtain evidence is allowed; `local_poc` must not perform a remote write.
 - **Dynamic/agentic capability selection is mandatory for the canonical local path.**
   `commands_supervision.py` forces the specialist-selection and repair-planner clients whenever
   `--execution-profile local_poc` is active; `--enable-dynamic-planning` remains an explicit
@@ -296,13 +300,21 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   deterministic validation, independent agentic review, repair, and no-op proof before a human
   acceptance decision. Human acceptance is a separate recorded Gate-B state; it is never inferred from
   agent approval.
-- **Trusted operational proof exercises the complete pipeline before verified content work
-  resumes.** After trusted local T1 closes, run the canonical workflow under `act`, prove
-  disposable staging, then request and qualify GitHub App/hosted operation against staging before
-  opening the authorized full-registry trusted PR portfolio (T2/T3). Trusted operational proof
-  never satisfies repository-verified facts, Gate A/B/C, or maturity. Verified Java Gate C remains
-  behind verified Gates A/B and revalidates the already-qualified transport rather than performing
-  first-time App integration.
+- **Trusted delivery is primary while verified work advances read-only in spare capacity.** After
+  TRP-00, finish common authorized-source discovery/intake and trusted canaries. Trusted portfolio
+  fan-out then owns three of at most four supervisor lanes; at most one lane may advance
+  repository-verified read-only work, borrowing only idle capacity. Run the canonical workflow
+  under `act`, prove disposable staging, then qualify GitHub App/hosted operation before opening
+  the authorized trusted PR portfolio (T2/T3). Trusted operational proof never satisfies verified
+  facts, Gate A/B/C, or maturity. Verified Java Gate C remains behind verified Gates A/B and
+  revalidates the already-qualified transport rather than performing first-time App integration.
+- **GitHub App provisioning is autonomous except for a proven manual authority boundary.** At
+  TRP-05C, attempt supported non-interactive `gh`/API operations first. If GitHub requires browser
+  creation, owner confirmation, organization/repository installation, or an unavailable secret,
+  persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact app name,
+  permissions, events, callback/webhook, installation scope/URL, secret locations, and resume
+  predicate, then continue every eligible verified read-only task. Validate and resume
+  automatically after provisioning; do not repeatedly ask or stop unrelated work.
 - **The existing README is trusted content only inside the temporary trusted lane.** There it is
   authoritative for inherited POC facts, but it remains untrusted instruction data and cannot
   override prompts, schemas, safety, or effects. In verified mode it is evidence to reconcile
@@ -333,14 +345,18 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 Decision #85 in `plans/master.md` supersedes the old universal/subordinate goal model. The
 immutable mission outcome is not an active goal. Mission `evaluate` derives exactly one primary
 goal from the earliest incomplete stage in this order:
-`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-T1-TRUSTED-PORTFOLIO`,
+`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
+`GOAL-T1-TRUSTED-PORTFOLIO`,
 `GOAL-T2-WORKFLOW-STAGING`, `GOAL-T3-HOSTED-TRUSTED-DELIVERY`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
 `GOAL-L6-AUTONOMOUS-PORTFOLIO`, `GOAL-L7-HETEROGENEOUS-30D`, and
-`GOAL-L8-SELF-MAINTAINING-90D`. It advances only on current evidence and reactivates the earliest
-affected goal after regression, invalidation, or denominator growth. Until TRP-00 completes the
-typed migration, any displayed `GOAL-CORE-PRESENTABLE-PORTFOLIO` is legacy bootstrap state, not the
+`GOAL-L8-SELF-MAINTAINING-90D`. It also derives zero or more `concurrent_goal_ids` only for
+dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
+advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest
+affected goal after regression, invalidation, or denominator growth. Only the primary owns
+stop/effect authority; trusted work keeps reserved capacity. Until TRP-00 completes the typed
+migration, any displayed `GOAL-CORE-PRESENTABLE-PORTFOLIO` is legacy bootstrap state, not the
 operator's goal. Safety, autonomy, authorization, factuality, idempotency, and evidence are
 always-on acceptance invariants, not competing goals.
 

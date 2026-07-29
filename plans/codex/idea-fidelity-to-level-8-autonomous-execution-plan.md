@@ -21,9 +21,10 @@ The immediate outcome is one independently transformation-approved
 `trusted_readme_transform` draft PR for every current `data/products.json` entry. Its facts are
 extracted from the immutable source README with `README_INHERITED` provenance and are not
 repository-verified. The denominator is loaded at runtime; no fixed repository count is
-authoritative. After every trusted PR exists, execution resumes
-`verified_repository_presentation`: the complete repository-evidence-backed central
-presentation system and independently reproducible Level-8 award in `plans/idea.md`.
+authoritative. Trusted delivery remains the primary critical path. After assurance separation and
+complete authorized-source discovery, `verified_repository_presentation` work advances read-only
+in spare supervisor capacity instead of waiting for every trusted PR; after trusted T3 closes it
+becomes primary and continues to the independently reproducible Level-8 award in `plans/idea.md`.
 
 ### Binding trusted-POC amendment (2026-07-29)
 
@@ -32,17 +33,17 @@ does not delete or weaken the later verified work.
 
 ```text
 TRP-00 explicit content assurance and lifecycle separation
-→ TRP-01 README_INHERITED fact/claim extraction
-→ TRP-02 LLM-first inventory, plan, section composition, and repair
-→ TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review
-→ TRP-04 real adversarial canaries
-→ TRP-05 two-to-four-lane full-registry trusted transformation
+├→ primary: TRP-01 → TRP-02 → TRP-03 → TRP-04 trusted canary qualification
+└→ shared concurrent: L8-INTAKE-02 → L8-INTAKE-03 complete discovery/intake/revision
+→ TRP-05 four-lane portfolio campaign
+     lanes 1-3 reserved trusted_readme_transform
+     lane 4 repository_verified read-only; may borrow idle capacity, never issue an effect
 → TRP-05A actual reusable-workflow parity under act
 → TRP-05B disposable GitHub staging proposal/effect proof
 → TRP-05C GitHub App and hosted autonomous workflow qualification on staging
 → TRP-06 per-repository authorization and live write-access proof
 → TRP-07 exactly one trusted draft PR per current registry repository
-→ resume the preserved L8-INTAKE-02 verified boundary
+→ verified work becomes primary
 → verified full-registry Gate A and every later maturity gate
 ```
 
@@ -62,17 +63,17 @@ Short and ordinary READMEs may compose in one call; large READMEs use section gr
 blind-quality and inheritance-fidelity roles must approve the result, and an unchanged or
 truncated repair is a system failure.
 
-The owner intends to obtain direct write access for the remaining repositories. The plan records
-that intention but treats access as available only after live repository permission checks and
-reviewed, unexpired authorization records. Missing access blocks only the affected PR while all
-other transformation and effect work continues. The one-day target applies to the already
+The owner reports organization-owner access. The plan treats it as available for effects only
+after live credential and per-repository permission checks plus reviewed, unexpired authorization
+records. Missing access blocks only the affected PR while all other transformation, verified
+read-only, and authorized effect work continues. The one-day target applies to the already
 qualified full-registry campaign, not to implementation, canary repair, or unavailable external
 authority.
 
 The trusted lane uses the complete canonical operational pipeline: local execution, `act`,
 disposable staging, GitHub App authentication, hosted scheduling/recovery, authorization, and real
-draft-PR reconciliation. It proves operational integration while deliberately leaving repository
-factuality for the later verified lane.
+draft-PR reconciliation. It proves operational integration while repository factuality advances
+independently in the concurrent read-only verified lane.
 
 ### Automatically derived stage-goal system
 
@@ -82,23 +83,26 @@ inside `TRP-00`. The sole mission graph declares the ordered stage catalog; the 
 the lowest incomplete stage and persists exactly one primary goal:
 
 1. `GOAL-T0-TRUSTED-QUALIFICATION`
-2. `GOAL-T1-TRUSTED-PORTFOLIO`
-3. `GOAL-T2-WORKFLOW-STAGING`
-4. `GOAL-T3-HOSTED-TRUSTED-DELIVERY`
-5. `GOAL-V1-VERIFIED-TRUTH`
-6. `GOAL-V2-VERIFIED-GATE-A`
-7. `GOAL-V3-HUMAN-AND-JAVA-PROOF`
-8. `GOAL-L5-PRESENTATION-PILOT`
-9. `GOAL-L6-AUTONOMOUS-PORTFOLIO`
-10. `GOAL-L7-HETEROGENEOUS-30D`
-11. `GOAL-L8-SELF-MAINTAINING-90D`
+2. `GOAL-C0-AUTHORIZED-PORTFOLIO`
+3. `GOAL-T1-TRUSTED-PORTFOLIO`
+4. `GOAL-T2-WORKFLOW-STAGING`
+5. `GOAL-T3-HOSTED-TRUSTED-DELIVERY`
+6. `GOAL-V1-VERIFIED-TRUTH`
+7. `GOAL-V2-VERIFIED-GATE-A`
+8. `GOAL-V3-HUMAN-AND-JAVA-PROOF`
+9. `GOAL-L5-PRESENTATION-PILOT`
+10. `GOAL-L6-AUTONOMOUS-PORTFOLIO`
+11. `GOAL-L7-HETEROGENEOUS-30D`
+12. `GOAL-L8-SELF-MAINTAINING-90D`
 
 `evaluate` automatically advances after current independent closure proof and automatically rolls
-back to the earliest affected stage after regression, invalidation, or denominator growth. The
-active goal, activation reason, graph/state revision, and append-only transition history are
-durable. A task outside the active goal cannot be claimed. Safety, autonomy, authorization,
-factuality, idempotency, and evidence completeness remain invariant acceptance conditions rather
-than selectable goals.
+back to the earliest affected stage after regression, invalidation, or denominator growth. It also
+derives `concurrent_goal_ids` only for dependency-ready, read-only, assurance-isolated work admitted
+by the primary goal's capacity policy. The primary goal, concurrent goals, activation reasons,
+capacity allocation, graph/state revision, and append-only transition history are durable. A task
+outside both derived sets cannot be claimed; only the primary owns stop/effect authority. Safety,
+autonomy, authorization, factuality, idempotency, and evidence completeness remain invariant
+acceptance conditions rather than selectable goals.
 
 Every task must name its stage goal and one measurable contribution: a visible output,
 the removal of its first failing boundary, an indispensable safety condition, or required
@@ -125,6 +129,53 @@ produces output or removes a blocker. Closing machinery without advancing a life
 removing its evidenced blocker is a drift failure. Dependency ordering still prevents downstream
 work from masquerading as upstream proof; the status view names the current concrete stage instead
 of a generic universal objective.
+
+### Trusted-priority dual-lane execution contract
+
+Dual lane means two assurance workstreams inside one supervisor, not two agents, controllers,
+queues, stores, or top-level command trees. `active_goal_id` is the only critical-path and stop
+authority. `concurrent_goal_ids` is an automatically derived read-only accelerator set.
+
+Entry and capacity rules:
+
+1. TRP-00 first installs assurance-disjoint state, identities, caches, and goal migration.
+2. Common discovery/intake (`L8-INTAKE-02/03`) may then advance alongside remaining trusted
+   qualification, but execution stays one repository lane until TRP-04 canaries close.
+3. TRP-05 cannot start until both TRP-04 and a current complete `RegistryRevisionV1` close.
+4. After that boundary, the sole supervisor admits at most four repository processes: three
+   reserved for trusted work and at most one verified read-only process.
+5. Verified work may borrow an idle trusted slot. When trusted work becomes ready, the next free
+   slot returns to trusted; an already-running verified stage seals normally and is not killed.
+6. Trusted and verified work share only assurance-neutral snapshots, inventories, Markdown parse
+   trees, platform profiles, and transport/rate-limit infrastructure. Fact graphs, prompts where
+   assurance differs, call/cache identities, verdicts, manifests, lifecycle receipts, proposal
+   identities, and acceptance counters remain disjoint.
+7. Aggregation and every per-repository effect are serialized. Until trusted T3 closes, only its
+   primary effect path may create/update a product proposal. The verified lane prepares a local
+   successor and never races a second PR; later authorization updates or supersedes the existing
+   proposal through `OpenProposalV2`.
+8. A trusted failure consumes trusted repair capacity before new verified work. A true trusted
+   external block releases idle capacity to verified read-only work without changing the primary
+   goal. No session boundary, test failure, App wait, or completed subtask stops other eligible
+   work.
+
+GitHub App provisioning is the one anticipated manual authority boundary. After TRP-05A/05B,
+Codex attempts supported non-interactive `gh`/API actions. If GitHub requires browser-based App
+creation, owner confirmation, organization installation, or a secret not available to Codex, the
+runtime records `WAITING_HUMAN_APP_PROVISIONING` and produces one idempotent handoff containing:
+
+- exact App name and purpose;
+- least-privilege permissions and subscribed events;
+- callback and webhook configuration;
+- exact organization/repository installation scope;
+- installation URL and verification command;
+- exact secret names and approved storage locations;
+- the resume predicate and validation command.
+
+Codex notifies the owner at that boundary. It does not repeatedly ask, does not infer completion,
+and does not stop eligible verified read-only work. Once provisioning is detected or reported,
+Codex validates installation IDs and permissions, configures secret references without exposing
+values, and resumes the same TRP-05C claim automatically.
 
 The audit baseline at adoption was `main` at
 `f89da6056b13cae19e02a72aa6d5ebf3fc371ee1`, with a large valuable in-flight candidate tree. At
@@ -282,7 +333,8 @@ not substitute one stage's machinery for another stage's output:
 | Horizon | Governed goals | Required outcome | Target control |
 | --- | --- | --- | --- |
 | Trusted qualification | `GOAL-T0-TRUSTED-QUALIFICATION` | Disjoint assurance plus approved/no-op real canaries | Complete before portfolio fan-out |
-| Trusted local portfolio | `GOAL-T1-TRUSTED-PORTFOLIO` | Every current repository approved/no-op under README-derived assurance | One qualified campaign day |
+| Common discovery/intake | `GOAL-C0-AUTHORIZED-PORTFOLIO` | All-visibility authorized-source inventory, explicit disposition, disabled admission/intake, complete registry revision | May overlap T0 after TRP-00; must close before T1 fan-out |
+| Trusted local portfolio | `GOAL-T1-TRUSTED-PORTFOLIO` | Every current repository approved/no-op under README-derived assurance while verified read-only work advances in spare capacity | One qualified campaign day |
 | Trusted operations and delivery | `GOAL-T2-WORKFLOW-STAGING`, `GOAL-T3-HOSTED-TRUSTED-DELIVERY` | `act`, staging, App/hosted qualification, then one disclosed draft PR per current repository | Execute immediately after T1; external authority time is reported separately |
 | Verified portfolio | `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`, `GOAL-V3-HUMAN-AND-JAVA-PROOF` | Repository-derived facts, full-registry Gate A/B, verified Java proof | Preserve earlier 7–12 working-day Gate-A control target after verified contract qualification |
 | Level 5/6 | `GOAL-L5-PRESENTATION-PILOT`, `GOAL-L6-AUTONOMOUS-PORTFOLIO` | Complete surfaces and autonomous portfolio operation | Evidence-derived forecast after verified Gate C |
@@ -1227,7 +1279,7 @@ finding.
 | Security and legal | Repository text, examples, manifests, and linked material are untrusted; README changes can also alter license presentation, attribution, or commands visitors execute. | Prompt-injection resistance is necessary but insufficient. Examples run secret-free, fetched artifacts are pinned, licenses and attribution are ownership-sensitive, and no generated command becomes visitor-facing without deterministic safety and provenance checks. |
 | Measurement causality | `idea.md` includes referral and traffic reporting, but traffic can change because of releases, campaigns, search ranking, or portfolio seasonality. | Traffic is an operational outcome signal, not proof that a README change is correct. Quality and safety gates remain primary; impact reporting needs baselines, change windows, and confounder notes and must never reward exaggeration. |
 | Environment fidelity | A local source build can pass on one workstation while hosted Actions fails on runner images, rate limits, permissions, or network policy. | Local proof establishes product intelligence, not production readiness. `act`, disposable staging, and hosted canary evidence remain separate gates using the same contracts and artifacts. |
-| Delivery governance | `plans/idea.md` requires Gate A/B before Java PR/App work; production access is not needed for the defects above. | Do not ask for GitHub App or product-write authority. The present critical path is entirely local and agent-fixable. |
+| Delivery governance | Trusted T2/05B must pass before App provisioning; trusted T3 qualifies hosted integration before product effects, while verified Gate A/B still precede verified Java effects. | Do not ask for GitHub App authority before T2/staging closes. At TRP-05C attempt supported CLI/API setup, otherwise emit the exact one-time manual handoff while verified read-only work continues. Product-write effects still require current permission and authorization. |
 | Maturity claim | Level 7 requires 30 production days and Level 8 requires 90; those clocks cannot begin before accepted hosted operation exists. | Architecture and test volume cannot compress elapsed operational proof. POC, Level 5, Level 7, and Level 8 remain distinct earned states with separate evidence. |
 
 ### Pinned `aspose.org` reuse boundary
@@ -1840,7 +1892,7 @@ day restarts or extends the affected consecutive window.
 
 ## Exact autonomous resume sequence
 
-Execution resumes in this order; it does not start an official 31-repository campaign:
+Execution resumes in this order; it does not start an official fixed-count campaign:
 
 1. Re-read live HEAD, tree, graph hash, durable state, claim expiry, and the evidence paths in the
    multi-perspective table. Inventory repository-owned processes and establish Codex as the sole
@@ -1849,50 +1901,33 @@ Execution resumes in this order; it does not start an official 31-repository cam
    dependencies moved as diagnostic only.
 2. Run mission `status`; if the graph hash differs from durable state, run `evaluate` once to
    migrate without deleting transition history, then claim only the highest-priority eligible
-   task. The expected next task after this amendment is
-   `L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY`; live durable state supersedes this snapshot.
-3. Complete the four `L8-INTAKE-*` tasks: source-complete observation, allow-list-before-preflight
-   safety, provider-ID reconciliation, disabled/read-only enrollment, strong-README fast path,
-   registry-revision campaign binding, same-run queueing, recovery, and discovery health.
-4. Repair the bounded factual-review output and length-aware recovery contract. Preserve blind/factual
-   role separation, evidence grounding, fail-closed behavior, exact calls, and candidate retention.
-   Re-run focused, supervisor, safety, and no-remote-write regressions, then require the sealed C++
-   canary to produce a complete governed verdict rather than transport truncation.
-5. Close the repaired owner task only from checksum-complete evidence, return
-   `L8-REVIEW-04A-REAL-CORPUS` from `REROUTED` to `READY`, and complete the real corpus and
-   `L8-REVIEW-05-REAL-CAMPAIGN` serially in Python, .NET, Java, C++, TypeScript, Rust, Go order.
-   The reviewer contract must freeze before any paid portfolio fan-out.
-6. In `L8-QUAL-00-CAMPAIGN-SCHEMA` and `L8-QUAL-01-CAMPAIGN-IDENTITY`, version the existing
-   serial-stage receipts, implement the complete campaign/dependency/call identity, and make
-   receipts—not compatibility files—the acceptance authority.
-7. Use `L8-QUAL-01A-REPRESENTATIVE-INPUTS` for one current-contract Python canary and the immutable
-   seven-representative input freeze. Do not mislabel it as seven-repository proof.
-8. Verify the migrated qualification edges, then implement P1 in
-   `L8-QUAL-02A-FAILURE-MATRIX`: renewable fenced leases, deterministic planning and priority,
-   resource bulkheads, process-isolated one-stage fixture lanes, sealed results, serialized
-   reduction, recovery, and descendant cleanup. Two fixture lanes must be serial-equivalent; real
-   representative execution remains one lane.
-9. Execute `L8-QUAL-02-SEVEN-E2E` serially through the complete public supervisor path in configured
-   order. Require all seven representatives to reach current-contract `AGENT_APPROVED` and unchanged
-   `NO_OP_PROVEN`, with recovery, idempotency, safety, cache provenance, exact call accounting, and
-   measured cost/latency evidence. Run the complete official suite once at this campaign boundary.
-9. Freeze the registry, repository revisions, control HEAD, prompt/fact/renderer/validator/reviewer
-   hashes, dependency lock, invalidation graph, lane caps, and cost envelope as one named campaign.
-10. Run the Python-first acceleration chain under the frozen P3 contract:
-    `L8-ACCEL-00-PYTHON-READINESS` with zero paid calls, then
-    `L8-ACCEL-01-EIGHT-TOTAL`, `L8-ACCEL-02-EIGHT-PYTHON`, and
-    `L8-ACCEL-03-ALL-PYTHON`. Use adaptive two-to-four supervisor-owned lanes, serialized
-    aggregation, and the same per-repository proof. Do not stop at either eight milestone.
-11. Preserve the closed Python bundles, run `L8-TRUTH-08-FULL-REGISTRY` for the remaining
-    repositories to the facts-only ceiling, then resume Gate A in .NET, Java, C++, TypeScript,
-    Rust, Go cohorts. A new live defect closes admission, reopens the first responsible task,
-    requalifies the affected representative, and resumes only invalidated repositories. Promote
-    one closure evidence package after the final official suite, not one package per failed attempt.
-12. Present the Gate-B package only when the runtime-derived Gate-A equation is true. Revalidate
-   the trusted T2/T3 workflow, staging, App, and hosted proofs by hash, then complete verified
-   Gate C and Level 5 as their own dependencies permit. Start the complete Level-8 control/evidence series on hosted
-   day 1, award Level 7 from days 1–30, and continue the same uninterrupted series to Level 8 at
-   day 90.
+   task. The expected next task is `TRP-00-ASSURANCE-CONTRACT`; live durable state supersedes this
+   snapshot.
+3. Complete TRP-00: install assurance-disjoint state/cache/proposal/effect identities and migrate
+   the goal guard to one primary plus automatically derived concurrent goals.
+4. Keep one repository lane while trusted TRP-01 through TRP-04 remains primary. Interleave the
+   common `L8-INTAKE-02/03` discovery path whenever the primary task is waiting: authenticate
+   all-visibility enumeration, disposition every visible repository, admit active products
+   disabled/read-only, prove exactly-one intake, and seal `RegistryRevisionV1`.
+5. Do not start TRP-05 until both TRP-04 canary qualification and common Gate C0 close. Then run
+   four supervisor-owned lanes: three trusted-reserved and one verified read-only, with borrowing,
+   automatic priority return, separate assurance identities, serialized reduction, and no effects
+   from the verified lane.
+6. Complete TRP-05A and TRP-05B through the actual `act` workflow and disposable staging. Continue
+   verified read-only work in idle capacity rather than stopping at these checkpoints.
+7. At TRP-05C, attempt supported `gh`/API App setup. If GitHub requires manual owner/browser action,
+   persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact handoff, continue
+   verified read-only tasks, then validate and resume automatically after provisioning.
+8. Complete TRP-06 live permission/authorization proof and TRP-07 exactly-one trusted draft PR per
+   repository. Effects remain serialized and require exact current authority.
+9. Promote the verified lane to primary without regenerating valid assurance-neutral inputs.
+   Continue the existing reviewer repair, campaign schema/identity, representative qualification,
+   recovery/cost/freeze, Python milestones, and remaining platform cohort tasks in their graph
+   order. Broader verified fan-out remains locked until seven representatives qualify.
+10. Close Gate A only from the complete repository-verified dynamic denominator, present Gate B,
+    complete verified Gate C and Level 5, then start the complete Level-8 control/evidence series
+    on hosted day 1. Award Level 7 from days 1–30 and continue the same uninterrupted series to
+    Level 8 at day 90.
 
 ## Verification, evidence, and human boundaries
 

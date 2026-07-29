@@ -178,8 +178,9 @@ to add a project fact here, it belongs in `master.md` instead.
     three-repository or other partial result being described as if it were the whole POC. (Added
     2026-07-25, user directive — see Decision #78.)
 18. **Gate A has a discovery-to-candidate artifact contract and makes its own
-    repository-specific decisions.** This rule governs verified Gate A after trusted Gate T2; no
-    trusted artifact satisfies it. Every Gate-A campaign first binds a complete discovery-source
+    repository-specific decisions.** Verified Gate-A read-only work may advance after assurance
+    separation and common discovery while trusted delivery remains primary; no trusted artifact
+    satisfies it. Every Gate-A campaign first binds a complete discovery-source
     catalog, raw observation snapshot, registry revision, and intake disposition, then starts from
     the README at each admitted repository's observed default-branch
     revision and records the original bytes/revision, verified facts and conflicts, selected
@@ -219,17 +220,23 @@ to add a project fact here, it belongs in `master.md` instead.
     verified fact or proposal. Verified mode independently derives and reconciles facts from
     repository/package/test evidence. Assurance is part of every dependency fingerprint and
     effect identity. A mode change reopens dependent work, and no report, migration, PR, or human
-    interpretation may relabel trusted evidence as verified. (Added 2026-07-29, user directive;
-    see Decision #85 and `TRP-001`–`TRP-014`.)
+    interpretation may relabel trusted evidence as verified. The sole supervisor may schedule both
+    assurance lanes only under the trusted-priority, read-only-concurrency contract in
+    `TRP-015`; per-repository effects remain serialized and one lane can never consume the other's
+    assurance-bound cache, verdict, proposal, or maturity state. (Added 2026-07-29, user directive;
+    see Decision #85 and `TRP-001`–`TRP-015`.)
 21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
     mission outcome is a closure standard, not an active goal. The sole mission graph declares the
-    ordered T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly one
-    active goal from the earliest incomplete gate, records it atomically with task state, advances
-    only on current evidence, and reactivates the earliest affected goal after regression,
-    invalidation, or registry growth. Safety and autonomy are acceptance invariants attached to the
-    current goal, not alternate destinations. Narrative handovers and operators may not manually
-    override derived goal state. (Added 2026-07-29, user directive; see Decision #85 and
-    `L8-025`.)
+    ordered T0/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
+    one primary goal from the earliest incomplete gate and zero or more concurrent goals only for
+    dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy.
+    It records both atomically with task state, advances only on current evidence, withdraws
+    invalid concurrency, and reactivates the earliest affected goal after regression, invalidation,
+    or registry growth. Only the primary goal owns stop/effect authority. Trusted delivery retains
+    reserved capacity and cannot be starved by verified work. Safety and autonomy are acceptance
+    invariants attached to the current goals, not alternate destinations. Narrative handovers and
+    operators may not manually override derived goal state. (Added 2026-07-29, user directive;
+    amended for trusted-priority dual-lane execution; see Decision #85, `L8-025`, and `TRP-015`.)
 
 ## Applying a new requirement (the actual procedure)
 

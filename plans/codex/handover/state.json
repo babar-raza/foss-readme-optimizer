@@ -1,26 +1,30 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "handover_status": "HANDOVER_READY",
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "content_checkpoint_head": "0607b65ffbb366ff8e6d9f8a2fe0b59a5a0bcc00",
-  "origin_main_at_checkpoint": "0607b65ffbb366ff8e6d9f8a2fe0b59a5a0bcc00",
-  "working_tree_at_snapshot": "stage-goal and trusted operational proof plan amendment pending coherent commit",
+  "content_checkpoint_head": "862f0f4a5b9257eedd8d2fcce90254a2cf30f811",
+  "origin_main_at_checkpoint": "862f0f4a5b9257eedd8d2fcce90254a2cf30f811",
+  "working_tree_at_snapshot": "trusted-priority dual-lane and complete-discovery amendment prepared against the recorded content checkpoint; verify live Git state before resuming",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "5e12d81344498f385487949bc0af44896039d587fb0deca870833b6d975fb21a",
-  "durable_state_version": 556,
+  "authoritative_plan_hash": "e6e06909e7517fe5e2197a2542b8ad27942129afed2b62f35fc0b182cf57fe7f",
+  "durable_state_version": 557,
   "graph_drift": false,
   "current_phase": "T0 trusted qualification - assurance, goal migration, composition, review, and canaries",
   "current_task": "TRP-00-ASSURANCE-CONTRACT",
   "current_task_status": "TODO",
   "active_claim": null,
   "next_task": "TRP-00-ASSURANCE-CONTRACT",
-  "next_action": "Claim TRP-00 and add ContentAssuranceV1 plus disjoint trusted lifecycle, counters, cache, manifest, proposal, and effect identity; replace the legacy universal goal with the ordered evidence-derived stage-goal catalog without creating another runtime or promoting trusted evidence.",
+  "next_action": "Claim TRP-00 and add ContentAssuranceV1 plus disjoint trusted lifecycle, counters, cache, manifest, proposal, and effect identity; replace the legacy universal goal with automatically derived primary/concurrent stage goals without creating another runtime or promoting trusted evidence.",
   "active_goal_target": "GOAL-T0-TRUSTED-QUALIFICATION",
+  "concurrent_goal_targets_after_trp00": [
+    "GOAL-C0-AUTHORIZED-PORTFOLIO"
+  ],
   "legacy_goal_state": "The current runtime may still display GOAL-CORE-PRESENTABLE-PORTFOLIO until TRP-00 performs the typed durable migration; it is not the operating goal.",
   "stage_goal_order": [
     "GOAL-T0-TRUSTED-QUALIFICATION",
+    "GOAL-C0-AUTHORIZED-PORTFOLIO",
     "GOAL-T1-TRUSTED-PORTFOLIO",
     "GOAL-T2-WORKFLOW-STAGING",
     "GOAL-T3-HOSTED-TRUSTED-DELIVERY",
@@ -36,17 +40,19 @@
   "ultimate_goal": "verified_repository_presentation: repository-evidence-backed full presentation system through Level 8",
   "mandatory_outcomes": [
     "TRP-00 explicit trusted-versus-verified assurance and durable goal/state migration",
+    "common C0 authenticated all-visibility discovery, explicit disposition, disabled/read-only intake, and complete RegistryRevisionV1",
     "TRP-01 README_INHERITED fact and claim extraction with exact source spans",
     "TRP-02 LLM-first bounded section composition and targeted repair",
     "TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review",
     "TRP-04 adversarial real canary qualification",
     "TRP-05 full-registry trusted transformation and no-op proof",
+    "TRP-015 trusted-priority dual assurance lanes with three trusted reservations, at most one verified read-only lane, and serialized effects",
     "TRP-05A canonical reusable-workflow proof under act",
     "TRP-05B disposable staging proposal/effect proof",
     "TRP-05C GitHub App and hosted autonomous workflow qualification on staging",
     "TRP-06 live write-access and reviewed authorization for every repository",
     "TRP-07 exactly one disclosed trusted draft PR per current registry repository",
-    "resume preserved verified intake, facts, composition, review, and full-registry Gate A",
+    "advance verified intake, facts, composition, and review read-only in spare capacity; promote it to primary after TRP-07",
     "verified Gate B/C, Level 5, Level 6, 30-day Level 7, and 90-day Level 8"
   ],
   "completed_verified": [
@@ -59,7 +65,7 @@
   "implemented_unverified": [
     {
       "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-      "disposition": "preserved behind TRP-07",
+      "disposition": "eligible after TRP-00 as common discovery work and required before TRP-05",
       "missing_proof": "One public-supervisor run beginning with an unseen discovery observation must prove disabled admission and exactly one intake in the same logical run."
     }
   ],
@@ -69,13 +75,14 @@
     "TRP-02-LLM-FIRST-COMPOSITION",
     "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
     "TRP-04-CANARY-QUALIFICATION",
+    "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
     "TRP-05-FULL-REGISTRY-TRANSFORM",
     "TRP-05A-ACT-WORKFLOW-PARITY",
     "TRP-05B-STAGING-EFFECT-PROOF",
     "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
     "TRP-06-AUTHORIZATION-ACCESS",
     "TRP-07-DRAFT-PR-PORTFOLIO",
-    "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
     "remaining verified mission graph through LEVEL-8-90-DAY-PROOF"
   ],
   "blockers": [
@@ -83,17 +90,21 @@
       "task_id": "TRP-06-AUTHORIZATION-ACCESS",
       "classification": "EXPECTED_EXTERNAL_AUTHORITY",
       "blocks_current_task": false,
-      "unblock_condition": "Owner obtains remaining direct repository write access; Codex then proves each permission live and consumes reviewed unexpired repository-specific authorization."
+      "unblock_condition": "Owner reports organization-owner access; Codex must prove the active credential and each repository permission live, then consume reviewed unexpired repository-specific authorization."
     },
     {
       "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
       "classification": "EXPECTED_EXTERNAL_AUTHORITY",
       "blocks_current_task": false,
-      "unblock_condition": "After TRP-05A and TRP-05B close, provide the exact requested GitHub App registration, installation, repository scope, and secrets for hosted staging qualification."
+      "unblock_condition": "After TRP-05A and TRP-05B close, Codex attempts supported gh/API setup. If manual provisioning is required, it records WAITING_HUMAN_APP_PROVISIONING and sends the owner one exact app, permission, event, webhook, installation-scope, URL, secret-location, and resume handoff."
     }
   ],
   "portfolio_scoreboard": {
     "checked_in_denominator": 31,
+    "latest_public_observations": 32,
+    "unmatched_observations": 1,
+    "source_failures": 1,
+    "all_visibility_denominator": null,
     "trusted_facts_extracted": 0,
     "trusted_candidate_generated": 0,
     "trusted_transform_approved": 0,
@@ -126,10 +137,13 @@
   "resume_protocol": [
     "Read AGENTS.md and the authoritative planning set, then verify live branch, HEAD, tree, processes, graph hash, and durable mission status.",
     "Trust live supervisor state over this snapshot.",
-    "Claim TRP-00 through the existing supervisor; do not resume L8-INTAKE-02 before TRP-07 closes.",
-    "Treat GOAL-T0-TRUSTED-QUALIFICATION as the current target; TRP-00 must migrate away from the legacy universal goal before later trusted tasks close.",
+    "Evaluate graph drift, then claim TRP-00 through the existing supervisor.",
+    "Treat GOAL-T0-TRUSTED-QUALIFICATION as primary; TRP-00 must migrate away from the legacy universal goal and add automatically derived concurrent goals.",
+    "After TRP-00, interleave L8-INTAKE-02/03 as GOAL-C0 common read-only work while trusted qualification remains primary; require C0 and TRP-04 before TRP-05.",
+    "After qualification, run at most four supervisor lanes with three trusted reservations and at most one verified read-only lane; serialize aggregation and effects.",
     "Implement the smallest complete task slice and run focused, integration, regression, safety, recovery, idempotency, and live-like proof.",
     "Write redacted checksum-complete evidence, update the same requirements/task/log/handover, commit to main, evaluate, and continue.",
-    "Treat expected write access as unavailable until live permission and reviewed authorization checks pass."
+    "Treat owner access as unproven for effects until the active credential, live permissions, and reviewed authorization pass.",
+    "At TRP-05C attempt gh/API App setup; if manual authority is required, notify once with exact instructions, continue verified read-only work, and resume automatically after provisioning."
   ]
 }
