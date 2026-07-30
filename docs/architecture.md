@@ -148,7 +148,11 @@ staging, a staging-only GitHub App installation, and authorized draft PRs before
 transformation resumes. This does not promote trusted evidence into repository-verified evidence,
 does not unlock the verified lane's Gate A/B/C, and does not authorize a product write. The
 verified lane still uses `local_poc` and cannot receive `remote_write`; its portfolio Gate D
-remains downstream of verified Gate C.
+remains downstream of verified Gate C. The `act` qualification is invoked with `--bind`, and the
+recovery job writes a run-specific shared-workspace marker that every downstream ACT job must
+observe. This fail-closed handshake proves that the isolated Git-ref state remote and checkpoint
+artifacts are shared across job containers; copy-mode ACT runs cannot masquerade as durable
+recovery proof.
 
 At Gate D, analysis will receive a freshly minted, repository-scoped GitHub App token with
 contents-read permission, while a later effect job will mint a separate token with separately

@@ -108,6 +108,8 @@ jobs:
             --runtime-root runs/readme-poc \
             --state-remote runs/act-poc/state.git \
             --output runs/act-poc/restore.json
+          printf '%s\n' "$COHORT_MANIFEST" \
+            > "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
           echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Validate repository_dispatch identity
         if: ${{ github.event_name == 'repository_dispatch' }}
@@ -126,6 +128,10 @@ jobs:
         run: |
           mkdir -p runs/workflow
           if [ "$IS_ACT_PROOF" = "true" ]; then
+            # Bind the disposable state remote in the consuming shell too.
+            # GITHUB_ENV propagation varies across local workflow runners;
+            # recovery must never silently fall back to the control origin.
+            export README_AGENT_STATE_REMOTE="$PWD/runs/act-poc/state.git"
             repositories=$(readme-agent qualified-cohort-matrix \
               --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
             readme-agent recovery-sweep \
@@ -181,7 +187,12 @@ jobs:
       - run: pip install -e . --no-deps
       - name: Bind isolated ACT state remote
         if: ${{ needs.recover.outputs.is_act_proof == 'true' }}
-        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+        run: |
+          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+            echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
+            exit 2
+          }
+          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Mint repository-scoped read-only GitHub App token
         id: target-token
         if: ${{ needs.recover.outputs.is_act_proof != 'true' }}
@@ -263,6 +274,10 @@ jobs:
           IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
         run: |
           if [ "$IS_ACT_PROOF" = "true" ]; then
+            test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+              echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
+              exit 2
+            }
             matrix=$(readme-agent qualified-cohort-matrix --manifest "$COHORT_MANIFEST" | jq -c .)
           elif [ -n "$REQUESTED_REPOSITORY" ]; then
             matrix=$(readme-agent runtime-matrix --only "$REQUESTED_REPOSITORY" | jq -c .)
@@ -300,7 +315,12 @@ jobs:
       - run: pip install -e . --no-deps
       - name: Bind isolated ACT state remote
         if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
-        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+        run: |
+          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+            echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
+            exit 2
+          }
+          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Controlled ACT matrix-isolation failure
         if: >-
           ${{

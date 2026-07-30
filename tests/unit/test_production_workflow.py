@@ -46,6 +46,9 @@ def test_act_proof_is_explicit_isolated_and_still_uses_the_canonical_supervisor(
     assert "--qualified-cohort-manifest" in text
     assert "README_AGENT_ACT_GITHUB_TOKEN:" in text
     assert "README_AGENT_STATE_REMOTE=" in text
+    assert 'export README_AGENT_STATE_REMOTE="$PWD/runs/act-poc/state.git"' in text
+    assert "shared-workspace-${GITHUB_RUN_ID}.marker" in text
+    assert "invoke act with --bind" in text
     assert "README_AGENT_ACT_FAIL_REPOSITORY == matrix.repo" in text
     assert "controlled ACT failure for matrix-isolation proof" in text
     assert "runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/" in text
