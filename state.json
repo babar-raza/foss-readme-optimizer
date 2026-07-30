@@ -3173,7 +3173,7 @@
     "updated_at": "2026-07-30T21:03:22.947600+00:00"
   },
   "schema_version": 2,
-  "state_version": 325,
+  "state_version": 326,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -3990,13 +3990,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "trusted repair failed: configured at-a-glance Mermaid diagram is absent or duplicated",
       "last_checkpoint_id": "0e95176ac82e6f8aa4e5e53914b03c51bbe05c5834266d05b22325f45a46ad8f",
-      "lease_expires_at": "2026-07-30T21:05:26.088059+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T20:50:30.430549+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T21:03:33.949826+00:00"
     }
   },
   "trigger_records": {},
