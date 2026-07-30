@@ -54,6 +54,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-024740-0fd8:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "5134e6373e33d8ecd8c2997c3f3bc77e5b24012730da3cfc7ee719e746cee126": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "5134e6373e33d8ecd8c2997c3f3bc77e5b24012730da3cfc7ee719e746cee126",
+      "completed_at": "2026-07-30T03:16:58.373188+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260730-031650-cbec",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T03:16:58.373178+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-024740-0fd8:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "5c909d2aefa7b8ed6dd2a8acd895ecbcc88107ff4092d315dc07df3b9a4dd49d": {
       "action": null,
       "attempt": 1,
@@ -620,7 +637,7 @@
     "updated_at": "2026-07-30T03:10:17.045307+00:00"
   },
   "schema_version": 2,
-  "state_version": 53,
+  "state_version": 54,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -889,11 +906,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: Aspose promotional links cannot appear in the README opening",
-      "last_checkpoint_id": "1d25876733308f3bb28421e9f7faf3dac7833bf1e65a9e7320e62d5704e3e360",
+      "last_checkpoint_id": "5134e6373e33d8ecd8c2997c3f3bc77e5b24012730da3cfc7ee719e746cee126",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "retryable",
-      "updated_at": "2026-07-30T03:12:28.340883+00:00"
+      "updated_at": "2026-07-30T03:16:58.373188+00:00"
     }
   },
   "trigger_records": {},
