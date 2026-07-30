@@ -183,10 +183,17 @@ checksum-addressed cohort manifest under
 evidence, not a hard-coded acceptance rule. `TRP-04P-ACT-WORKFLOW-PARITY` is also closed at
 `700b232d`: the exact cohort passed the reusable workflow under `act --bind`, including
 cross-job state/evidence sharing, dispatch variants, recovery, deduplication, matrix failure
-isolation, health reduction, and ambient-token rejection, with zero effects. The next
-graph-selected work is `TRP-04P-STAGING-EFFECT-PROOF`; `TRP-04P-TEST-LATENCY` remains eligible
-and time-boxed at a serial safe boundary. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run
-read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
+isolation, health reduction, and ambient-token rejection, with zero effects.
+`TRP-04P-STAGING-EFFECT-PROOF` is independently accepted at `8c78e7f9`: the frozen cohort
+passed create/no-op/update/drift/deduplication/lost-response/expiry/crash-boundary scenarios
+against private disposable staging, and an additional creation-only control proved first draft-PR
+creation through the canonical workflow. All four staging default branches remain byte-identical,
+every stable proposal branch contains the exact qualified candidate, and each target has exactly
+one open draft PR. Evidence is under
+`plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The next ready boundary is the
+time-boxed `TRP-04P-TEST-LATENCY` measurement and safe-speedup task, followed by
+`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION`. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may
+run read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
 cohort PR package is presented.
 The repository-verified scoreboard remains 7 `FACTS_READY`,
 7 candidates/validations, and zero verified approvals/no-ops/human acceptances;
@@ -2189,6 +2196,26 @@ that is the only permanence they carry; text is always the decision as it stands
     to reduce ceremony and redundant computation without weakening source preservation, assurance
     separation, authorization, independent review, or effect safety. (2026-07-30, user directive.)
 
+    The disposable-staging campaign exposed a second latency class outside pytest: every workflow
+    job currently installs the full locked dependency set and rebuilds the editable package, while
+    `act` may also retry action-cache network preparation. Recovery, planning, and effect-only jobs
+    therefore pay analysis-sized bootstrap cost even when the frozen candidate makes analysis and
+    LLM execution unnecessary. `TRP-04P-TEST-LATENCY` must measure this separately from test-node
+    time. The production repair order is: record job/step timings; split minimal runtime and
+    analysis dependency groups without weakening the lock; build one checksum-bound wheel once per
+    control revision; restore it through supported workflow artifacts/caches; keep action versions
+    pinned and reusable offline under `act`; and reject any optimization whose fresh-run,
+    cache-miss, cancellation, or hosted behavior diverges. A faster pytest command cannot hide
+    workflow bootstrap cost, and a warm cache cannot be the only accepted proof.
+
+    Scenario acceptance is also entry-seam-specific. Direct capability execution proves a
+    capability, but it cannot satisfy a task that claims canonical workflow behavior. Every live
+    scenario receipt records the workflow/event, immutable inputs, target identity, effect output,
+    and independently observed remote state. Create, update, no-op, and recovery are each proven
+    through their claimed entry seam; a lower-level result may diagnose a defect but cannot be
+    promoted as workflow closure. This prevents late discovery of planning gaps where the expected
+    final state existed but the production route that created it had never been exercised.
+
 ## Architecture
 
 ### Content-assurance lanes
@@ -2838,9 +2865,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           evidence upload, health reduction, and PAT/ambient-token rejection. Commits
           `0eccb7ee` and `700b232d`; independently accepted evidence:
           `plans/investigations/evidence/trp-04p-act-workflow-parity-v1/verification.json`.
-    - [ ] `TRP-04P-STAGING`: prove trusted proposal create/no-op/update/drift/dedup/lost-response/
+    - [x] `TRP-04P-STAGING`: prove trusted proposal create/no-op/update/drift/dedup/lost-response/
           expiry/crash recovery against disposable staging with byte-identical default branches
-          and no analysis write credential.
+          and no analysis write credential. Commit `8c78e7f9`; independently accepted evidence:
+          `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/verification.json`.
     - [ ] `TRP-04P-APP`: publish the verified control-repository commit to `main`, attempt supported
           `gh`/API App setup, issue one exact manual provisioning handoff only if unavoidable, then
           qualify fresh installation tokens and hosted trigger/recovery/health behavior on staging.
@@ -3165,7 +3193,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       qualification, live permission/authorization, and serialized disclosed draft-PR effects.
       Every target default branch remains byte-identical, every PR is draft-only, and the indexed
       handoff explicitly states that neither TRP-04, full-registry trusted completion, verified
-      Gate A/B/C, nor maturity is satisfied.
+      Gate A/B/C, nor maturity is satisfied. Cohort freeze, reusable-workflow `act`, and disposable
+      staging are accepted; hosted App, product authorization/effects, and the indexed presentation
+      package remain open.
 - [ ] **Verification-latency gate:** one serial `pytest --durations` baseline identifies the actual
       slow nodes and resource classes; touched, impact, security, and full-suite inventories are
       explicit; any xdist/CI sharding or immutable-fixture optimization produces the identical
@@ -3175,7 +3205,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Trusted full-registry gate:** transformation-approved and trusted-no-op-proven equals the
       freshness-valid runtime denominator; system failures, unprocessed entries, manifest
       failures, content-loss findings, and undisclosed assurance are zero.
-- [ ] **Trusted workflow/staging gate:** the actual reusable workflow passes under `act`, then
+- [x] **Trusted workflow/staging gate:** the actual reusable workflow passes under `act`, then
       create/no-op/update/drift/dedup/lost-response/expiry/crash recovery passes against
       disposable staging with no analysis write token and byte-identical default branches.
 - [ ] **Trusted hosted-App gate:** fresh short-lived App tokens, PAT/ambient-token rejection,

@@ -1975,13 +1975,16 @@ Execution resumes in this order; it does not start an official fixed-count campa
    `1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331`. Do not
    regenerate them merely to change ordering; re-freeze only when an input hash or target head
    invalidates a member.
-4. Preserve the closed `TRP-04P-ACT-WORKFLOW-PARITY` proof at commit `700b232d`, then claim
-   `TRP-04P-STAGING-EFFECT-PROOF` and run the exact frozen cohort through disposable staging.
-   Keep `TRP-04P-TEST-LATENCY` eligible and execute it at a bounded serial safe boundary rather
-   than overlapping another top-level proof process. Continue through GitHub App hosted
-   qualification, permission and authorization proof, serialized draft PRs, and the indexed POC
-   presentation package. Obtain fresh exact what/why/where confirmation before each product
-   effect.
+4. Preserve the closed `TRP-04P-ACT-WORKFLOW-PARITY` proof at commit `700b232d` and the
+   independently accepted disposable-staging proof implemented at `8c78e7f9`, with evidence under
+   `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The exact frozen cohort now
+   has canonical-workflow create/no-op/update/drift/deduplication/lost-response/expiry/crash
+   evidence and byte-identical staging default branches. Execute `TRP-04P-TEST-LATENCY` at the
+   next bounded serial safe boundary: measure pytest nodes and repeated workflow bootstrap
+   separately, accept only inventory-equivalent deterministic speedups, and retain the full
+   closure suite. Then continue through GitHub App hosted qualification, permission and
+   authorization proof, serialized draft PRs, and the indexed POC presentation package. Obtain
+   fresh exact what/why/where confirmation before each product effect.
 5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.
    Complete its adversarial canaries and only then begin broader trusted portfolio fan-out.
    Interleave the common `L8-INTAKE-02/03` discovery path whenever dependency-ready: authenticate

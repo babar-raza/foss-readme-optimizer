@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
+  "verdict": "ACCEPT",
+  "proof_head": "8c78e7f96dcbfe3544c6ba2c3ce7e3392750f96f",
+  "implementation_commits": [
+    "8c78e7f96dcbfe3544c6ba2c3ce7e3392750f96f"
+  ],
+  "cohort": {
+    "cohort_id": "1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331",
+    "manifest": "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json",
+    "qualified_count": 3,
+    "content_assurance": "trusted_inherited",
+    "factual_truth_verified": false
+  },
+  "runtime": {
+    "workflow": ".github/workflows/readme-agent-production.yml",
+    "proof_mode": "act_staging_effect",
+    "state_remote": "runs/staging/state-v3.git",
+    "stable_branch": "readme-agent/presentation-update",
+    "analysis_jobs_executed": 0,
+    "llm_calls_executed": 0,
+    "effect_credential": "STAGING_GITHUB_WRITE_TOKEN",
+    "ambient_pat_fallback": false,
+    "product_repository_effects": 0,
+    "default_branch_effects": 0
+  },
+  "cohort_targets": [
+    {
+      "source_repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "target_repository": "babar-raza/readme-agent-staging-note-python",
+      "target_repository_id": 1317088909,
+      "initial_revision": "88786b6e396c840a8f5cb1b4d04526bc3f1fb40a",
+      "current_main_revision": "88786b6e396c840a8f5cb1b4d04526bc3f1fb40a",
+      "main_readme_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+      "proposal_head_revision": "0498cd24fcf7449e9ec5b97f9ad539948387f5f7",
+      "proposal_readme_sha256": "983e5283bcb4fac17bae453ea15facb31f112c8b8d687fc2a4965397804d6a88",
+      "pr_number": 1,
+      "pr_url": "https://github.com/babar-raza/readme-agent-staging-note-python/pull/1",
+      "draft": true,
+      "open_pr_count": 1
+    },
+    {
+      "source_repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "target_repository": "babar-raza/readme-agent-staging-page-python",
+      "target_repository_id": 1317088953,
+      "initial_revision": "fa290e9f3afefe603cb5443594e96f87db22e3a8",
+      "current_main_revision": "fa290e9f3afefe603cb5443594e96f87db22e3a8",
+      "main_readme_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
+      "proposal_head_revision": "745b0217afabdba8ad74102d4065fe937207915f",
+      "proposal_readme_sha256": "f27842235cf48abd1a2532e3112ef088ccb4a2e71e7ce428cfeca615e2370d95",
+      "pr_number": 1,
+      "pr_url": "https://github.com/babar-raza/readme-agent-staging-page-python/pull/1",
+      "draft": true,
+      "open_pr_count": 1
+    },
+    {
+      "source_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "target_repository": "babar-raza/readme-agent-staging-pdf-python",
+      "target_repository_id": 1317089008,
+      "initial_revision": "1a52c6b795bd06f9782b2232838f4e388f86e335",
+      "current_main_revision": "1a52c6b795bd06f9782b2232838f4e388f86e335",
+      "main_readme_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
+      "proposal_head_revision": "d18d9920c8b2a1fe80dd907ee8cd91387176949b",
+      "proposal_readme_sha256": "52065437a22b9db2e5c3e645e90d7d414ea10455825c91eb74882e17880cc86b",
+      "pr_number": 1,
+      "pr_url": "https://github.com/babar-raza/readme-agent-staging-pdf-python/pull/1",
+      "draft": true,
+      "open_pr_count": 1
+    }
+  ],
+  "workflow_creation_control": {
+    "purpose": "Prove first branch push and draft-PR creation inside the canonical workflow rather than infer it from direct capability execution.",
+    "source_repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "target_repository": "babar-raza/readme-agent-staging-create-note-python",
+    "target_repository_id": 1317150075,
+    "initial_revision": "975342aa57c4fa82ed3b1958ad9f5e900aa96206",
+    "current_main_revision": "975342aa57c4fa82ed3b1958ad9f5e900aa96206",
+    "main_readme_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+    "proposal_head_revision": "2e4d7718916cf9800ce3d824e44a2031716a70e2",
+    "proposal_readme_sha256": "983e5283bcb4fac17bae453ea15facb31f112c8b8d687fc2a4965397804d6a88",
+    "pr_number": 1,
+    "pr_url": "https://github.com/babar-raza/readme-agent-staging-create-note-python/pull/1",
+    "draft": true,
+    "open_pr_count": 1,
+    "workflow_result": "runs/staging/workflow-results/28-babar-raza__readme-agent-staging-create-note-python.json",
+    "result": {
+      "ledger_outcome": "dispatched",
+      "dispatch_outcome": "executed",
+      "opened": true,
+      "already_open": false,
+      "updated": false,
+      "unchanged": false
+    }
+  },
+  "scenario_matrix": [
+    {
+      "scenario": "create",
+      "proof": "workflow run 28 created proposal branch and one draft PR on the fresh creation-control target",
+      "result": "pass"
+    },
+    {
+      "scenario": "unchanged_no_op",
+      "proof": "workflow runs 23, 25, and 27 returned already_applied or unchanged for intact proposals without a new PR",
+      "result": "pass"
+    },
+    {
+      "scenario": "changed_candidate_update",
+      "proof": "workflow run 24 updated Note in place; run 27 updated Page and PDF in place; all retained PR #1",
+      "result": "pass"
+    },
+    {
+      "scenario": "proposal_branch_drift",
+      "proof": "an injected one-byte Note proposal-branch drift was rebuilt and reverified by workflow run 24",
+      "result": "pass"
+    },
+    {
+      "scenario": "duplicate_delivery",
+      "proof": "repeated cohort execution retained exactly one open draft PR per target and one logical effect state",
+      "result": "pass"
+    },
+    {
+      "scenario": "lost_response",
+      "proof": "workflow run 25 reconciled an injected pending ledger record to the existing exact Note PR without another push or PR",
+      "result": "pass"
+    },
+    {
+      "scenario": "expired_authorization",
+      "proof": "workflow run 26 failed at TrustedTransformationProposalV1 validation before dispatch; authorization was then restored",
+      "result": "pass"
+    },
+    {
+      "scenario": "crash_boundaries",
+      "proof": "live pending-response reconciliation plus focused tests cover pending-to-applied restart and pushed-candidate-without-PR recovery",
+      "result": "pass"
+    }
+  ],
+  "negative_controls": {
+    "stale_base": {
+      "live_result": "rejected before effect against the Note staging target",
+      "focused_test": "tests/unit/test_staging_proposal_effect.py::test_effect_rejects_target_base_drift",
+      "default_branch_unchanged_after_control": true
+    },
+    "expired_authorization": {
+      "raw_log": "runs/staging/act-staging-run-26.stdout.log",
+      "failure": "trusted transformation proposal is expired",
+      "effect_dispatched": false
+    },
+    "trusted_not_verified": {
+      "contract_test": "tests/unit/test_staging_proposal_effect.py::test_open_proposal_v2_rejects_assurance_kind_mismatch",
+      "content_assurance": "trusted_inherited",
+      "verified_gate_credit": false
+    },
+    "credential_redaction": {
+      "runtime_logs_scanned": 14,
+      "logs_containing_staging_token": 0
+    }
+  },
+  "verification": {
+    "focused_pytest": {
+      "result": "259 passed",
+      "duration_seconds": 95.60,
+      "scope": [
+        "staging proposal effect",
+        "open presentation PR",
+        "effect ledger",
+        "authorization registry",
+        "state schema",
+        "content assurance",
+        "environment/token routing",
+        "production workflow",
+        "push blocking",
+        "allow-list",
+        "CLI",
+        "evidence redaction"
+      ]
+    },
+    "ruff_check": "pass",
+    "ruff_format_check": "pass",
+    "mypy": {
+      "source_files": 447,
+      "result": "pass"
+    },
+    "act_workflow_list": "pass",
+    "git_diff_check": "pass",
+    "full_pytest": "deferred to the bounded trusted-cohort closure campaign under TRP-04P-TEST-LATENCY; not claimed here"
+  },
+  "capture_note": {
+    "run_28": "The shell capture wrapper timed out before act flushed its final epilogue. The act child completed, emitted the atomic workflow-result file, opened the draft PR, and exited. Independent GitHub reconstruction binds the exact base, candidate bytes, branch head, PR count, and draft state.",
+    "prior_runs": "Runs 23 through 27 retain complete raw workflow logs, including successful terminal job records except the intentionally failing expiry run 26."
+  },
+  "cleanup_disposition": "Retain the four private disposable staging repositories and their open draft PRs through GitHub App hosted qualification. Do not merge. Delete or archive only after evidence retention and explicit cleanup authorization."
+}

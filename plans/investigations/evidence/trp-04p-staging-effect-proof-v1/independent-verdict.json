@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
+  "verdict": "ACCEPT",
+  "reviewer": "deterministic-independent-github-reconstruction",
+  "reviewed_head": "8c78e7f96dcbfe3544c6ba2c3ce7e3392750f96f",
+  "checks": {
+    "frozen_cohort_identity_matches": true,
+    "canonical_workflow_creation_proven": true,
+    "canonical_workflow_no_op_proven": true,
+    "stable_branch_update_proven": true,
+    "proposal_branch_drift_repaired": true,
+    "duplicate_delivery_deduplicated": true,
+    "lost_response_reconciled": true,
+    "expired_authorization_failed_before_effect": true,
+    "crash_boundaries_have_live_and_focused_proof": true,
+    "all_current_proposal_bytes_match_qualified_candidates": true,
+    "all_target_default_branch_revisions_unchanged": true,
+    "exactly_one_open_draft_pr_per_target": true,
+    "analysis_jobs_received_no_write_credential": true,
+    "trusted_assurance_not_promoted_to_verified": true,
+    "runtime_logs_contain_no_staging_token": true,
+    "no_product_repository_effect_occurred": true
+  },
+  "live_reconstruction": {
+    "queried_at": "2026-07-30T10:47:00Z",
+    "targets_checked": 4,
+    "cohort_targets": 3,
+    "workflow_creation_controls": 1,
+    "unchanged_default_branches": 4,
+    "exact_candidate_branches": 4,
+    "open_draft_prs": 4,
+    "duplicate_prs": 0
+  },
+  "limitations": [
+    "This verdict proves disposable-staging proposal lifecycle behavior for the frozen three-member trusted cohort and one creation-only control target.",
+    "It does not prove GitHub App token minting, hosted GitHub Actions execution, product-repository authorization, product PR creation, TRP-04 canary qualification, full-registry trusted delivery, repository-verified presentation, or a maturity level.",
+    "The run-28 parent log capture ended before the final act epilogue; the workflow-emitted effect record and independent remote reconstruction are the acceptance evidence for creation."
+  ],
+  "next_task": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION"
+}
