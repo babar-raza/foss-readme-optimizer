@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-    "active_task_id": "TRP-04P-COHORT-FREEZE",
+    "active_task_id": null,
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 2
     },
-    "claim_expires_at": "2026-07-30T05:40:57.462191+00:00",
-    "claim_id": "eddf21394e09414ebd4d0f4a2de49fa0",
-    "claimed_at": "2026-07-30T05:10:57.462191+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
-    "last_evaluated_at": "2026-07-30T05:10:57.462191+00:00",
+    "last_evaluated_at": "2026-07-30T05:34:13.870883+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -88,15 +88,14 @@
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
       "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Freeze the exact current candidates that can safely exercise the production delivery path."
+        "kind": "first_boundary_removal",
+        "summary": "Remove redundant verification latency while preserving the exact acceptance evidence."
       },
       "goal_ids": [
-        "GOAL-README",
-        "GOAL-DELIVERY"
+        "GOAL-AUTONOMY"
       ],
       "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-      "task_id": "TRP-04P-COHORT-FREEZE"
+      "task_id": "TRP-04P-TEST-LATENCY"
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
@@ -209,7 +208,7 @@
       "TRP-04-CANARY-QUALIFICATION": "REGRESSED",
       "TRP-04P-ACT-WORKFLOW-PARITY": "TODO",
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
-      "TRP-04P-COHORT-FREEZE": "IN_PROGRESS",
+      "TRP-04P-COHORT-FREEZE": "IMPLEMENTED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
       "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "TODO",
       "TRP-04P-POC-PRESENTATION": "TODO",
@@ -5172,6 +5171,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "TRP-04P-COHORT-FREEZE",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/current.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T05:34:13.870877+00:00",
+        "reason": "QualifiedTrustedCohortV1 derivation, fail-closed member qualification, immutable writing, and separate reconstruction are implemented on main.",
+        "task_id": "TRP-04P-COHORT-FREEZE",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -5180,7 +5190,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 596,
+  "state_version": 597,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
