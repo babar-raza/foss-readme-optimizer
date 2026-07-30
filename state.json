@@ -1355,7 +1355,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "d40cb5dae7e886468f6b28a9282b73f68fb5ab471bc44a9fd47476ea8bccb945",
+    "candidate_hash": "44a130c6b4d41b4037754709cf569477b539b3330e97dc81fede34f95374fad9",
     "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
@@ -2829,6 +2829,18 @@
         "reason": "complete source-accountable trusted transform plan persisted",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "TRUSTED_PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited/candidate/README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited/candidate/README.patch"
+        ],
+        "from_status": "TRUSTED_PLAN_READY",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T20:02:54.578993+00:00",
+        "reason": "trusted README candidate and native patch persisted",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "TRUSTED_CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -2856,11 +2868,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "TRUSTED_PLAN_READY",
-    "updated_at": "2026-07-30T20:02:50.275241+00:00"
+    "status": "TRUSTED_CANDIDATE_GENERATED",
+    "updated_at": "2026-07-30T20:02:54.578993+00:00"
   },
   "schema_version": 2,
-  "state_version": 295,
+  "state_version": 296,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
