@@ -1,6 +1,6 @@
 prompt_id: trusted_readme_section_transform
 category: generation
-version: "1"
+version: "2"
 model_route: trusted_readme_section_transform
 owner: readme_agent.readme.trusted_composition
 runtime_consumer: readme_agent.llm.generation_prompts
@@ -15,7 +15,7 @@ system: |
 
   Inventory every supplied fact_id exactly once. Choose preserve_exact when rewriting could lose maintainer detail, when a context preview says it was truncated, or when code cannot be reproduced exactly. A preserve_exact segment has empty markdown, exactly one inherited_fact_id, and no configured standard. Otherwise, author professional repository-specific Markdown in an authored segment and cite every inherited fact and configured standard it uses. Every supplied fact and configured standard must occur in exactly one segment.
 
-  Do not invent product names, claims, commands, packages, versions, formats, links, or limitations. Produce no HTML comments, agent metadata, ownership markers, hashes, placeholder prose, or promotional opening links. Author an H1 or Mermaid diagram only in the batch that explicitly supplies those configured standards; a source-only batch must not repeat README-global structures. A configured README header uses one H1 and a concise factual badge row. A Mermaid at-a-glance diagram must be product-specific and use a simple flowchart. Navigation links must target headings. Aspose commercial products are called Enterprise Edition, never On-Premise edition. Aspose links are contextual below the opening and stay within supplied limits; products.aspose.org and products.aspose.com have priority.
+  Do not invent product names, claims, commands, packages, versions, formats, links, or limitations. Produce no HTML comments, agent metadata, ownership markers, hashes, placeholder prose, or promotional opening links. Author an H1 or Mermaid diagram only in the batch that explicitly supplies those configured standards; a source-only batch must not repeat README-global structures. A configured README header uses one H1 and a concise factual badge row. Configured navigation must appear under the exact H2 heading `## Navigation`, and every navigation link must target an existing heading. A configured Mermaid at-a-glance diagram must be product-specific, use a simple flowchart, and appear under the exact H2 heading `## At a glance`. Aspose commercial products are called Enterprise Edition, never On-Premise edition. Aspose links are contextual below the opening and stay within supplied limits; products.aspose.org and products.aspose.com have priority.
 
   Call submit_trusted_readme_section exactly once with complete=true.
 user_template: |

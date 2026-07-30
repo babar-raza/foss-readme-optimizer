@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -10,19 +11,37 @@ from pydantic import ValidationError
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
-from readme_agent.facts.trusted_readme_extraction import extract_trusted_readme_fact_graph
+from readme_agent.facts.trusted_readme_extraction import (
+    bind_configured_standards,
+    configured_standard_addition,
+    extract_trusted_readme_fact_graph,
+)
 from readme_agent.gitsafety._git import run_git
+from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult, FixtureAnalysisClient
 from readme_agent.llm.call_ledger import (
     bind_llm_repository_revision,
+    current_llm_accounting_summary,
     start_llm_call_accounting,
 )
 from readme_agent.llm.call_schema import LlmAccountingSummaryV1
 from readme_agent.llm.schema import LLMResponseMeta
+from readme_agent.llm.verification_prompts import (
+    build_blind_quality_review_messages,
+    build_trusted_fidelity_review_messages,
+)
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.trusted_composition import compose_trusted_readme
 from readme_agent.registry.loader import load_products
 from readme_agent.repository_snapshot import capture_repository_snapshot, repository_snapshot_scope
+from readme_agent.specialists.trusted_fidelity_context import build_trusted_fidelity_context
+from readme_agent.specialists.trusted_fidelity_execution import (
+    partition_fidelity_fact_ids,
+    run_batched_trusted_fidelity_review,
+)
+from readme_agent.specialists.trusted_fidelity_validation import (
+    normalize_trusted_fidelity_output,
+)
 from readme_agent.specialists.trusted_transform_review import run_trusted_transform_review
 from readme_agent.specialists.trusted_transform_review_models import TrustedTransformReviewV1
 from readme_agent.specialists.trusted_transform_review_repair import (
@@ -55,22 +74,38 @@ def _composition(
     *,
     candidate: str = SOURCE,
     root_name: str = "source",
+    source_text: str = SOURCE,
 ):
     root = tmp_path / root_name
     root.mkdir()
     _git(root, "init", "-b", "main")
     _git(root, "config", "user.name", "Trusted Review Test")
     _git(root, "config", "user.email", "trusted-review@example.invalid")
-    (root / "README.md").write_text(SOURCE, encoding="utf-8", newline="")
+    (root / "README.md").write_text(source_text, encoding="utf-8", newline="")
     _git(root, "add", "README.md")
     _git(root, "commit", "-m", "seed")
     entry = next(item for item in load_products() if item.org_repo == ORG_REPO)
     snapshot = capture_repository_snapshot(entry, root)
     graph = extract_trusted_readme_fact_graph(snapshot)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                standard_id,
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"authorized-transform-test",
+            )
+            for standard_id in (
+                "readme.no_comments",
+                "readme.contextual_links",
+                "readme.enterprise_edition_terminology",
+            )
+        ],
+    )
     fact_ids = [fact.fact_id for fact in graph.inherited_facts]
     composition = compose_trusted_readme(
         graph,
-        SOURCE,
+        source_text,
         client=FixtureForcedToolClient(
             [
                 ForcedToolResult(
@@ -158,6 +193,232 @@ def _blind_reject() -> dict:
     }
 
 
+def test_blind_finding_ids_are_normalized_before_validation(tmp_path) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    blind = _blind_accept()
+    blind["findings"][0]["finding_id"] = "Header-Badge-Nav-EE"
+    blind_client, fidelity_client = _review_clients(graph, blind=blind)
+    _start_accounting(graph, "trusted-review-normalized-finding-id")
+
+    execution = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind_client,
+        fidelity_client=fidelity_client,
+    )
+
+    assert execution.review.blind_quality.verdict == "ACCEPT"
+    assert (
+        execution.review.blind_quality.result["findings"][0]["finding_id"] == "header-badge-nav-ee"
+    )
+
+
+def test_fidelity_accepts_only_authorized_source_transformations(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "[Product](https://products.aspose.com/widget) — commercial On-Premise edition.\n\n"
+        "```python\n# Explain\nrun()\n```\n"
+    )
+    root = tmp_path / "authorized-transform"
+    root.mkdir()
+    _git(root, "init", "-b", "main")
+    _git(root, "config", "user.name", "Trusted Review Test")
+    _git(root, "config", "user.email", "trusted-review@example.invalid")
+    (root / "README.md").write_text(source, encoding="utf-8", newline="")
+    _git(root, "add", "README.md")
+    _git(root, "commit", "-m", "seed")
+    entry = next(item for item in load_products() if item.org_repo == ORG_REPO)
+    snapshot = capture_repository_snapshot(entry, root)
+    graph = extract_trusted_readme_fact_graph(snapshot)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                standard_id,
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"authorized-transform-test",
+            )
+            for standard_id in (
+                "readme.no_comments",
+                "readme.contextual_links",
+                "readme.enterprise_edition_terminology",
+            )
+        ],
+    )
+    candidate = "# Widget\n\nProduct — Enterprise Edition.\n\n```python\n\nrun()\n```\n"
+    checks = [
+        {
+            "fact_id": fact.fact_id,
+            "outcome": "lost_or_distorted",
+            "source_quote": fact.value,
+            "candidate_quote": "",
+            "section": "README",
+            "required_repair": "Restore the source.",
+        }
+        for fact in graph.inherited_facts
+    ]
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "Links, terminology, and comments changed.",
+        "source_checks": checks,
+        "unsupported_additions": [
+            {
+                "finding_id": "enterprise",
+                "section": "README",
+                "quoted_candidate_span": "Product — Enterprise Edition.",
+                "reason": "The source used legacy terminology.",
+                "required_repair": "Restore the legacy terminology.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["README"],
+        "required_repair": "Restore the source.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(value, graph=graph, candidate_text=candidate)
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
+    outcomes = {item["fact_id"]: item["outcome"] for item in normalized["source_checks"]}
+    for fact in graph.inherited_facts:
+        if fact.material_kind in {"heading", "paragraph", "code"}:
+            assert outcomes[fact.fact_id] == "preserved_or_represented"
+
+    unconfigured = normalize_trusted_fidelity_output(
+        value,
+        graph=graph.model_copy(update={"configured_standards": ()}),
+        candidate_text=candidate,
+    )
+    assert unconfigured["verdict"] == "REJECT_REPAIRABLE"
+
+
+def test_fidelity_accepts_governed_promotional_blockquote_relocation(tmp_path) -> None:
+    source = (
+        "# Aspose.3D FOSS\n\n"
+        "> **Aspose.3D FOSS** lives on "
+        "[aspose.org](https://products.aspose.org/3d/python/). "
+        "The commercial edition, "
+        "[Aspose.3D for Python via .NET]"
+        "(https://products.aspose.com/3d/python-net/), "
+        "is available on [aspose.com](https://products.aspose.com/3d/).\n"
+    )
+    candidate = (
+        "# Aspose.3D FOSS\n\n"
+        "Aspose.3D for Python via .NET is the Enterprise Edition.\n\n"
+        "## Resources\n\n"
+        "Aspose.3D FOSS resources are maintained on aspose.org; "
+        "Enterprise resources are on aspose.com.\n"
+    )
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="blockquote-source",
+    )
+    fact = next(item for item in graph.inherited_facts if item.material_kind == "blockquote")
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.contextual_links",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"blockquote-relocation",
+                parameters={"forbid_blockquotes": True},
+            ),
+            configured_standard_addition(
+                "readme.enterprise_edition_terminology",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"enterprise-terminology",
+            ),
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The promotional callout was removed.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "",
+                "section": "Opening",
+                "required_repair": "Restore the callout.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Opening"],
+        "required_repair": "Restore the callout.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_navigation_addition_is_derived_from_source_heading(tmp_path) -> None:
+    source = "# Widget\n\n## Architecture\n\nDetails.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=source,
+        root_name="navigation-source",
+    )
+    fact = next(item for item in graph.inherited_facts if item.value == "## Architecture\n")
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.navigation",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"navigation-standard",
+            )
+        ],
+    )
+    candidate = "# Widget\n\n## Navigation\n\n- [Architecture](#architecture)\n\n## Architecture\n"
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The navigation entry is unsupported.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": fact.value,
+                "candidate_quote": "## Architecture\n",
+                "section": "Architecture",
+                "required_repair": "",
+            }
+        ],
+        "unsupported_additions": [
+            {
+                "finding_id": "navigation-architecture",
+                "section": "Navigation",
+                "quoted_candidate_span": "- [Architecture](#architecture)",
+                "reason": "No source exists.",
+                "required_repair": "Remove the entry.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Navigation"],
+        "required_repair": "Remove the entry.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
+
+
 def _fidelity_accept(graph) -> dict:
     return {
         "verdict": "ACCEPT",
@@ -226,6 +487,352 @@ def _repair_result(graph, markdown: str) -> ForcedToolResult:
 def _start_accounting(graph, run_id: str) -> None:
     start_llm_call_accounting(ORG_REPO, run_id, stage="TRUSTED_REVIEWING")
     bind_llm_repository_revision(graph.source_revision, stage="TRUSTED_REVIEWING")
+
+
+def test_fidelity_context_is_compact_and_source_complete(tmp_path) -> None:
+    graph, composition, _ = _composition(tmp_path)
+
+    graph_payload, plan_payload = build_trusted_fidelity_context(graph, composition.plan)
+
+    assert [item["fact_id"] for item in graph_payload["inherited_units"]] == [
+        fact.fact_id for fact in graph.inherited_facts
+    ]
+    assert [item["text"] for item in graph_payload["inherited_units"]] == [
+        fact.value for fact in graph.inherited_facts
+    ]
+    assert "source_span" not in json.dumps(graph_payload)
+    assert "editorial_summary" not in json.dumps(plan_payload)
+    assert len(json.dumps(graph_payload)) < len(graph.model_dump_json())
+    assert len(json.dumps(plan_payload)) < len(composition.plan.model_dump_json())
+
+
+def test_fidelity_normalization_canonicalizes_empty_repair_sentinels() -> None:
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "required_repair": "N/A",
+            "source_checks": [
+                {
+                    "fact_id": "readme.inherited:0123456789abcdef01234567",
+                    "outcome": "preserved_or_represented",
+                    "source_quote": "source",
+                    "candidate_quote": "candidate",
+                    "required_repair": "none",
+                },
+                {
+                    "fact_id": "readme.inherited:89abcdef0123456789abcdef",
+                    "outcome": "lost_or_distorted",
+                    "source_quote": "source",
+                    "candidate_quote": "",
+                    "required_repair": "Restore this exact source unit.",
+                },
+            ],
+        }
+    )
+
+    assert normalized["required_repair"] == "Restore this exact source unit."
+    assert normalized["source_checks"][0]["required_repair"] == ""
+    assert normalized["source_checks"][1]["required_repair"] == "Restore this exact source unit."
+
+
+def test_fidelity_normalization_derives_only_redundant_rejection_fields() -> None:
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "One inherited unit was lost.",
+            "source_checks": [
+                {
+                    "fact_id": "readme.inherited:0123456789abcdef01234567",
+                    "outcome": "lost_or_distorted",
+                    "source_quote": "source",
+                    "candidate_quote": "",
+                    "section": "Overview",
+                    "required_repair": "",
+                }
+            ],
+            "unsupported_additions": [],
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+        }
+    )
+
+    assert normalized["failed_criteria"] == ["inheritance_fidelity"]
+    assert normalized["sections_affected"] == ["Overview"]
+    assert normalized["source_checks"][0]["required_repair"].startswith(
+        "Restore or accurately represent inherited source unit"
+    )
+    assert normalized["required_repair"] == normalized["source_checks"][0]["required_repair"]
+
+
+def test_fidelity_normalization_clears_accept_residue_outside_addition_scope(
+    tmp_path,
+) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    fact = graph.inherited_facts[0]
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "ACCEPT",
+            "reasoning": "The source is represented.",
+            "source_checks": [
+                {
+                    "fact_id": fact.fact_id,
+                    "outcome": "preserved_or_represented",
+                    "source_quote": fact.value,
+                    "candidate_quote": fact.value,
+                    "section": "README",
+                    "required_repair": "Stale repair text.",
+                }
+            ],
+            "unsupported_additions": [
+                {
+                    "finding_id": "out-of-scope-addition",
+                    "section": "Navigation",
+                    "quoted_candidate_span": composition.candidate_markdown.splitlines()[0],
+                    "reason": "This shard was not assigned addition review.",
+                    "required_repair": "Remove it.",
+                }
+            ],
+            "failed_criteria": ["stale"],
+            "sections_affected": ["Navigation"],
+            "required_repair": "Stale repair text.",
+        },
+        graph=graph.model_copy(update={"inherited_facts": (fact,)}),
+        candidate_text=composition.candidate_markdown,
+        allow_unsupported_additions=False,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["required_repair"] == ""
+    assert normalized["unsupported_additions"] == []
+    assert normalized["failed_criteria"] == []
+    assert normalized["sections_affected"] == []
+    assert normalized["required_repair"] == ""
+
+
+def test_fidelity_normalization_safely_downgrades_ungrounded_preservation(tmp_path) -> None:
+    graph, _, _ = _composition(tmp_path)
+    fact = graph.inherited_facts[0]
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "ACCEPT",
+            "reasoning": "The source was represented.",
+            "source_checks": [
+                {
+                    "fact_id": fact.fact_id,
+                    "outcome": "preserved_or_represented",
+                    "source_quote": "paraphrased source",
+                    "candidate_quote": "invented candidate quote",
+                    "section": "Overview",
+                    "required_repair": "",
+                }
+            ],
+            "unsupported_additions": [],
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+        },
+        graph=graph.model_copy(update={"inherited_facts": (fact,)}),
+        candidate_text="# Different\n",
+    )
+
+    assert normalized["verdict"] == "REJECT_REPAIRABLE"
+    assert normalized["source_checks"][0]["source_quote"] == fact.value
+    assert normalized["source_checks"][0]["candidate_quote"] == ""
+    assert normalized["source_checks"][0]["outcome"] == "lost_or_distorted"
+    assert normalized["failed_criteria"] == ["inheritance_fidelity"]
+
+
+def test_fidelity_code_repair_cannot_restore_comments_when_standard_prohibits_them(
+    tmp_path,
+) -> None:
+    graph, _, _ = _composition(tmp_path)
+    code_fact = graph.inherited_facts[0].model_copy(update={"material_kind": "code"})
+    no_comments = configured_standard_addition(
+        "readme.no_comments",
+        configuration_source="config/policies/test.yml",
+        configuration_bytes=b"no-comments-test",
+    )
+    graph = graph.model_copy(
+        update={
+            "inherited_facts": (code_fact,),
+            "configured_standards": (no_comments,),
+        }
+    )
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "The example was distorted.",
+            "source_checks": [
+                {
+                    "fact_id": code_fact.fact_id,
+                    "outcome": "lost_or_distorted",
+                    "source_quote": code_fact.value,
+                    "candidate_quote": "",
+                    "section": "Quick Start",
+                    "required_repair": "Restore valid Python comment syntax.",
+                }
+            ],
+            "unsupported_additions": [],
+            "failed_criteria": ["preservation"],
+            "sections_affected": ["Quick Start"],
+            "required_repair": "Restore valid Python comment syntax.",
+        },
+        graph=graph.model_copy(update={"inherited_facts": (code_fact,)}),
+        candidate_text="# Different\n",
+    )
+
+    repair = normalized["source_checks"][0]["required_repair"]
+    assert repair.endswith("while omitting all comments and docstrings.")
+    assert normalized["required_repair"] == repair
+    assert "valid Python comment syntax" not in repair
+
+
+def test_fidelity_review_executes_each_source_batch_then_reduces_complete_coverage(
+    tmp_path,
+) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    draft = composition.plan.section_drafts[0]
+    first_fact, second_fact = graph.inherited_facts
+    first_inventory, second_inventory = draft.source_inventory
+    segment = draft.segments[0]
+    first_draft = draft.model_copy(
+        update={
+            "batch_id": "batch-0001",
+            "source_inventory": (first_inventory,),
+            "segments": (
+                segment.model_copy(
+                    update={
+                        "segment_id": "first",
+                        "inherited_fact_ids": (first_fact.fact_id,),
+                    }
+                ),
+            ),
+        }
+    )
+    second_draft = draft.model_copy(
+        update={
+            "batch_id": "batch-0002",
+            "source_inventory": (second_inventory,),
+            "segments": (
+                segment.model_copy(
+                    update={
+                        "segment_id": "second",
+                        "inherited_fact_ids": (second_fact.fact_id,),
+                    }
+                ),
+            ),
+        }
+    )
+    plan = composition.plan.model_copy(update={"section_drafts": (first_draft, second_draft)})
+    batched_composition = composition.model_copy(
+        update={"plan": plan, "plan_hash": plan.canonical_hash()}
+    )
+    first_graph = graph.model_copy(update={"inherited_facts": (first_fact,)})
+    second_graph = graph.model_copy(update={"inherited_facts": (second_fact,)})
+    client = FixtureAnalysisClient(
+        [
+            _analysis(_fidelity_accept(first_graph), model="fixture-fidelity"),
+            _analysis(_fidelity_accept(second_graph), model="fixture-fidelity"),
+        ],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+    _start_accounting(graph, "trusted-review-batched-fidelity")
+    calls_before = current_llm_accounting_summary().fixture_call_count or 0
+
+    result, history = run_batched_trusted_fidelity_review(
+        client=client,
+        graph=graph,
+        composition=batched_composition,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert result.reasoning == (
+        "All bounded fidelity shards passed deterministic grounding; every required "
+        "source fact is preserved or represented and no in-scope unsupported addition remains."
+    )
+    assert [item.fact_id for item in result.source_checks] == [
+        first_fact.fact_id,
+        second_fact.fact_id,
+    ]
+    assert [item["batch_id"] for item in history] == [
+        "batch-0001.part-0001",
+        "batch-0002.part-0001",
+    ]
+    calls_after = current_llm_accounting_summary().fixture_call_count or 0
+    assert calls_after - calls_before == 2
+
+
+def test_fidelity_call_partition_is_fact_and_source_byte_bounded() -> None:
+    fact_ids = tuple(f"fact-{index:02d}" for index in range(25))
+    values = {fact_id: "x" * 100 for fact_id in fact_ids}
+
+    chunks = partition_fidelity_fact_ids(fact_ids, values)
+
+    assert [len(chunk) for chunk in chunks] == [8, 8, 8, 1]
+    large_values = {"one": "x" * 4_000, "two": "y" * 3_000, "three": "z"}
+    assert partition_fidelity_fact_ids(("one", "two", "three"), large_values) == (
+        ("one",),
+        ("two", "three"),
+    )
+
+
+def test_fidelity_batch_cache_reuses_validated_result_without_client_call(tmp_path) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-fidelity-batch-cache")
+    first_client = FixtureAnalysisClient(
+        [_analysis(_fidelity_accept(graph), model="fixture-fidelity")],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+
+    first, _ = run_batched_trusted_fidelity_review(
+        client=first_client,
+        graph=graph,
+        composition=composition,
+        cache_dir=tmp_path / "fidelity-cache",
+    )
+    before = current_llm_accounting_summary()
+    second, _ = run_batched_trusted_fidelity_review(
+        client=FixtureAnalysisClient([]),
+        graph=graph,
+        composition=composition,
+        cache_dir=tmp_path / "fidelity-cache",
+    )
+    after = current_llm_accounting_summary()
+
+    assert second == first
+    assert (after.fixture_call_count or 0) == (before.fixture_call_count or 0)
+    assert (after.cache_reuse_count or 0) - (before.cache_reuse_count or 0) == 1
+
+
+def test_blind_rubric_respects_governed_header_and_link_budget() -> None:
+    manifest = prompt_registry.get("blind_readme_quality_review")
+
+    assert manifest is not None
+    assert "do not request badges before the title" in manifest.system
+    assert "Do not demand restoration of any original hyperlink" in manifest.system
+    assert "proven false and MUST be omitted" in manifest.turn_context_template
+    messages = build_blind_quality_review_messages(
+        ORG_REPO,
+        SOURCE,
+        SOURCE,
+        '{"configured_standards":[{"standard_id":"readme.contextual_links"}]}',
+    )
+    assert "readme.contextual_links" in messages[1]["content"]
+    assert messages[1]["content"].startswith("/no_think")
+
+
+def test_trusted_fidelity_prompt_disables_unbounded_thinking() -> None:
+    messages = build_trusted_fidelity_review_messages(
+        ORG_REPO,
+        '{"inherited_units":[]}',
+        '{"required_source_check_fact_ids":[]}',
+        SOURCE,
+    )
+
+    assert messages[1]["content"].startswith("/no_think")
 
 
 def test_canonical_trusted_pipeline_persists_approval_then_exact_no_op(
@@ -512,6 +1119,35 @@ def test_repeated_invalid_fidelity_output_becomes_visible_system_failure(tmp_pat
     assert "repeatedly returned ungrounded output" in str(
         execution.review.inheritance_fidelity.result["reasoning"]
     )
+    history = execution.review.inheritance_fidelity.result["retry_history"]
+    assert [item["attempt"] for item in history] == [1, 2]
+    assert all(item["valid"] is False for item in history)
+
+
+def test_repeated_ungrounded_blind_output_preserves_retry_evidence(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-blind-grounding-failure")
+    invalid = _blind_reject()
+    invalid["findings"][0]["quoted_candidate_span"] = "absent candidate wording"
+    blind = FixtureAnalysisClient(
+        [_analysis(invalid, model="fixture-blind") for _ in range(3)],
+        job="blind_readme_quality_review",
+        prompt_id="blind_readme_quality_review",
+    )
+    fidelity = _review_clients(graph)[1]
+
+    execution = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+    )
+
+    assert execution.review.verdict == "SYSTEM_FAILURE"
+    history = execution.review.blind_quality.result["retry_history"]
+    assert [item["attempt"] for item in history] == [1, 2, 3]
+    assert all(item["valid"] is False for item in history)
 
 
 def test_accepted_cache_reuse_makes_no_new_reviewer_calls(tmp_path):
@@ -788,16 +1424,45 @@ def test_live_trusted_review_uses_real_fact_coverage_envelope(tmp_path, monkeypa
     monkeypatch.setattr(env, "llm_base_url", lambda: "https://gateway.example/v1")
     monkeypatch.setattr(env, "llm_api_key", lambda: "test-key")
     monkeypatch.setattr(env, "llm_timeout_seconds", lambda: 123.0)
+    cache_dir = tmp_path / "live-fidelity-cache"
+    monkeypatch.setattr(
+        "readme_agent.specialists.trusted_transform_review.default_trusted_fidelity_cache_dir",
+        lambda graph: cache_dir,
+    )
 
     execution = run_trusted_transform_review(graph, SOURCE, composition)
 
     assert execution.review.verdict == "TRUSTED_TRANSFORM_APPROVED"
+    assert [item.name for item in cache_dir.iterdir()] == ["batch-0001.part-0001.json"]
     assert captured == {
         "base_url": "https://gateway.example/v1",
         "api_key": "test-key",
         "timeout": 123.0,
         "max_tokens": 8_000,
     }
+
+
+def test_explicit_canonical_review_clients_can_enable_fidelity_checkpoint(tmp_path, monkeypatch):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-explicit-live-cache")
+    blind, fidelity = _review_clients(graph)
+    cache_dir = tmp_path / "explicit-fidelity-cache"
+    monkeypatch.setattr(
+        "readme_agent.specialists.trusted_transform_review.default_trusted_fidelity_cache_dir",
+        lambda graph: cache_dir,
+    )
+
+    execution = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        enable_fidelity_batch_cache=True,
+    )
+
+    assert execution.review.verdict == "TRUSTED_TRANSFORM_APPROVED"
+    assert [item.name for item in cache_dir.iterdir()] == ["batch-0001.part-0001.json"]
 
 
 def test_stage_review_builder_does_not_fall_back_to_short_output_limit(monkeypatch):

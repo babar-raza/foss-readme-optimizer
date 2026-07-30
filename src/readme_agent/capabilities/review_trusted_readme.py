@@ -91,6 +91,7 @@ def execute(
     blind_client=None,
     fidelity_client=None,
     cached_review: dict | None = None,
+    enable_fidelity_batch_cache: bool = False,
 ) -> dict:
     """Review exact snapshot-bound inputs; clients and cache stay outside the tool schema."""
 
@@ -114,5 +115,6 @@ def execute(
             if cached_review is not None
             else None
         ),
+        enable_fidelity_batch_cache=enable_fidelity_batch_cache,
     )
     return execution.model_dump(mode="json")

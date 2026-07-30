@@ -3,6 +3,7 @@
 from readme_agent.readme.document_structure import (
     github_anchor,
     line_offsets,
+    normalize_navigation_targets,
     parse_headings,
 )
 
@@ -52,3 +53,22 @@ class TestGithubAnchor:
 
     def test_trims_leading_and_trailing_separators(self):
         assert github_anchor("  Hello!  ") == "hello"
+
+
+def test_navigation_normalization_preserves_an_opaque_batch_boundary() -> None:
+    markdown = (
+        "# Widget\n\n"
+        "## Navigation\n\n"
+        "- [Wrong](#wrong)\n\n"
+        "README_AGENT_FIDELITY_BOUNDARY_0001\n"
+        "## Usage\n\n"
+        "Run it.\n"
+    )
+
+    normalized = normalize_navigation_targets(
+        markdown,
+        boundary_line_prefix="README_AGENT_FIDELITY_BOUNDARY_",
+    )
+
+    assert "README_AGENT_FIDELITY_BOUNDARY_0001" in normalized
+    assert "- [Usage](#usage)" in normalized

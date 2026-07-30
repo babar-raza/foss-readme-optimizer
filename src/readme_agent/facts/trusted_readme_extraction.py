@@ -45,6 +45,7 @@ _STANDARD_AUTHORITIES: dict[ConfiguredStandardIdV1, tuple[str, ...]] = {
     "readme.badges": ("L8-021",),
     "readme.navigation": ("L8-020",),
     "readme.at_a_glance_mermaid": ("L8-021",),
+    "readme.no_comments": ("L8-021",),
     "readme.enterprise_edition_terminology": ("L8-026",),
     "readme.contextual_links": ("L8-022", "L8-023", "L8-024"),
 }

@@ -29,6 +29,7 @@ ConfiguredStandardIdV1 = Literal[
     "readme.badges",
     "readme.navigation",
     "readme.at_a_glance_mermaid",
+    "readme.no_comments",
     "readme.enterprise_edition_terminology",
     "readme.contextual_links",
 ]

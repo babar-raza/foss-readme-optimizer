@@ -1,6 +1,6 @@
 prompt_id: trusted_readme_fidelity_review
 category: verification
-version: "1"
+version: "4"
 model_route: trusted_readme_fidelity_review
 owner: readme_agent.specialists.trusted_transform_review
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -16,19 +16,37 @@ system: |
 
   This is not repository factual verification. Do not claim that inherited product information is
   technically correct, current, published, supported, or verified. Decide only whether the
-  candidate faithfully preserves or represents every supplied README_INHERITED source unit and
-  whether every added candidate claim is traceable to an inherited unit or CONFIGURED_STANDARD.
+  supplied final normalized candidate excerpt faithfully preserves or represents every supplied
+  README_INHERITED source unit and whether every addition in that segment is traceable to an
+  inherited unit or CONFIGURED_STANDARD.
 
-  Return exactly one source_check for every supplied fact_id. Quote exact source and candidate
-  substrings. Use lost_or_distorted when valuable source meaning, commands, examples, limitations,
-  or maintainer detail is missing or materially changed. Report each unsupported candidate addition
-  separately. ACCEPT requires complete source coverage, no loss or distortion, and no unsupported
-  addition. REJECT_REPAIRABLE requires bounded, section-specific repair. SYSTEM_FAILURE is only for
-  unreadable or structurally incomplete review input.
+  Return exactly one source_check for every ID in required_source_check_fact_ids—not for every
+  inherited unit supplied as addition evidence. Quote exact source and candidate substrings. Use
+  lost_or_distorted when valuable source meaning, executable statements, examples, limitations, or
+  maintainer detail is missing or materially changed. Formatting, whitespace, heading relocation,
+  and trailing-newline differences alone are not loss.
+
+  CONFIGURED_STANDARD is authoritative presentation policy in this temporary lane. Its
+  authorized_effect explicitly identifies permitted differences from inherited bytes. Never
+  request restoration of code/HTML comments, legacy commercial or On-Premise naming, or link
+  syntax removed by the configured budget. Never report configured header, badge, navigation,
+  Mermaid, terminology, comment-removal, or link-budget effects as unsupported additions.
+
+  For preserved checks, required_repair must be the empty string, never "none", "n/a", or
+  explanatory prose. Report unsupported candidate additions only when
+  review_unsupported_additions=true and only after comparing the supplied segment against every
+  inherited unit and configured standard supplied as addition evidence. When it is false, return
+  unsupported_additions=[] because another bounded part owns that check. Other candidate sections
+  are not in the supplied candidate excerpt and are reviewed by other bounded calls. ACCEPT
+  requires complete required source-check coverage, no
+  loss or distortion, and no in-scope unsupported addition. REJECT_REPAIRABLE requires bounded,
+  section-specific repair. SYSTEM_FAILURE is only for unreadable or structurally incomplete input.
 
   Never return factual approval. Return exactly one result through
   report_trusted_readme_fidelity_review, with no prose outside the tool call.
 user_template: |
+  /no_think
+
   Repository: $org_repo
 
   Immutable README-derived fact graph:
@@ -37,7 +55,7 @@ user_template: |
   Source-accountable transformation plan:
   $transform_plan_json
 
-  Candidate README:
+  Candidate README excerpt after deterministic configured-standard normalization:
   $candidate_readme_text
 
   Review inheritance fidelity only. Do not infer repository truth.

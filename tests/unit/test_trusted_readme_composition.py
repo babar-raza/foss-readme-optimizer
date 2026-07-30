@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
 import pytest
@@ -20,17 +21,32 @@ from readme_agent.gitsafety._git import run_git
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.trusted_composition import compose_trusted_readme
-from readme_agent.readme.trusted_composition_batching import build_trusted_composition_batches
+from readme_agent.readme.trusted_composition_batching import (
+    TrustedCompositionBatch,
+    build_trusted_composition_batches,
+)
 from readme_agent.readme.trusted_composition_candidate_validation import (
     normalize_contextual_link_budget,
     normalize_enterprise_edition_terminology,
     normalize_inherited_code_blocks,
+    normalize_navigation_targets,
+    normalize_promotional_blockquotes,
+    normalize_required_section_headings,
+    normalize_trusted_candidate,
     strip_readme_comments,
     validate_trusted_candidate_contract,
 )
 from readme_agent.readme.trusted_composition_models import (
     TrustedCompositionEnvelopeV1,
+    TrustedCompositionSourceItemV1,
+    TrustedReadmeDraftSegmentV1,
     TrustedReadmeSectionRepairRequestV1,
+    TrustedReadmeSectionToolDraftV1,
+    TrustedSourceInventoryDecisionV1,
+)
+from readme_agent.readme.trusted_composition_validation import (
+    join_trusted_markdown_parts,
+    validate_trusted_section_tool_draft,
 )
 from readme_agent.readme.trusted_presentation_standards import (
     bind_trusted_presentation_standards,
@@ -84,16 +100,191 @@ def test_comment_normalization_preserves_code_and_comment_like_strings() -> None
     assert "print(url)" in normalized
 
 
+def test_independent_markdown_parts_keep_block_boundaries() -> None:
+    candidate = join_trusted_markdown_parts(
+        [
+            "- first item\n- second item\n",
+            "**Load options:** choose a format.\n",
+            "### GLTF\n\nLoad a GLTF file.\n",
+        ]
+    )
+
+    assert "- second item\n\n**Load options:**" in candidate
+    assert "choose a format.\n\n### GLTF" in candidate
+    assert candidate.endswith("\n")
+
+
+def test_configured_promotional_blockquote_is_unwrapped_without_losing_content(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "> Use [Aspose FOSS](https://products.aspose.org/widget/) for open-source work.\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.contextual_links",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"unwrap-promotional-blockquote",
+                parameters={"forbid_blockquotes": True},
+            )
+        ],
+    )
+
+    normalized = normalize_promotional_blockquotes(source, graph)
+
+    assert "> Use" not in normalized
+    assert (
+        "Use [Aspose FOSS](https://products.aspose.org/widget/) for open-source work." in normalized
+    )
+
+
+def test_source_only_batch_cannot_introduce_readme_global_navigation() -> None:
+    fact_id = "readme.inherited:" + ("a" * 24)
+    source = "## Resources\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="heading",
+                heading_path=("Widget", "Resources"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(),
+        global_structures_allowed=False,
+    )
+    draft = TrustedReadmeSectionToolDraftV1(
+        editorial_summary="Retain the section without adding global navigation.",
+        complete=True,
+        source_inventory=(
+            TrustedSourceInventoryDecisionV1(
+                fact_id=fact_id,
+                action="rewrite",
+                rationale="Keep the inherited Resources heading.",
+            ),
+        ),
+        segments=(
+            TrustedReadmeDraftSegmentV1(
+                segment_id="resources",
+                kind="authored",
+                markdown="- [Resources](#resources)\n\n## Resources\n",
+                inherited_fact_ids=(fact_id,),
+            ),
+        ),
+    )
+
+    with pytest.raises(LLMError, match="README-global navigation"):
+        validate_trusted_section_tool_draft(
+            draft,
+            batch,
+            TrustedCompositionEnvelopeV1(),
+        )
+
+
 def test_legacy_aspose_com_labels_normalize_to_enterprise_edition() -> None:
     markdown = (
-        "Use the commercial On-Premise edition, the on premise product, or the commercial edition."
+        "Use the commercial On-Premise edition, the on premise product, or the commercial edition. "
+        "The commercial Aspose.3D On-Premise library replaces a commercial package."
     )
 
     normalized = normalize_enterprise_edition_terminology(markdown)
 
-    assert normalized.count("Enterprise Edition") == 3
+    assert normalized.count("Enterprise Edition") == 5
+    assert "Aspose.3D Enterprise Edition library" in normalized
+    assert "Enterprise Edition package" in normalized
     assert "On-Premise" not in normalized
     assert "commercial edition" not in normalized
+
+
+def test_navigation_targets_are_bound_to_actual_github_heading_slugs() -> None:
+    markdown = (
+        "# Widget\n\n"
+        "## Navigation\n\n"
+        "- [About Aspose.3D FOSS](#about-aspose-3d-foss)\n\n"
+        "- [Missing section](#missing-section)\n\n"
+        "## About Aspose.3D FOSS\n\n"
+        "Details. [Usage](#stale-usage-anchor)\n\n"
+        "## Usage\n\n"
+        "Run it.\n"
+    )
+
+    normalized = normalize_navigation_targets(markdown)
+
+    assert "[About Aspose.3D FOSS](#about-aspose3d-foss)" in normalized
+    assert "[Usage](#usage)" in normalized
+    assert "#stale-usage-anchor" not in normalized
+    assert "Missing section" not in normalized
+
+
+def test_cross_batch_duplicate_headings_are_consolidated_to_source_multiplicity(
+    tmp_path,
+) -> None:
+    source = "# Widget\n\n## Format-specific features\n\n### OBJ format\n\nOriginal.\n"
+    graph, _ = _graph(tmp_path, source)
+    assembled = (
+        "# Widget\n\n"
+        "## Format-specific features\n\n"
+        "### OBJ format\n\nFirst batch.\n\n"
+        "## Format-specific features\n\n"
+        "### OBJ format\n\nSecond batch.\n"
+    )
+
+    normalized = normalize_trusted_candidate(assembled, graph)
+
+    assert normalized.count("## Format-specific features") == 1
+    assert normalized.count("### OBJ format") == 1
+    assert "First batch." in normalized
+    assert "Second batch." in normalized
+
+
+def test_fidelity_boundary_heading_survives_navigation_normalization(tmp_path) -> None:
+    source = "# Widget\n\n## Usage\n\nRun it.\n"
+    graph, _ = _graph(tmp_path, source)
+    graph = _standards(graph)
+    boundary = "# README_AGENT_FIDELITY_BOUNDARY_0001"
+    assembled = (
+        "# Widget\n\n"
+        "![License](https://img.shields.io/license)\n\n"
+        "## At a glance\n\n"
+        "```mermaid\nflowchart LR\n  input --> widget\n```\n\n"
+        "## Navigation\n\n"
+        "- [Usage](#usage)\n\n"
+        f"{boundary}\n\n"
+        "## Usage\n\n"
+        "Run it.\n"
+    )
+
+    normalized = normalize_trusted_candidate(assembled, graph)
+
+    assert boundary in normalized
+    assert "[Usage](#usage)" in normalized
+
+
+def test_required_section_headings_wrap_existing_variable_content(tmp_path) -> None:
+    source = "# Widget\n\nA 3D library for Python developers.\n"
+    graph, _ = _graph(tmp_path, source)
+    graph = _standards(graph)
+    candidate = (
+        "# Widget\n\n![License](https://img.shields.io/license)\n\n"
+        "```mermaid\nflowchart LR\n  input --> widget\n```\n"
+        "- [Usage](#usage)\n\n## Usage\n\nRun it.\n"
+    )
+
+    normalized = normalize_required_section_headings(candidate, graph)
+
+    assert normalized.count("## At a glance") == 1
+    assert normalized.count("## Navigation") == 1
+    assert normalized.index("## At a glance") < normalized.index("```mermaid")
+    assert normalized.index("## Navigation") < normalized.index("- [Usage](#usage)")
+    assert "![License](https://img.shields.io/license)\n\n## At a glance" in normalized
+    assert "```\n\n## Navigation" in normalized
+    assert "- [Usage](#usage)\n\n## Usage" in normalized
 
 
 def test_link_budget_keeps_prioritized_destinations_and_all_anchor_text(tmp_path) -> None:
@@ -246,6 +437,8 @@ def _standards(graph):
                 "allowed_urls": ["https://products.aspose.com/3d/"],
                 "max_total": 2,
                 "domain_maxima": {"aspose.com": 1, "aspose.org": 1},
+                "forbidden_sections": ["navigation", "at a glance"],
+                "forbid_blockquotes": True,
             },
         ),
     ]
@@ -264,15 +457,49 @@ def test_runtime_standard_binding_uses_policy_catalog_and_automatic_budget(tmp_p
         "readme.badges",
         "readme.navigation",
         "readme.at_a_glance_mermaid",
+        "readme.no_comments",
         "readme.enterprise_edition_terminology",
         "readme.contextual_links",
+    }
+    assert standards["readme.no_comments"].parameters == {
+        "remove_html_comments": True,
+        "remove_code_comments_and_docstrings": True,
     }
     links = standards["readme.contextual_links"].parameters
     assert "https://products.aspose.org/3d/python/" in links["allowed_urls"]
     assert "https://products.aspose.com/3d/python-net/" in links["allowed_urls"]
     assert links["max_total"] == 2
     assert links["domain_maxima"] == {"aspose.org": 1, "aspose.com": 2}
+    assert links["forbidden_sections"] == ["navigation", "at a glance"]
+    assert links["forbid_blockquotes"] is True
     assert "License-MIT-blue.svg" in standards["readme.badges"].parameters["required_fragments"][0]
+
+
+def test_runtime_standard_binding_refreshes_an_existing_older_standard_set(tmp_path):
+    source = "# Widget\n\nA 3D library for Python developers.\n"
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/legacy.yml",
+                configuration_bytes=b"legacy",
+            )
+        ],
+    )
+
+    refreshed = bind_trusted_presentation_standards(ORG_REPO, graph, source)
+
+    assert {item.standard_id for item in refreshed.configured_standards} == {
+        "readme.header",
+        "readme.badges",
+        "readme.navigation",
+        "readme.at_a_glance_mermaid",
+        "readme.no_comments",
+        "readme.enterprise_edition_terminology",
+        "readme.contextual_links",
+    }
 
 
 def test_short_readme_is_llm_authored_with_all_configured_contracts(tmp_path):
@@ -285,6 +512,7 @@ def test_short_readme_is_llm_authored_with_all_configured_contracts(tmp_path):
         "# Widget\n\n"
         "![License](https://img.shields.io/license)\n\n"
         "A 3D library for Python developers.\n\n"
+        "## Navigation\n\n"
         "[At a glance](#at-a-glance) · [Usage](#usage)\n\n"
         "## At a glance\n\n"
         '```mermaid\nflowchart LR\n  files["3D files"] --> widget["Widget"]\n```\n\n'
@@ -324,10 +552,15 @@ def test_short_readme_is_llm_authored_with_all_configured_contracts(tmp_path):
 
     output = compose_trusted_readme(graph, source, client=client)
 
-    assert output.candidate_markdown == markdown
+    assert "- [At a glance](#at-a-glance)\n- [Usage](#usage)" in output.candidate_markdown
+    assert "A 3D library for Python developers." in output.candidate_markdown
+    assert "[Enterprise Edition](https://products.aspose.com/3d/)" in output.candidate_markdown
     assert output.plan.source_accountability_complete is True
     assert output.plan.configured_standard_ids == tuple(standard_ids)
-    assert output.plan.candidate_sha256 == hashlib.sha256(markdown.encode()).hexdigest()
+    assert (
+        output.plan.candidate_sha256
+        == hashlib.sha256(output.candidate_markdown.encode()).hexdigest()
+    )
     assert output.candidate_patch.startswith("--- a/README.md")
     assert output.llm_call_count == 1
     assert "<!--" not in output.candidate_markdown
@@ -343,6 +576,7 @@ def test_standard_bindings_are_deduplicated_and_completed_without_retry(tmp_path
         "# Widget\n\n"
         "![License](https://img.shields.io/license)\n\n"
         "A 3D library for Python developers.\n\n"
+        "## Navigation\n\n"
         "[At a glance](#at-a-glance) · [Usage](#usage)\n\n"
         "## At a glance\n\n"
         '```mermaid\nflowchart LR\n  files["3D files"] --> widget["Widget"]\n```\n\n'
@@ -451,6 +685,7 @@ def test_final_contract_failure_repairs_standards_batch_and_counts_both_calls(tm
         "# Widget\n\n"
         "![License](https://img.shields.io/license)\n\n"
         "A 3D library for Python developers.\n\n"
+        "## Navigation\n\n"
         "[At a glance](#at-a-glance) · [Usage](#usage)\n\n"
         "## At a glance\n\n"
         '```mermaid\nflowchart LR\n  files["3D files"] --> widget["Widget"]\n```\n\n'
@@ -476,9 +711,73 @@ def test_final_contract_failure_repairs_standards_batch_and_counts_both_calls(tm
 
     output = compose_trusted_readme(graph, source, client=client)
 
-    assert output.candidate_markdown == valid_markdown
+    assert output.candidate_markdown == normalize_navigation_targets(valid_markdown)
     assert output.llm_call_count == 2
-    assert output.plan.section_drafts[0].attempt_count == 1
+    assert output.plan.section_drafts[0].attempt_count == 2
+
+
+def test_failed_global_repairs_do_not_overwrite_last_batch_checkpoint(tmp_path) -> None:
+    source = "# Widget\n\nOriginal product detail.\n"
+    graph, _ = _graph(tmp_path, source)
+    contextual = configured_standard_addition(
+        "readme.contextual_links",
+        configuration_source="config/policies/test.yml",
+        configuration_bytes=b"global-repair-cache-test",
+        parameters={
+            "allowed_urls": ["https://products.aspose.com/widget/"],
+            "max_total": 1,
+            "domain_maxima": {"aspose.com": 1},
+        },
+    )
+    graph = bind_configured_standards(graph, [contextual])
+    fact_ids = [fact.fact_id for fact in graph.inherited_facts]
+
+    def invalid(segment_id: str) -> ForcedToolResult:
+        return _result(
+            {
+                "editorial_summary": "Invalid promotional opening.",
+                "complete": True,
+                "source_inventory": [
+                    {
+                        "fact_id": fact_id,
+                        "action": "rewrite",
+                        "rationale": "Retain the inherited detail.",
+                    }
+                    for fact_id in fact_ids
+                ],
+                "segments": [
+                    {
+                        "segment_id": segment_id,
+                        "kind": "authored",
+                        "markdown": (
+                            "# Widget\n\n"
+                            "[Product](https://products.aspose.com/widget/) "
+                            "retains the original product detail.\n"
+                        ),
+                        "inherited_fact_ids": fact_ids,
+                        "configured_standard_ids": ["readme.contextual_links"],
+                    }
+                ],
+            }
+        )
+
+    cache_dir = tmp_path / "batch-cache"
+    client = FixtureForcedToolClient(
+        [invalid("initial"), invalid("rejected-one"), invalid("rejected-two")],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+
+    with pytest.raises(LLMError, match="promotional links"):
+        compose_trusted_readme(
+            graph,
+            source,
+            client=client,
+            batch_cache_dir=cache_dir,
+        )
+
+    cached = json.loads((cache_dir / "batch-0001.json").read_text(encoding="utf-8"))
+    assert cached["tool_draft"]["segments"][0]["segment_id"] == "initial"
 
 
 @pytest.mark.parametrize(
@@ -663,6 +962,25 @@ def test_validated_batches_are_reused_without_another_provider_call(tmp_path):
     }
     assert second.candidate_markdown == first.candidate_markdown
     assert second.plan_hash == first.plan_hash
+
+
+def test_bounded_h2_section_is_not_split_across_batches(tmp_path) -> None:
+    source = "# Widget\n\nOpening.\n\n## Features\n\nFeature context.\n\n- First\n- Second\n"
+    graph, _ = _graph(tmp_path, source)
+    batches = build_trusted_composition_batches(
+        graph,
+        TrustedCompositionEnvelopeV1(
+            max_input_characters=2_000,
+            max_output_characters=2_000,
+            max_facts_per_batch=4,
+        ),
+    )
+
+    assert len(batches) == 2
+    assert all(len(item.heading_path) == 1 for item in batches[0].source_items)
+    assert {
+        item.heading_path[1] for item in batches[1].source_items if len(item.heading_path) > 1
+    } == {"Features"}
 
 
 @pytest.mark.parametrize(
@@ -1075,6 +1393,7 @@ def test_registered_capability_dispatches_against_bound_snapshot(tmp_path):
     candidate = (
         f"# Widget\n\n{badge}\n\n"
         "Important maintainer detail.\n\n"
+        "## Navigation\n\n"
         "[At a glance](#at-a-glance)\n\n"
         "## At a glance\n\n"
         '```mermaid\nflowchart LR\n  input["Input"] --> widget["Widget"]\n```\n'
@@ -1124,7 +1443,7 @@ def test_registered_capability_dispatches_against_bound_snapshot(tmp_path):
 
     assert dispatch.outcome == "executed", dispatch.error
     assert dispatch.result is not None
-    assert dispatch.result["candidate_markdown"] == candidate
+    assert dispatch.result["candidate_markdown"] == normalize_navigation_targets(candidate)
     assert dispatch.result["content_assurance"] == "trusted_inherited"
 
 
@@ -1226,6 +1545,23 @@ def test_truncation_and_cross_product_prose_fail_closed(tmp_path, unsafe_markdow
         ),
         (
             lambda candidate: candidate.replace(
+                "[At a glance](#at-a-glance)",
+                "[Enterprise Edition](https://products.aspose.com/3d/) [At a glance](#at-a-glance)",
+            ).replace(
+                "See the [Enterprise Edition](https://products.aspose.com/3d/) when relevant.",
+                "See the Enterprise Edition when relevant.",
+            ),
+            "below-fold substantive content",
+        ),
+        (
+            lambda candidate: candidate.replace(
+                "See the [Enterprise Edition]",
+                "> See the [Enterprise Edition]",
+            ),
+            "promotional blockquotes",
+        ),
+        (
+            lambda candidate: candidate.replace(
                 "Run the example.",
                 "```python\n# generated explanation\nprint('run')\n```\n",
             ),
@@ -1245,6 +1581,18 @@ def test_truncation_and_cross_product_prose_fail_closed(tmp_path, unsafe_markdow
             ),
             "missing heading",
         ),
+        (
+            lambda candidate: candidate.replace("## Navigation", "Navigation"),
+            "H2 Navigation",
+        ),
+        (
+            lambda candidate: candidate.replace("## At a glance", "At a glance"),
+            "H2 At a glance",
+        ),
+        (
+            lambda candidate: candidate + "\n## Usage\n\nDuplicated section.\n",
+            "duplicate headings",
+        ),
     ],
 )
 def test_candidate_presentation_contracts_fail_closed(tmp_path, mutation, error):
@@ -1255,6 +1603,7 @@ def test_candidate_presentation_contracts_fail_closed(tmp_path, mutation, error)
         "# Widget\n\n"
         "![License](https://img.shields.io/license)\n\n"
         "A 3D library for Python developers.\n\n"
+        "## Navigation\n\n"
         "[At a glance](#at-a-glance) · [Usage](#usage)\n\n"
         "## At a glance\n\n"
         '```mermaid\nflowchart LR\n  input["3D files"] --> widget["Widget"]\n```\n\n'

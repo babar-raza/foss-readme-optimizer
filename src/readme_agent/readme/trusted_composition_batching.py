@@ -62,29 +62,52 @@ def build_trusted_composition_batches(
     graph: TrustedReadmeFactGraphV1,
     envelope: TrustedCompositionEnvelopeV1,
 ) -> tuple[TrustedCompositionBatch, ...]:
-    """Partition in source order; oversized facts remain exact-preserve-only units."""
+    """Partition in source order without splitting a bounded H2 section."""
 
     batches: list[list[TrustedCompositionSourceItemV1]] = []
     current: list[TrustedCompositionSourceItemV1] = []
     current_characters = 0
-    for fact in graph.inherited_facts:
-        item = _source_item(fact, envelope)
-        item_characters = len(item.text)
-        would_overflow = current and (
-            item.text_truncated_for_context
-            or len(current) >= envelope.max_facts_per_batch
-            or current_characters + item_characters > envelope.max_input_characters
+    items = [_source_item(fact, envelope) for fact in graph.inherited_facts]
+    for section in _contiguous_h2_sections(items):
+        section_characters = sum(len(item.text) for item in section)
+        section_fits = (
+            not any(item.text_truncated_for_context for item in section)
+            and len(section) <= envelope.max_facts_per_batch
+            and section_characters <= envelope.max_input_characters
         )
-        if would_overflow:
+        current_would_overflow = current and (
+            len(current) + len(section) > envelope.max_facts_per_batch
+            or current_characters + section_characters > envelope.max_input_characters
+        )
+        if section_fits and current_would_overflow:
             batches.append(current)
             current = []
             current_characters = 0
-        current.append(item)
-        current_characters += item_characters
-        if item.text_truncated_for_context:
+        if section_fits:
+            current.extend(section)
+            current_characters += section_characters
+            continue
+        if current:
             batches.append(current)
             current = []
             current_characters = 0
+        for item in section:
+            item_characters = len(item.text)
+            would_overflow = current and (
+                item.text_truncated_for_context
+                or len(current) >= envelope.max_facts_per_batch
+                or current_characters + item_characters > envelope.max_input_characters
+            )
+            if would_overflow:
+                batches.append(current)
+                current = []
+                current_characters = 0
+            current.append(item)
+            current_characters += item_characters
+            if item.text_truncated_for_context:
+                batches.append(current)
+                current = []
+                current_characters = 0
     if current:
         batches.append(current)
     return tuple(
@@ -96,3 +119,23 @@ def build_trusted_composition_batches(
         )
         for index, items in enumerate(batches, start=1)
     )
+
+
+def _contiguous_h2_sections(
+    items: list[TrustedCompositionSourceItemV1],
+) -> tuple[tuple[TrustedCompositionSourceItemV1, ...], ...]:
+    """Group the preamble and each H2 subtree while retaining source order."""
+
+    grouped: list[list[TrustedCompositionSourceItemV1]] = []
+    current: list[TrustedCompositionSourceItemV1] = []
+    current_key: str | None = None
+    for item in items:
+        key = item.heading_path[1] if len(item.heading_path) > 1 else ""
+        if current and key != current_key:
+            grouped.append(current)
+            current = []
+        current.append(item)
+        current_key = key
+    if current:
+        grouped.append(current)
+    return tuple(tuple(group) for group in grouped)

@@ -19,6 +19,9 @@ from readme_agent.readme.trusted_composition_models import (
     TrustedReadmeSectionToolDraftV1,
 )
 
+TRUSTED_BATCH_VALIDATION_CONTRACT_VERSION = "trusted-batch-validation-v2-no-introduced-navigation"
+TRUSTED_GLOBAL_REPAIR_PROMOTION_VERSION = "trusted-global-repair-promotion-v1"
+
 
 def _canonical_hash(value: object) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
@@ -67,6 +70,10 @@ def trusted_batch_cache_key(
     return _canonical_hash(
         {
             "schema_version": 1,
+            "validation_contract_version": TRUSTED_BATCH_VALIDATION_CONTRACT_VERSION,
+            "global_repair_promotion_version": (
+                TRUSTED_GLOBAL_REPAIR_PROMOTION_VERSION if batch.configured_standards else None
+            ),
             "org_repo": graph.org_repo,
             "source_revision": graph.source_revision,
             "fact_graph_sha256": graph.canonical_hash(),

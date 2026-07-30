@@ -102,19 +102,20 @@ def _role_review_tool_schema(
     *,
     finding_kind: str,
     criteria: list[str] | None = None,
+    max_findings: int | None = None,
 ) -> dict:
     finding_schema = {
         "type": "object",
         "additionalProperties": False,
         "properties": {
-            "finding_id": {"type": "string"},
+            "finding_id": {"type": "string", "maxLength": 100},
             "kind": {"type": "string", "enum": [finding_kind]},
             "criterion": (
                 {"type": "string", "enum": criteria} if criteria is not None else {"type": "string"}
             ),
-            "section": {"type": "string"},
-            "claim": {"type": "string"},
-            "quoted_candidate_span": {"type": "string"},
+            "section": {"type": "string", "maxLength": 120},
+            "claim": {"type": "string", "maxLength": 500},
+            "quoted_candidate_span": {"type": "string", "maxLength": 1200},
             "disposition": {
                 "type": "string",
                 "enum": ["supports_acceptance", "requires_repair", "blocks"],
@@ -144,7 +145,7 @@ def _role_review_tool_schema(
                 "type": "string",
                 "enum": ["not_applicable", "supports", "contradicts", "missing"],
             },
-            "required_repair": {"type": "string"},
+            "required_repair": {"type": "string", "maxLength": 700},
         },
         "required": [
             "finding_id",
@@ -163,6 +164,9 @@ def _role_review_tool_schema(
             "required_repair",
         ],
     }
+    findings_schema: dict[str, object] = {"type": "array", "items": finding_schema}
+    if max_findings is not None:
+        findings_schema["maxItems"] = max_findings
     return {
         "type": "function",
         "function": {
@@ -173,11 +177,11 @@ def _role_review_tool_schema(
                 "additionalProperties": False,
                 "properties": {
                     "verdict": {"type": "string", "enum": verdicts},
-                    "reasoning": {"type": "string"},
+                    "reasoning": {"type": "string", "maxLength": 2000},
                     "failed_criteria": {"type": "array", "items": {"type": "string"}},
                     "sections_affected": {"type": "array", "items": {"type": "string"}},
-                    "required_repair": {"type": "string"},
-                    "findings": {"type": "array", "items": finding_schema},
+                    "required_repair": {"type": "string", "maxLength": 3000},
+                    "findings": findings_schema,
                 },
                 "required": [
                     "verdict",
@@ -197,6 +201,7 @@ BLIND_QUALITY_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
     finding_kind="quality",
     criteria=list(BLIND_QUALITY_CRITERIA),
+    max_findings=8,
 )
 FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     "report_factual_readme_plan_review",
@@ -290,6 +295,19 @@ TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA = {
 }
 
 
+def build_trusted_fidelity_review_tool_schema(
+    required_fact_ids: tuple[str, ...],
+) -> dict[str, object]:
+    """Constrain one fidelity call to its exact inherited-source inventory."""
+
+    schema = json.loads(json.dumps(TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA))
+    source_checks = schema["function"]["parameters"]["properties"]["source_checks"]
+    source_checks["minItems"] = len(required_fact_ids)
+    source_checks["maxItems"] = len(required_fact_ids)
+    source_checks["items"]["properties"]["fact_id"]["enum"] = list(required_fact_ids)
+    return schema
+
+
 def separated_reviewer_standard_hash() -> str:
     """Bind lifecycle reuse to both role prompts and the V1 reducer contract."""
 
@@ -316,7 +334,7 @@ def trusted_reviewer_standard_hash() -> str:
     """Bind trusted review reuse to both isolated prompts and reducer schema."""
 
     components = [
-        "trusted-transform-review-v1",
+        "trusted-transform-review-v2-grounding-retry",
         prompt_registry.prompt_hash("trusted_readme_section_transform"),
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("trusted_readme_fidelity_review"),
@@ -399,6 +417,7 @@ def build_blind_quality_review_messages(
     org_repo: str,
     original_readme_text: str,
     candidate_readme_text: str,
+    visitor_contract_json: str = "{}",
 ) -> list[dict]:
     """Build the visitor-quality context without producer or factual-plan conclusions."""
 
@@ -411,6 +430,7 @@ def build_blind_quality_review_messages(
             org_repo=org_repo,
             original_readme_text=original_readme_text,
             candidate_readme_text=candidate_readme_text,
+            visitor_contract_json=visitor_contract_json,
         )
         .strip()
     )

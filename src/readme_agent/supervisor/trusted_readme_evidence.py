@@ -15,6 +15,9 @@ from readme_agent.evidence.writer import (
     write_redacted_text,
 )
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
+from readme_agent.readme.trusted_composition_candidate_validation import (
+    TRUSTED_CANDIDATE_NORMALIZATION_VERSION,
+)
 from readme_agent.readme.trusted_composition_models import TrustedReadmeCompositionOutputV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.specialists.trusted_transform_review_models import (
@@ -75,6 +78,7 @@ def write_trusted_composition_evidence(
             "facts_hash": graph.canonical_hash(),
             "plan_hash": composition.plan_hash,
             "candidate_hash": composition.candidate_sha256,
+            "candidate_normalization_version": TRUSTED_CANDIDATE_NORMALIZATION_VERSION,
             "complete": False,
             "completed_stages": _merge_stages(
                 prior,
@@ -200,6 +204,8 @@ def load_trusted_readme_evidence(
         or manifest.get("facts_hash") != graph.canonical_hash()
         or manifest.get("plan_hash") != composition.plan_hash
         or manifest.get("candidate_hash") != composition.candidate_sha256
+        or manifest.get("candidate_normalization_version")
+        != TRUSTED_CANDIDATE_NORMALIZATION_VERSION
     ):
         return None
     try:

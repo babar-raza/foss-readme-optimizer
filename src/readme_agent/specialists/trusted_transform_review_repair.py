@@ -31,6 +31,7 @@ def run_trusted_review_with_repair(
     fidelity_client: AnalysisClientLike,
     repair_client: ForcedToolClient,
     initial_execution: TrustedReviewExecutionV1 | None = None,
+    enable_fidelity_batch_cache: bool = False,
 ) -> TrustedReviewLoopResultV1:
     """Review, repair one responsible batch at a time, and fail on unchanged bytes.
 
@@ -52,6 +53,7 @@ def run_trusted_review_with_repair(
         current,
         blind_client=blind_client,
         fidelity_client=fidelity_client,
+        enable_fidelity_batch_cache=enable_fidelity_batch_cache,
     )
     for attempt in range(1, _MAX_REPAIR_ATTEMPTS + 1):
         verdict = execution.review.verdict
@@ -102,6 +104,7 @@ def run_trusted_review_with_repair(
             current,
             blind_client=blind_client,
             fidelity_client=fidelity_client,
+            enable_fidelity_batch_cache=enable_fidelity_batch_cache,
         )
         history.append(receipt.model_copy(update={"rereview_verdict": execution.review.verdict}))
     if execution.review.verdict == "TRUSTED_TRANSFORM_APPROVED":
@@ -132,64 +135,66 @@ def _repair_request(
     review: TrustedTransformReviewV1,
     attempt: int,
 ) -> TrustedReadmeSectionRepairRequestV1:
-    target_fact_ids: list[str] = []
-    target_batch_ids: list[str] = []
-    instructions: list[str] = []
-    finding_ids: list[str] = []
+    owned_findings: dict[str, list[tuple[str, str]]] = {}
+
+    def assign(batch_id: str, finding_id: str, instruction: str) -> None:
+        if instruction.strip():
+            owned_findings.setdefault(batch_id, []).append((finding_id, instruction))
+
+    def batches_containing_quote(quote: str) -> tuple[str, ...]:
+        if not quote:
+            return ()
+        return tuple(
+            draft.batch_id
+            for draft in composition.plan.section_drafts
+            if any(quote in segment.markdown for segment in draft.segments)
+        )
+
+    fact_to_batch = {
+        fact_id: draft.batch_id
+        for draft in composition.plan.section_drafts
+        for segment in draft.segments
+        for fact_id in segment.inherited_fact_ids
+    }
     blind = review.blind_quality.result
     for finding in blind.get("findings", []):
         if finding.get("disposition") == "requires_repair":
-            finding_ids.append(str(finding["finding_id"]))
-            instructions.append(str(finding["required_repair"]))
+            finding_id = str(finding["finding_id"])
+            instruction = str(finding["required_repair"])
             quote = str(finding.get("quoted_candidate_span", ""))
-            for draft in composition.plan.section_drafts:
-                if any(quote and quote in segment.markdown for segment in draft.segments):
-                    target_batch_ids.append(draft.batch_id)
-                    target_fact_ids.extend(
-                        fact_id
-                        for segment in draft.segments
-                        for fact_id in segment.inherited_fact_ids
-                    )
+            for batch_id in batches_containing_quote(quote):
+                assign(batch_id, finding_id, instruction)
     fidelity = review.inheritance_fidelity.result
     for check in fidelity.get("source_checks", []):
         if check.get("outcome") == "lost_or_distorted":
-            target_fact_ids.append(str(check["fact_id"]))
-            finding_ids.append(f"fidelity.{check['fact_id'].split(':')[-1]}")
-            instructions.append(str(check["required_repair"]))
+            fact_id = str(check["fact_id"])
+            owner_batch_id = fact_to_batch.get(fact_id)
+            if owner_batch_id is not None:
+                assign(
+                    owner_batch_id,
+                    f"fidelity.{fact_id.split(':')[-1]}",
+                    str(check["required_repair"]),
+                )
     for finding in fidelity.get("unsupported_additions", []):
-        finding_ids.append(str(finding["finding_id"]))
-        instructions.append(str(finding["required_repair"]))
+        finding_id = str(finding["finding_id"])
+        instruction = str(finding["required_repair"])
         quote = str(finding["quoted_candidate_span"])
-        for draft in composition.plan.section_drafts:
-            if any(quote in segment.markdown for segment in draft.segments):
-                target_batch_ids.append(draft.batch_id)
-                target_fact_ids.extend(
-                    fact_id for segment in draft.segments for fact_id in segment.inherited_fact_ids
-                )
+        for batch_id in batches_containing_quote(quote):
+            assign(batch_id, finding_id, instruction)
     target = next(
-        (
-            draft
-            for draft in composition.plan.section_drafts
-            if (
-                draft.batch_id in target_batch_ids
-                or any(
-                    fact_id in target_fact_ids
-                    for segment in draft.segments
-                    for fact_id in segment.inherited_fact_ids
-                )
-            )
-        ),
+        (draft for draft in composition.plan.section_drafts if draft.batch_id in owned_findings),
         None,
     )
-    if target is None or not instructions:
+    if target is None:
         raise ValueError("grounded findings do not identify a responsible repair batch")
+    target_findings = owned_findings[target.batch_id]
     return TrustedReadmeSectionRepairRequestV1(
         org_repo=graph.org_repo,
         source_revision=graph.source_revision,
         rejected_batch_id=target.batch_id,
         rejected_draft_sha256=target.canonical_hash(),
-        finding_ids=tuple(dict.fromkeys(finding_ids)),
-        repair_instructions=tuple(dict.fromkeys(instructions)),
+        finding_ids=tuple(dict.fromkeys(item[0] for item in target_findings)),
+        repair_instructions=tuple(dict.fromkeys(item[1] for item in target_findings)),
         accepted_section_sha256s=tuple(
             draft.canonical_hash()
             for draft in composition.plan.section_drafts

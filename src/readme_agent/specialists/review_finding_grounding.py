@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Literal
+from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -31,6 +33,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
+_MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\((?P<url>https?://[^)\s]+)")
 
 
 class GroundedReviewFindingV1(BaseModel):
@@ -150,6 +153,7 @@ def validate_review_findings(
     candidate_text: str,
     product_facts: dict | None,
     findings: list[GroundedReviewFindingV1],
+    visitor_contract: dict | None = None,
 ) -> FindingGroundingResultV1:
     """Reject invented spans, unknown facts, evidence mismatch, and wrong polarity."""
 
@@ -171,6 +175,14 @@ def validate_review_findings(
             if finding.kind == "quality" and finding.criterion not in BLIND_QUALITY_CRITERIA:
                 errors.append(
                     f"{finding.finding_id}:criterion is outside blind visible-quality authority"
+                )
+            if finding.kind == "quality":
+                errors.extend(
+                    _validate_quality_finding(
+                        finding,
+                        candidate_text,
+                        visitor_contract or {},
+                    )
                 )
             continue
         if finding.polarity_result == "missing":
@@ -235,17 +247,142 @@ def validate_review_findings(
     )
 
 
+def _validate_quality_finding(
+    finding: GroundedReviewFindingV1,
+    candidate_text: str,
+    visitor_contract: dict,
+) -> list[str]:
+    """Reject visible-quality premises contradicted by their quote or configured contract."""
+
+    errors: list[str] = []
+    premise = f"{finding.claim}\n{finding.required_repair}".casefold()
+    quote = finding.quoted_candidate_span
+    if (
+        "missing a blank line" in premise or "no blank line" in premise
+    ) and "\n\n" in quote.replace("\r\n", "\n"):
+        errors.append(f"{finding.finding_id}:blank-line premise contradicts quoted span")
+    list_present = any(line.lstrip().startswith(("- ", "* ", "+ ")) for line in quote.splitlines())
+    if list_present and (
+        "plain text labels instead of a proper markdown list" in premise
+        or "lack leading hyphens" in premise
+        or "use proper markdown list syntax" in premise
+    ):
+        errors.append(f"{finding.finding_id}:list-syntax premise contradicts quoted span")
+    standards = {
+        str(item.get("standard_id")): item.get("parameters") or {}
+        for item in visitor_contract.get("configured_standards", [])
+        if isinstance(item, dict)
+    }
+    if "readme.badges" in standards and "badge" in premise:
+        title_badge = re.match(
+            r"\A(?:\ufeff)?# [^\r\n]+\r?\n\r?\n![^\r\n]+",
+            candidate_text,
+        )
+        rejects_valid_spacing = (
+            "without a blank line" in premise
+            or "without an intervening blank line" in premise
+            or "immediately after the h1" in premise
+        )
+        if title_badge is not None and rejects_valid_spacing:
+            errors.append(
+                f"{finding.finding_id}:badge-spacing premise contradicts configured header"
+            )
+    if "readme.navigation" in standards and "navigation" in premise:
+        has_navigation = re.search(r"(?mi)^##[ \t]+navigation[ \t]*$", candidate_text)
+        has_glance = re.search(r"(?mi)^##[ \t]+at a glance[ \t]*$", candidate_text)
+        demands_wrong_placement = (
+            "missing" in premise
+            or "add the required" in premise
+            or "under the 'at a glance'" in premise
+            or 'under the "at a glance"' in premise
+        )
+        if has_navigation and has_glance and demands_wrong_placement:
+            errors.append(
+                f"{finding.finding_id}:navigation premise contradicts configured H2 sections"
+            )
+    enterprise_standard = standards.get("readme.enterprise_edition_terminology")
+    if enterprise_standard is not None and "enterprise edition" in premise:
+        required_term = str(enterprise_standard.get("required_term", "Enterprise Edition"))
+        opening_only = any(
+            phrase in premise
+            for phrase in ("first paragraph", "opening paragraph", "after the badge")
+        )
+        if opening_only and required_term.casefold() in candidate_text.casefold():
+            errors.append(
+                f"{finding.finding_id}:Enterprise Edition opening-placement premise is unconfigured"
+            )
+    link_standard = standards.get("readme.contextual_links")
+    if link_standard is not None:
+        if (
+            "all links are hyperlinked" in premise
+            or "all are plain text" in premise
+            or "inconsistent link presentation" in premise
+            or "conversion of plain labels" in premise
+        ):
+            errors.append(
+                f"{finding.finding_id}:link-uniformity premise conflicts with contextual budget"
+            )
+        maximum = link_standard.get("max_total")
+        domain_maxima = link_standard.get("domain_maxima") or {}
+        domains = tuple(str(domain).casefold() for domain in domain_maxima)
+        governed_link_count = sum(
+            1
+            for match in _MARKDOWN_LINK.finditer(candidate_text)
+            if any(
+                (host := urlsplit(match.group("url")).netloc.casefold()) == domain
+                or host.endswith(f".{domain}")
+                for domain in domains
+            )
+        )
+        link_ceiling_premise = (
+            "link budget" in premise
+            or "contextual link" in premise
+            or "allowed url" in premise
+            or ("link" in premise and "at most" in premise)
+        )
+        if isinstance(maximum, int) and link_ceiling_premise:
+            if governed_link_count <= maximum:
+                errors.append(
+                    f"{finding.finding_id}:link-budget premise contradicts configured maximum"
+                )
+    return errors
+
+
 def grounding_retry_context(
     *,
     errors: list[str],
     candidate_text: str,
     product_facts: dict | None,
+    findings: tuple[GroundedReviewFindingV1, ...] = (),
+    visitor_contract: dict | None = None,
 ) -> str:
     """Return bounded reconciliation evidence without another producer verdict."""
 
+    disproven_ids = {
+        error.split(":", maxsplit=1)[0]
+        for error in errors
+        if any(marker in error for marker in ("contradicts", "conflicts with", "is unconfigured"))
+    }
     payload = {
         "validation_errors": errors,
         "candidate_sha256_input_length": len(candidate_text.encode("utf-8")),
+        "invalid_findings": [
+            (
+                {
+                    "finding_id": finding.finding_id,
+                    "disposition": "deterministically_disproven",
+                }
+                if finding.finding_id in disproven_ids
+                else {
+                    "finding_id": finding.finding_id,
+                    "claim": finding.claim,
+                    "quoted_candidate_span": finding.quoted_candidate_span,
+                    "required_repair": finding.required_repair,
+                }
+            )
+            for finding in findings
+        ],
+        "visitor_contract": visitor_contract or {},
         "selected_fact_ids": (product_facts or {}).get("selected_fact_ids", {}),
         "accepted_fact_evidence": [
             {

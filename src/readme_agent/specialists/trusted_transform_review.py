@@ -15,11 +15,11 @@ from readme_agent.llm.call_ledger import (
 )
 from readme_agent.llm.reviewer_client import (
     TRUSTED_REVIEW_MAX_TOKENS,
+    LiveTrustedFidelityReviewClient,
     build_live_trusted_review_clients,
 )
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
-    build_trusted_fidelity_review_messages,
     trusted_reviewer_standard_hash,
 )
 from readme_agent.readme.trusted_composition_candidate_validation import (
@@ -31,8 +31,19 @@ from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     input_hash,
 )
-from readme_agent.specialists.review_role_execution import AnalysisClientLike, run_grounded_role
-from readme_agent.specialists.trusted_fidelity_validation import run_trusted_fidelity_role
+from readme_agent.specialists.review_role_execution import (
+    AnalysisClientLike,
+    GroundedRoleFailure,
+    run_grounded_role,
+)
+from readme_agent.specialists.trusted_fidelity_cache import (
+    default_trusted_fidelity_cache_dir,
+)
+from readme_agent.specialists.trusted_fidelity_context import build_trusted_fidelity_context
+from readme_agent.specialists.trusted_fidelity_execution import (
+    run_batched_trusted_fidelity_review,
+)
+from readme_agent.specialists.trusted_fidelity_validation import TrustedFidelityRoleFailure
 from readme_agent.specialists.trusted_transform_review_models import (
     TrustedCandidateValidationV1,
     TrustedReviewActorIdentityV1,
@@ -128,6 +139,7 @@ def run_trusted_transform_review(
     blind_client: AnalysisClientLike | None = None,
     fidelity_client: AnalysisClientLike | None = None,
     cached_review: TrustedTransformReviewV1 | None = None,
+    enable_fidelity_batch_cache: bool = False,
 ) -> TrustedReviewExecutionV1:
     """Require deterministic validation and two identity-separated reviewer accepts."""
 
@@ -155,6 +167,11 @@ def run_trusted_transform_review(
         return _execution(cached_review, True, before, after)
     if (blind_client is None) != (fidelity_client is None):
         raise ValueError("blind and fidelity clients must be supplied together")
+    use_live_batch_cache = (
+        blind_client is None
+        or enable_fidelity_batch_cache
+        or isinstance(fidelity_client, LiveTrustedFidelityReviewClient)
+    )
     if blind_client is None or fidelity_client is None:
         blind_client, fidelity_client = build_live_trusted_review_clients(
             env.llm_base_url(),
@@ -168,12 +185,14 @@ def run_trusted_transform_review(
         )
 
     candidate = composition.candidate_markdown
+    visitor_contract = _visitor_contract(graph)
     blind_input = BlindQualityReviewInputV1(
         org_repo=graph.org_repo,
         original_readme_text=source_text,
         candidate_readme_text=candidate,
         candidate_sha256=composition.candidate_sha256,
-        rubric_version="2",
+        rubric_version="3",
+        visitor_contract=visitor_contract,
     )
     blind_error: str | None = None
     try:
@@ -181,39 +200,46 @@ def run_trusted_transform_review(
             role="blind_quality",
             prompt_id=_BLIND_PROMPT_ID,
             client=blind_client,
-            messages=build_blind_quality_review_messages(graph.org_repo, source_text, candidate),
+            messages=build_blind_quality_review_messages(
+                graph.org_repo,
+                source_text,
+                candidate,
+                json.dumps(
+                    visitor_contract,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                    ensure_ascii=False,
+                ),
+            ),
             candidate_text=candidate,
             product_facts=None,
+            visitor_contract=visitor_contract,
         )
         if not isinstance(blind_result_raw, BlindQualityReviewResultV1):
             raise TypeError("blind reviewer returned the wrong typed result")
     except (LLMError, TypeError, ValueError) as exc:
         blind_result_raw = None
-        blind_history = []
+        blind_history = list(exc.retry_history) if isinstance(exc, GroundedRoleFailure) else []
         blind_grounding = None
         blind_error = str(exc)
+    fidelity_graph, fidelity_plan = build_trusted_fidelity_context(graph, composition.plan)
     fidelity_payload = {
         "org_repo": graph.org_repo,
-        "fact_graph": graph.model_dump(mode="json"),
-        "transform_plan": composition.plan.model_dump(mode="json"),
+        "fact_graph": fidelity_graph,
+        "transform_plan": fidelity_plan,
         "candidate_sha256": composition.candidate_sha256,
     }
     fidelity_error: str | None = None
     try:
-        fidelity_result, fidelity_history = run_trusted_fidelity_role(
+        fidelity_result, fidelity_history = run_batched_trusted_fidelity_review(
             client=fidelity_client,
-            messages=build_trusted_fidelity_review_messages(
-                graph.org_repo,
-                _canonical_json(graph.model_dump(mode="json")),
-                _canonical_json(composition.plan.model_dump(mode="json")),
-                candidate,
-            ),
             graph=graph,
-            candidate_text=candidate,
+            composition=composition,
+            cache_dir=(default_trusted_fidelity_cache_dir(graph) if use_live_batch_cache else None),
         )
     except (LLMError, TypeError, ValueError) as exc:
         fidelity_result = None
-        fidelity_history = ()
+        fidelity_history = exc.retry_history if isinstance(exc, TrustedFidelityRoleFailure) else ()
         fidelity_error = str(exc)
     author = _identity(
         "llm-route:trusted-readme-author",
@@ -340,5 +366,16 @@ def _execution(
     )
 
 
-def _canonical_json(value: object) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+def _visitor_contract(graph: TrustedReadmeFactGraphV1) -> dict:
+    """Expose policy standards to the blind role without producer or fact conclusions."""
+
+    return {
+        "content_assurance": graph.content_assurance,
+        "configured_standards": [
+            {
+                "standard_id": standard.standard_id,
+                "parameters": standard.parameters,
+            }
+            for standard in graph.configured_standards
+        ],
+    }

@@ -26,8 +26,6 @@ def bind_trusted_presentation_standards(
 ) -> TrustedReadmeFactGraphV1:
     """Attach only separately-attributed, policy-backed README standards."""
 
-    if graph.configured_standards:
-        return graph
     entry = require_listed(org_repo)
     if entry.policy_profile is None:
         raise ValueError(f"{org_repo!r} has no policy_profile for trusted presentation")
@@ -94,6 +92,15 @@ def bind_trusted_presentation_standards(
             parameters={"heading": "At a glance", "diagram_kind": "flowchart"},
         ),
         configured_standard_addition(
+            "readme.no_comments",
+            configuration_source=config_source,
+            configuration_bytes=config_bytes,
+            parameters={
+                "remove_html_comments": True,
+                "remove_code_comments_and_docstrings": True,
+            },
+        ),
+        configured_standard_addition(
             "readme.enterprise_edition_terminology",
             configuration_source=config_source,
             configuration_bytes=config_bytes,
@@ -110,6 +117,8 @@ def bind_trusted_presentation_standards(
                 "surface_maxima": budget.surface_maxima,
                 "surface_by_url": surface_by_url,
                 "priority_hosts": ["products.aspose.org", "products.aspose.com"],
+                "forbidden_sections": ["navigation", "at a glance"],
+                "forbid_blockquotes": True,
             },
         ),
     ]

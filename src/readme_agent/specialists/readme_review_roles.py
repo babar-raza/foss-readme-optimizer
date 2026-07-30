@@ -49,6 +49,7 @@ class BlindQualityReviewInputV1(BaseModel):
     candidate_readme_text: str = Field(min_length=1)
     candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     rubric_version: str = Field(min_length=1)
+    visitor_contract: dict = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def _candidate_hash_matches(self) -> BlindQualityReviewInputV1:
@@ -111,6 +112,14 @@ class BlindQualityReviewResultV1(BaseModel):
             or any(finding.disposition != "requires_repair" for finding in self.findings)
         ):
             raise ValueError("blind-quality rejection requires criteria, sections, and repair")
+        if self.verdict == "REJECT_REPAIRABLE" and set(self.failed_criteria) != {
+            finding.criterion for finding in self.findings
+        }:
+            raise ValueError("blind-quality failed criteria must match grounded findings")
+        if self.verdict == "REJECT_REPAIRABLE" and set(self.sections_affected) != {
+            finding.section for finding in self.findings
+        }:
+            raise ValueError("blind-quality affected sections must match grounded findings")
         if self.verdict == "SYSTEM_FAILURE" and self.findings:
             raise ValueError("blind-quality SYSTEM_FAILURE cannot carry findings")
         if any(finding.kind != "quality" for finding in self.findings):

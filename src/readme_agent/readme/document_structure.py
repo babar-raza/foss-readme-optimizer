@@ -8,6 +8,7 @@ heading anchors. Extracted verbatim from the former single-file
 from __future__ import annotations
 
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 from markdown_it import MarkdownIt
@@ -78,3 +79,62 @@ def github_anchor(title: str) -> str:
     lowered = title.strip().lower()
     lowered = re.sub(r"[^\w\s-]", "", lowered)
     return re.sub(r"[\s-]+", "-", lowered).strip("-")
+
+
+def normalize_navigation_targets(
+    markdown: str,
+    *,
+    boundary_line_prefix: str | None = None,
+) -> str:
+    """Rebuild Navigation from the final H2 headings and their GitHub anchors."""
+
+    headings = [heading for heading in parse_headings(markdown) if heading.level == 2]
+    navigation = next(
+        (heading for heading in headings if heading.title.casefold() == "navigation"),
+        None,
+    )
+    if navigation is None:
+        return markdown
+    labels = [heading.title for heading in headings if heading.title.casefold() != "navigation"]
+    if not labels:
+        return markdown
+    section_end = navigation.section_end
+    if boundary_line_prefix:
+        boundary = markdown.find(boundary_line_prefix, navigation.heading_end, section_end)
+        if boundary >= 0:
+            section_end = boundary
+    body = "\n" + "\n".join(f"- [{label}](#{github_anchor(label)})" for label in labels) + "\n\n"
+    rebuilt = markdown[: navigation.heading_end] + body + markdown[section_end:]
+    targets = {
+        heading.title.strip().casefold(): github_anchor(heading.title)
+        for heading in parse_headings(rebuilt)
+    }
+
+    def replace_fragment(match: re.Match[str]) -> str:
+        target = targets.get(match.group("label").strip().casefold())
+        return f"[{match.group('label')}](#{target})" if target else match.group(0)
+
+    return re.sub(
+        r"\[(?P<label>[^\]]+)\]\(#[^)]+\)",
+        replace_fragment,
+        rebuilt,
+    )
+
+
+def remove_excess_headings(
+    markdown: str,
+    allowed_counts: Mapping[tuple[int, str], int],
+) -> str:
+    """Remove only heading repetitions beyond the source document's multiplicity."""
+
+    seen: dict[tuple[int, str], int] = {}
+    removals: list[tuple[int, int]] = []
+    for heading in parse_headings(markdown):
+        key = (heading.level, heading.title.strip().casefold())
+        seen[key] = seen.get(key, 0) + 1
+        if seen[key] > max(allowed_counts.get(key, 0), 1):
+            removals.append((heading.start, heading.heading_end))
+    normalized = markdown
+    for start, end in reversed(removals):
+        normalized = normalized[:start] + normalized[end:]
+    return normalized

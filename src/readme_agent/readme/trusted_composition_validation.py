@@ -14,6 +14,7 @@ from readme_agent.readme.trusted_composition_models import (
 )
 
 _HTML_COMMENT = "<!--"
+_INTERNAL_MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(#[^)]+\)")
 
 
 def _render_batch_candidate(
@@ -42,14 +43,26 @@ def _validate_batch_standard_content(
         candidate = _render_batch_candidate(draft, batch)
         if re.search(r"(?m)^# ", candidate) or "```mermaid" in candidate:
             raise LLMError("source-only batch authored a README-global header or Mermaid structure")
+        source_internal_links = Counter(
+            link
+            for item in batch.source_items
+            for link in _INTERNAL_MARKDOWN_LINK.findall(item.text)
+        )
+        candidate_internal_links = Counter(_INTERNAL_MARKDOWN_LINK.findall(candidate))
+        if candidate_internal_links - source_internal_links:
+            raise LLMError("source-only batch authored README-global navigation links")
     if not batch.configured_standards:
         return
     candidate = _render_batch_candidate(draft, batch)
     candidate_folded = candidate.casefold()
+    headings = {
+        (match.group(1).casefold(), match.group(2).strip().casefold())
+        for match in re.finditer(r"(?m)^(#{1,6})[ \t]+(.+?)\s*$", candidate)
+    }
     standards = {item.standard_id: item for item in batch.configured_standards}
     if "readme.header" in standards:
-        headings = re.findall(r"(?m)^# (.+?)\s*$", candidate)
-        if len(headings) != 1:
+        h1_headings = re.findall(r"(?m)^# (.+?)\s*$", candidate)
+        if len(h1_headings) != 1:
             raise LLMError("configured README header requires exactly one H1 in its owning batch")
     if "readme.badges" in standards:
         fragments = [
@@ -59,16 +72,27 @@ def _validate_batch_standard_content(
         if not fragments or any(fragment not in candidate for fragment in fragments):
             raise LLMError("configured badge fragments are absent from their owning batch")
     if "readme.navigation" in standards:
+        if ("##", "navigation") not in headings:
+            raise LLMError(
+                "configured README navigation requires the exact H2 heading ## Navigation "
+                "in its owning batch"
+            )
         labels = [
             str(item).casefold()
             for item in standards["readme.navigation"].parameters.get("required_labels", [])
         ]
         if not labels or any(label not in candidate_folded for label in labels):
             raise LLMError("configured README navigation is incomplete in its owning batch")
-    if "readme.at_a_glance_mermaid" in standards and candidate.count("```mermaid") != 1:
-        raise LLMError(
-            "configured at-a-glance Mermaid diagram is absent or duplicated in its owning batch"
-        )
+    if "readme.at_a_glance_mermaid" in standards:
+        if ("##", "at a glance") not in headings:
+            raise LLMError(
+                "configured at-a-glance Mermaid requires the exact H2 heading "
+                "## At a glance in its owning batch"
+            )
+        if candidate.count("```mermaid") != 1:
+            raise LLMError(
+                "configured at-a-glance Mermaid diagram is absent or duplicated in its owning batch"
+            )
 
 
 def validate_trusted_section_tool_draft(
@@ -137,7 +161,13 @@ def assemble_trusted_candidate(
                 rendered.append(facts[segment.inherited_fact_ids[0]].value)
             else:
                 rendered.append(segment.markdown.rstrip() + "\n")
-    candidate = "\n".join(part.rstrip("\n") for part in rendered if part).strip() + "\n"
+    candidate = join_trusted_markdown_parts(rendered)
     if _HTML_COMMENT in candidate:
         raise LLMError("trusted composition candidate contains an HTML comment")
     return candidate
+
+
+def join_trusted_markdown_parts(parts: list[str]) -> str:
+    """Join independently authored Markdown blocks without collapsing block boundaries."""
+
+    return "\n\n".join(part.strip("\n") for part in parts if part).strip() + "\n"

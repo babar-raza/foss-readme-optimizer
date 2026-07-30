@@ -20,10 +20,7 @@ from readme_agent.readme.trusted_composition_cache import (
     write_trusted_batch_cache,
 )
 from readme_agent.readme.trusted_composition_candidate_validation import (
-    normalize_contextual_link_budget,
-    normalize_enterprise_edition_terminology,
-    normalize_inherited_code_blocks,
-    strip_readme_comments,
+    normalize_trusted_candidate,
     validate_trusted_candidate_contract,
 )
 from readme_agent.readme.trusted_composition_execution import (
@@ -132,9 +129,17 @@ def compose_trusted_readme(
         (index for index, batch in enumerate(batches) if batch.configured_standards),
         None,
     )
+    pending_repaired_cache: (
+        tuple[
+            int,
+            TrustedReadmeSectionToolDraftV1,
+            TrustedReadmeSectionDraftV1,
+        ]
+        | None
+    ) = None
     for repair_round in range(3):
         try:
-            return finalize_trusted_composition(
+            output = finalize_trusted_composition(
                 graph,
                 source_text,
                 resolved_envelope,
@@ -142,6 +147,18 @@ def compose_trusted_readme(
                 section_drafts,
                 llm_call_count=call_count,
             )
+            if resolved_cache_dir is not None and pending_repaired_cache is not None:
+                repaired_index, repaired_tool, repaired_bound = pending_repaired_cache
+                write_trusted_batch_cache(
+                    resolved_cache_dir,
+                    cache_key=batch_cache_keys[repaired_index],
+                    org_repo=graph.org_repo,
+                    source_revision=graph.source_revision,
+                    model=resolved_model,
+                    tool_draft=repaired_tool,
+                    bound_draft=repaired_bound,
+                )
+            return output
         except LLMError as exc:
             if standards_batch_index is None or repair_round == 2:
                 raise
@@ -158,16 +175,11 @@ def compose_trusted_readme(
             )
             tool_drafts[standards_batch_index] = repaired_tool
             section_drafts[standards_batch_index] = repaired_bound
-            if resolved_cache_dir is not None:
-                write_trusted_batch_cache(
-                    resolved_cache_dir,
-                    cache_key=batch_cache_keys[standards_batch_index],
-                    org_repo=graph.org_repo,
-                    source_revision=graph.source_revision,
-                    model=resolved_model,
-                    tool_draft=repaired_tool,
-                    bound_draft=repaired_bound,
-                )
+            pending_repaired_cache = (
+                standards_batch_index,
+                repaired_tool,
+                repaired_bound,
+            )
             call_count += repaired_bound.attempt_count
     raise AssertionError("trusted composition final repair loop did not return")
 
@@ -186,15 +198,7 @@ def finalize_trusted_composition(
     source_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
     if source_hash != graph.readme_sha256:
         raise LLMError("trusted composition source bytes do not match the inherited fact graph")
-    candidate = normalize_contextual_link_budget(
-        normalize_enterprise_edition_terminology(
-            normalize_inherited_code_blocks(
-                strip_readme_comments(assemble_trusted_candidate(graph, tool_drafts)),
-                graph,
-            )
-        ),
-        graph,
-    )
+    candidate = normalize_trusted_candidate(assemble_trusted_candidate(graph, tool_drafts), graph)
     validate_trusted_candidate_contract(source_text, candidate, graph)
     candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
     plan = TrustedReadmeTransformPlanV1(

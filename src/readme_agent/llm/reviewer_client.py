@@ -9,10 +9,12 @@ from readme_agent.llm.verification_prompts import (
     FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
     INDEPENDENT_README_REVIEW_TOOL_SCHEMA,
     TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA,
+    build_trusted_fidelity_review_tool_schema,
 )
 from readme_agent.llm.verifier_client import LiveForcedToolClient
 
 DEFAULT_MAX_TOKENS = 2400
+BLIND_REVIEW_MAX_TOKENS = 3_000
 TRUSTED_REVIEW_MAX_TOKENS = 8_000
 
 
@@ -119,6 +121,19 @@ class LiveTrustedFidelityReviewClient:
         result = self._client.call(messages, TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA)
         return AnalysisResult(parsed=result.arguments, meta=result.meta)
 
+    def analyze_fidelity(
+        self,
+        messages: list[dict],
+        required_fact_ids: tuple[str, ...],
+    ) -> AnalysisResult:
+        """Force the exact source-unit inventory for one bounded fidelity call."""
+
+        result = self._client.call(
+            messages,
+            build_trusted_fidelity_review_tool_schema(required_fact_ids),
+        )
+        return AnalysisResult(parsed=result.arguments, meta=result.meta)
+
 
 def build_live_role_review_clients(
     base_url: str,
@@ -135,7 +150,7 @@ def build_live_role_review_clients(
             api_key,
             env.llm_model_for_job("blind_readme_quality_review"),
             timeout=timeout,
-            max_tokens=max_tokens,
+            max_tokens=min(max_tokens, BLIND_REVIEW_MAX_TOKENS),
         ),
         LiveFactualPlanReviewClient(
             base_url,
@@ -162,7 +177,7 @@ def build_live_trusted_review_clients(
             api_key,
             env.llm_model_for_job("blind_readme_quality_review"),
             timeout=timeout,
-            max_tokens=max_tokens,
+            max_tokens=min(max_tokens, BLIND_REVIEW_MAX_TOKENS),
         ),
         LiveTrustedFidelityReviewClient(
             base_url,

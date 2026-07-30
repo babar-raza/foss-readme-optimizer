@@ -84,6 +84,7 @@ def run_trusted_readme_pipeline(
 
     if (blind_client is None) != (fidelity_client is None):
         raise ValueError("trusted pipeline reviewer clients must be supplied together")
+    enable_fidelity_batch_cache = blind_client is None
     if blind_client is None or fidelity_client is None:
         blind_client, fidelity_client = live_trusted_review_clients()
 
@@ -119,6 +120,7 @@ def run_trusted_readme_pipeline(
         backend,
         blind_client=blind_client,
         fidelity_client=fidelity_client,
+        enable_fidelity_batch_cache=enable_fidelity_batch_cache,
     )
     write_trusted_review_evidence(snapshot, graph, composition, execution)
     lifecycle = record_trusted_review_execution(
@@ -173,6 +175,7 @@ def run_trusted_readme_pipeline(
         fidelity_client=require_trusted_review_client(fidelity_client, "fidelity"),
         repair_client=resolved_repair_client,
         initial_execution=execution,
+        enable_fidelity_batch_cache=enable_fidelity_batch_cache,
     )
     final_composition = loop_result.final_composition
     if final_composition.candidate_sha256 != composition.candidate_sha256:

@@ -66,6 +66,7 @@ def dispatch_trusted_review(
     blind_client: AnalysisClientLike | None,
     fidelity_client: AnalysisClientLike | None,
     cached_review: TrustedReviewExecutionV1 | None = None,
+    enable_fidelity_batch_cache: bool = False,
 ) -> TrustedReviewExecutionV1:
     """Review through the registered independent-verification capability."""
 
@@ -87,6 +88,7 @@ def dispatch_trusted_review(
             "cached_review": (
                 cached_review.review.model_dump(mode="json") if cached_review is not None else None
             ),
+            "enable_fidelity_batch_cache": enable_fidelity_batch_cache,
         },
         state_backend=backend,
     )

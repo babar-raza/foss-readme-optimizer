@@ -1,11 +1,19 @@
 """Runtime wiring for context-isolated README reviewer roles."""
 
+import json
+
 import pytest
 
 from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.specialists.review_finding_grounding import (
+    GroundedReviewFindingV1,
+    grounding_retry_context,
+    validate_review_findings,
+)
+from readme_agent.specialists.review_role_execution import normalize_redundant_role_fields
 from readme_agent.specialists.separated_readme_review import run_separated_readme_review
 
 ORG_REPO = "example/example-foss"
@@ -59,6 +67,173 @@ class SequenceClient(CapturingClient):
             parsed=self.parsed_items[len(self.messages_seen) - 1],
             meta=LLMResponseMeta(),
         )
+
+
+def test_blind_grounding_rejects_findings_that_contradict_configured_presentation() -> None:
+    candidate = (
+        "# Widget\n\n"
+        "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)\n\n"
+        "A focused open-source library.\n\n"
+        "## At a glance\n\n```mermaid\nflowchart LR\n  A --> B\n```\n\n"
+        "## Navigation\n\n- [Usage](#usage)\n\n"
+        "## Usage\n\nUse the library.\n\n"
+        "The [Enterprise Edition](https://products.aspose.com/widget/) extends the product.\n"
+    )
+    base = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "badge-spacing",
+                "criterion": "hierarchy",
+                "section": "Header",
+                "claim": "The badge must appear immediately after the H1 without a blank line.",
+                "quoted_candidate_span": "# Widget",
+                "required_repair": "Remove the blank line after the H1.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "navigation-placement",
+                "criterion": "navigation",
+                "section": "At a glance",
+                "claim": "The Navigation label is missing under the At a glance section.",
+                "quoted_candidate_span": "## At a glance",
+                "required_repair": (
+                    "Add the required Navigation label under the At a glance section."
+                ),
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "enterprise-opening",
+                "criterion": "internal_terminology",
+                "section": "Header",
+                "claim": "Enterprise Edition must appear in the first paragraph after the badge.",
+                "quoted_candidate_span": "A focused open-source library.",
+                "required_repair": "Insert Enterprise Edition in the first paragraph.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "contextual-link-count",
+                "criterion": "promotional_balance",
+                "section": "Usage",
+                "claim": "The README exceeds the configured contextual link maximum of three.",
+                "quoted_candidate_span": "[Enterprise Edition](https://products.aspose.com/widget/)",
+                "required_repair": "Reduce the contextual links to at most three.",
+            }
+        ),
+    ]
+    visitor_contract = {
+        "configured_standards": [
+            {"standard_id": "readme.badges", "parameters": {}},
+            {"standard_id": "readme.navigation", "parameters": {}},
+            {
+                "standard_id": "readme.enterprise_edition_terminology",
+                "parameters": {"required_term": "Enterprise Edition"},
+            },
+            {
+                "standard_id": "readme.contextual_links",
+                "parameters": {"max_total": 3, "domain_maxima": {"aspose.com": 2}},
+            },
+        ]
+    }
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=visitor_contract,
+    )
+
+    assert result.valid is False
+    assert len(result.errors) == 4
+    assert any("badge-spacing premise" in error for error in result.errors)
+    assert any("navigation premise" in error for error in result.errors)
+    assert any("opening-placement premise" in error for error in result.errors)
+    assert any("link-budget premise" in error for error in result.errors)
+    retry = json.loads(
+        grounding_retry_context(
+            errors=result.errors,
+            candidate_text=candidate,
+            product_facts=None,
+            findings=tuple(findings),
+            visitor_contract=visitor_contract,
+        )
+    )
+    assert {item["disposition"] for item in retry["invalid_findings"]} == {
+        "deterministically_disproven"
+    }
+    assert all("claim" not in item for item in retry["invalid_findings"])
+
+
+def test_blind_rejection_derives_redundant_summary_from_detailed_findings() -> None:
+    result = normalize_redundant_role_fields(
+        "blind_quality",
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "The visible heading is duplicated.",
+            "failed_criteria": ["hierarchy"],
+            "sections_affected": ["Wrong section"],
+            "required_repair": "Wrong aggregate repair.",
+            "findings": [
+                {
+                    "finding_id": "duplicate-heading",
+                    "kind": "quality",
+                    "criterion": "visible_duplication",
+                    "section": "Formats",
+                    "claim": "The OBJ heading appears twice.",
+                    "quoted_candidate_span": "### OBJ Format",
+                    "disposition": "requires_repair",
+                    "required_repair": "Remove the duplicate OBJ heading.",
+                }
+            ],
+        },
+    )
+
+    assert result["failed_criteria"] == ["visible_duplication"]
+    assert result["sections_affected"] == ["Formats"]
+    assert result["required_repair"] == "Remove the duplicate OBJ heading."
+
+
+def test_blind_rejection_derives_missing_finding_repair_from_its_claim() -> None:
+    result = normalize_redundant_role_fields(
+        "blind_quality",
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "The visible heading is duplicated.",
+            "findings": [
+                {
+                    "finding_id": "duplicate-heading",
+                    "kind": "quality",
+                    "criterion": "visible_duplication",
+                    "section": "Formats",
+                    "claim": "The OBJ heading appears twice.",
+                    "quoted_candidate_span": "### OBJ Format",
+                    "disposition": "requires_repair",
+                    "required_repair": "",
+                }
+            ],
+        },
+    )
+
+    assert result["findings"][0]["required_repair"] == (
+        "Repair the quoted Formats presentation defect: The OBJ heading appears twice."
+    )
+    assert result["required_repair"] == result["findings"][0]["required_repair"]
 
 
 def _blind_accept(reason):
@@ -319,7 +494,7 @@ def test_free_form_acceptance_without_grounded_spans_fails_closed():
             CANDIDATE,
             PLAN,
             FACTS,
-            blind_client=SequenceClient([ungrounded_accept, ungrounded_accept]),
+            blind_client=SequenceClient([ungrounded_accept, ungrounded_accept, ungrounded_accept]),
             factual_client=CapturingClient(_factual_accept("facts and plan agree")),
         )
 

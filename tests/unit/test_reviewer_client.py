@@ -7,6 +7,7 @@ from readme_agent.llm.reviewer_client import (
     LiveBlindQualityReviewClient,
     LiveFactualPlanReviewClient,
     LiveIndependentReviewClient,
+    LiveTrustedFidelityReviewClient,
 )
 from readme_agent.llm.verification_prompts import (
     BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
@@ -129,9 +130,10 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
 
 
 def test_role_tool_schemas_require_grounded_acceptance_fields():
-    blind_finding = BLIND_QUALITY_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
+    blind_findings = BLIND_QUALITY_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
         "findings"
-    ]["items"]
+    ]
+    blind_finding = blind_findings["items"]
     factual_finding = FACTUAL_PLAN_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
         "findings"
     ]["items"]
@@ -140,5 +142,68 @@ def test_role_tool_schemas_require_grounded_acceptance_fields():
         blind_finding["required"]
     )
     assert blind_finding["properties"]["kind"]["enum"] == ["quality"]
+    assert blind_findings["maxItems"] == 8
+    assert blind_finding["properties"]["quoted_candidate_span"]["maxLength"] == 1200
     assert factual_finding["properties"]["kind"]["enum"] == ["factual"]
     assert "supports_acceptance" in factual_finding["properties"]["disposition"]["enum"]
+
+
+def test_trusted_fidelity_client_forces_exact_source_inventory(monkeypatch):
+    captured = {}
+
+    def fake_post(url, json, headers, timeout):
+        captured.update(json)
+        tool_name = json["tool_choice"]["function"]["name"]
+
+        class FidelityResponse(FakeResponse):
+            def json(self):
+                return {
+                    "id": "fidelity-1",
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "function": {
+                                            "name": tool_name,
+                                            "arguments": json_module.dumps(
+                                                {
+                                                    "verdict": "ACCEPT",
+                                                    "reasoning": "All required units are present.",
+                                                    "source_checks": [
+                                                        {
+                                                            "fact_id": "readme.inherited:abc",
+                                                            "outcome": "preserved_or_represented",
+                                                            "source_quote": "source",
+                                                            "candidate_quote": "candidate",
+                                                            "section": "README",
+                                                            "required_repair": "",
+                                                        }
+                                                    ],
+                                                    "unsupported_additions": [],
+                                                    "failed_criteria": [],
+                                                    "sections_affected": [],
+                                                    "required_repair": "",
+                                                }
+                                            ),
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                }
+
+        return FidelityResponse()
+
+    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+
+    result = LiveTrustedFidelityReviewClient("https://example/v1", "key", "model").analyze_fidelity(
+        [], ("readme.inherited:abc",)
+    )
+
+    assert result.parsed["verdict"] == "ACCEPT"
+    source_checks = captured["tools"][0]["function"]["parameters"]["properties"]["source_checks"]
+    assert source_checks["minItems"] == 1
+    assert source_checks["maxItems"] == 1
+    assert source_checks["items"]["properties"]["fact_id"]["enum"] == ["readme.inherited:abc"]
