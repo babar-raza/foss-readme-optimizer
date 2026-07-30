@@ -2,7 +2,12 @@
 
 from pathlib import Path
 
-from scripts.governance.run_full_pytest import _pytest_command, _selected_nodes, _sha256_text
+from scripts.governance.run_full_pytest import (
+    _pytest_command,
+    _repository_process_ids,
+    _selected_nodes,
+    _sha256_text,
+)
 
 
 def test_selected_inventory_is_sorted_and_excludes_summary_lines():
@@ -27,3 +32,14 @@ def test_full_command_is_bounded_and_cannot_hide_worker_crashes():
     assert command[command.index("--dist") + 1] == "worksteal"
     assert command[command.index("--max-worker-restart") + 1] == "0"
     assert f"--basetemp={basetemp}" in command
+
+
+def test_process_cleanup_ignores_other_repositories_but_keeps_attributable_processes(tmp_path):
+    current = tmp_path / "foss-readme-optimizer"
+    output = (
+        f"101\t{current / '.venv/Scripts/python.exe'} -m pytest -q\n"
+        "202\tD:\\other\\aspose.org\\.venv\\Scripts\\python.exe -m pytest -q\n"
+        "303\t\n"
+    )
+
+    assert _repository_process_ids(output, current) == {101}

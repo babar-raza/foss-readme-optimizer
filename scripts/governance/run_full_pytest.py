@@ -46,21 +46,31 @@ def _git(*args: str) -> str:
     return result.stdout.strip()
 
 
+def _repository_process_ids(output: str, repo_root: Path) -> set[int]:
+    marker = str(repo_root.resolve()).casefold()
+    result: set[int] = set()
+    for line in output.splitlines():
+        process_id, separator, command_line = line.partition("\t")
+        if separator and process_id.isdigit() and marker in command_line.casefold():
+            result.add(int(process_id))
+    return result
+
+
 def _matching_process_ids() -> set[int]:
     if os.name != "nt":
         return set()
     command = (
-        "Get-Process | Where-Object { "
-        "$_.ProcessName -match '^(python|pytest|git-credential-manager)$' "
-        "} | Select-Object -ExpandProperty Id"
+        "Get-CimInstance Win32_Process | Where-Object { "
+        "$_.Name -match '^(python|pytest)(\\.exe)?$' "
+        '} | ForEach-Object { "$($_.ProcessId)`t$($_.CommandLine)" }'
     )
-    result = subprocess.run(
+    completed = subprocess.run(
         ["powershell", "-NoProfile", "-Command", command],
         capture_output=True,
         text=True,
         check=False,
     )
-    return {int(value) for value in result.stdout.split() if value.isdigit()}
+    return _repository_process_ids(completed.stdout, REPO_ROOT)
 
 
 def _pytest_command(python: str, workers: int, basetemp: Path) -> list[str]:
