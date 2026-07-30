@@ -30,6 +30,23 @@
       "started_at": "2026-07-30T04:42:04.717984+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-044152-092e:aspose-slides-foss/Aspose.Slides-FOSS-for-Python"
+    },
+    "759ef1a8f0e6dd67437cd4bd8661dc7c6e13f382a7a8267b3a930974f11eb7f7": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "759ef1a8f0e6dd67437cd4bd8661dc7c6e13f382a7a8267b3a930974f11eb7f7",
+      "completed_at": "2026-07-30T04:42:15.146206+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "9f40324604e739ce838adc269e2e418861ad8686427ac1b0f09b624d3b1889aa",
+      "output_hash": null,
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "run_id": "20260730-044152-092e",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-07-30T04:42:15.146195+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-044152-092e:aspose-slides-foss/Aspose.Slides-FOSS-for-Python"
     }
   },
   "domain_states": {
@@ -411,7 +428,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 26,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
@@ -520,11 +537,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "6e2f3c91c255f74c4921887bad2d03fd022a111496f70889cc9e335f2ba7c47d",
+      "last_checkpoint_id": "759ef1a8f0e6dd67437cd4bd8661dc7c6e13f382a7a8267b3a930974f11eb7f7",
       "lease_expires_at": "2026-07-30T04:57:10.127699+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-07-30T04:42:10.127699+00:00"
+      "updated_at": "2026-07-30T04:42:15.146206+00:00"
     }
   },
   "trigger_records": {},
