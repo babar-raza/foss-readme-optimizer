@@ -762,6 +762,30 @@ class TestRunGitTimeout:
         assert "timed out" in result.stderr
 
 
+class TestRunGitAutoMaintenanceDisabled:
+    def test_every_bounded_git_call_disables_detached_auto_maintenance(self, monkeypatch):
+        import subprocess
+
+        from readme_agent.gitsafety import _git as git_module
+
+        captured: list[str] = []
+
+        def _spy(args, **_kwargs):
+            captured.extend(args)
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(git_module, "run_bounded", _spy)
+
+        run_git(["fetch", "state", "refs/example"])
+
+        assert captured[:1] == ["git"]
+        assert ["-c", "maintenance.auto=false"] == captured[7:9]
+        assert ["-c", "gc.auto=0"] == captured[9:11]
+        assert ["-c", "core.filesRefLockTimeout=15000"] == captured[11:13]
+        assert ["-c", "core.packedRefsTimeout=15000"] == captured[13:15]
+        assert captured[-3:] == ["fetch", "state", "refs/example"]
+
+
 class TestGitTerminalPromptDisabled:
     """OPS-009 (found 2026-07-19, `test_state_git_backend_live.py`'s own
     docstring): closes the hang at its source -- git must never attempt an

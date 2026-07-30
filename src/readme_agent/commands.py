@@ -18,7 +18,9 @@ from readme_agent.commands_governance import (
 )
 from readme_agent.commands_lifecycle import (
     cmd_health_report,
+    cmd_qualified_cohort_matrix,
     cmd_recovery_sweep,
+    cmd_restore_qualified_cohort,
     cmd_runtime_matrix,
 )
 from readme_agent.commands_supervision import cmd_supervise
@@ -32,6 +34,8 @@ __all__ = [
     "cmd_model_route_enable",
     "cmd_preflight",
     "cmd_profile_registry",
+    "cmd_qualified_cohort_matrix",
+    "cmd_restore_qualified_cohort",
     "cmd_report",
     "cmd_recovery_sweep",
     "cmd_run",

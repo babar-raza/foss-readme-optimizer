@@ -592,7 +592,7 @@ class TestExecutionProfileFlag:
                 ]
             )
 
-    def test_stage_limit_is_rejected_outside_local_poc(self, capsys):
+    def test_stage_limit_is_rejected_outside_poc_profiles(self, capsys):
         args = argparse.Namespace(
             repo="org/repo",
             registry=None,
@@ -602,7 +602,7 @@ class TestExecutionProfileFlag:
             max_readme_poc_stage="FACTS_READY",
         )
         assert cmd_supervise(args) == 2
-        assert "only valid with --execution-profile local_poc" in capsys.readouterr().err
+        assert "only valid with a local POC execution profile" in capsys.readouterr().err
 
     def test_local_poc_profile_requires_the_registry_target(self, capsys):
         args = argparse.Namespace(

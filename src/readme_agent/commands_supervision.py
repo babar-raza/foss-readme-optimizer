@@ -108,10 +108,44 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
     else:
         profile = None
-    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
-    if readme_poc_stage_limit is not None and (profile is None or profile.name != "local_poc"):
+    cohort_manifest = getattr(args, "qualified_cohort_manifest", None)
+    if profile is not None and profile.name == "act_poc":
+        if env.gh_token() is None:
+            print(
+                "error: act_poc requires ACT=true and a dedicated "
+                "README_AGENT_ACT_GITHUB_TOKEN; ambient PAT variables are never accepted",
+                file=sys.stderr,
+            )
+            return 2
+        if not cohort_manifest:
+            print(
+                "error: act_poc requires --qualified-cohort-manifest",
+                file=sys.stderr,
+            )
+            return 2
+        from readme_agent.supervisor.trusted_cohort_runtime import (
+            require_runtime_trusted_cohort_member,
+        )
+
+        try:
+            member = require_runtime_trusted_cohort_member(Path(cohort_manifest), args.repo)
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        args._portfolio_source_revision = member.source_revision
+    elif cohort_manifest:
         print(
-            "error: --max-readme-poc-stage is only valid with --execution-profile local_poc",
+            "error: --qualified-cohort-manifest is valid only with --execution-profile act_poc",
+            file=sys.stderr,
+        )
+        return 2
+    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
+    poc_profile_names = {"local_poc", "act_poc"}
+    if readme_poc_stage_limit is not None and (
+        profile is None or profile.name not in poc_profile_names
+    ):
+        print(
+            "error: --max-readme-poc-stage is only valid with a local POC execution profile",
             file=sys.stderr,
         )
         return 2
@@ -209,7 +243,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         )
         return 2
 
-    if profile is not None and profile.name == "local_poc":
+    if profile is not None and profile.name in poc_profile_names:
         from readme_agent.commands_supervision_result import complete_supervise_command
         from readme_agent.supervisor.intake import run_readonly_intake_preflight
         from readme_agent.supervisor.models import DecisionSummary, SuperviseResult
@@ -375,7 +409,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     # repair-alternative-selection mechanisms -- fully built and unit-tested
     # -- had zero effect in any shipped CLI/GitHub-Actions run. Opt-in only.
     dynamic_planning_kwargs: dict = {}
-    dynamic_planning_required = profile is not None and profile.name == "local_poc"
+    dynamic_planning_required = profile is not None and profile.name in poc_profile_names
     if getattr(args, "enable_dynamic_planning", False) or dynamic_planning_required:
         from readme_agent.llm.planner_client import LivePlannerClient
 
@@ -418,7 +452,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
                     require_evidence_bundle=profile.require_evidence_bundle,
                     require_independent_verification=profile.require_independent_verification,
                     verify_local_product_facts=profile.verify_local_product_facts,
-                    track_readme_poc_lifecycle=profile.name == "local_poc",
+                    track_readme_poc_lifecycle=profile.name in poc_profile_names,
                     readme_poc_stage_limit=readme_poc_stage_limit,
                     **dynamic_planning_kwargs,
                 )

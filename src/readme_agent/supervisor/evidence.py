@@ -14,6 +14,10 @@ from readme_agent.llm import prompt_registry
 from readme_agent.llm.call_ledger import current_llm_accounting_summary
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.lifecycle import LifecycleRecorder, current_lifecycle_recorder
+from readme_agent.state.lifecycle_schema import (
+    ReadmePocLifecycleStateV1,
+    ReadmePocLifecycleStateV2,
+)
 from readme_agent.state.schema import DomainStateV1, SurfaceFreshnessContractV1
 from readme_agent.supervisor.models import DecisionSummary
 from readme_agent.supervisor.task import TaskGraph
@@ -52,6 +56,7 @@ def write_supervise_evidence(
     domain_coverage_complete: bool | None = None,
     surface_freshness: dict[str, SurfaceFreshnessContractV1] | None = None,
     repository_snapshot: RepositorySnapshotV1 | None = None,
+    readme_poc_lifecycle: ReadmePocLifecycleStateV1 | ReadmePocLifecycleStateV2 | None = None,
 ) -> None:
     """Atomically write the complete evidence bundle for one terminal run."""
 
@@ -106,6 +111,17 @@ def write_supervise_evidence(
         and manifest.side_effect_class in {"local_write", "remote_write"}
     ]
     llm_summary = current_llm_accounting_summary()
+    readme_poc_transitions = (
+        sorted(
+            [
+                *getattr(readme_poc_lifecycle, "assurance_history", []),
+                *readme_poc_lifecycle.history,
+            ],
+            key=lambda transition: transition.occurred_at,
+        )
+        if readme_poc_lifecycle is not None
+        else []
+    )
     write_run_manifest_v3(
         evidence_dir,
         RunManifestV3(
@@ -135,6 +151,11 @@ def write_supervise_evidence(
             llm_total_tokens=llm_summary.total_tokens,
             llm_ledger_path=llm_summary.ledger_path,
             llm_ledger_sha256=llm_summary.ledger_sha256,
+            content_assurance=(
+                readme_poc_lifecycle.content_assurance
+                if isinstance(readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+                else "repository_verified"
+            ),
             trigger=lifecycle_recorder.envelope if lifecycle_recorder else None,
             trigger_status="processing" if lifecycle_recorder else None,
             checkpoints=lifecycle_recorder.checkpoints() if lifecycle_recorder else [],
@@ -154,6 +175,10 @@ def write_supervise_evidence(
             ),
             effects=effects,
             requirement_results=requirement_results,
+            readme_poc_status=(
+                readme_poc_lifecycle.status if readme_poc_lifecycle is not None else None
+            ),
+            readme_poc_transitions=readme_poc_transitions,
         ),
     )
     refresh_sha256sums(evidence_dir)

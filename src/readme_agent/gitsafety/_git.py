@@ -26,6 +26,34 @@ DETERMINISM_FLAGS = ["-c", "core.autocrlf=false", "-c", "core.eol=lf"]
 # persistent repo/global git config write.
 LONG_PATH_SAFETY_FLAGS = ["-c", "core.longpaths=true"]
 
+# State CAS performs many small fetch/push/plumbing operations. Allowing each
+# one to independently trigger detached auto-maintenance caused overlapping
+# repacks of the bind-mounted control repository under `act`, turning a
+# seconds-long no-op proof into minutes of disk contention. Maintenance is a
+# repository-level operator concern, not part of one bounded command. Disable
+# both modern maintenance.auto and legacy gc.auto per invocation; explicit
+# maintenance commands remain fully available.
+AUTO_MAINTENANCE_SAFETY_FLAGS = [
+    "-c",
+    "maintenance.auto=false",
+    "-c",
+    "gc.auto=0",
+]
+
+# Concurrent Actions matrix jobs write different state refs, but a local bare
+# remote (the real `act` transport) still has brief repository-wide ref-file
+# lock windows. Git's very short defaults can turn harmless contention into a
+# failed command and then a minutes-long application retry/backoff. Use Git's
+# own bounded lock waiting instead of a bespoke process mutex: unrelated refs
+# remain concurrent, genuine stale lock files still fail within the enclosing
+# 120-second subprocess bound, and hosted HTTPS behavior is unchanged.
+REF_LOCK_WAIT_FLAGS = [
+    "-c",
+    "core.filesRefLockTimeout=15000",
+    "-c",
+    "core.packedRefsTimeout=15000",
+]
+
 # Fixes the OTHER hung-git incident (`OPS-009`, found 2026-07-19 -- see
 # `test_state_git_backend_live.py`'s own docstring): git resolving that it
 # needs credentials it doesn't have can invoke an interactive credential
@@ -103,7 +131,14 @@ def run_git(
     shell timeout exit code 124), so existing failure-handling logic
     everywhere picks it up unchanged."""
     full_env = {**os.environ, **(env or {}), **GIT_SAFETY_ENV}
-    git_args = ["git", *DETERMINISM_FLAGS, *LONG_PATH_SAFETY_FLAGS, *args]
+    git_args = [
+        "git",
+        *DETERMINISM_FLAGS,
+        *LONG_PATH_SAFETY_FLAGS,
+        *AUTO_MAINTENANCE_SAFETY_FLAGS,
+        *REF_LOCK_WAIT_FLAGS,
+        *args,
+    ]
     result = run_bounded(
         git_args,
         cwd=cwd,

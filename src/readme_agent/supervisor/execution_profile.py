@@ -4,7 +4,8 @@ replacement for "which CLI flags happened to be passed" as the thing that decide
 style: a typed, registry-validated contract, not ad hoc argument-checking scattered across
 `commands.py`.
 
-Six profiles, matching local development vs. GitHub Actions production, and observe-only vs.
+Seven profiles, matching local development vs. live-like Actions proof vs. GitHub Actions
+production, and observe-only vs.
 proposal-preparing vs. (future) fully-applying intent:
 
 - `local_inspect` / `local_dry_run`: interactive/manual use, never fail-closed on durable-state
@@ -12,6 +13,8 @@ proposal-preparing vs. (future) fully-applying intent:
 - `local_poc`: the canonical, unattended full-registry local proof.  It has the same
   durable-state and independent-verification discipline as production, while allowing only
   local effects; it is never permitted to write to a product remote.
+- `act_poc`: the same local-only proof contract invoked by the actual reusable Actions workflow
+  under `act`; it accepts Actions triggers but still cannot dispatch a remote write.
 - `github_observe` / `github_proposal` / `github_apply`: unattended GitHub Actions runs, always
   fail-closed on durable-state trouble (`RUN-005`) -- there is no human present mid-run to notice
   a silent degrade to ephemeral state.
@@ -36,6 +39,7 @@ ExecutionProfileName = Literal[
     "local_inspect",
     "local_dry_run",
     "local_poc",
+    "act_poc",
     "github_observe",
     "github_proposal",
     "github_apply",
@@ -101,6 +105,18 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         require_independent_verification=True,
         verify_local_product_facts=True,
         allowed_triggers=["cli_manual"],
+        rollback="discard only the neutered local work clone; product remotes are never writable",
+        allows_domain_bypass=False,
+    ),
+    "act_poc": ExecutionProfileV1(
+        name="act_poc",
+        requires_durable_state=True,
+        fail_closed_on_state_failure=True,
+        allowed_permission_classes=["read_only_local", "read_only_network", "local_write"],
+        require_evidence_bundle=True,
+        require_independent_verification=True,
+        verify_local_product_facts=True,
+        allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
         rollback="discard only the neutered local work clone; product remotes are never writable",
         allows_domain_bypass=False,
     ),

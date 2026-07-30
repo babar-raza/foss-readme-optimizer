@@ -24,6 +24,32 @@ class TestProductionGithubAuthentication:
 
         assert env.gh_token() is None
 
+    def test_act_provider_uses_only_its_dedicated_token(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.setenv("ACT", "true")
+        monkeypatch.setenv("README_AGENT_ACT_GITHUB_TOKEN", "act-read-token")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.gh_token() == "act-read-token"
+
+    def test_act_provider_is_rejected_outside_act(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.delenv("ACT", raising=False)
+        monkeypatch.setenv("README_AGENT_ACT_GITHUB_TOKEN", "act-read-token")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+
+        assert env.gh_token() is None
+
+    def test_act_provider_does_not_fall_back_to_ambient_token(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.setenv("ACT", "true")
+        monkeypatch.delenv("README_AGENT_ACT_GITHUB_TOKEN", raising=False)
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.gh_token() is None
+
 
 class TestLlmModelForJob:
     def test_known_job_resolves_to_its_routed_model(self, monkeypatch):

@@ -112,7 +112,7 @@ def _is_non_fast_forward(stderr: str) -> bool:
     return known_marker or stale_expected_value
 
 
-def _fetch_remote_sha(remote_ref: str) -> str | None:
+def _fetch_remote_sha(remote_ref: str, *, remote: str = "origin") -> str | None:
     """Returns the remote ref's current commit SHA, or `None` if the ref
     doesn't exist yet (first run for this repo) -- distinguished from any
     other fetch failure (network/auth), which raises rather than being
@@ -125,7 +125,7 @@ def _fetch_remote_sha(remote_ref: str) -> str | None:
             [
                 "fetch",
                 "--no-write-fetch-head",
-                "origin",
+                remote,
                 f"+{remote_ref}:{local_ref}",
             ]
         )
@@ -189,7 +189,11 @@ def _write_commit(*, tree_path: str, payload: str, parent_sha: str | None, messa
 
 
 def _acquire_lock_generic(
-    ref_prefix: str, org_repo: str, tracking: dict[str, str], lease_seconds: int
+    remote: str,
+    ref_prefix: str,
+    org_repo: str,
+    tracking: dict[str, str],
+    lease_seconds: int,
 ) -> Lock | None:
     """Shared body for both lock families (Wave 8.5) -- parameterized on
     ref prefix, the instance's own tracking dict, and lease duration, read
@@ -197,7 +201,7 @@ def _acquire_lock_generic(
     `monkeypatch.setattr(git_backend, "LOCK_LEASE_SECONDS", ...)`/
     `"RUN_LOCK_LEASE_SECONDS"` keep working exactly as before this refactor."""
     remote_ref = f"{ref_prefix}/{_ref_key(org_repo)}"
-    parent_sha = _fetch_remote_sha(remote_ref)
+    parent_sha = _fetch_remote_sha(remote_ref, remote=remote)
 
     if parent_sha is not None:
         existing = json.loads(_read_blob(parent_sha, "lock.json"))
@@ -215,7 +219,7 @@ def _acquire_lock_generic(
         message=f"lock: {org_repo}",
     )
 
-    push = run_git(["push", "origin", f"{commit_sha}:{remote_ref}"])
+    push = run_git(["push", remote, f"{commit_sha}:{remote_ref}"])
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None  # lost the race to acquire/reclaim
@@ -225,7 +229,12 @@ def _acquire_lock_generic(
     return Lock(org_repo=org_repo, holder_id=holder_id, leased_until=leased_until)
 
 
-def _release_lock_generic(ref_prefix: str, lock: Lock, tracking: dict[str, str]) -> None:
+def _release_lock_generic(
+    remote: str,
+    ref_prefix: str,
+    lock: Lock,
+    tracking: dict[str, str],
+) -> None:
     """Shared body for both lock families (Wave 8.5) -- see each public
     `release_lock`/`release_run_lock` method's own docstring for the
     compare-and-swap-delete reasoning this preserves unchanged."""
@@ -240,7 +249,7 @@ def _release_lock_generic(ref_prefix: str, lock: Lock, tracking: dict[str, str])
         return
 
     push = run_git(
-        ["push", "origin", f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"]
+        ["push", remote, f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"]
     )
     if push.returncode != 0 and not _is_non_fast_forward(push.stderr):
         raise StateBackendError(f"releasing lock {remote_ref} failed: {push.stderr}")
@@ -248,12 +257,14 @@ def _release_lock_generic(ref_prefix: str, lock: Lock, tracking: dict[str, str])
 
 class GitStateBackend:
     """The one real `StateBackend` implementation (`MEM-003`'s "interface +
-    at least one real backend" bar). Operates against `origin` in the
-    current working directory -- this project's own repo, resolved the same
-    cwd-relative way `paths.py` resolves `runs/` (local dev run from the
-    repo root, GitHub Actions checkout puts cwd at the repo root)."""
+    at least one real backend" bar). Production defaults to `origin` in the
+    current working directory. A caller may select a separate state-only git
+    remote; this is how live-like `act` proof keeps all state writes inside
+    an isolated local bare repository without changing the control checkout's
+    origin or weakening the backend's real CAS/lease behavior."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, remote: str = "origin") -> None:
+        self._remote = remote
         # Wave 7 production-reliability fix (found by independent review,
         # 2026-07-20): `release_lock()` used to unconditionally delete
         # whatever the lock ref currently pointed to. If this instance's own
@@ -277,7 +288,7 @@ class GitStateBackend:
 
     def load(self, org_repo: str) -> RunStateV2 | None:
         remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
-        sha = _fetch_remote_sha(remote_ref)
+        sha = _fetch_remote_sha(remote_ref, remote=self._remote)
         if sha is None:
             return None
         return load_run_state_json(_read_blob(sha, "state.json"))
@@ -295,7 +306,7 @@ class GitStateBackend:
 
         if not org_repos:
             return {}
-        remote = run_git(["ls-remote", "origin", f"{STATE_REF_PREFIX}/*"])
+        remote = run_git(["ls-remote", self._remote, f"{STATE_REF_PREFIX}/*"])
         if remote.returncode != 0:
             raise StateBackendError(f"listing {STATE_REF_PREFIX} failed: {remote.stderr}")
         available_refs = {
@@ -319,7 +330,7 @@ class GitStateBackend:
         if not refspecs:
             return dict.fromkeys(org_repos)
 
-        fetched = run_git(["fetch", "--no-write-fetch-head", "origin", *refspecs])
+        fetched = run_git(["fetch", "--no-write-fetch-head", self._remote, *refspecs])
         if fetched.returncode != 0:
             raise StateBackendError(f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}")
 
@@ -362,7 +373,7 @@ class GitStateBackend:
         expected_version: int | None,
     ) -> SaveResult:
         remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
-        parent_sha = _fetch_remote_sha(remote_ref)
+        parent_sha = _fetch_remote_sha(remote_ref, remote=self._remote)
 
         if parent_sha is None:
             if expected_version is not None:
@@ -388,7 +399,7 @@ class GitStateBackend:
             message=f"state: {org_repo} v{new_version}",
         )
 
-        push = run_git(["push", "origin", f"{commit_sha}:{remote_ref}"])
+        push = run_git(["push", self._remote, f"{commit_sha}:{remote_ref}"])
         if push.returncode != 0:
             if _is_non_fast_forward(push.stderr):
                 return SaveResult(outcome="stale", new_version=None)
@@ -398,7 +409,11 @@ class GitStateBackend:
 
     def acquire_lock(self, org_repo: str) -> Lock | None:
         return _acquire_lock_generic(
-            LOCK_REF_PREFIX, org_repo, self._held_lock_commit_shas, LOCK_LEASE_SECONDS
+            self._remote,
+            LOCK_REF_PREFIX,
+            org_repo,
+            self._held_lock_commit_shas,
+            LOCK_LEASE_SECONDS,
         )
 
     def release_lock(self, lock: Lock) -> None:
@@ -411,7 +426,12 @@ class GitStateBackend:
         someone else has since reclaimed it (this instance's own lease
         genuinely expired), that rejection is the correct, safe outcome --
         not an error to raise."""
-        _release_lock_generic(LOCK_REF_PREFIX, lock, self._held_lock_commit_shas)
+        _release_lock_generic(
+            self._remote,
+            LOCK_REF_PREFIX,
+            lock,
+            self._held_lock_commit_shas,
+        )
 
     def lock_still_held(self, lock: Lock) -> bool:
         """Decision #46/#48 (`EFF-005`): re-fetch the lock ref fresh and
@@ -426,7 +446,7 @@ class GitStateBackend:
         genuinely exclusive -- treating it as lost here would be a false
         negative, not a safety improvement."""
         remote_ref = f"{LOCK_REF_PREFIX}/{_ref_key(lock.org_repo)}"
-        sha = _fetch_remote_sha(remote_ref)
+        sha = _fetch_remote_sha(remote_ref, remote=self._remote)
         if sha is None:
             return False
         current = json.loads(_read_blob(sha, "lock.json"))
@@ -449,14 +469,23 @@ class GitStateBackend:
         `save_domain()`'s own internal use of the narrow lock, confirmed by
         direct reading of both call paths."""
         return _acquire_lock_generic(
-            RUN_LOCK_REF_PREFIX, org_repo, self._held_run_lock_commit_shas, RUN_LOCK_LEASE_SECONDS
+            self._remote,
+            RUN_LOCK_REF_PREFIX,
+            org_repo,
+            self._held_run_lock_commit_shas,
+            RUN_LOCK_LEASE_SECONDS,
         )
 
     def release_run_lock(self, lock: Lock) -> None:
-        _release_lock_generic(RUN_LOCK_REF_PREFIX, lock, self._held_run_lock_commit_shas)
+        _release_lock_generic(
+            self._remote,
+            RUN_LOCK_REF_PREFIX,
+            lock,
+            self._held_run_lock_commit_shas,
+        )
 
     def _load_model_route_registry(self) -> ModelRouteRegistryV1 | None:
-        sha = _fetch_remote_sha(MODEL_ROUTE_REF)
+        sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote)
         if sha is None:
             return None
         return ModelRouteRegistryV1.model_validate_json(_read_blob(sha, "model_routes.json"))
@@ -469,7 +498,7 @@ class GitStateBackend:
 
     def save_model_route_status(self, status: ModelRouteStatusV1) -> None:
         def attempt() -> None:
-            sha = _fetch_remote_sha(MODEL_ROUTE_REF)
+            sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote)
             current = (
                 ModelRouteRegistryV1.model_validate_json(_read_blob(sha, "model_routes.json"))
                 if sha is not None
@@ -488,7 +517,7 @@ class GitStateBackend:
                 parent_sha=sha,
                 message=f"model-route: {status.job} -> {status.status}",
             )
-            push = run_git(["push", "origin", f"{commit_sha}:{MODEL_ROUTE_REF}"])
+            push = run_git(["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"])
             if push.returncode == 0:
                 return
             if _is_non_fast_forward(push.stderr):
@@ -509,4 +538,4 @@ class GitStateBackend:
 
 
 def default_state_backend() -> GitStateBackend:
-    return GitStateBackend()
+    return GitStateBackend(remote=os.environ.get("README_AGENT_STATE_REMOTE") or "origin")

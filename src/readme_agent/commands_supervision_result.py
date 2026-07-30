@@ -28,7 +28,13 @@ def complete_supervise_command(
         fallback_run_id = (
             lifecycle_recorder.run_id if lifecycle_recorder is not None else generate_run_id()
         )
-        result.evidence_dir = paths.evidence_dir(fallback_run_id)
+        # A matrix shares one GitHub run ID. Key fallback evidence by both
+        # logical run and repository so bind-mounted `act` jobs and any
+        # future shared artifact workspace cannot overwrite one another.
+        repository_key = args.repo.replace("/", "__", 1)
+        result.evidence_dir = paths.evidence_dir(f"{fallback_run_id}/{repository_key}")
+        persisted = state_backend.load(args.repo) if state_backend is not None else None
+        readme_poc_lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
         with activate_lifecycle(lifecycle_recorder):
             evidence_module.write_supervise_evidence(
                 result.evidence_dir,
@@ -37,6 +43,7 @@ def complete_supervise_command(
                 result.status,
                 result.task_graph,
                 result.decisions,
+                readme_poc_lifecycle=readme_poc_lifecycle,
             )
         evidence_module.assert_evidence_complete(result.evidence_dir)
 

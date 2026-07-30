@@ -43,6 +43,36 @@ def test_fetch_remote_sha_uses_and_cleans_an_isolated_ref(monkeypatch):
     assert all("FETCH_HEAD" not in argument for call in calls for argument in call)
 
 
+def test_fetch_remote_sha_uses_explicit_state_remote(monkeypatch):
+    calls: list[list[str]] = []
+    fetched_sha = "a" * 40
+
+    def fake_run_git(args: list[str]):
+        calls.append(args)
+        if args[0] == "rev-parse":
+            return _completed(stdout=f"{fetched_sha}\n")
+        return _completed()
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    assert (
+        git_backend._fetch_remote_sha(
+            "refs/readme-agent-state/example",
+            remote="file:///isolated/state.git",
+        )
+        == fetched_sha
+    )
+    assert calls[0][2] == "file:///isolated/state.git"
+
+
+def test_default_backend_reads_only_dedicated_state_remote(monkeypatch):
+    monkeypatch.setenv("README_AGENT_STATE_REMOTE", "file:///isolated/state.git")
+
+    backend = git_backend.default_state_backend()
+
+    assert backend._remote == "file:///isolated/state.git"
+
+
 def test_fetch_remote_sha_preserves_missing_remote_semantics(monkeypatch):
     calls: list[list[str]] = []
 

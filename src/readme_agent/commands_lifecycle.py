@@ -47,6 +47,38 @@ def cmd_runtime_matrix(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_qualified_cohort_matrix(args: argparse.Namespace) -> int:
+    """Emit a checksum- and contract-validated frozen trusted cohort matrix."""
+
+    from readme_agent.supervisor.trusted_cohort_runtime import (
+        load_runtime_trusted_cohort,
+        runtime_trusted_cohort_matrix,
+    )
+
+    cohort = load_runtime_trusted_cohort(Path(args.manifest))
+    _emit_json(runtime_trusted_cohort_matrix(cohort), getattr(args, "output", None))
+    return 0
+
+
+def cmd_restore_qualified_cohort(args: argparse.Namespace) -> int:
+    """Restore exact ACT proof inputs into isolated local runtime/state paths."""
+
+    from readme_agent.supervisor.trusted_cohort_restore import (
+        restore_trusted_cohort_act_inputs,
+    )
+    from readme_agent.supervisor.trusted_cohort_runtime import load_runtime_trusted_cohort
+
+    cohort = load_runtime_trusted_cohort(Path(args.manifest))
+    result = restore_trusted_cohort_act_inputs(
+        cohort,
+        input_manifest_path=Path(args.input_manifest),
+        runtime_root=Path(args.runtime_root),
+        state_remote=Path(args.state_remote),
+    )
+    _emit_json(result, getattr(args, "output", None))
+    return 0
+
+
 def cmd_recovery_sweep(args: argparse.Namespace) -> int:
     """Mark expired unfinished lifecycle records retryable and report them."""
 

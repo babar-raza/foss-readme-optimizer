@@ -184,6 +184,13 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--qualified-cohort-manifest",
+        help=(
+            "Checksum-valid QualifiedTrustedCohortV1 manifest required by act_poc. "
+            "The requested repository must be an exact frozen member."
+        ),
+    )
+    p_supervise.add_argument(
         "--domain",
         default=None,
         help=(
@@ -209,6 +216,7 @@ def _build_parser() -> argparse.ArgumentParser:
             "local_inspect",
             "local_dry_run",
             "local_poc",
+            "act_poc",
             "github_observe",
             "github_proposal",
             "github_apply",
@@ -250,6 +258,23 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     p_runtime_matrix.add_argument("--only", help="Comma-separated allow-listed repositories")
     p_runtime_matrix.add_argument("--output", help="Also write the JSON payload to this path")
+
+    p_cohort_matrix = sub.add_parser(
+        "qualified-cohort-matrix",
+        help="Emit an Actions matrix from one checksum-valid QualifiedTrustedCohortV1 manifest",
+    )
+    p_cohort_matrix.add_argument("--manifest", required=True)
+    p_cohort_matrix.add_argument("--output", help="Also write the JSON payload to this path")
+
+    p_cohort_restore = sub.add_parser(
+        "restore-qualified-cohort",
+        help="Restore immutable cohort inputs into disposable ACT runtime and state paths",
+    )
+    p_cohort_restore.add_argument("--manifest", required=True)
+    p_cohort_restore.add_argument("--input-manifest", required=True)
+    p_cohort_restore.add_argument("--runtime-root", required=True)
+    p_cohort_restore.add_argument("--state-remote", required=True)
+    p_cohort_restore.add_argument("--output", help="Also write the JSON payload to this path")
 
     p_recovery_sweep = sub.add_parser(
         "recovery-sweep",
@@ -393,6 +418,8 @@ def main(argv: list[str] | None = None) -> int:
         "profile-registry": commands.cmd_profile_registry,
         "supervise": commands.cmd_supervise,
         "runtime-matrix": commands.cmd_runtime_matrix,
+        "qualified-cohort-matrix": commands.cmd_qualified_cohort_matrix,
+        "restore-qualified-cohort": commands.cmd_restore_qualified_cohort,
         "recovery-sweep": commands.cmd_recovery_sweep,
         "health-report": commands.cmd_health_report,
         "report": commands.cmd_report,

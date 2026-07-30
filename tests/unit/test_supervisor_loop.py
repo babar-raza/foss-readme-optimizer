@@ -2409,6 +2409,32 @@ class TestEvidenceCompletenessGate:
         with pytest.raises(RuntimeError, match="checksum mismatch.*decisions.json"):
             assert_evidence_complete(tmp_path)
 
+    def test_terminal_manifest_preserves_trusted_assurance_and_lifecycle(self, tmp_path):
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.supervisor.evidence import write_supervise_evidence
+        from readme_agent.supervisor.task import TaskGraph
+
+        lifecycle = ReadmePocLifecycleStateV2(
+            status="TRUSTED_NO_OP_PROVEN",
+            content_assurance="trusted_inherited",
+            source_revision="a" * 40,
+        )
+
+        write_supervise_evidence(
+            tmp_path,
+            "run-1",
+            ORG_REPO,
+            "STAGE_COMPLETE",
+            TaskGraph(),
+            [],
+            readme_poc_lifecycle=lifecycle,
+        )
+
+        manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["content_assurance"] == "trusted_inherited"
+        assert manifest["readme_poc_status"] == "TRUSTED_NO_OP_PROVEN"
+        assert manifest["readme_poc_transitions"] == []
+
 
 class TestEscalationAlert:
     """Wave 8d (`VER-002`/"repair loops"): a domain crossing the failure-

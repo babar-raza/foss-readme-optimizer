@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "purpose": "Self-contained immutable inputs for the qualified trusted cohort act proof",
+  "control_revision_at_packaging": "b4916deddd818ffe3fe2996a8868904cac324b9d",
+  "cohort_id": "1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331",
+  "cohort_manifest": "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json",
+  "qualified_count": 3,
+  "runtime_inputs": {
+    "path": "runtime-inputs.tar",
+    "sha256": "ed07a584f96dd92faf39e189686174192f7a02f088b1fea0f8feaa9d2c14c4fa",
+    "entry_count": 149
+  },
+  "state_bundle": {
+    "path": "state.bundle",
+    "sha256": "5b4dc37bd64bdf32621c4437a8909c4a73cde9750c1c4001dd23f310b8da60a7",
+    "ref_count": 3
+  },
+  "member_state_versions": {
+    "aspose-note-foss/Aspose.Note-FOSS-for-Python": 68,
+    "aspose-page-foss/Aspose.Page-FOSS-for-Python": 50,
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": 19
+  },
+  "contains_secrets": false,
+  "target_remote_writes": false
+}

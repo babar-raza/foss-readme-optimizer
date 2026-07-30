@@ -114,6 +114,13 @@ def gh_token() -> str | None:
         # so a missing App token fails closed instead of silently widening
         # authority through a PAT fallback.
         return os.environ.get("README_AGENT_GITHUB_APP_TOKEN") or None
+    if os.environ.get("README_AGENT_PRODUCTION_AUTH") == "act_local":
+        # This provider exists only for live-like execution of the real
+        # workflow under `act`. It never accepts ambient PAT variables and
+        # fails closed if somebody selects it on a hosted runner.
+        if os.environ.get("ACT", "").lower() != "true":
+            return None
+        return os.environ.get("README_AGENT_ACT_GITHUB_TOKEN") or None
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_PAT") or None
 
 

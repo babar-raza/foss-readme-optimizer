@@ -11,15 +11,31 @@ on:
         description: "Optional allow-listed org/repo; empty means the active portfolio"
         required: false
         type: string
+      proof_mode:
+        description: "Internal live-like proof mode; hosted runs must leave this empty"
+        required: false
+        type: string
+      qualified_cohort_manifest:
+        description: "QualifiedTrustedCohortV1 manifest used only by act_qualified_cohort"
+        required: false
+        type: string
   workflow_call:
     inputs:
       repository:
         description: "Optional allow-listed org/repo; empty means the active portfolio"
         required: false
         type: string
+      proof_mode:
+        required: false
+        type: string
+      qualified_cohort_manifest:
+        required: false
+        type: string
     secrets:
       GH_APP_PRIVATE_KEY:
         required: true
+      ACT_GITHUB_READ_TOKEN:
+        required: false
       LLM_BASE_URL:
         required: true
       LLM_API_KEY:
@@ -43,13 +59,56 @@ jobs:
     outputs:
       matrix: ${{ steps.recovery-matrix.outputs.matrix }}
       has_recovery: ${{ steps.recovery-matrix.outputs.has_recovery }}
+      is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
+      cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
     steps:
+      - id: runtime-mode
+        name: Fail-closed runtime-mode admission
+        env:
+          REQUESTED_PROOF_MODE: ${{ inputs.proof_mode || github.event.client_payload.proof_mode }}
+          REQUESTED_COHORT_MANIFEST: ${{ inputs.qualified_cohort_manifest || github.event.client_payload.qualified_cohort_manifest }}
+        run: |
+          requested="${REQUESTED_PROOF_MODE:-}"
+          manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
+          if [ "${ACT:-}" = "true" ]; then
+            if [ -n "$requested" ] && [ "$requested" != "act_qualified_cohort" ]; then
+              echo "::error::act accepts only proof_mode=act_qualified_cohort"
+              exit 2
+            fi
+            if [ -z "$manifest" ]; then
+              echo "::error::act_qualified_cohort requires a frozen cohort manifest"
+              exit 2
+            fi
+            echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
+            echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+          else
+            if [ "$requested" = "act_qualified_cohort" ]; then
+              echo "::error::act_qualified_cohort is forbidden outside ACT=true"
+              exit 2
+            fi
+            echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
+            echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/checkout@v4
+        with:
+          clean: ${{ steps.runtime-mode.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Restore immutable ACT cohort inputs and isolated state
+        if: ${{ steps.runtime-mode.outputs.is_act_proof == 'true' }}
+        env:
+          COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
+        run: |
+          readme-agent restore-qualified-cohort \
+            --manifest "$COHORT_MANIFEST" \
+            --input-manifest plans/investigations/evidence/trp-04p-act-workflow-inputs-v1/manifest.json \
+            --runtime-root runs/readme-poc \
+            --state-remote runs/act-poc/state.git \
+            --output runs/act-poc/restore.json
+          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Validate repository_dispatch identity
         if: ${{ github.event_name == 'repository_dispatch' }}
         env:
@@ -62,11 +121,20 @@ jobs:
       - name: Recover stale accepted, processing, and retryable triggers
         env:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+          COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
+          IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
         run: |
-          if [ -n "$REQUESTED_REPOSITORY" ]; then
-            readme-agent recovery-sweep --only "$REQUESTED_REPOSITORY" --output recovery-candidates.json
+          mkdir -p runs/workflow
+          if [ "$IS_ACT_PROOF" = "true" ]; then
+            repositories=$(readme-agent qualified-cohort-matrix \
+              --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
+            readme-agent recovery-sweep \
+              --only "$repositories" --output runs/workflow/recovery-candidates.json
+          elif [ -n "$REQUESTED_REPOSITORY" ]; then
+            readme-agent recovery-sweep \
+              --only "$REQUESTED_REPOSITORY" --output runs/workflow/recovery-candidates.json
           else
-            readme-agent recovery-sweep --output recovery-candidates.json
+            readme-agent recovery-sweep --output runs/workflow/recovery-candidates.json
           fi
       - id: recovery-matrix
         name: Emit resumable trigger matrix
@@ -76,7 +144,7 @@ jobs:
             dedup_key: .trigger_dedup_key,
             owner: (.repository | split("/")[0]),
             name: (.repository | split("/")[1])
-          }]}' recovery-candidates.json)
+          }]}' runs/workflow/recovery-candidates.json)
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
           if [ "$(jq '.include | length' <<<"$matrix")" -gt 0 ]; then
             echo "has_recovery=true" >> "$GITHUB_OUTPUT"
@@ -86,7 +154,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: lifecycle-recovery-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery-candidates.json
+          path: runs/workflow/recovery-candidates.json
 
   resume:
     name: Resume ${{ matrix.repo }}
@@ -104,13 +172,19 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
+        with:
+          clean: ${{ needs.recover.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Bind isolated ACT state remote
+        if: ${{ needs.recover.outputs.is_act_proof == 'true' }}
+        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Mint repository-scoped read-only GitHub App token
         id: target-token
+        if: ${{ needs.recover.outputs.is_act_proof != 'true' }}
         uses: actions/create-github-app-token@v3
         with:
           client-id: ${{ vars.GH_APP_CLIENT_ID }}
@@ -119,20 +193,31 @@ jobs:
           repositories: ${{ matrix.name }}
           permission-contents: read
       - name: Resume the original durable trigger
-        run: >
-          readme-agent supervise --repo "${{ matrix.repo }}"
-          --resume-trigger-key "${{ matrix.dedup_key }}"
-          --no-registry-heal --execution-profile github_observe
         env:
-          README_AGENT_PRODUCTION_AUTH: github_app
+          IS_ACT_PROOF: ${{ needs.recover.outputs.is_act_proof }}
+          COHORT_MANIFEST: ${{ needs.recover.outputs.cohort_manifest }}
+          README_AGENT_PRODUCTION_AUTH: ${{ needs.recover.outputs.is_act_proof == 'true' && 'act_local' || 'github_app' }}
+          README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
           README_AGENT_GITHUB_APP_TOKEN: ${{ steps.target-token.outputs.token }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          if [ "$IS_ACT_PROOF" = "true" ]; then
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --resume-trigger-key "${{ matrix.dedup_key }}" \
+              --no-registry-heal --execution-profile act_poc \
+              --max-readme-poc-stage TRUSTED_NO_OP_PROVEN \
+              --qualified-cohort-manifest "$COHORT_MANIFEST"
+          else
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --resume-trigger-key "${{ matrix.dedup_key }}" \
+              --no-registry-heal --execution-profile github_observe
+          fi
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: recovery-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
-          path: runs/evidence/
+          path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
 
   plan:
     name: Build authoritative repository matrix
@@ -141,8 +226,30 @@ jobs:
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
       schedule_window: ${{ steps.identity.outputs.schedule_window }}
+      is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
+      cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
     steps:
+      - id: runtime-mode
+        name: Fail-closed runtime-mode admission
+        env:
+          REQUESTED_PROOF_MODE: ${{ inputs.proof_mode || github.event.client_payload.proof_mode }}
+          REQUESTED_COHORT_MANIFEST: ${{ inputs.qualified_cohort_manifest || github.event.client_payload.qualified_cohort_manifest }}
+        run: |
+          requested="${REQUESTED_PROOF_MODE:-}"
+          manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
+          if [ "${ACT:-}" = "true" ]; then
+            test -z "$requested" || test "$requested" = "act_qualified_cohort"
+            test -n "$manifest"
+            echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
+            echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+          else
+            test "$requested" != "act_qualified_cohort"
+            echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
+            echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/checkout@v4
+        with:
+          clean: ${{ steps.runtime-mode.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -152,8 +259,12 @@ jobs:
         name: Emit matrix from data/products.json
         env:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+          COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
+          IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
         run: |
-          if [ -n "$REQUESTED_REPOSITORY" ]; then
+          if [ "$IS_ACT_PROOF" = "true" ]; then
+            matrix=$(readme-agent qualified-cohort-matrix --manifest "$COHORT_MANIFEST" | jq -c .)
+          elif [ -n "$REQUESTED_REPOSITORY" ]; then
             matrix=$(readme-agent runtime-matrix --only "$REQUESTED_REPOSITORY" | jq -c .)
           else
             matrix=$(readme-agent runtime-matrix | jq -c .)
@@ -180,13 +291,28 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
+        with:
+          clean: ${{ needs.plan.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Bind isolated ACT state remote
+        if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
+        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+      - name: Controlled ACT matrix-isolation failure
+        if: >-
+          ${{
+            needs.plan.outputs.is_act_proof == 'true' &&
+            env.README_AGENT_ACT_FAIL_REPOSITORY == matrix.repo
+          }}
+        run: |
+          echo "::error::controlled ACT failure for matrix-isolation proof"
+          exit 86
       - name: Mint repository-scoped read-only GitHub App token
         id: target-token
+        if: ${{ needs.plan.outputs.is_act_proof != 'true' }}
         uses: actions/create-github-app-token@v3
         with:
           client-id: ${{ vars.GH_APP_CLIENT_ID }}
@@ -195,22 +321,32 @@ jobs:
           repositories: ${{ matrix.name }}
           permission-contents: read
       - name: Run canonical fail-closed supervisor
-        run: >
-          readme-agent supervise --repo "${{ matrix.repo }}"
-          --no-registry-heal --execution-profile github_observe
         env:
-          README_AGENT_PRODUCTION_AUTH: github_app
+          IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
+          COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
+          README_AGENT_PRODUCTION_AUTH: ${{ needs.plan.outputs.is_act_proof == 'true' && 'act_local' || 'github_app' }}
+          README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
           README_AGENT_GITHUB_APP_TOKEN: ${{ steps.target-token.outputs.token }}
           README_AGENT_TRIGGER_ID: ${{ github.run_id }}
           README_AGENT_DELIVERY_ID: ${{ github.event.client_payload.delivery_id }}
           README_AGENT_SCHEDULE_WINDOW: ${{ needs.plan.outputs.schedule_window }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          if [ "$IS_ACT_PROOF" = "true" ]; then
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --no-registry-heal --execution-profile act_poc \
+              --max-readme-poc-stage TRUSTED_NO_OP_PROVEN \
+              --qualified-cohort-manifest "$COHORT_MANIFEST"
+          else
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --no-registry-heal --execution-profile github_observe
+          fi
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
-          path: runs/evidence/
+          path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
 
   health:
     name: Portfolio health and alert
@@ -222,28 +358,42 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          clean: ${{ needs.plan.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Bind isolated ACT state remote
+        if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
+        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
       - name: Aggregate durable health
         env:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
+          COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
+          IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
         run: |
-          if [ -n "$REQUESTED_REPOSITORY" ]; then
-            readme-agent health-report --only "$REQUESTED_REPOSITORY" --output health-report.json
+          mkdir -p runs/workflow
+          if [ "$IS_ACT_PROOF" = "true" ]; then
+            repositories=$(readme-agent qualified-cohort-matrix \
+              --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
+            readme-agent health-report \
+              --only "$repositories" --output runs/workflow/health-report.json
+          elif [ -n "$REQUESTED_REPOSITORY" ]; then
+            readme-agent health-report \
+              --only "$REQUESTED_REPOSITORY" --output runs/workflow/health-report.json
           else
-            readme-agent health-report --output health-report.json
+            readme-agent health-report --output runs/workflow/health-report.json
           fi
       - id: health-state
-        run: echo "healthy=$(jq -r .healthy health-report.json)" >> "$GITHUB_OUTPUT"
+        run: echo "healthy=$(jq -r .healthy runs/workflow/health-report.json)" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
           name: portfolio-health-${{ github.run_id }}
-          path: health-report.json
+          path: runs/workflow/health-report.json
       - name: Create or update visible health issue
-        if: ${{ steps.health-state.outputs.healthy != 'true' }}
+        if: ${{ steps.health-state.outputs.healthy != 'true' && needs.plan.outputs.is_act_proof != 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           TITLE: "README Agent production health is degraded"
@@ -256,6 +406,9 @@ jobs:
           else
             gh issue create --title "$TITLE" --body "$body"
           fi
+      - name: Record suppressed remote alert during ACT proof
+        if: ${{ steps.health-state.outputs.healthy != 'true' && needs.plan.outputs.is_act_proof == 'true' }}
+        run: echo "::warning::ACT health is degraded; remote issue effect was correctly suppressed"
       - id: dead-man-config
         name: Detect external dead-man configuration
         env:
@@ -267,7 +420,7 @@ jobs:
             echo "configured=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Send external dead-man heartbeat
-        if: ${{ steps.dead-man-config.outputs.configured == 'true' }}
+        if: ${{ steps.dead-man-config.outputs.configured == 'true' && needs.plan.outputs.is_act_proof != 'true' }}
         env:
           HEARTBEAT_URL: ${{ secrets.DEAD_MAN_HEARTBEAT_URL }}
         run: curl --fail-with-body --retry 3 --max-time 30 "$HEARTBEAT_URL"

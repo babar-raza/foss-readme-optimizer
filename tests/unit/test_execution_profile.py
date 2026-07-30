@@ -8,11 +8,12 @@ from readme_agent.supervisor.execution_profile import (
 
 
 class TestProfileRegistry:
-    def test_all_six_named_profiles_resolve(self):
+    def test_all_named_profiles_resolve(self):
         for name in (
             "local_inspect",
             "local_dry_run",
             "local_poc",
+            "act_poc",
             "github_observe",
             "github_proposal",
             "github_apply",
@@ -28,6 +29,7 @@ class TestProfileRegistry:
         assert is_github_profile("local_inspect") is False
         assert is_github_profile("local_dry_run") is False
         assert is_github_profile("local_poc") is False
+        assert is_github_profile("act_poc") is False
 
 
 class TestProfileInvariants:
@@ -39,6 +41,7 @@ class TestProfileInvariants:
         assert get_profile("github_observe").allows_domain_bypass is False
         assert get_profile("github_proposal").allows_domain_bypass is False
         assert get_profile("github_apply").allows_domain_bypass is False
+        assert get_profile("act_poc").allows_domain_bypass is False
 
     def test_all_github_profiles_fail_closed_and_require_durable_state(self):
         for name in ("github_observe", "github_proposal", "github_apply"):
@@ -61,6 +64,23 @@ class TestProfileInvariants:
         assert "local_write" in profile.allowed_permission_classes
         assert "remote_write" not in profile.allowed_permission_classes
         assert profile.allowed_triggers == ["cli_manual"]
+
+    def test_act_poc_matches_local_assurance_but_accepts_workflow_triggers(self):
+        profile = get_profile("act_poc")
+
+        assert profile.requires_durable_state is True
+        assert profile.fail_closed_on_state_failure is True
+        assert profile.require_evidence_bundle is True
+        assert profile.require_independent_verification is True
+        assert profile.verify_local_product_facts is True
+        assert "local_write" in profile.allowed_permission_classes
+        assert "remote_write" not in profile.allowed_permission_classes
+        assert profile.allowed_triggers == [
+            "workflow_dispatch",
+            "workflow_call",
+            "schedule",
+            "repository_dispatch",
+        ]
 
     def test_observe_profiles_never_allow_write_permission_classes(self):
         for name in ("local_inspect", "github_observe"):

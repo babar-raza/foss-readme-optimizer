@@ -29,10 +29,27 @@ def test_analysis_uses_dedicated_read_only_app_token_and_observe_profile():
     assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 2
     assert "app-id:" not in text
     assert "permission-contents: read" in text
-    assert "README_AGENT_PRODUCTION_AUTH: github_app" in text
+    assert "|| 'github_app' }}" in text
     assert "README_AGENT_GITHUB_APP_TOKEN:" in text
     assert "--execution-profile github_observe" in text
     assert "GITHUB_PAT" not in text
+
+
+def test_act_proof_is_explicit_isolated_and_still_uses_the_canonical_supervisor():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "act_qualified_cohort is forbidden outside ACT=true" in text
+    assert "readme-agent qualified-cohort-matrix" in text
+    assert "readme-agent restore-qualified-cohort" in text
+    assert "--execution-profile act_poc" in text
+    assert "--max-readme-poc-stage TRUSTED_NO_OP_PROVEN" in text
+    assert "--qualified-cohort-manifest" in text
+    assert "README_AGENT_ACT_GITHUB_TOKEN:" in text
+    assert "README_AGENT_STATE_REMOTE=" in text
+    assert "README_AGENT_ACT_FAIL_REPOSITORY == matrix.repo" in text
+    assert "controlled ACT failure for matrix-isolation proof" in text
+    assert "runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/" in text
+    assert "remote issue effect was correctly suppressed" in text
 
 
 def test_only_production_runtime_is_scheduled():
