@@ -184,6 +184,17 @@
         "reason": "begin independent blind-quality and inheritance-fidelity review",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "TRUSTED_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\e8ebaecc9120370efe46de2d5297b0e89a60f029\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_REVIEWING",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-30T04:40:03.964935+00:00",
+        "reason": "independent trusted review reduced to TRUSTED_TRANSFORM_APPROVED",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "TRUSTED_TRANSFORM_APPROVED"
       }
     ],
     "intake_preflight_history": [
@@ -211,11 +222,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
-    "status": "TRUSTED_REVIEWING",
-    "updated_at": "2026-07-30T04:39:58.899037+00:00"
+    "status": "TRUSTED_TRANSFORM_APPROVED",
+    "updated_at": "2026-07-30T04:40:03.964935+00:00"
   },
   "schema_version": 2,
-  "state_version": 15,
+  "state_version": 16,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
