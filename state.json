@@ -65,7 +65,7 @@
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": null,
+    "facts_hash": "7213e05e1e828c62a4ddd1f2739d87dc3206f6d1be228f96a3424600592d46a8",
     "history": [
       {
         "evidence_refs": [],
@@ -126,6 +126,19 @@
         "reason": "inventory immutable README material as inherited facts",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "TRUSTED_FACTS_EXTRACTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\e8ebaecc9120370efe46de2d5297b0e89a60f029\\assurance\\trusted_inherited\\facts\\readme-inherited-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\e8ebaecc9120370efe46de2d5297b0e89a60f029\\assurance\\trusted_inherited\\facts\\source-to-fact-map.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\e8ebaecc9120370efe46de2d5297b0e89a60f029\\assurance\\trusted_inherited\\facts\\configured-standards.json"
+        ],
+        "from_status": "TRUSTED_FACTS_EXTRACTING",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T04:32:25.696672+00:00",
+        "reason": "README-derived trusted fact graph persisted with exact source accountability",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "TRUSTED_FACTS_EXTRACTED"
       }
     ],
     "intake_preflight_history": [
@@ -153,11 +166,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
-    "status": "TRUSTED_FACTS_EXTRACTING",
-    "updated_at": "2026-07-30T04:32:20.188633+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTED",
+    "updated_at": "2026-07-30T04:32:25.696672+00:00"
   },
   "schema_version": 2,
-  "state_version": 10,
+  "state_version": 11,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
