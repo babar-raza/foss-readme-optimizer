@@ -2387,7 +2387,7 @@
     "updated_at": "2026-07-30T18:27:02.470378+00:00"
   },
   "schema_version": 2,
-  "state_version": 239,
+  "state_version": 240,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -3006,13 +3006,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0001 failed after 3 attempts: configured README navigation requires the exact H2 heading ## Navigation in its owning batch",
       "last_checkpoint_id": "bcbb82696b8283382ae90caa8f1f3701fe4053f27892388eb64ea113770c3b84",
-      "lease_expires_at": "2026-07-30T18:41:22.415223+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T18:26:26.637412+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T18:31:47.075281+00:00"
     }
   },
   "trigger_records": {},
