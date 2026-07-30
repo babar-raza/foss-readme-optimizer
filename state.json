@@ -3498,7 +3498,7 @@
     "updated_at": "2026-07-30T21:34:22.848661+00:00"
   },
   "schema_version": 2,
-  "state_version": 361,
+  "state_version": 362,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -4403,13 +4403,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "trusted repair failed: grounded findings do not identify a responsible repair batch",
       "last_checkpoint_id": "98b48e0c4116d114bb843a08a71d85c810335cd040029e685ea95b07a3287af1",
-      "lease_expires_at": "2026-07-30T21:41:45.203905+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T21:26:49.345586+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T21:34:32.079877+00:00"
     }
   },
   "trigger_records": {},
