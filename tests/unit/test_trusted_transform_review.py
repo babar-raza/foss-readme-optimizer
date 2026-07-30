@@ -916,11 +916,12 @@ def test_fidelity_call_partition_is_fact_and_source_byte_bounded() -> None:
 
     chunks = partition_fidelity_fact_ids(fact_ids, values)
 
-    assert [len(chunk) for chunk in chunks] == [8, 8, 8, 1]
+    assert [len(chunk) for chunk in chunks] == [4, 4, 4, 4, 4, 4, 1]
     large_values = {"one": "x" * 4_000, "two": "y" * 3_000, "three": "z"}
     assert partition_fidelity_fact_ids(("one", "two", "three"), large_values) == (
         ("one",),
-        ("two", "three"),
+        ("two",),
+        ("three",),
     )
 
 
