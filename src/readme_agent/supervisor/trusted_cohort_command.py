@@ -13,8 +13,10 @@ from readme_agent.registry.loader import PRODUCTS_PATH, load_products
 from readme_agent.state.git_backend import default_state_backend
 from readme_agent.supervisor.trusted_cohort import (
     build_qualified_trusted_cohort,
-    verify_qualified_trusted_cohort,
     write_qualified_trusted_cohort,
+)
+from readme_agent.supervisor.trusted_cohort_reconstruction import (
+    reconstruct_qualified_trusted_cohort,
 )
 
 
@@ -41,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     frozen, cohort_dir = write_qualified_trusted_cohort(cohort, output_root=args.output_root)
 
     reconstructed_states = backend.load_many(org_repos)
-    reconstruction = verify_qualified_trusted_cohort(
+    reconstruction = reconstruct_qualified_trusted_cohort(
         frozen,
         entries,
         reconstructed_states,

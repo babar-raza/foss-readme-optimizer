@@ -76,6 +76,7 @@ class QualifiedTrustedCohortIdentityV1(_StrictFrozenModel):
     """Timestamp-free inputs that define one reproducible cohort identity."""
 
     schema_version: Literal[1] = 1
+    control_revision: str = Field(pattern=r"^[0-9a-f]{40}$")
     registry_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     reviewer_standard_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     prompt_registry_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -120,6 +121,7 @@ class QualifiedTrustedCohortV1(_StrictFrozenModel):
                 }
             )
         return QualifiedTrustedCohortIdentityV1(
+            control_revision=self.control_revision,
             registry_sha256=self.registry_sha256,
             reviewer_standard_sha256=self.reviewer_standard_sha256,
             prompt_registry_sha256=self.prompt_registry_sha256,

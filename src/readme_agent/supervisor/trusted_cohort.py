@@ -27,7 +27,6 @@ from readme_agent.state.trusted_cohort_schema import (
     QualifiedTrustedCohortMemberV1,
     QualifiedTrustedCohortV1,
     TrustedCohortExclusionV1,
-    TrustedCohortReconstructionV1,
 )
 from readme_agent.supervisor.trusted_cohort_qualification import (
     display_path as _display_path,
@@ -154,6 +153,7 @@ def build_qualified_trusted_cohort(
         members.append(member.model_copy(update={"observed_target_head": observed_head}))
 
     identity = QualifiedTrustedCohortIdentityV1(
+        control_revision=control_revision,
         registry_sha256=registry_sha256,
         reviewer_standard_sha256=reviewer_standard,
         prompt_registry_sha256=prompt_content,
@@ -225,46 +225,6 @@ def write_qualified_trusted_cohort(
         },
     )
     return frozen, cohort_dir
-
-
-def verify_qualified_trusted_cohort(
-    frozen: QualifiedTrustedCohortV1,
-    entries: Sequence[ProductEntry],
-    states: Mapping[str, RunStateV2 | None],
-    *,
-    registry_path: Path,
-    control_revision: str,
-    observe_head: HeadObserver,
-    cohort_dir: Path,
-) -> TrustedCohortReconstructionV1:
-    """Independently rederive cohort identity and ordering from current inputs."""
-
-    reconstructed = build_qualified_trusted_cohort(
-        entries,
-        states,
-        registry_path=registry_path,
-        control_revision=control_revision,
-        observe_head=observe_head,
-    )
-    manifest_path = cohort_dir / "manifest.json"
-    reasons: list[str] = []
-    if not verify_sha256sums(cohort_dir):
-        reasons.append("cohort_checksum_inventory_invalid")
-    if reconstructed.cohort_id != frozen.cohort_id:
-        reasons.append("cohort_identity_mismatch")
-    frozen_order = tuple(member.org_repo for member in frozen.members)
-    reconstructed_order = tuple(member.org_repo for member in reconstructed.members)
-    if reconstructed_order != frozen_order:
-        reasons.append("cohort_order_mismatch")
-    return TrustedCohortReconstructionV1(
-        cohort_id=frozen.cohort_id,
-        reconstructed_cohort_id=reconstructed.cohort_id,
-        ordered_members=frozen_order,
-        reconstructed_ordered_members=reconstructed_order,
-        manifest_sha256=sha256_file(manifest_path)[0],
-        passed=not reasons,
-        reasons=tuple(reasons or ["cohort identity, order, and inventory reproduced"]),
-    )
 
 
 def _member_identity(member: QualifiedTrustedCohortMemberV1) -> dict[str, str | int]:

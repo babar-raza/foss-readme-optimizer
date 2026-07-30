@@ -11,7 +11,7 @@ from readme_agent.registry.models import ProductEntry, ProviderRepositoryIdentit
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
 from readme_agent.state.trusted_cohort_schema import QualifiedTrustedCohortMemberV1
-from readme_agent.supervisor import trusted_cohort
+from readme_agent.supervisor import trusted_cohort, trusted_cohort_reconstruction
 from readme_agent.supervisor.trusted_cohort_qualification import (
     validate_trusted_cohort_member,
 )
@@ -105,6 +105,11 @@ def _patch_valid_members(
         return _member(entry, state), []
 
     monkeypatch.setattr(trusted_cohort, "_validate_member_bundle", validate)
+    monkeypatch.setattr(
+        trusted_cohort_reconstruction,
+        "validate_trusted_cohort_member",
+        validate,
+    )
 
 
 def test_build_accounts_for_every_entry_and_uses_stable_order(
@@ -217,7 +222,7 @@ def test_write_is_idempotent_and_reconstruction_matches(
         cohort.model_copy(update={"frozen_at": "later"}),
         output_root=tmp_path / "cohorts",
     )
-    reconstruction = trusted_cohort.verify_qualified_trusted_cohort(
+    reconstruction = trusted_cohort_reconstruction.reconstruct_qualified_trusted_cohort(
         frozen,
         [entry],
         states,
