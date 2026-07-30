@@ -13,12 +13,13 @@ from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.readme.trusted_composition_candidate_validation import (
     TRUSTED_CANDIDATE_NORMALIZATION_VERSION,
 )
+from readme_agent.readme.trusted_composition_models import TrustedReadmeCompositionOutputV1
 from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import RepositorySnapshotV1
+from readme_agent.specialists.trusted_transform_review_models import TrustedReviewExecutionV1
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
 from readme_agent.state.trusted_cohort_schema import QualifiedTrustedCohortMemberV1
-from readme_agent.supervisor.trusted_readme_evidence import load_trusted_readme_evidence
 
 
 def validate_trusted_cohort_member(
@@ -46,18 +47,25 @@ def validate_trusted_cohort_member(
         graph = TrustedReadmeFactGraphV1.model_validate(
             _json_object(bundle_dir / "facts" / "readme-inherited-facts.json")
         )
-        cache = load_trusted_readme_evidence(snapshot, graph)
+        composition = TrustedReadmeCompositionOutputV1.model_validate(
+            _json_object(bundle_dir / "planning" / "composition-output.json")
+        )
+        execution = TrustedReviewExecutionV1.model_validate(
+            _json_object(bundle_dir / "review" / "review-execution.json")
+        )
         no_op = _json_object(bundle_dir / "review" / "no-op-proof.json")
     except (OSError, UnicodeError, ValueError, ValidationError, json.JSONDecodeError):
         return None, ["trusted_bundle_contract_invalid"]
-    if cache is None or cache.review_execution is None:
-        return None, ["trusted_bundle_cache_invalid"]
-    review = cache.review_execution.review
-    composition = cache.composition
+    review = execution.review
 
     expected_pairs = (
         (snapshot.org_repo, entry.org_repo, "snapshot_repository_mismatch"),
         (snapshot.source_revision, lifecycle.source_revision, "snapshot_revision_mismatch"),
+        (graph.org_repo, entry.org_repo, "fact_graph_repository_mismatch"),
+        (graph.source_revision, lifecycle.source_revision, "fact_graph_revision_mismatch"),
+        (graph.readme_sha256, snapshot.readme_sha256, "fact_graph_readme_mismatch"),
+        (composition.org_repo, entry.org_repo, "composition_repository_mismatch"),
+        (composition.plan.fact_graph_hash, graph.canonical_hash(), "composition_facts_mismatch"),
         (manifest.get("org_repo"), entry.org_repo, "manifest_repository_mismatch"),
         (manifest.get("source_revision"), lifecycle.source_revision, "manifest_revision_mismatch"),
         (manifest.get("content_assurance"), "trusted_inherited", "manifest_assurance_mismatch"),
