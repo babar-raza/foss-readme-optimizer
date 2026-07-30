@@ -193,11 +193,14 @@ one open draft PR. Evidence is under
 `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. Durable evaluation selected
 `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` so the external critical path is exposed immediately.
 The control revision is published and the exact minimal owner provisioning request is under
-`plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/`; Codex continues
-agent-fixable hosted preparation, then executes the time-boxed `TRP-04P-TEST-LATENCY` work while
-manual App authority is pending. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run
-read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
-cohort PR package is presented.
+`plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/`; manual App authority
+is pending. `TRP-04P-TEST-LATENCY` is independently accepted: the exact current non-live inventory
+now runs through a bounded four-worker closure command in about four minutes locally and 83-87
+seconds on the hosted Linux matrix, versus a 1,049-second serial reference, without worker restart,
+test omission, or repository-attributable descendants. Evidence is under
+`plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01` are closed and
+`L8-INTAKE-02` may run read-only. TRP-04 is deliberately held, remains open, and must resume
+immediately after the cohort PR package is presented.
 The repository-verified scoreboard remains 7 `FACTS_READY`,
 7 candidates/validations, and zero verified approvals/no-ops/human acceptances;
 discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
@@ -2178,6 +2181,18 @@ that is the only permanence they carry; text is always the decision as it stands
     results are deterministic, seeded shared-state conflicts remain isolated, and the serial and
     parallel outcomes agree. The full suite remains mandatory at the declared closure boundaries.
 
+    The accepted 2026-07-30 implementation uses `pytest-xdist==3.8.0`, four `worksteal` workers,
+    zero permitted worker restarts, a short Windows temp root, repository-attributed descendant
+    detection, and offline Git-credential isolation. The measured serial reference was 2,348
+    passes in 1,049.01 seconds; repeated early bounded runs completed in 270.85 and 283.41 seconds;
+    and the final five-control inventory completed 2,353 passes in 236.63 seconds on a clean commit
+    with no leaked repository process. Hosted Python 3.11/3.12/3.13 jobs collected the same
+    pre-final-control 2,352-node inventory and passed every applicable node in 83-87 seconds. The
+    first parallel attempt and two hosted attempts were rejected rather than explained away:
+    they exposed credential-helper isolation, Windows path length, unlocked CI dependency
+    resolution, Linux typing, and platform-specific test-contract defects. Each is now repaired at
+    its owning boundary with a regression control.
+
     The repeated README defects have a separate root cause: the permission to add configured
     presentation standards, semantic preservation of inherited content, and visitor-quality
     judgment were allowed to overlap inside batched LLM review. Every production contract now
@@ -2210,6 +2225,13 @@ that is the only permanence they carry; text is always the decision as it stands
     pinned and reusable offline under `act`; and reject any optimization whose fresh-run,
     cache-miss, cancellation, or hosted behavior diverges. A faster pytest command cannot hide
     workflow bootstrap cost, and a warm cache cannot be the only accepted proof.
+
+    CI now installs the committed dependency lock and keys the supported pip cache to that lock.
+    A cache-miss run and an identical primary-key cache-hit rerun were both observed. Locked
+    dependency installation remained roughly 11-16 seconds and editable installation 2-4 seconds,
+    so caching alone does not materially remove bootstrap. Wheel reuse or dependency-group
+    splitting remains a measured hosted-runtime opportunity, not a prerequisite silently added to
+    the trusted cohort POC.
 
     Scenario acceptance is also entry-seam-specific. Direct capability execution proves a
     capability, but it cannot satisfy a task that claims canonical workflow behavior. Every live
@@ -2858,11 +2880,14 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           durable no-op records were excluded because their candidate/review/normalization
           dependencies are stale. Evidence:
           `plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json`.
-    - [ ] `TRP-04P-TEST-LATENCY`: capture `pytest --durations` and serial baselines, create an
+    - [x] `TRP-04P-TEST-LATENCY`: capture `pytest --durations` and serial baselines, create an
           impact-mapped fast/integration/security/full verification manifest, benchmark at most
           four `pytest-xdist` workers with serial-only isolation for shared-state tests, and adopt
           only a deterministic measured speedup. Time-box diagnosis/implementation to four hours;
-          an unproven optimization is rejected rather than delaying delivery.
+          an unproven optimization is rejected rather than delaying delivery. The accepted final
+          clean run passed 2,353 nodes in 236.63 seconds with no repository-attributable
+          descendants; the hosted three-version matrix and warm-cache rerun also passed. Evidence:
+          `plans/investigations/evidence/trp-04p-test-latency-v1/`.
     - [x] `TRP-04P-ACT`: execute the frozen cohort through the actual reusable workflow and
           canonical supervisor under `act`, including dispatch variants, recovery, deduplication,
           evidence upload, health reduction, and PAT/ambient-token rejection. Commits

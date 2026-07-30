@@ -32,24 +32,24 @@
     }
   },
   "clean_closure": {
-    "head": "36acaf3317c1d572d665055af290a25bdc72e209",
+    "head": "d3999a936f7f8c321cdd533e43d2671e9d0be5ee",
     "branch": "main",
     "dirty_tree": false,
-    "selected": 2352,
-    "passed": 2352,
-    "pytest_duration_seconds": 206.19,
-    "wrapper_duration_seconds": 207.526,
-    "inventory_sha256": "01a0f5dfdba057a894c9ae06eade77cf917a0009719aa209114d0aba4173d7d9",
+    "selected": 2353,
+    "passed": 2353,
+    "pytest_duration_seconds": 236.63,
+    "wrapper_duration_seconds": 237.854,
+    "inventory_sha256": "21425a5464f0cf6eff1a7a778eef7b22a94fa3c358f81a73326e23743d8183f8",
     "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c",
     "leaked_process_ids": [],
     "receipt": "complete-suite-receipt.json"
   },
   "inventory_equivalence": {
     "serial_reference_nodes": 2348,
-    "additive_optimization_control_nodes": 4,
-    "current_nodes": 2352,
-    "additive_controls_serial_result": "4 passed in 0.41s",
-    "optimized_current_result": "2352 passed",
+    "additive_optimization_control_nodes": 5,
+    "current_nodes": 2353,
+    "additive_controls_serial_result": "5 passed in 0.64s",
+    "optimized_current_result": "2353 passed",
     "hidden_retries": false,
     "test_deselection_for_speed": false
   },
@@ -69,6 +69,14 @@
       "3.11": "2348 passed, 4 Windows-only simulations skipped in 82.91s",
       "3.12": "2348 passed, 4 Windows-only simulations skipped in 84.65s",
       "3.13": "2348 passed, 4 Windows-only simulations skipped in 87.41s"
+    },
+    "bootstrap_controls": {
+      "cache_miss_run_id": 30542127610,
+      "cache_miss_observation": "setup-python reported pip cache is not found; locked install took about 13 seconds and editable install about 4 seconds on Python 3.12",
+      "cache_hit_run_id": 30542597724,
+      "cache_hit_attempt": 2,
+      "cache_hit_observation": "all three jobs restored the exact primary lock-keyed cache; locked installs still took 11-15 seconds and editable installs 2-4 seconds",
+      "disposition": "retain supported lock-keyed caching; defer wheel/minimal-runtime optimization until the hosted App workflow supplies the owning production seam"
     }
   },
   "focused_verification": {
@@ -82,7 +90,6 @@
     "git_diff_check": "pass"
   },
   "limitations": [
-    "The clean local receipt predates two focused hosted-CI boundary repairs; the final evidence commit requires a new clean closure receipt before durable task closure.",
     "Hosted CI's locked dependency install took 12-16 seconds and editable install took 2-4 seconds per fresh job, but cold/warm repetition and wheel/minimal-runtime decomposition remain under hosted App qualification.",
     "This proof changes verification economics only; it does not promote trusted README content to repository-verified truth or satisfy a presentation maturity level."
   ]

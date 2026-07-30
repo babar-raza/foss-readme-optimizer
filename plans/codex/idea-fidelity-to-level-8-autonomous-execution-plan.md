@@ -1981,13 +1981,13 @@ Execution resumes in this order; it does not start an official fixed-count campa
    has canonical-workflow create/no-op/update/drift/deduplication/lost-response/expiry/crash
    evidence and byte-identical staging default branches. Durable evaluation selects
    `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` first so the external critical path is exposed
-   immediately. Attempt supported setup and persist the one exact owner handoff if registration or
-   installation is manual; while that authority is pending, execute `TRP-04P-TEST-LATENCY` at a
-   bounded serial safe boundary. Measure pytest nodes and repeated workflow bootstrap separately,
-   accept only inventory-equivalent deterministic speedups, and retain the full closure suite.
-   Resume App validation automatically, then continue through permission and authorization proof,
-   serialized draft PRs, and the indexed POC presentation package. Obtain fresh exact
-   what/why/where confirmation before each product effect.
+   immediately. The exact owner handoff is already persisted because registration and installation
+   are manual. Preserve the independently accepted `TRP-04P-TEST-LATENCY` result under
+   `plans/investigations/evidence/trp-04p-test-latency-v1/`: the full test inventory remains
+   mandatory but uses a checksum-bound, four-worker closure command, and hosted cold/warm bootstrap
+   is measured separately. Resume App validation automatically, then continue through permission
+   and authorization proof, serialized draft PRs, and the indexed POC presentation package.
+   Obtain fresh exact what/why/where confirmation before each product effect.
 5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.
    Complete its adversarial canaries and only then begin broader trusted portfolio fan-out.
    Interleave the common `L8-INTAKE-02/03` discovery path whenever dependency-ready: authenticate

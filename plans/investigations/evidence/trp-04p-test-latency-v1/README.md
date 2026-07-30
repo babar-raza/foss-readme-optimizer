@@ -9,16 +9,16 @@ workflow bootstrap is fully optimized.
 - Current serial reference: 2,348 passed, 41 live tests deselected by repository policy, 1,049.01
   seconds.
 - Repeated bounded benchmarks after test isolation: 2,349 passed in 270.85 and 283.41 seconds.
-- Clean committed closure run after the runner and its four additive controls: 2,352 passed in
-  206.19 pytest seconds (207.526 wrapper seconds).
+- Final clean committed closure run after the runner and its five additive controls: 2,353 passed
+  in 236.63 pytest seconds (237.854 wrapper seconds).
 - Accepted command: `.venv/Scripts/python scripts/governance/run_full_pytest.py`.
 - Bounds: four workers, `worksteal`, zero permitted worker restarts, a short xdist temp root on
   Windows, and post-run descendant detection.
-- Inventory: the closure receipt records 2,352 selected nodes and SHA-256
-  `01a0f5dfdba057a894c9ae06eade77cf917a0009719aa209114d0aba4173d7d9`.
+- Inventory: the closure receipt records 2,353 selected nodes and SHA-256
+  `21425a5464f0cf6eff1a7a778eef7b22a94fa3c358f81a73326e23743d8183f8`.
 
-The four nodes added by the optimization slice were also run serially. Together with the serial
-2,348-node reference, they cover the exact 2,352-node closure inventory. The optimized closure run
+The five nodes added by the optimization slice were also run serially. Together with the serial
+2,348-node reference, they cover the exact 2,353-node closure inventory. The optimized closure run
 then passed that same current inventory without retries or omissions.
 
 ## First-boundary repairs
@@ -31,7 +31,10 @@ unlocked Ruff 0.16.0 instead of committed Ruff 0.15.22. CI now installs `require
 before the editable package. Linux mypy then exposed a Windows-only subprocess constant in Linux
 stubs; the platform guard is now explicitly annotated without changing process cleanup.
 
-These are environment-boundary defects, not test assertions edited to manufacture a pass.
+The first descendant check also counted unrelated Python processes from another repository as
+leaks. The accepted check binds a process to this repository by command line and has a negative
+control for simultaneous unrelated repository activity. These are environment-boundary defects,
+not test assertions edited to manufacture a pass.
 
 ## Verification tiers
 
@@ -43,9 +46,10 @@ These are environment-boundary defects, not test assertions edited to manufactur
 - Reuse: allowed only when commit, dependency lock, Python/runtime, test inventory, and required
   gate hashes match. A changed commit invalidates the receipt.
 
-Workflow dependency caching is implemented with the lock as its cache key. Cold/warm hosted
-bootstrap measurement and any wheel/minimal-runtime split remain part of hosted App qualification;
-they are not represented as completed by this package.
+Workflow dependency caching is implemented with the lock as its cache key. A cache-miss run and an
+identical primary-key cache-hit rerun both passed; restoring the cache did not materially remove
+the 11-16 second locked install. A wheel/minimal-runtime split therefore remains a measured hosted
+App qualification opportunity, not a hidden prerequisite for this proof.
 
 ## Reproduction
 

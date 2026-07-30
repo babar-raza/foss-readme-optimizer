@@ -4,7 +4,7 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "0a67c5ae903e0c7184118903eb1962559fdcdb461eb95eebfda318df01fdce91",
+  "source_sha256": "15eb69265033cdcff2162961a01662d52330252d7254dd7249225fc9f424aab0",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 453,
   "mandatory_requirement_rows": 427,
@@ -14,8 +14,8 @@
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 232,
-    "preserved_verified": 160
+    "open_mandatory": 231,
+    "preserved_verified": 161
   },
   "taskcard_counts": {
     "TRP-00-ASSURANCE-CONTRACT": 3,
@@ -2106,9 +2106,9 @@
     {
       "requirement_id": "NFR-014",
       "priority": "P1",
-      "requirement_status": "PLANNED",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "TRP-04P-TEST-LATENCY",
-      "disposition": "open_mandatory",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {

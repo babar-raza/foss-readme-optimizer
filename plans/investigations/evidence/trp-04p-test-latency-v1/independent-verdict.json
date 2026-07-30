@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "TRP-04P-TEST-LATENCY",
-  "verdict": "PENDING_FINAL_CLOSURE_RECEIPT",
+  "verdict": "ACCEPT",
   "reviewer": "independent-local-and-hosted-environment-reconstruction",
   "checks": {
     "serial_baseline_present": true,
@@ -17,7 +17,9 @@
     "windows_path_failure_has_a_permanent_runner_fix": true,
     "hosted_ci_uses_the_committed_lock": true,
     "hosted_python_matrix_green": true,
-    "final_evidence_commit_closure_receipt_green": false
+    "hosted_cache_miss_and_hit_measured": true,
+    "final_evidence_commit_closure_receipt_green": true,
+    "unrelated_repository_processes_do_not_false_fail": true
   },
-  "disposition": "Do not close the durable task until hosted CI and the final clean evidence-commit closure receipt pass."
+  "disposition": "Close TRP-04P-TEST-LATENCY; keep hosted cold/warm bootstrap optimization scoped to the GitHub App qualification task."
 }
