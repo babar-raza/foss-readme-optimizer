@@ -71,6 +71,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-064147-9518:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "db95315cb0cd4a0b2225f017a15c1412c696091727fe8f6fb200350e6b7b81f4": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "db95315cb0cd4a0b2225f017a15c1412c696091727fe8f6fb200350e6b7b81f4",
+      "completed_at": "2026-07-30T03:09:27.460486+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260730-030919-0c2c",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T03:09:27.460475+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-024740-0fd8:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "e70a642f727a59860c74fdd1bb531ecda3783f816d2f33606ad3df73040b56d0": {
       "action": null,
       "attempt": 1,
@@ -564,7 +581,7 @@
     "updated_at": "2026-07-30T02:49:06.814883+00:00"
   },
   "schema_version": 2,
-  "state_version": 47,
+  "state_version": 48,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -833,11 +850,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: aspose.com product reference is not called Enterprise Edition",
-      "last_checkpoint_id": "5c909d2aefa7b8ed6dd2a8acd895ecbcc88107ff4092d315dc07df3b9a4dd49d",
+      "last_checkpoint_id": "db95315cb0cd4a0b2225f017a15c1412c696091727fe8f6fb200350e6b7b81f4",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "retryable",
-      "updated_at": "2026-07-30T02:54:57.677549+00:00"
+      "updated_at": "2026-07-30T03:09:27.460486+00:00"
     }
   },
   "trigger_records": {},
