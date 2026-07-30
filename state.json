@@ -3042,6 +3042,15 @@
         "reason": "repair the section responsible for grounded independent-review findings",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "TRUSTED_REPAIRING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TRUSTED_REPAIRING",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T20:51:00.106151+00:00",
+        "reason": "trusted candidate or review cache failed checksum or binding validation",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "TRUSTED_FACTS_EXTRACTING"
       }
     ],
     "intake_preflight_history": [
@@ -3069,11 +3078,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "TRUSTED_REPAIRING",
-    "updated_at": "2026-07-30T20:41:43.705040+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTING",
+    "updated_at": "2026-07-30T20:51:00.106151+00:00"
   },
   "schema_version": 2,
-  "state_version": 316,
+  "state_version": 317,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
