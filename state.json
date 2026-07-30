@@ -14121,6 +14121,17 @@
         "reason": "independent trusted review reduced to TRUSTED_TRANSFORM_APPROVED",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "TRUSTED_TRANSFORM_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\assurance\\trusted_inherited\\review\\no-op-proof.json"
+        ],
+        "from_status": "TRUSTED_TRANSFORM_APPROVED",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T00:35:37.352458+00:00",
+        "reason": "exact trusted candidate and independent approval reused with zero provider calls",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "TRUSTED_NO_OP_PROVEN"
       }
     ],
     "intake_preflight_history": [
@@ -14148,11 +14159,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "TRUSTED_TRANSFORM_APPROVED",
-    "updated_at": "2026-07-30T00:34:01.192707+00:00"
+    "status": "TRUSTED_NO_OP_PROVEN",
+    "updated_at": "2026-07-30T00:35:37.352458+00:00"
   },
   "schema_version": 2,
-  "state_version": 827,
+  "state_version": 828,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
