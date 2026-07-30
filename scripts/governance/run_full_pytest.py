@@ -99,7 +99,9 @@ def main(argv: list[str] | None = None) -> int:
         print(collect.stderr, end="", file=sys.stderr)
         return collect.returncode or 2
 
-    basetemp = Path(tempfile.gettempdir()) / "readme-agent-pytest-xdist"
+    # Keep this deliberately short: several repository-bound fixture names are already long,
+    # and Windows still fails ordinary file creation once their xdist worker path crosses MAX_PATH.
+    basetemp = Path(tempfile.gettempdir()) / "ra-p"
     command = _pytest_command(python, args.workers, basetemp)
     before_processes = _matching_process_ids()
     started = datetime.now(UTC)
