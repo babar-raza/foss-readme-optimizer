@@ -2443,7 +2443,7 @@
     "updated_at": "2026-07-30T18:35:10.647376+00:00"
   },
   "schema_version": 2,
-  "state_version": 246,
+  "state_version": 247,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -3084,13 +3084,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: At a glance must contain Inputs, Capabilities, and Outputs zones",
       "last_checkpoint_id": "4455fa17fd2955c7cf263bb2c4e6a84c572730612e477cd9fce0002a868cc0e8",
-      "lease_expires_at": "2026-07-30T18:49:32.089914+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T18:34:36.318103+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T18:43:48.381550+00:00"
     }
   },
   "trigger_records": {},
