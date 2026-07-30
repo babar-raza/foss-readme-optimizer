@@ -4431,6 +4431,15 @@
         "reason": "trusted repair failed: configured README navigation is incomplete",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T23:41:29.646965+00:00",
+        "reason": "inventory immutable README material as inherited facts",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "TRUSTED_FACTS_EXTRACTING"
       }
     ],
     "intake_preflight_history": [
@@ -4458,11 +4467,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-30T23:37:03.679172+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTING",
+    "updated_at": "2026-07-30T23:41:29.646965+00:00"
   },
   "schema_version": 2,
-  "state_version": 464,
+  "state_version": 465,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
