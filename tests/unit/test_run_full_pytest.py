@@ -19,10 +19,11 @@ def test_selected_inventory_is_sorted_and_excludes_summary_lines():
 
 
 def test_full_command_is_bounded_and_cannot_hide_worker_crashes():
-    command = _pytest_command("python", 4, Path("C:/Temp/readme-agent-pytest-xdist"))
+    basetemp = Path("C:/Temp/readme-agent-pytest-xdist")
+    command = _pytest_command("python", 4, basetemp)
 
     assert command[:4] == ["python", "-m", "pytest", "-q"]
     assert command[command.index("-n") + 1] == "4"
     assert command[command.index("--dist") + 1] == "worksteal"
     assert command[command.index("--max-worker-restart") + 1] == "0"
-    assert "--basetemp=C:\\Temp\\readme-agent-pytest-xdist" in command
+    assert f"--basetemp={basetemp}" in command

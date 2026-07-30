@@ -149,6 +149,7 @@ class TestForceRmtree:
 
         assert not victim.exists()
 
+    @pytest.mark.skipif(os.name != "nt", reason="exercises Windows long-path deletion")
     def test_recovers_when_shutils_own_walk_silently_skips_a_too_long_file_path(
         self, tmp_path, monkeypatch
     ):
@@ -201,6 +202,7 @@ class TestForceRmtree:
 
         assert not victim.exists()
 
+    @pytest.mark.skipif(os.name != "nt", reason="exercises Windows long-path deletion")
     def test_recovers_from_a_deep_path_dir_not_empty_error_via_long_path_retry(
         self, tmp_path, monkeypatch
     ):
@@ -231,6 +233,7 @@ class TestForceRmtree:
         assert not victim.exists()
         assert any(p.startswith("\\\\?\\") for p in seen_paths)
 
+    @pytest.mark.skipif(os.name != "nt", reason="exercises Windows directory retry")
     def test_recovers_from_a_transient_dir_not_empty_error_via_bounded_retry(
         self, tmp_path, monkeypatch
     ):
@@ -268,6 +271,7 @@ class TestForceRmtree:
         assert calls["count"] == 3
         assert len(sleeps) == 1
 
+    @pytest.mark.skipif(os.name != "nt", reason="exercises Windows directory retry")
     def test_gives_up_and_raises_after_bounded_retries_are_exhausted(self, tmp_path, monkeypatch):
         """Not an unbounded retry: a `WinError 145` that never actually
         clears must still surface as a real, visible failure rather than
@@ -325,7 +329,7 @@ class TestForceRmtree:
 
         with pytest.raises(OSError) as exc_info:
             force_rmtree(victim)
-        assert exc_info.value.winerror == 145
+        assert exc_info.value.errno == errno.ENOTEMPTY
 
 
 def _fake_entry(clone_url: str) -> ProductEntry:
