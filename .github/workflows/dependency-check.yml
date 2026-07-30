@@ -32,6 +32,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "${{ matrix.python-version }}"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
       # Found live (Wave 13.6, `act` proof on Python 3.11, then reproduced
       # directly via `docker run python:3.11`): the runner's own bundled
       # `pip`/`setuptools` -- neither a project dependency, neither ever in
@@ -46,7 +48,7 @@ jobs:
       # fresh resolve, which is what ci.yml already exercises separately.
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
-      - run: pytest -q
+      - run: python scripts/governance/run_full_pytest.py
       - name: SBOM + vulnerability scan (advisory)
         # A known CVE with no available fix in a transitive dependency must
         # never permanently block CI -- this step's own findings are a

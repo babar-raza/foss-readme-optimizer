@@ -96,7 +96,10 @@ def main() -> int:
     all_ok &= _run("ruff check", [python, "-m", "ruff", "check", "."])
     all_ok &= _run("ruff format --check", [python, "-m", "ruff", "format", "--check", "."])
     all_ok &= _run("mypy src", [python, "-m", "mypy", "src"])
-    all_ok &= _run("pytest -q (full non-live suite)", [python, "-m", "pytest", "-q"])
+    all_ok &= _run(
+        "bounded full pytest (complete non-live inventory)",
+        [python, str(REPO_ROOT / "scripts" / "governance" / "run_full_pytest.py")],
+    )
     all_ok &= _run(
         "validate_plan_structure.py",
         [python, str(REPO_ROOT / "scripts" / "governance" / "validate_plan_structure.py")],

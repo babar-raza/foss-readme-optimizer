@@ -48,6 +48,9 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
+    # Closure suites retain the complete selected inventory but use bounded
+    # work-stealing across at most four isolated workers.
+    "pytest-xdist>=3.8,<4",
     "ruff>=0.6",
     "mypy>=1.10",
     # Wave 13.6 (`DEP-001`): SBOM generation (`pip-audit --format=cyclonedx-

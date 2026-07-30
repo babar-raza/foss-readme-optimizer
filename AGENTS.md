@@ -38,7 +38,7 @@ The unambiguous form works from any shell without activation — prefer it:
 .venv/Scripts/python -m ruff check .              # lint
 .venv/Scripts/python -m ruff format --check .     # format check (use `format .` to fix)
 .venv/Scripts/python -m mypy src                  # type check (src only)
-.venv/Scripts/python -m pytest -q                 # unit + security; live tests excluded
+.venv/Scripts/python scripts/governance/run_full_pytest.py  # optimized complete non-live gate
 
 .venv/Scripts/readme-agent preflight              # GitHub + LLM connectivity, fail-closed
 .venv/Scripts/readme-agent run --repo aspose-cells-foss/Aspose.Cells-FOSS-for-Java --mode dry_run
@@ -71,7 +71,10 @@ explicitly gated external effect. Command access does not authorize product-repo
 destructive history changes, secret disclosure, or deletion of non-disposable user data.
 
 CI (`.github/workflows/ci.yml`) runs exactly: `ruff check`, `ruff format --check`, `mypy src`,
-`pytest -q` on Python 3.11/3.12/3.13. All four must pass locally before you consider a change done.
+and the bounded complete non-live runner on Python 3.11/3.12/3.13. Focused pytest stays serial by
+default; `scripts/governance/run_full_pytest.py` selects the complete inventory with at most four
+workers, disables worker restarts, records an inventory-bound receipt, and fails on leaked local
+Python/pytest/Git-credential descendants. All four gates must pass before a change is done.
 
 ## Testing conventions
 

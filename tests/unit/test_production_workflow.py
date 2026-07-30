@@ -109,6 +109,14 @@ def test_hosted_staging_effect_has_no_pat_or_product_analysis_fallback():
     assert "GITHUB_PAT" not in text
 
 
+def test_every_production_job_uses_the_locked_pip_cache_key():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert text.count("uses: actions/setup-python@v5") == 6
+    assert text.count("cache: pip") == 6
+    assert text.count("cache-dependency-path: requirements-lock.txt") == 6
+
+
 def test_only_production_runtime_is_scheduled():
     legacy = LEGACY_PORTFOLIO.read_text(encoding="utf-8")
 
