@@ -19,7 +19,7 @@
     "claimed_at": "2026-07-29T16:23:07.937537+00:00",
     "claimed_by": "codex-goal-ui",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "4ba5bccdccb88c31b0a0ed7149e72e5b209e1351f1e853379980d02f28eb8223",
+    "goal_activation_graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -32,23 +32,22 @@
         "to_primary_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION"
       }
     ],
-    "graph_sha256": "4ba5bccdccb88c31b0a0ed7149e72e5b209e1351f1e853379980d02f28eb8223",
-    "last_evaluated_at": "2026-07-29T16:23:21.070685+00:00",
+    "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
+    "last_evaluated_at": "2026-07-30T05:02:16.179538+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 8,
+      "candidate_generated": 7,
       "denominator": 31,
-      "derived_at": "2026-07-29T06:44:25.956481+00:00",
-      "deterministic_validated": 8,
-      "facts_ready": 8,
+      "derived_at": "2026-07-30T04:54:56.200054+00:00",
+      "deterministic_validated": 7,
+      "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 1,
-        "DETERMINISTIC_VALIDATED": 8,
-        "DISCOVERED": 16,
-        "INTAKE_READY": 4,
-        "PROFILED": 2
+        "DETERMINISTIC_VALIDATED": 7,
+        "DISCOVERED": 14,
+        "SYSTEM_FAILURE": 1,
+        "TRUSTED_NO_OP_PROVEN": 9
       },
       "missing_lifecycle_repositories": [
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
@@ -56,14 +55,12 @@
         "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
         "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
         "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
         "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
         "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
         "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
         "aspose-words-foss/Aspose.Words-FOSS-for-Python"
@@ -72,11 +69,11 @@
       "registry_path": "data/products.json",
       "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
       "schema_version": 1,
-      "trusted_candidate_generated": 0,
-      "trusted_facts_extracted": 0,
-      "trusted_no_op_proven": 0,
+      "trusted_candidate_generated": 9,
+      "trusted_facts_extracted": 9,
+      "trusted_no_op_proven": 9,
       "trusted_pr_open": 0,
-      "trusted_transform_approved": 0
+      "trusted_transform_approved": 9
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -89,7 +86,7 @@
         "GOAL-README",
         "GOAL-AUTONOMY"
       ],
-      "stage_goal_id": "GOAL-T0-TRUSTED-QUALIFICATION",
+      "stage_goal_id": "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION",
       "task_id": "TRP-04-CANARY-QUALIFICATION"
     },
     "task_statuses": {
@@ -201,6 +198,14 @@
       "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "CLOSED",
       "TRP-04-CANARY-QUALIFICATION": "IN_PROGRESS",
+      "TRP-04P-ACT-WORKFLOW-PARITY": "TODO",
+      "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
+      "TRP-04P-COHORT-FREEZE": "TODO",
+      "TRP-04P-DRAFT-PR-COHORT": "TODO",
+      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "TODO",
+      "TRP-04P-POC-PRESENTATION": "TODO",
+      "TRP-04P-STAGING-EFFECT-PROOF": "TODO",
+      "TRP-04P-TEST-LATENCY": "TODO",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
       "TRP-05A-ACT-WORKFLOW-PARITY": "TODO",
       "TRP-05B-STAGING-EFFECT-PROOF": "TODO",
@@ -5148,7 +5153,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 591,
+  "state_version": 592,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
