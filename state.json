@@ -581,7 +581,7 @@
     "updated_at": "2026-07-30T02:49:06.814883+00:00"
   },
   "schema_version": 2,
-  "state_version": 48,
+  "state_version": 49,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -848,13 +848,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: aspose.com product reference is not called Enterprise Edition",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "db95315cb0cd4a0b2225f017a15c1412c696091727fe8f6fb200350e6b7b81f4",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-30T03:24:32.714248+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-30T03:09:27.460486+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-30T03:09:32.714248+00:00"
     }
   },
   "trigger_records": {},
