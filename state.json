@@ -1191,6 +1191,17 @@
         "reason": "trusted README candidate and native patch persisted",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "TRUSTED_CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_CANDIDATE_GENERATED",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-30T16:18:25.244826+00:00",
+        "reason": "trusted candidate passed deterministic presentation and safety validation",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "TRUSTED_DETERMINISTIC_VALIDATED"
       }
     ],
     "intake_preflight_history": [
@@ -1212,17 +1223,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "f1117ccdc26e2b8242c902d87ea9d40a7d3b6fb457bf0203f42cfe56fccba7eb",
+    "prompt_hash": "5fa427189bdd26b261b0a84f842da09d8d8cb2265df68d4692d8e5e4155abe28",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "TRUSTED_CANDIDATE_GENERATED",
-    "updated_at": "2026-07-30T16:07:09.378258+00:00"
+    "status": "TRUSTED_DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-07-30T16:18:25.244826+00:00"
   },
   "schema_version": 2,
-  "state_version": 118,
+  "state_version": 119,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
