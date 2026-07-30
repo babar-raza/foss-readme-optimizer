@@ -2937,7 +2937,7 @@
     "updated_at": "2026-07-30T01:13:15.168734+00:00"
   },
   "schema_version": 2,
-  "state_version": 154,
+  "state_version": 155,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -3108,13 +3108,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0002 failed after 3 attempts: source-only batch authored a README-global header or Mermaid structure",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "53c546603c9aaeec104339725eb04ca6078f951a82434e2c37ce3ab6c4608d0d",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-30T01:36:10.395388+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-30T01:21:05.095168+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-30T01:21:10.395388+00:00"
     }
   },
   "trigger_records": {},
