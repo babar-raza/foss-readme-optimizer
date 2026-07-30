@@ -3,11 +3,39 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-30T14:05:05.292843+00:00",
+      "cached_at": "2026-07-30T14:05:09.416076+00:00",
       "capability_id": "open_presentation_pr",
       "fingerprint": "367e772d6e15172f64c9dd3e15b8f04df484eba874041e18d839b43fe1a0b492",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "already_open": true,
+        "branch_name": "readme-agent/presentation-update",
+        "open_proposal": {
+          "authorization_id": "trp04p-hosted-staging-page-v1",
+          "base_revision": "fa290e9f3afefe603cb5443594e96f87db22e3a8",
+          "branch_name": "readme-agent/presentation-update",
+          "candidate_hash": "f27842235cf48abd1a2532e3112ef088ccb4a2e71e7ce428cfeca615e2370d95",
+          "content_assurance": "trusted_inherited",
+          "domain": "readme_presentation",
+          "drift_status": "current",
+          "head_revision": "745b0217afabdba8ad74102d4065fe937207915f",
+          "last_reconciled_at": "2026-07-30T14:05:09.131859+00:00",
+          "opened_at": "2026-07-30T14:05:09.131844+00:00",
+          "pr_number": 1,
+          "pr_url": "https://github.com/babar-raza/readme-agent-staging-page-python/pull/1",
+          "proposal_id": "21fc807f1d2c7a8aba8c7ac9df695e8f3aced2c9eb199bdcff2bb1521d94e62c",
+          "proposal_kind": "trusted_readme_transform",
+          "schema_version": 2,
+          "source_repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+          "state": "draft_open",
+          "target_repository": "babar-raza/readme-agent-staging-page-python"
+        },
+        "opened": false,
+        "pr_number": 1,
+        "pr_url": "https://github.com/babar-raza/readme-agent-staging-page-python/pull/1",
+        "unchanged": true,
+        "updated": false
+      },
+      "status": "applied"
     }
   ],
   "checkpoints": {},
@@ -21,7 +49,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
