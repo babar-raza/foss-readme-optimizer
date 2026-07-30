@@ -2191,7 +2191,8 @@ that is the only permanence they carry; text is always the decision as it stands
     first parallel attempt and two hosted attempts were rejected rather than explained away:
     they exposed credential-helper isolation, Windows path length, unlocked CI dependency
     resolution, Linux typing, and platform-specific test-contract defects. Each is now repaired at
-    its owning boundary with a regression control.
+    its owning boundary with a regression control. The task contributes `indispensable_safety`;
+    it does not falsely claim a README portfolio-scoreboard boundary change.
 
     The repeated README defects have a separate root cause: the permission to add configured
     presentation standards, semantic preservation of inherited content, and visitor-quality

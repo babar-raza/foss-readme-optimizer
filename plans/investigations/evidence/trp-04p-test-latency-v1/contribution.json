@@ -6,22 +6,22 @@
     "GOAL-AUTONOMY"
   ],
   "core_contribution": {
-    "kind": "first_boundary_removal",
+    "kind": "indispensable_safety",
     "summary": "Remove redundant verification latency while preserving the exact acceptance evidence."
   },
   "acceptance_checks_passed": [
-    "Serial and optimized proof covers the exact current intended inventory",
-    "Repeated bounded optimized runs are deterministic",
-    "No test is omitted and no worker restart is hidden",
-    "The clean run leaves no descendant process"
+    "Serial and optimized runs select the identical intended nodes and produce identical outcomes",
+    "Shared process, environment, Git, state, port, credential, cache, and cancellation tests are isolated or serial",
+    "Repeated optimized runs are deterministic and leave no descendants",
+    "The complete official suite remains mandatory and green at cohort closure"
   ],
   "proof_refs": [
     "plans/investigations/evidence/trp-04p-test-latency-v1/verification.json",
     "plans/investigations/evidence/trp-04p-test-latency-v1/independent-verdict.json",
     "plans/investigations/evidence/trp-04p-test-latency-v1/complete-suite-receipt.json"
   ],
-  "scoreboard_before_sha256": "unchanged",
-  "scoreboard_after_sha256": "unchanged",
+  "scoreboard_before_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
+  "scoreboard_after_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
   "first_failing_boundary_before": "FACTS_READY",
   "first_failing_boundary_after": "FACTS_READY",
   "independently_verified": true
