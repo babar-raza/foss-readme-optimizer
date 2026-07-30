@@ -912,7 +912,7 @@
     "updated_at": "2026-07-30T01:48:16.433880+00:00"
   },
   "schema_version": 2,
-  "state_version": 93,
+  "state_version": 94,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
@@ -1090,13 +1090,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:StateBackendError:trusted review cannot persist 'TRUSTED_TRANSFORM_APPROVED' from 'TRUSTED_REVIEW_REJECTED'",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "f5f3974ecaaf385460d3538a71e9fc3ed95475f4ebb5ebd6d8dced113b924675",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-30T02:23:43.612857+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-07-30T02:08:38.538643+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-30T02:08:43.612857+00:00"
     }
   },
   "trigger_records": {},
