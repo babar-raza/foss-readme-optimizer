@@ -3607,6 +3607,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-045649-a951:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "e22b1f32486f81e83ebe851681515086114ceaa5cb34ea016238f9bda879fb63": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "e22b1f32486f81e83ebe851681515086114ceaa5cb34ea016238f9bda879fb63",
+      "completed_at": "2026-07-30T00:28:27.762412+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260730-002818-229f",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T00:28:27.762395+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "e4fc8b450b1f40212cc3a7b3be60e9f336170b83c04df39e12dc10e506a7859c": {
       "action": null,
       "attempt": 1,
@@ -13989,7 +14006,7 @@
     "updated_at": "2026-07-30T00:25:30.507674+00:00"
   },
   "schema_version": 2,
-  "state_version": 812,
+  "state_version": 813,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -14516,11 +14533,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\Users\\\\prora\\\\OneDrive\\\\Documents\\\\GitHub\\\\foss-readme-optimizer\\\\runs\\\\baseline\\\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\\\README.md'",
-      "last_checkpoint_id": "be2d834fbd4515918917b38f03db60f9ed1330f9e54d818b960fe920136e225b",
+      "last_checkpoint_id": "e22b1f32486f81e83ebe851681515086114ceaa5cb34ea016238f9bda879fb63",
       "lease_expires_at": null,
       "recovery_count": 15,
       "status": "retryable",
-      "updated_at": "2026-07-30T00:14:13.102321+00:00"
+      "updated_at": "2026-07-30T00:28:27.762412+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
