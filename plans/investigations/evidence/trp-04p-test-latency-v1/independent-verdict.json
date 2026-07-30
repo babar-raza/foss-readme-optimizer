@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-TEST-LATENCY",
+  "verdict": "PENDING_FINAL_CLOSURE_RECEIPT",
+  "reviewer": "independent-local-and-hosted-environment-reconstruction",
+  "checks": {
+    "serial_baseline_present": true,
+    "raw_rejected_benchmark_preserved": true,
+    "repeated_parallel_benchmarks_pass": true,
+    "current_inventory_hash_recorded": true,
+    "additive_controls_pass_serially": true,
+    "current_inventory_passes_optimized": true,
+    "worker_restarts_forbidden": true,
+    "no_test_deselection_for_speed": true,
+    "no_leaked_descendants_in_clean_receipt": true,
+    "credential_isolation_has_a_regression_test": true,
+    "windows_path_failure_has_a_permanent_runner_fix": true,
+    "hosted_ci_uses_the_committed_lock": true,
+    "hosted_python_matrix_green": true,
+    "final_evidence_commit_closure_receipt_green": false
+  },
+  "disposition": "Do not close the durable task until hosted CI and the final clean evidence-commit closure receipt pass."
+}

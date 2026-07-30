@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-TEST-LATENCY",
+  "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
+  "goal_ids": [
+    "GOAL-AUTONOMY"
+  ],
+  "core_contribution": {
+    "kind": "first_boundary_removal",
+    "summary": "Remove redundant verification latency while preserving the exact acceptance evidence."
+  },
+  "acceptance_checks_passed": [
+    "Serial and optimized proof covers the exact current intended inventory",
+    "Repeated bounded optimized runs are deterministic",
+    "No test is omitted and no worker restart is hidden",
+    "The clean run leaves no descendant process"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/trp-04p-test-latency-v1/verification.json",
+    "plans/investigations/evidence/trp-04p-test-latency-v1/independent-verdict.json",
+    "plans/investigations/evidence/trp-04p-test-latency-v1/complete-suite-receipt.json"
+  ],
+  "scoreboard_before_sha256": "unchanged",
+  "scoreboard_after_sha256": "unchanged",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": false
+}

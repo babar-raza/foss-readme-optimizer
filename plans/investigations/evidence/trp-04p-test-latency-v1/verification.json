@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-TEST-LATENCY",
+  "verdict": "ACCEPT",
+  "serial_reference": {
+    "selected": 2348,
+    "live_deselected": 41,
+    "passed": 2348,
+    "duration_seconds": 1049.01,
+    "raw": "pytest-serial-baseline-current.txt"
+  },
+  "optimization": {
+    "runner": "scripts/governance/run_full_pytest.py",
+    "worker_count": 4,
+    "distribution": "worksteal",
+    "max_worker_restart": 0,
+    "dependency": "pytest-xdist==3.8.0",
+    "repeat_seconds": [
+      270.85,
+      283.41
+    ],
+    "repeat_passed": 2349,
+    "rejected_first_benchmark": {
+      "passed": 2344,
+      "failed": 5,
+      "duration_seconds": 300.02,
+      "causes": [
+        "ambient multi-valued Git credential helpers were not fully hidden",
+        "the xdist temporary path exceeded a Windows file-creation limit"
+      ],
+      "raw": "pytest-xdist-full-benchmark-1.txt"
+    }
+  },
+  "clean_closure": {
+    "head": "36acaf3317c1d572d665055af290a25bdc72e209",
+    "branch": "main",
+    "dirty_tree": false,
+    "selected": 2352,
+    "passed": 2352,
+    "pytest_duration_seconds": 206.19,
+    "wrapper_duration_seconds": 207.526,
+    "inventory_sha256": "01a0f5dfdba057a894c9ae06eade77cf917a0009719aa209114d0aba4173d7d9",
+    "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c",
+    "leaked_process_ids": [],
+    "receipt": "complete-suite-receipt.json"
+  },
+  "inventory_equivalence": {
+    "serial_reference_nodes": 2348,
+    "additive_optimization_control_nodes": 4,
+    "current_nodes": 2352,
+    "additive_controls_serial_result": "4 passed in 0.41s",
+    "optimized_current_result": "2352 passed",
+    "hidden_retries": false,
+    "test_deselection_for_speed": false
+  },
+  "hosted_ci": {
+    "run_id": 30542597724,
+    "url": "https://github.com/babar-raza/foss-readme-optimizer/actions/runs/30542597724",
+    "head": "e9d35ba1995418f9df5eef4650b45ecfd615b507",
+    "python_versions": [
+      "3.11",
+      "3.12",
+      "3.13"
+    ],
+    "status": "SUCCESS",
+    "inventory_count_per_job": 2352,
+    "inventory_sha256_per_job": "01a0f5dfdba057a894c9ae06eade77cf917a0009719aa209114d0aba4173d7d9",
+    "results": {
+      "3.11": "2348 passed, 4 Windows-only simulations skipped in 82.91s",
+      "3.12": "2348 passed, 4 Windows-only simulations skipped in 84.65s",
+      "3.13": "2348 passed, 4 Windows-only simulations skipped in 87.41s"
+    }
+  },
+  "focused_verification": {
+    "ruff_check": "pass",
+    "ruff_format_check": "pass",
+    "mypy_source_files": 447,
+    "mypy": "pass",
+    "workflow_and_runner_tests": "11 passed",
+    "process_git_safety_and_evidence_tests": "43 passed",
+    "formerly_failing_restore_test": "pass",
+    "git_diff_check": "pass"
+  },
+  "limitations": [
+    "The clean local receipt predates two focused hosted-CI boundary repairs; the final evidence commit requires a new clean closure receipt before durable task closure.",
+    "Hosted CI's locked dependency install took 12-16 seconds and editable install took 2-4 seconds per fresh job, but cold/warm repetition and wheel/minimal-runtime decomposition remain under hosted App qualification.",
+    "This proof changes verification economics only; it does not promote trusted README content to repository-verified truth or satisfy a presentation maturity level."
+  ]
+}
