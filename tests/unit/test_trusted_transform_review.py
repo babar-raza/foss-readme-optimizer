@@ -251,7 +251,7 @@ def test_fidelity_accepts_only_authorized_source_transformations(tmp_path) -> No
             )
         ],
     )
-    candidate = "# Widget\n\nProduct — Enterprise Edition.\n\n```python\n\nrun()\n```\n"
+    candidate = "# Widget\n\nEnterprise Edition — Enterprise Edition.\n\n```python\n\nrun()\n```\n"
     checks = [
         {
             "fact_id": fact.fact_id,
@@ -271,7 +271,7 @@ def test_fidelity_accepts_only_authorized_source_transformations(tmp_path) -> No
             {
                 "finding_id": "enterprise",
                 "section": "README",
-                "quoted_candidate_span": "Product — Enterprise Edition.",
+                "quoted_candidate_span": "Enterprise Edition — Enterprise Edition.",
                 "reason": "The source used legacy terminology.",
                 "required_repair": "Restore the legacy terminology.",
             }

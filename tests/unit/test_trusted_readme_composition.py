@@ -367,6 +367,57 @@ def test_legacy_aspose_com_labels_normalize_to_enterprise_edition() -> None:
     assert "commercial edition" not in normalized
 
 
+def test_products_aspose_com_links_receive_enterprise_edition_names() -> None:
+    markdown = (
+        "Use [Aspose.Note for .NET](https://products.aspose.com/note/net/).\n"
+        "- Product: https://products.aspose.com/note/java/\n"
+        "Read the [documentation](https://docs.aspose.com/note/net/).\n"
+    )
+
+    normalized = normalize_enterprise_edition_terminology(markdown)
+
+    assert (
+        "[Aspose.Note Enterprise Edition for .NET](https://products.aspose.com/note/net/)"
+    ) in normalized
+    assert "- [Enterprise Edition](https://products.aspose.com/note/java/)" in normalized
+    assert "[documentation](https://docs.aspose.com/note/net/)" in normalized
+
+
+def test_enterprise_terminology_validation_is_per_product_reference(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "A specific Python library for reading structured widget documents.\n\n"
+        "## Related editions\n\n"
+        "Use [Aspose.Note for .NET](https://products.aspose.com/note/net/).\n"
+        "- Product: https://products.aspose.com/note/java/\n"
+        "Read the [documentation](https://docs.aspose.com/note/net/).\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.enterprise_edition_terminology",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"enterprise-product-links",
+            )
+        ],
+    )
+    candidate = normalize_trusted_candidate(source, graph)
+
+    validate_trusted_candidate_contract(source, candidate, graph)
+
+    with pytest.raises(LLMError, match="not called Enterprise Edition"):
+        validate_trusted_candidate_contract(
+            source,
+            candidate.replace(
+                "Aspose.Note Enterprise Edition for .NET",
+                "Aspose.Note for .NET",
+            ),
+            graph,
+        )
+
+
 def test_navigation_targets_are_bound_to_actual_github_heading_slugs() -> None:
     markdown = (
         "# Widget\n\n"
@@ -490,6 +541,42 @@ def test_link_budget_keeps_prioritized_destinations_and_all_anchor_text(tmp_path
     assert "https://products.aspose.com/3d/" in normalized
     for label in ("FOSS product", "Enterprise product", "FOSS docs", "Enterprise docs", "Blog"):
         assert label in normalized
+
+
+def test_link_budget_removes_lower_priority_raw_link_lines(tmp_path) -> None:
+    source = "# Widget\n\nProduct resources.\n"
+    graph, _ = _graph(tmp_path, source)
+    standard = configured_standard_addition(
+        "readme.contextual_links",
+        configuration_source="config/policies/trusted.yml",
+        configuration_bytes=b"trusted-raw-link-budget-v1\n",
+        parameters={
+            "max_total": 3,
+            "domain_maxima": {"aspose.com": 2},
+            "surface_maxima": {"products": 2, "docs": 2},
+            "priority_hosts": ["products.aspose.com"],
+        },
+    )
+    graph = bind_configured_standards(graph, [standard])
+    markdown = (
+        "## Other platforms\n\n"
+        "- Aspose.Note for .NET\n"
+        "  - Enterprise Edition: https://products.aspose.com/note/net/\n"
+        "  - Documentation: https://docs.aspose.com/note/net/\n"
+        "- Aspose.Note for Java\n"
+        "  - Enterprise Edition: https://products.aspose.com/note/java/\n"
+        "  - Documentation: https://docs.aspose.com/note/java/\n"
+    )
+
+    normalized = normalize_contextual_link_budget(markdown, graph)
+
+    assert normalized.count("https://") == 2
+    assert "https://products.aspose.com/note/net/" in normalized
+    assert "https://products.aspose.com/note/java/" in normalized
+    assert "docs.aspose.com" not in normalized
+    assert "- Aspose.Note for .NET" in normalized
+    assert "- Aspose.Note for Java" in normalized
+    assert "Documentation:" not in normalized
 
 
 def test_curated_source_code_replaces_damaged_authored_blocks_without_comments(tmp_path) -> None:

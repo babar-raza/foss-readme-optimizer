@@ -16,29 +16,18 @@ from readme_agent.readme.document_structure import (
     normalize_navigation_targets,
     remove_excess_headings,
 )
+from readme_agent.readme.trusted_candidate_terminology import (
+    contains_prohibited_enterprise_terminology,
+    normalize_enterprise_edition_terminology,
+    unlink_duplicate_opening_promotional_links,
+    unnamed_enterprise_product_references,
+)
 from readme_agent.registry.loader import load_products
 
-TRUSTED_CANDIDATE_NORMALIZATION_VERSION = (
-    "trusted-candidate-normalization-v9-promotional-blockquote-unwrapping"
-)
+TRUSTED_CANDIDATE_NORMALIZATION_VERSION = "trusted-candidate-normalization-v12-budgetable-raw-links"
 
 _HTML_COMMENT = re.compile(r"(?s)<!--.*?-->")
 _URL = re.compile(r"https?://[^\s<>)\"']+")
-_PROHIBITED_ENTERPRISE_TERMS = re.compile(
-    r"(?i)\b(?:commercial|on[- ]premise)\s+"
-    r"(?:enterprise\s+edition|package|library|product|edition)\b"
-)
-_LEGACY_ENTERPRISE_TERMS = re.compile(
-    r"(?i)\b(?:commercial\s+on[- ]premise\s+(?:product|edition)"
-    r"|on[- ]premise\s+(?:product|edition)"
-    r"|commercial\s+(?:product|edition))\b"
-)
-_BRANDED_ON_PREMISE = re.compile(
-    r"(?i)\bcommercial\s+(?P<brand>Aspose\.[A-Za-z0-9.]+\s+)"
-    r"on[- ]premise(?:\s+(?P<noun>package|library|product|edition))?\b"
-)
-_COMMERCIAL_ARTIFACT = re.compile(r"(?i)\bcommercial\s+(?P<noun>package|library)\b")
-_COMMERCIAL_ENTERPRISE = re.compile(r"(?i)\bcommercial\s+Enterprise Edition\b")
 _FENCE = re.compile(r"(?m)^(?P<marker>`{3,}|~{3,})(?P<info>[^\r\n]*)$")
 _MARKDOWN_LINK = re.compile(
     r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)(?:\s+\"[^\"]*\")?\)"
@@ -71,23 +60,6 @@ def strip_readme_comments(markdown: str) -> str:
         cursor = body_end
     rendered.append(cleaned[cursor:])
     return "".join(rendered)
-
-
-def normalize_enterprise_edition_terminology(markdown: str) -> str:
-    """Use the governed public name for every legacy aspose.com edition label."""
-
-    def branded_replacement(match: re.Match[str]) -> str:
-        noun = match.group("noun")
-        suffix = f" {noun}" if noun and noun.casefold() in {"package", "library"} else ""
-        return f"{match.group('brand')}Enterprise Edition{suffix}"
-
-    normalized = _BRANDED_ON_PREMISE.sub(branded_replacement, markdown)
-    normalized = _LEGACY_ENTERPRISE_TERMS.sub("Enterprise Edition", normalized)
-    normalized = _COMMERCIAL_ENTERPRISE.sub("Enterprise Edition", normalized)
-    return _COMMERCIAL_ARTIFACT.sub(
-        lambda match: f"Enterprise Edition {match.group('noun')}",
-        normalized,
-    )
 
 
 def normalize_required_section_headings(
@@ -170,15 +142,14 @@ def normalize_contextual_link_budget(
     }
     matches = [
         match
-        for match in _MARKDOWN_LINK.finditer(markdown)
-        if _belongs_to(match.group("url"), "aspose.org")
-        or _belongs_to(match.group("url"), "aspose.com")
+        for match in _URL.finditer(markdown)
+        if _belongs_to(match.group(0), "aspose.org") or _belongs_to(match.group(0), "aspose.com")
     ]
     occurrences: dict[str, int] = {}
     ranked: list[tuple[tuple[int, int, int, int], int, re.Match[str]]] = []
     surface_order = {"products": 0, "docs": 1, "kb": 2, "reference": 3, "blog": 4}
     for index, match in enumerate(matches):
-        url = _clean_url(match.group("url"))
+        url = _clean_url(match.group(0))
         host = urlsplit(url).netloc.casefold()
         duplicate_order = occurrences.get(url, 0)
         occurrences[url] = duplicate_order + 1
@@ -205,7 +176,7 @@ def normalize_contextual_link_budget(
     for _, index, match in sorted(ranked):
         if len(retained) >= max_total:
             break
-        url = match.group("url")
+        url = match.group(0)
         domain = next(
             (candidate for candidate in domain_maxima if _belongs_to(url, candidate)),
             "",
@@ -223,18 +194,37 @@ def normalize_contextual_link_budget(
         if domain:
             domain_counts[domain] = domain_counts.get(domain, 0) + 1
         surface_counts[surface] = surface_counts.get(surface, 0) + 1
-    current = 0
-
-    def replace(match: re.Match[str]) -> str:
-        nonlocal current
-        url = match.group("url")
-        if not (_belongs_to(url, "aspose.org") or _belongs_to(url, "aspose.com")):
-            return match.group(0)
-        keep = current in retained
-        current += 1
-        return match.group(0) if keep else match.group("label")
-
-    return _MARKDOWN_LINK.sub(replace, markdown)
+    links = list(_MARKDOWN_LINK.finditer(markdown))
+    edits: dict[tuple[int, int], str] = {}
+    for index, match in enumerate(matches):
+        if index in retained:
+            continue
+        enclosing = next(
+            (link for link in links if link.start() <= match.start() and match.end() <= link.end()),
+            None,
+        )
+        if enclosing is not None:
+            edits[(enclosing.start(), enclosing.end())] = enclosing.group("label")
+            continue
+        line_start = markdown.rfind("\n", 0, match.start()) + 1
+        line_end = markdown.find("\n", match.end())
+        line_end = len(markdown) if line_end < 0 else line_end + 1
+        line = markdown[line_start:line_end]
+        without_url = line[: match.start() - line_start] + line[match.end() - line_start :]
+        if re.fullmatch(
+            r"[ \t]*(?:[-*+][ \t]+)?"
+            r"(?:documentation|docs|product|enterprise edition)"
+            r"[ \t]*:?[ \t]*[.,;:]?[ \t]*(?:\r?\n)?",
+            without_url,
+            flags=re.IGNORECASE,
+        ):
+            edits[(line_start, line_end)] = ""
+        else:
+            edits[(match.start(), match.end())] = ""
+    normalized = markdown
+    for (start, end), replacement in sorted(edits.items(), reverse=True):
+        normalized = normalized[:start] + replacement + normalized[end:]
+    return normalized
 
 
 def normalize_promotional_blockquotes(
@@ -279,6 +269,7 @@ def normalize_trusted_candidate(
         graph,
         navigation_boundary_prefix=navigation_boundary_prefix,
     )
+    structured = unlink_duplicate_opening_promotional_links(structured)
     source_headings = _heading_counts("\n\n".join(fact.value for fact in graph.inherited_facts))
     allowed_counts = {
         (int(tag.removeprefix("h")), title): count
@@ -388,12 +379,9 @@ def validate_trusted_candidate_contract(
             raise LLMError("configured README navigation is incomplete")
         _validate_navigation_targets(candidate)
     if "readme.enterprise_edition_terminology" in standards:
-        if _PROHIBITED_ENTERPRISE_TERMS.search(candidate):
+        if contains_prohibited_enterprise_terminology(candidate):
             raise LLMError("trusted candidate uses prohibited Enterprise Edition terminology")
-        if (
-            "aspose.com" in candidate.casefold()
-            and "enterprise edition" not in candidate.casefold()
-        ):
+        if unnamed_enterprise_product_references(candidate):
             raise LLMError("aspose.com product reference is not called Enterprise Edition")
     _validate_opening(candidate)
     if "readme.contextual_links" in standards:
