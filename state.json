@@ -721,6 +721,17 @@
         "reason": "trusted candidate passed deterministic presentation and safety validation",
         "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
         "to_status": "TRUSTED_DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\6c7ddfd801d2e2dfea35d1ca2b7e80134616d778\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_DETERMINISTIC_VALIDATED",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-30T02:45:50.814688+00:00",
+        "reason": "begin independent blind-quality and inheritance-fidelity review",
+        "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
+        "to_status": "TRUSTED_REVIEWING"
       }
     ],
     "intake_preflight_history": [
@@ -748,11 +759,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
-    "status": "TRUSTED_DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-07-30T02:45:44.995487+00:00"
+    "status": "TRUSTED_REVIEWING",
+    "updated_at": "2026-07-30T02:45:50.814688+00:00"
   },
   "schema_version": 2,
-  "state_version": 59,
+  "state_version": 60,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
