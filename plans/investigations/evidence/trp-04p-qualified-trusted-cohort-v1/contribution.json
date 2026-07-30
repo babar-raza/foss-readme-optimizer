@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-COHORT-FREEZE",
+  "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
+  "goal_ids": [
+    "GOAL-README",
+    "GOAL-DELIVERY"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Freeze the exact current candidates that can safely exercise the production delivery path."
+  },
+  "acceptance_checks_passed": [
+    "Every member is trusted_inherited and TRUSTED_NO_OP_PROVEN under the current contract",
+    "Every source revision still matches the observed target head or the candidate is fully regenerated",
+    "Partial, rejected, corrupt, stale, wrong-assurance, and manually selected members are absent",
+    "Runtime reconstruction returns the same ordered cohort and checksum"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/current.json",
+    "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/reconstruction.json"
+  ],
+  "scoreboard_before_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
+  "scoreboard_after_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
