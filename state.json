@@ -721,6 +721,17 @@
         "reason": "begin independent blind-quality and inheritance-fidelity review",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "TRUSTED_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_REVIEWING",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-30T02:38:23.674716+00:00",
+        "reason": "independent trusted review reduced to TRUSTED_TRANSFORM_APPROVED",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "TRUSTED_TRANSFORM_APPROVED"
       }
     ],
     "intake_preflight_history": [
@@ -748,11 +759,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "TRUSTED_REVIEWING",
-    "updated_at": "2026-07-30T02:38:18.530339+00:00"
+    "status": "TRUSTED_TRANSFORM_APPROVED",
+    "updated_at": "2026-07-30T02:38:23.674716+00:00"
   },
   "schema_version": 2,
-  "state_version": 62,
+  "state_version": 63,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
