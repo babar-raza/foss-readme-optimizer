@@ -19,7 +19,7 @@
     "claimed_at": "2026-07-30T14:43:18.039452+00:00",
     "claimed_by": "readme-agent-supervisor",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "fd47888553b988a20c6b8065c9082fc81ffca1819364655d7fcfff820379d260",
+    "goal_activation_graph_sha256": "ed5b813852af9510f2c93c6048626983aacd215a7444f4fd9c3b792ae06550f5",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -41,13 +41,13 @@
         "to_primary_goal_id": "GOAL-TP-TRUSTED-COHORT-POC"
       }
     ],
-    "graph_sha256": "fd47888553b988a20c6b8065c9082fc81ffca1819364655d7fcfff820379d260",
-    "last_evaluated_at": "2026-07-30T14:43:18.039452+00:00",
+    "graph_sha256": "ed5b813852af9510f2c93c6048626983aacd215a7444f4fd9c3b792ae06550f5",
+    "last_evaluated_at": "2026-07-30T18:25:15.037278+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
       "denominator": 31,
-      "derived_at": "2026-07-30T04:54:56.200054+00:00",
+      "derived_at": "2026-07-30T18:07:32.360695+00:00",
       "deterministic_validated": 7,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -56,7 +56,8 @@
         "DETERMINISTIC_VALIDATED": 7,
         "DISCOVERED": 14,
         "SYSTEM_FAILURE": 1,
-        "TRUSTED_NO_OP_PROVEN": 9
+        "TRUSTED_NO_OP_PROVEN": 8,
+        "TRUSTED_REPAIRING": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
@@ -80,9 +81,9 @@
       "schema_version": 1,
       "trusted_candidate_generated": 9,
       "trusted_facts_extracted": 9,
-      "trusted_no_op_proven": 9,
+      "trusted_no_op_proven": 8,
       "trusted_pr_open": 0,
-      "trusted_transform_approved": 9
+      "trusted_transform_approved": 8
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -5467,7 +5468,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 626,
+  "state_version": 627,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
