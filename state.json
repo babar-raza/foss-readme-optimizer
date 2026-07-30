@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
-    "last_evaluated_at": "2026-07-30T09:16:00.925345+00:00",
+    "last_evaluated_at": "2026-07-30T09:16:13.762668+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -206,7 +206,7 @@
       "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "CLOSED",
       "TRP-04-CANARY-QUALIFICATION": "REGRESSED",
-      "TRP-04P-ACT-WORKFLOW-PARITY": "VERIFIED",
+      "TRP-04P-ACT-WORKFLOW-PARITY": "SCORED",
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
@@ -5248,6 +5248,18 @@
         "reason": "Focused, workflow, recovery, token, state, evidence, and health verification passed.",
         "task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-04p-act-workflow-parity-v1/verification.json",
+          "plans/investigations/evidence/trp-04p-act-workflow-parity-v1/contribution.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-07-30T09:16:13.762661+00:00",
+        "reason": "Independent reconstruction accepted every ACT acceptance check without changing portfolio maturity.",
+        "task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -5256,7 +5268,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 603,
+  "state_version": 604,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
