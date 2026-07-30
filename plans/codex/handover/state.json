@@ -1,149 +1,101 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "handover_status": "HANDOVER_READY",
+  "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "content_checkpoint_head": "862f0f4a5b9257eedd8d2fcce90254a2cf30f811",
-  "origin_main_at_checkpoint": "862f0f4a5b9257eedd8d2fcce90254a2cf30f811",
-  "working_tree_at_snapshot": "trusted-priority dual-lane and complete-discovery amendment prepared against the recorded content checkpoint; verify live Git state before resuming",
+  "content_checkpoint_head": "9c4fe79e96c79ef07e3e38a82a93bbd7babb0dce",
+  "origin_main_at_snapshot": "9c4fe79e96c79ef07e3e38a82a93bbd7babb0dce",
+  "working_tree_at_snapshot": "clean",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "e6e06909e7517fe5e2197a2542b8ad27942129afed2b62f35fc0b182cf57fe7f",
-  "durable_state_version": 557,
+  "authoritative_plan_hash": "b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3",
+  "idea_hash": "63edf5b88336171b496312e9a5841247e05071b8063533cb502406e21012f094",
+  "master_hash": "620b4b99d2c980a053ac363c57e5522218bb43d975949a3437f525bc37605433",
+  "requirements_hash": "15eb69265033cdcff2162961a01662d52330252d7254dd7249225fc9f424aab0",
+  "durable_state_version": 620,
   "graph_drift": false,
-  "current_phase": "T0 trusted qualification - assurance, goal migration, composition, review, and canaries",
-  "current_task": "TRP-00-ASSURANCE-CONTRACT",
-  "current_task_status": "TODO",
+  "current_phase": "qualified trusted cohort production-path POC",
+  "current_task": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+  "current_task_status": "BLOCKED_EXTERNAL",
   "active_claim": null,
-  "next_task": "TRP-00-ASSURANCE-CONTRACT",
-  "next_action": "Claim TRP-00 and add ContentAssuranceV1 plus disjoint trusted lifecycle, counters, cache, manifest, proposal, and effect identity; replace the legacy universal goal with automatically derived primary/concurrent stage goals without creating another runtime or promoting trusted evidence.",
-  "active_goal_target": "GOAL-T0-TRUSTED-QUALIFICATION",
-  "concurrent_goal_targets_after_trp00": [
-    "GOAL-C0-AUTHORIZED-PORTFOLIO"
-  ],
-  "legacy_goal_state": "The current runtime may still display GOAL-CORE-PRESENTABLE-PORTFOLIO until TRP-00 performs the typed durable migration; it is not the operating goal.",
-  "stage_goal_order": [
-    "GOAL-T0-TRUSTED-QUALIFICATION",
-    "GOAL-C0-AUTHORIZED-PORTFOLIO",
-    "GOAL-T1-TRUSTED-PORTFOLIO",
-    "GOAL-T2-WORKFLOW-STAGING",
-    "GOAL-T3-HOSTED-TRUSTED-DELIVERY",
-    "GOAL-V1-VERIFIED-TRUTH",
-    "GOAL-V2-VERIFIED-GATE-A",
-    "GOAL-V3-HUMAN-AND-JAVA-PROOF",
-    "GOAL-L5-PRESENTATION-PILOT",
-    "GOAL-L6-AUTONOMOUS-PORTFOLIO",
-    "GOAL-L7-HETEROGENEOUS-30D",
-    "GOAL-L8-SELF-MAINTAINING-90D"
-  ],
-  "short_term_goal": "trusted_readme_transform: qualify the complete local/act/staging/App/hosted pipeline and open one independently transformation-approved, no-op-proven, disclosed authorized draft PR for every current data/products.json repository",
-  "ultimate_goal": "verified_repository_presentation: repository-evidence-backed full presentation system through Level 8",
+  "next_action": "Owner provisions the exact staging-only private GitHub App, GH_APP_CLIENT_ID variable, and GH_APP_PRIVATE_KEY secret from provisioning-request.json; Codex validates them and runs the hosted staging workflow.",
+  "active_goal": "GOAL-TP-TRUSTED-COHORT-POC",
   "mandatory_outcomes": [
-    "TRP-00 explicit trusted-versus-verified assurance and durable goal/state migration",
-    "common C0 authenticated all-visibility discovery, explicit disposition, disabled/read-only intake, and complete RegistryRevisionV1",
-    "TRP-01 README_INHERITED fact and claim extraction with exact source spans",
-    "TRP-02 LLM-first bounded section composition and targeted repair",
-    "TRP-03 deterministic validation plus blind-quality and inheritance-fidelity review",
-    "TRP-04 adversarial real canary qualification",
-    "TRP-05 full-registry trusted transformation and no-op proof",
-    "TRP-015 trusted-priority dual assurance lanes with three trusted reservations, at most one verified read-only lane, and serialized effects",
-    "TRP-05A canonical reusable-workflow proof under act",
-    "TRP-05B disposable staging proposal/effect proof",
-    "TRP-05C GitHub App and hosted autonomous workflow qualification on staging",
-    "TRP-06 live write-access and reviewed authorization for every repository",
-    "TRP-07 exactly one disclosed trusted draft PR per current registry repository",
-    "advance verified intake, facts, composition, and review read-only in spare capacity; promote it to primary after TRP-07",
-    "verified Gate B/C, Level 5, Level 6, 30-day Level 7, and 90-day Level 8"
+    "GitHub App hosted qualification for the frozen trusted cohort",
+    "live access and reviewed expiring authorization",
+    "fresh exact what/why/where approval before product effects",
+    "exactly one disclosed draft PR per current cohort member",
+    "indexed partial trusted POC presentation",
+    "immediate resumption of TRP-04-CANARY-QUALIFICATION",
+    "full-registry trusted delivery",
+    "verified_repository_presentation through independently audited Level 8"
   ],
   "completed_verified": [
-    "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
-    "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
-    "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-    "L8-REVIEW-03A-CACHE-MEASUREMENT",
-    "L8-REVIEW-04-NO-OP-CACHE"
+    "TRP-04P-COHORT-FREEZE",
+    "TRP-04P-ACT-WORKFLOW-PARITY",
+    "TRP-04P-STAGING-EFFECT-PROOF",
+    "TRP-04P-TEST-LATENCY"
   ],
   "implemented_unverified": [
-    {
-      "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-      "disposition": "eligible after TRP-00 as common discovery work and required before TRP-05",
-      "missing_proof": "One public-supervisor run beginning with an unseen discovery observation must prove disabled admission and exactly one intake in the same logical run."
-    }
+    "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION hosted implementation at commit 03bdcd414e054b91c5aa182d1b42c3824e148825"
   ],
   "remaining_tasks": [
-    "TRP-00-ASSURANCE-CONTRACT",
-    "TRP-01-README-DERIVED-FACTS",
-    "TRP-02-LLM-FIRST-COMPOSITION",
-    "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
+    "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+    "TRP-04P-AUTHORIZATION-ACCESS",
+    "TRP-04P-DRAFT-PR-COHORT",
+    "TRP-04P-POC-PRESENTATION",
     "TRP-04-CANARY-QUALIFICATION",
-    "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
     "TRP-05-FULL-REGISTRY-TRANSFORM",
-    "TRP-05A-ACT-WORKFLOW-PARITY",
-    "TRP-05B-STAGING-EFFECT-PROOF",
-    "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
-    "TRP-06-AUTHORIZATION-ACCESS",
-    "TRP-07-DRAFT-PR-PORTFOLIO",
-    "remaining verified mission graph through LEVEL-8-90-DAY-PROOF"
+    "remaining trusted, verified, Level 5, Level 6, Level 7, and Level 8 mission tasks"
   ],
   "blockers": [
     {
-      "task_id": "TRP-06-AUTHORIZATION-ACCESS",
-      "classification": "EXPECTED_EXTERNAL_AUTHORITY",
-      "blocks_current_task": false,
-      "unblock_condition": "Owner reports organization-owner access; Codex must prove the active credential and each repository permission live, then consume reviewed unexpired repository-specific authorization."
+      "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+      "classification": "BLOCKED_EXTERNAL",
+      "unblock_condition": "Create/install the staging-only private GitHub App and configure GH_APP_CLIENT_ID plus GH_APP_PRIVATE_KEY exactly as provisioning-request.json specifies."
     },
     {
-      "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
-      "classification": "EXPECTED_EXTERNAL_AUTHORITY",
-      "blocks_current_task": false,
-      "unblock_condition": "After TRP-05A and TRP-05B close, Codex attempts supported gh/API setup. If manual provisioning is required, it records WAITING_HUMAN_APP_PROVISIONING and sends the owner one exact app, permission, event, webhook, installation-scope, URL, secret-location, and resume handoff."
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "classification": "BLOCKED_EXTERNAL",
+      "unblock_condition": "The same installed App plus later hosted recovery, dead-man, and production-like evidence."
     }
   ],
   "portfolio_scoreboard": {
-    "checked_in_denominator": 31,
-    "latest_public_observations": 32,
-    "unmatched_observations": 1,
-    "source_failures": 1,
-    "all_visibility_denominator": null,
-    "trusted_facts_extracted": 0,
-    "trusted_candidate_generated": 0,
-    "trusted_transform_approved": 0,
-    "trusted_no_op_proven": 0,
-    "trusted_pr_open": 0,
-    "verified_facts_ready": 8,
-    "verified_candidate_generated": 8,
-    "verified_deterministic_validated": 8,
+    "denominator": 31,
+    "verified_facts_ready": 7,
+    "verified_candidates": 7,
+    "verified_deterministic_validated": 7,
     "verified_agent_approved": 0,
     "verified_no_op_proven": 0,
-    "verified_human_accepted": 0
+    "verified_human_accepted": 0,
+    "frozen_trusted_cohort": 3
   },
   "critical_references": [
     "AGENTS.md",
-    "plans/GOVERNANCE.md",
     "plans/idea.md",
     "plans/master.md",
     "plans/requirements.md",
+    "plans/GOVERNANCE.md",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
     "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
-    "plans/codex/handover/HANDOVER.md",
-    "plans/codex/handover/CONTINUE.md"
+    "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/provisioning-request.json"
   ],
   "evidence_paths": [
-    "plans/investigations/evidence/level8-requirement-taskcard-coverage",
-    "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1",
-    "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1",
-    "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1"
+    "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331",
+    "plans/investigations/evidence/trp-04p-act-workflow-parity-v1",
+    "plans/investigations/evidence/trp-04p-staging-effect-proof-v1",
+    "plans/investigations/evidence/trp-04p-test-latency-v1",
+    "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1"
   ],
   "resume_protocol": [
-    "Read AGENTS.md and the authoritative planning set, then verify live branch, HEAD, tree, processes, graph hash, and durable mission status.",
-    "Trust live supervisor state over this snapshot.",
-    "Evaluate graph drift, then claim TRP-00 through the existing supervisor.",
-    "Treat GOAL-T0-TRUSTED-QUALIFICATION as primary; TRP-00 must migrate away from the legacy universal goal and add automatically derived concurrent goals.",
-    "After TRP-00, interleave L8-INTAKE-02/03 as GOAL-C0 common read-only work while trusted qualification remains primary; require C0 and TRP-04 before TRP-05.",
-    "After qualification, run at most four supervisor lanes with three trusted reservations and at most one verified read-only lane; serialize aggregation and effects.",
-    "Implement the smallest complete task slice and run focused, integration, regression, safety, recovery, idempotency, and live-like proof.",
-    "Write redacted checksum-complete evidence, update the same requirements/task/log/handover, commit to main, evaluate, and continue.",
-    "Treat owner access as unproven for effects until the active credential, live permissions, and reviewed authorization pass.",
-    "At TRP-05C attempt gh/API App setup; if manual authority is required, notify once with exact instructions, continue verified read-only work, and resume automatically after provisioning."
+    "Read live Git and supervisor state before trusting this historical snapshot.",
+    "Verify main, HEAD, upstream, working tree, processes, graph hash, and durable mission status.",
+    "Check only whether GH_APP_CLIENT_ID and GH_APP_PRIVATE_KEY exist; never expose secret values.",
+    "If absent, retain the external block and use the exact provisioning request without widening scope or substituting PAT authentication.",
+    "If present, validate the selected staging installation, reopen and claim the hosted task, then run the disclosed hosted workflow.",
+    "Verify, repair, independently review, record checksum-complete evidence, update the same state, commit to main, evaluate, and continue.",
+    "Obtain fresh exact what/why/where approval before each product-repository effect.",
+    "After cohort presentation, resume TRP-04 and continue the complete mission."
   ]
 }

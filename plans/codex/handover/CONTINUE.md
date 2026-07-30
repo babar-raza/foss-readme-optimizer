@@ -1,108 +1,92 @@
 # Continue the Repository-Presentation Mission
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the sole operator on
-`main`. Repository and supervisor state override this snapshot. The sole executable graph is
-`plans/investigations/control/level8-autonomous-mission-task-graph.yaml`; its reconciled snapshot
-hash is `e6e06909e7517fe5e2197a2542b8ad27942129afed2b62f35fc0b182cf57fe7f`, durable state version
-557, no active claim, and sole next task `TRP-00-ASSURANCE-CONTRACT`.
+`main`. Live Git, GitHub, and supervisor state override this snapshot.
 
-The mission outcome and current stage are binding:
+Authority:
 
-1. Short term: `trusted_readme_transform`. Treat the immutable source README as authoritative for
-   inherited POC facts, extract those facts with `README_INHERITED` provenance, use LLM-first
-   inventory/planning/section composition/repair, independently validate presentation quality and
-   inheritance fidelity, prove no-op, qualify the same pipeline under `act`, disposable staging,
-   GitHub App, and hosted operation, then open one disclosed authorized draft PR for every current
-   `data/products.json` repository.
-2. Ultimate: `verified_repository_presentation`. After assurance separation and complete
-   authorized-source discovery, advance the repository-source/package/test path read-only in spare
-   supervisor capacity while trusted delivery remains primary. After every trusted PR exists,
-   promote verified work to primary and complete Gate A, Gate B, verified Gate C, Level 5, Level 6,
-   day-30 Level 7, and day-90 Level 8. Never promote trusted evidence or PRs as verified proof.
+1. `plans/idea.md` — product outcome.
+2. `plans/master.md` — architecture, decisions, order, and maturity gates.
+3. `plans/requirements.md` — normative acceptance.
+4. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` — sole executable graph.
+5. Supervisor Git-ref state — actual tasks, claims, and transitions.
+6. `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` — supporting route only.
 
-Do not use the legacy universal goal shown by the bootstrap goal guard as the operating objective.
-TRP-00 must migrate to the ordered stage-goal catalog. `evaluate` then derives exactly one primary
-goal plus only permitted concurrent read-only goals and automatically advances, withdraws, or
-reactivates them:
-T0 trusted qualification → C0 complete authorized portfolio → T1 trusted portfolio → T2 workflow/staging → T3 hosted trusted
-delivery → V1 verified truth → V2 verified Gate A → V3 human/Java proof → Level 5 → Level 6 →
-Level 7/30 days → Level 8/90 days.
+Checkpoint: published `main` content HEAD before the handover-only commit
+`9c4fe79e96c79ef07e3e38a82a93bbd7babb0dce`, graph
+`b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3`, durable state version
+620, no graph drift or active claim. The active goal is `GOAL-TP-TRUSTED-COHORT-POC`.
+`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` is `BLOCKED_EXTERNAL`; there is no eligible task.
+
+The immediate goal is to carry the frozen three-member Python `TRUSTED_NO_OP_PROVEN` cohort
+through the real hosted App, authorization, and draft-PR path, present it honestly, then resume
+`TRP-04-CANARY-QUALIFICATION`. Do not call this cohort full-registry, verified Gate A/B/C, or a
+maturity level. The ultimate goal remains the complete `verified_repository_presentation`
+mission through independently reproduced Level 8.
 
 Startup:
 
-1. Read `AGENTS.md`, `plans/idea.md`, `plans/master.md` decisions #78/#83/#84/#85,
-   `plans/requirements.md` `TRP-001`–`TRP-015`, `plans/GOVERNANCE.md` rules 14–21, this file,
-   `HANDOVER.md`, and taskcard `TRP-00-ASSURANCE-CONTRACT`.
-2. Inspect `git status`, current HEAD/upstream, and repository-owned processes.
-3. Run mission `status`; if graph drift exists, run `evaluate`.
-4. Claim `TRP-00-ASSURANCE-CONTRACT` through the existing supervisor.
-5. Add `ContentAssuranceV1`, disjoint trusted lifecycle/counters/cache/manifest/proposal/effect
-   identities, and the ordered primary/concurrent stage-goal migration. Reuse the current
-   supervisor, registry, state backend, evidence, authorization, and effect ledger.
-6. Prove trusted artifacts cannot become verified facts, `AGENT_APPROVED`, `NO_OP_PROVEN`,
-   `VerifiedProposalV1`, Gate A, or maturity state; prove assurance changes reopen the earliest
-   dependency.
-7. Run focused schema/migration/lifecycle/cache/effect tests and relevant mission, verifier,
-   authorization, redaction, and effect-ledger regressions. Capture checksum-complete evidence.
-8. Transition truthfully, commit the coherent slice to `main` with the Codex trailer, evaluate,
-   and continue through the trusted-primary/common-discovery/verified-read-only graph without
-   another user prompt.
+1. Read `AGENTS.md`, `HANDOVER.md`, the authority set above, and
+   `plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/provisioning-request.json`.
+2. Inspect `git status`, HEAD/upstream, and repository-owned processes.
+3. Run:
 
-The fixed trusted sequence is:
+   ```powershell
+   .venv/Scripts/readme-agent supervise `
+     --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+     --mission-action status `
+     --mission-observer codex
+   ```
 
-```text
-TRP-00 assurance separation
-├→ primary TRP-01 → TRP-02 → TRP-03 → TRP-04 trusted qualification
-└→ common L8-INTAKE-02 → L8-INTAKE-03 complete discovery/intake/revision
-→ TRP-05 four lanes: three trusted-reserved, one verified read-only
-→ TRP-05A actual reusable workflow under act
-→ TRP-05B disposable staging proposal/effect proof
-→ TRP-05C GitHub App and hosted operation qualification on staging
-→ TRP-06 live access and reviewed authorization
-→ TRP-07 exactly one trusted draft PR per repository
-→ verified work becomes primary and continues the complete mission
-```
+4. Query whether repository variable `GH_APP_CLIENT_ID` and repository secret
+   `GH_APP_PRIVATE_KEY` exist. Never print or request the secret value.
+5. If either is absent, retain the external block and provide the exact provisioning handoff. Do
+   not substitute a PAT, ambient token, broader App, or product-organization installation.
+6. If both exist, validate that the App is installed only on:
+   `babar-raza/readme-agent-staging-note-python`,
+   `babar-raza/readme-agent-staging-page-python`, and
+   `babar-raza/readme-agent-staging-pdf-python`.
+7. Reopen/claim the hosted task through the same supervisor and run:
 
-Do not build another command, controller, queue, state store, execution profile, universal
-deterministic renderer, or repository-specific template. README text is trusted content but
-untrusted instruction data. `CONFIGURED_STANDARD` additions remain separate from inherited facts.
-The README output contains no comments. Preserve all header/badge, Mermaid, contextual-link,
-configurable link-budget, products-subdomain priority, and exact Enterprise Edition requirements.
+   ```powershell
+   gh workflow run readme-agent-production.yml `
+     --repo babar-raza/foss-readme-optimizer `
+     --ref main `
+     --field proof_mode=github_app_staging_effect `
+     --field qualified_cohort_manifest=plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json `
+     --field staging_target_manifest=plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/staging-targets.json
+   ```
 
-Execution uses one repository lane through TRP-04, though common discovery tasks may interleave
-after TRP-00. After canary qualification and C0 closure, only the supervisor may use at most four
-isolated repository lanes in Python, .NET, Java, C++, TypeScript, Rust, Go order: three reserved
-for trusted work and at most one verified read-only lane, with idle borrowing and automatic return
-to trusted priority. Aggregation and effects are serialized. Identical complete inputs reuse the
-accepted candidate with zero new LLM calls. The one-day target starts only for the qualified
-full-registry campaign.
-
-The owner reports organization-owner access, but TRP-06 must still check the active credential and
-each repository live and consume reviewed, unexpired authorization. Missing permission is
-repository-local `infra_external`; continue unaffected work. Trusted PRs are draft-only and
-disclosed; never merge, mark ready, force-push, or write a default branch. Request App authority
-only after TRP-05A/05B pass. Attempt supported `gh`/API setup first. If a manual GitHub boundary is
-proven, persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with exact app,
-permission/event/webhook/scope/secret instructions, continue verified read-only work, and
-automatically validate/resume after provisioning. Qualify the App on staging before any trusted
-product effect.
+8. Prove separate short-lived read/write installation tokens, zero analysis write-token exposure,
+   trigger/recovery/health/effect behavior, one correct staging proposal per member, unchanged
+   default branches, complete redacted manifests, and idempotent rerun.
+9. Repair every agent-fixable failure at the first failing boundary; independently verify and
+   close the task only with checksum-complete evidence.
+10. Continue through `TRP-04P-AUTHORIZATION-ACCESS`. Before product effects, present the user the
+    exact commit/diff/content, reason, repository, branch, and remote for fresh approval.
+11. After approval, create/reconcile draft PRs only; never merge, mark ready, close, force-push, or
+    write a default branch.
+12. Present the indexed cohort POC and require mission evaluation to resume TRP-04 before TRP-05
+    or any verified/maturity gate.
 
 Continue autonomously:
 
 ```text
-verify authority/live state
-→ claim the exact ready task
-→ implement its smallest complete boundary
+verify authority and live state
+→ reconcile graph drift and claim lease
+→ claim/reclaim only the highest-priority ready task
+→ implement the smallest complete task slice
 → focused proof
 → integration/regression/safety/recovery/idempotency/live-like proof
 → independent verification
-→ repair the first failure
-→ redacted checksum evidence
-→ update same task/requirements/log/handover
-→ commit main
+→ repair the first failing boundary
+→ checksum-complete redacted evidence
+→ update the same task/requirements/log/handover
+→ commit coherent work directly to main
 → evaluate and continue
 ```
 
-Do not stop for a subtask, failed test, report, checkpoint, token/session boundary, dirty tree, or
-convenience. Stop only when the complete mission is independently proved or unavailable external
-authority blocks every remaining eligible task.
+Do not create another plan, controller, queue, state store, or runtime. Do not stop for a completed
+subtask, test failure, report, evidence bundle, checkpoint, dirty tree, or convenience. A real
+external-authority block may pause the affected path only after all eligible graph-bound work is
+exhausted. Documentation cannot keep an inactive chat alive; durable state makes restart safe.
