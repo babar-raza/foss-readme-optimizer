@@ -125,11 +125,19 @@ def gh_token() -> str | None:
 
 
 def staging_write_token() -> str | None:
-    """Dedicated disposable-staging credential; never falls back to ambient PAT variables."""
+    """Explicit disposable-staging credential; never falls back to ambient PAT variables.
 
-    if os.environ.get("README_AGENT_PRODUCTION_AUTH") != "staging_pat":
-        return None
-    return os.environ.get("README_AGENT_STAGING_WRITE_TOKEN") or None
+    Local ``act`` proof may select its dedicated staging PAT. Hosted proof selects the
+    short-lived App installation token minted inside the effect job. Neither provider accepts
+    ``GH_TOKEN`` or ``GITHUB_PAT`` as a fallback.
+    """
+
+    provider = os.environ.get("README_AGENT_PRODUCTION_AUTH")
+    if provider == "staging_pat":
+        return os.environ.get("README_AGENT_STAGING_WRITE_TOKEN") or None
+    if provider == "github_app":
+        return os.environ.get("README_AGENT_GITHUB_APP_TOKEN") or None
+    return None
 
 
 def github_run_id() -> str | None:

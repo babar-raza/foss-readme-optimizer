@@ -190,10 +190,13 @@ against private disposable staging, and an additional creation-only control prov
 creation through the canonical workflow. All four staging default branches remain byte-identical,
 every stable proposal branch contains the exact qualified candidate, and each target has exactly
 one open draft PR. Evidence is under
-`plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The next ready boundary is the
-time-boxed `TRP-04P-TEST-LATENCY` measurement and safe-speedup task, followed by
-`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION`. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may
-run read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
+`plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. Durable evaluation selected
+`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` so the external critical path is exposed immediately.
+The control revision is published and the exact minimal owner provisioning request is under
+`plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/`; Codex continues
+agent-fixable hosted preparation, then executes the time-boxed `TRP-04P-TEST-LATENCY` work while
+manual App authority is pending. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run
+read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
 cohort PR package is presented.
 The repository-verified scoreboard remains 7 `FACTS_READY`,
 7 candidates/validations, and zero verified approvals/no-ops/human acceptances;

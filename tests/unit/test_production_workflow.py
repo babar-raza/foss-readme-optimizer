@@ -26,7 +26,8 @@ def test_analysis_uses_dedicated_read_only_app_token_and_observe_profile():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert "actions/create-github-app-token@v3" in text
-    assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 2
+    assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 3
+    assert text.count("permission-contents: read") == 2
     assert "app-id:" not in text
     assert "permission-contents: read" in text
     assert "|| 'github_app' }}" in text
@@ -66,6 +67,46 @@ def test_staging_effect_consumes_frozen_candidates_without_rerunning_analysis():
     assert "requested repository is not in the qualified cohort" in text
     assert "runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/" in text
     assert "remote issue effect was correctly suppressed" in text
+
+
+def test_hosted_staging_effect_mints_an_app_token_only_inside_the_effect_job():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert 'requested" = "github_app_staging_effect"' in text
+    assert "github_app_staging_effect requires a frozen cohort manifest" in text
+    assert "github_app_staging_effect requires a staging target manifest" in text
+    assert "is_hosted_staging_effect=true" in text
+    assert "Restore immutable hosted cohort candidates" in text
+    assert "Resolve immutable disposable target before token minting" in text
+    assert "Mint target-scoped GitHub App effect token" in text
+    assert "permission-contents: write" in text
+    assert "permission-pull-requests: write" in text
+    assert '--auth-provider "$auth_provider"' in text
+    assert "README_AGENT_GITHUB_APP_TOKEN: ${{ steps.staging-token.outputs.token }}" in text
+    assert (
+        "plans/investigations/evidence/"
+        "trp-04p-github-app-hosted-qualification-v1/authorization" in text
+    )
+
+    effect_job = text.split("  stage-proposal:", maxsplit=1)[1].split("  health:", maxsplit=1)[0]
+    analysis_job = text.split("  analyze:", maxsplit=1)[1].split("  stage-proposal:", maxsplit=1)[0]
+    assert "permission-contents: write" in effect_job
+    assert "permission-pull-requests: write" in effect_job
+    assert "permission-pull-requests: write" not in analysis_job
+    assert "README_AGENT_STAGING_WRITE_TOKEN" not in analysis_job
+
+
+def test_hosted_staging_effect_has_no_pat_or_product_analysis_fallback():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "if: ${{ needs.plan.outputs.is_staging_effect != 'true' }}" in text
+    assert (
+        "needs.recover.outputs.has_recovery == 'true' && "
+        "needs.recover.outputs.is_staging_effect != 'true'" in text
+    )
+    assert "auth_provider=github_app" in text
+    assert "auth_provider=staging_pat" in text
+    assert "GITHUB_PAT" not in text
 
 
 def test_only_production_runtime_is_scheduled():

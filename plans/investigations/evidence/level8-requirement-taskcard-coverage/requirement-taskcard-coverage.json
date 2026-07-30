@@ -4,7 +4,7 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "3a1e6f580da480fcb4ce4b54190b5acda598e6f762a3ebfe19569dbf156cb795",
+  "source_sha256": "0a67c5ae903e0c7184118903eb1962559fdcdb461eb95eebfda318df01fdce91",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 453,
   "mandatory_requirement_rows": 427,
@@ -14,8 +14,8 @@
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 233,
-    "preserved_verified": 159
+    "open_mandatory": 232,
+    "preserved_verified": 160
   },
   "taskcard_counts": {
     "TRP-00-ASSURANCE-CONTRACT": 3,
@@ -3330,15 +3330,15 @@
     {
       "requirement_id": "TRP-016",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "TRP-04P-COHORT-FREEZE",
-      "disposition": "open_mandatory",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-017",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "PARTIAL",
       "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
       "disposition": "open_mandatory",
       "semantic_findings": []

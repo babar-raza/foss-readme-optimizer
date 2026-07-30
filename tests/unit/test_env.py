@@ -50,6 +50,32 @@ class TestProductionGithubAuthentication:
 
         assert env.gh_token() is None
 
+    def test_staging_app_provider_uses_only_its_installation_token(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "github_app")
+        monkeypatch.setenv("README_AGENT_GITHUB_APP_TOKEN", "staging-app-token")
+        monkeypatch.setenv("README_AGENT_STAGING_WRITE_TOKEN", "staging-pat")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.staging_write_token() == "staging-app-token"
+
+    def test_staging_app_provider_does_not_fall_back_to_any_pat(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "github_app")
+        monkeypatch.delenv("README_AGENT_GITHUB_APP_TOKEN", raising=False)
+        monkeypatch.setenv("README_AGENT_STAGING_WRITE_TOKEN", "staging-pat")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+        monkeypatch.setenv("GITHUB_PAT", "ambient-pat")
+
+        assert env.staging_write_token() is None
+
+    def test_act_staging_provider_uses_only_its_dedicated_pat(self, monkeypatch):
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "staging_pat")
+        monkeypatch.setenv("README_AGENT_STAGING_WRITE_TOKEN", "staging-pat")
+        monkeypatch.setenv("README_AGENT_GITHUB_APP_TOKEN", "app-token")
+        monkeypatch.setenv("GH_TOKEN", "ambient-token")
+
+        assert env.staging_write_token() == "staging-pat"
+
 
 class TestLlmModelForJob:
     def test_known_job_resolves_to_its_routed_model(self, monkeypatch):

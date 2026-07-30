@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+  "proof_mode": "github_app_staging_effect",
+  "content_assurance": "trusted_inherited",
+  "cohort_manifest": "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json",
+  "cohort_input_manifest": "plans/investigations/evidence/trp-04p-act-workflow-inputs-v1/manifest.json",
+  "staging_target_manifest": "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/staging-targets.json",
+  "authorization_directory": "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/authorization",
+  "expected_repository_count": 3,
+  "analysis_jobs_expected": 0,
+  "llm_calls_expected": 0,
+  "target_default_branch_writes_allowed": false,
+  "product_repository_effects_allowed": false,
+  "target_effect_credential_provider": "github_app",
+  "ambient_pat_fallback_allowed": false
+}

@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 
+from readme_agent import env
 from readme_agent.authorization.registry import load_authorization_record
 from readme_agent.capabilities.domains import README_PRESENTATION
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
@@ -45,9 +46,9 @@ def execute_staging_effect(
     if sha256_file(candidate_path)[0] != member.candidate_sha256:
         raise ValueError("candidate bytes do not match the qualified cohort")
 
-    token = os.environ.get("README_AGENT_STAGING_WRITE_TOKEN")
+    token = env.staging_write_token()
     if not token:
-        raise ValueError("README_AGENT_STAGING_WRITE_TOKEN is required")
+        raise ValueError("an explicit disposable-staging write credential is required")
     summary = repo_summary(target_repository, token)
     default_branch = summary["default_branch"]
     current_base = get_branch(target_repository, default_branch, token)["commit"]["sha"]
@@ -145,9 +146,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--staging-manifest", type=Path, required=True)
     parser.add_argument("--authorization-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--auth-provider",
+        choices=("staging_pat", "github_app"),
+        default="staging_pat",
+        help="Explicit credential provider; neither provider accepts ambient token fallback.",
+    )
     args = parser.parse_args(argv)
     os.environ["README_AGENT_AUTHORIZATION_DIR"] = str(args.authorization_dir.resolve())
-    os.environ["README_AGENT_PRODUCTION_AUTH"] = "staging_pat"
+    os.environ["README_AGENT_PRODUCTION_AUTH"] = args.auth_provider
     payload = execute_staging_effect(
         source_repository=args.source_repository,
         target_repository=args.target_repository,

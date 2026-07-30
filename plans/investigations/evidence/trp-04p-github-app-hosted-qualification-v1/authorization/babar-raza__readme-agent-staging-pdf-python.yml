@@ -1,0 +1,17 @@
+repository: babar-raza/readme-agent-staging-pdf-python
+effect_classes:
+  - PR_BRANCH_PUSH
+  - PR_CREATE_OR_UPDATE
+branch_pattern: readme-agent/presentation-update
+allowed_surfaces:
+  - README.md
+expiration: "2026-08-06T00:00:00+00:00"
+max_change_size: 2000
+required_validators:
+  - trusted_deterministic_validation
+required_verifier: trusted_independent_review
+approving_identity: user-approved-disposable-staging-plan
+rollback: close the draft PR and delete the disposable proposal branch
+authorization_id: trp04p-hosted-staging-pdf-v1
+content_assurance: trusted_inherited
+proposal_kind: trusted_readme_transform

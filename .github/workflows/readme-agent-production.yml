@@ -12,15 +12,15 @@ on:
         required: false
         type: string
       proof_mode:
-        description: "Internal live-like proof mode; hosted runs must leave this empty"
+        description: "Governed proof mode; ACT and hosted staging values are fail-closed"
         required: false
         type: string
       qualified_cohort_manifest:
-        description: "QualifiedTrustedCohortV1 manifest used only by act_qualified_cohort"
+        description: "QualifiedTrustedCohortV1 manifest used by governed cohort proof modes"
         required: false
         type: string
       staging_target_manifest:
-        description: "Disposable StagingTargetManifestV1 used only by act_staging_effect"
+        description: "Disposable StagingTargetManifestV1 used only by staging-effect proof modes"
         required: false
         type: string
   workflow_call:
@@ -71,6 +71,7 @@ jobs:
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
       is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
+      is_hosted_staging_effect: ${{ steps.runtime-mode.outputs.is_hosted_staging_effect }}
       staging_target_manifest: ${{ steps.runtime-mode.outputs.staging_target_manifest }}
     steps:
       - id: runtime-mode
@@ -99,9 +100,11 @@ jobs:
                 exit 2
               }
               echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
               echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
             else
               echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
               echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
             fi
           else
@@ -110,9 +113,29 @@ jobs:
               exit 2
             fi
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
-            echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
-            echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
-            echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "github_app_staging_effect" ]; then
+              test -n "$manifest" || {
+                echo "::error::github_app_staging_effect requires a frozen cohort manifest"
+                exit 2
+              }
+              test -n "$REQUESTED_STAGING_MANIFEST" || {
+                echo "::error::github_app_staging_effect requires a staging target manifest"
+                exit 2
+              }
+              echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+              echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
+            else
+              test -z "$requested" || {
+                echo "::error::unsupported hosted proof mode"
+                exit 2
+              }
+              echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+              echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - uses: actions/checkout@v4
         with:
@@ -122,8 +145,8 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
-      - name: Restore immutable ACT cohort inputs and isolated state
-        if: ${{ steps.runtime-mode.outputs.is_act_proof == 'true' }}
+      - name: Restore immutable cohort inputs
+        if: ${{ steps.runtime-mode.outputs.is_act_proof == 'true' || steps.runtime-mode.outputs.is_hosted_staging_effect == 'true' }}
         env:
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
         run: |
@@ -133,9 +156,11 @@ jobs:
             --runtime-root runs/readme-poc \
             --state-remote runs/act-poc/state.git \
             --output runs/act-poc/restore.json
-          printf '%s\n' "$COHORT_MANIFEST" \
-            > "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
-          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+          if [ "${ACT:-}" = "true" ]; then
+            printf '%s\n' "$COHORT_MANIFEST" \
+              > "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
+            echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+          fi
       - name: Validate repository_dispatch identity
         if: ${{ github.event_name == 'repository_dispatch' }}
         env:
@@ -150,6 +175,7 @@ jobs:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
+          IS_STAGING_EFFECT: ${{ steps.runtime-mode.outputs.is_staging_effect }}
         run: |
           mkdir -p runs/workflow
           if [ "$IS_ACT_PROOF" = "true" ]; then
@@ -157,6 +183,8 @@ jobs:
             # GITHUB_ENV propagation varies across local workflow runners;
             # recovery must never silently fall back to the control origin.
             export README_AGENT_STATE_REMOTE="$PWD/runs/act-poc/state.git"
+          fi
+          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             repositories=$(readme-agent qualified-cohort-matrix \
               --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
             readme-agent recovery-sweep \
@@ -190,7 +218,7 @@ jobs:
   resume:
     name: Resume ${{ matrix.repo }}
     needs: recover
-    if: ${{ needs.recover.outputs.has_recovery == 'true' }}
+    if: ${{ needs.recover.outputs.has_recovery == 'true' && needs.recover.outputs.is_staging_effect != 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -265,6 +293,7 @@ jobs:
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
       is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
+      is_hosted_staging_effect: ${{ steps.runtime-mode.outputs.is_hosted_staging_effect }}
       staging_target_manifest: ${{ steps.runtime-mode.outputs.staging_target_manifest }}
     steps:
       - id: runtime-mode
@@ -284,17 +313,30 @@ jobs:
             if [ "$requested" = "act_staging_effect" ]; then
               test -n "$REQUESTED_STAGING_MANIFEST"
               echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
               echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
             else
               echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
               echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
             fi
           else
             test "$requested" != "act_qualified_cohort" && test "$requested" != "act_staging_effect"
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
-            echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
-            echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
-            echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "github_app_staging_effect" ]; then
+              test -n "$manifest"
+              test -n "$REQUESTED_STAGING_MANIFEST"
+              echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+              echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
+            else
+              test -z "$requested"
+              echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+              echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "is_hosted_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - uses: actions/checkout@v4
         with:
@@ -310,12 +352,15 @@ jobs:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
+          IS_STAGING_EFFECT: ${{ steps.runtime-mode.outputs.is_staging_effect }}
         run: |
           if [ "$IS_ACT_PROOF" = "true" ]; then
             test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
               echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
               exit 2
             }
+          fi
+          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             matrix=$(readme-agent qualified-cohort-matrix --manifest "$COHORT_MANIFEST" | jq -c .)
             if [ -n "$REQUESTED_REPOSITORY" ]; then
               matrix=$(jq -cn \
@@ -423,7 +468,9 @@ jobs:
     if: ${{ needs.plan.outputs.is_staging_effect == 'true' }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # The workflow token writes only control-repository effect-ledger refs.
+      # The target-repository token is minted separately below.
+      contents: write
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -431,33 +478,76 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          clean: false
+          clean: ${{ needs.plan.outputs.is_act_proof != 'true' }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
+      - name: Restore immutable hosted cohort candidates
+        if: ${{ needs.plan.outputs.is_hosted_staging_effect == 'true' }}
+        env:
+          COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
+        run: |
+          readme-agent restore-qualified-cohort \
+            --manifest "$COHORT_MANIFEST" \
+            --input-manifest plans/investigations/evidence/trp-04p-act-workflow-inputs-v1/manifest.json \
+            --runtime-root runs/readme-poc \
+            --state-remote runs/hosted-staging/input-state.git \
+            --output runs/hosted-staging/restore.json
+      - id: staging-target
+        name: Resolve immutable disposable target before token minting
+        env:
+          SOURCE_REPOSITORY: ${{ matrix.repo }}
+          STAGING_MANIFEST: ${{ needs.plan.outputs.staging_target_manifest }}
+        run: |
+          target=$(jq -r --arg source "$SOURCE_REPOSITORY" \
+            '.targets[] | select(.source_repository == $source) | .target_repository' \
+            "$STAGING_MANIFEST")
+          test -n "$target" && test "$target" != "null"
+          echo "target=$target" >> "$GITHUB_OUTPUT"
+          echo "target_owner=${target%%/*}" >> "$GITHUB_OUTPUT"
+          echo "target_name=${target#*/}" >> "$GITHUB_OUTPUT"
+      - name: Mint target-scoped GitHub App effect token
+        id: staging-token
+        if: ${{ needs.plan.outputs.is_hosted_staging_effect == 'true' }}
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: ${{ steps.staging-target.outputs.target_owner }}
+          repositories: ${{ steps.staging-target.outputs.target_name }}
+          permission-contents: write
+          permission-pull-requests: write
       - name: Apply immutable trusted proposal with isolated write credential
         env:
           SOURCE_REPOSITORY: ${{ matrix.repo }}
           COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
           STAGING_MANIFEST: ${{ needs.plan.outputs.staging_target_manifest }}
+          IS_HOSTED_STAGING_EFFECT: ${{ needs.plan.outputs.is_hosted_staging_effect }}
+          README_AGENT_GITHUB_APP_TOKEN: ${{ steps.staging-token.outputs.token }}
           README_AGENT_STAGING_WRITE_TOKEN: ${{ secrets.STAGING_GITHUB_WRITE_TOKEN }}
         run: |
-          test -n "$README_AGENT_STAGING_WRITE_TOKEN"
-          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
-          target=$(jq -r --arg source "$SOURCE_REPOSITORY" \
-            '.targets[] | select(.source_repository == $source) | .target_repository' \
-            "$STAGING_MANIFEST")
-          test -n "$target" && test "$target" != "null"
-          export README_AGENT_STATE_REMOTE="$PWD/runs/staging/state-v3.git"
+          target="${{ steps.staging-target.outputs.target }}"
+          if [ "$IS_HOSTED_STAGING_EFFECT" = "true" ]; then
+            test -n "$README_AGENT_GITHUB_APP_TOKEN"
+            auth_provider=github_app
+            authorization_dir=plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/authorization
+          else
+            test -n "$README_AGENT_STAGING_WRITE_TOKEN"
+            test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
+            auth_provider=staging_pat
+            authorization_dir=runs/staging/authorization
+            export README_AGENT_STATE_REMOTE="$PWD/runs/staging/state-v3.git"
+          fi
           mkdir -p runs/staging/workflow-results
           python -m readme_agent.capabilities.staging_effect \
             --source-repository "$SOURCE_REPOSITORY" \
             --target-repository "$target" \
             --cohort-manifest "$COHORT_MANIFEST" \
             --staging-manifest "$STAGING_MANIFEST" \
-            --authorization-dir runs/staging/authorization \
+            --authorization-dir "$authorization_dir" \
+            --auth-provider "$auth_provider" \
             --output "runs/staging/workflow-results/${GITHUB_RUN_ID}-${target//\//__}.json"
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
@@ -490,9 +580,10 @@ jobs:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
+          IS_STAGING_EFFECT: ${{ needs.plan.outputs.is_staging_effect }}
         run: |
           mkdir -p runs/workflow
-          if [ "$IS_ACT_PROOF" = "true" ]; then
+          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             repositories=$(readme-agent qualified-cohort-matrix \
               --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
             readme-agent health-report \

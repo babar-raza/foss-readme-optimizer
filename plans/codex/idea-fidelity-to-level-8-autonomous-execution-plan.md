@@ -1979,12 +1979,15 @@ Execution resumes in this order; it does not start an official fixed-count campa
    independently accepted disposable-staging proof implemented at `8c78e7f9`, with evidence under
    `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The exact frozen cohort now
    has canonical-workflow create/no-op/update/drift/deduplication/lost-response/expiry/crash
-   evidence and byte-identical staging default branches. Execute `TRP-04P-TEST-LATENCY` at the
-   next bounded serial safe boundary: measure pytest nodes and repeated workflow bootstrap
-   separately, accept only inventory-equivalent deterministic speedups, and retain the full
-   closure suite. Then continue through GitHub App hosted qualification, permission and
-   authorization proof, serialized draft PRs, and the indexed POC presentation package. Obtain
-   fresh exact what/why/where confirmation before each product effect.
+   evidence and byte-identical staging default branches. Durable evaluation selects
+   `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` first so the external critical path is exposed
+   immediately. Attempt supported setup and persist the one exact owner handoff if registration or
+   installation is manual; while that authority is pending, execute `TRP-04P-TEST-LATENCY` at a
+   bounded serial safe boundary. Measure pytest nodes and repeated workflow bootstrap separately,
+   accept only inventory-equivalent deterministic speedups, and retain the full closure suite.
+   Resume App validation automatically, then continue through permission and authorization proof,
+   serialized draft PRs, and the indexed POC presentation package. Obtain fresh exact
+   what/why/where confirmation before each product effect.
 5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.
    Complete its adversarial canaries and only then begin broader trusted portfolio fan-out.
    Interleave the common `L8-INTAKE-02/03` discovery path whenever dependency-ready: authenticate
