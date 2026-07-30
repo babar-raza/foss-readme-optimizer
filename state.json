@@ -2650,19 +2650,23 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": null,
-    "assurance_history": [],
+    "assurance_history": [
+      {
+        "from_assurance": "repository_verified",
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T01:13:03.175531+00:00",
+        "reason": "begin README-derived trusted transformation",
+        "schema_version": 1,
+        "to_assurance": "trusted_inherited",
+        "to_status": "PROFILED"
+      }
+    ],
     "candidate_hash": null,
-    "content_assurance": "repository_verified",
+    "content_assurance": "trusted_inherited",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "classification_semantics": "f35f7e197c8861491ad33247632e783b7d65ae7581867c10ab64bc7d4f7fcd90",
-      "conflict_semantics": "a27bac54aac9881e5be4dfaf5121e27fffd3fbd4eb8a36ab167a5709fd9c8403",
-      "evidence_polarity": "554613e6369b0ef42df0cf09d23032d996f7b2980e07da5a948d297debcd6185",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "67caf697c542e196034a0b8d61f24b908475676bdd1751b9a97d2a349f75d7c9",
-      "visitor_render_eligibility": "4dda52a509c093772573b257fd485e72c2649e7c48b8eb10c2b370d105f8d505"
-    },
-    "fact_acceptance_contract_hash": "13c44994146e0a424f7342685c6865835a76e24aebefe38770d3557f6853be23",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -2700,7 +2704,7 @@
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
       }
     ],
-    "facts_hash": "6f5b0723dd2be837ea14afd72dba485327836a66d9e76e464718c0043bb7e964",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [
@@ -2854,6 +2858,15 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T01:13:03.175531+00:00",
+        "reason": "content assurance changed: begin README-derived trusted transformation",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -2875,17 +2888,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "dbd1ccfc666fc7afd3294492f8c8cc49c872b8754f02b7e45481774c10d2f6bd",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-07-29T06:05:13.105448+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-30T01:13:03.175531+00:00"
   },
   "schema_version": 2,
-  "state_version": 149,
+  "state_version": 150,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
