@@ -620,7 +620,7 @@
     "updated_at": "2026-07-30T03:10:17.045307+00:00"
   },
   "schema_version": 2,
-  "state_version": 52,
+  "state_version": 53,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -887,13 +887,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: Aspose promotional links cannot appear in the README opening",
       "last_checkpoint_id": "1d25876733308f3bb28421e9f7faf3dac7833bf1e65a9e7320e62d5704e3e360",
-      "lease_expires_at": "2026-07-30T03:24:32.714248+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T03:09:37.859795+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T03:12:28.340883+00:00"
     }
   },
   "trigger_records": {},
