@@ -139,6 +139,17 @@
         "reason": "README-derived trusted fact graph persisted with exact source accountability",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "TRUSTED_FACTS_EXTRACTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\e8ebaecc9120370efe46de2d5297b0e89a60f029\\assurance\\trusted_inherited/planning/transform-plan.json"
+        ],
+        "from_status": "TRUSTED_FACTS_EXTRACTED",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T04:36:05.246620+00:00",
+        "reason": "complete source-accountable trusted transform plan persisted",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "TRUSTED_PLAN_READY"
       }
     ],
     "intake_preflight_history": [
@@ -166,11 +177,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
-    "status": "TRUSTED_FACTS_EXTRACTED",
-    "updated_at": "2026-07-30T04:32:25.696672+00:00"
+    "status": "TRUSTED_PLAN_READY",
+    "updated_at": "2026-07-30T04:36:05.246620+00:00"
   },
   "schema_version": 2,
-  "state_version": 11,
+  "state_version": 12,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
