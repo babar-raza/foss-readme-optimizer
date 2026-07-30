@@ -491,6 +491,19 @@
         "reason": "inventory immutable README material as inherited facts",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "TRUSTED_FACTS_EXTRACTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited\\facts\\readme-inherited-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited\\facts\\source-to-fact-map.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited\\facts\\configured-standards.json"
+        ],
+        "from_status": "TRUSTED_FACTS_EXTRACTING",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T04:17:44.437317+00:00",
+        "reason": "README-derived trusted fact graph persisted with exact source accountability",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "TRUSTED_FACTS_EXTRACTED"
       }
     ],
     "intake_preflight_history": [
@@ -518,11 +531,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "TRUSTED_FACTS_EXTRACTING",
-    "updated_at": "2026-07-30T04:17:38.822671+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTED",
+    "updated_at": "2026-07-30T04:17:44.437317+00:00"
   },
   "schema_version": 2,
-  "state_version": 36,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
