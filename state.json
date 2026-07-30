@@ -654,7 +654,7 @@
     "updated_at": "2026-07-30T03:10:17.045307+00:00"
   },
   "schema_version": 2,
-  "state_version": 56,
+  "state_version": 57,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -921,13 +921,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted candidate exceeds the configured total link budget",
       "last_checkpoint_id": "6bfef6b9a8fe6b3b06ffe133262763167cd8f4ac3a8d2116e71b9cb2b28113f9",
-      "lease_expires_at": "2026-07-30T03:32:03.720682+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T03:17:09.512564+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T03:19:50.647611+00:00"
     }
   },
   "trigger_records": {},
