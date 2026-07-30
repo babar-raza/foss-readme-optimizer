@@ -211,7 +211,14 @@ def write_qualified_trusted_cohort(
         write_redacted_json(cohort_dir / "exclusions.json", list(frozen.exclusions))
         write_redacted_text(
             cohort_dir / "REPRODUCE.txt",
-            (".venv/Scripts/python -m readme_agent.supervisor.trusted_cohort_command\n"),
+            (
+                f"Control revision: {frozen.control_revision}\n"
+                f"Expected cohort ID: {frozen.cohort_id}\n"
+                "From a clean checkout at that control revision, while the bound durable "
+                "states and target heads remain unchanged:\n"
+                ".venv/Scripts/python -m "
+                "readme_agent.supervisor.trusted_cohort_command\n"
+            ),
         )
         refresh_sha256sums(cohort_dir)
 
