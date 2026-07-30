@@ -2074,7 +2074,7 @@
     "updated_at": "2026-07-30T17:41:06.353962+00:00"
   },
   "schema_version": 2,
-  "state_version": 206,
+  "state_version": 207,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -2627,13 +2627,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "trusted repair failed: portfolio brand contract requires the common At a glance, Navigation, Key capabilities, Installation, and Quick start section order",
       "last_checkpoint_id": "39d0d01166a8e0594c53d2175e01d6c78bc0b7774ad4b9248321910137c4855e",
-      "lease_expires_at": "2026-07-30T17:40:55.715109+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T17:26:00.251691+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T17:41:15.703652+00:00"
     }
   },
   "trigger_records": {},
