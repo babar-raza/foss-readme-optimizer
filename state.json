@@ -183,9 +183,20 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": null,
-    "assurance_history": [],
+    "assurance_history": [
+      {
+        "from_assurance": "repository_verified",
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T03:03:11.803312+00:00",
+        "reason": "begin README-derived trusted transformation",
+        "schema_version": 1,
+        "to_assurance": "trusted_inherited",
+        "to_status": "PROFILED"
+      }
+    ],
     "candidate_hash": null,
-    "content_assurance": "repository_verified",
+    "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
@@ -233,6 +244,15 @@
         "reason": "profiled immutable repository snapshot",
         "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T03:03:11.803312+00:00",
+        "reason": "content assurance changed: begin README-derived trusted transformation",
+        "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -261,10 +281,10 @@
     "schema_version": 2,
     "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
     "status": "PROFILED",
-    "updated_at": "2026-07-30T03:03:00.868811+00:00"
+    "updated_at": "2026-07-30T03:03:11.803312+00:00"
   },
   "schema_version": 2,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260729-063434-cfef:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
