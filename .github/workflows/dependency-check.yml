@@ -3,11 +3,10 @@ name: Dependency Check (reproducibility + SBOM)
 # Wave 13.6 (DEP-001-006): proves the LOCKED dependency set
 # (requirements-lock.txt), not a fresh unpinned resolve, actually installs
 # cleanly and passes the real test suite on every supported Python version.
-# ci.yml's own matrix installs via `pip install -e ".[dev]"` (a fresh resolve
-# every run) -- that catches correctness regressions, but not "today's fresh
-# resolve silently differs from the pinned set a human last reviewed" drift,
-# which is what this workflow exists to catch. Complementary to, not a
-# duplicate of, ci.yml -- deliberately a separate job/file.
+# ci.yml's own matrix installs this same committed lock before the editable
+# package on every supported Python. This manual workflow retains the separate
+# SBOM and dependency-audit proof rather than duplicating CI's compatibility
+# gate.
 #
 # workflow_dispatch only, deliberately NOT on push/pull_request yet --
 # GOVERNANCE.md rule 10 ("prove it in production before automating"), the
