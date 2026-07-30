@@ -441,9 +441,20 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": null,
-    "assurance_history": [],
+    "assurance_history": [
+      {
+        "from_assurance": "repository_verified",
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T02:48:54.303559+00:00",
+        "reason": "begin README-derived trusted transformation",
+        "schema_version": 1,
+        "to_assurance": "trusted_inherited",
+        "to_status": "PROFILED"
+      }
+    ],
     "candidate_hash": null,
-    "content_assurance": "repository_verified",
+    "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
@@ -491,6 +502,15 @@
         "reason": "profiled immutable repository snapshot",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T02:48:54.303559+00:00",
+        "reason": "content assurance changed: begin README-derived trusted transformation",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -519,10 +539,10 @@
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
     "status": "PROFILED",
-    "updated_at": "2026-07-30T02:48:41.590194+00:00"
+    "updated_at": "2026-07-30T02:48:54.303559+00:00"
   },
   "schema_version": 2,
-  "state_version": 43,
+  "state_version": 44,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
