@@ -3,11 +3,39 @@
   "accepted_status": null,
   "capability_outputs": [
     {
-      "cached_at": "2026-07-30T14:05:47.546142+00:00",
+      "cached_at": "2026-07-30T14:05:52.553294+00:00",
       "capability_id": "open_presentation_pr",
       "fingerprint": "cee85bee27b193e16de496906a7b26e2552d6c5d290e5f1447c7dc7fb28d1aa2",
-      "result": {},
-      "status": "pending"
+      "result": {
+        "already_open": true,
+        "branch_name": "readme-agent/presentation-update",
+        "open_proposal": {
+          "authorization_id": "trp04p-hosted-staging-pdf-v1",
+          "base_revision": "1a52c6b795bd06f9782b2232838f4e388f86e335",
+          "branch_name": "readme-agent/presentation-update",
+          "candidate_hash": "52065437a22b9db2e5c3e645e90d7d414ea10455825c91eb74882e17880cc86b",
+          "content_assurance": "trusted_inherited",
+          "domain": "readme_presentation",
+          "drift_status": "current",
+          "head_revision": "d18d9920c8b2a1fe80dd907ee8cd91387176949b",
+          "last_reconciled_at": "2026-07-30T14:05:52.207050+00:00",
+          "opened_at": "2026-07-30T14:05:52.207038+00:00",
+          "pr_number": 1,
+          "pr_url": "https://github.com/babar-raza/readme-agent-staging-pdf-python/pull/1",
+          "proposal_id": "2185a515bc5db7a9f652f7ef88adce0cc1ce0fba4edd8036f3eec9462d604d3c",
+          "proposal_kind": "trusted_readme_transform",
+          "schema_version": 2,
+          "source_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+          "state": "draft_open",
+          "target_repository": "babar-raza/readme-agent-staging-pdf-python"
+        },
+        "opened": false,
+        "pr_number": 1,
+        "pr_url": "https://github.com/babar-raza/readme-agent-staging-pdf-python/pull/1",
+        "unchanged": true,
+        "updated": false
+      },
+      "status": "applied"
     }
   ],
   "checkpoints": {},
@@ -21,7 +49,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1,
+  "state_version": 2,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
