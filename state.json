@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "62f155927f1f86537032dd49bdb47f393c633d55db3c2732db9978589ee266a1",
-    "last_evaluated_at": "2026-07-30T12:51:30.091950+00:00",
+    "last_evaluated_at": "2026-07-30T12:51:47.476969+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -203,7 +203,7 @@
       "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "BLOCKED_EXTERNAL",
       "TRP-04P-POC-PRESENTATION": "TODO",
       "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
-      "TRP-04P-TEST-LATENCY": "VERIFIED",
+      "TRP-04P-TEST-LATENCY": "SCORED",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
       "TRP-05A-ACT-WORKFLOW-PARITY": "TODO",
       "TRP-05B-STAGING-EFFECT-PROOF": "TODO",
@@ -5370,6 +5370,18 @@
         "reason": "Serial reference, rejected negative controls, repeated bounded runs, final clean 2,353-node receipt, and hosted three-version matrix all reproduce the claimed behavior.",
         "task_id": "TRP-04P-TEST-LATENCY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-04p-test-latency-v1/independent-verdict.json",
+          "plans/investigations/evidence/trp-04p-test-latency-v1/sha256sums.txt"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T12:51:47.476954+00:00",
+        "reason": "Independent reconstruction accepts exact inventory preservation, bounded workers, no hidden retry, clean repository-attributed process outcome, and cold/warm hosted bootstrap measurement.",
+        "task_id": "TRP-04P-TEST-LATENCY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -5379,7 +5391,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 617,
+  "state_version": 618,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
