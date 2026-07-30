@@ -19,7 +19,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3",
+    "goal_activation_graph_sha256": "fd47888553b988a20c6b8065c9082fc81ffca1819364655d7fcfff820379d260",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -41,8 +41,8 @@
         "to_primary_goal_id": "GOAL-TP-TRUSTED-COHORT-POC"
       }
     ],
-    "graph_sha256": "b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3",
-    "last_evaluated_at": "2026-07-30T14:38:16.325315+00:00",
+    "graph_sha256": "fd47888553b988a20c6b8065c9082fc81ffca1819364655d7fcfff820379d260",
+    "last_evaluated_at": "2026-07-30T14:43:05.019091+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -86,7 +86,18 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deliver three coherent reviewer-ready README proposals without weakening trusted assurance."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-DELIVERY"
+      ],
+      "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
+      "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -198,6 +209,7 @@
       "TRP-04-CANARY-QUALIFICATION": "REGRESSED",
       "TRP-04P-ACT-WORKFLOW-PARITY": "CLOSED",
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
+      "TRP-04P-COHERENT-PRESENTATION-REPAIR": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
       "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "REROUTED",
@@ -5446,7 +5458,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 624,
+  "state_version": 625,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
