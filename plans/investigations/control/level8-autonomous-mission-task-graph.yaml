@@ -19,24 +19,27 @@ mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   mission_summary: Complete verified_repository_presentation through an automatically derived ordered
     stage-goal state machine with trusted-priority dual assurance lanes. First qualify assurance, complete
-    authorized-source discovery/intake, and qualify trusted canaries. Then finish the trusted local portfolio,
-    prove the canonical workflow under act and disposable staging, qualify GitHub App hosted operation
-    on staging, and open one independently transformation-approved trusted_readme_transform draft PR per
-    current registry repository from README_INHERITED evidence. Repository-verified work advances read-only
-    in spare capacity after assurance separation and complete discovery, then becomes primary after trusted
+    authorized-source discovery/intake, and qualify an initial real trusted cohort. First deliver that
+    frozen cohort through act, disposable staging, GitHub App hosted qualification, authorization, and
+    disclosed draft PRs; then resume the broader adversarial canaries before trusted portfolio fan-out.
+    Finish the trusted local portfolio, revalidate the canonical workflow and hosted operation, and open
+    one independently transformation-approved trusted_readme_transform draft PR per remaining current
+    registry repository from README_INHERITED evidence. Repository-verified work advances read-only in
+    spare capacity after assurance separation and complete discovery, then becomes primary after trusted
     delivery. Progress through distinct Gate A/B/C and Level 5, 6, 7, and 8 goals. Never promote trusted
     evidence into verified acceptance. The legacy universal goal schema remains bootstrap-only until TRP-00
     migrates it.
   governing_plan_path: plans/master.md
-  current_phase: T0 trusted qualification - assurance, goal migration, composition, review, and canaries
+  current_phase: TP qualified trusted cohort production-path POC before resumed TRP-04 qualification
   in_scope_outcomes:
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
-    active runtime goal. TRP-00 replaces the legacy core/subordinate goal guard with the ordered T0/C0/T1/T2/
-    T3/V1/V2/V3/L5/L6/L7/L8 stage catalog and derives one primary plus permitted concurrent goals.'
+    active runtime goal. TRP-00 replaces the legacy core/subordinate goal guard with the ordered T0/TP/T0R/
+    C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 stage catalog and derives one primary plus permitted concurrent goals.'
   - 'TRUSTED-PRIORITY STAGES: extract README_INHERITED facts, compose through the LLM-first trusted path,
-    independently approve transformation fidelity, prove no-op, run act, staging, GitHub App hosted qualification,
-    and open one authorized disclosed draft PR per current registry repository. Trusted work owns reserved
-    capacity and product effects.'
+    independently approve transformation fidelity, and prove no-op. Freeze every current terminal member;
+    deliver that exact cohort through act, staging, GitHub App hosted qualification, and authorized disclosed
+    draft PRs; resume adversarial canaries; then complete and revalidate the full-registry campaign. Trusted
+    work owns reserved capacity and product effects.'
   - 'COMMON DISCOVERY STAGE: after assurance separation, enumerate every authorized source at all visible
     access levels, disposition every observation, admit active products disabled/read-only, complete intake,
     and bind one source-complete RegistryRevisionV1 before trusted portfolio fan-out.'
@@ -45,9 +48,11 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
     portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
     for 90 days with an independent award.'
-  - 'SHORT-TERM HORIZON: implement and qualify trusted_readme_transform, then execute one qualified single-day
-    campaign whose terminal outcome is TRUSTED_PR_OPEN for every runtime-loaded registry repository. Implementation,
-    canary repair, and unavailable external authority are not hidden inside the single-day campaign clock.'
+  - 'SHORT-TERM HORIZON: within two days, freeze the current TRUSTED_NO_OP_PROVEN cohort and present its
+    disclosed draft PRs through the intended production workflow. This partial cohort is not full-registry
+    completion. Immediately resume TRP-04, then execute one qualified single-day campaign whose terminal
+    outcome is TRUSTED_PR_OPEN for every runtime-loaded registry repository. Implementation, canary repair,
+    and unavailable external authority are not hidden inside either campaign clock.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
@@ -90,6 +95,9 @@ mission_authority:
   - Trusted transformation is LLM-first for inventory, planning, section composition, and repair, with
     deterministic code limited to generic segmentation/assembly, contracts, provenance, safety, validation,
     caching, and effects.
+  - Qualified-cohort publication accepts only current checksum-valid TRUSTED_NO_OP_PROVEN bundles, uses
+    the canonical production workflow and hosted App path, and remains explicitly non-promoting and non-closing
+    for TRP-04, full-registry trusted gates, verified gates, and maturity.
   - Trusted T2 closes only after the actual reusable workflow passes under act and the complete proposal/effect
     matrix passes in disposable staging.
   - Trusted T3 closes only after App authentication and hosted operation are qualified on staging and
@@ -105,6 +113,10 @@ mission_authority:
   - Verification uses continuous touched-seam Ruff and focused tests, impact-mapped integration/safety/no-op
     proof at coherent slices, and the complete official suite only at the four local campaign boundaries
     plus later delivery or maturity gates that claim its scope.
+  - Verification latency is measured before optimization. Runtime-only reruns may reuse a complete-suite
+    receipt only under identical commit, lock, runtime, test-inventory, and gate hashes. Bounded xdist
+    or CI sharding is accepted only when repeated serial/parallel inventories and outcomes match and shared-state
+    tests remain isolated or serial.
   - All-code-then-test-later execution is prohibited; expensive aggregate verification is deferred to
     the declared campaign boundary, never omitted, while the first focused or safety failure is repaired
     before dependent implementation continues.
@@ -112,7 +124,9 @@ mission_authority:
     prove several adjacent tasks only when it contains per-task and per-requirement acceptance mappings.
   - Deterministic gates run before paid composition or review; unchanged work is reused only under a complete
     dependency fingerprint, and shared failures are repaired once at their earliest common owner.
-  - Execution remains one repository lane through trusted canary qualification. Afterwards the sole supervisor
+  - Content qualification remains one repository lane through trusted adversarial canary qualification.
+    The frozen already-terminal cohort may use the canonical workflow with serialized effects before that
+    gate; it cannot admit new candidates or enable portfolio content fan-out. Afterwards the sole supervisor
     may use at most four isolated lanes with three reserved for trusted work and at most one repository-verified
     read-only lane, with idle-capacity borrowing and serialized aggregation/effects. Broader verified
     portfolio fan-out remains serial until seven-representative qualification. Concurrent control-repository
@@ -146,9 +160,24 @@ mission_authority:
   stage_goal_catalog:
   - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
     order: 10
-    summary: Separate trusted and verified assurance, then qualify trusted composition and review on real
-      canaries.
-    acceptance_boundary: Assurance isolation and trusted adversarial canaries are approved and no-op-proven.
+    summary: Separate trusted and verified assurance, then establish an initial real terminal trusted
+      cohort.
+    acceptance_boundary: Assurance isolation is proven and at least one current real repository is trusted
+      approved and no-op-proven.
+    reserved_trusted_lanes: 1
+  - goal_id: GOAL-TP-TRUSTED-COHORT-POC
+    order: 12
+    summary: Present the current qualified trusted cohort through the intended production delivery path.
+    acceptance_boundary: The frozen cohort passes act, staging, hosted App, authorization, and disclosed
+      draft-PR proof without changing a default branch.
+    product_effects_allowed: true
+    reserved_trusted_lanes: 1
+    max_concurrent_verified_lanes: 1
+  - goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
+    order: 13
+    summary: Resume and complete the broader adversarial trusted canary matrix after the cohort POC.
+    acceptance_boundary: Python, .NET, ordinary Java, injected or malformed, and largest-current README
+      canaries are approved and no-op-proven under one frozen contract.
     reserved_trusted_lanes: 1
   - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
     order: 15
@@ -507,7 +536,7 @@ taskcards:
   failure_reroute: Classify truncation or unchanged repair as agent_fixable and repair the contract.
   closeout_rules:
   - Controlled critical defects have zero false accepts
-  - TRP-04 becomes ready
+  - Qualified cohort freeze and verification-latency measurement become ready
   goal_ids:
   - GOAL-README
   core_contribution:
@@ -517,6 +546,539 @@ taskcards:
   - TRP-006
   - TRP-007
   stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  concurrency_class: primary_only
+- task_id: TRP-04P-COHORT-FREEZE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Freeze the current qualified trusted cohort for production-path proof
+  source_audit_finding: Real trusted candidates already reach TRUSTED_NO_OP_PROVEN, but the original sequence
+    withholds all delivery proof until the broader adversarial and full-registry campaigns.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Derive QualifiedTrustedCohortV1 from every current checksum-valid trusted terminal bundle,
+    revalidate target freshness, and freeze the exact candidates eligible for the two-day production-path
+    POC.
+  why_it_matters: A real reviewable POC can expose operational and presentation defects now without falsely
+    qualifying unprocessed or adversarial repositories.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - src/readme_agent/evidence/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  expected_outputs:
+  - QualifiedTrustedCohortV1 schema and immutable cohort manifest
+  - Member source, candidate, contract, review, no-op, and checksum bindings
+  - Fresh target-head observations and stale-member dispositions
+  - Independent cohort reconstruction result
+  acceptance_checks:
+  - Every member is trusted_inherited and TRUSTED_NO_OP_PROVEN under the current contract
+  - Every source revision still matches the observed target head or the candidate is fully regenerated
+  - Partial, rejected, corrupt, stale, wrong-assurance, and manually selected members are absent
+  - Runtime reconstruction returns the same ordered cohort and checksum
+  verification:
+  - Focused cohort schema, lifecycle, checksum, invalidation, and target-drift tests
+  - Real read-only reconstruction from durable state and current bundle roots
+  negative_controls:
+  - A historical manifest or candidate file alone cannot enroll a member
+  - No fixed repository count or product-specific selection can satisfy the cohort
+  regression_checks:
+  - Assurance separation
+  - lifecycle
+  - manifest
+  - redaction
+  - and no-op suites
+  evidence_requirements:
+  - Cohort manifest, source-head receipts, exclusions, reproduction command, and SHA-256 inventory
+  rollback_or_recovery: Rebuild only the invalid cohort membership view; retain valid member bundles by
+    hash.
+  failure_reroute: Repair agent-fixable reconstruction defects; visibly exclude a genuinely stale member
+    until regenerated.
+  closeout_rules:
+  - At least one current real member is frozen and every current eligible member is accounted for
+  - Cohort act and test-latency tasks remain dependency-ready
+  goal_ids:
+  - GOAL-README
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Freeze the exact current candidates that can safely exercise the production delivery path.
+  requirement_ids:
+  - TRP-016
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-TEST-LATENCY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Reduce pytest latency without reducing selected proof
+  source_audit_finding: The latest complete non-live suites required 986.92 and 1062.55 seconds, but no
+    current per-node duration profile or serial-versus-parallel equivalence evidence exists.
+  audit_classification: partially_done
+  priority: P0
+  lane: verification-economy
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Measure the current suite, define touched/impact/security/full inventories, and adopt only
+    a deterministic safe speedup within a four-hour diagnostic and implementation timebox.
+  why_it_matters: Repeating a seventeen-minute suite after every shared repair consumes the two-day POC
+    window without proportional assurance.
+  allowed_paths:
+  - pyproject.toml
+  - requirements-lock.txt
+  - .github/workflows/ci.yml
+  - scripts/diagnostics/
+  - scripts/governance/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  - product candidate content
+  dependencies:
+  - TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  expected_outputs:
+  - Serial pytest duration and resource baseline with variance
+  - Touched, impact, security, and full test-selection manifest
+  - Bounded xdist and CI-shard benchmark or explicit evidence-backed rejection
+  - Checksum-bound complete-suite receipt and runtime-only reuse rule
+  acceptance_checks:
+  - Serial and optimized runs select the identical intended nodes and produce identical outcomes
+  - Shared process, environment, Git, state, port, credential, cache, and cancellation tests are isolated
+    or serial
+  - Repeated optimized runs are deterministic and leave no descendants
+  - The complete official suite remains mandatory and green at cohort closure
+  verification:
+  - pytest --durations serial baseline and repeated at-most-four-worker benchmark
+  - Seeded shared-state collision, failure, cancellation, and inventory-mismatch controls
+  negative_controls:
+  - Test deselection, stale cache, fewer nodes, or hidden retry cannot count as a speedup
+  - An unproven optimization is rejected after the timebox rather than delaying cohort delivery
+  regression_checks:
+  - CI matrix
+  - process cleanup
+  - state
+  - git safety
+  - and evidence suites
+  evidence_requirements:
+  - Commands, environment, node inventories, raw durations, variance, outcomes, and SHA-256 inventory
+  rollback_or_recovery: Revert only the unproven optimization and retain the measurement/impact map.
+  failure_reroute: Keep the serial full gate and continue cohort delivery if no safe speedup is proven.
+  closeout_rules:
+  - Verification tiers and closure boundaries are executable and measured
+  - No accepted optimization weakens or omits proof
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Remove redundant verification latency while preserving the exact acceptance evidence.
+  requirement_ids:
+  - NFR-014
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-ACT-WORKFLOW-PARITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Run the qualified cohort through the actual reusable workflow under act
+  source_audit_finding: Terminal local candidates have not yet proven the production workflow, trigger,
+    recovery, matrix, and token boundaries.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-workflow
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Execute the frozen cohort through the same reusable workflow, supervisor, lifecycle, state,
+    and evidence path intended for hosted production.
+  why_it_matters: A presentable POC must prove autonomous operation, not only candidate quality.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  forbidden_paths:
+  - production target repository remotes
+  dependencies:
+  - TRP-04P-COHORT-FREEZE
+  expected_outputs:
+  - Act run over the exact frozen cohort
+  - Trigger, matrix, recovery, evidence-upload, and health results
+  - Workflow/runtime parity manifest
+  - PAT and ambient-token rejection results
+  acceptance_checks:
+  - The actual reusable workflow invokes the canonical supervisor for every cohort member
+  - Dispatch variants, duplicate delivery, checkpoint resume, failure isolation, and aggregation pass
+  - Product remote writes and ambient PAT or GH_TOKEN acceptance are zero
+  verification:
+  - Real act execution with isolated local remotes and the frozen cohort manifest
+  - Focused workflow, trigger, state, recovery, token, and evidence tests
+  negative_controls:
+  - Planning-only, fixture-controller-only, or mocked terminal output fails
+  regression_checks:
+  - Actionlint
+  - workflow contracts
+  - allow-list
+  - push-blocking
+  - state
+  - evidence
+  - and health
+  evidence_requirements:
+  - Workflow events, logs, terminal states, checksums, reproduction command, and independent verdict
+  rollback_or_recovery: Resume the same trigger/checkpoint and retain accepted cohort bundles by hash.
+  failure_reroute: Repair the first workflow/runtime parity defect; do not create another workflow.
+  closeout_rules:
+  - Cohort workflow parity is independently accepted
+  - Disposable staging is ready
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove the exact qualified candidates execute through the intended production workflow.
+  requirement_ids: []
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-STAGING-EFFECT-PROOF
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove qualified-cohort proposal and effect reconciliation in disposable staging
+  source_audit_finding: Act cannot prove GitHub branch, PR, credential-isolation, lost-response, or remote
+    reconciliation semantics.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-staging
+  owner: github-presentation-specialist
+  status: TODO
+  objective: Exercise TrustedTransformationProposalV1 and the effect ledger against disposable staging
+    through the canonical workflow.
+  why_it_matters: Real remote behavior must be proven without risking a product repository.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/capabilities/
+  - src/readme_agent/github_api/
+  - src/readme_agent/authorization/
+  - src/readme_agent/effects/
+  - src/readme_agent/state/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - disposable staging repositories
+  forbidden_paths:
+  - production product repositories
+  - target default branches
+  dependencies:
+  - TRP-04P-ACT-WORKFLOW-PARITY
+  expected_outputs:
+  - Cohort staging repositories and authorization fixtures
+  - Create, no-op, update, drift, deduplication, lost-response, expiry, and crash records
+  - Analysis/effect credential-isolation proof
+  - Default-branch byte-identity proof and independent verdict
+  acceptance_checks:
+  - Every scenario produces exactly one correct proposal state
+  - Analysis jobs receive no write credential
+  - Default branches remain byte-identical
+  verification:
+  - Live disposable-staging scenario matrix through the canonical workflow
+  - Focused proposal, authorization, token, effect-ledger, and reconciliation tests
+  negative_controls:
+  - Trusted proposals cannot become VerifiedProposalV1 or verified Gate-C evidence
+  - Stale bases, missing authorization, and leaked tokens fail before effect
+  regression_checks:
+  - Redaction
+  - authorization
+  - token isolation
+  - no-default-branch
+  - and idempotency
+  evidence_requirements:
+  - Staging URLs/IDs, refs, proposal/effect records, logs, SHA-256 inventory, and cleanup disposition
+  rollback_or_recovery: Reconcile stable staging branches and PRs; never force-push or merge.
+  failure_reroute: Repair the first remote-lifecycle boundary before App qualification.
+  closeout_rules:
+  - The complete cohort staging matrix is independently accepted
+  - Hosted App qualification is ready
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove real proposal behavior safely before any cohort product effect.
+  requirement_ids: []
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Qualify GitHub App hosted operation for the trusted cohort
+  source_audit_finding: Cohort PRs must use the intended short-lived hosted production identity rather
+    than a direct local script or PAT.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-hosted
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Publish the verified control commit, attempt supported gh or API App setup, request one exact
+    manual handoff only if unavoidable, and prove hosted staging operation with fresh installation tokens.
+  why_it_matters: The cohort POC is intended to expose production authentication, scheduling, recovery,
+    and observability defects before portfolio scale.
+  allowed_paths:
+  - .github/workflows/
+  - config/authorization/
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - control repository main
+  - disposable staging repositories
+  forbidden_paths:
+  - production product repository effects
+  - target default branches
+  - PAT or ambient GH_TOKEN production fallback
+  dependencies:
+  - TRP-04P-STAGING-EFFECT-PROOF
+  expected_outputs:
+  - Verified control-repository main revision used by hosted workflow
+  - Exact App setup result or one idempotent manual provisioning request
+  - Hosted staging triggers, recovery, lease, backlog, health, alert, and dead-man evidence
+  - Token-minting, expiry, scope, and analysis/effect isolation proof
+  acceptance_checks:
+  - Effect jobs use only fresh scoped App installation tokens
+  - Analysis and LLM jobs never receive the write token
+  - PAT and ambient GH_TOKEN fallback fail closed
+  - Accepted triggers become terminal or visibly retryable or blocked
+  verification:
+  - Live hosted staging trigger, expiry, recovery, outage, backlog, and dead-man scenarios
+  - Focused App auth, workflow isolation, lifecycle, health, and evidence tests
+  negative_controls:
+  - Missing or expired App authority fails before a product effect
+  - Repeated evaluation cannot duplicate the owner handoff
+  regression_checks:
+  - Trigger
+  - state CAS and lease
+  - retry
+  - redaction
+  - authorization
+  - and effect reconciliation
+  evidence_requirements:
+  - Redacted installation/permission proof, run IDs, token-boundary results, health, and checksums
+  rollback_or_recovery: Disable only staging effect authorization and preserve diagnostic state/evidence.
+  failure_reroute: Repair agent-fixable hosted defects; use WAITING_HUMAN_APP_PROVISIONING only for a
+    proven manual boundary and continue other ready work.
+  closeout_rules:
+  - Hosted App operation is independently accepted on staging
+  - Cohort live permission and authorization checks are ready
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Establish the intended hosted identity before cohort product PR effects.
+  requirement_ids:
+  - TRP-017
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-AUTHORIZATION-ACCESS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Verify qualified-cohort write access and reviewed authorization
+  source_audit_finding: Reported organization-owner access does not itself prove current App installation
+    scope, direct-write permission, or approval for each candidate effect.
+  audit_classification: not_attempted
+  priority: P0
+  lane: trusted-poc-cohort-authorization
+  owner: authorization-specialist
+  status: TODO
+  objective: Produce a live access matrix and consume reviewed unexpired trusted-assurance authorization
+    records for every frozen cohort member.
+  why_it_matters: A candidate cannot safely or lawfully become a product proposal from expected access.
+  allowed_paths:
+  - config/authorization/
+  - src/readme_agent/authorization/
+  - src/readme_agent/github_api/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  forbidden_paths:
+  - target default branches
+  - package or release surfaces
+  dependencies:
+  - TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
+  expected_outputs:
+  - Live cohort permission matrix
+  - Exact candidate/effect authorization package
+  - Branch/effect scopes, expiries, and repository-local unblock actions
+  acceptance_checks:
+  - Every effect-ready member has current push permission and reviewed unexpired authorization
+  - Authorization binds trusted assurance, candidate hash, effect scope, branch prefix, and repository
+  - Missing access remains a repository-local visible block
+  verification:
+  - Read-only GitHub permission checks and authorization schema/scope/expiry tests
+  - Missing, stale, wrong-repository, wrong-candidate, and wrong-assurance controls
+  negative_controls:
+  - The agent cannot author or infer human approval
+  regression_checks:
+  - Registry mode
+  - allow-list
+  - authorization
+  - token redaction
+  - and effect preconditions
+  evidence_requirements:
+  - Redacted access matrix, authorization IDs/hashes, timestamps, and remaining external actions
+  rollback_or_recovery: Revalidate only changed or expired authority without regenerating candidates.
+  failure_reroute: Block only unavailable external authority and continue every independently authorized
+    member.
+  closeout_rules:
+  - Every non-blocked frozen member is effect-ready
+  - Exact what, why, and where confirmation package is ready
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: indispensable_safety
+    summary: Establish lawful candidate-specific authority for each cohort draft PR.
+  requirement_ids: []
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-DRAFT-PR-COHORT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Open one disclosed trusted draft PR per authorized cohort member
+  source_audit_finding: Terminal local candidates are not yet reviewable in their target repositories
+    and have not exercised the hosted production effect path.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-effects
+  owner: github-presentation-specialist
+  status: TODO
+  objective: After fresh exact what, why, and where confirmation, use only the hosted canonical workflow
+    to create or update one draft PR for each current authorized cohort member.
+  why_it_matters: Real draft PRs make the trusted POC presentable and reveal review/effect defects before
+    full-registry scale.
+  allowed_paths:
+  - src/readme_agent/capabilities/
+  - src/readme_agent/github_api/
+  - src/readme_agent/authorization/
+  - src/readme_agent/effects/
+  - src/readme_agent/state/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - authorized cohort proposal branches
+  forbidden_paths:
+  - target default branches
+  - package or release surfaces
+  - GitHub-generated surfaces
+  dependencies:
+  - TRP-04P-AUTHORIZATION-ACCESS
+  expected_outputs:
+  - TrustedTransformationProposalV1 per effect-ready cohort member
+  - One disclosed draft PR URL per current authorized member
+  - Durable create/update/drift/dedup/lost-response/crash reconciliation
+  - Cohort effect and default-branch-identity manifest
+  acceptance_checks:
+  - Every non-blocked frozen member has exactly one correct draft PR
+  - Every PR discloses trusted_readme_transform and inherited-claim non-verification
+  - Duplicate PRs, force pushes, ready or merge actions, and default-branch changes are zero
+  verification:
+  - Fresh-head, update, drift, duplicate, lost-response, expiry, and crash-recovery proof
+  - Independent API reconciliation of PR and target refs
+  negative_controls:
+  - Trusted proposals cannot satisfy VerifiedProposalV1 or verified Gate C
+  - Missing fresh confirmation or authority blocks before pending effect
+  regression_checks:
+  - Effect ledger
+  - authorization
+  - proposal identity
+  - token isolation
+  - and no-default-branch
+  evidence_requirements:
+  - PR URLs/IDs, before/after refs, proposals/effects, authorization refs, and SHA-256 manifest
+  rollback_or_recovery: Reconcile the stable proposal branch and PR; never force-push, merge, or rewrite
+    default.
+  failure_reroute: Repair agent-fixable effect defects and retain repository-local external blocks visibly.
+  closeout_rules:
+  - Every effect-ready cohort member has exactly one current draft PR
+  - The indexed POC presentation package is ready
+  goal_ids:
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Deliver the current qualified trusted cohort as real reviewable draft PRs.
+  requirement_ids:
+  - TRP-018
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
+- task_id: TRP-04P-POC-PRESENTATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Present the trusted cohort POC and resume adversarial qualification
+  source_audit_finding: A partial PR cohort could be mistaken for full trusted or verified completion,
+    or become a reason never to resume the deferred canary matrix.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-presentation
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Publish an indexed, explicitly partial cohort review package, record hash-bound feedback
+    and regression ownership, and transition primary execution back to TRP-04.
+  why_it_matters: The POC must be reviewable without creating a false completion claim or losing the long-term
+    production qualification path.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/state/
+  - tests/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - plans/
+  forbidden_paths:
+  - target default branches
+  - additional unqualified product effects
+  dependencies:
+  - TRP-04P-DRAFT-PR-COHORT
+  - TRP-04P-TEST-LATENCY
+  expected_outputs:
+  - Indexed cohort PR and evidence package
+  - Cohort numerator/denominator, exclusions, blocks, and assurance disclosure
+  - Hash-bound review-feedback and regression-routing contract
+  - Durable goal transition naming TRP-04 as the exact next task
+  acceptance_checks:
+  - The package never claims full-registry trusted, verified, or maturity completion
+  - Common review defects have an owning contract and representative regression control
+  - Mission evaluation selects TRP-04 before TRP-05 or any verified effect goal
+  verification:
+  - Independent package/checksum reconstruction and goal-transition test
+  - One seeded common defect and one repository-specific feedback invalidation control
+  negative_controls:
+  - Cohort PR count cannot satisfy TRP-04, TRP-05, verified Gate A/B/C, or maturity
+  regression_checks:
+  - Goal derivation
+  - lifecycle invalidation
+  - evidence
+  - and status reporting
+  evidence_requirements:
+  - PR index, manifests, review instructions, feedback mappings, transition receipt, and checksums
+  rollback_or_recovery: Reopen only affected cohort members; retain unaffected PR/effect evidence and
+    keep TRP-04 ready.
+  failure_reroute: Repair presentation-package or transition defects without reopening valid PR effects.
+  closeout_rules:
+  - The cohort POC is presented truthfully
+  - TRP-04 is the next primary task and remains mandatory
+  goal_ids:
+  - GOAL-README
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Present the POC and bind autonomous execution back to the deferred adversarial canaries.
+  requirement_ids:
+  - TRP-019
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
 - task_id: TRP-04-CANARY-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -542,7 +1104,7 @@ taskcards:
   forbidden_paths:
   - production target repository remotes
   dependencies:
-  - TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  - TRP-04P-POC-PRESENTATION
   expected_outputs:
   - Serial real-canary bundles and acceptance matrix
   - Measured context/output/call/latency envelope
@@ -575,7 +1137,7 @@ taskcards:
     summary: Prove the trusted contract can survive the real portfolio long tail before one-day fan-out.
   requirement_ids:
   - TRP-008
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
   concurrency_class: primary_only
 - task_id: TRP-05-FULL-REGISTRY-TRANSFORM
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
@@ -8230,10 +8792,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 7cac7b430cc8f3b07eb5957c49b9751593a13a039a8c0183f0926410d693595a
+  source_sha256: 3a1e6f580da480fcb4ce4b54190b5acda598e6f762a3ebfe19569dbf156cb795
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 448
-  mandatory_requirement_rows: 422
+  total_requirement_rows: 453
+  mandatory_requirement_rows: 427
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -9762,6 +10324,12 @@ requirement_coverage:
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: active_governance
     semantic_findings: []
+  - requirement_id: NFR-014
+    priority: P1
+    requirement_status: PLANNED
+    task_id: TRP-04P-TEST-LATENCY
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: PIL-001
     priority: P0
     requirement_status: GOVERNANCE
@@ -10672,6 +11240,30 @@ requirement_coverage:
     priority: P0
     requirement_status: PARTIAL
     task_id: TRP-00-ASSURANCE-CONTRACT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-016
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-COHORT-FREEZE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-017
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-018
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-DRAFT-PR-COHORT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-019
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-POC-PRESENTATION
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: TRP-010

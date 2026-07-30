@@ -255,6 +255,8 @@ def _derive_goal_selection(
         and primary.goal_id
         in {
             "GOAL-T0-TRUSTED-QUALIFICATION",
+            "GOAL-TP-TRUSTED-COHORT-POC",
+            "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION",
             "GOAL-T1-TRUSTED-PORTFOLIO",
             "GOAL-T2-WORKFLOW-STAGING",
             "GOAL-T3-HOSTED-TRUSTED-DELIVERY",

@@ -112,11 +112,31 @@ acceptance invariants rather than competing universal goals.
 Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
 on is actually accepted, not merely attempted:
 
-1. **Trusted Gate T0 — assurance and canary qualification.** Add explicit trusted-versus-verified
-   contracts, then qualify README-derived extraction, LLM-first bounded composition, deterministic
-   validation, independent blind-quality and inheritance-fidelity review, repair, recovery, and
-   no-op behavior on real adversarial canaries. This gate changes no product remote.
-2. **Common Gate C0 — complete authorized-portfolio discovery and intake.** After assurance
+1. **Trusted Gate T0 — assurance and initial real qualification.** Add explicit
+   trusted-versus-verified contracts, qualify README-derived extraction, LLM-first bounded
+   composition, deterministic validation, independent blind-quality and inheritance-fidelity
+   review, repair, recovery, and no-op behavior, and retain every real repository that already
+   reaches `TRUSTED_NO_OP_PROVEN`. This gate changes no product remote. The broader adversarial
+   `TRP-04` matrix remains mandatory before portfolio fan-out, but it no longer prevents the
+   already-qualified cohort from exercising delivery.
+2. **Trusted Gate TP — qualified-cohort production-path POC.** Freeze the current
+   `TRUSTED_NO_OP_PROVEN` cohort by repository, source revision, candidate hash, contract hash,
+   verdicts, no-op proof, and manifest checksum. Revalidate source freshness, run those exact
+   candidates through the canonical reusable workflow under `act`, prove the assurance-specific
+   proposal/effect lifecycle in disposable staging, qualify GitHub App hosted execution on
+   staging, verify cohort write access and reviewed authorization, then create or update one
+   clearly disclosed draft PR for each still-current authorized cohort member. The workflow,
+   supervisor, state, evidence, authorization, token isolation, and effect ledger are the intended
+   production system—no retrofit script or alternate controller is accepted. This is a
+   presentable trusted POC tranche, not full-registry trusted completion, verified Gate A/B/C, or
+   maturity proof. Human review findings become hash-bound regressions and reopen only affected
+   candidates or shared contracts.
+3. **Trusted Gate T0R — resume adversarial qualification.** Immediately after the cohort PR
+   package is presented, resume `TRP-04` at its durable boundary and qualify Python, .NET,
+   ordinary Java, malformed/prompt-injected content, and the largest current README. Cohort
+   publication never waives, closes, or weakens this gate, and full-registry fan-out remains
+   locked until it passes.
+4. **Common Gate C0 — complete authorized-portfolio discovery and intake.** After assurance
    separation, inventory every repository visible from every explicitly authorized organization
    or App-installation source using authenticated all-visibility pagination. Record public,
    private, internal, archived, unmatched, ambiguous, inaccessible, renamed, and transferred
@@ -125,20 +145,23 @@ on is actually accepted, not merely attempted:
    explicit and evidence-backed. Zero unexplained observations, source failures, stale scans, or
    pending intake are required before trusted portfolio fan-out. This shared gate may advance
    concurrently with the remaining T0 canary work after `ContentAssuranceV1` is installed.
-3. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
+5. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
    repository, the system captures the immutable README bytes, extracts README-derived
    facts/claims, produces a typed transformation plan and repository-specific candidate, and
    passes deterministic presentation/safety validation plus independent blind-quality and
    inheritance-fidelity review. It records source-span accountability, targeted repair, exact LLM
    calls, cache reuse, and an unchanged no-op rerun. This gate may use section-bounded calls for
    large READMEs; no universal template or whole-document token assumption is allowed.
-4. **Trusted Gate T2 — canonical workflow and disposable staging proof.** Run the same supervisor,
+6. **Trusted Gate T2 — full-registry workflow and disposable staging revalidation.** Run the same supervisor,
    lifecycle, evidence, authorization, and effect contracts under the actual reusable workflow
    through `act`, then disposable GitHub staging. Prove dispatch variants, matrix isolation,
    checkpoint recovery, deduplication, proposal create/update/drift/lost-response/crash handling,
    analysis/effect credential isolation, and byte-identical default branches. A planning-job-only
    or mocked-effect result cannot close this gate.
-5. **Trusted Gate T3 — GitHub App hosted qualification and authorized draft-PR portfolio.** After
+   Reuse TP evidence only when every workflow, contract, environment, and effect hash remains
+   current; otherwise rerun the invalidated scenario. Cohort proof never substitutes for the
+   full-registry matrix.
+7. **Trusted Gate T3 — GitHub App hosted revalidation and authorized draft-PR portfolio.** After
    T2, Codex first attempts every supported non-interactive `gh`/GitHub API registration,
    configuration, and installation operation within the granted authority. If GitHub App creation
    or organization installation requires a browser, owner confirmation, or unavailable secret,
@@ -157,7 +180,7 @@ on is actually accepted, not merely attempted:
    bodies disclose that inherited product claims were not repository-verified.
    The trusted lane may prove the complete operational integration, but it proves only inherited
    content fidelity—not product factuality or verified presentation maturity.
-6. **Gate A — full-registry verified local README proof.** Repository-verified discovery, facts,
+8. **Gate A — full-registry verified local README proof.** Repository-verified discovery, facts,
    reconciliation, and candidate work begins read-only after assurance separation and common Gate
    C0, using spare supervisor capacity while trusted delivery remains primary. Trusted T3 is not a
    prerequisite for that read-only work and trusted evidence is never promoted. Gate A still
@@ -169,7 +192,7 @@ on is actually accepted, not merely attempted:
    and review verdict remain reviewable local artifacts. Read-only GitHub access needed to obtain
    this evidence is part of Gate A; remote writes, pull requests, and GitHub App integration are
    not.
-7. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
+9. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
    judged by an independent agentic reviewer — a separate LLM judgment role from whatever
    produced the candidate — and repaired until approved or honestly blocked. The system is ready
    for POC human review only when every entry in the current complete registry revision has an
@@ -177,10 +200,10 @@ on is actually accepted, not merely attempted:
    merely existing is not approval. A strong existing README may take a fast path, but still needs
    verified inherited claims, deterministic assessment, an empty-patch candidate, independent
    approval, and no-op proof.
-8. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
+10. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
    passed independent agentic review. Human acceptance is recorded separately; it is not inferred
    from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
-9. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T3
+11. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T3
    PRs do not satisfy this gate. Creating or updating verified proposals against the designated
    Java repositories is attempted only after every current registry repository has passed Gates A
    and B, not before. Gate C reuses the already qualified App/workflow/effect machinery and proves

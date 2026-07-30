@@ -26,6 +26,72 @@ complete authorized-source discovery, `verified_repository_presentation` work ad
 in spare supervisor capacity instead of waiting for every trusted PR; after trusted T3 closes it
 becomes primary and continues to the independently reproducible Level-8 award in `plans/idea.md`.
 
+### Binding qualified-cohort delivery amendment (2026-07-30)
+
+This amendment supersedes the short-term ordering in the 2026-07-29 amendment and later phase
+prose wherever they conflict. It changes sequence, not scope or acceptance. The final outcome
+remains `verified_repository_presentation`, every current registry repository remains in the
+trusted POC, and `TRP-04-CANARY-QUALIFICATION` remains mandatory.
+
+The short path to a presentable real POC is:
+
+```text
+TRP-01 -> TRP-02 -> TRP-03
+-> TRP-04P-COHORT-FREEZE
+     freeze every current source-current, checksum-valid TRUSTED_NO_OP_PROVEN bundle
+-> in dependency order:
+     TRP-04P-TEST-LATENCY
+     TRP-04P-ACT-WORKFLOW-PARITY
+     TRP-04P-STAGING-EFFECT-PROOF
+     TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
+     TRP-04P-AUTHORIZATION-ACCESS
+     TRP-04P-DRAFT-PR-COHORT
+     TRP-04P-POC-PRESENTATION
+-> resume TRP-04-CANARY-QUALIFICATION at its durable boundary
+-> resume the existing C0, TRP-05/05A/05B/05C/06/07, verified, and maturity sequence unchanged
+```
+
+The freeze is dynamic and evidence-derived; the observed local snapshot at adoption contained
+nine Python repositories at `TRUSTED_NO_OP_PROVEN`, but neither nine nor any other fixed count is
+an acceptance constant. `QualifiedTrustedCohortV1` records repository/provider identity, immutable
+source revision, candidate hash, manifest/checksum inventory, lifecycle receipt, assurance mode,
+and freeze time. Source drift, checksum failure, nonterminal state, or missing evidence excludes
+the entry with a precise finding rather than silently widening the cohort.
+
+The exact frozen cohort must travel through the production-intended path: the reusable workflow
+under `act`, disposable GitHub staging, GitHub App hosted execution, live permission and expiring
+authorization checks, serialized draft-PR effects, reconciliation, and one indexed presentation
+package. No alternate script, controller, PAT fallback, default-branch write, force push, or
+automatic merge is permitted. Every product-repository effect still requires the user's fresh
+exact what/why/where confirmation. The cohort proof is explicitly non-promoting: it demonstrates
+transport, effect safety, and reviewable product output, but it does not close full-registry
+trusted delivery, verified Gate A/B/C, or a maturity level.
+
+`TRP-04` is held only until the cohort presentation package closes. It must then be reclaimed and
+completed before broader trusted portfolio fan-out. Later full-registry tasks revalidate the
+cohort's operational evidence by immutable hashes and execute missing repositories; they do not
+discard valid cohort evidence or infer full-registry closure from it.
+
+Verification latency is a parallel, bounded workstream rather than a reason to delay effects:
+capture `pytest --durations` from a stable tree, classify tests into focused/affected-safety,
+integration, and closure-suite tiers, benchmark `pytest-xdist` with at most four workers, and keep
+shared Git-ref/state/process tests serial. Adopt an optimization only when the selected node
+inventory and outcomes are identical over repeated runs and elapsed time improves
+deterministically. A closure suite remains mandatory at the cohort presentation boundary.
+
+Recurring real-input failures are treated as missing production contracts, not candidate-specific
+prompt accidents. The durable repair order is:
+
+1. separate deterministic permission for configured additions from inheritance-fidelity review;
+2. freeze the transformation/reviewer contract by hash;
+3. reduce repeated reviewer findings into cross-repository defect classes;
+4. promote each real defect class to the smallest representative regression fixture;
+5. repair the owning policy, schema, validator, prompt contract, or orchestration seam;
+6. rerun focused, representative, no-op, and closure proofs.
+
+This prevents known defects from being rediscovered repository by repository while preserving the
+LLM-first trusted transformation and the later repository-verified evidence standard.
+
 ### Binding trusted-POC amendment (2026-07-29)
 
 This amendment supersedes this document's earlier short-term sequencing wherever it conflicts; it
@@ -83,17 +149,19 @@ inside `TRP-00`. The sole mission graph declares the ordered stage catalog; the 
 the lowest incomplete stage and persists exactly one primary goal:
 
 1. `GOAL-T0-TRUSTED-QUALIFICATION`
-2. `GOAL-C0-AUTHORIZED-PORTFOLIO`
-3. `GOAL-T1-TRUSTED-PORTFOLIO`
-4. `GOAL-T2-WORKFLOW-STAGING`
-5. `GOAL-T3-HOSTED-TRUSTED-DELIVERY`
-6. `GOAL-V1-VERIFIED-TRUTH`
-7. `GOAL-V2-VERIFIED-GATE-A`
-8. `GOAL-V3-HUMAN-AND-JAVA-PROOF`
-9. `GOAL-L5-PRESENTATION-PILOT`
-10. `GOAL-L6-AUTONOMOUS-PORTFOLIO`
-11. `GOAL-L7-HETEROGENEOUS-30D`
-12. `GOAL-L8-SELF-MAINTAINING-90D`
+2. `GOAL-TP-TRUSTED-COHORT-POC`
+3. `GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION`
+4. `GOAL-C0-AUTHORIZED-PORTFOLIO`
+5. `GOAL-T1-TRUSTED-PORTFOLIO`
+6. `GOAL-T2-WORKFLOW-STAGING`
+7. `GOAL-T3-HOSTED-TRUSTED-DELIVERY`
+8. `GOAL-V1-VERIFIED-TRUTH`
+9. `GOAL-V2-VERIFIED-GATE-A`
+10. `GOAL-V3-HUMAN-AND-JAVA-PROOF`
+11. `GOAL-L5-PRESENTATION-PILOT`
+12. `GOAL-L6-AUTONOMOUS-PORTFOLIO`
+13. `GOAL-L7-HETEROGENEOUS-30D`
+14. `GOAL-L8-SELF-MAINTAINING-90D`
 
 `evaluate` automatically advances after current independent closure proof and automatically rolls
 back to the earliest affected stage after regression, invalidation, or denominator growth. It also
@@ -1901,30 +1969,38 @@ Execution resumes in this order; it does not start an official fixed-count campa
    dependencies moved as diagnostic only.
 2. Run mission `status`; if the graph hash differs from durable state, run `evaluate` once to
    migrate without deleting transition history, then claim only the highest-priority eligible
-   task. The expected next task is `TRP-00-ASSURANCE-CONTRACT`; live durable state supersedes this
-   snapshot.
-3. Complete TRP-00: install assurance-disjoint state/cache/proposal/effect identities and migrate
-   the goal guard to one primary plus automatically derived concurrent goals.
-4. Keep one repository lane while trusted TRP-01 through TRP-04 remains primary. Interleave the
-   common `L8-INTAKE-02/03` discovery path whenever the primary task is waiting: authenticate
+   task. Live durable state supersedes every snapshot in this supporting document.
+3. Reconcile the completed TRP-01/02/03 evidence, then claim
+   `TRP-04P-COHORT-FREEZE`. Freeze every current source-current, checksum-valid
+   `TRUSTED_NO_OP_PROVEN` bundle; do not regenerate valid candidates merely to change ordering.
+4. Execute `TRP-04P-TEST-LATENCY` as a bounded parallel workstream and run the exact frozen cohort
+   through `TRP-04P-ACT-WORKFLOW-PARITY`, staging, GitHub App hosted qualification, permission and
+   authorization proof, serialized draft PRs, and the indexed POC presentation package. Obtain
+   fresh exact what/why/where confirmation before each product effect.
+5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.
+   Complete its adversarial canaries and only then begin broader trusted portfolio fan-out.
+   Interleave the common `L8-INTAKE-02/03` discovery path whenever dependency-ready: authenticate
    all-visibility enumeration, disposition every visible repository, admit active products
    disabled/read-only, prove exactly-one intake, and seal `RegistryRevisionV1`.
-5. Do not start TRP-05 until both TRP-04 canary qualification and common Gate C0 close. Then run
-   four supervisor-owned lanes: three trusted-reserved and one verified read-only, with borrowing,
-   automatic priority return, separate assurance identities, serialized reduction, and no effects
-   from the verified lane.
-6. Complete TRP-05A and TRP-05B through the actual `act` workflow and disposable staging. Continue
-   verified read-only work in idle capacity rather than stopping at these checkpoints.
-7. At TRP-05C, attempt supported `gh`/API App setup. If GitHub requires manual owner/browser action,
-   persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact handoff, continue
+6. Do not start full-registry TRP-05 until both resumed TRP-04 canary qualification and common
+   Gate C0 close. Then run four supervisor-owned lanes: three trusted-reserved and one verified
+   read-only, with borrowing, automatic priority return, separate assurance identities, serialized
+   reduction, and no effects from the verified lane.
+7. Revalidate the cohort evidence by immutable hashes while completing full-registry TRP-05A and
+   TRP-05B through the actual `act` workflow and disposable staging. Continue verified read-only
+   work in idle capacity rather than stopping at these checkpoints.
+8. At full-registry TRP-05C, revalidate installation scope and attempt supported `gh`/API App
+   setup. If GitHub requires manual owner/browser action, persist
+   `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact handoff, continue
    verified read-only tasks, then validate and resume automatically after provisioning.
-8. Complete TRP-06 live permission/authorization proof and TRP-07 exactly-one trusted draft PR per
-   repository. Effects remain serialized and require exact current authority.
-9. Promote the verified lane to primary without regenerating valid assurance-neutral inputs.
+9. Complete full-registry TRP-06 live permission/authorization revalidation and TRP-07 exactly-one
+   trusted draft PR per repository, crediting current cohort receipts where hashes still match.
+   Effects remain serialized and require exact current authority.
+10. Promote the verified lane to primary without regenerating valid assurance-neutral inputs.
    Continue the existing reviewer repair, campaign schema/identity, representative qualification,
    recovery/cost/freeze, Python milestones, and remaining platform cohort tasks in their graph
    order. Broader verified fan-out remains locked until seven representatives qualify.
-10. Close Gate A only from the complete repository-verified dynamic denominator, present Gate B,
+11. Close Gate A only from the complete repository-verified dynamic denominator, present Gate B,
     complete verified Gate C and Level 5, then start the complete Level-8 control/evidence series
     on hosted day 1. Award Level 7 from days 1–30 and continue the same uninterrupted series to
     Level 8 at day 90.
@@ -1947,7 +2023,8 @@ a declared boundary is incomplete proof.
 
 Human involvement is limited to Gate-B review of already agent-approved candidates, Docker or
 staging access if unavailable locally, staging credentials, exact per-product-push approval,
-GitHub App registration and secrets after trusted T2 has passed, genuinely manual UI actions,
+GitHub App registration and secrets when the qualified cohort reaches its hosted-qualification
+task, genuinely manual UI actions,
 independent acceptance authority, and elapsed production time. All other implementation, testing,
 remediation, evidence, commits, setup, monitoring, command execution, and continuation is
 autonomous. The operator does not request permission for an available safe in-scope command; it

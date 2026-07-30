@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "7cac7b430cc8f3b07eb5957c49b9751593a13a039a8c0183f0926410d693595a",
+  "source_sha256": "3a1e6f580da480fcb4ce4b54190b5acda598e6f762a3ebfe19569dbf156cb795",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 448,
-  "mandatory_requirement_rows": 422,
+  "total_requirement_rows": 453,
+  "mandatory_requirement_rows": 427,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 228,
+    "open_mandatory": 233,
     "preserved_verified": 159
   },
   "taskcard_counts": {
@@ -22,6 +22,11 @@
     "TRP-01-README-DERIVED-FACTS": 2,
     "TRP-02-LLM-FIRST-COMPOSITION": 2,
     "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
+    "TRP-04P-COHORT-FREEZE": 1,
+    "TRP-04P-TEST-LATENCY": 1,
+    "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": 1,
+    "TRP-04P-DRAFT-PR-COHORT": 1,
+    "TRP-04P-POC-PRESENTATION": 1,
     "TRP-04-CANARY-QUALIFICATION": 1,
     "TRP-05-FULL-REGISTRY-TRANSFORM": 1,
     "TRP-05A-ACT-WORKFLOW-PARITY": 1,
@@ -2099,6 +2104,14 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "NFR-014",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-TEST-LATENCY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "PIL-001",
       "priority": "P0",
       "requirement_status": "GOVERNANCE",
@@ -3311,6 +3324,38 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "TRP-00-ASSURANCE-CONTRACT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-016",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-COHORT-FREEZE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-017",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-018",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-DRAFT-PR-COHORT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-019",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-POC-PRESENTATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },

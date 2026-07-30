@@ -107,6 +107,11 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-MISSION-GOAL-GUARD"].goal_ids == ["GOAL-AUTONOMY"]
     assert tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].goal_ids == ["GOAL-DELIVERY"]
     assert tasks["L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"].goal_ids == ["GOAL-MATURITY"]
+    assert tasks["TRP-04P-COHORT-FREEZE"].dependencies == ["TRP-03-INDEPENDENT-FIDELITY-REVIEW"]
+    assert tasks["TRP-04-CANARY-QUALIFICATION"].dependencies == ["TRP-04P-POC-PRESENTATION"]
+    assert tasks["TRP-04-CANARY-QUALIFICATION"].stage_goal_id == (
+        "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION"
+    )
     local_poc_children = {
         task.task_id
         for task in graph.taskcards
@@ -248,6 +253,39 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert preproduction_mapping.task_id == "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
     requirements_path = REPO_ROOT / coverage.source_path
     assert coverage.source_sha256 == coverage_tool.canonical_text_sha256(requirements_path)
+
+
+def test_qualified_cohort_stage_precedes_resumed_adversarial_qualification():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses["TRP-04P-COHORT-FREEZE"] = "TODO"
+    statuses["TRP-04-CANARY-QUALIFICATION"] = "TODO"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    cohort = evaluate_mission(graph, state)
+    assert cohort.active_goal_id == "GOAL-TP-TRUSTED-COHORT-POC"
+    assert cohort.next_task is not None
+    assert cohort.next_task.task_id == "TRP-04P-COHORT-FREEZE"
+
+    resumed = evaluate_mission(
+        graph,
+        state.model_copy(
+            update={
+                "task_statuses": {
+                    **statuses,
+                    "TRP-04P-COHORT-FREEZE": "CLOSED",
+                    "TRP-04-CANARY-QUALIFICATION": "TODO",
+                }
+            }
+        ),
+    )
+    assert resumed.active_goal_id == "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION"
+    assert resumed.next_task is not None
+    assert resumed.next_task.task_id == "TRP-04-CANARY-QUALIFICATION"
 
 
 def test_requirement_coverage_source_hash_is_line_ending_independent(tmp_path: Path):

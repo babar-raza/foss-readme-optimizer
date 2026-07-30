@@ -301,15 +301,19 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   acceptance decision. Human acceptance is a separate recorded Gate-B state; it is never inferred from
   agent approval.
 - **Trusted delivery is primary while verified work advances read-only in spare capacity.** After
-  TRP-00, finish common authorized-source discovery/intake and trusted canaries. Trusted portfolio
-  fan-out then owns three of at most four supervisor lanes; at most one lane may advance
-  repository-verified read-only work, borrowing only idle capacity. Run the canonical workflow
-  under `act`, prove disposable staging, then qualify GitHub App/hosted operation before opening
-  the authorized trusted PR portfolio (T2/T3). Trusted operational proof never satisfies verified
-  facts, Gate A/B/C, or maturity. Verified Java Gate C remains behind verified Gates A/B and
+  TRP-03, freeze every source-current, checksum-valid `TRUSTED_NO_OP_PROVEN` result into one
+  `QualifiedTrustedCohortV1`. Hold, but do not close or discard,
+  `TRP-04-CANARY-QUALIFICATION`; use the exact frozen cohort to prove the canonical workflow under
+  `act`, disposable staging, GitHub App/hosted operation, authorization, and one draft PR per
+  authorized cohort member. This is a qualified-cohort production-path POC, not trusted
+  full-registry closure: it cannot unlock portfolio fan-out or satisfy verified facts, Gate A/B/C,
+  or maturity. After its indexed presentation package is complete, resume TRP-04 at its durable
+  boundary; only then may the existing full-registry trusted campaign and read-only verified
+  spare-capacity lane proceed. Verified Java Gate C remains behind verified Gates A/B and
   revalidates the already-qualified transport rather than performing first-time App integration.
 - **GitHub App provisioning is autonomous except for a proven manual authority boundary.** At
-  TRP-05C, attempt supported non-interactive `gh`/API operations first. If GitHub requires browser
+  `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` (and again at full-registry TRP-05C only if scope must
+  be expanded or revalidated), attempt supported non-interactive `gh`/API operations first. If GitHub requires browser
   creation, owner confirmation, organization/repository installation, or an unavailable secret,
   persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact app name,
   permissions, events, callback/webhook, installation scope/URL, secret locations, and resume
@@ -345,7 +349,8 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 Decision #85 in `plans/master.md` supersedes the old universal/subordinate goal model. The
 immutable mission outcome is not an active goal. Mission `evaluate` derives exactly one primary
 goal from the earliest incomplete stage in this order:
-`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
+`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-TP-TRUSTED-COHORT-POC`,
+`GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
 `GOAL-T1-TRUSTED-PORTFOLIO`,
 `GOAL-T2-WORKFLOW-STAGING`, `GOAL-T3-HOSTED-TRUSTED-DELIVERY`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,

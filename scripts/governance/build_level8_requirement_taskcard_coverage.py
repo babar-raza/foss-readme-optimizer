@@ -34,6 +34,8 @@ REPORT_PATH = (
 
 STAGE_GOAL_ORDER = {
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
+    "GOAL-TP-TRUSTED-COHORT-POC": 12,
+    "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION": 13,
     "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
     "GOAL-T1-TRUSTED-PORTFOLIO": 20,
     "GOAL-T2-WORKFLOW-STAGING": 30,
@@ -53,7 +55,11 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
 
     if task_id == "L8-TRUTH-08-FULL-REGISTRY":
         return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
-    if task_id.startswith(("TRP-00", "TRP-01", "TRP-02", "TRP-03", "TRP-04")):
+    if task_id.startswith("TRP-04P-"):
+        return "GOAL-TP-TRUSTED-COHORT-POC", "primary_only"
+    if task_id == "TRP-04-CANARY-QUALIFICATION":
+        return "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION", "primary_only"
+    if task_id.startswith(("TRP-00", "TRP-01", "TRP-02", "TRP-03")):
         return "GOAL-T0-TRUSTED-QUALIFICATION", "primary_only"
     if task_id.startswith("L8-INTAKE-"):
         return "GOAL-C0-AUTHORIZED-PORTFOLIO", "read_only_assurance_isolated"
@@ -204,6 +210,7 @@ PREFIX_TO_TASK = {
 
 L8_TO_TASK = {
     "AUTH-008": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
+    "NFR-014": "TRP-04P-TEST-LATENCY",
     "L8-001": "L8-GATE-D-GITHUB-APP-INTEGRATION",
     "L8-002": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
     "L8-003": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
@@ -258,6 +265,10 @@ L8_TO_TASK = {
     "TRP-013": "TRP-05B-STAGING-EFFECT-PROOF",
     "TRP-014": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
     "TRP-015": "TRP-00-ASSURANCE-CONTRACT",
+    "TRP-016": "TRP-04P-COHORT-FREEZE",
+    "TRP-017": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+    "TRP-018": "TRP-04P-DRAFT-PR-COHORT",
+    "TRP-019": "TRP-04P-POC-PRESENTATION",
     "TRP-010": "TRP-06-AUTHORIZATION-ACCESS",
     "TRP-011": "TRP-07-DRAFT-PR-PORTFOLIO",
 }

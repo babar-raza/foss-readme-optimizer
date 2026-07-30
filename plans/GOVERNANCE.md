@@ -224,10 +224,19 @@ to add a project fact here, it belongs in `master.md` instead.
     assurance lanes only under the trusted-priority, read-only-concurrency contract in
     `TRP-015`; per-repository effects remain serialized and one lane can never consume the other's
     assurance-bound cache, verdict, proposal, or maturity state. (Added 2026-07-29, user directive;
-    see Decision #85 and `TRP-001`–`TRP-015`.)
+    see Decision #85 and `TRP-001`–`TRP-019`.)
+
+    A freshness-revalidated cohort whose members already reached checksum-valid
+    `TRUSTED_NO_OP_PROVEN` may exercise the canonical production delivery path before the broader
+    TRP-04 adversarial matrix closes. This exception permits only exact frozen cohort candidates
+    through `act`, disposable staging, hosted GitHub App qualification, reviewed authorization,
+    and serialized disclosed draft PRs. It does not permit portfolio content fan-out, add a
+    partially qualified member, promote trusted evidence, or close TRP-04, T1/T2/T3,
+    verified Gate A/B/C, or maturity. After the cohort package is presented, TRP-04 immediately
+    resumes at its durable boundary. (Amended 2026-07-30, user directive; `TRP-016`–`TRP-019`.)
 21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
     mission outcome is a closure standard, not an active goal. The sole mission graph declares the
-    ordered T0/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
+    ordered T0/TP/T0R/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
     one primary goal from the earliest incomplete gate and zero or more concurrent goals only for
     dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy.
     It records both atomically with task state, advances only on current evidence, withdraws
@@ -236,7 +245,8 @@ to add a project fact here, it belongs in `master.md` instead.
     reserved capacity and cannot be starved by verified work. Safety and autonomy are acceptance
     invariants attached to the current goals, not alternate destinations. Narrative handovers and
     operators may not manually override derived goal state. (Added 2026-07-29, user directive;
-    amended for trusted-priority dual-lane execution; see Decision #85, `L8-025`, and `TRP-015`.)
+    amended for trusted-priority dual-lane and qualified-cohort execution; see Decision #85,
+    `L8-025`, and `TRP-015`–`TRP-019`.)
 
 ## Applying a new requirement (the actual procedure)
 

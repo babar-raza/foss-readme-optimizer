@@ -76,7 +76,9 @@ history:
 
 | Order | Goal ID | Concrete closure outcome |
 |---:|---|---|
-| 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Trusted/verified assurance is disjoint and the real adversarial trusted canaries are transformation-approved and no-op-proven. |
+| 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Trusted/verified assurance is disjoint and the initial real trusted cohort is transformation-approved and no-op-proven. |
+| 12 | `GOAL-TP-TRUSTED-COHORT-POC` | The frozen current trusted cohort passes the canonical production-path workflow, staging, hosted-App, authorization, and disclosed draft-PR proof. |
+| 13 | `GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION` | After the cohort POC is presented, the broader Python/.NET/Java/injected/largest-README canary matrix is transformation-approved and no-op-proven. |
 | 15 | `GOAL-C0-AUTHORIZED-PORTFOLIO` | Every repository visible from every authorized organization/App source has a current observation and evidence-backed admission or exclusion; every admitted repository is disabled/read-only, intake-ready, and bound to one complete registry revision. |
 | 20 | `GOAL-T1-TRUSTED-PORTFOLIO` | Every freshness-valid registry entry has a complete trusted local bundle, independent approval, and no-op proof. |
 | 30 | `GOAL-T2-WORKFLOW-STAGING` | The canonical trusted pipeline passes the actual reusable workflow under `act` and the complete disposable-staging proposal/recovery matrix. |
@@ -111,8 +113,11 @@ manually chosen. `evaluate` MUST:
 7. withdraw a concurrent goal automatically when its dependency, assurance, resource, or
    effect-isolation predicate stops being true.
 
-Before trusted canaries close, execution remains one repository lane and primary work always wins
-selection. Afterwards the sole supervisor may run at most four isolated repository lanes. While a
+Before trusted adversarial canaries close, content qualification remains one repository lane and
+portfolio fan-out stays disabled. `GOAL-TP-TRUSTED-COHORT-POC` may nevertheless deliver the
+already-terminal frozen cohort through the canonical workflow with serialized effects; this
+does not admit new content candidates or satisfy T0R/T1. Afterwards the sole supervisor may run
+at most four isolated repository lanes. While a
 trusted T1, T2, or T3 goal is primary, three lanes are reserved for trusted work and at most one
 lane may perform repository-verified read-only work. Verified work may borrow unused trusted
 capacity; the next free slot returns to trusted work as soon as trusted work is ready, while an
@@ -154,9 +159,10 @@ without improving one of those states or removing its evidenced blocker is a dri
 ## Status
 
 The repository has substantial foundations, but it is **not Level 8**. The complete Waves 0–8
-program remains mandatory; decision #85's immediate path is **trusted qualification → complete
-discovery/intake → trusted portfolio → `act` → staging → hosted App qualification → trusted PRs
-→ repository-verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
+program remains mandatory; decision #85's immediate path is **initial trusted qualification →
+qualified-cohort production-path POC → resume adversarial trusted qualification → complete
+discovery/intake → trusted portfolio → full-registry workflow/staging revalidation → trusted PR
+portfolio → repository-verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
 
 `TRP-00` is regression-proven at `181879c7`; its controller derives
 `GOAL-T0-TRUSTED-QUALIFICATION` and isolates trusted identity from verified acceptance. `TRP-01`
@@ -167,11 +173,16 @@ native patches—without a universal template. `TRP-03` is verified at `3cdf5dc9
 validation now precedes separate blind-quality and inheritance-fidelity roles, findings and
 section repair are grounded, unchanged repair fails visibly, and exact accepted inputs reuse the review without a provider call or duplicate lifecycle transition, while trusted approval never
 claims repository truth. The hosted `qwen3-next` backend was unavailable during the earlier
-non-promoting diagnostic, so live canary proof remains TRP-04 work.
-`L8-INTAKE-00/01` are closed, `L8-INTAKE-02` may run read-only, and
-`TRP-04-CANARY-QUALIFICATION` is next.
-The portfolio has 8 `FACTS_READY`,
-8 candidates/validations, and zero verified approvals/no-ops/human acceptances;
+non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 work.
+Nine Python repositories now have checksum-addressed `TRUSTED_NO_OP_PROVEN` bundles; the latest
+canonical campaign promoted Page and PDF Python after bounded repair/review. These nine form the
+candidate set for a dynamic, freshness-revalidated cohort freeze; the count is evidence, not a
+hard-coded acceptance rule. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run read-only.
+The next graph-selected work after this amendment is `TRP-04P-COHORT-FREEZE`, not additional
+TRP-04 content generation. TRP-04 is deliberately held, remains open, and must resume immediately
+after the cohort PR package is presented.
+The repository-verified scoreboard remains 7 `FACTS_READY`,
+7 candidates/validations, and zero verified approvals/no-ops/human acceptances;
 discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
 
 The legacy universal goal is absent from the executable graph and pre-migration durable records
@@ -180,15 +191,19 @@ remains one LLM-first, README-derived, independently
 transformation-approved/no-op-proven draft PR per runtime-loaded registry entry. Trusted artifacts
 declare `trusted_inherited` and do not satisfy verified Gate A. The executable path is `TRP-00`
 through `TRP-07`: assurance separation, README-derived facts, bounded LLM composition,
-independent quality/fidelity review, adversarial canaries, full-registry fan-out,
-authorization/access, and exactly one draft PR per repository.
+independent quality/fidelity review, the `TRP-04P-*` cohort production-path POC, resumed
+adversarial canaries, full-registry fan-out, authorization/access, and exactly one draft PR per
+repository.
 
 The owner reports organization-owner access. Live credential and per-repository permission checks
 plus reviewed authorization records remain required before effects. GitHub App authority is
-requested only when the trusted local/`act`/staging gates reach that boundary; Codex first attempts
+requested when the qualified cohort's local/`act`/staging gates reach that boundary; Codex first attempts
 supported `gh`/API operations and otherwise emits the exact manual creation/installation handoff
 and continues verified read-only work. The one-day target applies only to the qualified
-full-registry hosted PR campaign. Verified intake/facts/composition/review may advance concurrently
+campaign execution after its contracts and credentials are ready; the present amendment targets
+a reviewable cohort POC within two days without counting implementation defects, unavailable
+external authority, or human response time as successful execution. Verified
+intake/facts/composition/review may advance concurrently
 after TRP-00 and complete discovery, under trusted-priority capacity. After `TRP-07`, it becomes
 the primary path; trusted operational proof is reused only
 when its input and control hashes still match, while content assurance is independently reproved.
@@ -2052,15 +2067,32 @@ that is the only permanence they carry; text is always the decision as it stands
     evidence-dependent boundary and independently reconciles every material claim; trusted
     acceptance never promotes automatically.
 
-    Execution is serial through assurance migration and adversarial canaries spanning Python, .NET,
-    ordinary Java, and the largest current README. After `ContentAssuranceV1` exists, common
-    discovery/intake work may advance without waiting for trusted PR effects. After the canaries
-    prove bounded context/output, content preservation, prompt-injection resistance, independent
-    review, effective repair, exact LLM accounting, and no-op reuse, the sole supervisor may run
+    Execution remains serial while the trusted content contract is unstable. Once real repositories
+    have reached checksum-complete `TRUSTED_NO_OP_PROVEN`, however, those exact immutable candidates
+    form a qualified cohort that may exercise the intended production delivery path before the
+    broader adversarial canary matrix closes. The supervisor freezes cohort membership by
+    repository identity, source revision, README and candidate hashes, contract/prompt/configuration
+    hashes, reviewer verdicts, no-op proof, and manifest checksum; it rechecks the target head before
+    any proposal and removes or regenerates stale members. No new or partial candidate may join by
+    convenience.
+
+    The frozen cohort then runs through the actual reusable workflow under `act`, the
+    assurance-specific proposal/effect matrix in disposable staging, GitHub App hosted
+    qualification on staging, live permission and reviewed authorization checks, and serialized
+    draft-PR effects. This is a production-path POC tranche, not T1 full-registry closure,
+    repository-verified Gate A/B/C, or maturity proof. It may reveal presentation defects through
+    real review; each accepted finding is bound to the affected source/candidate/contract hash,
+    repaired at the earliest shared owner, and promoted into deterministic or golden regression
+    coverage before the affected PR is updated.
+
+    Immediately after the cohort PR package is presented, `TRP-04` resumes at its durable boundary
+    and still proves Python, .NET, ordinary Java, malformed/prompt-injected content, the largest
+    current README, recovery, exact accounting, and no-op behavior. Portfolio fan-out remains
+    disabled until that broader qualification closes. After it closes, the sole supervisor may run
     at most four isolated repository lanes in the existing platform priority. Trusted work is the
     primary goal and owns three reserved lanes; at most one lane advances repository-verified
     read-only work. Verified work may borrow idle capacity but cannot delay trusted work or issue a
-    product effect. The qualified full-registry trusted campaign has a one-day target;
+    product effect. The qualified full-registry trusted campaign retains its one-day target;
     implementation, canary repair, unavailable permissions, and human authorization are not hidden
     inside that clock.
 
@@ -2080,18 +2112,20 @@ that is the only permanence they carry; text is always the decision as it stands
     and pending intake prevent trusted T1 closure as well as verified Gate A.
 
     The trusted lane exercises the complete operational pipeline rather than stopping at local
-    generation. After full-registry local transformation it must run the canonical reusable
-    workflow under `act`, prove the proposal/effect matrix in disposable GitHub staging, then
-    qualify fresh short-lived GitHub App authentication and hosted scheduling/recovery against
-    staging targets. Codex first attempts supported non-interactive `gh` and GitHub API operations.
+    generation. The qualified cohort first runs the canonical reusable workflow under `act`,
+    proves the proposal/effect matrix in disposable GitHub staging, then qualifies fresh
+    short-lived GitHub App authentication and hosted scheduling/recovery against staging targets.
+    Codex first attempts supported non-interactive `gh` and GitHub API operations.
     If App registration or organization/repository installation requires a manual owner/browser
     action, the system emits one exact request containing the app name, permissions, subscribed
     events, callback/webhook configuration, installation scope, URL, and secret locations; records
     `WAITING_HUMAN_APP_PROVISIONING`; notifies the owner; and continues every eligible verified
     read-only task. It validates the supplied installation and resumes automatically. Only after
-    those gates pass may the hosted runtime open the authorized
-    full-registry trusted draft-PR portfolio. This operational proof may be reused later when its
-    hashes and environment remain current; it cannot prove repository factuality,
+    those gates pass may the hosted runtime open the authorized cohort draft PRs. After TRP-04 and
+    full-registry transformation close, the full-registry `act`, staging, App, authorization, and
+    effect gates revalidate every invalidated or denominator-dependent scenario before the
+    remaining trusted PR portfolio proceeds. Cohort operational proof may be reused later only
+    when all workflow, environment, contract, and effect hashes remain current; it cannot prove repository factuality,
     `VerifiedProposalV1`, verified Gate A/B/C, or maturity. Trusted Gate T3 remains required before
     any trusted product effect campaign closes, but it does not block repository-verified
     read-only discovery, facts, reconciliation, planning, composition, or review.
@@ -2102,7 +2136,51 @@ that is the only permanence they carry; text is always the decision as it stands
     reactivate the primary goal while deriving only permitted concurrent goals. The runtime keeps
     `active_goal_id` separate from `concurrent_goal_ids`; a concurrent goal has no independent stop
     authority. (2026-07-29, user directive, revised 2026-07-29 for assurance-pipeline
-    clarification and trusted-priority dual-lane execution.)
+    clarification and trusted-priority dual-lane execution; revised 2026-07-30 to deliver the
+    already-qualified cohort through the production path before resuming adversarial qualification.)
+
+86. **Make verification latency and recurring real-input defects owned production contracts, not
+    repeated surprises.** The current non-live suite contains more than 2,300 tests and the last two
+    captured complete runs required 986.92 and 1,062.55 seconds. Repeating that suite after every
+    local repair consumes delivery time without increasing confidence proportionally. The
+    repository therefore uses a measured verification pyramid: touched-file Ruff and the smallest
+    focused contract tests during editing; impact-mapped integration/security/recovery tests at a
+    coherent public seam; and one complete official suite at a campaign, workflow, staging, or
+    effect boundary whose claim needs repository-wide evidence. A runtime-only rerun with unchanged
+    tracked code reuses the current complete-suite receipt when its commit, lockfile, Python/runtime
+    identity, test inventory, and required gate hashes match.
+
+    `TRP-04P-TEST-LATENCY` measures before changing execution. Its baseline records per-node and
+    per-suite durations, subprocess/Git/process-start overhead, collection time, CPU, filesystem,
+    and variance. It then benchmarks battle-tested `pytest-xdist` with a bounded maximum of four
+    workers against a serial reference. Pure isolated tests may be parallelized; tests that mutate
+    process environment, Git refs, shared durable state, ports, credentials, global caches, or
+    cancellation trees remain explicitly serial. CI may shard unit, integration, security, and
+    governance groups, but every shard result is reduced into one checksum-bound campaign receipt.
+    Faster execution is accepted only when the selected test inventory is identical, repeated
+    results are deterministic, seeded shared-state conflicts remain isolated, and the serial and
+    parallel outcomes agree. The full suite remains mandatory at the declared closure boundaries.
+
+    The repeated README defects have a separate root cause: the permission to add configured
+    presentation standards, semantic preservation of inherited content, and visitor-quality
+    judgment were allowed to overlap inside batched LLM review. Every production contract now
+    declares one authority for each question. Deterministic code decides whether a header, badge,
+    navigation item, Mermaid node, Enterprise Edition label, or contextual link is permitted by
+    `CONFIGURED_STANDARD`; fidelity reviewers judge whether inherited meaning was lost or distorted;
+    blind reviewers judge visitor quality. A reviewer cannot reject an addition that the supplied
+    configuration contract deterministically authorizes, and it cannot authorize an addition the
+    contract rejects. Cross-batch reduction is deterministic and checks the complete document
+    inventory.
+
+    Every new real-repository defect is classified before repair as missing contract, missing
+    fixture, implementation violation, reviewer disagreement, provider/schema failure, or
+    repository-specific content issue. A common defect adds the smallest representative regression
+    fixture and negative control at its owning seam; it is never patched only in one generated
+    README. Cohort contracts are frozen by hash. A contract change invalidates only affected
+    candidates and PRs, requires the focused and impact suites immediately, and triggers the next
+    complete suite only at the cohort closure boundary. This allows the two-day trusted POC target
+    to reduce ceremony and redundant computation without weakening source preservation, assurance
+    separation, authorization, independent review, or effect safety. (2026-07-30, user directive.)
 
 ## Architecture
 
@@ -2735,22 +2813,53 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         cache/no-op reuse. Commit `3cdf5dc9`; 398 focused regressions and a clean 2,233-test
         commit-bound official run pass, with evidence under
         `plans/investigations/evidence/trp-03-independent-fidelity-review-v1/`.
-  - [ ] `TRP-04`: qualify short, ordinary, malformed/prompt-injected, and largest-current-README
-        canaries across at least Python, .NET, Java, and the large-document outlier before fan-out.
+  - [ ] **Two-day presentable cohort POC (`TRP-04P-*`) — execute before resuming TRP-04:**
+    - [ ] `TRP-04P-COHORT-FREEZE`: derive `QualifiedTrustedCohortV1` from every current
+          checksum-valid `TRUSTED_NO_OP_PROVEN` bundle, recheck each source head, exclude or
+          regenerate stale members, and freeze exact source/candidate/contract/manifest hashes.
+          The current evidence contains nine Python members; runtime evidence decides the actual
+          frozen count.
+    - [ ] `TRP-04P-TEST-LATENCY`: capture `pytest --durations` and serial baselines, create an
+          impact-mapped fast/integration/security/full verification manifest, benchmark at most
+          four `pytest-xdist` workers with serial-only isolation for shared-state tests, and adopt
+          only a deterministic measured speedup. Time-box diagnosis/implementation to four hours;
+          an unproven optimization is rejected rather than delaying delivery.
+    - [ ] `TRP-04P-ACT`: execute the frozen cohort through the actual reusable workflow and
+          canonical supervisor under `act`, including dispatch variants, recovery, deduplication,
+          evidence upload, health reduction, and PAT/ambient-token rejection.
+    - [ ] `TRP-04P-STAGING`: prove trusted proposal create/no-op/update/drift/dedup/lost-response/
+          expiry/crash recovery against disposable staging with byte-identical default branches
+          and no analysis write credential.
+    - [ ] `TRP-04P-APP`: publish the verified control-repository commit to `main`, attempt supported
+          `gh`/API App setup, issue one exact manual provisioning handoff only if unavoidable, then
+          qualify fresh installation tokens and hosted trigger/recovery/health behavior on staging.
+    - [ ] `TRP-04P-AUTH`: live-check direct write permission and consume a reviewed, unexpired,
+          trusted-assurance authorization for every frozen cohort repository.
+    - [ ] `TRP-04P-PR`: after presenting one exact what/why/where authorization package, use only
+          the hosted canonical workflow to create or update one disclosed draft PR per authorized,
+          current cohort member. Never merge, mark ready, force-push, or write a default branch.
+    - [ ] `TRP-04P-PRESENT`: deliver an indexed PR/review package, bind any accepted feedback to
+          the affected hashes, promote common defects into regression coverage, and reopen only
+          invalidated candidates or shared contracts.
+  - [ ] `TRP-04`: immediately after `TRP-04P-PRESENT`, resume the durable canary task and qualify
+        short, ordinary, malformed/prompt-injected, and largest-current-README canaries across at
+        least Python, .NET, Java, and the large-document outlier before portfolio fan-out.
   - [ ] `TRP-05`: after common Gate C0, execute the dynamic registry denominator in the configured
         platform order using at most four supervisor-owned isolated lanes. Reserve three lanes for
         trusted work and permit at most one repository-verified read-only lane; verified work may
         borrow idle capacity but may not delay trusted work or emit an effect. Create
         checksum-valid source, fact, plan, candidate, patch, review, repair, no-op, call-ledger,
         and manifest artifacts for every repository.
-  - [ ] `TRP-05A`: run the same canonical trusted supervisor through the actual reusable workflow
-        under `act`; prove dispatch variants, matrix isolation, duplicate delivery, checkpoint
-        resume, recovery, evidence upload, health aggregation, and production-profile rejection of
-        PAT/ambient-token fallback.
-  - [ ] `TRP-05B`: run the complete proposal/effect lifecycle against disposable GitHub staging;
+  - [ ] `TRP-05A`: revalidate the same canonical trusted supervisor and actual reusable workflow
+        under `act` for the complete current denominator; reuse cohort evidence only while every
+        relevant hash remains current. Prove dispatch variants, matrix isolation, duplicate
+        delivery, checkpoint resume, recovery, evidence upload, health aggregation, and
+        production-profile rejection of PAT/ambient-token fallback.
+  - [ ] `TRP-05B`: revalidate the complete proposal/effect lifecycle against disposable GitHub staging;
         prove create/no-op/update/drift/dedup/lost-response/expired-authorization/crash recovery,
         analysis/effect credential isolation, and byte-identical default branches.
-  - [ ] `TRP-05C`: after 05A/05B pass, attempt supported `gh`/API GitHub App setup. If a browser,
+  - [ ] `TRP-05C`: after 05A/05B pass, revalidate the cohort-qualified GitHub App installation and
+        attempt supported `gh`/API setup only for any missing scope. If a browser,
         owner confirmation, or unavailable secret is required, record
         `WAITING_HUMAN_APP_PROVISIONING`, notify the owner with one exact app/permission/event/
         webhook/scope/secret handoff, and continue verified read-only work. After installation,
@@ -3039,6 +3148,19 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       accounting. The offline/live-like `TRP-01`–`TRP-03` extraction, composition, deterministic
       validation, dual-review, repair, accounting, cache, and lifecycle foundation is verified;
       this gate remains open for `TRP-04` real-provider canonical-supervisor canaries.
+- [ ] **Qualified trusted cohort POC gate:** `QualifiedTrustedCohortV1` contains only
+      freshness-revalidated, checksum-valid `TRUSTED_NO_OP_PROVEN` members; those exact candidates
+      pass the real reusable workflow under `act`, disposable staging, hosted GitHub App
+      qualification, live permission/authorization, and serialized disclosed draft-PR effects.
+      Every target default branch remains byte-identical, every PR is draft-only, and the indexed
+      handoff explicitly states that neither TRP-04, full-registry trusted completion, verified
+      Gate A/B/C, nor maturity is satisfied.
+- [ ] **Verification-latency gate:** one serial `pytest --durations` baseline identifies the actual
+      slow nodes and resource classes; touched, impact, security, and full-suite inventories are
+      explicit; any xdist/CI sharding or immutable-fixture optimization produces the identical
+      selected test inventory and outcome across repeated serial/parallel controls. The complete
+      official suite remains green at cohort closure, while unchanged runtime-only reruns reuse a
+      checksum-bound receipt instead of repeating it.
 - [ ] **Trusted full-registry gate:** transformation-approved and trusted-no-op-proven equals the
       freshness-valid runtime denominator; system failures, unprocessed entries, manifest
       failures, content-loss findings, and undisclosed assurance are zero.
