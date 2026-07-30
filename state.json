@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-    "active_task_id": null,
+    "active_task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 2
     },
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-07-30T06:07:20.653109+00:00",
+    "claim_id": "889149de73454ff4889a52f9e7747cf3",
+    "claimed_at": "2026-07-30T05:37:20.653109+00:00",
+    "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
-    "last_evaluated_at": "2026-07-30T05:36:51.493570+00:00",
+    "last_evaluated_at": "2026-07-30T05:37:20.653109+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -206,7 +206,7 @@
       "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "CLOSED",
       "TRP-04-CANARY-QUALIFICATION": "REGRESSED",
-      "TRP-04P-ACT-WORKFLOW-PARITY": "TODO",
+      "TRP-04P-ACT-WORKFLOW-PARITY": "IN_PROGRESS",
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
@@ -5215,6 +5215,15 @@
         "reason": "Qualified trusted cohort was independently reconstructed from fresh durable state and target heads; every registry entry is enrolled or precisely excluded under current contracts.",
         "task_id": "TRP-04P-COHORT-FREEZE",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T05:37:20.653289+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -5223,7 +5232,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 600,
+  "state_version": 601,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
