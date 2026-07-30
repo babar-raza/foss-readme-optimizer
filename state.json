@@ -117,6 +117,15 @@
         "reason": "content assurance changed: begin README-derived trusted transformation",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T04:32:20.188633+00:00",
+        "reason": "inventory immutable README material as inherited facts",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "TRUSTED_FACTS_EXTRACTING"
       }
     ],
     "intake_preflight_history": [
@@ -144,11 +153,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
-    "status": "PROFILED",
-    "updated_at": "2026-07-30T04:32:15.101061+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTING",
+    "updated_at": "2026-07-30T04:32:20.188633+00:00"
   },
   "schema_version": 2,
-  "state_version": 9,
+  "state_version": 10,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
