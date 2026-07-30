@@ -33,6 +33,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v3-retain-grounded-supports"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -254,6 +255,8 @@ def _validate_quality_finding(
 ) -> list[str]:
     """Reject visible-quality premises contradicted by their quote or configured contract."""
 
+    if finding.disposition != "requires_repair":
+        return []
     errors: list[str] = []
     premise = f"{finding.claim}\n{finding.required_repair}".casefold()
     quote = finding.quoted_candidate_span
@@ -358,11 +361,7 @@ def grounding_retry_context(
 ) -> str:
     """Return bounded reconciliation evidence without another producer verdict."""
 
-    disproven_ids = {
-        error.split(":", maxsplit=1)[0]
-        for error in errors
-        if any(marker in error for marker in ("contradicts", "conflicts with", "is unconfigured"))
-    }
+    disproven_ids = deterministically_disproven_finding_ids(errors)
     payload = {
         "validation_errors": errors,
         "candidate_sha256_input_length": len(candidate_text.encode("utf-8")),
@@ -399,3 +398,13 @@ def grounding_retry_context(
         ],
     }
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
+
+
+def deterministically_disproven_finding_ids(errors: list[str]) -> set[str]:
+    """Return finding IDs whose premises the deterministic contract disproves."""
+
+    return {
+        error.split(":", maxsplit=1)[0]
+        for error in errors
+        if any(marker in error for marker in ("contradicts", "conflicts with", "is unconfigured"))
+    }

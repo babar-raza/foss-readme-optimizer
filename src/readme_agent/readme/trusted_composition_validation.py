@@ -5,6 +5,8 @@ from __future__ import annotations
 import re
 from collections import Counter
 
+from markdown_it import MarkdownIt
+
 from readme_agent.errors import LLMError
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.readme.trusted_composition_batching import TrustedCompositionBatch
@@ -15,6 +17,21 @@ from readme_agent.readme.trusted_composition_models import (
 
 _HTML_COMMENT = "<!--"
 _INTERNAL_MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(#[^)]+\)")
+
+
+def _markdown_structures(candidate: str) -> tuple[list[tuple[str, str]], int]:
+    """Return real Markdown headings and Mermaid fences, excluding fenced source text."""
+
+    tokens = MarkdownIt("commonmark").parse(candidate)
+    headings = [
+        (token.tag, tokens[index + 1].content.strip())
+        for index, token in enumerate(tokens)
+        if token.type == "heading_open" and index + 1 < len(tokens)
+    ]
+    mermaid_count = sum(
+        token.type == "fence" and token.info.strip().casefold() == "mermaid" for token in tokens
+    )
+    return headings, mermaid_count
 
 
 def _render_batch_candidate(
@@ -33,35 +50,45 @@ def _render_batch_candidate(
     return "\n".join(rendered)
 
 
+def source_only_global_structure_violation(
+    draft: TrustedReadmeSectionToolDraftV1,
+    batch: TrustedCompositionBatch,
+) -> str | None:
+    """Return the first document-global structure introduced by a source-only batch."""
+
+    if batch.global_structures_allowed:
+        return None
+    candidate = _render_batch_candidate(draft, batch)
+    parsed_headings, mermaid_count = _markdown_structures(candidate)
+    if any(tag == "h1" for tag, _title in parsed_headings) or mermaid_count:
+        return "source-only batch authored a README-global header or Mermaid structure"
+    source_internal_links = Counter(
+        link for item in batch.source_items for link in _INTERNAL_MARKDOWN_LINK.findall(item.text)
+    )
+    candidate_internal_links = Counter(_INTERNAL_MARKDOWN_LINK.findall(candidate))
+    if candidate_internal_links - source_internal_links:
+        return "source-only batch authored README-global navigation links"
+    return None
+
+
 def _validate_batch_standard_content(
     draft: TrustedReadmeSectionToolDraftV1,
     batch: TrustedCompositionBatch,
 ) -> None:
     """Reject a declared standard that the same bounded batch did not materialize."""
 
-    if not batch.global_structures_allowed:
-        candidate = _render_batch_candidate(draft, batch)
-        if re.search(r"(?m)^# ", candidate) or "```mermaid" in candidate:
-            raise LLMError("source-only batch authored a README-global header or Mermaid structure")
-        source_internal_links = Counter(
-            link
-            for item in batch.source_items
-            for link in _INTERNAL_MARKDOWN_LINK.findall(item.text)
-        )
-        candidate_internal_links = Counter(_INTERNAL_MARKDOWN_LINK.findall(candidate))
-        if candidate_internal_links - source_internal_links:
-            raise LLMError("source-only batch authored README-global navigation links")
+    violation = source_only_global_structure_violation(draft, batch)
+    if violation is not None:
+        raise LLMError(violation)
+    candidate = _render_batch_candidate(draft, batch)
+    parsed_headings, mermaid_count = _markdown_structures(candidate)
     if not batch.configured_standards:
         return
-    candidate = _render_batch_candidate(draft, batch)
     candidate_folded = candidate.casefold()
-    headings = {
-        (match.group(1).casefold(), match.group(2).strip().casefold())
-        for match in re.finditer(r"(?m)^(#{1,6})[ \t]+(.+?)\s*$", candidate)
-    }
+    headings = {(tag, title.casefold()) for tag, title in parsed_headings}
     standards = {item.standard_id: item for item in batch.configured_standards}
     if "readme.header" in standards:
-        h1_headings = re.findall(r"(?m)^# (.+?)\s*$", candidate)
+        h1_headings = [title for tag, title in parsed_headings if tag == "h1"]
         if len(h1_headings) != 1:
             raise LLMError("configured README header requires exactly one H1 in its owning batch")
     if "readme.badges" in standards:
@@ -72,7 +99,7 @@ def _validate_batch_standard_content(
         if not fragments or any(fragment not in candidate for fragment in fragments):
             raise LLMError("configured badge fragments are absent from their owning batch")
     if "readme.navigation" in standards:
-        if ("##", "navigation") not in headings:
+        if ("h2", "navigation") not in headings:
             raise LLMError(
                 "configured README navigation requires the exact H2 heading ## Navigation "
                 "in its owning batch"
@@ -84,12 +111,12 @@ def _validate_batch_standard_content(
         if not labels or any(label not in candidate_folded for label in labels):
             raise LLMError("configured README navigation is incomplete in its owning batch")
     if "readme.at_a_glance_mermaid" in standards:
-        if ("##", "at a glance") not in headings:
+        if ("h2", "at a glance") not in headings:
             raise LLMError(
                 "configured at-a-glance Mermaid requires the exact H2 heading "
                 "## At a glance in its owning batch"
             )
-        if candidate.count("```mermaid") != 1:
+        if mermaid_count != 1:
             raise LLMError(
                 "configured at-a-glance Mermaid diagram is absent or duplicated in its owning batch"
             )

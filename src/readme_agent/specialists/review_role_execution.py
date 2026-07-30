@@ -16,6 +16,7 @@ from readme_agent.specialists.readme_review_roles import (
 )
 from readme_agent.specialists.review_finding_grounding import (
     FindingGroundingResultV1,
+    deterministically_disproven_finding_ids,
     grounding_retry_context,
     validate_review_findings,
 )
@@ -128,6 +129,70 @@ def _parse_role_result(
         raise LLMError(f"{label} review violated its output contract: {exc}") from exc
 
 
+def _drop_ungrounded_blind_sibling_findings(
+    parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
+    errors: list[str],
+) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
+    """Retain grounded blind findings when only sibling quality findings are invalid."""
+
+    if not isinstance(parsed, BlindQualityReviewResultV1) or parsed.verdict == "SYSTEM_FAILURE":
+        return parsed, ()
+    invalid_ids = {error.split(":", maxsplit=1)[0] for error in errors if ":" in error}
+    invalid_ids.update(deterministically_disproven_finding_ids(errors))
+    finding_ids = {finding.finding_id for finding in parsed.findings}
+    removable_ids = invalid_ids & finding_ids
+    if not removable_ids:
+        return parsed, ()
+    retained = [finding for finding in parsed.findings if finding.finding_id not in removable_ids]
+    if not retained:
+        return parsed, ()
+    disposition = "repair" if parsed.verdict == "REJECT_REPAIRABLE" else "acceptance"
+    normalized = normalize_redundant_role_fields(
+        "blind_quality",
+        {
+            **parsed.model_dump(mode="json"),
+            "reasoning": (
+                "Deterministic grounding removed ungrounded quality findings and retained "
+                f"{len(retained)} independently proposed {disposition} finding(s)."
+            ),
+            "findings": [finding.model_dump(mode="json") for finding in retained],
+        },
+    )
+    return BlindQualityReviewResultV1.model_validate(normalized), tuple(sorted(removable_ids))
+
+
+def _reconcile_candidate_spans(
+    parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
+    candidate_text: str,
+) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
+    """Bind a whitespace-equivalent reviewer quote to the unique exact candidate span."""
+
+    updates = []
+    reconciled_ids: list[str] = []
+    for finding in parsed.findings:
+        quote = finding.quoted_candidate_span
+        if quote in candidate_text:
+            updates.append(finding)
+            continue
+        tokens = re.findall(r"\S+", quote)
+        if not tokens:
+            updates.append(finding)
+            continue
+        pattern = r"\s+".join(re.escape(token) for token in tokens)
+        matches = list(re.finditer(pattern, candidate_text))
+        if len(matches) != 1:
+            updates.append(finding)
+            continue
+        updates.append(finding.model_copy(update={"quoted_candidate_span": matches[0].group(0)}))
+        reconciled_ids.append(finding.finding_id)
+    if not reconciled_ids:
+        return parsed, ()
+    payload = {**parsed.model_dump(mode="json"), "findings": updates}
+    if isinstance(parsed, BlindQualityReviewResultV1):
+        return BlindQualityReviewResultV1.model_validate(payload), tuple(reconciled_ids)
+    return FactualPlanReviewResultV1.model_validate(payload), tuple(reconciled_ids)
+
+
 def run_grounded_role(
     *,
     role: str,
@@ -152,8 +217,15 @@ def run_grounded_role(
     for attempt in range(1, max_attempts + 1):
         analysis = client.analyze(current_messages)
         grounding: FindingGroundingResultV1 | None = None
+        dismissed_finding_ids: tuple[str, ...] = ()
+        reconciled_candidate_span_ids: tuple[str, ...] = ()
+        original_errors: list[str] = []
         try:
             parsed = _parse_role_result(role, analysis)
+            parsed, reconciled_candidate_span_ids = _reconcile_candidate_spans(
+                parsed,
+                candidate_text,
+            )
             grounding = validate_review_findings(
                 candidate_text=candidate_text,
                 product_facts=product_facts,
@@ -161,9 +233,24 @@ def run_grounded_role(
                 visitor_contract=visitor_contract,
             )
             errors = grounding.errors
+            original_errors = list(errors)
+            if errors:
+                parsed, dismissed_finding_ids = _drop_ungrounded_blind_sibling_findings(
+                    parsed,
+                    errors,
+                )
+                if dismissed_finding_ids:
+                    grounding = validate_review_findings(
+                        candidate_text=candidate_text,
+                        product_facts=product_facts,
+                        findings=parsed.findings,
+                        visitor_contract=visitor_contract,
+                    )
+                    errors = grounding.errors
         except LLMError as exc:
             parsed = None
             errors = [str(exc)]
+        invalid_finding_ids = {error.split(":", maxsplit=1)[0] for error in errors if ":" in error}
         history.append(
             {
                 "role": role,
@@ -171,6 +258,23 @@ def run_grounded_role(
                 "valid": not errors,
                 "errors": errors,
                 "validation_result": grounding.model_dump(mode="json") if grounding else None,
+                "deterministically_dismissed_finding_ids": list(dismissed_finding_ids),
+                "reconciled_candidate_span_ids": list(reconciled_candidate_span_ids),
+                "pre_normalization_errors": original_errors,
+                "invalid_findings": [
+                    {
+                        "finding_id": finding.finding_id,
+                        "criterion": finding.criterion,
+                        "section": finding.section,
+                        "claim": finding.claim,
+                        "quoted_candidate_span": finding.quoted_candidate_span,
+                        "required_repair": finding.required_repair,
+                    }
+                    for finding in parsed.findings
+                    if finding.finding_id in invalid_finding_ids
+                ]
+                if parsed is not None
+                else [],
             }
         )
         if parsed is not None and grounding is not None and not errors:

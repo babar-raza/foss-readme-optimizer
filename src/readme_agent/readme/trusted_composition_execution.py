@@ -25,8 +25,10 @@ from readme_agent.readme.trusted_composition_normalization import (
     normalize_configured_header,
     normalize_tool_arguments,
     preserve_omitted_source_facts,
+    preserve_source_only_batch_exactly,
 )
 from readme_agent.readme.trusted_composition_validation import (
+    source_only_global_structure_violation,
     validate_trusted_section_tool_draft,
 )
 
@@ -98,6 +100,9 @@ def compose_trusted_batch(
             draft = TrustedReadmeSectionToolDraftV1.model_validate(arguments)
             draft = preserve_omitted_source_facts(draft, batch)
             draft = normalize_configured_header(draft, batch)
+            violation = source_only_global_structure_violation(draft, batch)
+            if violation is not None:
+                draft = preserve_source_only_batch_exactly(draft, batch, reason=violation)
             validate_trusted_section_tool_draft(draft, batch, envelope)
         except (LLMError, ValidationError) as exc:
             last_error = exc

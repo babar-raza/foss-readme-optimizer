@@ -28,6 +28,7 @@ _EMPTY_SENTINELS = frozenset({"none", "n/a", "not applicable", "no repair requir
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>[^)\s]+)(?:\s+\"[^\"]*\")?\)")
 _LOCAL_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\(#[^)]+\)")
 _BOLD_TEXT = re.compile(r"\*\*(?P<label>[^*]+)\*\*")
+_BADGE_LINK = re.compile(r"\[!\[(?P<label>[^\]]+)\]\((?P<image>[^)]+)\)\]\((?P<target>[^)]+)\)")
 
 
 class TrustedFidelityRoleFailure(LLMError):
@@ -60,6 +61,16 @@ def normalize_trusted_fidelity_output(
     allow_link_removal = "readme.contextual_links" in standard_ids
     allow_enterprise_terminology = "readme.enterprise_edition_terminology" in standard_ids
     allow_navigation_links = "readme.navigation" in standard_ids
+    badge_fragments = (
+        {
+            str(fragment)
+            for standard in graph.configured_standards
+            if standard.standard_id == "readme.badges"
+            for fragment in standard.parameters.get("required_fragments", [])
+        }
+        if graph is not None
+        else set()
+    )
     forbid_promotional_blockquotes = bool(
         graph is not None
         and any(
@@ -86,6 +97,7 @@ def normalize_trusted_fidelity_output(
                     allow_link_removal=allow_link_removal,
                     allow_enterprise_terminology=allow_enterprise_terminology,
                     allow_navigation_links=allow_navigation_links,
+                    configured_badge_fragments=badge_fragments,
                 )
                 if fact is not None
                 else None
@@ -152,16 +164,22 @@ def normalize_trusted_fidelity_output(
         if isinstance(item, dict)
         and not (
             candidate_text is not None
-            and any(
-                _authorized_source_derivation(
+            and (
+                _authorized_configured_standard_derivation(
                     str(item.get("quoted_candidate_span", "")),
-                    fact.value,
-                    no_comments=no_comments,
-                    allow_link_removal=allow_link_removal,
-                    allow_enterprise_terminology=allow_enterprise_terminology,
-                    allow_navigation_links=allow_navigation_links,
+                    graph,
                 )
-                for fact in facts.values()
+                or any(
+                    _authorized_source_derivation(
+                        str(item.get("quoted_candidate_span", "")),
+                        fact.value,
+                        no_comments=no_comments,
+                        allow_link_removal=allow_link_removal,
+                        allow_enterprise_terminology=allow_enterprise_terminology,
+                        allow_navigation_links=allow_navigation_links,
+                    )
+                    for fact in facts.values()
+                )
             )
         )
     ]
@@ -192,6 +210,37 @@ def normalize_trusted_fidelity_output(
     return normalized
 
 
+def _authorized_configured_standard_derivation(
+    candidate_span: str,
+    graph: TrustedReadmeFactGraphV1 | None,
+) -> bool:
+    """Recognize exact additions required by configured presentation standards."""
+
+    if graph is None:
+        return False
+    standards = {standard.standard_id: standard for standard in graph.configured_standards}
+    navigation = _LOCAL_LINK.search(candidate_span)
+    navigation_standard = standards.get("readme.navigation")
+    if navigation is not None and navigation_standard is not None:
+        required_labels = {
+            _canonical_navigation_label(str(label))
+            for label in navigation_standard.parameters.get("required_labels", [])
+        }
+        if _canonical_navigation_label(navigation.group("label")) in required_labels:
+            return True
+    glance_standard = standards.get("readme.at_a_glance_mermaid")
+    if glance_standard is not None:
+        heading = str(glance_standard.parameters.get("heading", "At a glance"))
+        if re.fullmatch(rf"\s*##\s+{re.escape(heading)}\s*", candidate_span, flags=re.IGNORECASE):
+            return True
+    badge_standard = standards.get("readme.badges")
+    if badge_standard is not None and candidate_span in {
+        str(fragment) for fragment in badge_standard.parameters.get("required_fragments", [])
+    }:
+        return True
+    return False
+
+
 def _authorized_candidate_quote(
     source_text: str,
     candidate_text: str,
@@ -200,9 +249,17 @@ def _authorized_candidate_quote(
     allow_link_removal: bool,
     allow_enterprise_terminology: bool,
     allow_navigation_links: bool,
+    configured_badge_fragments: set[str],
 ) -> str | None:
     """Bind source text after only configured global transformations."""
 
+    represented_badges = _represented_badge_group(
+        source_text,
+        candidate_text,
+        configured_badge_fragments=configured_badge_fragments,
+    )
+    if represented_badges is not None:
+        return represented_badges
     source_lines = _canonical_visible_lines(
         source_text,
         no_comments=no_comments,
@@ -233,6 +290,38 @@ def _authorized_candidate_quote(
             source_end = candidate_records[start + width - 1][0]
             return "".join(candidate_source_lines[source_start : source_end + 1])
     return None
+
+
+def _represented_badge_group(
+    source_text: str,
+    candidate_text: str,
+    *,
+    configured_badge_fragments: set[str],
+) -> str | None:
+    """Permit row consolidation and only explicitly configured badge-image variants."""
+
+    source_badges = list(_BADGE_LINK.finditer(source_text))
+    if not source_badges:
+        return None
+    candidate_badges = list(_BADGE_LINK.finditer(candidate_text))
+    source_by_label = {match.group("label"): match for match in source_badges}
+    candidate_by_label = {match.group("label"): match for match in candidate_badges}
+    if len(source_by_label) != len(source_badges) or set(source_by_label) != set(
+        candidate_by_label
+    ):
+        return None
+    for label, source_badge in source_by_label.items():
+        candidate_badge = candidate_by_label[label]
+        if source_badge.group("target") != candidate_badge.group("target"):
+            return None
+        if source_badge.group("image") == candidate_badge.group("image"):
+            continue
+        candidate_fragment = f"![{label}]({candidate_badge.group('image')})"
+        if candidate_fragment not in configured_badge_fragments:
+            return None
+    first = min(match.start() for match in candidate_by_label.values())
+    last = max(match.end() for match in candidate_by_label.values())
+    return candidate_text[first:last]
 
 
 def _authorized_source_derivation(

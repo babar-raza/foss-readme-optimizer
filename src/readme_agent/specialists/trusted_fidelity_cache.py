@@ -16,7 +16,7 @@ from readme_agent.specialists.trusted_transform_review_models import (
     TrustedFidelityReviewResultV1,
 )
 
-FIDELITY_BATCH_CONTRACT_VERSION = "trusted-fidelity-batch-v10-canonical-role-scope"
+FIDELITY_BATCH_CONTRACT_VERSION = "trusted-fidelity-batch-v12-configured-badges"
 
 
 class TrustedFidelityBatchCacheV1(BaseModel):

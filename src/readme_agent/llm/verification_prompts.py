@@ -17,7 +17,11 @@ import json
 from string import Template
 
 from readme_agent.llm import prompt_registry
-from readme_agent.specialists.review_finding_grounding import BLIND_QUALITY_CRITERIA
+from readme_agent.specialists.review_finding_grounding import (
+    BLIND_GROUNDING_CONTRACT_VERSION,
+    BLIND_QUALITY_CRITERIA,
+)
+from readme_agent.specialists.trusted_fidelity_cache import FIDELITY_BATCH_CONTRACT_VERSION
 
 PROSE_QUALITY_TOOL_SCHEMA = {
     "type": "function",
@@ -334,7 +338,9 @@ def trusted_reviewer_standard_hash() -> str:
     """Bind trusted review reuse to both isolated prompts and reducer schema."""
 
     components = [
-        "trusted-transform-review-v2-grounding-retry",
+        "trusted-transform-review-v3-deterministic-contracts",
+        BLIND_GROUNDING_CONTRACT_VERSION,
+        FIDELITY_BATCH_CONTRACT_VERSION,
         prompt_registry.prompt_hash("trusted_readme_section_transform"),
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("trusted_readme_fidelity_review"),

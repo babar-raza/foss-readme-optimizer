@@ -69,6 +69,36 @@ def record_trusted_review_execution(
     ):
         return lifecycle
     prompt_hash = review.cache_identity_sha256
+    if lifecycle.status in {"TRUSTED_REVIEW_REJECTED", "SYSTEM_FAILURE"}:
+        if lifecycle.prompt_hash is None or lifecycle.prompt_hash == prompt_hash:
+            raise StateBackendError(
+                "trusted review cannot replace a prior terminal verdict without changed "
+                "review inputs"
+            )
+        lifecycle = transition_trusted_readme_poc_status(
+            backend,
+            org_repo,
+            "TRUSTED_REPAIRING",
+            observed_by="trusted_review",
+            reason="review inputs changed; reopen the unchanged candidate for requalification",
+            evidence_refs=evidence_refs,
+            source_revision=graph.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=composition.candidate_sha256,
+            prompt_hash=prompt_hash,
+        )
+        lifecycle = transition_trusted_readme_poc_status(
+            backend,
+            org_repo,
+            "TRUSTED_CANDIDATE_GENERATED",
+            observed_by="trusted_review",
+            reason="unchanged candidate re-entered validation under the changed review inputs",
+            evidence_refs=evidence_refs,
+            source_revision=graph.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=composition.candidate_sha256,
+            prompt_hash=prompt_hash,
+        )
     if lifecycle.status == "TRUSTED_CANDIDATE_GENERATED":
         lifecycle = transition_trusted_readme_poc_status(
             backend,

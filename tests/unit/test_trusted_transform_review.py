@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
+from readme_agent.errors import StateBackendError
 from readme_agent.facts.trusted_readme_extraction import (
     bind_configured_standards,
     configured_standard_addition,
@@ -43,7 +44,11 @@ from readme_agent.specialists.trusted_fidelity_validation import (
     normalize_trusted_fidelity_output,
 )
 from readme_agent.specialists.trusted_transform_review import run_trusted_transform_review
-from readme_agent.specialists.trusted_transform_review_models import TrustedTransformReviewV1
+from readme_agent.specialists.trusted_transform_review_models import (
+    TrustedReviewCacheIdentityV1,
+    TrustedReviewExecutionV1,
+    TrustedTransformReviewV1,
+)
 from readme_agent.specialists.trusted_transform_review_repair import (
     run_trusted_review_with_repair,
 )
@@ -417,6 +422,147 @@ def test_fidelity_navigation_addition_is_derived_from_source_heading(tmp_path) -
 
     assert normalized["verdict"] == "ACCEPT"
     assert normalized["unsupported_additions"] == []
+
+
+def test_fidelity_navigation_addition_can_come_from_configured_required_label(tmp_path) -> None:
+    source = "# Widget\n\nUseful product detail.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=source,
+        root_name="configured-navigation",
+    )
+    fact = next(item for item in graph.inherited_facts if item.material_kind == "paragraph")
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.navigation",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"configured-navigation-label",
+                parameters={"required_labels": ["At a glance"]},
+            ),
+            configured_standard_addition(
+                "readme.at_a_glance_mermaid",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"configured-at-a-glance",
+                parameters={"heading": "At a glance", "diagram_kind": "flowchart"},
+            ),
+        ],
+    )
+    candidate = (
+        "# Widget\n\n"
+        "## Navigation\n\n"
+        "- [At a glance](#at-a-glance)\n\n"
+        "## At a glance\n\n"
+        "Useful product detail.\n"
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The configured navigation entry was called unsupported.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": fact.value,
+                "candidate_quote": fact.value,
+                "section": "At a glance",
+                "required_repair": "",
+            }
+        ],
+        "unsupported_additions": [
+            {
+                "finding_id": "navigation-at-a-glance",
+                "section": "Navigation",
+                "quoted_candidate_span": "- [At a glance](#at-a-glance)",
+                "reason": "No inherited heading exists.",
+                "required_repair": "Remove the configured navigation entry.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Navigation"],
+        "required_repair": "Remove the configured navigation entry.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
+
+
+def test_fidelity_accepts_configured_badge_variant_and_row_consolidation(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "[![PyPI version](https://badge.example/pypi.svg)](https://pypi.org/project/widget/)\n"
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]"
+        "(https://opensource.org/licenses/MIT)\n"
+    )
+    candidate = (
+        "# Widget\n\n"
+        "[![PyPI version](https://badge.example/pypi.svg)]"
+        "(https://pypi.org/project/widget/) "
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)]"
+        "(https://opensource.org/licenses/MIT)\n"
+    )
+    root = tmp_path / "configured-badges"
+    root.mkdir()
+    _git(root, "init", "-b", "main")
+    _git(root, "config", "user.name", "Trusted Review Test")
+    _git(root, "config", "user.email", "trusted-review@example.invalid")
+    (root / "README.md").write_text(source, encoding="utf-8", newline="")
+    _git(root, "add", "README.md")
+    _git(root, "commit", "-m", "seed")
+    entry = next(item for item in load_products() if item.org_repo == ORG_REPO)
+    snapshot = capture_repository_snapshot(entry, root)
+    graph = extract_trusted_readme_fact_graph(snapshot)
+    fact = next(item for item in graph.inherited_facts if "PyPI version" in item.value)
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.badges",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"configured-badge-variant",
+                parameters={
+                    "required_fragments": [
+                        "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)"
+                    ]
+                },
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "Badge layout and color changed.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": candidate.split("\n\n", maxsplit=1)[1],
+                "section": "Header",
+                "required_repair": "Restore the original badge lines and color.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Header"],
+        "required_repair": "Restore the original badge lines and color.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+    assert normalized["source_checks"][0]["required_repair"] == ""
 
 
 def _fidelity_accept(graph) -> dict:
@@ -1566,3 +1712,172 @@ def test_identical_accepted_review_records_no_duplicate_lifecycle_event(tmp_path
         "TRUSTED_REVIEWING",
         "TRUSTED_TRANSFORM_APPROVED",
     ]
+
+
+def test_changed_review_contract_requalifies_rejected_unchanged_candidate(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-old-rejection")
+    rejected_blind, rejected_fidelity = _review_clients(graph, blind=_blind_reject())
+    rejected = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=rejected_blind,
+        fidelity_client=rejected_fidelity,
+    )
+    rejected_payload = rejected.model_dump(mode="json")
+    old_identity_payload = rejected_payload["review"]["cache_identity"]
+    old_identity_payload["review_contract_sha256"] = "0" * 64
+    old_identity = TrustedReviewCacheIdentityV1.model_validate(old_identity_payload)
+    rejected_payload["review"]["cache_identity"] = old_identity.model_dump(mode="json")
+    rejected_payload["review"]["cache_identity_sha256"] = old_identity.canonical_hash()
+    old_rejected = TrustedReviewExecutionV1.model_validate(rejected_payload)
+
+    _start_accounting(graph, "trusted-review-new-acceptance")
+    accepted_blind, accepted_fidelity = _review_clients(graph)
+    accepted = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=accepted_blind,
+        fidelity_client=accepted_fidelity,
+    )
+    backend = FakeStateBackend()
+    record_repository_snapshot(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["snapshot"],
+    )
+    record_repository_profile(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["profile"],
+    )
+    switch_content_assurance(
+        backend,
+        ORG_REPO,
+        "trusted_inherited",
+        observed_by="test",
+        reason="exercise changed review contract requalification",
+    )
+    for status in (
+        "TRUSTED_FACTS_EXTRACTING",
+        "TRUSTED_FACTS_EXTRACTED",
+        "TRUSTED_PLAN_READY",
+        "TRUSTED_CANDIDATE_GENERATED",
+    ):
+        transition_trusted_readme_poc_status(
+            backend,
+            ORG_REPO,
+            status,
+            observed_by="test",
+            reason="advance trusted fixture",
+            source_revision=graph.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=(
+                composition.candidate_sha256 if status == "TRUSTED_CANDIDATE_GENERATED" else None
+            ),
+        )
+    rejected_state = record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        old_rejected,
+        evidence_refs=["old-review.json"],
+    )
+
+    approved_state = record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        accepted,
+        evidence_refs=["new-review.json"],
+    )
+
+    assert rejected_state.status == "TRUSTED_REVIEW_REJECTED"
+    assert approved_state.status == "TRUSTED_TRANSFORM_APPROVED"
+    assert [item.to_status for item in approved_state.history[-5:]] == [
+        "TRUSTED_REPAIRING",
+        "TRUSTED_CANDIDATE_GENERATED",
+        "TRUSTED_DETERMINISTIC_VALIDATED",
+        "TRUSTED_REVIEWING",
+        "TRUSTED_TRANSFORM_APPROVED",
+    ]
+
+
+def test_unchanged_review_contract_cannot_replace_rejected_verdict(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-same-contract-rejection")
+    rejected_blind, rejected_fidelity = _review_clients(graph, blind=_blind_reject())
+    rejected = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=rejected_blind,
+        fidelity_client=rejected_fidelity,
+    )
+    _start_accounting(graph, "trusted-review-same-contract-acceptance")
+    accepted_blind, accepted_fidelity = _review_clients(graph)
+    accepted = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=accepted_blind,
+        fidelity_client=accepted_fidelity,
+    )
+    backend = FakeStateBackend()
+    record_repository_snapshot(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["snapshot"],
+    )
+    record_repository_profile(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["profile"],
+    )
+    switch_content_assurance(
+        backend,
+        ORG_REPO,
+        "trusted_inherited",
+        observed_by="test",
+        reason="exercise same-contract rejection protection",
+    )
+    for status in (
+        "TRUSTED_FACTS_EXTRACTING",
+        "TRUSTED_FACTS_EXTRACTED",
+        "TRUSTED_PLAN_READY",
+        "TRUSTED_CANDIDATE_GENERATED",
+    ):
+        transition_trusted_readme_poc_status(
+            backend,
+            ORG_REPO,
+            status,
+            observed_by="test",
+            reason="advance trusted fixture",
+            source_revision=graph.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=(
+                composition.candidate_sha256 if status == "TRUSTED_CANDIDATE_GENERATED" else None
+            ),
+        )
+    record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        rejected,
+        evidence_refs=["rejected-review.json"],
+    )
+
+    with pytest.raises(StateBackendError, match="without changed review inputs"):
+        record_trusted_review_execution(
+            backend,
+            graph,
+            composition,
+            accepted,
+            evidence_refs=["accepted-review.json"],
+        )

@@ -55,6 +55,47 @@ def normalize_tool_arguments(arguments: dict, batch: TrustedCompositionBatch) ->
     return normalized
 
 
+def preserve_source_only_batch_exactly(
+    draft: TrustedReadmeSectionToolDraftV1,
+    batch: TrustedCompositionBatch,
+    *,
+    reason: str,
+) -> TrustedReadmeSectionToolDraftV1:
+    """Replace an invalid source-only transformation with complete exact preservation."""
+
+    if batch.global_structures_allowed or batch.configured_standards:
+        return draft
+    inventory = tuple(
+        TrustedSourceInventoryDecisionV1(
+            fact_id=item.fact_id,
+            action="preserve_exact",
+            rationale=(
+                "Deterministic exact-preservation fallback after rejected document-global "
+                f"structure: {reason}."
+            ),
+        )
+        for item in batch.source_items
+    )
+    segments = tuple(
+        TrustedReadmeDraftSegmentV1(
+            segment_id=f"source-only-fallback-{index:03d}",
+            kind="preserve_exact",
+            markdown="",
+            inherited_fact_ids=(item.fact_id,),
+        )
+        for index, item in enumerate(batch.source_items, start=1)
+    )
+    return TrustedReadmeSectionToolDraftV1(
+        editorial_summary=(
+            "Preserved this source-only batch exactly after its proposed transformation "
+            f"crossed the document-global ownership boundary: {reason}."
+        ),
+        complete=True,
+        source_inventory=inventory,
+        segments=segments,
+    )
+
+
 def normalize_configured_header(
     draft: TrustedReadmeSectionToolDraftV1,
     batch: TrustedCompositionBatch,

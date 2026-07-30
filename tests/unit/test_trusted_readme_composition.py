@@ -36,6 +36,7 @@ from readme_agent.readme.trusted_composition_candidate_validation import (
     strip_readme_comments,
     validate_trusted_candidate_contract,
 )
+from readme_agent.readme.trusted_composition_execution import compose_trusted_batch
 from readme_agent.readme.trusted_composition_models import (
     TrustedCompositionEnvelopeV1,
     TrustedCompositionSourceItemV1,
@@ -185,6 +186,170 @@ def test_source_only_batch_cannot_introduce_readme_global_navigation() -> None:
             batch,
             TrustedCompositionEnvelopeV1(),
         )
+
+
+def test_source_only_batch_does_not_treat_python_comments_as_readme_headings() -> None:
+    fact_id = "readme.inherited:" + ("b" * 24)
+    source = "```python\n# AUTO mode is the default\nvalue = encode(data)\n```\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="code",
+                heading_path=("Widget", "Encoding Options"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(),
+        global_structures_allowed=False,
+    )
+    draft = TrustedReadmeSectionToolDraftV1(
+        editorial_summary="Preserve the inherited executable example.",
+        complete=True,
+        source_inventory=(
+            TrustedSourceInventoryDecisionV1(
+                fact_id=fact_id,
+                action="preserve_exact",
+                rationale="Keep the source example exact until global comment normalization.",
+            ),
+        ),
+        segments=(
+            TrustedReadmeDraftSegmentV1(
+                segment_id="encoding-example",
+                kind="preserve_exact",
+                markdown="",
+                inherited_fact_ids=(fact_id,),
+            ),
+        ),
+    )
+
+    validate_trusted_section_tool_draft(
+        draft,
+        batch,
+        TrustedCompositionEnvelopeV1(),
+    )
+
+
+@pytest.mark.parametrize(
+    "authored_markdown",
+    (
+        "# Replacement README\n",
+        "```mermaid\nflowchart LR\n  input --> output\n```\n",
+    ),
+)
+def test_source_only_batch_still_rejects_real_global_structures(authored_markdown) -> None:
+    fact_id = "readme.inherited:" + ("c" * 24)
+    source = "## Resources\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="heading",
+                heading_path=("Widget", "Resources"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(),
+        global_structures_allowed=False,
+    )
+    draft = TrustedReadmeSectionToolDraftV1(
+        editorial_summary="Attempt a forbidden global structure.",
+        complete=True,
+        source_inventory=(
+            TrustedSourceInventoryDecisionV1(
+                fact_id=fact_id,
+                action="rewrite",
+                rationale="Rewrite the inherited heading.",
+            ),
+        ),
+        segments=(
+            TrustedReadmeDraftSegmentV1(
+                segment_id="global-structure",
+                kind="authored",
+                markdown=authored_markdown,
+                inherited_fact_ids=(fact_id,),
+            ),
+        ),
+    )
+
+    with pytest.raises(LLMError, match="README-global header or Mermaid"):
+        validate_trusted_section_tool_draft(
+            draft,
+            batch,
+            TrustedCompositionEnvelopeV1(),
+        )
+
+
+def test_source_only_global_structure_falls_back_to_exact_preservation_once() -> None:
+    fact_id = "readme.inherited:" + ("b" * 24)
+    source = "## Encoding Options\n\nUse the configured encoder.\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="paragraph",
+                heading_path=("Widget", "Encoding Options"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(),
+        global_structures_allowed=False,
+    )
+    client = FixtureForcedToolClient(
+        [
+            _result(
+                {
+                    "editorial_summary": "Repeat the global presentation structure.",
+                    "complete": True,
+                    "source_inventory": [
+                        {
+                            "fact_id": fact_id,
+                            "action": "rewrite",
+                            "rationale": "Rewrite the inherited source.",
+                        }
+                    ],
+                    "segments": [
+                        {
+                            "segment_id": "repeated-global-structure",
+                            "kind": "authored",
+                            "markdown": (
+                                "# Widget\n\n```mermaid\nflowchart LR\n  A --> B\n```\n\n"
+                                "## Encoding Options\n\nUse the configured encoder.\n"
+                            ),
+                            "inherited_fact_ids": [fact_id],
+                            "configured_standard_ids": [],
+                        }
+                    ],
+                }
+            )
+        ]
+    )
+
+    draft, bound = compose_trusted_batch(
+        ORG_REPO,
+        batch,
+        TrustedCompositionEnvelopeV1(),
+        client,
+    )
+
+    assert bound.attempt_count == 1
+    assert [item.action for item in draft.source_inventory] == ["preserve_exact"]
+    assert [item.kind for item in draft.segments] == ["preserve_exact"]
+    assert draft.segments[0].inherited_fact_ids == (fact_id,)
+    assert "document-global ownership boundary" in draft.editorial_summary
+    validate_trusted_section_tool_draft(draft, batch, TrustedCompositionEnvelopeV1())
 
 
 def test_legacy_aspose_com_labels_normalize_to_enterprise_edition() -> None:

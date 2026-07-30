@@ -13,7 +13,10 @@ from readme_agent.specialists.review_finding_grounding import (
     grounding_retry_context,
     validate_review_findings,
 )
-from readme_agent.specialists.review_role_execution import normalize_redundant_role_fields
+from readme_agent.specialists.review_role_execution import (
+    normalize_redundant_role_fields,
+    run_grounded_role,
+)
 from readme_agent.specialists.separated_readme_review import run_separated_readme_review
 
 ORG_REPO = "example/example-foss"
@@ -178,6 +181,125 @@ def test_blind_grounding_rejects_findings_that_contradict_configured_presentatio
         "deterministically_disproven"
     }
     assert all("claim" not in item for item in retry["invalid_findings"])
+
+
+def test_blind_acceptance_support_can_describe_satisfied_link_budget() -> None:
+    candidate = (
+        "# Widget\n\n"
+        "See the [Enterprise Edition](https://products.aspose.com/widget/) when relevant.\n"
+    )
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "contextual-link",
+            "kind": "quality",
+            "criterion": "promotional_balance",
+            "section": "Resources",
+            "claim": "The contextual link stays within the configured link budget.",
+            "quoted_candidate_span": ("[Enterprise Edition](https://products.aspose.com/widget/)"),
+            "disposition": "supports_acceptance",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "",
+        }
+    )
+    visitor_contract = {
+        "configured_standards": [
+            {
+                "standard_id": "readme.contextual_links",
+                "parameters": {"max_total": 1, "domain_maxima": {"aspose.com": 1}},
+            }
+        ]
+    }
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=visitor_contract,
+    )
+
+    assert result.valid is True
+    assert result.errors == []
+
+
+def test_blind_role_drops_disproven_sibling_and_keeps_grounded_repair() -> None:
+    candidate = (
+        "# Widget\n\n"
+        "A library.\n\n"
+        "See the [Enterprise Edition](https://products.aspose.com/widget/) when relevant.\n"
+    )
+    base = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The opening is vague and the link budget is exceeded.",
+        "failed_criteria": ["product_specificity", "promotional_balance"],
+        "sections_affected": ["Overview", "Resources"],
+        "required_repair": "Clarify the opening and remove links.",
+        "findings": [
+            {
+                **base,
+                "finding_id": "opening-specificity",
+                "criterion": "product_specificity",
+                "section": "Overview",
+                "claim": "The opening does not identify the product's concrete purpose.",
+                "quoted_candidate_span": "A library.",
+                "required_repair": "State the concrete purpose and intended user.",
+            },
+            {
+                **base,
+                "finding_id": "contextual-link-count",
+                "criterion": "promotional_balance",
+                "section": "Resources",
+                "claim": "The README exceeds the configured contextual link maximum of three.",
+                "quoted_candidate_span": (
+                    "[Enterprise Edition](https://products.aspose.com/widget/)"
+                ),
+                "required_repair": "Reduce contextual links to at most three.",
+            },
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.contextual_links",
+                    "parameters": {"max_total": 3, "domain_maxima": {"aspose.com": 2}},
+                }
+            ]
+        },
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert [finding.finding_id for finding in result.findings] == ["opening-specificity"]
+    assert result.failed_criteria == ["product_specificity"]
+    assert result.sections_affected == ["Overview"]
+    assert result.required_repair == "State the concrete purpose and intended user."
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["valid"] is True
+    assert history[0]["deterministically_dismissed_finding_ids"] == ["contextual-link-count"]
+    assert "link-budget premise" in history[0]["pre_normalization_errors"][0]
 
 
 def test_blind_rejection_derives_redundant_summary_from_detailed_findings() -> None:
@@ -475,6 +597,112 @@ def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
     assert result.grounding_retry_history[0]["valid"] is False
     assert result.grounding_retry_history[1]["valid"] is True
     assert "validation_errors" in blind.messages_seen[1][-1]["content"]
+
+
+def test_whitespace_equivalent_candidate_quote_is_reconciled_without_retry() -> None:
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The opening is too generic.",
+        "failed_criteria": ["product_specificity"],
+        "sections_affected": ["overview"],
+        "required_repair": "Name the concrete product purpose.",
+        "findings": [
+            {
+                "finding_id": "quality.generic-opening",
+                "kind": "quality",
+                "criterion": "product_specificity",
+                "section": "overview",
+                "claim": "The opening is generic.",
+                "quoted_candidate_span": "Specific,\n  useful   candidate.",
+                "disposition": "requires_repair",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "Name the concrete product purpose.",
+            }
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=None,
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert result.findings[0].quoted_candidate_span == "Specific, useful candidate."
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_candidate_span_ids"] == ["quality.generic-opening"]
+
+
+def test_blind_accept_drops_one_absent_quote_when_grounded_support_remains() -> None:
+    parsed = {
+        "verdict": "ACCEPT",
+        "reasoning": "The candidate is specific and examples are clean.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "quality-specific",
+                "kind": "quality",
+                "criterion": "product_specificity",
+                "section": "overview",
+                "claim": "The opening is specific.",
+                "quoted_candidate_span": "Specific, useful candidate.",
+                "disposition": "supports_acceptance",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "",
+            },
+            {
+                "finding_id": "quality-example",
+                "kind": "quality",
+                "criterion": "example_presentation",
+                "section": "examples",
+                "claim": "The example is clean.",
+                "quoted_candidate_span": "barcode = code128(  )",
+                "disposition": "supports_acceptance",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "",
+            },
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=None,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert [finding.finding_id for finding in result.findings] == ["quality-specific"]
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["deterministically_dismissed_finding_ids"] == ["quality-example"]
+    assert history[0]["invalid_findings"] == []
+    assert "quoted candidate span is absent" in history[0]["pre_normalization_errors"][0]
 
 
 def test_free_form_acceptance_without_grounded_spans_fails_closed():
