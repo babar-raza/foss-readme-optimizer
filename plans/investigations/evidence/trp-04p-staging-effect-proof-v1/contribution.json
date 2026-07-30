@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
+  "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
+  "goal_ids": [
+    "GOAL-DELIVERY"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Prove real proposal behavior safely before any cohort product effect."
+  },
+  "acceptance_checks_passed": [
+    "Every scenario produces exactly one correct proposal state",
+    "Analysis jobs receive no write credential",
+    "Default branches remain byte-identical"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/trp-04p-staging-effect-proof-v1/verification.json",
+    "plans/investigations/evidence/trp-04p-staging-effect-proof-v1/independent-verdict.json"
+  ],
+  "scoreboard_before_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
+  "scoreboard_after_sha256": "3afbed594b54ff3816c2bc4c64f008e6e2d40826abaa72ea50dd544bd32eb9b4",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
