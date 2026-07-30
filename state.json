@@ -456,6 +456,17 @@
         "reason": "read-only intake classified READY_FAST_PATH",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-Python\\ffaf6355fdc7f0b7a66680d742051e809a9d8c5f\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-07-30T04:43:00.217135+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -482,12 +493,12 @@
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-07-30T04:42:43.113019+00:00"
+    "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-07-30T04:43:00.217135+00:00"
   },
   "schema_version": 2,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
