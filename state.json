@@ -13860,7 +13860,7 @@
     "updated_at": "2026-07-30T00:02:47.789743+00:00"
   },
   "schema_version": 2,
-  "state_version": 798,
+  "state_version": 799,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -14385,13 +14385,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: Aspose links cannot appear in promotional blockquotes",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "48645afc77fc1deed08f2e435e5b0149a46bcb2f82623db3577e2d903982742d",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-07-30T00:28:01.526625+00:00",
       "recovery_count": 15,
-      "status": "retryable",
-      "updated_at": "2026-07-30T00:12:55.457123+00:00"
+      "status": "processing",
+      "updated_at": "2026-07-30T00:13:01.526625+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
