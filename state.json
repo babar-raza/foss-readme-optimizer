@@ -3847,6 +3847,17 @@
         "reason": "repair the section responsible for grounded independent-review findings",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "TRUSTED_REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited\\review\\repair-history.json"
+        ],
+        "from_status": "TRUSTED_REPAIRING",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T21:55:38.475441+00:00",
+        "reason": "trusted repair failed: trusted repair omitted rejected segment IDs: readme.project_scope",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -3874,11 +3885,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "TRUSTED_REPAIRING",
-    "updated_at": "2026-07-30T21:54:29.343124+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-30T21:55:38.475441+00:00"
   },
   "schema_version": 2,
-  "state_version": 403,
+  "state_version": 404,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
