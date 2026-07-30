@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-    "active_task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+    "active_task_id": null,
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 2
     },
-    "claim_expires_at": "2026-07-30T11:24:47.292201+00:00",
-    "claim_id": "0554233de4164c6e8d0a2666a79b345d",
-    "claimed_at": "2026-07-30T10:54:47.292201+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "1fd761db4e4cf0548990b81376c3f12a2bb6e9dccefbe9e85a24e7a6fffefbca",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "1fd761db4e4cf0548990b81376c3f12a2bb6e9dccefbe9e85a24e7a6fffefbca",
-    "last_evaluated_at": "2026-07-30T11:11:55.839474+00:00",
+    "last_evaluated_at": "2026-07-30T11:12:42.010112+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -88,15 +88,14 @@
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
       "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Establish the intended hosted identity before cohort product PR effects."
+        "kind": "first_boundary_removal",
+        "summary": "Remove redundant verification latency while preserving the exact acceptance evidence."
       },
       "goal_ids": [
-        "GOAL-AUTONOMY",
-        "GOAL-DELIVERY"
+        "GOAL-AUTONOMY"
       ],
       "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-      "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION"
+      "task_id": "TRP-04P-TEST-LATENCY"
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
@@ -211,7 +210,7 @@
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
-      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "IN_PROGRESS",
+      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "BLOCKED_EXTERNAL",
       "TRP-04P-POC-PRESENTATION": "TODO",
       "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
       "TRP-04P-TEST-LATENCY": "TODO",
@@ -5335,6 +5334,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/provisioning-request.json",
+          "plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/hosted-workflow-inputs.json",
+          "commit:03bdcd414e054b91c5aa182d1b42c3824e148825"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-07-30T11:12:42.010104+00:00",
+        "reason": "Agent-fixable hosted App staging path is committed and published at 03bdcd414e054b91c5aa182d1b42c3824e148825; private App registration, private-key generation, and selected-repository installation require the account owner's browser authority. Continue TRP-04P-TEST-LATENCY while waiting and reopen automatically after provisioning.",
+        "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+        "to_status": "BLOCKED_EXTERNAL"
       }
     ]
   },
@@ -5344,7 +5356,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 612,
+  "state_version": 613,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
