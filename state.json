@@ -201,6 +201,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-013357-f45c:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
     },
+    "f5f3974ecaaf385460d3538a71e9fc3ed95475f4ebb5ebd6d8dced113b924675": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "f5f3974ecaaf385460d3538a71e9fc3ed95475f4ebb5ebd6d8dced113b924675",
+      "completed_at": "2026-07-30T02:08:38.538643+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "run_id": "20260730-020830-21a2",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T02:08:38.538633+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-013357-f45c:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+    },
     "f8fe1e209c4e2b0ca56288e8cc44f5e441c303234d7aafeb1f33ac8f347b48f8": {
       "action": null,
       "attempt": 1,
@@ -895,7 +912,7 @@
     "updated_at": "2026-07-30T01:48:16.433880+00:00"
   },
   "schema_version": 2,
-  "state_version": 92,
+  "state_version": 93,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
@@ -1075,11 +1092,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:StateBackendError:trusted review cannot persist 'TRUSTED_TRANSFORM_APPROVED' from 'TRUSTED_REVIEW_REJECTED'",
-      "last_checkpoint_id": "00c14cb46ef288df4b1c8a4de0a851a0384b8bd2581546f995c7862561042cf6",
+      "last_checkpoint_id": "f5f3974ecaaf385460d3538a71e9fc3ed95475f4ebb5ebd6d8dced113b924675",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "retryable",
-      "updated_at": "2026-07-30T01:55:25.086521+00:00"
+      "updated_at": "2026-07-30T02:08:38.538643+00:00"
     }
   },
   "trigger_records": {},
