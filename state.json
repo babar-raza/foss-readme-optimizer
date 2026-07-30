@@ -207,6 +207,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-014556-70a2:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
     },
+    "53c546603c9aaeec104339725eb04ca6078f951a82434e2c37ce3ab6c4608d0d": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "53c546603c9aaeec104339725eb04ca6078f951a82434e2c37ce3ab6c4608d0d",
+      "completed_at": "2026-07-30T01:21:05.095168+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "run_id": "20260730-012057-a8fc",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T01:21:05.095153+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-011206-5780:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+    },
     "54d0c894804ffeb56d6ad1509bf64a69931a5197e7119444149d8a2be94c2f63": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -2920,7 +2937,7 @@
     "updated_at": "2026-07-30T01:13:15.168734+00:00"
   },
   "schema_version": 2,
-  "state_version": 153,
+  "state_version": 154,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
@@ -3093,11 +3110,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: trusted composition batch batch-0002 failed after 3 attempts: source-only batch authored a README-global header or Mermaid structure",
-      "last_checkpoint_id": "46803a17448396a32089a60343f800af92e4837e97609cd93c01742dd6d514f1",
+      "last_checkpoint_id": "53c546603c9aaeec104339725eb04ca6078f951a82434e2c37ce3ab6c4608d0d",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "retryable",
-      "updated_at": "2026-07-30T01:17:28.426382+00:00"
+      "updated_at": "2026-07-30T01:21:05.095168+00:00"
     }
   },
   "trigger_records": {},
