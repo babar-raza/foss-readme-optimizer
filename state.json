@@ -602,7 +602,7 @@
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": null,
+    "facts_hash": "d55f96d98b61cf5955ca86bc9ecf3545eeece0ebd8fcc93db2ddb441b4811e00",
     "history": [
       {
         "evidence_refs": [],
@@ -663,6 +663,19 @@
         "reason": "inventory immutable README material as inherited facts",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "TRUSTED_FACTS_EXTRACTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\assurance\\trusted_inherited\\facts\\readme-inherited-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\assurance\\trusted_inherited\\facts\\source-to-fact-map.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\assurance\\trusted_inherited\\facts\\configured-standards.json"
+        ],
+        "from_status": "TRUSTED_FACTS_EXTRACTING",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T02:32:55.623339+00:00",
+        "reason": "README-derived trusted fact graph persisted with exact source accountability",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "TRUSTED_FACTS_EXTRACTED"
       }
     ],
     "intake_preflight_history": [
@@ -690,11 +703,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "TRUSTED_FACTS_EXTRACTING",
-    "updated_at": "2026-07-30T02:32:49.967156+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTED",
+    "updated_at": "2026-07-30T02:32:55.623339+00:00"
   },
   "schema_version": 2,
-  "state_version": 57,
+  "state_version": 58,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
