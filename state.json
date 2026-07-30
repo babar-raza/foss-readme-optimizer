@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
-    "last_evaluated_at": "2026-07-30T10:52:18.716544+00:00",
+    "last_evaluated_at": "2026-07-30T10:54:06.378105+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -88,14 +88,15 @@
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
       "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Remove redundant verification latency while preserving the exact acceptance evidence."
+        "kind": "acceptance_proof",
+        "summary": "Establish the intended hosted identity before cohort product PR effects."
       },
       "goal_ids": [
-        "GOAL-AUTONOMY"
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
       ],
       "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-      "task_id": "TRP-04P-TEST-LATENCY"
+      "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION"
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
@@ -212,7 +213,7 @@
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
       "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "TODO",
       "TRP-04P-POC-PRESENTATION": "TODO",
-      "TRP-04P-STAGING-EFFECT-PROOF": "SCORED",
+      "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
       "TRP-04P-TEST-LATENCY": "TODO",
       "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
       "TRP-05A-ACT-WORKFLOW-PARITY": "TODO",
@@ -5314,6 +5315,17 @@
         "reason": "Independent GitHub reconstruction accepted exact candidates, one draft PR per target, and unchanged default branches.",
         "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/trp-04p-staging-effect-proof-v1/contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T10:54:06.378086+00:00",
+        "reason": "All task outputs and acceptance checks are evidence-backed; hosted App qualification is ready.",
+        "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -5323,7 +5335,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 609,
+  "state_version": 610,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
