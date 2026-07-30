@@ -3449,6 +3449,17 @@
         "reason": "independent trusted review reduced to TRUSTED_TRANSFORM_APPROVED",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "TRUSTED_TRANSFORM_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\assurance\\trusted_inherited\\review\\no-op-proof.json"
+        ],
+        "from_status": "TRUSTED_TRANSFORM_APPROVED",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T02:08:32.697250+00:00",
+        "reason": "exact trusted candidate and independent approval reused with zero provider calls",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "TRUSTED_NO_OP_PROVEN"
       }
     ],
     "intake_preflight_history": [
@@ -3476,11 +3487,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "TRUSTED_TRANSFORM_APPROVED",
-    "updated_at": "2026-07-30T02:08:26.368360+00:00"
+    "status": "TRUSTED_NO_OP_PROVEN",
+    "updated_at": "2026-07-30T02:08:32.697250+00:00"
   },
   "schema_version": 2,
-  "state_version": 208,
+  "state_version": 209,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
