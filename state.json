@@ -772,6 +772,17 @@
         "reason": "independent trusted review reduced to REJECT_REPAIRABLE",
         "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
         "to_status": "TRUSTED_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\1139a9a90280783cd91a7d3747adfdaa97a9cb47\\assurance\\trusted_inherited\\review\\independent-review.json"
+        ],
+        "from_status": "TRUSTED_REVIEW_REJECTED",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-30T01:39:47.414051+00:00",
+        "reason": "repair the section responsible for grounded independent-review findings",
+        "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+        "to_status": "TRUSTED_REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -799,11 +810,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
-    "status": "TRUSTED_REVIEW_REJECTED",
-    "updated_at": "2026-07-30T01:39:42.437877+00:00"
+    "status": "TRUSTED_REPAIRING",
+    "updated_at": "2026-07-30T01:39:47.414051+00:00"
   },
   "schema_version": 2,
-  "state_version": 82,
+  "state_version": 83,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
