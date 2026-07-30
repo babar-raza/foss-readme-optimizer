@@ -623,6 +623,17 @@
         "reason": "read-only intake classified READY_FAST_PATH",
         "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\6c7ddfd801d2e2dfea35d1ca2b7e80134616d778\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-07-30T02:34:03.192003+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -649,12 +660,12 @@
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-07-29T06:25:46.778116+00:00"
+    "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-07-30T02:34:03.192003+00:00"
   },
   "schema_version": 2,
-  "state_version": 51,
+  "state_version": 52,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
