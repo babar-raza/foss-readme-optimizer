@@ -654,6 +654,15 @@
         "reason": "content assurance changed: begin README-derived trusted transformation",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T02:32:49.967156+00:00",
+        "reason": "inventory immutable README material as inherited facts",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "TRUSTED_FACTS_EXTRACTING"
       }
     ],
     "intake_preflight_history": [
@@ -681,11 +690,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "PROFILED",
-    "updated_at": "2026-07-30T02:32:45.036924+00:00"
+    "status": "TRUSTED_FACTS_EXTRACTING",
+    "updated_at": "2026-07-30T02:32:49.967156+00:00"
   },
   "schema_version": 2,
-  "state_version": 56,
+  "state_version": 57,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
