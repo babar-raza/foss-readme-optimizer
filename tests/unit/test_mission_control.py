@@ -288,6 +288,32 @@ def test_qualified_cohort_stage_precedes_resumed_adversarial_qualification():
     assert resumed.next_task.task_id == "TRP-04-CANARY-QUALIFICATION"
 
 
+def test_terminal_exception_stage_does_not_starve_later_ready_work():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses.update(
+        {
+            "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
+            "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
+            "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
+            "TRP-04P-COHORT-FREEZE": "TODO",
+        }
+    )
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert evaluation.active_goal_id == "GOAL-TP-TRUSTED-COHORT-POC"
+    assert evaluation.next_task is not None
+    assert evaluation.next_task.task_id == "TRP-04P-COHORT-FREEZE"
+    assert "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME" in evaluation.blocked_external_task_ids
+    assert evaluation.mission_complete is False
+
+
 def test_requirement_coverage_source_hash_is_line_ending_independent(tmp_path: Path):
     coverage_tool = _load_tool_module(
         "build_level8_requirement_taskcard_coverage_line_endings",

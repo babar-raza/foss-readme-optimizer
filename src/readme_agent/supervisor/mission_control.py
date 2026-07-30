@@ -237,7 +237,7 @@ def _derive_goal_selection(
     incomplete = [
         goal
         for goal in goals
-        if any(status_for(task) != "CLOSED" for task in tasks_by_goal[goal.goal_id])
+        if any(status_for(task) not in _TERMINAL for task in tasks_by_goal[goal.goal_id])
     ]
     primary = incomplete[0] if incomplete else None
     if primary is None:
