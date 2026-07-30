@@ -4428,7 +4428,7 @@
     "updated_at": "2026-07-30T23:37:03.679172+00:00"
   },
   "schema_version": 2,
-  "state_version": 459,
+  "state_version": 460,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -5509,13 +5509,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "trusted repair failed: configured README navigation is incomplete",
       "last_checkpoint_id": "e146c38495a3f4f647ac62e4b56224b82e13dcd61a242b94211edd2ba2a8512a",
-      "lease_expires_at": "2026-07-30T23:43:10.873389+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T23:28:15.317450+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T23:37:14.328007+00:00"
     }
   },
   "trigger_records": {},
