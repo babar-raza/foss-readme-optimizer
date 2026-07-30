@@ -101,7 +101,7 @@ jobs:
       matrix: ${{ fromJson(needs.recover.outputs.matrix) }}
     concurrency:
       group: readme-agent-${{ matrix.repo }}
-      queue: max
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -177,7 +177,7 @@ jobs:
       matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
     concurrency:
       group: readme-agent-${{ matrix.repo }}
-      queue: max
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

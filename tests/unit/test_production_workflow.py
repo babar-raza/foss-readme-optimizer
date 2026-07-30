@@ -17,7 +17,8 @@ def test_production_workflow_has_all_trigger_and_recovery_surfaces():
     assert "has_recovery" in text
     assert "readme-agent runtime-matrix" in text
     assert "readme-agent health-report" in text
-    assert "queue: max" in text
+    assert text.count("cancel-in-progress: false") == 2
+    assert "queue: max" not in text
     assert "fail-fast: false" in text
 
 
