@@ -47,9 +47,20 @@
   "profile_cache": null,
   "readme_poc_lifecycle": {
     "assessment_hash": null,
-    "assurance_history": [],
+    "assurance_history": [
+      {
+        "from_assurance": "repository_verified",
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T04:32:15.101061+00:00",
+        "reason": "begin README-derived trusted transformation",
+        "schema_version": 1,
+        "to_assurance": "trusted_inherited",
+        "to_status": "PROFILED"
+      }
+    ],
     "candidate_hash": null,
-    "content_assurance": "repository_verified",
+    "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
@@ -97,6 +108,15 @@
         "reason": "profiled immutable repository snapshot",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "trusted_product_truth",
+        "occurred_at": "2026-07-30T04:32:15.101061+00:00",
+        "reason": "content assurance changed: begin README-derived trusted transformation",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -125,10 +145,10 @@
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
     "status": "PROFILED",
-    "updated_at": "2026-07-30T04:32:03.573575+00:00"
+    "updated_at": "2026-07-30T04:32:15.101061+00:00"
   },
   "schema_version": 2,
-  "state_version": 8,
+  "state_version": 9,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
