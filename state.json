@@ -1108,6 +1108,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-102321-fe73:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "477f50cbb87ccc2839bd5c12a294c8ed01df03fdcfddf03e82dcc5d804361090": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "477f50cbb87ccc2839bd5c12a294c8ed01df03fdcfddf03e82dcc5d804361090",
+      "completed_at": "2026-07-30T00:01:57.261329+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260730-000148-dcc4",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-30T00:01:57.261314+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260729-164422-5b3c:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "47a4d2af07019f8bdd07ca7b658034894592e3cb4e053356a3a3a24040e52de9": {
       "action": null,
       "attempt": 1,
@@ -13787,7 +13804,7 @@
     "updated_at": "2026-07-29T23:54:02.884995+00:00"
   },
   "schema_version": 2,
-  "state_version": 791,
+  "state_version": 792,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -14314,11 +14331,11 @@
       },
       "failure_classification": "validation_failed",
       "failure_detail": "trusted repair failed: Aspose promotional links cannot appear in the README opening",
-      "last_checkpoint_id": "a13244b812a35409412bf37116be38932d008e8818cdceb083fc646477c50d66",
+      "last_checkpoint_id": "477f50cbb87ccc2839bd5c12a294c8ed01df03fdcfddf03e82dcc5d804361090",
       "lease_expires_at": null,
       "recovery_count": 15,
       "status": "retryable",
-      "updated_at": "2026-07-29T23:54:13.348681+00:00"
+      "updated_at": "2026-07-30T00:01:57.261329+00:00"
     },
     "operator:20260729-164433-08cf:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-29T16:44:39.939188+00:00",
