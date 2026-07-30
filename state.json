@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-    "active_task_id": null,
+    "active_task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 2
     },
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-07-30T11:24:47.292201+00:00",
+    "claim_id": "0554233de4164c6e8d0a2666a79b345d",
+    "claimed_at": "2026-07-30T10:54:47.292201+00:00",
+    "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "ed884e9a2e476cc9f0eef935579a610de989407f5279c529d48de0cc8f22fb4b",
-    "last_evaluated_at": "2026-07-30T10:54:06.378105+00:00",
+    "last_evaluated_at": "2026-07-30T10:54:47.292201+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -211,7 +211,7 @@
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
-      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "TODO",
+      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "IN_PROGRESS",
       "TRP-04P-POC-PRESENTATION": "TODO",
       "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
       "TRP-04P-TEST-LATENCY": "TODO",
@@ -5326,6 +5326,15 @@
         "reason": "All task outputs and acceptance checks are evidence-backed; hosted App qualification is ready.",
         "task_id": "TRP-04P-STAGING-EFFECT-PROOF",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T10:54:47.292416+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -5335,7 +5344,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 610,
+  "state_version": 611,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
