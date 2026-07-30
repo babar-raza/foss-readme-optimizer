@@ -1,0 +1,4 @@
+Control revision: f2c962abc759a00ffba28d0222ee3137ae7909dd
+Expected cohort ID: 1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331
+From a clean checkout at that control revision, while the bound durable states and target heads remain unchanged:
+.venv/Scripts/python -m readme_agent.supervisor.trusted_cohort_command
