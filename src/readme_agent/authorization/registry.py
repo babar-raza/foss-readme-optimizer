@@ -11,6 +11,7 @@ record, a record that doesn't cover this effect class), and the caller
 must produce a `CapabilityGap`/blocked finding rather than infer authority
 from anything else (`AUTH-004`)."""
 
+import os
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -21,6 +22,12 @@ from readme_agent.authorization.schema import AuthorizationRecordV1, EffectClass
 from readme_agent.errors import ConfigError
 
 AUTHORIZATION_DIR = Path("config/authorization")
+
+
+def authorization_directory() -> Path:
+    """Resolve an explicitly isolated runtime authorization directory when configured."""
+
+    return Path(os.environ.get("README_AGENT_AUTHORIZATION_DIR", str(AUTHORIZATION_DIR)))
 
 
 def _config_path(org_repo: str, authorization_dir: Path = AUTHORIZATION_DIR) -> Path:

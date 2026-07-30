@@ -20,6 +20,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from readme_agent.capabilities.schema import OrgRepoRef
+from readme_agent.state.assurance import ContentAssuranceV1
 
 EffectClass = Literal[
     "STATE_REF_WRITE",
@@ -55,3 +56,8 @@ class AuthorizationRecordV1(BaseModel):
     required_verifier: str | None = None
     approving_identity: str
     rollback: str
+    authorization_id: str | None = None
+    content_assurance: ContentAssuranceV1 | None = None
+    proposal_kind: (
+        Literal["trusted_readme_transform", "verified_repository_presentation"] | None
+    ) = None

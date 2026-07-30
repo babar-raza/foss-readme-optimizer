@@ -124,6 +124,14 @@ def gh_token() -> str | None:
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_PAT") or None
 
 
+def staging_write_token() -> str | None:
+    """Dedicated disposable-staging credential; never falls back to ambient PAT variables."""
+
+    if os.environ.get("README_AGENT_PRODUCTION_AUTH") != "staging_pat":
+        return None
+    return os.environ.get("README_AGENT_STAGING_WRITE_TOKEN") or None
+
+
 def github_run_id() -> str | None:
     """`GITHUB_RUN_ID` -- GitHub Actions' own per-workflow-run identity, automatically set on every
     real Actions runner, stable across a re-run of the *same* run (unlike `github.run_attempt`,

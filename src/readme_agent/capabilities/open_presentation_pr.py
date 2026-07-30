@@ -80,7 +80,12 @@ real record for it."""
 
 from readme_agent import env, paths
 from readme_agent.capabilities.domains import README_PRESENTATION
+from readme_agent.capabilities.presentation_pr_effect import (
+    apply_trusted_proposal,
+    reconcile_trusted_proposal,
+)
 from readme_agent.capabilities.schema import CapabilityManifest
+from readme_agent.capabilities.staging_target import load_staging_target
 from readme_agent.errors import GitSafetyError, NotAllowlistedError
 from readme_agent.github_api.client import repo_summary
 from readme_agent.github_api.write_client import create_pull_request, find_open_pr
@@ -88,6 +93,8 @@ from readme_agent.gitsafety._git import run_git
 from readme_agent.gitsafety.clone import clone_baseline, create_pr_clone, push_branch
 from readme_agent.inspection import file_inventory
 from readme_agent.orchestrator import require_permitted
+from readme_agent.registry.loader import require_listed
+from readme_agent.state.proposal_schema import TrustedTransformationProposalV1
 from readme_agent.verification.checks import compute_verification_token
 
 CAPABILITY_ID = "open_presentation_pr"
@@ -120,6 +127,12 @@ MANIFEST = CapabilityManifest(
         "final_text": "string",
         "verification_verdict": "string",
         "verification_nonce": "string",
+    },
+    optional_inputs={
+        "source_repository": "string",
+        "staging_target_manifest": "string",
+        "trusted_proposal": "object",
+        "content_assurance": "string",
     },
     produced_outputs={
         "opened": "boolean",
@@ -169,7 +182,33 @@ def execute(
     final_text: str,
     verification_verdict: str,
     verification_nonce: str,
+    source_repository: str | None = None,
+    staging_target_manifest: str | None = None,
+    trusted_proposal: dict | None = None,
+    content_assurance: str = "repository_verified",
 ) -> dict:
+    if trusted_proposal is not None:
+        proposal = TrustedTransformationProposalV1.model_validate(trusted_proposal)
+        if content_assurance != "trusted_inherited":
+            raise GitSafetyError("trusted staging effect requires trusted_inherited assurance")
+        if proposal.target_repository != org_repo:
+            raise GitSafetyError("effect repository does not match trusted proposal target")
+        if source_repository != proposal.source_repository or not staging_target_manifest:
+            raise GitSafetyError("trusted staging effect requires its bound source and manifest")
+        require_listed(proposal.source_repository)
+        target = load_staging_target(
+            staging_target_manifest,
+            proposal.source_repository,
+            proposal.target_repository,
+        )
+        token = env.staging_write_token()
+        if not token:
+            raise GitSafetyError("dedicated staging write token is absent")
+        summary = repo_summary(proposal.target_repository, token)
+        if summary["id"] != target.target_repository_id:
+            raise GitSafetyError("staging target stable identity mismatch")
+        return apply_trusted_proposal(proposal, final_text, token)
+
     entry = require_permitted(org_repo)
     if entry.mode != "full":
         raise NotAllowlistedError(
@@ -274,6 +313,17 @@ def reconciliation_check(arguments: dict) -> dict | None:
     facts_hash = arguments.get("facts_hash")
     if not org_repo or not facts_hash:
         return None
+
+    trusted_raw = arguments.get("trusted_proposal")
+    if isinstance(trusted_raw, dict):
+        try:
+            proposal = TrustedTransformationProposalV1.model_validate(trusted_raw)
+        except ValueError:
+            return None
+        token = env.staging_write_token()
+        if not token:
+            return None
+        return reconcile_trusted_proposal(proposal, token)
 
     token = env.gh_token()
     if not token:

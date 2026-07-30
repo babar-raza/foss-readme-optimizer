@@ -51,6 +51,19 @@ def test_act_proof_is_explicit_isolated_and_still_uses_the_canonical_supervisor(
     assert "invoke act with --bind" in text
     assert "README_AGENT_ACT_FAIL_REPOSITORY == matrix.repo" in text
     assert "controlled ACT failure for matrix-isolation proof" in text
+
+
+def test_staging_effect_consumes_frozen_candidates_without_rerunning_analysis():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert "analyze:\n    name: Observe ${{ matrix.repo }}\n    needs: plan" in text
+    assert "if: ${{ needs.plan.outputs.is_staging_effect != 'true' }}" in text
+    staging_job_header = (
+        "stage-proposal:\n    name: Stage trusted proposal for ${{ matrix.repo }}\n    needs: plan"
+    )
+    assert staging_job_header in text
+    assert "needs: [plan, analyze]" not in text
+    assert "requested repository is not in the qualified cohort" in text
     assert "runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/" in text
     assert "remote issue effect was correctly suppressed" in text
 

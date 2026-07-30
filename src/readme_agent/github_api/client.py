@@ -118,6 +118,12 @@ def repo_summary(org_repo: str, token: str | None) -> dict:
     return get_json(f"repos/{org_repo}", token)
 
 
+def get_branch(org_repo: str, branch: str, token: str | None) -> dict:
+    """Return one branch including its current commit SHA."""
+
+    return get_json(f"repos/{org_repo}/branches/{branch}", token)
+
+
 def list_contributors(org_repo: str, token: str | None) -> list[dict]:
     """`GET /repos/{org}/{repo}/contributors`, paginated. Returns `[]` for a
     repo GitHub reports as having none classifiable (e.g. too large to
@@ -159,13 +165,19 @@ def get_tree(org_repo: str, sha: str, token: str | None, *, recursive: bool = Tr
     return get_json(f"repos/{org_repo}/git/trees/{sha}", token, params=params)
 
 
-def get_file_content(org_repo: str, path: str, token: str | None) -> bytes:
+def get_file_content(
+    org_repo: str, path: str, token: str | None, *, ref: str | None = None
+) -> bytes:
     """`GET /repos/{org}/{repo}/contents/{path}` -- the handful of matched
     manifest files `SCL-004`'s tree-based path needs the actual bytes of,
     never the whole tree. Raises if `path` names a directory (no `content`
     key) or is missing -- callers already know `path` exists from a prior
     `get_tree()` call, so either is a real error, not a case to degrade."""
-    body = get_json(f"repos/{org_repo}/contents/{path}", token)
+    body = get_json(
+        f"repos/{org_repo}/contents/{path}",
+        token,
+        params={"ref": ref} if ref else None,
+    )
     return base64.b64decode(body["content"])
 
 

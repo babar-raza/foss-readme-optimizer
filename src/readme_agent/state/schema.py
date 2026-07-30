@@ -25,6 +25,7 @@ from readme_agent.state.mission_goal_schema import (
     MissionNextTaskV1,
     StageGoalId,
 )
+from readme_agent.state.proposal_schema import OpenProposalV2
 
 
 class HandoffFindingV1(BaseModel):
@@ -509,6 +510,7 @@ class RunStateV1(BaseModel):
     # already uses -- a record written before this field existed
     # deserializes cleanly as "no open proposals recorded."
     open_proposals: dict[str, OpenProposalV1] = Field(default_factory=dict)
+    open_proposals_v2: dict[str, OpenProposalV2] = Field(default_factory=dict)
     # Wave 9.5 (`RUN-006`): keyed by `TriggerRecordV1.dedup_key()`, bounded (see
     # `state/trigger.py::record_trigger()`'s own pruning) so this dict cannot grow unbounded across
     # a long-lived repo's history. Additive -- a record written before this field existed

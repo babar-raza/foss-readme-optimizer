@@ -213,7 +213,7 @@ def dispatch_gated_effect(
         if authorization_registry.authorized_for(
             org_repo,
             cast(EffectClass, effect_class),
-            authorization_dir=authorization_registry.AUTHORIZATION_DIR,
+            authorization_dir=authorization_registry.authorization_directory(),
         )
         is None
     ]
@@ -264,7 +264,46 @@ def dispatch_gated_effect(
         existing = _find_entry(current, key)
 
         if existing is not None and existing.status == "applied":
-            return GatedDispatchResult(outcome="already_applied", cached_result=existing.result)
+            reconciliation_check = registry.get_reconciliation_check(capability_id)
+            if reconciliation_check is None:
+                open_proposal = existing.result.get("open_proposal")
+                if isinstance(open_proposal, dict):
+                    _save_open_proposal_with_retry(
+                        backend, org_repo, open_proposal, max_retries=max_retries
+                    )
+                return GatedDispatchResult(outcome="already_applied", cached_result=existing.result)
+
+            reconciled_result = reconciliation_check(arguments)
+            if reconciled_result is not None:
+                refreshed_entry = CapabilityOutputCacheEntry(
+                    capability_id=capability_id,
+                    fingerprint=key,
+                    result=reconciled_result,
+                    status="applied",
+                )
+                _save_entry_with_retry(backend, org_repo, refreshed_entry, max_retries=max_retries)
+                open_proposal = reconciled_result.get("open_proposal")
+                if isinstance(open_proposal, dict):
+                    _save_open_proposal_with_retry(
+                        backend,
+                        org_repo,
+                        open_proposal,
+                        max_retries=max_retries,
+                    )
+                return GatedDispatchResult(
+                    outcome="already_applied", cached_result=reconciled_result
+                )
+
+            if not retry_is_safe(manifest):
+                return GatedDispatchResult(
+                    outcome="blocked_pending_reconciliation",
+                    detail=(
+                        f"the applied effect for {capability_id!r} (key {key[:12]}...) "
+                        "no longer exists in observable reality and the capability is not "
+                        "safe to reapply"
+                    ),
+                )
+            existing = None
 
         if existing is not None and existing.status == "pending":
             # A prior attempt started and never finished -- the actual crash
@@ -299,6 +338,14 @@ def dispatch_gated_effect(
                     _save_entry_with_retry(
                         backend, org_repo, applied_entry, max_retries=max_retries
                     )
+                    open_proposal = reconciled_result.get("open_proposal")
+                    if isinstance(open_proposal, dict):
+                        _save_open_proposal_with_retry(
+                            backend,
+                            org_repo,
+                            open_proposal,
+                            max_retries=max_retries,
+                        )
                     return GatedDispatchResult(
                         outcome="already_applied", cached_result=reconciled_result
                     )
@@ -353,6 +400,14 @@ def dispatch_gated_effect(
                         inputs={"idempotency_key": key},
                         outputs=dispatch.result or {},
                     )
+                open_proposal = (dispatch.result or {}).get("open_proposal")
+                if isinstance(open_proposal, dict):
+                    _save_open_proposal_with_retry(
+                        backend,
+                        org_repo,
+                        open_proposal,
+                        max_retries=max_retries,
+                    )
             else:
                 # Leave the pending record exactly as-is -- do NOT write
                 # applied. A future dispatch attempt for this same key hits
@@ -374,3 +429,38 @@ def dispatch_gated_effect(
         return GatedDispatchResult(outcome="dispatched", dispatch=dispatch, detail=lock_loss_detail)
     finally:
         safe_release_lock(backend.release_lock, lock, label="lock")
+
+
+def _save_open_proposal_with_retry(
+    backend: StateBackend,
+    org_repo: str,
+    raw_proposal: dict,
+    *,
+    max_retries: int,
+) -> None:
+    """Persist OpenProposalV2 without overwriting unrelated state producers."""
+
+    from readme_agent.state.proposal_schema import OpenProposalV2
+
+    proposal = OpenProposalV2.model_validate(raw_proposal)
+
+    def attempt() -> None:
+        current = backend.load(org_repo)
+        expected = current.state_version if current is not None else None
+        base = current if current is not None else RunStateV1(org_repo=org_repo)
+        proposals = dict(base.open_proposals_v2)
+        proposals[proposal.domain] = proposal
+        result = backend.save(
+            org_repo,
+            base.model_copy(update={"open_proposals_v2": proposals}),
+            expected,
+        )
+        if result.outcome == "stale":
+            raise RetryableOperationError("proposal-state CAS was stale")
+        if result.outcome != "saved":
+            raise StateBackendError(f"proposal-state save was rejected as {result.outcome!r}")
+
+    try:
+        run_with_retry("state_cas", attempt, max_attempts=max_retries)
+    except RetryableOperationError as exc:
+        raise StateBackendError("proposal-state save did not converge") from exc

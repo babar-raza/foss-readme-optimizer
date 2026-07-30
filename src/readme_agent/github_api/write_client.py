@@ -10,6 +10,7 @@ read-only audit capability.
 """
 
 import time
+from typing import Any
 
 import requests
 
@@ -54,6 +55,7 @@ def create_pull_request(
     title: str,
     body: str,
     token: str | None,
+    draft: bool = True,
     timeout: float = 15,
 ) -> dict:
     """`POST /repos/{org}/{repo}/pulls` -- the one real PR-creation call
@@ -61,7 +63,13 @@ def create_pull_request(
     on the result -- the human reviewing it on GitHub is the sole approval
     authority (`PR-merge-as-approval`, decision #46)."""
     url = f"{API_ROOT}/repos/{org_repo}/pulls"
-    payload = {"head": head, "base": base, "title": title, "body": body}
+    payload: dict[str, Any] = {
+        "head": head,
+        "base": base,
+        "title": title,
+        "body": body,
+        "draft": draft,
+    }
     try:
         resp = run_http_with_retry(
             "github_write",

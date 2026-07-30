@@ -91,7 +91,13 @@ class TestCreatePullRequest:
 
         assert result == {"number": 9, "html_url": "https://github.com/acme/widget/pull/9"}
         assert captured["url"] == "https://api.github.com/repos/acme/widget/pulls"
-        assert captured["json"] == {"head": "branch", "base": "main", "title": "t", "body": "b"}
+        assert captured["json"] == {
+            "head": "branch",
+            "base": "main",
+            "title": "t",
+            "body": "b",
+            "draft": True,
+        }
 
     def test_raises_on_a_real_error_response(self, monkeypatch):
         monkeypatch.setattr(

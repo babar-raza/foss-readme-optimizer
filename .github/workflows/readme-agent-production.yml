@@ -19,6 +19,10 @@ on:
         description: "QualifiedTrustedCohortV1 manifest used only by act_qualified_cohort"
         required: false
         type: string
+      staging_target_manifest:
+        description: "Disposable StagingTargetManifestV1 used only by act_staging_effect"
+        required: false
+        type: string
   workflow_call:
     inputs:
       repository:
@@ -31,10 +35,15 @@ on:
       qualified_cohort_manifest:
         required: false
         type: string
+      staging_target_manifest:
+        required: false
+        type: string
     secrets:
       GH_APP_PRIVATE_KEY:
         required: true
       ACT_GITHUB_READ_TOKEN:
+        required: false
+      STAGING_GITHUB_WRITE_TOKEN:
         required: false
       LLM_BASE_URL:
         required: true
@@ -61,18 +70,21 @@ jobs:
       has_recovery: ${{ steps.recovery-matrix.outputs.has_recovery }}
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
+      is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
+      staging_target_manifest: ${{ steps.runtime-mode.outputs.staging_target_manifest }}
     steps:
       - id: runtime-mode
         name: Fail-closed runtime-mode admission
         env:
           REQUESTED_PROOF_MODE: ${{ inputs.proof_mode || github.event.client_payload.proof_mode }}
           REQUESTED_COHORT_MANIFEST: ${{ inputs.qualified_cohort_manifest || github.event.client_payload.qualified_cohort_manifest }}
+          REQUESTED_STAGING_MANIFEST: ${{ inputs.staging_target_manifest || github.event.client_payload.staging_target_manifest }}
         run: |
           requested="${REQUESTED_PROOF_MODE:-}"
           manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
           if [ "${ACT:-}" = "true" ]; then
-            if [ -n "$requested" ] && [ "$requested" != "act_qualified_cohort" ]; then
-              echo "::error::act accepts only proof_mode=act_qualified_cohort"
+            if [ -n "$requested" ] && [ "$requested" != "act_qualified_cohort" ] && [ "$requested" != "act_staging_effect" ]; then
+              echo "::error::act accepts only qualified-cohort proof modes"
               exit 2
             fi
             if [ -z "$manifest" ]; then
@@ -81,13 +93,26 @@ jobs:
             fi
             echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "act_staging_effect" ]; then
+              test -n "$REQUESTED_STAGING_MANIFEST" || {
+                echo "::error::act_staging_effect requires a staging target manifest"
+                exit 2
+              }
+              echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
+            else
+              echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            fi
           else
-            if [ "$requested" = "act_qualified_cohort" ]; then
-              echo "::error::act_qualified_cohort is forbidden outside ACT=true"
+            if [ "$requested" = "act_qualified_cohort" ] || [ "$requested" = "act_staging_effect" ]; then
+              echo "::error::act_qualified_cohort is forbidden outside ACT=true; act_staging_effect is also forbidden"
               exit 2
             fi
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+            echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+            echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
           fi
       - uses: actions/checkout@v4
         with:
@@ -239,24 +264,37 @@ jobs:
       schedule_window: ${{ steps.identity.outputs.schedule_window }}
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
+      is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
+      staging_target_manifest: ${{ steps.runtime-mode.outputs.staging_target_manifest }}
     steps:
       - id: runtime-mode
         name: Fail-closed runtime-mode admission
         env:
           REQUESTED_PROOF_MODE: ${{ inputs.proof_mode || github.event.client_payload.proof_mode }}
           REQUESTED_COHORT_MANIFEST: ${{ inputs.qualified_cohort_manifest || github.event.client_payload.qualified_cohort_manifest }}
+          REQUESTED_STAGING_MANIFEST: ${{ inputs.staging_target_manifest || github.event.client_payload.staging_target_manifest }}
         run: |
           requested="${REQUESTED_PROOF_MODE:-}"
           manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
           if [ "${ACT:-}" = "true" ]; then
-            test -z "$requested" || test "$requested" = "act_qualified_cohort"
+            test -z "$requested" || test "$requested" = "act_qualified_cohort" || test "$requested" = "act_staging_effect"
             test -n "$manifest"
             echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "act_staging_effect" ]; then
+              test -n "$REQUESTED_STAGING_MANIFEST"
+              echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=$REQUESTED_STAGING_MANIFEST" >> "$GITHUB_OUTPUT"
+            else
+              echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+              echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
+            fi
           else
-            test "$requested" != "act_qualified_cohort"
+            test "$requested" != "act_qualified_cohort" && test "$requested" != "act_staging_effect"
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=" >> "$GITHUB_OUTPUT"
+            echo "is_staging_effect=false" >> "$GITHUB_OUTPUT"
+            echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
           fi
       - uses: actions/checkout@v4
         with:
@@ -279,6 +317,16 @@ jobs:
               exit 2
             }
             matrix=$(readme-agent qualified-cohort-matrix --manifest "$COHORT_MANIFEST" | jq -c .)
+            if [ -n "$REQUESTED_REPOSITORY" ]; then
+              matrix=$(jq -cn \
+                --argjson source "$matrix" \
+                --arg repository "$REQUESTED_REPOSITORY" \
+                '{include: [$source.include[] | select(.repo == $repository)]}')
+              test "$(jq '.include | length' <<<"$matrix")" -eq 1 || {
+                echo "::error::requested repository is not in the qualified cohort"
+                exit 2
+              }
+            fi
           elif [ -n "$REQUESTED_REPOSITORY" ]; then
             matrix=$(readme-agent runtime-matrix --only "$REQUESTED_REPOSITORY" | jq -c .)
           else
@@ -292,6 +340,7 @@ jobs:
   analyze:
     name: Observe ${{ matrix.repo }}
     needs: plan
+    if: ${{ needs.plan.outputs.is_staging_effect != 'true' }}
     runs-on: ubuntu-latest
     permissions:
       # Central-repository state refs only. Target-repository access uses
@@ -367,6 +416,54 @@ jobs:
         with:
           name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+
+  stage-proposal:
+    name: Stage trusted proposal for ${{ matrix.repo }}
+    needs: plan
+    if: ${{ needs.plan.outputs.is_staging_effect == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Apply immutable trusted proposal with isolated write credential
+        env:
+          SOURCE_REPOSITORY: ${{ matrix.repo }}
+          COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
+          STAGING_MANIFEST: ${{ needs.plan.outputs.staging_target_manifest }}
+          README_AGENT_STAGING_WRITE_TOKEN: ${{ secrets.STAGING_GITHUB_WRITE_TOKEN }}
+        run: |
+          test -n "$README_AGENT_STAGING_WRITE_TOKEN"
+          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
+          target=$(jq -r --arg source "$SOURCE_REPOSITORY" \
+            '.targets[] | select(.source_repository == $source) | .target_repository' \
+            "$STAGING_MANIFEST")
+          test -n "$target" && test "$target" != "null"
+          export README_AGENT_STATE_REMOTE="$PWD/runs/staging/state-v3.git"
+          mkdir -p runs/staging/workflow-results
+          python -m readme_agent.capabilities.staging_effect \
+            --source-repository "$SOURCE_REPOSITORY" \
+            --target-repository "$target" \
+            --cohort-manifest "$COHORT_MANIFEST" \
+            --staging-manifest "$STAGING_MANIFEST" \
+            --authorization-dir runs/staging/authorization \
+            --output "runs/staging/workflow-results/${GITHUB_RUN_ID}-${target//\//__}.json"
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: staging-effect-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
+          path: runs/staging/workflow-results/
 
   health:
     name: Portfolio health and alert

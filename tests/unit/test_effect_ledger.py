@@ -257,6 +257,61 @@ class TestDispatchGatedEffectHappyPath:
         assert second.outcome == "already_applied"
         assert counter.applied == 1  # NOT re-executed -- this is the actual EFF-002 guarantee
 
+    def test_applied_effect_with_reconciliation_refreshes_observed_result(self, monkeypatch):
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"count": counter.applied}
+
+        observed = {"count": 1, "reconciled": True}
+        _register(
+            monkeypatch,
+            _effector_manifest(),
+            execute,
+            reconciliation_check=lambda arguments: observed,
+        )
+        backend = FakeStateBackend()
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+
+        assert second.outcome == "already_applied"
+        assert second.cached_result == observed
+        assert counter.applied == 1
+
+    def test_missing_applied_effect_is_reapplied_when_manifest_is_idempotent(self, monkeypatch):
+        counter = _Counter()
+
+        def execute(org_repo):
+            counter.applied += 1
+            return {"count": counter.applied}
+
+        _register(
+            monkeypatch,
+            _effector_manifest(),
+            execute,
+            reconciliation_check=lambda arguments: None,
+        )
+        backend = FakeStateBackend()
+        tool_call = _tool_call("mutate_thing", {"org_repo": ORG_REPO})
+
+        first = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+        second = dispatch_gated_effect(
+            tool_call, {"local_write"}, backend, ORG_REPO, caller_domain="readme_reconciliation"
+        )
+
+        assert first.dispatch.outcome == "executed"
+        assert second.dispatch.outcome == "executed"
+        assert counter.applied == 2
+
 
 class TestDuplicateTriggerEffectComposition:
     def test_terminal_duplicate_produces_one_logical_execution_and_one_effect(self, monkeypatch):
