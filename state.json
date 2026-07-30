@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-    "active_task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+    "active_task_id": null,
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
       "reserved_trusted_lanes": 1,
       "total_repository_lanes": 2
     },
-    "claim_expires_at": "2026-07-30T14:32:43.140892+00:00",
-    "claim_id": "30151d25fc554629b50bbd7a07693da5",
-    "claimed_at": "2026-07-30T14:02:43.140892+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -42,7 +42,7 @@
       }
     ],
     "graph_sha256": "b06692278422289619d543b9877d11fa75472aeb48363d100ed48008c8383ae3",
-    "last_evaluated_at": "2026-07-30T14:02:43.140892+00:00",
+    "last_evaluated_at": "2026-07-30T14:38:16.325315+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
@@ -86,18 +86,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Establish the intended hosted identity before cohort product PR effects."
-      },
-      "goal_ids": [
-        "GOAL-AUTONOMY",
-        "GOAL-DELIVERY"
-      ],
-      "stage_goal_id": "GOAL-TP-TRUSTED-COHORT-POC",
-      "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -211,7 +200,7 @@
       "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
       "TRP-04P-DRAFT-PR-COHORT": "TODO",
-      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "IN_PROGRESS",
+      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "REROUTED",
       "TRP-04P-POC-PRESENTATION": "TODO",
       "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
       "TRP-04P-TEST-LATENCY": "CLOSED",
@@ -5437,6 +5426,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/requirements.md#TRP-019"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-30T14:38:16.325309+00:00",
+        "reason": "User review rejected the three staging candidate presentation outcomes for brand inconsistency, weak header coherence, missing contextual aspose.com links, and immature Mermaid; preserve hosted transport proof and reroute to a governed cohort presentation-quality repair before resuming hosted closeout.",
+        "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+        "to_status": "REROUTED"
       }
     ]
   },
@@ -5446,7 +5446,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 623,
+  "state_version": 624,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
