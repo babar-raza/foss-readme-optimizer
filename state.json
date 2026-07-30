@@ -2567,7 +2567,7 @@
     "updated_at": "2026-07-30T18:47:23.736226+00:00"
   },
   "schema_version": 2,
-  "state_version": 263,
+  "state_version": 264,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -3274,13 +3274,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: portfolio brand contract requires exactly one products.aspose.com link",
       "last_checkpoint_id": "297f5c4ebb8a45bfb696f9bbedbc450ebd5f32ca68ccfd43767f4553e8f3d238",
-      "lease_expires_at": "2026-07-30T19:13:19.523665+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-30T18:58:23.837854+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-30T19:02:51.530435+00:00"
     }
   },
   "trigger_records": {},
