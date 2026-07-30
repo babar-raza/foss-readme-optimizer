@@ -174,13 +174,20 @@ validation now precedes separate blind-quality and inheritance-fidelity roles, f
 section repair are grounded, unchanged repair fails visibly, and exact accepted inputs reuse the review without a provider call or duplicate lifecycle transition, while trusted approval never
 claims repository truth. The hosted `qwen3-next` backend was unavailable during the earlier
 non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 work.
-Nine Python repositories now have checksum-addressed `TRUSTED_NO_OP_PROVEN` bundles; the latest
-canonical campaign promoted Page and PDF Python after bounded repair/review. These nine form the
-candidate set for a dynamic, freshness-revalidated cohort freeze; the count is evidence, not a
-hard-coded acceptance rule. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run read-only.
-The next graph-selected work after this amendment is `TRP-04P-COHORT-FREEZE`, not additional
-TRP-04 content generation. TRP-04 is deliberately held, remains open, and must resume immediately
-after the cohort PR package is presented.
+Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but the
+freshness/contract freeze correctly qualified only three current bundles: Note, Page, and PDF
+Python. The other six remain excluded until regenerated against the current candidate,
+review, and normalization contracts. `TRP-04P-COHORT-FREEZE` is closed with the
+checksum-addressed cohort manifest under
+`plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/`; its three-member result is
+evidence, not a hard-coded acceptance rule. `TRP-04P-ACT-WORKFLOW-PARITY` is also closed at
+`700b232d`: the exact cohort passed the reusable workflow under `act --bind`, including
+cross-job state/evidence sharing, dispatch variants, recovery, deduplication, matrix failure
+isolation, health reduction, and ambient-token rejection, with zero effects. The next
+graph-selected work is `TRP-04P-STAGING-EFFECT-PROOF`; `TRP-04P-TEST-LATENCY` remains eligible
+and time-boxed at a serial safe boundary. `L8-INTAKE-00/01` are closed and `L8-INTAKE-02` may run
+read-only. TRP-04 is deliberately held, remains open, and must resume immediately after the
+cohort PR package is presented.
 The repository-verified scoreboard remains 7 `FACTS_READY`,
 7 candidates/validations, and zero verified approvals/no-ops/human acceptances;
 discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
@@ -2814,19 +2821,23 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         commit-bound official run pass, with evidence under
         `plans/investigations/evidence/trp-03-independent-fidelity-review-v1/`.
   - [ ] **Two-day presentable cohort POC (`TRP-04P-*`) — execute before resuming TRP-04:**
-    - [ ] `TRP-04P-COHORT-FREEZE`: derive `QualifiedTrustedCohortV1` from every current
+    - [x] `TRP-04P-COHORT-FREEZE`: derive `QualifiedTrustedCohortV1` from every current
           checksum-valid `TRUSTED_NO_OP_PROVEN` bundle, recheck each source head, exclude or
           regenerate stale members, and freeze exact source/candidate/contract/manifest hashes.
-          The current evidence contains nine Python members; runtime evidence decides the actual
-          frozen count.
+          The frozen cohort contains three current Python members (Note, Page, and PDF); six other
+          durable no-op records were excluded because their candidate/review/normalization
+          dependencies are stale. Evidence:
+          `plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json`.
     - [ ] `TRP-04P-TEST-LATENCY`: capture `pytest --durations` and serial baselines, create an
           impact-mapped fast/integration/security/full verification manifest, benchmark at most
           four `pytest-xdist` workers with serial-only isolation for shared-state tests, and adopt
           only a deterministic measured speedup. Time-box diagnosis/implementation to four hours;
           an unproven optimization is rejected rather than delaying delivery.
-    - [ ] `TRP-04P-ACT`: execute the frozen cohort through the actual reusable workflow and
+    - [x] `TRP-04P-ACT`: execute the frozen cohort through the actual reusable workflow and
           canonical supervisor under `act`, including dispatch variants, recovery, deduplication,
-          evidence upload, health reduction, and PAT/ambient-token rejection.
+          evidence upload, health reduction, and PAT/ambient-token rejection. Commits
+          `0eccb7ee` and `700b232d`; independently accepted evidence:
+          `plans/investigations/evidence/trp-04p-act-workflow-parity-v1/verification.json`.
     - [ ] `TRP-04P-STAGING`: prove trusted proposal create/no-op/update/drift/dedup/lost-response/
           expiry/crash recovery against disposable staging with byte-identical default branches
           and no analysis write credential.

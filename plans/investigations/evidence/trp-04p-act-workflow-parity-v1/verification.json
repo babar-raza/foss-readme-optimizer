@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
+  "verdict": "ACCEPT",
+  "proof_head": "700b232d39918b0d77fe1b36c18d6e9bea0ae209",
+  "implementation_commits": [
+    "0eccb7eed7c9032cae23a3fa3a802e3e46fe9dbf",
+    "700b232d39918b0d77fe1b36c18d6e9bea0ae209"
+  ],
+  "cohort": {
+    "cohort_id": "1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331",
+    "manifest": "plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331/manifest.json",
+    "manifest_sha256": "262cef6905cd06cded7fa296b1f634d708895c9b6c241ed2f8872fbfb0841b57",
+    "qualified_count": 3
+  },
+  "workflow": {
+    "path": ".github/workflows/readme-agent-production.yml",
+    "runtime": "readme-agent supervise",
+    "execution_profile": "act_poc",
+    "shared_workspace_required": true,
+    "act_bind_required": true,
+    "state_remote": "runs/act-poc/state.git",
+    "target_remote_writes": 0
+  },
+  "full_matrix_run": {
+    "logical_run_id": "16",
+    "event": "workflow_dispatch",
+    "raw_log": "runs/act-poc/bind-failure-isolation-run-16.stdout.log",
+    "members": [
+      {
+        "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "manifest": "runs/evidence/16/aspose-note-foss__Aspose.Note-FOSS-for-Python/manifest.json",
+        "manifest_sha256": "02503f8ec7ce4a28c87d6ccf46261a574e8bf15b3a007cd8117d3f161c9de4a4",
+        "status": "STAGE_COMPLETE",
+        "content_assurance": "trusted_inherited",
+        "readme_poc_status": "TRUSTED_NO_OP_PROVEN",
+        "trigger_status": "completed",
+        "llm_call_count": 0,
+        "effect_count": 0,
+        "artifact_file_count": 5
+      },
+      {
+        "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+        "manifest": "runs/evidence/16/aspose-page-foss__Aspose.Page-FOSS-for-Python/manifest.json",
+        "manifest_sha256": "ba361730c819bd9dd55c372ef7a7bec794acefb41a921dea8a16b83e90d02fe0",
+        "status": "STAGE_COMPLETE",
+        "content_assurance": "trusted_inherited",
+        "readme_poc_status": "TRUSTED_NO_OP_PROVEN",
+        "trigger_status": "completed",
+        "llm_call_count": 0,
+        "effect_count": 0,
+        "artifact_file_count": 5
+      },
+      {
+        "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+        "manifest": "runs/evidence/16/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/manifest.json",
+        "manifest_sha256": "9b2ebaaeb3383ca02cd91d9a626659d3abd5ed6f408ada834a97026049a5798d",
+        "status": "STAGE_COMPLETE",
+        "content_assurance": "trusted_inherited",
+        "readme_poc_status": "TRUSTED_NO_OP_PROVEN",
+        "trigger_status": "completed",
+        "llm_call_count": 0,
+        "effect_count": 0,
+        "artifact_file_count": 5
+      }
+    ]
+  },
+  "recovery": {
+    "logical_run_id": "15",
+    "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "trigger_dedup_key": "run:act-interruption-clean-012:aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "transition": "processing -> retryable -> processing -> completed",
+    "recovery_count": 2,
+    "terminal_detail": "STAGE_COMPLETE",
+    "raw_log": "runs/act-poc/bind-recovery-run-15.stdout.log"
+  },
+  "deduplication": {
+    "logical_run_id": "16",
+    "repositories_deduplicated": [
+      "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+    ],
+    "state_and_manifest_reused": true,
+    "raw_log": "runs/act-poc/bind-failure-isolation-rerun-16.stdout.log"
+  },
+  "failure_isolation": {
+    "logical_run_id": "16",
+    "injected_failure": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+    "injected_exit_code": 86,
+    "matrix_fail_fast": false,
+    "unaffected_members_reached_deduplicated_success": true,
+    "aggregate_result": "failed_as_expected",
+    "raw_log": "runs/act-poc/bind-failure-isolation-rerun-16.stdout.log"
+  },
+  "authentication_negative_control": {
+    "logical_run_id": "17",
+    "ambient_tokens_present": true,
+    "dedicated_act_token_absent": true,
+    "result": "rejected",
+    "error": "act_poc requires ACT=true and a dedicated README_AGENT_ACT_GITHUB_TOKEN; ambient PAT variables are never accepted",
+    "raw_log": "runs/act-poc/bind-ambient-token-rejection-run-17.stdout.log"
+  },
+  "trigger_variants": [
+    {
+      "event": "workflow_dispatch",
+      "logical_run_id": "16",
+      "result": "exact_cohort_matrix_and_terminal_execution"
+    },
+    {
+      "event": "repository_dispatch",
+      "logical_run_id": "18",
+      "result": "exact_cohort_matrix",
+      "raw_log": "runs/act-poc/bind-repository-dispatch-plan-run-18.stdout.log"
+    },
+    {
+      "event": "schedule",
+      "logical_run_id": "19",
+      "result": "exact_cohort_matrix",
+      "raw_log": "runs/act-poc/bind-schedule-plan-run-19.stdout.log"
+    },
+    {
+      "event": "workflow_call",
+      "logical_run_id": "20",
+      "result": "exact_cohort_matrix",
+      "raw_log": "runs/act-poc/bind-workflow-call-plan-run-20.stdout.log"
+    }
+  ],
+  "health": {
+    "logical_run_id": "16",
+    "path": "runs/workflow/health-report.json",
+    "sha256": "3afb1255417e0e6750e2771e9ab03c55c16a80f13a79821ff914c9ae48b5910b",
+    "healthy": true,
+    "repositories_checked": 3,
+    "backlog_count": 0,
+    "stale_lease_count": 0,
+    "state_failure_count": 0,
+    "evidence_failure_count": 0,
+    "raw_log": "runs/act-poc/bind-health-rerun-16.stdout.log"
+  },
+  "verification": {
+    "focused_pytest": {
+      "result": "238 passed",
+      "duration_seconds": 73.9,
+      "junit": "runs/act-poc/final-focused-tests-complete.xml"
+    },
+    "ruff_check": "pass",
+    "ruff_format_check": "pass",
+    "mypy_source_files": 443,
+    "mypy_result": "pass",
+    "plan_validation": "clean_with_existing_nonblocking_warnings",
+    "workflow_syntax_fallback": "act --list pass",
+    "git_diff_check": "pass"
+  },
+  "defects_found_and_repaired": [
+    {
+      "boundary": "ACT job-to-job durable-state sharing",
+      "symptom": "copy-mode jobs restored private ignored runs directories and could not observe injected state",
+      "root_cause": "default ACT workspace copy mode does not share ignored runtime state across job containers",
+      "repair": "require --bind and a run-specific marker observed by downstream jobs",
+      "regression_control": "workflow fails closed with an explicit --bind error when the marker is absent"
+    },
+    {
+      "boundary": "terminal evidence assurance",
+      "symptom": "trusted manifests could default to repository_verified assurance",
+      "root_cause": "supervisor evidence used a default instead of the lifecycle assurance",
+      "repair": "manifest fields now consume the durable lifecycle assurance, status, and transitions",
+      "regression_control": "full matrix manifests assert trusted_inherited and TRUSTED_NO_OP_PROVEN"
+    }
+  ]
+}

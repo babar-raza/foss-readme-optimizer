@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "TRP-04P-ACT-WORKFLOW-PARITY",
+  "verdict": "ACCEPT",
+  "reviewer": "deterministic-independent-reconstruction",
+  "reviewed_head": "700b232d39918b0d77fe1b36c18d6e9bea0ae209",
+  "checks": {
+    "frozen_cohort_reconstructed": true,
+    "workflow_matrix_equals_frozen_cohort": true,
+    "canonical_supervisor_used_for_every_member": true,
+    "all_member_manifests_checksum_bound": true,
+    "all_member_manifests_trusted_inherited": true,
+    "all_member_lifecycles_trusted_no_op_proven": true,
+    "all_member_triggers_completed": true,
+    "all_member_llm_call_counts_zero": true,
+    "all_member_effect_counts_zero": true,
+    "duplicate_delivery_deduplicated": true,
+    "expired_trigger_recovered_and_completed": true,
+    "matrix_failure_isolated": true,
+    "ambient_pat_rejected": true,
+    "health_aggregation_healthy": true,
+    "copy_mode_false_proof_path_closed": true
+  },
+  "limitations": [
+    "This verdict proves reusable-workflow parity under ACT for the frozen trusted cohort only.",
+    "It does not prove staging effects, GitHub App token minting, hosted execution, product PRs, TRP-04 canary qualification, full-registry trusted completion, or repository-verified presentation."
+  ],
+  "next_task": "TRP-04P-STAGING-EFFECT-PROOF"
+}

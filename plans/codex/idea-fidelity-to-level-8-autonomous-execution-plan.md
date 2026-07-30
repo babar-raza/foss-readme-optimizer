@@ -1970,13 +1970,18 @@ Execution resumes in this order; it does not start an official fixed-count campa
 2. Run mission `status`; if the graph hash differs from durable state, run `evaluate` once to
    migrate without deleting transition history, then claim only the highest-priority eligible
    task. Live durable state supersedes every snapshot in this supporting document.
-3. Reconcile the completed TRP-01/02/03 evidence, then claim
-   `TRP-04P-COHORT-FREEZE`. Freeze every current source-current, checksum-valid
-   `TRUSTED_NO_OP_PROVEN` bundle; do not regenerate valid candidates merely to change ordering.
-4. Execute `TRP-04P-TEST-LATENCY` as a bounded parallel workstream and run the exact frozen cohort
-   through `TRP-04P-ACT-WORKFLOW-PARITY`, staging, GitHub App hosted qualification, permission and
-   authorization proof, serialized draft PRs, and the indexed POC presentation package. Obtain
-   fresh exact what/why/where confirmation before each product effect.
+3. Preserve the closed `TRP-04P-COHORT-FREEZE` result: three source-current,
+   checksum-valid Python bundles (Note, Page, and PDF) are frozen under cohort ID
+   `1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331`. Do not
+   regenerate them merely to change ordering; re-freeze only when an input hash or target head
+   invalidates a member.
+4. Preserve the closed `TRP-04P-ACT-WORKFLOW-PARITY` proof at commit `700b232d`, then claim
+   `TRP-04P-STAGING-EFFECT-PROOF` and run the exact frozen cohort through disposable staging.
+   Keep `TRP-04P-TEST-LATENCY` eligible and execute it at a bounded serial safe boundary rather
+   than overlapping another top-level proof process. Continue through GitHub App hosted
+   qualification, permission and authorization proof, serialized draft PRs, and the indexed POC
+   presentation package. Obtain fresh exact what/why/where confirmation before each product
+   effect.
 5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.
    Complete its adversarial canaries and only then begin broader trusted portfolio fan-out.
    Interleave the common `L8-INTAKE-02/03` discovery path whenever dependency-ready: authenticate
