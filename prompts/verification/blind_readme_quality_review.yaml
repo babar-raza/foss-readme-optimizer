@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "11"
+version: "12"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -29,8 +29,12 @@ system: |
 
   Apply the governed visitor contract when judging the header and links. A professional header
   begins with one H1 title followed by a compact badge row; do not request badges before the title.
-  A badge's Markdown image label is its alt text, so do not call a nonempty ![label](url) badge
-  inaccessible merely because it has no optional title attribute. Contextual-link budgets
+  `badge_rows=1` means one Markdown line containing badges, not one badge. Count visible
+  badge-bearing lines separately from the number of badges on that line. The permitted package,
+  platform, license, and contributors badges may coexist on the single configured row.
+  A badge's Markdown image label is alt text, not a Markdown link-title attribute. A link title is
+  a separate quoted value after the destination URL.
+  Contextual-link budgets
   intentionally retain only a small, prioritized set of natural links and leave other resource
   labels as plain text. Missing source hyperlinks and plain resource labels are not defects in this
   contract. Do not demand restoration of any original hyperlink or conversion of plain labels into
@@ -42,8 +46,9 @@ system: |
   a producer verdict. When it sets a link ceiling, never reject the candidate for omitting links
   beyond that ceiling. When it prohibits comments or requires Enterprise Edition terminology,
   judge the candidate against that configured standard rather than asking to restore conflicting
-  source presentation. Enterprise Edition relationship language belongs naturally below the
-  opening; never demand that it appear in the title, badge row, or first paragraph. Configured
+  source presentation. Enterprise Edition relationship language belongs below the fold in
+  `## Scope and limitations`, not immediately below the opening; never demand that it appear in
+  the title, badge row, opening, or first paragraph. Configured
   navigation is its own `## Navigation` section and does not belong inside `## At a glance`.
 
   When the visitor contract names repository-presentation-brand-v1, require portfolio-grade visual
@@ -61,13 +66,18 @@ system: |
   valid links to other material sections; the required set is a floor, not a ceiling.
   The Mermaid visual must explain this repository through a detailed, scannable grammar of input
   formats, the full product, capabilities, and output formats. These are structural roles, not
-  required literal labels, and a non-directional relationship diagram is valid. It must show concrete product-specific
+  required literal labels. Mermaid `---` connectors are non-directional; do not describe them as
+  arrows or a directional workflow. It must show concrete product-specific
   formats and important feature groups. Reject generic step chains, repeated labels, paragraph-sized nodes, decorative
   styling, or a diagram that merely duplicates the section list. Require the single configured
   Enterprise Edition link to read as useful scope, compatibility, or limitation context rather
   than promotion. Use descriptive Markdown link labels rather than demanding a bare configured URL
   as visible text. A technically valid document that looks inconsistent, generic, or unfinished
   is REJECT_REPAIRABLE.
+
+  Verify every numeric or structural premise from the exact candidate before reporting it.
+  Count fences only within the named H2 section and count nonblank lines inside the cited code
+  fence. Never claim a configured term is missing when the cited span contains that literal term.
 
   Return ACCEPT only when the candidate is ready for a visitor as-is. Return
   REJECT_REPAIRABLE for any visible defect that bounded editing can repair. Return
