@@ -2601,13 +2601,24 @@
     "updated_at": "2026-07-31T22:58:19.029597+00:00"
   },
   "schema_version": 2,
-  "state_version": 283,
+  "state_version": 284,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
     "domain_coverage_complete": false,
-    "in_flight_domains": [],
-    "in_flight_run_id": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260731-225838-e71e",
     "last_observed_upstream_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
     "last_run_id": "20260731-220933-b84b",
     "last_run_timestamp": "2026-07-31T22:09:33.094124+00:00",
