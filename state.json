@@ -904,7 +904,7 @@
     "updated_at": "2026-07-31T02:50:33.189753+00:00"
   },
   "schema_version": 2,
-  "state_version": 73,
+  "state_version": 74,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
@@ -1024,13 +1024,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "trusted repair failed: forced tool call failed: HTTP 500: {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: Hosted_vllmException - EngineCore encountered an issue. See stack trace (above) for the root cause.. Received Model Group=qwen3-next\\nAvailable Model Group Fallbacks=None\",\"type\":null,\"param\":null,\"code\":\"500\"}}",
       "last_checkpoint_id": "a637f3390a25a7d86f09d57bc09c5fae8ad26fc1c6b89864e01b6f72f55fb323",
-      "lease_expires_at": "2026-07-31T02:55:08.083845+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T02:40:11.977682+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T02:50:43.335377+00:00"
     }
   },
   "trigger_records": {},
