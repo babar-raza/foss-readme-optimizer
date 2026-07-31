@@ -217,6 +217,109 @@ def _reconcile_candidate_spans(
     return FactualPlanReviewResultV1.model_validate(payload), tuple(reconciled_ids)
 
 
+def _reconcile_supported_factual_polarity(
+    parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
+    product_facts: dict | None,
+) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
+    """Derive redundant evidence polarity for accepted, conflict-free fact citations."""
+
+    if not isinstance(parsed, FactualPlanReviewResultV1) or product_facts is None:
+        return parsed, ()
+    selected = set(product_facts.get("selected_fact_ids", {}).values())
+    by_fact_id = {
+        str(fact.get("fact_id")): fact
+        for fact in product_facts.get("facts", [])
+        if isinstance(fact, dict) and fact.get("fact_id")
+    }
+    updates = []
+    reconciled_ids: list[str] = []
+    for finding in parsed.findings:
+        fact = by_fact_id.get(str(finding.fact_id))
+        if (
+            finding.disposition != "supports_acceptance"
+            or fact is None
+            or finding.fact_id not in selected
+            or fact.get("verification_state") not in {"verified", "policy_approved"}
+            or any(
+                conflict.get("status") == "unresolved"
+                for conflict in fact.get("conflicts", [])
+                if isinstance(conflict, dict)
+            )
+            or finding.evidence_location != str((fact.get("source") or {}).get("location", ""))
+            or not finding.evidence_excerpt
+        ):
+            updates.append(finding)
+            continue
+        evidence_values = {
+            str(fact.get("value", "")),
+            str((fact.get("source") or {}).get("location", "")),
+        }
+        assessments = fact.get("evidence_assessments") or []
+        for assessment in assessments:
+            if not isinstance(assessment, dict):
+                continue
+            evidence_values.update(
+                {
+                    str(assessment.get("anchor", "")),
+                    str(assessment.get("exact_excerpt", "")),
+                    str(assessment.get("context_excerpt", "")),
+                }
+            )
+        if not any(
+            finding.evidence_excerpt in value or value in finding.evidence_excerpt
+            for value in evidence_values
+            if value
+        ):
+            updates.append(finding)
+            continue
+        matching = [
+            assessment
+            for assessment in assessments
+            if isinstance(assessment, dict)
+            and finding.evidence_excerpt
+            in {
+                str(assessment.get("anchor", "")),
+                str(assessment.get("exact_excerpt", "")),
+                str(assessment.get("context_excerpt", "")),
+            }
+        ]
+        if matching:
+            assessment = matching[0]
+            if not assessment.get("accepted"):
+                updates.append(finding)
+                continue
+            expected = assessment.get("expected_polarity")
+            observed = assessment.get("observed_polarity")
+        else:
+            expected = "positive_implementation"
+            observed = "positive_implementation"
+        if (
+            finding.expected_polarity == expected
+            and finding.observed_polarity == observed
+            and finding.polarity_result == "supports"
+        ):
+            updates.append(finding)
+            continue
+        updates.append(
+            finding.model_copy(
+                update={
+                    "expected_polarity": expected,
+                    "observed_polarity": observed,
+                    "polarity_result": "supports",
+                }
+            )
+        )
+        reconciled_ids.append(finding.finding_id)
+    if not reconciled_ids:
+        return parsed, ()
+    return (
+        FactualPlanReviewResultV1.model_validate(
+            {**parsed.model_dump(mode="json"), "findings": updates}
+        ),
+        tuple(reconciled_ids),
+    )
+
+
 def _unique_whitespace_insensitive_span(quote: str, candidate_text: str) -> str | None:
     """Recover exact bytes only when whitespace removal yields one content-identical span."""
 
@@ -279,6 +382,7 @@ def run_grounded_role(
         grounding: FindingGroundingResultV1 | None = None
         dismissed_finding_ids: tuple[str, ...] = ()
         reconciled_candidate_span_ids: tuple[str, ...] = ()
+        reconciled_factual_polarity_ids: tuple[str, ...] = ()
         original_errors: list[str] = []
         try:
             parsed = _parse_role_result(
@@ -289,6 +393,10 @@ def run_grounded_role(
             parsed, reconciled_candidate_span_ids = _reconcile_candidate_spans(
                 parsed,
                 candidate_text,
+            )
+            parsed, reconciled_factual_polarity_ids = _reconcile_supported_factual_polarity(
+                parsed,
+                product_facts,
             )
             grounding = validate_review_findings(
                 candidate_text=candidate_text,
@@ -324,6 +432,7 @@ def run_grounded_role(
                 "validation_result": grounding.model_dump(mode="json") if grounding else None,
                 "deterministically_dismissed_finding_ids": list(dismissed_finding_ids),
                 "reconciled_candidate_span_ids": list(reconciled_candidate_span_ids),
+                "reconciled_factual_polarity_ids": list(reconciled_factual_polarity_ids),
                 "pre_normalization_errors": original_errors,
                 "invalid_findings": [
                     {

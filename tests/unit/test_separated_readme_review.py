@@ -698,6 +698,31 @@ def test_non_repair_finding_discards_inert_repair_text_without_changing_verdict(
     assert finding.claim == "The candidate identity is supported."
 
 
+def test_supported_factual_polarity_is_derived_from_the_accepted_fact():
+    factual_payload = _factual_accept("facts and plan agree")
+    factual_payload["findings"][0]["expected_polarity"] = "ambiguous_occurrence"
+    factual_payload["findings"][0]["observed_polarity"] = "ambiguous_occurrence"
+    client = SequenceClient([factual_payload])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+    )
+
+    finding = result.findings[0]
+    assert finding.disposition == "supports_acceptance"
+    assert finding.expected_polarity == "positive_implementation"
+    assert finding.observed_polarity == "positive_implementation"
+    assert finding.polarity_result == "supports"
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
+
+
 def test_blind_rejection_vetoes_factual_acceptance():
     result = run_separated_readme_review(
         ORG_REPO,
