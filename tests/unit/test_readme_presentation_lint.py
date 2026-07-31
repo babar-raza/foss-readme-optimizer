@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 
@@ -203,6 +204,47 @@ def test_snake_case_token_used_as_bullet_label_remains_a_failure() -> None:
 
     assert not result.valid
     assert [finding.rule_id for finding in result.findings] == ["raw_internal_token"]
+
+
+def test_repository_verified_public_tool_name_is_allowed_as_code_only_bullet() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    capability = facts.selected_fact("product.capabilities")
+    source_revision = capability.source.source_revision
+    assert source_revision is not None
+    assessment = EvidencePolarityAssessmentV1(
+        fact_id=capability.fact_id,
+        claim_text="MCP conversion tools",
+        expected_polarity="positive_implementation",
+        observed_polarity="positive_implementation",
+        source_path="src/product/mcp/server.py",
+        source_revision=source_revision,
+        line_number=1,
+        anchor="create_server",
+        exact_excerpt="def create_server() -> object:",
+        context_excerpt="from .handlers import ps_to_pdf\nserver.tool(ps_to_pdf)",
+        accepted=True,
+        reason="the server registers the public tool",
+    )
+    verified_capability = capability.model_copy(update={"evidence_assessments": [assessment]})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                verified_capability if fact.fact_id == capability.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = """# Conversion toolkit
+
+## MCP tools
+
+- `ps_to_pdf`
+"""
+
+    result = lint_readme_presentation(candidate, facts)
+
+    assert result.valid
+    assert not [finding for finding in result.findings if finding.rule_id == "raw_internal_token"]
 
 
 def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:

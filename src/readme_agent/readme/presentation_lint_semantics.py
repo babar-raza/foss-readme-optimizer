@@ -25,7 +25,8 @@ RULE_IDS = (
     "visitor_fragment",
 )
 
-_RAW_SNAKE_BULLET = re.compile(r"^\s*[-*+]\s+`[a-z][a-z0-9]*_[a-z0-9_]+`")
+_RAW_SNAKE_BULLET = re.compile(r"^\s*[-*+]\s+`(?P<token>[a-z][a-z0-9]*_[a-z0-9_]+)`")
+_SNAKE_IDENTIFIER = re.compile(r"\b[a-z][a-z0-9]*_[a-z0-9_]+\b")
 _ENUM_LIST = re.compile(r"\b[A-Z][A-Z0-9_]{1,}(?:\s*,\s*[A-Z][A-Z0-9_]{1,})+\b")
 _PROMPT_INJECTION = re.compile(
     r"(?i)(?:ignore|disregard|override)\s+(?:all\s+)?(?:previous|prior|system|developer)"
@@ -58,12 +59,34 @@ def _own_aspose_family(facts: ProductFactsV2 | None) -> str | None:
     return family or None
 
 
+def _verified_repository_identifiers(facts: ProductFactsV2 | None) -> set[str]:
+    """Return code identifiers independently bound to accepted implementation evidence."""
+
+    if facts is None:
+        return set()
+    identifiers: set[str] = set()
+    for fact in facts.facts:
+        if fact.verification_state != "verified":
+            continue
+        for assessment in fact.evidence_assessments or []:
+            if not assessment.accepted or assessment.observed_polarity != "positive_implementation":
+                continue
+            for evidence_text in (
+                assessment.anchor,
+                assessment.exact_excerpt,
+                assessment.context_excerpt,
+            ):
+                identifiers.update(_SNAKE_IDENTIFIER.findall(evidence_text))
+    return identifiers
+
+
 def lint_semantics(
     text: str,
     facts: ProductFactsV2 | None,
 ) -> list[PresentationLintFindingV1]:
     findings: list[PresentationLintFindingV1] = []
     lines = visible_lines(text)
+    verified_identifiers = _verified_repository_identifiers(facts)
 
     emoji_spans = [exact_span(text, start, end) for start, end in emoji_decoration_spans(text)]
     if emoji_spans:
@@ -101,7 +124,8 @@ def lint_semantics(
                     ],
                 )
             )
-        if _RAW_SNAKE_BULLET.match(line.text):
+        snake_bullet = _RAW_SNAKE_BULLET.match(line.text)
+        if snake_bullet is not None and snake_bullet.group("token") not in verified_identifiers:
             findings.append(
                 make_finding(
                     "raw_internal_token",
