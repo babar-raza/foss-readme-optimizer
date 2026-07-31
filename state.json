@@ -3173,19 +3173,19 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "20260731-112113-d9f8",
-          "failure_reason": "bundle_verification_rejected",
-          "message": " {'name': 'aspose-note-foss'} is NOT published (PyPI: aspose-note-foss NOT FOUND (404)) but the bundle's facts record method='pypi' -- an unpublished package cannot be verified",
-          "occurred_at": "2026-07-31T11:22:02.077277+00:00",
+          "error_type": "GroundedRoleFailure",
+          "failure_reason": "independent_review_exception",
+          "message": " factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\nfindings.0.finding_id\\n  String should match pattern '^[a-z][a-z0-9_.-]*$' [type=string_pattern_mismatch, input_value='readme.example:repair:heading:1702', input_type=str]\\n    For further information visit https://errors.pydantic.dev/2.13/v/string_pattern_mismatch\"]",
+          "occurred_at": "2026-07-31T11:36:25.141642+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
         }
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "bundle_verification_rejected",
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T11:22:02.077277+00:00",
+      "last_run_timestamp": "2026-07-31T11:36:25.141642+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -7260,7 +7260,7 @@
     "updated_at": "2026-07-31T11:36:19.563866+00:00"
   },
   "schema_version": 2,
-  "state_version": 881,
+  "state_version": 882,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
