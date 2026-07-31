@@ -364,3 +364,46 @@ def test_ambiguous_product_roots_block_only_dependent_manifest_facts(tmp_path):
     ):
         assert by_field[field].verification_state == "blocked"
         assert by_field[field].value["selection_state"] == "ambiguous"
+
+
+def test_colocated_python_manifests_are_one_logical_product_root(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "widget-foss"\nversion = "1.0.0"\n',
+        encoding="utf-8",
+    )
+    (tmp_path / "setup.py").write_text(
+        'from setuptools import setup\nsetup(name="widget-foss", version="1.0.0")\n',
+        encoding="utf-8",
+    )
+    profile = RepositoryProfile(
+        org_repo="acme/widget",
+        package_roots=[
+            PackageRoot(
+                path=".",
+                ecosystem="python",
+                manifest_path="pyproject.toml",
+                confidence=1.0,
+                evidence="found pyproject.toml",
+            ),
+            PackageRoot(
+                path=".",
+                ecosystem="python",
+                manifest_path="setup.py",
+                confidence=1.0,
+                evidence="found setup.py",
+            ),
+        ],
+    )
+
+    inventory = classify_package_root_roles(
+        _entry("widget", "python"),
+        profile,
+        tmp_path,
+        "colocated-manifests",
+    )
+
+    assert inventory.selection_state == "selected"
+    assert inventory.selected_product_manifest_path == "pyproject.toml"
+    assert [root.role for root in inventory.roots] == ["product", "product"]
+    assert "canonical distributed product manifest" in inventory.roots[0].rationale[0]
+    assert "co-located companion manifest" in inventory.roots[1].rationale[0]

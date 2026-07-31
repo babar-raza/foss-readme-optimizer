@@ -62,6 +62,7 @@ def test_candidate_mechanical_observations_are_section_scoped() -> None:
     }
 
     assert observations["document.h1_blocks"].observed_value == 1
+    assert observations["document.duplicate_h2_headings"].observed_value == 0
     assert observations["header.badge_rows"].observed_value == 1
     assert observations["quick_start.fenced_blocks"].observed_value == 1
     assert observations["quick_start.max_nonblank_code_lines"].observed_value == 2
@@ -128,3 +129,31 @@ print(Product())
 
     assert not result.valid
     assert any("lacks required typed check" in error for error in result.errors)
+
+
+def test_duplicate_h2_claim_requires_and_obeys_parser_count() -> None:
+    finding = GroundedReviewFindingV1(
+        finding_id="license-duplicate",
+        kind="quality",
+        criterion="visible_duplication",
+        section="License",
+        claim="The License section appears twice.",
+        quoted_candidate_span="## Additional examples",
+        candidate_anchor_id=None,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Remove the duplicate License section.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=_candidate(),
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any(
+        "lacks required typed check document.duplicate_h2_headings" in error
+        for error in result.errors
+    )

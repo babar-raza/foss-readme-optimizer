@@ -1636,3 +1636,104 @@ def test_literal_accepted_fact_false_block_gets_bounded_correction():
     assert "contradicts accepted facts" in factual_history[0]["errors"][0]
     assert factual_history[1]["validation_result"]["valid"] is True
     assert '"evidence_location": "README.md"' in factual.messages_seen[1][-1]["content"]
+
+
+def test_page_reviewer_cannot_remove_real_h2_sections_as_non_required() -> None:
+    navigation = (
+        "- [At a glance](#at-a-glance)\n"
+        "- [Example Results](#example-results)\n"
+        "- [MCP Server](#mcp-server)\n"
+        "- [Build and Test (Developers)](#build-and-test-developers)\n"
+        "- [License](#license)\n"
+        "- [Scope and limitations](#scope-and-limitations)"
+    )
+    candidate = (
+        f"# Aspose.Page FOSS for Python\n\n## Navigation\n\n{navigation}\n\n"
+        "## At a glance\n\nSummary.\n\n## License\n\nMIT.\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="page-navigation-floor",
+        kind="quality",
+        criterion="hierarchy",
+        section="Navigation",
+        claim="Navigation lists non-required H2 sections that violate the required sequence.",
+        quoted_candidate_span=navigation,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Remove non-required H2 sections from Navigation.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert result.errors == ["page-navigation-floor:navigation prefix-only premise is unconfigured"]
+
+
+def test_page_reviewer_cannot_invent_duplicate_license_from_one_heading() -> None:
+    candidate = "# Product\n\n## License\n\nMIT.\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="page-license-duplicate",
+        kind="quality",
+        criterion="visible_duplication",
+        section="License",
+        claim="License section appears twice.",
+        quoted_candidate_span="## License",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Remove the duplicate License section.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("heading-only quote" in error for error in result.errors)
+    assert any(
+        "lacks required typed check document.duplicate_h2_headings" in error
+        for error in result.errors
+    )
+
+
+def test_page_reviewer_cannot_move_enterprise_term_already_in_scope() -> None:
+    candidate = (
+        "# Product\n\n## License\n\nMIT.\n\n## Scope and limitations\n\n"
+        "[Product Enterprise Edition](https://products.aspose.com/page/python/) "
+        "is a separate product.\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="page-enterprise-placement",
+        kind="quality",
+        criterion="template_genericity",
+        section="Scope and limitations",
+        claim=(
+            "The section contains Enterprise Edition language but it must be placed "
+            "below the fold and not in the License section."
+        ),
+        quoted_candidate_span="## Scope and limitations",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Ensure Enterprise Edition language is placed below the fold and not in "
+            "the License section."
+        ),
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("heading-only quote" in error for error in result.errors)
+    assert any("already satisfies contract" in error for error in result.errors)

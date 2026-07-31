@@ -2139,10 +2139,15 @@ class TestBaselineCloneFailureDegradesGracefully:
         from readme_agent.errors import GitSafetyError
         from readme_agent.supervisor import loop as loop_module
 
-        def _raising_clone_baseline(entry, baseline_path):
+        def _raising_clone_baseline(entry, baseline_path, **kwargs):
             raise GitSafetyError(f"baseline clone of {entry.org_repo} failed: timed out after 600s")
 
         monkeypatch.setattr(loop_module, "clone_baseline", _raising_clone_baseline)
+        monkeypatch.setattr(
+            loop_module,
+            "verified_baseline_at_revision",
+            _raising_clone_baseline,
+        )
 
         class _RaisingPlanner:
             def plan(self, messages, tools):
@@ -2169,6 +2174,11 @@ class TestBaselineCloneFailureDegradesGracefully:
             loop_module,
             "clone_baseline",
             lambda entry, baseline_path: (_ for _ in ()).throw(GitSafetyError("boom")),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "verified_baseline_at_revision",
+            lambda entry, baseline_path, **kwargs: (_ for _ in ()).throw(GitSafetyError("boom")),
         )
 
         result = supervise_repo(ORG_REPO, write_evidence_bundle=False)

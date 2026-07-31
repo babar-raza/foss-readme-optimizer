@@ -15,6 +15,7 @@ from readme_agent.ecosystems.typescript_api_schema import TypeScriptPackageLayou
 from readme_agent.facts.compiled_consumer_schema import CompiledConsumerProofV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
+from readme_agent.facts.python_consumer_schema import PythonFixtureBindingV1
 
 
 class LocalProductVerificationV1(BaseModel):
@@ -38,6 +39,7 @@ class LocalProductVerificationV1(BaseModel):
     isolated_execution: IsolatedExecutionResultV1 | None = None
     truth_eligible: bool = False
     verified_public_symbols: list[str] = Field(default_factory=list)
+    input_fixture_bindings: list[PythonFixtureBindingV1] = Field(default_factory=list)
     public_api_sha256: str | None = None
     python_package: PythonPackageLayoutV1 | None = None
     typescript_package: TypeScriptPackageLayoutV1 | None = None
@@ -52,6 +54,9 @@ class LocalProductVerificationV1(BaseModel):
 
         return {
             "verified_public_symbols": self.verified_public_symbols,
+            "input_fixture_bindings": [
+                binding.model_dump(mode="json") for binding in self.input_fixture_bindings
+            ],
             "public_api_sha256": self.public_api_sha256,
             "python_package": (
                 self.python_package.model_dump(mode="json") if self.python_package else None

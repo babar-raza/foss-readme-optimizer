@@ -10,6 +10,7 @@ from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.ecosystems.registry import known_manifest_globs
 from readme_agent.errors import GitSafetyError
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.gitsafety.baseline_reuse import verified_baseline_at_revision
 from readme_agent.gitsafety.clone import clone_baseline, remote_head_sha
 from readme_agent.llm.planner_client import PlannerClient
 from readme_agent.registry.loader import require_listed
@@ -489,13 +490,19 @@ def supervise_repo(
                 fail_closed_on_state_failure=fail_closed_on_state_failure,
             )
 
-    # SCL-009 (2026-07-22): clone_baseline() itself validates its own memo
-    # against a cheap remote_head_sha() probe before reusing a prior clone
-    # (see clone.py's own module docstring) -- this call is always correct
-    # whether this is the first or the Nth call to supervise_repo() in this
-    # process, with no invalidation bookkeeping needed here.
+    # The source probe above is already the immutable revision authority for
+    # this run. Reuse a clean baseline at exactly that revision across CLI
+    # process boundaries; falling back through clone_baseline() remains the
+    # fail-closed path for a dirty, wrong-origin, or stale directory.
     try:
-        clone_baseline(entry, baseline_path)
+        if probed_revision is None:
+            clone_baseline(entry, baseline_path)
+        else:
+            verified_baseline_at_revision(
+                entry,
+                baseline_path,
+                expected_revision=probed_revision,
+            )
     except GitSafetyError as exc:
         # Clone-reliability hardening (SCL-009, 2026-07-22): a clone_baseline()
         # failure previously propagated uncaught all the way to the CLI's bare

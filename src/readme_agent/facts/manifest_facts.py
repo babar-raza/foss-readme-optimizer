@@ -81,7 +81,11 @@ def _selected_manifest_values(
     selected_root = root_roles.selected_package_root(profile)
     package_roots = [selected_root] if selected_root is not None else []
     selected_role = next(
-        (record for record in root_roles.roots if record.role == "product"),
+        (
+            record
+            for record in root_roles.roots
+            if record.manifest_path == root_roles.selected_product_manifest_path
+        ),
         None,
     )
     names: list[str] = []

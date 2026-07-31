@@ -259,6 +259,39 @@ def test_consumer_requires_public_symbols_and_installed_import_use(tmp_path):
     assert proof.isolated_execution.policy.read_only_rootfs is True
 
 
+def test_consumer_stages_repository_fixture_for_placeholder_input(tmp_path):
+    _write_package(tmp_path)
+    fixture = tmp_path / "testdata" / "minimal.ps"
+    fixture.parent.mkdir()
+    fixture.write_text("%!PS\nshowpage\n", encoding="utf-8")
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code=("from aspose.widget import Widget\nWidget.from_file('input.ps')\n"),
+        required_symbols=["aspose.widget.Widget"],
+    )
+
+    def asserting_executor(request):
+        assert (request.source_root / "input.ps").read_bytes() == fixture.read_bytes()
+        return _successful_executor(request)
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=asserting_executor)
+
+    assert proof.accepted is True
+    assert [binding.model_dump() for binding in proof.fixture_bindings] == [
+        {
+            "source_path": "testdata/minimal.ps",
+            "target_path": "input.ps",
+            "sha256": hashlib.sha256(fixture.read_bytes()).hexdigest(),
+            "size_bytes": fixture.stat().st_size,
+        }
+    ]
+
+
 def test_consumer_rejects_missing_reexport_private_and_detached_compile(tmp_path):
     _write_package(tmp_path)
     snapshot = _git_snapshot(tmp_path)

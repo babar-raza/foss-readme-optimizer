@@ -43,7 +43,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v21-typed-mechanical-observations"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v22-structural-claim-accountability"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -298,6 +298,23 @@ def _validate_quality_finding(
         (line.lstrip() for line in quote.splitlines() if line.strip()),
         "",
     )
+    heading_only_quote = bool(re.fullmatch(r"#{1,6}[ \t]+[^\r\n]+", quote.strip()))
+    block_dependent_premise = any(
+        term in premise
+        for term in (
+            "appears twice",
+            "contains enterprise edition",
+            "duplicate",
+            "duplicated",
+            "must be placed",
+            "not in the license section",
+            "remove the section",
+        )
+    )
+    if heading_only_quote and block_dependent_premise:
+        errors.append(
+            f"{finding.finding_id}:heading-only quote cannot prove the claimed section content"
+        )
     if removes_prose_block and re.match(r"^#{1,6}[ \t]+", first_quoted_line):
         errors.append(
             f"{finding.finding_id}:repair quote identifies a heading instead of the prose to remove"
@@ -518,6 +535,9 @@ def _validate_quality_finding(
             or "non-required navigation labels" in premise
             or "retain only the required set" in premise
             or "exceeding the required set" in premise
+            or "non-required h2 sections" in premise
+            or "non-required sections" in premise
+            or "violate the required sequence" in premise
             or bool(
                 re.search(
                     r"\b(?:includes?|remove|omit|drop|exclude)\b[^\n.]{0,120}"
@@ -712,6 +732,24 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Enterprise Edition placement contradicts configured section"
             )
+        claims_wrong_enterprise_placement = any(
+            phrase in premise
+            for phrase in (
+                "must be placed below the fold",
+                "must be placed in the scope",
+                "not in the license section",
+                "move enterprise edition",
+            )
+        )
+        if (
+            claims_wrong_enterprise_placement
+            and required_section
+            and _section_contains(candidate_text, required_section, required_term)
+            and not _section_contains(candidate_text, "License", required_term)
+        ):
+            errors.append(
+                f"{finding.finding_id}:Enterprise Edition placement already satisfies contract"
+            )
     claims_bare_url = "bare url" in premise or "bare-url" in premise
     quoted_descriptive_link = next(
         (
@@ -828,7 +866,8 @@ def _validate_quality_finding(
                 errors.append(
                     f"{finding.finding_id}:link-budget premise contradicts configured maximum"
                 )
-    if not errors:
+    expected_mechanical_check = _mechanical_check_for_premise(finding, premise)
+    if not errors or expected_mechanical_check == "document.duplicate_h2_headings":
         errors.extend(
             _validate_typed_mechanical_finding(
                 finding,
@@ -937,6 +976,12 @@ def _mechanical_check_for_premise(
 
     if "badge" in premise and "row" in premise:
         return "header.badge_rows"
+    if re.search(
+        r"\b(?:(?:section|heading)\s+appears\s+twice|"
+        r"(?:duplicate|duplicated)\s+(?:the\s+)?(?:h2\s+)?(?:section|heading))\b",
+        premise,
+    ):
+        return "document.duplicate_h2_headings"
     if any(
         term in premise
         for term in (

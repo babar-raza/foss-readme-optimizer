@@ -20,6 +20,7 @@ from readme_agent.facts.isolated_execution_schema import (
     IsolatedExecutionRequestV1,
     IsolatedExecutionResultV1,
 )
+from readme_agent.facts.python_consumer_fixtures import stage_repository_input_fixtures
 from readme_agent.facts.python_consumer_schema import PythonConsumerProofV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 
@@ -139,6 +140,11 @@ def prove_python_consumer(
     with tempfile.TemporaryDirectory(prefix="readme-agent-python-consumer-") as temp:
         workspace = Path(temp) / "workspace"
         _copy_snapshot(snapshot, workspace)
+        fixture_bindings = stage_repository_input_fixtures(
+            snapshot,
+            workspace,
+            example.code,
+        )
         (workspace / ".readme-agent-consumer-driver.py").write_text(
             _DRIVER,
             encoding="utf-8",
@@ -197,6 +203,7 @@ def prove_python_consumer(
         source_revision=snapshot.source_revision,
         package=surface.package,
         example=example,
+        fixture_bindings=fixture_bindings,
         verified_symbols=verified,
         isolated_execution=result,
         accepted=accepted,

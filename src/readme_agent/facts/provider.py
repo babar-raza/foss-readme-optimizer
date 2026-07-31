@@ -170,6 +170,7 @@ def _local_verification_facts(
                         if local_result is not None
                         else {
                             "verified_public_symbols": [],
+                            "input_fixture_bindings": [],
                             "public_api_sha256": None,
                             "python_package": None,
                             "typescript_package": None,

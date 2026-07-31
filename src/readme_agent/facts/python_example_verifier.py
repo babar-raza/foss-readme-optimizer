@@ -91,6 +91,7 @@ def verify(
         isolated_execution=proof.isolated_execution,
         truth_eligible=proof.accepted,
         verified_public_symbols=proof.verified_symbols,
+        input_fixture_bindings=proof.fixture_bindings,
         public_api_sha256=surface.canonical_hash(),
         python_package=surface.package,
         acquisition_dependency_pins=python_acquisition_pins(surface.package),

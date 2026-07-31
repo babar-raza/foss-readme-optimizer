@@ -10,12 +10,14 @@ from pydantic import BaseModel, ConfigDict, model_validator
 
 MechanicalCheckId = Literal[
     "document.h1_blocks",
+    "document.duplicate_h2_headings",
     "header.badge_rows",
     "quick_start.fenced_blocks",
     "quick_start.max_nonblank_code_lines",
 ]
 MECHANICAL_CHECK_IDS: tuple[MechanicalCheckId, ...] = (
     "document.h1_blocks",
+    "document.duplicate_h2_headings",
     "header.badge_rows",
     "quick_start.fenced_blocks",
     "quick_start.max_nonblank_code_lines",
@@ -67,6 +69,14 @@ def build_candidate_mechanical_observations(
                 observed_value=_h1_block_count(candidate_text),
                 configured_operator="eq",
                 configured_value=1,
+            )
+        )
+        observations.append(
+            _observation(
+                check_id="document.duplicate_h2_headings",
+                observed_value=_duplicate_h2_heading_count(candidate_text),
+                configured_operator="eq",
+                configured_value=0,
             )
         )
     badges = standards.get("readme.badges")
@@ -183,6 +193,20 @@ def _h1_block_count(candidate_text: str) -> int:
         token.type == "heading_open" and token.tag == "h1"
         for token in MarkdownIt("commonmark").parse(candidate_text)
     )
+
+
+def _duplicate_h2_heading_count(candidate_text: str) -> int:
+    headings: dict[str, int] = {}
+    tokens = MarkdownIt("commonmark").parse(candidate_text)
+    for index, token in enumerate(tokens):
+        if token.type != "heading_open" or token.tag != "h2":
+            continue
+        if index + 1 >= len(tokens) or tokens[index + 1].type != "inline":
+            continue
+        title = tokens[index + 1].content.strip().casefold()
+        if title:
+            headings[title] = headings.get(title, 0) + 1
+    return sum(max(0, count - 1) for count in headings.values())
 
 
 def _quick_start_body(candidate_text: str) -> str:

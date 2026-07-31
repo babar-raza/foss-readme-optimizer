@@ -49,6 +49,7 @@ _VERIFICATION_CONTRACT_FILES = (
     "isolated_execution_inputs.py",
     "isolated_execution_schema.py",
     "python_consumer.py",
+    "python_consumer_fixtures.py",
     "python_consumer_schema.py",
     "python_example_normalization.py",
     "python_example_verifier.py",

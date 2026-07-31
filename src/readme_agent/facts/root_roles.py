@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import fnmatch
 from pathlib import Path
 
+from readme_agent.ecosystems.registry import known_manifest_globs
 from readme_agent.facts.root_role_evidence import (
     PRODUCT_PATH_TOKENS,
     PackageRootEvidence,
@@ -19,6 +21,38 @@ from readme_agent.facts.root_role_schema import (
 )
 from readme_agent.profile.schema import RepositoryProfile
 from readme_agent.registry.models import ProductEntry
+
+
+def _logical_root_key(observation: PackageRootEvidence) -> tuple[str, str]:
+    package_root = observation.package_root
+    return (
+        package_root.ecosystem,
+        portable_repository_path(package_root.path) or ".",
+    )
+
+
+def _manifest_priority(observation: PackageRootEvidence) -> tuple[int, str]:
+    """Prefer the ecosystem registry's canonical manifest within one package directory."""
+
+    package_root = observation.package_root
+    filename = Path(portable_repository_path(package_root.manifest_path)).name
+    patterns = known_manifest_globs().get(package_root.ecosystem, ())
+    priority = next(
+        (index for index, pattern in enumerate(patterns) if fnmatch.fnmatch(filename, pattern)),
+        len(patterns),
+    )
+    return priority, portable_repository_path(package_root.manifest_path).casefold()
+
+
+def _logical_root_representatives(
+    observations: list[PackageRootEvidence],
+) -> list[PackageRootEvidence]:
+    """Collapse companion manifests in one directory into one distributable root."""
+
+    grouped: dict[tuple[str, str], list[PackageRootEvidence]] = {}
+    for observation in observations:
+        grouped.setdefault(_logical_root_key(observation), []).append(observation)
+    return [min(group, key=_manifest_priority) for _, group in sorted(grouped.items())]
 
 
 def _score_candidates(
@@ -94,6 +128,14 @@ def _role_records(
     selection_rationale: list[str],
 ) -> list[PackageRootRoleV1]:
     records: list[PackageRootRoleV1] = []
+    selected_root_key = next(
+        (
+            _logical_root_key(observation)
+            for observation in observations
+            if portable_repository_path(observation.package_root.manifest_path) == selected_manifest
+        ),
+        None,
+    )
     for observation in observations:
         package_root = observation.package_root
         manifest_path = portable_repository_path(package_root.manifest_path)
@@ -101,10 +143,17 @@ def _role_records(
             role = observation.secondary_role
             confidence = 1.0
             rationale = list(observation.rationale)
-        elif manifest_path == selected_manifest:
+        elif selected_root_key is not None and _logical_root_key(observation) == selected_root_key:
             role = "product"
             confidence = 1.0
-            rationale = ["selected as the distributed product root", *selection_rationale]
+            rationale = [
+                (
+                    "selected as the canonical distributed product manifest"
+                    if manifest_path == selected_manifest
+                    else "co-located companion manifest for the selected distributed product root"
+                ),
+                *selection_rationale,
+            ]
         else:
             role = "unknown"
             confidence = 0.0
@@ -152,14 +201,15 @@ def classify_package_root_roles(
     observations = [
         inspect_package_root(repository_root, package_root) for package_root in ordered_roots
     ]
+    logical_roots = _logical_root_representatives(observations)
     referenced_by: dict[str, list[str]] = {}
     for observation in observations:
         source = portable_repository_path(observation.package_root.manifest_path)
         for referenced in observation.references:
             referenced_by.setdefault(portable_repository_path(referenced), []).append(source)
 
-    scored = _score_candidates(entry, observations, referenced_by)
-    selected, selection_state, rationale = _select_product_root(len(ordered_roots), scored)
+    scored = _score_candidates(entry, logical_roots, referenced_by)
+    selected, selection_state, rationale = _select_product_root(len(logical_roots), scored)
     return PackageRootRoleInventoryV1(
         org_repo=profile.org_repo,
         source_revision=source_revision,

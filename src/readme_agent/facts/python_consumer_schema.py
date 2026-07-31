@@ -4,13 +4,24 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.ecosystems.python_api_schema import (
     ConsumerExampleV1,
     PythonPackageLayoutV1,
 )
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
+
+
+class PythonFixtureBindingV1(BaseModel):
+    """One repository-owned input fixture staged under the README's visitor-facing name."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    source_path: str
+    target_path: str
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    size_bytes: int = Field(ge=1)
 
 
 class PythonConsumerProofV1(BaseModel):
@@ -23,6 +34,7 @@ class PythonConsumerProofV1(BaseModel):
     source_revision: str
     package: PythonPackageLayoutV1
     example: ConsumerExampleV1
+    fixture_bindings: list[PythonFixtureBindingV1] = Field(default_factory=list)
     verified_symbols: list[str]
     isolated_execution: IsolatedExecutionResultV1
     accepted: bool
