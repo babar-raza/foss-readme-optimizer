@@ -84,6 +84,11 @@ _ECOSYSTEM_KEYWORDS = {
 }
 _ALL_ECOSYSTEM_KEYWORDS = tuple(kw for kws in _ECOSYSTEM_KEYWORDS.values() for kw in kws)
 _HEADING_RE = re.compile(r"^(#{1,6})\s", re.MULTILINE)
+_CONCRETE_PATTERN = re.compile(
+    r"(?i)(?<![a-z0-9])(?:"
+    + "|".join(re.escape(phrase) for phrase in sorted(_CONCRETE_PHRASES, key=len, reverse=True))
+    + r")(?![a-z0-9])"
+)
 
 
 def _is_prose_line(line: str) -> bool:
@@ -109,7 +114,7 @@ def product_explanation_offset(text: str) -> int | None:
         if (
             _is_prose_line(line)
             and len(line.split()) >= 8
-            and any(phrase in line.lower() for phrase in _CONCRETE_PHRASES)
+            and _CONCRETE_PATTERN.search(line) is not None
         ):
             return offset
         offset += len(line) + 1  # +1 for the newline consumed by split("\n")

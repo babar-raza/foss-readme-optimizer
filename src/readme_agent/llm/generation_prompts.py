@@ -106,6 +106,8 @@ def build_readme_composition_tool_schema(
                     "repository_summary",
                     "section_decisions",
                     "overview_fact_ids",
+                    "opening_summary",
+                    "diagram",
                 ],
                 "properties": {
                     "repository_summary": {"type": "string", "minLength": 1},
@@ -148,6 +150,62 @@ def build_readme_composition_tool_schema(
                         "type": "array",
                         "minItems": 1,
                         "items": {"type": "string", "enum": overview_fact_ids},
+                    },
+                    "opening_summary": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["text", "supporting_fact_ids"],
+                        "properties": {
+                            "text": {"type": "string", "minLength": 20, "maxLength": 600},
+                            "supporting_fact_ids": {
+                                "type": "array",
+                                "minItems": 2,
+                                "items": {
+                                    "type": "string",
+                                    "enum": accepted_fact_ids,
+                                },
+                            },
+                        },
+                    },
+                    "diagram": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["nodes"],
+                        "properties": {
+                            "nodes": {
+                                "type": "array",
+                                "minItems": 5,
+                                "maxItems": 16,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": False,
+                                    "required": [
+                                        "role",
+                                        "label",
+                                        "supporting_fact_ids",
+                                    ],
+                                    "properties": {
+                                        "role": {
+                                            "type": "string",
+                                            "enum": ["input", "capability", "output"],
+                                        },
+                                        "label": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 80,
+                                        },
+                                        "supporting_fact_ids": {
+                                            "type": "array",
+                                            "minItems": 1,
+                                            "items": {
+                                                "type": "string",
+                                                "enum": accepted_fact_ids,
+                                            },
+                                        },
+                                    },
+                                },
+                            }
+                        },
                     },
                 },
             },

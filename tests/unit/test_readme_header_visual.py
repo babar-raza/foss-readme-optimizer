@@ -156,7 +156,7 @@ def test_identical_marker_free_candidate_is_a_no_op():
     assert rerun_plan.operations == []
 
 
-def test_html_comments_are_removed_without_discarding_curated_source_examples():
+def test_comments_are_removed_without_discarding_curated_source_code():
     facts, revision = _facts()
     source = """<!-- internal ownership metadata -->
 # Stale title
@@ -178,7 +178,7 @@ System.out.println(url);
 
     assert validation.valid, validation.errors
     assert "<!--" not in candidate
-    assert "// Explain this in prose instead." in candidate
+    assert "// Explain this in prose instead." not in candidate
     assert '"https://example.test/value//literal"' in candidate
     assert validation.checks["candidate_has_no_comments"] is True
 
@@ -198,9 +198,12 @@ def test_header_contains_only_supported_fact_backed_badge_kinds():
         "package",
         "version",
         "download",
+        "platform",
+        "build",
         "license",
+        "contributors",
     }
     assert not any(
         token in plan.header_visuals.badge_markdown.casefold()
-        for token in ("build", "status", "documentation", "platform")
+        for token in ("build", "status", "documentation")
     )

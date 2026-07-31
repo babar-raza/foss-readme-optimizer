@@ -40,13 +40,13 @@ CHARACTERIZATION_ASSESSMENT_SHA256 = (
     "de41ffd93770106e7f6d6b6491cf776da8043a5c6a51b24186f20f7d21324546"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "eb255a1ac42087ea441927fb27ad1938599f40506a0ea97d3f70da4ee3fc3252"
+    "ca4bb4b9316ac2304f1698d4b28c82e2f1c2775c6e61d5e7e3a663b67d19ce70"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "05409e9b18f7aaab222c6fa6e23fbfb13fa0ae2a62aceaa76fd447e71ee0ed4d"
+    "48ad98c5ebbcff0c31c2b1a25516d0656baad8ce4ab4db60e75484b56f8f13a7"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "4a17526ce2b96f661ed70a2e0fea3f5d7225787cd7b2bccb9ec538574c606035"
+    "fa530af169259481f0c480a521f43515a7d106c1982bec51f713f5a0db529caa"
 )
 
 
@@ -76,6 +76,12 @@ def _canonical_hash(value: object) -> str:
 def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
     audience = facts.selected_fact("product.audience")
     problem = facts.selected_fact("product.problems_solved")
+    identity = facts.selected_fact("product.identity")
+    formats = facts.selected_fact("product.formats")
+    capabilities = facts.selected_fact("product.capabilities")
+    capability_values = (
+        capabilities.value if isinstance(capabilities.value, list) else [capabilities.value]
+    )
     return {
         "repository_summary": "Lead with the verified spreadsheet audience and task.",
         "section_decisions": [
@@ -99,6 +105,46 @@ def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
                 "supporting_fact_ids": [problem.fact_id],
             },
         ],
+        "diagram": {
+            "nodes": [
+                {
+                    "role": "input",
+                    "label": "XLSX workbooks",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": str(capability_values[0]),
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": (
+                        str(capability_values[1])
+                        if len(capability_values) > 1
+                        else "Inspect spreadsheet content"
+                    ),
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Process XLSX workbooks without Microsoft Excel",
+                    "supporting_fact_ids": [problem.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Updated XLSX workbooks",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+            ]
+        },
+        "opening_summary": {
+            "text": (
+                "Aspose.Cells FOSS for Java is an open-source Java library for processing "
+                "spreadsheet workbooks without Microsoft Excel."
+            ),
+            "supporting_fact_ids": [identity.fact_id, problem.fact_id],
+        },
     }
 
 
@@ -109,6 +155,8 @@ def _tool_arguments(draft: dict) -> dict:
         "overview_fact_ids": [
             sentence["supporting_fact_ids"][0] for sentence in draft["overview_sentences"]
         ],
+        "opening_summary": draft["opening_summary"],
+        "diagram": draft["diagram"],
     }
 
 
@@ -132,6 +180,12 @@ def test_composition_tool_schema_avoids_gateway_unsupported_unique_items():
     )
 
     assert "uniqueItems" not in json.dumps(schema)
+    assert "diagram" in schema["function"]["parameters"]["required"]
+    assert "opening_summary" in schema["function"]["parameters"]["required"]
+    assert (
+        schema["function"]["parameters"]["properties"]["diagram"]["properties"]["nodes"]["minItems"]
+        == 5
+    )
 
 
 def _cover_assessment(draft: dict, assessment) -> dict:
@@ -203,6 +257,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert [operation.operation_id for operation in document_plan.operations] == [
         "readme.overview-navigation-and-acquisition",
         "readme.limitations.add-verified",
+        "readme.license.add-section",
         "readme.header.badges",
     ]
     assert plan.model == "fixture-author"
@@ -210,6 +265,8 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert plan.input_sha256
     assert plan.prompt_sha256
     assert plan.tool_schema_sha256
+    assert plan.opening_summary is not None
+    assert {node.role for node in plan.diagram.nodes} == {"input", "capability", "output"}
     assert _first_text(facts.selected_fact("product.audience").value) in candidate
     assert "Lead with the verified spreadsheet audience" not in candidate
     cited_ids = {

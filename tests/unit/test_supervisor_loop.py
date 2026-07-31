@@ -1819,7 +1819,10 @@ class TestSpecialistDrivenConvergence:
 
         source = project / "source"
         (source / "README.md").write_text(
-            "# Example FOSS for Java\n\nA new paragraph a maintainer added.\n", encoding="utf-8"
+            "# Example FOSS for Java\n\n"
+            "Example FOSS for Java provides Java APIs to read and write example documents.\n\n"
+            "A new paragraph a maintainer added.\n",
+            encoding="utf-8",
         )
         run_git(["add", "."], cwd=source)
         run_git(["commit", "-m", "docs: update"], cwd=source)

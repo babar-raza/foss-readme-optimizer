@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 
 from pydantic import ValidationError
 
@@ -108,11 +109,20 @@ def validate_composition_draft(
             "composition changed deterministic source-bound dispositions: "
             f"{sorted(mismatched_dispositions)}"
         )
-    cited_ids = {
-        fact_id for decision in draft.section_decisions for fact_id in decision.supporting_fact_ids
-    } | {
-        fact_id for sentence in draft.overview_sentences for fact_id in sentence.supporting_fact_ids
-    }
+    cited_ids = (
+        {
+            fact_id
+            for decision in draft.section_decisions
+            for fact_id in decision.supporting_fact_ids
+        }
+        | {
+            fact_id
+            for sentence in draft.overview_sentences
+            for fact_id in sentence.supporting_fact_ids
+        }
+        | {fact_id for node in draft.diagram.nodes for fact_id in node.supporting_fact_ids}
+        | set(draft.opening_summary.supporting_fact_ids if draft.opening_summary else [])
+    )
     unknown_facts = cited_ids - accepted_ids
     if unknown_facts:
         raise LLMError(f"composition cited unaccepted fact IDs: {sorted(unknown_facts)}")
@@ -150,6 +160,45 @@ def validate_composition_draft(
         raise LLMError(
             f"composition omitted required overview facts: {sorted(missing_overview_ids)}"
         )
+    if draft.opening_summary is not None:
+        identity_id = facts.selected_fact_ids.get("product.identity")
+        if identity_id not in draft.opening_summary.supporting_fact_ids:
+            raise LLMError("composition opening summary does not cite the selected identity")
+        purpose_ids = {
+            facts.selected_fact_ids.get(field)
+            for field in (
+                "product.problems_solved",
+                "product.capabilities",
+                "product.formats",
+            )
+        }
+        if not purpose_ids.intersection(draft.opening_summary.supporting_fact_ids):
+            raise LLMError("composition opening summary has no accepted purpose citation")
+        identity = visitor_fact_render_view(facts, "product.identity")
+        title = identity.phrases[0] if identity and identity.phrases else ""
+        if title not in draft.opening_summary.text:
+            raise LLMError("composition opening summary omits the complete product identity")
+        if re.search(
+            r"(?i)(?:https?://|official\b|100%\s+free|revision\s+`?[0-9a-f]{7,})",
+            draft.opening_summary.text,
+        ):
+            raise LLMError("composition opening summary contains promotional or internal text")
+    if draft.diagram.nodes:
+        role_counts = {
+            role: sum(node.role == role for node in draft.diagram.nodes)
+            for role in ("input", "capability", "output")
+        }
+        required_counts = {"input": 1, "capability": 3, "output": 1}
+        missing_roles = {
+            role: minimum
+            for role, minimum in required_counts.items()
+            if role_counts[role] < minimum
+        }
+        if missing_roles:
+            raise LLMError(f"composition diagram does not meet role minimums: {missing_roles}")
+        labels = [" ".join(node.label.casefold().split()) for node in draft.diagram.nodes]
+        if len(labels) != len(set(labels)):
+            raise LLMError("composition diagram returned duplicate labels")
 
 
 def validate_readme_composition_plan(
@@ -197,6 +246,8 @@ def validate_readme_composition_plan(
             repository_summary=plan.repository_summary,
             section_decisions=plan.section_decisions,
             overview_sentences=plan.overview_sentences,
+            opening_summary=plan.opening_summary,
+            diagram=plan.diagram,
         ),
         assessment,
         facts,

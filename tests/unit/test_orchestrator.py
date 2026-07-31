@@ -239,6 +239,7 @@ class TestFullyCompliantRepo:
     def test_zero_gaps_produces_zero_changes_zero_llm_calls(self, tmp_path, monkeypatch):
         compliant_readme = (
             "# Example FOSS for Java\n\n"
+            "Example FOSS for Java provides Java APIs to read and write example documents.\n\n"
             "MIT License. This is the free, open-source edition. "
             "Upgrade to the commercial edition for a broader feature set.\n\n"
             "https://products.example.org/thing/java/\n"
@@ -272,6 +273,7 @@ class TestCalloutMigration:
     ):
         compliant_readme = (
             "# Example FOSS for Java\n\n"
+            "Example FOSS for Java provides Java APIs to read and write example documents.\n\n"
             "MIT License. This is the free, open-source edition. "
             "Upgrade to the commercial edition for a broader feature set.\n\n"
             "https://products.example.org/thing/java/\n"
@@ -307,6 +309,7 @@ class TestPartialGapRepo:
     def test_missing_only_org_link_fixes_without_calling_the_llm(self, tmp_path, monkeypatch):
         half_done_readme = (
             "# Example FOSS for Java\n\n"
+            "Example FOSS for Java provides Java APIs to read and write example documents.\n\n"
             "MIT License. This is a commercial-grade project with a full "
             "upgrade path to the paid edition.\n\n"
             "https://products.example.com/thing/java/\n"
@@ -374,6 +377,7 @@ class TestRunRegistryBaselineCleanup:
         # would attempt a real live LLM call.
         compliant_readme = (
             "# Example FOSS for Java\n\n"
+            "Example FOSS for Java provides Java APIs to read and write example documents.\n\n"
             "MIT License. This is the free, open-source edition. "
             "Upgrade to the commercial edition for a broader feature set.\n\n"
             "https://products.example.org/thing/java/\n"

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_overview import overview_text
@@ -16,11 +17,28 @@ from readme_agent.readme.document_templates import (
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
+from readme_agent.readme.presentation_report import product_explanation_offset
 
 _PROMOTIONAL_CALLOUT = re.compile(
     r"(?m)^>[^\n]*(?:products\.aspose\.org)[^\n]*(?:products\.aspose\.com)[^\n]*\n(?:\n)?",
     re.IGNORECASE,
 )
+
+
+def _fallback_opening_summary(context: DocumentRenderContext) -> tuple[str, list[str]] | None:
+    identity = visitor_fact_render_view(context.facts, "product.identity")
+    purpose = visitor_fact_render_view(context.facts, "product.capabilities")
+    if identity is None or not identity.phrases or purpose is None or not purpose.phrases:
+        return None
+    identity_fact = context.facts.fact_by_id(identity.fact_id)
+    identity_value = identity_fact.value if isinstance(identity_fact.value, dict) else {}
+    platform = str(identity_value.get("platform") or identity_value.get("ecosystem") or "").strip()
+    kind = f"{platform} library" if platform else "library"
+    summary = (
+        f"{identity.phrases[0]} is a {kind} that provides "
+        f"{purpose.phrases[0].strip().rstrip('.').lower()}."
+    )
+    return summary, [identity.fact_id, purpose.fact_id]
 
 
 def build_opening_operations(
@@ -48,6 +66,7 @@ def build_opening_operations(
         if (selected := accepted_fact(context.facts, field)) is not None
     ]
     overview_fact_ids: list[str] = []
+    authored_summary_fact_ids: list[str] = []
     derived_installation_fact_ids: list[str] = []
     verified_installation = installation_text(
         context.facts,
@@ -55,6 +74,21 @@ def build_opening_operations(
         context.base_revision,
     )
     overview_insert = ""
+    if (
+        agentic_plan is not None
+        and agentic_plan.opening_summary is not None
+        and product_explanation_offset(context.inner_text) is None
+        and agentic_plan.opening_summary.text.strip() not in context.inner_text
+    ):
+        overview_insert = agentic_plan.opening_summary.text.strip() + "\n\n"
+        authored_summary_fact_ids.extend(agentic_plan.opening_summary.supporting_fact_ids)
+    elif product_explanation_offset(context.inner_text) is None:
+        fallback_summary = _fallback_opening_summary(context)
+        if fallback_summary is not None:
+            summary, fact_ids = fallback_summary
+            if summary not in context.inner_text:
+                overview_insert = summary + "\n\n"
+                authored_summary_fact_ids.extend(fact_ids)
     if not has_overview:
         rendered_overview = overview_text(
             context.facts,
@@ -67,7 +101,7 @@ def build_opening_operations(
             visual_plan.mermaid_markdown,
             omitted_fields=frozenset({"product.limitations"}),
         )
-        overview_insert = rendered_overview + "\n\n"
+        overview_insert += rendered_overview + "\n\n"
         if agentic_plan is not None:
             overview_fact_ids.extend(
                 fact_id
@@ -94,7 +128,7 @@ def build_opening_operations(
     example_target = context.h2("quick start", "usage")
     if exact_code and exact_code not in context.inner_text and example_target is None:
         overview_insert += (
-            "## Quick Start\n\n" + example_text(context.facts, context.base_revision) + "\n\n"
+            "## Quick start\n\n" + example_text(context.facts, context.base_revision) + "\n\n"
         )
         assert example is not None
         overview_fact_ids.append(example.fact_id)
@@ -118,6 +152,8 @@ def build_opening_operations(
                 {
                     *literal_fact_ids(overview_insert, context.facts, overview_fact_ids),
                     *derived_installation_fact_ids,
+                    *visual_plan.diagram_fact_ids,
+                    *authored_summary_fact_ids,
                 }
             ),
             treatment="additive",

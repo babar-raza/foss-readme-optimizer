@@ -36,6 +36,11 @@ class TestProductExplanationOffset:
     def test_none_when_opening_is_name_only(self):
         assert product_explanation_offset(NAME_ONLY_OPENING) is None
 
+    def test_commercial_edition_does_not_false_match_edit(self):
+        text = "# Product\n\nFor a broader feature set, see the Enterprise Edition documentation.\n"
+
+        assert product_explanation_offset(text) is None
+
 
 class TestDetectPresentation:
     def test_explains_product_in_opening(self):

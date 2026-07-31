@@ -33,6 +33,17 @@ _COMMERCIAL_DIRECTORY = re.compile(
 )
 _MOJIBAKE_REPLACEMENTS = {
     "鈥?": "—",
+    "â€¢": "-",
+    "â€”": "—",
+    "â€“": "–",
+    "â€™": "’",
+    "â€¦": "…",
+    "Â©": "©",
+}
+_CANONICAL_H2 = {
+    "in this readme": "Navigation",
+    "features": "Key capabilities",
+    "quick start": "Quick start",
 }
 
 
@@ -106,6 +117,33 @@ def build_presentation_policy_operations(
 
     operations: list[ReadmeDocumentOperationV1] = []
     occupied = [*existing_operations]
+
+    for heading in context.headings:
+        if heading.level != 2:
+            continue
+        canonical = _CANONICAL_H2.get(heading.title.strip().casefold())
+        if canonical is None or heading.title == canonical:
+            continue
+        start = context.byte_offset(heading.start)
+        end = context.byte_offset(heading.heading_end)
+        if _overlaps(start, end, occupied):
+            continue
+        operation = build_operation(
+            operation_id=f"readme.presentation.canonical-heading:{start}",
+            operation="replace",
+            source=context.source,
+            start=start,
+            end=end,
+            replacement=f"## {canonical}\n",
+            fact_ids=[],
+            treatment="presentation_policy_correction",
+            rationale=(
+                "Apply the accepted repository-presentation heading contract without changing "
+                "the section body."
+            ),
+        )
+        operations.append(operation)
+        occupied.append(operation)
 
     for start, end in commercial_directory_spans(context):
         if _overlaps(start, end, occupied):

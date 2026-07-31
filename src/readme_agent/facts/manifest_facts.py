@@ -33,7 +33,10 @@ _FOSS_REPOSITORY_NAME = re.compile(r"^(.+?)-FOSS-for-.+$", flags=re.IGNORECASE)
 def _registry_product_name(entry: ProductEntry) -> str | None:
     """Return the repository-bound product family display name when encoded."""
 
-    match = _FOSS_REPOSITORY_NAME.fullmatch(entry.repo_name.strip())
+    repo_name = str(getattr(entry, "repo_name", "")).strip()
+    if not repo_name:
+        return None
+    match = _FOSS_REPOSITORY_NAME.fullmatch(repo_name)
     if match is None:
         return None
     product_name = match.group(1).strip()

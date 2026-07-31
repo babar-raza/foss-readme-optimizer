@@ -26,7 +26,15 @@ def _shield(label: str, value: str, color: str) -> str:
 
 def _badge(
     badge_id: str,
-    kind: Literal["version", "package", "download", "license"],
+    kind: Literal[
+        "version",
+        "package",
+        "download",
+        "platform",
+        "build",
+        "license",
+        "contributors",
+    ],
     label: str,
     value: str,
     color: str,
@@ -165,7 +173,7 @@ def _package_label(method: str, coordinate: dict) -> str | None:
 
 
 def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
-    """Return only applicable package/version and license badges."""
+    """Return one consistent row of applicable, fact-backed trust badges."""
 
     badges: list[ReadmeBadgeV1] = []
     acquisition = _accepted(facts, "installation.verified_acquisition")
@@ -194,17 +202,34 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 image_url=package_image,
             )
         )
-        version, version_fact_ids = _verified_version(facts, coordinate)
-        if version is not None:
+
+    identity = _accepted(facts, "product.identity")
+    identity_value = identity.value if identity and isinstance(identity.value, dict) else {}
+    ecosystem = str(identity_value.get("ecosystem") or identity_value.get("platform") or "").strip()
+    if identity is not None and ecosystem:
+        if method == "pypi" and coordinate.get("name"):
+            package = quote(str(coordinate["name"]), safe="")
             badges.append(
                 _badge(
-                    "version",
-                    "version",
-                    "Version",
-                    version,
+                    "platform",
+                    "platform",
+                    "Python versions",
+                    ecosystem,
                     "blue",
-                    [acquisition.fact_id, *version_fact_ids],
-                    target_url=package_target,
+                    [identity.fact_id, acquisition.fact_id] if acquisition else [identity.fact_id],
+                    target_url=f"https://pypi.org/project/{package}/",
+                    image_url=f"https://img.shields.io/pypi/pyversions/{package}.svg",
+                )
+            )
+        else:
+            badges.append(
+                _badge(
+                    "platform",
+                    "platform",
+                    "Platform",
+                    ecosystem,
+                    "blue",
+                    [identity.fact_id],
                 )
             )
 
@@ -220,6 +245,20 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 "blue",
                 [license_fact.fact_id],
                 target_url="LICENSE",
+            )
+        )
+    repository = str(identity_value.get("repository") or facts.org_repo).strip()
+    if identity is not None and len(repository.split("/")) == 2:
+        badges.append(
+            _badge(
+                "contributors",
+                "contributors",
+                "Contributors",
+                repository,
+                "blue",
+                [identity.fact_id],
+                target_url=f"https://github.com/{repository}/graphs/contributors",
+                image_url=f"https://img.shields.io/github/contributors/{repository}.svg",
             )
         )
     return badges

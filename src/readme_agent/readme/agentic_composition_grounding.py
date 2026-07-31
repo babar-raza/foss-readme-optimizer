@@ -131,4 +131,6 @@ def materialize_tool_draft(
         repository_summary=tool_draft.repository_summary,
         section_decisions=tool_draft.section_decisions,
         overview_sentences=overview_sentences,
+        opening_summary=tool_draft.opening_summary,
+        diagram=tool_draft.diagram,
     )

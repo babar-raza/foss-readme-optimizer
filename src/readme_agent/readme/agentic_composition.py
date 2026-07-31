@@ -74,6 +74,10 @@ def _repair_hints(
         + "\nFor overview_fact_ids, select fact IDs from these options; deterministic code "
         "will materialize literal phrases:\n"
         + json.dumps(overview_phrase_options(facts), ensure_ascii=False)
+        + "\nFor opening_summary, use the complete product identity, cite that identity plus "
+        "at least one accepted purpose/capability/format fact, and omit promotion and hashes."
+        + "\nFor diagram.nodes, return at least one input, three capabilities, and one output; "
+        "cite only accepted fact IDs and keep every label repository-specific."
     )
 
 

@@ -15,8 +15,8 @@ from readme_agent.readme.header_visual_models import (
 )
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
-_NODE_LINE = re.compile(r'^  ([a-z][a-z0-9_]*)\["([^"]+)"\]$')
-_EDGE_LINE = re.compile(r"^  ([a-z][a-z0-9_]*) --> ([a-z][a-z0-9_]*)$")
+_NODE_LINE = re.compile(r'^\s{2,4}([a-z][a-z0-9_]*)\["([^"]+)"\]$')
+_EDGE_LINE = re.compile(r"^\s{2}([a-z][a-z0-9_]*) --- ([a-z][a-z0-9_]*)$")
 
 
 def validate_readme_header_visual(
@@ -37,15 +37,14 @@ def validate_readme_header_visual(
         len(fences) == 1 and fences[0].content.rstrip() == visual.mermaid_source
     )
     lines = visual.mermaid_source.splitlines()
-    node_lines = [_NODE_LINE.fullmatch(line) for line in lines[1:] if '["' in line]
-    edge_lines = [_EDGE_LINE.fullmatch(line) for line in lines[1:] if "-->" in line]
+    node_lines = [match for line in lines[1:] if (match := _NODE_LINE.fullmatch(line)) is not None]
+    edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
     checks["mermaid_subset_parses"] = bool(
         lines
         and lines[0] == "flowchart LR"
-        and node_lines
-        and all(node_lines)
+        and len(node_lines) == len(visual.diagram_nodes)
         and edge_lines
-        and all(edge_lines)
+        and len(edge_lines) >= len(visual.diagram_nodes) - 1
     )
     checks["labels_safe"] = all(
         safe_mermaid_label(node.label) == node.label for node in visual.diagram_nodes
@@ -67,7 +66,17 @@ def validate_readme_header_visual(
         for fact_id in citations
     )
     checks["badge_kinds_supported"] = all(
-        badge.kind in {"version", "package", "download", "license"} for badge in visual.badges
+        badge.kind
+        in {
+            "version",
+            "package",
+            "download",
+            "platform",
+            "build",
+            "license",
+            "contributors",
+        }
+        for badge in visual.badges
     )
     registry_badges = [
         badge for badge in visual.badges if badge.kind in {"version", "package", "download"}

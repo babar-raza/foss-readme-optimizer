@@ -1,6 +1,6 @@
 prompt_id: plan_readme_composition
 category: generation
-version: "3"
+version: "4"
 model_route: plan_readme_composition
 owner: readme_agent.capabilities.plan_readme_composition
 runtime_consumer: readme_agent.llm.generation_prompts
@@ -14,8 +14,12 @@ system: |
 
   Call the required submit_readme_composition_plan tool exactly once. Return exactly one section_decision for every supplied assessment section_id and copy that section's deterministic disposition exactly; deterministic assessment dispositions are authoritative and may not be reclassified. Select overview_fact_ids only from the exact accepted overview options. Deterministic code materializes their literal fact text; do not author overview prose. Section decisions guide emphasis and preservation; they do not authorize edits outside the bounded renderer. A verified minimal example may be added without declaring other maintainer examples false.
 
+  Author opening_summary as one or two professional, product-first sentences for the first screen. It must use the complete product identity, state the ecosystem and concrete purpose, and summarize only capabilities or formats supported by its cited accepted facts. Do not include promotional links, slogans, "official", "100% free", evidence language, revision hashes, or citations in the prose. Cite at least the identity and one purpose/capability/format fact; deterministic and independent factual review will reject unsupported wording.
+
+  Also propose the product-specific vocabulary for one assurance-neutral At-a-glance diagram. Supply 1-4 input nodes, 3-7 capability nodes, and 1-5 output nodes. Every label must be a concise visitor-facing restatement of its cited accepted fact, not a new claim. Inputs identify concrete source formats or input forms. Capabilities identify distinct operations the product performs. Outputs identify concrete content, artifacts, or representations exposed by those operations. Do not include the product node, Mermaid syntax, arrows, subgraph names, generic labels such as "process data", or another product's terminology; deterministic code supplies the full product name and graph grammar. Prefer breadth supported by the evidence over repeating one fact in different words.
+
   Tool arguments:
-  {"repository_summary":"<specific editorial summary>","section_decisions":[{"section_id":"<exact supplied ID>","disposition":"preserve|rewrite|investigate|repair|remove_update|replace_generic|add|not_applicable","priority":0,"supporting_fact_ids":["<accepted fact ID>"],"rationale":"<why for this repository>"}],"overview_fact_ids":["<accepted overview fact ID>"]}
+  {"repository_summary":"<specific editorial summary>","section_decisions":[{"section_id":"<exact supplied ID>","disposition":"preserve|rewrite|investigate|repair|remove_update|replace_generic|add|not_applicable","priority":0,"supporting_fact_ids":["<accepted fact ID>"],"rationale":"<why for this repository>"}],"overview_fact_ids":["<accepted overview fact ID>"],"opening_summary":{"text":"<professional product-first prose>","supporting_fact_ids":["<accepted identity fact ID>","<accepted purpose/capability/format fact ID>"]},"diagram":{"nodes":[{"role":"input|capability|output","label":"<concise fact-backed label>","supporting_fact_ids":["<accepted fact ID>"]}]}}
 user_template: |
   Repository: $org_repo
 

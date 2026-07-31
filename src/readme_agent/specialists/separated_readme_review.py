@@ -15,6 +15,7 @@ from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
 )
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.specialists.factual_review_packet import build_factual_review_packet
 from readme_agent.specialists.independent_readme_review import (
@@ -97,6 +98,7 @@ def run_separated_readme_review(
         product_facts_v2 = facts_dispatch.result["product_facts_v2"]
 
     candidate_sha256 = sha256_hex(candidate_readme_text)
+    visitor_contract = build_presentation_visitor_contract()
     factual_packet = build_factual_review_packet(
         org_repo,
         candidate_readme_text,
@@ -110,6 +112,7 @@ def run_separated_readme_review(
         candidate_readme_text=candidate_readme_text,
         candidate_sha256=candidate_sha256,
         rubric_version="1",
+        visitor_contract=visitor_contract,
     )
     factual_input = FactualPlanReviewInputV1(
         org_repo=org_repo,
@@ -132,9 +135,11 @@ def run_separated_readme_review(
             blind_input.org_repo,
             blind_input.original_readme_text,
             blind_input.candidate_readme_text,
+            _canonical_json(blind_input.visitor_contract),
         ),
         candidate_text=candidate_readme_text,
         product_facts=None,
+        visitor_contract=blind_input.visitor_contract,
     )
     factual_result, factual_retry_history, factual_grounding = run_grounded_role(
         role="factual_plan",

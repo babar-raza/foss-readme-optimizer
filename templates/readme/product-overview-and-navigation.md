@@ -1,3 +1,7 @@
+## Navigation
+
+{navigation}
+
 ## At a glance
 
 - **For:** {audience}
@@ -8,7 +12,3 @@
 - **Current verified limitation:** {limitations}
 
 {mermaid}
-
-## In this README
-
-{navigation}

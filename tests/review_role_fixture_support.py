@@ -49,52 +49,119 @@ def _blind_accept(user_content: str) -> dict:
 
 
 def _factual_accept(user_content: str) -> dict:
+    new_packet = "Selected accepted fact evidence packet:\n"
+    new_plan = "Compact plan, source-preservation, and candidate-claim packet:\n"
+    if new_packet in user_content:
+        candidate = _section(user_content, "Candidate README:\n", f"\n\n{new_packet.rstrip()}")
+        facts = json.loads(_section(user_content, new_packet, f"\n\n{new_plan.rstrip()}"))
+        plan = json.loads(
+            _section(
+                user_content,
+                new_plan,
+                "\n\nReview factual grounding and plan-to-candidate agreement",
+            )
+        )
+        for claim in plan.get("candidate_claims", []):
+            if not isinstance(claim, dict):
+                continue
+            if claim.get("verification_state") not in {"verified", "policy_approved"}:
+                continue
+            if claim.get("unresolved_conflicts"):
+                continue
+            exact_span = str(claim.get("claim_text", ""))
+            evidence_excerpt = str(claim.get("evidence_excerpt", ""))
+            evidence_location = str(claim.get("evidence_location", ""))
+            fact_id = str(claim.get("fact_id", ""))
+            if (
+                exact_span
+                and exact_span in candidate
+                and evidence_excerpt
+                and evidence_location
+                and fact_id
+            ):
+                return _supported_factual_response(
+                    exact_span=exact_span,
+                    fact_id=fact_id,
+                    evidence_excerpt=evidence_excerpt,
+                    evidence_location=evidence_location,
+                )
+        literal_response = _selected_fact_response(candidate, facts)
+        if literal_response is not None:
+            return literal_response
+        raise AssertionError(
+            "fixture factual reviewer found neither a prebound claim nor a selected literal fact"
+        )
+
     candidate = _section(user_content, "Candidate README:\n", "\n\nAccepted ProductFactsV2:")
     facts = json.loads(
         _section(user_content, "Accepted ProductFactsV2:\n", "\n\nBounded presentation plan:")
     )
+    literal_response = _selected_fact_response(candidate, facts)
+    if literal_response is not None:
+        return literal_response
+    raise AssertionError("fixture factual reviewer found no selected literal fact in candidate")
+
+
+def _selected_fact_response(candidate: str, facts: dict) -> dict | None:
     by_id = {
         str(fact["fact_id"]): fact
-        for fact in facts.get("facts", [])
+        for fact in facts.get("selected_facts", facts.get("facts", []))
         if isinstance(fact, dict) and fact.get("fact_id")
     }
     for fact_id in facts.get("selected_fact_ids", {}).values():
         fact = by_id.get(str(fact_id))
         if fact is None or fact.get("verification_state") not in {"verified", "policy_approved"}:
             continue
-        source_location = str((fact.get("source") or {}).get("location", ""))
+        source_location = str(
+            fact.get("evidence_location") or (fact.get("source") or {}).get("location", "")
+        )
         if not source_location:
             continue
         for phrase in fact_strings(fact.get("value")):
             if len(phrase.strip()) >= 4 and phrase.casefold() in candidate.casefold():
                 start = candidate.casefold().index(phrase.casefold())
                 exact_span = candidate[start : start + len(phrase)]
-                return {
-                    "verdict": "ACCEPT",
-                    "reasoning": "The exact candidate span is supported by the selected fact.",
-                    "failed_criteria": [],
-                    "sections_affected": [],
-                    "required_repair": "",
-                    "findings": [
-                        {
-                            "finding_id": "factual.fixture-supported",
-                            "kind": "factual",
-                            "criterion": "factuality",
-                            "section": "candidate",
-                            "claim": "The candidate contains a selected accepted fact.",
-                            "quoted_candidate_span": exact_span,
-                            "disposition": "supports_acceptance",
-                            "fact_id": fact_id,
-                            "evidence_excerpt": phrase,
-                            "evidence_location": source_location,
-                            "expected_polarity": "positive_implementation",
-                            "observed_polarity": "positive_implementation",
-                            "polarity_result": "supports",
-                            "required_repair": "",
-                        }
-                    ],
-                }
-    raise AssertionError("fixture factual reviewer found no selected literal fact in candidate")
+                return _supported_factual_response(
+                    exact_span=exact_span,
+                    fact_id=str(fact_id),
+                    evidence_excerpt=phrase,
+                    evidence_location=source_location,
+                )
+    return None
+
+
+def _supported_factual_response(
+    *,
+    exact_span: str,
+    fact_id: str,
+    evidence_excerpt: str,
+    evidence_location: str,
+) -> dict:
+    return {
+        "verdict": "ACCEPT",
+        "reasoning": "The exact candidate span is supported by the selected fact.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "factual.fixture-supported",
+                "kind": "factual",
+                "criterion": "factuality",
+                "section": "candidate",
+                "claim": "The candidate contains a selected accepted fact.",
+                "quoted_candidate_span": exact_span,
+                "disposition": "supports_acceptance",
+                "fact_id": fact_id,
+                "evidence_excerpt": evidence_excerpt,
+                "evidence_location": evidence_location,
+                "expected_polarity": "positive_implementation",
+                "observed_polarity": "positive_implementation",
+                "polarity_result": "supports",
+                "required_repair": "",
+            }
+        ],
+    }
 
 
 class GroundedAcceptingRoleReviewClient:

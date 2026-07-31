@@ -80,7 +80,7 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert "## Quick Start" in candidate
+    assert "## Quick start" in candidate
     assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert any(
         operation.operation_id == "readme.overview-navigation-and-acquisition"
@@ -258,8 +258,8 @@ Inline code remains exact: `value = "✅"`.
     )
 
     assert "# Aspose.Cells FOSS for Java" in candidate
-    assert "## Features" in candidate
-    assert "[Features](#features)" in candidate
+    assert "## Key capabilities" in candidate
+    assert "[Key capabilities](#key-capabilities)" in candidate
     assert "- Reads workbook files" in candidate
     assert "Copyright © 2026" in candidate
     assert 'print("✅ preserved in code")' in candidate

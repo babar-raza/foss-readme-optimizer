@@ -18,6 +18,7 @@ from readme_agent.readme.acquisition_contracts import matching_coordinate_row
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
 DOCUMENT_TEMPLATE_NAMES = (
+    "repository-presentation-v1.json",
     "contextual-example-link.md",
     "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",

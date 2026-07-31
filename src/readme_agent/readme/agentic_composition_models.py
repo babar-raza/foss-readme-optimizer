@@ -40,16 +40,34 @@ class AgenticOverviewSentenceV1(_StrictModel):
     supporting_fact_ids: list[str] = Field(min_length=1)
 
 
+class AgenticDiagramNodeV1(_StrictModel):
+    """One visitor-facing Mermaid label proposed from accepted repository facts."""
+
+    role: Literal["input", "capability", "output"]
+    label: str = Field(min_length=1, max_length=80)
+    supporting_fact_ids: list[str] = Field(min_length=1)
+
+
+class AgenticDiagramV1(_StrictModel):
+    """Repository-specific visual vocabulary; deterministic code owns Mermaid syntax."""
+
+    nodes: list[AgenticDiagramNodeV1] = Field(default_factory=list)
+
+
 class AgenticCompositionDraftV1(_StrictModel):
     repository_summary: str = Field(min_length=1)
     section_decisions: list[AgenticSectionDecisionV1] = Field(min_length=1)
     overview_sentences: list[AgenticOverviewSentenceV1] = Field(min_length=1)
+    opening_summary: AgenticOverviewSentenceV1 | None = None
+    diagram: AgenticDiagramV1 = Field(default_factory=AgenticDiagramV1)
 
 
 class AgenticCompositionToolDraftV1(_StrictModel):
     repository_summary: str = Field(min_length=1)
     section_decisions: list[AgenticSectionDecisionV1] = Field(min_length=1)
     overview_fact_ids: list[str] = Field(min_length=1)
+    opening_summary: AgenticOverviewSentenceV1 | None = None
+    diagram: AgenticDiagramV1 = Field(default_factory=AgenticDiagramV1)
 
 
 class ReadmeAgenticCompositionPlanV1(_StrictModel):
@@ -66,6 +84,8 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
     repository_summary: str
     section_decisions: list[AgenticSectionDecisionV1]
     overview_sentences: list[AgenticOverviewSentenceV1]
+    opening_summary: AgenticOverviewSentenceV1 | None = None
+    diagram: AgenticDiagramV1 = Field(default_factory=AgenticDiagramV1)
 
     def canonical_hash(self) -> str:
         payload = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))

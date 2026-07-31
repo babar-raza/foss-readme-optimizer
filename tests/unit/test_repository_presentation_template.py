@@ -26,6 +26,7 @@ from readme_agent.presentation.template_schema import (
     load_repository_presentation_template,
     repository_presentation_template_hash,
 )
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -384,3 +385,20 @@ def test_governed_reference_hash_matches_template_contract() -> None:
     assert hashlib.sha256(REFERENCE.read_bytes()).hexdigest() == (
         contract.accepted_reference_sha256
     )
+
+
+def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
+    contract = load_repository_presentation_template()
+    visitor = build_presentation_visitor_contract(contract)
+    standards = {
+        item["standard_id"]: item["parameters"] for item in visitor["configured_standards"]
+    }
+
+    assert visitor["template_version"] == contract.template_version
+    assert standards["readme.header"]["required_h2_prefix"][:2] == [
+        "Navigation",
+        "At a glance",
+    ]
+    assert standards["readme.at_a_glance_mermaid"]["minimum_capabilities"] == 3
+    assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is False
+    assert standards["readme.no_comments"]["code_comments"] == "forbidden"

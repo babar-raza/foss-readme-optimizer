@@ -34,6 +34,7 @@ from readme_agent.readme.document_header_visual import (
     build_comment_removal_operations,
     build_existing_overview_diagram_operations,
 )
+from readme_agent.readme.document_legal import build_license_operations
 from readme_agent.readme.document_limitations import build_limitation_operations
 from readme_agent.readme.document_link_hygiene import build_source_link_hygiene_operations
 from readme_agent.readme.document_links import apply_contextual_link_bindings
@@ -128,7 +129,7 @@ def build_readme_document_candidate(
         if agentic_composition_plan
         else None
     )
-    header_visuals = render_readme_header_visual(facts)
+    header_visuals = render_readme_header_visual(facts, validated_agentic_plan)
     withheld = build_unresolved_section_operations(context, assessment)
     withheld_spans = [
         (operation.source_byte_start, operation.source_byte_end) for operation in withheld
@@ -168,6 +169,7 @@ def build_readme_document_candidate(
     operations.extend(build_promotional_callout_operations(context))
     operations.extend(build_registry_badge_operations(context))
     operations.extend(build_release_operations(context))
+    operations.extend(build_license_operations(context))
     # Equal-offset insertions appear in reverse plan order in the candidate.
     # Append the header operation last so badges remain immediately below H1.
     operations.extend(build_badge_header_operations(context, header_visuals))

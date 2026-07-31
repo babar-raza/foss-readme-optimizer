@@ -12,9 +12,11 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentOperationV1,
 )
 from readme_agent.readme.document_render_context import DocumentRenderContext
+from readme_agent.readme.document_structure import code_blocks_in_span
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 _HTML_COMMENT = re.compile(r"<!--.*?-->\s*", re.DOTALL)
+_CODE_COMMENT_LINE = re.compile(r"(?m)^\s*(?:#(?!\s*\[)|//|/\*|\*|--)\s+\S[^\r\n]*(?:\r?\n|$)")
 _BADGE_LINE = re.compile(
     r"(?im)^(?![ \t]*<!--)[^\n]*(?:!\[[^\]]*\]\([^)]*(?:shields\.io|badge|actions/workflows)[^)]*\)"
     r"[^\n]*)\n?"
@@ -47,6 +49,32 @@ def build_comment_removal_operations(
                 ),
             )
         )
+    comment_index = len(operations)
+    for block in code_blocks_in_span(context.inner_text, 0, len(context.inner_text)):
+        block_text = context.inner_text[block.start : block.end]
+        content_offset = block_text.find(block.content)
+        if content_offset < 0:
+            continue
+        for match in _CODE_COMMENT_LINE.finditer(block.content):
+            comment_index += 1
+            start_character = block.start + content_offset + match.start()
+            end_character = block.start + content_offset + match.end()
+            operations.append(
+                build_operation(
+                    operation_id=f"readme.comments.remove-code:{comment_index}",
+                    operation="remove",
+                    source=context.source,
+                    start=context.byte_offset(start_character),
+                    end=context.byte_offset(end_character),
+                    replacement="",
+                    fact_ids=[],
+                    treatment="presentation_policy_correction",
+                    rationale=(
+                        "Apply the accepted visitor-facing no-comment contract while retaining "
+                        "the executable statements in the example."
+                    ),
+                )
+            )
     return operations
 
 

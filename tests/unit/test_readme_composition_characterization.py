@@ -33,11 +33,12 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "1e9af36611add3c18825fcd514e84dc9283bbe63ec450ed87868cf470268d18e",
-        "4a0f7e8cb5187567a8d9a1ed4cddb34966408ab3e37f7877db16025f9d01ab42",
+        "e77c368f5b69760d004b03f47f566826f56f8845ab246253890d8bb025bb8323",
+        "47c73de3aad1b10e340fd838b3b9e0a7309a5f1059fddbeb7d9eb3cb89472f09",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
+            "readme.license.add-section",
             "readme.header.badges",
         ],
     ),
@@ -49,12 +50,13 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "694e3fe8a757e3ef1edcb8bd53873c655691aef9c3ad9716589d95b649624301",
-        "3d16740dc1b408feea4f92fca0593e62a13720afd2ee0cada11a32641efcdb1e",
+        "f2cb743d1352481c31c2d90ddb1a01870a82cc90c024a93dd120005e505589c4",
+        "09321a4f1f7240887df3340e402c147bbb1bd3dd4c3f989b0df5f1f4bdd670be",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
             "readme.opening.remove-promotional-callout",
+            "readme.license.add-section",
             "readme.header.badges",
             "readme.unresolved.withhold:1",
         ],
@@ -66,12 +68,13 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "759f32ae015046803b628c95891cef1125711069fc1355fdf6d03d659ec1d089",
-        "d6df266071f496f39e6def9a8410a8be0895f0a106907bec6a3f828774242e6a",
+        "6ada2a3d38e2a2c21cdba8420b679702b1b9293d54097f52e84382c5b28477de",
+        "175360493aca1864cdae51d0dc52444682f24b0337047ebe66ca490ad014c98d",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
             "readme.release.correct-manifest-version",
+            "readme.license.add-section",
             "readme.header.badges",
         ],
     ),
@@ -210,6 +213,6 @@ def test_agentic_composition_plan_is_characterized() -> None:
     )
 
     assert plan.canonical_hash() == (
-        "e6af2a1e04b2995fb3438cfcaef6641dd1efa4eb73d32524dcd61adf23ac890c"
+        "a7f0ac4874eb6bba2220fb78866bbe52330a1b099078140547a6be3b0cd97e0f"
     )
     assert plan.input_sha256 == ("5c173f343ea5e2f35e35f4f4f150263a7e229a0634168b2dc49620ece61668af")

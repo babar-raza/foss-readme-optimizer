@@ -51,11 +51,22 @@ def overview_text(
 ) -> str:
     """Render navigation and accepted fact views without repeated inventories."""
 
+    aliases = {
+        "features": "Key capabilities",
+        "quick start": "Quick start",
+        "in this readme": "Navigation",
+    }
+    labels = ["At a glance"]
+    for heading in headings:
+        if heading.level != 2:
+            continue
+        normalized = heading.title.strip().casefold()
+        label = aliases.get(normalized, heading.title)
+        if label.casefold() in {"at a glance", "navigation"}:
+            continue
+        labels.append(label)
     navigation = "\n".join(
-        f"- [{heading.title}](#{github_anchor(heading.title)})"
-        for heading in headings
-        if heading.level == 2
-        and heading.title.strip().lower() not in {"at a glance", "in this readme"}
+        f"- [{label}](#{github_anchor(label)})" for label in dict.fromkeys(labels)
     )
     selected: dict[str, str] = {}
     if agentic_overview_sentences:

@@ -29,7 +29,15 @@ class _StrictModel(BaseModel):
 
 class ReadmeBadgeV1(_StrictModel):
     badge_id: str
-    kind: Literal["version", "package", "download", "license"]
+    kind: Literal[
+        "version",
+        "package",
+        "download",
+        "platform",
+        "build",
+        "license",
+        "contributors",
+    ]
     alt_text: str = Field(min_length=1)
     image_url: str = Field(min_length=1)
     target_url: str | None = None
@@ -38,7 +46,7 @@ class ReadmeBadgeV1(_StrictModel):
 
 class MermaidNodeV1(_StrictModel):
     node_id: str
-    role: Literal["product", "audience", "problem", "capability", "format"]
+    role: Literal["product", "input", "capability", "output"]
     label: str = Field(min_length=1, max_length=96)
     fact_ids: list[str] = Field(min_length=1)
 
