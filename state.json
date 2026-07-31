@@ -4032,7 +4032,7 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "dff6ab676c506484db5bbfa6c50f773115869d2b935c15d840d21c721a7e4926",
+      "accepted_facts_hash": "f57c1647f4970f68a0a0a25563f83939044d69f93c90c0b969376cb56a9431e1",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -4065,7 +4065,7 @@
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`, `###`), and content flows logically from product description \u2192 features \u2192 quick start \u2192 installation \u2192 examples \u2192 API docs \u2192 limitations \u2192 commercial context.",
+            "note": "Section headers use consistent Markdown levels (`##`, `###`) and follow logical sequencing: product description \u2192 features \u2192 quick start \u2192 installation \u2192 examples \u2192 API reference \u2192 limitations \u2192 commercial context.",
             "satisfied": true
           },
           {
@@ -4075,26 +4075,26 @@
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README does not include links to or mention of CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files, and GitHub's community health score for this repo is likely low; however, LICENSE is present and recognized, which is the highest-priority gate per the standard.",
+            "note": "The README does not include or reference a LICENSE file in the repository root (though the badge points to one), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 GitHub will not show the community quick-link row.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The presence of a CI badge, PyPI version badge, and active development section (with test commands and tools) implies recent activity, and the repo's GitHub page shows a populated releases tab (per external verification).",
+            "note": "The presence of a CI badge and recent PyPI version indicates active maintenance, and the README does not make unsupported claims about maintenance status.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language at the end ('If you need the full-featured Aspose product...'), with no promotional language, pricing, or repeated mentions.",
+            "note": "The commercial mention appears exactly once at the end, in factual, capability-extension language ('If you need the full-featured Aspose product...'), with no promotional tone or repetition.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions; the main gap is in contribution readiness (missing recognized community files beyond LICENSE), which is the highest-priority fix per the standard. All other presentation criteria \u2014 especially product clarity, installation correctness, and restrained commercial framing \u2014 are well met."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the main gap being contribution readiness (missing recognized community files like LICENSE, CODE_OF_CONDUCT, etc., despite the license badge). All other presentation criteria \u2014 especially product clarity, audience fit, installation correctness, and restrained commercial framing \u2014 are well met."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T16:39:18.939464+00:00",
+      "last_run_timestamp": "2026-07-31T16:54:46.418102+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -9233,7 +9233,7 @@
     "updated_at": "2026-07-31T16:53:44.976566+00:00"
   },
   "schema_version": 2,
-  "state_version": 1220,
+  "state_version": 1221,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
