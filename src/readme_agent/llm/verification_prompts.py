@@ -230,6 +230,7 @@ FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
         "SYSTEM_FAILURE",
     ],
     finding_kind="factual",
+    max_findings=8,
 )
 TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA = {
     "type": "function",

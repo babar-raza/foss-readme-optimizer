@@ -15,6 +15,7 @@ from readme_agent.llm.verifier_client import LiveForcedToolClient
 
 DEFAULT_MAX_TOKENS = 2400
 BLIND_REVIEW_MAX_TOKENS = 3_000
+FACTUAL_REVIEW_MAX_TOKENS = 6_000
 TRUSTED_REVIEW_MAX_TOKENS = 12_000
 
 
@@ -79,7 +80,7 @@ class LiveFactualPlanReviewClient:
         api_key: str | None,
         model: str,
         timeout: float = 90,
-        max_tokens: int = DEFAULT_MAX_TOKENS,
+        max_tokens: int = FACTUAL_REVIEW_MAX_TOKENS,
     ):
         self._client = LiveForcedToolClient(
             base_url,
@@ -140,7 +141,7 @@ def build_live_role_review_clients(
     api_key: str | None,
     *,
     timeout: float = 90,
-    max_tokens: int = DEFAULT_MAX_TOKENS,
+    max_tokens: int = FACTUAL_REVIEW_MAX_TOKENS,
 ) -> tuple[LiveBlindQualityReviewClient, LiveFactualPlanReviewClient]:
     """Construct the two governed role clients from their distinct model routes."""
 

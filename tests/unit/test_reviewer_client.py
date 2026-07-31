@@ -4,6 +4,7 @@ import json as json_module
 
 from readme_agent.llm import verifier_client
 from readme_agent.llm.reviewer_client import (
+    FACTUAL_REVIEW_MAX_TOKENS,
     LiveBlindQualityReviewClient,
     LiveFactualPlanReviewClient,
     LiveIndependentReviewClient,
@@ -79,11 +80,11 @@ def test_verdict_schema_encodes_fact_block_precedence():
 
 
 def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
-    captured_tools = []
+    captured_requests = []
 
     def fake_post(url, json, headers, timeout):
         tool_name = json["tool_choice"]["function"]["name"]
-        captured_tools.append(tool_name)
+        captured_requests.append((tool_name, json["max_tokens"]))
 
         class RoleResponse(FakeResponse):
             def json(self):
@@ -123,9 +124,9 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
 
     assert blind.parsed["verdict"] == "ACCEPT"
     assert factual.parsed["verdict"] == "ACCEPT"
-    assert captured_tools == [
-        "report_blind_readme_quality_review",
-        "report_factual_readme_plan_review",
+    assert captured_requests == [
+        ("report_blind_readme_quality_review", 2400),
+        ("report_factual_readme_plan_review", FACTUAL_REVIEW_MAX_TOKENS),
     ]
 
 
@@ -146,6 +147,12 @@ def test_role_tool_schemas_require_grounded_acceptance_fields():
     assert blind_finding["properties"]["quoted_candidate_span"]["maxLength"] == 1200
     assert factual_finding["properties"]["kind"]["enum"] == ["factual"]
     assert "supports_acceptance" in factual_finding["properties"]["disposition"]["enum"]
+    assert (
+        FACTUAL_PLAN_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"]["findings"][
+            "maxItems"
+        ]
+        == 8
+    )
 
 
 def test_trusted_fidelity_client_forces_exact_source_inventory(monkeypatch):
