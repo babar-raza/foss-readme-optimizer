@@ -41,6 +41,7 @@ from readme_agent.readme.document_legal import build_license_operations
 from readme_agent.readme.document_limitations import build_limitation_operations
 from readme_agent.readme.document_link_hygiene import build_source_link_hygiene_operations
 from readme_agent.readme.document_links import apply_contextual_link_bindings
+from readme_agent.readme.document_navigation import finalize_navigation_operations
 from readme_agent.readme.document_opening import (
     build_opening_operations,
     build_promotional_callout_operations,
@@ -228,6 +229,7 @@ def build_readme_document_candidate(
         operations = apply_contextual_link_bindings(context, operations, contextual_links)
         operations = prune_noop_operations(source, operations)
     operations = canonicalize_operation_decorations(operations)
+    operations = finalize_navigation_operations(source, operations)
     validate_agentic_operation_coverage(
         assessment,
         assessment.sections,

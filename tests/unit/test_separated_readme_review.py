@@ -630,6 +630,72 @@ def test_blind_reviewer_cannot_turn_required_navigation_floor_into_ceiling() -> 
     ]
 
 
+def test_live_header_and_navigation_ceiling_phrases_are_disproven() -> None:
+    badge = "[![PyPI](https://img.shields.io/pypi/v/widget.svg)](https://pypi.org/project/widget/)"
+    navigation = (
+        "- [At a glance](#at-a-glance)\n"
+        "- [Key capabilities](#key-capabilities)\n"
+        "- [Quick start](#quick-start)\n"
+        "- [Installation](#installation)\n"
+        "- [Development](#development)\n"
+        "- [Scope and limitations](#scope-and-limitations)\n"
+        "- [License](#license)"
+    )
+    candidate = (
+        f"# Widget\n\n{badge}\n\n## Navigation\n\n{navigation}\n\n## At a glance\n\nSummary.\n"
+    )
+    common = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "header-live-phrase",
+                "criterion": "hierarchy",
+                "section": "Header",
+                "claim": "Badge row must directly follow H1 title without blank line.",
+                "quoted_candidate_span": "# Widget",
+                "required_repair": (
+                    "Remove the blank line between the H1 title and the badge row."
+                ),
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "navigation-live-phrase",
+                "criterion": "navigation",
+                "section": "Navigation",
+                "claim": "Navigation section includes non-required labels.",
+                "quoted_candidate_span": navigation,
+                "required_repair": (
+                    "Remove non-required labels from the Navigation section to ensure only "
+                    "required labels are present."
+                ),
+            }
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert result.valid is False
+    assert any("badge-spacing premise" in error for error in result.errors)
+    assert any("navigation prefix-only premise" in error for error in result.errors)
+
+
 def test_blind_reviewer_cannot_report_present_navigation_label_as_omitted() -> None:
     navigation = (
         "- [At a glance](#at-a-glance)\n"

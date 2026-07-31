@@ -5,6 +5,7 @@ from readme_agent.readme.document_structure import (
     line_offsets,
     normalize_navigation_targets,
     parse_headings,
+    rebuild_navigation_for_labels,
     remove_redundant_nested_headings,
 )
 
@@ -73,6 +74,20 @@ def test_navigation_normalization_preserves_an_opaque_batch_boundary() -> None:
 
     assert "README_AGENT_FIDELITY_BOUNDARY_0001" in normalized
     assert "- [Usage](#usage)" in normalized
+
+
+def test_navigation_can_be_rebuilt_from_final_labels_not_local_headings() -> None:
+    markdown = "## Navigation\n\n- [Old](#old)\n\n## At a glance\n\nSummary.\n"
+
+    normalized = rebuild_navigation_for_labels(
+        markdown,
+        ["At a glance", "Usage", "License"],
+    )
+
+    assert "- [At a glance](#at-a-glance)" in normalized
+    assert "- [Usage](#usage)" in normalized
+    assert "- [License](#license)" in normalized
+    assert "- [Old](#old)" not in normalized
 
 
 def test_redundant_nested_heading_is_removed_and_children_are_promoted() -> None:

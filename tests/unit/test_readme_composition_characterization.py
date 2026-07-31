@@ -33,8 +33,8 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "d2e940561e823b59e00915855382c35a0e97dd789d1be73957d6914a602b3991",
-        "ab6d32162085b91e225c0fa2f96199baf99c5685503318c15b4e9cb57437f14d",
+        "c79423dbc152ba528551c51a3fc8d59dcc4c19b3cbbd9afce50e68dd0d5007f4",
+        "fe8be673fa3fc803b1c50ad24ff39996c1c4b56bc32ea49b8e88cbc9d6f59973",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -50,8 +50,8 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "e591aad16fcbcca6a6f81fff0f1825a7a65c5199d82c65d52941bf74f2a3bf33",
-        "4a30ce7b842fc6e8ae0a31acd0c15d57f2bb0a9ccaafd7315b01eafed3492e64",
+        "736eced36e5195f468efd0c0a8053114be5a8f3b73528ae163c8e6e1703dc3e4",
+        "13fd28e672ac9f986c6c8e6bfa4cb5db2d6e341c37a7571bd6f8bc5c7713367d",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",
@@ -68,8 +68,8 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "d5001e4e29435fc73033a37d32ca27ba5232bbda07a1ecfc7c30d3e9b95e499b",
-        "74bf1df2f7c2174aa756b20c9647a94a487ff2d0d9e1fc21abf2f0b49150fa8b",
+        "afe90368b5830d4f138d5aa0a1411ce52b4bb17ae841f94c8f165b0aef2c1562",
+        "430e11711160ba52365bc83f737b5ee2ca81b902ac4355420769e23ef113e493",
         [
             "readme.overview-navigation-and-acquisition",
             "readme.limitations.add-verified",

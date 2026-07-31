@@ -402,6 +402,19 @@ def _validate_quality_finding(
             "without a blank line" in premise
             or "without an intervening blank line" in premise
             or "immediately after the h1" in premise
+            or bool(
+                re.search(
+                    r"\bwithout (?:an? )?(?:intervening )?blank line\b",
+                    premise,
+                )
+            )
+            or bool(
+                re.search(
+                    r"\bremove (?:the )?blank line\b[^\n.]{0,120}"
+                    r"\b(?:h1|title)\b[^\n.]{0,120}\bbadge",
+                    premise,
+                )
+            )
         )
         if title_badge is not None and rejects_valid_spacing:
             errors.append(
@@ -475,6 +488,13 @@ def _validate_quality_finding(
             or "non-required navigation labels" in premise
             or "retain only the required set" in premise
             or "exceeding the required set" in premise
+            or bool(
+                re.search(
+                    r"\b(?:includes?|remove|omit|drop|exclude)\b[^\n.]{0,120}"
+                    r"\bnon-required\b[^\n.]{0,120}\blabels?\b",
+                    premise,
+                )
+            )
         )
         if prefix_only_premise and header.get("required_h2_prefix"):
             errors.append(f"{finding.finding_id}:navigation prefix-only premise is unconfigured")

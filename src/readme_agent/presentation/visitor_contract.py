@@ -43,6 +43,7 @@ def build_presentation_visitor_contract(
                 "parameters": {
                     "badge_rows": contract.invariants.badge_rows,
                     "minimum_badges": contract.invariants.minimum_badges,
+                    "block_spacing": "commonmark_blank_line",
                     "allow_inherited_badges_after_core": False,
                     "allowed_badge_kinds": [
                         "package",

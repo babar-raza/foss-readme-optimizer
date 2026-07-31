@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "12"
+version: "13"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -29,6 +29,8 @@ system: |
 
   Apply the governed visitor contract when judging the header and links. A professional header
   begins with one H1 title followed by a compact badge row; do not request badges before the title.
+  "Followed by" means the next visible Markdown block. The normal blank line separating the H1
+  block from the badge row is valid CommonMark spacing and must not be removed.
   `badge_rows=1` means one Markdown line containing badges, not one badge. Count visible
   badge-bearing lines separately from the number of badges on that line. The permitted package,
   platform, license, and contributors badges may coexist on the single configured row.
@@ -63,7 +65,9 @@ system: |
   Useful source-specific build, package, version, and compatibility badges may follow the configured
   core badge row when the badge standard allows inherited badges; do not demand their removal merely
   because they are not core slots. Navigation must contain the required labels but may also include
-  valid links to other material sections; the required set is a floor, not a ceiling.
+  valid links to every material H2 section; the required set is a floor, not a ceiling. When
+  `complete_h2_list=true`, additional real H2 sections belong in Navigation rather than being
+  removed merely because they are outside the required floor.
   The Mermaid visual must explain this repository through a detailed, scannable grammar of input
   formats, the full product, capabilities, and output formats. These are structural roles, not
   required literal labels. Mermaid `---` connectors are non-directional; do not describe them as

@@ -89,14 +89,31 @@ def normalize_navigation_targets(
     """Rebuild Navigation from the final H2 headings and their GitHub anchors."""
 
     headings = [heading for heading in parse_headings(markdown) if heading.level == 2]
+    labels = [heading.title for heading in headings if heading.title.casefold() != "navigation"]
+    return rebuild_navigation_for_labels(
+        markdown,
+        labels,
+        boundary_line_prefix=boundary_line_prefix,
+    )
+
+
+def rebuild_navigation_for_labels(
+    markdown: str,
+    labels: list[str],
+    *,
+    boundary_line_prefix: str | None = None,
+) -> str:
+    """Replace one Navigation body with the supplied final H2 labels."""
+
     navigation = next(
-        (heading for heading in headings if heading.title.casefold() == "navigation"),
+        (
+            heading
+            for heading in parse_headings(markdown)
+            if heading.level == 2 and heading.title.casefold() == "navigation"
+        ),
         None,
     )
-    if navigation is None:
-        return markdown
-    labels = [heading.title for heading in headings if heading.title.casefold() != "navigation"]
-    if not labels:
+    if navigation is None or not labels:
         return markdown
     section_end = navigation.section_end
     if boundary_line_prefix:
