@@ -587,14 +587,23 @@
       "upstream_revision_at_accept": null
     },
     "package_release_audit": {
-      "accepted_facts_hash": "bed55f47d08da38ba63306cee16cf62a0b90901eaabba48cbac31e40dcf5457b",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "0d3e6c3887c21d6c45f23b2eaacf67831289430c7eb6205247ae6289ba63f09b",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": null,
-        "handoff_findings": [],
-        "install_path_resolved": null,
+        "evidence": "PyPI: aspose-page-foss NOT FOUND (404)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-07-31T19:18:43.575006+00:00",
+            "evidence": {
+              "detail": "PyPI: aspose-page-foss NOT FOUND (404)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -602,10 +611,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:50:51.401341+00:00",
+      "last_run_timestamp": "2026-07-31T19:18:43.575673+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -1507,7 +1516,7 @@
     "updated_at": "2026-07-31T19:17:19.546677+00:00"
   },
   "schema_version": 2,
-  "state_version": 141,
+  "state_version": 142,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
