@@ -651,6 +651,30 @@ def test_two_accepts_produce_hash_bound_separate_records():
     assert "readme.overview" in factual_context
 
 
+def test_factual_finding_identifier_is_canonicalized_without_changing_evidence():
+    blind = CapturingClient(_blind_accept("visitor-ready"))
+    factual_payload = _factual_accept("facts and plan agree")
+    factual_payload["findings"][0]["finding_id"] = "readme.example:repair:heading:1702"
+    factual = CapturingClient(factual_payload)
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=blind,
+        factual_client=factual,
+    )
+
+    finding = result.factual_plan_review.findings[0]
+    assert finding.finding_id == "readme.example-repair-heading-1702"
+    assert finding.claim == "The candidate identity is supported."
+    assert finding.fact_id == "fact-1"
+    assert finding.evidence_excerpt == "Example"
+    assert finding.evidence_location == "README.md"
+
+
 def test_blind_rejection_vetoes_factual_acceptance():
     result = run_separated_readme_review(
         ORG_REPO,

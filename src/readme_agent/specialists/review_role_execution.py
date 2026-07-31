@@ -137,7 +137,9 @@ def _parse_role_result(
                     bind_candidate_review_anchors(result.parsed, candidate_anchors),
                 )
             )
-        return FactualPlanReviewResultV1.model_validate(result.parsed)
+        return FactualPlanReviewResultV1.model_validate(
+            normalize_redundant_role_fields(role, result.parsed)
+        )
     except ValidationError as exc:
         label = "blind README quality" if role == "blind_quality" else "factual README plan"
         raise LLMError(f"{label} review violated its output contract: {exc}") from exc
