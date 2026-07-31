@@ -3052,7 +3052,7 @@
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
       }
     ],
-    "facts_hash": "80620f0ab605d4e24dda7b2c4c23c4defc3b6e03735d86769f6a2b3e62b74f7e",
+    "facts_hash": "11b9e188447bce1c6a13f335b27047e59cb6bc1febfa2ed8c62e2ae1826049b5",
     "history": [
       {
         "evidence_refs": [
@@ -3678,6 +3678,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T09:51:06.967775+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "intake_preflight_history": [
@@ -3705,11 +3718,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-31T09:51:01.133838+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-31T09:51:06.967775+00:00"
   },
   "schema_version": 2,
-  "state_version": 227,
+  "state_version": 228,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
