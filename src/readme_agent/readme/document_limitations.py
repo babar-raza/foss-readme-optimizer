@@ -17,7 +17,14 @@ def build_limitation_operations(
 ) -> list[ReadmeDocumentOperationV1]:
     """Add or complete a limitations section without replacing maintainer prose."""
 
-    heading = context.h2("limitations", "known limitations", "known limits")
+    heading = context.h2(
+        "scope and limitations",
+        "project scope and limitations",
+        "current limitations",
+        "limitations",
+        "known limitations",
+        "known limits",
+    )
     verified_limitations = limitations_text(context.facts)
     if not verified_limitations:
         return []

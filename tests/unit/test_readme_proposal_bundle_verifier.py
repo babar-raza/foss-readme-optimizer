@@ -58,7 +58,7 @@ def _mock_acquisition_ground_truth_passes(request, monkeypatch):
     if request.cls is TestAcquisitionGroundTruth:
         return
     monkeypatch.setattr(
-        bundle_verifier, "_verify_acquisition_ground_truth", lambda org_repo, facts: (True, "")
+        bundle_verifier, "verify_acquisition_ground_truth", lambda org_repo, facts: (True, "")
     )
 
 
@@ -294,7 +294,7 @@ class _FakeFact:
 
 
 class _FakeFacts:
-    """Duck-typed stand-in for ProductFactsV2 -- `_verify_acquisition_ground_truth`
+    """Duck-typed stand-in for ProductFactsV2 -- `verify_acquisition_ground_truth`
     only ever calls `.selected_fact("installation.verified_acquisition")`."""
 
     def __init__(
@@ -335,7 +335,7 @@ def _fake_entry(family="cells", ecosystem="java"):
 
 
 class TestAcquisitionGroundTruth:
-    """Direct tests of `_verify_acquisition_ground_truth` -- the check that would
+    """Direct tests of `verify_acquisition_ground_truth` -- the check that would
     have caught this session's own bug: a candidate whose facts say source_build
     for a package that IS actually published, or the reverse."""
 
@@ -348,7 +348,7 @@ class TestAcquisitionGroundTruth:
             "resolve",
             lambda eco, coord: ResolutionResult(True, "found"),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("maven_central")
         )
         assert ok, detail
@@ -362,7 +362,7 @@ class TestAcquisitionGroundTruth:
             "resolve",
             lambda eco, coord: ResolutionResult(False, "not found"),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("source_build")
         )
         assert ok, detail
@@ -378,7 +378,7 @@ class TestAcquisitionGroundTruth:
             "resolve",
             lambda eco, coord: ResolutionResult(True, "found"),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("source_build")
         )
         assert not ok
@@ -395,7 +395,7 @@ class TestAcquisitionGroundTruth:
             "resolve",
             lambda eco, coord: ResolutionResult(False, "not found"),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("maven_central")
         )
         assert not ok
@@ -410,7 +410,7 @@ class TestAcquisitionGroundTruth:
             "resolve",
             lambda eco, coord: ResolutionResult(False, "network error", blocked=True),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("source_build")
         )
         assert ok
@@ -421,7 +421,7 @@ class TestAcquisitionGroundTruth:
             raise ValueError("not listed")
 
         monkeypatch.setattr(acquisition_ground_truth, "require_listed", raise_not_listed)
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "not/listed", _FakeFacts("source_build")
         )
         assert not ok
@@ -432,7 +432,7 @@ class TestAcquisitionGroundTruth:
             "require_listed",
             lambda org_repo: _fake_entry(ecosystem=None),
         )
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp", _FakeFacts("source_build")
         )
         assert ok
@@ -451,7 +451,7 @@ class TestAcquisitionGroundTruth:
             return ResolutionResult(True, "PyPI: aspose-note found")
 
         monkeypatch.setattr(acquisition_ground_truth, "resolve", resolve_recorded)
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-note-foss/Aspose.Note-FOSS-for-Python",
             _FakeFacts(
                 "pypi",
@@ -474,7 +474,7 @@ class TestAcquisitionGroundTruth:
             lambda eco, coord: pytest.fail("unbound coordinate must not be resolved"),
         )
 
-        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+        ok, detail = bundle_verifier.verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
             _FakeFacts(
                 "maven_central",

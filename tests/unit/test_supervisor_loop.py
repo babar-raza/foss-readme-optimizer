@@ -712,7 +712,7 @@ def project(tmp_path, monkeypatch):
     # credentials or waiting on fake package coordinates.
     monkeypatch.setattr(
         readme_proposal_bundle,
-        "_verify_acquisition_ground_truth",
+        "verify_acquisition_ground_truth",
         lambda org_repo, facts: (True, "offline fixture: snapshot-bound acquisition accepted"),
     )
     return tmp_path

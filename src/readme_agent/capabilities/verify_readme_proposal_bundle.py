@@ -66,7 +66,7 @@ MANIFEST = CapabilityManifest(
         "a real verification failure (all_artifacts_present), never a dispatch error",
     ],
     required_permissions=["read_only_local", "read_only_network"],
-    # Highest real blast radius this capability reaches: `_verify_acquisition_ground_truth`
+    # Highest real blast radius this capability reaches: `verify_acquisition_ground_truth`
     # performs a live, read-only registry lookup (Maven Central/PyPI/npm/NuGet/Go proxy) as
     # part of the independent re-check, mirroring `verify_package_acquisition`'s own posture.
     side_effect_class="read_only_network",

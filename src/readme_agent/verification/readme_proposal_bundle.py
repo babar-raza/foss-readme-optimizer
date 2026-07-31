@@ -31,9 +31,7 @@ from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
-from readme_agent.verification.acquisition_ground_truth import (
-    verify_acquisition_ground_truth as _verify_acquisition_ground_truth,
-)
+from readme_agent.verification.acquisition_ground_truth import verify_acquisition_ground_truth
 
 VERIFIER_IDENTITY = "independent-readme-proposal-bundle-verifier"
 
@@ -307,7 +305,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         "native git apply of proposal.patch does not reproduce the candidate",
     )
 
-    acquisition_ok, acquisition_detail = _verify_acquisition_ground_truth(org_repo, facts)
+    acquisition_ok, acquisition_detail = verify_acquisition_ground_truth(org_repo, facts)
     record("acquisition_matches_live_registry", acquisition_ok, acquisition_detail)
 
     return ReadmeProposalBundleVerdictV1(

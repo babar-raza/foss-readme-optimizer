@@ -13,6 +13,7 @@ from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.presentation_lint_text import (
     emoji_decoration_spans,
     strip_emoji_decorations,
+    strip_fenced_code_comments,
 )
 
 _VAGUE_FUTURE_BULLET = re.compile(
@@ -44,6 +45,10 @@ _CANONICAL_H2 = {
     "in this readme": "Navigation",
     "features": "Key capabilities",
     "quick start": "Quick start",
+    "limitations": "Scope and limitations",
+    "known limitations": "Scope and limitations",
+    "current limitations": "Scope and limitations",
+    "project scope and limitations": "Scope and limitations",
 }
 
 
@@ -60,6 +65,23 @@ def _overlaps(
 
 def _friendly_option_name(token: str) -> str:
     return token.replace("_", " ").strip().capitalize()
+
+
+def _canonicalize_h2_text(markdown: str) -> str:
+    def replace(match: re.Match[str]) -> str:
+        title = match.group("title").strip()
+        canonical = _CANONICAL_H2.get(title.casefold())
+        return match.group(0) if canonical is None else f"## {canonical}"
+
+    normalized = re.sub(r"(?m)^##[ \t]+(?P<title>[^\r\n]+?)[ \t]*$", replace, markdown)
+    for source, target in _CANONICAL_H2.items():
+        normalized = re.sub(
+            rf"\[{re.escape(source)}\]\(#{re.escape(source.replace(' ', '-'))}\)",
+            f"[{target}](#{target.casefold().replace(' ', '-')})",
+            normalized,
+            flags=re.IGNORECASE,
+        )
+    return normalized
 
 
 def commercial_directory_spans(context: DocumentRenderContext) -> list[tuple[int, int]]:
@@ -90,7 +112,9 @@ def canonicalize_operation_decorations(
 
     normalized: list[ReadmeDocumentOperationV1] = []
     for operation in operations:
-        replacement = strip_emoji_decorations(operation.replacement_text)
+        replacement = _canonicalize_h2_text(
+            strip_fenced_code_comments(strip_emoji_decorations(operation.replacement_text))
+        )
         if replacement == operation.replacement_text:
             normalized.append(operation)
             continue
@@ -101,7 +125,8 @@ def canonicalize_operation_decorations(
                     "replacement_sha256": sha256_hex(replacement),
                     "rationale": (
                         operation.rationale
-                        + " Apply the portfolio-wide no-emoji presentation contract."
+                        + " Apply the portfolio-wide no-comment and no-emoji presentation "
+                        "contract."
                     ),
                 }
             )
@@ -144,6 +169,41 @@ def build_presentation_policy_operations(
         )
         operations.append(operation)
         occupied.append(operation)
+
+    navigation = context.h2("navigation", "in this readme")
+    if navigation is not None:
+        body = context.inner_text[navigation.heading_end : navigation.section_end]
+        for source_title, target_title in _CANONICAL_H2.items():
+            pattern = re.compile(
+                rf"\[{re.escape(source_title)}\]\(#{re.escape(source_title.replace(' ', '-'))}\)",
+                re.IGNORECASE,
+            )
+            for match in pattern.finditer(body):
+                replacement = f"[{target_title}](#{target_title.casefold().replace(' ', '-')})"
+                if match.group(0) == replacement:
+                    continue
+                character_start = navigation.heading_end + match.start()
+                character_end = navigation.heading_end + match.end()
+                start = context.byte_offset(character_start)
+                end = context.byte_offset(character_end)
+                if _overlaps(start, end, occupied):
+                    continue
+                operation = build_operation(
+                    operation_id=f"readme.presentation.canonical-navigation:{start}",
+                    operation="replace",
+                    source=context.source,
+                    start=start,
+                    end=end,
+                    replacement=replacement,
+                    fact_ids=[],
+                    treatment="presentation_policy_correction",
+                    rationale=(
+                        "Keep the Navigation label and anchor aligned with the canonical "
+                        "section heading."
+                    ),
+                )
+                operations.append(operation)
+                occupied.append(operation)
 
     for start, end in commercial_directory_spans(context):
         if _overlaps(start, end, occupied):

@@ -27,7 +27,10 @@ from readme_agent.readme.document_acquisition import (
     build_acquisition_correction_operations,
     build_registry_badge_operations,
 )
-from readme_agent.readme.document_examples import build_example_operations
+from readme_agent.readme.document_examples import (
+    build_additional_examples_collapse_operations,
+    build_example_operations,
+)
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_header_visual import (
     build_badge_header_operations,
@@ -166,6 +169,7 @@ def build_readme_document_candidate(
     operations.extend(build_limitation_operations(context))
     operations.extend(build_acquisition_correction_operations(context))
     operations.extend(build_example_operations(context))
+    operations.extend(build_additional_examples_collapse_operations(context, operations))
     operations.extend(build_promotional_callout_operations(context))
     operations.extend(build_registry_badge_operations(context))
     operations.extend(build_release_operations(context))

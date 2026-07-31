@@ -16,6 +16,7 @@ from readme_agent.links.occurrences import (
 )
 from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
 
 
 class ContextualLinkValidationV1(BaseModel):
@@ -101,10 +102,27 @@ def validate_contextual_link_candidate(
         ):
             errors.append(f"binding context fact is not accepted: {binding.context_id}")
             continue
+        link_start = matching[0].character_start
+        if binding.context_kind == "relationship":
+            section = next(
+                (
+                    heading
+                    for heading in parse_headings(candidate)
+                    if heading.level == 2
+                    and heading.title == PRESENTATION_ENTERPRISE_LINK_SECTION
+                    and heading.heading_end <= link_start < heading.section_end
+                ),
+                None,
+            )
+            if section is None:
+                errors.append(
+                    "relationship target is outside the accepted scope section: "
+                    f"{binding.target_record_id}"
+                )
+            continue
         value = context_fact.value if isinstance(context_fact.value, dict) else {}
         code = str(value.get("code") or "").rstrip()
         code_start = candidate.find(code) if code else -1
-        link_start = matching[0].character_start
         matching_sections = [
             heading
             for heading in parse_headings(candidate)

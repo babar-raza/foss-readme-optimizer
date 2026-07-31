@@ -162,7 +162,7 @@ def _candidate(product: str, url: str, *, input_label: str = "Source documents")
         "Install the package described by this repository.\n\n"
         "## Quick start\n\n"
         "Run the repository's inherited example.\n\n"
-        "## Project scope and limitations\n\n"
+        "## Scope and limitations\n\n"
         "This open-source implementation covers the scope documented here. For broader "
         f"commercial capabilities, evaluate the [Aspose.Note Enterprise Edition]({url}) when those "
         "additional requirements apply.\n\n"
@@ -411,9 +411,9 @@ def test_enterprise_link_normalization_keeps_only_the_configured_product_target(
             f"See [Aspose.Note Enterprise Edition]({url}). Use Aspose.Note FOSS",
         )
         .replace(
-            "## Project scope and limitations",
+            "## Scope and limitations",
             "See [another product](https://products.aspose.com/note/net/).\n\n"
-            "## Project scope and limitations",
+            "## Scope and limitations",
         )
     )
 
@@ -422,7 +422,7 @@ def test_enterprise_link_normalization_keeps_only_the_configured_product_target(
     assert normalized.count("https://products.aspose.com/") == 1
     assert f"[Aspose.Note Enterprise Edition]({url})" in normalized
     assert "another product" in normalized
-    assert normalized.index(url) > normalized.index("## Project scope and limitations")
+    assert normalized.index(url) > normalized.index("## Scope and limitations")
     validate_trusted_portfolio_brand(normalized, graph)
 
 
@@ -451,7 +451,7 @@ def test_enterprise_link_normalization_materializes_missing_scope_context() -> N
     normalized = normalize_trusted_enterprise_product_links(candidate, graph)
 
     assert normalized.count(url) == 1
-    assert normalized.index(url) > normalized.index("## Project scope and limitations")
+    assert normalized.index(url) > normalized.index("## Scope and limitations")
     assert "outside this repository's documented scope" in normalized
     validate_trusted_portfolio_brand(normalized, graph)
 
@@ -460,15 +460,15 @@ def test_enterprise_link_normalization_moves_an_out_of_scope_link() -> None:
     url = "https://products.aspose.com/note/"
     graph = _graph("aspose-note-foss/Aspose.Note-FOSS-for-Python", url)
     candidate = _candidate("Aspose.Note FOSS for Python", url).replace(
-        "## Project scope and limitations",
+        "## Scope and limitations",
         "## Commercial relationship",
     )
 
     normalized = normalize_trusted_enterprise_product_links(candidate, graph)
 
     assert normalized.count(url) == 1
-    assert "## Project scope and limitations" in normalized
-    assert normalized.index(url) > normalized.index("## Project scope and limitations")
+    assert "## Scope and limitations" in normalized
+    assert normalized.index(url) > normalized.index("## Scope and limitations")
     validate_trusted_portfolio_brand(normalized, graph)
 
 

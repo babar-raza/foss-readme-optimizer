@@ -8,6 +8,7 @@ from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
@@ -182,6 +183,119 @@ def test_blind_grounding_rejects_findings_that_contradict_configured_presentatio
         "deterministically_disproven"
     }
     assert all("claim" not in item for item in retry["invalid_findings"])
+
+
+def test_visible_structure_disproves_three_live_reviewer_false_premises() -> None:
+    candidate = """# Aspose.Note FOSS for Python
+
+[![PyPI](https://img.shields.io/pypi/v/aspose-note.svg)](https://pypi.org/project/aspose-note/)
+
+Repository-specific product summary.
+
+## Navigation
+
+- [At a glance](#at-a-glance)
+- [Quick start](#quick-start)
+
+## At a glance
+
+```mermaid
+flowchart LR
+  subgraph Inputs["Inputs and formats"]
+    input_1["Microsoft OneNote (.one)"]
+  end
+  product["Aspose.Note FOSS for Python"]
+  subgraph Capabilities["Core capabilities"]
+    capability_1["Read documents"]
+    capability_2["Traverse pages"]
+    capability_3["Export PDF"]
+  end
+  subgraph Outputs["Outputs and accessible content"]
+    output_1["Text and PDF"]
+  end
+  input_1 --- product
+  product --- capability_1
+  capability_1 --- output_1
+```
+
+## Quick start
+
+```python
+from aspose.note import Document
+
+document = Document("input.one")
+```
+
+## Additional examples
+
+<details>
+<summary>Show additional examples</summary>
+
+More curated guidance.
+
+</details>
+"""
+    base = {
+        "kind": "quality",
+        "criterion": "hierarchy",
+        "section": "Header",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "header-spacing",
+                "claim": "The H1 is missing the required blank line before badges.",
+                "quoted_candidate_span": "# Aspose.Note FOSS for Python",
+                "required_repair": "Insert a blank line after the H1.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "mermaid-roles",
+                "criterion": "navigation",
+                "section": "At a glance",
+                "claim": (
+                    "The Mermaid diagram is missing Inputs, Product/API, Capabilities, "
+                    "and Outputs labels."
+                ),
+                "quoted_candidate_span": "```mermaid",
+                "required_repair": "Add the missing grammar labels.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "quick-start-duplicates",
+                "criterion": "example_presentation",
+                "section": "Quick start",
+                "claim": "Quick start contains two separate example blocks.",
+                "quoted_candidate_span": "## Quick start",
+                "required_repair": "Keep one Quick start example.",
+            }
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert len(result.errors) == 3
+    assert any("header-spacing premise" in error for error in result.errors)
+    assert any("Mermaid-grammar premise" in error for error in result.errors)
+    assert any("Quick-start duplication premise" in error for error in result.errors)
 
 
 def test_blind_acceptance_support_can_describe_satisfied_link_budget() -> None:

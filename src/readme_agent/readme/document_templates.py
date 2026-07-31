@@ -19,7 +19,11 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = _PROJECT_ROOT / "templates" / "readme"
 DOCUMENT_TEMPLATE_NAMES = (
     "repository-presentation-v1.json",
+    "additional-examples-details.md",
+    "contextual-enterprise-relationship.md",
     "contextual-example-link.md",
+    "contextual-foss-product.md",
+    "contextual-product-relationship.md",
     "agentic-overview-and-navigation.md",
     "product-overview-and-navigation.md",
     "verified-limitations.md",

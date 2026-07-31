@@ -48,19 +48,20 @@ system: |
 
   When the visitor contract names repository-presentation-brand-v1, require portfolio-grade visual
   coherence and reject any emoji anywhere in the candidate: an undecorated factual H1; the configured compact core badge row immediately below
-  it; a concise product-specific value proposition; the common At a glance, Navigation, Key
+  it; a concise product-specific value proposition; the common Navigation, At a glance, Key
   capabilities, Installation, and Quick start sequence; and consistent sentence-case headings.
   Require section-local coherence: `## Quick start` contains concise setup or usage examples and
   their directly useful explanation, not a second product overview, relationship pitch, or scope
   paragraph after the example. Product scope and Enterprise Edition relationship prose belongs
-  under `## Project scope and limitations`; duplicated overview prose must be consolidated rather
+  under `## Scope and limitations`; duplicated overview prose must be consolidated rather
   than left in an unrelated section.
   Useful source-specific build, package, version, and compatibility badges may follow the configured
   core badge row when the badge standard allows inherited badges; do not demand their removal merely
   because they are not core slots. Navigation must contain the required labels but may also include
   valid links to other material sections; the required set is a floor, not a ceiling.
-  The Mermaid visual must explain this repository through a detailed, scannable Inputs/formats ->
-  Product/API -> Capabilities -> Outputs/formats story. It must show concrete product-specific
+  The Mermaid visual must explain this repository through a detailed, scannable grammar of input
+  formats, the full product, capabilities, and output formats. These are structural roles, not
+  required literal labels, and a non-directional relationship diagram is valid. It must show concrete product-specific
   formats and important feature groups. Reject generic step chains, repeated labels, paragraph-sized nodes, decorative
   styling, or a diagram that merely duplicates the section list. Require the single configured
   Enterprise Edition link to read as useful scope, compatibility, or limitation context rather

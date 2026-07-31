@@ -570,7 +570,7 @@ def test_fidelity_accepts_navigation_composed_from_source_and_brand_headings(tmp
     navigation = (
         "- [Architecture](#architecture)\n"
         "- [License](#license)\n"
-        "- [Project scope and limitations](#project-scope-and-limitations)"
+        "- [Scope and limitations](#scope-and-limitations)"
     )
     candidate = f"{source}\n## Navigation\n\n{navigation}\n"
     graph, _, _ = _composition(
@@ -1271,7 +1271,7 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
         "- [Installation](#installation)\n"
         "- [Quick start](#quick-start)\n"
         "- [License](#license)\n\n"
-        "## Project scope and limitations\n\n"
+        "## Scope and limitations\n\n"
         "For advanced requirements, evaluate the "
         f"[Widget Enterprise Edition]({enterprise_url}).\n\n"
         "## Build and Test (Developers)\n"
@@ -1396,7 +1396,7 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
             finding_id="quality.bare-enterprise-url",
             kind="quality",
             criterion="promotional_balance",
-            section="Project scope and limitations",
+            section="Scope and limitations",
             claim="Enterprise Edition appears as a link label instead of the configured URL.",
             quoted_candidate_span="Widget Enterprise Edition",
             disposition="requires_repair",
@@ -1429,9 +1429,9 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
             finding_id="quality.heading-alias",
             kind="quality",
             criterion="hierarchy",
-            section="Project scope and limitations",
+            section="Scope and limitations",
             claim="This heading should be renamed according to the heading_alias.",
-            quoted_candidate_span="## Project scope and limitations",
+            quoted_candidate_span="## Scope and limitations",
             disposition="requires_repair",
             polarity_result="not_applicable",
             required_repair="Rename this section to Key capabilities.",
@@ -1619,14 +1619,14 @@ def test_fidelity_does_not_reject_the_required_descriptive_enterprise_link(
             "unsupported_additions": [
                 {
                     "finding_id": "unsupported-enterprise-link",
-                    "section": "Project scope and limitations",
+                    "section": "Scope and limitations",
                     "quoted_candidate_span": paragraph,
                     "reason": "The Enterprise Edition link is supposedly unauthorized.",
                     "required_repair": "Remove the configured Enterprise Edition link.",
                 }
             ],
             "failed_criteria": ["inheritance_fidelity"],
-            "sections_affected": ["Project scope and limitations"],
+            "sections_affected": ["Scope and limitations"],
             "required_repair": "Remove the configured Enterprise Edition link.",
         },
         graph=graph,

@@ -264,7 +264,16 @@ def assess_readme_document(
             "Known limitations",
             ("product.limitations",),
             "Add limitations that are explicitly supported by verified repository evidence.",
-            not titles.intersection({"limitations", "known limitations", "known limits"})
+            not titles.intersection(
+                {
+                    "scope and limitations",
+                    "project scope and limitations",
+                    "current limitations",
+                    "limitations",
+                    "known limitations",
+                    "known limits",
+                }
+            )
             and bool(limitations_text(facts)),
         ),
     )

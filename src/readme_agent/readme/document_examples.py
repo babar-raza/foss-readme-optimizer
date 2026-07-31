@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_structure import code_blocks_in_span
-from readme_agent.readme.document_templates import accepted_fact, example_text
+from readme_agent.readme.document_templates import accepted_fact, example_text, load_template
+
+
+def _collapsed_additional_examples(content: str) -> str:
+    return load_template("additional-examples-details.md").format(content=content.strip()).strip()
 
 
 def build_example_operations(
@@ -44,7 +50,9 @@ def build_example_operations(
             additional = section_body[:relative_start] + section_body[relative_end:]
         replacement = "\n\n" + primary.strip() + "\n\n"
         if additional.strip():
-            replacement += "## Additional examples\n\n" + additional.strip() + "\n\n"
+            replacement += (
+                "## Additional examples\n\n" + _collapsed_additional_examples(additional) + "\n\n"
+            )
         return [
             build_operation(
                 operation_id="readme.example.separate-primary-workflow",
@@ -97,3 +105,43 @@ def build_example_operations(
             ),
         )
     ]
+
+
+def build_additional_examples_collapse_operations(
+    context: DocumentRenderContext,
+    existing_operations: list[ReadmeDocumentOperationV1],
+) -> list[ReadmeDocumentOperationV1]:
+    """Collapse a pre-existing long additional-examples section once."""
+
+    operations: list[ReadmeDocumentOperationV1] = []
+    for heading in context.headings:
+        if heading.level != 2 or heading.title.strip().casefold() != "additional examples":
+            continue
+        body = context.inner_text[heading.heading_end : heading.section_end]
+        if not body.strip() or re.search(r"(?mi)^\s*<details>\s*$", body):
+            continue
+        start = context.byte_offset(heading.heading_end)
+        end = context.byte_offset(heading.section_end)
+        if any(
+            operation.source_byte_start < end and start < operation.source_byte_end
+            for operation in existing_operations
+        ):
+            continue
+        replacement = "\n\n" + _collapsed_additional_examples(body) + "\n\n"
+        operations.append(
+            build_operation(
+                operation_id=f"readme.example.collapse-additional:{start}",
+                operation="replace",
+                source=context.source,
+                start=start,
+                end=end,
+                replacement=replacement,
+                fact_ids=[],
+                treatment="presentation_policy_correction",
+                rationale=(
+                    "Keep the primary workflow visible while making extensive curated examples "
+                    "available on demand."
+                ),
+            )
+        )
+    return operations

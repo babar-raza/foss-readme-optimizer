@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 from readme_agent.links.allocation import code_sha256, resolve_link_budget
 from readme_agent.links.catalog import lookup_verified_target, normalize_target_url
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
+from readme_agent.links.terminology import enterprise_product_name_from_facts
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_render_context import DocumentRenderContext
@@ -133,7 +134,13 @@ def _retained_product_spans(
     ).casefold()
     first_h2 = next((heading for heading in context.headings if heading.level == 2), None)
     first_h2_start = first_h2.start if first_h2 is not None else len(context.inner_text)
-    resources = context.h2("Resources")
+    scope = context.h2(
+        "scope and limitations",
+        "project scope and limitations",
+        "current limitations",
+        "limitations",
+        "known limitations",
+    )
     candidates: list[tuple[tuple, AsposeLinkRewriteV1, str, str]] = []
     for index, rewrite in enumerate(rewrites):
         target_match = re.search(_URL, rewrite.original, re.IGNORECASE)
@@ -147,14 +154,14 @@ def _retained_product_spans(
         record = lookup_verified_target(catalogs, target)
         if record is None or not record.linkable or record.surface != "products":
             continue
-        in_resources = bool(
-            resources is not None
-            and resources.heading_end <= rewrite.character_start < resources.section_end
+        in_scope = bool(
+            scope is not None and scope.heading_end <= rewrite.character_start < scope.section_end
         )
+        if not in_scope:
+            continue
         candidates.append(
             (
                 (
-                    1 if in_resources else 0,
                     0 if platform in record.platforms else 1,
                     0 if record.parent_domain == "aspose.org" else 1,
                     index,
@@ -164,12 +171,9 @@ def _retained_product_spans(
                 record.parent_domain,
             )
         )
-    total_limit = max(0, budget.max_total - (1 if budget.max_total else 0))
+    total_limit = budget.max_total
     domain_limits = {
-        "aspose.org": max(
-            0,
-            budget.domain_maxima["aspose.org"] - (1 if budget.domain_maxima["aspose.org"] else 0),
-        ),
+        "aspose.org": budget.domain_maxima["aspose.org"],
         "aspose.com": budget.domain_maxima["aspose.com"],
     }
     retained: set[tuple[int, int]] = set()
@@ -213,6 +217,30 @@ def build_source_link_hygiene_operations(
         end = context.byte_offset(rewrite.character_end)
         if _overlaps(start, end, existing_operations):
             continue
+        replacement = rewrite.replacement
+        fact_ids: list[str] = []
+        target_match = re.search(_URL, rewrite.original, re.IGNORECASE)
+        record = (
+            lookup_verified_target(catalogs, target_match.group(0))
+            if target_match is not None
+            else None
+        )
+        if (
+            record is not None
+            and record.surface == "products"
+            and record.parent_domain == "aspose.com"
+            and (product_name := enterprise_product_name_from_facts(context.facts)) is not None
+        ):
+            replacement = f"{product_name} Enterprise Edition"
+            fact_ids = [
+                fact.fact_id
+                for fact in (
+                    context.facts.selected_fact("product.identity"),
+                    context.facts.selected_fact("relationship.commercial_foss"),
+                )
+                if fact.verification_state in {"verified", "policy_approved"}
+                and not fact.has_unresolved_conflict
+            ]
         operations.append(
             build_operation(
                 operation_id=f"readme.links.unwrap-unbound:{index}",
@@ -220,12 +248,13 @@ def build_source_link_hygiene_operations(
                 source=context.source,
                 start=start,
                 end=end,
-                replacement=rewrite.replacement,
-                fact_ids=[],
+                replacement=replacement,
+                fact_ids=fact_ids,
                 treatment="presentation_policy_correction",
                 rationale=(
-                    "Preserve maintainer-authored visitor text while removing an Aspose target "
-                    "that has no current catalog-backed context binding."
+                    "Preserve maintainer-authored visitor meaning while removing an Aspose target "
+                    "that has no current catalog-backed context binding and normalizing any "
+                    "Enterprise Edition label."
                 ),
             )
         )

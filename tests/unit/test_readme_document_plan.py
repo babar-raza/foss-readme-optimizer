@@ -133,7 +133,7 @@ def test_missing_limitations_section_gets_every_verified_limitation():
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert "## Known limitations" in candidate
+    assert "## Scope and limitations" in candidate
     for limitation in limitations.value:
         assert limitation in candidate
     assert any(
@@ -161,7 +161,7 @@ def test_existing_limitations_section_is_not_duplicated():
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert candidate.count("## Limitations") == 1
+    assert candidate.count("## Scope and limitations") == 1
     assert "## Known limitations" not in candidate
     assert all(
         operation.operation_id != "readme.limitations.add-verified" for operation in plan.operations
@@ -187,7 +187,7 @@ def test_existing_partial_limitations_section_is_completed_without_replacement()
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert decision.valid, decision.errors
-    assert candidate.count("## Limitations") == 1
+    assert candidate.count("## Scope and limitations") == 1
     assert candidate.count("## Repository-verified constraints") == 1
     assert "Existing maintainer-authored limitation that must remain." in candidate
     for limitation in limitations.value:

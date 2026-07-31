@@ -52,6 +52,7 @@ def test_multiple_curated_usage_examples_are_preserved_below_one_verified_workfl
 ## Usage
 
 ```java
+// Keep the workbook setup concise.
 Workbook first = Workbook.load("one.xlsx");
 ```
 
@@ -69,6 +70,9 @@ Workbook second = Workbook.load("two.xlsx");
 
     assert candidate.count("## Usage") == 1
     assert candidate.count("## Additional examples") == 1
+    assert candidate.count("<details>") == 1
+    assert "<summary>Show additional examples</summary>" in candidate
+    assert "// Keep the workbook setup concise." not in candidate
     assert 'Workbook.load("one.xlsx")' in candidate
     assert 'Workbook.load("two.xlsx")' in candidate
     operation = next(
@@ -78,6 +82,15 @@ Workbook second = Workbook.load("two.xlsx");
     )
     assert operation.operation == "replace"
     assert operation.protected_content_treatment == "presentation_policy_correction"
+
+    rerendered, rerun_plan = build_readme_document_candidate(
+        facts.org_repo,
+        candidate,
+        facts,
+        base_revision=revision,
+    )
+    assert rerendered == candidate
+    assert rerun_plan.operations == []
 
 
 def _actionable_usage(source: str, disposition: str):

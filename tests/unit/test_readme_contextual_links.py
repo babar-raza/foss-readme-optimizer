@@ -36,7 +36,7 @@ def catalogs() -> AsposeLinkCatalogSetV1:
     return load_aspose_link_catalogs()
 
 
-def test_document_adds_verified_article_and_canonical_enterprise_link_then_noops() -> None:
+def test_document_prioritizes_verified_product_relationship_then_noops() -> None:
     facts = _facts()
     revision = facts.selected_fact("product.identity").source.source_revision
     assert revision is not None
@@ -73,14 +73,19 @@ For a broader feature set, see the [commercial On-Premise edition](https://produ
 
     assert validation.valid, validation.errors
     assert plan.contextual_links is not None
-    assert len(plan.contextual_links.bindings) == 1
-    binding = plan.contextual_links.bindings[0]
-    assert binding.target_url == ("https://kb.aspose.org/3d/python/how-to-get-started-3d-python/")
-    assert candidate.count(binding.target_url) == 1
+    assert len(plan.contextual_links.bindings) == 2
+    assert {binding.context_kind for binding in plan.contextual_links.bindings} == {"relationship"}
+    assert {binding.target_url for binding in plan.contextual_links.bindings} == {
+        "https://products.aspose.org/3d/python/",
+        "https://products.aspose.com/3d/python-net/",
+    }
     assert (
         "[Aspose.3D for Python Enterprise Edition](https://products.aspose.com/3d/python-net/)"
     ) in candidate
-    assert candidate.count("aspose.org") == 1
+    assert "## Scope and limitations" in candidate
+    assert candidate.count("products.aspose.org") == 1
+    assert candidate.count("products.aspose.com") == 1
+    assert "https://kb.aspose.org/3d/python/how-to-get-started-3d-python/" not in candidate
     assert "commercial On-Premise edition" not in candidate
 
     rerendered, rerun_plan = build_readme_document_candidate(
@@ -94,9 +99,44 @@ For a broader feature set, see the [commercial On-Premise edition](https://produ
 
     assert rerendered == candidate
     assert rerun_plan.contextual_links is not None
-    assert rerun_plan.contextual_links.bindings == plan.contextual_links.bindings
-    assert rerun_plan.contextual_links.omission_reason == "none"
+    assert rerun_plan.contextual_links.omission_reason in {"none", "budget_exhausted"}
     assert rerun_plan.operations == []
+
+
+def test_configured_single_link_slot_prefers_enterprise_product_context() -> None:
+    facts = _facts()
+    revision = facts.selected_fact("product.identity").source.source_revision
+    assert revision is not None
+    policy = LinkAllocationPolicyV1.model_validate(
+        {
+            "mode": "configured",
+            "max_total": 1,
+            "domain_maxima": {"aspose.org": 1, "aspose.com": 1},
+            "surface_maxima": {
+                "products": 1,
+                "docs": 0,
+                "kb": 0,
+                "blog": 0,
+                "reference": 0,
+            },
+        }
+    )
+    candidate, plan = build_readme_document_candidate(
+        ORG_REPO,
+        "# Aspose.3D FOSS for Python\n\n## Quick start\n\nExisting guidance.\n",
+        facts,
+        base_revision=revision,
+        link_catalogs=load_aspose_link_catalogs(),
+        link_allocation_policy=policy,
+    )
+
+    assert plan.contextual_links is not None
+    assert len(plan.contextual_links.bindings) == 1
+    binding = plan.contextual_links.bindings[0]
+    assert binding.context_kind == "relationship"
+    assert binding.parent_domain == "aspose.com"
+    assert candidate.count("products.aspose.com") == 1
+    assert "products.aspose.org" not in candidate
 
 
 @pytest.mark.parametrize("platform", ["python", "net", "java", "cpp", "typescript", "rust", "go"])

@@ -6,7 +6,11 @@ from collections import Counter
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.links.allocation import ResolvedLinkBudgetV1, resolve_link_budget
-from readme_agent.links.catalog import normalize_target_url, query_linkable_targets
+from readme_agent.links.catalog import (
+    lookup_verified_target,
+    normalize_target_url,
+    query_linkable_targets,
+)
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1, AsposeLinkRecordV2
 from readme_agent.links.contextual_matching import rank_contextual_articles
 from readme_agent.links.contextual_models import (
@@ -53,18 +57,99 @@ def _example_section(markdown: str, code: str) -> str | None:
     return headings[-1].title if headings else None
 
 
-def _within_budget(
+def _within_projected_budget(
     record: AsposeLinkRecordV2,
     *,
     plan_budget: ResolvedLinkBudgetV1,
     counts: AsposeLinkOccurrenceCountsV1,
+    selected: list[AsposeLinkRecordV2],
 ) -> bool:
+    """Apply the configured ceilings to existing plus already-reserved targets."""
+
     return bool(
-        counts.total < plan_budget.max_total
+        counts.total + len(selected) < plan_budget.max_total
         and counts.by_parent_domain[record.parent_domain]
+        + sum(item.parent_domain == record.parent_domain for item in selected)
         < plan_budget.domain_maxima[record.parent_domain]
-        and counts.by_surface[record.surface] < plan_budget.surface_maxima[record.surface]
+        and counts.by_surface[record.surface]
+        + sum(item.surface == record.surface for item in selected)
+        < plan_budget.surface_maxima[record.surface]
     )
+
+
+def _relationship_bindings(
+    *,
+    facts: ProductFactsV2,
+    family: str,
+    platform: str,
+    identity: FactRecordV2,
+    catalogs: AsposeLinkCatalogSetV1,
+    budget: ResolvedLinkBudgetV1,
+    counts: AsposeLinkOccurrenceCountsV1,
+    existing: set[str],
+) -> tuple[list[AsposeLinkRecordV2], list[ContextualLinkBindingV1]]:
+    """Reserve verified product links for the accepted FOSS/Enterprise relationship."""
+
+    relationship = _accepted(facts, "relationship.commercial_foss")
+    if relationship is None:
+        return [], []
+    candidates = query_linkable_targets(
+        catalogs,
+        family=family,
+        platform=platform,
+        surfaces={"products"},
+    )
+    existing_product_domains = {
+        record.parent_domain
+        for target in existing
+        if (record := lookup_verified_target(catalogs, target)) is not None
+        and record.surface == "products"
+    }
+    selected: list[AsposeLinkRecordV2] = []
+    # Enterprise context is the more useful single-slot fallback. With the
+    # normal automatic budget, the FOSS product page follows it.
+    for parent_domain in ("aspose.com", "aspose.org"):
+        if parent_domain in existing_product_domains:
+            continue
+        record = next(
+            (
+                item
+                for item in candidates
+                if item.parent_domain == parent_domain
+                and normalize_target_url(item.url) not in existing
+            ),
+            None,
+        )
+        if record is None or not _within_projected_budget(
+            record,
+            plan_budget=budget,
+            counts=counts,
+            selected=selected,
+        ):
+            continue
+        selected.append(record)
+    bindings = [
+        ContextualLinkBindingV1(
+            binding_id=f"readme.relationship:{record.record_id}",
+            context_kind="relationship",
+            section_heading="Scope and limitations",
+            context_id=relationship.fact_id,
+            target_record_id=record.record_id,
+            target_url=record.url,
+            target_title=record.title,
+            parent_domain=record.parent_domain,
+            surface=record.surface,
+            support_rationale=(
+                "Verified product page supports the policy-approved open-source and "
+                "Enterprise Edition relationship."
+            ),
+            placement="inline_supporting_prose",
+            accepted_fact_ids=[identity.fact_id, relationship.fact_id],
+            matched_subject_terms=[family, platform],
+        )
+        for record in selected
+    ]
+    return candidates, bindings
 
 
 def _decision(
@@ -103,7 +188,7 @@ def select_contextual_links(
     *,
     verified_code_sha256s: set[str] | None = None,
 ) -> ContextualLinkPlanV1:
-    """Return at most one strongly matched article for the accepted minimal example."""
+    """Select prioritized product relationships and at most one exact article."""
 
     family, platform, identity = _identity_scope(facts)
     enterprise_product_name = enterprise_product_name_from_facts(facts)
@@ -123,6 +208,20 @@ def select_contextual_links(
             ).items()
         )
     )
+    existing = {
+        occurrence.normalized_url for occurrence in find_aspose_link_occurrences(pre_link_markdown)
+    }
+    product_candidates, relationship_bindings = _relationship_bindings(
+        facts=facts,
+        family=family,
+        platform=platform,
+        identity=identity,
+        catalogs=catalogs,
+        budget=budget,
+        counts=counts,
+        existing=existing,
+    )
+    considered_products = [record.record_id for record in product_candidates]
     example = _accepted(facts, "example.minimal")
     value = example.value if example is not None and isinstance(example.value, dict) else {}
     code = str(value.get("code") or "").strip()
@@ -135,9 +234,9 @@ def select_contextual_links(
             budget=budget,
             counts=counts,
             pre_link_url_counts=pre_link_url_counts,
-            considered_record_ids=[],
-            bindings=[],
-            omission_reason="no_accepted_example",
+            considered_record_ids=considered_products,
+            bindings=relationship_bindings,
+            omission_reason="none" if relationship_bindings else "no_accepted_example",
         )
     section = _example_section(pre_link_markdown, code)
     if section is None:
@@ -149,9 +248,9 @@ def select_contextual_links(
             budget=budget,
             counts=counts,
             pre_link_url_counts=pre_link_url_counts,
-            considered_record_ids=[],
-            bindings=[],
-            omission_reason="no_example_section",
+            considered_record_ids=considered_products,
+            bindings=relationship_bindings,
+            omission_reason="none" if relationship_bindings else "no_example_section",
         )
     candidates = query_linkable_targets(
         catalogs,
@@ -165,7 +264,7 @@ def select_contextual_links(
         code=code,
         example_value=value,
     )
-    considered = [match.record.record_id for match in ranked]
+    considered = considered_products + [match.record.record_id for match in ranked]
     if not ranked:
         return _decision(
             family=family,
@@ -175,19 +274,28 @@ def select_contextual_links(
             budget=budget,
             counts=counts,
             pre_link_url_counts=pre_link_url_counts,
-            considered_record_ids=[],
-            bindings=[],
-            omission_reason="no_strong_context_match",
+            considered_record_ids=considered,
+            bindings=relationship_bindings,
+            omission_reason="none" if relationship_bindings else "no_strong_context_match",
         )
-    existing = {
-        occurrence.normalized_url for occurrence in find_aspose_link_occurrences(pre_link_markdown)
-    }
     for match in ranked:
         record = match.record
         matched = match.matched_terms
         if normalize_target_url(record.url) in existing:
             continue
-        if not _within_budget(record, plan_budget=budget, counts=counts):
+        if not _within_projected_budget(
+            record,
+            plan_budget=budget,
+            counts=counts,
+            selected=[
+                candidate
+                for candidate in product_candidates
+                if any(
+                    binding.target_record_id == candidate.record_id
+                    for binding in relationship_bindings
+                )
+            ],
+        ):
             continue
         return _decision(
             family=family,
@@ -199,6 +307,7 @@ def select_contextual_links(
             pre_link_url_counts=pre_link_url_counts,
             considered_record_ids=considered,
             bindings=[
+                *relationship_bindings,
                 ContextualLinkBindingV1(
                     binding_id=f"readme.example:{record.record_id}",
                     context_kind="code_example",
@@ -216,7 +325,7 @@ def select_contextual_links(
                     placement="after_verified_example",
                     accepted_fact_ids=[identity.fact_id, example.fact_id],
                     matched_subject_terms=matched,
-                )
+                ),
             ],
             omission_reason="none",
         )
@@ -234,6 +343,6 @@ def select_contextual_links(
         counts=counts,
         pre_link_url_counts=pre_link_url_counts,
         considered_record_ids=considered,
-        bindings=[],
-        omission_reason=omission,
+        bindings=relationship_bindings,
+        omission_reason="none" if relationship_bindings else omission,
     )

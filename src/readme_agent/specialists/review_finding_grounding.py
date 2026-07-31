@@ -35,7 +35,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v16-heading-contract-evidence"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v17-visible-structure"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -329,9 +329,11 @@ def _validate_quality_finding(
         )
         if (
             claims_missing_header_spacing
-            and required_core_row
             and visible_header is not None
-            and visible_header.group(1).strip() == required_core_row
+            and (
+                visible_header.group(1).lstrip().startswith(("[![", "!["))
+                or (required_core_row and visible_header.group(1).strip() == required_core_row)
+            )
         ):
             errors.append(
                 f"{finding.finding_id}:header-spacing premise contradicts configured header"
@@ -362,7 +364,7 @@ def _validate_quality_finding(
                 f"{finding.finding_id}:badge-duplication premise contradicts configured header"
             )
         title_badge = re.match(
-            r"\A(?:\ufeff)?# [^\r\n]+\r?\n\r?\n![^\r\n]+",
+            r"\A(?:\ufeff)?# [^\r\n]+\r?\n\r?\n(?:\[?!)\[[^\r\n]+",
             candidate_text,
         )
         rejects_valid_spacing = (
@@ -484,6 +486,26 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Mermaid-detail premise contradicts configured candidate"
             )
+        claims_missing_grammar_roles = (
+            "missing" in premise
+            and "input" in premise
+            and "product/api" in premise
+            and "capabilit" in premise
+            and "output" in premise
+        )
+        if claims_missing_grammar_roles and _detailed_mermaid_contract_satisfied(
+            candidate_text,
+            mermaid_standard,
+        ):
+            errors.append(
+                f"{finding.finding_id}:Mermaid-grammar premise contradicts configured candidate"
+            )
+    if (
+        "quick start" in premise
+        and ("two separate example" in premise or "duplicated example" in premise)
+        and _quick_start_fence_count(candidate_text) <= 1
+    ):
+        errors.append(f"{finding.finding_id}:Quick-start duplication premise contradicts candidate")
     if "heading alias" in premise or "heading_alias" in premise:
         header = standards.get("readme.header") or {}
         aliases = {
@@ -667,6 +689,20 @@ def _mermaid_node_count(candidate_text: str) -> int:
     return len(declarations)
 
 
+def _quick_start_fence_count(candidate_text: str) -> int:
+    """Count fenced examples inside the actual Quick start H2 only."""
+
+    heading = re.search(r"(?mi)^##[ \t]+Quick start[ \t]*$", candidate_text)
+    if heading is None:
+        return 0
+    next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
+    end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
+    return sum(
+        token.type == "fence"
+        for token in MarkdownIt("commonmark").parse(candidate_text[heading.end() : end])
+    )
+
+
 def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) -> bool:
     """Recognize the configured four-zone grammar without judging factual assurance."""
 
@@ -679,24 +715,56 @@ def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) ->
         for zone in ("subgraph Inputs", "subgraph Capabilities", "subgraph Outputs")
     ):
         return False
+    modern_ids = bool(re.search(r'(?m)^[ \t]*input_\d+\["', source))
+    input_id = r"input_\d+" if modern_ids else r"I\d+"
+    product_id = "product" if modern_ids else "PRODUCT"
+    capability_id = r"capability_\d+" if modern_ids else r"C\d+"
+    output_id = r"output_\d+" if modern_ids else r"O\d+"
     labels = re.findall(
-        r'(?m)^[ \t]*(?:I\d+|PRODUCT|C\d+|O\d+)\["([^"\r\n]+)"\][ \t]*$',
+        rf"(?m)^[ \t]*(?:{input_id}|{product_id}|{capability_id}|{output_id})"
+        r'\["([^"\r\n]+)"\][ \t]*$',
         source,
     )
-    maximum_label = standard.get("max_label_characters")
-    if not isinstance(maximum_label, int) or not labels:
+    if not labels:
         return False
-    if any(len(label.strip()) > maximum_label for label in labels):
+    maximum_label = standard.get("max_label_characters")
+    if isinstance(maximum_label, int) and any(
+        len(label.strip()) > maximum_label for label in labels
+    ):
         return False
     maximum_nodes = standard.get("max_nodes")
     if isinstance(maximum_nodes, int) and len(labels) > maximum_nodes:
         return False
+    directional = standard.get("directional_workflow")
+    connectors = (
+        ("-->",) if directional is True else ("---",) if directional is False else ("-->", "---")
+    )
+    minimum_inputs = int(standard.get("minimum_inputs", 1))
+    minimum_capabilities = int(standard.get("minimum_capabilities", 1))
+    minimum_outputs = int(standard.get("minimum_outputs", 1))
     return bool(
-        re.search(r"(?m)^[ \t]*I\d+[ \t]*-->[ \t]*PRODUCT[ \t]*$", source)
-        and re.search(r"(?m)^[ \t]*PRODUCT[ \t]*-->[ \t]*C\d+[ \t]*$", source)
-        and re.search(r"(?m)^[ \t]*C\d+[ \t]*-->[ \t]*O\d+[ \t]*$", source)
-        and re.search(r"(?i)(?:\.[a-z0-9]{2,5}\b|file|stream|document)", source)
-        and len(re.findall(r'(?m)^[ \t]*C\d+\["', source)) >= 2
+        len(re.findall(rf'(?m)^[ \t]*{input_id}\["', source)) >= minimum_inputs
+        and re.search(rf'(?m)^[ \t]*{product_id}\["[^"\r\n]+"\][ \t]*$', source)
+        and len(re.findall(rf'(?m)^[ \t]*{capability_id}\["', source)) >= minimum_capabilities
+        and len(re.findall(rf'(?m)^[ \t]*{output_id}\["', source)) >= minimum_outputs
+        and any(
+            re.search(
+                rf"(?m)^[ \t]*{input_id}[ \t]+{re.escape(connector)}"
+                rf"[ \t]+{product_id}[ \t]*$",
+                source,
+            )
+            and re.search(
+                rf"(?m)^[ \t]*{product_id}[ \t]+{re.escape(connector)}"
+                rf"[ \t]+{capability_id}[ \t]*$",
+                source,
+            )
+            and re.search(
+                rf"(?m)^[ \t]*{capability_id}[ \t]+{re.escape(connector)}"
+                rf"[ \t]+{output_id}[ \t]*$",
+                source,
+            )
+            for connector in connectors
+        )
     )
 
 

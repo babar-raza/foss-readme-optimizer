@@ -7,6 +7,10 @@ import re
 from dataclasses import dataclass
 from typing import Literal
 
+from markdown_it import MarkdownIt
+
+from readme_agent.facts.example_quality import strip_source_comments
+from readme_agent.readme.document_structure import line_offsets
 from readme_agent.readme.presentation_lint_models import (
     PresentationLintFindingV1,
     PresentationLintSpanV1,
@@ -77,6 +81,35 @@ def strip_emoji_decorations(text: str) -> str:
     for start, end in reversed(emoji_decoration_spans(text)):
         rendered = rendered[:start] + rendered[end:]
     return rendered
+
+
+def strip_fenced_code_comments(text: str) -> str:
+    """Remove comments from generated fenced code while preserving fence syntax."""
+
+    offsets = line_offsets(text)
+    replacements: list[tuple[int, int, str]] = []
+    for token in MarkdownIt("commonmark").parse(text):
+        if token.type != "fence" or token.map is None:
+            continue
+        language = token.info.strip().split(maxsplit=1)[0]
+        if not language or language.casefold() == "mermaid":
+            continue
+        start_line, end_line = token.map
+        block_start = offsets[start_line]
+        block_end = offsets[end_line]
+        block = text[block_start:block_end]
+        content_start = block.find(token.content)
+        if content_start < 0:
+            continue
+        absolute_start = block_start + content_start
+        absolute_end = absolute_start + len(token.content)
+        replacement = strip_source_comments(language, token.content)
+        if replacement != token.content:
+            replacements.append((absolute_start, absolute_end, replacement))
+    normalized = text
+    for start, end, replacement in reversed(replacements):
+        normalized = normalized[:start] + replacement + normalized[end:]
+    return normalized
 
 
 def exact_span(text: str, start: int, end: int) -> PresentationLintSpanV1:

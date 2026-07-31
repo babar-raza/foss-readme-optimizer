@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import build_operation
@@ -9,6 +11,7 @@ from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_structure import code_blocks_in_span
 from readme_agent.readme.document_templates import accepted_fact, load_template
+from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
 
 
 def _context_paragraph(title: str, url: str) -> str:
@@ -18,6 +21,137 @@ def _context_paragraph(title: str, url: str) -> str:
         .format(target_title=safe_title, target_url=url)
         .strip()
     )
+
+
+def _foss_product_name(enterprise_product_name: str) -> str:
+    if " for " in enterprise_product_name:
+        family, platform = enterprise_product_name.rsplit(" for ", maxsplit=1)
+        return f"{family} FOSS for {platform}"
+    return f"{enterprise_product_name} FOSS"
+
+
+def _relationship_paragraph(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]:
+    relationship = [binding for binding in plan.bindings if binding.context_kind == "relationship"]
+    enterprise = next(
+        (binding for binding in relationship if binding.parent_domain == "aspose.com"),
+        None,
+    )
+    foss = next(
+        (binding for binding in relationship if binding.parent_domain == "aspose.org"),
+        None,
+    )
+    fact_ids = list(
+        dict.fromkeys(fact_id for binding in relationship for fact_id in binding.accepted_fact_ids)
+    )
+    if enterprise is not None and foss is not None:
+        foss_product_name = _foss_product_name(plan.enterprise_product_name)
+        return (
+            load_template("contextual-product-relationship.md")
+            .format(
+                foss_product_name=foss_product_name,
+                foss_url=foss.target_url,
+                enterprise_product_name=plan.enterprise_product_name,
+                enterprise_url=enterprise.target_url,
+            )
+            .strip(),
+            fact_ids,
+        )
+    if enterprise is not None:
+        return (
+            load_template("contextual-enterprise-relationship.md")
+            .format(
+                enterprise_product_name=plan.enterprise_product_name,
+                enterprise_url=enterprise.target_url,
+            )
+            .strip(),
+            fact_ids,
+        )
+    if foss is not None:
+        foss_product_name = _foss_product_name(plan.enterprise_product_name)
+        return (
+            load_template("contextual-foss-product.md")
+            .format(foss_product_name=foss_product_name, foss_url=foss.target_url)
+            .strip(),
+            fact_ids,
+        )
+    return "", []
+
+
+def _apply_relationship_bindings(
+    context: DocumentRenderContext,
+    operations: list[ReadmeDocumentOperationV1],
+    plan: ContextualLinkPlanV1,
+) -> list[ReadmeDocumentOperationV1]:
+    paragraph, fact_ids = _relationship_paragraph(plan)
+    if not paragraph:
+        return operations
+    updated = list(operations)
+    source_heading = context.h2(
+        "scope and limitations",
+        "project scope and limitations",
+        "current limitations",
+        "limitations",
+        "known limitations",
+    )
+    generated_scope_index = next(
+        (
+            index
+            for index, operation in enumerate(updated)
+            if re.search(
+                r"(?mi)^##[ \t]+(?:scope and limitations|project scope and limitations|"
+                r"current limitations|limitations|known limitations)[ \t]*$",
+                operation.replacement_text,
+            )
+        ),
+        None,
+    )
+    if source_heading is None and generated_scope_index is not None:
+        operation = updated[generated_scope_index]
+        replacement = operation.replacement_text.rstrip() + "\n\n" + paragraph + "\n"
+        updated[generated_scope_index] = operation.model_copy(
+            update={
+                "replacement_text": replacement,
+                "replacement_sha256": sha256_hex(replacement),
+                "fact_ids": list(dict.fromkeys([*operation.fact_ids, *fact_ids])),
+                "rationale": (
+                    operation.rationale
+                    + " Add the verified product relationship inside the same scope section."
+                ),
+            }
+        )
+        return updated
+    if source_heading is None:
+        offset = len(context.source)
+        separator = (
+            ""
+            if context.inner_text.endswith("\n\n")
+            else "\n"
+            if context.inner_text.endswith("\n")
+            else "\n\n"
+        )
+        replacement = f"{separator}## {PRESENTATION_ENTERPRISE_LINK_SECTION}\n\n{paragraph}\n"
+    else:
+        offset = context.byte_offset(source_heading.section_end)
+        section = context.inner_text[source_heading.heading_end : source_heading.section_end]
+        separator = "" if section.endswith("\n\n") else "\n" if section.endswith("\n") else "\n\n"
+        replacement = separator + paragraph + "\n\n"
+    updated.append(
+        build_operation(
+            operation_id="readme.links.insert-product-relationship",
+            operation="insert_before" if source_heading is not None else "insert_after",
+            source=context.source,
+            start=offset,
+            end=offset,
+            replacement=replacement,
+            fact_ids=fact_ids,
+            treatment="additive",
+            rationale=(
+                "Add catalog-verified product links as natural below-fold scope context under "
+                "the accepted relationship fact and configured link budget."
+            ),
+        )
+    )
+    return updated
 
 
 def _insert_after_example(replacement: str, exact_code: str, paragraph: str) -> str:
@@ -41,13 +175,18 @@ def apply_contextual_link_bindings(
 
     if not plan.bindings:
         return operations
+    updated = _apply_relationship_bindings(context, operations, plan)
+    example_bindings = [
+        binding for binding in plan.bindings if binding.context_kind == "code_example"
+    ]
+    if not example_bindings:
+        return updated
     example = accepted_fact(context.facts, "example.minimal")
     value = example.value if example is not None and isinstance(example.value, dict) else {}
     exact_code = str(value.get("code") or "").strip()
     if example is None or not exact_code:
         raise ValueError("contextual example binding has no accepted example")
-    updated = list(operations)
-    for binding_index, binding in enumerate(plan.bindings, start=1):
+    for binding_index, binding in enumerate(example_bindings, start=1):
         paragraph = _context_paragraph(binding.target_title, binding.target_url)
         safe_title = " ".join(binding.target_title.split()).replace("[", r"\[").replace("]", r"\]")
         code_start = context.inner_text.find(exact_code)

@@ -340,7 +340,7 @@ class TestRegistry:
             "review_visual_asset_accuracy",
             "verify_package_acquisition",
             # RPOC-050/051: performs a live registry re-check as part of its own
-            # independent re-derivation (_verify_acquisition_ground_truth).
+            # independent re-derivation (verify_acquisition_ground_truth).
             "verify_readme_proposal_bundle",
             # RPOC-033: the live LLM call is this capability's own highest-
             # blast-radius axis, same reasoning as every other agentic_analysis
