@@ -9572,6 +9572,18 @@
         "reason": "entering repair attempt 1/2: Revise Header for hierarchy around exact span: # Aspose.Note FOSS for Python\nRevise Navigation for navigation around exact span: - [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Quick start](#quick-start)\n- [Installation](#installation)\n- [PDF golden workflow](#pdf-golden-workflow)\n- [Public API (what is considered supported)](#public-api-what-is-considered-supported)\n- [MS OneNote Examples](#ms-onenote-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [Development](#development)",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f1",
+          "f2"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T17:22:49.622086+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=a6c244608e6e31f98f50f4a8e74108d72f54e2d88121db5b6af696cb990d52ed after=9e7ab2d0902a6cc36b1331d66f11691aabaa55038ab94adc07adfd782ea397be; unresolved=f1,f2",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -9599,11 +9611,11 @@
     "reviewer_standard_hash": "e37f3a8da14deb312e9e51fbafe375b2d73921251d5c9ed9909ccbd37eabefaf",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T17:21:59.879561+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T17:22:49.622086+00:00"
   },
   "schema_version": 2,
-  "state_version": 1280,
+  "state_version": 1281,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "206270ab1356892df27954e2f856d0a5d22e8c3563c398a0e5d41870e925f882",
