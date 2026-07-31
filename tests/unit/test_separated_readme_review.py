@@ -366,6 +366,25 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
     candidate = (
         f"# Example FOSS for Python\n\n{badges}\n\n"
         "Example FOSS for Python reads example files.\n\n"
+        "## At a glance\n\n"
+        "```mermaid\n"
+        "flowchart LR\n"
+        '  subgraph Inputs["Inputs and formats"]\n'
+        '    input_1["Example files"]\n'
+        "  end\n"
+        '  product["Example FOSS for Python"]\n'
+        '  subgraph Capabilities["Core capabilities"]\n'
+        '    capability_1["Read"]\n'
+        '    capability_2["Inspect"]\n'
+        '    capability_3["Export"]\n'
+        "  end\n"
+        '  subgraph Outputs["Outputs and accessible content"]\n'
+        '    output_1["Document model"]\n'
+        "  end\n"
+        "  input_1 --- product\n"
+        "  product --- capability_1\n"
+        "  capability_1 --- output_1\n"
+        "```\n\n"
         "## Quick start\n\n"
         "```python\nfrom example import Document\n\nprint(Document('input.example'))\n```\n\n"
         "## Scope and limitations\n\n"
@@ -429,6 +448,53 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
                 "required_repair": "Move it after the opening value proposition.",
             }
         ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "badge-title",
+                "criterion": "markdown_integrity",
+                "section": "Header",
+                "claim": "The PyPI badge has a non-empty title attribute.",
+                "quoted_candidate_span": badges,
+                "required_repair": "Remove the non-empty title attribute.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "example-line-count",
+                "criterion": "example_presentation",
+                "section": "Quick start",
+                "claim": "The Quick start exceeds the maximum of 12 nonblank code lines.",
+                "quoted_candidate_span": "```python",
+                "required_repair": "Reduce it to 12 nonblank code lines or fewer.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "enterprise-term",
+                "criterion": "internal_terminology",
+                "section": "Scope and limitations",
+                "claim": "The section is missing the required Enterprise Edition term.",
+                "quoted_candidate_span": (
+                    "[Example for Python Enterprise Edition]"
+                    "(https://products.aspose.com/example/python/)"
+                ),
+                "required_repair": "Add the Enterprise Edition term.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "mermaid-direction",
+                "criterion": "hierarchy",
+                "section": "At a glance",
+                "claim": "The Mermaid diagram uses a directional workflow.",
+                "quoted_candidate_span": "```mermaid",
+                "required_repair": "Replace directional Mermaid with non-directional grammar.",
+            }
+        ),
     ]
 
     result = validate_review_findings(
@@ -442,6 +508,10 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
     assert any("badge-row premise" in error for error in result.errors)
     assert any("Quick-start duplication premise" in error for error in result.errors)
     assert any("placement contradicts configured section" in error for error in result.errors)
+    assert any("badge-title premise" in error for error in result.errors)
+    assert any("Quick-start line-count premise" in error for error in result.errors)
+    assert any("Enterprise Edition term premise" in error for error in result.errors)
+    assert any("Mermaid-direction premise" in error for error in result.errors)
 
 
 def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:

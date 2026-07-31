@@ -35,7 +35,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v19-visible-counts"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v20-parsed-standards"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -376,6 +376,11 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:contributors-badge premise contradicts configured kinds"
             )
+        claims_nonempty_title_attribute = (
+            "non-empty title attribute" in premise or "nonempty title attribute" in premise
+        )
+        if claims_nonempty_title_attribute and not _has_markdown_link_title(quote):
+            errors.append(f"{finding.finding_id}:badge-title premise contradicts parsed Markdown")
         claims_duplicate_badge_row = (
             "badge row appears twice" in premise
             or "duplicated badge row" in premise
@@ -526,6 +531,19 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Mermaid-grammar premise contradicts configured candidate"
             )
+        claims_directional_workflow = (
+            "uses a directional workflow" in premise
+            or "replace directional mermaid" in premise
+            or "directional arrows" in premise
+        )
+        if (
+            claims_directional_workflow
+            and mermaid_standard.get("directional_workflow") is False
+            and _detailed_mermaid_contract_satisfied(candidate_text, mermaid_standard)
+        ):
+            errors.append(
+                f"{finding.finding_id}:Mermaid-direction premise contradicts parsed candidate"
+            )
     if (
         "quick start" in premise
         and (
@@ -564,6 +582,17 @@ def _validate_quality_finding(
                 f"{finding.finding_id}:Quick-start complexity premise contradicts "
                 "configured primary-example bounds"
             )
+        claims_code_line_overflow = (
+            "exceeds the maximum" in premise or "more than" in premise
+        ) and "nonblank code line" in premise
+        if (
+            claims_code_line_overflow
+            and isinstance(maximum_code_lines, int)
+            and _quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
+        ):
+            errors.append(
+                f"{finding.finding_id}:Quick-start line-count premise contradicts candidate"
+            )
     if "heading alias" in premise or "heading_alias" in premise:
         header = standards.get("readme.header") or {}
         aliases = {
@@ -582,6 +611,20 @@ def _validate_quality_finding(
     enterprise_standard = standards.get("readme.enterprise_edition_terminology")
     if enterprise_standard is not None and "enterprise edition" in premise:
         required_term = str(enterprise_standard.get("required_term", "Enterprise Edition"))
+        required_section = str(enterprise_standard.get("required_section", ""))
+        claims_missing_required_term = (
+            "missing the required" in premise
+            or "term is missing" in premise
+            or "missing entirely" in premise
+        )
+        if (
+            claims_missing_required_term
+            and required_section
+            and _section_contains(candidate_text, required_section, required_term)
+        ):
+            errors.append(
+                f"{finding.finding_id}:Enterprise Edition term premise contradicts candidate"
+            )
         opening_only = any(
             phrase in premise
             for phrase in (
@@ -597,7 +640,6 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Enterprise Edition opening-placement premise is unconfigured"
             )
-        required_section = str(enterprise_standard.get("required_section", ""))
         if (
             opening_only
             and required_section
@@ -824,6 +866,18 @@ def _section_contains(candidate_text: str, section_title: str, text: str) -> boo
     next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
     end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
     return text.casefold() in candidate_text[heading.end() : end].casefold()
+
+
+def _has_markdown_link_title(markdown: str) -> bool:
+    """Return whether parsed Markdown contains a non-empty link title attribute."""
+
+    for token in MarkdownIt("commonmark").parse(markdown):
+        if token.type != "inline":
+            continue
+        for child in token.children or []:
+            if child.type == "link_open" and child.attrGet("title"):
+                return True
+    return False
 
 
 def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) -> bool:
