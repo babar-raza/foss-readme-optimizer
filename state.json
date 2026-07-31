@@ -19,7 +19,7 @@
     "claimed_at": "2026-07-30T14:43:18.039452+00:00",
     "claimed_by": "readme-agent-supervisor",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "73f646258d1db32cf5a3d59f78c4cf798d8d9e52bae69f14db41b9d85e6140ba",
+    "goal_activation_graph_sha256": "a3ab691ccaf2eb802db1043a83b675b510f2e8c48d1cec4f90fb06391d81e5e1",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -41,13 +41,13 @@
         "to_primary_goal_id": "GOAL-TP-TRUSTED-COHORT-POC"
       }
     ],
-    "graph_sha256": "73f646258d1db32cf5a3d59f78c4cf798d8d9e52bae69f14db41b9d85e6140ba",
-    "last_evaluated_at": "2026-07-30T22:19:41.318921+00:00",
+    "graph_sha256": "a3ab691ccaf2eb802db1043a83b675b510f2e8c48d1cec4f90fb06391d81e5e1",
+    "last_evaluated_at": "2026-07-31T05:22:38.041155+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 7,
       "denominator": 31,
-      "derived_at": "2026-07-30T21:59:56.243401+00:00",
+      "derived_at": "2026-07-31T03:58:26.011262+00:00",
       "deterministic_validated": 7,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -55,9 +55,8 @@
       "lifecycle_status_counts": {
         "DETERMINISTIC_VALIDATED": 7,
         "DISCOVERED": 14,
-        "SYSTEM_FAILURE": 1,
-        "TRUSTED_NO_OP_PROVEN": 8,
-        "TRUSTED_REPAIRING": 1
+        "SYSTEM_FAILURE": 2,
+        "TRUSTED_NO_OP_PROVEN": 8
       },
       "missing_lifecycle_repositories": [
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
@@ -79,8 +78,8 @@
       "registry_path": "data/products.json",
       "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
       "schema_version": 1,
-      "trusted_candidate_generated": 9,
-      "trusted_facts_extracted": 9,
+      "trusted_candidate_generated": 8,
+      "trusted_facts_extracted": 8,
       "trusted_no_op_proven": 8,
       "trusted_pr_open": 0,
       "trusted_transform_approved": 8
@@ -5468,7 +5467,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 628,
+  "state_version": 629,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
