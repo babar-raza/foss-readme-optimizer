@@ -612,6 +612,10 @@ def _validate_quality_finding(
             "uses a directional workflow" in premise
             or "replace directional mermaid" in premise
             or "directional arrows" in premise
+            or (
+                "directional" in premise
+                and any(term in premise for term in ("workflow", "arrow", "flowchart lr"))
+            )
         )
         if (
             claims_directional_workflow

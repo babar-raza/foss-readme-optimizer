@@ -173,6 +173,7 @@ def build_readme_document_candidate(
     journey_operations = build_core_section_journey_operations(
         context,
         operations,
+        header_visuals,
     )
     operations = [*journey_operations, *operations]
     operations.extend(build_presentation_policy_operations(context, operations))

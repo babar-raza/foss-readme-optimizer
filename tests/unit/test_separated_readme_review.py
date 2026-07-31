@@ -495,6 +495,20 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
                 "required_repair": "Replace directional Mermaid with non-directional grammar.",
             }
         ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "mermaid-layout-direction",
+                "criterion": "hierarchy",
+                "section": "At a glance",
+                "claim": (
+                    "The Mermaid diagram uses directional workflow language ('flowchart LR') "
+                    "even though the map should not imply a sequence."
+                ),
+                "quoted_candidate_span": "flowchart LR",
+                "required_repair": "Replace flowchart LR with non-directional graph grammar.",
+            }
+        ),
     ]
 
     result = validate_review_findings(
@@ -512,6 +526,10 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
     assert any("Quick-start line-count premise" in error for error in result.errors)
     assert any("Enterprise Edition term premise" in error for error in result.errors)
     assert any("Mermaid-direction premise" in error for error in result.errors)
+    assert any(
+        error.startswith("mermaid-layout-direction:Mermaid-direction premise")
+        for error in result.errors
+    )
 
 
 def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:

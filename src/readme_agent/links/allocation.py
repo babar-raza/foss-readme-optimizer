@@ -64,6 +64,29 @@ def _inline_visible_words(children: list[Token]) -> int:
     return words
 
 
+def _is_generated_relationship_disclosure(token: Token) -> bool:
+    """Exclude the system's own promotional disclosure from auto-budget growth."""
+
+    if token.type != "inline" or not token.children:
+        return False
+    hrefs = {
+        str(child.attrGet("href") or "").casefold()
+        for child in token.children
+        if child.type == "link_open"
+    }
+    if not any(
+        href.startswith(("https://products.aspose.org/", "https://products.aspose.com/"))
+        for href in hrefs
+    ):
+        return False
+    visible = " ".join(
+        child.content for child in token.children if child.type in {"text", "code_inline"}
+    ).casefold()
+    return "this readme documents the foss implementation" in visible or visible.startswith(
+        "this repository provides the open-source"
+    )
+
+
 def measure_readme_content_units(
     markdown: str,
     *,
@@ -76,6 +99,8 @@ def measure_readme_content_units(
     verified_blocks = 0
     for token in MarkdownIt("commonmark").parse(markdown):
         if token.type == "inline" and token.children:
+            if _is_generated_relationship_disclosure(token):
+                continue
             prose_words += _inline_visible_words(token.children)
             continue
         if token.type != "fence" or token.info.strip().casefold() == "mermaid":

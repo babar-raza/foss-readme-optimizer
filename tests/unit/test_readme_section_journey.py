@@ -30,7 +30,7 @@ def _facts() -> tuple[ProductFactsV2, str]:
     )
 
 
-def test_why_and_feature_sections_become_one_canonical_lossless_section():
+def test_why_and_feature_sections_become_one_open_fact_backed_section():
     facts, revision = _facts()
     source = """# Product
 
@@ -72,14 +72,32 @@ Existing quick start.
         "Installation",
         "Quick start",
     ]
-    assert "## Why Product" not in candidate
-    assert "## Currently Available Features" not in candidate
-    assert "- Create spreadsheets\n- Update cell values" in candidate
-    assert "<summary>Why Product</summary>" in candidate
-    assert "- Create workbooks\n- Read workbooks" in candidate
+    assert "\n## Why Product\n" not in candidate
+    assert "\n## Currently Available Features\n" not in candidate
+    assert "- Create, load, modify, and save workbooks and worksheets." in candidate
+    assert "- Read and write cell values and apply spreadsheet styles." in candidate
+    assert "Create spreadsheets" not in candidate
+    assert "Create workbooks" not in candidate
+    assert "<details>" not in candidate
+    assert "### Why Product" in candidate
     assert "Maintainer explanation remains useful." in candidate
-    assert any(
-        operation.operation_id == "readme.journey.key-capabilities" for operation in plan.operations
+    operation = next(
+        operation
+        for operation in plan.operations
+        if operation.operation_id == "readme.journey.key-capabilities"
+    )
+    assert operation.fact_ids
+
+    unchanged, unchanged_plan = build_readme_document_candidate(
+        facts.org_repo,
+        candidate,
+        facts,
+        base_revision=revision,
+    )
+    assert unchanged == candidate
+    assert not any(
+        operation.operation_id == "readme.journey.key-capabilities"
+        for operation in unchanged_plan.operations
     )
 
 
@@ -118,3 +136,36 @@ Existing quick start.
     )
     assert operation.fact_ids
     assert "## Key capabilities" in candidate
+
+
+def test_pure_list_source_variants_cannot_hide_or_duplicate_core_capabilities():
+    facts, revision = _facts()
+    source = """# Product
+
+## Why Product
+
+- Unverified inherited capability wording
+
+## Features
+
+- Another inherited capability inventory
+
+## Installation
+
+Existing installation guidance.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    validation = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert validation.valid, validation.errors
+    assert candidate.count("## Key capabilities") == 1
+    assert "<details>" not in candidate
+    assert "Unverified inherited capability wording" not in candidate
+    assert "Another inherited capability inventory" not in candidate
+    assert "- Create, load, modify, and save workbooks and worksheets." in candidate

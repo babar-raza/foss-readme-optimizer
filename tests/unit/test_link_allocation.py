@@ -66,6 +66,26 @@ flowchart LR
     assert budget.measurement.visible_prose_words == 5
 
 
+def test_generated_relationship_disclosure_cannot_expand_its_own_auto_budget() -> None:
+    content = _markdown_with_words(590)
+    relationship = (
+        "[Aspose.Cells FOSS for Rust](https://products.aspose.org/cells/) and "
+        "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/) "
+        "are separate products. This README documents the FOSS implementation and the "
+        "limitations above; do not assume API or feature parity beyond verified behavior."
+    )
+
+    without_disclosure = resolve_link_budget(LinkAllocationPolicyV1(), content)
+    with_disclosure = resolve_link_budget(
+        LinkAllocationPolicyV1(),
+        f"{content}\n{relationship}\n",
+    )
+
+    assert without_disclosure.max_total == 2
+    assert with_disclosure.max_total == without_disclosure.max_total
+    assert with_disclosure.measurement == without_disclosure.measurement
+
+
 def test_configured_policy_replaces_every_auto_ceiling() -> None:
     policy = LinkAllocationPolicyV1.model_validate(
         {

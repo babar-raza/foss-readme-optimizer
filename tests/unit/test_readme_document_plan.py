@@ -260,8 +260,9 @@ Inline code remains exact: `value = "✅"`.
     assert "# Aspose.Cells FOSS for Java" in candidate
     assert "## Key capabilities" in candidate
     assert "[Key capabilities](#key-capabilities)" in candidate
-    assert "- Reads workbook files" in candidate
-    assert "Copyright © 2026" in candidate
+    assert "- Create, load, modify, and save workbooks and worksheets." in candidate
+    assert "- Reads workbook files" not in candidate
+    assert "Copyright © 2026" not in candidate
     assert 'print("✅ preserved in code")' in candidate
     assert '`value = "✅"`' in candidate
     assert any(

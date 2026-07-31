@@ -271,7 +271,11 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
         accepted_ids = tool_schema["function"]["parameters"]["properties"]["diagram"]["properties"][
             "nodes"
         ]["items"]["properties"]["supporting_fact_ids"]["items"]["enum"]
-        fact_id = accepted_ids[0]
+        fact_id = next(
+            accepted_id
+            for accepted_id in accepted_ids
+            if accepted_id.startswith("product.capabilities:")
+        )
         # A reviewer-directed authoring retry must change visitor-visible output.
         # The compact overview no longer repeats fact bullets, so exercise the
         # actual agentic seam: repository-specific visual vocabulary.
@@ -1298,7 +1302,13 @@ class TestBasicLoop:
         state = backend.load(ORG_REPO)
         lifecycle = state.readme_poc_lifecycle
         assert lifecycle is not None
-        assert first.status == "CONVERGED_PROPOSAL_READY"
+        assert first.status == "CONVERGED_PROPOSAL_READY", (
+            first.blocked_reason,
+            first.blocked_category,
+            state.domain_states["readme_presentation"].accepted_status,
+            state.domain_states["readme_presentation"].last_failure_reason,
+            lifecycle.status,
+        )
         assert lifecycle.status == "AGENT_APPROVED"
         statuses = [item.to_status for item in lifecycle.history]
         assert statuses.count("AGENT_REVIEWING") == 2
