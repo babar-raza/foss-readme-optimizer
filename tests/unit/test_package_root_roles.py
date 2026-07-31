@@ -212,6 +212,54 @@ def test_typescript_manifest_supplies_license_and_compiler_target(tmp_path):
     ]
 
 
+def test_custom_distribution_license_does_not_contradict_mit_project_license(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-note"\nversion = "1.0.0"\n'
+        'license = "LicenseRef-Aspose-Split"\n'
+        'license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]\n',
+        encoding="utf-8",
+    )
+    (tmp_path / "LICENSE").write_text(
+        "MIT License\n\nPermission is hereby granted...",
+        encoding="utf-8",
+    )
+    (tmp_path / "THIRD_PARTY_NOTICES.md").write_text(
+        "# Third-Party Notices\n",
+        encoding="utf-8",
+    )
+    profile = RepositoryProfile(
+        org_repo="aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        package_roots=[
+            PackageRoot(
+                path=".",
+                ecosystem="python",
+                manifest_path="pyproject.toml",
+                confidence=1.0,
+                evidence="found pyproject.toml",
+            )
+        ],
+    )
+    entry = _entry("note", "python")
+    inventory = classify_package_root_roles(entry, profile, tmp_path, SOURCE_REVISION)
+
+    candidates = ingest_repository_product_facts(
+        entry,
+        _empty_policy(),
+        profile,
+        tmp_path,
+        SOURCE_REVISION,
+        root_roles=inventory,
+    )
+
+    project_licenses = [fact for fact in candidates if fact.field == "product.license"]
+    distribution = next(
+        fact for fact in candidates if fact.field == "distribution.license_expression"
+    )
+    assert [fact.value for fact in project_licenses] == ["MIT"]
+    assert distribution.value == "LicenseRef-Aspose-Split"
+    assert distribution.affected_surfaces == ["readme.license", "readme.third_party_notices"]
+
+
 def test_all_secondary_roles_are_typed_without_repository_specific_rules(tmp_path):
     role_paths = {
         "test": "tests",

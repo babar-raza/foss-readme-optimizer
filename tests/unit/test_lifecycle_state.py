@@ -27,11 +27,13 @@ class LifecycleBackend:
     def __init__(self):
         self.states: dict[str, RunStateV2] = {}
         self.locked: set[str] = set()
+        self.save_calls = 0
 
     def load(self, org_repo: str) -> RunStateV2 | None:
         return self.states.get(org_repo)
 
     def save(self, org_repo: str, state, expected_version: int | None) -> SaveResult:
+        self.save_calls += 1
         current = self.states.get(org_repo)
         current_version = current.state_version if current else None
         if current_version != expected_version:
@@ -242,6 +244,33 @@ class TestLifecycleTransitions:
         lifecycle = backend.load("org/repo").trigger_lifecycles["delivery:1"]
         assert lifecycle.status == "retryable"
         assert lifecycle.recovery_count == 1
+
+    def test_recovery_sweep_batches_stale_triggers_into_one_state_write(self):
+        backend = LifecycleBackend()
+        for index in range(50):
+            trigger = envelope(key=f"delivery:{index}")
+            accept_trigger(backend, trigger)
+            transition_trigger(
+                backend,
+                "org/repo",
+                trigger.dedup_key,
+                "processing",
+                lease_seconds=1,
+            )
+        writes_before_sweep = backend.save_calls
+
+        candidates = recovery_sweep(
+            backend,
+            ["org/repo"],
+            now=datetime.now(UTC) + timedelta(seconds=2),
+        )
+
+        assert len(candidates) == 50
+        assert backend.save_calls == writes_before_sweep + 1
+        state = backend.load("org/repo")
+        assert state is not None
+        assert all(record.status == "retryable" for record in state.trigger_lifecycles.values())
+        assert all(record.recovery_count == 1 for record in state.trigger_lifecycles.values())
 
     @pytest.mark.parametrize(
         "stage",

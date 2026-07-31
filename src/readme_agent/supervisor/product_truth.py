@@ -26,6 +26,7 @@ from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV1, Readm
 from readme_agent.state.readme_poc_lifecycle import (
     bind_fact_acceptance_contract,
     record_product_facts_outcome,
+    switch_content_assurance,
 )
 from readme_agent.supervisor.local_poc_evidence import (
     bind_local_poc_fact_acceptance,
@@ -263,6 +264,20 @@ def prepare_local_product_truth(
     client=None,
 ) -> PreparedProductTruthV1:
     """Resolve, optionally draft, persist, and durably classify one fact graph."""
+    state = state_backend.load(org_repo)
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if (
+        lifecycle is not None
+        and not isinstance(lifecycle, ReadmePocLifecycleStateV1)
+        and lifecycle.content_assurance != "repository_verified"
+    ):
+        switch_content_assurance(
+            state_backend,
+            org_repo,
+            "repository_verified",
+            observed_by="product_truth",
+            reason="begin repository-evidence verification",
+        )
     cached = load_prepared_product_truth(
         org_repo,
         state_backend,

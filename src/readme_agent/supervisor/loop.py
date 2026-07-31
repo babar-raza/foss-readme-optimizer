@@ -443,14 +443,34 @@ def supervise_repo(
     if track_readme_poc_lifecycle:
         if state_backend is None:
             raise RuntimeError("README-POC lifecycle tracking requires durable state")
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
         from readme_agent.state.readme_poc_lifecycle import (
             record_repository_profile,
             record_repository_snapshot,
+            switch_content_assurance,
         )
         from readme_agent.supervisor.local_poc_evidence import (
             mark_local_poc_profiled,
             write_local_poc_snapshot,
         )
+
+        if readme_poc_stage_limit not in {
+            "TRUSTED_TRANSFORM_APPROVED",
+            "TRUSTED_NO_OP_PROVEN",
+        }:
+            prior_state = state_backend.load(org_repo)
+            prior_lifecycle = prior_state.readme_poc_lifecycle if prior_state is not None else None
+            if (
+                isinstance(prior_lifecycle, ReadmePocLifecycleStateV2)
+                and prior_lifecycle.content_assurance != "repository_verified"
+            ):
+                switch_content_assurance(
+                    state_backend,
+                    org_repo,
+                    "repository_verified",
+                    observed_by="supervisor",
+                    reason="begin repository-evidence verification",
+                )
 
         poc_bundle_dir = write_local_poc_snapshot(repository_snapshot)
         record_repository_snapshot(

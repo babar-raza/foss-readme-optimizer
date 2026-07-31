@@ -174,6 +174,24 @@ def test_public_surface_tracks_reexports_types_fields_and_full_property_stack(tm
     assert surface.unresolved_reexports == ["aspose.widget:2:from .wildcard import *"]
 
 
+def test_package_layout_and_public_api_accept_utf8_bom_source(tmp_path):
+    _write_package(tmp_path, manifest="setup.py")
+    setup = tmp_path / "setup.py"
+    setup.write_text(setup.read_text(encoding="utf-8"), encoding="utf-8-sig")
+    models = tmp_path / "aspose" / "widget" / "models.py"
+    models.write_text(models.read_text(encoding="utf-8"), encoding="utf-8-sig")
+
+    layout = inspect_python_package_layout(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo="acme/widget",
+        source_revision="revision-bom",
+    )
+
+    assert layout.distribution_name == "widget-foss"
+    assert any(symbol.qualified_name == "aspose.widget.models.Widget" for symbol in surface.symbols)
+
+
 def _successful_executor(
     request: IsolatedExecutionRequestV1,
 ) -> IsolatedExecutionResultV1:

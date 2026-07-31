@@ -54,7 +54,15 @@ def _selected_manifest_values(
     profile: RepositoryProfile,
     repository_root: Path,
     root_roles: PackageRootRoleInventoryV1,
-) -> tuple[list[str], list[dict], list[dict], list[str], list[dict], list[PackageRoot]]:
+) -> tuple[
+    list[str],
+    list[dict],
+    list[dict],
+    list[str],
+    list[str],
+    list[dict],
+    list[PackageRoot],
+]:
     selected_root = root_roles.selected_package_root(profile)
     package_roots = [selected_root] if selected_root is not None else []
     selected_role = next(
@@ -65,6 +73,7 @@ def _selected_manifest_values(
     coordinates: list[dict] = []
     compatibility: list[dict] = []
     licenses: list[str] = []
+    distribution_license_expressions: list[str] = []
     release_state: list[dict] = []
     for package_root in package_roots:
         package_dir = (
@@ -118,8 +127,12 @@ def _selected_manifest_values(
                     "root_role": "product",
                 }
             )
-        if parsed.get("license"):
-            licenses.append(parsed["license"])
+        license_expression = parsed.get("license")
+        if license_expression:
+            if license_expression.startswith("LicenseRef-"):
+                distribution_license_expressions.append(license_expression)
+            else:
+                licenses.append(license_expression)
         release_state.append(
             {
                 "path": package_path,
@@ -129,7 +142,15 @@ def _selected_manifest_values(
                 "root_role": "product",
             }
         )
-    return names, coordinates, compatibility, licenses, release_state, package_roots
+    return (
+        names,
+        coordinates,
+        compatibility,
+        licenses,
+        distribution_license_expressions,
+        release_state,
+        package_roots,
+    )
 
 
 def manifest_fact_candidates(
@@ -142,13 +163,19 @@ def manifest_fact_candidates(
 ) -> list[FactRecordV2]:
     """Bind identity/acquisition/compatibility/release facts to one product root."""
 
-    names, coordinates, compatibility, licenses, releases, package_roots = (
-        _selected_manifest_values(
-            entry,
-            profile,
-            repository_root,
-            root_roles,
-        )
+    (
+        names,
+        coordinates,
+        compatibility,
+        licenses,
+        distribution_license_expressions,
+        releases,
+        package_roots,
+    ) = _selected_manifest_values(
+        entry,
+        profile,
+        repository_root,
+        root_roles,
     )
     selected_paths = [
         record.manifest_path for record in root_roles.roots if record.role == "product"
@@ -202,6 +229,15 @@ def manifest_fact_candidates(
             licenses[0] if len(set(licenses)) == 1 else sorted(set(licenses)),
         ),
         ("release.state", "manifest-and-registry", releases),
+        (
+            "distribution.license_expression",
+            "manifest",
+            (
+                distribution_license_expressions[0]
+                if len(set(distribution_license_expressions)) == 1
+                else sorted(set(distribution_license_expressions))
+            ),
+        ),
     ):
         if value:
             candidates.append(

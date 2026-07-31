@@ -37,6 +37,7 @@ def _acquisition_fact(
     observed_at: str | None,
     local_verification: LocalProductVerificationV1 | None,
     unavailable_detail: str,
+    manifest_coordinate: dict[str, str] | None,
 ) -> FactRecordV2:
     """Select one receipt-backed registry or isolated source acquisition."""
 
@@ -66,6 +67,7 @@ def _acquisition_fact(
         source_revision=source_revision,
         local_verification=local_verification,
         unavailable_detail=unavailable_detail,
+        manifest_coordinate=manifest_coordinate,
     )
     receipt = decision.registry_receipt
     source_type: FactSourceType = (
@@ -108,6 +110,7 @@ def _local_verification_facts(
     root,
     policy,
     entry: ProductEntry,
+    manifest_coordinate: dict[str, str] | None = None,
 ) -> tuple[list[FactRecordV2], dict | None]:
     """Package-acquisition verification (`installation.verified_acquisition`) and local
     minimal-example verification (`example.minimal`) are two independent questions --
@@ -204,6 +207,7 @@ def _local_verification_facts(
         observed_at,
         local_result,
         example_detail,
+        manifest_coordinate,
     )
     facts.append(acquisition)
     return facts, (local_result.model_dump(mode="json") if local_result is not None else None)
@@ -313,6 +317,30 @@ def collect_product_facts(
             root_roles=package_root_roles,
         )
     )
+    manifest_coordinate = None
+    for fact in candidates:
+        if (
+            fact.field == "installation.coordinates"
+            and fact.verification_state == "verified"
+            and isinstance(fact.value, list)
+        ):
+            selected = next(
+                (
+                    coordinate
+                    for coordinate in fact.value
+                    if isinstance(coordinate, dict)
+                    and coordinate.get("ecosystem") == entry.ecosystem
+                ),
+                None,
+            )
+            if selected is not None:
+                keys = ("group_id", "artifact_id") if entry.ecosystem == "java" else ("name",)
+                projected = {
+                    key: str(selected[key]) for key in keys if selected.get(key) is not None
+                }
+                if len(projected) == len(keys):
+                    manifest_coordinate = projected
+                    break
     local_candidates, local_verification = _local_verification_facts(
         org_repo,
         source_revision,
@@ -320,6 +348,7 @@ def collect_product_facts(
         root,
         policy,
         entry,
+        manifest_coordinate,
     )
     candidates.extend(local_candidates)
     resolved = resolve_product_facts(

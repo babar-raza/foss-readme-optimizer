@@ -128,6 +128,68 @@ def test_registry_publication_wins_over_available_source_build():
     assert decision.source_build_receipt is None
 
 
+def test_published_manifest_coordinate_precedes_naming_convention():
+    observed: list[dict[str, str]] = []
+
+    def resolver(ecosystem: str, coordinate: dict[str, str]) -> ResolutionResult:
+        observed.append(coordinate)
+        return ResolutionResult(
+            found=True,
+            detail="manifest package found",
+            registry_label="PyPI",
+            request_url=registry_request_url(ecosystem, coordinate),
+            status_code=200,
+            response_sha256="c" * 64,
+            retrieved_at=datetime.now(UTC),
+        )
+
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=None,
+        unavailable_detail="not needed",
+        resolver=resolver,
+        manifest_coordinate={"name": "aspose-note"},
+    )
+
+    assert observed == [{"name": "aspose-note"}]
+    assert decision.outcome == "REGISTRY_VERIFIED"
+    assert decision.coordinate == {"name": "aspose-note"}
+
+
+def test_unpublished_manifest_coordinate_falls_back_to_foss_convention():
+    observed: list[dict[str, str]] = []
+
+    def resolver(ecosystem: str, coordinate: dict[str, str]) -> ResolutionResult:
+        observed.append(coordinate)
+        found = coordinate["name"] == "aspose-3d-foss"
+        return ResolutionResult(
+            found=found,
+            detail="found" if found else "not found",
+            registry_label="PyPI",
+            request_url=registry_request_url(ecosystem, coordinate),
+            status_code=200 if found else 404,
+            response_sha256="c" * 64,
+            retrieved_at=datetime.now(UTC),
+        )
+
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=None,
+        unavailable_detail="not needed",
+        resolver=resolver,
+        manifest_coordinate={"name": "placeholder-package"},
+    )
+
+    assert observed == [
+        {"name": "placeholder-package"},
+        {"name": "aspose-3d-foss"},
+    ]
+    assert decision.outcome == "REGISTRY_VERIFIED"
+    assert decision.coordinate == {"name": "aspose-3d-foss"}
+
+
 def test_registry_404_and_isolated_build_select_reproducible_source():
     decision = select_acquisition(
         entry=_entry(),

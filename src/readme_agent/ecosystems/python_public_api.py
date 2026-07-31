@@ -80,7 +80,7 @@ def _module_symbols(
     source_root: Path,
     repository_root: Path,
 ) -> tuple[list[PublicSymbolV1], list[str]]:
-    tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"), filename=str(path))
+    tree = ast.parse(path.read_text(encoding="utf-8-sig", errors="replace"), filename=str(path))
     module, is_package = _module_name(path, source_root)
     if not module or any(part.startswith("_") for part in module.split(".")):
         return [], []

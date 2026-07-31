@@ -6,7 +6,7 @@ from datetime import UTC, datetime
 
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.cas import save_state_patch
-from readme_agent.state.lifecycle_schema import RecoveryCandidateV1
+from readme_agent.state.lifecycle_schema import RecoveryCandidateV1, TriggerStatusV2
 from readme_agent.state.schema import RunStateV2
 
 DEFAULT_PROCESSING_LEASE_SECONDS = 900
@@ -32,6 +32,7 @@ def recovery_sweep(
         state = backend.load(org_repo)
         if state is None:
             continue
+        eligible: dict[str, tuple[TriggerStatusV2, int]] = {}
         for key, lifecycle in state.trigger_lifecycles.items():
             if lifecycle.status not in {"accepted", "processing", "retryable"}:
                 continue
@@ -43,14 +44,31 @@ def recovery_sweep(
             stale = (observed_at - updated_at).total_seconds() >= stale_after_seconds
             if not lease_expired and not stale:
                 continue
+            eligible[key] = (lifecycle.status, lifecycle.recovery_count)
 
-            prior_status = lifecycle.status
+        if not eligible:
+            continue
 
-            def patch(current: RunStateV2, trigger_key: str = key) -> RunStateV2:
-                records = dict(current.trigger_lifecycles)
-                latest = records[trigger_key]
+        def patch(
+            current: RunStateV2,
+            trigger_keys: tuple[str, ...] = tuple(eligible),
+        ) -> RunStateV2:
+            records = dict(current.trigger_lifecycles)
+            changed = False
+            for trigger_key in trigger_keys:
+                latest = records.get(trigger_key)
+                if latest is None:
+                    continue
                 if latest.status not in {"accepted", "processing", "retryable"}:
-                    return current
+                    continue
+                updated_at = _parse_time(latest.updated_at)
+                lease_expired = (
+                    latest.lease_expires_at is not None
+                    and _parse_time(latest.lease_expires_at) <= observed_at
+                )
+                stale = (observed_at - updated_at).total_seconds() >= stale_after_seconds
+                if not lease_expired and not stale:
+                    continue
                 records[trigger_key] = latest.model_copy(
                     update={
                         "status": "retryable",
@@ -61,10 +79,16 @@ def recovery_sweep(
                         "recovery_count": latest.recovery_count + 1,
                     }
                 )
-                return current.model_copy(update={"trigger_lifecycles": records})
+                changed = True
+            if not changed:
+                return current
+            return current.model_copy(update={"trigger_lifecycles": records})
 
-            saved = save_state_patch(backend, org_repo, patch)
+        saved = save_state_patch(backend, org_repo, patch)
+        for key, (prior_status, prior_recovery_count) in eligible.items():
             recovered = saved.trigger_lifecycles[key]
+            if recovered.recovery_count <= prior_recovery_count:
+                continue
             candidates.append(
                 RecoveryCandidateV1(
                     repository=org_repo,

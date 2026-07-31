@@ -75,3 +75,16 @@ def test_multi_module_working_draft_becomes_one_source_proven_construction(
     assert normalized.code == "from aspose.threed import Scene\n\nscene = Scene()\n"
     assert normalized.evidence_paths == ["aspose/threed/Scene.py"]
     assert normalized.required_symbols == ["Scene"]
+
+
+def test_import_inventory_accepts_utf8_bom_source(tmp_path: Path) -> None:
+    _python_repo(tmp_path)
+    scene = tmp_path / "aspose" / "threed" / "Scene.py"
+    scene.write_text(scene.read_text(encoding="utf-8"), encoding="utf-8-sig")
+
+    normalized = normalize_python_import_inventory(
+        tmp_path,
+        _example("from aspose.threed import Scene, Missing\n"),
+    )
+
+    assert normalized.code == "from aspose.threed import Scene\n\nscene = Scene()\n"

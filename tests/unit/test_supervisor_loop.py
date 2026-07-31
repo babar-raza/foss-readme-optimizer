@@ -798,6 +798,48 @@ class TestBasicLoop:
         assert backend.load(ORG_REPO).domain_states == {}
         assert result.decisions[0].kind == "readme_poc_stage_complete"
         assert result.requested_readme_stage == "FACTS_READY"
+
+    def test_verified_stage_switches_trusted_assurance_before_changed_snapshot(
+        self,
+        project,
+        monkeypatch,
+    ):
+        from readme_agent.supervisor import loop as loop_module
+
+        backend = FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV2(
+            org_repo=ORG_REPO,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="TRUSTED_NO_OP_PROVEN",
+                content_assurance="trusted_inherited",
+                source_revision="0" * 40,
+                facts_hash="f" * 64,
+                candidate_hash="c" * 64,
+            ),
+        )
+        monkeypatch.setattr(loop_module, "no_change_gate_holds", lambda *args, **kwargs: True)
+        monkeypatch.setattr(
+            loop_module,
+            "run_specialist_tier",
+            lambda *args, **kwargs: pytest.fail("facts-only execution must not run specialists"),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+            readme_poc_stage_limit="FACTS_READY",
+        )
+
+        lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+        assert result.status == "STAGE_COMPLETE"
+        assert lifecycle is not None
+        assert lifecycle.content_assurance == "repository_verified"
+        assert lifecycle.status == "FACTS_READY"
+        assert lifecycle.source_revision != "0" * 40
+        assert lifecycle.assurance_history[-1].from_assurance == "trusted_inherited"
+        assert lifecycle.assurance_history[-1].to_assurance == "repository_verified"
         assert result.readme_lifecycle_status == "FACTS_READY"
 
     def test_stage_limit_requires_lifecycle_tracking(self, project):

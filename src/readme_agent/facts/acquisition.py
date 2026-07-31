@@ -106,6 +106,7 @@ def select_acquisition(
     unavailable_detail: str,
     resolution: ResolutionResult | None = None,
     resolver: AcquisitionResolver | None = None,
+    manifest_coordinate: dict[str, str] | None = None,
 ) -> AcquisitionDecisionV1:
     """Prefer authoritative publication and otherwise require isolated source proof."""
 
@@ -119,12 +120,13 @@ def select_acquisition(
             detail="registry entry has no ecosystem",
             truth_eligible=False,
         )
-    resolver_ecosystem, coordinate = canonical_foss_coordinate(
+    resolver_ecosystem, canonical_coordinate = canonical_foss_coordinate(
         entry.family,
         entry.ecosystem,
         entry.org,
         entry.repo_name,
     )
+    coordinate = manifest_coordinate or canonical_coordinate
     source_receipt = _source_build_receipt(
         local_verification,
         org_repo=entry.org_repo,
@@ -153,7 +155,20 @@ def select_acquisition(
             truth_eligible=False,
         )
 
-    registry_result = resolution or (resolver or resolve)(resolver_ecosystem, coordinate)
+    resolve_coordinate = resolver or resolve
+    if resolution is not None:
+        registry_result = resolution
+    else:
+        registry_result = resolve_coordinate(resolver_ecosystem, coordinate)
+        if (
+            manifest_coordinate
+            and manifest_coordinate != canonical_coordinate
+            and not registry_result.found
+            and not registry_result.blocked
+            and canonical_coordinate
+        ):
+            coordinate = canonical_coordinate
+            registry_result = resolve_coordinate(resolver_ecosystem, coordinate)
     receipt = _registry_receipt(resolver_ecosystem, coordinate, registry_result)
     method = _REGISTRY_METHOD_NAMES.get(resolver_ecosystem, resolver_ecosystem)
     if registry_result.found:
@@ -269,6 +284,7 @@ def reconcile_acquisition(
             local_verification=local_verification,
             unavailable_detail=prior.detail,
             resolution=resolution,
+            manifest_coordinate=receipt.coordinate,
         )
     if prior.coordinate is None:
         return select_acquisition(
@@ -276,6 +292,7 @@ def reconcile_acquisition(
             source_revision=prior.source_revision,
             local_verification=local_verification,
             unavailable_detail=prior.detail,
+            manifest_coordinate=prior.coordinate,
         )
     # Network uncertainty or a legacy record without a receipt cannot be repaired by
     # source proof: publication precedence remains unknown, so preserve the block.

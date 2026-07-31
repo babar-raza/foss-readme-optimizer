@@ -31,7 +31,7 @@ def _literal(value: ast.AST) -> Any:
 
 
 def _setup_py_metadata(path: Path) -> dict[str, Any]:
-    tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"), filename=str(path))
+    tree = ast.parse(path.read_text(encoding="utf-8-sig", errors="replace"), filename=str(path))
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call):
             continue
@@ -49,7 +49,7 @@ def _setup_py_metadata(path: Path) -> dict[str, Any]:
 
 def _setup_cfg_metadata(path: Path) -> dict[str, Any]:
     parser = configparser.ConfigParser()
-    parser.read(path, encoding="utf-8")
+    parser.read(path, encoding="utf-8-sig")
     metadata = dict(parser["metadata"]) if parser.has_section("metadata") else {}
     options = dict(parser["options"]) if parser.has_section("options") else {}
     package_dir = options.get("package_dir", "")
@@ -68,7 +68,7 @@ def _setup_cfg_metadata(path: Path) -> dict[str, Any]:
 
 
 def _pyproject_metadata(path: Path) -> dict[str, Any]:
-    data = tomllib.loads(path.read_text(encoding="utf-8", errors="replace"))
+    data = tomllib.loads(path.read_text(encoding="utf-8-sig", errors="replace"))
     project = data.get("project", {})
     setuptools = data.get("tool", {}).get("setuptools", {})
     package_dir = setuptools.get("package-dir", {})
@@ -135,7 +135,7 @@ def _namespace_parents(packages: list[Path], source_root: Path) -> list[str]:
 def _module_all(path: Path) -> list[str]:
     if not path.is_file():
         return []
-    tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"), filename=str(path))
+    tree = ast.parse(path.read_text(encoding="utf-8-sig", errors="replace"), filename=str(path))
     for node in tree.body:
         if isinstance(node, (ast.Assign, ast.AnnAssign)) and any(
             isinstance(target, ast.Name) and target.id == "__all__"

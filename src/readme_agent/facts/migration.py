@@ -28,6 +28,7 @@ SURFACE_DEPENDENCIES = {
     "product.limitations": ["readme.limitations"],
     "product.compatibility": ["readme.capabilities", "readme.installation"],
     "product.license": ["readme.license", "community.license"],
+    "distribution.license_expression": ["readme.license", "readme.third_party_notices"],
     "support.routes": ["readme.resources", "community.support"],
     "relationship.commercial_foss": ["readme.relationship"],
 }

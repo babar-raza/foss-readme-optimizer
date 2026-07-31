@@ -24,6 +24,7 @@ from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.readme_poc_lifecycle import (
     record_repository_profile,
     record_repository_snapshot,
+    switch_content_assurance,
     transition_readme_poc_status,
 )
 from readme_agent.state.schema import RunStateV2
@@ -318,6 +319,60 @@ def test_same_revision_reuses_durable_fact_graph_without_collection_or_llm(tmp_p
     assert second.resolution_source == "durable_revision_cache"
     assert second.proposed_product_truth == first.proposed_product_truth
     assert len(backend.load(ORG_REPO).readme_poc_lifecycle.history) == 4
+
+
+def test_verified_truth_reopens_a_trusted_lifecycle_without_promoting_trusted_facts(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    switch_content_assurance(
+        backend,
+        ORG_REPO,
+        "trusted_inherited",
+        observed_by="test",
+        reason="seed the lower-assurance lane",
+    )
+    trusted_state = backend.load(ORG_REPO)
+    assert trusted_state is not None
+    trusted_lifecycle = trusted_state.readme_poc_lifecycle
+    assert trusted_lifecycle is not None
+    backend.states[ORG_REPO] = trusted_state.model_copy(
+        update={
+            "readme_poc_lifecycle": trusted_lifecycle.model_copy(
+                update={
+                    "status": "TRUSTED_NO_OP_PROVEN",
+                    "facts_hash": "f" * 64,
+                    "candidate_hash": "c" * 64,
+                }
+            )
+        }
+    )
+    verified_facts = _facts()
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": verified_facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="python"),
+    )
+
+    prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    state = backend.load(ORG_REPO)
+    assert state is not None
+    lifecycle = state.readme_poc_lifecycle
+    assert lifecycle is not None
+    assert lifecycle.content_assurance == "repository_verified"
+    assert lifecycle.status == "FACTS_READY"
+    assert lifecycle.facts_hash == verified_facts.canonical_hash()
+    assert lifecycle.assurance_history[-1].from_assurance == "trusted_inherited"
+    assert lifecycle.assurance_history[-1].to_assurance == "repository_verified"
+    assert prepared.resolution_source == "repository_and_policy"
 
 
 def test_same_inputs_reuse_a_narrowly_blocked_draft_without_repeating_the_llm(

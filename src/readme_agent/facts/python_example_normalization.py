@@ -11,7 +11,7 @@ from readme_agent.registry.models import MinimalExamplePolicy
 
 
 def _has_no_required_constructor_arguments(path: Path, class_name: str) -> bool:
-    tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"), filename=str(path))
+    tree = ast.parse(path.read_text(encoding="utf-8-sig", errors="replace"), filename=str(path))
     declaration = next(
         (node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == class_name),
         None,
