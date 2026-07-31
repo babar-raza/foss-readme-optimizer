@@ -169,7 +169,48 @@ def evaluate_completed_local_poc_cache(
     current_control_plane_fingerprint: str,
     content_assurance: ContentAssuranceV1 = "repository_verified",
 ) -> LocalPocCacheDecisionV1:
-    """Fail closed unless every stored and current dependency still agrees."""
+    """Fail closed unless a no-op-proven bundle and every dependency still agree."""
+
+    return _evaluate_local_poc_cache(
+        state,
+        bundle_dir,
+        current_source_revision=current_source_revision,
+        current_control_plane_fingerprint=current_control_plane_fingerprint,
+        content_assurance=content_assurance,
+        approved_only=False,
+    )
+
+
+def evaluate_approved_local_poc_cache(
+    state: RunStateV2 | None,
+    bundle_dir: Path,
+    *,
+    current_source_revision: str | None,
+    current_control_plane_fingerprint: str,
+    content_assurance: ContentAssuranceV1 = "repository_verified",
+) -> LocalPocCacheDecisionV1:
+    """Fail closed unless an approved bundle can prove its first unchanged rerun."""
+
+    return _evaluate_local_poc_cache(
+        state,
+        bundle_dir,
+        current_source_revision=current_source_revision,
+        current_control_plane_fingerprint=current_control_plane_fingerprint,
+        content_assurance=content_assurance,
+        approved_only=True,
+    )
+
+
+def _evaluate_local_poc_cache(
+    state: RunStateV2 | None,
+    bundle_dir: Path,
+    *,
+    current_source_revision: str | None,
+    current_control_plane_fingerprint: str,
+    content_assurance: ContentAssuranceV1,
+    approved_only: bool,
+) -> LocalPocCacheDecisionV1:
+    """Bind approved or completed reuse to the same complete dependency set."""
 
     manifest = _load_json(bundle_dir / "manifest.json")
     document_plan = _load_json(bundle_dir / "planning" / "readme-document-plan.json")
@@ -193,20 +234,29 @@ def evaluate_completed_local_poc_cache(
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     reasons: list[str] = []
 
+    allowed_statuses = {"AGENT_APPROVED"} if approved_only else _COMPLETE_STATUSES
     if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
         reasons.append("missing_v2_lifecycle")
-    elif lifecycle.status not in _COMPLETE_STATUSES:
-        reasons.append("lifecycle_not_complete")
+    elif lifecycle.status not in allowed_statuses:
+        reasons.append("lifecycle_not_approved" if approved_only else "lifecycle_not_complete")
     elif lifecycle.content_assurance != content_assurance:
         reasons.append("content_assurance_changed")
     if manifest is None:
         reasons.append("manifest_missing_or_invalid")
-    elif manifest.get("complete") is not True:
-        reasons.append("manifest_not_complete")
-    elif not isinstance(manifest.get("completed_stages"), list) or (
-        "NO_OP_PROVEN" not in manifest["completed_stages"]
-    ):
-        reasons.append("manifest_no_op_stage_missing")
+    elif approved_only:
+        if manifest.get("lifecycle_status") != "AGENT_APPROVED":
+            reasons.append("manifest_approved_status_missing")
+        if not isinstance(manifest.get("completed_stages"), list) or (
+            "AGENT_APPROVED" not in manifest["completed_stages"]
+        ):
+            reasons.append("manifest_approved_stage_missing")
+    else:
+        if manifest.get("complete") is not True:
+            reasons.append("manifest_not_complete")
+        if not isinstance(manifest.get("completed_stages"), list) or (
+            "NO_OP_PROVEN" not in manifest["completed_stages"]
+        ):
+            reasons.append("manifest_no_op_stage_missing")
     if document_plan is None:
         reasons.append("document_plan_missing_or_invalid")
     if agentic_plan is None:
@@ -219,19 +269,20 @@ def evaluate_completed_local_poc_cache(
         or final_verdict.get("deterministic_validation_passed") is not True
     ):
         reasons.append("final_verdict_not_approved")
-    if no_op_proof is None:
-        reasons.append("no_op_proof_missing_or_invalid")
-    elif (
-        no_op_proof.get("verdict") != "NO_OP_PROVEN"
-        or no_op_proof.get("candidate_hash")
-        != (getattr(lifecycle, "candidate_hash", None) if lifecycle is not None else None)
-        or no_op_proof.get("patch_created") is not False
-        or no_op_proof.get("duplicate_bundle_created") is not False
-        or no_op_proof.get("agentic_review_reused") is not True
-        or no_op_proof.get("llm_accounting_status") != "EXACT"
-        or no_op_proof.get("new_provider_call_count") != 0
-    ):
-        reasons.append("no_op_proof_invalid")
+    if not approved_only:
+        if no_op_proof is None:
+            reasons.append("no_op_proof_missing_or_invalid")
+        elif (
+            no_op_proof.get("verdict") != "NO_OP_PROVEN"
+            or no_op_proof.get("candidate_hash")
+            != (getattr(lifecycle, "candidate_hash", None) if lifecycle is not None else None)
+            or no_op_proof.get("patch_created") is not False
+            or no_op_proof.get("duplicate_bundle_created") is not False
+            or no_op_proof.get("agentic_review_reused") is not True
+            or no_op_proof.get("llm_accounting_status") != "EXACT"
+            or no_op_proof.get("new_provider_call_count") != 0
+        ):
+            reasons.append("no_op_proof_invalid")
     if inventory_sha256 is None or not _inventory_valid(bundle_dir, expected_inventory):
         reasons.append("artifact_inventory_invalid")
 

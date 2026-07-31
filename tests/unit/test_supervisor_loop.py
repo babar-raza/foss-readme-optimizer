@@ -1220,7 +1220,12 @@ class TestBasicLoop:
         )
         lifecycle_after_forced_run = backend.load(ORG_REPO).readme_poc_lifecycle
         assert lifecycle_after_forced_run is not None
-        assert forced.status == "CONVERGED_NO_TRACKED_CHANGE"
+        assert forced.status == "CONVERGED_NO_TRACKED_CHANGE", (
+            forced.blocked_reason,
+            forced.blocked_category,
+            backend.load(ORG_REPO).domain_states["readme_presentation"].accepted_status,
+            backend.load(ORG_REPO).domain_states["readme_presentation"].last_failure_reason,
+        )
         assert lifecycle_after_forced_run.status == "NO_OP_PROVEN"
         assert lifecycle_after_forced_run.history == history_before_forced_run
 

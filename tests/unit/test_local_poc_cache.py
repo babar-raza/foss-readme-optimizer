@@ -13,7 +13,7 @@ from readme_agent.llm.verification_prompts import separated_reviewer_standard_ha
 from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2, SupervisorStateV1
-from readme_agent.supervisor import local_poc_cache
+from readme_agent.supervisor import local_poc_cache, local_poc_noop_reuse
 
 ORG_REPO = "org/repo"
 SOURCE_REVISION = "a" * 40
@@ -105,6 +105,25 @@ def _decision(state, bundle, *, source_revision=SOURCE_REVISION, control=CONTROL
     )
 
 
+def _approved_cache(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    lifecycle = state.readme_poc_lifecycle.model_copy(update={"status": "AGENT_APPROVED"})
+    state = state.model_copy(update={"readme_poc_lifecycle": lifecycle})
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.update(
+        {
+            "lifecycle_status": "AGENT_APPROVED",
+            "complete": False,
+            "completed_stages": ["AGENT_APPROVED"],
+        }
+    )
+    write_redacted_json(manifest_path, manifest)
+    (bundle / "review" / "no-op-proof.json").unlink()
+    refresh_sha256sums(bundle)
+    return state, bundle
+
+
 def test_complete_current_bundle_is_reusable_with_an_inspectable_cache_key(tmp_path):
     state, bundle = _valid_cache(tmp_path)
 
@@ -116,6 +135,99 @@ def test_complete_current_bundle_is_reusable_with_an_inspectable_cache_key(tmp_p
     assert first.mismatch_reasons == []
     assert first.earliest_affected_stage is None
     assert first.cache_key == second.cache_key
+
+
+def test_approved_current_bundle_is_reusable_only_for_first_no_op_promotion(tmp_path):
+    state, bundle = _approved_cache(tmp_path)
+
+    approved = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+    completed = _decision(state, bundle)
+
+    assert approved.reusable is True
+    assert approved.status == "AGENT_APPROVED"
+    assert approved.mismatch_reasons == []
+    assert completed.reusable is False
+    assert "lifecycle_not_complete" in completed.mismatch_reasons
+
+
+def test_approved_bundle_dependency_change_denies_first_no_op_promotion(
+    monkeypatch,
+    tmp_path,
+):
+    state, bundle = _approved_cache(tmp_path)
+    monkeypatch.setattr(local_poc_cache, "document_template_hash", lambda: "9" * 64)
+
+    decision = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+
+    assert decision.reusable is False
+    assert "template_hash_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"
+
+
+def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
+    monkeypatch,
+    tmp_path,
+):
+    state, bundle = _approved_cache(tmp_path)
+    decision = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+    events: list[str] = []
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "evaluate_approved_local_poc_cache",
+        lambda *args, **kwargs: decision,
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "bind_llm_repository_revision",
+        lambda *args, **kwargs: events.append("bind"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "record_non_provider_call",
+        lambda *args, **kwargs: events.append("cache"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: events.append("transition"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "write_local_poc_no_op_evidence",
+        lambda *args, **kwargs: events.append("evidence"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "save_domain",
+        lambda *args, **kwargs: events.append("domain"),
+    )
+    backend = SimpleNamespace(load=lambda org_repo: state)
+
+    result = local_poc_noop_reuse.promote_approved_local_poc_noop(
+        backend=backend,
+        state=state,
+        bundle_dir=bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+
+    assert result.promoted is True
+    assert events == ["bind", "cache", "transition", "evidence"]
 
 
 def test_assurance_change_cannot_collide_with_verified_cache(tmp_path):

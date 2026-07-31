@@ -23,6 +23,7 @@ from readme_agent.state.freshness_contract import (
     refresh_surface_contracts,
 )
 from readme_agent.state.lifecycle import current_lifecycle_recorder
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
 from readme_agent.state.schema import (
     DomainStateV1,
     RunStateV2,
@@ -313,6 +314,51 @@ def supervise_repo(
     probed_revision = remote_head_sha(entry.clone_url) if state_backend is not None else None
     if (
         probed_revision is not None
+        and state_backend is not None
+        and prior_full_state is not None
+        and track_readme_poc_lifecycle
+        and readme_poc_stage_limit is None
+        and isinstance(
+            prior_full_state.readme_poc_lifecycle,
+            ReadmePocLifecycleStateV2,
+        )
+        and prior_full_state.readme_poc_lifecycle.status == "AGENT_APPROVED"
+        and prior_full_state.readme_poc_lifecycle.source_revision is not None
+    ):
+        from readme_agent.supervisor.local_poc_noop_reuse import (
+            finish_local_poc_preclone_reuse,
+            promote_approved_local_poc_noop,
+        )
+
+        approved_bundle_dir = paths.readme_poc_repository_dir(
+            entry.org,
+            entry.repo_name,
+            prior_full_state.readme_poc_lifecycle.source_revision,
+        )
+        promotion = promote_approved_local_poc_noop(
+            backend=state_backend,
+            state=prior_full_state,
+            bundle_dir=approved_bundle_dir,
+            current_source_revision=probed_revision,
+            current_control_plane_fingerprint=current_control_plane_fingerprint,
+        )
+        if promotion.promoted:
+            return finish_local_poc_preclone_reuse(
+                backend=state_backend,
+                org_repo=org_repo,
+                current_source_revision=probed_revision,
+                current_control_plane_fingerprint=current_control_plane_fingerprint,
+                prior_surface_freshness=prior.surface_freshness if prior else {},
+                decision_kind="local_poc_approved_noop_reuse",
+                decision_detail=(
+                    "unchanged approved README bundle promoted to NO_OP_PROVEN; "
+                    "zero clone, author, or reviewer provider calls"
+                ),
+                write_evidence_bundle=write_evidence_bundle,
+                fail_closed_on_state_failure=fail_closed_on_state_failure,
+            )
+    if (
+        probed_revision is not None
         and no_change_gate_holds(
             prior_full_state,
             probed_revision,
@@ -391,6 +437,58 @@ def supervise_repo(
             evidence_dir=probe_evidence_dir,
         )
 
+    if (
+        probed_revision is not None
+        and state_backend is not None
+        and prior_full_state is not None
+        and track_readme_poc_lifecycle
+        and readme_poc_stage_limit is None
+        and isinstance(
+            prior_full_state.readme_poc_lifecycle,
+            ReadmePocLifecycleStateV2,
+        )
+        and prior_full_state.readme_poc_lifecycle.status
+        in {
+            "NO_OP_PROVEN",
+            "HUMAN_REVIEW_READY",
+            "HUMAN_ACCEPTED",
+            "PR_ELIGIBLE",
+            "PR_PROOF_COMPLETE",
+        }
+        and prior_full_state.readme_poc_lifecycle.source_revision is not None
+    ):
+        from readme_agent.supervisor.local_poc_noop_reuse import (
+            finish_local_poc_preclone_reuse,
+            reuse_completed_local_poc_noop,
+        )
+
+        completed_bundle_dir = paths.readme_poc_repository_dir(
+            entry.org,
+            entry.repo_name,
+            prior_full_state.readme_poc_lifecycle.source_revision,
+        )
+        completed_reuse = reuse_completed_local_poc_noop(
+            state=prior_full_state,
+            bundle_dir=completed_bundle_dir,
+            current_source_revision=probed_revision,
+            current_control_plane_fingerprint=current_control_plane_fingerprint,
+        )
+        if completed_reuse.reused:
+            return finish_local_poc_preclone_reuse(
+                backend=state_backend,
+                org_repo=org_repo,
+                current_source_revision=probed_revision,
+                current_control_plane_fingerprint=current_control_plane_fingerprint,
+                prior_surface_freshness=prior.surface_freshness if prior else {},
+                decision_kind="local_poc_complete_cache_reuse",
+                decision_detail=(
+                    "checksum-complete NO_OP_PROVEN README bundle reused after generic "
+                    "freshness shortcut was unavailable; zero clone or provider calls"
+                ),
+                write_evidence_bundle=write_evidence_bundle,
+                fail_closed_on_state_failure=fail_closed_on_state_failure,
+            )
+
     # SCL-009 (2026-07-22): clone_baseline() itself validates its own memo
     # against a cheap remote_head_sha() probe before reusing a prior clone
     # (see clone.py's own module docstring) -- this call is always correct
@@ -443,7 +541,6 @@ def supervise_repo(
     if track_readme_poc_lifecycle:
         if state_backend is None:
             raise RuntimeError("README-POC lifecycle tracking requires durable state")
-        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
         from readme_agent.state.readme_poc_lifecycle import (
             record_repository_profile,
             record_repository_snapshot,
@@ -833,11 +930,6 @@ def supervise_repo(
                 )
             loaded = state_backend.load(org_repo) if state_backend is not None else None
             lifecycle = loaded.readme_poc_lifecycle if loaded is not None else None
-            from readme_agent.state.lifecycle_schema import (
-                ReadmePocLifecycleStateV2,
-                ReadmePocStatusV2,
-            )
-
             observed_stage = (
                 cast(ReadmePocStatusV2, lifecycle.status)
                 if isinstance(lifecycle, ReadmePocLifecycleStateV2)
