@@ -2953,9 +2953,9 @@
     },
     "visual_preparation": {
       "accepted_facts_hash": "df02beaf61a2ee727c93553aacc6c29ca9261792ad5e036ff7e8128518485ccc",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 1,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "note FOSS for python logo",
         "concerns": [],
@@ -2971,13 +2971,11 @@
         },
         "size_bytes": 2180,
         "size_within_reasonable_bounds": true,
-        "skip_reason": "llm_selected",
-        "skipped_at_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
           "depicts_unsupported_content": false,
-          "rationale": "The text 'note FOSS for python' accurately reflects the product name and target platform (Python) as stated in the product facts. There are no misleading or unsupported claims in the image.",
+          "rationale": "The text 'note FOSS for python' accurately reflects the product name and target platform (Python) as stated in the product facts. There are no unsupported claims or misleading elements in the image.",
           "verdict": "accept"
         },
         "width": 800
@@ -2985,9 +2983,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T10:31:16.426545+00:00",
+      "last_run_timestamp": "2026-07-31T10:48:11.065062+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     }
   },
@@ -6890,7 +6888,7 @@
     "updated_at": "2026-07-31T10:40:46.515498+00:00"
   },
   "schema_version": 2,
-  "state_version": 810,
+  "state_version": 811,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
