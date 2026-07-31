@@ -1355,7 +1355,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": null,
+    "candidate_hash": "10deafdbd5ec6cb9dd54e1d0cbe75936cc30e4caa366649380d5db550ceda4fd",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -2593,6 +2593,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\6465f40a54ab5954ae86\\r\\d682846653bd11e0\\s\\dac5d70e0f91\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-07-31T23:01:11.341546+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -2621,11 +2633,11 @@
     "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "PLAN_READY",
-    "updated_at": "2026-07-31T23:01:05.560729+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-07-31T23:01:11.341546+00:00"
   },
   "schema_version": 2,
-  "state_version": 293,
+  "state_version": 294,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
