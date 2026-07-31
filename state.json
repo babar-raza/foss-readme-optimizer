@@ -2302,6 +2302,18 @@
         "reason": "entering repair attempt 1/2: Revise Navigation for hierarchy around exact span: ## Navigation\nRevise Key capabilities for visible_duplication around exact span: - Convert PS/EPS to PDF in Python\n- Convert PS/EPS to PNG and JPEG in Python\n- Convert XPS to PDF in Python\n- Convert XPS to PNG and JPEG in Python\n- Integrate conversion workflows through MCP server tools",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f1",
+          "f2"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T21:11:18.349037+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=3262f67e0a9cc6bf979d0d55eebc1865e04f6b4eb250f7a4f04162291d6f8f61 after=b0baa5a4cbb3fd644d4733f47962ed822eaf3fed122e6c2c7e143a1928eb96bc; unresolved=f1,f2",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -2329,11 +2341,11 @@
     "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T21:10:25.906888+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T21:11:18.349037+00:00"
   },
   "schema_version": 2,
-  "state_version": 239,
+  "state_version": 240,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
