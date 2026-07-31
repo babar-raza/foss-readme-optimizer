@@ -16,6 +16,7 @@ from readme_agent.llm.verification_prompts import (
     build_factual_plan_review_messages,
 )
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.specialists.factual_review_packet import build_factual_review_packet
 from readme_agent.specialists.independent_readme_review import (
     record_review_verdict,
 )
@@ -96,6 +97,13 @@ def run_separated_readme_review(
         product_facts_v2 = facts_dispatch.result["product_facts_v2"]
 
     candidate_sha256 = sha256_hex(candidate_readme_text)
+    factual_packet = build_factual_review_packet(
+        org_repo,
+        candidate_readme_text,
+        product_facts_v2,
+        presentation_plan,
+    )
+    factual_packet_payload = factual_packet.model_dump(mode="json")
     blind_input = BlindQualityReviewInputV1(
         org_repo=org_repo,
         original_readme_text=original_readme_text,
@@ -111,6 +119,8 @@ def run_separated_readme_review(
         product_facts_sha256=json_hash(product_facts_v2),
         presentation_plan=presentation_plan,
         presentation_plan_sha256=json_hash(presentation_plan),
+        review_packet=factual_packet_payload,
+        review_packet_sha256=json_hash(factual_packet_payload),
         rubric_version="1",
     )
 
@@ -133,8 +143,8 @@ def run_separated_readme_review(
         messages=build_factual_plan_review_messages(
             factual_input.org_repo,
             factual_input.candidate_readme_text,
-            _canonical_json(product_facts_v2),
-            _canonical_json(presentation_plan),
+            _canonical_json(factual_packet.fact_context()),
+            _canonical_json(factual_packet.plan_context()),
         ),
         candidate_text=candidate_readme_text,
         product_facts=product_facts_v2,

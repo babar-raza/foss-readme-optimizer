@@ -70,6 +70,8 @@ class FactualPlanReviewInputV1(BaseModel):
     product_facts_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     presentation_plan: dict
     presentation_plan_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    review_packet: dict
+    review_packet_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     rubric_version: str = Field(min_length=1)
 
     @model_validator(mode="after")
@@ -80,6 +82,8 @@ class FactualPlanReviewInputV1(BaseModel):
             raise ValueError("factual-plan facts hash does not match facts")
         if _json_hash(self.presentation_plan) != self.presentation_plan_sha256:
             raise ValueError("factual-plan plan hash does not match plan")
+        if _json_hash(self.review_packet) != self.review_packet_sha256:
+            raise ValueError("factual-plan review packet hash does not match packet")
         return self
 
 

@@ -99,13 +99,6 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     "trusted_readme_section_transform": "qwen3-next",
 }
 
-# A fallback is not a new prompt/job: it receives the same governed prompt plus exact deterministic
-# validation errors after the primary route failed. Its output remains behind the same schema and
-# fact/quote grounding, so it cannot become an unverified acceptance path.
-JOB_FALLBACK_MODEL_ROUTING: dict[str, str] = {
-    "factual_readme_plan_review": "gpt-oss",
-}
-
 
 def gh_token() -> str | None:
     """GH_TOKEN (primary) > GITHUB_PAT (fallback). Used read-only by every
@@ -226,12 +219,6 @@ def llm_model_for_job(job: str) -> str:
         if override:
             return override
     return JOB_MODEL_ROUTING.get(job, DEFAULT_LLM_MODEL)
-
-
-def llm_fallback_model_for_job(job: str) -> str | None:
-    """Return a separately governed model for a bounded correction attempt."""
-
-    return JOB_FALLBACK_MODEL_ROUTING.get(job)
 
 
 def llm_timeout_seconds() -> float:

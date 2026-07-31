@@ -329,7 +329,7 @@ def separated_reviewer_standard_hash() -> str:
     """Bind lifecycle reuse to both role prompts and the V1 reducer contract."""
 
     components = [
-        "separated-readme-review-v2",
+        "separated-readme-review-v3-compact-factual-packet",
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("factual_readme_plan_review"),
         hashlib.sha256(

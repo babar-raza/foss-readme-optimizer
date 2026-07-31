@@ -151,6 +151,7 @@ def test_role_inputs_are_hash_bound_and_have_disjoint_fields() -> None:
     )
     facts = {"selected_fact_ids": {"product.identity": "fact-1"}}
     plan = {"operations": [{"operation_id": "readme.overview"}]}
+    packet = {"schema_version": 1}
     factual = FactualPlanReviewInputV1(
         org_repo=ORG_REPO,
         candidate_readme_text=CANDIDATE,
@@ -159,6 +160,8 @@ def test_role_inputs_are_hash_bound_and_have_disjoint_fields() -> None:
         product_facts_sha256=json_hash(facts),
         presentation_plan=plan,
         presentation_plan_sha256=json_hash(plan),
+        review_packet=packet,
+        review_packet_sha256=json_hash(packet),
         rubric_version="1",
     )
 

@@ -129,58 +129,6 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
     ]
 
 
-def test_factual_grounding_retry_uses_the_governed_fallback_model(monkeypatch):
-    captured_models = []
-
-    def fake_post(url, json, headers, timeout):
-        captured_models.append(json["model"])
-        tool_name = json["tool_choice"]["function"]["name"]
-
-        class RoleResponse(FakeResponse):
-            def json(self):
-                return {
-                    "id": f"{tool_name}-1",
-                    "choices": [
-                        {
-                            "message": {
-                                "tool_calls": [
-                                    {
-                                        "function": {
-                                            "name": tool_name,
-                                            "arguments": json_module.dumps(
-                                                {
-                                                    "verdict": "ACCEPT",
-                                                    "reasoning": "Grounded.",
-                                                    "failed_criteria": [],
-                                                    "sections_affected": [],
-                                                    "required_repair": "",
-                                                    "findings": [],
-                                                }
-                                            ),
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ],
-                }
-
-        return RoleResponse()
-
-    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
-    client = LiveFactualPlanReviewClient(
-        "https://example/v1",
-        "key",
-        "qwen3-next",
-        fallback_model="gpt-oss",
-    )
-
-    client.analyze([{"role": "system"}, {"role": "user"}])
-    client.analyze([{"role": "system"}, {"role": "user"}, {"role": "user"}])
-
-    assert captured_models == ["qwen3-next", "gpt-oss"]
-
-
 def test_role_tool_schemas_require_grounded_acceptance_fields():
     blind_findings = BLIND_QUALITY_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
         "findings"
