@@ -7275,7 +7275,7 @@
     "updated_at": "2026-07-31T11:36:19.563866+00:00"
   },
   "schema_version": 2,
-  "state_version": 888,
+  "state_version": 889,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
@@ -8678,13 +8678,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\nfindings.0.finding_id\\n  String should match pattern '^[a-z][a-z0-9_.-]*$' [type=string_pattern_mismatch, input_value='readme.example:repair:heading:1702', input_type=str]\\n    For further information visit https://errors.pydantic.dev/2.13/v/string_pattern_mismatch\"]",
       "last_checkpoint_id": "72afe433d56d0b92158488c1ccb2fdfa4564c54f674100c75178bc605ee66b7c",
-      "lease_expires_at": "2026-07-31T11:44:49.248178+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T11:37:47.609350+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T11:38:10.977567+00:00"
     }
   },
   "trigger_records": {},
