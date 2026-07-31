@@ -23169,7 +23169,7 @@
     "updated_at": "2026-07-31T18:14:33.191051+00:00"
   },
   "schema_version": 2,
-  "state_version": 1395,
+  "state_version": 1396,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d030acef6413228d06663adb86a27a107ed3838193640c840857973e72d9fa14",
@@ -24946,13 +24946,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:local_poc_candidate_persistence:ValueError:a different result already owns this stage receipt",
       "last_checkpoint_id": "5a3a558e85f677519bc4e6c1369b17df46d3f9dad52616baca78e92f7d21cdeb",
-      "lease_expires_at": "2026-07-31T18:33:26.666174+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T18:22:42.961237+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T18:23:06.760987+00:00"
     }
   },
   "trigger_records": {},
