@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from dataclasses import dataclass
 from typing import Literal
 
@@ -10,6 +11,8 @@ from readme_agent.readme.presentation_lint_models import (
     PresentationLintFindingV1,
     PresentationLintSpanV1,
 )
+
+_INLINE_CODE = re.compile(r"`+[^`\r\n]+`+")
 
 
 @dataclass(frozen=True)
@@ -33,6 +36,47 @@ def visible_lines(text: str) -> list[VisibleLine]:
             lines.append(VisibleLine(offset, offset + len(content), content))
         offset += len(raw)
     return lines
+
+
+def _is_emoji_base(character: str) -> bool:
+    codepoint = ord(character)
+    return 0x2600 <= codepoint <= 0x27BF or 0x1F000 <= codepoint <= 0x1FAFF
+
+
+def emoji_decoration_spans(markdown: str) -> list[tuple[int, int]]:
+    """Return visible emoji spans without touching fenced or inline code."""
+
+    spans: list[tuple[int, int]] = []
+    for line in visible_lines(markdown):
+        protected = [match.span() for match in _INLINE_CODE.finditer(line.text)]
+        index = 0
+        while index < len(line.text):
+            if not _is_emoji_base(line.text[index]) or any(
+                start <= index < end for start, end in protected
+            ):
+                index += 1
+                continue
+            start = index
+            index += 1
+            while index < len(line.text) and (
+                _is_emoji_base(line.text[index])
+                or line.text[index] in {"\ufe0f", "\u200d"}
+                or 0x1F3FB <= ord(line.text[index]) <= 0x1F3FF
+            ):
+                index += 1
+            if index < len(line.text) and line.text[index] == " ":
+                index += 1
+            spans.append((line.start + start, line.start + index))
+    return spans
+
+
+def strip_emoji_decorations(text: str) -> str:
+    """Remove visitor-visible emoji decorations from a text fragment."""
+
+    rendered = text
+    for start, end in reversed(emoji_decoration_spans(text)):
+        rendered = rendered[:start] + rendered[end:]
+    return rendered
 
 
 def exact_span(text: str, start: int, end: int) -> PresentationLintSpanV1:

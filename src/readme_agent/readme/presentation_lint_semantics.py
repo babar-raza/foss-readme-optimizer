@@ -7,11 +7,18 @@ import re
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
-from readme_agent.readme.presentation_lint_text import line_span, make_finding, visible_lines
+from readme_agent.readme.presentation_lint_text import (
+    emoji_decoration_spans,
+    exact_span,
+    line_span,
+    make_finding,
+    visible_lines,
+)
 from readme_agent.readme.presentation_similarity import summaries_overlap
 
 RULE_IDS = (
     "cross_product_leakage",
+    "emoji_decoration",
     "prompt_injection_residue",
     "raw_internal_token",
     "semantic_duplicate",
@@ -57,6 +64,16 @@ def lint_semantics(
 ) -> list[PresentationLintFindingV1]:
     findings: list[PresentationLintFindingV1] = []
     lines = visible_lines(text)
+
+    emoji_spans = [exact_span(text, start, end) for start, end in emoji_decoration_spans(text)]
+    if emoji_spans:
+        findings.append(
+            make_finding(
+                "emoji_decoration",
+                "Visitor-facing emoji decoration violates the portfolio presentation contract.",
+                emoji_spans,
+            )
+        )
 
     for line in lines:
         if _PROMPT_INJECTION.search(line.text):

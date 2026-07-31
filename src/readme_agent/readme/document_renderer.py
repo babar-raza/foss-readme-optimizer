@@ -52,6 +52,8 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.document_presentation_repairs import (
     build_presentation_policy_operations,
+    canonicalize_operation_decorations,
+    commercial_directory_spans,
 )
 from readme_agent.readme.document_reconciliation import (
     build_unresolved_section_operations,
@@ -71,6 +73,7 @@ from readme_agent.readme.header_visual import (
     render_readme_header_visual,
 )
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.registry.models import LinkAllocationPolicyV1
 
 __all__ = [
@@ -95,6 +98,10 @@ def build_readme_document_candidate(
     existing = find_presentation_span(source_text)
     inner_text = existing.content if existing is not None else source_text
     source = inner_text.encode("utf-8")
+    headings = [
+        replace(heading, title=strip_emoji_decorations(heading.title))
+        for heading in parse_headings(inner_text)
+    ]
     context = DocumentRenderContext(
         org_repo=org_repo,
         source_text=source_text,
@@ -102,7 +109,7 @@ def build_readme_document_candidate(
         source=source,
         facts=facts,
         base_revision=base_revision,
-        headings=parse_headings(inner_text),
+        headings=headings,
     )
     assessment = assess_readme_document(
         org_repo,
@@ -126,13 +133,18 @@ def build_readme_document_candidate(
     withheld_spans = [
         (operation.source_byte_start, operation.source_byte_end) for operation in withheld
     ]
+    opening_exclusion_spans = [
+        *withheld_spans,
+        *commercial_directory_spans(context),
+    ]
     opening_context = replace(
         context,
         headings=[
-            heading
+            replace(heading, title=strip_emoji_decorations(heading.title))
             for heading in context.headings
             if not any(
-                start <= context.byte_offset(heading.start) < end for start, end in withheld_spans
+                start <= context.byte_offset(heading.start) < end
+                for start, end in opening_exclusion_spans
             )
         ],
     )
@@ -209,6 +221,7 @@ def build_readme_document_candidate(
         )
         operations = apply_contextual_link_bindings(context, operations, contextual_links)
         operations = prune_noop_operations(source, operations)
+    operations = canonicalize_operation_decorations(operations)
     validate_agentic_operation_coverage(
         assessment,
         assessment.sections,

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from dataclasses import replace
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -22,6 +23,7 @@ from readme_agent.readme.document_templates import (
     installation_text,
     limitations_text,
 )
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 
 AssessmentDisposition = Literal[
     "preserve",
@@ -200,7 +202,10 @@ def assess_readme_document(
 ) -> ReadmeAssessmentV1:
     """Return a source-bound assessment; repository prompt text is recorded, never obeyed."""
 
-    headings = parse_headings(source_text)
+    headings = [
+        replace(heading, title=strip_emoji_decorations(heading.title))
+        for heading in parse_headings(source_text)
+    ]
     first_h2 = next((heading for heading in headings if heading.level == 2), None)
     opening_end = first_h2.start if first_h2 is not None else len(source_text)
     opening = source_text[:opening_end]

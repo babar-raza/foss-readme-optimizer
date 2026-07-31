@@ -199,6 +199,77 @@ def test_existing_partial_limitations_section_is_completed_without_replacement()
     )
 
 
+def test_commercial_other_platforms_directory_is_removed_without_hiding_technical_content():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    source = """# Aspose.Cells FOSS for Java
+
+Spreadsheet library for Java developers.
+
+## 🌐 Other platforms (official Aspose.Cells)
+
+For the full-featured Aspose product, see the official libraries:
+
+- Aspose.Cells for .NET
+  - Product: https://products.aspose.com/cells/net/
+  - Documentation: https://docs.aspose.com/cells/net/
+
+## Platform compatibility
+
+This repository targets the Java runtime described by its build manifest.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+
+    assert "## Other platforms" not in candidate
+    assert "Aspose.Cells for .NET" not in candidate
+    assert "## Platform compatibility" in candidate
+    assert "targets the Java runtime" in candidate
+    operation = next(
+        operation
+        for operation in plan.operations
+        if operation.operation_id.startswith("readme.presentation.remove-commercial-directory:")
+    )
+    assert operation.operation == "remove"
+    assert operation.protected_content_treatment == "presentation_policy_correction"
+
+
+def test_decorative_emojis_are_removed_without_changing_code_or_technical_symbols():
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    source = """# 📦 Aspose.Cells FOSS for Java
+
+## ✨ Features
+
+- ✅ Reads workbook files
+- Copyright © 2026
+
+```text
+print("✅ preserved in code")
+```
+
+Inline code remains exact: `value = "✅"`.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+
+    assert "# Aspose.Cells FOSS for Java" in candidate
+    assert "## Features" in candidate
+    assert "[Features](#features)" in candidate
+    assert "- Reads workbook files" in candidate
+    assert "Copyright © 2026" in candidate
+    assert 'print("✅ preserved in code")' in candidate
+    assert '`value = "✅"`' in candidate
+    assert any(
+        operation.operation_id.startswith("readme.presentation.remove-emoji:")
+        for operation in plan.operations
+    )
+
+
 def test_single_unverified_usage_example_is_replaced_instead_of_duplicated():
     org_repo = "aspose-3d-foss/Aspose.3D-FOSS-for-Java"
     facts, revision = _facts(org_repo)

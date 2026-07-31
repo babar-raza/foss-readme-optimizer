@@ -160,6 +160,23 @@ def test_repeated_api_signatures_in_distinct_class_sections_are_not_duplicate_pr
     assert not [finding for finding in result.findings if finding.rule_id == "semantic_duplicate"]
 
 
+def test_emoji_decoration_fails_outside_code_but_not_inside_code() -> None:
+    candidate = """# 📦 Product
+
+```text
+✅ preserved in code
+```
+
+Inline code is protected: `✅`.
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert [finding.rule_id for finding in result.findings] == ["emoji_decoration"]
+    assert [span.text for span in result.findings[0].spans] == ["📦 "]
+
+
 def test_snake_case_api_name_inside_explanatory_bullet_is_not_an_internal_label() -> None:
     candidate = """# PDF Toolkit
 
@@ -195,6 +212,7 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
     assert result.rules_run == [
         "competing_primary_examples",
         "cross_product_leakage",
+        "emoji_decoration",
         "malformed_navigation",
         "promotional_imbalance",
         "prompt_injection_residue",
