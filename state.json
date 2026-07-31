@@ -9430,7 +9430,7 @@
     "updated_at": "2026-07-31T17:07:44.431372+00:00"
   },
   "schema_version": 2,
-  "state_version": 1254,
+  "state_version": 1255,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "206270ab1356892df27954e2f856d0a5d22e8c3563c398a0e5d41870e925f882",
@@ -11097,13 +11097,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: ['candidate.anchor.5c488977e6ec3241819e.1:evidence excerpt is not bound to cited fact', 'candidate.anchor.5c488977e6ec3241819e.1:accepted evidence without an assessment must support', 'candidate.anchor.0cdd700e83f11743a1b8.1:duplicate finding ID']",
       "last_checkpoint_id": "2ce5a656cc473a3cb38dabc84d2634255d6cef458ca99ccff139767a8da1034a",
-      "lease_expires_at": "2026-07-31T17:14:30.258115+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T17:08:59.091463+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T17:09:26.807409+00:00"
     }
   },
   "trigger_records": {},
