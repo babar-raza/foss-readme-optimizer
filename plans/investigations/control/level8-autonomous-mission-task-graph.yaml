@@ -862,6 +862,8 @@ taskcards:
   acceptance_checks:
   - All three candidates use one professional macro-structure, exactly one factual H1, and exactly one
     non-duplicated badge row with consistent applicable-slot ordering
+  - Every product-identity position uses the complete canonical product name; package, import, namespace,
+    command, and API identifiers use shorthand only in explicitly technical context
   - The Note golden reference is reviewed before Page/PDF regeneration and fixes structure rather than
     universal product prose; compact, standard, and extended density profiles share the same brand shell
   - Navigation is a Markdown list; an existing third-party-notices file receives its own heading and correct
@@ -875,8 +877,8 @@ taskcards:
   - Redundant Other platforms sections are absent, license declarations use readable prose, and README
     copyright text is consistently absent unless one verified portfolio-wide policy enables it
   - Each At a glance diagram uses a non-sequential detailed capability map with concrete Inputs/formats,
-    central Product/API, important Capabilities, and Outputs/formats; directional edges require product
-    evidence
+    the complete canonical product name at its center, important Capabilities, and Outputs/formats; directional
+    edges require product evidence
   - Every material candidate span has one stable system-issued owner across deterministic normalization
   - A grounded exact defect changes only its owned bytes with zero repair-author call; new prose is generated
     only through one bounded rewrite_owned_span action
@@ -901,10 +903,11 @@ taskcards:
   - Deterministic candidate validation, independent per-candidate review, and cohort-level review
   - Hosted in-place update followed by an identical no-op rerun
   negative_controls:
-  - Inconsistent headings, duplicate badge rows, badge-order drift, bare license links, inconsistent copyright,
-    redundant platform promotion, missing or duplicate contextual links, generic, shallow, or misleadingly
-    sequential Mermaid chains, emojis anywhere in the README, comments, and cross-product leakage fail
-    before proposal effect
+  - Inconsistent headings, abbreviated product-identity labels, technical shorthand outside technical
+    context, duplicate badge rows, badge-order drift, bare license links, inconsistent copyright, redundant
+    platform promotion, missing or duplicate contextual links, generic, shallow, or misleadingly sequential
+    Mermaid chains, emojis anywhere in the README, comments, and cross-product leakage fail before proposal
+    effect
   - Ambiguous reviewer ownership, model-renamed segments, whole-batch repair for a local defect, byte-identical
     repair, lost fencing, exceeded stage budget, repeated ineffective approach, and stale late results
     fail before rereview or promotion
@@ -8926,7 +8929,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 04c071b32e1d4c2d6ff5d2f623b2083ff9286f3da4ed79c1db8a7b40ad5a89c9
+  source_sha256: a611f792ab75a6ebdc31b188840e80debc773986d7ca132dd70a121f36f130b5
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 458
   mandatory_requirement_rows: 432

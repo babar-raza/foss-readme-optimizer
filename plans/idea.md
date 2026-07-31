@@ -46,6 +46,12 @@ supported. Badges may be omitted when their claims or targets are unavailable, b
 duplicated, split across multiple header rows, or fabricated merely to fill the row. The opening
 explains the FOSS product before any Aspose promotional destination.
 
+Every visitor-facing product-identity position uses the complete canonical product name, including
+the H1, opening, Mermaid product node, metadata proposal, visual labels, and relationship prose.
+Package names, import paths, namespaces, commands, and API identifiers may use their exact technical
+forms only where that technical identifier is itself the subject. A package or namespace shorthand
+must never replace the product name merely to save space.
+
 The common visitor journey is product explanation, compact list-based navigation, a product-specific
 `At a glance`, capabilities, installation, a visible minimal example, additional examples, API
 reference when useful, scope and limitations, development/contribution material, and a prose

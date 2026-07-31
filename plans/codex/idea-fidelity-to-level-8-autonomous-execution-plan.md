@@ -99,7 +99,8 @@ The Note reference is the extended-density case and must establish:
 
 1. exactly one factual H1 and one badge row with stable applicable-slot ordering;
 2. one product-first opening and no opening promotion;
-3. list-based navigation and a detailed non-sequential Mermaid capability map;
+3. the complete canonical product name in every identity position, list-based navigation, and a
+   detailed non-sequential Mermaid capability map whose center uses that full product name;
 4. visible installation, minimal example, core capabilities, limitations, and top API entry points;
 5. `<details>` disclosure for additional examples, the long API inventory, and maintainer-only
    workflows without dropping inherited content;

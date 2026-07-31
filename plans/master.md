@@ -2264,7 +2264,11 @@ that is the only permanence they carry; text is always the decision as it stands
     value proposition, At a glance, capabilities, installation, quick start/examples, project
     scope and limitations, development/contributing, security when supported, and license.
     Unsupported badge or section slots are omitted rather than fabricated, but remaining slots
-    retain their order.
+    retain their order. Product-identity positions—including H1, opening, Mermaid product node,
+    metadata, visual labels, and relationship prose—use the complete canonical product name.
+    Exact package, import, namespace, command, and API identifiers remain available only where the
+    technical identifier itself is being discussed; shorthand never substitutes for product
+    identity.
 
     This contract is frozen from a manually composed extended-density golden reference before
     another live LLM cohort regeneration. Aspose.Note FOSS for Python is the first binding because
