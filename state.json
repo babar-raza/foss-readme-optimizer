@@ -7631,7 +7631,7 @@
     "updated_at": "2026-07-31T12:08:20.442944+00:00"
   },
   "schema_version": 2,
-  "state_version": 948,
+  "state_version": 949,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
@@ -9078,13 +9078,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:LLMError: forced tool call returned an invalid structured response after 2 attempts: forced tool call response contained no tool_calls",
       "last_checkpoint_id": "a0132f9e7839b4b263d1fe818421466bb200aa6fbf9fe979cb0d72549d24e600",
-      "lease_expires_at": "2026-07-31T12:13:47.950815+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T12:09:40.247885+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T12:10:08.692760+00:00"
     }
   },
   "trigger_records": {},
