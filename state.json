@@ -853,6 +853,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-024740-0fd8:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "6e4011de6c4c31f7be76200d849cce04a1960f985d33c337943a7999d119df2d": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "6e4011de6c4c31f7be76200d849cce04a1960f985d33c337943a7999d119df2d",
+      "completed_at": "2026-07-31T08:52:26.785390+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260731-085217-4008",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-07-31T08:52:26.785376+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-145519-86e9:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "6e68eb663dc9b7bb63e2ddc5b0c3922af84e811c8ab4e0b492868ec9bd3f49b8": {
       "action": null,
       "attempt": 1,
@@ -5987,7 +6004,7 @@
     "updated_at": "2026-07-31T02:24:33.607388+00:00"
   },
   "schema_version": 2,
-  "state_version": 721,
+  "state_version": 722,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -6278,11 +6295,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "5d7f6ff27e697fb520dc1a6d1d825a0a470220d87595aca24b5efe1fe1ac5a78",
+      "last_checkpoint_id": "6e4011de6c4c31f7be76200d849cce04a1960f985d33c337943a7999d119df2d",
       "lease_expires_at": null,
       "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-07-31T08:47:28.344444+00:00"
+      "updated_at": "2026-07-31T08:52:26.785390+00:00"
     },
     "operator:20260730-145536-6874:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T14:55:40.634437+00:00",
