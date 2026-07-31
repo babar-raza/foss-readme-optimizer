@@ -1253,7 +1253,7 @@
     "updated_at": "2026-07-31T03:58:26.011262+00:00"
   },
   "schema_version": 2,
-  "state_version": 115,
+  "state_version": 116,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
@@ -1439,13 +1439,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "trusted composition failed: compose_trusted_readme dispatch failed: execution_error: LLMError: At a glance must contain one product and bounded input/outcome nodes",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "4e0ff5779c97e3710907cd5a8f5ad3a7d1c136812bab7121a5494654cc8e594e",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-31T03:58:36.451284+00:00"
+      "updated_at": "2026-07-31T08:10:17.553355+00:00"
     }
   },
   "trigger_records": {},
