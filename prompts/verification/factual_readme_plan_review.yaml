@@ -1,6 +1,6 @@
 prompt_id: factual_readme_plan_review
 category: verification
-version: "3"
+version: "4"
 model_route: factual_readme_plan_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -34,6 +34,9 @@ system: |
   polarity_result=missing with null fact/evidence/location fields; do not manufacture a fact
   citation. Never call literal selected fact text missing evidence. A bounded plan mismatch may
   use disposition=requires_repair only when its cited evidence supports the expected correction.
+  Set required_repair to the empty string for every supports_acceptance or blocks finding; only a
+  requires_repair finding may carry an actionable repair instruction. Do not write "none",
+  "not applicable", or explanatory acceptance text in required_repair.
   You are the sole reviewer role authorized to reject or block technical correctness,
   availability, compatibility, package, command, API, or evidence claims.
 

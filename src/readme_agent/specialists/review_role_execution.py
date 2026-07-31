@@ -61,17 +61,20 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
     normalized = dict(value)
     findings = normalized.get("findings")
     if isinstance(findings, list):
-        normalized["findings"] = [
-            (
-                {
-                    **item,
-                    "finding_id": _normalized_finding_id(item["finding_id"]),
-                }
-                if isinstance(item, dict) and isinstance(item.get("finding_id"), str)
-                else item
-            )
-            for item in findings
-        ]
+        normalized_items: list[object] = []
+        for item in findings:
+            if not isinstance(item, dict):
+                normalized_items.append(item)
+                continue
+            normalized_item = dict(item)
+            if isinstance(normalized_item.get("finding_id"), str):
+                normalized_item["finding_id"] = _normalized_finding_id(
+                    normalized_item["finding_id"]
+                )
+            if normalized_item.get("disposition") != "requires_repair":
+                normalized_item["required_repair"] = ""
+            normalized_items.append(normalized_item)
+        normalized["findings"] = normalized_items
     if role != "blind_quality":
         return normalized
     if normalized.get("verdict") != "REJECT_REPAIRABLE":

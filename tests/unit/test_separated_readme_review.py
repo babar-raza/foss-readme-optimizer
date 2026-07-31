@@ -675,6 +675,29 @@ def test_factual_finding_identifier_is_canonicalized_without_changing_evidence()
     assert finding.evidence_location == "README.md"
 
 
+def test_non_repair_finding_discards_inert_repair_text_without_changing_verdict():
+    blind = CapturingClient(_blind_accept("visitor-ready"))
+    factual_payload = _factual_accept("facts and plan agree")
+    factual_payload["findings"][0]["required_repair"] = (
+        "No repair is required because the candidate agrees with the plan."
+    )
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        blind_client=blind,
+        factual_client=CapturingClient(factual_payload),
+    )
+
+    finding = result.factual_plan_review.findings[0]
+    assert finding.disposition == "supports_acceptance"
+    assert finding.required_repair == ""
+    assert finding.claim == "The candidate identity is supported."
+
+
 def test_blind_rejection_vetoes_factual_acceptance():
     result = run_separated_readme_review(
         ORG_REPO,
