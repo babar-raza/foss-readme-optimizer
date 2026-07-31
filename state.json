@@ -9270,6 +9270,15 @@
         "reason": "independent review wiring failed: GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: ['readme.installation:quoted candidate span is absent', 'readme.example:quoted candidate span is absent']",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T17:02:14.235486+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -9297,11 +9306,11 @@
     "reviewer_standard_hash": "c92165225b8a96f7d12f97b7f4bbeb76960c198a0300a45bab5154feb2f93b57",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-31T16:53:44.976566+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T17:02:14.235486+00:00"
   },
   "schema_version": 2,
-  "state_version": 1230,
+  "state_version": 1231,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e5ebd0863d6e8598221003d56b61160c8ff91cd8823c3f7c01512650d12590c1",
