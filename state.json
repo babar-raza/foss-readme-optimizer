@@ -245,15 +245,25 @@
         "schema_version": 1,
         "to_assurance": "trusted_inherited",
         "to_status": "PROFILED"
+      },
+      {
+        "from_assurance": "trusted_inherited",
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "product_truth",
+        "occurred_at": "2026-07-31T08:43:54.117281+00:00",
+        "reason": "begin repository-evidence verification",
+        "schema_version": 1,
+        "to_assurance": "repository_verified",
+        "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "9761e44a3f34ff70b31bba05c7034dc566e2da5305df21dccde1999187b9c682",
-    "content_assurance": "trusted_inherited",
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": "a35dde20fcca2a95eff5c20df1ad12ec77512fb523178e727eda018f2d2ea566",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [],
@@ -394,6 +404,15 @@
         "reason": "exact trusted candidate and independent approval reused with zero provider calls",
         "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
         "to_status": "TRUSTED_NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "product_truth",
+        "occurred_at": "2026-07-31T08:43:54.117281+00:00",
+        "reason": "content assurance changed: begin repository-evidence verification",
+        "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -415,17 +434,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "a2e32b8f6c8331b1c5e294b65f72f2087626c3c4f242994d424b2ee8c9c6f437",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
-    "status": "TRUSTED_NO_OP_PROVEN",
-    "updated_at": "2026-07-30T03:08:15.072748+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-31T08:43:54.117281+00:00"
   },
   "schema_version": 2,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260729-063434-cfef:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
