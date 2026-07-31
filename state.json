@@ -1785,7 +1785,7 @@
     "updated_at": "2026-07-31T19:17:19.546677+00:00"
   },
   "schema_version": 2,
-  "state_version": 153,
+  "state_version": 154,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8e7620e62bf55d90eb4ccecac5660e3e5ecb2d9a8b293c6c2fb0bcfd78a560a0",
@@ -2000,13 +2000,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.raw_internal_token.625ceb66131a: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.04f98afdde84: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.2d103cea55b5: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.11510d54b455: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.bb8babcab1e9: An internal snake-case token is exposed as visitor prose.']",
       "last_checkpoint_id": "1ded7b524798078efd75bee047f6897da3043d94fe9efadffb854c5905f7bbff",
-      "lease_expires_at": "2026-07-31T19:15:49.432750+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T19:22:17.623624+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T19:22:41.670171+00:00"
     }
   },
   "trigger_records": {},
