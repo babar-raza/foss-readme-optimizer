@@ -12,6 +12,14 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
+from readme_agent.specialists.review_mechanical_observations import (
+    MechanicalCheckId,
+    MechanicalValue,
+    build_candidate_mechanical_observations,
+    quick_start_fence_count,
+    quick_start_max_nonblank_code_lines,
+    visible_header_badge_row_count,
+)
 
 FindingKind = Literal["quality", "factual"]
 FindingPolarityResult = Literal["not_applicable", "supports", "contradicts", "missing"]
@@ -35,7 +43,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v20-parsed-standards"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v21-typed-mechanical-observations"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -61,6 +69,8 @@ class GroundedReviewFindingV1(BaseModel):
     expected_polarity: EvidencePolarity | None = None
     observed_polarity: EvidencePolarity | None = None
     polarity_result: FindingPolarityResult
+    mechanical_check_id: MechanicalCheckId | None = None
+    reported_observed_value: MechanicalValue | None = None
     required_repair: str = ""
 
     @model_validator(mode="after")
@@ -81,6 +91,12 @@ class GroundedReviewFindingV1(BaseModel):
                 raise ValueError("quality finding polarity must be not_applicable")
             if self.disposition == "blocks":
                 raise ValueError("quality finding cannot block on factual evidence")
+            if (self.mechanical_check_id is None) != (self.reported_observed_value is None):
+                raise ValueError(
+                    "quality mechanical check ID and reported observed value must appear together"
+                )
+        elif self.mechanical_check_id is not None or self.reported_observed_value is not None:
+            raise ValueError("factual finding cannot carry mechanical observation fields")
         elif self.polarity_result == "missing":
             if (
                 self.fact_id is not None
@@ -171,6 +187,13 @@ def validate_review_findings(
         if isinstance(fact, dict) and fact.get("fact_id")
     }
     selected = set((product_facts or {}).get("selected_fact_ids", {}).values())
+    mechanical_observations = {
+        observation.check_id: observation
+        for observation in build_candidate_mechanical_observations(
+            candidate_text,
+            visitor_contract or {},
+        )
+    }
     seen: set[str] = set()
     for finding in findings:
         if finding.finding_id in seen:
@@ -189,6 +212,7 @@ def validate_review_findings(
                         finding,
                         candidate_text,
                         visitor_contract or {},
+                        mechanical_observations,
                     )
                 )
             continue
@@ -258,6 +282,7 @@ def _validate_quality_finding(
     finding: GroundedReviewFindingV1,
     candidate_text: str,
     visitor_contract: dict,
+    mechanical_observations: dict,
 ) -> list[str]:
     """Reject visible-quality premises contradicted by their quote or configured contract."""
 
@@ -366,7 +391,7 @@ def _validate_quality_finding(
         if (
             claims_badge_row_overflow
             and isinstance(configured_badge_rows, int)
-            and _visible_header_badge_row_count(candidate_text) <= configured_badge_rows
+            and visible_header_badge_row_count(candidate_text) <= configured_badge_rows
         ):
             errors.append(f"{finding.finding_id}:badge-row premise contradicts visible candidate")
         allowed_badge_kinds = {
@@ -375,7 +400,7 @@ def _validate_quality_finding(
         rejects_allowed_contributors_badge = (
             "contributors badge" in premise
             and "contributors" in allowed_badge_kinds
-            and _visible_header_badge_row_count(candidate_text) <= int(configured_badge_rows or 1)
+            and visible_header_badge_row_count(candidate_text) <= int(configured_badge_rows or 1)
         )
         if rejects_allowed_contributors_badge:
             errors.append(
@@ -577,7 +602,7 @@ def _validate_quality_finding(
             or "two separate fenced" in premise
             or "exceeding the maximum_fenced_blocks" in premise
         )
-        and _quick_start_fence_count(candidate_text) <= 1
+        and quick_start_fence_count(candidate_text) <= 1
     ):
         errors.append(f"{finding.finding_id}:Quick-start duplication premise contradicts candidate")
     primary_example_standard = standards.get("readme.primary_example")
@@ -600,8 +625,8 @@ def _validate_quality_finding(
             rejects_bounded_primary_example
             and isinstance(maximum_fences, int)
             and isinstance(maximum_code_lines, int)
-            and _quick_start_fence_count(candidate_text) <= maximum_fences
-            and _quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
+            and quick_start_fence_count(candidate_text) <= maximum_fences
+            and quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
         ):
             errors.append(
                 f"{finding.finding_id}:Quick-start complexity premise contradicts "
@@ -613,7 +638,7 @@ def _validate_quality_finding(
         if (
             claims_code_line_overflow
             and isinstance(maximum_code_lines, int)
-            and _quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
+            and quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
         ):
             errors.append(
                 f"{finding.finding_id}:Quick-start line-count premise contradicts candidate"
@@ -626,7 +651,7 @@ def _validate_quality_finding(
         if (
             claims_fence_overflow
             and isinstance(maximum_fences, int)
-            and _quick_start_fence_count(candidate_text) <= maximum_fences
+            and quick_start_fence_count(candidate_text) <= maximum_fences
         ):
             errors.append(
                 f"{finding.finding_id}:Quick-start fence-count premise contradicts candidate"
@@ -803,7 +828,51 @@ def _validate_quality_finding(
                 errors.append(
                     f"{finding.finding_id}:link-budget premise contradicts configured maximum"
                 )
+    if not errors:
+        errors.extend(
+            _validate_typed_mechanical_finding(
+                finding,
+                premise,
+                mechanical_observations,
+            )
+        )
     return errors
+
+
+def _validate_typed_mechanical_finding(
+    finding: GroundedReviewFindingV1,
+    premise: str,
+    mechanical_observations: dict,
+) -> list[str]:
+    """Require parser ownership only when no earlier contract rule already disproves a finding."""
+
+    expected_check = _mechanical_check_for_premise(finding, premise)
+    if expected_check is not None and finding.mechanical_check_id is None:
+        return [
+            f"{finding.finding_id}:mechanical premise lacks required typed check {expected_check}"
+        ]
+    if expected_check is not None and finding.mechanical_check_id != expected_check:
+        return [
+            f"{finding.finding_id}:mechanical premise cites {finding.mechanical_check_id} "
+            f"instead of {expected_check}"
+        ]
+    if finding.mechanical_check_id is None:
+        return []
+    observation = mechanical_observations.get(finding.mechanical_check_id)
+    if observation is None:
+        return [f"{finding.finding_id}:mechanical check is unavailable for configured candidate"]
+    if finding.reported_observed_value != observation.observed_value:
+        return [
+            f"{finding.finding_id}:reported mechanical value "
+            f"{finding.reported_observed_value!r} contradicts parser value "
+            f"{observation.observed_value!r}"
+        ]
+    if finding.disposition == "requires_repair" and observation.compliant:
+        return [
+            f"{finding.finding_id}:mechanical repair premise contradicts compliant "
+            f"{finding.mechanical_check_id} observation"
+        ]
+    return []
 
 
 def _fenced_block_has_following_blank_line(candidate_text: str, quote: str) -> bool:
@@ -860,52 +929,47 @@ def _mermaid_node_count(candidate_text: str) -> int:
     return len(declarations)
 
 
-def _quick_start_fence_count(candidate_text: str) -> int:
-    """Count fenced examples inside the actual Quick start H2 only."""
+def _mechanical_check_for_premise(
+    finding: GroundedReviewFindingV1,
+    premise: str,
+) -> MechanicalCheckId | None:
+    """Classify parser-owned structural premises independently of their conclusion wording."""
 
-    heading = re.search(r"(?mi)^##[ \t]+Quick start[ \t]*$", candidate_text)
-    if heading is None:
-        return 0
-    next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
-    end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
-    return sum(
-        token.type == "fence"
-        for token in MarkdownIt("commonmark").parse(candidate_text[heading.end() : end])
-    )
-
-
-def _quick_start_max_nonblank_code_lines(candidate_text: str) -> int:
-    """Return the largest visible code-block line count in the Quick start H2."""
-
-    heading = re.search(r"(?mi)^##[ \t]+Quick start[ \t]*$", candidate_text)
-    if heading is None:
-        return 0
-    next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
-    end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
-    counts = [
-        sum(bool(line.strip()) for line in token.content.splitlines())
-        for token in MarkdownIt("commonmark").parse(candidate_text[heading.end() : end])
-        if token.type == "fence"
-    ]
-    return max(counts, default=0)
-
-
-def _visible_header_badge_row_count(candidate_text: str) -> int:
-    """Count visible badge-bearing lines before the opening prose begins."""
-
-    lines = candidate_text.replace("\r\n", "\n").splitlines()
-    if not lines or not lines[0].startswith("# "):
-        return 0
-    count = 0
-    for line in lines[1:]:
-        stripped = line.strip()
-        if not stripped:
-            continue
-        if stripped.startswith(("[![", "![")):
-            count += 1
-            continue
-        break
-    return count
+    if "badge" in premise and "row" in premise:
+        return "header.badge_rows"
+    if any(
+        term in premise
+        for term in (
+            "missing h1",
+            "missing an h1",
+            "lacks h1",
+            "lacks an h1",
+            "h1 count",
+            "multiple h1",
+            "more than one h1",
+        )
+    ):
+        return "document.h1_blocks"
+    if finding.section.casefold() == "quick start" or "quick start" in premise:
+        quantified = bool(
+            re.search(r"\b(?:two|three|four|\d+)\b", premise)
+            or any(
+                term in premise
+                for term in (
+                    "count",
+                    "maximum",
+                    "minimum",
+                    "exceed",
+                    "duplicate",
+                    "more than one",
+                )
+            )
+        )
+        if quantified and ("fenc" in premise or "code block" in premise):
+            return "quick_start.fenced_blocks"
+        if "nonblank" in premise and "line" in premise:
+            return "quick_start.max_nonblank_code_lines"
+    return None
 
 
 def _section_contains(candidate_text: str, section_title: str, text: str) -> bool:

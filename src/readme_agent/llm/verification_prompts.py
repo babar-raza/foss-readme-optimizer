@@ -26,6 +26,10 @@ from readme_agent.specialists.review_finding_grounding import (
     BLIND_GROUNDING_CONTRACT_VERSION,
     BLIND_QUALITY_CRITERIA,
 )
+from readme_agent.specialists.review_mechanical_observations import (
+    MECHANICAL_CHECK_IDS,
+    render_candidate_mechanical_observations,
+)
 from readme_agent.specialists.trusted_fidelity_cache import FIDELITY_BATCH_CONTRACT_VERSION
 
 PROSE_QUALITY_TOOL_SCHEMA = {
@@ -162,6 +166,19 @@ def _role_review_tool_schema(
                 "type": "string",
                 "enum": ["not_applicable", "supports", "contradicts", "missing"],
             },
+            **(
+                {
+                    "mechanical_check_id": {
+                        "type": ["string", "null"],
+                        "enum": [*MECHANICAL_CHECK_IDS, None],
+                    },
+                    "reported_observed_value": {
+                        "type": ["integer", "boolean", "null"],
+                    },
+                }
+                if finding_kind == "quality"
+                else {}
+            ),
             "required_repair": {"type": "string", "maxLength": 700},
         },
         "required": [
@@ -180,6 +197,11 @@ def _role_review_tool_schema(
             "polarity_result",
             "required_repair",
             *(["candidate_anchor_id"] if finding_kind == "quality" else []),
+            *(
+                ["mechanical_check_id", "reported_observed_value"]
+                if finding_kind == "quality"
+                else []
+            ),
         ],
     }
     findings_schema: dict[str, object] = {"type": "array", "items": finding_schema}
@@ -453,6 +475,10 @@ def build_blind_quality_review_messages(
     manifest = prompt_registry.get("blind_readme_quality_review")
     assert manifest is not None, "blind_readme_quality_review prompt missing"
     assert manifest.user_template is not None
+    try:
+        visitor_contract = json.loads(visitor_contract_json)
+    except json.JSONDecodeError:
+        visitor_contract = {}
     user_content = (
         Template(manifest.user_template)
         .substitute(
@@ -461,6 +487,14 @@ def build_blind_quality_review_messages(
             candidate_readme_text=candidate_readme_text,
             candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
                 build_candidate_review_anchors(candidate_readme_text)
+            ),
+            candidate_mechanical_observations_json=json.dumps(
+                render_candidate_mechanical_observations(
+                    candidate_readme_text,
+                    visitor_contract,
+                ),
+                ensure_ascii=False,
+                sort_keys=True,
             ),
             visitor_contract_json=visitor_contract_json,
         )

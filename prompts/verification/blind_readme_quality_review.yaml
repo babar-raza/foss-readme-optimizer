@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "14"
+version: "15"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -79,9 +79,13 @@ system: |
   as visible text. A technically valid document that looks inconsistent, generic, or unfinished
   is REJECT_REPAIRABLE.
 
-  Verify every numeric or structural premise from the exact candidate before reporting it.
-  Count fences only within the named H2 section and count nonblank lines inside the cited code
-  fence. Never claim a configured term is missing when the cited span contains that literal term.
+  Parser-derived mechanical observations are supplied separately and are authoritative. For every
+  finding whose premise depends on an H1 count, badge-row count, Quick start fence count, or Quick
+  start nonblank-code-line count, select the matching mechanical_check_id and copy its exact
+  observed_value into reported_observed_value. A compliant observation cannot support a repair.
+  For a genuinely subjective finding, set both fields to null. Never estimate or reinterpret a
+  parser-owned value from visual appearance. Never claim a configured term is missing when the
+  cited span contains that literal term.
 
   Return ACCEPT only when the candidate is ready for a visitor as-is. Return
   REJECT_REPAIRABLE for any visible defect that bounded editing can repair. Return
@@ -129,6 +133,9 @@ user_template: |
   Candidate anchor catalog:
   $candidate_anchor_catalog_json
 
+  Authoritative parser-derived mechanical observations:
+  $candidate_mechanical_observations_json
+
   Review only the visible documents above. Return the required blind-quality verdict.
 input_schema:
   org_repo: string
@@ -136,6 +143,7 @@ input_schema:
   original_readme_text: string
   candidate_readme_text: string
   candidate_anchor_catalog_json: string
+  candidate_mechanical_observations_json: string
 examples: []
 turn_context_template: |
   Your previous findings failed deterministic grounding. Reconcile them against this exact

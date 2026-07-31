@@ -2270,7 +2270,8 @@ def test_blind_rubric_respects_governed_header_and_link_budget() -> None:
         '{"configured_standards":[{"standard_id":"readme.contextual_links"}]}',
     )
     assert "readme.contextual_links" in messages[1]["content"]
-    assert messages[1]["content"].startswith("/no_think")
+    assert not messages[1]["content"].startswith("/no_think")
+    assert "Authoritative parser-derived mechanical observations:" in messages[1]["content"]
 
 
 def test_trusted_fidelity_prompt_disables_unbounded_thinking() -> None:
