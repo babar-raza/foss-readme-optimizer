@@ -2510,7 +2510,7 @@
     "updated_at": "2026-07-31T22:07:52.947112+00:00"
   },
   "schema_version": 2,
-  "state_version": 274,
+  "state_version": 275,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
@@ -2813,13 +2813,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:StateBackendError: README-POC repair attempts exhausted for 'aspose-page-foss/Aspose.Page-FOSS-for-Python' at source revision dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
       "last_checkpoint_id": "7f4017b8c9ea6b3285e89a93ce15e5eab78981895f63c78d0292b186260af5f8",
-      "lease_expires_at": "2026-07-31T22:17:43.675970+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T22:09:23.417822+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T22:09:46.291936+00:00"
     }
   },
   "trigger_records": {},
