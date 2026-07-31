@@ -4,20 +4,21 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "a611f792ab75a6ebdc31b188840e80debc773986d7ca132dd70a121f36f130b5",
+  "source_sha256": "639468b303843040481cb0c32fc9083925ca74b07095c1822193beec6c59944f",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 458,
-  "mandatory_requirement_rows": 432,
+  "total_requirement_rows": 459,
+  "mandatory_requirement_rows": 433,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 236,
+    "open_mandatory": 237,
     "preserved_verified": 161
   },
   "taskcard_counts": {
+    "L8-VPY-00-GOLDEN-TEMPLATE": 1,
     "TRP-00-ASSURANCE-CONTRACT": 3,
     "TRP-01-README-DERIVED-FACTS": 2,
     "TRP-02-LLM-FIRST-COMPOSITION": 2,
@@ -3733,6 +3734,14 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-042",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

@@ -220,11 +220,12 @@ to add a project fact here, it belongs in `master.md` instead.
     verified fact or proposal. Verified mode independently derives and reconciles facts from
     repository/package/test evidence. Assurance is part of every dependency fingerprint and
     effect identity. A mode change reopens dependent work, and no report, migration, PR, or human
-    interpretation may relabel trusted evidence as verified. The sole supervisor may schedule both
-    assurance lanes only under the trusted-priority, read-only-concurrency contract in
-    `TRP-015`; per-repository effects remain serialized and one lane can never consume the other's
-    assurance-bound cache, verdict, proposal, or maturity state. (Added 2026-07-29, user directive;
-    see Decision #85 and `TRP-001`–`TRP-019`.)
+    interpretation may relabel trusted evidence as verified. Decision #88 suspends remaining
+    trusted execution while retaining its implementation and evidence for assurance-safe reuse.
+    Its non-executable goals cannot be derived or claimed. A shared mechanism or lesson may be
+    reused; an assurance-bound fact, verdict, cache receipt, proposal, or maturity state may not.
+    (Added 2026-07-29 and amended 2026-07-31, user directives; see Decisions #85/#88,
+    `TRP-001`–`TRP-023`, and `L8-042`.)
 
     A freshness-revalidated cohort whose members already reached checksum-valid
     `TRUSTED_NO_OP_PROVEN` may exercise the canonical production delivery path before the broader
@@ -236,17 +237,17 @@ to add a project fact here, it belongs in `master.md` instead.
     resumes at its durable boundary. (Amended 2026-07-30, user directive; `TRP-016`–`TRP-019`.)
 21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
     mission outcome is a closure standard, not an active goal. The sole mission graph declares the
-    ordered T0/TP/T0R/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
-    one primary goal from the earliest incomplete gate and zero or more concurrent goals only for
+    ordered T0/V0/TP/T0R/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
+    one primary goal from the earliest incomplete gate whose `execution_required` flag is true and zero or more concurrent goals only for
     dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy.
     It records both atomically with task state, advances only on current evidence, withdraws
     invalid concurrency, and reactivates the earliest affected goal after regression, invalidation,
-    or registry growth. Only the primary goal owns stop/effect authority. Trusted delivery retains
-    reserved capacity and cannot be starved by verified work. Safety and autonomy are acceptance
+    or registry growth. Only the primary goal owns stop/effect authority. Preserved non-executable
+    goals remain auditable but never compete for capacity or authorize an effect. Safety and autonomy are acceptance
     invariants attached to the current goals, not alternate destinations. Narrative handovers and
     operators may not manually override derived goal state. (Added 2026-07-29, user directive;
-    amended for trusted-priority dual-lane and qualified-cohort execution; see Decision #85,
-    `L8-025`, and `TRP-015`–`TRP-019`.)
+    amended for verified Python execution; see Decisions #85/#88, `L8-025`, `L8-042`, and
+    `L8-VPY-00`–`L8-VPY-03`.)
 
 ## Applying a new requirement (the actual procedure)
 

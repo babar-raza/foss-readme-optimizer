@@ -9,6 +9,13 @@ from pathlib import Path
 import pytest
 
 from readme_agent import cli
+from readme_agent.evidence.writer import refresh_sha256sums
+from readme_agent.llm import prompt_registry
+from readme_agent.readme.trusted_composition_candidate_validation import (
+    TRUSTED_CANDIDATE_NORMALIZATION_VERSION,
+)
+from readme_agent.state.trusted_cohort_schema import QualifiedTrustedCohortIdentityV1
+from readme_agent.supervisor.trusted_cohort import trusted_reviewer_standard_hash
 from readme_agent.supervisor.trusted_cohort_restore import (
     restore_trusted_cohort_act_inputs,
 )
@@ -28,8 +35,45 @@ def _manifest_path() -> Path:
     return Path(current["manifest_path"])
 
 
-def test_current_frozen_cohort_emits_exact_three_member_matrix():
-    cohort = load_runtime_trusted_cohort(_manifest_path())
+def _current_contract_manifest(tmp_path: Path) -> Path:
+    copied = tmp_path / "current-contract-cohort"
+    shutil.copytree(_manifest_path().parent, copied)
+    manifest = copied / "manifest.json"
+    payload = json.loads(manifest.read_text(encoding="utf-8"))
+    payload["reviewer_standard_sha256"] = trusted_reviewer_standard_hash()
+    payload["prompt_registry_sha256"] = prompt_registry.content_hash()
+    payload["candidate_normalization_version"] = TRUSTED_CANDIDATE_NORMALIZATION_VERSION
+    payload["cohort_id"] = QualifiedTrustedCohortIdentityV1(
+        control_revision=payload["control_revision"],
+        registry_sha256=payload["registry_sha256"],
+        reviewer_standard_sha256=payload["reviewer_standard_sha256"],
+        prompt_registry_sha256=payload["prompt_registry_sha256"],
+        candidate_normalization_version=payload["candidate_normalization_version"],
+        member_bindings=tuple(
+            {
+                "org_repo": member["org_repo"],
+                "repository_id": member["provider_identity"]["repository_id"],
+                "source_revision": member["source_revision"],
+                "candidate_sha256": member["candidate_sha256"],
+                "bundle_manifest_sha256": member["bundle_manifest_sha256"],
+                "bundle_inventory_sha256": member["bundle_inventory_sha256"],
+                "state_version": member["state_version"],
+            }
+            for member in payload["members"]
+        ),
+    ).canonical_hash()
+    manifest.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    refresh_sha256sums(copied)
+    return manifest
+
+
+def test_preserved_frozen_cohort_fails_closed_after_reviewer_standard_change():
+    with pytest.raises(ValueError, match="reviewer standard is stale"):
+        load_runtime_trusted_cohort(_manifest_path())
+
+
+def test_current_contract_fixture_emits_exact_three_member_matrix(tmp_path):
+    cohort = load_runtime_trusted_cohort(_current_contract_manifest(tmp_path))
 
     matrix = runtime_trusted_cohort_matrix(cohort)
 
@@ -41,9 +85,12 @@ def test_current_frozen_cohort_emits_exact_three_member_matrix():
     assert all(item["cohort_id"] == cohort.cohort_id for item in matrix["include"])
 
 
-def test_runtime_member_admission_fails_outside_frozen_cohort():
+def test_runtime_member_admission_fails_outside_frozen_cohort(tmp_path):
     with pytest.raises(ValueError, match="is not a member"):
-        require_runtime_trusted_cohort_member(_manifest_path(), "org/not-enrolled")
+        require_runtime_trusted_cohort_member(
+            _current_contract_manifest(tmp_path),
+            "org/not-enrolled",
+        )
 
 
 def test_local_repair_member_accepts_stale_candidate_contracts_but_not_outsiders():
@@ -69,27 +116,19 @@ def test_runtime_cohort_rejects_checksum_corruption(tmp_path):
         load_runtime_trusted_cohort(copied / "manifest.json")
 
 
-def test_act_inputs_restore_exact_runtime_and_state_idempotently(tmp_path):
-    cohort = load_runtime_trusted_cohort(_manifest_path())
+def test_preserved_act_inputs_fail_closed_after_contract_change(tmp_path):
+    cohort = load_runtime_trusted_cohort(_current_contract_manifest(tmp_path))
     runtime_root = tmp_path / "readme-poc"
     state_remote = tmp_path / "state.git"
 
-    first = restore_trusted_cohort_act_inputs(
-        cohort,
-        input_manifest_path=ACT_INPUTS,
-        runtime_root=runtime_root,
-        state_remote=state_remote,
-    )
-    second = restore_trusted_cohort_act_inputs(
-        cohort,
-        input_manifest_path=ACT_INPUTS,
-        runtime_root=runtime_root,
-        state_remote=state_remote,
-    )
-
-    assert first == second
-    assert first["qualified_count"] == 3
-    assert (state_remote / "HEAD").is_file()
+    with pytest.raises(ValueError, match="ACT input manifest cohort does not match"):
+        restore_trusted_cohort_act_inputs(
+            cohort,
+            input_manifest_path=ACT_INPUTS,
+            runtime_root=runtime_root,
+            state_remote=state_remote,
+        )
+    assert not state_remote.exists()
 
 
 def test_act_profile_requires_dedicated_provider_before_any_repository_work(

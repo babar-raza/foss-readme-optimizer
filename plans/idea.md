@@ -118,6 +118,33 @@ naming mismatch may require classification, but it may never make a repository i
 result covering only part of the admitted registry, or a registry whose source inventory is
 incomplete, is a development batch or partial result and is never presented as "the POC."
 
+### Current verified Python proving milestone
+
+The temporary trusted lane is preserved but no longer executes. Its README-derived extraction,
+LLM composition, targeted repair, cache, retry, lease, workflow, staging, App, and effect evidence
+remain reusable only within their proven assurance boundary. They never become repository facts
+or verified acceptance merely through reuse.
+
+The immediate executable milestone is a repository-verified Python POC:
+
+1. retain the human-accepted Aspose.Note FOSS for Python reference and compile its structure into
+   `RepositoryPresentationTemplateV1`, not a universal prose template;
+2. rebuild Note from repository/package/example/policy evidence and prove independent approval
+   plus unchanged no-op;
+3. prove Page and PDF as side-by-side conformance canaries with repository-specific facts, formats,
+   capabilities, examples, and Mermaid maps;
+4. reconcile the dynamic Python denominator and complete every current Python repository using
+   content-addressed stage reuse;
+5. resume complete discovery and the full verified Gate A/B/C and maturity path.
+
+Two ineffective attempts with one approach fingerprint, or 15 minutes without a materially
+narrower result, prohibit another equivalent attempt. Before a third approach, the agent records
+a first-principles review and changes the causal owner, pipeline boundary, or mechanism. Unchanged
+source, facts, template, prompts, policy, validators, reviewer standard, protected-content
+fingerprint, and runtime reuse sealed results; a changed dependency reopens only its downstream
+stages. These speed controls never weaken factuality, validation, independent review, safety, or
+evidence.
+
 Two content-assurance horizons deliberately share one supervisor, lifecycle store, evidence
 system, and proposal mechanism:
 

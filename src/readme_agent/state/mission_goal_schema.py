@@ -17,6 +17,7 @@ MissionGoalId = Literal[
 ]
 StageGoalId = Literal[
     "GOAL-T0-TRUSTED-QUALIFICATION",
+    "GOAL-V0-VERIFIED-PYTHON-POC",
     "GOAL-TP-TRUSTED-COHORT-POC",
     "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION",
     "GOAL-C0-AUTHORIZED-PORTFOLIO",
@@ -76,6 +77,7 @@ class StageGoalDefinitionV1(_StrictModel):
     order: int = Field(ge=0)
     summary: str = Field(min_length=20)
     acceptance_boundary: str = Field(min_length=10)
+    execution_required: bool = True
     concurrent_when_trusted_primary: bool = False
     product_effects_allowed: bool = False
     reserved_trusted_lanes: int = Field(default=0, ge=0, le=4)

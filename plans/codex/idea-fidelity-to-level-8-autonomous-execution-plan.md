@@ -17,16 +17,48 @@ Authority is, in order:
 6. This document, `plans/codex/production-system-redesign.md`, the former RPOC ledger, roadmap,
    status, reports, and evidence -- supporting reference only.
 
-The immediate outcome is one independently transformation-approved
-`trusted_readme_transform` draft PR for every current `data/products.json` entry. Its facts are
-extracted from the immutable source README with `README_INHERITED` provenance and are not
-repository-verified. The denominator is loaded at runtime; no fixed repository count is
-authoritative. Trusted delivery remains the primary critical path. After assurance separation and
-complete authorized-source discovery, `verified_repository_presentation` work advances read-only
-in spare supervisor capacity instead of waiting for every trusted PR; after trusted T3 closes it
-becomes primary and continues to the independently reproducible Level-8 award in `plans/idea.md`.
+The immediate outcome is now the complete dynamic Python
+`verified_repository_presentation` POC. The trusted lane is preserved as reusable
+lower-assurance implementation/evidence, but its remaining goals are non-executable and cannot
+regain primary authority automatically. The denominator is always loaded at runtime.
 
-### Active forensic recovery and execution block (2026-07-30)
+### Active verified Python execution block (2026-07-31)
+
+This block supersedes every older short-term instruction in this supporting document that would
+regenerate trusted candidates, update trusted PRs, or resume trusted TP/T0R/T1/T2/T3 execution.
+It omits no final verified or maturity requirement.
+
+Execute these existing-graph milestones in order:
+
+1. `L8-VPY-00-GOLDEN-TEMPLATE`: preserve the human-accepted Note reference and compile
+   `RepositoryPresentationTemplateV1` with fact slots, conditional sections, and
+   compact/standard/extended density profiles. The template owns structure and visual grammar,
+   not universal product prose.
+2. `L8-VPY-01-NOTE-VERIFIED-CANARY`: reproduce the accepted Note presentation using only
+   repository/package/example/policy evidence accepted by ProductFactsV2.
+3. `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES`: prove side-by-side structural consistency and
+   product-specific content for Page and PDF.
+4. `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`: load the current Python denominator, reuse valid sealed
+   stages, and finish every Python repository through independent approval and unchanged no-op.
+5. Continue C0, complete verified Gate A in platform priority, then Gate B/C, Level 5, day-30
+   Level 7, and day-90 Level 8.
+
+The accepted source reference is
+`plans/investigations/evidence/readme-presentation-contract-v1/aspose-note-foss-python-golden.md`
+with SHA-256 `0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864`.
+It is structurally accepted, not repository-factually approved.
+
+Caching and adaptation are binding execution controls. Each stage receipt hashes source revision,
+snapshot, facts, template, prompts, policy, validators, reviewer standard, protected-content
+fingerprint, and runtime. Identical dependencies reuse the receipt without another clone, LLM
+call, validation, or review; a changed dependency reopens only downstream stages. Two ineffective
+same-fingerprint attempts or 15 minutes without material narrowing end that approach. Before a
+third approach, record a first-principles review, test the decomposition, consider
+deletion/resequencing/battle-tested reuse, and select a materially different owner or boundary.
+Never trade factuality, preservation, deterministic validation, independent review, safety, or
+evidence for speed.
+
+### Preserved trusted-lane forensic record (historical, non-executable after 2026-07-31)
 
 This block is the current entry point for execution. It supersedes older short-term instructions in
 this supporting document wherever they would restart generic whole-batch repair, refreeze rejected

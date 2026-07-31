@@ -33,16 +33,13 @@ approved 2026-07-23 Level-8 consolidation. Owner: Babar Raza.
   authorized surfaces, and records findings for surfaces it cannot own.
 - **Autonomous operation with passive human review.** `supervise` is the only production runtime.
   The system, not a human, selects product/platform capabilities and prepares local candidates.
-  The short-term trusted POC creates clearly labelled, independently reviewed draft pull requests
-  under reviewed authorization records. After assurance separation and complete discovery,
-  repository-verified work advances read-only in spare capacity while trusted delivery remains
-  primary; it does not wait for the trusted portfolio to close and cannot create a competing
-  product effect. Humans review proposals, authorization changes, blocked facts, and manual UI
-  work rather than operating the pipeline.
-- **GitHub App production identity is qualified by the trusted operational POC.** After local,
-  `act`, and disposable-staging proof, trusted Gate T3 requests and qualifies fresh, short-lived
-  GitHub App tokens on staging before the full-registry trusted PR campaign. The later verified
-  gates reuse that transport proof but independently prove higher-assurance content/proposals.
+  Trusted-lane implementation, artifacts, operational proof, and lessons remain reusable, but its
+  remaining delivery goals are suspended. The active critical path is the repository-verified
+  Python POC, then the complete verified portfolio. Humans review proposals, authorization
+  changes, blocked facts, and manual UI work rather than operating the pipeline.
+- **GitHub App production identity follows verified local proof.** Existing trusted staging/App
+  machinery may be reused, but no lower-assurance candidate or verdict can authorize a verified
+  product effect. Hosted publication resumes only at its governed verified delivery gate.
   Analysis, repository inspection, package/example execution, LLM work, and validation never
   receive a target-write token. Production profiles never fall back to `GH_TOKEN` or a PAT.
 - **Bounded effects, never silent publication.** The system never auto-merges, marks a proposal
@@ -77,12 +74,13 @@ history:
 | Order | Goal ID | Concrete closure outcome |
 |---:|---|---|
 | 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Trusted/verified assurance is disjoint and the initial real trusted cohort is transformation-approved and no-op-proven. |
-| 12 | `GOAL-TP-TRUSTED-COHORT-POC` | The frozen current trusted cohort passes the canonical production-path workflow, staging, hosted-App, authorization, and disclosed draft-PR proof. |
-| 13 | `GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION` | After the cohort POC is presented, the broader Python/.NET/Java/injected/largest-README canary matrix is transformation-approved and no-op-proven. |
+| 11 | `GOAL-V0-VERIFIED-PYTHON-POC` | The accepted Note reference is compiled into a reusable fact-slot template; Note, Page, PDF, then every current Python repository are repository-verified, independently approved, and no-op-proven. |
+| 12 | `GOAL-TP-TRUSTED-COHORT-POC` | Preserved historical goal, non-executable after decision #88; its artifacts remain reusable. |
+| 13 | `GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION` | Preserved historical goal, non-executable after decision #88. |
 | 15 | `GOAL-C0-AUTHORIZED-PORTFOLIO` | Every repository visible from every authorized organization/App source has a current observation and evidence-backed admission or exclusion; every admitted repository is disabled/read-only, intake-ready, and bound to one complete registry revision. |
-| 20 | `GOAL-T1-TRUSTED-PORTFOLIO` | Every freshness-valid registry entry has a complete trusted local bundle, independent approval, and no-op proof. |
-| 30 | `GOAL-T2-WORKFLOW-STAGING` | The canonical trusted pipeline passes the actual reusable workflow under `act` and the complete disposable-staging proposal/recovery matrix. |
-| 40 | `GOAL-T3-HOSTED-TRUSTED-DELIVERY` | GitHub App authentication and hosted autonomous operation are qualified on staging, then exactly one disclosed authorized trusted draft PR exists per current registry repository. |
+| 20 | `GOAL-T1-TRUSTED-PORTFOLIO` | Preserved historical goal, non-executable after decision #88. |
+| 30 | `GOAL-T2-WORKFLOW-STAGING` | Preserved historical goal, non-executable after decision #88. |
+| 40 | `GOAL-T3-HOSTED-TRUSTED-DELIVERY` | Preserved historical goal, non-executable after decision #88. |
 | 50 | `GOAL-V1-VERIFIED-TRUTH` | Repository/package/test evidence independently establishes or narrowly blocks every required product fact. |
 | 60 | `GOAL-V2-VERIFIED-GATE-A` | Every registry repository has a repository-verified, independently approved, no-op-proven README bundle. |
 | 70 | `GOAL-V3-HUMAN-AND-JAVA-PROOF` | Gate-B acceptance is recorded and the accepted verified Java candidates complete Gate-C proposal proof through the already-qualified delivery machinery. |
@@ -113,16 +111,13 @@ manually chosen. `evaluate` MUST:
 7. withdraw a concurrent goal automatically when its dependency, assurance, resource, or
    effect-isolation predicate stops being true.
 
-Before trusted adversarial canaries close, content qualification remains one repository lane and
-portfolio fan-out stays disabled. `GOAL-TP-TRUSTED-COHORT-POC` may nevertheless deliver the
-already-terminal frozen cohort through the canonical workflow with serialized effects; this
-does not admit new content candidates or satisfy T0R/T1. Afterwards the sole supervisor may run
-at most four isolated repository lanes. While a
-trusted T1, T2, or T3 goal is primary, three lanes are reserved for trusted work and at most one
-lane may perform repository-verified read-only work. Verified work may borrow unused trusted
-capacity; the next free slot returns to trusted work as soon as trusted work is ready, while an
-in-flight verified stage may seal rather than being cancelled. Product effects are serialized per
-repository and belong only to the primary trusted effect goal until T3 closes.
+The trusted TP/T0R/T1/T2/T3 goals are preserved but `execution_required: false`; they cannot be
+derived, claimed, or regain effect authority without an explicit evidence-backed amendment.
+Their code, contracts, fixtures, call ledgers, staging proof, retry/lease controls, and accepted
+lessons remain inputs to verified work. Verified Python starts serially with the template and
+Note canary, then Page/PDF. Only after those canaries pass may the sole supervisor use at most
+four isolated Python repository lanes with serialized aggregation. No product effect is part of
+this local POC.
 
 Newly discovered repositories never create ad hoc goals. They reopen the earliest catalogued goal
 whose denominator-dependent acceptance is no longer true. A maturity window already in progress
@@ -158,11 +153,12 @@ without improving one of those states or removing its evidenced blocker is a dri
 
 ## Status
 
-The repository has substantial foundations, but it is **not Level 8**. The complete Waves 0–8
-program remains mandatory; decision #85's immediate path is **initial trusted qualification →
-qualified-cohort production-path POC → resume adversarial trusted qualification → complete
-discovery/intake → trusted portfolio → full-registry workflow/staging revalidation → trusted PR
-portfolio → repository-verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
+The repository has substantial foundations, but it is **not Level 8**. Decision #88 supersedes
+the remaining trusted-delivery critical path without deleting it. The active sequence is
+**accepted Note reference → reusable fact-slot template → repository-verified Note →
+repository-verified Page/PDF → complete dynamic Python cohort → discovery/intake reconciliation
+→ complete verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
+Trusted implementation and evidence remain reusable lower-assurance assets, never verified proof.
 
 `TRP-00` is regression-proven at `181879c7`; its controller derives
 `GOAL-T0-TRUSTED-QUALIFICATION` and isolates trusted identity from verified acceptance. `TRP-01`
@@ -174,10 +170,11 @@ validation now precedes separate blind-quality and inheritance-fidelity roles, f
 section repair are grounded, unchanged repair fails visibly, and exact accepted inputs reuse the review without a provider call or duplicate lifecycle transition, while trusted approval never
 claims repository truth. The hosted `qwen3-next` backend was unavailable during the earlier
 non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 work.
-Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but the
-freshness/contract freeze correctly qualified only three current bundles: Note, Page, and PDF
-Python. The other six remain excluded until regenerated against the current candidate,
-review, and normalization contracts. `TRP-04P-COHORT-FREEZE` is closed with the
+Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but those records
+are retained only as lower-assurance reuse candidates. The owner accepted the corrected Note
+Python golden reference structurally; its immutable committed reference is now the input to
+`L8-VPY-00-GOLDEN-TEMPLATE`. Verified facts/candidates/deterministic validation remain 7/31,
+while verified agent approval and unchanged no-op remain 0/31. `TRP-04P-COHORT-FREEZE` is closed with the
 checksum-addressed cohort manifest under
 `plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/`; its three-member result is
 evidence, not a hard-coded acceptance rule. `TRP-04P-ACT-WORKFLOW-PARITY` is also closed at
@@ -2351,37 +2348,71 @@ that is the only permanence they carry; text is always the decision as it stands
     `ApproachAttemptV1` evidence before execution resumes.
     (2026-07-30, plan-forensics correction.)
 
+88. **Suspend trusted-lane execution, preserve its assets, and make a reusable verified Python
+    template the immediate critical path.** The accepted Aspose.Note FOSS for Python golden
+    sample resolves the structural design question but does not verify inherited product claims.
+    Continuing to regenerate lower-assurance trusted candidates would spend the remaining POC
+    window proving the wrong acceptance boundary. Conversely, deleting trusted work would discard
+    useful assurance isolation, LLM composition, targeted repair, cache, retry, lease, workflow,
+    staging, App, and effect-lifecycle machinery. Therefore TP/T0R/T1/T2/T3 remain in the sole
+    graph as inspectable historical goals with `execution_required: false`; they cannot be
+    derived or claimed, but their artifacts and contracts may be reused after their assurance
+    limits are checked.
+
+    `GOAL-V0-VERIFIED-PYTHON-POC` is the first executable goal after completed assurance
+    separation. Its ordered small milestones are:
+    `L8-VPY-00-GOLDEN-TEMPLATE` → `L8-VPY-01-NOTE-VERIFIED-CANARY` →
+    `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` →
+    `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`. The first task retains the accepted Note bytes and hash,
+    then compiles—not copies—them into `RepositoryPresentationTemplateV1`. The template owns
+    visual and structural grammar, density profiles, conditional slots, and deterministic
+    conformance. `ProductFactsV2`, source reconciliation, and repository-specific LLM composition
+    continue to own facts and prose. The Note canary proves the first verified binding; Page/PDF
+    prove consistency without prose cloning; only then may up to four supervisor-owned isolated
+    lanes finish the dynamic Python cohort.
+
+    Every stage uses dependency-complete content-addressed receipts. Unchanged source, facts,
+    template, prompts, policy, validators, reviewer standard, protected-content fingerprint, and
+    runtime reuse their sealed results; a changed dependency reopens only downstream stages.
+    The two-attempt/15-minute anti-stall rule from `TRP-023` is promoted to verified execution.
+    Before a third approach, the agent performs and records a first-principles review, including
+    whether deletion, resequencing, or a battle-tested existing seam is simpler than another
+    retry. This changes approach, not acceptance: repository facts, source preservation,
+    deterministic validation, independent review, unchanged no-op, safety, and evidence remain
+    mandatory. After the Python POC, the controller resumes the complete discovery and verified
+    Gate-A/B/C and maturity path; it does not reactivate trusted delivery automatically.
+    (2026-07-31, user directive.)
+
 ## Architecture
 
 ### Content-assurance lanes
 
 ```text
 immutable repository snapshot
-  ├─ trusted_readme_transform
+  ├─ trusted_readme_transform [execution suspended; reusable evidence/machinery]
   │    → README_INHERITED fact/claim graph
   │    → LLM inventory + section plan + section composition
   │    → deterministic presentation/safety validation
   │    → blind-quality + inheritance-fidelity review
   │    → TrustedTransformationProposalV1
-  │    → authorized draft PR with explicit trusted disclosure
+  │    → preserved trusted proposal/effect proof
   └─ verified_repository_presentation
        → repository/source/package/test-derived ProductFactsV2
        → claim reconciliation + ownership
+       → RepositoryPresentationTemplateV1 + repository-specific LLM composition
        → repository and surface presentation plans
        → factuality + deterministic + independent verification
        → VerifiedProposalV1
        → authorized effects and maturity evidence
 ```
 
-Both lanes use `supervise`, the same `RepositoryPresentationBrandContractV1`, registry revision,
-snapshots, durable state, leases,
-redaction, manifests, authorization, effect ledger, and reconciliation. Assurance-specific facts,
-verdicts, caches, proposals, and counters prevent a trusted result from impersonating verified
-evidence. The scheduler exposes one primary goal and derived concurrent goals, reserves trusted
-capacity, permits only read-only verified concurrency, serializes aggregation and per-repository
-effects, and never creates two active presentation PRs for one repository. A verified successor
-is prepared locally; with fresh authorization it updates or supersedes the trusted draft through
-`OpenProposalV2` reconciliation rather than racing a second PR.
+Both lanes share `supervise`, `RepositoryPresentationBrandContractV1`, snapshots, durable state,
+leases, redaction, manifests, authorization, effect ledger, and reconciliation. Trusted execution
+is suspended, but compatible machinery remains reusable. Assurance-specific facts, verdicts,
+caches, proposals, and counters prevent a trusted result from impersonating verified evidence.
+The scheduler derives only goals marked `execution_required`. Verified Python canaries run
+serially; after qualification, the sole supervisor may use up to four isolated repository lanes
+with serialized aggregation and no product effects.
 
 ### Canonical production flow
 
@@ -2957,7 +2988,23 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Make offline cancellation credential-free and descendant-clean.
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
-- [ ] **Short-term POC — `trusted_readme_transform` full-registry draft PRs**
+- [ ] **Immediate verified Python POC — accepted template to complete platform**
+  - [ ] `L8-VPY-00`: retain the accepted Note bytes/hash, compile
+        `RepositoryPresentationTemplateV1`, and prove compact/standard/extended conformance without
+        Note-specific prose leakage.
+  - [ ] `L8-VPY-01`: rebuild Note through repository/package/example/policy evidence, deterministic
+        validation, independent review, and unchanged no-op.
+  - [ ] `L8-VPY-02`: prove Page and PDF under the same structure with product-specific facts,
+        features, formats, examples, limitations, badges, and Mermaid maps.
+  - [ ] `L8-VPY-03`: inventory the dynamic Python denominator without paid calls, reuse every valid
+        content-addressed stage, then complete every current Python repository with no agent-fixable
+        failure and no product-remote write.
+  - **Exit:** verified `AGENT_APPROVED == NO_OP_PROVEN == dynamic Python denominator`; the indexed
+    Python POC and SHA-256 inventory reproduce independently.
+
+- [ ] **Preserved trusted-lane record — execution suspended by decision #88**
+  - Remaining unchecked TP/T0R/T1/T2/T3 items are retained for evidence and machinery reuse, not
+    executable work. They cannot satisfy or delay the verified Python/portfolio path.
   - [x] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
         dependency fingerprints, anti-promotion controls, and automatically derived
         `active_goal_id`/`concurrent_goal_ids` without adding another runtime, controller, store,

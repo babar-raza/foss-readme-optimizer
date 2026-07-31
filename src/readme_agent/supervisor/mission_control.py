@@ -237,7 +237,8 @@ def _derive_goal_selection(
     incomplete = [
         goal
         for goal in goals
-        if any(status_for(task) not in _TERMINAL for task in tasks_by_goal[goal.goal_id])
+        if goal.execution_required
+        and any(status_for(task) not in _TERMINAL for task in tasks_by_goal[goal.goal_id])
     ]
     primary = incomplete[0] if incomplete else None
     if primary is None:
@@ -300,14 +301,20 @@ def evaluate_mission(
 
     active = by_id.get(state.active_task_id) if state.active_task_id else None
     eligible = [] if active else _ready_tasks(graph, state)
-    unresolved = [task.task_id for task in graph.taskcards if status_for(task) not in _TERMINAL]
+    required_goal_ids = {
+        goal.goal_id
+        for goal in graph.mission_authority.stage_goal_catalog
+        if goal.execution_required
+    }
+    required_tasks = [task for task in graph.taskcards if task.stage_goal_id in required_goal_ids]
+    unresolved = [task.task_id for task in required_tasks if status_for(task) not in _TERMINAL]
     blocked_external = [
-        task.task_id for task in graph.taskcards if status_for(task) == "BLOCKED_EXTERNAL"
+        task.task_id for task in required_tasks if status_for(task) == "BLOCKED_EXTERNAL"
     ]
     complete = (
         not unresolved
         and not blocked_external
-        and all(status_for(task) == "CLOSED" for task in graph.taskcards)
+        and all(status_for(task) == "CLOSED" for task in required_tasks)
     )
     active_goal_id, concurrent_goal_ids, capacity_allocation = _derive_goal_selection(graph, state)
     selected = active or (eligible[0] if eligible else None)

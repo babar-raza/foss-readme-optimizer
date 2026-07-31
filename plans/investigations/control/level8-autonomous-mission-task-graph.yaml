@@ -18,28 +18,22 @@ autonomous_execution_contract:
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   mission_summary: Complete verified_repository_presentation through an automatically derived ordered
-    stage-goal state machine with trusted-priority dual assurance lanes. First qualify assurance, complete
-    authorized-source discovery/intake, and qualify an initial real trusted cohort. First deliver that
-    frozen cohort through act, disposable staging, GitHub App hosted qualification, authorization, and
-    disclosed draft PRs; then resume the broader adversarial canaries before trusted portfolio fan-out.
-    Finish the trusted local portfolio, revalidate the canonical workflow and hosted operation, and open
-    one independently transformation-approved trusted_readme_transform draft PR per remaining current
-    registry repository from README_INHERITED evidence. Repository-verified work advances read-only in
-    spare capacity after assurance separation and complete discovery, then becomes primary after trusted
-    delivery. Progress through distinct Gate A/B/C and Level 5, 6, 7, and 8 goals. Never promote trusted
-    evidence into verified acceptance. The legacy universal goal schema remains bootstrap-only until TRP-00
-    migrates it.
+    stage-goal state machine. Preserve the trusted_readme_transform implementation, artifacts, operational
+    proof, and lessons as reusable lower-assurance inputs, but suspend its remaining execution goals.
+    First convert the human-accepted Aspose.Note FOSS for Python reference into an assurance-neutral,
+    fact-slot-driven template contract; prove repository-verified Note, Page, and PDF Python canaries;
+    then complete every current Python repository before resuming the complete dynamic-portfolio Gate
+    A, Gate B/C, and Level 5, 6, 7, and 8 program. Never promote trusted evidence into verified acceptance.
   governing_plan_path: plans/master.md
-  current_phase: TP qualified trusted cohort production-path POC before resumed TRP-04 qualification
+  current_phase: verified Python POC beginning with the accepted golden-reference template contract
   in_scope_outcomes:
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
-    active runtime goal. TRP-00 replaces the legacy core/subordinate goal guard with the ordered T0/TP/T0R/
-    C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 stage catalog and derives one primary plus permitted concurrent goals.'
-  - 'TRUSTED-PRIORITY STAGES: extract README_INHERITED facts, compose through the LLM-first trusted path,
-    independently approve transformation fidelity, and prove no-op. Freeze every current terminal member;
-    deliver that exact cohort through act, staging, GitHub App hosted qualification, and authorized disclosed
-    draft PRs; resume adversarial canaries; then complete and revalidate the full-registry campaign. Trusted
-    work owns reserved capacity and product effects.'
+    active runtime goal. The ordered catalog now starts the visible-output critical path with V0 verified
+    Python proof, followed by C0/V1/V2/V3/L5/L6/L7/L8.'
+  - 'TRUSTED REUSE, NOT TRUSTED EXECUTION: retain README_INHERITED extraction, LLM composition, review,
+    transport, staging, cache, retry, lease, and anti-stall assets as evidence and reusable machinery.
+    Remaining TP/T0R/T1/T2/T3 goals are non-executable and cannot regain primary-goal authority unless
+    a future evidence-backed plan amendment explicitly reactivates them.'
   - 'COMMON DISCOVERY STAGE: after assurance separation, enumerate every authorized source at all visible
     access levels, disposition every observation, admit active products disabled/read-only, complete intake,
     and bind one source-complete RegistryRevisionV1 before trusted portfolio fan-out.'
@@ -48,22 +42,19 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
     portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
     for 90 days with an independent award.'
-  - 'SHORT-TERM HORIZON: within two days, freeze the current TRUSTED_NO_OP_PROVEN cohort and present its
-    disclosed draft PRs through the intended production workflow. This partial cohort is not full-registry
-    completion. Immediately resume TRP-04, then execute one qualified single-day campaign whose terminal
-    outcome is TRUSTED_PR_OPEN for every runtime-loaded registry repository. Implementation, canary repair,
-    and unavailable external authority are not hidden inside either campaign clock.'
+  - 'SHORT-TERM HORIZON: target the next two days at a repository-verified Python POC. First freeze the
+    accepted Note reference as a reusable template contract, then prove Note, Page, and PDF canaries,
+    then every runtime-loaded Python repository through repository-verified independent approval and unchanged
+    no-op. The time target never weakens facts, review, safety, or evidence acceptance.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: after assurance separation and common discovery, advance repository-verified
-    read-only facts, reconciliation, planning, composition, and review in spare capacity while trusted
-    T1-T3 remains primary. After trusted T3 closes, verified work becomes primary and completes Gate A,
-    Gate B, Gate C, and Level 5 without reusing trusted approval as verified proof.'
-  - 'PYTHON-FIRST MILESTONES: after seven-representative qualification, run a zero-paid-call readiness
-    inventory for every Python entry, use the same frozen campaign and two-to-four supervisor-owned lanes,
-    close eight-total, eight-Python, and all-Python milestones in order, then continue .NET, Java, C++,
-    TypeScript, Rust, and Go without omitting any Gate-A task or repository.'
+  - 'MEDIUM-TERM HORIZON: after the verified Python POC, reconcile complete discovery/intake and finish
+    repository-verified Gate A in Python, .NET, Java, C++, TypeScript, Rust, Go order; then Gate B, Gate
+    C, and Level 5.'
+  - 'PYTHON-FIRST MILESTONES: freeze the template contract; prove Note; prove Page/PDF side by side; run
+    the zero-paid-call Python readiness inventory; close eight-total, eight-Python, and all-Python milestones;
+    then continue lower-priority platforms without omitting any Gate-A task or repository.'
   - 'LONG-TERM HORIZON: Level-8-grade controls from hosted day 1, Level 7 at clean day 30, and Level 8
     from the same uninterrupted series at day 90.'
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries, but
@@ -165,8 +156,16 @@ mission_authority:
     acceptance_boundary: Assurance isolation is proven and at least one current real repository is trusted
       approved and no-op-proven.
     reserved_trusted_lanes: 1
+  - goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+    order: 11
+    summary: Convert the accepted golden reference into a reusable contract and prove the verified Python
+      portfolio before broader Gate-A work.
+    acceptance_boundary: Every runtime-loaded Python repository is repository-verified, independently
+      approved, and unchanged-no-op-proven under the accepted reusable presentation contract.
+    max_concurrent_verified_lanes: 4
   - goal_id: GOAL-TP-TRUSTED-COHORT-POC
     order: 12
+    execution_required: false
     summary: Present the current qualified trusted cohort through the intended production delivery path.
     acceptance_boundary: The frozen cohort passes act, staging, hosted App, authorization, and disclosed
       draft-PR proof without changing a default branch.
@@ -175,6 +174,7 @@ mission_authority:
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
     order: 13
+    execution_required: false
     summary: Resume and complete the broader adversarial trusted canary matrix after the cohort POC.
     acceptance_boundary: Python, .NET, ordinary Java, injected or malformed, and largest-current README
       canaries are approved and no-op-proven under one frozen contract.
@@ -187,6 +187,7 @@ mission_authority:
     concurrent_when_trusted_primary: true
   - goal_id: GOAL-T1-TRUSTED-PORTFOLIO
     order: 20
+    execution_required: false
     summary: Produce an independently approved trusted README transformation for the complete current
       portfolio.
     acceptance_boundary: Every registry entry has a trusted approved bundle and unchanged no-op proof.
@@ -194,6 +195,7 @@ mission_authority:
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T2-WORKFLOW-STAGING
     order: 30
+    execution_required: false
     summary: Prove the canonical trusted runtime under the reusable workflow and disposable GitHub staging.
     acceptance_boundary: Act and staging recovery, deduplication, and effect matrices pass without default-branch
       writes.
@@ -201,6 +203,7 @@ mission_authority:
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
     order: 40
+    execution_required: false
     summary: Qualify hosted GitHub App operation and deliver disclosed trusted draft pull requests.
     acceptance_boundary: Hosted staging is proven and exactly one authorized trusted draft PR exists per
       repository.
@@ -280,6 +283,328 @@ verified_baseline:
   - A compliant all-visibility organization-discovery credential, GitHub App credentials, and reviewed
     authorization records are not yet proven present.
 taskcards:
+- task_id: L8-VPY-00-GOLDEN-TEMPLATE
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  title: Compile the accepted Note reference into a reusable verified presentation template
+  source_audit_finding: Repeated cohort regeneration drifted because the presentation standard remained
+    distributed across prompts, validators, prose decisions, and one ignored runtime artifact rather than
+    one versioned fact-slot-driven contract.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Promote the human-accepted Aspose.Note FOSS for Python reference as immutable evidence and
+    compile its assurance-neutral structure into RepositoryPresentationTemplateV1 with compact, standard,
+    and extended density profiles, conditional slots, and verified-fact bindings.
+  why_it_matters: A stable structural contract prevents the agent from rediscovering branding and layout
+    rules on every repository while leaving product prose, facts, formats, features, and examples repository-specific.
+  allowed_paths:
+  - templates/readme/
+  - src/readme_agent/readme/
+  - src/readme_agent/presentation/
+  - src/readme_agent/validation/
+  - tests/
+  - prompts/
+  - plans/investigations/evidence/readme-presentation-contract-v1/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - universal product prose
+  dependencies: []
+  expected_outputs:
+  - Immutable accepted Note reference and provenance record
+  - RepositoryPresentationTemplateV1 with stable header, navigation, section, disclosure, Mermaid, license,
+    notices, contextual-link, and footer slots
+  - Compact, standard, and extended density profiles
+  - Template compiler and deterministic conformance validators
+  - Assurance adapters that accept README_INHERITED or ProductFactsV2 inputs without changing the structural
+    contract
+  acceptance_checks:
+  - The template reproduces the accepted Note macro-structure without embedding Note-specific prose as
+    a portfolio default
+  - Every variable visitor-facing product slot requires an explicit fact, configured standard, or omission
+    disposition
+  - Exactly one H1, one applicable badge row, list navigation, detailed product-specific Mermaid, readable
+    license prose, conditional notices, conditional disclosures, no comments, no emojis, and no default
+    copyright are enforced
+  - The complete canonical product name is required in identity positions while package, namespace, command,
+    import, and API shorthand remains limited to technical contexts
+  - The template version, accepted-reference hash, prompt hashes, policy hashes, fact hash, and validator
+    version participate in cache invalidation
+  verification:
+  - Golden reconstruction and byte/structure comparison
+  - Compact, standard, and extended synthetic fixtures
+  - Note-specific leakage, missing-fact, unsupported-badge, duplicate-header, shallow-Mermaid, comment,
+    emoji, copyright, notices, disclosure, and contextual-link negative controls
+  - Focused template/compiler/validator tests followed by affected composition and no-op regressions
+  negative_controls:
+  - Copying the accepted Note prose into Page, PDF, or another family fails specificity validation
+  - A cache hit with a changed fact, source revision, template, prompt, policy, reviewer standard, or
+    protected-content fingerprint fails closed
+  regression_checks:
+  - Source preservation
+  - claim accountability
+  - native patching
+  - independent review
+  - cache
+  - redaction
+  - allow-list
+  - push blocking
+  evidence_requirements:
+  - Accepted reference bytes and SHA-256
+  - source revision and human-acceptance record
+  - template schema and version
+  - fact-slot map
+  - density-profile matrix
+  - focused and regression results
+  - reproduction command
+  rollback_or_recovery: Retain the accepted reference and revert only the invalid template/compiler version;
+    never fall back to per-repository prompt patching.
+  failure_reroute: After two ineffective same-fingerprint attempts or 15 minutes without material progress,
+    record ApproachAttemptV1, restate the outcome and invariants from first principles, change the responsible
+    owner or pipeline boundary, and preserve unaffected cached stages.
+  closeout_rules:
+  - The accepted Note structure is reproducible from one reusable versioned contract
+  - Page and PDF fixtures prove structural reuse without product-prose reuse
+  goal_ids:
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Freeze the accepted visual standard as a reusable fact-slot-driven contract for every later
+      README.
+  requirement_ids:
+  - L8-042
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+- task_id: L8-VPY-01-NOTE-VERIFIED-CANARY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Prove the accepted Note design through repository-verified evidence
+  source_audit_finding: The accepted Note reference currently demonstrates presentation quality under
+    trusted inherited content, not repository-verified factual acceptance.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Rebuild Aspose.Note FOSS for Python through the canonical verified pipeline using repository,
+    package, example, license, and approved-policy evidence while preserving the accepted presentation.
+  why_it_matters: This separates a good-looking reference from the first honestly verified, reproducible
+    README deliverable.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-00-GOLDEN-TEMPLATE
+  expected_outputs:
+  - ProductFactsV2 and complete inherited/final claim accountability
+  - structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op
+    proof, and manifest
+  acceptance_checks:
+  - Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked
+  - The verified candidate remains presentation-equivalent to the accepted reference except where evidence
+    requires a correction
+  - An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event
+  verification:
+  - Isolated Python acquisition/import/example proof
+  - deterministic validation
+  - independent review
+  - unchanged no-op
+  - manifest reconstruction
+  negative_controls:
+  - Trusted README provenance cannot satisfy repository-verified acceptance
+  - A factual correction cannot be rejected merely to preserve the golden wording
+  regression_checks:
+  - Python truth
+  - composition
+  - review
+  - cache
+  - redaction
+  - no-write
+  evidence_requirements:
+  - Immutable source and fact citations
+  - candidate and patch hashes
+  - provider-call ledger
+  - validation/review/no-op receipts
+  - SHA-256 inventory
+  rollback_or_recovery: Reopen only the earliest invalid truth, template, composition, review, or cache
+    stage and reuse every unaffected receipt.
+  failure_reroute: Apply the two-attempt/15-minute anti-stall rule and repair the first causal boundary,
+    never the visible symptom alone.
+  closeout_rules:
+  - Aspose.Note FOSS for Python is AGENT_APPROVED and NO_OP_PROVEN under repository_verified assurance
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Deliver the first repository-verified Python README under the accepted presentation contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+- task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Prove Page and PDF Python as independent template-conformance canaries
+  source_audit_finding: A single accepted extended README cannot prove that the template adapts to different
+    content density, package evidence, feature sets, formats, and source structures.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python through the same verified
+    template, repair shared defects once, and independently review the three candidates side by side.
+  why_it_matters: These canaries prove consistent branding without cloned product prose before portfolio
+    fan-out.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-01-NOTE-VERIFIED-CANARY
+  expected_outputs:
+  - Complete verified Page and PDF bundles
+  - Three-candidate structural-consistency and product-specificity verdict
+  acceptance_checks:
+  - Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are
+    consistent
+  - Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific
+  - Shared repairs invalidate only the responsible dependency and reuse unaffected Note receipts
+  verification:
+  - Per-repository deterministic and independent validation
+  - side-by-side cohort review
+  - unchanged no-op
+  - checksum reconstruction
+  negative_controls:
+  - Cross-product prose, generic Mermaid nodes, repeated badge rows, bare license links, redundant platform
+    promotion, and unsupported contextual links fail
+  regression_checks:
+  - Python truth
+  - template conformance
+  - product specificity
+  - review
+  - cache
+  - no-write
+  evidence_requirements:
+  - Per-repository facts, plans, patches, verdicts, no-op receipts, call ledgers, and manifests
+  - Cohort consistency matrix and SHA-256 inventory
+  rollback_or_recovery: Reopen only the invalid repository or shared template dependency and retain every
+    valid content-addressed stage.
+  failure_reroute: Stop repeating the same repair after two ineffective attempts; perform the recorded
+    first-principles decomposition before a third approach.
+  closeout_rules:
+  - Note, Page, and PDF Python are repository-verified, independently approved, no-op-proven, coherent,
+    and product-specific
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Prove three coherent, product-specific, repository-verified Python README candidates.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+- task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Complete the dynamic verified Python README POC
+  source_audit_finding: Three canaries establish contract quality but do not satisfy the user's Python-first
+    POC or prove the template across the complete current Python cohort.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reconcile every runtime-loaded Python repository, reuse valid content-addressed stages, and
+    process the cohort through verified facts, composition, independent review, repair, and unchanged
+    no-op proof.
+  why_it_matters: The first presentable POC must be a complete dynamic platform cohort, not another hand-picked
+    sample.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
+  expected_outputs:
+  - Zero-paid-call Python readiness and cache inventory
+  - Complete verified Python bundle set and indexed review package
+  - Dynamic-denominator closure and SHA-256 inventory
+  acceptance_checks:
+  - Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator
+  - Agent-fixable Python failures equal zero
+  - Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer,
+    and protected-content fingerprints
+  - At most four supervisor-owned isolated lanes run only after canary qualification, with serialized
+    aggregation
+  verification:
+  - Dynamic denominator reconstruction
+  - per-repository lifecycle and manifest reconstruction
+  - serial/parallel equivalence
+  - cancellation/resume
+  - duplicate/no-op proof
+  - full official suite at campaign closure
+  negative_controls:
+  - Three canaries, eight candidates, stale verdicts, trusted approval, or visible files without no-op
+    proof cannot satisfy this task
+  regression_checks:
+  - Complete Python ecosystem
+  - lifecycle
+  - cache
+  - scheduler isolation
+  - redaction
+  - allow-list
+  - push blocking
+  evidence_requirements:
+  - Dynamic Python inventory
+  - per-repository facts, plans, candidates, patches, verdicts, no-op receipts, call ledgers, and manifests
+  - Complete official-check receipt and SHA-256 inventory
+  rollback_or_recovery: Reopen only invalidated repositories or shared dependencies and preserve every
+    valid immutable stage.
+  failure_reroute: A repeated agent-fixable failure must reopen its exact owner; a genuine narrow external
+    block stays visible and does not count as POC completion.
+  closeout_rules:
+  - Every current Python repository is repository-verified, independently approved, and no-op-proven
+  - The indexed Python POC is reproducible without any product-remote write
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Deliver the complete dynamic Python verified README POC under one reproducible contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
 - task_id: TRP-00-ASSURANCE-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -8929,10 +9254,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: a611f792ab75a6ebdc31b188840e80debc773986d7ca132dd70a121f36f130b5
+  source_sha256: 639468b303843040481cb0c32fc9083925ca74b07095c1822193beec6c59944f
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 458
-  mandatory_requirement_rows: 432
+  total_requirement_rows: 459
+  mandatory_requirement_rows: 433
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -11683,5 +12008,11 @@ requirement_coverage:
     priority: P0
     requirement_status: PLANNED
     task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-042
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-VPY-00-GOLDEN-TEMPLATE
     disposition: open_mandatory
     semantic_findings: []

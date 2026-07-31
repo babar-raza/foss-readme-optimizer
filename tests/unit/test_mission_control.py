@@ -107,6 +107,17 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-MISSION-GOAL-GUARD"].goal_ids == ["GOAL-AUTONOMY"]
     assert tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].goal_ids == ["GOAL-DELIVERY"]
     assert tasks["L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"].goal_ids == ["GOAL-MATURITY"]
+    assert tasks["L8-VPY-00-GOLDEN-TEMPLATE"].dependencies == []
+    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
+    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+        "L8-VPY-01-NOTE-VERIFIED-CANARY"
+    ]
+    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
+    ]
+    goals = {goal.goal_id: goal for goal in graph.mission_authority.stage_goal_catalog}
+    assert goals["GOAL-V0-VERIFIED-PYTHON-POC"].execution_required is True
+    assert goals["GOAL-TP-TRUSTED-COHORT-POC"].execution_required is False
     assert tasks["TRP-04P-COHORT-FREEZE"].dependencies == ["TRP-03-INDEPENDENT-FIDELITY-REVIEW"]
     assert tasks["TRP-04-CANARY-QUALIFICATION"].dependencies == ["TRP-04P-POC-PRESENTATION"]
     assert tasks["TRP-04-CANARY-QUALIFICATION"].stage_goal_id == (
@@ -178,23 +189,24 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert intake.active_goal_id == "GOAL-C0-AUTHORIZED-PORTFOLIO"
     assert intake.concurrent_goal_ids == []
 
-    trusted_statuses = {
+    preserved_trusted_statuses = {
         **after_qualification.task_statuses,
         "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
         "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
     }
-    trusted = evaluate_mission(
+    preserved_trusted = evaluate_mission(
         graph,
-        after_qualification.model_copy(update={"task_statuses": trusted_statuses}),
+        after_qualification.model_copy(update={"task_statuses": preserved_trusted_statuses}),
     )
-    assert trusted.active_goal_id == "GOAL-T1-TRUSTED-PORTFOLIO"
+    assert preserved_trusted.active_goal_id is None
+    assert "TRP-05-FULL-REGISTRY-TRANSFORM" not in preserved_trusted.unresolved_task_ids
 
     reopened = evaluate_mission(
         graph,
         after_qualification.model_copy(
             update={
                 "task_statuses": {
-                    **trusted_statuses,
+                    **preserved_trusted_statuses,
                     "TRP-01-README-DERIVED-FACTS": "REGRESSED",
                 }
             }
@@ -255,7 +267,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert coverage.source_sha256 == coverage_tool.canonical_text_sha256(requirements_path)
 
 
-def test_qualified_cohort_stage_precedes_resumed_adversarial_qualification():
+def test_preserved_trusted_goals_cannot_regain_execution_authority():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
     statuses["TRP-04P-COHORT-FREEZE"] = "TODO"
@@ -266,26 +278,29 @@ def test_qualified_cohort_stage_precedes_resumed_adversarial_qualification():
         task_statuses=statuses,
     )
 
-    cohort = evaluate_mission(graph, state)
-    assert cohort.active_goal_id == "GOAL-TP-TRUSTED-COHORT-POC"
-    assert cohort.next_task is not None
-    assert cohort.next_task.task_id == "TRP-04P-COHORT-FREEZE"
+    evaluation = evaluate_mission(graph, state)
+    assert evaluation.active_goal_id is None
+    assert evaluation.next_task is None
+    assert "TRP-04P-COHORT-FREEZE" not in evaluation.unresolved_task_ids
+    assert "TRP-04-CANARY-QUALIFICATION" not in evaluation.unresolved_task_ids
 
-    resumed = evaluate_mission(
-        graph,
-        state.model_copy(
-            update={
-                "task_statuses": {
-                    **statuses,
-                    "TRP-04P-COHORT-FREEZE": "CLOSED",
-                    "TRP-04-CANARY-QUALIFICATION": "TODO",
-                }
-            }
-        ),
+
+def test_verified_python_goal_is_the_first_executable_goal_after_assurance():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses["L8-VPY-00-GOLDEN-TEMPLATE"] = "TODO"
+    statuses["TRP-04P-COHORT-FREEZE"] = "TODO"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
     )
-    assert resumed.active_goal_id == "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION"
-    assert resumed.next_task is not None
-    assert resumed.next_task.task_id == "TRP-04-CANARY-QUALIFICATION"
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert evaluation.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert evaluation.next_task is not None
+    assert evaluation.next_task.task_id == "L8-VPY-00-GOLDEN-TEMPLATE"
 
 
 def test_terminal_exception_stage_does_not_starve_later_ready_work():
@@ -307,9 +322,8 @@ def test_terminal_exception_stage_does_not_starve_later_ready_work():
 
     evaluation = evaluate_mission(graph, state)
 
-    assert evaluation.active_goal_id == "GOAL-TP-TRUSTED-COHORT-POC"
-    assert evaluation.next_task is not None
-    assert evaluation.next_task.task_id == "TRP-04P-COHORT-FREEZE"
+    assert evaluation.active_goal_id is None
+    assert evaluation.next_task is None
     assert "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME" in evaluation.blocked_external_task_ids
     assert evaluation.mission_complete is False
 

@@ -2,7 +2,7 @@
 
 Regenerate with `python plans/investigations/tools/traceability_matrix.py`. This replaces `plans/master.md`'s old hand-maintained Status section (Wave 9.3, 2026-07-22) -- see `plans/roadmap.md` for what's next and `logs/` for the dated history.
 
-**Latest Decision Ledger entry**: #85
+**Latest Decision Ledger entry**: #88
 
 ## Full-registry README POC status
 
@@ -55,9 +55,9 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 | Status | Count |
 |---|---:|
-| IMPLEMENTED | 159 |
-| PLANNED | 131 |
-| PARTIAL | 91 |
+| IMPLEMENTED | 161 |
+| PLANNED | 137 |
+| PARTIAL | 94 |
 | GOVERNANCE | 35 |
 | BACKLOG | 26 |
 | RESEARCH-GATED | 6 |
@@ -67,8 +67,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 ## Implementation-truth matrix summary (Wave 9.2)
 
-- 159 `IMPLEMENTED` rows checked.
+- 161 `IMPLEMENTED` rows checked.
 - 0 with a semantic closure finding.
-- 91 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
+- 93 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
 - 68 fully clean.
 - Full detail: `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`.

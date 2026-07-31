@@ -34,6 +34,7 @@ REPORT_PATH = (
 
 STAGE_GOAL_ORDER = {
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
+    "GOAL-V0-VERIFIED-PYTHON-POC": 11,
     "GOAL-TP-TRUSTED-COHORT-POC": 12,
     "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION": 13,
     "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
@@ -53,6 +54,8 @@ STAGE_GOAL_ORDER = {
 def task_stage_goal(task_id: str) -> tuple[str, str]:
     """Return the governed stage and concurrency class for every mission task."""
 
+    if task_id.startswith("L8-VPY-"):
+        return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
     if task_id == "L8-TRUTH-08-FULL-REGISTRY":
         return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
     if task_id.startswith("TRP-04P-"):
@@ -252,6 +255,7 @@ L8_TO_TASK = {
     "L8-039": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
     "L8-040": "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO",
     "L8-041": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+    "L8-042": "L8-VPY-00-GOLDEN-TEMPLATE",
     "PIL-016": "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF",
     "TRP-001": "TRP-00-ASSURANCE-CONTRACT",
     "TRP-002": "TRP-01-README-DERIVED-FACTS",

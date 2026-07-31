@@ -243,21 +243,19 @@ rule 10).
 ## Full-registry POC scope and gate ordering
 
 Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section and
-`plans/master.md` decisions #78/#85:
+`plans/master.md` decisions #78/#85/#88:
 
 - **Every repo in `data/products.json` is part of the POC.** The POC is the full registry, not a
   sample of it — the count is computed at runtime (`len()` over the file's current entries), never
   hard-coded into a plan, a report, or a status claim. A result covering only some of the registry
   is a development batch or partial result and must be labeled as one, never presented as "the
   POC."
-- **The short-term and ultimate goals have different, explicit evidence authority.**
-  `trusted_readme_transform` is the temporary short-term goal: derive typed facts/claims from the
-  immutable source README with `README_INHERITED` provenance, compose through an LLM-first
-  section-bounded path, independently verify presentation quality and inheritance fidelity, prove
-  no-op, and open one disclosed authorized draft PR per registry repository.
-  `verified_repository_presentation` remains the ultimate goal and later re-derives facts from
-  repository/package/test evidence. Trusted evidence, verdicts, and PRs never satisfy verified
-  facts, Gate A, Gate C, or maturity.
+- **Trusted execution is suspended; trusted assets are preserved.**
+  `trusted_readme_transform` evidence remains explicitly `README_INHERITED` and may contribute
+  compatible implementation, tests, cache/retry/lease controls, workflow/staging transport, and
+  lessons. Its remaining goals are non-executable and it cannot regain effect authority
+  automatically. `verified_repository_presentation` is both the active path and ultimate goal.
+  Trusted evidence, verdicts, and PRs never satisfy verified facts, Gate A, Gate C, or maturity.
 - **The checked-in registry is not by itself proof of source completeness.** Before trusted T1 or
   verified Gate A freezes its denominator, use an organization-compliant credential and paginated
   all-visibility enumeration for every explicit authorized source. Retain public, private,
@@ -273,13 +271,11 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   inherited claims, facts, and protected content; deterministic assessment may then produce a
   byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
   mandatory.
-- **Trusted delivery has priority; verified Gate A may advance read-only after common C0.** Trusted
-  T1 captures the real default-branch README, produces README-derived facts, an LLM-authored
-  candidate, deterministic validation, two-role independent review, repair, and no-op evidence.
-  Trusted T2/T3 then qualify the reusable workflow, staging, GitHub App, and disclosed authorized
-  draft-PR portfolio. After TRP-00 and common C0, verified Gate-A discovery, fact, composition, and
-  review work may advance in spare read-only capacity without waiting for trusted T3, but verified
-  effects remain locked behind verified Gates A/B/C. For every verified entry, capture the current
+- **Verified Python is the immediate POC.** First compile the accepted Note reference into a
+  reusable fact-slot structural template, then prove repository-verified Note, Page, and PDF,
+  then every runtime-loaded Python repository. No product effect occurs in this local POC.
+  Continue common C0 and the complete verified Gate A/B/C sequence afterwards. For every verified
+  entry, capture the current
   default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
   original, verified facts, decision/operation plan, enhanced candidate, diff, deterministic
   validation, independent agentic verdict, and no-op rerun. Read-only GitHub access needed to
@@ -349,24 +345,21 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 
 ## Stage goals and accelerated execution
 
-Decision #85 in `plans/master.md` supersedes the old universal/subordinate goal model. The
+Decision #88 in `plans/master.md` supersedes the remaining trusted-delivery critical path. The
 immutable mission outcome is not an active goal. Mission `evaluate` derives exactly one primary
 goal from the earliest incomplete stage in this order:
-`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-TP-TRUSTED-COHORT-POC`,
-`GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
-`GOAL-T1-TRUSTED-PORTFOLIO`,
-`GOAL-T2-WORKFLOW-STAGING`, `GOAL-T3-HOSTED-TRUSTED-DELIVERY`,
+`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-V0-VERIFIED-PYTHON-POC`,
+`GOAL-C0-AUTHORIZED-PORTFOLIO`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
 `GOAL-L6-AUTONOMOUS-PORTFOLIO`, `GOAL-L7-HETEROGENEOUS-30D`, and
 `GOAL-L8-SELF-MAINTAINING-90D`. It also derives zero or more `concurrent_goal_ids` only for
 dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
 advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest
-affected goal after regression, invalidation, or denominator growth. Only the primary owns
-stop/effect authority; trusted work keeps reserved capacity. Until TRP-00 completes the typed
-migration, any displayed `GOAL-CORE-PRESENTABLE-PORTFOLIO` is legacy bootstrap state, not the
-operator's goal. Safety, autonomy, authorization, factuality, idempotency, and evidence are
-always-on acceptance invariants, not competing goals.
+affected goal after regression, invalidation, or denominator growth. Only a goal with
+`execution_required: true` may become primary. TP/T0R/T1/T2/T3 remain inspectable but cannot be
+selected. Safety, autonomy, authorization, factuality, idempotency, and evidence are always-on
+acceptance invariants, not competing goals.
 
 Always execute the durable graph-selected task and its declared contribution. A target breach
 means record the first failing boundary and make the smallest permanent repair; it never
@@ -393,6 +386,15 @@ execution stays serial. Afterwards, only the sole supervisor may use two to four
 repository lanes with separate leases/state/evidence and serialized aggregation. Follow the four
 local full-suite campaign boundaries and one closure evidence package per campaign specified by
 Decision #83; do not revive micro-fix evidence churn or pre-qualification portfolio fan-out.
+
+The immediate small-goal sequence is `L8-VPY-00-GOLDEN-TEMPLATE` →
+`L8-VPY-01-NOTE-VERIFIED-CANARY` → `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` →
+`L8-VPY-03-ALL-PYTHON-VERIFIED-POC`. Two ineffective attempts with one approach fingerprint or
+15 minutes without material narrowing prohibit another equivalent attempt. Before a third
+approach, record a first-principles review and change the causal owner, pipeline boundary, or
+mechanism. Reuse a sealed stage only when source, facts, template, prompts, policy, validators,
+reviewer standard, protected-content fingerprint, and runtime hashes all match; invalidate only
+downstream stages.
 
 ## Each wave reconciles the previous wave first
 
