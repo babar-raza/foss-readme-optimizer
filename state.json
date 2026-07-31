@@ -2461,18 +2461,18 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "c63ed1671386f31ae749c13de5e12572300c5bb6d7d0597043a5c90eedf19981",
+      "accepted_facts_hash": "bf3a641c0f351d92133862a5cc4c144cbd3700bce8ee3d98fa4b7e8100d18f8b",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'python'",
+        "evidence": "PyPI: aspose-note-foss NOT FOUND (404)",
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T14:40:27.056942+00:00",
+            "detected_at": "2026-07-31T10:29:19.676652+00:00",
             "evidence": {
-              "detail": "no live resolver registered for ecosystem 'python'"
+              "detail": "PyPI: aspose-note-foss NOT FOUND (404)"
             },
             "surface": "packages"
           }
@@ -2485,7 +2485,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:40:27.057399+00:00",
+      "last_run_timestamp": "2026-07-31T10:29:19.677372+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -6484,7 +6484,7 @@
     "updated_at": "2026-07-31T10:20:31.902885+00:00"
   },
   "schema_version": 2,
-  "state_version": 765,
+  "state_version": 766,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
