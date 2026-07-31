@@ -537,8 +537,8 @@
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "independent_verification": {
-      "accepted_facts_hash": "af3203bfed16370931990a17c8d94447628ee98335d68b7672991fe71251ee38",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "ed4b9a6f7134cfbfd0b4be9fb58543c360f9a8aaf9a084bcaaf7fb589b879df5",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -552,7 +552,7 @@
         "failure_escalations": {
           "readme_presentation": {
             "consecutive_failure_count": 1,
-            "last_failure_reason": "execution_error"
+            "last_failure_reason": "presentation_plan"
           }
         },
         "requirement_map": {
@@ -562,14 +562,109 @@
             "exercised_without_error": true
           },
           "EFF-001": {
-            "capability_id": "commit_readme_write",
+            "capability_id": "open_presentation_pr",
             "domain": "readme_presentation",
             "exercised_without_error": false
           },
-          "VER-001": {
-            "capability_id": "verify_readme_candidate",
+          "FACT-003": {
+            "capability_id": "build_presentation_plan",
             "domain": "readme_presentation",
             "exercised_without_error": false
+          },
+          "L8-007": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "LLM-010": {
+            "capability_id": "review_visual_asset_accuracy",
+            "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "OWN-011": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "PRL-001": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "PRL-002": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "PRL-004": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "PRL-007": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "PRL-008": {
+            "capability_id": "open_presentation_pr",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "RDM-003": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "RDM-004": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "RDM-020": {
+            "capability_id": "verify_prose_quality",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "TRP-002": {
+            "capability_id": "extract_trusted_readme_facts",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "TRP-003": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
+            "exercised_without_error": true
+          },
+          "TRP-004": {
+            "capability_id": "compose_trusted_readme",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "TRP-005": {
+            "capability_id": "compose_trusted_readme",
+            "domain": "readme_presentation",
+            "exercised_without_error": false
+          },
+          "TRP-006": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
+            "exercised_without_error": true
+          },
+          "TRP-007": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
+            "exercised_without_error": true
+          },
+          "VAL-005": {
+            "capability_id": "compare_against_presentation_standard",
+            "domain": "presentation_benchmarking",
+            "exercised_without_error": true
+          },
+          "VER-001": {
+            "capability_id": "verify_readme_proposal_bundle",
+            "domain": "independent_verification",
+            "exercised_without_error": true
           },
           "VER-002": {
             "capability_id": "verify_readme_candidate",
@@ -581,10 +676,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-21T10:54:38.079634+00:00",
+      "last_run_timestamp": "2026-07-31T19:22:05.118307+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": null
+      "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
@@ -1673,7 +1768,7 @@
     "updated_at": "2026-07-31T19:17:19.546677+00:00"
   },
   "schema_version": 2,
-  "state_version": 150,
+  "state_version": 151,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
