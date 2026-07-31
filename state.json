@@ -5987,7 +5987,7 @@
     "updated_at": "2026-07-31T02:24:33.607388+00:00"
   },
   "schema_version": 2,
-  "state_version": 642,
+  "state_version": 643,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -6695,12 +6695,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:compose_trusted_readme dispatch failed: execution_error: LLMError: portfolio brand contract requires exactly one products.aspose.com link",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "297f5c4ebb8a45bfb696f9bbedbc450ebd5f32ca68ccfd43767f4553e8f3d238",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-30T19:02:51.530435+00:00"
+      "updated_at": "2026-07-31T08:10:17.553355+00:00"
     },
     "operator:20260730-190522-59a3:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T19:05:26.226755+00:00",
