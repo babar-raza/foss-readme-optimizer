@@ -2999,16 +2999,16 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
           "failure_reason": "presentation_plan",
-          "message": "['presentation.semantic_duplicate.7e1aeafdd089: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.4a9dfd30f8e6: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.b6bf64648cc8: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.6bbd511dcf02: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.19fc837eca37: The same visitor-facing bullet is repeated.']",
-          "occurred_at": "2026-07-31T10:47:40.583400+00:00",
+          "message": "['presentation.semantic_duplicate.6bbd511dcf02: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.19fc837eca37: The same visitor-facing bullet is repeated.']",
+          "occurred_at": "2026-07-31T10:56:57.096171+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
@@ -3017,7 +3017,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T10:47:40.583400+00:00",
+      "last_run_timestamp": "2026-07-31T10:56:57.096171+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -6977,7 +6977,7 @@
     "updated_at": "2026-07-31T10:40:46.515498+00:00"
   },
   "schema_version": 2,
-  "state_version": 829,
+  "state_version": 830,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
