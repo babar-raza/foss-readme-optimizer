@@ -29,6 +29,10 @@ _ASPOSE_FOSS_PRODUCT = re.compile(r"\bAspose\.([A-Za-z0-9]+)\s+FOSS\b")
 _BULLET_PREFIX = re.compile(r"^\s*[-*+]\s+")
 _MARKUP = re.compile(r"[`*_.,:;!?()\[\]{}]")
 _LABEL = re.compile(r"^\s*[-*+]\s+\*\*([^*]+):\*\*\s*(.+)$")
+_API_SIGNATURE_BULLET = re.compile(
+    r"^\s*[-*+]\s+`[^`\n]+`(?:\s*(?:,\s*|and\s+)`[^`\n]+`)*\s*$",
+    flags=re.IGNORECASE,
+)
 
 
 def _normalized_bullet(line: str) -> str:
@@ -100,7 +104,7 @@ def lint_semantics(
     h2_sections = [heading for heading in parse_headings(text) if heading.level == 2]
     bullets: dict[tuple[int, str], list] = {}
     for line in lines:
-        if _BULLET_PREFIX.match(line.text):
+        if _BULLET_PREFIX.match(line.text) and not _API_SIGNATURE_BULLET.fullmatch(line.text):
             normalized = _normalized_bullet(line.text)
             if normalized:
                 section_start = next(

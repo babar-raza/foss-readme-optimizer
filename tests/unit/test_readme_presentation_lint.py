@@ -130,6 +130,36 @@ def test_duplicate_bullets_inside_one_reader_section_remain_a_failure() -> None:
     assert [finding.rule_id for finding in result.findings] == ["semantic_duplicate"]
 
 
+def test_repeated_api_signatures_in_distinct_class_sections_are_not_duplicate_prose() -> None:
+    candidate = """# Aspose.Note FOSS for Python
+
+## API reference
+
+### RichText
+
+- `Text: str`
+- `Tags: list[NoteTag]`
+
+### Title
+
+- `Text: str`
+- `Tags: list[NoteTag]`
+
+### AttachedFile
+
+- `FileName: str | None`, `Bytes: bytes`
+
+### Image
+
+- `FileName: str | None`, `Bytes: bytes`
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert result.valid
+    assert not [finding for finding in result.findings if finding.rule_id == "semantic_duplicate"]
+
+
 def test_snake_case_api_name_inside_explanatory_bullet_is_not_an_internal_label() -> None:
     candidate = """# PDF Toolkit
 
