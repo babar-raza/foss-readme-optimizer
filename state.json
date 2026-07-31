@@ -992,16 +992,16 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "REJECT_REPAIRABLE",
           "failure_reason": "independent_review_repair_rerouted",
           "message": "REJECT_REPAIRABLE",
-          "occurred_at": "2026-07-31T19:35:43.479930+00:00",
+          "occurred_at": "2026-07-31T20:13:19.404003+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": null
@@ -1010,7 +1010,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "independent_review_repair_rerouted",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T19:35:43.479930+00:00",
+      "last_run_timestamp": "2026-07-31T20:13:19.404003+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -2175,7 +2175,7 @@
     "updated_at": "2026-07-31T20:13:13.056009+00:00"
   },
   "schema_version": 2,
-  "state_version": 210,
+  "state_version": 211,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8e7620e62bf55d90eb4ccecac5660e3e5ecb2d9a8b293c6c2fb0bcfd78a560a0",
