@@ -725,15 +725,25 @@
         "schema_version": 1,
         "to_assurance": "trusted_inherited",
         "to_status": "PROFILED"
+      },
+      {
+        "from_assurance": "trusted_inherited",
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-07-31T09:57:14.327457+00:00",
+        "reason": "begin repository-evidence verification",
+        "schema_version": 1,
+        "to_assurance": "repository_verified",
+        "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "908649b92b32f4b008ce4a50bcca453ee81bc380c9f537ef1aa202c546c8d36b",
-    "content_assurance": "trusted_inherited",
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": "0652e7f66520c730988b695a129955f7ff0a852e2e0276509ab96f687425b12b",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [],
@@ -874,6 +884,15 @@
         "reason": "exact trusted candidate and independent approval reused with zero provider calls",
         "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
         "to_status": "TRUSTED_NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-07-31T09:57:14.327457+00:00",
+        "reason": "content assurance changed: begin repository-evidence verification",
+        "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -910,17 +929,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "a09de2ba9d66702a7df4f871243df111fcb69c162cb5320f5c03f059fc76b0e3",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6c7ddfd801d2e2dfea35d1ca2b7e80134616d778",
-    "status": "TRUSTED_NO_OP_PROVEN",
-    "updated_at": "2026-07-31T08:42:18.733395+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-31T09:57:14.327457+00:00"
   },
   "schema_version": 2,
-  "state_version": 79,
+  "state_version": 80,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
