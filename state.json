@@ -5420,6 +5420,18 @@
         "reason": "section-scoped repair produced changed candidate bytes",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "TRUSTED_CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited\\review\\independent-review.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\assurance\\trusted_inherited\\review\\repair-history.json"
+        ],
+        "from_status": "TRUSTED_CANDIDATE_GENERATED",
+        "observed_by": "trusted_review",
+        "occurred_at": "2026-07-31T01:38:59.038277+00:00",
+        "reason": "trusted candidate passed deterministic presentation and safety validation",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "TRUSTED_DETERMINISTIC_VALIDATED"
       }
     ],
     "intake_preflight_history": [
@@ -5441,17 +5453,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "d12b5d0cc946c35c265474056b9030ad2fc7bc8368a9b72ffe8703aa71a5be1b",
+    "prompt_hash": "cd341950370428a10ec67f39f87c9a6e33638cf767a8190442825cb63ea0f7f7",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "TRUSTED_CANDIDATE_GENERATED",
-    "updated_at": "2026-07-31T01:38:52.076291+00:00"
+    "status": "TRUSTED_DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-07-31T01:38:59.038277+00:00"
   },
   "schema_version": 2,
-  "state_version": 567,
+  "state_version": 568,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
