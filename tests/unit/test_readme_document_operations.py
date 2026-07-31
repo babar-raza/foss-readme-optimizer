@@ -60,3 +60,50 @@ class TestApplyDocumentOperations:
 
     def test_empty_operations_returns_source_unchanged(self):
         assert apply_document_operations(b"unchanged", []) == b"unchanged"
+
+    def test_equal_boundary_core_sections_have_stable_semantic_order(self):
+        source = b"# Product\n"
+        boundary = len(source)
+        operations = [
+            _op("readme.license.add-section", boundary, boundary, "LICENSE\n", source),
+            _op("readme.header.badges", boundary, boundary, "BADGES\n", source),
+            _op(
+                "readme.example.add-verified-minimal",
+                boundary,
+                boundary,
+                "QUICK START\n",
+                source,
+            ),
+            _op(
+                "readme.overview-navigation-and-acquisition",
+                boundary,
+                boundary,
+                "OVERVIEW\n",
+                source,
+            ),
+            _op("readme.journey.key-capabilities", boundary, boundary, "CAPABILITIES\n", source),
+            _op("readme.installation.add-verified", boundary, boundary, "INSTALLATION\n", source),
+            _op(
+                "readme.links.insert-product-relationship",
+                boundary,
+                boundary,
+                "RELATIONSHIP\n",
+                source,
+            ),
+            _op(
+                "readme.limitations.complete-verified",
+                boundary,
+                boundary,
+                "EXTRA CONSTRAINTS\n",
+                source,
+            ),
+            _op("readme.limitations.add-verified", boundary, boundary, "LIMITATIONS\n", source),
+        ]
+
+        rendered = apply_document_operations(source, list(reversed(operations)))
+
+        assert rendered == (
+            source
+            + b"BADGES\nOVERVIEW\nCAPABILITIES\nINSTALLATION\nQUICK START\n"
+            + b"RELATIONSHIP\nEXTRA CONSTRAINTS\nLIMITATIONS\nLICENSE\n"
+        )

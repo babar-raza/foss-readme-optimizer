@@ -27,6 +27,7 @@ from readme_agent.readme.document_acquisition import (
     build_acquisition_correction_operations,
     build_registry_badge_operations,
 )
+from readme_agent.readme.document_core_opening import build_core_opening_operations
 from readme_agent.readme.document_examples import (
     build_additional_examples_collapse_operations,
     build_example_operations,
@@ -43,7 +44,6 @@ from readme_agent.readme.document_link_hygiene import build_source_link_hygiene_
 from readme_agent.readme.document_links import apply_contextual_link_bindings
 from readme_agent.readme.document_navigation import finalize_navigation_operations
 from readme_agent.readme.document_opening import (
-    build_opening_operations,
     build_promotional_callout_operations,
 )
 from readme_agent.readme.document_operations import (
@@ -52,7 +52,6 @@ from readme_agent.readme.document_operations import (
 )
 from readme_agent.readme.document_plan import (
     PresentationSpanAdoptionV1,
-    ReadmeDocumentOperationV1,
     ReadmeDocumentPlanV1,
 )
 from readme_agent.readme.document_presentation_repairs import (
@@ -67,6 +66,7 @@ from readme_agent.readme.document_reconciliation import (
 from readme_agent.readme.document_release import build_release_operations
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_review_repairs import build_review_repair_operations
+from readme_agent.readme.document_section_journey import build_core_section_journey_operations
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.document_terminology import (
@@ -143,29 +143,11 @@ def build_readme_document_candidate(
         *withheld_spans,
         *commercial_directory_spans(context),
     ]
-    opening_context = replace(
+    operations = build_core_opening_operations(
         context,
-        headings=[
-            replace(heading, title=strip_emoji_decorations(heading.title))
-            for heading in context.headings
-            if not any(
-                start <= context.byte_offset(heading.start) < end
-                for start, end in opening_exclusion_spans
-            )
-        ],
-    )
-    first_h2 = next((heading for heading in context.headings if heading.level == 2), None)
-    opening_insertion = (
-        context.byte_offset(first_h2.start) if first_h2 is not None else len(context.source)
-    )
-    operations: list[ReadmeDocumentOperationV1] = []
-    operations.extend(
-        build_opening_operations(
-            opening_context,
-            validated_agentic_plan,
-            header_visuals,
-            insertion_byte_offset=opening_insertion,
-        )
+        validated_agentic_plan,
+        header_visuals,
+        exclusion_spans=opening_exclusion_spans,
     )
     operations.extend(build_existing_overview_diagram_operations(context, header_visuals))
     operations.extend(build_limitation_operations(context))
@@ -188,6 +170,11 @@ def build_readme_document_candidate(
             for operation in operations
         ):
             operations.append(comment_operation)
+    journey_operations = build_core_section_journey_operations(
+        context,
+        operations,
+    )
+    operations = [*journey_operations, *operations]
     operations.extend(build_presentation_policy_operations(context, operations))
     operations.extend(build_review_repair_operations(context, validated_agentic_plan, operations))
     product_name = enterprise_product_name(facts)

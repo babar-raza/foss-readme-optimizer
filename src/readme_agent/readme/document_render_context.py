@@ -37,3 +37,9 @@ class DocumentRenderContext:
             ),
             None,
         )
+
+    def insertion_after_h2(self, *titles: str, fallback: int) -> int:
+        """Return the byte boundary after the first matching H2, or ``fallback``."""
+
+        heading = self.h2(*titles)
+        return self.byte_offset(heading.section_end) if heading is not None else fallback

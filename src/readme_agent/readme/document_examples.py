@@ -11,6 +11,46 @@ from readme_agent.readme.document_structure import code_blocks_in_span
 from readme_agent.readme.document_templates import accepted_fact, example_text, load_template
 
 
+def build_missing_quick_start_operations(
+    context: DocumentRenderContext,
+    *,
+    fallback_insertion: int,
+) -> list[ReadmeDocumentOperationV1]:
+    """Add one independently ordered, repository-verified Quick start section."""
+
+    example = accepted_fact(context.facts, "example.minimal")
+    value = example.value if example is not None and isinstance(example.value, dict) else {}
+    exact_code = str(value.get("code", "")).rstrip()
+    if not exact_code or exact_code in context.inner_text or context.h2("quick start", "usage"):
+        return []
+    insertion = context.insertion_after_h2(
+        "installation",
+        "key capabilities",
+        "capabilities",
+        "features",
+        "currently available features",
+        "at a glance",
+        fallback=fallback_insertion,
+    )
+    return [
+        build_operation(
+            operation_id="readme.example.add-verified-minimal",
+            operation="insert_after",
+            source=context.source,
+            start=insertion,
+            end=insertion,
+            replacement=(
+                "## Quick start\n\n" + example_text(context.facts, context.base_revision) + "\n\n"
+            ),
+            fact_ids=[example.fact_id] if example is not None else [],
+            treatment="additive",
+            rationale=(
+                "Add the repository-verified minimal workflow as its own ordered core section."
+            ),
+        )
+    ]
+
+
 def _collapsed_additional_examples(content: str) -> str:
     return load_template("additional-examples-details.md").format(content=content.strip()).strip()
 

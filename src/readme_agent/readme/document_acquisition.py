@@ -22,6 +22,55 @@ from readme_agent.readme.fact_grounding import literal_fact_ids
 _MAVEN_CENTRAL_BADGE = re.compile(r"(?m)^\[!\[[^\]]*Maven Central[^\]]*\]\([^\n]*\)\]\([^\n]*\)\n")
 
 
+def build_missing_installation_operations(
+    context: DocumentRenderContext,
+    *,
+    fallback_insertion: int,
+) -> list[ReadmeDocumentOperationV1]:
+    """Add one independently ordered, repository-verified Installation section."""
+
+    if context.h2("installation") is not None:
+        return []
+    verified_installation = installation_text(
+        context.facts,
+        context.org_repo,
+        context.base_revision,
+    )
+    if not verified_installation:
+        return []
+    insertion = context.insertion_after_h2(
+        "key capabilities",
+        "capabilities",
+        "features",
+        "currently available features",
+        "at a glance",
+        fallback=fallback_insertion,
+    )
+    return [
+        build_operation(
+            operation_id="readme.installation.add-verified",
+            operation="insert_after",
+            source=context.source,
+            start=insertion,
+            end=insertion,
+            replacement="## Installation\n\n" + verified_installation + "\n\n",
+            fact_ids=[
+                selected.fact_id
+                for field in (
+                    "installation.coordinates",
+                    "installation.verified_acquisition",
+                    "product.compatibility",
+                )
+                if (selected := accepted_fact(context.facts, field)) is not None
+            ],
+            treatment="additive",
+            rationale=(
+                "Add the repository-verified acquisition path as its own ordered core section."
+            ),
+        )
+    ]
+
+
 def _source_build_only(context: DocumentRenderContext) -> tuple[bool, FactRecordV2 | None]:
     acquisition = accepted_fact(context.facts, "installation.verified_acquisition")
     value = mapping_value(acquisition.value) if acquisition is not None else {}

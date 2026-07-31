@@ -33,10 +33,13 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "9c2baa0d5af76103d2e232a7041ff131f40457a2b4ab8242b12597737894c318",
-        "704aa8f73ec41ef2eafd68a0f6af282386555122a6682c7bb942c84ebc0a7295",
+        "8f1e155b29c986364c639fc459a00f7b587079cd9a2630dfd4de6ad5d406b7be",
+        "f66ffb053fa2463fb0b32904470e50095d0f12a9a6503495092aab458a41fd1e",
         [
+            "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
+            "readme.installation.add-verified",
+            "readme.example.add-verified-minimal",
             "readme.limitations.add-verified",
             "readme.license.add-section",
             "readme.header.badges",
@@ -50,10 +53,12 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "0f55069bbbf5c776eca2e40976b131ff2d39c0cd12671f2b53931ecc448c6a08",
-        "acdee043e48ba7998c72a1404c74a6fe344dc4dec8fb980382207e805358d020",
+        "654f14837de91a46b9e76550a9bd8a5a9bf3290108df52a95bdcdea6ff150197",
+        "d9ab4c4fcd3785d1fb06564c2815dc369cc1fc6f3c6251edc123c9a05147161b",
         [
+            "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
+            "readme.installation.add-verified",
             "readme.limitations.add-verified",
             "readme.opening.remove-promotional-callout",
             "readme.license.add-section",
@@ -68,10 +73,12 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "1ecb980b7ab3760b98fa0dcd725092e79f28684d2db492bccf709850b708efef",
-        "83909cdc8e474f81547c9459f11a297f0fed4a027b3fe135c400d2881127fb9a",
+        "4d1276a5b489b9ae9554a931281c40f2bb56a31be860bf34b5e9b0eccf0a1f12",
+        "e10fd23696a09813b37e509be8a06189c7d8656a863fe7efb3e08ee01844ad36",
         [
+            "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
+            "readme.example.add-verified-minimal",
             "readme.limitations.add-verified",
             "readme.release.correct-manifest-version",
             "readme.license.add-section",

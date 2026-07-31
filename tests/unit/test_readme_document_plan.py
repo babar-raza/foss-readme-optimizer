@@ -83,12 +83,12 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
     assert "## Quick start" in candidate
     assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert any(
-        operation.operation_id == "readme.overview-navigation-and-acquisition"
+        operation.operation_id == "readme.example.add-verified-minimal"
         and facts.selected_fact("example.minimal").fact_id in operation.fact_ids
         for operation in plan.operations
     )
     assert any(
-        operation.operation_id == "readme.overview-navigation-and-acquisition"
+        operation.operation_id == "readme.installation.add-verified"
         and facts.selected_fact("installation.verified_acquisition").fact_id in operation.fact_ids
         for operation in plan.operations
     )
@@ -265,8 +265,7 @@ Inline code remains exact: `value = "✅"`.
     assert 'print("✅ preserved in code")' in candidate
     assert '`value = "✅"`' in candidate
     assert any(
-        operation.operation_id.startswith("readme.presentation.remove-emoji:")
-        for operation in plan.operations
+        operation.operation_id == "readme.journey.key-capabilities" for operation in plan.operations
     )
 
 

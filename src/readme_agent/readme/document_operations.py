@@ -16,6 +16,25 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentOperationV1,
 )
 
+_SAME_BOUNDARY_SECTION_ORDER = {
+    "readme.header.badges": -10,
+    "readme.overview-navigation-and-acquisition": 0,
+    "readme.journey.key-capabilities": 10,
+    "readme.installation.add-verified": 20,
+    "readme.example.add-verified-minimal": 30,
+    "readme.links.insert-product-relationship": 40,
+    "readme.limitations.add-verified": 80,
+    "readme.license.add-section": 90,
+}
+
+
+def _same_boundary_rank(operation: ReadmeDocumentOperationV1) -> int:
+    """Give independently planned section insertions a stable visible journey."""
+
+    if operation.source_byte_start != operation.source_byte_end:
+        return 50
+    return _SAME_BOUNDARY_SECTION_ORDER.get(operation.operation_id, 50)
+
 
 def build_operation(
     *,
@@ -62,7 +81,12 @@ def apply_document_operations(source: bytes, operations: list[ReadmeDocumentOper
     rendered = source
     for operation in sorted(
         operations,
-        key=lambda item: (item.source_byte_start, item.source_byte_end),
+        key=lambda item: (
+            item.source_byte_start,
+            item.source_byte_end,
+            _same_boundary_rank(item),
+            item.operation_id,
+        ),
         reverse=True,
     ):
         current = rendered[operation.source_byte_start : operation.source_byte_end]

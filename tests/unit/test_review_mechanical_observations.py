@@ -157,3 +157,71 @@ def test_duplicate_h2_claim_requires_and_obeys_parser_count() -> None:
         "lacks required typed check document.duplicate_h2_headings" in error
         for error in result.errors
     )
+
+
+def test_quality_quote_must_belong_to_its_named_visible_section() -> None:
+    candidate = """# Product
+
+## Why Product
+
+- Create documents
+
+## Key capabilities
+
+- Read documents
+"""
+    finding = GroundedReviewFindingV1(
+        finding_id="misbound-capabilities",
+        kind="quality",
+        criterion="visible_duplication",
+        section="Key capabilities",
+        claim="Why Product duplicates Key capabilities.",
+        quoted_candidate_span="- Create documents",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Merge the Why Product content into Key capabilities.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("outside the named candidate section" in error for error in result.errors)
+
+
+def test_heading_only_quote_cannot_prove_another_sections_order() -> None:
+    candidate = """# Product
+
+## Navigation
+
+- [Why Product](#why-product)
+
+## Why Product
+
+Details.
+"""
+    finding = GroundedReviewFindingV1(
+        finding_id="misbound-order",
+        kind="quality",
+        criterion="hierarchy",
+        section="Navigation",
+        claim="Why Product appears before Installation and violates the section order.",
+        quoted_candidate_span="## Navigation",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Remove the Why Product section.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("heading-only quote" in error for error in result.errors)

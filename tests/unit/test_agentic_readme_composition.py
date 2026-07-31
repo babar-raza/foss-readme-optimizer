@@ -43,10 +43,10 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "265a37eb2634b2ab2f648a075eba0da9bc660cbb597ece9ea6066692268b1a28"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "98c19146f2262c342af5a5fd59e85caa5576fdef0e81dd799b7a4b4fdd2380d5"
+    "9114c0ab8117c64eb947d9898a68c32c6dd2652feed153e61b9efa8ab51a060d"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "4ec496eec6fc04a269a1d106f0710e2d6c9509c92b3e3c340718a6a69e24442e"
+    "e1025e0653918cd330fcbebb681de6f7313be6631609614d0f9d4d5e2593c9eb"
 )
 
 
@@ -255,7 +255,10 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     )
     assert document_plan.candidate_sha256 == CHARACTERIZATION_CANDIDATE_SHA256
     assert [operation.operation_id for operation in document_plan.operations] == [
+        "readme.journey.key-capabilities",
         "readme.overview-navigation-and-acquisition",
+        "readme.installation.add-verified",
+        "readme.example.add-verified-minimal",
         "readme.limitations.add-verified",
         "readme.license.add-section",
         "readme.header.badges",

@@ -1515,6 +1515,7 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
         "quality.extra-badges:inherited-badge premise contradicts configured header",
         "quality.opening-visual-duplication:"
         "opening-versus-visual premise contradicts global contract",
+        "quality.enterprise-link:quoted span is outside the named candidate section",
         "quality.enterprise-link:Enterprise link premise contradicts configured candidate",
         "quality.navigation-labels:navigation prefix-only premise is unconfigured",
         "quality.navigation-duplicate:heading-only quote cannot prove the claimed section content",
@@ -1525,7 +1526,9 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
         "quality.mermaid-contract:Mermaid node-count premise contradicts candidate",
         "quality.mermaid-detail:Mermaid-detail premise contradicts configured candidate",
         "quality.bare-enterprise-url:bare-URL premise contradicts configured candidate",
+        "quality.enterprise-wrong-section:quoted span is outside the named candidate section",
         "quality.enterprise-wrong-section:Enterprise link placement contradicts configured scope",
+        "quality.enterprise-duplicate-link:quoted span is outside the named candidate section",
         "quality.enterprise-duplicate-link:"
         "Enterprise link premise contradicts configured candidate",
         "quality.heading-alias:heading-alias premise is unconfigured",

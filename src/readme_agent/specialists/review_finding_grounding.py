@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
 from readme_agent.specialists.review_mechanical_observations import (
@@ -299,16 +300,22 @@ def _validate_quality_finding(
         "",
     )
     heading_only_quote = bool(re.fullmatch(r"#{1,6}[ \t]+[^\r\n]+", quote.strip()))
+    if not _quality_quote_matches_named_section(candidate_text, finding.section, quote):
+        errors.append(f"{finding.finding_id}:quoted span is outside the named candidate section")
     block_dependent_premise = any(
         term in premise
         for term in (
             "appears twice",
+            "appears before",
+            "appears after",
             "contains enterprise edition",
             "duplicate",
             "duplicated",
             "must be placed",
             "not in the license section",
             "remove the section",
+            "section order",
+            "required h2 prefix",
         )
     )
     if heading_only_quote and block_dependent_premise:
@@ -876,6 +883,31 @@ def _validate_quality_finding(
             )
         )
     return errors
+
+
+def _quality_quote_matches_named_section(
+    candidate_text: str,
+    section: str,
+    quote: str,
+) -> bool:
+    """Require a quality quote to occur inside the H2 it claims to describe."""
+
+    normalized = section.strip().casefold()
+    if normalized in {"", "header", "overview", "readme", "document"}:
+        return True
+    headings = [
+        heading
+        for heading in parse_headings(candidate_text)
+        if heading.level == 2 and heading.title.strip().casefold() == normalized
+    ]
+    if not headings:
+        return False
+    offset = candidate_text.find(quote)
+    while offset >= 0:
+        if any(heading.start <= offset < heading.section_end for heading in headings):
+            return True
+        offset = candidate_text.find(quote, offset + 1)
+    return False
 
 
 def _validate_typed_mechanical_finding(

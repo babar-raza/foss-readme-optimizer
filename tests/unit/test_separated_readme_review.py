@@ -934,7 +934,7 @@ def test_blind_role_drops_disproven_sibling_and_keeps_grounded_repair() -> None:
     assert len(client.messages_seen) == 1
     assert history[0]["valid"] is True
     assert history[0]["deterministically_dismissed_finding_ids"] == ["contextual-link-count"]
-    assert "link-budget premise" in history[0]["pre_normalization_errors"][0]
+    assert any("link-budget premise" in error for error in history[0]["pre_normalization_errors"])
 
 
 def test_blind_rejection_derives_redundant_summary_from_detailed_findings() -> None:
