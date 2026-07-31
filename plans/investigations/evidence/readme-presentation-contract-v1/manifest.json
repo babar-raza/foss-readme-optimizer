@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+  "status": "VERIFIED",
+  "verified_commit": "5f463e753c634d625547e97d3bafae0dff254cf0",
+  "template_version": "1.0.0",
+  "template_sha256": "5621e54b0b8420773fbfd2214fbff628a2c30804221a982123bd8b5ff384cb08",
+  "accepted_reference_sha256": "0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864",
+  "source_files": [
+    {
+      "path": "src/readme_agent/presentation/template_schema.py",
+      "sha256": "a1225e1120812181a0e17e49475fe64eea9542b65993533437b2a6670a8d2b28"
+    },
+    {
+      "path": "src/readme_agent/presentation/template_compiler.py",
+      "sha256": "783204571016f3b127f518cf75e100f3c9602a4d77bc623bbc220510a1ecb3a5"
+    },
+    {
+      "path": "src/readme_agent/presentation/template_adapters.py",
+      "sha256": "debe9832ab9262223422d931357c90e7186f79e198b70ff7ee54ec594bf776ca"
+    },
+    {
+      "path": "src/readme_agent/validation/presentation_template.py",
+      "sha256": "30ae11debd2e7c9a7a18848c3e7a62b63063a6f5b739b8b2e1923a90fdca4f76"
+    },
+    {
+      "path": "tests/unit/test_repository_presentation_template.py",
+      "sha256": "5ab262d0b9dcfa8575d7411f7a501c287cb18e0e14b2de6ffdf6af0a45192406"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "aspose-note-foss-python-golden.md",
+      "bytes": 14865,
+      "sha256": "0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864"
+    },
+    {
+      "path": "density-profile-matrix.json",
+      "bytes": 1510,
+      "sha256": "e1fb683252db7aedc4d527aa578b0177fac1b45b28791e40660b870f96b42d2b"
+    },
+    {
+      "path": "fact-slot-map.json",
+      "bytes": 3802,
+      "sha256": "e7ed3036bfb25a0c741331593b30bd0937edee45dc009d37559e88c78fcae563"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 1115,
+      "sha256": "ef962b494c0979bb58b95c530e7c44607330f4ae85734301dfa538a013c1c29a"
+    },
+    {
+      "path": "reference.json",
+      "bytes": 1040,
+      "sha256": "0d7a393fb04d34575c9b81098017df072fd8eded8cdcf5f38c7dc44a6a945cdc"
+    },
+    {
+      "path": "REPRODUCE.md",
+      "bytes": 1579,
+      "sha256": "338d68479f2c4db3ba25ec0dc48504834ff01c62bf1fce21645ce85c45833bf9"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 2606,
+      "sha256": "3b79efe884e74536a8dda03a385a006ddd6185a13bc7401754cc85bcd98c2297"
+    }
+  ],
+  "closure_claim": "The accepted Note macro-structure is now a reusable assurance-neutral fact-slot contract with verified-fact and inherited adapters. This does not approve any repository candidate."
+}

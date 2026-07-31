@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+  "verified_commit": "5f463e753c634d625547e97d3bafae0dff254cf0",
+  "branch": "main",
+  "working_tree_for_full_suite": "clean",
+  "results": [
+    {
+      "boundary": "focused_template",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_repository_presentation_template.py",
+      "result": "16 passed"
+    },
+    {
+      "boundary": "affected_integration_and_safety",
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_repository_presentation_template.py tests/unit/test_readme_header_visual.py tests/unit/test_readme_presentation_lint.py tests/unit/test_readme_document_plan.py tests/unit/test_readme_existing_section_regressions.py tests/unit/test_readme_operation_regressions.py tests/unit/test_independent_readme_review.py tests/unit/test_supervise_readme_proposal_review_integration.py tests/security/test_no_secrets_in_evidence.py tests/unit/test_gitsafety.py tests/unit/test_registry_loader.py",
+      "result": "127 passed"
+    },
+    {
+      "boundary": "full_non_live_inventory",
+      "command": ".venv/Scripts/python scripts/governance/run_full_pytest.py --workers 4 --receipt runs/verification/pytest-full-latest.json",
+      "result": "2458 passed in 292.39 seconds; exit 0; zero leaked process IDs",
+      "inventory_sha256": "fdc2b8cf7e7de2e7197aa8d79bb737d0cb2400eada4c5579c3834a1cc789c25d"
+    },
+    {
+      "boundary": "static_and_governance",
+      "commands": [
+        ".venv/Scripts/python -m ruff check .",
+        ".venv/Scripts/python -m ruff format --check .",
+        ".venv/Scripts/python -m mypy src",
+        ".venv/Scripts/python scripts/governance/validate_plan_structure.py",
+        ".venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+        ".venv/Scripts/python plans/investigations/tools/traceability_matrix.py --check",
+        "git diff --check"
+      ],
+      "result": "passed; plan validator retained 64 advisory warnings; traceability had zero semantic closure findings"
+    }
+  ],
+  "negative_controls": [
+    "Note reference hash mismatch",
+    "missing required slot",
+    "unaccountable visitor content",
+    "unverified selected ProductFactsV2 field",
+    "Note identity leakage in Page content",
+    "unbound extra badge",
+    "directional Mermaid",
+    "shallow Mermaid",
+    "HTML or code comment",
+    "emoji",
+    "default copyright",
+    "stale cache key after every correctness dependency"
+  ],
+  "environment_limit": "actionlint was not installed on PATH. This task did not modify workflow files."
+}

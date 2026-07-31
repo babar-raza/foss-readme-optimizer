@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+  "verifier": "src/readme_agent/validation/presentation_template.py",
+  "author_boundary": "src/readme_agent/presentation/template_compiler.py",
+  "verdict": "ACCEPT",
+  "basis": [
+    "The verifier is a separate module and reconstructs Markdown structure independently of the compiler.",
+    "The accepted Note reference recompiles byte-for-byte while retaining readme_inherited assurance.",
+    "A different ProductFactsV2 input compiles through the same contract without Note prose.",
+    "Cross-product identity, unverified fact use, unsupported extra badges, comments, emoji, copyright, shallow or directional Mermaid, and stale cache dependencies fail closed.",
+    "The contract does not generate product prose and therefore does not create a second agentic composition route."
+  ],
+  "limitations": [
+    "This accepts the reusable structural contract only.",
+    "It does not approve a repository-verified Note, Page, PDF, or portfolio candidate.",
+    "Agentic prose quality remains independently reviewed in downstream VPY tasks."
+  ]
+}

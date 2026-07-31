@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+  "template_id": "repository-presentation",
+  "template_version": "1.0.0",
+  "assurance_rule": "The structural contract is assurance-neutral. Included visitor content must bind to selected accepted ProductFactsV2 facts, a configured standard, or checksum-bound README-inherited evidence. README-inherited evidence is not promoted to repository-verified assurance.",
+  "opening_slots": [
+    {
+      "slot": "title",
+      "required": true,
+      "rule": "Exactly one complete visitor-facing product identity; API, package, namespace, command, and import shorthand remain technical-context-only."
+    },
+    {
+      "slot": "badges",
+      "required": true,
+      "rule": "Exactly one row containing only applicable fact-bound badges."
+    },
+    {
+      "slot": "summary",
+      "required": true,
+      "rule": "Repository-specific product value and audience summary; no commercial link block above the fold."
+    }
+  ],
+  "section_slots": [
+    {
+      "slot": "navigation",
+      "required": true,
+      "source": "compiler",
+      "rule": "List every included H2 exactly once using its GitHub anchor."
+    },
+    {
+      "slot": "at_a_glance",
+      "required": true,
+      "fact_fields": [
+        "product.identity",
+        "product.capabilities",
+        "product.formats"
+      ],
+      "rule": "Detailed, non-directional input/capability/output Mermaid using the complete product name."
+    },
+    {
+      "slot": "key_capabilities",
+      "required": true,
+      "fact_fields": [
+        "product.capabilities"
+      ]
+    },
+    {
+      "slot": "installation",
+      "required": true,
+      "fact_fields": [
+        "installation.coordinates",
+        "installation.verified_acquisition",
+        "product.compatibility"
+      ]
+    },
+    {
+      "slot": "quick_start",
+      "required": true,
+      "fact_fields": [
+        "example.minimal"
+      ]
+    },
+    {
+      "slot": "additional_examples",
+      "required": false,
+      "rule": "Include only verified examples; collapse long inventories in standard and extended profiles."
+    },
+    {
+      "slot": "api_reference",
+      "required": false,
+      "rule": "Include only repository-verified public API; collapse long inventories in standard and extended profiles."
+    },
+    {
+      "slot": "scope_and_limitations",
+      "required": true,
+      "fact_fields": [
+        "product.limitations",
+        "relationship.commercial_foss"
+      ],
+      "rule": "State constraints directly; contextual Enterprise Edition links may occur only when selected and budgeted."
+    },
+    {
+      "slot": "development_and_testing",
+      "required": false,
+      "rule": "Preserve verified maintainer commands and workflows; long extended content may collapse."
+    },
+    {
+      "slot": "contributing",
+      "required": false,
+      "fact_fields": [
+        "support.routes"
+      ]
+    },
+    {
+      "slot": "security",
+      "required": false,
+      "fact_fields": [
+        "support.routes"
+      ]
+    },
+    {
+      "slot": "third_party_notices",
+      "required": false,
+      "rule": "Use its own heading and a repository-relative notice-file link only when the file is verified."
+    },
+    {
+      "slot": "license",
+      "required": true,
+      "fact_fields": [
+        "product.license"
+      ],
+      "rule": "Readable prose links the license and explains practical permissions."
+    }
+  ],
+  "global_invariants": [
+    "No HTML comments, code comments, emojis, default copyright line, or cross-product Aspose FOSS identity.",
+    "Every optional section receives an explicit include or omission disposition in ProductFactsV2 mode.",
+    "Commercial Aspose products are called Enterprise Edition.",
+    "No Note-specific prose is a template default."
+  ]
+}

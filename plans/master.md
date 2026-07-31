@@ -2989,9 +2989,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
 - [ ] **Immediate verified Python POC — accepted template to complete platform**
-  - [ ] `L8-VPY-00`: retain the accepted Note bytes/hash, compile
+  - [x] `L8-VPY-00`: retain the accepted Note bytes/hash, compile
         `RepositoryPresentationTemplateV1`, and prove compact/standard/extended conformance without
-        Note-specific prose leakage.
+        Note-specific prose leakage. Commit `5f463e75`; 16 focused tests, 127 affected
+        integration/safety tests, and a clean 2,458-test inventory pass. Evidence:
+        `plans/investigations/evidence/readme-presentation-contract-v1/`.
   - [ ] `L8-VPY-01`: rebuild Note through repository/package/example/policy evidence, deterministic
         validation, independent review, and unchanged no-op.
   - [ ] `L8-VPY-02`: prove Page and PDF under the same structure with product-specific facts,

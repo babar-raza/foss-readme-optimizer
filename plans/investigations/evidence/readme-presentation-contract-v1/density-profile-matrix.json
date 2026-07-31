@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "template_version": "1.0.0",
+  "selection_rule": "An explicitly configured profile supersedes automatic source-size selection.",
+  "profiles": [
+    {
+      "profile": "compact",
+      "automatic_source_lines": "1-180",
+      "required_sections": [
+        "Navigation",
+        "At a glance",
+        "Key capabilities",
+        "Installation",
+        "Quick start",
+        "Scope and limitations",
+        "License"
+      ],
+      "collapse_slots": []
+    },
+    {
+      "profile": "standard",
+      "automatic_source_lines": "181-420",
+      "required_sections": [
+        "Navigation",
+        "At a glance",
+        "Key capabilities",
+        "Installation",
+        "Quick start",
+        "Scope and limitations",
+        "License"
+      ],
+      "collapse_slots": [
+        "Additional examples",
+        "API reference"
+      ]
+    },
+    {
+      "profile": "extended",
+      "automatic_source_lines": "421+",
+      "required_sections": [
+        "Navigation",
+        "At a glance",
+        "Key capabilities",
+        "Installation",
+        "Quick start",
+        "Scope and limitations",
+        "License"
+      ],
+      "collapse_slots": [
+        "Additional examples",
+        "API reference",
+        "Development and testing"
+      ]
+    }
+  ],
+  "important_limit": "Density controls structure and progressive disclosure only. It never authorizes omission of required verified facts or compression that makes examples, limitations, or API guidance misleading."
+}
