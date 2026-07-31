@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "assurance": "repository_verified",
+  "candidate_sha256": "03082d62d3365ba964fc215efd68309bda1f75319f9d1a2559e610c550234808",
+  "runtime_manifest_sha256": "3d2838569dd57c209bb548b2260b0c58ef020eb5db74bea392ebd9001738684b",
+  "deterministic_validation": {
+    "verdict": "accept",
+    "artifact_sha256": "b39ca62443ac677e74c2738f65e983bbb074ed7843e93a82101a34ea8a388e59"
+  },
+  "independent_review": {
+    "verdict": "ACCEPT",
+    "failed_criteria": [],
+    "artifact_sha256": "ac3fe111875e14725893fa27d7e1d67ae122664744cebb2ffbbc32c16cdb4ff5"
+  },
+  "final_verdict": {
+    "verdict": "AGENT_APPROVED",
+    "agent_approved": true,
+    "deterministic_validation_passed": true,
+    "artifact_sha256": "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508"
+  },
+  "unchanged_rerun": {
+    "verdict": "NO_OP_PROVEN",
+    "patch_created": false,
+    "duplicate_bundle_created": false,
+    "agentic_review_reused": true,
+    "llm_accounting_status": "EXACT",
+    "new_provider_call_count": 0,
+    "new_cache_reuse_count": 1,
+    "artifact_sha256": "56401f765f263f9276edca9d9711211283f25b1a3bd6ec15d8da9b4854ca2e9b"
+  },
+  "proof_refs": [
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/deterministic-validation.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/independent-agent-review.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/final-verdict.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/no-op-proof.json"
+  ]
+}
