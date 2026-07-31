@@ -7651,6 +7651,15 @@
         "reason": "independent review wiring failed: LLMError: forced tool call returned an invalid structured response after 2 attempts: forced tool call response contained no tool_calls",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T12:21:27.028465+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -7678,11 +7687,11 @@
     "reviewer_standard_hash": "c14c5a2a547fd4ffbd1618edafa779e213d70fd699fdbf8f1e57665476380b9c",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-31T12:08:20.442944+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T12:21:27.028465+00:00"
   },
   "schema_version": 2,
-  "state_version": 954,
+  "state_version": 955,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
