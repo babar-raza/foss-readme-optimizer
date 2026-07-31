@@ -104,12 +104,13 @@ def _promote_artifacts(
         if attempt_manifest_path.is_file()
         else {}
     )
-    completed_stages = current_manifest.get("completed_stages") or []
-    manifest = (
-        current_manifest
-        if receipt.target_stage in completed_stages
-        else {**current_manifest, **attempt_manifest}
+    prior_stage_receipt = (current_manifest.get("stage_receipts") or {}).get(receipt.target_stage)
+    same_stage_result = (
+        isinstance(prior_stage_receipt, dict)
+        and prior_stage_receipt.get("work_id") == receipt.work_id
+        and prior_stage_receipt.get("output_hash") == receipt.output_hash
     )
+    manifest = current_manifest if same_stage_result else {**current_manifest, **attempt_manifest}
     stage_receipts = dict(manifest.get("stage_receipts") or {})
     stage_receipts[receipt.target_stage] = {
         "campaign_id": receipt.campaign_id,

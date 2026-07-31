@@ -28,6 +28,9 @@ from readme_agent.supervisor.local_poc_cache import (
     evaluate_approved_local_poc_cache,
     evaluate_completed_local_poc_cache,
 )
+from readme_agent.supervisor.local_poc_manifest_recovery import (
+    reconcile_approved_manifest_from_receipt,
+)
 from readme_agent.supervisor.local_poc_review_evidence import (
     write_local_poc_no_op_evidence,
 )
@@ -64,6 +67,7 @@ def promote_approved_local_poc_noop(
 ) -> LocalPocNoOpReuseV1:
     """Reuse a fully bound approved candidate and persist exact zero-call proof."""
 
+    reconcile_approved_manifest_from_receipt(state, bundle_dir)
     decision = evaluate_approved_local_poc_cache(
         state,
         bundle_dir,

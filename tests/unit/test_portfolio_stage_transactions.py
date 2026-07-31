@@ -54,7 +54,7 @@ def _backend(status: str = "FACTS_READY", *, candidate_hash: str | None = None):
     return backend
 
 
-def _candidate_work():
+def _candidate_work(candidate_hash: str = CANDIDATE_HASH):
     fence = build_stage_fence(
         org_repo=ORG_REPO,
         source_revision=SOURCE_REVISION,
@@ -69,7 +69,7 @@ def _candidate_work():
         fence=fence,
         dependency_hashes={
             "assessment": ASSESSMENT_HASH,
-            "candidate": CANDIDATE_HASH,
+            "candidate": candidate_hash,
             "facts": FACTS_HASH,
             "presentation_plan": PLAN_HASH,
             "reviewer_standard": REVIEWER_HASH,
@@ -77,9 +77,14 @@ def _candidate_work():
     )
 
 
-def _sealed_candidate_attempt(tmp_path, monkeypatch):
+def _sealed_candidate_attempt(
+    tmp_path,
+    monkeypatch,
+    *,
+    candidate_hash: str = CANDIDATE_HASH,
+):
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
-    work = _candidate_work()
+    work = _candidate_work(candidate_hash)
     attempt_root, attempt, artifacts = prepare_stage_attempt(
         work,
         worker_identity="test-worker",
@@ -91,11 +96,14 @@ def _sealed_candidate_attempt(tmp_path, monkeypatch):
             "source_revision": SOURCE_REVISION,
             "lifecycle_status": "CANDIDATE_GENERATED",
             "facts_hash": FACTS_HASH,
-            "candidate_hash": CANDIDATE_HASH,
+            "candidate_hash": candidate_hash,
             "completed_stages": ["FACTS_READY", "CANDIDATE_GENERATED"],
         },
     )
-    write_redacted_text(artifacts / "candidate" / "README.md", "# Candidate\n")
+    write_redacted_text(
+        artifacts / "candidate" / "README.md",
+        f"# Candidate {candidate_hash[:8]}\n",
+    )
     return work, attempt_root, attempt
 
 
@@ -166,6 +174,65 @@ def test_candidate_reducer_promotes_once_and_materializes_receipt_view(
     manifest = json.loads((compatibility / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["acceptance_authority"] == "sealed_stage_receipts"
     assert manifest["stage_receipts"]["CANDIDATE_GENERATED"]["work_id"] == work.work_id
+
+
+def test_new_candidate_receipt_replaces_stale_completed_manifest(
+    tmp_path,
+    monkeypatch,
+):
+    first_work, first_attempt_root, first_attempt = _sealed_candidate_attempt(
+        tmp_path,
+        monkeypatch,
+    )
+    seal_stage_attempt(
+        first_work,
+        first_attempt_root,
+        attempt=first_attempt,
+        worker_identity="test-worker",
+    )
+    backend = _backend()
+    compatibility = tmp_path / "compatibility"
+    promote_candidate_stage(
+        first_work,
+        first_attempt_root,
+        compatibility,
+        backend,
+        assessment_hash=ASSESSMENT_HASH,
+        presentation_plan_hash=PLAN_HASH,
+        candidate_hash=CANDIDATE_HASH,
+        reviewer_standard_hash=REVIEWER_HASH,
+    )
+
+    next_candidate_hash = "3" * 64
+    backend = _backend()
+    next_work, next_attempt_root, next_attempt = _sealed_candidate_attempt(
+        tmp_path,
+        monkeypatch,
+        candidate_hash=next_candidate_hash,
+    )
+    seal_stage_attempt(
+        next_work,
+        next_attempt_root,
+        attempt=next_attempt,
+        worker_identity="test-worker",
+    )
+    promote_candidate_stage(
+        next_work,
+        next_attempt_root,
+        compatibility,
+        backend,
+        assessment_hash=ASSESSMENT_HASH,
+        presentation_plan_hash=PLAN_HASH,
+        candidate_hash=next_candidate_hash,
+        reviewer_standard_hash=REVIEWER_HASH,
+    )
+
+    manifest = json.loads((compatibility / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["candidate_hash"] == next_candidate_hash
+    assert manifest["stage_receipts"]["CANDIDATE_GENERATED"]["work_id"] == next_work.work_id
+    assert (compatibility / "candidate" / "README.md").read_text(
+        encoding="utf-8"
+    ) == f"# Candidate {next_candidate_hash[:8]}\n"
 
 
 def test_sealed_result_waits_for_reducer_and_stale_fence_fails_closed(
