@@ -1177,7 +1177,7 @@
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "cc3840ea1ac64b060fc034eb7c2005b6034d5e19d1dbcedc096c89fcd126ec26",
+      "accepted_facts_hash": "15de8db7cf0d6f9ee9e8304ebbee4da0157c9396f64bd66c060ca2e195b00aa5",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1185,61 +1185,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('convert') and identifies the formats involved (PS, EPS, XPS \u2192 PDF, PNG, JPEG).",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb phrase: 'an open-source Python document conversion library for developers who need PostScript (PS), Encapsulated PostScript (EPS), and XPS conversion'.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the target audience (developers), use cases (backend services, automation pipelines, document workflows), and ecosystem (Python), satisfying audience fit.",
+            "note": "The opening paragraph explicitly names the audience (developers), the ecosystem (Python), the formats handled (PS, EPS, XPS), and the common tasks (conversion to PDF, PNG, JPEG).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license in the final section, and badges for package registry (pip), though build/test badges are missing \u2014 but license visibility alone satisfies the highest-priority trust signal.",
-            "satisfied": true
+            "note": "The README lacks any badges (build/version/registry) and while a LICENSE file is referenced, it is not confirmed as GitHub-recognized (no LICENSE file visible in snippet, and no badge or explicit mention of license recognition).",
+            "satisfied": false
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install -e .` is for local development, not for installing from PyPI; there is no indication the package is published on PyPI, and no PyPI badge or coordinate (e.g., `aspose-page-foss`) is provided.",
+            "note": "The install command `pip install -e .` installs from local source, not from a real package registry (PyPI), and no PyPI package coordinates or badge are provided \u2014 this fails the requirement for external registry resolution.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "The README includes four runnable, uncommented code examples beyond installation, each demonstrating a real conversion scenario with clear input/output.",
+            "note": "The README includes four runnable code examples beyond the install snippet, each with clear prose context and no comments or docstrings inside the code blocks.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers follow consistent Markdown levels (`##`, `###`), and the order flows logically from product description \u2192 features \u2192 install \u2192 examples \u2192 advanced usage \u2192 license.",
+            "note": "Section headers use consistent `##` levels, and the order follows expected sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 advanced usage \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The three images illustrate actual input/output results (XPS\u2192PDF, PS\u2192PDF, PS\u2192image), directly supporting understanding of the product\u2019s workflow \u2014 not decorative.",
+            "note": "The three images shown are directly illustrative of actual input/output workflows (XPS\u2192PDF, PS\u2192PDF, PS\u2192image), not decorative, and serve to clarify the product's function.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo root (only `LICENSE.txt` is mentioned in the README), and there is no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 GitHub likely shows only README.",
+            "note": "The README snippet shows no evidence of recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY), and GitHub's quick-link row would likely show only README and possibly LICENSE if present \u2014 no indication of full recognition.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes a 'Build and Test (Developers)' section with `make` commands and test examples, implying active development \u2014 though GitHub activity (commits/releases) is external and unverifiable from README alone.",
-            "satisfied": true
+            "note": "No visible indication of recent releases or commit activity is present in the README; maintenance signals are GitHub-generated and not stated here, so this dimension cannot be satisfied from the README alone.",
+            "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo \u2014 but if Aspose.Page for Python has a commercial counterpart, it is correctly omitted here per the standard\u2019s allowance for FOSS-only repos.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only repo \u2014 but since Aspose.Page likely has a commercial counterpart, the absence is not a violation; the rule only prohibits *misplaced* commercial content.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies most presentation dimensions, especially product clarity, audience fit, examples, and visual usefulness. Critical gaps remain in installation path (no PyPI coordinate) and contribution readiness (missing GitHub-recognized community files), with the latter being the highest-priority fix per the standard."
+        "overall_summary": "The README satisfies product clarity, audience fit, verified examples, navigation, visual usefulness, and natural commercial context, but fails on trust signals (missing badges and unconfirmed license recognition), installation path (local install instead of PyPI), and contribution readiness/maintenance signals (no evidence of community files or activity in the README)."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T22:08:57.851909+00:00",
+      "last_run_timestamp": "2026-07-31T23:04:31.631117+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -2696,7 +2696,7 @@
     "updated_at": "2026-07-31T23:03:30.636395+00:00"
   },
   "schema_version": 2,
-  "state_version": 304,
+  "state_version": 305,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
