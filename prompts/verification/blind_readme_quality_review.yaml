@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "13"
+version: "14"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -115,8 +115,6 @@ system: |
   Return exactly one result through report_blind_readme_quality_review. Do not add prose
   outside the tool call.
 user_template: |
-  /no_think
-
   Repository: $org_repo
 
   Applicable visitor contract:

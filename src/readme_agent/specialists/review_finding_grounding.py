@@ -357,6 +357,11 @@ def _validate_quality_finding(
             or "exceeds the allowed badge_rows" in premise
             or "exceeds the allowed badge rows" in premise
             or "violating the configured badge standard" in premise
+            or (
+                "badge row" in premise
+                and ("exceeding" in premise or "exceeds" in premise)
+                and ("configured maximum" in premise or "maximum of" in premise)
+            )
         )
         if (
             claims_badge_row_overflow
@@ -613,6 +618,19 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Quick-start line-count premise contradicts candidate"
             )
+        claims_fence_overflow = "fenced code block" in premise and (
+            "exceeding" in premise
+            or "exceeds" in premise
+            or bool(re.search(r"\b(?:contains?|has)\s+(?:two|\d+)\b", premise))
+        )
+        if (
+            claims_fence_overflow
+            and isinstance(maximum_fences, int)
+            and _quick_start_fence_count(candidate_text) <= maximum_fences
+        ):
+            errors.append(
+                f"{finding.finding_id}:Quick-start fence-count premise contradicts candidate"
+            )
     if "heading alias" in premise or "heading_alias" in premise:
         header = standards.get("readme.header") or {}
         aliases = {
@@ -669,6 +687,22 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Enterprise Edition placement contradicts configured section"
             )
+    claims_bare_url = "bare url" in premise or "bare-url" in premise
+    quoted_descriptive_link = next(
+        (
+            match
+            for match in _MARKDOWN_LINK.finditer(finding.quoted_candidate_span)
+            if match.group("label").strip()
+            and not match.group("label").strip().casefold().startswith(("http://", "https://"))
+        ),
+        None,
+    )
+    if (
+        claims_bare_url
+        and quoted_descriptive_link is not None
+        and standards.get("readme.contextual_links") is None
+    ):
+        errors.append(f"{finding.finding_id}:bare-URL premise contradicts parsed Markdown")
     link_standard = standards.get("readme.contextual_links")
     if link_standard is not None:
         required_enterprise_url = str(link_standard.get("required_enterprise_url", ""))

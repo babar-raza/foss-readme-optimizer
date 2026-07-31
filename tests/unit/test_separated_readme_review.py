@@ -696,6 +696,85 @@ def test_live_header_and_navigation_ceiling_phrases_are_disproven() -> None:
     assert any("navigation prefix-only premise" in error for error in result.errors)
 
 
+def test_qwen_mechanical_count_and_link_false_premises_are_disproven() -> None:
+    badges = " ".join(
+        f"[![{label}](https://img.shields.io/badge/{label}-ok-blue)](https://example.test/{label})"
+        for label in ("package", "platform", "license", "contributors")
+    )
+    example = "```python\nprint('ready')\n```"
+    relationship = (
+        "[Widget FOSS](https://products.aspose.org/widget/) and "
+        "[Widget Enterprise Edition](https://products.aspose.com/widget/) are separate products."
+    )
+    candidate = (
+        f"# Widget\n\n{badges}\n\n## Quick start\n\n{example}\n\n"
+        f"## Scope and limitations\n\n{relationship}\n"
+    )
+    common = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "badge-count-live",
+                "criterion": "navigation",
+                "section": "Header",
+                "claim": (
+                    "Badge row contains four badges, exceeding the configured maximum of one "
+                    "badge row with allowed kinds."
+                ),
+                "quoted_candidate_span": badges,
+                "required_repair": "Reduce the badge row to one badge.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "fence-count-live",
+                "criterion": "example_presentation",
+                "section": "Quick start",
+                "claim": (
+                    "Quick start section contains two fenced code blocks, exceeding the maximum "
+                    "of one."
+                ),
+                "quoted_candidate_span": example,
+                "required_repair": "Consolidate Quick start to one fenced code block.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "bare-link-live",
+                "criterion": "promotional_balance",
+                "section": "Scope and limitations",
+                "claim": "Enterprise Edition link is presented as a bare URL.",
+                "quoted_candidate_span": relationship,
+                "required_repair": "Use a descriptive Markdown link label.",
+            }
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert result.valid is False
+    assert any("badge-row premise" in error for error in result.errors)
+    assert any("Quick-start fence-count premise" in error for error in result.errors)
+    assert any("bare-URL premise" in error for error in result.errors)
+
+
 def test_blind_reviewer_cannot_report_present_navigation_label_as_omitted() -> None:
     navigation = (
         "- [At a glance](#at-a-glance)\n"
