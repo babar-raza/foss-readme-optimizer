@@ -59,6 +59,21 @@ def test_header_and_mermaid_are_fact_backed_and_marker_free():
     )
 
 
+def test_mermaid_uses_a_non_directional_product_hub_without_invented_pairings():
+    facts, _revision = _facts()
+
+    visual = render_readme_header_visual(facts)
+
+    assert "-->" not in visual.mermaid_source
+    assert "input_1 --- product" in visual.mermaid_source
+    assert "product --- capability_1" in visual.mermaid_source
+    assert "product --- output_1" in visual.mermaid_source
+    assert not any(
+        line.strip().startswith("capability_") and " --- output_" in line
+        for line in visual.mermaid_source.splitlines()
+    )
+
+
 def test_unverified_header_badges_are_replaced_by_exact_supported_set():
     facts, revision = _facts()
     source = """# Aspose.Cells FOSS for Java

@@ -21,6 +21,11 @@ from readme_agent.readme.agentic_composition_grounding import (
     materialize_tool_draft,
     overview_phrase_options,
 )
+from readme_agent.readme.agentic_composition_inputs import (
+    composition_input_payload,
+    composition_input_sha256,
+    independent_repair_hints,
+)
 from readme_agent.readme.agentic_composition_models import (
     MAX_AUTHORING_ATTEMPTS,
     AgenticCompositionToolDraftV1,
@@ -124,26 +129,18 @@ def plan_readme_composition(
         if review_repair is not None
         else None
     )
-    independent_repair_hints = (
-        "INDEPENDENT REVIEW REPAIR. The prior candidate was rejected. "
-        "Address only the bounded findings below, preserve the named content, "
-        "and still obey every deterministic section disposition and fact-ID constraint:\n"
-        + json.dumps(repair_request.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
-        if repair_request is not None
-        else ""
-    )
-    repair_hints_section = independent_repair_hints
+    independent_hints = independent_repair_hints(repair_request)
+    repair_hints_section = independent_hints
     last_error: LLMError | None = None
     for attempt in range(1, max_attempts + 1):
-        input_payload = {
-            "org_repo": org_repo,
-            "source_text": source_text,
-            "accepted_facts": facts_payload,
-            "assessment": assessment_payload,
-            "overview_phrase_options": phrase_options,
-            "repair_hints_section": repair_hints_section,
-        }
-        input_json = json.dumps(input_payload, sort_keys=True, separators=(",", ":"))
+        input_payload = composition_input_payload(
+            org_repo=org_repo,
+            source_text=source_text,
+            facts_payload=facts_payload,
+            assessment_payload=assessment_payload,
+            phrase_options=phrase_options,
+            authoring_hints=repair_hints_section,
+        )
         messages = build_readme_composition_messages(
             org_repo=org_repo,
             source_text=source_text,
@@ -177,7 +174,7 @@ def plan_readme_composition(
                 attempt=attempt + 1,
             )
             repair_hints_section = "\n\n".join(
-                hint for hint in (independent_repair_hints, deterministic_repair_hints) if hint
+                hint for hint in (independent_hints, deterministic_repair_hints) if hint
             )
             continue
         return ReadmeAgenticCompositionPlanV1(
@@ -187,9 +184,11 @@ def plan_readme_composition(
             assessment_hash=assessment.canonical_hash(),
             prompt_sha256=prompt_hash(_JOB),
             tool_schema_sha256=_canonical_hash(tool_schema),
-            input_sha256=hashlib.sha256(input_json.encode("utf-8")).hexdigest(),
+            input_sha256=composition_input_sha256(input_payload),
             model=result.meta.model or env.llm_model_for_job(_JOB),
             attempt_count=attempt,
+            authoring_hints=repair_hints_section,
+            review_repair=repair_request,
             **draft.model_dump(),
         )
     assert last_error is not None

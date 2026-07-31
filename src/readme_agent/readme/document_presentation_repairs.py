@@ -42,6 +42,7 @@ _MOJIBAKE_REPLACEMENTS = {
     "Â©": "©",
 }
 _CANONICAL_H2 = {
+    "currently available features": "Key capabilities",
     "in this readme": "Navigation",
     "features": "Key capabilities",
     "quick start": "Quick start",

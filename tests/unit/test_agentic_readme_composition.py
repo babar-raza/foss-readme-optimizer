@@ -40,13 +40,13 @@ CHARACTERIZATION_ASSESSMENT_SHA256 = (
     "de41ffd93770106e7f6d6b6491cf776da8043a5c6a51b24186f20f7d21324546"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "ca4bb4b9316ac2304f1698d4b28c82e2f1c2775c6e61d5e7e3a663b67d19ce70"
+    "265a37eb2634b2ab2f648a075eba0da9bc660cbb597ece9ea6066692268b1a28"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "04ab9e48c2b5fc851acacd5e0333716fe01795de0d2cc9a420400cb9a48e5177"
+    "98c19146f2262c342af5a5fd59e85caa5576fdef0e81dd799b7a4b4fdd2380d5"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "e75387194b327ecbae5d2b0ccc6a46d947dbb9500e3f3e236c18b8c8e8a61126"
+    "4ec496eec6fc04a269a1d106f0710e2d6c9509c92b3e3c340718a6a69e24442e"
 )
 
 
@@ -576,7 +576,8 @@ def test_document_validation_accepts_one_representative_phrase_per_overview_fact
     result = validate_readme_document_candidate(source, candidate, document_plan, facts)
 
     assert result.valid, result.errors
-    assert "Primary verified task" in candidate
+    assert document_plan.header_visuals is not None
+    assert problem.fact_id in document_plan.header_visuals.diagram_fact_ids
     assert "Secondary verified task" not in candidate
 
 
@@ -798,10 +799,34 @@ def test_semantic_retry_preserves_independent_repair_and_exact_source_dispositio
 
     retry_prompt = messages_seen[1][1]["content"]
     assert plan.attempt_count == 2
+    assert plan.review_repair is not None
+    assert plan.review_repair.findings[0].finding_id == "quality.opening"
+    assert "Replace the malformed candidate overview." in plan.authoring_hints
     assert "Replace the malformed candidate overview." in retry_prompt
     assert "copy its paired disposition exactly" in retry_prompt
     assert '"section_id": "missing:at-a-glance"' in retry_prompt
     assert '"disposition": "add"' in retry_prompt
+    assert (
+        validate_readme_composition_plan(
+            plan.model_dump(mode="json"),
+            org_repo=facts.org_repo,
+            source_text=source,
+            facts=facts,
+            assessment=assessment,
+        )
+        == plan
+    )
+
+    tampered = plan.model_dump(mode="json")
+    tampered["authoring_hints"] = ""
+    with pytest.raises(LLMError, match="binding mismatch"):
+        validate_readme_composition_plan(
+            tampered,
+            org_repo=facts.org_repo,
+            source_text=source,
+            facts=facts,
+            assessment=assessment,
+        )
 
 
 def test_agentic_plan_fails_closed_after_bounded_semantic_retries():

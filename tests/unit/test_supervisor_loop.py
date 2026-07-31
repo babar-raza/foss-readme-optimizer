@@ -268,11 +268,42 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
             return result
         type(self).saw_repair_hint = True
         arguments = dict(result.arguments)
-        # The renderer now deterministically de-duplicates overlapping phrases,
-        # so reversing the same complete set no longer changes the candidate.
-        # Select a bounded subset to model a real repair that removes the
-        # rejected generic overview material.
-        arguments["overview_fact_ids"] = arguments["overview_fact_ids"][:1]
+        accepted_ids = tool_schema["function"]["parameters"]["properties"]["diagram"]["properties"][
+            "nodes"
+        ]["items"]["properties"]["supporting_fact_ids"]["items"]["enum"]
+        fact_id = accepted_ids[0]
+        # A reviewer-directed authoring retry must change visitor-visible output.
+        # The compact overview no longer repeats fact bullets, so exercise the
+        # actual agentic seam: repository-specific visual vocabulary.
+        arguments["diagram"] = {
+            "nodes": [
+                {
+                    "role": "input",
+                    "label": "Document files",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Create documents",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Read documents",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Modify documents",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Updated document files",
+                    "supporting_fact_ids": [fact_id],
+                },
+            ]
+        }
         return ForcedToolResult(arguments=arguments, meta=result.meta)
 
 

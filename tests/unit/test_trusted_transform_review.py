@@ -1517,7 +1517,10 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
         "opening-versus-visual premise contradicts global contract",
         "quality.enterprise-link:Enterprise link premise contradicts configured candidate",
         "quality.navigation-labels:navigation prefix-only premise is unconfigured",
+        "quality.navigation-duplicate:heading-only quote cannot prove the claimed section content",
         "quality.navigation-duplicate:navigation-duplication premise contradicts candidate",
+        "quality.navigation-duplicate:"
+        "mechanical premise lacks required typed check document.duplicate_h2_headings",
         "quality.mermaid-contract:Mermaid subgraph prohibition is unconfigured",
         "quality.mermaid-contract:Mermaid node-count premise contradicts candidate",
         "quality.mermaid-detail:Mermaid-detail premise contradicts configured candidate",

@@ -7,6 +7,7 @@ from urllib.parse import quote
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.header_visual_models import ReadmeBadgeV1, safe_mermaid_label
+from readme_agent.readme.license_location import repository_license_path
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 
@@ -244,7 +245,7 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 license_name,
                 "blue",
                 [license_fact.fact_id],
-                target_url="LICENSE",
+                target_url=repository_license_path(license_fact),
             )
         )
     repository = str(identity_value.get("repository") or facts.org_repo).strip()

@@ -2,28 +2,35 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_templates import accepted_fact
+from readme_agent.readme.license_location import repository_license_path
+
+_BARE_LICENSE_LINK = re.compile(
+    r"(?im)^\s*\[(?:mit|apache(?: license)?(?: 2\.0)?|license)\]\([^)]+\)\.?\s*$"
+)
 
 
-def _license_paragraph(name: str) -> str:
+def _license_paragraph(name: str, path: str) -> str:
     normalized = name.casefold().replace("license", "").strip(" -")
     if normalized == "mit":
         return (
-            "This project is available under the [MIT License](LICENSE). It permits use, "
+            f"This project is available under the [MIT License]({path}). It permits use, "
             "modification, distribution, and commercial use when the license and copyright "
             "notice are retained."
         )
     if normalized in {"apache-2.0", "apache 2.0"}:
         return (
-            "This project is available under the [Apache License 2.0](LICENSE). It permits use, "
+            f"This project is available under the [Apache License 2.0]({path}). It permits use, "
             "modification, distribution, and commercial use subject to its notice, attribution, "
             "and patent terms."
         )
     return (
-        f"This project is available under the [{name}](LICENSE). The license describes the "
+        f"This project is available under the [{name}]({path}). The license describes the "
         "permissions and conditions for use, modification, and distribution."
     )
 
@@ -39,14 +46,31 @@ def build_license_operations(
     name = str(license_fact.value).strip()
     if not name:
         return []
-    paragraph = _license_paragraph(name)
+    path = repository_license_path(license_fact)
+    paragraph = _license_paragraph(name, path)
     target = context.h2("license")
     if target is not None:
         body = context.inner_text[target.heading_end : target.section_end]
-        if "[MIT License](LICENSE)" in body or (
-            "[Apache License 2.0](LICENSE)" in body and "permit" in body.casefold()
-        ):
+        if f"]({path})" in body and "permit" in body.casefold():
             return []
+        bare_links = list(_BARE_LICENSE_LINK.finditer(body))
+        if bare_links and body.strip() == bare_links[0].group(0).strip():
+            return [
+                build_operation(
+                    operation_id="readme.license.replace-bare-link",
+                    operation="replace",
+                    source=context.source,
+                    start=context.byte_offset(target.heading_end),
+                    end=context.byte_offset(target.section_end),
+                    replacement=f"\n\n{paragraph}\n",
+                    fact_ids=[license_fact.fact_id],
+                    treatment="authoritative_fact_correction",
+                    rationale=(
+                        "Replace a bare license link with the accepted repository-relative path "
+                        "and readable permission summary."
+                    ),
+                )
+            ]
         return [
             build_operation(
                 operation_id="readme.license.add-benefits",
@@ -62,6 +86,21 @@ def build_license_operations(
                     "practical permissions."
                 ),
             )
+        ] + [
+            build_operation(
+                operation_id=(
+                    f"readme.license.remove-bare-link:{target.heading_end + match.start()}"
+                ),
+                operation="remove",
+                source=context.source,
+                start=context.byte_offset(target.heading_end + match.start()),
+                end=context.byte_offset(target.heading_end + match.end()),
+                replacement="",
+                fact_ids=[license_fact.fact_id],
+                treatment="authoritative_fact_correction",
+                rationale="Remove a redundant bare license link after adding readable prose.",
+            )
+            for match in bare_links
         ]
     return [
         build_operation(

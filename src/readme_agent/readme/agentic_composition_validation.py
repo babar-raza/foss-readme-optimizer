@@ -19,6 +19,11 @@ from readme_agent.readme.agentic_composition_grounding import (
     phrases_overlap,
     required_overview_fact_ids,
 )
+from readme_agent.readme.agentic_composition_inputs import (
+    composition_input_payload,
+    composition_input_sha256,
+    independent_repair_hints,
+)
 from readme_agent.readme.agentic_composition_models import (
     AgenticCompositionDraftV1,
     ReadmeAgenticCompositionPlanV1,
@@ -235,12 +240,31 @@ def validate_readme_composition_plan(
         "assessment_hash": assessment.canonical_hash(),
         "prompt_sha256": prompt_hash(_JOB),
         "tool_schema_sha256": schema_hash,
+        "input_sha256": composition_input_sha256(
+            composition_input_payload(
+                org_repo=org_repo,
+                source_text=source_text,
+                facts_payload=[
+                    fact.model_dump(mode="json")
+                    for fact in facts.facts
+                    if fact.fact_id in accepted_ids
+                ],
+                assessment_payload=assessment_payload,
+                phrase_options=phrase_options,
+                authoring_hints=plan.authoring_hints,
+            )
+        ),
     }
     mismatches = [
         field for field, expected in expected_bindings.items() if getattr(plan, field) != expected
     ]
     if mismatches:
         raise LLMError(f"README composition plan binding mismatch: {sorted(mismatches)}")
+    if (
+        plan.review_repair is not None
+        and independent_repair_hints(plan.review_repair) not in plan.authoring_hints
+    ):
+        raise LLMError("README composition plan lost its reviewer repair binding")
     validate_composition_draft(
         AgenticCompositionDraftV1(
             repository_summary=plan.repository_summary,

@@ -70,6 +70,27 @@ class AgenticCompositionToolDraftV1(_StrictModel):
     diagram: AgenticDiagramV1 = Field(default_factory=AgenticDiagramV1)
 
 
+class ReadmeCompositionRepairFindingV1(_StrictModel):
+    """One independently grounded candidate finding offered to verified repair."""
+
+    finding_id: str = Field(pattern=r"^[a-z][a-z0-9_.-]*$")
+    section: str = Field(min_length=1)
+    criterion: str = Field(min_length=1)
+    quoted_candidate_span: str
+    required_repair: str = Field(min_length=1)
+
+
+class ReadmeCompositionRepairRequestV1(_StrictModel):
+    """Hash-bound reviewer instructions retained in the repaired composition plan."""
+
+    source_candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    failed_criteria: list[str] = Field(min_length=1)
+    sections_affected: list[str] = Field(min_length=1)
+    required_repair: str = Field(min_length=1)
+    preserve: list[str] = Field(default_factory=list)
+    findings: list[ReadmeCompositionRepairFindingV1] = Field(min_length=1)
+
+
 class ReadmeAgenticCompositionPlanV1(_StrictModel):
     schema_version: Literal[1] = 1
     org_repo: str
@@ -81,33 +102,14 @@ class ReadmeAgenticCompositionPlanV1(_StrictModel):
     input_sha256: str
     model: str
     attempt_count: int = Field(ge=1, le=MAX_AUTHORING_ATTEMPTS)
+    authoring_hints: str = ""
     repository_summary: str
     section_decisions: list[AgenticSectionDecisionV1]
     overview_sentences: list[AgenticOverviewSentenceV1]
     opening_summary: AgenticOverviewSentenceV1 | None = None
     diagram: AgenticDiagramV1 = Field(default_factory=AgenticDiagramV1)
+    review_repair: ReadmeCompositionRepairRequestV1 | None = None
 
     def canonical_hash(self) -> str:
         payload = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
-class ReadmeCompositionRepairFindingV1(_StrictModel):
-    """One reviewer finding that the next authoring pass must address."""
-
-    finding_id: str = Field(pattern=r"^[a-z][a-z0-9_.-]*$")
-    section: str = Field(min_length=1)
-    criterion: str = Field(min_length=1)
-    quoted_candidate_span: str
-    required_repair: str = Field(min_length=1)
-
-
-class ReadmeCompositionRepairRequestV1(_StrictModel):
-    """Bounded instructions from the independent reviewer to the authoring pass."""
-
-    source_candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
-    failed_criteria: list[str] = Field(min_length=1)
-    sections_affected: list[str] = Field(min_length=1)
-    required_repair: str = Field(min_length=1)
-    preserve: list[str] = Field(default_factory=list)
-    findings: list[ReadmeCompositionRepairFindingV1] = Field(min_length=1)

@@ -187,15 +187,20 @@ def validate_readme_document_candidate(
             if example is not None
             else "selected unverified minimal example is present"
         )
-    overview_views = [
-        view
-        for field_name in ("product.audience", "product.problems_solved")
-        if (view := visitor_fact_render_view(facts, field_name)) is not None
-    ]
-    checks["verified_overview_present"] = all(
-        any(phrase.rstrip(".") in candidate_inner for phrase in view.phrases)
-        for view in overview_views
+    audience_view = visitor_fact_render_view(facts, "product.audience")
+    problem = _accepted(facts, "product.problems_solved")
+    diagram_fact_ids = set(
+        plan.header_visuals.diagram_fact_ids if plan.header_visuals is not None else []
     )
+    audience_present = audience_view is None or any(
+        phrase.rstrip(".") in candidate_inner for phrase in audience_view.phrases
+    )
+    problem_present = (
+        problem is None
+        or problem.fact_id in diagram_fact_ids
+        or any(fragment in candidate_inner for fragment in _text_fragments(problem.value))
+    )
+    checks["verified_overview_present"] = audience_present and problem_present
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")
 

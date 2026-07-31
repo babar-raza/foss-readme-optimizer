@@ -139,10 +139,7 @@ def _mermaid_source(nodes: list[MermaidNodeV1]) -> str:
     lines.extend(["  end", ""])
     lines.extend(f"  {node.node_id} --- product" for node in grouped["input"])
     lines.extend(f"  product --- {node.node_id}" for node in grouped["capability"])
-    outputs = grouped["output"]
-    for index, node in enumerate(grouped["capability"]):
-        if outputs:
-            lines.append(f"  {node.node_id} --- {outputs[index % len(outputs)].node_id}")
+    lines.extend(f"  product --- {node.node_id}" for node in grouped["output"])
     return "\n".join(lines)
 
 

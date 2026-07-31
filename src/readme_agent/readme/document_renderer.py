@@ -66,6 +66,7 @@ from readme_agent.readme.document_reconciliation import (
 )
 from readme_agent.readme.document_release import build_release_operations
 from readme_agent.readme.document_render_context import DocumentRenderContext
+from readme_agent.readme.document_review_repairs import build_review_repair_operations
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.document_terminology import (
@@ -188,6 +189,7 @@ def build_readme_document_candidate(
         ):
             operations.append(comment_operation)
     operations.extend(build_presentation_policy_operations(context, operations))
+    operations.extend(build_review_repair_operations(context, validated_agentic_plan, operations))
     product_name = enterprise_product_name(facts)
     if (link_catalogs is None) != (link_allocation_policy is None):
         raise ValueError("README link catalogs and allocation policy must be supplied together")
