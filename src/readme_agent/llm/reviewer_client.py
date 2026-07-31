@@ -71,7 +71,7 @@ class LiveBlindQualityReviewClient:
 
 
 class LiveFactualPlanReviewClient:
-    """Forced-schema client for the context-isolated factual-plan role."""
+    """Forced-schema client with a separately routed bounded correction model."""
 
     def __init__(
         self,
@@ -80,6 +80,7 @@ class LiveFactualPlanReviewClient:
         model: str,
         timeout: float = 90,
         max_tokens: int = DEFAULT_MAX_TOKENS,
+        fallback_model: str | None = None,
     ):
         self._client = LiveForcedToolClient(
             base_url,
@@ -90,9 +91,27 @@ class LiveFactualPlanReviewClient:
             job="factual_readme_plan_review",
             prompt_id="factual_readme_plan_review",
         )
+        self._fallback_client = (
+            LiveForcedToolClient(
+                base_url,
+                api_key,
+                fallback_model,
+                timeout=timeout,
+                max_tokens=max_tokens,
+                job="factual_readme_plan_review",
+                prompt_id="factual_readme_plan_review",
+            )
+            if fallback_model is not None and fallback_model != model
+            else None
+        )
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
-        result = self._client.call(messages, FACTUAL_PLAN_REVIEW_TOOL_SCHEMA)
+        client = (
+            self._fallback_client
+            if self._fallback_client is not None and len(messages) > 2
+            else self._client
+        )
+        result = client.call(messages, FACTUAL_PLAN_REVIEW_TOOL_SCHEMA)
         return AnalysisResult(parsed=result.arguments, meta=result.meta)
 
 
@@ -158,6 +177,7 @@ def build_live_role_review_clients(
             env.llm_model_for_job("factual_readme_plan_review"),
             timeout=timeout,
             max_tokens=max_tokens,
+            fallback_model=env.llm_fallback_model_for_job("factual_readme_plan_review"),
         ),
     )
 
