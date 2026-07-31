@@ -5987,7 +5987,7 @@
     "updated_at": "2026-07-31T02:24:33.607388+00:00"
   },
   "schema_version": 2,
-  "state_version": 628,
+  "state_version": 629,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
@@ -6386,13 +6386,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "trusted repair failed: At a glance must contain exactly one Mermaid diagram",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "ae74927b9f1d2c21fa07de9780f6a330a93b23baf1f36108f2dce1fdaeb599ae",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-30T16:20:21.936097+00:00"
+      "updated_at": "2026-07-31T08:10:17.553355+00:00"
     },
     "operator:20260730-162435-156b:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T16:24:39.687651+00:00",
