@@ -79,6 +79,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
 
     profile_name = getattr(args, "execution_profile", None)
     domain = getattr(args, "domain", None)
+    cohort_manifest = getattr(args, "qualified_cohort_manifest", None)
 
     # Wave 9.4 (execution profiles): a `github_*` profile must never let
     # `--domain` skip supervise_repo()'s own lock/evidence/verification path --
@@ -92,9 +93,14 @@ def cmd_supervise(args: argparse.Namespace) -> int:
         from readme_agent.supervisor.execution_profile import get_profile
 
         profile = get_profile(profile_name)
-        if profile.name == "local_poc" and not getattr(args, "_portfolio_member", False):
+        if (
+            profile.name == "local_poc"
+            and not getattr(args, "_portfolio_member", False)
+            and not cohort_manifest
+        ):
             print(
-                "error: --execution-profile local_poc requires --registry data/products.json",
+                "error: --execution-profile local_poc requires --registry data/products.json "
+                "or a qualified cohort manifest for bounded repair",
                 file=sys.stderr,
             )
             return 2
@@ -108,7 +114,6 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
     else:
         profile = None
-    cohort_manifest = getattr(args, "qualified_cohort_manifest", None)
     if profile is not None and profile.name == "act_poc":
         if env.gh_token() is None:
             print(
@@ -133,9 +138,25 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             print(f"error: {exc}", file=sys.stderr)
             return 2
         args._portfolio_source_revision = member.source_revision
+    elif profile is not None and profile.name == "local_poc" and cohort_manifest:
+        from readme_agent.supervisor.trusted_cohort_runtime import (
+            require_runtime_trusted_cohort_repair_member,
+        )
+
+        try:
+            member = require_runtime_trusted_cohort_repair_member(
+                Path(cohort_manifest),
+                args.repo,
+            )
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        args._portfolio_member = True
+        args._portfolio_source_revision = member.source_revision
     elif cohort_manifest:
         print(
-            "error: --qualified-cohort-manifest is valid only with --execution-profile act_poc",
+            "error: --qualified-cohort-manifest is valid only with --execution-profile "
+            "act_poc or local_poc",
             file=sys.stderr,
         )
         return 2

@@ -28,7 +28,7 @@ from typing import Any, Protocol
 import requests
 from pydantic import BaseModel
 
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMInfrastructureError
 from readme_agent.llm.call_ledger import known_prompt_hash, record_non_provider_call
 from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.schema import LLMResponseMeta, Usage
@@ -36,7 +36,7 @@ from readme_agent.retry import RetryableOperationError, run_http_with_retry
 
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_MAX_TOKENS = 300
-_RETRYABLE_STATUS = {429, 502, 503, 504}
+_RETRYABLE_STATUS = {429, 500, 502, 503, 504}
 _MAX_RESPONSE_ATTEMPTS = 2
 _RETRYABLE_RESPONSE_ERRORS = (
     "forced tool call response was not valid JSON",
@@ -153,8 +153,12 @@ class LiveForcedToolClient:
                 sleep=time.sleep,
             )
         except RetryableOperationError as exc:
-            raise LLMError(f"forced tool call failed after retries: {exc}") from exc
+            raise LLMInfrastructureError(f"forced tool call failed after retries: {exc}") from exc
         if resp.status_code != 200:
+            if resp.status_code in {401, 403} or resp.status_code >= 500:
+                raise LLMInfrastructureError(
+                    f"forced tool call failed: HTTP {resp.status_code}: {resp.text[:500]}"
+                )
             raise LLMError(f"forced tool call failed: HTTP {resp.status_code}: {resp.text[:500]}")
         return resp
 

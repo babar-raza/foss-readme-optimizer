@@ -1,5 +1,7 @@
 """Prove unchanged trusted README reruns without new provider calls."""
 
+from collections.abc import Callable
+
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.readme.trusted_composition_models import TrustedReadmeCompositionOutputV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
@@ -24,6 +26,7 @@ def prove_trusted_no_op(
     *,
     blind_client: AnalysisClientLike,
     fidelity_client: AnalysisClientLike,
+    lease_guard: Callable[[], None] | None = None,
 ) -> TrustedReadmePipelineResultV1:
     """Revalidate the exact accepted cache and persist its zero-call proof."""
 
@@ -36,6 +39,8 @@ def prove_trusted_no_op(
         fidelity_client=fidelity_client,
         cached_review=approved_execution,
     )
+    if lease_guard is not None:
+        lease_guard()
     bundle_dir = write_trusted_review_evidence(
         snapshot,
         graph,
@@ -44,6 +49,8 @@ def prove_trusted_no_op(
         no_op_proven=True,
     )
     if not execution.cache_reused or execution.new_provider_call_count != 0:
+        if lease_guard is not None:
+            lease_guard()
         lifecycle = transition_trusted_readme_poc_status(
             backend,
             org_repo,
@@ -56,7 +63,10 @@ def prove_trusted_no_op(
             status=lifecycle.status,
             reached=False,
             blocked_reason="trusted unchanged rerun did not reuse the exact approved review",
+            blocked_category="agent_fixable",
         )
+    if lease_guard is not None:
+        lease_guard()
     lifecycle = transition_trusted_readme_poc_status(
         backend,
         org_repo,

@@ -813,6 +813,114 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+- task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Repair and requalify the coherent branded trusted cohort
+  source_audit_finding: Human review rejected the three staging candidates because their branding, header
+    structure, contextual Enterprise Edition links, and Mermaid overviews were inconsistent or not presentation-ready
+    even though their transport and effect lifecycle passed.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: trusted-poc-cohort-presentation-repair
+  owner: readme-presentation-specialist
+  status: TODO
+  objective: Establish the assurance-neutral repository-presentation contract shared by trusted and verified
+    lanes, prove its first binding by regenerating the exact Note, Page, and PDF Python cohort from immutable
+    source revisions, independently review them side-by-side, prove no-op behavior, and update the same
+    three staging proposal branches.
+  why_it_matters: Operational proof cannot make visibly incoherent or immature README proposals presentable;
+    recurring portfolio presentation defects belong in shared contracts and regression controls rather
+    than repository-local prompt patches.
+  allowed_paths:
+  - prompts/
+  - src/readme_agent/
+  - tests/
+  - runs/
+  - plans/
+  - config/authorization/
+  - the three existing trusted-cohort staging proposal branches
+  forbidden_paths:
+  - product repositories
+  - target default branches
+  - new staging repositories or duplicate proposal branches
+  - verified-assurance promotion
+  dependencies:
+  - TRP-04P-STAGING-EFFECT-PROOF
+  expected_outputs:
+  - Assurance-neutral RepositoryPresentationBrandContractV1 with versioned header, no-emoji, badge, section,
+    link, and detailed format/capability Mermaid rules
+  - CandidateSpanOwnershipMapV1 with complete normalized candidate-span ownership and reconstruction
+  - Hash-bound TrustedRepairActionV1 with deterministic exact-edit and bounded owned-span rewrite paths
+  - Renewable fenced run lease, exact continuation receipts, provider-work budgets, progress telemetry,
+    and ApproachAttemptV1 anti-stall records
+  - Three source-current candidate bundles with a cohort-level consistency verdict
+  - Independent per-repository and side-by-side cohort review
+  - No-op proof and in-place updates to the existing three staging draft PRs
+  acceptance_checks:
+  - All three candidates use one professional macro-structure and consistent header/badge ordering
+  - All three candidates contain zero emoji characters anywhere in visitor-visible README content
+  - Each candidate contains exactly one catalog-verified products.aspose.com link, naturally placed below
+    the opening and naming the related commercial product Enterprise Edition
+  - Each At a glance diagram uses the detailed Inputs/formats to Product/API to Capabilities to Outputs/formats
+    grammar and names concrete formats plus important product-specific features
+  - Every material candidate span has one stable system-issued owner across deterministic normalization
+  - A grounded exact defect changes only its owned bytes with zero repair-author call; new prose is generated
+    only through one bounded rewrite_owned_span action
+  - Logical jobs, batches, independent roles, repair actions, physical provider attempts, retries, tokens,
+    cache reuse, and elapsed time reconcile exactly within the qualified cohort budget
+  - Long live stages renew repository and mission leases with fencing and resume from the first unsealed
+    receipt after cancellation or process loss
+  - Two ineffective identical approaches or 15 minutes without material progress prevent another same-fingerprint
+    attempt and require a recorded materially different approach
+  - Before a third approach, or earlier when evidence challenges the design decomposition, a recorded
+    first-principles review restates the outcome and invariants, separates symptom from causal defect,
+    tests assumptions, and prefers the simplest correct owner or pipeline-boundary repair over more retries
+  - No comments, unsupported inherited-claim changes, protected-content loss, promotional opening, duplicate
+    proposal, or default-branch change passes
+  verification:
+  - Focused brand-contract, composition, reviewer, cohort, allow-list, and push-blocking tests
+  - Ownership-map reconstruction, exact/move/replace/rewrite repair, ambiguity, stale-hash, protected-sibling,
+    lease-renewal, fencing, timeout, cancellation, call-budget, anti-stall, and resume tests
+  - Live LLM regeneration through the canonical supervisor for the exact qualified cohort
+  - Deterministic candidate validation, independent per-candidate review, and cohort-level review
+  - Hosted in-place update followed by an identical no-op rerun
+  negative_controls:
+  - Inconsistent headings, badge order, missing or duplicate contextual links, generic or shallow Mermaid
+    chains, emojis anywhere in the README, comments, and cross-product leakage fail before proposal effect
+  - Ambiguous reviewer ownership, model-renamed segments, whole-batch repair for a local defect, byte-identical
+    repair, lost fencing, exceeded stage budget, repeated ineffective approach, and stale late results
+    fail before rereview or promotion
+  - Previously accepted transport evidence cannot approve a changed candidate hash
+  regression_checks:
+  - Existing source-accountability, fidelity, terminology, link-budget, redaction, authorization, proposal-idempotency,
+    and no-default-branch suites remain green
+  evidence_requirements:
+  - Contract and prompt hashes, source/candidate/ownership-map/action hashes, approach records, provider
+    call ledger, lease/continuation receipts, validation/review/no-op results, PR refs, byte-identical
+    default-branch proof, SHA-256 inventory, and reproduction commands
+  rollback_or_recovery: Preserve the last accepted staging branches and transport evidence; rebuild only
+    candidate-dependent artifacts from the immutable source revisions.
+  failure_reroute: Classify the first failing boundary as contract, composition, review, effect, or external
+    provider and repair the shared owner before another cohort rerun. Never rerun generic whole-batch
+    repair for a grounded local finding; exact ownership, repeated approach, or lease uncertainty is agent-fixable.
+  closeout_rules:
+  - All three visible proposals are independently accepted as one coherent professional cohort
+  - Durable state and frozen-cohort evidence bind the replacement candidate hashes
+  - Hosted qualification may resume without re-proving unchanged lower transport boundaries
+  goal_ids:
+  - GOAL-README
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Deliver three coherent reviewer-ready README proposals without weakening trusted assurance.
+  requirement_ids:
+  - TRP-020
+  - TRP-021
+  - TRP-022
+  - TRP-023
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  concurrency_class: primary_only
 - task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -843,6 +951,7 @@ taskcards:
   - PAT or ambient GH_TOKEN production fallback
   dependencies:
   - TRP-04P-STAGING-EFFECT-PROOF
+  - TRP-04P-COHERENT-PRESENTATION-REPAIR
   expected_outputs:
   - Verified control-repository main revision used by hosted workflow
   - Exact App setup result or one idempotent manual provisioning request
@@ -5049,7 +5158,7 @@ taskcards:
 - task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
-  title: Replace visible agent markers with factual README headers and Mermaid at-a-glance visuals
+  title: Bind verified candidates to the global header and visual presentation contract
   source_audit_finding: User review found HTML ownership comments in the strongest Java candidate and
     no consistent badge header or visual at-a-glance summary.
   audit_classification: not_attempted
@@ -5057,8 +5166,10 @@ taskcards:
   lane: local-readme-composition
   owner: readme-agent-supervisor
   status: TODO
-  objective: Keep ownership and idempotency metadata in durable evidence while producing marker-free factual
-    README headers, verified badges, and sanitized repository-specific Mermaid overview graphs.
+  objective: Keep ownership and idempotency metadata in durable evidence while binding repository-verified
+    candidates to the same assurance-neutral professional header, no-emoji, section-order, contextual-link,
+    and detailed Inputs-to-Product-to-Capabilities-to-Outputs visual contract first proven by the trusted
+    cohort.
   why_it_matters: A README is a visitor-facing document; visible automation metadata and generic text-only
     openings undermine trust and presentation quality.
   allowed_paths:
@@ -5075,12 +5186,17 @@ taskcards:
   - L8-COMPOSE-01-DECOMPOSE
   expected_outputs:
   - Marker-free candidate migration with durable provenance preservation
-  - Fact-backed header and badge renderer
-  - Sanitized Mermaid at-a-glance renderer
+  - ProductFactsV2-backed implementation of RepositoryPresentationBrandContractV1
+  - Fact-backed header and consistently ordered applicable badge renderer
+  - Sanitized, detailed input/format, product/API, capability, and output/format Mermaid renderer
   - Deterministic validation and real representative fixtures
   acceptance_checks:
   - No generated README contains HTML comments or agent metadata.
+  - No generated README contains emojis anywhere, and its first five H2 sections match the shared presentation
+    journey.
   - Every badge has accepted-fact provenance and every diagram node has accepted-fact provenance.
+  - Every diagram includes concrete directional inputs or formats, the factual product/API, at least two
+    important product-specific capabilities, and concrete outputs or outcomes within shared bounds.
   - Legacy marker-wrapped input regenerates to equivalent marker-free content without losing protected
     facts.
   - No false package, build, status, download, documentation, or cross-product badge survives.
@@ -5090,8 +5206,8 @@ taskcards:
   - Mermaid parse, unsafe-label, prompt-injection, and diagram-specificity controls.
   - Header/badge, document-plan, native-patch, protected-content, and independent-verifier regressions.
   negative_controls:
-  - No universal badge set, static product name substitution, unsupported status badge, or source README
-    claim may become a header or diagram fact.
+  - No universal badge set, lane-specific visual bypass, emoji, static product name substitution, unsupported
+    status badge, shallow generic diagram, or source README claim may become a header or diagram fact.
   regression_checks:
   - marker migration
   - document rendering
@@ -5120,6 +5236,7 @@ taskcards:
       README headers, verified badges, and sanitized repository-specific Mermaid overview graphs.
   requirement_ids:
   - L8-021
+  - L8-041
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
 - task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
@@ -8792,10 +8909,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 15eb69265033cdcff2162961a01662d52330252d7254dd7249225fc9f424aab0
+  source_sha256: a9fa48f690a61849ffa67de9558baf44900ca01f53fff27b0d7bc60129bdd0b3
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 453
-  mandatory_requirement_rows: 427
+  total_requirement_rows: 458
+  mandatory_requirement_rows: 432
   excluded_backlog_rows: 26
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -11266,6 +11383,30 @@ requirement_coverage:
     task_id: TRP-04P-POC-PRESENTATION
     disposition: open_mandatory
     semantic_findings: []
+  - requirement_id: TRP-020
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-021
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-022
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: TRP-023
+    priority: P0
+    requirement_status: PLANNED
+    task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+    disposition: open_mandatory
+    semantic_findings: []
   - requirement_id: TRP-010
     priority: P0
     requirement_status: PLANNED
@@ -11516,5 +11657,11 @@ requirement_coverage:
     priority: P0
     requirement_status: PLANNED
     task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-041
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
     disposition: open_mandatory
     semantic_findings: []

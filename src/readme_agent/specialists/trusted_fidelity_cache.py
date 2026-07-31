@@ -16,7 +16,8 @@ from readme_agent.specialists.trusted_transform_review_models import (
     TrustedFidelityReviewResultV1,
 )
 
-FIDELITY_BATCH_CONTRACT_VERSION = "trusted-fidelity-batch-v12-configured-badges"
+FIDELITY_BATCH_CONTRACT_VERSION = "trusted-fidelity-batch-v24-full-candidate-reconciliation"
+LEGACY_FIDELITY_BATCH_CONTRACT_VERSION = "trusted-fidelity-batch-v23-normalized-lineage-projection"
 
 
 class TrustedFidelityBatchCacheV1(BaseModel):
@@ -51,12 +52,13 @@ def trusted_fidelity_cache_key(
     plan_context: dict,
     prompt_sha256: str,
     model: str,
+    contract_version: str | None = None,
 ) -> str:
     """Hash source, candidate, bounded context, contract, prompt, and route."""
 
     return _canonical_hash(
         {
-            "contract_version": FIDELITY_BATCH_CONTRACT_VERSION,
+            "contract_version": contract_version or FIDELITY_BATCH_CONTRACT_VERSION,
             "org_repo": graph.org_repo,
             "source_revision": graph.source_revision,
             "fact_graph_sha256": graph.canonical_hash(),

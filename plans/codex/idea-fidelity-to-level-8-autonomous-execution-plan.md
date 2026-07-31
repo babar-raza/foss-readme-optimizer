@@ -26,6 +26,260 @@ complete authorized-source discovery, `verified_repository_presentation` work ad
 in spare supervisor capacity instead of waiting for every trusted PR; after trusted T3 closes it
 becomes primary and continues to the independently reproducible Level-8 award in `plans/idea.md`.
 
+### Active forensic recovery and execution block (2026-07-30)
+
+This block is the current entry point for execution. It supersedes older short-term instructions in
+this supporting document wherever they would restart generic whole-batch repair, refreeze rejected
+candidate hashes, create replacement staging repositories, or advance hosted work before the three
+visible candidates pass. It does not replace the authority order above or the sole durable mission
+graph.
+
+The verified live control snapshot at the start of this plan-healing pass is:
+
+- control repository `main` at `5d849c4277df7d8516dfd3e4d5ca7e6129b37279`;
+- durable mission state version 627 with graph SHA-256
+  `ed5b813852af9510f2c93c6048626983aacd215a7444f4fd9c3b792ae06550f5`;
+- active task and goal `TRP-04P-COHERENT-PRESENTATION-REPAIR` /
+  `GOAL-TP-TRUSTED-COHORT-POC`;
+- no repository-owned top-level supervisor, test, build, Docker, or workflow process left active
+  after the interrupted Note repair was deliberately cancelled;
+- the existing Note, Page, and PDF Python staging draft PRs and their lower transport/effect proof
+  are preserved, but their current README candidate hashes remain human-rejected presentation
+  inputs;
+- the current Note candidate still contains a duplicated, malformed Enterprise Edition sentence
+  under Quick start and therefore is not eligible for refreeze or proposal update;
+- the control worktree contains one uncommitted, operator-owned implementation slice covering the
+  shared presentation contract, prompts, reviewer grounding, targeted repair, lifecycle recovery,
+  tests, and synchronized plan material. It must be preserved and reconciled, not reset or
+  overwritten.
+
+Every receiving execution session must refresh this snapshot from Git, mission `status`, process
+inventory, current bundles, and the three remote PR heads. Historical values above are evidence of
+the forensic boundary, not permission to override newer durable state.
+
+#### Forensic modification map
+
+| Severity | Weak boundary | Root cause | Surgical plan change | Expected outcome |
+| --- | --- | --- | --- | --- |
+| Critical | A one-sentence review defect can invoke a complete replacement for the owning composition batch. | Reviewer findings identify prose, while the repair API exposes an authoring batch; the LLM is asked to reconstruct structure it does not need to change. | Introduce typed, hash-bound repair actions. Execute a grounded unique `remove_exact`, `move_exact`, or non-generative `replace_exact` deterministically; invoke the LLM only when new visitor prose is actually required, and then only for the rejected span. | A local defect changes one owned span and cannot rename, reorder, duplicate, or damage accepted siblings. |
+| Critical | Normalization can sever the identity between reviewer spans and authored segments. | Segment IDs are model-proposed and later deterministic normalization changes headings and shell structure without emitting a durable ownership map. Fuzzy matching is a recovery heuristic, not production identity. | Persist `CandidateSpanOwnershipMapV1` after every assembly/normalization pass, binding candidate byte spans to batch ID, segment ID, source/configured provenance, pre/post hashes, and normalization operations. Review and repair consume this map. | Grounded findings resolve exactly or fail before another provider call; no semantic guessing controls mutation. |
+| Critical | A long composition/review/repair chain can outlive the fixed 900-second repository run lease or be interrupted without a precise continuation boundary. | The Git-ref run lock has acquisition/release but no renewal; provider calls have per-attempt timeouts but the multi-call stage has no renewable lease heartbeat or stage deadline. | Add lease renewal/fencing around long trusted stages, graceful cancellation, exact durable stage/attempt receipts, and reclaim only after verified expiry. Stop admission on renewal uncertainty. | A slow provider cannot create competing writers, stale promotion, or restart-from-the-beginning churn. |
+| High | “One composition, one review, one repair” does not bound actual provider work. | One logical review contains two roles and batching/retries create multiple physical HTTP attempts; current status language conflates logical jobs, batches, attempts, and cache reuse. | Set and record separate logical-job, batch, physical-attempt, token, and elapsed-time budgets. The default cohort budget is one initial composition campaign, one blind review, one fidelity review, at most one prose-authoring repair job, and one rereview pair; exact-edit repair uses zero authoring calls. Transport retries remain bounded and visible. | Per-README cost and latency are explainable, resumable, and enforceable without falsely claiming exactly-once provider billing. |
+| High | Repeated live reruns discover wiring defects one repository at a time. | Candidate execution starts before the repair contract, ownership map, lifecycle continuation, and negative controls are frozen together. | Freeze the shared seam with focused defect controls before another live cohort run. Reuse source snapshots, accepted lower receipts, and cache entries whose dependency hashes remain valid. | A known defect is repaired once and cannot multiply across Note, Page, PDF, or the later portfolio. |
+| High | Lower transport proof could be mistaken for acceptance of changed candidate bytes. | Transport/effect scenarios were correct, but visible content was rejected later and proposal state did not make presentation invalidation prominent enough. | Promotion requires new per-candidate validation/review/no-op receipts plus a side-by-side cohort verdict bound to replacement hashes. Update only the same three PR branches after the cohort freezes. | Existing workflow/effect proof is reused honestly while rejected README bytes never inherit its acceptance. |
+| Medium | Full-source fidelity review is repeated after a tiny candidate edit. | Review inputs are assembled as broad batches and cache invalidation is coarser than the actual changed ownership spans. | Preserve complete deterministic source accountability, but cache unchanged fidelity batches by source, candidate-span, prompt, role, and contract hashes. Rereview only invalidated batches while reducing all current receipts into one fail-closed verdict. | Review cost falls without weakening whole-document inheritance coverage. |
+| Medium | Micro-fix testing and live retry cadence delay visible output. | The plan did not bind focused, affected-regression, cohort, and closure-suite boundaries tightly enough to this active task. | Run focused seam tests after each repair; one affected integration/safety set before live regeneration; one full official suite at the stable cohort/commit boundary. Never substitute a focused pass for closure proof. | Fast feedback is retained and the expensive suite runs once at the boundary where its scope is claimed. |
+| Medium | A 2,000-line supporting plan obscures the current executable boundary. | Successive amendments preserved history but required a receiving agent to infer which prose superseded which. | Keep this current block at the top, label snapshots historical, and make the sole graph task plus durable state the executable taskcard. Do not create another plan or queue. | Restart begins at one explicit boundary without discarding useful history. |
+
+#### Stabilized root-cause chain
+
+The visible symptom is one malformed duplicate sentence in the Note README. The local cause is a
+repair request aimed at a whole composition batch. The systemic cause is that model-authored
+segment identity and deterministic post-processing do not produce one durable candidate-span
+ownership record. The machinery cause is that review, repair, normalization, lifecycle, lease, and
+provider accounting were each locally bounded but not governed as one resumable transaction. The
+governance cause is that “targeted repair” described intent without specifying the admissible
+mutation operations, provider budget, or promotion receipt. The workflow consequence is repeated
+LLM execution with no visible cohort progress.
+
+The repair must therefore occur at the first shared failing boundary. A repository-specific prompt
+tweak, hand-edited candidate, relaxed reviewer, direct branch update, or repeated full-batch LLM
+retry is prohibited.
+
+#### Active taskcard and state
+
+The sole executable taskcard remains `TRP-04P-COHERENT-PRESENTATION-REPAIR`. Its durable state is
+`IN_PROGRESS`; the following work items are ordered substates of that task, not another ledger:
+
+| Work item | State at forensic boundary | Completion transition |
+| --- | --- | --- |
+| `TRP-04P-R1-CONTRACT` | validation | The assurance-neutral header, badge, no-emoji, section, contextual-link, Enterprise Edition, and detailed Mermaid contract passes focused positive and negative controls in both assurance adapters. |
+| `TRP-04P-R2-OWNERSHIP-ACTIONS` | active | `CandidateSpanOwnershipMapV1` and hash-bound `TrustedRepairActionV1` prove exact action execution, accepted-span byte identity, ambiguous-owner failure, and changed-candidate precondition. |
+| `TRP-04P-R3-LEASE-CALL-BUDGET` | backlog | Long-stage lease renewal/fencing, cancellation/resume receipt, logical/physical call accounting, stage deadline, and provider-latency telemetry pass controlled timeout/recovery tests. |
+| `TRP-04P-R4-NOTE` | blocked by R2/R3 | The immutable Note source produces a deterministically valid, independently accepted, no-op-proven candidate with no duplicated or malformed Enterprise Edition prose. |
+| `TRP-04P-R5-PAGE` | blocked by R4 contract freeze | Page reaches the same candidate/review/no-op boundary without changing the shared contract. |
+| `TRP-04P-R6-PDF` | blocked by R4 contract freeze | PDF reaches the same candidate/review/no-op boundary without changing the shared contract. |
+| `TRP-04P-R7-COHORT` | blocked by R4-R6 | Side-by-side review accepts all three under one contract and the cohort manifest binds their current hashes. |
+| `TRP-04P-R8-STAGING-UPDATE` | blocked by R7 | The same three proposal branches and draft PRs are updated once, default branches remain byte-identical, hosted rerun is a no-op, and the indexed evidence is independently reproduced. |
+
+The graph task owns these work items and their evidence. Durable task status changes only at the
+task boundary; work-item state is recomputed from code, receipts, bundles, and remote observation,
+not manually treated as completion authority.
+
+#### Repair action and ownership contracts
+
+`CandidateSpanOwnershipMapV1` contains:
+
+- repository, immutable source revision, source hash, candidate hash, presentation-contract hash,
+  normalization-contract hash, and ownership-map hash;
+- one non-overlapping candidate byte-span record for every authored or preserved material unit;
+- batch ID, stable system-issued segment ID, inherited/configured provenance IDs, pre-normalization
+  hash, post-normalization hash, and the ordered deterministic operations that changed its location
+  or shell;
+- an explicit shell/normalization owner for generated H1, badge row, required section headings,
+  contextual Enterprise Edition paragraph, and Mermaid block;
+- total coverage, non-overlap, exact reconstruction, and source-accountability validation.
+
+Stable IDs are issued by deterministic code from repository, source revision, owner kind,
+provenance IDs, and ordinal before the author call. The model may propose content and disposition;
+it may not rename ownership identity.
+
+`TrustedRepairActionV1` contains:
+
+- repository, source revision, source/candidate/ownership-map/presentation-contract hashes;
+- reviewer role and finding ID, exact quoted candidate span, resolved ownership record, and
+  polarity-checked evidence or configured-standard IDs;
+- action `remove_exact`, `move_exact`, `replace_exact`, or `rewrite_owned_span`;
+- expected old bytes/hash, optional target anchor, required outcome, and protected sibling hashes;
+- `rewrite_owned_span` prompt/schema/model route and bounded output envelope when prose generation
+  is necessary.
+
+The reviewer decides the editorial disposition through its structured grounded finding.
+Deterministic code validates and executes exact removal/move/non-generative replacement. The LLM
+authors only `rewrite_owned_span` content. Every action rebuilds the candidate, reruns deterministic
+validation, proves every sibling hash unchanged, and invalidates only affected review batches.
+Ambiguous ownership, stale hashes, multiple matches, missing evidence, or an unchanged candidate is
+`SYSTEM_FAILURE`/`agent_fixable`; it never triggers a broader rewrite.
+
+#### Provider, lease, and continuation contract
+
+One README run must expose:
+
+- logical jobs by role, authoring batch count, repair action count, physical provider attempts,
+  retries, cache reuse, input/output tokens, and elapsed service/queue time;
+- a configured per-attempt timeout plus a larger stage deadline; no new attempt starts when the
+  remaining stage budget cannot contain its timeout and cleanup margin;
+- renewable repository-run and mission claims with fencing identity around every live call;
+- a persisted pre-call request receipt and post-call response/result receipt so a crash or
+  cancellation resumes at the earliest unsealed boundary;
+- progress events at call start, retry, response, validation, review reduction, repair action,
+  lifecycle promotion, and cleanup;
+- a route circuit breaker for repeated timeout/transport failure. An open circuit yields a visible
+  retryable external-provider state while unrelated eligible work continues; it cannot approve or
+  broaden a candidate.
+
+The initial qualified-cohort budget is:
+
+- one logical composition campaign using the minimum number of envelope-required batches;
+- one blind-quality and one inheritance-fidelity review;
+- zero authoring calls for a unique grounded exact edit, otherwise at most one
+  `rewrite_owned_span` call;
+- one invalidated-batch rereview per independent role;
+- at most the live client's existing bounded transport attempts per logical call;
+- zero provider calls on the unchanged no-op rerun.
+
+Exceeding the budget is a typed failure with exact call-ledger evidence. Raising the budget requires
+a recorded defect class and a plan/requirement amendment; an operator may not silently keep retrying.
+
+#### Anti-stall and mandatory approach-change rule
+
+Every implementation, live execution, provider call, verification, and effect boundary has an
+`ApproachAttemptV1` record containing the failing boundary, hypothesis, approach fingerprint,
+inputs, start/end time, attempt number, result, new evidence, and next admissible approach. Unless
+a taskcard sets a stricter limit, the same approach fingerprint may run at most twice and may
+consume at most 15 minutes without producing a new accepted artifact, resolved finding, changed
+candidate, or narrower proven root cause. Transport retries inside one logical provider call retain
+their existing client limit, but they count in elapsed-time and physical-attempt evidence.
+
+An unchanged candidate, repeated exception at the same line/boundary, identical reviewer rejection,
+second provider timeout, or elapsed no-progress budget immediately closes that approach as
+`INEFFECTIVE`. The operator must then:
+
+1. stop the current command tree safely and persist its raw result;
+2. identify the first failing boundary and state what new evidence disproved the prior hypothesis;
+3. select the smallest materially different approach:
+   - narrow a broad LLM rewrite to a grounded typed exact action;
+   - move the repair to the upstream owner of invalid evidence, normalization, review, lifecycle,
+     lease, or transport;
+   - use a separately qualified library, provider route, cache/receipt replay, or public seam;
+   - isolate the failure as a governed resolver while continuing unrelated dependency-ready work;
+4. record a new approach fingerprint and its proof requirement before execution;
+5. preserve every unchanged acceptance and safety gate.
+
+Changing parameters, restarting the same command, rephrasing the same prompt, or increasing retry
+count without new evidence is not a new approach. The operator may not use the rule to skip a hard
+task, weaken verification, hand-edit a runtime candidate, or declare an agent-fixable issue
+external. If two materially different approaches fail, perform a fresh root-cause review before a
+third approach. If no safe different approach remains, create or reopen the owning resolver task
+with exact evidence and continue any unrelated ready work.
+
+The root-cause review is explicitly first-principles, not another implementation retrospective:
+
+1. restate the user-visible outcome, acceptance conditions, and safety invariants without assuming
+   the current modules, prompts, queues, or stage order are correct;
+2. separate the observed symptom from the earliest causal defect and list the assumptions that
+   connect them;
+3. challenge each assumption against current code, raw artifacts, rerun evidence, and a negative
+   control;
+4. assign each responsibility to its simplest correct owner: deterministic mechanisms for
+   measurable facts, exact bytes, safety, lifecycle, and validation; LLM roles for
+   repository-specific composition and qualitative judgment;
+5. prefer removing an unnecessary mechanism or correcting an upstream contract/stage boundary
+   over adding retries, model-specific prompt exceptions, or downstream cleanup;
+6. record the selected design, rejected alternatives, tradeoffs, and a falsifiable proof in the
+   same `ApproachAttemptV1` before another execution.
+
+This review may run before the numerical anti-stall limit whenever new evidence undermines the
+current decomposition. “Improve the existing implementation” is never itself a constraint; the
+goal and invariants are.
+
+#### Exact immediate execution sequence
+
+1. Reconcile the current dirty implementation against this taskcard. Preserve valid contract,
+   reviewer-grounding, lifecycle-recovery, prompt, and test changes; remove or redesign fuzzy
+   heuristics that would become mutation authority.
+2. Implement and characterize the ownership map and typed repair-action public seams. Seed controls
+   from the observed Note duplicate, model-renamed segment, normalized H1, ambiguous quote, stale
+   hash, and protected-sibling cases.
+3. Add renewable run-lease/fencing and exact continuation receipts around the trusted live stage.
+   Add call/stage budgets and progress evidence without changing provider payload semantics.
+4. Run Ruff/format/mypy plus focused composition, repair, reviewer, lifecycle, lease, call-ledger,
+   allow-list, push-blocking, and redaction tests. Run the affected public-supervisor integration
+   set once. Repair the first failing boundary.
+5. Reuse the immutable Note source and accepted compatible receipts. Apply the grounded exact-span
+   action for the duplicated malformed sentence; use no repair-author call unless the reviewer
+   explicitly requires new prose. Run deterministic validation, both independent roles, and an
+   identical no-op rerun.
+6. Freeze the accepted contract hashes, then regenerate and qualify Page and PDF serially through
+   the same canonical supervisor. A new common defect reopens R1-R3 and adds one shared regression;
+   a repository-specific finding repairs only its owned span.
+7. Run the side-by-side cohort reviewer and deterministic cohort consistency reducer. Re-freeze
+   only when all three source-current candidates are accepted and no-op-proven.
+8. Run the complete stable-tree official gate once, generate checksum-complete evidence, and commit
+   the coherent control-repository slice directly to `main` with the Codex trailer.
+9. Update the existing Note, Page, and PDF staging proposal branches and draft PRs through the
+   canonical hosted workflow. Do not create repositories, branches, or duplicate PRs. Independently
+   verify exact candidate bytes, default-branch identity, deduplication, no-op behavior, and the
+   presentation package.
+10. Close `TRP-04P-COHERENT-PRESENTATION-REPAIR`, refresh the same handover/state views, evaluate
+    the sole graph, and continue the next eligible trusted-cohort task without awaiting a new prompt.
+
+#### Verification and readiness standard for this block
+
+Focused proof must include:
+
+- exact, move, non-generative replacement, and LLM rewrite action controls;
+- ownership coverage, overlap, ambiguity, normalization, stale-hash, and protected-sibling controls;
+- changed-candidate before rereview and zero-call exact-edit behavior;
+- logical-versus-physical call reconciliation, timeout, cancellation, retry, cache, and redaction;
+- lease renewal, lost renewal, stale worker, fencing, graceful release, forced-interruption recovery,
+  and exact resume boundary;
+- individual brand/presentation validation plus three-way cohort consistency;
+- unchanged no-op with zero new call, event, bundle, branch, or PR;
+- allow-list, push-blocking, authorization, proposal idempotency, and default-branch safety.
+
+Rollback is dependency-scoped. A failed content action restores the prior accepted candidate bytes
+and reopens only that ownership span. A failed contract change invalidates all three candidate
+hashes but preserves immutable source, facts, workflow, and effect proof. A lost lease prevents
+promotion and leaves the sealed result quarantined for recovery. A failed staging update retains
+the last stable proposal branch/PR and reconciles it without force push or default-branch mutation.
+
+The plan is **READY WITH CONDITIONS** at this forensic boundary. Authority, task ownership, safety,
+rollback, and the exact execution queue are established. It becomes **READY FOR EXECUTION** only
+after R1-R3 focused and affected-integration proof passes on one stable tree; it becomes ready for
+staging effects only after R4-R7 close. This readiness verdict is not candidate acceptance and does
+not advance durable mission state by itself.
+
 ### Binding qualified-cohort delivery amendment (2026-07-30)
 
 This amendment supersedes the short-term ordering in the 2026-07-29 amendment and later phase
@@ -43,6 +297,7 @@ TRP-01 -> TRP-02 -> TRP-03
      TRP-04P-TEST-LATENCY
      TRP-04P-ACT-WORKFLOW-PARITY
      TRP-04P-STAGING-EFFECT-PROOF
+     TRP-04P-COHERENT-PRESENTATION-REPAIR
      TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
      TRP-04P-AUTHORIZATION-ACCESS
      TRP-04P-DRAFT-PR-COHORT
@@ -1970,22 +2225,26 @@ Execution resumes in this order; it does not start an official fixed-count campa
 2. Run mission `status`; if the graph hash differs from durable state, run `evaluate` once to
    migrate without deleting transition history, then claim only the highest-priority eligible
    task. Live durable state supersedes every snapshot in this supporting document.
-3. Preserve the closed `TRP-04P-COHORT-FREEZE` result: three source-current,
-   checksum-valid Python bundles (Note, Page, and PDF) are frozen under cohort ID
-   `1773cf81721531515766e5a61dc1a2e1ca467e1d6cc8350920f04dbb15095331`. Do not
-   regenerate them merely to change ordering; re-freeze only when an input hash or target head
-   invalidates a member.
+3. Preserve the immutable source snapshots and lower transport evidence from the closed
+   `TRP-04P-COHORT-FREEZE` result, but treat its three Note/Page/PDF candidate hashes as rejected
+   presentation inputs. `TRP-04P-COHERENT-PRESENTATION-REPAIR` must replace them through one
+   assurance-neutral versioned brand/header/no-emoji/link/detailed format-and-capability Mermaid
+   contract shared by trusted and verified lanes,
+   deterministic validation, independent
+   per-candidate and side-by-side cohort review, and no-op proof. Re-freeze the cohort only after
+   all three replacements pass.
 4. Preserve the closed `TRP-04P-ACT-WORKFLOW-PARITY` proof at commit `700b232d` and the
    independently accepted disposable-staging proof implemented at `8c78e7f9`, with evidence under
-   `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The exact frozen cohort now
-   has canonical-workflow create/no-op/update/drift/deduplication/lost-response/expiry/crash
-   evidence and byte-identical staging default branches. Durable evaluation selects
-   `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` first so the external critical path is exposed
-   immediately. The exact owner handoff is already persisted because registration and installation
-   are manual. Preserve the independently accepted `TRP-04P-TEST-LATENCY` result under
+   `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. The prior cohort has
+   canonical-workflow create/no-op/update/drift/deduplication/lost-response/expiry/crash
+   evidence and byte-identical staging default branches, but human review rejected its visible
+   README presentation. Durable evaluation must therefore select
+   `TRP-04P-COHERENT-PRESENTATION-REPAIR` before hosted continuation. Preserve the independently
+   accepted `TRP-04P-TEST-LATENCY` result under
    `plans/investigations/evidence/trp-04p-test-latency-v1/`: the full test inventory remains
    mandatory but uses a checksum-bound, four-worker closure command, and hosted cold/warm bootstrap
-   is measured separately. Resume App validation automatically, then continue through permission
+   is measured separately. After the replacement candidate hashes are frozen and updated in the
+   same staging PRs, resume App validation automatically, then continue through permission
    and authorization proof, serialized draft PRs, and the indexed POC presentation package.
    Obtain fresh exact what/why/where confirmation before each product effect.
 5. Immediately reclaim `TRP-04-CANARY-QUALIFICATION` after the presentation package closes.

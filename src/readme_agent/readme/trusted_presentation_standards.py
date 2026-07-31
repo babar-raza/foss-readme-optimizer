@@ -14,9 +14,30 @@ from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.links.allocation import resolve_link_budget
 from readme_agent.links.catalog import lookup_verified_target
 from readme_agent.links.runtime_context import load_runtime_link_inputs
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_EMOJI_POLICY,
+    PRESENTATION_H2_PREFIX,
+    PRESENTATION_HEADING_PREFIX_ALIASES,
+    PRESENTATION_HEADING_SUFFIX_ALIASES,
+    PRESENTATION_MERMAID_GRAMMAR,
+    PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
+    PRESENTATION_MERMAID_MAX_NODES,
+)
+from readme_agent.readme.trusted_portfolio_brand import (
+    TRUSTED_PORTFOLIO_BRAND_CONTRACT_VERSION,
+)
 from readme_agent.registry.loader import load_policy, require_listed
 
 _URL = re.compile(r"https?://[^\s<>()\]]+", re.IGNORECASE)
+_PLATFORM_BADGE_COLORS = {
+    "python": "3776AB",
+    "net": "512BD4",
+    "java": "ED8B00",
+    "cpp": "00599C",
+    "typescript": "3178C6",
+    "rust": "000000",
+    "go": "00ADD8",
+}
 
 
 def bind_trusted_presentation_standards(
@@ -42,6 +63,13 @@ def bind_trusted_presentation_standards(
         f"{license_name}](https://img.shields.io/badge/License-"
         f"{quote(license_name, safe='')}-blue.svg)"
     )
+    platform_label = entry.platform.replace("-", " ").title()
+    platform_color = _PLATFORM_BADGE_COLORS.get(entry.platform.casefold(), "555555")
+    platform_badge = (
+        f"![Platform: {platform_label}](https://img.shields.io/badge/Platform-"
+        f"{quote(platform_label, safe='')}-{platform_color}.svg)"
+    )
+    core_badge_row = f"{platform_badge} {license_badge}"
     catalogs, allocation_policy = load_runtime_link_inputs(org_repo)
     if catalogs is None or allocation_policy is None:
         allowed_urls: list[str] = []
@@ -61,6 +89,24 @@ def bind_trusted_presentation_standards(
         ]
         allowed_urls = sorted({record.url for record in records})
         surface_by_url = {record.url: record.surface for record in records}
+    enterprise_record = None
+    if catalogs is not None:
+        enterprise_record = lookup_verified_target(
+            catalogs,
+            policy.required_elements.products_com_link.url,
+        ) or lookup_verified_target(
+            catalogs,
+            policy.required_elements.products_com_link.family_url,
+        )
+    if enterprise_record is None:
+        raise ValueError(f"{org_repo!r} has no catalog-verified Enterprise Edition product link")
+    enterprise_product_name = (
+        f"{policy.required_elements.products_com_link.label} Enterprise Edition"
+    )
+    if enterprise_record.url not in allowed_urls:
+        allowed_urls.append(enterprise_record.url)
+        allowed_urls.sort()
+        surface_by_url[enterprise_record.url] = enterprise_record.surface
     budget = resolve_link_budget(policy.link_allocation, source_text)
     additions = [
         configured_standard_addition(
@@ -71,25 +117,50 @@ def bind_trusted_presentation_standards(
                 "repository_name": entry.repo_name,
                 "family": entry.family,
                 "platform": entry.platform,
+                "brand_contract_version": TRUSTED_PORTFOLIO_BRAND_CONTRACT_VERSION,
+                "required_h2_prefix": list(PRESENTATION_H2_PREFIX),
+                "heading_style": "sentence_case_without_emoji",
+                "emoji_policy": PRESENTATION_EMOJI_POLICY,
+                "heading_aliases": {"Features": "Key capabilities"},
+                "heading_prefix_aliases": PRESENTATION_HEADING_PREFIX_ALIASES,
+                "heading_suffix_aliases": PRESENTATION_HEADING_SUFFIX_ALIASES,
             },
         ),
         configured_standard_addition(
             "readme.badges",
             configuration_source=config_source,
             configuration_bytes=config_bytes,
-            parameters={"required_fragments": [license_badge]},
+            parameters={
+                "required_fragments": [platform_badge, license_badge],
+                "required_order": ["platform", "license"],
+                "required_core_row": core_badge_row,
+                "allow_inherited_badges_after_core": True,
+            },
         ),
         configured_standard_addition(
             "readme.navigation",
             configuration_source=config_source,
             configuration_bytes=config_bytes,
-            parameters={"required_labels": ["At a glance"]},
+            parameters={
+                "required_labels": [
+                    "At a glance",
+                    "Key capabilities",
+                    "Installation",
+                    "Quick start",
+                ]
+            },
         ),
         configured_standard_addition(
             "readme.at_a_glance_mermaid",
             configuration_source=config_source,
             configuration_bytes=config_bytes,
-            parameters={"heading": "At a glance", "diagram_kind": "flowchart"},
+            parameters={
+                "heading": "At a glance",
+                "diagram_kind": "flowchart",
+                "visual_grammar": PRESENTATION_MERMAID_GRAMMAR,
+                "max_nodes": PRESENTATION_MERMAID_MAX_NODES,
+                "max_label_characters": PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
+            },
         ),
         configured_standard_addition(
             "readme.no_comments",
@@ -119,6 +190,9 @@ def bind_trusted_presentation_standards(
                 "priority_hosts": ["products.aspose.org", "products.aspose.com"],
                 "forbidden_sections": ["navigation", "at a glance"],
                 "forbid_blockquotes": True,
+                "required_aspose_com_occurrences": 1,
+                "required_enterprise_url": enterprise_record.url,
+                "enterprise_product_name": enterprise_product_name,
             },
         ),
     ]

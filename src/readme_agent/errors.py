@@ -43,3 +43,7 @@ class ValidationFailure(ReadmeAgentError):
 
 class LLMError(ReadmeAgentError):
     exit_code = 3
+
+
+class LLMInfrastructureError(LLMError):
+    """An external model-provider, network, or credential boundary failed."""

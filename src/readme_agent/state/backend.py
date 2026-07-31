@@ -103,6 +103,14 @@ class StateBackend(Protocol):
         hold it, same contract as `acquire_lock()`."""
         ...
 
+    def renew_run_lock(self, lock: Lock) -> Lock | None:
+        """Extend the same run-lock holder by CAS; `None` means ownership was lost."""
+        ...
+
+    def run_lock_still_held(self, lock: Lock) -> bool:
+        """Freshly verify that the durable run-lock still names this holder."""
+        ...
+
     def release_run_lock(self, lock: Lock) -> None: ...
 
     def load_model_route_status(self, job: str) -> ModelRouteStatusV1 | None:

@@ -10,12 +10,16 @@ from typing import Any, Literal
 
 import requests
 
+from readme_agent.errors import LLMError
 from readme_agent.llm.call_ledger import (
     append_llm_call_record,
     canonical_call_hash,
+    current_llm_accounting_summary,
     current_llm_call_context,
 )
 from readme_agent.llm.call_schema import CallOutcome, LlmCallRecordV1
+
+MAX_TRUSTED_PROVIDER_ATTEMPTS_PER_REPOSITORY = 64
 
 
 def _response_metadata(response: requests.Response) -> dict[str, Any]:
@@ -82,6 +86,7 @@ class ProviderCallSession:
     ) -> requests.Response:
         """Perform and account one physical provider attempt without storing content."""
 
+        _require_trusted_provider_attempt_budget()
         self._attempt += 1
         call_id = str(uuid.uuid4())
         request_sha256 = canonical_call_hash(payload)
@@ -193,4 +198,21 @@ class ProviderCallSession:
                 error_class=error_class,
                 **metadata,
             )
+        )
+
+
+def _require_trusted_provider_attempt_budget() -> None:
+    """Fail before transport when one trusted README exhausts its bounded call budget."""
+
+    context = current_llm_call_context()
+    if context is None or context.stage != "TRUSTED_README_PROCESSING":
+        return
+    summary = current_llm_accounting_summary()
+    count = summary.provider_call_count
+    if summary.status != "EXACT" or count is None:
+        raise LLMError("trusted README provider-call accounting is unavailable")
+    if count >= MAX_TRUSTED_PROVIDER_ATTEMPTS_PER_REPOSITORY:
+        raise LLMError(
+            "trusted README provider-call budget exhausted: "
+            f"{count}/{MAX_TRUSTED_PROVIDER_ATTEMPTS_PER_REPOSITORY}"
         )

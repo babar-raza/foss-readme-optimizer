@@ -13,6 +13,11 @@ from readme_agent.readme.trusted_composition_models import (
 )
 
 _H1 = re.compile(r"^(?P<prefix>\s*)# (?P<title>.+?)\s*(?P<ending>\r?\n)?$")
+_H2_NAVIGATION = re.compile(r"(?mi)^##[ \t]+Navigation[ \t]*$")
+_LOCAL_LINK_LINE = re.compile(
+    r"(?m)^[ \t]*(?:[-*+][ \t]+)?\[[^\]\r\n]+\]\(#[^)\r\n]+\)"
+    r"(?:[^\r\n]*\[[^\]\r\n]+\]\(#[^)\r\n]+\))*[ \t]*$"
+)
 
 
 def normalize_tool_arguments(arguments: dict, batch: TrustedCompositionBatch) -> dict:
@@ -100,7 +105,7 @@ def normalize_configured_header(
     draft: TrustedReadmeSectionToolDraftV1,
     batch: TrustedCompositionBatch,
 ) -> TrustedReadmeSectionToolDraftV1:
-    """Materialize one configured H1 while preserving every non-heading line."""
+    """Materialize the deterministic H1/navigation shell around model-authored content."""
 
     header = next(
         (
@@ -118,7 +123,7 @@ def normalize_configured_header(
         for segment in draft.segments
         if segment.kind == "preserve_exact"
         for match in re.finditer(
-            r"(?m)^# (.+?)\s*$",
+            r"(?m)^# (?P<title>.+?)\s*$",
             source_by_id[segment.inherited_fact_ids[0]],
         )
     ]
@@ -164,7 +169,77 @@ def normalize_configured_header(
         updated_segments[target] = segment.model_copy(
             update={"markdown": f"# {configured_title}\n\n{segment.markdown.lstrip()}"}
         )
+    navigation = next(
+        (
+            standard
+            for standard in batch.configured_standards
+            if standard.standard_id == "readme.navigation"
+        ),
+        None,
+    )
+    if navigation is not None:
+        target = next(
+            (
+                index
+                for index, segment in enumerate(updated_segments)
+                if segment.kind == "authored"
+                and "readme.navigation" in segment.configured_standard_ids
+            ),
+            None,
+        )
+        if target is not None:
+            segment = updated_segments[target]
+            markdown = segment.markdown
+            if _H2_NAVIGATION.search(markdown) is None:
+                first_link = _LOCAL_LINK_LINE.search(markdown)
+                if first_link is not None:
+                    markdown = (
+                        markdown[: first_link.start()]
+                        + "## Navigation\n\n"
+                        + markdown[first_link.start() :]
+                    )
+                else:
+                    labels = [
+                        str(label).strip()
+                        for label in navigation.parameters.get("required_labels", [])
+                        if str(label).strip()
+                    ]
+                    links = "\n".join(f"- [{label}](#{_github_anchor(label)})" for label in labels)
+                    if links:
+                        markdown = markdown.rstrip() + f"\n\n## Navigation\n\n{links}\n"
+                updated_segments[target] = segment.model_copy(update={"markdown": markdown})
+    badges = next(
+        (
+            standard
+            for standard in batch.configured_standards
+            if standard.standard_id == "readme.badges"
+        ),
+        None,
+    )
+    if badges is not None:
+        target = next(
+            (
+                index
+                for index, segment in enumerate(updated_segments)
+                if segment.kind == "authored" and "readme.badges" in segment.configured_standard_ids
+            ),
+            None,
+        )
+        required_row = str(badges.parameters.get("required_core_row", "")).strip()
+        if target is not None and required_row:
+            segment = updated_segments[target]
+            if required_row not in segment.markdown:
+                updated_segments[target] = segment.model_copy(
+                    update={"markdown": required_row + "\n\n" + segment.markdown.lstrip()}
+                )
     return draft.model_copy(update={"segments": tuple(updated_segments)})
+
+
+def _github_anchor(label: str) -> str:
+    """Return the bounded GitHub-style anchor needed by configured navigation."""
+
+    anchor = re.sub(r"[^\w\s-]", "", label.casefold(), flags=re.UNICODE)
+    return re.sub(r"[\s-]+", "-", anchor).strip("-")
 
 
 def preserve_omitted_source_facts(

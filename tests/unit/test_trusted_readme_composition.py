@@ -45,9 +45,16 @@ from readme_agent.readme.trusted_composition_models import (
     TrustedReadmeSectionToolDraftV1,
     TrustedSourceInventoryDecisionV1,
 )
+from readme_agent.readme.trusted_composition_normalization import normalize_configured_header
+from readme_agent.readme.trusted_composition_repair import repair_trusted_composition_section
 from readme_agent.readme.trusted_composition_validation import (
     join_trusted_markdown_parts,
     validate_trusted_section_tool_draft,
+)
+from readme_agent.readme.trusted_portfolio_brand import (
+    normalize_trusted_key_capabilities,
+    normalize_trusted_portfolio_header_assets,
+    normalize_trusted_portfolio_headings,
 )
 from readme_agent.readme.trusted_presentation_standards import (
     bind_trusted_presentation_standards,
@@ -99,6 +106,117 @@ def test_comment_normalization_preserves_code_and_comment_like_strings() -> None
     assert "explain the output" not in normalized
     assert 'url = "https://example.test/#fragment"' in normalized
     assert "print(url)" in normalized
+
+
+def test_contextual_standards_are_assigned_to_the_final_source_batch(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "A concise product introduction.\n\n"
+        "## Installation\n\n"
+        "```bash\npip install widget\n```\n\n"
+        "## Quick start\n\n"
+        "```python\nprint('widget')\n```\n\n"
+        "## License\n\n"
+        "MIT.\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"partitioned-standards",
+            ),
+            configured_standard_addition(
+                "readme.navigation",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"partitioned-standards",
+            ),
+            configured_standard_addition(
+                "readme.contextual_links",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"partitioned-standards",
+            ),
+            configured_standard_addition(
+                "readme.enterprise_edition_terminology",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"partitioned-standards",
+            ),
+        ],
+    )
+    batches = build_trusted_composition_batches(
+        graph,
+        TrustedCompositionEnvelopeV1(max_facts_per_batch=3, max_input_characters=2_000),
+    )
+
+    assert len(batches) >= 2
+    assert {item.standard_id for item in batches[0].configured_standards} == {
+        "readme.header",
+        "readme.navigation",
+    }
+    assert {item.standard_id for item in batches[-1].configured_standards} == {
+        "readme.contextual_links",
+        "readme.enterprise_edition_terminology",
+    }
+    assert all(not batch.configured_standards for batch in batches[1:-1])
+
+
+def test_contextual_standard_batch_requires_its_enterprise_link() -> None:
+    fact_id = "readme.inherited:" + ("d" * 24)
+    source = "## License\n\nMIT.\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="paragraph",
+                heading_path=("Widget", "License"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(
+            configured_standard_addition(
+                "readme.contextual_links",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"required-enterprise-link",
+                parameters={
+                    "required_enterprise_url": "https://products.aspose.com/widget/",
+                },
+            ),
+        ),
+        global_structures_allowed=False,
+    )
+    draft = TrustedReadmeSectionToolDraftV1(
+        editorial_summary="Preserve license material but omit the configured relationship.",
+        complete=True,
+        source_inventory=(
+            TrustedSourceInventoryDecisionV1(
+                fact_id=fact_id,
+                action="rewrite",
+                rationale="Retain the inherited license.",
+            ),
+        ),
+        segments=(
+            TrustedReadmeDraftSegmentV1(
+                segment_id="license",
+                kind="authored",
+                markdown=source,
+                inherited_fact_ids=(fact_id,),
+                configured_standard_ids=("readme.contextual_links",),
+            ),
+        ),
+    )
+
+    with pytest.raises(LLMError, match="required Enterprise Edition URL"):
+        validate_trusted_section_tool_draft(
+            draft,
+            batch,
+            TrustedCompositionEnvelopeV1(),
+        )
 
 
 def test_independent_markdown_parts_keep_block_boundaries() -> None:
@@ -186,6 +304,120 @@ def test_source_only_batch_cannot_introduce_readme_global_navigation() -> None:
             batch,
             TrustedCompositionEnvelopeV1(),
         )
+
+
+def test_configured_navigation_shell_is_materialized_without_another_provider_call() -> None:
+    fact_id = "readme.inherited:" + ("d" * 24)
+    source = "# Widget\n"
+    config = b"shared-presentation-shell-v1"
+    core_badge_row = (
+        "![Platform: Python](https://img.shields.io/badge/Platform-Python-3776AB.svg) "
+        "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)"
+    )
+    core_badges = (
+        "![Platform: Python](https://img.shields.io/badge/Platform-Python-3776AB.svg)",
+        "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)",
+    )
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0001",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="heading",
+                heading_path=("Widget",),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/trusted.yml",
+                configuration_bytes=config,
+                parameters={"repository_name": "Widget"},
+            ),
+            configured_standard_addition(
+                "readme.badges",
+                configuration_source="config/policies/trusted.yml",
+                configuration_bytes=config,
+                parameters={
+                    "required_fragments": list(core_badges),
+                    "required_core_row": core_badge_row,
+                },
+            ),
+            configured_standard_addition(
+                "readme.navigation",
+                configuration_source="config/policies/trusted.yml",
+                configuration_bytes=config,
+                parameters={
+                    "required_labels": [
+                        "At a glance",
+                        "Key capabilities",
+                        "Installation",
+                        "Quick start",
+                    ]
+                },
+            ),
+        ),
+        global_structures_allowed=True,
+    )
+    draft = TrustedReadmeSectionToolDraftV1(
+        editorial_summary="Author the shared shell.",
+        complete=True,
+        source_inventory=(
+            TrustedSourceInventoryDecisionV1(
+                fact_id=fact_id,
+                action="rewrite",
+                rationale="Retain the factual repository title.",
+            ),
+        ),
+        segments=(
+            TrustedReadmeDraftSegmentV1(
+                segment_id="shared-shell",
+                kind="authored",
+                markdown="# Widget\n\n## At a glance\n\nProduct flow.\n",
+                inherited_fact_ids=(fact_id,),
+                configured_standard_ids=(
+                    "readme.header",
+                    "readme.badges",
+                    "readme.navigation",
+                ),
+            ),
+        ),
+    )
+
+    normalized = normalize_configured_header(draft, batch)
+    markdown = normalized.segments[0].markdown
+
+    assert markdown.count("## Navigation") == 1
+    assert core_badge_row in markdown
+    assert "- [At a glance](#at-a-glance)" in markdown
+    assert "- [Key capabilities](#key-capabilities)" in markdown
+    validate_trusted_section_tool_draft(
+        normalized,
+        batch,
+        TrustedCompositionEnvelopeV1(),
+    )
+    preserved_title = draft.model_copy(
+        update={
+            "segments": (
+                TrustedReadmeDraftSegmentV1(
+                    segment_id="preserved-title",
+                    kind="preserve_exact",
+                    markdown="",
+                    inherited_fact_ids=(fact_id,),
+                    configured_standard_ids=(),
+                ),
+                draft.segments[0],
+            )
+        }
+    )
+
+    normalized_preserved_title = normalize_configured_header(preserved_title, batch)
+
+    assert "# Widget" not in normalized_preserved_title.segments[1].markdown
 
 
 def test_source_only_batch_does_not_treat_python_comments_as_readme_headings() -> None:
@@ -352,6 +584,170 @@ def test_source_only_global_structure_falls_back_to_exact_preservation_once() ->
     validate_trusted_section_tool_draft(draft, batch, TrustedCompositionEnvelopeV1())
 
 
+def test_repair_batch_retries_until_required_segment_identity_is_returned() -> None:
+    fact_id = "readme.inherited:" + ("c" * 24)
+    source = "## Project scope\n\nRetain this bounded project scope.\n"
+    batch = TrustedCompositionBatch(
+        batch_id="batch-0002",
+        source_items=(
+            TrustedCompositionSourceItemV1(
+                fact_id=fact_id,
+                material_kind="paragraph",
+                heading_path=("Widget", "Project scope"),
+                source_byte_start=0,
+                source_byte_end=len(source),
+                source_sha256=hashlib.sha256(source.encode()).hexdigest(),
+                text=source,
+            ),
+        ),
+        configured_standards=(),
+        global_structures_allowed=False,
+    )
+
+    def response(segment_id: str) -> ForcedToolResult:
+        return _result(
+            {
+                "editorial_summary": "Repair the rejected project-scope segment.",
+                "complete": True,
+                "source_inventory": [
+                    {
+                        "fact_id": fact_id,
+                        "action": "rewrite",
+                        "rationale": "Represent the bounded source.",
+                    }
+                ],
+                "segments": [
+                    {
+                        "segment_id": segment_id,
+                        "kind": "authored",
+                        "markdown": source,
+                        "inherited_fact_ids": [fact_id],
+                        "configured_standard_ids": [],
+                    }
+                ],
+            }
+        )
+
+    client = FixtureForcedToolClient([response("renamed-scope"), response("readme.project_scope")])
+
+    _draft, bound = compose_trusted_batch(
+        ORG_REPO,
+        batch,
+        TrustedCompositionEnvelopeV1(),
+        client,
+        initial_repair_hint="Repair only the project-scope segment.",
+        required_segment_ids=("readme.project_scope",),
+    )
+
+    assert bound.attempt_count == 2
+    assert bound.segments[0].segment_id == "readme.project_scope"
+
+
+def test_local_repair_preserves_unedited_global_standard_sibling(tmp_path: Path) -> None:
+    source = "# Widget\n\nA widget library.\n\nRun tests with pytest.\n"
+    graph, _snapshot = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.at_a_glance_mermaid",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"repair-global-sibling",
+                parameters={"heading": "At a glance"},
+            )
+        ],
+    )
+    fact_ids = [fact.fact_id for fact in graph.inherited_facts]
+    initial = FixtureForcedToolClient(
+        [
+            _result(
+                {
+                    "editorial_summary": "Compose a global visual and local development detail.",
+                    "complete": True,
+                    "source_inventory": [
+                        {
+                            "fact_id": fact_id,
+                            "action": "rewrite",
+                            "rationale": "Represent the inherited source.",
+                        }
+                        for fact_id in fact_ids
+                    ],
+                    "segments": [
+                        {
+                            "segment_id": "global-visual",
+                            "kind": "authored",
+                            "markdown": (
+                                "# Widget\n\nA widget library.\n\n"
+                                "## At a glance\n\n"
+                                "```mermaid\nflowchart LR\n  INPUT --> PRODUCT\n```\n"
+                            ),
+                            "inherited_fact_ids": fact_ids[:-1],
+                            "configured_standard_ids": ["readme.at_a_glance_mermaid"],
+                        },
+                        {
+                            "segment_id": "development",
+                            "kind": "authored",
+                            "markdown": "Run tests with pytest.\n",
+                            "inherited_fact_ids": [fact_ids[-1]],
+                            "configured_standard_ids": [],
+                        },
+                    ],
+                }
+            )
+        ]
+    )
+    composition = compose_trusted_readme(graph, source, client=initial)
+    draft = composition.plan.section_drafts[0]
+    request = TrustedReadmeSectionRepairRequestV1(
+        org_repo=graph.org_repo,
+        source_revision=graph.source_revision,
+        rejected_batch_id=draft.batch_id,
+        rejected_draft_sha256=draft.canonical_hash(),
+        rejected_segment_ids=("development",),
+        finding_ids=("development-wording",),
+        repair_instructions=("Clarify the development instruction.",),
+        accepted_section_sha256s=(),
+    )
+    repair = FixtureForcedToolClient(
+        [
+            _result(
+                {
+                    "editorial_summary": "Repair only the development detail.",
+                    "complete": True,
+                    "source_inventory": [
+                        {
+                            "fact_id": fact_ids[-1],
+                            "action": "rewrite",
+                            "rationale": "Clarify the inherited instruction.",
+                        }
+                    ],
+                    "segments": [
+                        {
+                            "segment_id": "development",
+                            "kind": "authored",
+                            "markdown": "Run the test suite with pytest.\n",
+                            "inherited_fact_ids": [fact_ids[-1]],
+                            "configured_standard_ids": [],
+                        }
+                    ],
+                }
+            )
+        ]
+    )
+
+    repaired = repair_trusted_composition_section(
+        graph,
+        source,
+        composition,
+        request,
+        client=repair,
+    )
+
+    assert repaired.candidate_markdown.count("## At a glance") == 1
+    assert "Run the test suite with pytest." in repaired.candidate_markdown
+    assert repaired.plan.section_drafts[0].segments[0] == draft.segments[0]
+
+
 def test_legacy_aspose_com_labels_normalize_to_enterprise_edition() -> None:
     markdown = (
         "Use the commercial On-Premise edition, the on premise product, or the commercial edition. "
@@ -381,6 +777,30 @@ def test_products_aspose_com_links_receive_enterprise_edition_names() -> None:
     ) in normalized
     assert "- [Enterprise Edition](https://products.aspose.com/note/java/)" in normalized
     assert "[documentation](https://docs.aspose.com/note/net/)" in normalized
+
+
+def test_configured_heading_alias_applies_to_compound_feature_heading(tmp_path: Path) -> None:
+    source = "# Widget\n\n## Currently Available Features\n\n- Read widget files.\n"
+    graph, _snapshot = _graph(tmp_path, source)
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"compound-heading-alias",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "heading_aliases": {"Features": "Key capabilities"},
+                },
+            )
+        ],
+    )
+
+    normalized = normalize_trusted_portfolio_headings(source, graph)
+
+    assert "## Key capabilities" in normalized
+    assert "Currently Available Features" not in normalized
 
 
 def test_enterprise_terminology_validation_is_per_product_reference(tmp_path) -> None:
@@ -604,6 +1024,160 @@ def test_curated_source_code_replaces_damaged_authored_blocks_without_comments(t
     assert "broken example" not in normalized
 
 
+def test_curated_source_code_is_restored_by_semantic_section_before_global_order(
+    tmp_path,
+) -> None:
+    source = (
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n# run comment\nprint('ok')\n```\n\n"
+        "## Installation\n\n"
+        "```bash\n# install comment\npip install widget\n```\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    candidate = (
+        "# Widget\n\n"
+        "## Installation\n\n"
+        "```python\nprint('wrong section')\n```\n\n"
+        "## Quick start\n\n"
+        "```bash\npip install wrong-section\n```\n"
+    )
+
+    normalized = normalize_inherited_code_blocks(candidate, graph)
+
+    installation = normalized.split("## Installation", maxsplit=1)[1].split(
+        "## Quick start", maxsplit=1
+    )[0]
+    quick_start = normalized.split("## Quick start", maxsplit=1)[1]
+    assert "```bash\npip install widget\n```" in installation
+    assert "```python\nprint('ok')\n```" in quick_start
+    assert "wrong section" not in normalized
+    assert "wrong-section" not in normalized
+    assert "install comment" not in normalized
+    assert "run comment" not in normalized
+
+
+def test_extra_candidate_block_does_not_disable_quick_start_restoration(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n# explain loop\nfor item in items:\n    print(item)\n```\n\n"
+        "## Examples\n\n"
+        "```python\nprint('example')\n```\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    candidate = (
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n    print(item)\n```\n\n"
+        "## Examples\n\n"
+        "```python\nprint('example')\n```\n\n"
+        "```python\nprint('extra')\n```\n"
+    )
+
+    normalized = normalize_inherited_code_blocks(candidate, graph)
+
+    assert "for item in items:\n    print(item)" in normalized
+    assert "explain loop" not in normalized
+    assert "print('extra')" in normalized
+
+
+def test_content_matching_restores_damaged_code_amid_duplicate_candidate_blocks(
+    tmp_path,
+) -> None:
+    source = (
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n"
+        "# pages are direct children\n"
+        "for page in pages:\n"
+        "    print(page.title)\n"
+        "```\n\n"
+        "## Examples\n\n"
+        "```python\nprint(document.title)\n```\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    candidate = (
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n"
+        "## pages are direct childrenfor page in pages:\n"
+        "    print(page.title)\n"
+        "```\n\n"
+        "```python\nprint(document.title)\n```\n\n"
+        "## Examples\n\n"
+        "```python\nprint(document.title)\n```\n"
+    )
+
+    normalized = normalize_inherited_code_blocks(candidate, graph)
+
+    assert "for page in pages:\n    print(page.title)" in normalized
+    assert "pages are direct children" not in normalized
+    assert normalized.count("print(document.title)") == 2
+
+
+def test_inherited_header_assets_and_complete_features_join_the_shared_brand_shell(
+    tmp_path,
+) -> None:
+    source = (
+        "# Widget\n\n"
+        "[![CI](https://example.invalid/ci.svg)](https://example.invalid/actions)\n"
+        "[![License: MIT](https://example.invalid/license.svg)](LICENSE)\n\n"
+        "Quick links: [Examples](examples/) · [Package](https://pypi.org/project/widget/)\n\n"
+        "## Features\n\n"
+        "- Read source documents\n"
+        "- Preserve nested details\n"
+        "  - Keep exact sub-capabilities\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_trusted_presentation_standards(ORG_REPO, graph, source)
+    core_row = next(
+        standard
+        for standard in graph.configured_standards
+        if standard.standard_id == "readme.badges"
+    ).parameters["required_core_row"]
+    candidate = (
+        f"# Widget\n\n{core_row}\n\n"
+        "A focused product introduction.\n\n"
+        "## Key capabilities\n\n- Read source documents\n\n"
+        "## Features\n\n"
+        "## Installation\n\nInstall it.\n\n"
+    )
+
+    normalized = normalize_trusted_key_capabilities(
+        normalize_trusted_portfolio_header_assets(candidate, graph),
+        graph,
+    )
+
+    assert normalized.index(core_row) < normalized.index("[![CI]")
+    assert "[![License: MIT](https://example.invalid/license.svg)]" not in normalized
+    assert "Quick links: [Examples]" in normalized
+    assert "- Preserve nested details\n  - Keep exact sub-capabilities" in normalized
+    assert "## Features" not in normalized
+
+
+def test_key_capabilities_retains_unique_why_section_capability_without_duplicates(
+    tmp_path,
+) -> None:
+    source = (
+        "# Widget\n\n"
+        "## Why Widget\n\n"
+        "- Convert PS/EPS to PDF in Python\n"
+        "- Integrate conversion workflows through MCP server tools\n\n"
+        "## Features\n\n"
+        "- PS/EPS to PDF conversion\n"
+    )
+    graph, _ = _graph(tmp_path, source)
+    graph = bind_trusted_presentation_standards(ORG_REPO, graph, source)
+    candidate = "# Widget\n\n## Key capabilities\n\n- PS/EPS to PDF conversion\n"
+
+    normalized = normalize_trusted_key_capabilities(candidate, graph)
+
+    assert normalized.count("PS/EPS to PDF") == 1
+    assert "- PS/EPS to PDF conversion" in normalized
+    assert "- Integrate conversion workflows through MCP server tools" in normalized
+
+
 def _without_code_comments(markdown: str) -> str:
     lines = markdown.splitlines(keepends=True)
     rendered: list[str] = []
@@ -724,7 +1298,15 @@ def test_runtime_standard_binding_uses_policy_catalog_and_automatic_budget(tmp_p
     assert links["domain_maxima"] == {"aspose.org": 1, "aspose.com": 2}
     assert links["forbidden_sections"] == ["navigation", "at a glance"]
     assert links["forbid_blockquotes"] is True
-    assert "License-MIT-blue.svg" in standards["readme.badges"].parameters["required_fragments"][0]
+    badge_fragments = standards["readme.badges"].parameters["required_fragments"]
+    assert "Platform-Python-3776AB.svg" in badge_fragments[0]
+    assert "License-MIT-blue.svg" in badge_fragments[1]
+    assert (
+        standards["readme.header"].parameters["brand_contract_version"]
+        == "repository-presentation-brand-v1"
+    )
+    assert links["required_aspose_com_occurrences"] == 1
+    assert links["required_enterprise_url"] == "https://products.aspose.com/3d/python-net/"
 
 
 def test_runtime_standard_binding_refreshes_an_existing_older_standard_set(tmp_path):
@@ -895,7 +1477,7 @@ def test_standard_bindings_are_deduplicated_and_completed_without_retry(tmp_path
     assert bound == standard_ids
 
 
-def test_final_contract_failure_repairs_standards_batch_and_counts_both_calls(tmp_path):
+def test_configured_shell_repairs_missing_navigation_without_another_llm_call(tmp_path):
     source = "# Widget\n\nA 3D library for Python developers.\n\n## Usage\n\nRun the example.\n"
     graph, _ = _graph(tmp_path, source)
     graph = _standards(graph)
@@ -933,39 +1515,22 @@ def test_final_contract_failure_repairs_standards_batch_and_counts_both_calls(tm
             }
         ],
     }
-    valid_markdown = (
-        "# Widget\n\n"
-        "![License](https://img.shields.io/license)\n\n"
-        "A 3D library for Python developers.\n\n"
-        "## Navigation\n\n"
-        "[At a glance](#at-a-glance) · [Usage](#usage)\n\n"
-        "## At a glance\n\n"
-        '```mermaid\nflowchart LR\n  files["3D files"] --> widget["Widget"]\n```\n\n'
-        "## Usage\n\nRun the example.\n"
-    )
-    valid = {
-        **common,
-        "segments": [
-            {
-                "segment_id": "complete-readme",
-                "kind": "authored",
-                "markdown": valid_markdown,
-                "inherited_fact_ids": fact_ids,
-                "configured_standard_ids": standard_ids,
-            }
-        ],
-    }
     client = FixtureForcedToolClient(
-        [_result(invalid), _result(valid)],
+        [_result(invalid)],
         job="trusted_readme_section_transform",
         prompt_id="trusted_readme_section_transform",
     )
 
     output = compose_trusted_readme(graph, source, client=client)
 
-    assert output.candidate_markdown == normalize_navigation_targets(valid_markdown)
-    assert output.llm_call_count == 2
-    assert output.plan.section_drafts[0].attempt_count == 2
+    expected = invalid["segments"][0]["markdown"].replace(
+        "[At a glance](#missing) · [Usage](#usage)",
+        "## Navigation\n\n[At a glance](#missing) · [Usage](#usage)",
+        1,
+    )
+    assert output.candidate_markdown == normalize_navigation_targets(expected)
+    assert output.llm_call_count == 1
+    assert output.plan.section_drafts[0].attempt_count == 1
 
 
 def test_failed_global_repairs_do_not_overwrite_last_batch_checkpoint(tmp_path) -> None:
@@ -1564,6 +2129,7 @@ def test_section_repair_contract_binds_rejection_and_preserves_accepted_hashes()
         source_revision="a" * 40,
         rejected_batch_id="batch-0002",
         rejected_draft_sha256="b" * 64,
+        rejected_segment_ids=("readme.project_scope",),
         finding_ids=("finding-1",),
         repair_instructions=("Remove the unsupported claim.",),
         accepted_section_sha256s=("c" * 64,),
@@ -1641,14 +2207,43 @@ def test_registered_capability_dispatches_against_bound_snapshot(tmp_path):
     graph = bind_trusted_presentation_standards(ORG_REPO, graph, source)
     fact_ids = [fact.fact_id for fact in graph.inherited_facts]
     standard_ids = [standard.standard_id for standard in graph.configured_standards]
-    badge = graph.configured_standards[1].parameters["required_fragments"][0]
+    badge = graph.configured_standards[1].parameters["required_core_row"]
+    enterprise_url = next(
+        standard
+        for standard in graph.configured_standards
+        if standard.standard_id == "readme.contextual_links"
+    ).parameters["required_enterprise_url"]
     candidate = (
         f"# Widget\n\n{badge}\n\n"
         "Important maintainer detail.\n\n"
-        "## Navigation\n\n"
-        "[At a glance](#at-a-glance)\n\n"
         "## At a glance\n\n"
-        '```mermaid\nflowchart LR\n  input["Input"] --> widget["Widget"]\n```\n'
+        "```mermaid\n"
+        "flowchart LR\n"
+        "  subgraph Inputs\n"
+        '    I1["Input document"]\n'
+        "  end\n"
+        '  PRODUCT["Widget API"]\n'
+        "  subgraph Capabilities\n"
+        '    C1["Read document structure"]\n'
+        '    C2["Extract document content"]\n'
+        "  end\n"
+        "  subgraph Outputs\n"
+        '    O1["Structured useful output"]\n'
+        "  end\n"
+        "  I1 --> PRODUCT\n"
+        "  PRODUCT --> C1\n"
+        "  PRODUCT --> C2\n"
+        "  C1 --> O1\n"
+        "```\n\n"
+        "## Navigation\n\n"
+        "[Key capabilities](#key-capabilities) · [Installation](#installation) · "
+        "[Quick start](#quick-start)\n\n"
+        "## Key capabilities\n\nImportant maintainer detail.\n\n"
+        "## Installation\n\nUse the inherited repository instructions.\n\n"
+        "## Quick start\n\nRun the inherited example.\n\n"
+        "## Project scope and limitations\n\n"
+        "This repository documents its open-source scope. For broader commercial requirements, "
+        f"evaluate the [Enterprise Edition]({enterprise_url}) when those capabilities are needed.\n"
     )
     arguments = {
         "editorial_summary": "Compose the complete source.",
@@ -1695,7 +2290,7 @@ def test_registered_capability_dispatches_against_bound_snapshot(tmp_path):
 
     assert dispatch.outcome == "executed", dispatch.error
     assert dispatch.result is not None
-    assert dispatch.result["candidate_markdown"] == normalize_navigation_targets(candidate)
+    assert dispatch.result["candidate_markdown"] == normalize_trusted_candidate(candidate, graph)
     assert dispatch.result["content_assurance"] == "trusted_inherited"
 
 

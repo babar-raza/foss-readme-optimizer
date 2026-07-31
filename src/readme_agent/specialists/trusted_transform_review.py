@@ -22,6 +22,7 @@ from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     trusted_reviewer_standard_hash,
 )
+from readme_agent.readme.trusted_candidate_ownership_models import TrustedRepairActionV1
 from readme_agent.readme.trusted_composition_candidate_validation import (
     validate_trusted_candidate_contract,
 )
@@ -40,6 +41,9 @@ from readme_agent.specialists.trusted_fidelity_cache import (
     default_trusted_fidelity_cache_dir,
 )
 from readme_agent.specialists.trusted_fidelity_context import build_trusted_fidelity_context
+from readme_agent.specialists.trusted_fidelity_delta import (
+    derive_fidelity_after_exact_removal,
+)
 from readme_agent.specialists.trusted_fidelity_execution import (
     run_batched_trusted_fidelity_review,
 )
@@ -140,11 +144,15 @@ def run_trusted_transform_review(
     fidelity_client: AnalysisClientLike | None = None,
     cached_review: TrustedTransformReviewV1 | None = None,
     enable_fidelity_batch_cache: bool = False,
+    prior_fidelity_record: TrustedReviewRoleRecordV1 | None = None,
+    exact_repair_action: TrustedRepairActionV1 | None = None,
 ) -> TrustedReviewExecutionV1:
     """Require deterministic validation and two identity-separated reviewer accepts."""
 
     if composition.org_repo != graph.org_repo:
         raise ValueError("trusted review graph and composition belong to different repositories")
+    if (prior_fidelity_record is None) != (exact_repair_action is None):
+        raise ValueError("trusted fidelity delta proof requires both prior record and exact action")
     validation = _validation_receipt(graph, source_text, composition)
     identity = _cache_identity(graph, composition, validation)
     before = current_llm_accounting_summary()
@@ -228,15 +236,49 @@ def run_trusted_transform_review(
         "fact_graph": fidelity_graph,
         "transform_plan": fidelity_plan,
         "candidate_sha256": composition.candidate_sha256,
+        "exact_repair_action": (
+            exact_repair_action.model_dump(mode="json") if exact_repair_action is not None else None
+        ),
+        "prior_fidelity_input_sha256": (
+            prior_fidelity_record.input_sha256 if prior_fidelity_record is not None else None
+        ),
     }
     fidelity_error: str | None = None
+    fidelity_history: tuple[dict, ...]
     try:
-        fidelity_result, fidelity_history = run_batched_trusted_fidelity_review(
-            client=fidelity_client,
-            graph=graph,
-            composition=composition,
-            cache_dir=(default_trusted_fidelity_cache_dir(graph) if use_live_batch_cache else None),
-        )
+        if prior_fidelity_record is not None and exact_repair_action is not None:
+            fidelity_result = derive_fidelity_after_exact_removal(
+                graph,
+                composition,
+                prior_fidelity_record,
+                exact_repair_action,
+            )
+            fidelity_history = (
+                {
+                    "role": "inheritance_fidelity",
+                    "attempt": 0,
+                    "valid": True,
+                    "disposition": "exact_removal_delta_proof",
+                    "repair_action_id": exact_repair_action.action_id,
+                },
+            )
+            record_non_provider_call(
+                job=_FIDELITY_PROMPT_ID,
+                prompt_id=_FIDELITY_PROMPT_ID,
+                prompt_sha256=identity.fidelity_prompt_sha256,
+                model=identity.fidelity_model_route,
+                disposition="cache_reuse",
+                request=fidelity_payload,
+            )
+        else:
+            fidelity_result, fidelity_history = run_batched_trusted_fidelity_review(
+                client=fidelity_client,
+                graph=graph,
+                composition=composition,
+                cache_dir=(
+                    default_trusted_fidelity_cache_dir(graph) if use_live_batch_cache else None
+                ),
+            )
     except (LLMError, TypeError, ValueError) as exc:
         fidelity_result = None
         fidelity_history = exc.retry_history if isinstance(exc, TrustedFidelityRoleFailure) else ()

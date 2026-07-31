@@ -4,17 +4,17 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "15eb69265033cdcff2162961a01662d52330252d7254dd7249225fc9f424aab0",
+  "source_sha256": "a9fa48f690a61849ffa67de9558baf44900ca01f53fff27b0d7bc60129bdd0b3",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 453,
-  "mandatory_requirement_rows": 427,
+  "total_requirement_rows": 458,
+  "mandatory_requirement_rows": 432,
   "excluded_backlog_rows": 26,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 26,
-    "open_mandatory": 231,
+    "open_mandatory": 236,
     "preserved_verified": 161
   },
   "taskcard_counts": {
@@ -24,6 +24,7 @@
     "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
     "TRP-04P-COHORT-FREEZE": 1,
     "TRP-04P-TEST-LATENCY": 1,
+    "TRP-04P-COHERENT-PRESENTATION-REPAIR": 4,
     "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": 1,
     "TRP-04P-DRAFT-PR-COHORT": 1,
     "TRP-04P-POC-PRESENTATION": 1,
@@ -51,7 +52,7 @@
     "L8-TRUTH-02D-RUST-API-TRUTH": 1,
     "L8-TRUTH-03A-ISOLATED-EXECUTOR": 1,
     "L8-TRUTH-07-SEVEN-ECOSYSTEMS": 1,
-    "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 1,
+    "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 2,
     "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
     "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
     "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": 1,
@@ -3360,6 +3361,38 @@
       "semantic_findings": []
     },
     {
+      "requirement_id": "TRP-020",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-021",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-022",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "TRP-023",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
       "requirement_id": "TRP-010",
       "priority": "P0",
       "requirement_status": "PLANNED",
@@ -3692,6 +3725,14 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-041",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

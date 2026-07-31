@@ -7,9 +7,11 @@ import re
 from typing import Literal
 from urllib.parse import urlsplit
 
+from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.readme.fact_grounding import fact_strings
+from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
 
 FindingKind = Literal["quality", "factual"]
 FindingPolarityResult = Literal["not_applicable", "supports", "contradicts", "missing"]
@@ -33,8 +35,8 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v3-retain-grounded-supports"
-_MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\((?P<url>https?://[^)\s]+)")
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v16-heading-contract-evidence"
+_MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
 class GroundedReviewFindingV1(BaseModel):
@@ -48,6 +50,10 @@ class GroundedReviewFindingV1(BaseModel):
     section: str = Field(min_length=1)
     claim: str = Field(min_length=1)
     quoted_candidate_span: str = Field(min_length=1)
+    candidate_anchor_id: str | None = Field(
+        default=None,
+        pattern=r"^candidate\.anchor\.[0-9a-f]{20}\.[0-9]+$",
+    )
     disposition: FindingDisposition
     fact_id: str | None = None
     evidence_excerpt: str | None = None
@@ -260,10 +266,28 @@ def _validate_quality_finding(
     errors: list[str] = []
     premise = f"{finding.claim}\n{finding.required_repair}".casefold()
     quote = finding.quoted_candidate_span
-    if (
-        "missing a blank line" in premise or "no blank line" in premise
-    ) and "\n\n" in quote.replace("\r\n", "\n"):
+    removes_prose_block = bool(
+        re.search(r"\b(?:remove|delete|omit)\b[^\n.]*\b(?:paragraph|prose|sentence)\b", premise)
+    )
+    first_quoted_line = next(
+        (line.lstrip() for line in quote.splitlines() if line.strip()),
+        "",
+    )
+    if removes_prose_block and re.match(r"^#{1,6}[ \t]+", first_quoted_line):
+        errors.append(
+            f"{finding.finding_id}:repair quote identifies a heading instead of the prose to remove"
+        )
+    claims_missing_blank_line = bool(
+        re.search(r"\bmissing (?:the )?(?:required )?blank line\b", premise)
+        or "no blank line" in premise
+    )
+    if claims_missing_blank_line and "\n\n" in quote.replace("\r\n", "\n"):
         errors.append(f"{finding.finding_id}:blank-line premise contradicts quoted span")
+    elif claims_missing_blank_line and _fenced_block_has_following_blank_line(
+        candidate_text,
+        quote,
+    ):
+        errors.append(f"{finding.finding_id}:blank-line premise contradicts candidate structure")
     list_present = any(line.lstrip().startswith(("- ", "* ", "+ ")) for line in quote.splitlines())
     if list_present and (
         "plain text labels instead of a proper markdown list" in premise
@@ -276,7 +300,67 @@ def _validate_quality_finding(
         for item in visitor_contract.get("configured_standards", [])
         if isinstance(item, dict)
     }
+    brand_header = standards.get("readme.header")
+    if brand_header is not None and brand_header.get("brand_contract_version"):
+        claims_missing_h1 = (
+            "lacks an h1" in premise
+            or "missing an h1" in premise
+            or "add an undecorated h1" in premise
+            or "add the h1" in premise
+        )
+        if claims_missing_h1 and re.match(r"\A(?:\ufeff)?# [^\r\n]+", candidate_text):
+            errors.append(f"{finding.finding_id}:H1 premise contradicts visible candidate")
+        visible_h1 = re.match(r"\A(?:\ufeff)?# (?P<title>[^\r\n]+)", candidate_text)
+        claims_h1_emoji = "h1" in premise and "emoji" in premise
+        if (
+            claims_h1_emoji
+            and visible_h1 is not None
+            and re.fullmatch(r"[A-Za-z0-9 .+#&()/-]+", visible_h1.group("title"))
+        ):
+            errors.append(f"{finding.finding_id}:H1 emoji premise contradicts visible candidate")
+        badges = standards.get("readme.badges") or {}
+        required_core_row = str(badges.get("required_core_row", ""))
+        claims_missing_header_spacing = (
+            "missing blank line" in premise or "insert a blank line after the h1" in premise
+        )
+        visible_header = re.match(
+            r"\A(?:\ufeff)?# [^\r\n]+\r?\n\r?\n([^\r\n]+)",
+            candidate_text,
+        )
+        if (
+            claims_missing_header_spacing
+            and required_core_row
+            and visible_header is not None
+            and visible_header.group(1).strip() == required_core_row
+        ):
+            errors.append(
+                f"{finding.finding_id}:header-spacing premise contradicts configured header"
+            )
+        claims_opening_duplicates_visual = (
+            "first paragraph after badges" in premise
+            and "at a glance" in premise
+            and ("duplicate" in premise or "duplication" in premise)
+        )
+        if claims_opening_duplicates_visual and not _at_a_glance_contains_prose(candidate_text):
+            errors.append(
+                f"{finding.finding_id}:opening-versus-visual premise contradicts global contract"
+            )
     if "readme.badges" in standards and "badge" in premise:
+        badge_standard = standards.get("readme.badges") or {}
+        required_core_row = str(badge_standard.get("required_core_row", ""))
+        claims_duplicate_badge_row = (
+            "badge row appears twice" in premise
+            or "duplicated badge row" in premise
+            or "duplicate badge row" in premise
+        )
+        if (
+            claims_duplicate_badge_row
+            and required_core_row
+            and candidate_text.count(required_core_row) == 1
+        ):
+            errors.append(
+                f"{finding.finding_id}:badge-duplication premise contradicts configured header"
+            )
         title_badge = re.match(
             r"\A(?:\ufeff)?# [^\r\n]+\r?\n\r?\n![^\r\n]+",
             candidate_text,
@@ -290,9 +374,48 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:badge-spacing premise contradicts configured header"
             )
+        rejects_allowed_inherited_badges = (
+            "extra ci badge row" in premise
+            or "extra badge row" in premise
+            or "keep only the two required core badges" in premise
+            or "keep only the required core badges" in premise
+        )
+        if (
+            rejects_allowed_inherited_badges
+            and badge_standard.get("allow_inherited_badges_after_core") is True
+            and required_core_row
+            and candidate_text.count(required_core_row) == 1
+        ):
+            errors.append(
+                f"{finding.finding_id}:inherited-badge premise contradicts configured header"
+            )
     if "readme.navigation" in standards and "navigation" in premise:
         has_navigation = re.search(r"(?mi)^##[ \t]+navigation[ \t]*$", candidate_text)
         has_glance = re.search(r"(?mi)^##[ \t]+at a glance[ \t]*$", candidate_text)
+        required_navigation_labels = tuple(
+            str(label)
+            for label in (standards.get("readme.navigation") or {}).get(
+                "required_labels",
+                [],
+            )
+        )
+        claims_required_label_omission = (
+            ("omit" in premise or "missing" in premise)
+            and "required" in premise
+            and "label" in premise
+        )
+        if (
+            claims_required_label_omission
+            and required_navigation_labels
+            and all(
+                re.search(
+                    rf"(?mi)^\s*[-*+]\s+\[{re.escape(label)}\]\(#[^)]+\)\s*$",
+                    candidate_text,
+                )
+                for label in required_navigation_labels
+            )
+        ):
+            errors.append(f"{finding.finding_id}:required-navigation premise contradicts candidate")
         demands_wrong_placement = (
             "missing" in premise
             or "add the required" in premise
@@ -303,6 +426,79 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:navigation premise contradicts configured H2 sections"
             )
+        header = standards.get("readme.header") or {}
+        prefix_only_premise = (
+            "not in the required h2 prefix" in premise
+            or "match the required h2 prefix" in premise
+            or "only the required labels" in premise
+            or "exceeds required labels" in premise
+            or "includes non-standard labels" in premise
+            or "includes non-standard section names" in premise
+            or "more than the required" in premise
+            or "must contain only the required" in premise
+            or "not in the required set" in premise
+            or "trim the navigation section to the required labels" in premise
+            or "reduce the navigation section to the required labels" in premise
+            or "non-required navigation labels" in premise
+            or "retain only the required set" in premise
+            or "exceeding the required set" in premise
+        )
+        if prefix_only_premise and header.get("required_h2_prefix"):
+            errors.append(f"{finding.finding_id}:navigation prefix-only premise is unconfigured")
+        claims_duplicate_navigation = (
+            "navigation section appears twice" in premise
+            or "duplicate navigation section" in premise
+            or "duplicated navigation section" in premise
+        )
+        if (
+            claims_duplicate_navigation
+            and len(re.findall(r"(?mi)^##[ \t]+navigation[ \t]*$", candidate_text)) == 1
+        ):
+            errors.append(
+                f"{finding.finding_id}:navigation-duplication premise contradicts candidate"
+            )
+    mermaid_standard = standards.get("readme.at_a_glance_mermaid")
+    if mermaid_standard is not None and "mermaid" in premise:
+        if "subgraph" in premise and "without subgraphs" in premise:
+            errors.append(f"{finding.finding_id}:Mermaid subgraph prohibition is unconfigured")
+        maximum_nodes = mermaid_standard.get("max_nodes")
+        if (
+            isinstance(maximum_nodes, int)
+            and "exceeds the max_nodes" in premise
+            and _mermaid_node_count(candidate_text) <= maximum_nodes
+        ):
+            errors.append(f"{finding.finding_id}:Mermaid node-count premise contradicts candidate")
+        rejects_compliant_detailed_flow = any(
+            phrase in premise
+            for phrase in (
+                "paragraph-sized nodes",
+                "generic labels",
+                "clear inputs->product->capabilities->outputs flow",
+                "clear inputs to product to capabilities to outputs flow",
+            )
+        ) or ("generic" in premise and "product" in premise and "node label" in premise)
+        if rejects_compliant_detailed_flow and _detailed_mermaid_contract_satisfied(
+            candidate_text,
+            mermaid_standard,
+        ):
+            errors.append(
+                f"{finding.finding_id}:Mermaid-detail premise contradicts configured candidate"
+            )
+    if "heading alias" in premise or "heading_alias" in premise:
+        header = standards.get("readme.header") or {}
+        aliases = {
+            str(source).casefold(): str(target)
+            for source, target in (header.get("heading_aliases") or {}).items()
+        }
+        if finding.section.casefold() not in aliases:
+            errors.append(f"{finding.finding_id}:heading-alias premise is unconfigured")
+    header = standards.get("readme.header") or {}
+    if (
+        "parenthes" in premise
+        and header.get("heading_style") == "sentence_case_without_emoji"
+        and "forbid_parentheses" not in header
+    ):
+        errors.append(f"{finding.finding_id}:heading-parentheses premise is unconfigured")
     enterprise_standard = standards.get("readme.enterprise_edition_terminology")
     if enterprise_standard is not None and "enterprise edition" in premise:
         required_term = str(enterprise_standard.get("required_term", "Enterprise Edition"))
@@ -316,6 +512,72 @@ def _validate_quality_finding(
             )
     link_standard = standards.get("readme.contextual_links")
     if link_standard is not None:
+        required_enterprise_url = str(link_standard.get("required_enterprise_url", ""))
+        exact_enterprise_occurrences = link_standard.get("required_aspose_com_occurrences")
+        enterprise_url_offsets = [
+            match.start()
+            for match in re.finditer(re.escape(required_enterprise_url), candidate_text)
+            if required_enterprise_url
+        ]
+        enterprise_url_is_correctly_scoped = (
+            exact_enterprise_occurrences == 1
+            and len(enterprise_url_offsets) == 1
+            and _h2_section_for_offset(candidate_text, enterprise_url_offsets[0])
+            == PRESENTATION_ENTERPRISE_LINK_SECTION
+        )
+        claims_missing_enterprise_link = (
+            "enterprise edition link is missing" in premise
+            or "add the enterprise edition link" in premise
+            or "replace placeholder text with the required enterprise edition link" in premise
+            or "must include the required enterprise edition link" in premise
+            or ("missing" in premise and "enterprise edition" in premise and "link" in premise)
+        )
+        if (
+            claims_missing_enterprise_link
+            and exact_enterprise_occurrences == 1
+            and required_enterprise_url
+            and required_enterprise_url in candidate_text
+        ):
+            errors.append(
+                f"{finding.finding_id}:Enterprise link premise contradicts configured candidate"
+            )
+        quoted_enterprise_link = next(
+            (
+                match
+                for match in _MARKDOWN_LINK.finditer(finding.quoted_candidate_span)
+                if match.group("url") == required_enterprise_url
+                and match.group("label").strip()
+                and not match.group("label").strip().casefold().startswith(("http://", "https://"))
+            ),
+            None,
+        )
+        claims_bare_enterprise_url = (
+            "bare url" in premise
+            or "bare-url" in premise
+            or ("descriptive link label" in premise and "enterprise edition" in premise)
+        )
+        rejects_descriptive_link_label = (
+            "link label" in premise and "configured url" in premise
+        ) or (claims_bare_enterprise_url and quoted_enterprise_link is not None)
+        if (
+            rejects_descriptive_link_label
+            and isinstance(exact_enterprise_occurrences, int)
+            and required_enterprise_url
+            and candidate_text.count(required_enterprise_url) == exact_enterprise_occurrences
+        ):
+            errors.append(f"{finding.finding_id}:bare-URL premise contradicts configured candidate")
+        demands_enterprise_link_outside_scope = (
+            enterprise_url_is_correctly_scoped
+            and not claims_missing_enterprise_link
+            and not rejects_descriptive_link_label
+            and "enterprise edition" in premise
+            and "link" in premise
+            and finding.section.casefold() != PRESENTATION_ENTERPRISE_LINK_SECTION.casefold()
+        )
+        if demands_enterprise_link_outside_scope:
+            errors.append(
+                f"{finding.finding_id}:Enterprise link placement contradicts configured scope"
+            )
         if (
             "all links are hyperlinked" in premise
             or "all are plain text" in premise
@@ -349,6 +611,93 @@ def _validate_quality_finding(
                     f"{finding.finding_id}:link-budget premise contradicts configured maximum"
                 )
     return errors
+
+
+def _fenced_block_has_following_blank_line(candidate_text: str, quote: str) -> bool:
+    """Return whether the cited code belongs to a fence followed by a blank line."""
+
+    if not quote or quote not in candidate_text:
+        return False
+    lines = candidate_text.splitlines()
+    for token in MarkdownIt("commonmark").parse(candidate_text):
+        if token.type != "fence" or token.map is None:
+            continue
+        start_line, end_line = token.map
+        fenced_source = "\n".join(lines[start_line:end_line])
+        if quote not in fenced_source:
+            continue
+        return end_line < len(lines) and not lines[end_line].strip()
+    return False
+
+
+def _h2_section_for_offset(markdown: str, offset: int) -> str:
+    """Return the nearest preceding H2 title for one candidate offset."""
+
+    headings = list(re.finditer(r"(?m)^##[ \t]+(?P<title>.+?)[ \t]*$", markdown[:offset]))
+    return "" if not headings else headings[-1].group("title").strip()
+
+
+def _at_a_glance_contains_prose(markdown: str) -> bool:
+    """Return whether At a glance contains prose outside its required Mermaid visual."""
+
+    heading = re.search(r"(?mi)^##[ \t]+At a glance[ \t]*$", markdown)
+    if heading is None:
+        return False
+    next_h2 = re.search(r"(?m)^##[ \t]+", markdown[heading.end() :])
+    end = len(markdown) if next_h2 is None else heading.end() + next_h2.start()
+    body = markdown[heading.end() : end]
+    without_mermaid = re.sub(
+        r"(?ms)^```mermaid[ \t]*\r?\n.*?^```[ \t]*$",
+        "",
+        body,
+    )
+    return bool(without_mermaid.strip())
+
+
+def _mermaid_node_count(candidate_text: str) -> int:
+    """Count declared Mermaid nodes without counting subgraphs or edges."""
+
+    blocks = re.findall(r"(?ms)^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", candidate_text)
+    declarations: set[str] = set()
+    for block in blocks:
+        for line in block.splitlines():
+            match = re.match(r"^[ \t]*(?P<node>[A-Za-z][A-Za-z0-9_-]*)[ \t]*(?:\[|\()", line)
+            if match is not None:
+                declarations.add(match.group("node"))
+    return len(declarations)
+
+
+def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) -> bool:
+    """Recognize the configured four-zone grammar without judging factual assurance."""
+
+    blocks = re.findall(r"(?ms)^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", candidate_text)
+    if len(blocks) != 1:
+        return False
+    source = blocks[0]
+    if not all(
+        source.count(zone) == 1
+        for zone in ("subgraph Inputs", "subgraph Capabilities", "subgraph Outputs")
+    ):
+        return False
+    labels = re.findall(
+        r'(?m)^[ \t]*(?:I\d+|PRODUCT|C\d+|O\d+)\["([^"\r\n]+)"\][ \t]*$',
+        source,
+    )
+    maximum_label = standard.get("max_label_characters")
+    if not isinstance(maximum_label, int) or not labels:
+        return False
+    if any(len(label.strip()) > maximum_label for label in labels):
+        return False
+    maximum_nodes = standard.get("max_nodes")
+    if isinstance(maximum_nodes, int) and len(labels) > maximum_nodes:
+        return False
+    return bool(
+        re.search(r"(?m)^[ \t]*I\d+[ \t]*-->[ \t]*PRODUCT[ \t]*$", source)
+        and re.search(r"(?m)^[ \t]*PRODUCT[ \t]*-->[ \t]*C\d+[ \t]*$", source)
+        and re.search(r"(?m)^[ \t]*C\d+[ \t]*-->[ \t]*O\d+[ \t]*$", source)
+        and re.search(r"(?i)(?:\.[a-z0-9]{2,5}\b|file|stream|document)", source)
+        and len(re.findall(r'(?m)^[ \t]*C\d+\["', source)) >= 2
+    )
 
 
 def grounding_retry_context(

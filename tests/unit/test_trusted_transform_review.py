@@ -11,7 +11,7 @@ from pydantic import ValidationError
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
-from readme_agent.errors import StateBackendError
+from readme_agent.errors import LLMError, LLMInfrastructureError, StateBackendError
 from readme_agent.facts.trusted_readme_extraction import (
     bind_configured_standards,
     configured_standard_addition,
@@ -33,20 +33,35 @@ from readme_agent.llm.verification_prompts import (
 )
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.trusted_composition import compose_trusted_readme
+from readme_agent.readme.trusted_exact_repair import apply_grounded_exact_removal
 from readme_agent.registry.loader import load_products
 from readme_agent.repository_snapshot import capture_repository_snapshot, repository_snapshot_scope
+from readme_agent.specialists import trusted_fidelity_cache
+from readme_agent.specialists import trusted_fidelity_validation as fidelity_validation
+from readme_agent.specialists.review_finding_grounding import (
+    GroundedReviewFindingV1,
+    validate_review_findings,
+)
 from readme_agent.specialists.trusted_fidelity_context import build_trusted_fidelity_context
+from readme_agent.specialists.trusted_fidelity_delta import (
+    derive_fidelity_after_exact_removal,
+)
 from readme_agent.specialists.trusted_fidelity_execution import (
+    _render_review_candidates,
     partition_fidelity_fact_ids,
     run_batched_trusted_fidelity_review,
 )
 from readme_agent.specialists.trusted_fidelity_validation import (
     normalize_trusted_fidelity_output,
+    validate_trusted_fidelity_result,
 )
 from readme_agent.specialists.trusted_transform_review import run_trusted_transform_review
 from readme_agent.specialists.trusted_transform_review_models import (
+    TrustedFidelityReviewResultV1,
+    TrustedReviewActorIdentityV1,
     TrustedReviewCacheIdentityV1,
     TrustedReviewExecutionV1,
+    TrustedReviewRoleRecordV1,
     TrustedTransformReviewV1,
 )
 from readme_agent.specialists.trusted_transform_review_repair import (
@@ -149,6 +164,43 @@ def _analysis(parsed: dict, *, model: str) -> AnalysisResult:
     return AnalysisResult(parsed=parsed, meta=LLMResponseMeta(model=model))
 
 
+def _accepted_fidelity_record(
+    graph,
+    composition,
+    *,
+    candidate_quote_overrides: dict[str, str] | None = None,
+) -> TrustedReviewRoleRecordV1:
+    overrides = candidate_quote_overrides or {}
+    result = TrustedFidelityReviewResultV1(
+        verdict="ACCEPT",
+        reasoning="Every inherited source unit is represented.",
+        source_checks=tuple(
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": fact.value,
+                "candidate_quote": overrides.get(fact.fact_id, fact.value),
+                "section": "source",
+                "required_repair": "",
+            }
+            for fact in graph.inherited_facts
+        ),
+    )
+    return TrustedReviewRoleRecordV1(
+        identity=TrustedReviewActorIdentityV1(
+            actor_id="fixture-fidelity-reviewer",
+            role="inheritance_fidelity_reviewer",
+            prompt_id="trusted_readme_fidelity_review",
+            prompt_sha256="1" * 64,
+            model_route="fixture-fidelity",
+        ),
+        candidate_sha256=composition.candidate_sha256,
+        input_sha256="2" * 64,
+        verdict=result.verdict,
+        result=result.model_dump(mode="json"),
+    )
+
+
 def _blind_accept() -> dict:
     return {
         "verdict": "ACCEPT",
@@ -193,6 +245,34 @@ def _blind_reject() -> dict:
                 "claim": "The purpose is unclear.",
                 "disposition": "requires_repair",
                 "required_repair": "Clarify the product purpose.",
+            }
+        ],
+    }
+
+
+def _blind_remove(quote: str) -> dict:
+    return {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "One unsupported promotional paragraph must be removed.",
+        "failed_criteria": ["hierarchy"],
+        "sections_affected": ["README"],
+        "required_repair": "Remove the unsupported promotional paragraph.",
+        "findings": [
+            {
+                "finding_id": "quality.unsupported-promotion",
+                "kind": "quality",
+                "criterion": "hierarchy",
+                "section": "README",
+                "claim": "The final paragraph is unsupported promotional prose.",
+                "quoted_candidate_span": quote,
+                "disposition": "requires_repair",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "Remove the unsupported promotional paragraph.",
             }
         ],
     }
@@ -296,6 +376,264 @@ def test_fidelity_accepts_only_authorized_source_transformations(tmp_path) -> No
         candidate_text=candidate,
     )
     assert unconfigured["verdict"] == "REJECT_REPAIRABLE"
+
+
+def test_fidelity_accepts_governed_paragraph_consolidation(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "This repository provides a focused Python API.\n\n"
+        "It is inspired by "
+        "[Aspose.Widget for .NET](https://products.aspose.com/widget/net/).\n"
+    )
+    candidate = (
+        "# Widget\n\n"
+        "This repository provides a focused practical Python API. It is inspired by "
+        "Aspose.Widget Enterprise Edition for .NET.\n"
+    )
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="consolidated-prose",
+    )
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.contextual_links",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"consolidated-prose-links",
+            ),
+            configured_standard_addition(
+                "readme.enterprise_edition_terminology",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"consolidated-prose-enterprise",
+            ),
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The source paragraphs were consolidated.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "",
+                "section": "Opening",
+                "required_repair": "Restore the source paragraph.",
+            }
+            for fact in graph.inherited_facts
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Opening"],
+        "required_repair": "Restore the source paragraphs.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert all(
+        item["outcome"] == "preserved_or_represented" for item in normalized["source_checks"]
+    )
+
+
+def test_fidelity_accepts_conservative_no_emoji_value_proposition_rewrite(tmp_path) -> None:
+    source = (
+        "# Widget\n\n"
+        "\u2705 **Official Aspose project** — **100% free & open-source**. "
+        "Provides an Aspose.Note-compatible Python API for working with OneNote `.one` files.\n"
+    )
+    candidate_quote = (
+        "This repository provides a 100% free and open-source Python library for reading "
+        "Microsoft OneNote (.one) files. It offers a familiar API surface inspired by "
+        "Aspose.Note for .NET, backed by a built-in MS-ONE/OneStore parser."
+    )
+    candidate = f"# Widget\n\n{candidate_quote}\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="no-emoji-value-proposition",
+    )
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"global-no-emoji",
+                parameters={"emoji_policy": "none"},
+            )
+        ],
+    )
+    paragraph = next(fact for fact in graph.inherited_facts if fact.material_kind == "paragraph")
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The paragraph was rewritten.",
+        "source_checks": [
+            {
+                "fact_id": paragraph.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": paragraph.value,
+                "candidate_quote": "",
+                "section": "readme.value_proposition",
+                "required_repair": "Restore exact phrasing and emoji.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["readme.value_proposition"],
+        "required_repair": "Restore exact phrasing and emoji.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_dismisses_structure_owned_by_a_valid_global_brand_contract(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    source = "# Widget\n\nSource paragraph.\n"
+    candidate = "# Widget\n\nNavigation block\n\nMermaid block\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="global-brand-owned-structure",
+    )
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"global-brand-contract",
+                parameters={"brand_contract_version": "repository-presentation-brand-v1"},
+            )
+        ],
+    )
+    monkeypatch.setattr(
+        fidelity_validation,
+        "validate_trusted_portfolio_brand",
+        lambda candidate_text, candidate_graph: None,
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The reviewer treated configured structure as unsupported.",
+        "source_checks": [],
+        "unsupported_additions": [
+            {
+                "finding_id": "navigation",
+                "section": "readme.navigation",
+                "quoted_candidate_span": "Navigation block",
+                "reason": "Navigation is an addition.",
+                "required_repair": "Remove Navigation.",
+            },
+            {
+                "finding_id": "mermaid",
+                "section": "readme.at_a_glance",
+                "quoted_candidate_span": "Mermaid block",
+                "reason": "Mermaid is an addition.",
+                "required_repair": "Remove Mermaid.",
+            },
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["readme.navigation", "readme.at_a_glance"],
+        "required_repair": "Remove configured structure.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
+
+
+def test_fidelity_accepts_navigation_composed_from_source_and_brand_headings(tmp_path) -> None:
+    source = "# Widget\n\n## Architecture\n\nDetails.\n\n## License\n\nMIT.\n"
+    navigation = (
+        "- [Architecture](#architecture)\n"
+        "- [License](#license)\n"
+        "- [Project scope and limitations](#project-scope-and-limitations)"
+    )
+    candidate = f"{source}\n## Navigation\n\n{navigation}\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="composed-navigation",
+    )
+    graph = bind_configured_standards(
+        graph,
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"composed-navigation-header",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "required_h2_prefix": ["Navigation"],
+                },
+            ),
+            configured_standard_addition(
+                "readme.navigation",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"composed-navigation-standard",
+            ),
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The navigation block was treated as one addition.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": fact.value,
+                "candidate_quote": fact.value,
+                "section": "README",
+                "required_repair": "",
+            }
+            for fact in graph.inherited_facts
+        ],
+        "unsupported_additions": [
+            {
+                "finding_id": "composed-navigation",
+                "section": "Navigation",
+                "quoted_candidate_span": navigation,
+                "reason": "Multiple source headings were linked together.",
+                "required_repair": "Remove the navigation links.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Navigation"],
+        "required_repair": "Remove the navigation links.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
 
 
 def test_fidelity_accepts_governed_promotional_blockquote_relocation(tmp_path) -> None:
@@ -565,6 +903,839 @@ def test_fidelity_accepts_configured_badge_variant_and_row_consolidation(tmp_pat
     assert normalized["source_checks"][0]["required_repair"] == ""
 
 
+def test_fidelity_accepts_configured_core_license_badge_in_place_of_source_link(
+    tmp_path,
+) -> None:
+    source = (
+        "# Widget\n\n"
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)\n"
+    )
+    core_license = "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)"
+    candidate = f"# Widget\n\n{core_license}\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=source,
+        root_name="configured-core-license",
+    )
+    fact = next(item for item in graph.inherited_facts if "License: MIT" in item.value)
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.badges",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"configured-core-license",
+                parameters={"required_fragments": [core_license]},
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The linked source license badge changed.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "",
+                "section": "Header",
+                "required_repair": "Restore the linked source license badge.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Header"],
+        "required_repair": "Restore the linked source license badge.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_accepts_configured_removal_of_decorative_heading_emoji(tmp_path) -> None:
+    source = "# Widget\n\n## 🚀 Quick start\n\nRun it.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate="# Widget\n\n## Quick start\n\nRun it.\n",
+        root_name="heading-style",
+    )
+    fact = next(item for item in graph.inherited_facts if item.material_kind == "heading")
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"repository-presentation-brand-v1",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "emoji_policy": "none",
+                },
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The heading lost its decorative marker.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "## Quick start",
+                "section": "Quick start",
+                "required_repair": "Restore the decorative heading marker.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Quick start"],
+        "required_repair": "Restore the decorative heading marker.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text="# Widget\n\n## Quick start\n\nRun it.\n",
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_accepts_configured_removal_of_emojis_from_source_prose(tmp_path) -> None:
+    source = "# Widget\n\nUse Widget to convert files quickly. ✨\n"
+    candidate = "# Widget\n\nUse Widget to convert files quickly.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="candidate-wide-emoji-policy",
+    )
+    fact = next(item for item in graph.inherited_facts if item.material_kind == "paragraph")
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"repository-presentation-brand-v1-no-emojis",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "emoji_policy": "none",
+                },
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The source emoji was removed.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": candidate.splitlines()[2],
+                "section": "Opening",
+                "required_repair": "Restore the source emoji.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Opening"],
+        "required_repair": "Restore the source emoji.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_accepts_the_configured_features_heading_alias(tmp_path) -> None:
+    source = "# Widget\n\n## ✨ Features\n\n- Read files.\n"
+    candidate = "# Widget\n\n## Key capabilities\n\n- Read files.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="heading-alias",
+    )
+    fact = next(
+        item
+        for item in graph.inherited_facts
+        if item.material_kind == "heading" and "Features" in item.value
+    )
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"trusted-heading-alias",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "heading_aliases": {"Features": "Key capabilities"},
+                },
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The Features heading changed.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "",
+                "section": "Key capabilities",
+                "required_repair": "Restore the Features heading.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Key capabilities"],
+        "required_repair": "Restore the Features heading.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_fidelity_accepts_configured_product_specific_examples_suffix(tmp_path) -> None:
+    source = "# Widget\n\n## MS OneNote Examples\n\nRun it.\n"
+    candidate = "# Widget\n\n## Examples\n\nRun it.\n"
+    graph, _, _ = _composition(
+        tmp_path,
+        source_text=source,
+        candidate=candidate,
+        root_name="heading-suffix-alias",
+    )
+    fact = next(
+        item
+        for item in graph.inherited_facts
+        if item.material_kind == "heading" and "Examples" in item.value
+    )
+    graph = bind_configured_standards(
+        graph.model_copy(update={"inherited_facts": (fact,)}),
+        [
+            configured_standard_addition(
+                "readme.header",
+                configuration_source="config/policies/test.yml",
+                configuration_bytes=b"trusted-heading-suffix-alias",
+                parameters={
+                    "brand_contract_version": "repository-presentation-brand-v1",
+                    "heading_suffix_aliases": {"examples": "Examples"},
+                },
+            )
+        ],
+    )
+    value = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The product-specific prefix was simplified.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "lost_or_distorted",
+                "source_quote": fact.value,
+                "candidate_quote": "## Examples",
+                "section": "Examples",
+                "required_repair": "Restore the product-specific prefix.",
+            }
+        ],
+        "unsupported_additions": [],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["Examples"],
+        "required_repair": "Restore the product-specific prefix.",
+    }
+
+    normalized = normalize_trusted_fidelity_output(
+        value,
+        graph=graph,
+        candidate_text=candidate,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["source_checks"][0]["outcome"] == "preserved_or_represented"
+
+
+def test_blind_grounding_rejects_a_missing_h1_premise_when_h1_is_visible() -> None:
+    candidate = "# Widget\n\nCore content.\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.missing-h1",
+        kind="quality",
+        criterion="hierarchy",
+        section="Header",
+        claim="The README is missing an H1.",
+        quoted_candidate_span="# Widget",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Add the H1.",
+    )
+
+    grounding = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.header",
+                    "parameters": {"brand_contract_version": "repository-presentation-brand-v1"},
+                }
+            ]
+        },
+    )
+
+    assert not grounding.valid
+    assert grounding.errors == ["quality.missing-h1:H1 premise contradicts visible candidate"]
+
+
+def test_blind_grounding_rejects_required_blank_line_premise_when_quote_has_it() -> None:
+    candidate = "## At a glance\n\n```mermaid\nflowchart LR\n```\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.at-a-glance-spacing",
+        kind="quality",
+        criterion="hierarchy",
+        section="At a glance",
+        claim=("The At a glance section is missing the required blank line after the heading."),
+        quoted_candidate_span="## At a glance\n\n```mermaid",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Insert a blank line after the heading before the Mermaid block.",
+    )
+
+    grounding = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=(finding,),
+    )
+
+    assert not grounding.valid
+    assert grounding.errors == [
+        "quality.at-a-glance-spacing:blank-line premise contradicts quoted span"
+    ]
+
+
+def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_contract() -> None:
+    core_row = (
+        "![Platform: Python](https://img.shields.io/badge/Platform-Python-3776AB.svg) "
+        "![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)"
+    )
+    enterprise_url = "https://products.aspose.com/note/"
+    candidate = (
+        f"# Widget\n\n{core_row}\n\n"
+        "[![Build](https://example.test/build.svg)](https://example.test/build)\n\n"
+        "Widget provides a focused API for document workflows.\n\n"
+        "## At a glance\n\n"
+        "```mermaid\n"
+        "flowchart LR\n"
+        "  subgraph Inputs\n"
+        '    I1["Widget document file"]\n'
+        "  end\n"
+        '  PRODUCT["Widget API"]\n'
+        "  subgraph Capabilities\n"
+        '    C1["Parse document structure"]\n'
+        '    C2["Extract embedded content"]\n'
+        "  end\n"
+        "  subgraph Outputs\n"
+        '    O1["Structured document content"]\n'
+        "  end\n"
+        "  I1 --> PRODUCT\n"
+        "  PRODUCT --> C1\n"
+        "  PRODUCT --> C2\n"
+        "  C1 --> O1\n"
+        "```\n\n"
+        "## Navigation\n\n"
+        "- [At a glance](#at-a-glance)\n"
+        "- [Key capabilities](#key-capabilities)\n"
+        "- [Installation](#installation)\n"
+        "- [Quick start](#quick-start)\n"
+        "- [License](#license)\n\n"
+        "## Project scope and limitations\n\n"
+        "For advanced requirements, evaluate the "
+        f"[Widget Enterprise Edition]({enterprise_url}).\n\n"
+        "## Build and Test (Developers)\n"
+    )
+    findings = [
+        GroundedReviewFindingV1(
+            finding_id="quality.h1-emoji",
+            kind="quality",
+            criterion="clarity",
+            section="Header",
+            claim="H1 title contains emoji.",
+            quoted_candidate_span="# Widget",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Remove emoji from the H1.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.header-spacing",
+            kind="quality",
+            criterion="hierarchy",
+            section="Header",
+            claim="Missing blank line between H1 title and badge row.",
+            quoted_candidate_span="# Widget",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Insert a blank line after the H1.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.badge-duplication",
+            kind="quality",
+            criterion="visible_duplication",
+            section="Header",
+            claim="Badge row appears twice.",
+            quoted_candidate_span=core_row,
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Remove the duplicated badge row.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.extra-badges",
+            kind="quality",
+            criterion="clarity",
+            section="Header",
+            claim="Header contains an extra CI badge row.",
+            quoted_candidate_span="[![Build](https://example.test/build.svg)]",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Keep only the two required core badges.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.opening-visual-duplication",
+            kind="quality",
+            criterion="clarity",
+            section="Header",
+            claim=(
+                "The first paragraph after badges duplicates the value proposition already "
+                "present in the At a glance section."
+            ),
+            quoted_candidate_span="Widget provides a focused API for document workflows.",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Remove the paragraph or merge it into At a glance.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.enterprise-link",
+            kind="quality",
+            criterion="promotional_balance",
+            section="Resources",
+            claim="Missing required Enterprise Edition link.",
+            quoted_candidate_span="Widget Enterprise Edition",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Replace placeholder text with the required Enterprise Edition link.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.navigation-labels",
+            kind="quality",
+            criterion="navigation",
+            section="Navigation",
+            claim="Navigation includes sections not in the required set.",
+            quoted_candidate_span="- [License](#license)",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Trim the Navigation section to the required labels.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.navigation-duplicate",
+            kind="quality",
+            criterion="visible_duplication",
+            section="Navigation",
+            claim="Navigation section appears twice.",
+            quoted_candidate_span="## Navigation",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Remove the duplicate Navigation section.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.mermaid-contract",
+            kind="quality",
+            criterion="markdown_integrity",
+            section="At a glance",
+            claim="Mermaid exceeds the max_nodes limit and must be rendered without subgraphs.",
+            quoted_candidate_span="```mermaid",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Reduce the Mermaid nodes and remove subgraphs.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.mermaid-detail",
+            kind="quality",
+            criterion="hierarchy",
+            section="At a glance",
+            claim="Mermaid PRODUCT node label is generic and not product-specific.",
+            quoted_candidate_span="flowchart LR",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair=(
+                "Use short labels and show a clear inputs->product->capabilities->outputs flow."
+            ),
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.bare-enterprise-url",
+            kind="quality",
+            criterion="promotional_balance",
+            section="Project scope and limitations",
+            claim="Enterprise Edition appears as a link label instead of the configured URL.",
+            quoted_candidate_span="Widget Enterprise Edition",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Replace the link label with the configured URL.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.enterprise-wrong-section",
+            kind="quality",
+            criterion="promotional_balance",
+            section="Quick start",
+            claim="Enterprise Edition link appears in the middle of Quick start.",
+            quoted_candidate_span="Widget Enterprise Edition",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Move the Enterprise Edition link below the opening.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.enterprise-duplicate-link",
+            kind="quality",
+            criterion="promotional_balance",
+            section="Other platforms",
+            claim="Enterprise Edition labels appear without the required Enterprise Edition link.",
+            quoted_candidate_span="Widget Enterprise Edition",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Add the Enterprise Edition link to each label.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.heading-alias",
+            kind="quality",
+            criterion="hierarchy",
+            section="Project scope and limitations",
+            claim="This heading should be renamed according to the heading_alias.",
+            quoted_candidate_span="## Project scope and limitations",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Rename this section to Key capabilities.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="quality.heading-parentheses",
+            kind="quality",
+            criterion="markdown_integrity",
+            section="Build and Test (Developers)",
+            claim="The heading contains parentheses, which are not permitted.",
+            quoted_candidate_span="## Build and Test (Developers)",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Remove the parenthetical phrase from the heading.",
+        ),
+    ]
+
+    grounding = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.header",
+                    "parameters": {
+                        "brand_contract_version": "repository-presentation-brand-v1",
+                        "heading_style": "sentence_case_without_emoji",
+                        "required_h2_prefix": [
+                            "At a glance",
+                            "Navigation",
+                            "Key capabilities",
+                            "Installation",
+                            "Quick start",
+                        ],
+                        "heading_aliases": {"Features": "Key capabilities"},
+                    },
+                },
+                {
+                    "standard_id": "readme.badges",
+                    "parameters": {
+                        "required_core_row": core_row,
+                        "allow_inherited_badges_after_core": True,
+                    },
+                },
+                {
+                    "standard_id": "readme.contextual_links",
+                    "parameters": {
+                        "required_enterprise_url": enterprise_url,
+                        "required_aspose_com_occurrences": 1,
+                    },
+                },
+                {
+                    "standard_id": "readme.navigation",
+                    "parameters": {
+                        "required_labels": [
+                            "At a glance",
+                            "Key capabilities",
+                            "Installation",
+                            "Quick start",
+                        ]
+                    },
+                },
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "visual_grammar": "inputs-product-capabilities-outputs",
+                        "max_nodes": 12,
+                        "max_label_characters": 52,
+                    },
+                },
+            ]
+        },
+    )
+
+    assert not grounding.valid
+    assert grounding.errors == [
+        "quality.h1-emoji:H1 emoji premise contradicts visible candidate",
+        "quality.header-spacing:header-spacing premise contradicts configured header",
+        "quality.badge-duplication:badge-duplication premise contradicts configured header",
+        "quality.extra-badges:inherited-badge premise contradicts configured header",
+        "quality.opening-visual-duplication:"
+        "opening-versus-visual premise contradicts global contract",
+        "quality.enterprise-link:Enterprise link premise contradicts configured candidate",
+        "quality.navigation-labels:navigation prefix-only premise is unconfigured",
+        "quality.navigation-duplicate:navigation-duplication premise contradicts candidate",
+        "quality.mermaid-contract:Mermaid subgraph prohibition is unconfigured",
+        "quality.mermaid-contract:Mermaid node-count premise contradicts candidate",
+        "quality.mermaid-detail:Mermaid-detail premise contradicts configured candidate",
+        "quality.bare-enterprise-url:bare-URL premise contradicts configured candidate",
+        "quality.enterprise-wrong-section:Enterprise link placement contradicts configured scope",
+        "quality.enterprise-duplicate-link:"
+        "Enterprise link premise contradicts configured candidate",
+        "quality.heading-alias:heading-alias premise is unconfigured",
+        "quality.heading-parentheses:heading-parentheses premise is unconfigured",
+    ]
+
+
+def test_fidelity_discards_an_unsupported_addition_with_an_absent_candidate_quote(
+    tmp_path,
+) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    fact = graph.inherited_facts[0]
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "A supposed addition is unsupported.",
+            "source_checks": [
+                {
+                    "fact_id": fact.fact_id,
+                    "outcome": "preserved_or_represented",
+                    "source_quote": fact.value,
+                    "candidate_quote": fact.value,
+                    "section": "README",
+                    "required_repair": "",
+                }
+            ],
+            "unsupported_additions": [
+                {
+                    "finding_id": "unsupported-addition-1",
+                    "section": "README",
+                    "quoted_candidate_span": "Text that is not present.",
+                    "reason": "No inherited unit supports this text.",
+                    "required_repair": "Remove the absent text.",
+                }
+            ],
+            "failed_criteria": ["inheritance_fidelity"],
+            "sections_affected": ["README"],
+            "required_repair": "Remove the absent text.",
+        },
+        graph=graph.model_copy(update={"inherited_facts": (fact,)}),
+        candidate_text=composition.candidate_markdown,
+    )
+
+    assert normalized["verdict"] == "ACCEPT"
+    assert normalized["unsupported_additions"] == []
+
+
+def test_fidelity_does_not_reject_the_required_descriptive_enterprise_link(
+    tmp_path: Path,
+) -> None:
+    graph, _composition_output, _snapshot = _composition(tmp_path)
+    enterprise_url = "https://products.aspose.com/note/"
+    graph = graph.model_copy(
+        update={
+            "configured_standards": tuple(
+                standard.model_copy(
+                    update={
+                        "parameters": {
+                            "required_enterprise_url": enterprise_url,
+                            "required_aspose_com_occurrences": 1,
+                            "enterprise_product_name": (
+                                "Aspose.Note for Python Enterprise Edition"
+                            ),
+                        }
+                    }
+                )
+                if standard.standard_id == "readme.contextual_links"
+                else standard
+                for standard in graph.configured_standards
+            )
+        }
+    )
+    paragraph = (
+        "For requirements outside this repository's scope, use "
+        f"[Aspose.Note for Python Enterprise Edition]({enterprise_url})."
+    )
+    candidate = SOURCE + "\n" + paragraph + "\n"
+
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "The configured link was incorrectly classified as unsupported.",
+            "source_checks": [
+                {
+                    "fact_id": fact.fact_id,
+                    "outcome": "preserved_or_represented",
+                    "source_quote": fact.value,
+                    "candidate_quote": fact.value,
+                    "section": "source",
+                    "required_repair": "",
+                }
+                for fact in graph.inherited_facts
+            ],
+            "unsupported_additions": [
+                {
+                    "finding_id": "unsupported-enterprise-link",
+                    "section": "Project scope and limitations",
+                    "quoted_candidate_span": paragraph,
+                    "reason": "The Enterprise Edition link is supposedly unauthorized.",
+                    "required_repair": "Remove the configured Enterprise Edition link.",
+                }
+            ],
+            "failed_criteria": ["inheritance_fidelity"],
+            "sections_affected": ["Project scope and limitations"],
+            "required_repair": "Remove the configured Enterprise Edition link.",
+        },
+        graph=graph,
+        candidate_text=candidate,
+    )
+    result = TrustedFidelityReviewResultV1.model_validate(normalized)
+
+    assert result.verdict == "ACCEPT"
+    assert result.unsupported_additions == ()
+
+
+def test_fidelity_requires_unsupported_addition_quote_to_exclude_inherited_material(
+    tmp_path,
+) -> None:
+    candidate = f"{SOURCE}\nUnverified hosted service is included.\n"
+    graph, composition, _ = _composition(tmp_path, candidate=candidate)
+    fact = graph.inherited_facts[-1]
+    normalized = normalize_trusted_fidelity_output(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "reasoning": "The cited block mixes source and unsupported prose.",
+            "source_checks": [
+                {
+                    "fact_id": item.fact_id,
+                    "outcome": "preserved_or_represented",
+                    "source_quote": item.value,
+                    "candidate_quote": item.value,
+                    "section": "README",
+                    "required_repair": "",
+                }
+                for item in graph.inherited_facts
+            ],
+            "unsupported_additions": [
+                {
+                    "finding_id": "unsupported-addition-mixed",
+                    "section": "README",
+                    "quoted_candidate_span": candidate.strip(),
+                    "reason": "The final line is not inherited.",
+                    "required_repair": "Remove only the unsupported line.",
+                }
+            ],
+            "failed_criteria": ["inheritance_fidelity"],
+            "sections_affected": ["README"],
+            "required_repair": "Remove only the unsupported line.",
+        },
+        graph=graph,
+        candidate_text=composition.candidate_markdown,
+    )
+    parsed = TrustedFidelityReviewResultV1.model_validate(normalized)
+
+    assert fact.value in parsed.unsupported_additions[0].quoted_candidate_span
+    assert validate_trusted_fidelity_result(
+        parsed,
+        graph,
+        composition.candidate_markdown,
+    ) == (
+        "unsupported-addition-mixed: unsupported-addition quote mixes inherited material; "
+        "cite only the exact unsupported bytes",
+    )
+
+
+def test_fidelity_shard_grounds_additions_against_complete_authorization_graph(
+    tmp_path,
+) -> None:
+    candidate = f"{SOURCE}\nUnverified hosted service is included.\n"
+    graph, composition, _ = _composition(tmp_path, candidate=candidate)
+    paragraph = next(fact for fact in graph.inherited_facts if fact.material_kind == "paragraph")
+    heading = next(fact for fact in graph.inherited_facts if fact.material_kind == "heading")
+    batch_graph = graph.model_copy(update={"inherited_facts": (heading,)})
+    payload = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The cited block mixes source and unsupported prose.",
+        "source_checks": [
+            {
+                "fact_id": heading.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": heading.value,
+                "candidate_quote": heading.value,
+                "section": "README",
+                "required_repair": "",
+            }
+        ],
+        "unsupported_additions": [
+            {
+                "finding_id": "unsupported-addition-cross-shard",
+                "section": "README",
+                "quoted_candidate_span": candidate.strip(),
+                "reason": "The final line is not inherited.",
+                "required_repair": "Remove only the unsupported line.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["README"],
+        "required_repair": "Remove only the unsupported line.",
+    }
+    parsed = TrustedFidelityReviewResultV1.model_validate(payload)
+
+    assert paragraph.fact_id not in {item.fact_id for item in batch_graph.inherited_facts}
+    assert validate_trusted_fidelity_result(
+        parsed,
+        batch_graph,
+        composition.candidate_markdown,
+        authorization_graph=graph,
+    ) == (
+        "unsupported-addition-cross-shard: unsupported-addition quote mixes inherited material; "
+        "cite only the exact unsupported bytes",
+    )
+
+
 def _fidelity_accept(graph) -> dict:
     return {
         "verdict": "ACCEPT",
@@ -602,7 +1773,7 @@ def _review_clients(graph, *, blind: dict | None = None, fidelity: dict | None =
     )
 
 
-def _repair_result(graph, markdown: str) -> ForcedToolResult:
+def _repair_result(graph, markdown: str, *, segment_id: str = "complete") -> ForcedToolResult:
     fact_ids = [fact.fact_id for fact in graph.inherited_facts]
     return ForcedToolResult(
         arguments={
@@ -618,7 +1789,7 @@ def _repair_result(graph, markdown: str) -> ForcedToolResult:
             ],
             "segments": [
                 {
-                    "segment_id": "repaired",
+                    "segment_id": segment_id,
                     "kind": "authored",
                     "markdown": markdown,
                     "inherited_fact_ids": fact_ids,
@@ -679,6 +1850,84 @@ def test_fidelity_normalization_canonicalizes_empty_repair_sentinels() -> None:
     assert normalized["required_repair"] == "Restore this exact source unit."
     assert normalized["source_checks"][0]["required_repair"] == ""
     assert normalized["source_checks"][1]["required_repair"] == "Restore this exact source unit."
+
+
+def test_exact_removal_delta_rebinds_source_check_to_surviving_representation(
+    tmp_path: Path,
+) -> None:
+    removable = "This package is specifically designed for Python developers."
+    candidate = f"{SOURCE}\n{removable}\n"
+    graph, composition, _snapshot = _composition(tmp_path, candidate=candidate)
+    paragraph = next(fact for fact in graph.inherited_facts if fact.material_kind == "paragraph")
+    prior = _accepted_fidelity_record(
+        graph,
+        composition,
+        candidate_quote_overrides={paragraph.fact_id: removable},
+    )
+    repaired, action = apply_grounded_exact_removal(
+        graph,
+        SOURCE,
+        composition,
+        finding_id="duplicate-prose",
+        quoted_candidate_span=removable,
+        instruction="Remove the duplicate product description.",
+    )
+
+    result = derive_fidelity_after_exact_removal(graph, repaired, prior, action)
+
+    assert result.verdict == "ACCEPT"
+    rebound = next(check for check in result.source_checks if check.fact_id == paragraph.fact_id)
+    assert rebound.candidate_quote == paragraph.value
+
+
+def test_exact_removal_delta_returns_repairable_rejection_for_actual_source_loss(
+    tmp_path: Path,
+) -> None:
+    removable = "A specific package for Python developers."
+    candidate = f"# Widget\n\n{removable}\n\nAdditional operational guidance.\n"
+    graph, composition, _snapshot = _composition(tmp_path, candidate=candidate)
+    paragraph = next(
+        fact
+        for fact in graph.inherited_facts
+        if fact.material_kind == "paragraph" and "specific package" in fact.value
+    )
+    prior = _accepted_fidelity_record(graph, composition)
+    repaired, action = apply_grounded_exact_removal(
+        graph,
+        SOURCE,
+        composition,
+        finding_id="remove-source",
+        quoted_candidate_span=removable,
+        instruction="Remove the product description.",
+    )
+
+    result = derive_fidelity_after_exact_removal(graph, repaired, prior, action)
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    lost = next(check for check in result.source_checks if check.fact_id == paragraph.fact_id)
+    assert lost.outcome == "lost_or_distorted"
+    assert paragraph.fact_id in lost.required_repair
+
+    unresolved_prior = prior.model_copy(
+        update={
+            "verdict": result.verdict,
+            "result": result.model_dump(mode="json"),
+        }
+    )
+    repeated = derive_fidelity_after_exact_removal(
+        graph,
+        repaired,
+        unresolved_prior,
+        action,
+    )
+
+    assert repeated.verdict == "REJECT_REPAIRABLE"
+    assert (
+        next(
+            check for check in repeated.source_checks if check.fact_id == paragraph.fact_id
+        ).outcome
+        == "lost_or_distorted"
+    )
 
 
 def test_fidelity_normalization_derives_only_redundant_rejection_fields() -> None:
@@ -910,18 +2159,29 @@ def test_fidelity_review_executes_each_source_batch_then_reduces_complete_covera
     assert calls_after - calls_before == 2
 
 
+def test_fidelity_batches_review_the_owned_final_candidate_projection(tmp_path) -> None:
+    graph, composition, _ = _composition(tmp_path)
+
+    review_candidates = _render_review_candidates(composition, graph)
+
+    assert review_candidates
+    assert set(review_candidates) == {draft.batch_id for draft in composition.plan.section_drafts}
+    assert {value.rstrip() for value in review_candidates.values()} == {
+        composition.candidate_markdown.rstrip()
+    }
+
+
 def test_fidelity_call_partition_is_fact_and_source_byte_bounded() -> None:
     fact_ids = tuple(f"fact-{index:02d}" for index in range(25))
     values = {fact_id: "x" * 100 for fact_id in fact_ids}
 
     chunks = partition_fidelity_fact_ids(fact_ids, values)
 
-    assert [len(chunk) for chunk in chunks] == [4, 4, 4, 4, 4, 4, 1]
+    assert [len(chunk) for chunk in chunks] == [8, 8, 8, 1]
     large_values = {"one": "x" * 4_000, "two": "y" * 3_000, "three": "z"}
     assert partition_fidelity_fact_ids(("one", "two", "three"), large_values) == (
         ("one",),
-        ("two",),
-        ("three",),
+        ("two", "three"),
     )
 
 
@@ -950,6 +2210,48 @@ def test_fidelity_batch_cache_reuses_validated_result_without_client_call(tmp_pa
     after = current_llm_accounting_summary()
 
     assert second == first
+    assert (after.fixture_call_count or 0) == (before.fixture_call_count or 0)
+    assert (after.cache_reuse_count or 0) - (before.cache_reuse_count or 0) == 1
+
+
+def test_fidelity_batch_cache_migrates_one_exact_prior_contract(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-fidelity-batch-cache-migration")
+    current_contract = trusted_fidelity_cache.FIDELITY_BATCH_CONTRACT_VERSION
+    monkeypatch.setattr(
+        trusted_fidelity_cache,
+        "FIDELITY_BATCH_CONTRACT_VERSION",
+        trusted_fidelity_cache.LEGACY_FIDELITY_BATCH_CONTRACT_VERSION,
+    )
+    run_batched_trusted_fidelity_review(
+        client=FixtureAnalysisClient(
+            [_analysis(_fidelity_accept(graph), model="fixture-fidelity")],
+            job="trusted_readme_fidelity_review",
+            prompt_id="trusted_readme_fidelity_review",
+        ),
+        graph=graph,
+        composition=composition,
+        cache_dir=tmp_path / "fidelity-migration-cache",
+    )
+    monkeypatch.setattr(
+        trusted_fidelity_cache,
+        "FIDELITY_BATCH_CONTRACT_VERSION",
+        current_contract,
+    )
+    before = current_llm_accounting_summary()
+
+    migrated, _ = run_batched_trusted_fidelity_review(
+        client=FixtureAnalysisClient([]),
+        graph=graph,
+        composition=composition,
+        cache_dir=tmp_path / "fidelity-migration-cache",
+    )
+    after = current_llm_accounting_summary()
+
+    assert migrated.verdict == "ACCEPT"
     assert (after.fixture_call_count or 0) == (before.fixture_call_count or 0)
     assert (after.cache_reuse_count or 0) - (before.cache_reuse_count or 0) == 1
 
@@ -1087,6 +2389,61 @@ def test_canonical_trusted_pipeline_persists_approval_then_exact_no_op(
         "TRUSTED_TRANSFORM_APPROVED",
         "TRUSTED_NO_OP_PROVEN",
     ]
+
+
+def test_canonical_pipeline_records_composition_failure_without_traceback(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    graph, _composition_output, snapshot = _composition(tmp_path)
+    backend = FakeStateBackend()
+    record_repository_snapshot(
+        backend,
+        ORG_REPO,
+        source_revision=snapshot.source_revision,
+        evidence_refs=["snapshot"],
+    )
+    record_repository_profile(
+        backend,
+        ORG_REPO,
+        source_revision=snapshot.source_revision,
+        evidence_refs=["profile"],
+    )
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    monkeypatch.setattr(
+        "readme_agent.supervisor.trusted_product_truth.bind_trusted_presentation_standards",
+        lambda org_repo, fact_graph, source_text: fact_graph,
+    )
+    monkeypatch.setattr(
+        "readme_agent.capabilities.compose_trusted_readme.bind_trusted_presentation_standards",
+        lambda org_repo, fact_graph, source_text: fact_graph,
+    )
+
+    def fail_composition(*args, **kwargs):
+        raise LLMError("configured presentation contract was not satisfied")
+
+    monkeypatch.setattr(
+        "readme_agent.supervisor.trusted_readme_pipeline.dispatch_trusted_composition",
+        fail_composition,
+    )
+
+    with repository_snapshot_scope(snapshot):
+        result = run_trusted_readme_pipeline(
+            ORG_REPO,
+            snapshot,
+            backend,
+            target_stage="TRUSTED_TRANSFORM_APPROVED",
+        )
+
+    assert result.status == "SYSTEM_FAILURE"
+    assert result.reached is False
+    assert result.blocked_reason == (
+        "trusted composition failed: configured presentation contract was not satisfied"
+    )
+    assert result.blocked_category == "agent_fixable"
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert lifecycle is not None
+    assert lifecycle.status == "SYSTEM_FAILURE"
 
 
 def test_approval_requires_deterministic_validation_and_two_independent_roles(tmp_path):
@@ -1471,9 +2828,68 @@ def test_grounded_repair_changes_bytes_then_reruns_both_roles(tmp_path):
     assert result.final_composition.candidate_sha256 != composition.candidate_sha256
     assert len(result.repair_history) == 1
     assert result.repair_history[0].candidate_changed
+    assert result.repair_history[0].approach == "bounded_llm_section_rewrite"
     assert result.repair_history[0].rereview_verdict == "TRUSTED_TRANSFORM_APPROVED"
     assert result.final_execution.review.blind_quality.verdict == "ACCEPT"
     assert result.final_execution.review.inheritance_fidelity.verdict == "ACCEPT"
+
+
+def test_grounded_repair_preserves_segment_identity_after_candidate_normalization(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-normalized-ownership")
+    draft = composition.plan.section_drafts[0]
+    segment = draft.segments[0]
+    normalized_source_draft = segment.model_copy(
+        update={
+            "markdown": (
+                "# Widget\n\nA specific [package](https://example.invalid/package) "
+                "for Python developers.\n"
+            )
+        }
+    )
+    changed_draft = draft.model_copy(update={"segments": (normalized_source_draft,)})
+    changed_plan = composition.plan.model_copy(update={"section_drafts": (changed_draft,)})
+    composition = composition.model_copy(update={"plan": changed_plan})
+    blind = FixtureAnalysisClient(
+        [
+            _analysis(_blind_reject(), model="fixture-blind"),
+            _analysis(_blind_accept(), model="fixture-blind"),
+        ],
+        job="blind_readme_quality_review",
+        prompt_id="blind_readme_quality_review",
+    )
+    fidelity = FixtureAnalysisClient(
+        [
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+        ],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+    repair = FixtureForcedToolClient(
+        [
+            _repair_result(
+                graph,
+                SOURCE.rstrip() + "\n\nThe purpose is explicit.\n",
+                segment_id=segment.segment_id,
+            )
+        ],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+
+    result = run_trusted_review_with_repair(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        repair_client=repair,
+    )
+
+    assert result.outcome == "accepted"
+    assert result.repair_history[0].request.rejected_batch_id == draft.batch_id
+    assert result.repair_history[0].candidate_changed
 
 
 def test_byte_identical_repair_becomes_visible_system_failure(tmp_path):
@@ -1499,6 +2915,213 @@ def test_byte_identical_repair_becomes_visible_system_failure(tmp_path):
     assert result.system_failure_reason == "trusted repair returned byte-identical candidate"
     assert len(result.repair_history) == 1
     assert not result.repair_history[0].candidate_changed
+
+
+def test_repair_provider_outage_is_typed_as_external_infrastructure(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-provider-outage")
+    blind, fidelity = _review_clients(graph, blind=_blind_reject())
+
+    class ProviderDown:
+        def call(self, messages, tool_schema):
+            raise LLMInfrastructureError("HTTP 500: EngineCore encountered an issue")
+
+    result = run_trusted_review_with_repair(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        repair_client=ProviderDown(),
+    )
+
+    assert result.outcome == "system_failure"
+    assert result.system_failure_category == "infra_external"
+    assert "EngineCore encountered an issue" in result.system_failure_reason
+
+
+def test_same_failed_boundary_cannot_repeat_the_same_repair_approach(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-approach-change")
+    blind = FixtureAnalysisClient(
+        [
+            _analysis(_blind_reject(), model="fixture-blind"),
+            _analysis(_blind_reject(), model="fixture-blind"),
+        ],
+        job="blind_readme_quality_review",
+        prompt_id="blind_readme_quality_review",
+    )
+    fidelity = FixtureAnalysisClient(
+        [
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+        ],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+    repair = FixtureForcedToolClient(
+        [
+            _repair_result(
+                graph,
+                "# Widget for Python\n\nA specific package for Python developers.\n",
+            )
+        ],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+
+    result = run_trusted_review_with_repair(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        repair_client=repair,
+    )
+
+    assert result.outcome == "system_failure"
+    assert result.system_failure_reason == (
+        "trusted repair approach repeated without resolving the same boundary; "
+        "an upstream resolver or materially different mechanism is required"
+    )
+    assert len(result.repair_history) == 1
+    assert result.repair_history[0].approach == "bounded_llm_section_rewrite"
+
+
+def test_exact_removal_reuses_prior_fidelity_without_replaying_source_shards(tmp_path):
+    unsupported = "Unverified hosted service is included."
+    candidate = f"{SOURCE}\n{unsupported}\n"
+    graph, composition, _ = _composition(tmp_path, candidate=candidate)
+    _start_accounting(graph, "trusted-review-exact-removal-delta")
+    blind = FixtureAnalysisClient(
+        [
+            _analysis(_blind_remove(unsupported), model="fixture-blind"),
+            _analysis(_blind_accept(), model="fixture-blind"),
+        ],
+        job="blind_readme_quality_review",
+        prompt_id="blind_readme_quality_review",
+    )
+    fidelity_reject = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "One exact paragraph is not inherited.",
+        "source_checks": [
+            {
+                "fact_id": fact.fact_id,
+                "outcome": "preserved_or_represented",
+                "source_quote": fact.value,
+                "candidate_quote": fact.value,
+                "section": "README",
+                "required_repair": "",
+            }
+            for fact in graph.inherited_facts
+        ],
+        "unsupported_additions": [
+            {
+                "finding_id": "unsupported-promotion",
+                "section": "README",
+                "quoted_candidate_span": unsupported,
+                "reason": "The paragraph is absent from inherited source.",
+                "required_repair": "Remove the unsupported promotional paragraph.",
+            }
+        ],
+        "failed_criteria": ["inheritance_fidelity"],
+        "sections_affected": ["README"],
+        "required_repair": "Remove the unsupported promotional paragraph.",
+    }
+    fidelity = FixtureAnalysisClient(
+        [_analysis(fidelity_reject, model="fixture-fidelity")],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+    unused_repair = FixtureForcedToolClient(
+        [],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+
+    result = run_trusted_review_with_repair(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        repair_client=unused_repair,
+    )
+
+    assert result.outcome == "accepted"
+    assert result.final_composition.candidate_markdown.rstrip() == SOURCE.rstrip()
+    assert len(result.repair_history) == 1
+    assert result.repair_history[0].approach == "grounded_exact_removal"
+    assert result.final_execution.review.inheritance_fidelity.verdict == "ACCEPT"
+    assert (
+        result.final_execution.review.inheritance_fidelity.result["retry_history"][0]["disposition"]
+        == "exact_removal_delta_proof"
+    )
+
+
+def test_partial_paragraph_quote_routes_repair_through_bounded_llm(tmp_path):
+    duplicate = "Duplicated overview paragraph that should be removed."
+    candidate = f"{SOURCE.rstrip()}\n\n{duplicate}\n"
+    repaired_candidate = f"{SOURCE.rstrip()}\n\n## Quick start\n"
+    graph, composition, _ = _composition(tmp_path, candidate=candidate)
+    _start_accounting(graph, "trusted-review-structural-quote-repair")
+    blind = FixtureAnalysisClient(
+        [
+            _analysis(_blind_remove("Duplicated overview paragraph"), model="fixture-blind"),
+            _analysis(_blind_accept(), model="fixture-blind"),
+        ],
+        job="blind_readme_quality_review",
+        prompt_id="blind_readme_quality_review",
+    )
+    fidelity = FixtureAnalysisClient(
+        [
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+            _analysis(_fidelity_accept(graph), model="fixture-fidelity"),
+        ],
+        job="trusted_readme_fidelity_review",
+        prompt_id="trusted_readme_fidelity_review",
+    )
+    repair = FixtureForcedToolClient(
+        [_repair_result(graph, repaired_candidate)],
+        job="trusted_readme_section_transform",
+        prompt_id="trusted_readme_section_transform",
+    )
+
+    result = run_trusted_review_with_repair(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+        repair_client=repair,
+    )
+
+    assert result.outcome == "accepted"
+    assert duplicate not in result.final_composition.candidate_markdown
+    assert "## Quick start" in result.final_composition.candidate_markdown
+    assert result.repair_history[0].approach == "bounded_llm_section_rewrite"
+
+
+def test_blind_grounding_rejects_heading_quote_for_paragraph_removal() -> None:
+    candidate = "# Widget\n\n## Quick start\n\nDuplicated overview paragraph.\n"
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            **_blind_remove("## Quick start")["findings"][0],
+            "finding_id": "quality.misgrounded-duplicate",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert result.errors == [
+        "quality.misgrounded-duplicate:repair quote identifies a heading instead of the prose "
+        "to remove"
+    ]
 
 
 def test_registered_review_capability_requires_independent_domain_and_bound_snapshot(tmp_path):
@@ -1585,7 +3208,7 @@ def test_live_trusted_review_uses_real_fact_coverage_envelope(tmp_path, monkeypa
         "base_url": "https://gateway.example/v1",
         "api_key": "test-key",
         "timeout": 123.0,
-        "max_tokens": 8_000,
+        "max_tokens": 12_000,
     }
 
 
@@ -1635,7 +3258,7 @@ def test_stage_review_builder_does_not_fall_back_to_short_output_limit(monkeypat
         "base_url": "https://gateway.example/v1",
         "api_key": "test-key",
         "timeout": 123.0,
-        "max_tokens": 8_000,
+        "max_tokens": 12_000,
     }
 
 
@@ -1712,6 +3335,127 @@ def test_identical_accepted_review_records_no_duplicate_lifecycle_event(tmp_path
         "TRUSTED_DETERMINISTIC_VALIDATED",
         "TRUSTED_REVIEWING",
         "TRUSTED_TRANSFORM_APPROVED",
+    ]
+
+
+def test_interrupted_repair_resumes_at_candidate_revalidation(tmp_path):
+    graph, composition, _ = _composition(tmp_path)
+    _start_accounting(graph, "trusted-review-interrupted-repair")
+    blind, fidelity = _review_clients(graph, blind=_blind_reject())
+    rejected = run_trusted_transform_review(
+        graph,
+        SOURCE,
+        composition,
+        blind_client=blind,
+        fidelity_client=fidelity,
+    )
+    backend = FakeStateBackend()
+    record_repository_snapshot(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["snapshot"],
+    )
+    record_repository_profile(
+        backend,
+        ORG_REPO,
+        source_revision=graph.source_revision,
+        evidence_refs=["profile"],
+    )
+    switch_content_assurance(
+        backend,
+        ORG_REPO,
+        "trusted_inherited",
+        observed_by="test",
+        reason="exercise interrupted repair recovery",
+    )
+    for status in (
+        "TRUSTED_FACTS_EXTRACTING",
+        "TRUSTED_FACTS_EXTRACTED",
+        "TRUSTED_PLAN_READY",
+        "TRUSTED_CANDIDATE_GENERATED",
+    ):
+        transition_trusted_readme_poc_status(
+            backend,
+            ORG_REPO,
+            status,
+            observed_by="test",
+            reason="advance trusted fixture",
+            source_revision=graph.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=(
+                composition.candidate_sha256 if status == "TRUSTED_CANDIDATE_GENERATED" else None
+            ),
+        )
+    record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        rejected,
+        evidence_refs=["rejected-review.json"],
+    )
+    transition_trusted_readme_poc_status(
+        backend,
+        ORG_REPO,
+        "TRUSTED_REPAIRING",
+        observed_by="test",
+        reason="simulate interruption after repair claim",
+        source_revision=graph.source_revision,
+        facts_hash=graph.canonical_hash(),
+        candidate_hash=composition.candidate_sha256,
+    )
+
+    resumed = record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        rejected,
+        evidence_refs=["replayed-review.json"],
+    )
+
+    assert resumed.status == "TRUSTED_REVIEW_REJECTED"
+    assert [item.to_status for item in resumed.history[-4:]] == [
+        "TRUSTED_CANDIDATE_GENERATED",
+        "TRUSTED_DETERMINISTIC_VALIDATED",
+        "TRUSTED_REVIEWING",
+        "TRUSTED_REVIEW_REJECTED",
+    ]
+    transition_trusted_readme_poc_status(
+        backend,
+        ORG_REPO,
+        "TRUSTED_REPAIRING",
+        observed_by="test",
+        reason="retry the repair",
+        source_revision=graph.source_revision,
+        facts_hash=graph.canonical_hash(),
+        candidate_hash=composition.candidate_sha256,
+    )
+    transition_trusted_readme_poc_status(
+        backend,
+        ORG_REPO,
+        "SYSTEM_FAILURE",
+        observed_by="test",
+        reason="simulate agent-fixable repair machinery failure",
+        source_revision=graph.source_revision,
+        facts_hash=graph.canonical_hash(),
+        candidate_hash=composition.candidate_sha256,
+    )
+
+    recovered = record_trusted_review_execution(
+        backend,
+        graph,
+        composition,
+        rejected,
+        evidence_refs=["recovered-review.json"],
+    )
+
+    assert recovered.status == "TRUSTED_REVIEW_REJECTED"
+    assert [item.to_status for item in recovered.history[-5:]] == [
+        "TRUSTED_REPAIRING",
+        "TRUSTED_CANDIDATE_GENERATED",
+        "TRUSTED_DETERMINISTIC_VALIDATED",
+        "TRUSTED_REVIEWING",
+        "TRUSTED_REVIEW_REJECTED",
     ]
 
 

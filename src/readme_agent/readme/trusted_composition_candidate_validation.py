@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter
+from difflib import SequenceMatcher
 from urllib.parse import urlsplit
 
 from markdown_it import MarkdownIt
@@ -15,6 +16,7 @@ from readme_agent.readme.document_structure import (
     github_anchor,
     normalize_navigation_targets,
     remove_excess_headings,
+    remove_redundant_nested_headings,
 )
 from readme_agent.readme.trusted_candidate_terminology import (
     contains_prohibited_enterprise_terminology,
@@ -22,9 +24,21 @@ from readme_agent.readme.trusted_candidate_terminology import (
     unlink_duplicate_opening_promotional_links,
     unnamed_enterprise_product_references,
 )
+from readme_agent.readme.trusted_code_provenance import (
+    validate_trusted_code_block_provenance,
+)
+from readme_agent.readme.trusted_portfolio_brand import (
+    normalize_trusted_enterprise_product_links,
+    normalize_trusted_key_capabilities,
+    normalize_trusted_portfolio_emojis,
+    normalize_trusted_portfolio_header_assets,
+    normalize_trusted_portfolio_headings,
+    normalize_trusted_portfolio_mermaid,
+    validate_trusted_portfolio_brand,
+)
 from readme_agent.registry.loader import load_products
 
-TRUSTED_CANDIDATE_NORMALIZATION_VERSION = "trusted-candidate-normalization-v12-budgetable-raw-links"
+TRUSTED_CANDIDATE_NORMALIZATION_VERSION = "trusted-candidate-normalization-v32-code-provenance"
 
 _HTML_COMMENT = re.compile(r"(?s)<!--.*?-->")
 _URL = re.compile(r"https?://[^\s<>)\"']+")
@@ -263,23 +277,39 @@ def normalize_trusted_candidate(
     """Apply the canonical configured-standard normalization pipeline."""
 
     structured = normalize_required_section_headings(
-        normalize_enterprise_edition_terminology(
-            normalize_inherited_code_blocks(strip_readme_comments(markdown), graph)
+        normalize_trusted_portfolio_mermaid(
+            normalize_trusted_portfolio_headings(
+                normalize_enterprise_edition_terminology(
+                    strip_readme_comments(normalize_inherited_code_blocks(markdown, graph))
+                ),
+                graph,
+            ),
+            graph,
         ),
         graph,
         navigation_boundary_prefix=navigation_boundary_prefix,
     )
+    structured = normalize_trusted_key_capabilities(
+        normalize_trusted_portfolio_header_assets(structured, graph),
+        graph,
+    )
+    structured = normalize_trusted_portfolio_emojis(structured, graph)
     structured = unlink_duplicate_opening_promotional_links(structured)
     source_headings = _heading_counts("\n\n".join(fact.value for fact in graph.inherited_facts))
     allowed_counts = {
         (int(tag.removeprefix("h")), title): count
         for (tag, title), count in source_headings.items()
     }
-    return normalize_contextual_link_budget(
-        normalize_promotional_blockquotes(
-            normalize_navigation_targets(
-                remove_excess_headings(structured, allowed_counts),
-                boundary_line_prefix=navigation_boundary_prefix,
+    return normalize_trusted_enterprise_product_links(
+        normalize_contextual_link_budget(
+            normalize_promotional_blockquotes(
+                normalize_navigation_targets(
+                    remove_redundant_nested_headings(
+                        remove_excess_headings(structured, allowed_counts)
+                    ),
+                    boundary_line_prefix=navigation_boundary_prefix,
+                ),
+                graph,
             ),
             graph,
         ),
@@ -303,7 +333,7 @@ def normalize_inherited_code_blocks(
     markdown: str,
     graph: TrustedReadmeFactGraphV1,
 ) -> str:
-    """Restore curated source code blocks in order while removing their comments."""
+    """Restore curated code by unique content similarity while removing its comments."""
 
     source_blocks: list[str] = []
     for fact in graph.inherited_facts:
@@ -312,14 +342,109 @@ def normalize_inherited_code_blocks(
         spans = _non_mermaid_fenced_spans(fact.value)
         source_blocks.extend(strip_readme_comments(fact.value[start:end]) for start, end in spans)
     candidate_spans = _non_mermaid_fenced_spans(markdown)
-    if not source_blocks or len(candidate_spans) != len(source_blocks):
+    if not source_blocks or not candidate_spans:
         return markdown
-    normalized = markdown
-    for (start, end), source_block in reversed(
-        list(zip(candidate_spans, source_blocks, strict=True))
+    candidate_sections = [
+        _code_section_key(_h2_section_at(markdown, start) or "") for start, _ in candidate_spans
+    ]
+    source_sections = [
+        _code_section_key(" ".join(fact.heading_path))
+        for fact in graph.inherited_facts
+        if fact.material_kind == "code"
+        for _ in _non_mermaid_fenced_spans(fact.value)
+    ]
+    replacements: dict[tuple[int, int], str] = {}
+    used_source: set[int] = set()
+    used_candidate: set[int] = set()
+    candidate_blocks = [markdown[start:end] for start, end in candidate_spans]
+    for source_index, source_block in enumerate(source_blocks):
+        available = [
+            candidate_index
+            for candidate_index in range(len(candidate_blocks))
+            if candidate_index not in used_candidate
+        ]
+        same_section = [
+            candidate_index
+            for candidate_index in available
+            if candidate_sections[candidate_index] == source_sections[source_index]
+        ]
+        candidate_pool = same_section or available
+        ranked = sorted(
+            (
+                (
+                    SequenceMatcher(
+                        None,
+                        _canonical_code_block(source_block),
+                        _canonical_code_block(candidate_block),
+                        autojunk=False,
+                    ).ratio(),
+                    candidate_index,
+                )
+                for candidate_index in candidate_pool
+                for candidate_block in (candidate_blocks[candidate_index],)
+            ),
+            reverse=True,
+        )
+        if not ranked:
+            break
+        best_score, candidate_index = ranked[0]
+        runner_up = ranked[1][0] if len(ranked) > 1 else 0.0
+        if best_score < 0.72 or (best_score < 0.98 and best_score - runner_up < 0.08):
+            continue
+        replacements[candidate_spans[candidate_index]] = source_block
+        used_source.add(source_index)
+        used_candidate.add(candidate_index)
+    for section_key in ("installation", "quick start"):
+        source_indexes = [
+            index
+            for index, source_section in enumerate(source_sections)
+            if source_section == section_key and index not in used_source
+        ]
+        candidate_indexes = [
+            index
+            for index, candidate_section in enumerate(candidate_sections)
+            if candidate_section == section_key and index not in used_candidate
+        ]
+        if len(source_indexes) != 1 or len(candidate_indexes) != 1:
+            continue
+        source_index = source_indexes[0]
+        candidate_index = candidate_indexes[0]
+        replacements[candidate_spans[candidate_index]] = source_blocks[source_index]
+        used_source.add(source_index)
+        used_candidate.add(candidate_index)
+    remaining_source = [index for index in range(len(source_blocks)) if index not in used_source]
+    remaining_candidate = [
+        index for index in range(len(candidate_blocks)) if index not in used_candidate
+    ]
+    if (
+        remaining_source
+        and len(remaining_source) == len(remaining_candidate)
+        and all(source_sections[index] is None for index in remaining_source)
+        and all(candidate_sections[index] is None for index in remaining_candidate)
     ):
+        for source_index, candidate_index in zip(
+            remaining_source,
+            remaining_candidate,
+            strict=True,
+        ):
+            replacements[candidate_spans[candidate_index]] = source_blocks[source_index]
+    normalized = markdown
+    for (start, end), source_block in sorted(replacements.items(), reverse=True):
         normalized = normalized[:start] + source_block + normalized[end:]
     return normalized
+
+
+def _canonical_code_block(block: str) -> str:
+    return re.sub(r"\s+", "", block).casefold()
+
+
+def _code_section_key(heading: str) -> str | None:
+    normalized = heading.casefold()
+    if "installation" in normalized or normalized.strip() == "install":
+        return "installation"
+    if "quick start" in normalized or "getting started" in normalized:
+        return "quick start"
+    return None
 
 
 def validate_trusted_candidate_contract(
@@ -334,6 +459,7 @@ def validate_trusted_candidate_contract(
     if _HTML_COMMENT.search(candidate):
         raise LLMError("trusted composition candidate contains an HTML comment")
     _validate_markdown(candidate)
+    validate_trusted_code_block_provenance(source_text, candidate)
     _validate_no_new_cross_product(source_text, candidate, graph.org_repo)
     headings = re.findall(r"(?m)^# (.+?)\s*$", candidate)
     standards = {item.standard_id: item for item in graph.configured_standards}
@@ -392,6 +518,7 @@ def validate_trusted_candidate_contract(
             tuple(standards.values()),
         )
     _validate_no_introduced_duplicate_headings(source_text, candidate)
+    validate_trusted_portfolio_brand(candidate, graph)
 
 
 def _validate_contextual_links(
@@ -478,7 +605,13 @@ def _belongs_to(url: str, parent_domain: str) -> bool:
 
 
 def _h2_section_at(markdown: str, offset: int) -> str | None:
-    headings = list(re.finditer(r"(?m)^##[ \t]+(.+?)\s*$", markdown[:offset]))
+    prefix = markdown[:offset]
+    fence_offsets = [match.start() for match in _FENCE.finditer(prefix)]
+    headings = [
+        heading
+        for heading in re.finditer(r"(?m)^##[ \t]+(.+?)\s*$", prefix)
+        if sum(fence < heading.start() for fence in fence_offsets) % 2 == 0
+    ]
     return headings[-1].group(1).strip().casefold() if headings else None
 
 

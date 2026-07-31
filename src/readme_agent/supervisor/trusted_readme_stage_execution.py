@@ -8,6 +8,7 @@ from typing import Any
 from readme_agent import env
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
+from readme_agent.errors import LLMError, LLMInfrastructureError
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.llm.reviewer_client import (
     TRUSTED_REVIEW_MAX_TOKENS,
@@ -50,10 +51,13 @@ def dispatch_trusted_composition(
         state_backend=backend,
     )
     if dispatch.outcome != "executed" or dispatch.result is None:
-        raise RuntimeError(
+        error = (
             f"compose_trusted_readme dispatch failed: {dispatch.outcome}: "
             f"{dispatch.error or dispatch.gap}"
         )
+        if dispatch.blocked_category == "infra_external":
+            raise LLMInfrastructureError(error)
+        raise LLMError(error)
     return TrustedReadmeCompositionOutputV1.model_validate(dispatch.result)
 
 
@@ -93,10 +97,13 @@ def dispatch_trusted_review(
         state_backend=backend,
     )
     if dispatch.outcome != "executed" or dispatch.result is None:
-        raise RuntimeError(
+        error = (
             f"review_trusted_readme dispatch failed: {dispatch.outcome}: "
             f"{dispatch.error or dispatch.gap}"
         )
+        if dispatch.blocked_category == "infra_external":
+            raise LLMInfrastructureError(error)
+        raise LLMError(error)
     return TrustedReviewExecutionV1.model_validate(dispatch.result)
 
 

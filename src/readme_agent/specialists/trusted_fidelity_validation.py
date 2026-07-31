@@ -7,15 +7,23 @@ import re
 from collections.abc import Callable
 from typing import cast
 
+from markdown_it import MarkdownIt
 from pydantic import ValidationError
 
 from readme_agent.errors import LLMError
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.verification_prompts import build_role_grounding_retry_message
+from readme_agent.readme.presentation_contract import PRESENTATION_EMOJI_POLICY
 from readme_agent.readme.trusted_composition_candidate_validation import (
     normalize_enterprise_edition_terminology,
     strip_readme_comments,
+)
+from readme_agent.readme.trusted_portfolio_brand import (
+    find_trusted_capability_list_representation,
+    normalize_trusted_portfolio_headings,
+    strip_readme_emojis,
+    validate_trusted_portfolio_brand,
 )
 from readme_agent.specialists.review_role_execution import AnalysisClientLike
 from readme_agent.specialists.trusted_transform_review_models import (
@@ -58,9 +66,33 @@ def normalize_trusted_fidelity_output(
         else set()
     )
     no_comments = "readme.no_comments" in standard_ids
+    no_emojis = bool(
+        graph is not None
+        and any(
+            standard.standard_id == "readme.header"
+            and standard.parameters.get("emoji_policy") == PRESENTATION_EMOJI_POLICY
+            for standard in graph.configured_standards
+        )
+    )
     allow_link_removal = "readme.contextual_links" in standard_ids
     allow_enterprise_terminology = "readme.enterprise_edition_terminology" in standard_ids
     allow_navigation_links = "readme.navigation" in standard_ids
+    brand_contract_enforced = bool(
+        graph is not None
+        and any(
+            standard.standard_id == "readme.header"
+            and standard.parameters.get("brand_contract_version")
+            for standard in graph.configured_standards
+        )
+    )
+    brand_contract_valid = False
+    if brand_contract_enforced and graph is not None and candidate_text is not None:
+        try:
+            validate_trusted_portfolio_brand(candidate_text, graph)
+        except LLMError:
+            pass
+        else:
+            brand_contract_valid = True
     badge_fragments = (
         {
             str(fragment)
@@ -89,11 +121,13 @@ def normalize_trusted_fidelity_output(
         if fact is not None and str(check.get("source_quote", "")) not in fact.value:
             check["source_quote"] = fact.value
         if candidate_text is not None:
+            candidate_quote = str(check.get("candidate_quote", ""))
             authorized_quote = (
                 _authorized_candidate_quote(
                     fact.value,
                     candidate_text,
                     no_comments=no_comments,
+                    no_emojis=no_emojis,
                     allow_link_removal=allow_link_removal,
                     allow_enterprise_terminology=allow_enterprise_terminology,
                     allow_navigation_links=allow_navigation_links,
@@ -102,6 +136,88 @@ def normalize_trusted_fidelity_output(
                 if fact is not None
                 else None
             )
+            if authorized_quote is None and fact is not None and fact.material_kind == "paragraph":
+                authorized_quote = _represented_semantic_paragraph_rewrite(
+                    fact.value,
+                    candidate_text,
+                    no_emojis=no_emojis,
+                )
+            if (
+                authorized_quote is None
+                and fact is not None
+                and fact.material_kind in {"unordered_list", "ordered_list"}
+            ):
+                authorized_quote = find_trusted_capability_list_representation(
+                    fact.value,
+                    candidate_text,
+                )
+            if (
+                authorized_quote is None
+                and fact is not None
+                and fact.material_kind == "paragraph"
+                and candidate_quote
+                and candidate_quote in candidate_text
+                and _authorized_semantic_paragraph_rewrite(
+                    fact.value,
+                    candidate_quote,
+                    no_emojis=no_emojis,
+                )
+            ):
+                authorized_quote = candidate_quote
+            if (
+                authorized_quote is None
+                and fact is not None
+                and fact.material_kind == "heading"
+                and graph is not None
+            ):
+                normalized_heading = normalize_trusted_portfolio_headings(
+                    fact.value,
+                    graph,
+                ).strip()
+                normalized_title = re.sub(r"^#{1,6}[ \t]+", "", normalized_heading)
+                header_standard = next(
+                    (
+                        standard
+                        for standard in graph.configured_standards
+                        if standard.standard_id == "readme.header"
+                    ),
+                    None,
+                )
+                aliases = (
+                    {}
+                    if header_standard is None
+                    else {
+                        str(key).casefold(): str(value)
+                        for key, value in header_standard.parameters.get(
+                            "heading_aliases", {}
+                        ).items()
+                    }
+                )
+                suffix_aliases = (
+                    {}
+                    if header_standard is None
+                    else {
+                        str(key).casefold(): str(value)
+                        for key, value in header_standard.parameters.get(
+                            "heading_suffix_aliases", {}
+                        ).items()
+                    }
+                )
+                represented_title = aliases.get(
+                    normalized_title.casefold(),
+                    normalized_title,
+                )
+                represented_title = next(
+                    (
+                        replacement
+                        for suffix, replacement in suffix_aliases.items()
+                        if represented_title.casefold() == suffix
+                        or represented_title.casefold().endswith(f" {suffix}")
+                    ),
+                    represented_title,
+                )
+                if represented_title and represented_title.casefold() in candidate_text.casefold():
+                    authorized_quote = represented_title
             if (
                 authorized_quote is None
                 and fact is not None
@@ -162,10 +278,22 @@ def normalize_trusted_fidelity_output(
             normalized.get("unsupported_additions", []) if allow_unsupported_additions else []
         )
         if isinstance(item, dict)
+        and (
+            candidate_text is None
+            or (
+                bool(str(item.get("quoted_candidate_span", "")))
+                and str(item.get("quoted_candidate_span", "")) in candidate_text
+            )
+        )
         and not (
             candidate_text is not None
             and (
-                _authorized_configured_standard_derivation(
+                (
+                    brand_contract_valid
+                    and str(item.get("section", ""))
+                    in {"readme.header", "readme.navigation", "readme.at_a_glance"}
+                )
+                or _authorized_configured_standard_derivation(
                     str(item.get("quoted_candidate_span", "")),
                     graph,
                 )
@@ -174,11 +302,21 @@ def normalize_trusted_fidelity_output(
                         str(item.get("quoted_candidate_span", "")),
                         fact.value,
                         no_comments=no_comments,
+                        no_emojis=no_emojis,
                         allow_link_removal=allow_link_removal,
                         allow_enterprise_terminology=allow_enterprise_terminology,
                         allow_navigation_links=allow_navigation_links,
                     )
                     for fact in facts.values()
+                )
+                or _authorized_composed_source_derivation(
+                    str(item.get("quoted_candidate_span", "")),
+                    graph,
+                    no_comments=no_comments,
+                    no_emojis=no_emojis,
+                    allow_link_removal=allow_link_removal,
+                    allow_enterprise_terminology=allow_enterprise_terminology,
+                    allow_navigation_links=allow_navigation_links,
                 )
             )
         )
@@ -210,6 +348,91 @@ def normalize_trusted_fidelity_output(
     return normalized
 
 
+def _authorized_semantic_paragraph_rewrite(
+    source_text: str,
+    candidate_quote: str,
+    *,
+    no_emojis: bool,
+) -> bool:
+    """Accept a model-grounded prose rewrite only when its source anchors remain."""
+
+    source = strip_readme_emojis(source_text) if no_emojis else source_text
+    candidate = strip_readme_emojis(candidate_quote) if no_emojis else candidate_quote
+    stopwords = {
+        "about",
+        "also",
+        "and",
+        "are",
+        "for",
+        "from",
+        "into",
+        "its",
+        "of",
+        "on",
+        "project",
+        "provides",
+        "that",
+        "the",
+        "this",
+        "to",
+        "with",
+        "working",
+    }
+
+    def anchors(value: str) -> set[str]:
+        visible = re.sub(r"https?://\S+", " ", value.casefold())
+        tokens = re.findall(r"[a-z0-9]+(?:\.[a-z0-9]+)*", visible)
+        return {token for token in tokens if len(token) >= 3 and token not in stopwords}
+
+    source_anchors = anchors(source)
+    candidate_anchors = anchors(candidate)
+    if len(source_anchors) < 5:
+        return False
+    required = {
+        token
+        for token in source_anchors
+        if "." in token
+        or any(character.isdigit() for character in token)
+        or token in {"api", "aspose", "onenote", "python"}
+    }
+    missing_required = {
+        token
+        for token in required
+        if token not in candidate_anchors
+        and not (
+            token == "aspose"
+            and any(candidate.startswith("aspose.") for candidate in candidate_anchors)
+        )
+    }
+    coverage = len(source_anchors & candidate_anchors) / len(source_anchors)
+    return not missing_required and coverage >= 0.72
+
+
+def _represented_semantic_paragraph_rewrite(
+    source_text: str,
+    candidate_text: str,
+    *,
+    no_emojis: bool,
+) -> str | None:
+    """Find one visible Markdown paragraph that conservatively represents source prose."""
+
+    offsets = [0]
+    for line in candidate_text.splitlines(keepends=True):
+        offsets.append(offsets[-1] + len(line))
+    for token in MarkdownIt("commonmark").parse(candidate_text):
+        if token.type != "paragraph_open" or token.map is None:
+            continue
+        start_line, end_line = token.map
+        paragraph = candidate_text[offsets[start_line] : offsets[end_line]].strip()
+        if paragraph and _authorized_semantic_paragraph_rewrite(
+            source_text,
+            paragraph,
+            no_emojis=no_emojis,
+        ):
+            return paragraph
+    return None
+
+
 def _authorized_configured_standard_derivation(
     candidate_span: str,
     graph: TrustedReadmeFactGraphV1 | None,
@@ -238,6 +461,30 @@ def _authorized_configured_standard_derivation(
         str(fragment) for fragment in badge_standard.parameters.get("required_fragments", [])
     }:
         return True
+    link_standard = standards.get("readme.contextual_links")
+    if link_standard is not None:
+        required_url = str(link_standard.parameters.get("required_enterprise_url", ""))
+        enterprise_name = str(link_standard.parameters.get("enterprise_product_name", ""))
+        required_occurrences = link_standard.parameters.get("required_aspose_com_occurrences")
+        descriptive_link = next(
+            (
+                match
+                for match in _MARKDOWN_LINK.finditer(candidate_span)
+                if match.group("url") == required_url
+            ),
+            None,
+        )
+        if (
+            required_url
+            and required_occurrences == 1
+            and candidate_span.count(required_url) == 1
+            and descriptive_link is not None
+            and (
+                descriptive_link.group("label").strip() == enterprise_name
+                or "Enterprise Edition" in descriptive_link.group("label")
+            )
+        ):
+            return True
     return False
 
 
@@ -246,6 +493,7 @@ def _authorized_candidate_quote(
     candidate_text: str,
     *,
     no_comments: bool,
+    no_emojis: bool,
     allow_link_removal: bool,
     allow_enterprise_terminology: bool,
     allow_navigation_links: bool,
@@ -263,6 +511,7 @@ def _authorized_candidate_quote(
     source_lines = _canonical_visible_lines(
         source_text,
         no_comments=no_comments,
+        no_emojis=no_emojis,
         allow_link_removal=allow_link_removal,
         allow_enterprise_terminology=allow_enterprise_terminology,
         allow_navigation_links=allow_navigation_links,
@@ -275,7 +524,7 @@ def _authorized_candidate_quote(
         for line_number, line in enumerate(candidate_source_lines)
         if (
             canonical := _canonical_visible_line(
-                line,
+                strip_readme_emojis(line) if no_emojis else line,
                 allow_link_removal=allow_link_removal,
                 allow_enterprise_terminology=allow_enterprise_terminology,
                 allow_navigation_links=allow_navigation_links,
@@ -289,7 +538,127 @@ def _authorized_candidate_quote(
             source_start = candidate_records[start][0]
             source_end = candidate_records[start + width - 1][0]
             return "".join(candidate_source_lines[source_start : source_end + 1])
+    if len(source_lines) == 1:
+        source_line = source_lines[0]
+        for line_number, candidate_line in candidate_records:
+            if source_line in candidate_line or _minimally_expanded_line(
+                source_line,
+                candidate_line,
+            ):
+                return candidate_source_lines[line_number]
     return None
+
+
+def _authorized_composed_source_derivation(
+    candidate_span: str,
+    graph: TrustedReadmeFactGraphV1 | None,
+    *,
+    no_comments: bool,
+    no_emojis: bool,
+    allow_link_removal: bool,
+    allow_enterprise_terminology: bool,
+    allow_navigation_links: bool,
+) -> bool:
+    """Recognize a span composed only from inherited units and governed navigation."""
+
+    if graph is None:
+        return False
+    navigation_links = list(_LOCAL_LINK.finditer(candidate_span))
+    if navigation_links and _authorized_navigation_labels(navigation_links, graph):
+        return True
+    candidate_lines = _canonical_visible_lines(
+        candidate_span,
+        no_comments=no_comments,
+        no_emojis=no_emojis,
+        allow_link_removal=allow_link_removal,
+        allow_enterprise_terminology=allow_enterprise_terminology,
+        allow_navigation_links=allow_navigation_links,
+    )
+    source_lines = {
+        line
+        for fact in graph.inherited_facts
+        for line in _canonical_visible_lines(
+            fact.value,
+            no_comments=no_comments,
+            no_emojis=no_emojis,
+            allow_link_removal=allow_link_removal,
+            allow_enterprise_terminology=allow_enterprise_terminology,
+            allow_navigation_links=allow_navigation_links,
+        )
+    }
+    return bool(candidate_lines) and all(
+        line in source_lines
+        or any(_minimally_expanded_line(source_line, line) for source_line in source_lines)
+        for line in candidate_lines
+    )
+
+
+def _authorized_navigation_labels(
+    links: list[re.Match[str]],
+    graph: TrustedReadmeFactGraphV1,
+) -> bool:
+    """Bind a navigation block to inherited and brand-owned visible sections."""
+
+    header = next(
+        (
+            standard
+            for standard in graph.configured_standards
+            if standard.standard_id == "readme.header"
+        ),
+        None,
+    )
+    allowed = {
+        _canonical_navigation_label(
+            re.sub(
+                r"^#{1,6}[ \t]+",
+                "",
+                normalize_trusted_portfolio_headings(fact.value, graph).strip(),
+            )
+        )
+        for fact in graph.inherited_facts
+        if fact.material_kind == "heading"
+    }
+    if header is not None:
+        allowed.update(
+            _canonical_navigation_label(str(label))
+            for label in header.parameters.get("required_h2_prefix", [])
+        )
+        allowed.update(
+            _canonical_navigation_label(str(label))
+            for label in header.parameters.get("heading_aliases", {}).values()
+        )
+        if header.parameters.get("brand_contract_version"):
+            allowed.update(
+                {
+                    _canonical_navigation_label("Project scope and limitations"),
+                    _canonical_navigation_label("Development and contributing"),
+                }
+            )
+    return bool(links) and all(
+        _canonical_navigation_label(link.group("label")) in allowed for link in links
+    )
+
+
+def _minimally_expanded_line(source_line: str, candidate_line: str) -> bool:
+    """Allow only a small number of inserted tokens while retaining source order."""
+
+    source_tokens = re.findall(r"[\w.%*`-]+", source_line, flags=re.UNICODE)
+    candidate_tokens = re.findall(r"[\w.%*`-]+", candidate_line, flags=re.UNICODE)
+    if len(source_tokens) < 5 or len(candidate_tokens) < len(source_tokens):
+        return False
+    source_index = 0
+    first_candidate_index: int | None = None
+    last_candidate_index = -1
+    for candidate_index, token in enumerate(candidate_tokens):
+        if source_index < len(source_tokens) and token == source_tokens[source_index]:
+            if first_candidate_index is None:
+                first_candidate_index = candidate_index
+            last_candidate_index = candidate_index
+            source_index += 1
+    if source_index != len(source_tokens) or first_candidate_index is None:
+        return False
+    inserted = last_candidate_index - first_candidate_index + 1 - len(source_tokens)
+    return inserted <= max(2, len(source_tokens) // 10)
 
 
 def _represented_badge_group(
@@ -306,11 +675,19 @@ def _represented_badge_group(
     candidate_badges = list(_BADGE_LINK.finditer(candidate_text))
     source_by_label = {match.group("label"): match for match in source_badges}
     candidate_by_label = {match.group("label"): match for match in candidate_badges}
-    if len(source_by_label) != len(source_badges) or set(source_by_label) != set(
-        candidate_by_label
-    ):
+    if len(source_by_label) != len(source_badges):
+        return None
+    configured_by_label = {
+        label: fragment
+        for label in source_by_label
+        for fragment in configured_badge_fragments
+        if fragment.startswith(f"![{label}](") and fragment in candidate_text
+    }
+    if set(source_by_label) != set(candidate_by_label) | set(configured_by_label):
         return None
     for label, source_badge in source_by_label.items():
+        if label in configured_by_label and label not in candidate_by_label:
+            continue
         candidate_badge = candidate_by_label[label]
         if source_badge.group("target") != candidate_badge.group("target"):
             return None
@@ -319,8 +696,11 @@ def _represented_badge_group(
         candidate_fragment = f"![{label}]({candidate_badge.group('image')})"
         if candidate_fragment not in configured_badge_fragments:
             return None
-    first = min(match.start() for match in candidate_by_label.values())
-    last = max(match.end() for match in candidate_by_label.values())
+    represented = list(candidate_by_label.values())
+    if not represented:
+        return next(iter(configured_by_label.values()))
+    first = min(match.start() for match in represented)
+    last = max(match.end() for match in represented)
     return candidate_text[first:last]
 
 
@@ -329,6 +709,7 @@ def _authorized_source_derivation(
     source_text: str,
     *,
     no_comments: bool,
+    no_emojis: bool,
     allow_link_removal: bool,
     allow_enterprise_terminology: bool,
     allow_navigation_links: bool,
@@ -348,6 +729,7 @@ def _authorized_source_derivation(
     candidate_lines = _canonical_visible_lines(
         candidate_span,
         no_comments=no_comments,
+        no_emojis=no_emojis,
         allow_link_removal=allow_link_removal,
         allow_enterprise_terminology=allow_enterprise_terminology,
         allow_navigation_links=allow_navigation_links,
@@ -355,6 +737,7 @@ def _authorized_source_derivation(
     source_lines = _canonical_visible_lines(
         source_text,
         no_comments=no_comments,
+        no_emojis=no_emojis,
         allow_link_removal=allow_link_removal,
         allow_enterprise_terminology=allow_enterprise_terminology,
         allow_navigation_links=allow_navigation_links,
@@ -374,11 +757,14 @@ def _canonical_visible_lines(
     text: str,
     *,
     no_comments: bool,
+    no_emojis: bool,
     allow_link_removal: bool,
     allow_enterprise_terminology: bool,
     allow_navigation_links: bool,
 ) -> list[str]:
     normalized = strip_readme_comments(text) if no_comments else text
+    if no_emojis:
+        normalized = strip_readme_emojis(normalized)
     return [
         canonical
         for line in normalized.splitlines()
@@ -407,6 +793,8 @@ def _canonical_visible_line(
         normalized = _MARKDOWN_LINK.sub(lambda match: match.group("label"), normalized)
     if allow_navigation_links:
         normalized = _LOCAL_LINK.sub(lambda match: match.group("label"), normalized)
+    normalized = re.sub(r"(?<!`)`([^`\r\n]+)`(?!`)", r"\1", normalized)
+    normalized = normalized.replace("**", "").replace("__", "")
     return " ".join(normalized.split()).casefold()
 
 
@@ -446,6 +834,7 @@ def validate_trusted_fidelity_result(
     candidate_text: str,
     *,
     allow_unsupported_additions: bool = True,
+    authorization_graph: TrustedReadmeFactGraphV1 | None = None,
 ) -> tuple[str, ...]:
     """Reject incomplete inventories, invented quotes, and wrong verdict direction."""
 
@@ -471,6 +860,14 @@ def validate_trusted_fidelity_result(
     for addition in result.unsupported_additions:
         if addition.quoted_candidate_span not in candidate_text:
             errors.append(f"{addition.finding_id}: candidate quote is absent")
+        elif _unsupported_addition_span_contains_inherited_material(
+            addition.quoted_candidate_span,
+            authorization_graph or graph,
+        ):
+            errors.append(
+                f"{addition.finding_id}: unsupported-addition quote mixes inherited material; "
+                "cite only the exact unsupported bytes"
+            )
     if result.unsupported_additions and not allow_unsupported_additions:
         errors.append("unsupported additions are outside this fact-only review part")
     defects = any(item.outcome == "lost_or_distorted" for item in result.source_checks) or bool(
@@ -481,6 +878,55 @@ def validate_trusted_fidelity_result(
     if result.verdict == "REJECT_REPAIRABLE" and not defects:
         errors.append("fidelity rejection has no grounded defect")
     return tuple(errors)
+
+
+def _unsupported_addition_span_contains_inherited_material(
+    candidate_span: str,
+    graph: TrustedReadmeFactGraphV1,
+) -> bool:
+    """Require unsupported-addition evidence to exclude protected inherited material."""
+
+    standards = {standard.standard_id: standard for standard in graph.configured_standards}
+    no_comments = "readme.no_comments" in standards
+    no_emojis = bool(
+        (header := standards.get("readme.header")) is not None
+        and header.parameters.get("emoji_policy") == PRESENTATION_EMOJI_POLICY
+    )
+    allow_link_removal = "readme.contextual_links" in standards
+    allow_enterprise_terminology = "readme.enterprise_edition_terminology" in standards
+    allow_navigation_links = "readme.navigation" in standards
+    badge_standard = standards.get("readme.badges")
+    configured_badge_fragments = (
+        {str(fragment) for fragment in badge_standard.parameters.get("required_fragments", [])}
+        if badge_standard is not None
+        else set()
+    )
+    for fact in graph.inherited_facts:
+        canonical = _canonical_visible_lines(
+            fact.value,
+            no_comments=no_comments,
+            no_emojis=no_emojis,
+            allow_link_removal=allow_link_removal,
+            allow_enterprise_terminology=allow_enterprise_terminology,
+            allow_navigation_links=allow_navigation_links,
+        )
+        if len(" ".join(canonical)) < 40 and fact.material_kind not in {"code", "list"}:
+            continue
+        if (
+            _authorized_candidate_quote(
+                fact.value,
+                candidate_span,
+                no_comments=no_comments,
+                no_emojis=no_emojis,
+                allow_link_removal=allow_link_removal,
+                allow_enterprise_terminology=allow_enterprise_terminology,
+                allow_navigation_links=allow_navigation_links,
+                configured_badge_fragments=configured_badge_fragments,
+            )
+            is not None
+        ):
+            return True
+    return False
 
 
 def run_trusted_fidelity_role(
@@ -521,6 +967,7 @@ def run_trusted_fidelity_role(
                 graph,
                 candidate_text,
                 allow_unsupported_additions=allow_unsupported_additions,
+                authorization_graph=authorization_graph,
             )
         except ValidationError as exc:
             parsed = None

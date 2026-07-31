@@ -14,6 +14,12 @@ from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
 )
+from readme_agent.specialists.review_candidate_anchors import (
+    CandidateReviewAnchorV1,
+    bind_candidate_review_anchors,
+    build_candidate_review_anchors,
+    unknown_candidate_review_anchor_ids,
+)
 from readme_agent.specialists.review_finding_grounding import (
     FindingGroundingResultV1,
     deterministically_disproven_finding_ids,
@@ -117,11 +123,19 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
 def _parse_role_result(
     role: str,
     result: AnalysisResult,
+    *,
+    candidate_anchors: tuple[CandidateReviewAnchorV1, ...] = (),
 ) -> BlindQualityReviewResultV1 | FactualPlanReviewResultV1:
     try:
         if role == "blind_quality":
+            unknown = unknown_candidate_review_anchor_ids(result.parsed, candidate_anchors)
+            if unknown:
+                raise LLMError(f"blind README quality review selected unknown anchors: {unknown}")
             return BlindQualityReviewResultV1.model_validate(
-                normalize_redundant_role_fields(role, result.parsed)
+                normalize_redundant_role_fields(
+                    role,
+                    bind_candidate_review_anchors(result.parsed, candidate_anchors),
+                )
             )
         return FactualPlanReviewResultV1.model_validate(result.parsed)
     except ValidationError as exc:
@@ -165,7 +179,7 @@ def _reconcile_candidate_spans(
     parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
     candidate_text: str,
 ) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
-    """Bind a whitespace-equivalent reviewer quote to the unique exact candidate span."""
+    """Bind a whitespace-lossy reviewer quote to one unique exact candidate span."""
 
     updates = []
     reconciled_ids: list[str] = []
@@ -180,10 +194,15 @@ def _reconcile_candidate_spans(
             continue
         pattern = r"\s+".join(re.escape(token) for token in tokens)
         matches = list(re.finditer(pattern, candidate_text))
-        if len(matches) != 1:
+        exact_span: str | None
+        if len(matches) == 1:
+            exact_span = matches[0].group(0)
+        else:
+            exact_span = _unique_whitespace_insensitive_span(quote, candidate_text)
+        if exact_span is None:
             updates.append(finding)
             continue
-        updates.append(finding.model_copy(update={"quoted_candidate_span": matches[0].group(0)}))
+        updates.append(finding.model_copy(update={"quoted_candidate_span": exact_span}))
         reconciled_ids.append(finding.finding_id)
     if not reconciled_ids:
         return parsed, ()
@@ -191,6 +210,39 @@ def _reconcile_candidate_spans(
     if isinstance(parsed, BlindQualityReviewResultV1):
         return BlindQualityReviewResultV1.model_validate(payload), tuple(reconciled_ids)
     return FactualPlanReviewResultV1.model_validate(payload), tuple(reconciled_ids)
+
+
+def _unique_whitespace_insensitive_span(quote: str, candidate_text: str) -> str | None:
+    """Recover exact bytes only when whitespace removal yields one content-identical span."""
+
+    normalized_quote = "".join(character for character in quote if not character.isspace())
+    if not normalized_quote:
+        return None
+    normalized_candidate: list[str] = []
+    source_offsets: list[int] = []
+    for offset, character in enumerate(candidate_text):
+        if character.isspace():
+            continue
+        normalized_candidate.append(character)
+        source_offsets.append(offset)
+    haystack = "".join(normalized_candidate)
+    starts: list[int] = []
+    cursor = 0
+    while True:
+        match = haystack.find(normalized_quote, cursor)
+        if match < 0:
+            break
+        starts.append(match)
+        cursor = match + 1
+        if len(starts) > 1:
+            return None
+    if len(starts) != 1:
+        return None
+    normalized_start = starts[0]
+    normalized_end = normalized_start + len(normalized_quote) - 1
+    source_start = source_offsets[normalized_start]
+    source_end = source_offsets[normalized_end] + 1
+    return candidate_text[source_start:source_end]
 
 
 def run_grounded_role(
@@ -211,6 +263,9 @@ def run_grounded_role(
 
     history: list[dict] = []
     current_messages = list(messages)
+    candidate_anchors = (
+        build_candidate_review_anchors(candidate_text) if role == "blind_quality" else ()
+    )
     max_attempts = (
         _MAX_BLIND_GROUNDING_ATTEMPTS if role == "blind_quality" else _MAX_GROUNDING_ATTEMPTS
     )
@@ -221,7 +276,11 @@ def run_grounded_role(
         reconciled_candidate_span_ids: tuple[str, ...] = ()
         original_errors: list[str] = []
         try:
-            parsed = _parse_role_result(role, analysis)
+            parsed = _parse_role_result(
+                role,
+                analysis,
+                candidate_anchors=candidate_anchors,
+            )
             parsed, reconciled_candidate_span_ids = _reconcile_candidate_spans(
                 parsed,
                 candidate_text,

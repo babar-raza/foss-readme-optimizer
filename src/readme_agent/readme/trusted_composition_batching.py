@@ -14,6 +14,13 @@ from readme_agent.readme.trusted_composition_models import (
     TrustedCompositionSourceItemV1,
 )
 
+_TAIL_STANDARD_IDS = frozenset(
+    {
+        "readme.contextual_links",
+        "readme.enterprise_edition_terminology",
+    }
+)
+
 
 @dataclass(frozen=True)
 class TrustedCompositionBatch:
@@ -110,11 +117,25 @@ def build_trusted_composition_batches(
                 current_characters = 0
     if current:
         batches.append(current)
+    head_standards = tuple(
+        standard
+        for standard in graph.configured_standards
+        if standard.standard_id not in _TAIL_STANDARD_IDS
+    )
+    tail_standards = tuple(
+        standard
+        for standard in graph.configured_standards
+        if standard.standard_id in _TAIL_STANDARD_IDS
+    )
+    final_index = len(batches)
     return tuple(
         TrustedCompositionBatch(
             batch_id=f"batch-{index:04d}",
             source_items=tuple(items),
-            configured_standards=graph.configured_standards if index == 1 else (),
+            configured_standards=(
+                (head_standards if index == 1 else ())
+                + (tail_standards if index == final_index else ())
+            ),
             global_structures_allowed=index == 1,
         )
         for index, items in enumerate(batches, start=1)

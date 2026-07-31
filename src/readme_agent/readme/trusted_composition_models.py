@@ -11,6 +11,10 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.capabilities.schema import OrgRepoRef
 from readme_agent.facts.trusted_readme_schema import ConfiguredStandardIdV1
+from readme_agent.readme.trusted_candidate_ownership_models import (
+    CandidateSpanOwnershipMapV1,
+    TrustedRepairActionV1,
+)
 
 TrustedSourceActionV1 = Literal["preserve_exact", "rewrite"]
 TrustedDraftSegmentKindV1 = Literal["preserve_exact", "authored"]
@@ -116,6 +120,7 @@ class TrustedReadmeTransformPlanV1(_StrictFrozenModel):
     section_drafts: tuple[TrustedReadmeSectionDraftV1, ...] = Field(min_length=1)
     inherited_fact_ids: tuple[str, ...] = Field(min_length=1)
     configured_standard_ids: tuple[ConfiguredStandardIdV1, ...] = ()
+    repair_actions: tuple[TrustedRepairActionV1, ...] = ()
     candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     source_accountability_complete: Literal[True] = True
 
@@ -124,7 +129,7 @@ class TrustedReadmeTransformPlanV1(_StrictFrozenModel):
 
 
 class TrustedReadmeSectionRepairRequestV1(_StrictFrozenModel):
-    """Hash-bound request to replace one rejected section without reopening others."""
+    """Hash-bound request to replace rejected segments without reopening siblings."""
 
     schema_version: Literal[1] = 1
     content_assurance: Literal["trusted_inherited"] = "trusted_inherited"
@@ -132,6 +137,7 @@ class TrustedReadmeSectionRepairRequestV1(_StrictFrozenModel):
     source_revision: str = Field(min_length=7)
     rejected_batch_id: str = Field(pattern=r"^batch-[0-9]{4}$")
     rejected_draft_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    rejected_segment_ids: tuple[str, ...] = Field(min_length=1)
     finding_ids: tuple[str, ...] = Field(min_length=1)
     repair_instructions: tuple[str, ...] = Field(min_length=1)
     accepted_section_sha256s: tuple[str, ...] = ()
@@ -140,6 +146,8 @@ class TrustedReadmeSectionRepairRequestV1(_StrictFrozenModel):
     def _identifiers_are_unique(self) -> TrustedReadmeSectionRepairRequestV1:
         if len(self.finding_ids) != len(set(self.finding_ids)):
             raise ValueError("trusted repair finding IDs must be unique")
+        if len(self.rejected_segment_ids) != len(set(self.rejected_segment_ids)):
+            raise ValueError("trusted repair segment IDs must be unique")
         if len(self.accepted_section_sha256s) != len(set(self.accepted_section_sha256s)):
             raise ValueError("accepted trusted section hashes must be unique")
         if any(
@@ -159,6 +167,7 @@ class TrustedReadmeCompositionOutputV1(_StrictFrozenModel):
     candidate_markdown: str = Field(min_length=1)
     candidate_patch: str
     candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    ownership_map: CandidateSpanOwnershipMapV1
     llm_call_count: int = Field(ge=1)
 
     @model_validator(mode="after")
@@ -170,6 +179,23 @@ class TrustedReadmeCompositionOutputV1(_StrictFrozenModel):
         candidate_hash = hashlib.sha256(self.candidate_markdown.encode("utf-8")).hexdigest()
         if candidate_hash != self.candidate_sha256 or candidate_hash != self.plan.candidate_sha256:
             raise ValueError("trusted composition candidate checksum does not match")
+        if (
+            self.ownership_map.org_repo != self.org_repo
+            or self.ownership_map.source_revision != self.plan.source_revision
+            or self.ownership_map.source_sha256 != self.plan.source_sha256
+            or self.ownership_map.candidate_sha256 != self.candidate_sha256
+        ):
+            raise ValueError("trusted composition ownership map belongs to different inputs")
+        if self.plan.repair_actions:
+            if self.plan.repair_actions[-1].candidate_sha256_after != self.candidate_sha256:
+                raise ValueError("trusted repair action chain does not end at candidate")
+            for previous, current in zip(
+                self.plan.repair_actions,
+                self.plan.repair_actions[1:],
+                strict=False,
+            ):
+                if previous.candidate_sha256_after != current.candidate_sha256_before:
+                    raise ValueError("trusted repair action hashes are not sequential")
         return self
 
 

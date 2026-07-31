@@ -15,7 +15,7 @@ from readme_agent.llm.verifier_client import LiveForcedToolClient
 
 DEFAULT_MAX_TOKENS = 2400
 BLIND_REVIEW_MAX_TOKENS = 3_000
-TRUSTED_REVIEW_MAX_TOKENS = 8_000
+TRUSTED_REVIEW_MAX_TOKENS = 12_000
 
 
 class LiveIndependentReviewClient:

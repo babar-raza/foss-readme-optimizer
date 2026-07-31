@@ -17,6 +17,10 @@ import json
 from string import Template
 
 from readme_agent.llm import prompt_registry
+from readme_agent.specialists.review_candidate_anchors import (
+    build_candidate_review_anchors,
+    render_candidate_review_anchor_catalog,
+)
 from readme_agent.specialists.review_finding_grounding import (
     BLIND_GROUNDING_CONTRACT_VERSION,
     BLIND_QUALITY_CRITERIA,
@@ -120,6 +124,14 @@ def _role_review_tool_schema(
             "section": {"type": "string", "maxLength": 120},
             "claim": {"type": "string", "maxLength": 500},
             "quoted_candidate_span": {"type": "string", "maxLength": 1200},
+            "candidate_anchor_id": {
+                "type": "string" if finding_kind == "quality" else ["string", "null"],
+                "pattern": r"^candidate\.anchor\.[0-9a-f]{20}\.[0-9]+$",
+                "description": (
+                    "For blind quality review, select one exact candidate.anchor ID from the "
+                    "supplied catalog. Null is retained for compatibility with other roles."
+                ),
+            },
             "disposition": {
                 "type": "string",
                 "enum": ["supports_acceptance", "requires_repair", "blocks"],
@@ -166,6 +178,7 @@ def _role_review_tool_schema(
             "observed_polarity",
             "polarity_result",
             "required_repair",
+            *(["candidate_anchor_id"] if finding_kind == "quality" else []),
         ],
     }
     findings_schema: dict[str, object] = {"type": "array", "items": finding_schema}
@@ -436,6 +449,9 @@ def build_blind_quality_review_messages(
             org_repo=org_repo,
             original_readme_text=original_readme_text,
             candidate_readme_text=candidate_readme_text,
+            candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
+                build_candidate_review_anchors(candidate_readme_text)
+            ),
             visitor_contract_json=visitor_contract_json,
         )
         .strip()

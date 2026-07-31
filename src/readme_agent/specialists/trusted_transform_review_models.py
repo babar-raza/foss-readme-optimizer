@@ -9,6 +9,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.capabilities.schema import OrgRepoRef
+from readme_agent.readme.trusted_candidate_ownership_models import TrustedRepairActionV1
 from readme_agent.readme.trusted_composition_models import (
     TrustedReadmeCompositionOutputV1,
     TrustedReadmeSectionRepairRequestV1,
@@ -21,6 +22,7 @@ TrustedTransformVerdictV1 = Literal[
     "REJECT_REPAIRABLE",
     "SYSTEM_FAILURE",
 ]
+TrustedRepairApproachV1 = Literal["grounded_exact_removal", "bounded_llm_section_rewrite"]
 
 
 class _StrictFrozenModel(BaseModel):
@@ -264,11 +266,26 @@ class TrustedRepairAttemptV1(_StrictFrozenModel):
     """One section-scoped changed-byte repair and its rereview result."""
 
     attempt: int = Field(ge=1, le=2)
-    request: TrustedReadmeSectionRepairRequestV1
+    approach: TrustedRepairApproachV1
+    boundary_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
+    elapsed_seconds: float = Field(ge=0)
+    request: TrustedReadmeSectionRepairRequestV1 | None = None
+    action: TrustedRepairActionV1 | None = None
     candidate_sha256_before: str = Field(pattern=r"^[0-9a-f]{64}$")
     candidate_sha256_after: str = Field(pattern=r"^[0-9a-f]{64}$")
     candidate_changed: bool
     rereview_verdict: TrustedTransformVerdictV1 | None = None
+
+    @model_validator(mode="after")
+    def _repair_authority_present(self) -> TrustedRepairAttemptV1:
+        if self.request is None and self.action is None:
+            raise ValueError("trusted repair attempt requires a request or exact action")
+        if self.action is not None and (
+            self.action.candidate_sha256_before != self.candidate_sha256_before
+            or self.action.candidate_sha256_after != self.candidate_sha256_after
+        ):
+            raise ValueError("trusted repair action hashes do not match its attempt")
+        return self
 
 
 class TrustedReviewLoopResultV1(_StrictFrozenModel):
@@ -279,6 +296,7 @@ class TrustedReviewLoopResultV1(_StrictFrozenModel):
     final_execution: TrustedReviewExecutionV1
     repair_history: tuple[TrustedRepairAttemptV1, ...] = ()
     system_failure_reason: str | None = None
+    system_failure_category: Literal["infra_external", "agent_fixable"] | None = None
 
     @model_validator(mode="after")
     def _outcome_matches_review(self) -> TrustedReviewLoopResultV1:
@@ -289,6 +307,10 @@ class TrustedReviewLoopResultV1(_StrictFrozenModel):
             raise ValueError("rejected trusted loop requires repairable rejection")
         if self.outcome == "system_failure" and not self.system_failure_reason:
             raise ValueError("trusted system failure requires a visible reason")
+        if self.outcome == "system_failure" and self.system_failure_category is None:
+            raise ValueError("trusted system failure requires a blocker category")
+        if self.outcome != "system_failure" and self.system_failure_category is not None:
+            raise ValueError("only a trusted system failure carries a blocker category")
         return self
 
 

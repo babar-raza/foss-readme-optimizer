@@ -255,6 +255,59 @@ def _release_lock_generic(
         raise StateBackendError(f"releasing lock {remote_ref} failed: {push.stderr}")
 
 
+def _renew_lock_generic(
+    remote: str,
+    ref_prefix: str,
+    lock: Lock,
+    tracking: dict[str, str],
+    lease_seconds: int,
+) -> Lock | None:
+    """CAS-renew one locally held lease without replacing its holder identity."""
+
+    remote_ref = f"{ref_prefix}/{_ref_key(lock.org_repo)}"
+    expected_sha = tracking.get(lock.org_repo)
+    current_sha = _fetch_remote_sha(remote_ref, remote=remote)
+    if expected_sha is None or current_sha != expected_sha:
+        return None
+    current = json.loads(_read_blob(current_sha, "lock.json"))
+    if current.get("holder_id") != lock.holder_id:
+        return None
+    leased_until = (datetime.now(UTC) + timedelta(seconds=lease_seconds)).isoformat()
+    payload = (
+        json.dumps(
+            {"holder_id": lock.holder_id, "leased_until": leased_until},
+            indent=2,
+        )
+        + "\n"
+    )
+    commit_sha = _write_commit(
+        tree_path="lock.json",
+        payload=payload,
+        parent_sha=current_sha,
+        message=f"renew lock: {lock.org_repo}",
+    )
+    push = run_git(["push", remote, f"{commit_sha}:{remote_ref}"])
+    if push.returncode != 0:
+        if _is_non_fast_forward(push.stderr):
+            return None
+        raise StateBackendError(f"renewing lock {remote_ref} failed: {push.stderr}")
+    tracking[lock.org_repo] = commit_sha
+    return Lock(
+        org_repo=lock.org_repo,
+        holder_id=lock.holder_id,
+        leased_until=leased_until,
+    )
+
+
+def _lock_still_held_generic(remote: str, ref_prefix: str, lock: Lock) -> bool:
+    remote_ref = f"{ref_prefix}/{_ref_key(lock.org_repo)}"
+    sha = _fetch_remote_sha(remote_ref, remote=remote)
+    if sha is None:
+        return False
+    current = json.loads(_read_blob(sha, "lock.json"))
+    return bool(current.get("holder_id") == lock.holder_id)
+
+
 class GitStateBackend:
     """The one real `StateBackend` implementation (`MEM-003`'s "interface +
     at least one real backend" bar). Production defaults to `origin` in the
@@ -445,12 +498,7 @@ class GitStateBackend:
         its nominal duration but was never actually reclaimed is still
         genuinely exclusive -- treating it as lost here would be a false
         negative, not a safety improvement."""
-        remote_ref = f"{LOCK_REF_PREFIX}/{_ref_key(lock.org_repo)}"
-        sha = _fetch_remote_sha(remote_ref, remote=self._remote)
-        if sha is None:
-            return False
-        current = json.loads(_read_blob(sha, "lock.json"))
-        return bool(current.get("holder_id") == lock.holder_id)
+        return _lock_still_held_generic(self._remote, LOCK_REF_PREFIX, lock)
 
     def acquire_run_lock(self, org_repo: str) -> Lock | None:
         """SCL-005 extension (Wave 8.5): a second, coarser, run-scoped lock,
@@ -483,6 +531,18 @@ class GitStateBackend:
             lock,
             self._held_run_lock_commit_shas,
         )
+
+    def renew_run_lock(self, lock: Lock) -> Lock | None:
+        return _renew_lock_generic(
+            self._remote,
+            RUN_LOCK_REF_PREFIX,
+            lock,
+            self._held_run_lock_commit_shas,
+            RUN_LOCK_LEASE_SECONDS,
+        )
+
+    def run_lock_still_held(self, lock: Lock) -> bool:
+        return _lock_still_held_generic(self._remote, RUN_LOCK_REF_PREFIX, lock)
 
     def _load_model_route_registry(self) -> ModelRouteRegistryV1 | None:
         sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote)

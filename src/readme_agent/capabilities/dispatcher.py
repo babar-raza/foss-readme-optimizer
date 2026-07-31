@@ -12,6 +12,7 @@ from pydantic import ValidationError
 
 from readme_agent.capabilities import registry
 from readme_agent.capabilities.schema import CapabilityGap, PermissionClass
+from readme_agent.errors import LLMInfrastructureError
 from readme_agent.state.backend import StateBackend
 
 Outcome = Literal[
@@ -38,6 +39,7 @@ class DispatchResult:
     result: dict | None = None
     gap: CapabilityGap | None = None
     error: str | None = None
+    blocked_category: Literal["infra_external", "agent_fixable"] | None = None
 
 
 def dispatch_tool_call(
@@ -164,7 +166,13 @@ def dispatch_tool_call(
     try:
         result = executor(**arguments, **(extra_kwargs or {}))
     except Exception as e:  # noqa: BLE001 -- any wrapped-function failure becomes a typed outcome
-        return DispatchResult(outcome="execution_error", error=f"{type(e).__name__}: {e}")
+        return DispatchResult(
+            outcome="execution_error",
+            error=f"{type(e).__name__}: {e}",
+            blocked_category=(
+                "infra_external" if isinstance(e, LLMInfrastructureError) else "agent_fixable"
+            ),
+        )
 
     if not isinstance(result, dict):
         return DispatchResult(

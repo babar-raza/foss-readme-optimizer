@@ -1,5 +1,7 @@
 """Typed results for the canonical trusted README pipeline."""
 
+from typing import Literal
+
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.state.lifecycle_schema import AssuranceReadmePocStatusV1
@@ -15,4 +17,5 @@ class TrustedReadmePipelineResultV1(BaseModel):
     candidate_sha256: str | None = None
     evidence_dir: str | None = None
     blocked_reason: str | None = None
+    blocked_category: Literal["infra_external", "agent_fixable"] | None = None
     cache_reused: bool = False

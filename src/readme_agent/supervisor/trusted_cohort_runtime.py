@@ -58,6 +58,29 @@ def require_runtime_trusted_cohort_member(
     raise ValueError(f"{org_repo!r} is not a member of qualified cohort {cohort.cohort_id}")
 
 
+def require_runtime_trusted_cohort_repair_member(
+    manifest_path: Path,
+    org_repo: str,
+    *,
+    registry_path: Path = PRODUCTS_PATH,
+) -> QualifiedTrustedCohortMemberV1:
+    """Select a stale-contract member only for canonical local regeneration."""
+
+    manifest_path = manifest_path.resolve()
+    if not manifest_path.is_file():
+        raise ValueError(f"qualified cohort manifest does not exist: {manifest_path}")
+    if not verify_sha256sums(manifest_path.parent):
+        raise ValueError(f"qualified cohort checksum inventory is invalid: {manifest_path.parent}")
+    cohort = QualifiedTrustedCohortV1.model_validate_json(manifest_path.read_text(encoding="utf-8"))
+    if cohort.registry_sha256 != sha256_file(registry_path)[0]:
+        raise ValueError("qualified cohort registry hash no longer matches data/products.json")
+    for member in cohort.members:
+        require_listed(member.org_repo)
+        if member.org_repo == org_repo:
+            return member
+    raise ValueError(f"{org_repo!r} is not a member of repair cohort {cohort.cohort_id}")
+
+
 def runtime_trusted_cohort_matrix(cohort: QualifiedTrustedCohortV1) -> dict[str, object]:
     """Render the deterministic Actions matrix bound to the frozen member identities."""
 

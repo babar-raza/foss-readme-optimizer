@@ -138,3 +138,31 @@ def remove_excess_headings(
     for start, end in reversed(removals):
         normalized = normalized[:start] + normalized[end:]
     return normalized
+
+
+def remove_redundant_nested_headings(markdown: str) -> str:
+    """Collapse an empty repeated child heading and promote only its child subtree."""
+
+    headings = parse_headings(markdown)
+    removals: list[tuple[int, int]] = []
+    promotions: list[tuple[int, int, str]] = []
+    for index, parent in enumerate(headings[:-1]):
+        duplicate = headings[index + 1]
+        if (
+            duplicate.level != parent.level + 1
+            or duplicate.title.strip().casefold() != parent.title.strip().casefold()
+            or markdown[parent.heading_end : duplicate.start].strip()
+        ):
+            continue
+        removals.append((duplicate.start, duplicate.heading_end))
+        for child in headings[index + 2 :]:
+            if child.start >= duplicate.section_end:
+                break
+            if child.level > duplicate.level:
+                line = markdown[child.start : child.heading_end]
+                promotions.append((child.start, child.heading_end, line[1:]))
+    edits = [(start, end, "") for start, end in removals] + promotions
+    normalized = markdown
+    for start, end, replacement in sorted(edits, reverse=True):
+        normalized = normalized[:start] + replacement + normalized[end:]
+    return normalized

@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
+from readme_agent.errors import LLMError, LLMInfrastructureError
 from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.specialists.review_role_execution import AnalysisClientLike
@@ -53,10 +56,13 @@ def run_trusted_readme_pipeline(
     blind_client: AnalysisClientLike | None = None,
     fidelity_client: AnalysisClientLike | None = None,
     repair_client: ForcedToolClient | None = None,
+    lease_guard: Callable[[], None] | None = None,
 ) -> TrustedReadmePipelineResultV1:
     """Compose, independently review, repair, and prove an exact cached rerun."""
 
+    _fence(lease_guard)
     prepared = prepare_trusted_readme_facts(org_repo, snapshot, backend)
+    _fence(lease_guard)
     graph = prepared.fact_graph
     cached = load_trusted_readme_evidence(snapshot, graph)
     lifecycle = load_trusted_lifecycle(backend, org_repo)
@@ -68,13 +74,37 @@ def run_trusted_readme_pipeline(
             lifecycle,
             graph,
         )
-        composition = dispatch_trusted_composition(
-            org_repo,
-            graph,
-            backend,
-            author_client=author_client,
-        )
+        try:
+            composition = dispatch_trusted_composition(
+                org_repo,
+                graph,
+                backend,
+                author_client=author_client,
+            )
+        except LLMError as exc:
+            _fence(lease_guard)
+            lifecycle = transition_trusted_readme_poc_status(
+                backend,
+                org_repo,
+                "SYSTEM_FAILURE",
+                observed_by="trusted_readme_pipeline",
+                reason=f"trusted composition failed: {exc}",
+                evidence_refs=[prepared.bundle_dir],
+                source_revision=snapshot.source_revision,
+                facts_hash=graph.canonical_hash(),
+            )
+            return TrustedReadmePipelineResultV1(
+                status=lifecycle.status,
+                reached=False,
+                evidence_dir=prepared.bundle_dir,
+                blocked_reason=f"trusted composition failed: {exc}",
+                blocked_category=(
+                    "infra_external" if isinstance(exc, LLMInfrastructureError) else "agent_fixable"
+                ),
+            )
+        _fence(lease_guard)
         bundle_dir = write_trusted_composition_evidence(snapshot, graph, composition)
+        _fence(lease_guard)
         record_trusted_composition(backend, graph, composition, str(bundle_dir))
         cached_review = None
     else:
@@ -111,18 +141,45 @@ def run_trusted_readme_pipeline(
             cached_review,
             blind_client=blind_client,
             fidelity_client=fidelity_client,
+            lease_guard=lease_guard,
         )
 
-    execution = dispatch_trusted_review(
-        org_repo,
-        graph,
-        composition,
-        backend,
-        blind_client=blind_client,
-        fidelity_client=fidelity_client,
-        enable_fidelity_batch_cache=enable_fidelity_batch_cache,
-    )
+    try:
+        execution = dispatch_trusted_review(
+            org_repo,
+            graph,
+            composition,
+            backend,
+            blind_client=blind_client,
+            fidelity_client=fidelity_client,
+            enable_fidelity_batch_cache=enable_fidelity_batch_cache,
+        )
+    except LLMError as exc:
+        _fence(lease_guard)
+        lifecycle = transition_trusted_readme_poc_status(
+            backend,
+            org_repo,
+            "SYSTEM_FAILURE",
+            observed_by="trusted_readme_pipeline",
+            reason=f"trusted independent review failed: {exc}",
+            evidence_refs=[str(bundle_dir)],
+            source_revision=snapshot.source_revision,
+            facts_hash=graph.canonical_hash(),
+            candidate_hash=composition.candidate_sha256,
+        )
+        return TrustedReadmePipelineResultV1(
+            status=lifecycle.status,
+            reached=False,
+            candidate_sha256=composition.candidate_sha256,
+            evidence_dir=str(bundle_dir),
+            blocked_reason=f"trusted independent review failed: {exc}",
+            blocked_category=(
+                "infra_external" if isinstance(exc, LLMInfrastructureError) else "agent_fixable"
+            ),
+        )
+    _fence(lease_guard)
     write_trusted_review_evidence(snapshot, graph, composition, execution)
+    _fence(lease_guard)
     lifecycle = record_trusted_review_execution(
         backend,
         graph,
@@ -141,6 +198,7 @@ def run_trusted_readme_pipeline(
                 execution,
                 blind_client=blind_client,
                 fidelity_client=fidelity_client,
+                lease_guard=lease_guard,
             )
         return TrustedReadmePipelineResultV1(
             status=lifecycle.status,
@@ -155,8 +213,10 @@ def run_trusted_readme_pipeline(
             candidate_sha256=composition.candidate_sha256,
             evidence_dir=str(bundle_dir),
             blocked_reason="trusted independent review system failure",
+            blocked_category="agent_fixable",
         )
 
+    _fence(lease_guard)
     transition_trusted_readme_poc_status(
         backend,
         org_repo,
@@ -177,9 +237,11 @@ def run_trusted_readme_pipeline(
         initial_execution=execution,
         enable_fidelity_batch_cache=enable_fidelity_batch_cache,
     )
+    _fence(lease_guard)
     final_composition = loop_result.final_composition
     if final_composition.candidate_sha256 != composition.candidate_sha256:
         bundle_dir = write_trusted_composition_evidence(snapshot, graph, final_composition)
+        _fence(lease_guard)
         transition_trusted_readme_poc_status(
             backend,
             org_repo,
@@ -198,6 +260,7 @@ def run_trusted_readme_pipeline(
             loop_result.final_execution,
             repair_history=loop_result.repair_history,
         )
+        _fence(lease_guard)
         lifecycle = record_trusted_review_execution(
             backend,
             graph,
@@ -209,6 +272,7 @@ def run_trusted_readme_pipeline(
             ],
         )
     elif loop_result.outcome == "system_failure":
+        _fence(lease_guard)
         lifecycle = transition_trusted_readme_poc_status(
             backend,
             org_repo,
@@ -228,6 +292,7 @@ def run_trusted_readme_pipeline(
             loop_result.final_execution,
             blind_client=blind_client,
             fidelity_client=fidelity_client,
+            lease_guard=lease_guard,
         )
     return TrustedReadmePipelineResultV1(
         status=lifecycle.status,
@@ -242,4 +307,14 @@ def run_trusted_readme_pipeline(
             if lifecycle.status == "TRUSTED_TRANSFORM_APPROVED"
             else loop_result.system_failure_reason or "trusted review repair did not reach approval"
         ),
+        blocked_category=(
+            loop_result.system_failure_category
+            if loop_result.outcome == "system_failure"
+            else (None if lifecycle.status == "TRUSTED_TRANSFORM_APPROVED" else "agent_fixable")
+        ),
     )
+
+
+def _fence(lease_guard: Callable[[], None] | None) -> None:
+    if lease_guard is not None:
+        lease_guard()

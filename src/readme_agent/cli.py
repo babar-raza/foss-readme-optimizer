@@ -186,8 +186,10 @@ def _build_parser() -> argparse.ArgumentParser:
     p_supervise.add_argument(
         "--qualified-cohort-manifest",
         help=(
-            "Checksum-valid QualifiedTrustedCohortV1 manifest required by act_poc. "
-            "The requested repository must be an exact frozen member."
+            "Checksum-valid QualifiedTrustedCohortV1 manifest required by act_poc and accepted "
+            "by local_poc for bounded regeneration of an invalidated member. The requested "
+            "repository must be an exact frozen member; local repair does not reuse stale "
+            "candidate or reviewer acceptance."
         ),
     )
     p_supervise.add_argument(
@@ -226,8 +228,9 @@ def _build_parser() -> argparse.ArgumentParser:
             "Wave 9.4: the explicit, typed execution profile this run operates under -- "
             "declares required state, allowed permission classes, evidence/verification "
             "requirements, valid triggers, and rollback (supervisor/execution_profile.py). "
-            "`local_poc` is the fail-closed, full-registry local proof profile and requires "
-            "--registry; it always enables dynamic planning and forbids --domain. "
+            "`local_poc` is the fail-closed local proof profile and requires --registry, or "
+            "--repo plus --qualified-cohort-manifest for bounded invalidation repair; it always "
+            "enables dynamic planning and forbids --domain. "
             "A `github_*` profile fails closed on any durable-state trouble and forbids "
             "--domain (see below); omitting this flag preserves today's default, local, "
             "best-effort behavior (compatibility-only -- new GitHub workflows must pass one)."

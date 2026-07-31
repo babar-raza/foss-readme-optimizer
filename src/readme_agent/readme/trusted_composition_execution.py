@@ -70,6 +70,7 @@ def compose_trusted_batch(
     client: ForcedToolClient,
     *,
     initial_repair_hint: str = "",
+    required_segment_ids: tuple[str, ...] = (),
 ) -> tuple[TrustedReadmeSectionToolDraftV1, TrustedReadmeSectionDraftV1]:
     """Compose or repair one bounded batch through the same typed contract."""
 
@@ -104,6 +105,13 @@ def compose_trusted_batch(
             if violation is not None:
                 draft = preserve_source_only_batch_exactly(draft, batch, reason=violation)
             validate_trusted_section_tool_draft(draft, batch, envelope)
+            missing_segment_ids = sorted(
+                set(required_segment_ids) - {segment.segment_id for segment in draft.segments}
+            )
+            if missing_segment_ids:
+                raise LLMError(
+                    "trusted repair omitted required segment IDs: " + ", ".join(missing_segment_ids)
+                )
         except (LLMError, ValidationError) as exc:
             last_error = exc
             if attempt == _MAX_ATTEMPTS:
@@ -111,9 +119,24 @@ def compose_trusted_batch(
                     f"trusted composition batch {batch.batch_id} failed after "
                     f"{_MAX_ATTEMPTS} attempts: {exc}"
                 ) from exc
-            repair_hint = (
-                f"Your prior output was rejected: {exc}. Return all enumerated source facts and "
-                "configured standards exactly once. Preserve context-truncated facts exactly."
+            repair_hint = " ".join(
+                part
+                for part in (
+                    initial_repair_hint.strip(),
+                    f"Your prior output was rejected: {exc}.",
+                    (
+                        "Return these required segment_id values exactly: "
+                        + ", ".join(required_segment_ids)
+                        + "."
+                        if required_segment_ids
+                        else ""
+                    ),
+                    (
+                        "Return all enumerated source facts and configured standards exactly once. "
+                        "Preserve context-truncated facts exactly."
+                    ),
+                )
+                if part
             )
             continue
         bound = TrustedReadmeSectionDraftV1(

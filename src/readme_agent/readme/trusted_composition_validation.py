@@ -120,6 +120,18 @@ def _validate_batch_standard_content(
             raise LLMError(
                 "configured at-a-glance Mermaid diagram is absent or duplicated in its owning batch"
             )
+    contextual = standards.get("readme.contextual_links")
+    if contextual is not None:
+        required_enterprise_url = str(
+            contextual.parameters.get("required_enterprise_url", "")
+        ).strip()
+        if required_enterprise_url and candidate.count(required_enterprise_url) != 1:
+            raise LLMError(
+                "configured contextual-link batch must materialize the required Enterprise "
+                "Edition URL exactly once"
+            )
+        if required_enterprise_url and "Enterprise Edition" not in candidate:
+            raise LLMError("configured contextual-link batch must name the Enterprise Edition")
 
 
 def validate_trusted_section_tool_draft(

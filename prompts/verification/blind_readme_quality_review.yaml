@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "7"
+version: "11"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -46,6 +46,28 @@ system: |
   opening; never demand that it appear in the title, badge row, or first paragraph. Configured
   navigation is its own `## Navigation` section and does not belong inside `## At a glance`.
 
+  When the visitor contract names repository-presentation-brand-v1, require portfolio-grade visual
+  coherence and reject any emoji anywhere in the candidate: an undecorated factual H1; the configured compact core badge row immediately below
+  it; a concise product-specific value proposition; the common At a glance, Navigation, Key
+  capabilities, Installation, and Quick start sequence; and consistent sentence-case headings.
+  Require section-local coherence: `## Quick start` contains concise setup or usage examples and
+  their directly useful explanation, not a second product overview, relationship pitch, or scope
+  paragraph after the example. Product scope and Enterprise Edition relationship prose belongs
+  under `## Project scope and limitations`; duplicated overview prose must be consolidated rather
+  than left in an unrelated section.
+  Useful source-specific build, package, version, and compatibility badges may follow the configured
+  core badge row when the badge standard allows inherited badges; do not demand their removal merely
+  because they are not core slots. Navigation must contain the required labels but may also include
+  valid links to other material sections; the required set is a floor, not a ceiling.
+  The Mermaid visual must explain this repository through a detailed, scannable Inputs/formats ->
+  Product/API -> Capabilities -> Outputs/formats story. It must show concrete product-specific
+  formats and important feature groups. Reject generic step chains, repeated labels, paragraph-sized nodes, decorative
+  styling, or a diagram that merely duplicates the section list. Require the single configured
+  Enterprise Edition link to read as useful scope, compatibility, or limitation context rather
+  than promotion. Use descriptive Markdown link labels rather than demanding a bare configured URL
+  as visible text. A technically valid document that looks inconsistent, generic, or unfinished
+  is REJECT_REPAIRABLE.
+
   Return ACCEPT only when the candidate is ready for a visitor as-is. Return
   REJECT_REPAIRABLE for any visible defect that bounded editing can repair. Return
   SYSTEM_FAILURE only when the supplied README bytes are empty or unreadable. This role does
@@ -56,7 +78,9 @@ system: |
   more findings with disposition=requires_repair. Quote an exact, nonempty candidate substring
   that visibly demonstrates each conclusion. Do not describe missing content by inventing a
   quote; anchor the finding to the nearby candidate text whose placement or wording makes the
-  omission material. Quality findings must use kind=quality, polarity_result=not_applicable, and
+  omission material. When a repair removes a paragraph, sentence, list item, or other prose block,
+  quote that exact defective prose; a section heading is context, not a valid removal anchor.
+  Quality findings must use kind=quality, polarity_result=not_applicable, and
   null fact_id, evidence_excerpt, evidence_location, expected_polarity, and observed_polarity.
   Supporting findings have an empty required_repair. Repair findings carry one bounded
   presentation-only repair instruction.
@@ -64,6 +88,11 @@ system: |
   material visitor-visible defect. Keep reasoning under 1,000 characters, each claim and repair
   under 300 characters, and each exact quoted span to the shortest sufficient excerpt. Never
   repeat a defect in reasoning, aggregate fields, and multiple findings.
+  For every finding, select candidate_anchor_id from the supplied candidate anchor catalog.
+  The runtime binds that stable ID to the exact visible Markdown block, so do not transcribe,
+  abbreviate, concatenate, or invent a quoted span. Use the smallest block that directly
+  demonstrates the premise. Set quoted_candidate_span to that block's exact text; the stable ID,
+  not freehand copying, is the finding's identity.
   Free-form reasoning is diagnostic only; structured disposition, criterion, and exact span are
   the only parts permitted to control lifecycle state. Keep repair advice presentation-scoped and
   do not request removal or alteration of technical claims.
@@ -84,12 +113,16 @@ user_template: |
   Candidate README:
   $candidate_readme_text
 
+  Candidate anchor catalog:
+  $candidate_anchor_catalog_json
+
   Review only the visible documents above. Return the required blind-quality verdict.
 input_schema:
   org_repo: string
   visitor_contract_json: string
   original_readme_text: string
   candidate_readme_text: string
+  candidate_anchor_catalog_json: string
 examples: []
 turn_context_template: |
   Your previous findings failed deterministic grounding. Reconcile them against this exact

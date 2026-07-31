@@ -15,6 +15,7 @@ from readme_agent.supervisor.trusted_cohort_restore import (
 from readme_agent.supervisor.trusted_cohort_runtime import (
     load_runtime_trusted_cohort,
     require_runtime_trusted_cohort_member,
+    require_runtime_trusted_cohort_repair_member,
     runtime_trusted_cohort_matrix,
 )
 
@@ -43,6 +44,19 @@ def test_current_frozen_cohort_emits_exact_three_member_matrix():
 def test_runtime_member_admission_fails_outside_frozen_cohort():
     with pytest.raises(ValueError, match="is not a member"):
         require_runtime_trusted_cohort_member(_manifest_path(), "org/not-enrolled")
+
+
+def test_local_repair_member_accepts_stale_candidate_contracts_but_not_outsiders():
+    member = require_runtime_trusted_cohort_repair_member(
+        _manifest_path(),
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    )
+    assert member.org_repo == "aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    with pytest.raises(ValueError, match="is not a member"):
+        require_runtime_trusted_cohort_repair_member(
+            _manifest_path(),
+            "org/not-enrolled",
+        )
 
 
 def test_runtime_cohort_rejects_checksum_corruption(tmp_path):
@@ -119,3 +133,20 @@ def test_act_profile_requires_the_frozen_manifest(monkeypatch, capsys):
 
     assert exit_code == 2
     assert "requires --qualified-cohort-manifest" in capsys.readouterr().err
+
+
+def test_local_profile_repair_rejects_a_nonmember_before_repository_work(capsys):
+    exit_code = cli.main(
+        [
+            "supervise",
+            "--repo",
+            "org/not-enrolled",
+            "--execution-profile",
+            "local_poc",
+            "--qualified-cohort-manifest",
+            str(_manifest_path()),
+        ]
+    )
+
+    assert exit_code == 2
+    assert "is not a member" in capsys.readouterr().err

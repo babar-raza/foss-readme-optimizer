@@ -7,6 +7,7 @@ is honored, not just a mocked one."""
 from readme_agent.capabilities import dispatcher, registry
 from readme_agent.capabilities.contracts import materialize_contract_models
 from readme_agent.capabilities.schema import CapabilityManifest, OrgRepoOnlyInputV1
+from readme_agent.errors import LLMInfrastructureError
 from readme_agent.state.schema import ModelRouteStatusV1
 
 
@@ -422,6 +423,24 @@ class TestDispatchExecutionError:
 
         assert result.outcome == "execution_error"
         assert "network exploded" in result.error
+        assert result.blocked_category == "agent_fixable"
+
+    def test_external_llm_failure_preserves_its_blocker_category(self, monkeypatch):
+        manifest = _manifest()
+        monkeypatch.setattr(registry, "get", lambda cid: manifest)
+
+        def provider_down(org_repo):
+            raise LLMInfrastructureError("provider unavailable")
+
+        monkeypatch.setattr(registry, "get_executor", lambda cid: provider_down)
+
+        result = dispatcher.dispatch_tool_call(
+            _tool_call("widget_capability", '{"org_repo": "acme/widget"}'),
+            allowed_permissions={"read_only_local"},
+        )
+
+        assert result.outcome == "execution_error"
+        assert result.blocked_category == "infra_external"
 
     def test_invalid_executor_output_fails_the_typed_contract(self, monkeypatch):
         manifest = materialize_contract_models(_manifest(produced_outputs={"ok": "boolean"}))

@@ -5,6 +5,7 @@ from readme_agent.readme.document_structure import (
     line_offsets,
     normalize_navigation_targets,
     parse_headings,
+    remove_redundant_nested_headings,
 )
 
 
@@ -72,3 +73,16 @@ def test_navigation_normalization_preserves_an_opaque_batch_boundary() -> None:
 
     assert "README_AGENT_FIDELITY_BOUNDARY_0001" in normalized
     assert "- [Usage](#usage)" in normalized
+
+
+def test_redundant_nested_heading_is_removed_and_children_are_promoted() -> None:
+    markdown = (
+        "# Widget\n\n## Examples\n\n### Examples\n\n#### Parse a file\n\nRun it.\n\n## License\n"
+    )
+
+    normalized = remove_redundant_nested_headings(markdown)
+
+    assert normalized.count("Examples") == 1
+    assert "### Parse a file" in normalized
+    assert "#### Parse a file" not in normalized
+    assert "## License" in normalized

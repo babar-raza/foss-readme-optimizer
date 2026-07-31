@@ -489,6 +489,22 @@ class FakeStateBackend:
         self._run_locks[org_repo] = lock
         return lock
 
+    def renew_run_lock(self, lock):
+        current = self._run_locks.get(lock.org_repo)
+        if current is None or current.holder_id != lock.holder_id:
+            return None
+        renewed = lock.__class__(
+            org_repo=lock.org_repo,
+            holder_id=lock.holder_id,
+            leased_until="9999-12-31T00:00:00",
+        )
+        self._run_locks[lock.org_repo] = renewed
+        return renewed
+
+    def run_lock_still_held(self, lock):
+        current = self._run_locks.get(lock.org_repo)
+        return current is not None and current.holder_id == lock.holder_id
+
     def release_run_lock(self, lock):
         self._run_locks.pop(lock.org_repo, None)
 

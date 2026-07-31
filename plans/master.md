@@ -191,10 +191,13 @@ creation through the canonical workflow. All four staging default branches remai
 every stable proposal branch contains the exact qualified candidate, and each target has exactly
 one open draft PR. Evidence is under
 `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. Durable evaluation selected
-`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` so the external critical path is exposed immediately.
-The control revision is published and the exact minimal owner provisioning request is under
-`plans/investigations/evidence/trp-04p-github-app-hosted-qualification-v1/`; manual App authority
-is pending. `TRP-04P-TEST-LATENCY` is independently accepted: the exact current non-live inventory
+`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION`; subsequent hosted runs proved the configured App and
+staging effect route, but human content review rejected all three visible README proposals for
+inconsistent branding/header structure, insufficient contextual Enterprise Edition linking, and
+immature At-a-glance diagrams. The task was therefore rerouted without discarding its transport
+evidence. `TRP-04P-COHERENT-PRESENTATION-REPAIR` now owns the shared-contract repair, exact
+three-candidate regeneration, cohort-level review, no-op proof, and in-place update of the same
+staging PRs before hosted continuation. `TRP-04P-TEST-LATENCY` is independently accepted: the exact current non-live inventory
 now runs through a bounded four-worker closure command in about four minutes locally and 83-87
 seconds on the hosted Linux matrix, versus a 1,049-second serial reference, without worker restart,
 test omission, or repository-attributable descendants. Evidence is under
@@ -2242,6 +2245,86 @@ that is the only permanence they carry; text is always the decision as it stands
     promoted as workflow closure. This prevents late discovery of planning gaps where the expected
     final state existed but the production route that created it had never been exercised.
 
+87. **Separate presentation acceptance from transport proof and govern trusted portfolio branding
+    as one versioned cohort contract.** A successful App token, workflow, branch, PR, deduplication,
+    or recovery scenario proves delivery machinery only. It cannot approve the README bytes it
+    transported. Human rejection of a visible candidate invalidates that candidate and every
+    dependent review, no-op, authorization, proposal, and presentation artifact while preserving
+    independently valid source snapshots and lower transport/effect evidence.
+
+    `RepositoryPresentationBrandContractV1` is assurance-neutral and owns the common visual
+    grammar for both `trusted_readme_transform` and `verified_repository_presentation`. Assurance
+    controls which evidence may support a label or claim; it never lowers visible presentation
+    quality. The trusted cohort is the first proving consumer. Every
+    candidate uses one H1 and contains no emoji anywhere in the README, plus one compact badge row in stable slot order
+    (package/version when supported, platform/runtime, real build status when evidenced, license),
+    consistent sentence-case section labels and spacing, and the same visitor journey: concise
+    value proposition, At a glance, capabilities, installation, quick start/examples, project
+    scope and limitations, development/contributing, security when supported, and license.
+    Unsupported badge or section slots are omitted rather than fabricated, but remaining slots
+    retain their order.
+
+    Each trusted cohort README contains exactly one catalog-verified `products.aspose.com` link.
+    It appears below the opening in ordinary explanatory prose where the inherited product's scope,
+    compatibility, or limitations make the relationship useful; it is never a header CTA,
+    navigation item, badge target, standalone promotion, or blockquote. The related commercial
+    product is always called **Enterprise Edition**. The existing configurable total/domain/surface
+    budgets remain authoritative for future policies; this one-link cohort requirement is the
+    configured override and therefore supersedes automatic allocation for these candidates.
+
+    The At-a-glance visual uses one GitHub-compatible, detailed four-zone Mermaid flow:
+    `Inputs/formats -> Product/API -> Capabilities -> Outputs/formats`. It contains concrete
+    repository-specific input and output formats plus the important feature groups the product
+    provides, using only labels inherited from the source or separately configured presentation
+    facts. It avoids styling noise and paragraph-like nodes while remaining scannable. Deterministic
+    validation owns grammar, node/edge/label limits, header/link placement, and cohort consistency;
+    the independent visitor reviewer owns professionalism and usefulness. Cohort review compares
+    all candidates side-by-side so three individually valid but visibly incoherent READMEs cannot
+    pass. Common review defects add shared negative controls and reopen only the affected contract
+    and candidate hashes. (2026-07-30, user review.)
+
+    Targeted repair is a typed mutation boundary, not a request to rewrite the owning composition
+    batch. Deterministic assembly emits `CandidateSpanOwnershipMapV1`, mapping every material
+    candidate byte span through normalization to one stable system-issued segment owner and its
+    inherited/configured provenance. A grounded reviewer finding compiles to hash-bound
+    `TrustedRepairActionV1`: deterministic code executes unique `remove_exact`, `move_exact`, or
+    non-generative `replace_exact` actions, while the LLM is invoked only for a bounded
+    `rewrite_owned_span` that actually requires new prose. Stale or ambiguous ownership, multiple
+    matches, changed protected siblings, or byte-identical output fails before rereview; no local
+    defect may trigger generic whole-batch regeneration.
+
+    Trusted live stages also bind a provider-work and continuation contract. Evidence distinguishes
+    logical role, composition batch, repair action, physical provider attempt, retry, and cache
+    reuse. A normal cohort member uses one initial composition campaign, one blind and one fidelity
+    review, at most one prose-authoring repair, and one invalidated-batch rereview pair; a grounded
+    exact edit uses no authoring call and an unchanged no-op uses no provider call. Repository and
+    mission leases renew with fencing across long calls, stage deadlines prevent unbounded retry,
+    and pre/post-call receipts resume the first unsealed boundary after cancellation. Provider or
+    lease uncertainty is visible retryable/system failure, never permission to broaden mutation or
+    promote stale results.
+
+    Repeated execution must change approach rather than repeat hope. Each boundary records an
+    approach fingerprint, hypothesis, attempt, elapsed time, evidence, and result. Unless a
+    task-specific limit is stricter, the same approach may run at most twice or for 15 minutes
+    without a new accepted artifact, resolved finding, changed candidate, or narrower proven root
+    cause. An unchanged output, identical failure, second timeout, or no-progress breach makes that
+    approach `INEFFECTIVE`; the next attempt must narrow the mutation, reroute to the upstream
+    owner, use a separately qualified mechanism, or open the governed resolver while unrelated
+    work continues. Restarting the same command, rephrasing the same prompt, or only increasing
+    retries is not a different approach, and no approach change may relax safety or acceptance.
+
+    A mandatory first-principles review precedes a third approach and may run earlier whenever
+    evidence challenges the current decomposition. It restates the user-visible outcome and
+    non-negotiable invariants without assuming the implementation is correct, separates the
+    symptom from the first causal defect, tests the assumptions that connect them, and reassigns
+    each responsibility to its simplest correct owner. Deterministic code owns measurable facts,
+    exact bytes, safety, lifecycle, and validation; LLM roles own repository-specific composition
+    and qualitative judgment. Prefer deleting unnecessary machinery or correcting pipeline
+    order/contracts over adding retries, prompt exceptions, or downstream cleanup. Record the
+    selected design, rejected alternatives, tradeoffs, and falsifiable proof in the same
+    `ApproachAttemptV1` evidence before execution resumes.
+    (2026-07-30, plan-forensics correction.)
+
 ## Architecture
 
 ### Content-assurance lanes
@@ -2264,7 +2347,8 @@ immutable repository snapshot
        → authorized effects and maturity evidence
 ```
 
-Both lanes use `supervise`, the same registry revision, snapshots, durable state, leases,
+Both lanes use `supervise`, the same `RepositoryPresentationBrandContractV1`, registry revision,
+snapshots, durable state, leases,
 redaction, manifests, authorization, effect ledger, and reconciliation. Assurance-specific facts,
 verdicts, caches, proposals, and counters prevent a trusted result from impersonating verified
 evidence. The scheduler exposes one primary goal and derived concurrent goals, reserves trusted
@@ -2898,6 +2982,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           expiry/crash recovery against disposable staging with byte-identical default branches
           and no analysis write credential. Commit `8c78e7f9`; independently accepted evidence:
           `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/verification.json`.
+    - [ ] `TRP-04P-BRAND`: replace the human-rejected candidate hashes with one versioned
+          portfolio brand contract, regenerate Note/Page/PDF Python through the canonical
+          supervisor, pass deterministic and side-by-side independent review, prove no-op, and
+          update the same three staging draft PRs without changing their default branches.
     - [ ] `TRP-04P-APP`: publish the verified control-repository commit to `main`, attempt supported
           `gh`/API App setup, issue one exact manual provisioning handoff only if unavoidable, then
           qualify fresh installation tokens and hosted trigger/recovery/health behavior on staging.

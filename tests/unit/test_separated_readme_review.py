@@ -8,6 +8,7 @@ from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
     grounding_retry_context,
@@ -224,6 +225,208 @@ def test_blind_acceptance_support_can_describe_satisfied_link_budget() -> None:
 
     assert result.valid is True
     assert result.errors == []
+
+
+def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:
+    enterprise_url = "https://products.aspose.com/note/"
+    paragraph = (
+        "For broader requirements, use the "
+        f"[Aspose.Note for Python Enterprise Edition]({enterprise_url})."
+    )
+    candidate = f"# Aspose.Note FOSS\n\n## Project scope and limitations\n\n{paragraph}\n"
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "bare-enterprise-link",
+            "kind": "quality",
+            "criterion": "hierarchy",
+            "section": "Project scope and limitations",
+            "claim": "The Enterprise Edition link appears as a bare URL.",
+            "quoted_candidate_span": paragraph,
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "Replace the bare URL with a descriptive link label.",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.contextual_links",
+                    "parameters": {
+                        "required_enterprise_url": enterprise_url,
+                        "required_aspose_com_occurrences": 1,
+                    },
+                }
+            ]
+        },
+    )
+
+    assert result.valid is False
+    assert result.errors == [
+        "bare-enterprise-link:bare-URL premise contradicts configured candidate",
+    ]
+
+
+def test_blind_reviewer_cannot_turn_required_navigation_floor_into_ceiling() -> None:
+    navigation = (
+        "- [At a glance](#at-a-glance)\n"
+        "- [Key capabilities](#key-capabilities)\n"
+        "- [Installation](#installation)\n"
+        "- [Quick start](#quick-start)\n"
+        "- [License](#license)"
+    )
+    candidate = f"# Widget\n\n## Navigation\n\n{navigation}\n\n## License\n\nMIT.\n"
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "navigation-floor",
+            "kind": "quality",
+            "criterion": "navigation",
+            "section": "Navigation",
+            "claim": "Navigation includes non-required labels, exceeding the required set.",
+            "quoted_candidate_span": navigation,
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "Remove non-required labels and retain only the required set.",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.navigation",
+                    "parameters": {
+                        "required_labels": [
+                            "At a glance",
+                            "Key capabilities",
+                            "Installation",
+                            "Quick start",
+                        ]
+                    },
+                },
+                {
+                    "standard_id": "readme.header",
+                    "parameters": {
+                        "required_h2_prefix": [
+                            "At a glance",
+                            "Navigation",
+                            "Key capabilities",
+                            "Installation",
+                            "Quick start",
+                        ]
+                    },
+                },
+            ]
+        },
+    )
+
+    assert result.valid is False
+    assert result.errors == [
+        "navigation-floor:navigation prefix-only premise is unconfigured",
+    ]
+
+
+def test_blind_reviewer_cannot_report_present_navigation_label_as_omitted() -> None:
+    navigation = (
+        "- [At a glance](#at-a-glance)\n"
+        "- [Key capabilities](#key-capabilities)\n"
+        "- [Installation](#installation)\n"
+        "- [Quick start](#quick-start)"
+    )
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "navigation-omission",
+            "kind": "quality",
+            "criterion": "navigation",
+            "section": "Navigation",
+            "claim": "Navigation omits the required Key capabilities label.",
+            "quoted_candidate_span": navigation,
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "Add the missing required label.",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=f"# Widget\n\n## Navigation\n\n{navigation}\n",
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.navigation",
+                    "parameters": {
+                        "required_labels": [
+                            "At a glance",
+                            "Key capabilities",
+                            "Installation",
+                            "Quick start",
+                        ]
+                    },
+                }
+            ]
+        },
+    )
+
+    assert result.errors == [
+        "navigation-omission:required-navigation premise contradicts candidate",
+    ]
+
+
+def test_blind_reviewer_cannot_miss_blank_line_after_cited_code_fence() -> None:
+    code = "for page in pages:\n    print(page)"
+    candidate = f"# Widget\n\n## Quick start\n\n```python\n{code}\n```\n\n### Next example\n"
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "code-spacing",
+            "kind": "quality",
+            "criterion": "hierarchy",
+            "section": "Quick start",
+            "claim": "The first code block is missing the required blank line after it.",
+            "quoted_candidate_span": code,
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "Add a blank line after the first code block.",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={"configured_standards": []},
+    )
+
+    assert result.errors == [
+        "code-spacing:blank-line premise contradicts candidate structure",
+    ]
 
 
 def test_blind_role_drops_disproven_sibling_and_keeps_grounded_repair() -> None:
@@ -641,6 +844,101 @@ def test_whitespace_equivalent_candidate_quote_is_reconciled_without_retry() -> 
     assert grounding.valid is True
     assert len(client.messages_seen) == 1
     assert history[0]["reconciled_candidate_span_ids"] == ["quality.generic-opening"]
+
+
+def test_uniquely_fused_markdown_quote_is_reconciled_without_retry() -> None:
+    candidate = "# Example\n\n## Installation\n\nUse pip.\n"
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The installation guidance is too thin.",
+        "failed_criteria": ["installation_presentation"],
+        "sections_affected": ["Installation"],
+        "required_repair": "Add one concise prerequisite.",
+        "findings": [
+            {
+                "finding_id": "quality.thin-installation",
+                "kind": "quality",
+                "criterion": "installation_presentation",
+                "section": "Installation",
+                "claim": "The installation guidance is too thin.",
+                "quoted_candidate_span": "## InstallationUse pip.",
+                "disposition": "requires_repair",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "Add one concise prerequisite.",
+            }
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert result.findings[0].quoted_candidate_span == "## Installation\n\nUse pip."
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_candidate_span_ids"] == ["quality.thin-installation"]
+
+
+def test_blind_finding_uses_stable_candidate_anchor_instead_of_freehand_quote() -> None:
+    candidate = "# Example\n\n## Quick start\n\nRun the focused example.\n"
+    anchor = next(
+        item
+        for item in build_candidate_review_anchors(candidate)
+        if item.text == "Run the focused example."
+    )
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The example lacks an outcome.",
+        "failed_criteria": ["example_presentation"],
+        "sections_affected": ["Quick start"],
+        "required_repair": "State the expected outcome.",
+        "findings": [
+            {
+                "finding_id": "quality.example-outcome",
+                "kind": "quality",
+                "criterion": "example_presentation",
+                "section": "Quick start",
+                "claim": "The example lacks an expected outcome.",
+                "quoted_candidate_span": "Run the example ...",
+                "candidate_anchor_id": anchor.anchor_id,
+                "disposition": "requires_repair",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "State the expected outcome.",
+            }
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+    )
+
+    assert result.findings[0].candidate_anchor_id == anchor.anchor_id
+    assert result.findings[0].quoted_candidate_span == "Run the focused example."
+    assert grounding.valid is True
+    assert history[0]["valid"] is True
 
 
 def test_blind_accept_drops_one_absent_quote_when_grounded_support_remains() -> None:

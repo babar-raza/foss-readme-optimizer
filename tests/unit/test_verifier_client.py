@@ -6,7 +6,7 @@ import json
 import pytest
 import requests
 
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMInfrastructureError
 from readme_agent.llm import verifier_client
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import (
@@ -324,8 +324,27 @@ class TestLiveForcedToolClientRetry:
         monkeypatch.setattr(verifier_client.time, "sleep", lambda _: None)
         client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
 
-        with pytest.raises(LLMError):
+        with pytest.raises(LLMInfrastructureError):
             client.call([], TOOL_SCHEMA)
+
+    def test_http_500_engine_failure_is_bounded_and_typed_as_infrastructure(
+        self,
+        monkeypatch,
+    ):
+        calls = {"n": 0}
+
+        def fake_post(url, json, headers, timeout):
+            calls["n"] += 1
+            return FakeResponse(500, text="EngineCore encountered an issue")
+
+        monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+        monkeypatch.setattr(verifier_client.time, "sleep", lambda _: None)
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMInfrastructureError, match="after retries.*HTTP 500"):
+            client.call([], TOOL_SCHEMA)
+
+        assert calls["n"] == 3
 
     def test_retries_on_connection_error(self, monkeypatch):
         calls = {"n": 0}

@@ -179,6 +179,41 @@ def test_provider_boundary_blocks_when_prompt_hygiene_is_not_clean(monkeypatch):
         )
 
 
+def test_trusted_provider_boundary_fails_before_http_when_call_budget_is_exhausted(
+    accounting,
+    monkeypatch,
+):
+    from readme_agent.llm.call_ledger import set_llm_stage
+
+    set_llm_stage("TRUSTED_README_PROCESSING")
+    monkeypatch.setattr(
+        call_transport,
+        "MAX_TRUSTED_PROVIDER_ATTEMPTS_PER_REPOSITORY",
+        0,
+    )
+    monkeypatch.setattr(
+        call_transport.requests,
+        "post",
+        lambda *args, **kwargs: pytest.fail("exhausted budget must block before HTTP"),
+    )
+    session = call_transport.ProviderCallSession(
+        job="test_transport",
+        prompt_id="test_transport",
+        prompt_sha256=None,
+        provider="gateway",
+        model="model",
+        prompt_required=False,
+    )
+
+    with pytest.raises(LLMError, match="provider-call budget exhausted: 0/0"):
+        session.post(
+            "https://gateway.example/chat/completions",
+            payload={"messages": []},
+            headers={},
+            timeout=1,
+        )
+
+
 def test_duplicate_call_id_with_conflicting_content_is_rejected(accounting):
     base = {
         "call_id": "same",

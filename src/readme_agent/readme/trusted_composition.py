@@ -12,6 +12,10 @@ from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.prompt_registry import prompt_hash
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
+from readme_agent.readme.trusted_candidate_ownership import (
+    build_candidate_span_ownership_map,
+)
+from readme_agent.readme.trusted_candidate_ownership_models import TrustedRepairActionV1
 from readme_agent.readme.trusted_composition_batching import build_trusted_composition_batches
 from readme_agent.readme.trusted_composition_cache import (
     default_trusted_batch_cache_dir,
@@ -39,6 +43,7 @@ from readme_agent.readme.trusted_composition_validation import (
     assemble_trusted_candidate,
     validate_trusted_section_tool_draft,
 )
+from readme_agent.readme.trusted_portfolio_brand import restore_trusted_at_a_glance
 
 
 def compose_trusted_readme(
@@ -192,6 +197,8 @@ def finalize_trusted_composition(
     section_drafts: list[TrustedReadmeSectionDraftV1],
     *,
     llm_call_count: int | None = None,
+    protected_candidate: str | None = None,
+    repair_actions: tuple[TrustedRepairActionV1, ...] = (),
 ) -> TrustedReadmeCompositionOutputV1:
     """Bind assembled candidate bytes and plan hashes after initial work or repair."""
 
@@ -199,6 +206,11 @@ def finalize_trusted_composition(
     if source_hash != graph.readme_sha256:
         raise LLMError("trusted composition source bytes do not match the inherited fact graph")
     candidate = normalize_trusted_candidate(assemble_trusted_candidate(graph, tool_drafts), graph)
+    if protected_candidate is not None:
+        candidate = normalize_trusted_candidate(
+            restore_trusted_at_a_glance(candidate, protected_candidate, graph),
+            graph,
+        )
     validate_trusted_candidate_contract(source_text, candidate, graph)
     candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
     plan = TrustedReadmeTransformPlanV1(
@@ -212,7 +224,13 @@ def finalize_trusted_composition(
         configured_standard_ids=tuple(
             standard.standard_id for standard in graph.configured_standards
         ),
+        repair_actions=repair_actions,
         candidate_sha256=candidate_hash,
+    )
+    ownership_map = build_candidate_span_ownership_map(
+        graph,
+        candidate,
+        tuple(section_drafts),
     )
     return TrustedReadmeCompositionOutputV1(
         org_repo=graph.org_repo,
@@ -221,6 +239,7 @@ def finalize_trusted_composition(
         candidate_markdown=candidate,
         candidate_patch=unified_diff(source_text, candidate),
         candidate_sha256=candidate_hash,
+        ownership_map=ownership_map,
         llm_call_count=(
             llm_call_count
             if llm_call_count is not None

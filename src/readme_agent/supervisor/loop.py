@@ -470,6 +470,7 @@ def supervise_repo(
             "TRUSTED_TRANSFORM_APPROVED",
             "TRUSTED_NO_OP_PROVEN",
         }:
+            from readme_agent.state.run_lock_lease import RunLockLeaseGuard
             from readme_agent.supervisor.trusted_readme_pipeline import (
                 run_trusted_readme_pipeline,
             )
@@ -487,20 +488,23 @@ def supervise_repo(
                     readme_lifecycle_status=None,
                 )
             try:
-                with repository_snapshot_scope(
-                    repository_snapshot,
-                    allow_local_fact_verification=False,
-                ):
-                    trusted_result = run_trusted_readme_pipeline(
-                        org_repo,
+                with RunLockLeaseGuard(state_backend, trusted_run_lock) as lease_guard:
+                    with repository_snapshot_scope(
                         repository_snapshot,
-                        state_backend,
-                        target_stage=readme_poc_stage_limit,
-                        author_client=trusted_author_client,
-                        blind_client=trusted_blind_review_client,
-                        fidelity_client=trusted_fidelity_review_client,
-                        repair_client=trusted_repair_client,
-                    )
+                        allow_local_fact_verification=False,
+                    ):
+                        trusted_result = run_trusted_readme_pipeline(
+                            org_repo,
+                            repository_snapshot,
+                            state_backend,
+                            target_stage=readme_poc_stage_limit,
+                            author_client=trusted_author_client,
+                            blind_client=trusted_blind_review_client,
+                            fidelity_client=trusted_fidelity_review_client,
+                            repair_client=trusted_repair_client,
+                            lease_guard=lease_guard.assert_held,
+                        )
+                    lease_guard.assert_held()
             finally:
                 safe_release_lock(
                     state_backend.release_run_lock,
@@ -523,7 +527,7 @@ def supervise_repo(
                             f"{boundary.observed_stage}"
                         )
                     ),
-                    blocked_category="agent_fixable",
+                    blocked_category=trusted_result.blocked_category or "agent_fixable",
                     decisions=[
                         DecisionSummary(
                             turn=0,
