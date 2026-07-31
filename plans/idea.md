@@ -33,6 +33,45 @@ the README's visible content size and verified code examples. Every slot is a ce
 target; configuration or available capacity never justifies an irrelevant, unverified, repetitive,
 awkward, or promotional link.
 
+## Portfolio README Presentation Contract
+
+The portfolio uses one assurance-neutral visual and structural contract. It is a brand shell, not a
+universal prose template: trusted and verified lanes share the same visitor experience, while each
+repository supplies its own product facts, formats, capabilities, examples, limitations, and
+maintenance material.
+
+Every README has exactly one factual H1 and one compact badge row in a stable order: package or
+release, platform/runtime, real build status, license, then contributors when those slots are
+supported. Badges may be omitted when their claims or targets are unavailable, but they may not be
+duplicated, split across multiple header rows, or fabricated merely to fill the row. The opening
+explains the FOSS product before any Aspose promotional destination.
+
+The common visitor journey is product explanation, compact navigation, a product-specific
+`At a glance`, capabilities, installation, a visible minimal example, additional examples, API
+reference when useful, scope and limitations, development/contribution material, and a prose
+license declaration. The license is never presented as a bare link. A README-level copyright line
+is omitted by default because the repository license owns that declaration; a portfolio policy may
+enable it only when the same verified owner and formatting rule applies consistently.
+
+`At a glance` is a capability map, not an implied execution pipeline unless the product genuinely
+implements one. It places the product/API at the center and uses non-directional relationships to
+group concrete input formats, important product-specific capabilities, and concrete outputs.
+Generic three-node diagrams, ornamental styling, confusing directional chains, and cross-product
+labels fail presentation validation.
+
+GitHub-compatible `<details>` disclosure keeps long documents readable. The primary installation
+path, minimal example, core capabilities, important limitations, and top API entry points remain
+visible. Additional examples, long API inventories, and maintainer-only workflows may be collapsed
+behind descriptive summaries without dropping, rewriting, or factually approving their inherited
+content. A separate “Other platforms” or promotional section is omitted when it adds no reader
+utility beyond the single contextual Enterprise Edition relationship already stated elsewhere.
+
+The first binding reference is manually composed from the immutable Aspose.Note FOSS for Python
+README because it exercises the extended-document case. Human review freezes that reference as
+Presentation Contract v1 before Page, PDF, or the wider portfolio is regenerated. Compact,
+standard, and extended density profiles may omit inapplicable sections, but they may not diverge
+from the shared header, badge, visual, terminology, link, license, disclosure, and footer rules.
+
 ## Production-Readiness Standard
 
 The solution must be production-grade and production-ready by the time it reaches at least the

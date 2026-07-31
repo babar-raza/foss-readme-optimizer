@@ -850,6 +850,8 @@ taskcards:
   expected_outputs:
   - Assurance-neutral RepositoryPresentationBrandContractV1 with versioned header, no-emoji, badge, section,
     link, and detailed format/capability Mermaid rules
+  - Manually composed, human-reviewed Aspose.Note FOSS for Python extended-density golden reference that
+    freezes Presentation Contract v1 before another live LLM cohort regeneration
   - CandidateSpanOwnershipMapV1 with complete normalized candidate-span ownership and reconstruction
   - Hash-bound TrustedRepairActionV1 with deterministic exact-edit and bounded owned-span rewrite paths
   - Renewable fenced run lease, exact continuation receipts, provider-work budgets, progress telemetry,
@@ -858,12 +860,21 @@ taskcards:
   - Independent per-repository and side-by-side cohort review
   - No-op proof and in-place updates to the existing three staging draft PRs
   acceptance_checks:
-  - All three candidates use one professional macro-structure and consistent header/badge ordering
+  - All three candidates use one professional macro-structure, exactly one factual H1, and exactly one
+    non-duplicated badge row with consistent applicable-slot ordering
+  - The Note golden reference is reviewed before Page/PDF regeneration and fixes structure rather than
+    universal product prose; compact, standard, and extended density profiles share the same brand shell
+  - Additional examples, long API inventories, and maintainer-only workflows use details disclosure without
+    losing inherited content; primary use, core capabilities, limitations, and top API entry points stay
+    visible
   - All three candidates contain zero emoji characters anywhere in visitor-visible README content
   - Each candidate contains exactly one catalog-verified products.aspose.com link, naturally placed below
     the opening and naming the related commercial product Enterprise Edition
-  - Each At a glance diagram uses the detailed Inputs/formats to Product/API to Capabilities to Outputs/formats
-    grammar and names concrete formats plus important product-specific features
+  - Redundant Other platforms sections are absent, license declarations use readable prose, and README
+    copyright text is consistently absent unless one verified portfolio-wide policy enables it
+  - Each At a glance diagram uses a non-sequential detailed capability map with concrete Inputs/formats,
+    central Product/API, important Capabilities, and Outputs/formats; directional edges require product
+    evidence
   - Every material candidate span has one stable system-issued owner across deterministic normalization
   - A grounded exact defect changes only its owned bytes with zero repair-author call; new prose is generated
     only through one bounded rewrite_owned_span action
@@ -879,15 +890,18 @@ taskcards:
   - No comments, unsupported inherited-claim changes, protected-content loss, promotional opening, duplicate
     proposal, or default-branch change passes
   verification:
-  - Focused brand-contract, composition, reviewer, cohort, allow-list, and push-blocking tests
+  - Focused brand-contract, golden-reference, single-header/badge-row, disclosure, license/copyright,
+    non-sequential-Mermaid, composition, reviewer, cohort, allow-list, and push-blocking tests
   - Ownership-map reconstruction, exact/move/replace/rewrite repair, ambiguity, stale-hash, protected-sibling,
     lease-renewal, fencing, timeout, cancellation, call-budget, anti-stall, and resume tests
   - Live LLM regeneration through the canonical supervisor for the exact qualified cohort
   - Deterministic candidate validation, independent per-candidate review, and cohort-level review
   - Hosted in-place update followed by an identical no-op rerun
   negative_controls:
-  - Inconsistent headings, badge order, missing or duplicate contextual links, generic or shallow Mermaid
-    chains, emojis anywhere in the README, comments, and cross-product leakage fail before proposal effect
+  - Inconsistent headings, duplicate badge rows, badge-order drift, bare license links, inconsistent copyright,
+    redundant platform promotion, missing or duplicate contextual links, generic, shallow, or misleadingly
+    sequential Mermaid chains, emojis anywhere in the README, comments, and cross-product leakage fail
+    before proposal effect
   - Ambiguous reviewer ownership, model-renamed segments, whole-batch repair for a local defect, byte-identical
     repair, lost fencing, exceeded stage budget, repeated ineffective approach, and stale late results
     fail before rereview or promotion
@@ -8909,7 +8923,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: a9fa48f690a61849ffa67de9558baf44900ca01f53fff27b0d7bc60129bdd0b3
+  source_sha256: a6d1c3f1d30b3345978f8e6718ad02aa7520c561ca02eef51c4ba652479744a2
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 458
   mandatory_requirement_rows: 432

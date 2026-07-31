@@ -86,6 +86,34 @@ The repair must therefore occur at the first shared failing boundary. A reposito
 tweak, hand-edited candidate, relaxed reviewer, direct branch update, or repeated full-batch LLM
 retry is prohibited.
 
+#### Golden-reference correction (2026-07-31)
+
+The repeated cohort attempts proved that an abstract “professional and consistent” rubric was not
+a sufficiently concrete generation target. Before another LLM cohort run, Codex must manually
+compose one Aspose.Note FOSS for Python README from its immutable source snapshot. This is a
+review artifact, not an alternate runtime or a factuality bypass. It must preserve the trusted
+source's useful claims, commands, examples, limitations, and maintainer material while applying the
+assurance-neutral portfolio contract.
+
+The Note reference is the extended-density case and must establish:
+
+1. exactly one factual H1 and one badge row with stable applicable-slot ordering;
+2. one product-first opening and no opening promotion;
+3. compact navigation and a detailed non-sequential Mermaid capability map;
+4. visible installation, minimal example, core capabilities, limitations, and top API entry points;
+5. `<details>` disclosure for additional examples, the long API inventory, and maintainer-only
+   workflows without dropping inherited content;
+6. exactly one natural catalog-backed Enterprise Edition relationship and no redundant Other
+   platforms section;
+7. readable license prose, no README copyright footer, no comments, and no emojis.
+
+Human structural review freezes this document as Presentation Contract v1. Only then may the
+system regenerate Note through the canonical path and apply the same shell to Page and PDF as
+standard/compact conformance canaries. The reference governs structure, density, and visual
+grammar; it is never copied as universal product prose. A defect in this manual reference is fixed
+in the reference before it becomes a validator or prompt rule. This boundary deliberately removes
+live-provider retries from design discovery.
+
 #### Active taskcard and state
 
 The sole executable taskcard remains `TRP-04P-COHERENT-PRESENTATION-REPAIR`. Its durable state is
@@ -96,7 +124,8 @@ The sole executable taskcard remains `TRP-04P-COHERENT-PRESENTATION-REPAIR`. Its
 | `TRP-04P-R1-CONTRACT` | validation | The assurance-neutral header, badge, no-emoji, section, contextual-link, Enterprise Edition, and detailed Mermaid contract passes focused positive and negative controls in both assurance adapters. |
 | `TRP-04P-R2-OWNERSHIP-ACTIONS` | active | `CandidateSpanOwnershipMapV1` and hash-bound `TrustedRepairActionV1` prove exact action execution, accepted-span byte identity, ambiguous-owner failure, and changed-candidate precondition. |
 | `TRP-04P-R3-LEASE-CALL-BUDGET` | backlog | Long-stage lease renewal/fencing, cancellation/resume receipt, logical/physical call accounting, stage deadline, and provider-latency telemetry pass controlled timeout/recovery tests. |
-| `TRP-04P-R4-NOTE` | blocked by R2/R3 | The immutable Note source produces a deterministically valid, independently accepted, no-op-proven candidate with no duplicated or malformed Enterprise Edition prose. |
+| `TRP-04P-R4A-NOTE-GOLDEN` | active after plan reconciliation | Codex manually composes the immutable Note source into the extended-density golden review artifact; human structural acceptance freezes Presentation Contract v1 before another live provider campaign. |
+| `TRP-04P-R4-NOTE` | blocked by R4A and R2/R3 | The canonical runtime reproduces the accepted Note structure as a deterministically valid, independently accepted, no-op-proven candidate with one header/badge row, disclosure controls, no redundant platform section, and no malformed Enterprise Edition prose. |
 | `TRP-04P-R5-PAGE` | blocked by R4 contract freeze | Page reaches the same candidate/review/no-op boundary without changing the shared contract. |
 | `TRP-04P-R6-PDF` | blocked by R4 contract freeze | PDF reaches the same candidate/review/no-op boundary without changing the shared contract. |
 | `TRP-04P-R7-COHORT` | blocked by R4-R6 | Side-by-side review accepts all three under one contract and the cohort manifest binds their current hashes. |

@@ -2256,32 +2256,51 @@ that is the only permanence they carry; text is always the decision as it stands
     grammar for both `trusted_readme_transform` and `verified_repository_presentation`. Assurance
     controls which evidence may support a label or claim; it never lowers visible presentation
     quality. The trusted cohort is the first proving consumer. Every
-    candidate uses one H1 and contains no emoji anywhere in the README, plus one compact badge row in stable slot order
-    (package/version when supported, platform/runtime, real build status when evidenced, license),
+    candidate uses one H1 and contains no emoji anywhere in the README, plus exactly one compact
+    badge row in stable slot order (package/version when supported, platform/runtime, real build
+    status when evidenced, license, contributors when supported). Badges are never duplicated
+    across multiple header or quick-link rows and are never fabricated merely to fill a slot,
     consistent sentence-case section labels and spacing, and the same visitor journey: concise
     value proposition, At a glance, capabilities, installation, quick start/examples, project
     scope and limitations, development/contributing, security when supported, and license.
     Unsupported badge or section slots are omitted rather than fabricated, but remaining slots
     retain their order.
 
+    This contract is frozen from a manually composed extended-density golden reference before
+    another live LLM cohort regeneration. Aspose.Note FOSS for Python is the first binding because
+    it exercises the largest current examples and API surfaces. Human review of that reference
+    freezes Presentation Contract v1; Page and PDF then act as compact/standard conformance
+    canaries. The reference fixes structure and visual grammar, not universal product prose.
+    Additional examples, long API inventories, and maintainer-only workflows use GitHub-compatible
+    `<details>` disclosure while the minimal example, primary installation path, core capabilities,
+    important limitations, and top API entry points remain visible.
+
     Each trusted cohort README contains exactly one catalog-verified `products.aspose.com` link.
     It appears below the opening in ordinary explanatory prose where the inherited product's scope,
     compatibility, or limitations make the relationship useful; it is never a header CTA,
-    navigation item, badge target, standalone promotion, or blockquote. The related commercial
+    navigation item, badge target, standalone promotion, or blockquote. A separate Other platforms
+    section is omitted when it only repeats that relationship and provides no additional reader
+    utility. The related commercial
     product is always called **Enterprise Edition**. The existing configurable total/domain/surface
     budgets remain authoritative for future policies; this one-link cohort requirement is the
     configured override and therefore supersedes automatic allocation for these candidates.
 
-    The At-a-glance visual uses one GitHub-compatible, detailed four-zone Mermaid flow:
-    `Inputs/formats -> Product/API -> Capabilities -> Outputs/formats`. It contains concrete
+    The At-a-glance visual uses one GitHub-compatible, detailed four-zone Mermaid capability map:
+    concrete `Inputs/formats`, a central `Product/API`, important `Capabilities`, and concrete
+    `Outputs/formats`. Non-directional relationships are the default because a library capability
+    map must not imply a required execution sequence; directional edges require evidence that the
+    product actually implements that flow. It contains concrete
     repository-specific input and output formats plus the important feature groups the product
     provides, using only labels inherited from the source or separately configured presentation
     facts. It avoids styling noise and paragraph-like nodes while remaining scannable. Deterministic
     validation owns grammar, node/edge/label limits, header/link placement, and cohort consistency;
     the independent visitor reviewer owns professionalism and usefulness. Cohort review compares
     all candidates side-by-side so three individually valid but visibly incoherent READMEs cannot
-    pass. Common review defects add shared negative controls and reopen only the affected contract
-    and candidate hashes. (2026-07-30, user review.)
+    pass. The license section uses readable prose rather than a bare link. README copyright text is
+    omitted by default because the license owns the declaration; it may be enabled only by one
+    verified, portfolio-wide owner/format rule. Common review defects add shared negative controls
+    and reopen only the affected contract and candidate hashes. (2026-07-30 and 2026-07-31, user
+    reviews.)
 
     Targeted repair is a typed mutation boundary, not a request to rewrite the owning composition
     batch. Deterministic assembly emits `CandidateSpanOwnershipMapV1`, mapping every material
