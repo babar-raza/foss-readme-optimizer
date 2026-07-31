@@ -9035,6 +9035,20 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:f2@Header:promotional_balance,f3@Quick start:example_presentation,f4@Scope and limitations:internal_terminology,f5@At a glance:hierarchy; factual_plan:ACCEPT",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation",
+          "hierarchy",
+          "internal_terminology",
+          "promotional_balance"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T16:37:26.662851+00:00",
+        "reason": "entering repair attempt 1/2: Revise Header for promotional_balance around exact span: [![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions: python](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)\nRevise Quick start for example_presentation around exact span: ```python\nfrom aspose.note import Document, RichText\n\ndoc = Document(\"testfiles/FormattedRichText.one\")\ntexts = [rt.Text for rt in doc.GetChildNodes(RichText)]\nprint(\"\\n\".join(texts))\n```\nRevise Scope and limitations for internal_terminology around exact span: [Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation and the limitations above; do not assume API or feature parity beyond verified behavior.\nRevise At a glance for hierarchy around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote .one files\"]\n    input_2[\"Binary streams\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"PDF documents\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  capability_1 --- output_1\n  capability_2 --- output_2\n  capability_3 --- output_1\n  capability_4 --- output_2\n```",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -9058,15 +9072,15 @@
     "presentation_plan_hash": "ac3a2488532ed3a9c278a9d0da24a0c559be7acb0136bafdabfe45555b9ce0b5",
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": "7bc8d364ce8a1656011cedfe705501311796613c01672bef95d3d9df82030226",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-31T16:37:20.603423+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-31T16:37:26.662851+00:00"
   },
   "schema_version": 2,
-  "state_version": 1187,
+  "state_version": 1188,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
