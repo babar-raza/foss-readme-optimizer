@@ -36,6 +36,7 @@ def _valid_cache(tmp_path):
             fact_acceptance_contract_hash=fact_contract.canonical_hash(),
             fact_acceptance_component_hashes=fact_contract.component_hashes,
             reviewer_standard_hash=reviewer_standard,
+            repair_budget_origin_hash="2" * 64,
         ),
         supervisor_state=SupervisorStateV1(
             control_plane_fingerprint=CONTROL_FINGERPRINT,
@@ -62,6 +63,7 @@ def _valid_cache(tmp_path):
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
             "reviewer_standard_hash": reviewer_standard,
+            "repair_budget_origin_hash": lifecycle.repair_budget_origin_hash,
         },
     )
     write_redacted_json(
@@ -259,6 +261,7 @@ def test_assurance_change_cannot_collide_with_verified_cache(tmp_path):
         ("validator", "local_verification_contract_hash_changed", "FACTS_COLLECTING"),
         ("reviewer", "reviewer_standard_hash_changed", "AGENT_REVIEWING"),
         ("control_plane", "control_plane_fingerprint_changed", "FACTS_COLLECTING"),
+        ("origin", "manifest_repair_budget_origin_hash_mismatch", "CANDIDATE_GENERATED"),
         ("completed_stages", "manifest_no_op_stage_missing", "CANDIDATE_GENERATED"),
     ],
 )
@@ -295,6 +298,11 @@ def test_any_dependent_input_change_denies_reuse(
         )
     elif change == "control_plane":
         control = "9" * 64
+    elif change == "origin":
+        lifecycle = state.readme_poc_lifecycle.model_copy(
+            update={"repair_budget_origin_hash": "9" * 64}
+        )
+        state = state.model_copy(update={"readme_poc_lifecycle": lifecycle})
     else:
         manifest_path = bundle / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))

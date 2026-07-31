@@ -348,6 +348,7 @@ class ReadmePocLifecycleStateV2(BaseModel):
     intake_preflight_history: list[IntakePreflightBindingV1] = Field(default_factory=list)
     reviewer_standard_hash: str | None = None
     protected_content_fingerprint: str | None = None
+    repair_budget_origin_hash: str | None = None
     repair_attempts_for_revision: int = Field(default=0, ge=0, le=2)
     details: dict = Field(default_factory=dict)
 

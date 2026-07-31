@@ -818,6 +818,103 @@ class TestReadmeCandidateBoundary:
             "CANDIDATE_GENERATED",
         ]
 
+    def test_repair_budget_tracks_initial_candidate_epoch_not_repair_outputs(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in ("SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING", "FACTS_READY"):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+                facts_hash="facts-a" if status == "FACTS_READY" else None,
+            )
+
+        initial = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
+            evidence_refs=["candidate-a"],
+        )
+        origin = initial.repair_budget_origin_hash
+        assert origin is not None
+
+        for attempt, suffix in enumerate(("b", "c"), start=1):
+            for status in (
+                "DETERMINISTIC_VALIDATED",
+                "AGENT_REVIEWING",
+                "AGENT_REVIEW_REJECTED",
+                "REPAIRING",
+            ):
+                transition_readme_poc_status(
+                    backend,
+                    org_repo,
+                    status,
+                    observed_by="test",
+                    reason=f"repair cycle {attempt}",
+                    reviewer_standard_hash=("reviewer-a" if status == "AGENT_REVIEWING" else None),
+                )
+            repaired = record_readme_candidate_artifacts(
+                backend,
+                org_repo,
+                source_revision="abc123",
+                assessment_hash=f"assessment-{suffix}",
+                presentation_plan_hash=f"plan-{suffix}",
+                candidate_hash=f"candidate-{suffix}",
+                reviewer_standard_hash="reviewer-a",
+                evidence_refs=[f"candidate-{suffix}"],
+                candidate_role="repair",
+            )
+            assert repaired.repair_budget_origin_hash == origin
+            assert repaired.repair_attempts_for_revision == attempt
+
+        for status in (
+            "DETERMINISTIC_VALIDATED",
+            "AGENT_REVIEWING",
+            "AGENT_REVIEW_REJECTED",
+            "SYSTEM_FAILURE",
+        ):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="same epoch exhausted",
+                reviewer_standard_hash=("reviewer-a" if status == "AGENT_REVIEWING" else None),
+            )
+
+        unchanged_origin = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-a",
+            presentation_plan_hash="plan-a",
+            candidate_hash="candidate-a",
+            reviewer_standard_hash="reviewer-a",
+            evidence_refs=["candidate-a-rerun"],
+        )
+        assert unchanged_origin.repair_budget_origin_hash == origin
+        assert unchanged_origin.repair_attempts_for_revision == 2
+
+        changed_origin = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-new",
+            presentation_plan_hash="plan-new",
+            candidate_hash="candidate-new",
+            reviewer_standard_hash="reviewer-a",
+            evidence_refs=["candidate-new"],
+        )
+        assert changed_origin.repair_budget_origin_hash != origin
+        assert changed_origin.repair_attempts_for_revision == 0
+
     def test_changed_reviewer_standard_resets_only_its_obsolete_repair_budget(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"

@@ -277,9 +277,10 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
         "fixture patch\n"
     )
     assert (bundle / "candidate" / "claim-map.json").is_file()
-    manifest = (bundle / "manifest.json").read_text(encoding="utf-8")
-    assert '"lifecycle_status": "CANDIDATE_GENERATED"' in manifest
-    assert '"local_verification_contract_hash": "' + ("v" * 64) + '"' in manifest
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["lifecycle_status"] == "CANDIDATE_GENERATED"
+    assert manifest["local_verification_contract_hash"] == "v" * 64
+    assert len(manifest["repair_budget_origin_hash"]) == 64
     checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
     assert "assessment/current-readme-assessment.json" in checksum_inventory
     assert "candidate/README.md" in checksum_inventory

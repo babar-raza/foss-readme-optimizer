@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from typing import Literal
 
 from readme_agent import paths
 from readme_agent.evidence.writer import (
@@ -22,6 +23,7 @@ from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.assurance import ContentAssuranceV1
+from readme_agent.state.readme_poc_lifecycle import candidate_generation_origin_hash
 
 
 def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
@@ -365,6 +367,7 @@ def write_local_poc_readme_candidate(
     presentation_plan: dict,
     *,
     bundle_dir_override: Path | None = None,
+    candidate_role: Literal["initial", "repair"] = "initial",
 ) -> tuple[Path, str, str, str]:
     """Materialize candidate artifacts in a compatibility or private attempt root."""
 
@@ -474,6 +477,18 @@ def write_local_poc_readme_candidate(
         loaded_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if isinstance(loaded_manifest, dict):
             prior_manifest = loaded_manifest
+    initial_origin_hash = candidate_generation_origin_hash(
+        source_revision=snapshot.source_revision,
+        facts_hash=document_plan.facts_hash,
+        assessment_hash=assessment_hash,
+        presentation_plan_hash=presentation_plan_hash,
+        candidate_hash=candidate_hash,
+    )
+    repair_budget_origin_hash = (
+        prior_manifest.get("repair_budget_origin_hash")
+        if candidate_role == "repair"
+        else initial_origin_hash
+    )
     same_candidate = prior_manifest.get("candidate_hash") == candidate_hash
     completed_stages = [
         "SNAPSHOTTED",
@@ -508,6 +523,7 @@ def write_local_poc_readme_candidate(
                 agentic_plan.canonical_hash() if agentic_plan is not None else None
             ),
             "candidate_hash": candidate_hash,
+            "repair_budget_origin_hash": repair_budget_origin_hash,
             "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
             "completed_stages": completed_stages,
         },

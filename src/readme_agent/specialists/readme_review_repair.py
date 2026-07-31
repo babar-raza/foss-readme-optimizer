@@ -47,6 +47,7 @@ def _persist_local_candidate(
         snapshot,
         render_result,
         presentation_plan,
+        candidate_role="repair",
     )
     record_readme_candidate_artifacts(
         backend,
@@ -56,6 +57,7 @@ def _persist_local_candidate(
         presentation_plan_hash=plan_hash,
         candidate_hash=candidate_hash,
         reviewer_standard_hash=separated_reviewer_standard_hash(),
+        candidate_role="repair",
         evidence_refs=[
             str(bundle_dir / "assessment" / "current-readme-assessment.json"),
             str(bundle_dir / "planning" / "readme-document-plan.json"),

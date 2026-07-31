@@ -300,6 +300,7 @@ def _evaluate_local_poc_cache(
             "fact_acceptance_contract_hash": lifecycle.fact_acceptance_contract_hash,
             "fact_acceptance_component_hashes": lifecycle.fact_acceptance_component_hashes,
             "reviewer_standard_hash": lifecycle.reviewer_standard_hash,
+            "repair_budget_origin_hash": lifecycle.repair_budget_origin_hash,
         }
         for field, expected in manifest_bindings.items():
             actual = (
@@ -405,6 +406,7 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
         elif reason.startswith("manifest_candidate_") or reason in {
             "artifact_inventory_invalid",
             "manifest_no_op_stage_missing",
+            "manifest_repair_budget_origin_hash_mismatch",
         }:
             affected.append("CANDIDATE_GENERATED")
         elif reason in {

@@ -21,6 +21,8 @@ two existing state machines covers.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from datetime import UTC, datetime
 from typing import Literal, cast
 
@@ -352,6 +354,7 @@ def switch_content_assurance(
                 "fact_acceptance_component_hashes": {},
                 "reviewer_standard_hash": None,
                 "protected_content_fingerprint": None,
+                "repair_budget_origin_hash": None,
                 "repair_attempts_for_revision": 0,
                 "details": {},
             }
@@ -445,6 +448,7 @@ def transition_readme_poc_status(
     fact_acceptance_component_hashes: dict[str, str] | None = None,
     reviewer_standard_hash: str | None = None,
     protected_content_fingerprint: str | None = None,
+    repair_budget_origin_hash: str | None = None,
     reset_repair_attempts: bool = False,
     max_retries: int = 5,
 ) -> ReadmePocLifecycleStateV2:
@@ -513,6 +517,17 @@ def transition_readme_poc_status(
             reviewer_standard_hash is not None
             and reviewer_standard_hash != prior.reviewer_standard_hash
         )
+        repair_origin_changed = (
+            repair_budget_origin_hash is not None
+            and repair_budget_origin_hash != prior.repair_budget_origin_hash
+        )
+        if repair_origin_changed:
+            # The two-attempt budget belongs to one initial candidate epoch,
+            # not forever to the upstream revision and not separately to each
+            # repaired candidate. A genuinely different initial candidate may
+            # receive a fresh bounded repair cycle; repair output itself never
+            # changes this binding.
+            repair_attempts = 0
         if to_status in {"README_ASSESSED", "AGENT_REVIEWING"} and reviewer_standard_changed:
             # A materially different independent-review contract is a new
             # acceptance boundary. Do not spend its repair budget on verdicts
@@ -618,6 +633,11 @@ def transition_readme_poc_status(
                     if protected_content_fingerprint is not None
                     else (None if fact_inputs_changed else prior.protected_content_fingerprint)
                 ),
+                "repair_budget_origin_hash": (
+                    repair_budget_origin_hash
+                    if repair_budget_origin_hash is not None
+                    else (None if fact_inputs_changed else prior.repair_budget_origin_hash)
+                ),
                 "repair_attempts_for_revision": repair_attempts,
                 "details": {} if fact_inputs_changed else prior.details,
             }
@@ -698,6 +718,31 @@ def bind_fact_acceptance_contract(
     return saved.readme_poc_lifecycle
 
 
+def candidate_generation_origin_hash(
+    *,
+    source_revision: str,
+    facts_hash: str | None,
+    assessment_hash: str,
+    presentation_plan_hash: str,
+    candidate_hash: str,
+) -> str:
+    """Identify one initial candidate epoch independently of later repairs."""
+
+    canonical = json.dumps(
+        {
+            "schema": "verified-readme-candidate-origin-v1",
+            "source_revision": source_revision,
+            "facts_hash": facts_hash,
+            "assessment_hash": assessment_hash,
+            "presentation_plan_hash": presentation_plan_hash,
+            "candidate_hash": candidate_hash,
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def record_readme_candidate_artifacts(
     backend: StateBackend,
     org_repo: str,
@@ -708,6 +753,7 @@ def record_readme_candidate_artifacts(
     candidate_hash: str,
     reviewer_standard_hash: str,
     evidence_refs: list[str],
+    candidate_role: Literal["initial", "repair"] = "initial",
 ) -> ReadmePocLifecycleStateV2:
     """Persist assessment, plan, and candidate boundaries without duplicate events."""
 
@@ -720,6 +766,17 @@ def record_readme_candidate_artifacts(
             "README candidate source revision does not match durable lifecycle state: "
             f"{source_revision!r} != {stored.source_revision!r}"
         )
+    origin_hash = (
+        candidate_generation_origin_hash(
+            source_revision=source_revision,
+            facts_hash=stored.facts_hash,
+            assessment_hash=assessment_hash,
+            presentation_plan_hash=presentation_plan_hash,
+            candidate_hash=candidate_hash,
+        )
+        if candidate_role == "initial"
+        else None
+    )
     hashes_match = (
         stored.assessment_hash == assessment_hash
         and stored.presentation_plan_hash == presentation_plan_hash
@@ -756,7 +813,7 @@ def record_readme_candidate_artifacts(
                 source_revision=source_revision,
                 assessment_hash=assessment_hash,
                 reviewer_standard_hash=reviewer_standard_hash,
-                reset_repair_attempts=True,
+                repair_budget_origin_hash=origin_hash,
             )
             current = transition_readme_poc_status(
                 backend,
@@ -812,6 +869,7 @@ def record_readme_candidate_artifacts(
             source_revision=source_revision,
             assessment_hash=assessment_hash,
             reviewer_standard_hash=reviewer_standard_hash,
+            repair_budget_origin_hash=origin_hash,
         )
     if current.status != "PLAN_READY":
         current = transition_readme_poc_status(
@@ -823,6 +881,7 @@ def record_readme_candidate_artifacts(
             evidence_refs=evidence_refs,
             source_revision=source_revision,
             presentation_plan_hash=presentation_plan_hash,
+            repair_budget_origin_hash=origin_hash,
         )
     return transition_readme_poc_status(
         backend,
@@ -833,6 +892,7 @@ def record_readme_candidate_artifacts(
         evidence_refs=evidence_refs,
         source_revision=source_revision,
         candidate_hash=candidate_hash,
+        repair_budget_origin_hash=origin_hash,
     )
 
 
