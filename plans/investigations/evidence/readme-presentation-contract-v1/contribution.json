@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "goal_ids": [
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Freeze the accepted visual standard as a reusable fact-slot-driven contract for every later README."
+  },
+  "acceptance_checks_passed": [
+    "The template reproduces the accepted Note macro-structure without embedding Note-specific prose as a portfolio default",
+    "Every variable visitor-facing product slot requires an explicit fact, configured standard, or omission disposition",
+    "Exactly one H1, one applicable badge row, list navigation, detailed product-specific Mermaid, readable license prose, conditional notices, conditional disclosures, no comments, no emojis, and no default copyright are enforced",
+    "The complete canonical product name is required in identity positions while package, namespace, command, import, and API shorthand remains limited to technical contexts",
+    "The template version, accepted-reference hash, prompt hashes, policy hashes, fact hash, and validator version participate in cache invalidation"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/readme-presentation-contract-v1/manifest.json",
+    "plans/investigations/evidence/readme-presentation-contract-v1/independent-review.json",
+    "plans/investigations/evidence/readme-presentation-contract-v1/verification.json"
+  ],
+  "scoreboard_before_sha256": "390070ab59f9b416cab232f6c0dfe340c6ab6e684ff38fcaa82972423690fd2a",
+  "scoreboard_after_sha256": "390070ab59f9b416cab232f6c0dfe340c6ab6e684ff38fcaa82972423690fd2a",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
