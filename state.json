@@ -8335,6 +8335,20 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:header-missing-blank-line@Header:hierarchy,mermaid-missing-grammar-labels@At a glance:navigation,quick-start-duplicated-examples@Quick start:example_presentation,enterprise-edition-missing@Project scope and limitations:promotional_balance; factual_plan:ACCEPT",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation",
+          "hierarchy",
+          "navigation",
+          "promotional_balance"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T14:38:05.285621+00:00",
+        "reason": "entering repair attempt 1/2: Revise Header for hierarchy around exact span: # Aspose.Note FOSS for Python\nRevise At a glance for navigation around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one)\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"PDF export\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Text content\"]\n    output_2[\"PDF document\"]\n  end\n\n  input_1 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  capability_1 --- output_1\n  capability_2 --- output_2\n  capability_3 --- output_1\n  capability_4 --- output_2\n```\nRevise Quick start for example_presentation around exact span: ## Quick start\nRevise Project scope and limitations for promotional_balance around exact span: ## Current limitations",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -8358,15 +8372,15 @@
     "presentation_plan_hash": "21b50d6e7cfc6530a1e4d8cb043d0e22e8f79ec1b897b6fe0cad8201f13b833b",
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": "8bc3267d8c470a0ae08a187772cb9cba897f77d5fe38806a53fdcf3ccef53278",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-31T14:37:58.589056+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-31T14:38:05.285621+00:00"
   },
   "schema_version": 2,
-  "state_version": 1067,
+  "state_version": 1068,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "18cb0adc0f51adf5656040ef60d6553729706cf052a193d6f15a387cf9adb2de",
