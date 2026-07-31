@@ -489,7 +489,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "513942aafcfb5377315b1fed90fdfb7d3c1f27324dc6c30d48eed432cf41f9d9",
+    "candidate_hash": "8708d831d5e7db1b98e8171e279bf6b99f14b1517fcf5172159e6d65c5799f0c",
     "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
@@ -1052,6 +1052,18 @@
         "reason": "complete source-accountable trusted transform plan persisted",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "TRUSTED_PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited/candidate/README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited/candidate/README.patch"
+        ],
+        "from_status": "TRUSTED_PLAN_READY",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-31T03:35:45.981906+00:00",
+        "reason": "trusted README candidate and native patch persisted",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "TRUSTED_CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -1079,11 +1091,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "TRUSTED_PLAN_READY",
-    "updated_at": "2026-07-31T03:35:42.013815+00:00"
+    "status": "TRUSTED_CANDIDATE_GENERATED",
+    "updated_at": "2026-07-31T03:35:45.981906+00:00"
   },
   "schema_version": 2,
-  "state_version": 93,
+  "state_version": 94,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
