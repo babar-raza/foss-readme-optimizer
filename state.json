@@ -2455,13 +2455,29 @@
     },
     "metadata_presentation": {
       "accepted_facts_hash": "c65647aa0ef2ca5bdd9e132a23dd8cd6d33fb9d59b7ba4f9b150e1e65dafb6fe",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [],
         "current_description": "Open Source Python API for reading Microsoft OneNote .one files (MS-ONE/OneStore parser + DOM traversal + PDF export). ",
         "current_homepage": "https://pypi.org/project/aspose-note/",
         "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
         "has_proposal": true,
         "proposed_description": null,
         "proposed_homepage": null,
@@ -2472,7 +2488,7 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:40:42.747875+00:00",
+      "last_run_timestamp": "2026-07-31T10:29:45.690108+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -6501,7 +6517,7 @@
     "updated_at": "2026-07-31T10:20:31.902885+00:00"
   },
   "schema_version": 2,
-  "state_version": 767,
+  "state_version": 768,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
