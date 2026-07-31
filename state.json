@@ -3934,25 +3934,25 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 4,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 4,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "REJECT_REPAIRABLE",
-          "failure_reason": "independent_review_repair_rerouted",
-          "message": "REJECT_REPAIRABLE",
-          "occurred_at": "2026-07-31T16:09:48.150132+00:00",
+          "error_type": "StateBackendError",
+          "failure_reason": "independent_review_exception",
+          "message": " README-POC repair attempts exhausted for 'aspose-note-foss/Aspose.Note-FOSS-for-Python' at source revision 6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "occurred_at": "2026-07-31T16:23:50.735783+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
         }
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "independent_review_repair_rerouted",
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T16:09:48.150132+00:00",
+      "last_run_timestamp": "2026-07-31T16:23:50.735783+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -8888,7 +8888,7 @@
     "updated_at": "2026-07-31T16:23:42.965483+00:00"
   },
   "schema_version": 2,
-  "state_version": 1157,
+  "state_version": 1158,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
