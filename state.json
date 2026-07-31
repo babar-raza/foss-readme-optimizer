@@ -2354,10 +2354,42 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {},
-    "fact_acceptance_contract_hash": null,
-    "fact_acceptance_history": [],
-    "facts_hash": null,
+    "fact_acceptance_component_hashes": {
+      "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
+      "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
+      "conflict_semantics": "d10e1e878c6d7b46cc8b6f7558a3e7c61dbcecc70d7c7ecee13fd48ae85ffb12",
+      "drafting_and_example_selection": "24c4d0da0bbf7a59de03c8f6834dec15e01dfe2ca2655ab2db995000eb5fd88c",
+      "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
+      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+      "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
+      "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
+    },
+    "fact_acceptance_contract_hash": "39f316a84a09a8ace6f0c0a99bc72c5c5c4621cafe130b8fcb9887f43d9269d7",
+    "fact_acceptance_history": [
+      {
+        "component_hashes": {
+          "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
+          "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
+          "conflict_semantics": "d10e1e878c6d7b46cc8b6f7558a3e7c61dbcecc70d7c7ecee13fd48ae85ffb12",
+          "drafting_and_example_selection": "24c4d0da0bbf7a59de03c8f6834dec15e01dfe2ca2655ab2db995000eb5fd88c",
+          "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
+          "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
+        },
+        "contract_hash": "39f316a84a09a8ace6f0c0a99bc72c5c5c4621cafe130b8fcb9887f43d9269d7",
+        "facts_hash": "8db61821124b7575efb6e5804a4ac7fcf4a4ecf71649337becd660852bde3d0e",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T08:54:16.394222+00:00",
+        "outcome": "BLOCKED_FACT_CONFLICT",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "schema_version": 1,
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
+      }
+    ],
+    "facts_hash": "8db61821124b7575efb6e5804a4ac7fcf4a4ecf71649337becd660852bde3d0e",
     "history": [
       {
         "evidence_refs": [],
@@ -6035,6 +6067,19 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T08:54:14.713196+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "BLOCKED_FACT_CONFLICT"
       }
     ],
     "intake_preflight_history": [
@@ -6056,17 +6101,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": null,
+    "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-31T08:54:08.804800+00:00"
+    "status": "BLOCKED_FACT_CONFLICT",
+    "updated_at": "2026-07-31T08:54:14.713196+00:00"
   },
   "schema_version": 2,
-  "state_version": 727,
+  "state_version": 728,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
