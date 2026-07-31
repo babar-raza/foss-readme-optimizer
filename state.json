@@ -6905,7 +6905,7 @@
     "updated_at": "2026-07-31T10:40:46.515498+00:00"
   },
   "schema_version": 2,
-  "state_version": 815,
+  "state_version": 816,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
@@ -8242,13 +8242,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.semantic_duplicate.7e1aeafdd089: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.4a9dfd30f8e6: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.b6bf64648cc8: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.6bbd511dcf02: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.19fc837eca37: The same visitor-facing bullet is repeated.']",
       "last_checkpoint_id": "33c328600ba813e595d35d0e1f816ffd81c3b9180a682fbb36c243d46a98d8c5",
-      "lease_expires_at": "2026-07-31T10:59:01.667668+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T10:49:07.875022+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T10:49:31.813956+00:00"
     }
   },
   "trigger_records": {},
