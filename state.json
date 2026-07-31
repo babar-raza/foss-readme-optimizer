@@ -8349,6 +8349,19 @@
         "reason": "entering repair attempt 1/2: Revise Header for hierarchy around exact span: # Aspose.Note FOSS for Python\nRevise At a glance for navigation around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one)\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"PDF export\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Text content\"]\n    output_2[\"PDF document\"]\n  end\n\n  input_1 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  capability_1 --- output_1\n  capability_2 --- output_2\n  capability_3 --- output_1\n  capability_4 --- output_2\n```\nRevise Quick start for example_presentation around exact span: ## Quick start\nRevise Project scope and limitations for promotional_balance around exact span: ## Current limitations",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "enterprise-edition-missing",
+          "header-missing-blank-line",
+          "quick-start-duplicated-examples"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T14:39:03.882268+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=bed84589bc41d4f5b537af28b638a6bfe26de581a0c7374fdd5e3edfbb8b3c5d after=a5e779d66b8adf808f5d48989ec559be1b6618be1985311a34a2dec5b8691671; unresolved=enterprise-edition-missing,header-missing-blank-line,quick-start-duplicated-examples",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -8376,11 +8389,11 @@
     "reviewer_standard_hash": "8bc3267d8c470a0ae08a187772cb9cba897f77d5fe38806a53fdcf3ccef53278",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T14:38:05.285621+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T14:39:03.882268+00:00"
   },
   "schema_version": 2,
-  "state_version": 1069,
+  "state_version": 1070,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "18cb0adc0f51adf5656040ef60d6553729706cf052a193d6f15a387cf9adb2de",
