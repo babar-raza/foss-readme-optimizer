@@ -2596,13 +2596,25 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
-      "details": {},
+      "details": {
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " Aspose contextual-link selection requires an Aspose product identity",
+          "occurred_at": "2026-07-31T10:30:58.288064+00:00",
+          "schema_version": 1,
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "stage": null
+        }
+      },
       "domain": "readme_presentation",
-      "last_failure_reason": "verification_rejected",
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:42:29.182968+00:00",
+      "last_run_timestamp": "2026-07-31T10:30:58.288064+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -6519,7 +6531,7 @@
     "updated_at": "2026-07-31T10:20:31.902885+00:00"
   },
   "schema_version": 2,
-  "state_version": 770,
+  "state_version": 771,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d9dd04ec602897f5b88d9115bbd4dd6da0209acd2135c466566b34ba75eb77fa",
