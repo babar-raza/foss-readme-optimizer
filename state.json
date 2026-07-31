@@ -9906,6 +9906,17 @@
         "reason": "entering repair attempt 1/2: Revise Quick start for example_presentation around exact span: ```python\nfrom aspose.note import Document, RichText\n\ndoc = Document(\"testfiles/FormattedRichText.one\")\ntexts = [rt.Text for rt in doc.GetChildNodes(RichText)]\nprint(\"\\n\".join(texts))\n```",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation-1"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T17:57:56.191739+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=dcf372319f3c69db45b51f769d8db4394bd3d9a11a3bc5b74d7ed6c1256210fb after=519d5fe44aa97e95c11354e9c6ccfacb362de554aa5ec7de236ce4ba193eac0d; unresolved=example_presentation-1",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -9933,11 +9944,11 @@
     "reviewer_standard_hash": "56f780cf6837bcf587ff46246b6f7b679e85097608404422e8aaa5a657d194f2",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T17:56:56.597978+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T17:57:56.191739+00:00"
   },
   "schema_version": 2,
-  "state_version": 1339,
+  "state_version": 1340,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9d6eb54258ab90d50f1d20d7598d12f2317f29f833ff6dbfb27dbad908bd9aab",
