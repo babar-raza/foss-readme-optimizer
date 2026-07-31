@@ -3339,16 +3339,16 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 3,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
-          "error_type": "GroundedRoleFailure",
+          "error_type": "LLMError",
           "failure_reason": "independent_review_exception",
-          "message": " factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\n  Value error, factual-plan ACCEPT requires grounded supporting findings [type=value_error, input_value={'verdict': 'ACCEPT', 're...ir': '', 'findings': []}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\"]",
-          "occurred_at": "2026-07-31T11:49:43.414380+00:00",
+          "message": " forced tool call returned an invalid structured response after 2 attempts: forced tool call response contained no tool_calls",
+          "occurred_at": "2026-07-31T12:08:27.091224+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
@@ -3357,7 +3357,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T11:49:43.414380+00:00",
+      "last_run_timestamp": "2026-07-31T12:08:27.091224+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -7614,7 +7614,7 @@
     "updated_at": "2026-07-31T12:08:20.442944+00:00"
   },
   "schema_version": 2,
-  "state_version": 942,
+  "state_version": 943,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3831f0e41566504a28c9793ca80c5d34b7efb04e4f36d19de24fe9d6c3f7329d",
