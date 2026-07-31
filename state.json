@@ -421,7 +421,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "e940bd5c5409dafcef448ff759d19f6332415af45ff91ce1901d2551962260e4",
+    "candidate_hash": "e12139f2496cf16b0f8d979ee0acdf34b68e749c072293359ad3b4536c771f96",
     "content_assurance": "trusted_inherited",
     "details": {},
     "fact_acceptance_component_hashes": {},
@@ -826,6 +826,17 @@
         "reason": "repair the section responsible for grounded independent-review findings",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "TRUSTED_REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\assurance\\trusted_inherited\\candidate\\README.md"
+        ],
+        "from_status": "TRUSTED_REPAIRING",
+        "observed_by": "trusted_readme_pipeline",
+        "occurred_at": "2026-07-31T02:50:18.506046+00:00",
+        "reason": "section-scoped repair produced changed candidate bytes",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "TRUSTED_CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -853,11 +864,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "TRUSTED_REPAIRING",
-    "updated_at": "2026-07-31T02:47:46.346953+00:00"
+    "status": "TRUSTED_CANDIDATE_GENERATED",
+    "updated_at": "2026-07-31T02:50:18.506046+00:00"
   },
   "schema_version": 2,
-  "state_version": 69,
+  "state_version": 70,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "352324383a269ba41a18ddf725c1a92526816d9e5fa886fae626d9daf686bfdf",
