@@ -8510,6 +8510,18 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:f3@Quick start:example_presentation,f4@Scope and limitations:promotional_balance; factual_plan:ACCEPT",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation",
+          "promotional_balance"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T15:55:04.162354+00:00",
+        "reason": "entering repair attempt 1/2: Revise Quick start for example_presentation around exact span: ```python\nfrom aspose.note import Document, RichText\n\ndoc = Document(\"testfiles/FormattedRichText.one\")\ntexts = [rt.Text for rt in doc.GetChildNodes(RichText)]\nprint(\"\\n\".join(texts))\n```\nRevise Scope and limitations for promotional_balance around exact span: This repository provides the open-source [Aspose.Note FOSS for Python](https://products.aspose.org/note/python/). For workflows beyond its verified scope, see [Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/).",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -8533,15 +8545,15 @@
     "presentation_plan_hash": "59ba841fb9b804068c42cb946d92aa4e73134ddab55d6e17cadca33caac5d92a",
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "reviewer_standard_hash": "836cc9a20a3b44a1110cf6dcfce8c7e6814c7870de07eabb69fd9f552f4dc45c",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-07-31T15:54:58.156829+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-07-31T15:55:04.162354+00:00"
   },
   "schema_version": 2,
-  "state_version": 1097,
+  "state_version": 1098,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ba66683e4efbf444575927c4bb65f89cdeae51cb23c0ca4ad302f94a19458379",
