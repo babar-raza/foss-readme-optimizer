@@ -488,6 +488,9 @@ def build_factual_plan_review_messages(
         .substitute(
             org_repo=org_repo,
             candidate_readme_text=candidate_readme_text,
+            candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
+                build_candidate_review_anchors(candidate_readme_text)
+            ),
             product_facts_json=product_facts_json,
             presentation_plan_json=presentation_plan_json,
         )

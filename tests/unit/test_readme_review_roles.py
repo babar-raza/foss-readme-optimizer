@@ -136,6 +136,8 @@ def test_factual_plan_context_has_no_deterministic_or_producer_verdict() -> None
 
     assert "fact-1" in serialized
     assert "readme.overview" in serialized
+    assert "Candidate anchor catalog:" in serialized
+    assert "candidate.anchor." in serialized
     assert "deterministic validation result" not in serialized.casefold()
     assert "producer verdict" not in serialized.casefold()
     assert '"verdict": "accept"' not in serialized.casefold()

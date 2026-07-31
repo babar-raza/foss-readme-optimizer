@@ -1306,6 +1306,30 @@ def test_blind_finding_uses_stable_candidate_anchor_instead_of_freehand_quote() 
     assert history[0]["valid"] is True
 
 
+def test_factual_finding_uses_stable_candidate_anchor_instead_of_freehand_quote() -> None:
+    anchor = next(
+        item for item in build_candidate_review_anchors(CANDIDATE) if item.text == "# Example"
+    )
+    parsed = _factual_accept("The product identity is supported.")
+    parsed["findings"][0]["quoted_candidate_span"] = "Example product heading"
+    parsed["findings"][0]["candidate_anchor_id"] = anchor.anchor_id
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+    )
+
+    assert result.findings[0].candidate_anchor_id == anchor.anchor_id
+    assert result.findings[0].quoted_candidate_span == "# Example"
+    assert grounding.valid is True
+    assert history[0]["valid"] is True
+
+
 def test_blind_accept_drops_one_absent_quote_when_grounded_support_remains() -> None:
     parsed = {
         "verdict": "ACCEPT",

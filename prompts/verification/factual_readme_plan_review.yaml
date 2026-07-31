@@ -1,6 +1,6 @@
 prompt_id: factual_readme_plan_review
 category: verification
-version: "6"
+version: "7"
 model_route: factual_readme_plan_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -27,9 +27,13 @@ system: |
   supplied facts, plan, or candidate are unusable.
 
   Every favorable or unfavorable premise used to justify the verdict must be a structured factual
-  finding with an exact candidate substring. Check the complete candidate, but report no more than
-  eight representative, non-duplicative findings. ACCEPT requires one or more
+  finding anchored to an exact candidate block. Check the complete candidate, but report no more
+  than eight representative, non-duplicative findings. ACCEPT requires one or more
   disposition=supports_acceptance findings.
+  For every finding, select candidate_anchor_id from the supplied candidate anchor catalog.
+  The runtime binds that stable ID to the exact visible Markdown block. Do not transcribe,
+  abbreviate, concatenate, or invent quoted_candidate_span; set it to the selected block's exact
+  text. Use the smallest block that directly demonstrates the premise.
   A supported or contradicted premise must cite the selected fact ID, the exact source location,
   and an exact excerpt from that fact's supplied evidence, then report the evidence's expected and
   observed polarity. An actually unsupported candidate claim uses disposition=blocks and
@@ -54,6 +58,9 @@ user_template: |
   Candidate README:
   $candidate_readme_text
 
+  Candidate anchor catalog:
+  $candidate_anchor_catalog_json
+
   Selected accepted fact evidence packet:
   $product_facts_json
 
@@ -64,6 +71,7 @@ user_template: |
 input_schema:
   org_repo: string
   candidate_readme_text: string
+  candidate_anchor_catalog_json: string
   product_facts_json: string
   presentation_plan_json: string
 examples: []

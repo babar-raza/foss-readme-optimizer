@@ -130,18 +130,20 @@ def _parse_role_result(
     candidate_anchors: tuple[CandidateReviewAnchorV1, ...] = (),
 ) -> BlindQualityReviewResultV1 | FactualPlanReviewResultV1:
     try:
+        unknown = unknown_candidate_review_anchor_ids(result.parsed, candidate_anchors)
+        if unknown:
+            label = "blind README quality" if role == "blind_quality" else "factual README plan"
+            raise LLMError(f"{label} review selected unknown anchors: {unknown}")
+        anchored = bind_candidate_review_anchors(result.parsed, candidate_anchors)
         if role == "blind_quality":
-            unknown = unknown_candidate_review_anchor_ids(result.parsed, candidate_anchors)
-            if unknown:
-                raise LLMError(f"blind README quality review selected unknown anchors: {unknown}")
             return BlindQualityReviewResultV1.model_validate(
                 normalize_redundant_role_fields(
                     role,
-                    bind_candidate_review_anchors(result.parsed, candidate_anchors),
+                    anchored,
                 )
             )
         return FactualPlanReviewResultV1.model_validate(
-            normalize_redundant_role_fields(role, result.parsed)
+            normalize_redundant_role_fields(role, anchored)
         )
     except ValidationError as exc:
         label = "blind README quality" if role == "blind_quality" else "factual README plan"
@@ -371,9 +373,7 @@ def run_grounded_role(
 
     history: list[dict] = []
     current_messages = list(messages)
-    candidate_anchors = (
-        build_candidate_review_anchors(candidate_text) if role == "blind_quality" else ()
-    )
+    candidate_anchors = build_candidate_review_anchors(candidate_text)
     max_attempts = (
         _MAX_BLIND_GROUNDING_ATTEMPTS if role == "blind_quality" else _MAX_GROUNDING_ATTEMPTS
     )
