@@ -7800,7 +7800,7 @@
     "updated_at": "2026-07-31T12:28:34.461403+00:00"
   },
   "schema_version": 2,
-  "state_version": 979,
+  "state_version": 980,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "383a63305c341889e9a79615124c29d2c13fb71b8fc2573eb4d13a9b59bddf03",
@@ -9269,13 +9269,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\nfindings.2\\n  Value error, only repair findings may carry repair instructions [type=value_error, input_value={'finding_id': 'at-a-glan... aligns with the plan.'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\"]",
       "last_checkpoint_id": "dd2587f263d26b7d07c7734d84ca93daa2aafa135e3331af9f497eb71ff5de9c",
-      "lease_expires_at": "2026-07-31T12:32:50.219082+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T12:30:12.915994+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T12:30:41.239228+00:00"
     }
   },
   "trigger_records": {},
