@@ -940,7 +940,7 @@
         "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
       }
     ],
-    "facts_hash": "ec4c0bc14aa3b0fbd04262debc9aed508a3bceaba2019903ea1fe81023e0efea",
+    "facts_hash": "3b7e4c3ad20d7129a530a472e7d9de91f42099a82053614414bed06f014bea5f",
     "history": [
       {
         "evidence_refs": [],
@@ -1234,6 +1234,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\1139a9a90280783cd91a7d3747adfdaa97a9cb47\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\1139a9a90280783cd91a7d3747adfdaa97a9cb47\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\1139a9a90280783cd91a7d3747adfdaa97a9cb47\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T09:54:51.160637+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "intake_preflight_history": [
@@ -1261,11 +1274,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-31T09:54:45.276891+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-07-31T09:54:51.160637+00:00"
   },
   "schema_version": 2,
-  "state_version": 125,
+  "state_version": 126,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
