@@ -9450,6 +9450,15 @@
         "reason": "independent review wiring failed: GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: ['candidate.anchor.5c488977e6ec3241819e.1:evidence excerpt is not bound to cited fact', 'candidate.anchor.5c488977e6ec3241819e.1:accepted evidence without an assessment must support', 'candidate.anchor.0cdd700e83f11743a1b8.1:duplicate finding ID']",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T17:17:12.751266+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -9477,11 +9486,11 @@
     "reviewer_standard_hash": "e37f3a8da14deb312e9e51fbafe375b2d73921251d5c9ed9909ccbd37eabefaf",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-31T17:07:44.431372+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T17:17:12.751266+00:00"
   },
   "schema_version": 2,
-  "state_version": 1260,
+  "state_version": 1261,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "206270ab1356892df27954e2f856d0a5d22e8c3563c398a0e5d41870e925f882",
