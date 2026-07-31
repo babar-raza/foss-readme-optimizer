@@ -99,13 +99,14 @@ The Note reference is the extended-density case and must establish:
 
 1. exactly one factual H1 and one badge row with stable applicable-slot ordering;
 2. one product-first opening and no opening promotion;
-3. compact navigation and a detailed non-sequential Mermaid capability map;
+3. list-based navigation and a detailed non-sequential Mermaid capability map;
 4. visible installation, minimal example, core capabilities, limitations, and top API entry points;
 5. `<details>` disclosure for additional examples, the long API inventory, and maintainer-only
    workflows without dropping inherited content;
 6. exactly one natural catalog-backed Enterprise Edition relationship and no redundant Other
    platforms section;
-7. readable license prose, no README copyright footer, no comments, and no emojis.
+7. a separately headed repository-relative third-party-notices link when present, readable MIT
+   permission/notice prose, no README copyright footer, no comments, and no emojis.
 
 Human structural review freezes this document as Presentation Contract v1. Only then may the
 system regenerate Note through the canonical path and apply the same shell to Page and PDF as

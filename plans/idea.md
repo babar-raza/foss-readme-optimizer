@@ -46,10 +46,13 @@ supported. Badges may be omitted when their claims or targets are unavailable, b
 duplicated, split across multiple header rows, or fabricated merely to fill the row. The opening
 explains the FOSS product before any Aspose promotional destination.
 
-The common visitor journey is product explanation, compact navigation, a product-specific
+The common visitor journey is product explanation, compact list-based navigation, a product-specific
 `At a glance`, capabilities, installation, a visible minimal example, additional examples, API
 reference when useful, scope and limitations, development/contribution material, and a prose
-license declaration. The license is never presented as a bare link. A README-level copyright line
+license declaration. When a third-party-notices file exists, it receives its own visitor-visible
+heading and a correct repository-relative link. The license is never presented as a bare link; a
+permissive license such as MIT briefly explains its practical permissions and notice condition
+without replacing the authoritative license text. A README-level copyright line
 is omitted by default because the repository license owns that declaration; a portfolio policy may
 enable it only when the same verified owner and formatting rule applies consistently.
 

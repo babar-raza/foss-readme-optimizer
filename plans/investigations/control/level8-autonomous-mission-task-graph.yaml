@@ -864,6 +864,8 @@ taskcards:
     non-duplicated badge row with consistent applicable-slot ordering
   - The Note golden reference is reviewed before Page/PDF regeneration and fixes structure rather than
     universal product prose; compact, standard, and extended density profiles share the same brand shell
+  - Navigation is a Markdown list; an existing third-party-notices file receives its own heading and correct
+    repository-relative link; MIT prose summarizes practical permissions and the retained-notice condition
   - Additional examples, long API inventories, and maintainer-only workflows use details disclosure without
     losing inherited content; primary use, core capabilities, limitations, and top API entry points stay
     visible
@@ -890,8 +892,9 @@ taskcards:
   - No comments, unsupported inherited-claim changes, protected-content loss, promotional opening, duplicate
     proposal, or default-branch change passes
   verification:
-  - Focused brand-contract, golden-reference, single-header/badge-row, disclosure, license/copyright,
-    non-sequential-Mermaid, composition, reviewer, cohort, allow-list, and push-blocking tests
+  - Focused brand-contract, golden-reference, single-header/badge-row, list-navigation, notices-link,
+    disclosure, license/copyright, non-sequential-Mermaid, composition, reviewer, cohort, allow-list,
+    and push-blocking tests
   - Ownership-map reconstruction, exact/move/replace/rewrite repair, ambiguity, stale-hash, protected-sibling,
     lease-renewal, fencing, timeout, cancellation, call-budget, anti-stall, and resume tests
   - Live LLM regeneration through the canonical supervisor for the exact qualified cohort
@@ -8923,7 +8926,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: a6d1c3f1d30b3345978f8e6718ad02aa7520c561ca02eef51c4ba652479744a2
+  source_sha256: 04c071b32e1d4c2d6ff5d2f623b2083ff9286f3da4ed79c1db8a7b40ad5a89c9
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 458
   mandatory_requirement_rows: 432

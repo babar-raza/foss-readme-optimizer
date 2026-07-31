@@ -2273,7 +2273,10 @@ that is the only permanence they carry; text is always the decision as it stands
     canaries. The reference fixes structure and visual grammar, not universal product prose.
     Additional examples, long API inventories, and maintainer-only workflows use GitHub-compatible
     `<details>` disclosure while the minimal example, primary installation path, core capabilities,
-    important limitations, and top API entry points remain visible.
+    important limitations, and top API entry points remain visible. Navigation is a real Markdown
+    list rather than an inline run of links. When a third-party-notices file exists, it has its own
+    heading and repository-relative link. MIT license prose summarizes practical permissions and
+    the retained-notice condition while leaving the license file authoritative.
 
     Each trusted cohort README contains exactly one catalog-verified `products.aspose.com` link.
     It appears below the opening in ordinary explanatory prose where the inherited product's scope,
