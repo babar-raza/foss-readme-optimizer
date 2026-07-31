@@ -8202,6 +8202,15 @@
         "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=65d5549295ddcedddbefa842de8b5e23fee62ffec706cf0f4e278ea2404a6fba after=868299dc6df8911dfa024a84320050af19e3d1f4ac9f2aadf3089ebf84e98be8; unresolved=f1-emoji-in-title,f4-revision-hash,f5-version-badge",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "README_ASSESSED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T14:31:58.175041+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -8229,11 +8238,11 @@
     "reviewer_standard_hash": "8bc3267d8c470a0ae08a187772cb9cba897f77d5fe38806a53fdcf3ccef53278",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-07-31T13:08:23.789436+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T14:31:58.175041+00:00"
   },
   "schema_version": 2,
-  "state_version": 1049,
+  "state_version": 1050,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "18cb0adc0f51adf5656040ef60d6553729706cf052a193d6f15a387cf9adb2de",
