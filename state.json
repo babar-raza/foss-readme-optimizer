@@ -8927,6 +8927,15 @@
         "reason": "independent review wiring failed: StateBackendError: README-POC repair attempts exhausted for 'aspose-note-foss/Aspose.Note-FOSS-for-Python' at source revision 6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T16:31:44.710183+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -8954,11 +8963,11 @@
     "reviewer_standard_hash": "836cc9a20a3b44a1110cf6dcfce8c7e6814c7870de07eabb69fd9f552f4dc45c",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-31T16:23:42.965483+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T16:31:44.710183+00:00"
   },
   "schema_version": 2,
-  "state_version": 1169,
+  "state_version": 1170,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
