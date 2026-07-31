@@ -113,7 +113,8 @@ def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
 
 def mark_local_poc_profiled(snapshot: RepositorySnapshotV1, bundle_dir: Path) -> None:
     """Advance the bundle manifest after the durable profile transition."""
-    if _existing_manifest(bundle_dir, snapshot.source_revision).get("candidate_hash"):
+    existing = _existing_manifest(bundle_dir, snapshot.source_revision)
+    if "PROFILED" in existing.get("completed_stages", []):
         refresh_sha256sums(bundle_dir)
         return
     write_local_poc_manifest(

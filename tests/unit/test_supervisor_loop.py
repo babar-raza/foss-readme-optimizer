@@ -840,7 +840,38 @@ class TestBasicLoop:
         assert lifecycle.source_revision != "0" * 40
         assert lifecycle.assurance_history[-1].from_assurance == "trusted_inherited"
         assert lifecycle.assurance_history[-1].to_assurance == "repository_verified"
-        assert result.readme_lifecycle_status == "FACTS_READY"
+
+    def test_unchanged_facts_stage_preserves_manifest_and_avoids_recollection(
+        self,
+        project,
+        monkeypatch,
+    ):
+        from readme_agent.supervisor import product_truth
+
+        backend = FakeStateBackend()
+        original_collect = product_truth.collect_product_facts
+        calls = 0
+
+        def _counted_collect(org_repo):
+            nonlocal calls
+            calls += 1
+            return original_collect(org_repo)
+
+        monkeypatch.setattr(product_truth, "collect_product_facts", _counted_collect)
+        kwargs = {
+            "state_backend": backend,
+            "write_evidence_bundle": True,
+            "track_readme_poc_lifecycle": True,
+            "readme_poc_stage_limit": "FACTS_READY",
+        }
+
+        first = supervise_repo(ORG_REPO, **kwargs)
+        second = supervise_repo(ORG_REPO, **kwargs)
+
+        assert first.status == "STAGE_COMPLETE"
+        assert second.status == "STAGE_COMPLETE"
+        assert calls == 1
+        assert second.readme_lifecycle_status == "FACTS_READY"
 
     def test_stage_limit_requires_lifecycle_tracking(self, project):
         with pytest.raises(RuntimeError, match="require lifecycle tracking"):

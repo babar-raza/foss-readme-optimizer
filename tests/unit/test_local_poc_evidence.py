@@ -162,6 +162,10 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
     assert facts.canonical_hash() in manifest
     assert '"local_verification_contract_hash": "' + ("v" * 64) + '"' in manifest
 
+    mark_local_poc_profiled(snapshot, bundle)
+
+    assert (bundle / "manifest.json").read_text(encoding="utf-8") == manifest
+
 
 def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     tmp_path, monkeypatch
