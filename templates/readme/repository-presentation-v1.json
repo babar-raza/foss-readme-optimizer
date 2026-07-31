@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "template_id": "repository-presentation",
+  "template_version": "1.0.0",
+  "accepted_reference_sha256": "0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864",
+  "section_order": [
+    "navigation",
+    "at_a_glance",
+    "key_capabilities",
+    "installation",
+    "quick_start",
+    "additional_examples",
+    "api_reference",
+    "scope_and_limitations",
+    "development_and_testing",
+    "contributing",
+    "security",
+    "third_party_notices",
+    "license"
+  ],
+  "headings": {
+    "navigation": "Navigation",
+    "at_a_glance": "At a glance",
+    "key_capabilities": "Key capabilities",
+    "installation": "Installation",
+    "quick_start": "Quick start",
+    "additional_examples": "Additional examples",
+    "api_reference": "API reference",
+    "scope_and_limitations": "Scope and limitations",
+    "development_and_testing": "Development and testing",
+    "contributing": "Contributing",
+    "security": "Security",
+    "third_party_notices": "Third-party notices",
+    "license": "License"
+  },
+  "required_slots": [
+    "at_a_glance",
+    "key_capabilities",
+    "installation",
+    "quick_start",
+    "scope_and_limitations",
+    "license"
+  ],
+  "profiles": {
+    "compact": {
+      "maximum_source_lines": 180,
+      "collapse_slots": []
+    },
+    "standard": {
+      "maximum_source_lines": 420,
+      "collapse_slots": [
+        "additional_examples",
+        "api_reference"
+      ]
+    },
+    "extended": {
+      "maximum_source_lines": null,
+      "collapse_slots": [
+        "additional_examples",
+        "api_reference",
+        "development_and_testing"
+      ]
+    }
+  },
+  "invariants": {
+    "badge_rows": 1,
+    "minimum_badges": 1,
+    "minimum_mermaid_inputs": 1,
+    "minimum_mermaid_capabilities": 3,
+    "minimum_mermaid_outputs": 1,
+    "comments": "forbidden",
+    "emoji": "forbidden",
+    "copyright": "omitted_by_default",
+    "commercial_term": "Enterprise Edition"
+  }
+}
