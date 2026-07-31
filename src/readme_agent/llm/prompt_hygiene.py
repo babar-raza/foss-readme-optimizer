@@ -15,7 +15,13 @@ from readme_agent.llm import prompt_registry
 from readme_agent.llm.prompt_source_audit import scan_prompt_source, source_path_for_module
 
 _DOC_ROW = re.compile(r"^\|\s*`([^`]+)`\s*\|")
-_NON_PROMPT_LEDGER_IDS = frozenset({"embeddings", "local_poc_complete_bundle"})
+_NON_PROMPT_LEDGER_IDS = frozenset(
+    {
+        "embeddings",
+        "local_poc_approved_bundle",
+        "local_poc_complete_bundle",
+    }
+)
 
 
 class PromptInventoryEntryV1(BaseModel):
