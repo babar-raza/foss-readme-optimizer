@@ -8123,6 +8123,19 @@
         "reason": "entering repair attempt 1/2: Revise Header for template_genericity around exact span: # Aspose.Note FOSS for Python\nRevise At a glance for clarity around exact span: ```mermaid\nflowchart LR\n  product[\"Aspose.Note FOSS for Python\"]\n  audience_1[\"Developers using Python.\"]\n  problem_1[\"Microsoft OneNote (.one)\"]\n  capability_1[\"Document and traversal\"]\n  capability_2[\"Page and Title structure\"]\n  format_1[\"Microsoft OneNote (.one)\"]\n  product --> audience_1\n  product --> problem_1\n  product --> capability_1\n  product --> capability_2\n  product --> format_1\n```\nRevise Navigation for hierarchy around exact span: ## In this README\nRevise Quick start for clarity around exact span: This exact example was compiled against the source build at revision `6d97a522a9ed24708687911f1aabb76e2dea2da7`.\nRevise Header for markdown_integrity around exact span: [![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Version: 26.3.2](https://img.shields.io/badge/Version-26.3.2-blue)](https://pypi.org/project/aspose-note/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f1-emoji-in-title",
+          "f4-revision-hash",
+          "f5-version-badge"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T13:08:23.789436+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=65d5549295ddcedddbefa842de8b5e23fee62ffec706cf0f4e278ea2404a6fba after=868299dc6df8911dfa024a84320050af19e3d1f4ac9f2aadf3089ebf84e98be8; unresolved=f1-emoji-in-title,f4-revision-hash,f5-version-badge",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -8150,11 +8163,11 @@
     "reviewer_standard_hash": "8bc3267d8c470a0ae08a187772cb9cba897f77d5fe38806a53fdcf3ccef53278",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T13:07:33.014270+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T13:08:23.789436+00:00"
   },
   "schema_version": 2,
-  "state_version": 1035,
+  "state_version": 1036,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b73f8d63e0598d6b8467d9262b66159fbfe7f1deeb4c4929498e11423eff436b",
