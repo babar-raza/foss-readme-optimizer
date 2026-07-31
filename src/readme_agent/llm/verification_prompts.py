@@ -17,6 +17,7 @@ import json
 from string import Template
 
 from readme_agent.llm import prompt_registry
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists.review_candidate_anchors import (
     build_candidate_review_anchors,
     render_candidate_review_anchor_catalog,
@@ -327,10 +328,18 @@ def build_trusted_fidelity_review_tool_schema(
 
 
 def separated_reviewer_standard_hash() -> str:
-    """Bind lifecycle reuse to both role prompts and the V1 reducer contract."""
+    """Bind lifecycle reuse to prompts, visible standards, grounding, and reducer schema."""
 
     components = [
-        "separated-readme-review-v3-compact-factual-packet",
+        "separated-readme-review-v4-visible-contract",
+        BLIND_GROUNDING_CONTRACT_VERSION,
+        hashlib.sha256(
+            json.dumps(
+                build_presentation_visitor_contract(),
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest(),
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("factual_readme_plan_review"),
         hashlib.sha256(

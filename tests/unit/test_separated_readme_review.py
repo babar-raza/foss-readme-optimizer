@@ -1028,13 +1028,19 @@ def test_factual_conflict_vetoes_blind_acceptance():
     assert result.combined_review.verdict == "BLOCKED_FACT_CONFLICT"
 
 
-def test_reviewer_standard_binds_both_role_prompts_not_legacy_prompt():
-    from readme_agent.llm import prompt_registry
+def test_reviewer_standard_binds_visible_grounding_and_both_role_prompts(monkeypatch):
+    from readme_agent.llm import prompt_registry, verification_prompts
 
     standard = separated_reviewer_standard_hash()
 
     assert len(standard) == 64
     assert standard != prompt_registry.prompt_hash("independent_readme_review")
+    monkeypatch.setattr(
+        verification_prompts,
+        "BLIND_GROUNDING_CONTRACT_VERSION",
+        "different-visible-grounding-contract",
+    )
+    assert separated_reviewer_standard_hash() != standard
 
 
 def test_ungrounded_quality_premise_gets_one_bounded_correction_turn():
