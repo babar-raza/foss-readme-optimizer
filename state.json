@@ -852,7 +852,7 @@
     "updated_at": "2026-07-31T08:42:18.733395+00:00"
   },
   "schema_version": 2,
-  "state_version": 71,
+  "state_version": 72,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
@@ -1160,12 +1160,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:StateBackendError:verified README lifecycle transition rejected for trusted repository 'aspose-font-foss/Aspose.Font-FOSS-for-Python'",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "8a07e2df81cf25b0cf07f617c1be679d58e304a286c33df065be99b378aea60a",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-31T08:42:41.006538+00:00"
+      "updated_at": "2026-07-31T09:31:45.212599+00:00"
     }
   },
   "trigger_records": {},
