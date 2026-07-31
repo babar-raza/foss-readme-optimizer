@@ -9250,7 +9250,7 @@
     "updated_at": "2026-07-31T16:53:44.976566+00:00"
   },
   "schema_version": 2,
-  "state_version": 1224,
+  "state_version": 1225,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e5ebd0863d6e8598221003d56b61160c8ff91cd8823c3f7c01512650d12590c1",
@@ -10895,13 +10895,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: ['readme.installation:quoted candidate span is absent', 'readme.example:quoted candidate span is absent']",
       "last_checkpoint_id": "2d1e5179435074955b446b9dd262f7c5c1e8e4c17381b6ae30f03ed1d159c7df",
-      "lease_expires_at": "2026-07-31T17:02:41.324758+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-07-31T16:55:13.104398+00:00"
+      "status": "retryable",
+      "updated_at": "2026-07-31T16:55:38.391628+00:00"
     }
   },
   "trigger_records": {},
