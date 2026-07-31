@@ -95,6 +95,10 @@ def test_packet_retains_selected_grounding_and_excludes_large_producer_fields():
     assert packet.candidate_sha256 == sha256_hex(candidate)
     assert [fact.fact_id for fact in packet.selected_facts] == ["fact-1"]
     assert packet.candidate_claims[0].claim_text == "Example reads ONE files."
+    assert packet.candidate_claims[0].verification_state == "verified"
+    assert packet.candidate_claims[0].evidence_location == "repository://pyproject.toml"
+    assert packet.candidate_claims[0].evidence_excerpt == "Example"
+    assert packet.candidate_claims[0].unresolved_conflicts == []
     assert packet.operations[0].operation_id == "readme.overview"
     assert "RAW_REPLACEMENT_SENTINEL" not in serialized
     assert "ASSESSMENT_BULK_SENTINEL" not in serialized

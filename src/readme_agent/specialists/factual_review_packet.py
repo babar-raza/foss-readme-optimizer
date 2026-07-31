@@ -9,6 +9,7 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.specialists.readme_review_roles import json_hash
 
 
@@ -40,6 +41,10 @@ class FactualReviewClaimV1(_StrictModel):
     fact_id: str
     field: str
     claim_text: str
+    verification_state: str
+    evidence_location: str
+    evidence_excerpt: str
+    unresolved_conflicts: list[dict[str, Any]] = Field(default_factory=list)
     rationale: str
 
 
@@ -105,6 +110,19 @@ def _candidate_claim_text(candidate_text: str, binding: dict[str, Any]) -> str |
     return claim_text
 
 
+def _claim_evidence_excerpt(claim_text: str, fact: dict[str, Any]) -> str:
+    """Choose exact supplied fact text, preferring a literal claim match."""
+
+    values = fact_strings(fact.get("value"))
+    if not values:
+        raise ValueError(f"candidate claim cites an empty fact: {fact.get('fact_id')!r}")
+    folded_claim = claim_text.casefold()
+    literal_matches = [value for value in values if value.casefold() in folded_claim]
+    if literal_matches:
+        return max(literal_matches, key=len)
+    return values[0]
+
+
 def build_factual_review_packet(
     org_repo: str,
     candidate_text: str,
@@ -118,10 +136,12 @@ def build_factual_review_packet(
         for field, fact_id in (product_facts.get("selected_fact_ids") or {}).items()
     }
     selected_ids = set(selected_fact_ids.values())
+    selected_facts_by_id: dict[str, dict[str, Any]] = {}
     selected_facts = []
     for fact in product_facts.get("facts") or []:
         if not isinstance(fact, dict) or fact.get("fact_id") not in selected_ids:
             continue
+        selected_facts_by_id[str(fact["fact_id"])] = fact
         selected_facts.append(
             FactualReviewFactV1(
                 fact_id=str(fact["fact_id"]),
@@ -179,13 +199,25 @@ def build_factual_review_packet(
         claim_text = _candidate_claim_text(candidate_text, binding)
         if claim_text is None:
             continue
+        fact_id = str(binding.get("fact_id", ""))
+        fact = selected_facts_by_id.get(fact_id)
+        if fact is None:
+            raise ValueError(f"candidate claim cites a non-selected fact: {fact_id!r}")
         candidate_claims.append(
             FactualReviewClaimV1(
                 claim_id=str(binding.get("claim_id", "")),
                 operation_id=str(binding.get("operation_id", "")),
-                fact_id=str(binding.get("fact_id", "")),
+                fact_id=fact_id,
                 field=str(binding.get("field", "")),
                 claim_text=claim_text,
+                verification_state=str(fact.get("verification_state", "")),
+                evidence_location=str((fact.get("source") or {}).get("location", "")),
+                evidence_excerpt=_claim_evidence_excerpt(claim_text, fact),
+                unresolved_conflicts=[
+                    conflict
+                    for conflict in fact.get("conflicts") or []
+                    if isinstance(conflict, dict) and conflict.get("status") == "unresolved"
+                ],
                 rationale=str(binding.get("rationale", "")),
             )
         )
