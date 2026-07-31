@@ -7820,6 +7820,15 @@
         "reason": "independent review wiring failed: GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\nfindings.2\\n  Value error, only repair findings may carry repair instructions [type=value_error, input_value={'finding_id': 'at-a-glan... aligns with the plan.'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\"]",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T12:39:08.353209+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -7847,11 +7856,11 @@
     "reviewer_standard_hash": "86f3219e53778548dda40aa656bdcef07d17ad0350d2365dbc69888051da5a3d",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-31T12:28:34.461403+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-07-31T12:39:08.353209+00:00"
   },
   "schema_version": 2,
-  "state_version": 985,
+  "state_version": 986,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "383a63305c341889e9a79615124c29d2c13fb71b8fc2573eb4d13a9b59bddf03",
