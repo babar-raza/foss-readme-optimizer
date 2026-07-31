@@ -11394,10 +11394,20 @@
         "schema_version": 1,
         "to_assurance": "trusted_inherited",
         "to_status": "PROFILED"
+      },
+      {
+        "from_assurance": "trusted_inherited",
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "product_truth",
+        "occurred_at": "2026-07-31T08:33:35.503550+00:00",
+        "reason": "begin repository-evidence verification",
+        "schema_version": 1,
+        "to_assurance": "repository_verified",
+        "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "97b159a02cd7789d28207d84530c766c9c06bb6daf3f64b30aad6d0638a33025",
-    "content_assurance": "trusted_inherited",
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
@@ -11560,7 +11570,7 @@
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
       }
     ],
-    "facts_hash": "b4de436225d7cc80a8a125c32470ec5806b996b45d7b79c8514d46d8d0d1e9f6",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [
@@ -14235,6 +14245,15 @@
         "reason": "exact trusted candidate and independent approval reused with zero provider calls",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "TRUSTED_NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "product_truth",
+        "occurred_at": "2026-07-31T08:33:35.503550+00:00",
+        "reason": "content assurance changed: begin repository-evidence verification",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -14256,17 +14275,17 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "dc408fd0b05453fccc3c7d632ad7272ad9c64111ec0d44afb4c5137f62e90fe1",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "TRUSTED_NO_OP_PROVEN",
-    "updated_at": "2026-07-30T00:35:37.352458+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-07-31T08:33:35.503550+00:00"
   },
   "schema_version": 2,
-  "state_version": 839,
+  "state_version": 840,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
