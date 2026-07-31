@@ -8688,6 +8688,19 @@
         "reason": "entering repair attempt 1/2: Revise Header for markdown_integrity around exact span: [![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions: python](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)\nRevise Quick start for markdown_integrity around exact span: ```python\nfrom aspose.note import Document, RichText\n\ndoc = Document(\"testfiles/FormattedRichText.one\")\ntexts = [rt.Text for rt in doc.GetChildNodes(RichText)]\nprint(\"\\n\".join(texts))\n```\nRevise Scope and limitations for promotional_balance around exact span: [Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation and the limitations above; do not assume API or feature parity beyond verified behavior.",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f2",
+          "f3",
+          "f5"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T16:09:42.115588+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=205a7d284cf18410a32429efe64747cbff2b919be45b0bf59272151cde8021d4 after=098201de8bedf1282ffa808219a90589bd69ec528fde31b5a3f2b97391e01348; unresolved=f2,f3,f5",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -8715,11 +8728,11 @@
     "reviewer_standard_hash": "836cc9a20a3b44a1110cf6dcfce8c7e6814c7870de07eabb69fd9f552f4dc45c",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T16:08:54.589350+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T16:09:42.115588+00:00"
   },
   "schema_version": 2,
-  "state_version": 1128,
+  "state_version": 1129,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
