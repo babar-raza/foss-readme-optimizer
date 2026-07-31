@@ -35,7 +35,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v17-visible-structure"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v18-primary-example"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -506,6 +506,33 @@ def _validate_quality_finding(
         and _quick_start_fence_count(candidate_text) <= 1
     ):
         errors.append(f"{finding.finding_id}:Quick-start duplication premise contradicts candidate")
+    primary_example_standard = standards.get("readme.primary_example")
+    if primary_example_standard is not None and "quick start" in premise:
+        maximum_fences = primary_example_standard.get("maximum_fenced_blocks")
+        maximum_code_lines = primary_example_standard.get("maximum_nonblank_code_lines")
+        rejects_bounded_primary_example = any(
+            phrase in premise
+            for phrase in (
+                "simpler, more direct",
+                "simpler and more direct",
+                "too complex",
+                "overly complex",
+                "consolidate the quick start",
+                "replace the 'quick start' minimal example with a simpler",
+                'replace the "quick start" minimal example with a simpler',
+            )
+        )
+        if (
+            rejects_bounded_primary_example
+            and isinstance(maximum_fences, int)
+            and isinstance(maximum_code_lines, int)
+            and _quick_start_fence_count(candidate_text) <= maximum_fences
+            and _quick_start_max_nonblank_code_lines(candidate_text) <= maximum_code_lines
+        ):
+            errors.append(
+                f"{finding.finding_id}:Quick-start complexity premise contradicts "
+                "configured primary-example bounds"
+            )
     if "heading alias" in premise or "heading_alias" in premise:
         header = standards.get("readme.header") or {}
         aliases = {
@@ -701,6 +728,22 @@ def _quick_start_fence_count(candidate_text: str) -> int:
         token.type == "fence"
         for token in MarkdownIt("commonmark").parse(candidate_text[heading.end() : end])
     )
+
+
+def _quick_start_max_nonblank_code_lines(candidate_text: str) -> int:
+    """Return the largest visible code-block line count in the Quick start H2."""
+
+    heading = re.search(r"(?mi)^##[ \t]+Quick start[ \t]*$", candidate_text)
+    if heading is None:
+        return 0
+    next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
+    end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
+    counts = [
+        sum(bool(line.strip()) for line in token.content.splitlines())
+        for token in MarkdownIt("commonmark").parse(candidate_text[heading.end() : end])
+        if token.type == "fence"
+    ]
+    return max(counts, default=0)
 
 
 def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) -> bool:

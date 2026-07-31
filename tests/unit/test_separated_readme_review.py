@@ -282,6 +282,19 @@ More curated guidance.
                 "required_repair": "Keep one Quick start example.",
             }
         ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "quick-start-complexity",
+                "criterion": "example_presentation",
+                "section": "Quick start",
+                "claim": "The Quick start example should be simpler and more direct.",
+                "quoted_candidate_span": "## Quick start",
+                "required_repair": (
+                    "Replace the 'Quick start' minimal example with a simpler, more direct example."
+                ),
+            }
+        ),
     ]
 
     result = validate_review_findings(
@@ -292,10 +305,11 @@ More curated guidance.
     )
 
     assert not result.valid
-    assert len(result.errors) == 3
+    assert len(result.errors) == 4
     assert any("header-spacing premise" in error for error in result.errors)
     assert any("Mermaid-grammar premise" in error for error in result.errors)
     assert any("Quick-start duplication premise" in error for error in result.errors)
+    assert any("Quick-start complexity premise" in error for error in result.errors)
 
 
 def test_blind_acceptance_support_can_describe_satisfied_link_budget() -> None:

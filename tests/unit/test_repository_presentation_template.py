@@ -401,4 +401,10 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     ]
     assert standards["readme.at_a_glance_mermaid"]["minimum_capabilities"] == 3
     assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is False
+    assert standards["readme.primary_example"] == {
+        "heading": "Quick start",
+        "maximum_fenced_blocks": 1,
+        "maximum_nonblank_code_lines": 12,
+        "secondary_examples": "collapsed_below_primary",
+    }
     assert standards["readme.no_comments"]["code_comments"] == "forbidden"

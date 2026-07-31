@@ -66,6 +66,15 @@ def build_presentation_visitor_contract(
                 },
             },
             {
+                "standard_id": "readme.primary_example",
+                "parameters": {
+                    "heading": contract.headings["quick_start"],
+                    "maximum_fenced_blocks": 1,
+                    "maximum_nonblank_code_lines": 12,
+                    "secondary_examples": "collapsed_below_primary",
+                },
+            },
+            {
                 "standard_id": "readme.no_comments",
                 "parameters": {
                     "html_comments": contract.invariants.comments,

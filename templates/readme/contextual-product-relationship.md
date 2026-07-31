@@ -1,1 +1,1 @@
-This repository provides the open-source [{foss_product_name}]({foss_url}). For workflows beyond its verified scope, see [{enterprise_product_name} Enterprise Edition]({enterprise_url}).
+[{foss_product_name}]({foss_url}) and [{enterprise_product_name} Enterprise Edition]({enterprise_url}) are separate products. This README documents the FOSS implementation and the limitations above; do not assume API or feature parity beyond verified behavior.
