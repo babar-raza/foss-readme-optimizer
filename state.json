@@ -51,7 +51,7 @@
       }
     ],
     "graph_sha256": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
-    "last_evaluated_at": "2026-07-31T19:41:49.422437+00:00",
+    "last_evaluated_at": "2026-07-31T19:42:06.713500+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 8,
@@ -189,7 +189,7 @@
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-01-NOTE-VERIFIED-CANARY": "IMPLEMENTED",
+      "L8-VPY-01-NOTE-VERIFIED-CANARY": "VERIFIED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "TODO",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -5550,6 +5550,18 @@
         "reason": "Repository-verified Note candidate, structured plan, deterministic validation, and manifest exist at immutable revision.",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/independent-agent-review.json",
+          "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-07-31T19:42:06.713492+00:00",
+        "reason": "Independent factual and blind quality review accepted the repository-verified candidate.",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -5559,7 +5571,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 645,
+  "state_version": 646,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
