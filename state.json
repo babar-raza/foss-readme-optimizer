@@ -4624,7 +4624,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "4ac9f6dd0bccd6bde8fd9ae1a8e45bce10720a91637c93dac243c84e660917c9",
       "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -6580,12 +6580,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "REJECT_REPAIRABLE",
-          "failure_reason": "independent_review_repair_rerouted",
-          "message": "REJECT_REPAIRABLE",
-          "occurred_at": "2026-07-31T17:58:01.997108+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "local_poc_candidate_persistence",
+          "message": "a different result already owns this stage receipt",
+          "occurred_at": "2026-07-31T18:21:19.101177+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
@@ -17604,9 +17604,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "local_poc_candidate_persistence",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T18:14:39.501294+00:00",
+      "last_run_timestamp": "2026-07-31T18:21:19.101177+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -23147,7 +23147,7 @@
     "updated_at": "2026-07-31T18:14:33.191051+00:00"
   },
   "schema_version": 2,
-  "state_version": 1388,
+  "state_version": 1389,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d030acef6413228d06663adb86a27a107ed3838193640c840857973e72d9fa14",
