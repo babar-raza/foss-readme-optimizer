@@ -193,6 +193,15 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--bounded-verified-canary",
+        action="store_true",
+        help=(
+            "Run one allow-listed repository through the canonical local_poc profile as an "
+            "explicit partial verified canary. This never represents or satisfies full-registry "
+            "Gate A and is invalid for every other execution profile."
+        ),
+    )
+    p_supervise.add_argument(
         "--domain",
         default=None,
         help=(
@@ -228,9 +237,10 @@ def _build_parser() -> argparse.ArgumentParser:
             "Wave 9.4: the explicit, typed execution profile this run operates under -- "
             "declares required state, allowed permission classes, evidence/verification "
             "requirements, valid triggers, and rollback (supervisor/execution_profile.py). "
-            "`local_poc` is the fail-closed local proof profile and requires --registry, or "
-            "--repo plus --qualified-cohort-manifest for bounded invalidation repair; it always "
-            "enables dynamic planning and forbids --domain. "
+            "`local_poc` is the fail-closed local proof profile and requires --registry, "
+            "--repo plus --bounded-verified-canary for explicit partial verified qualification, "
+            "or --repo plus --qualified-cohort-manifest for bounded invalidation repair; it "
+            "always enables dynamic planning and forbids --domain. "
             "A `github_*` profile fails closed on any durable-state trouble and forbids "
             "--domain (see below); omitting this flag preserves today's default, local, "
             "best-effort behavior (compatibility-only -- new GitHub workflows must pass one)."

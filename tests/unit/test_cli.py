@@ -615,6 +615,58 @@ class TestExecutionProfileFlag:
         assert cmd_supervise(args) == 2
         assert "requires --registry" in capsys.readouterr().err
 
+    def test_bounded_verified_canary_uses_full_local_poc_contract(
+        self, monkeypatch, tmp_path, capsys
+    ):
+        import readme_agent.env as env
+        import readme_agent.paths as paths
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.supervisor.loop as loop_module
+
+        _stub_preflight_ok(monkeypatch)
+        backend = _LifecycleFakeBackend()
+        captured: dict[str, object] = {}
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(env, "github_run_id", lambda: None)
+        monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
+        monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+
+        def _fake_supervise_repo(repo, **kwargs):
+            captured.update(kwargs)
+            return _terminal_supervise_result()
+
+        monkeypatch.setattr(loop_module, "supervise_repo", _fake_supervise_repo)
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            bounded_verified_canary=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_poc",
+            enable_dynamic_planning=False,
+            max_readme_poc_stage="FACTS_READY",
+        )
+
+        assert cmd_supervise(args) == 0
+        assert captured["require_independent_verification"] is True
+        assert captured["verify_local_product_facts"] is True
+        assert captured["track_readme_poc_lifecycle"] is True
+        assert captured["readme_poc_stage_limit"] == "FACTS_READY"
+        assert "does not satisfy full-registry Gate A" in capsys.readouterr().out
+
+    def test_bounded_verified_canary_rejects_other_profiles(self, capsys):
+        args = argparse.Namespace(
+            repo="org/repo",
+            registry=None,
+            bounded_verified_canary=True,
+            durable_state=False,
+            domain=None,
+            execution_profile="local_inspect",
+        )
+
+        assert cmd_supervise(args) == 2
+        assert "valid only with --execution-profile local_poc" in capsys.readouterr().err
+
     def test_local_poc_member_forces_dynamic_planning_and_cli_lifecycle(
         self, monkeypatch, tmp_path
     ):

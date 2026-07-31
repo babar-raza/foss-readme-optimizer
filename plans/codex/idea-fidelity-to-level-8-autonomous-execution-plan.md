@@ -35,7 +35,11 @@ Execute these existing-graph milestones in order:
    compact/standard/extended density profiles. The template owns structure and visual grammar,
    not universal product prose.
 2. `L8-VPY-01-NOTE-VERIFIED-CANARY`: reproduce the accepted Note presentation using only
-   repository/package/example/policy evidence accepted by ProductFactsV2.
+   repository/package/example/policy evidence accepted by ProductFactsV2. Execute this
+   repository-scoped task with `supervise --repo
+   aspose-note-foss/Aspose.Note-FOSS-for-Python --execution-profile local_poc
+   --bounded-verified-canary`; it retains the complete canonical runtime but is explicitly
+   partial evidence and cannot satisfy full-registry Gate A.
 3. `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES`: prove side-by-side structural consistency and
    product-specific content for Page and PDF.
 4. `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`: load the current Python denominator, reuse valid sealed

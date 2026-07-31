@@ -80,6 +80,7 @@ def cmd_supervise(args: argparse.Namespace) -> int:
     profile_name = getattr(args, "execution_profile", None)
     domain = getattr(args, "domain", None)
     cohort_manifest = getattr(args, "qualified_cohort_manifest", None)
+    bounded_verified_canary = getattr(args, "bounded_verified_canary", False)
 
     # Wave 9.4 (execution profiles): a `github_*` profile must never let
     # `--domain` skip supervise_repo()'s own lock/evidence/verification path --
@@ -97,10 +98,11 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             profile.name == "local_poc"
             and not getattr(args, "_portfolio_member", False)
             and not cohort_manifest
+            and not bounded_verified_canary
         ):
             print(
                 "error: --execution-profile local_poc requires --registry data/products.json "
-                "or a qualified cohort manifest for bounded repair",
+                "or an explicit bounded verified canary/qualified cohort repair",
                 file=sys.stderr,
             )
             return 2
@@ -114,6 +116,18 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
     else:
         profile = None
+    if bounded_verified_canary and (profile is None or profile.name != "local_poc"):
+        print(
+            "error: --bounded-verified-canary is valid only with --execution-profile local_poc",
+            file=sys.stderr,
+        )
+        return 2
+    if bounded_verified_canary and cohort_manifest:
+        print(
+            "error: --bounded-verified-canary cannot be combined with --qualified-cohort-manifest",
+            file=sys.stderr,
+        )
+        return 2
     if profile is not None and profile.name == "act_poc":
         if env.gh_token() is None:
             print(
@@ -160,6 +174,12 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
+    if bounded_verified_canary:
+        print(
+            f"{args.repo}: BOUNDED_VERIFIED_CANARY -- partial repository proof only; "
+            "does not satisfy full-registry Gate A",
+            flush=True,
+        )
     readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     poc_profile_names = {"local_poc", "act_poc"}
     if readme_poc_stage_limit is not None and (

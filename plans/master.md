@@ -2381,6 +2381,14 @@ that is the only permanence they carry; text is always the decision as it stands
     deterministic validation, independent review, unchanged no-op, safety, and evidence remain
     mandatory. After the Python POC, the controller resumes the complete discovery and verified
     Gate-A/B/C and maturity path; it does not reactivate trusted delivery automatically.
+
+    A graph-selected verified canary may use
+    `supervise --repo <allow-listed-repository> --execution-profile local_poc
+    --bounded-verified-canary` through the same fail-closed runtime. This is repository-scoped
+    partial proof only: it cannot populate a portfolio denominator or satisfy Gate A. The explicit
+    selector prevents a Note/Page/PDF canary task from repeatedly recomputing unrelated earlier
+    portfolio members while preserving factual verification, dynamic planning, durable state,
+    validation, independent review, evidence, and zero remote writes.
     (2026-07-31, user directive.)
 
 ## Architecture

@@ -285,6 +285,13 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   `--execution-profile local_poc` is active; `--enable-dynamic-planning` remains an explicit
   compatibility opt-in for other profiles. Do not mistake the compatibility flag's default for
   the canonical local profile's behavior.
+- **A bounded verified canary is explicit partial proof, never Gate A.** A graph-selected
+  repository can run through the same fail-closed `local_poc` runtime with
+  `--repo <allow-listed-repository> --bounded-verified-canary` so a canary task does not spend its
+  budget recomputing earlier portfolio members. It retains durable state, dynamic planning,
+  factual verification, validators, independent review, evidence, and no-write controls. Its
+  terminal result applies only to that repository; only the dynamic `--registry data/products.json`
+  campaign can satisfy full-registry Gate A.
 - **Local proof is stage-bounded.** During product-truth qualification, use
   `supervise --registry data/products.json --execution-profile local_poc
   --max-readme-poc-stage FACTS_READY`. A successful bounded run reports `STAGE_COMPLETE` and a
