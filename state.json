@@ -8522,6 +8522,18 @@
         "reason": "entering repair attempt 1/2: Revise Quick start for example_presentation around exact span: ```python\nfrom aspose.note import Document, RichText\n\ndoc = Document(\"testfiles/FormattedRichText.one\")\ntexts = [rt.Text for rt in doc.GetChildNodes(RichText)]\nprint(\"\\n\".join(texts))\n```\nRevise Scope and limitations for promotional_balance around exact span: This repository provides the open-source [Aspose.Note FOSS for Python](https://products.aspose.org/note/python/). For workflows beyond its verified scope, see [Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/).",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f3",
+          "f4"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T15:55:51.117259+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=916a17d01fc335fc37839c5328a5a840f7b7ab700f58e6c53ff39266cf3dc225 after=8ec677a9a197d5e6cb0ff41db7342b50ec32532d02fd34ef891a9eeefc736eec; unresolved=f3,f4",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -8549,11 +8561,11 @@
     "reviewer_standard_hash": "836cc9a20a3b44a1110cf6dcfce8c7e6814c7870de07eabb69fd9f552f4dc45c",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-07-31T15:55:04.162354+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-07-31T15:55:51.117259+00:00"
   },
   "schema_version": 2,
-  "state_version": 1099,
+  "state_version": 1100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ba66683e4efbf444575927c4bb65f89cdeae51cb23c0ca4ad302f94a19458379",
