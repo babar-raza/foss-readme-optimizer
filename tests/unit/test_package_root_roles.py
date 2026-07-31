@@ -240,6 +240,7 @@ def test_custom_distribution_license_does_not_contradict_mit_project_license(tmp
         ],
     )
     entry = _entry("note", "python")
+    entry.repo_name = "Aspose.Note-FOSS-for-Python"
     inventory = classify_package_root_roles(entry, profile, tmp_path, SOURCE_REVISION)
 
     candidates = ingest_repository_product_facts(
@@ -252,9 +253,11 @@ def test_custom_distribution_license_does_not_contradict_mit_project_license(tmp
     )
 
     project_licenses = [fact for fact in candidates if fact.field == "product.license"]
+    identity = next(fact for fact in candidates if fact.field == "product.identity")
     distribution = next(
         fact for fact in candidates if fact.field == "distribution.license_expression"
     )
+    assert identity.value["product_name"] == "Aspose.Note"
     assert [fact.value for fact in project_licenses] == ["MIT"]
     assert distribution.value == "LicenseRef-Aspose-Split"
     assert distribution.affected_surfaces == ["readme.license", "readme.third_party_notices"]

@@ -1,5 +1,6 @@
 """Derive visitor-facing manifest facts from the selected product root."""
 
+import re
 from pathlib import Path
 
 from readme_agent.ecosystems.registry import parse_manifest
@@ -26,6 +27,17 @@ _RUNTIME_REQUIREMENT_FIELDS: dict[str, tuple[str, str]] = {
     "rust": ("rust_version", "Rust"),
     "typescript": ("engines_node", "Node.js"),
 }
+_FOSS_REPOSITORY_NAME = re.compile(r"^(.+?)-FOSS-for-.+$", flags=re.IGNORECASE)
+
+
+def _registry_product_name(entry: ProductEntry) -> str | None:
+    """Return the repository-bound product family display name when encoded."""
+
+    match = _FOSS_REPOSITORY_NAME.fullmatch(entry.repo_name.strip())
+    if match is None:
+        return None
+    product_name = match.group(1).strip()
+    return product_name or None
 
 
 def _fact(
@@ -197,6 +209,7 @@ def manifest_fact_candidates(
                 "ecosystem": entry.ecosystem,
                 "repository": profile.org_repo,
                 "manifest_names": names,
+                "product_name": _registry_product_name(entry),
             },
             source=manifest_source,
             state="verified",
