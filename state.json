@@ -1315,7 +1315,7 @@
   "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "7f38e4d9d0a2af021b0410d314ef19be17892c024493431bc4640749fad3f722",
+    "assessment_hash": null,
     "assurance_history": [
       {
         "from_assurance": "repository_verified",
@@ -1338,7 +1338,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "2cf82fca3d037720d9f8196e89aafadfad47edde62978cb4ae82f5bec0a76c89",
+    "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -1418,7 +1418,7 @@
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
       }
     ],
-    "facts_hash": "d7dad8fcf591fb5663ea6cac43d31d0bcb5b9fc314040c288bbad6aaf077de16",
+    "facts_hash": "05dbc015e93fc4c949964a9dfddd3eda1b5ddf0cbaf39b7a196bd72d589fd5f5",
     "history": [
       {
         "evidence_refs": [],
@@ -2539,6 +2539,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-07-31T22:58:19.029597+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "FACTS_READY"
       }
     ],
     "intake_preflight_history": [
@@ -2559,19 +2572,19 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "ee4a223e60d94abb1f5a1e7e2d779e3d78a062e515f91f3c3f4d8381a09ebea0",
+    "presentation_plan_hash": null,
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 2,
+    "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
-    "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
+    "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-07-31T22:58:13.465371+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-07-31T22:58:19.029597+00:00"
   },
   "schema_version": 2,
-  "state_version": 281,
+  "state_version": 282,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
