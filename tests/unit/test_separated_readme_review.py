@@ -355,6 +355,95 @@ def test_blind_acceptance_support_can_describe_satisfied_link_budget() -> None:
     assert result.errors == []
 
 
+def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
+    badges = (
+        "[![PyPI](https://img.shields.io/pypi/v/example.svg)](https://pypi.org/) "
+        "[![Python](https://img.shields.io/pypi/pyversions/example.svg)](https://pypi.org/) "
+        "[![MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) "
+        "[![Contributors](https://img.shields.io/github/contributors/example/repo.svg)]"
+        "(https://github.com/example/repo/graphs/contributors)"
+    )
+    candidate = (
+        f"# Example FOSS for Python\n\n{badges}\n\n"
+        "Example FOSS for Python reads example files.\n\n"
+        "## Quick start\n\n"
+        "```python\nfrom example import Document\n\nprint(Document('input.example'))\n```\n\n"
+        "## Scope and limitations\n\n"
+        "[Example FOSS for Python](https://products.aspose.org/example/python/) and "
+        "[Example for Python Enterprise Edition](https://products.aspose.com/example/python/) "
+        "are separate products. This README documents the FOSS implementation.\n"
+    )
+    base = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "badge-count",
+                "criterion": "markdown_integrity",
+                "section": "Header",
+                "claim": (
+                    "The contributors badge exceeds the allowed badge_rows=1 and violates "
+                    "the configured badge standard."
+                ),
+                "quoted_candidate_span": badges,
+                "required_repair": "Remove the contributors badge.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "fence-count",
+                "criterion": "markdown_integrity",
+                "section": "Quick start",
+                "claim": (
+                    "The Quick start contains two separate fenced code blocks, exceeding the "
+                    "maximum_fenced_blocks=1."
+                ),
+                "quoted_candidate_span": "```python",
+                "required_repair": "Consolidate the Quick start examples into one fence.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **base,
+                "finding_id": "enterprise-placement",
+                "criterion": "promotional_balance",
+                "section": "Scope and limitations",
+                "claim": (
+                    "The Enterprise Edition relationship should appear naturally below the "
+                    "opening value proposition."
+                ),
+                "quoted_candidate_span": (
+                    "[Example for Python Enterprise Edition]"
+                    "(https://products.aspose.com/example/python/)"
+                ),
+                "required_repair": "Move it after the opening value proposition.",
+            }
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("badge-row premise" in error for error in result.errors)
+    assert any("Quick-start duplication premise" in error for error in result.errors)
+    assert any("placement contradicts configured section" in error for error in result.errors)
+
+
 def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:
     enterprise_url = "https://products.aspose.com/note/"
     paragraph = (

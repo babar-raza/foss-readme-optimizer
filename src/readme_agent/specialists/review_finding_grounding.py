@@ -35,7 +35,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v18-primary-example"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v19-visible-counts"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -350,6 +350,32 @@ def _validate_quality_finding(
     if "readme.badges" in standards and "badge" in premise:
         badge_standard = standards.get("readme.badges") or {}
         required_core_row = str(badge_standard.get("required_core_row", ""))
+        configured_badge_rows = badge_standard.get("badge_rows")
+        claims_badge_row_overflow = (
+            "exceeding the allowed badge_rows" in premise
+            or "exceeding the allowed badge rows" in premise
+            or "exceeds the allowed badge_rows" in premise
+            or "exceeds the allowed badge rows" in premise
+            or "violating the configured badge standard" in premise
+        )
+        if (
+            claims_badge_row_overflow
+            and isinstance(configured_badge_rows, int)
+            and _visible_header_badge_row_count(candidate_text) <= configured_badge_rows
+        ):
+            errors.append(f"{finding.finding_id}:badge-row premise contradicts visible candidate")
+        allowed_badge_kinds = {
+            str(kind).casefold() for kind in badge_standard.get("allowed_badge_kinds", [])
+        }
+        rejects_allowed_contributors_badge = (
+            "contributors badge" in premise
+            and "contributors" in allowed_badge_kinds
+            and _visible_header_badge_row_count(candidate_text) <= int(configured_badge_rows or 1)
+        )
+        if rejects_allowed_contributors_badge:
+            errors.append(
+                f"{finding.finding_id}:contributors-badge premise contradicts configured kinds"
+            )
         claims_duplicate_badge_row = (
             "badge row appears twice" in premise
             or "duplicated badge row" in premise
@@ -502,7 +528,12 @@ def _validate_quality_finding(
             )
     if (
         "quick start" in premise
-        and ("two separate example" in premise or "duplicated example" in premise)
+        and (
+            "two separate example" in premise
+            or "duplicated example" in premise
+            or "two separate fenced" in premise
+            or "exceeding the maximum_fenced_blocks" in premise
+        )
         and _quick_start_fence_count(candidate_text) <= 1
     ):
         errors.append(f"{finding.finding_id}:Quick-start duplication premise contradicts candidate")
@@ -553,11 +584,28 @@ def _validate_quality_finding(
         required_term = str(enterprise_standard.get("required_term", "Enterprise Edition"))
         opening_only = any(
             phrase in premise
-            for phrase in ("first paragraph", "opening paragraph", "after the badge")
+            for phrase in (
+                "first paragraph",
+                "opening paragraph",
+                "after the badge",
+                "below the opening",
+                "after the opening",
+                "opening value proposition",
+            )
         )
         if opening_only and required_term.casefold() in candidate_text.casefold():
             errors.append(
                 f"{finding.finding_id}:Enterprise Edition opening-placement premise is unconfigured"
+            )
+        required_section = str(enterprise_standard.get("required_section", ""))
+        if (
+            opening_only
+            and required_section
+            and required_term.casefold() in candidate_text.casefold()
+            and _section_contains(candidate_text, required_section, required_term)
+        ):
+            errors.append(
+                f"{finding.finding_id}:Enterprise Edition placement contradicts configured section"
             )
     link_standard = standards.get("readme.contextual_links")
     if link_standard is not None:
@@ -744,6 +792,38 @@ def _quick_start_max_nonblank_code_lines(candidate_text: str) -> int:
         if token.type == "fence"
     ]
     return max(counts, default=0)
+
+
+def _visible_header_badge_row_count(candidate_text: str) -> int:
+    """Count visible badge-bearing lines before the opening prose begins."""
+
+    lines = candidate_text.replace("\r\n", "\n").splitlines()
+    if not lines or not lines[0].startswith("# "):
+        return 0
+    count = 0
+    for line in lines[1:]:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith(("[![", "![")):
+            count += 1
+            continue
+        break
+    return count
+
+
+def _section_contains(candidate_text: str, section_title: str, text: str) -> bool:
+    """Return whether one literal occurs within the named H2 section."""
+
+    heading = re.search(
+        rf"(?mi)^##[ \t]+{re.escape(section_title)}[ \t]*$",
+        candidate_text,
+    )
+    if heading is None:
+        return False
+    next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
+    end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
+    return text.casefold() in candidate_text[heading.end() : end].casefold()
 
 
 def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) -> bool:

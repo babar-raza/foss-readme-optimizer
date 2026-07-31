@@ -44,6 +44,12 @@ def build_presentation_visitor_contract(
                     "badge_rows": contract.invariants.badge_rows,
                     "minimum_badges": contract.invariants.minimum_badges,
                     "allow_inherited_badges_after_core": False,
+                    "allowed_badge_kinds": [
+                        "package",
+                        "platform",
+                        "license",
+                        "contributors",
+                    ],
                 },
             },
             {
@@ -83,7 +89,11 @@ def build_presentation_visitor_contract(
             },
             {
                 "standard_id": "readme.enterprise_edition_terminology",
-                "parameters": {"required_term": contract.invariants.commercial_term},
+                "parameters": {
+                    "required_term": contract.invariants.commercial_term,
+                    "required_section": contract.headings["scope_and_limitations"],
+                    "placement": "below_the_fold_scope_context",
+                },
             },
         ],
     }
