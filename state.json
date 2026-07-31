@@ -9193,6 +9193,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-07-31T16:53:44.976566+00:00",
+        "reason": "independent review wiring failed: GroundedRoleFailure: factual_plan reviewer repeatedly returned ungrounded findings: ['readme.installation:quoted candidate span is absent', 'readme.example:quoted candidate span is absent']",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -9220,11 +9229,11 @@
     "reviewer_standard_hash": "c92165225b8a96f7d12f97b7f4bbeb76960c198a0300a45bab5154feb2f93b57",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-31T16:52:02.361114+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-07-31T16:53:44.976566+00:00"
   },
   "schema_version": 2,
-  "state_version": 1216,
+  "state_version": 1217,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ca8748c074870413cba96608ffeb9459b3360729c4aafdc842a5c7cc382601b7",
