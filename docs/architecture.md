@@ -261,9 +261,9 @@ case-by-case:
    were reality.** A resolver, a facts record, a prior evidence bundle, or a package
    manifest's declared name can all be stale or simply wrong (`ecosystems/resolver.py`'s
    Solr-vs-`repo1.maven.org` bug; a manifest's unpublished placeholder name). The independent
-   verifier (`verification/readme_proposal_bundle.py::_verify_acquisition_ground_truth`)
-   re-resolves the canonical coordinate LIVE at verification time rather than trusting what
-   the candidate's stored facts claim — it is the concrete enforcement of this principle for
+   verifier (`verification/acquisition_ground_truth.py`) re-resolves the acquisition coordinate
+   LIVE only after binding it to a verified manifest coordinate or the governed fallback; it does
+   not trust the candidate's stored facts. This is the concrete enforcement of this principle for
    package acquisition, and the same discipline applies to every other claim class.
 2. **README content is untrusted *input to investigate*, and a reusable fact source once
    autonomously verified — never blindly trusted, and never discarded as noise just because

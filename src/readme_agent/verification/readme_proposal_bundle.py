@@ -21,8 +21,6 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict
 
-from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
-from readme_agent.ecosystems.resolver import resolve
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.links.runtime_context import load_runtime_link_inputs
@@ -33,7 +31,9 @@ from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
-from readme_agent.registry.loader import require_listed
+from readme_agent.verification.acquisition_ground_truth import (
+    verify_acquisition_ground_truth as _verify_acquisition_ground_truth,
+)
 
 VERIFIER_IDENTITY = "independent-readme-proposal-bundle-verifier"
 
@@ -107,47 +107,6 @@ def _apply_patch_natively(original: str, patch_text: str, path: str) -> str | No
         if run_git(["apply", "-"], cwd=repo, input_text=patch_text).returncode != 0:
             return None
         return target.read_text(encoding="utf-8")
-
-
-def _verify_acquisition_ground_truth(org_repo: str, facts: ProductFactsV2) -> tuple[bool, str]:
-    """Re-check the bundle's package-acquisition claim against the AUTHORITATIVE registry
-    LIVE, right now -- never trust the stored fact value alone. A stale bundle's recorded
-    acquisition could have been captured before the resolver bug fix (this session's own
-    finding), or could simply drift out of date. Rejects a candidate that strips a package
-    that IS published (method=source_build despite a live registry hit), and a candidate that
-    asserts a registry install for a package that is NOT published. Returns ``(True, ...)``
-    when live reality and the recorded outcome agree, or when the check cannot run at all
-    (unsupported ecosystem, blocked network) -- inconclusive is not a failure."""
-    try:
-        entry = require_listed(org_repo)
-    except Exception as exc:  # noqa: BLE001 -- any lookup failure is a verification failure
-        return False, f"could not resolve registry entry for {org_repo}: {exc}"
-    if entry.ecosystem is None:
-        return True, "no ecosystem configured -- acquisition ground truth not applicable"
-    resolver_ecosystem, coordinate = canonical_foss_coordinate(
-        entry.family, entry.ecosystem, entry.org, entry.repo_name
-    )
-    if resolver_ecosystem is None:
-        return True, f"no canonical FOSS coordinate for ecosystem {entry.ecosystem!r}"
-    result = resolve(resolver_ecosystem, coordinate)
-    if result.blocked:
-        return True, f"acquisition ground-truth check network-blocked: {result.detail}"
-
-    acquisition = facts.selected_fact("installation.verified_acquisition")
-    recorded_method = (
-        acquisition.value.get("method") if isinstance(acquisition.value, dict) else None
-    )
-    if result.found and recorded_method == "source_build":
-        return False, (
-            f"{coordinate} IS published ({result.detail}) but the bundle's facts record "
-            "method=source_build -- a published install was wrongly stripped"
-        )
-    if not result.found and recorded_method != "source_build":
-        return False, (
-            f"{coordinate} is NOT published ({result.detail}) but the bundle's facts record "
-            f"method={recorded_method!r} -- an unpublished package cannot be verified"
-        )
-    return True, ""
 
 
 def family_token(org_repo: str) -> str | None:

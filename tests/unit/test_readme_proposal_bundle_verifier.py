@@ -30,6 +30,7 @@ from readme_agent.presentation.document_planner import (
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.registry.loader import load_policy, require_listed
+from readme_agent.verification import acquisition_ground_truth
 from readme_agent.verification import readme_proposal_bundle as bundle_verifier
 from readme_agent.verification.readme_proposal_bundle import (
     verify_cross_pilot_specificity,
@@ -287,20 +288,39 @@ class TestCrossPilotSpecificity:
 
 
 class _FakeFact:
-    def __init__(self, value):
+    def __init__(self, value, verification_state="verified"):
         self.value = value
+        self.verification_state = verification_state
 
 
 class _FakeFacts:
     """Duck-typed stand-in for ProductFactsV2 -- `_verify_acquisition_ground_truth`
     only ever calls `.selected_fact("installation.verified_acquisition")`."""
 
-    def __init__(self, method):
+    def __init__(
+        self,
+        method,
+        *,
+        coordinate=None,
+        manifest_coordinate=None,
+        ecosystem="java",
+    ):
         self._method = method
+        self._coordinate = coordinate or {
+            "group_id": "org.aspose",
+            "artifact_id": "aspose-cells-foss",
+        }
+        self._manifest_coordinate = manifest_coordinate
+        self._ecosystem = ecosystem
 
     def selected_fact(self, field):
-        assert field == "installation.verified_acquisition"
-        return _FakeFact({"method": self._method})
+        if field == "installation.verified_acquisition":
+            return _FakeFact({"method": self._method, "coordinate": self._coordinate})
+        assert field == "installation.coordinates"
+        coordinates = []
+        if self._manifest_coordinate is not None:
+            coordinates.append({"ecosystem": self._ecosystem, **self._manifest_coordinate})
+        return _FakeFact(coordinates)
 
 
 def _fake_entry(family="cells", ecosystem="java"):
@@ -320,9 +340,13 @@ class TestAcquisitionGroundTruth:
     for a package that IS actually published, or the reverse."""
 
     def test_registry_verified_and_recorded_registry_method_accepts(self, monkeypatch):
-        monkeypatch.setattr(bundle_verifier, "require_listed", lambda org_repo: _fake_entry())
         monkeypatch.setattr(
-            bundle_verifier, "resolve", lambda eco, coord: ResolutionResult(True, "found")
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(True, "found"),
         )
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("maven_central")
@@ -330,9 +354,13 @@ class TestAcquisitionGroundTruth:
         assert ok, detail
 
     def test_not_published_and_recorded_source_build_accepts(self, monkeypatch):
-        monkeypatch.setattr(bundle_verifier, "require_listed", lambda org_repo: _fake_entry())
         monkeypatch.setattr(
-            bundle_verifier, "resolve", lambda eco, coord: ResolutionResult(False, "not found")
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(False, "not found"),
         )
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("source_build")
@@ -342,9 +370,13 @@ class TestAcquisitionGroundTruth:
     def test_published_but_recorded_source_build_rejects(self, monkeypatch):
         """The exact bug this session found: a package IS published, but the
         bundle's facts still say source_build -- the install was wrongly stripped."""
-        monkeypatch.setattr(bundle_verifier, "require_listed", lambda org_repo: _fake_entry())
         monkeypatch.setattr(
-            bundle_verifier, "resolve", lambda eco, coord: ResolutionResult(True, "found")
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(True, "found"),
         )
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("source_build")
@@ -355,9 +387,13 @@ class TestAcquisitionGroundTruth:
     def test_not_published_but_recorded_registry_method_rejects(self, monkeypatch):
         """The opposite error: a package is NOT published, but the bundle's facts
         assert a registry install anyway -- a fabricated claim."""
-        monkeypatch.setattr(bundle_verifier, "require_listed", lambda org_repo: _fake_entry())
         monkeypatch.setattr(
-            bundle_verifier, "resolve", lambda eco, coord: ResolutionResult(False, "not found")
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: ResolutionResult(False, "not found"),
         )
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", _FakeFacts("maven_central")
@@ -366,9 +402,11 @@ class TestAcquisitionGroundTruth:
         assert "cannot be verified" in detail
 
     def test_blocked_network_is_inconclusive_not_a_failure(self, monkeypatch):
-        monkeypatch.setattr(bundle_verifier, "require_listed", lambda org_repo: _fake_entry())
         monkeypatch.setattr(
-            bundle_verifier,
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
             "resolve",
             lambda eco, coord: ResolutionResult(False, "network error", blocked=True),
         )
@@ -382,7 +420,7 @@ class TestAcquisitionGroundTruth:
         def raise_not_listed(org_repo):
             raise ValueError("not listed")
 
-        monkeypatch.setattr(bundle_verifier, "require_listed", raise_not_listed)
+        monkeypatch.setattr(acquisition_ground_truth, "require_listed", raise_not_listed)
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "not/listed", _FakeFacts("source_build")
         )
@@ -390,12 +428,62 @@ class TestAcquisitionGroundTruth:
 
     def test_no_ecosystem_configured_is_not_applicable(self, monkeypatch):
         monkeypatch.setattr(
-            bundle_verifier, "require_listed", lambda org_repo: _fake_entry(ecosystem=None)
+            acquisition_ground_truth,
+            "require_listed",
+            lambda org_repo: _fake_entry(ecosystem=None),
         )
         ok, detail = bundle_verifier._verify_acquisition_ground_truth(
             "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp", _FakeFacts("source_build")
         )
         assert ok
+
+    def test_manifest_coordinate_is_rechecked_instead_of_unpublished_fallback(self, monkeypatch):
+        manifest_coordinate = {"name": "aspose-note"}
+        observed_coordinates = []
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "require_listed",
+            lambda org_repo: _fake_entry(family="note", ecosystem="python"),
+        )
+
+        def resolve_recorded(ecosystem, coordinate):
+            observed_coordinates.append((ecosystem, coordinate))
+            return ResolutionResult(True, "PyPI: aspose-note found")
+
+        monkeypatch.setattr(acquisition_ground_truth, "resolve", resolve_recorded)
+        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+            "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+            _FakeFacts(
+                "pypi",
+                coordinate=manifest_coordinate,
+                manifest_coordinate=manifest_coordinate,
+                ecosystem="python",
+            ),
+        )
+
+        assert ok, detail
+        assert observed_coordinates == [("python", manifest_coordinate)]
+
+    def test_unbound_recorded_coordinate_is_rejected_without_registry_call(self, monkeypatch):
+        monkeypatch.setattr(
+            acquisition_ground_truth, "require_listed", lambda org_repo: _fake_entry()
+        )
+        monkeypatch.setattr(
+            acquisition_ground_truth,
+            "resolve",
+            lambda eco, coord: pytest.fail("unbound coordinate must not be resolved"),
+        )
+
+        ok, detail = bundle_verifier._verify_acquisition_ground_truth(
+            "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+            _FakeFacts(
+                "maven_central",
+                coordinate={"group_id": "attacker", "artifact_id": "unrelated"},
+            ),
+        )
+
+        assert not ok
+        assert "not bound" in detail
 
 
 class TestCapabilityRegistration:
