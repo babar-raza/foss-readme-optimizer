@@ -532,7 +532,7 @@
     "updated_at": "2026-07-31T08:46:58.654688+00:00"
   },
   "schema_version": 2,
-  "state_version": 45,
+  "state_version": 46,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260729-063434-cfef:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
@@ -615,13 +615,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "4df37a6ccb28794306a5360f94e70183397f769cc17c32f3becc6ccb61cdbcbc",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-07-31T08:47:15.528329+00:00"
+      "updated_at": "2026-07-31T10:02:49.541234+00:00"
     }
   },
   "trigger_records": {},
