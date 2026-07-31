@@ -17534,7 +17534,7 @@
       "accepted_facts_hash": "df02beaf61a2ee727c93553aacc6c29ca9261792ad5e036ff7e8128518485ccc",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 1,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "note FOSS for python logo",
         "concerns": [],
@@ -17550,8 +17550,6 @@
         },
         "size_bytes": 2180,
         "size_within_reasonable_bounds": true,
-        "skip_reason": "llm_selected",
-        "skipped_at_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
@@ -17564,9 +17562,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-31T17:58:19.534108+00:00",
+      "last_run_timestamp": "2026-07-31T18:15:07.417585+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     }
   },
@@ -23052,7 +23050,7 @@
     "updated_at": "2026-07-31T18:14:33.191051+00:00"
   },
   "schema_version": 2,
-  "state_version": 1368,
+  "state_version": 1369,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fbc125c0cbf92919171a0484f470a75bbe99212c034cb0c15f9a7503bc83d143",
