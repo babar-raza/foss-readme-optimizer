@@ -10,6 +10,7 @@ from pydantic import ValidationError
 from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.verification_prompts import build_role_grounding_retry_message
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
@@ -62,14 +63,18 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
     findings = normalized.get("findings")
     if isinstance(findings, list):
         normalized_items: list[object] = []
+        finding_id_occurrences: dict[str, int] = {}
         for item in findings:
             if not isinstance(item, dict):
                 normalized_items.append(item)
                 continue
             normalized_item = dict(item)
             if isinstance(normalized_item.get("finding_id"), str):
-                normalized_item["finding_id"] = _normalized_finding_id(
-                    normalized_item["finding_id"]
+                base_finding_id = _normalized_finding_id(normalized_item["finding_id"])
+                occurrence = finding_id_occurrences.get(base_finding_id, 0) + 1
+                finding_id_occurrences[base_finding_id] = occurrence
+                normalized_item["finding_id"] = (
+                    base_finding_id if occurrence == 1 else f"{base_finding_id}.{occurrence}"
                 )
             if normalized_item.get("disposition") != "requires_repair":
                 normalized_item["required_repair"] = ""
@@ -219,11 +224,11 @@ def _reconcile_candidate_spans(
     return FactualPlanReviewResultV1.model_validate(payload), tuple(reconciled_ids)
 
 
-def _reconcile_supported_factual_polarity(
+def _reconcile_supported_factual_evidence(
     parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
     product_facts: dict | None,
 ) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
-    """Derive redundant evidence polarity for accepted, conflict-free fact citations."""
+    """Bind redundant evidence fields for accepted, conflict-free fact citations."""
 
     if not isinstance(parsed, FactualPlanReviewResultV1) or product_facts is None:
         return parsed, ()
@@ -247,56 +252,39 @@ def _reconcile_supported_factual_polarity(
                 for conflict in fact.get("conflicts", [])
                 if isinstance(conflict, dict)
             )
-            or finding.evidence_location != str((fact.get("source") or {}).get("location", ""))
-            or not finding.evidence_excerpt
         ):
             updates.append(finding)
             continue
-        evidence_values = {
-            str(fact.get("value", "")),
-            str((fact.get("source") or {}).get("location", "")),
-        }
         assessments = fact.get("evidence_assessments") or []
-        for assessment in assessments:
-            if not isinstance(assessment, dict):
-                continue
-            evidence_values.update(
-                {
-                    str(assessment.get("anchor", "")),
-                    str(assessment.get("exact_excerpt", "")),
-                    str(assessment.get("context_excerpt", "")),
-                }
-            )
-        if not any(
-            finding.evidence_excerpt in value or value in finding.evidence_excerpt
-            for value in evidence_values
-            if value
-        ):
-            updates.append(finding)
-            continue
-        matching = [
+        accepted_assessments = [
             assessment
             for assessment in assessments
-            if isinstance(assessment, dict)
-            and finding.evidence_excerpt
-            in {
-                str(assessment.get("anchor", "")),
-                str(assessment.get("exact_excerpt", "")),
-                str(assessment.get("context_excerpt", "")),
-            }
+            if isinstance(assessment, dict) and assessment.get("accepted")
         ]
-        if matching:
-            assessment = matching[0]
-            if not assessment.get("accepted"):
-                updates.append(finding)
-                continue
+        if accepted_assessments:
+            assessment = accepted_assessments[0]
+            evidence_excerpt = next(
+                (
+                    str(assessment.get(field, "")).strip()
+                    for field in ("exact_excerpt", "anchor", "context_excerpt")
+                    if str(assessment.get(field, "")).strip()
+                ),
+                "",
+            )
             expected = assessment.get("expected_polarity")
             observed = assessment.get("observed_polarity")
         else:
+            evidence_excerpt = next(iter(fact_strings(fact.get("value"))), "")
             expected = "positive_implementation"
             observed = "positive_implementation"
+        if not evidence_excerpt:
+            updates.append(finding)
+            continue
+        evidence_location = str((fact.get("source") or {}).get("location", ""))
         if (
-            finding.expected_polarity == expected
+            finding.evidence_excerpt == evidence_excerpt
+            and finding.evidence_location == evidence_location
+            and finding.expected_polarity == expected
             and finding.observed_polarity == observed
             and finding.polarity_result == "supports"
         ):
@@ -305,6 +293,8 @@ def _reconcile_supported_factual_polarity(
         updates.append(
             finding.model_copy(
                 update={
+                    "evidence_excerpt": evidence_excerpt,
+                    "evidence_location": evidence_location,
                     "expected_polarity": expected,
                     "observed_polarity": observed,
                     "polarity_result": "supports",
@@ -394,7 +384,7 @@ def run_grounded_role(
                 parsed,
                 candidate_text,
             )
-            parsed, reconciled_factual_polarity_ids = _reconcile_supported_factual_polarity(
+            parsed, reconciled_factual_polarity_ids = _reconcile_supported_factual_evidence(
                 parsed,
                 product_facts,
             )

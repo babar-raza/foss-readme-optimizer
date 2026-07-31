@@ -1313,6 +1313,10 @@ def test_factual_finding_uses_stable_candidate_anchor_instead_of_freehand_quote(
     parsed = _factual_accept("The product identity is supported.")
     parsed["findings"][0]["quoted_candidate_span"] = "Example product heading"
     parsed["findings"][0]["candidate_anchor_id"] = anchor.anchor_id
+    parsed["findings"][0]["evidence_excerpt"] = "Approximate evidence"
+    parsed["findings"][0]["evidence_location"] = "invented://location"
+    parsed["findings"][0]["expected_polarity"] = "explicit_constraint"
+    parsed["findings"][0]["observed_polarity"] = "ambiguous_occurrence"
     client = SequenceClient([parsed])
 
     result, history, grounding = run_grounded_role(
@@ -1326,6 +1330,33 @@ def test_factual_finding_uses_stable_candidate_anchor_instead_of_freehand_quote(
 
     assert result.findings[0].candidate_anchor_id == anchor.anchor_id
     assert result.findings[0].quoted_candidate_span == "# Example"
+    assert result.findings[0].evidence_excerpt == "Example"
+    assert result.findings[0].evidence_location == "README.md"
+    assert result.findings[0].expected_polarity == "positive_implementation"
+    assert result.findings[0].observed_polarity == "positive_implementation"
+    assert grounding.valid is True
+    assert history[0]["valid"] is True
+    assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
+
+
+def test_duplicate_model_finding_ids_are_made_unique_before_grounding() -> None:
+    parsed = _factual_accept("Two premises cite the same accepted fact.")
+    parsed["findings"].append(dict(parsed["findings"][0]))
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+    )
+
+    assert [finding.finding_id for finding in result.findings] == [
+        "factual.identity-supported",
+        "factual.identity-supported.2",
+    ]
     assert grounding.valid is True
     assert history[0]["valid"] is True
 
