@@ -9884,6 +9884,17 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-07-31T17:56:50.380802+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:example_presentation-1@Quick start:example_presentation; factual_plan:ACCEPT",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "intake_preflight_history": [
@@ -9911,11 +9922,11 @@
     "reviewer_standard_hash": "56f780cf6837bcf587ff46246b6f7b679e85097608404422e8aaa5a657d194f2",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-07-31T17:55:03.514869+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-07-31T17:56:50.380802+00:00"
   },
   "schema_version": 2,
-  "state_version": 1336,
+  "state_version": 1337,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9d6eb54258ab90d50f1d20d7598d12f2317f29f833ff6dbfb27dbad908bd9aab",
