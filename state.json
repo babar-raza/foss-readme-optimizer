@@ -19,7 +19,7 @@
     "claimed_at": "2026-08-01T16:21:50.247284+00:00",
     "claimed_by": "Codex",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
+    "goal_activation_graph_sha256": "d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -68,28 +68,48 @@
         "to_primary_goal_id": "GOAL-V1-VERIFIED-TRUTH"
       }
     ],
-    "graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
-    "last_evaluated_at": "2026-08-01T16:21:50.247284+00:00",
+    "graph_sha256": "d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7",
+    "last_evaluated_at": "2026-08-01T20:27:19.518722+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 10,
-      "candidate_generated": 17,
-      "denominator": 33,
-      "derived_at": "2026-08-01T16:00:11.591576+00:00",
-      "deterministic_validated": 17,
+      "agent_approved": 0,
+      "candidate_generated": 9,
+      "denominator": 31,
+      "derived_at": "2026-08-01T18:47:24.248406+00:00",
+      "deterministic_validated": 9,
       "facts_ready": 17,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 2,
         "DETERMINISTIC_VALIDATED": 7,
-        "INTAKE_READY": 14,
-        "NO_OP_PROVEN": 10
+        "FACTS_READY": 8,
+        "INTAKE_READY": 12,
+        "NO_OP_PROVEN": 2
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 10,
+      "no_op_proven": 0,
+      "raw_agent_approved": 2,
+      "raw_human_accepted": 0,
+      "raw_no_op_proven": 2,
       "registry_path": "data/products.json",
-      "registry_sha256": "c850a215411e240cb54ba29439f0f8b6d24d2cdf027dd576799c0927c7bf577b",
+      "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
       "schema_version": 1,
+      "stale_acceptance_repositories": {
+        "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
+          "control_plane_fingerprint_changed",
+          "fact_acceptance_component_hashes_changed",
+          "fact_acceptance_contract_hash_changed",
+          "local_verification_contract_hash_changed",
+          "prompt_scope_FACTS_COLLECTING_changed"
+        ],
+        "aspose-words-foss/Aspose.Words-FOSS-for-Python": [
+          "control_plane_fingerprint_changed",
+          "fact_acceptance_component_hashes_changed",
+          "fact_acceptance_contract_hash_changed",
+          "local_verification_contract_hash_changed",
+          "prompt_scope_FACTS_COLLECTING_changed"
+        ]
+      },
       "trusted_candidate_generated": 0,
       "trusted_facts_extracted": 0,
       "trusted_no_op_proven": 0,
@@ -5778,7 +5798,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 676,
+  "state_version": 677,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
