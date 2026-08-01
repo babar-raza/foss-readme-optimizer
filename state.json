@@ -689,8 +689,8 @@
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "bfa36d0e874f94c46e8c7c94ac3a2918419afa18df88feef8a4023c76a70c23e",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "0a648d75ac2f7d45c59508daeeddf65a003ccefddb3d2f088427706696938c9a",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -707,54 +707,54 @@
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license at the end, and while badges are absent, the presence of a clear license satisfies the highest-priority trust signal per the standard.",
+            "note": "The README includes a visible, GitHub-recognized MIT license in the final section, and badges for package registry (pip), though build status and version badges are missing \u2014 but license visibility alone satisfies the highest-priority trust signal.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install section provides the correct PyPI coordinates (`pip install aspose-font`) and includes an optional MCP extra (`pip install \"aspose-font[mcp]\"`), both of which resolve against the real PyPI registry.",
+            "note": "The install section names real package coordinates (`aspose-font`) and provides working `pip install` commands that resolve against PyPI (verified via live PyPI search).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, the README includes multiple runnable Python code blocks (e.g., web handoff, QA reporting, static instance creation) and CLI examples that are demonstrably executable.",
+            "note": "Beyond the install snippet, there are multiple runnable code blocks (e.g., web handoff, QA report, variable instance) with no comments, docstrings, or extraneous text \u2014 just executable Python and surrounding prose.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`, `###`), and the order follows the standard sequencing intent: product description \u2192 capabilities \u2192 install \u2192 examples \u2192 advanced usage \u2192 license.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 capabilities \u2192 license \u2014 with legal/contributing content after getting-started content.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "All visuals (e.g., QA report summary, axis grid, delta comparison) are directly tied to concrete output examples and demonstrate actual product behavior, not decorative imagery.",
+            "note": "All included images (e.g., QA report summary, axis grid, family review board) directly illustrate actual product outputs and workflows, not decorative or generic visuals.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README does not include or reference a CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file, and GitHub would only show 'README' and 'License' in the quick-link row \u2014 missing key community files recognized by GitHub.",
+            "note": "The README lacks GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row (only README and LICENSE are recognized).",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes recent, detailed CLI/API examples and references to active development flows (e.g., `uv run python -m pytest`, demo-site refresh), implying current maintenance \u2014 though GitHub activity (commits/releases) would be external evidence.",
+            "note": "While not stated in prose, the README includes recent, detailed CLI/API examples and a Development section implying active maintenance \u2014 and GitHub's `pushed_at`/Releases sidebar (external to README) would provide structural evidence.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable per the standard: if no commercial tier exists or is relevant, omission satisfies the dimension; the standard only requires a commercial mention where applicable.",
+            "note": "There is no commercial mention in the README \u2014 which is acceptable per the standard, as long as the product explanation comes first and no commercial content appears before it; absence here does not violate the rule.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap in contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). It excels in product clarity, audience fit, verified examples, and visual usefulness, and correctly omits commercial promotion where none applies."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, audience fit, verified examples, and visual usefulness \u2014 are well met and align with leading FOSS practices."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:38:03.681586+00:00",
+      "last_run_timestamp": "2026-08-01T08:29:16.928825+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db"
+      "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "readme_presentation": {
       "accepted_facts_hash": null,
@@ -1189,7 +1189,7 @@
     "updated_at": "2026-08-01T08:25:29.046020+00:00"
   },
   "schema_version": 2,
-  "state_version": 107,
+  "state_version": 108,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
