@@ -19,7 +19,7 @@
     "claimed_at": "2026-08-01T11:42:56.491503+00:00",
     "claimed_by": "Codex",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "4fd7e2ef0256a673561710688c669503954cd8fddf8ce7d47d0af9847e5a35cf",
+    "goal_activation_graph_sha256": "df1da13107adf0f54e8b3fbfc80c92233617781eb8fd7bec6bfedd56011dbf7c",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -59,13 +59,13 @@
         "to_primary_goal_id": "GOAL-C0-AUTHORIZED-PORTFOLIO"
       }
     ],
-    "graph_sha256": "4fd7e2ef0256a673561710688c669503954cd8fddf8ce7d47d0af9847e5a35cf",
-    "last_evaluated_at": "2026-08-01T14:26:35.420572+00:00",
+    "graph_sha256": "df1da13107adf0f54e8b3fbfc80c92233617781eb8fd7bec6bfedd56011dbf7c",
+    "last_evaluated_at": "2026-08-01T16:16:43.979409+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
-      "denominator": 32,
-      "derived_at": "2026-08-01T12:05:29.880049+00:00",
+      "denominator": 33,
+      "derived_at": "2026-08-01T16:00:11.591576+00:00",
       "deterministic_validated": 17,
       "facts_ready": 17,
       "first_failing_boundary": "FACTS_READY",
@@ -73,27 +73,13 @@
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 2,
         "DETERMINISTIC_VALIDATED": 7,
-        "DISCOVERED": 12,
-        "INTAKE_READY": 1,
+        "INTAKE_READY": 14,
         "NO_OP_PROVEN": 10
       },
-      "missing_lifecycle_repositories": [
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
-        "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
-        "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
-        "aspose-words-foss/Aspose.Words-FOSS-for-.NET"
-      ],
+      "missing_lifecycle_repositories": [],
       "no_op_proven": 10,
       "registry_path": "data/products.json",
-      "registry_sha256": "ba76b2ffc27636810539d1690b409201a2fa267a48805156a5e395047e086d1d",
+      "registry_sha256": "c850a215411e240cb54ba29439f0f8b6d24d2cdf027dd576799c0927c7bf577b",
       "schema_version": 1,
       "trusted_candidate_generated": 0,
       "trusted_facts_extracted": 0,
@@ -5727,7 +5713,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 668,
+  "state_version": 669,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
