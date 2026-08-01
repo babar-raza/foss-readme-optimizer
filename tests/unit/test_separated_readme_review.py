@@ -1308,7 +1308,9 @@ def test_two_accepts_produce_hash_bound_separate_records():
 
     blind_context = "\n".join(message["content"] for message in blind.messages)
     factual_context = "\n".join(message["content"] for message in factual.messages)
-    assert ORIGINAL in blind_context
+    assert ORIGINAL not in blind_context
+    assert "Complete candidate README block catalog" in blind_context
+    assert "candidate.anchor." in blind_context
     assert "fact-1" not in blind_context
     assert "readme.overview" not in blind_context
     assert ORIGINAL not in factual_context

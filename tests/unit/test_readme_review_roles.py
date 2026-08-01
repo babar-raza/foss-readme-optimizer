@@ -114,12 +114,16 @@ def _record(
     )
 
 
-def test_blind_context_cannot_contain_producer_plan_or_acceptance_context() -> None:
+def test_blind_context_uses_one_complete_candidate_block_view_without_source_duplication() -> None:
     messages = build_blind_quality_review_messages(ORG_REPO, ORIGINAL, CANDIDATE)
     serialized = "\n".join(str(message["content"]) for message in messages)
 
-    assert ORIGINAL in serialized
-    assert CANDIDATE in serialized
+    assert ORIGINAL not in serialized
+    assert CANDIDATE not in serialized
+    assert "Complete candidate README block catalog" in serialized
+    assert "# Example" in serialized
+    assert "Specific, useful candidate." in serialized
+    assert "candidate.anchor." in serialized
     assert "deterministic validation result" not in serialized.casefold()
     assert "presentation plan used to produce" not in serialized.casefold()
     assert '"verdict": "accept"' not in serialized.casefold()

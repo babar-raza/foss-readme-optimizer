@@ -470,7 +470,7 @@ def build_blind_quality_review_messages(
     candidate_readme_text: str,
     visitor_contract_json: str = "{}",
 ) -> list[dict]:
-    """Build the visitor-quality context without producer or factual-plan conclusions."""
+    """Build one exact-block visitor view without duplicated source/candidate documents."""
 
     manifest = prompt_registry.get("blind_readme_quality_review")
     assert manifest is not None, "blind_readme_quality_review prompt missing"
@@ -483,8 +483,6 @@ def build_blind_quality_review_messages(
         Template(manifest.user_template)
         .substitute(
             org_repo=org_repo,
-            original_readme_text=original_readme_text,
-            candidate_readme_text=candidate_readme_text,
             candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
                 build_candidate_review_anchors(candidate_readme_text)
             ),
