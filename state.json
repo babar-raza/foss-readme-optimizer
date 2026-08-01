@@ -19,7 +19,7 @@
     "claimed_at": "2026-08-01T11:42:56.491503+00:00",
     "claimed_by": "Codex",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "b6b3a0330bac75bedd317e1f8ca41288325f191d6cf2d0e8fc3f10e0328b5ad7",
+    "goal_activation_graph_sha256": "2897c570839c8cf10f744135d1a8b8bb1142074362e70fede7ec6601415a05c6",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -59,13 +59,13 @@
         "to_primary_goal_id": "GOAL-C0-AUTHORIZED-PORTFOLIO"
       }
     ],
-    "graph_sha256": "b6b3a0330bac75bedd317e1f8ca41288325f191d6cf2d0e8fc3f10e0328b5ad7",
-    "last_evaluated_at": "2026-08-01T11:42:56.491503+00:00",
+    "graph_sha256": "2897c570839c8cf10f744135d1a8b8bb1142074362e70fede7ec6601415a05c6",
+    "last_evaluated_at": "2026-08-01T12:40:08.646559+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
-      "denominator": 31,
-      "derived_at": "2026-08-01T11:19:48.593392+00:00",
+      "denominator": 32,
+      "derived_at": "2026-08-01T12:05:29.880049+00:00",
       "deterministic_validated": 17,
       "facts_ready": 17,
       "first_failing_boundary": "FACTS_READY",
@@ -74,6 +74,7 @@
         "BLOCKED_MISSING_EVIDENCE": 2,
         "DETERMINISTIC_VALIDATED": 7,
         "DISCOVERED": 12,
+        "INTAKE_READY": 1,
         "NO_OP_PROVEN": 10
       },
       "missing_lifecycle_repositories": [
@@ -92,7 +93,7 @@
       ],
       "no_op_proven": 10,
       "registry_path": "data/products.json",
-      "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
+      "registry_sha256": "ba76b2ffc27636810539d1690b409201a2fa267a48805156a5e395047e086d1d",
       "schema_version": 1,
       "trusted_candidate_generated": 0,
       "trusted_facts_extracted": 0,
@@ -5726,7 +5727,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 664,
+  "state_version": 665,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
