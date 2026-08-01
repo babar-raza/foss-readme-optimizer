@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import re
 from collections.abc import Callable
 from pathlib import Path
@@ -64,6 +65,39 @@ def _imported_symbol_anchors(language: ExampleLanguage, source: str) -> list[str
     """Extract exact README anchors that downstream public-API gates can resolve."""
 
     if language == "python":
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            tree = None
+        if tree is not None:
+            package_aliases = {
+                alias.asname or alias.name.split(".", 1)[0]
+                for node in tree.body
+                if isinstance(node, ast.Import)
+                for alias in node.names
+                if alias.name == "aspose" or alias.name.startswith("aspose.")
+            }
+            package_chains: set[tuple[str, ...]] = set()
+            for node in ast.walk(tree):
+                if not isinstance(node, ast.Attribute):
+                    continue
+                parts: list[str] = []
+                current: ast.AST = node
+                while isinstance(current, ast.Attribute):
+                    parts.append(current.attr)
+                    current = current.value
+                if isinstance(current, ast.Name) and current.id in package_aliases:
+                    package_chains.add((current.id, *reversed(parts)))
+            outermost_chains = {
+                chain
+                for chain in package_chains
+                if not any(
+                    len(other) > len(chain) and other[: len(chain)] == chain
+                    for other in package_chains
+                )
+            }
+            if outermost_chains:
+                return sorted(".".join(chain) for chain in outermost_chains)
         python_names = [
             item.strip().split(" as ", 1)[0]
             for group in re.findall(

@@ -93,6 +93,25 @@ def test_python_typescript_and_rust_examples_expose_imported_public_symbol_ancho
         assert candidates[0].required_symbols == expected
 
 
+def test_python_alias_import_anchors_the_public_operations_not_the_import_statement(tmp_path):
+    (tmp_path / "README.md").write_text(
+        """# Widget
+
+```python
+import aspose.words_foss as aw
+
+doc = aw.Document("input.docx")
+doc.save("output.pdf", aw.SaveFormat.PDF)
+```
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "python")
+
+    assert candidates[0].required_symbols == ["aw.Document", "aw.SaveFormat.PDF"]
+
+
 def test_rust_readme_local_names_resolve_only_to_unique_public_symbols():
     available = {
         "aspose_cells_foss_rust::CellValue",
