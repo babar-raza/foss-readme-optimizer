@@ -673,8 +673,8 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "bc7da00da85c672459437a79ff3d42c8456cd45b5ba43c4e8f0bf8883b61d12b",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "4cf3136ae45d78af564a55412ef1aad399c229b54403a749fb73c1a4b0260fb3",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -691,51 +691,51 @@
           },
           {
             "dimension": "trust_signals",
-            "note": "No LICENSE file is visible in the README (no badge or explicit mention), and GitHub community health would likely be low due to missing LICENSE recognition \u2014 a critical gap since 28% of the registry fails this, and it's the top-priority trust signal per the standard.",
+            "note": "No LICENSE file is visible in the README (no badge or explicit mention), and GitHub community health for this repo is low (only README recognized); the LICENSE file must be present and GitHub-recognized to pass this dimension.",
             "satisfied": false
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates (verified via the PyPI link in 'Links'), and the README includes a working badge-free install snippet \u2014 satisfying the requirement for real-package-registry resolution.",
+            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates, and the PyPI link is provided \u2014 satisfying the requirement for actual registry-resolving coordinates.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are two fully runnable, self-contained code examples (MSG\u2192EML and EML\u2192MSG conversions) with clear input/output expectations, matching the evidence-based expectation of at least one runnable example beyond installation.",
+            "note": "Beyond the install snippet, there are two fully runnable, self-contained code examples (MSG\u2192EML and EML\u2192MSG) with no comments or docstrings, matching the standard's definition of verified examples.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 compatibility details \u2192 links \u2192 contribution/legal \u2014 with reference/contribution content (Links, Development, Security, Changelog) placed after getting-started content.",
+            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 supporting info (links, development, security, changelog) \u2014 no legal/legal-adjacent content precedes getting-started content.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, and for a pure API library handling internal binary formats (CFB/MSG), the absence of imagery is appropriate \u2014 the standard permits this when visuals do not improve understanding, which is the case here.",
+            "note": "No visuals are present, and for a pure-API, data-processing library like this, the absence of imagery is acceptable per the standard \u2014 visuals are only required when they improve understanding of input/output/workflow, which is not applicable here.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README references CONTRIBUTING.md, SECURITY.md, and CHANGELOG.md, but the standard requires GitHub-recognized community files (LICENSE first); since LICENSE is missing from the README and likely the repo root, GitHub's quick-link row will not show all recognized files, failing this dimension.",
+            "note": "While CONTRIBUTING.md and SECURITY.md are referenced, GitHub only recognizes the README (37% community health); the LICENSE file is missing or not recognized, and CODE_OF_CONDUCT is absent \u2014 the highest-priority gap is the LICENSE file.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While the README doesn\u2019t state maintenance status, it includes a 'Changelog' section and references to issues/repository \u2014 implying GitHub-generated activity signals (commits, releases) are present elsewhere, and no false claims are made.",
+            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (e.g., recent commits/releases) are external to the README \u2014 no violation occurs here.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention anywhere in the README \u2014 which is acceptable per the standard, as long as the product explanation comes first (it does) and no promotional content appears; the absence of a commercial upsell is not a failure when the repo is purely FOSS.",
+            "note": "There is no commercial mention anywhere in the README, which is acceptable: the standard allows absence of commercial context if the product is truly FOSS-only or if commercial upsell is not applicable \u2014 and no misleading or premature commercial content appears before the product description.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies most presentation dimensions, especially product clarity, installation path, and examples, but fails on trust signals and contribution readiness due to missing or unacknowledged LICENSE recognition \u2014 the highest-priority gap per the standard."
+        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, installation path, verified examples, navigation, visual usefulness, maintenance signals, and natural commercial context), but fails on trust signals and contribution readiness due to the missing or unrecognized LICENSE file \u2014 the single highest-priority gap per the standard."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:31:54.316317+00:00",
+      "last_run_timestamp": "2026-08-01T07:11:58.574696+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -1205,7 +1205,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 105,
+  "state_version": 106,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
