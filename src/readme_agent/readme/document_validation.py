@@ -13,7 +13,7 @@ from readme_agent.facts.protected_content import (
     validate_protected_content,
 )
 from readme_agent.facts.render_views import visitor_fact_render_view
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.links.contextual_validation import validate_contextual_link_candidate
 from readme_agent.links.terminology import find_enterprise_terminology_findings
@@ -69,6 +69,21 @@ def _accepted(facts: ProductFactsV2, field_name: str):
     if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
         return None
     return fact
+
+
+def accepted_fact_is_represented(
+    fact: FactRecordV2 | None,
+    candidate_text: str,
+    represented_fact_ids: set[str],
+) -> bool:
+    """Accept exact prose or an explicitly recorded supporting-fact representation."""
+
+    if fact is None:
+        return True
+    evidence_ids = {fact.fact_id, *fact.supporting_fact_ids}
+    return bool(evidence_ids & represented_fact_ids) or any(
+        fragment in candidate_text for fragment in _text_fragments(fact.value)
+    )
 
 
 def _comment_failures(candidate_text: str) -> list[str]:
@@ -195,10 +210,10 @@ def validate_readme_document_candidate(
     audience_present = audience_view is None or any(
         phrase.rstrip(".") in candidate_inner for phrase in audience_view.phrases
     )
-    problem_present = (
-        problem is None
-        or problem.fact_id in diagram_fact_ids
-        or any(fragment in candidate_inner for fragment in _text_fragments(problem.value))
+    problem_present = accepted_fact_is_represented(
+        problem,
+        candidate_inner,
+        diagram_fact_ids,
     )
     checks["verified_overview_present"] = audience_present and problem_present
     if not checks["verified_overview_present"]:

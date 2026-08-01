@@ -7,7 +7,10 @@ from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_renderer import build_readme_document_candidate
-from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.document_validation import (
+    accepted_fact_is_represented,
+    validate_readme_document_candidate,
+)
 from readme_agent.readme.markers import find_presentation_span
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -119,6 +122,32 @@ def test_overview_validation_uses_visitor_facing_audience_render_view():
     assert "Developers using .NET for spreadsheet processing" in candidate
     assert decision.valid, decision.errors
     assert decision.checks["verified_overview_present"] is True
+
+
+def test_derived_problem_is_represented_by_its_accepted_supporting_diagram_fact() -> None:
+    facts, _ = _facts("aspose-cells-foss/Aspose.Cells-FOSS-for-Java")
+    problem = facts.selected_fact("product.problems_solved")
+    capability = facts.selected_fact("product.capabilities")
+    capability_text = (
+        capability.value[0] if isinstance(capability.value, list) else capability.value
+    )
+    derived_problem = problem.model_copy(
+        update={
+            "value": [capability_text],
+            "supporting_fact_ids": [capability.fact_id],
+        }
+    )
+
+    assert accepted_fact_is_represented(
+        derived_problem,
+        "The derived phrase is intentionally not duplicated here.",
+        {capability.fact_id},
+    )
+    assert not accepted_fact_is_represented(
+        derived_problem,
+        "The derived phrase is intentionally not duplicated here.",
+        set(),
+    )
 
 
 def test_missing_limitations_section_gets_every_verified_limitation():
