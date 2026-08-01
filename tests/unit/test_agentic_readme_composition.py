@@ -43,10 +43,10 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "265a37eb2634b2ab2f648a075eba0da9bc660cbb597ece9ea6066692268b1a28"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "5f3a464dbbe451343d2e6b03d94ed59415e68f9d44dbb041c24ba5997ae3cfb0"
+    "ae08ddab6f95be765a7a0815f71265acc009400768b5d20abf3fff0a5e6d1c3f"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "157957129c52fe06de72e3fa118c6cd0c3d86b01b75445cf23d80beb7ecef1f2"
+    "e1025e0653918cd330fcbebb681de6f7313be6631609614d0f9d4d5e2593c9eb"
 )
 
 
@@ -271,6 +271,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert plan.opening_summary is not None
     assert {node.role for node in plan.diagram.nodes} == {"input", "capability", "output"}
     assert _first_text(facts.selected_fact("product.audience").value) in candidate
+    assert _first_text(facts.selected_fact("product.capabilities").value) in candidate
     assert "Lead with the verified spreadsheet audience" not in candidate
     cited_ids = {
         fact_id for operation in document_plan.operations for fact_id in operation.fact_ids
@@ -293,6 +294,47 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert audience_claim.coordinate_space == "candidate_utf8"
     claim_bytes = candidate.encode("utf-8")[audience_claim.byte_start : audience_claim.byte_end]
     assert _first_text(facts.selected_fact("product.audience").value) in claim_bytes.decode("utf-8")
+
+
+def test_concise_diagram_labels_do_not_replace_literal_capability_prose():
+    facts, revision = _facts()
+    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _draft(facts)
+    for index, node in enumerate(draft["diagram"]["nodes"]):
+        if node["role"] == "capability":
+            node["label"] = f"Concise capability {index}"
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(draft, assessment)),
+    )
+
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+    claim_map = build_readme_claim_map(
+        document_plan,
+        facts,
+        source_text=source,
+        candidate_text=candidate,
+    )
+
+    capability = facts.selected_fact("product.capabilities")
+    assert _first_text(capability.value) in candidate
+    assert "Concise capability" in candidate  # Diagram vocabulary remains visible.
+    assert any(claim.fact_id == capability.fact_id for claim in claim_map.claims)
 
 
 def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():

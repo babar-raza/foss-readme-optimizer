@@ -46,19 +46,17 @@ def _generated_capabilities(
     context: DocumentRenderContext,
     header_visuals: ReadmeHeaderVisualV1,
 ) -> tuple[str, list[str]]:
-    capability_nodes = [node for node in header_visuals.diagram_nodes if node.role == "capability"]
-    if capability_nodes:
-        labels = list(dict.fromkeys(node.label.strip() for node in capability_nodes))
-        fact_ids = list(
-            dict.fromkeys(fact_id for node in capability_nodes for fact_id in node.fact_ids)
-        )
-        return "\n".join(f"- {label}" for label in labels), fact_ids
-
     view = visitor_fact_render_view(context.facts, "product.capabilities")
     labels = list(view.phrases) if view is not None else []
     fact_ids = list(view.citation_fact_ids) if view is not None else []
     unique_labels = list(dict.fromkeys(label.strip() for label in labels if label.strip()))
-    return "\n".join(f"- {label}" for label in unique_labels), list(dict.fromkeys(fact_ids))
+    if unique_labels:
+        return "\n".join(f"- {label}" for label in unique_labels), list(dict.fromkeys(fact_ids))
+
+    # Mermaid labels are intentionally concise and may paraphrase accepted facts. They are not
+    # a safe substitute for the canonical fact phrases in prose because the claim map requires
+    # the introduced text to contain literal, independently verified evidence.
+    return "", []
 
 
 def _non_list_source_context(body: str) -> str:
