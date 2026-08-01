@@ -259,6 +259,36 @@ def test_consumer_requires_public_symbols_and_installed_import_use(tmp_path):
     assert proof.isolated_execution.policy.read_only_rootfs is True
 
 
+def test_consumer_accepts_and_requires_use_of_an_aliased_package_import(tmp_path):
+    _write_package(tmp_path)
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code="import aspose.widget as widget\nprint(widget.Widget.name)\n",
+        required_symbols=["aspose.widget"],
+    )
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=_successful_executor)
+
+    assert proof.accepted is True
+    assert proof.verified_symbols == ["aspose.widget"]
+
+    with pytest.raises(ValueError, match="must import and use"):
+        prove_python_consumer(
+            snapshot,
+            surface,
+            ConsumerExampleV1(
+                code="import aspose.widget as widget\nprint('unused alias')\n",
+                required_symbols=["aspose.widget"],
+            ),
+            executor=_successful_executor,
+        )
+
+
 def test_consumer_stages_repository_fixture_for_placeholder_input(tmp_path):
     _write_package(tmp_path)
     fixture = tmp_path / "testdata" / "minimal.ps"

@@ -51,6 +51,8 @@ _VERIFICATION_CONTRACT_FILES = (
     "python_consumer.py",
     "python_consumer_fixtures.py",
     "python_consumer_schema.py",
+    "python_dependency_acquisition.py",
+    "python_dependency_schema.py",
     "python_example_normalization.py",
     "python_example_verifier.py",
     "python_repository_examples.py",

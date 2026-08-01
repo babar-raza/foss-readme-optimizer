@@ -94,5 +94,8 @@ def verify(
         input_fixture_bindings=proof.fixture_bindings,
         public_api_sha256=surface.canonical_hash(),
         python_package=surface.package,
-        acquisition_dependency_pins=python_acquisition_pins(surface.package),
+        acquisition_dependency_pins=python_acquisition_pins(
+            surface.package,
+            proof.dependency_acquisition,
+        ),
     )

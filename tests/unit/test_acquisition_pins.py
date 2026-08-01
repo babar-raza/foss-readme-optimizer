@@ -8,6 +8,10 @@ from readme_agent.facts.acquisition_pins import (
     rust_acquisition_pins,
     typescript_acquisition_pins,
 )
+from readme_agent.facts.python_dependency_schema import (
+    PythonDependencyAcquisitionV1,
+    PythonWheelArtifactV1,
+)
 from readme_agent.facts.rust_consumer_schema import RustConsumerProofV1
 from readme_agent.facts.rust_dependency_schema import RustDependencyAcquisitionV1
 from readme_agent.facts.typescript_consumer_schema import TypeScriptConsumerProofV1
@@ -28,6 +32,32 @@ def test_python_pins_exact_distributed_source_tree():
     )
 
     assert python_acquisition_pins(package) == ["python_package_source_sha256=" + "a" * 64]
+
+
+def test_python_pins_exact_offline_dependency_wheelhouse():
+    package = PythonPackageLayoutV1(
+        manifest_path="pyproject.toml",
+        distribution_name="widget",
+        source_root="src",
+        package_paths=["src/widget"],
+        canonical_import="widget",
+        source_sha256="a" * 64,
+    )
+    artifact = PythonWheelArtifactV1(
+        filename="dependency-1.0-py3-none-any.whl",
+        sha256="b" * 64,
+        size_bytes=42,
+    )
+    acquisition = PythonDependencyAcquisitionV1.model_construct(
+        inventory_sha256="c" * 64,
+        artifacts=[artifact],
+    )
+
+    assert python_acquisition_pins(package, acquisition) == [
+        "python_package_source_sha256=" + "a" * 64,
+        "python_dependency_inventory_sha256=" + "c" * 64,
+        "python_dependency_dependency-1.0-py3-none-any.whl_sha256=" + "b" * 64,
+    ]
 
 
 def test_typescript_pins_built_artifact_compiler_and_every_archive():

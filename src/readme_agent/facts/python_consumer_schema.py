@@ -11,6 +11,7 @@ from readme_agent.ecosystems.python_api_schema import (
     PythonPackageLayoutV1,
 )
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
+from readme_agent.facts.python_dependency_schema import PythonDependencyAcquisitionV1
 
 
 class PythonFixtureBindingV1(BaseModel):
@@ -35,6 +36,7 @@ class PythonConsumerProofV1(BaseModel):
     package: PythonPackageLayoutV1
     example: ConsumerExampleV1
     fixture_bindings: list[PythonFixtureBindingV1] = Field(default_factory=list)
+    dependency_acquisition: PythonDependencyAcquisitionV1 | None = None
     verified_symbols: list[str]
     isolated_execution: IsolatedExecutionResultV1
     accepted: bool
@@ -45,6 +47,10 @@ class PythonConsumerProofV1(BaseModel):
             set(self.verified_symbols) != set(self.example.required_symbols)
             or not self.isolated_execution.truth_eligible
             or self.isolated_execution.return_code != 0
+            or (
+                self.dependency_acquisition is not None
+                and not self.dependency_acquisition.cleanup_complete
+            )
         ):
             raise ValueError("accepted Python proof requires every symbol and isolated success")
         return self

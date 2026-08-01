@@ -3,14 +3,29 @@
 from __future__ import annotations
 
 from readme_agent.ecosystems.python_api_schema import PythonPackageLayoutV1
+from readme_agent.facts.python_dependency_schema import PythonDependencyAcquisitionV1
 from readme_agent.facts.rust_consumer_schema import RustConsumerProofV1
 from readme_agent.facts.typescript_consumer_schema import TypeScriptConsumerProofV1
 
 
-def python_acquisition_pins(package: PythonPackageLayoutV1) -> list[str]:
+def python_acquisition_pins(
+    package: PythonPackageLayoutV1,
+    dependencies: PythonDependencyAcquisitionV1 | None = None,
+) -> list[str]:
     """Bind Python source acquisition to the distributed package tree."""
 
-    return [f"python_package_source_sha256={package.source_sha256}"]
+    pins = [f"python_package_source_sha256={package.source_sha256}"]
+    if dependencies is not None:
+        pins.extend(
+            [
+                f"python_dependency_inventory_sha256={dependencies.inventory_sha256}",
+                *[
+                    f"python_dependency_{artifact.filename}_sha256={artifact.sha256}"
+                    for artifact in dependencies.artifacts
+                ],
+            ]
+        )
+    return pins
 
 
 def typescript_acquisition_pins(proof: TypeScriptConsumerProofV1) -> list[str]:

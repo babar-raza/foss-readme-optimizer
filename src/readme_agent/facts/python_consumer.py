@@ -13,6 +13,7 @@ from readme_agent.ecosystems.python_api_schema import (
     ConsumerExampleV1,
     PublicApiSurfaceV1,
     PublicSymbolV1,
+    PythonPackageLayoutV1,
 )
 from readme_agent.facts.isolated_execution import execute_isolated
 from readme_agent.facts.isolated_execution_schema import (
@@ -22,9 +23,14 @@ from readme_agent.facts.isolated_execution_schema import (
 )
 from readme_agent.facts.python_consumer_fixtures import stage_repository_input_fixtures
 from readme_agent.facts.python_consumer_schema import PythonConsumerProofV1
+from readme_agent.facts.python_dependency_acquisition import (
+    PYTHON_311_IMAGE,
+    PythonDependencyBundle,
+    acquire_python_dependencies,
+    materialize_python_dependencies,
+)
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 
-PYTHON_311_IMAGE = "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91"
 _RESULT_PREFIX = "README_AGENT_PYTHON_CONSUMER="
 _COPY_IGNORE = shutil.ignore_patterns(".git", ".venv", "__pycache__", "build", "dist")
 _DRIVER = r"""
@@ -35,6 +41,19 @@ import subprocess
 import sys
 
 target = pathlib.Path("/workspace/.readme-agent-installed")
+wheelhouse = pathlib.Path("/workspace/.readme-agent-wheelhouse")
+wheels = sorted(str(path) for path in wheelhouse.glob("*.whl"))
+if wheels:
+    dependencies = subprocess.run(
+        [
+            sys.executable, "-m", "pip", "install", "--disable-pip-version-check",
+            "--no-index", "--no-deps", "--target", str(target), *wheels,
+        ],
+        text=True, capture_output=True,
+    )
+    if dependencies.returncode:
+        sys.stderr.write(dependencies.stdout + dependencies.stderr)
+        raise SystemExit(19)
 install = subprocess.run(
     [
         sys.executable, "-m", "pip", "install", "--disable-pip-version-check",
@@ -64,6 +83,9 @@ print("README_AGENT_PYTHON_CONSUMER=" + json.dumps({"verified_symbols": verified
 """.strip()
 
 IsolatedExecutor = Callable[[IsolatedExecutionRequestV1], IsolatedExecutionResultV1]
+DependencyAcquirer = Callable[
+    [RepositorySnapshotV1, PythonPackageLayoutV1], PythonDependencyBundle | None
+]
 
 
 def _required_surface_symbols(
@@ -80,14 +102,16 @@ def _required_surface_symbols(
 def _example_imports_and_uses(code: str, symbols: list[PublicSymbolV1]) -> None:
     tree = ast.parse(code, filename=".readme-agent-consumer.py")
     imported: set[tuple[str, str]] = set()
-    imported_modules: set[str] = set()
+    imported_modules: dict[str, set[str]] = {}
     used_names: set[str] = set()
     used_attributes: set[str] = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.ImportFrom) and node.module:
             imported.update((node.module, alias.name) for alias in node.names)
         elif isinstance(node, ast.Import):
-            imported_modules.update(alias.name for alias in node.names)
+            for alias in node.names:
+                bound_name = alias.asname or alias.name.split(".", 1)[0]
+                imported_modules.setdefault(alias.name, set()).add(bound_name)
         elif isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
             used_names.add(node.id)
         elif isinstance(node, ast.Attribute) and isinstance(node.ctx, ast.Load):
@@ -107,7 +131,7 @@ def _example_imports_and_uses(code: str, symbols: list[PublicSymbolV1]) -> None:
             not symbol.name
             and (
                 symbol.import_module not in imported_modules
-                or symbol.import_module.split(".")[0] not in used_names
+                or not (imported_modules[symbol.import_module] & used_names)
             )
         )
     ]
@@ -128,6 +152,7 @@ def prove_python_consumer(
     example: ConsumerExampleV1,
     *,
     executor: IsolatedExecutor = execute_isolated,
+    dependency_acquirer: DependencyAcquirer = acquire_python_dependencies,
     immutable_image: str = PYTHON_311_IMAGE,
 ) -> PythonConsumerProofV1:
     """Install the immutable source with no dependencies/network, then import and use symbols."""
@@ -137,9 +162,15 @@ def prove_python_consumer(
         raise ValueError("Python surface does not belong to the immutable repository snapshot")
     selected = _required_surface_symbols(surface, example)
     _example_imports_and_uses(example.code, selected)
+    dependency_bundle = dependency_acquirer(snapshot, surface.package)
     with tempfile.TemporaryDirectory(prefix="readme-agent-python-consumer-") as temp:
         workspace = Path(temp) / "workspace"
         _copy_snapshot(snapshot, workspace)
+        if dependency_bundle is not None:
+            materialize_python_dependencies(
+                dependency_bundle,
+                workspace / ".readme-agent-wheelhouse",
+            )
         fixture_bindings = stage_repository_input_fixtures(
             snapshot,
             workspace,
@@ -204,6 +235,9 @@ def prove_python_consumer(
         package=surface.package,
         example=example,
         fixture_bindings=fixture_bindings,
+        dependency_acquisition=(
+            dependency_bundle.acquisition if dependency_bundle is not None else None
+        ),
         verified_symbols=verified,
         isolated_execution=result,
         accepted=accepted,
