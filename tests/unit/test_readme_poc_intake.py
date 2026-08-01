@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1, ReadmePocLifecycleStateV2
 from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.readme_poc_intake import (
     begin_readonly_intake_preflight,
@@ -186,6 +186,29 @@ def test_system_failure_retries_same_logical_key_with_incremented_attempt():
     assert retry.reservation is not None
     assert retry.reservation.attempt == 2
 
+    repaired = complete_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+        outcome="READY_FULL_PIPELINE",
+        result_hash="f" * 64,
+        reason="transport repaired",
+        evidence_refs=["intake/preflight-a2.json"],
+    )
+    lifecycle = backend.load("org/repo").readme_poc_lifecycle
+
+    assert repaired.attempt == 2
+    assert repaired.outcome == "READY_FULL_PIPELINE"
+    assert isinstance(lifecycle, ReadmePocLifecycleStateV2)
+    assert lifecycle.status == "INTAKE_READY"
+    assert [item.to_status for item in lifecycle.history] == [
+        "INTAKE_PREFLIGHTING",
+        "SYSTEM_FAILURE",
+        "INTAKE_PREFLIGHTING",
+        "INTAKE_READY",
+    ]
+
 
 def test_same_revision_with_changed_classification_contract_gets_new_intake():
     backend = IntakeBackend()
@@ -235,3 +258,49 @@ def test_same_revision_with_changed_classification_contract_gets_new_intake():
         "INTAKE_READY",
         "INTAKE_PREFLIGHTING",
     ]
+
+
+def test_successful_historical_retry_repairs_stale_system_failure_status():
+    key = _key()
+    backend = IntakeBackend(
+        ReadmePocLifecycleStateV2(
+            status="SYSTEM_FAILURE",
+            intake_preflight_history=[
+                IntakePreflightBindingV1(
+                    dedup_key=key,
+                    source_revision="a" * 40,
+                    outcome="SYSTEM_FAILURE",
+                    result_hash="e" * 64,
+                    reason="first attempt failed",
+                    observed_by="registry_intake",
+                    attempt=1,
+                ),
+                IntakePreflightBindingV1(
+                    dedup_key=key,
+                    source_revision="a" * 40,
+                    outcome="READY_FULL_PIPELINE",
+                    result_hash="f" * 64,
+                    reason="retry succeeded",
+                    evidence_refs=["intake/preflight-a2.json"],
+                    observed_by="registry_intake",
+                    attempt=2,
+                ),
+            ],
+        )
+    )
+
+    accepted = begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+    lifecycle = backend.load("org/repo").readme_poc_lifecycle
+
+    assert accepted.should_execute is False
+    assert accepted.completed is not None
+    assert accepted.completed.attempt == 2
+    assert isinstance(lifecycle, ReadmePocLifecycleStateV2)
+    assert lifecycle.status == "INTAKE_READY"
+    assert lifecycle.history[-1].from_status == "SYSTEM_FAILURE"
+    assert lifecycle.history[-1].to_status == "INTAKE_READY"

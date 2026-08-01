@@ -63,6 +63,39 @@ def begin_readonly_intake_preflight(
         lifecycle = _current_lifecycle(current)
         completed = _latest_completed(lifecycle, dedup_key)
         if completed is not None and completed.outcome != "SYSTEM_FAILURE":
+            if lifecycle.status == "SYSTEM_FAILURE":
+                now = datetime.now(UTC).isoformat()
+
+                def repair_terminal_status(state: RunStateV2) -> RunStateV2:
+                    prior = _current_lifecycle(state)
+                    latest = _latest_completed(prior, dedup_key)
+                    if (
+                        prior.status != "SYSTEM_FAILURE"
+                        or latest is None
+                        or latest.outcome == "SYSTEM_FAILURE"
+                    ):
+                        return state
+                    updated = prior.model_copy(
+                        update={
+                            "status": "INTAKE_READY",
+                            "updated_at": now,
+                            "history": [
+                                *prior.history,
+                                ReadmePocTransitionV2(
+                                    from_status="SYSTEM_FAILURE",
+                                    to_status="INTAKE_READY",
+                                    reason="reconciled successful read-only intake retry",
+                                    evidence_refs=latest.evidence_refs,
+                                    observed_by="registry_intake",
+                                    occurred_at=now,
+                                    source_revision=latest.source_revision,
+                                ),
+                            ],
+                        }
+                    )
+                    return state.model_copy(update={"readme_poc_lifecycle": updated})
+
+                save_state_patch(backend, org_repo, repair_terminal_status, max_retries=max_retries)
             return IntakePreflightAcceptance(
                 reservation=None,
                 completed=completed,
@@ -107,7 +140,7 @@ def begin_readonly_intake_preflight(
                 return state
             history = prior.history
             next_status = prior.status
-            if prior.status in {"DISCOVERED", "INTAKE_READY"}:
+            if prior.status in {"DISCOVERED", "INTAKE_READY", "SYSTEM_FAILURE"}:
                 next_status = "INTAKE_PREFLIGHTING"
                 history = [
                     *history,
