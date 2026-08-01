@@ -23538,60 +23538,51 @@
     "updated_at": "2026-08-01T04:19:58.747640+00:00"
   },
   "schema_version": 2,
-  "state_version": 1458,
+  "state_version": 1459,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "d030acef6413228d06663adb86a27a107ed3838193640c840857973e72d9fa14",
+    "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260801-041424-2a5c",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "last_run_id": null,
-    "last_run_timestamp": "2026-07-31T18:59:14.386840+00:00",
-    "last_status": "CONVERGED_NO_TRACKED_CHANGE",
+    "last_run_id": "20260801-042138-264d",
+    "last_run_timestamp": "2026-08-01T04:21:38.195894+00:00",
+    "last_status": "BLOCKED",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-31T18:48:47.546725+00:00",
+        "last_checked_at": "2026-08-01T04:21:38.195835+00:00",
         "observed_hash": "1cba8044d2478c6cac069c3cbb4129f8d82988cde57001749bcd939d32e6909f",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-07-31T18:48:47.546725+00:00",
+        "last_checked_at": "2026-08-01T04:21:38.195835+00:00",
         "observed_hash": "c65647aa0ef2ca5bdd9e132a23dd8cd6d33fb9d59b7ba4f9b150e1e65dafb6fe",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-07-31T18:48:47.546725+00:00",
+        "last_checked_at": "2026-08-01T04:21:38.195835+00:00",
         "observed_hash": "bf3a641c0f351d92133862a5cc4c144cbd3700bce8ee3d98fa4b7e8100d18f8b",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-07-31T18:48:47.546725+00:00",
+        "last_checked_at": "2026-08-01T04:21:38.195835+00:00",
         "observed_hash": "df02beaf61a2ee727c93553aacc6c29ca9261792ad5e036ff7e8128518485ccc",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
       }
     },
-    "task_graph_snapshot": null
+    "task_graph_snapshot": {
+      "tasks": []
+    }
   },
   "trigger_lifecycles": {
     "operator:20260729-064147-9518:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
