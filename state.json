@@ -883,7 +883,7 @@
     "updated_at": "2026-08-01T18:14:38.545721+00:00"
   },
   "schema_version": 2,
-  "state_version": 78,
+  "state_version": 79,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:cd51d99ee6d72d899a29b5a494445443c3509cf059483dbeb19d2d97da7d942f": {
@@ -1035,10 +1035,10 @@
       "failure_classification": null,
       "failure_detail": null,
       "last_checkpoint_id": "1cc35f40158aca2b8335a922b44895d049afad934c22064581335c03311e5625",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-01T18:40:56.458992+00:00",
       "recovery_count": 0,
-      "status": "accepted",
-      "updated_at": "2026-08-01T18:25:50.903620+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-01T18:25:56.458992+00:00"
     }
   },
   "trigger_records": {},
