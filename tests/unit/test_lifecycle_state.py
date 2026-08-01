@@ -388,3 +388,21 @@ class TestLifecycleHealth:
         report = build_health_report(BrokenBackend(), ["org/repo"])
         assert report.healthy is False
         assert report.state_failures == [{"repository": "org/repo", "error": "state unavailable"}]
+
+    def test_upstream_workflow_failure_prevents_false_green_health(self):
+        backend = LifecycleBackend()
+        successful = envelope(key="delivery:success")
+        accept_trigger(backend, successful)
+        transition_trigger(backend, "org/repo", successful.dedup_key, "processing")
+        transition_trigger(backend, "org/repo", successful.dedup_key, "completed")
+
+        report = build_health_report(
+            backend,
+            ["org/repo"],
+            workflow_failures=[{"job": "analyze", "result": "failure"}],
+        )
+
+        assert report.missed_schedule_windows == []
+        assert report.state_failures == []
+        assert report.workflow_failures == [{"job": "analyze", "result": "failure"}]
+        assert report.healthy is False

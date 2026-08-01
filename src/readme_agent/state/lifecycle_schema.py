@@ -387,5 +387,6 @@ class HealthReportV1(BaseModel):
     open_proposals: list[dict] = Field(default_factory=list)
     last_success: dict[str, str | None] = Field(default_factory=dict)
     state_failures: list[dict] = Field(default_factory=list)
+    workflow_failures: list[dict] = Field(default_factory=list)
     registry_revision_health: dict = Field(default_factory=dict)
     healthy: bool

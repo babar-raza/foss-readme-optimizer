@@ -729,13 +729,24 @@ jobs:
           IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
           IS_REGISTRY_INTAKE: ${{ needs.plan.outputs.is_registry_intake }}
           IS_STAGING_EFFECT: ${{ needs.plan.outputs.is_staging_effect }}
+          PLAN_RESULT: ${{ needs.plan.result }}
+          ANALYZE_RESULT: ${{ needs.analyze.result }}
+          RESUME_RESULT: ${{ needs.resume.result }}
         run: |
           mkdir -p runs/workflow
           if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
             if [ -n "$REQUESTED_REPOSITORY" ]; then
-              readme-agent health-report --only "$REQUESTED_REPOSITORY" --output runs/workflow/health-report.json
+              readme-agent health-report --only "$REQUESTED_REPOSITORY" \
+                --upstream-job-result "plan=$PLAN_RESULT" \
+                --upstream-job-result "analyze=$ANALYZE_RESULT" \
+                --upstream-job-result "resume=$RESUME_RESULT" \
+                --output runs/workflow/health-report.json
             else
-              readme-agent health-report --output runs/workflow/health-report.json
+              readme-agent health-report \
+                --upstream-job-result "plan=$PLAN_RESULT" \
+                --upstream-job-result "analyze=$ANALYZE_RESULT" \
+                --upstream-job-result "resume=$RESUME_RESULT" \
+                --output runs/workflow/health-report.json
             fi
           elif [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             repositories=$(readme-agent qualified-cohort-matrix \

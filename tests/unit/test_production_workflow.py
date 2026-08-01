@@ -149,3 +149,5 @@ def test_health_is_visible_as_artifact_issue_check_and_external_heartbeat():
     assert "gh issue create" in text
     assert "Fail the Actions check" in text
     assert "DEAD_MAN_HEARTBEAT_URL" in text
+    assert '--upstream-job-result "analyze=$ANALYZE_RESULT"' in text
+    assert '--upstream-job-result "resume=$RESUME_RESULT"' in text

@@ -346,6 +346,16 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Age after which unfinished work is actionable (default: 15)",
     )
     p_health_report.add_argument(
+        "--upstream-job-result",
+        action="append",
+        default=[],
+        metavar="JOB=RESULT",
+        help=(
+            "Include an upstream workflow job result in health. Failure and cancelled results "
+            "make the report unhealthy; success and skipped remain informationally absent."
+        ),
+    )
+    p_health_report.add_argument(
         "--repeated-failure-threshold",
         type=int,
         default=3,

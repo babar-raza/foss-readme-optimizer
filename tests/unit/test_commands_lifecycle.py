@@ -145,3 +145,28 @@ def test_health_report_exposes_missing_state_and_optional_failure(monkeypatch, c
     assert report["missed_schedule_windows"][0]["repository"] == repo
 
     assert main(["health-report", "--only", repo, "--fail-unhealthy"]) == 1
+
+
+def test_health_report_includes_upstream_workflow_failure(monkeypatch, capsys):
+    from readme_agent.registry import revision_store
+    from readme_agent.state import git_backend
+
+    monkeypatch.setattr(git_backend, "default_state_backend", _MemoryBackend)
+    monkeypatch.setattr(revision_store, "load_current_registry_revision", lambda: None)
+    repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+
+    assert (
+        main(
+            [
+                "health-report",
+                "--only",
+                repo,
+                "--upstream-job-result",
+                "analyze=failure",
+            ]
+        )
+        == 0
+    )
+    report = json.loads(capsys.readouterr().out)
+    assert report["healthy"] is False
+    assert report["workflow_failures"] == [{"job": "analyze", "result": "failure"}]

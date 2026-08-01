@@ -139,6 +139,13 @@ def cmd_health_report(args: argparse.Namespace) -> int:
         registry_health = evaluate_registry_revision(revision, products).model_dump(mode="json")
 
     repositories = _selected_repositories(getattr(args, "only", None))
+    workflow_failures: list[dict[str, str]] = []
+    for item in getattr(args, "upstream_job_result", []):
+        job, separator, result = item.partition("=")
+        if not separator or not job or not result:
+            raise ValueError("--upstream-job-result must use JOB=RESULT")
+        if result in {"failure", "cancelled"}:
+            workflow_failures.append({"job": job, "result": result})
     report = build_health_report(
         default_state_backend(),
         repositories,
@@ -146,6 +153,7 @@ def cmd_health_report(args: argparse.Namespace) -> int:
         backlog_sla=timedelta(minutes=args.backlog_sla_minutes),
         repeated_failure_threshold=args.repeated_failure_threshold,
         registry_revision_health=registry_health,
+        workflow_failures=workflow_failures,
     )
     _emit_json(report.model_dump(mode="json"), getattr(args, "output", None))
     return 1 if args.fail_unhealthy and not report.healthy else 0
