@@ -1460,7 +1460,7 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "4a9ddd6405425d62fd62b85d5161e1b82c82905ee3dc838c08313d5415e7f9d0",
+      "accepted_facts_hash": "3d4c6ae5c2cff45efc4a72a9a969bd7bb1bf30be96bd2e6382c425506e5d562a",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1478,51 +1478,51 @@
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes badges for PyPI (via the 'Links' section), and the repository has LICENSE, CONTRIBUTING, and SECURITY files (implied by links), satisfying the top trust signals.",
-            "satisfied": true
+            "note": "No LICENSE file is visible in the README (no badge or direct mention), and GitHub's community health check would likely flag missing LICENSE recognition \u2014 a critical gap per dimension 3/8.",
+            "satisfied": false
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates, and the PyPI link confirms the package exists there.",
+            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates, and the PyPI link is provided, satisfying the requirement for a working, registry-resolving path.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are two fully runnable, self-contained examples (MSG\u2192EML and EML\u2192MSG conversions) with no comments or docstrings, matching the standard's requirement.",
+            "note": "Beyond the Quick Start snippet, two full runnable examples (MSG\u2192EML and EML\u2192MSG) are provided with no comments or docstrings, matching the 'runnable code block' requirement.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 supporting info (links, development, security, changelog).",
+            "note": "Headers use consistent `##` levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 status/compatibility \u2192 links \u2192 contribution/legal.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a pure-API library whose interface is not visual \u2014 the standard permits this when imagery would not improve understanding.",
+            "note": "No visuals are present, which is acceptable per the rule: for a pure API library like this, absence of imagery is not a shortfall, and no decorative or irrelevant images are included.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README links to CONTRIBUTING.md and SECURITY.md, and the repository is assumed to have a LICENSE file (standard for FOSS); GitHub's community-files quick links are likely present.",
-            "satisfied": true
+            "note": "While CONTRIBUTING.md and SECURITY.md are referenced, the README does not include a LICENSE file or badge, and GitHub's quick-link row would likely show only README (per dimension 8 evidence), failing the highest-priority gate.",
+            "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While the README doesn\u2019t state maintenance status, the presence of a CHANGELOG.md and active GitHub links (Issues, Repository) implies verifiable activity \u2014 no false claims are made.",
+            "note": "The README does not claim maintenance status, and GitHub activity (not in README) would be the audit source \u2014 no false claims are made, satisfying the rule.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable: the standard allows absence if the product is purely FOSS (no commercial tier), and no misleading or premature commercial content appears before the product description.",
+            "note": "There is no commercial mention anywhere in the README, which is acceptable: the standard allows absence of commercial context when the product is purely FOSS (like PDFBox), and no promotional or misplaced commercial content appears.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it opens with clear product clarity and audience fit, provides working installation and examples, uses appropriate navigation and trust signals, and avoids commercial overreach or misleading claims."
+        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, installation path, examples, navigation, visual usefulness, maintenance signals, and natural commercial context), but fails on trust signals and contribution readiness due to missing LICENSE recognition \u2014 the highest-priority gap per the standard."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T08:01:54.921821+00:00",
+      "last_run_timestamp": "2026-08-01T08:19:04.359794+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -7896,7 +7896,7 @@
     "updated_at": "2026-08-01T08:18:00.182519+00:00"
   },
   "schema_version": 2,
-  "state_version": 206,
+  "state_version": 207,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
