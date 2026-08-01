@@ -1286,6 +1286,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:f3@Scope and limitations:template_genericity; factual_plan:ACCEPT",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "template_genericity"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T03:04:53.963161+00:00",
+        "reason": "entering repair attempt 1/2: Revise Scope and limitations for template_genericity around exact span: ## Scope and limitations",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -1324,16 +1335,16 @@
     "presentation_plan_hash": "a0eb5a2a966c30d8425c1415c1c3f8e530be2384471d6090fc3cf05f3e81f8b6",
     "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "e47b89a075cef075ba64625801520bc0bd5c443e6f77e4289e186dedf0091d81",
     "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-01T03:04:48.434926+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-01T03:04:53.963161+00:00"
   },
   "schema_version": 2,
-  "state_version": 123,
+  "state_version": 124,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
