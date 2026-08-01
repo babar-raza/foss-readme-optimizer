@@ -7390,9 +7390,9 @@
     },
     "visual_preparation": {
       "accepted_facts_hash": "d4268a730cf28ec8343f85c4268496e718c2a14e430fbcd9875b0d6ea9d4888d",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 3,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "email FOSS for python logo",
         "concerns": [],
@@ -7408,13 +7408,11 @@
         },
         "size_bytes": 2331,
         "size_within_reasonable_bounds": true,
-        "skip_reason": "llm_selected",
-        "skipped_at_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
           "depicts_unsupported_content": false,
-          "rationale": "The text 'email FOSS for python' accurately reflects the product name and target platform (Python) as stated in the product facts. No unsupported content is depicted.",
+          "rationale": "The text 'email FOSS for python' accurately reflects the product name 'Aspose.Email-FOSS-for-Python' and aligns with the stated platform (python) and ecosystem (python). No unsupported content is depicted.",
           "verdict": "accept"
         },
         "width": 800
@@ -7422,9 +7420,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T08:01:30.422195+00:00",
+      "last_run_timestamp": "2026-08-01T08:18:33.488124+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     }
   },
@@ -7898,7 +7896,7 @@
     "updated_at": "2026-08-01T08:18:00.182519+00:00"
   },
   "schema_version": 2,
-  "state_version": 205,
+  "state_version": 206,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
