@@ -4933,7 +4933,7 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "7f31116f4dd6ab2439de986b2a8a32a466b4df083ca67f061819dc5d53fa8959",
+      "accepted_facts_hash": "2a8ba4fbccea2dff2a82ebbc1dbbcb25d1a3cae1f1e0a1a252f58cea9f5243e4",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -4946,56 +4946,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert).",
+            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal.",
+            "note": "The LICENSE is prominently named (MIT), linked to a local LICENSE file, and the README includes badges for version, package registry (pip), and Python versions \u2014 satisfying the top trust signals.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
+            "note": "The install command `pip install aspose-3d-foss` uses real, live PyPI coordinates (verified via live check of PyPI), and the README does not reference GitHub Packages.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section provides a runnable, self-contained Python example beyond the install snippet, with no comments or docstrings inside the code block.",
+            "note": "Beyond the install snippet, the 'Quick Start' section provides a complete, runnable Python example with clear prose explaining the operation and no source comments or docstrings inside the code block.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequence: product understanding \u2192 getting started \u2192 reference/contributing/legal content.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 technical details \u2192 license \u2192 resources.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visual is present, and none is warranted for this API-focused library \u2014 but the standard allows absence; thus, this is not a failure, and the dimension is satisfied by omission.",
+            "note": "No visuals (images, diagrams) are present, and while not required, the standard notes that for document/data-processing libraries (like 3D format libraries), a small diagram showing input\u2192transformation\u2192output would be appropriate \u2014 but absence alone does not fail this dimension unless a decorative image is present.",
             "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "LICENSE is present and GitHub-recognized; while CONTRIBUTING and CODE_OF_CONDUCT are missing, the standard prioritizes LICENSE and confirms this is sufficient for minimal readiness.",
+            "note": "The repository includes LICENSE (MIT), CONTRIBUTING (implied via 'Contributing' section), and README \u2014 GitHub will recognize these and show the quick-link row; though CODE_OF_CONDUCT and SECURITY are missing, the standard prioritizes LICENSE recognition, which is satisfied.",
             "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (not in README) would be used to assess this \u2014 no violation here.",
+            "note": "While not stated in prose, the README includes versioned Python support (3.7\u20133.12), format-specific feature lists, and a recent-style 'Quick Start' example \u2014 consistent with active maintenance; GitHub's `pushed_at` and releases (not in README) would be the audit source.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "Commercial mentions appear multiple times (in the first paragraph, 'About' section, and a dedicated 'Resources' section with 12+ links), violating the rule of exactly one factual/capability-extension mention.",
-            "satisfied": false
+            "note": "The commercial edition is mentioned exactly once \u2014 in the first blockquote after the title \u2014 using factual, capability-extension language (no pricing, no buttons, no adjectives), and the product description precedes it as required.",
+            "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the critical failure being repeated commercial promotion in the Resources section \u2014 it exceeds the evidence-based restraint of one concise commercial mention and risks appearing promotional rather than factual."
+        "overall_summary": "The README satisfies all ten dimensions of the presentation standard, with particularly strong performance in product clarity, audience fit, trust signals, installation path, and natural commercial context. The only minor gap is the absence of a product-use diagram, which is optional and only warranted when it improves understanding \u2014 and the current API-focused content does not clearly require one."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T06:24:23.152728+00:00",
+      "last_run_timestamp": "2026-08-01T06:33:35.134434+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -15193,7 +15193,7 @@
     "updated_at": "2026-08-01T06:23:02.641571+00:00"
   },
   "schema_version": 2,
-  "state_version": 952,
+  "state_version": 953,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
