@@ -1121,6 +1121,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:f2@License:visible_duplication; factual_plan:ACCEPT",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "visible_duplication"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T02:42:03.964442+00:00",
+        "reason": "entering repair attempt 1/2: Revise License for visible_duplication around exact span: This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -1159,16 +1170,16 @@
     "presentation_plan_hash": "e2a22a7955013aa5daf2a5c05e3ed9088b4d11226445c479c0a349b4402a9b10",
     "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "ea7254d6add9311ae2c72ef1c99932e1aeab03acc1c963e2e5c996f863c00de9",
     "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-01T02:41:58.288330+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-01T02:42:03.964442+00:00"
   },
   "schema_version": 2,
-  "state_version": 93,
+  "state_version": 94,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
