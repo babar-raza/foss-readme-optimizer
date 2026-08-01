@@ -7,17 +7,17 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+    "active_goal_id": "GOAL-C0-AUTHORIZED-PORTFOLIO",
+    "active_task_id": null,
     "capacity_allocation": {
-      "max_concurrent_verified_lanes": 4,
+      "max_concurrent_verified_lanes": 0,
       "reserved_trusted_lanes": 0,
-      "total_repository_lanes": 4
+      "total_repository_lanes": 0
     },
-    "claim_expires_at": "2026-08-01T06:11:17.885948+00:00",
-    "claim_id": "fc9407c45bda49a4ad513a78adf437a4",
-    "claimed_at": "2026-08-01T05:41:17.885948+00:00",
-    "claimed_by": "Codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -48,26 +48,33 @@
         "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
         "to_concurrent_goal_ids": [],
         "to_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC"
+      },
+      {
+        "from_concurrent_goal_ids": [],
+        "from_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+        "graph_sha256": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
+        "occurred_at": "2026-08-01T11:27:52.368523+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [],
+        "to_primary_goal_id": "GOAL-C0-AUTHORIZED-PORTFOLIO"
       }
     ],
     "graph_sha256": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
-    "last_evaluated_at": "2026-08-01T05:41:17.885948+00:00",
+    "last_evaluated_at": "2026-08-01T11:27:47.945364+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 3,
-      "candidate_generated": 10,
+      "agent_approved": 10,
+      "candidate_generated": 17,
       "denominator": 31,
-      "derived_at": "2026-08-01T05:22:51.188077+00:00",
-      "deterministic_validated": 10,
-      "facts_ready": 12,
+      "derived_at": "2026-08-01T11:19:48.593392+00:00",
+      "deterministic_validated": 17,
+      "facts_ready": 17,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 4,
+        "BLOCKED_MISSING_EVIDENCE": 2,
         "DETERMINISTIC_VALIDATED": 7,
-        "DISCOVERED": 14,
-        "FACTS_READY": 2,
-        "NO_OP_PROVEN": 3,
-        "SYSTEM_FAILURE": 1
+        "DISCOVERED": 12,
+        "NO_OP_PROVEN": 10
       },
       "missing_lifecycle_repositories": [
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
@@ -81,11 +88,9 @@
         "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
-        "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
-        "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
-        "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+        "aspose-words-foss/Aspose.Words-FOSS-for-.NET"
       ],
-      "no_op_proven": 3,
+      "no_op_proven": 10,
       "registry_path": "data/products.json",
       "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
       "schema_version": 1,
@@ -97,18 +102,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Deliver the complete dynamic Python verified README POC under one reproducible contract."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH",
-        "GOAL-README"
-      ],
-      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
-    },
+    "next_task": null,
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -200,7 +194,7 @@
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
-      "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "IN_PROGRESS",
+      "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "BLOCKED_EXTERNAL",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
@@ -5659,6 +5653,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/l8-vpy-03-python-external-blockers/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-08-01T11:27:47.945358+00:00",
+        "reason": "10/12 Python repositories are NO_OP_PROVEN; HTML requires the proven one-line upstream PEP 517 correction and TeX requires authoritative syntax-valid source, so remaining work requires product-repository authority/source",
+        "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "to_status": "BLOCKED_EXTERNAL"
       }
     ]
   },
@@ -5668,7 +5673,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 656,
+  "state_version": 657,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
