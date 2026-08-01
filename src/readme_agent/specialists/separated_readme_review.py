@@ -17,6 +17,7 @@ from readme_agent.llm.verification_prompts import (
 )
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.readme.document_structure import parse_headings
 from readme_agent.specialists.factual_review_packet import build_factual_review_packet
 from readme_agent.specialists.independent_readme_review import (
     record_review_verdict,
@@ -98,7 +99,12 @@ def run_separated_readme_review(
         product_facts_v2 = facts_dispatch.result["product_facts_v2"]
 
     candidate_sha256 = sha256_hex(candidate_readme_text)
-    visitor_contract = build_presentation_visitor_contract()
+    applicable_h2_headings = [
+        heading.title for heading in parse_headings(candidate_readme_text) if heading.level == 2
+    ]
+    visitor_contract = build_presentation_visitor_contract(
+        applicable_h2_headings=applicable_h2_headings
+    )
     factual_packet = build_factual_review_packet(
         org_repo,
         candidate_readme_text,

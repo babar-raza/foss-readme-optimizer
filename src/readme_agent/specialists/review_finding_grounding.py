@@ -44,7 +44,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v25-license-and-section-accountability"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v26-applicability-resolved-contract"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -522,6 +522,21 @@ def _validate_quality_finding(
             )
         ):
             errors.append(f"{finding.finding_id}:required-navigation premise contradicts candidate")
+        removes_applicable_label = any(
+            re.search(
+                rf"\b(?:remove|omit|drop|exclude)\b[^\n.]{{0,180}}"
+                rf"\b{re.escape(label.casefold())}\b",
+                premise,
+            )
+            for label in required_navigation_labels
+        )
+        if (
+            removes_applicable_label
+            and (standards.get("readme.navigation") or {}).get("complete_h2_list") is True
+        ):
+            errors.append(
+                f"{finding.finding_id}:navigation removal contradicts applicable H2 contract"
+            )
         demands_wrong_placement = (
             "missing" in premise
             or "add the required" in premise

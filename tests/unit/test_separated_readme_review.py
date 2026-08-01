@@ -9,6 +9,7 @@ from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
+from readme_agent.readme.document_structure import parse_headings
 from readme_agent.specialists.readme_review_roles import FactualPlanReviewResultV1
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.specialists.review_finding_grounding import (
@@ -1972,3 +1973,54 @@ def test_pdf_reviewer_cannot_move_enterprise_text_already_in_scope_section() -> 
 
     assert not result.valid
     assert any("claimed source section" in error for error in result.errors)
+
+
+def test_pdf_reviewer_cannot_demand_withheld_sections_or_remove_applicable_navigation() -> None:
+    navigation = (
+        "- [At a glance](#at-a-glance)\n"
+        "- [Key capabilities](#key-capabilities)\n"
+        "- [Requirements](#requirements)\n"
+        "- [Feature Boundaries](#feature-boundaries)\n"
+        "- [License](#license)\n"
+        "- [Scope and limitations](#scope-and-limitations)"
+    )
+    candidate = (
+        f"# Aspose.PDF FOSS for Python\n\n## Navigation\n\n{navigation}\n\n"
+        "## At a glance\n\nSummary.\n\n## Key capabilities\n\n- Create PDFs.\n\n"
+        "## Requirements\n\nPython 3.11+.\n\n## Feature Boundaries\n\nBounded.\n\n"
+        "## License\n\nMIT.\n\n## Scope and limitations\n\nOCR is unavailable.\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="pdf-navigation-applicability",
+        kind="quality",
+        criterion="navigation",
+        section="Navigation",
+        claim=(
+            "Navigation must list the required labels 'At a glance', 'Key capabilities', "
+            "'Installation', 'Quick start', 'Scope and limitations', 'License'; the candidate "
+            "omits 'Installation' and 'Quick start'."
+        ),
+        quoted_candidate_span=navigation,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Add 'Installation' and 'Quick start' to the Navigation list and remove "
+            "'Requirements' and 'Feature Boundaries' as they are not required labels."
+        ),
+    )
+    visitor_contract = build_presentation_visitor_contract(
+        applicable_h2_headings=[
+            heading.title for heading in parse_headings(candidate) if heading.level == 2
+        ]
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=visitor_contract,
+    )
+
+    assert not result.valid
+    assert any("required-navigation premise" in error for error in result.errors)
+    assert any("navigation removal" in error for error in result.errors)

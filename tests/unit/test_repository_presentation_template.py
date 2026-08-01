@@ -417,3 +417,35 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
         "Scope and limitations"
     )
     assert standards["readme.no_comments"]["code_comments"] == "forbidden"
+
+
+def test_blind_visitor_contract_resolves_navigation_to_applicable_candidate_sections() -> None:
+    visitor = build_presentation_visitor_contract(
+        applicable_h2_headings=[
+            "Navigation",
+            "At a glance",
+            "Key capabilities",
+            "Requirements",
+            "Feature Boundaries",
+            "License",
+            "Scope and limitations",
+        ]
+    )
+    standards = {
+        item["standard_id"]: item["parameters"] for item in visitor["configured_standards"]
+    }
+
+    assert visitor["applicability_basis"] == "validated_candidate_h2_headings"
+    assert standards["readme.header"]["required_h2_prefix"] == [
+        "Navigation",
+        "At a glance",
+        "Key capabilities",
+    ]
+    assert standards["readme.navigation"]["required_labels"] == [
+        "At a glance",
+        "Key capabilities",
+        "Requirements",
+        "Feature Boundaries",
+        "License",
+        "Scope and limitations",
+    ]

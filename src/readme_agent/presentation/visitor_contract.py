@@ -10,22 +10,45 @@ from readme_agent.presentation.template_schema import (
 
 def build_presentation_visitor_contract(
     template: RepositoryPresentationTemplateV1 | None = None,
+    *,
+    applicable_h2_headings: list[str] | None = None,
 ) -> dict:
     """Return visible standards only, without producer reasoning or factual conclusions."""
 
     contract = template or load_repository_presentation_template()
-    required_prefix = [
-        contract.headings[slot]
-        for slot in contract.section_order
-        if slot in {"navigation", "at_a_glance", "key_capabilities", "installation", "quick_start"}
-    ]
-    required_navigation = [
-        contract.headings[slot] for slot in contract.required_slots if slot != "navigation"
-    ]
+    if applicable_h2_headings is None:
+        required_prefix = [
+            contract.headings[slot]
+            for slot in contract.section_order
+            if slot
+            in {"navigation", "at_a_glance", "key_capabilities", "installation", "quick_start"}
+        ]
+        required_navigation = [
+            contract.headings[slot] for slot in contract.required_slots if slot != "navigation"
+        ]
+        applicability_basis = "unresolved_template"
+    else:
+        applicable = list(dict.fromkeys(heading.strip() for heading in applicable_h2_headings))
+        applicable_set = {heading.casefold() for heading in applicable if heading}
+        required_prefix = [
+            contract.headings[slot]
+            for slot in contract.section_order
+            if slot
+            in {"navigation", "at_a_glance", "key_capabilities", "installation", "quick_start"}
+            and contract.headings[slot].casefold() in applicable_set
+        ]
+        navigation_heading = contract.headings["navigation"].casefold()
+        required_navigation = [
+            heading
+            for heading in applicable
+            if heading and heading.casefold() != navigation_heading
+        ]
+        applicability_basis = "validated_candidate_h2_headings"
     return {
         "template_id": contract.template_id,
         "template_version": contract.template_version,
         "accepted_reference_sha256": contract.accepted_reference_sha256,
+        "applicability_basis": applicability_basis,
         "configured_standards": [
             {
                 "standard_id": "readme.header",
