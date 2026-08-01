@@ -60,7 +60,7 @@ def run_independent_review_with_repair_loop(
     initial_context: dict,
     *,
     client: AnalysisClientLike | None = None,
-    regenerate_context: Callable[[IndependentReadmeReviewResultV1, int], dict] | None = None,
+    regenerate_context: Callable[[IndependentReadmeReviewResultV1, int, dict], dict] | None = None,
     review_runner: (Callable[[str, dict, int], IndependentReadmeReviewResultV1] | None) = None,
     reviewer_standard_hash: str | None = None,
     review_observed_by: str = _OBSERVED_BY,
@@ -68,7 +68,7 @@ def run_independent_review_with_repair_loop(
     """Repair only relevant candidate operations and rereview only after delta proof."""
 
     regenerate = regenerate_context or (
-        lambda _review, _attempt: independent_render_context(
+        lambda _review, _attempt, _prior_context: independent_render_context(
             org_repo,
             force_regenerate=True,
             product_facts_v2=initial_context.get("product_facts_v2"),
@@ -164,7 +164,7 @@ def run_independent_review_with_repair_loop(
                     ),
                     evidence_refs=list(review.failed_criteria),
                 )
-            repaired_context = regenerate(review, next_attempt)
+            repaired_context = regenerate(review, next_attempt, context)
             attempts = next_attempt
             receipt = build_repair_attempt_receipt(
                 prior_context=context,

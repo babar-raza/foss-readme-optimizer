@@ -448,7 +448,7 @@ class TestRepairLoopBound:
         client = FixtureAnalysisClient(seeded)
         regenerate_calls = []
 
-        def fake_regenerate(_review, _attempt):
+        def fake_regenerate(_review, _attempt, _prior_context):
             regenerate_calls.append(1)
             return {
                 "original_text": WELL_GROUNDED_README,
@@ -496,7 +496,10 @@ class TestRepairLoopBound:
         ]
         client = FixtureAnalysisClient(seeded)
 
-        def changed_regenerate(_review, attempt):
+        observed_prior_candidates = []
+
+        def changed_regenerate(_review, attempt, prior_context):
+            observed_prior_candidates.append(prior_context["final_text"])
             candidate = GENERIC_TEMPLATE_README + f"\nAttempt {attempt} changed intro.\n"
             return {
                 "original_text": WELL_GROUNDED_README,
@@ -521,6 +524,10 @@ class TestRepairLoopBound:
         assert outcome.outcome_kind == "repair_exhausted"
         assert outcome.attempts == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS
         assert outcome.review_call_count == reviewer.MAX_INDEPENDENT_REVIEW_REPAIR_ATTEMPTS + 1
+        assert observed_prior_candidates == [
+            GENERIC_TEMPLATE_README,
+            GENERIC_TEMPLATE_README + "\nAttempt 1 changed intro.\n",
+        ]
         assert outcome.escalation is not None
         assert outcome.escalation["blocked_category"] == "agent_fixable"
 
@@ -536,7 +543,7 @@ class TestRepairLoopBound:
         )
         regenerate_calls = []
 
-        def fake_regenerate(_review, _attempt):
+        def fake_regenerate(_review, _attempt, _prior_context):
             regenerate_calls.append(1)
             return {
                 "original_text": WELL_GROUNDED_README,
@@ -575,7 +582,7 @@ class TestRepairLoopBound:
         client = FixtureAnalysisClient([_verdict_result(_reject_repairable_verdict())])
         regenerate_calls = []
 
-        def deterministically_rejected(_review, attempt):
+        def deterministically_rejected(_review, attempt, _prior_context):
             regenerate_calls.append(attempt)
             candidate = GENERIC_TEMPLATE_README + f"\n<!-- attempt {attempt} -->\n"
             return {
@@ -655,7 +662,7 @@ class TestBlockedVerdictNeverEntersRepairLoop:
         client = FixtureAnalysisClient([_verdict_result(verdict_dict)])
         regenerate_calls = []
 
-        def fake_regenerate(_review, _attempt):
+        def fake_regenerate(_review, _attempt, _prior_context):
             regenerate_calls.append(1)
             raise AssertionError("regenerate_context must never be called for a blocked verdict")
 

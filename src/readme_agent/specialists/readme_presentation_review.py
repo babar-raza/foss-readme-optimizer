@@ -293,19 +293,26 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         )
 
     reviewer_standard_hash = separated_reviewer_standard_hash()
+
+    def regenerate_review_context(review, attempt: int, prior_context: dict) -> dict:
+        prior_render_result = prior_context.get("render_result")
+        if not isinstance(prior_render_result, dict):
+            raise StateBackendError("README repair lost its current render-result binding")
+        return build_repaired_review_context(
+            org_repo,
+            lifecycle_backend,
+            prior_render_result,
+            review,
+            attempt,
+            composition_client=config["configurable"].get("composition_client"),
+        )
+
     try:
         review_outcome = run_independent_review_with_repair_loop(
             org_repo,
             lifecycle_backend,
             initial_context,
-            regenerate_context=lambda review, attempt: build_repaired_review_context(
-                org_repo,
-                lifecycle_backend,
-                render_result,
-                review,
-                attempt,
-                composition_client=config["configurable"].get("composition_client"),
-            ),
+            regenerate_context=regenerate_review_context,
             review_runner=separated_review_runner,
             reviewer_standard_hash=reviewer_standard_hash,
             review_observed_by="separated_readme_review",

@@ -560,7 +560,7 @@ def run_independent_review_with_repair_loop(
     initial_context: dict,
     *,
     client: _AnalysisClientLike | None = None,
-    regenerate_context: Callable[[IndependentReadmeReviewResultV1, int], dict] | None = None,
+    regenerate_context: Callable[[IndependentReadmeReviewResultV1, int, dict], dict] | None = None,
     review_runner: (Callable[[str, dict, int], IndependentReadmeReviewResultV1] | None) = None,
     reviewer_standard_hash: str | None = None,
     review_observed_by: str = _OBSERVED_BY,
