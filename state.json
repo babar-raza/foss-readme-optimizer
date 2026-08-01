@@ -3867,6 +3867,17 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260801-064635-7aeb"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-01T06:47:23.991353+00:00",
+        "reason": "independent README review started after deterministic validation",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "intake_preflight_history": [
@@ -3895,11 +3906,11 @@
     "reviewer_standard_hash": "28e65f8a4a4f01c537754011ab8a6f6e4cf87861c845ca5cd7d54fa7ea59aa77",
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-01T06:47:16.861537+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-08-01T06:47:23.991353+00:00"
   },
   "schema_version": 2,
-  "state_version": 251,
+  "state_version": 252,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
