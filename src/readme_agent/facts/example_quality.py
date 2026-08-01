@@ -10,6 +10,7 @@ from pygments.token import Comment, String
 from pygments.util import ClassNotFound
 
 _MAX_PYTHON_TOP_LEVEL_STATEMENTS = 8
+_MAX_PYTHON_IMPORTED_SYMBOLS = 4
 _LEXER_BY_LANGUAGE = {
     "cpp": "cpp",
     "dotnet": "csharp",
@@ -158,10 +159,11 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
             )
         elif isinstance(statement, ast.ImportFrom):
             imported_names.update(alias.asname or alias.name for alias in statement.names)
-    if len(imported_names) > 3:
+    if len(imported_names) > _MAX_PYTHON_IMPORTED_SYMBOLS:
         failures.append(
             "minimal Python README example imports "
-            f"{len(imported_names)} symbols; regenerate it with at most 3"
+            f"{len(imported_names)} symbols; regenerate it with at most "
+            f"{_MAX_PYTHON_IMPORTED_SYMBOLS}"
         )
 
     executable_statements = [

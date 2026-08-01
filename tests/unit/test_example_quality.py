@@ -79,12 +79,25 @@ def test_bounded_repository_example_with_eight_statements_is_allowed() -> None:
     assert generated_example_quality_failures("python", source) == []
 
 
-def test_python_import_inventory_without_usage_is_rejected() -> None:
-    source = "from aspose.threed import Scene, Node, Mesh, Vector3"
+def test_python_four_used_product_imports_are_allowed() -> None:
+    source = (
+        "from package import TeXJob, TeXOptions, PdfDevice, create_input_source\n"
+        "source = create_input_source('Hello World')\n"
+        "device = PdfDevice()\n"
+        "job = TeXJob(source, device, options=TeXOptions(load_format=False))\n"
+        "job.run()\n"
+    )
+
+    assert generated_example_quality_failures("python", source) == []
+
+
+def test_python_import_inventory_over_four_without_usage_is_rejected() -> None:
+    source = "from aspose.threed import Scene, Node, Mesh, Vector3, FileFormat"
 
     failures = generated_example_quality_failures("python", source)
 
-    assert any("imports 4 symbols" in failure for failure in failures)
+    assert any("imports 5 symbols" in failure for failure in failures)
+    assert any("at most 4" in failure for failure in failures)
     assert any("contains only imports" in failure for failure in failures)
     assert any("unused imported symbol" in failure for failure in failures)
 

@@ -210,6 +210,33 @@ def test_python_unimplemented_function_body_proves_constraint(tmp_path: Path):
     assert assessment.observed_polarity == "explicit_constraint"
 
 
+def test_identifier_constraint_binds_claim_subject_from_bounded_context(tmp_path: Path):
+    source = tmp_path / "src" / "alignment.py"
+    source.parent.mkdir()
+    source.write_text(
+        '"""Alignment execution is not yet implemented."""\n'
+        'STUB_ERROR_HALIGN = "\\\\halign execution is not yet implemented"\n'
+        "def execute_halign():\n"
+        "    raise NotImplementedError(STUB_ERROR_HALIGN)\n",
+        encoding="utf-8",
+    )
+
+    assessment = assess_evidence_polarity(
+        root=tmp_path,
+        evidence_paths=["src/alignment.py"],
+        anchor="STUB_ERROR_HALIGN",
+        fact_id="product.limitations:repository-evidence",
+        claim_text="Alignment execution is not yet implemented.",
+        expected_polarity="explicit_constraint",
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert assessment is not None
+    assert assessment.accepted is True
+    assert assessment.observed_polarity == "explicit_constraint"
+
+
 def test_python_implemented_function_is_not_a_constraint(tmp_path: Path):
     source = tmp_path / "src" / "result.py"
     source.parent.mkdir()

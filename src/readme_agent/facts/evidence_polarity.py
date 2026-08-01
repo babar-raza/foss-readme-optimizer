@@ -28,6 +28,7 @@ _CODE_CONTEXT_CONSTRAINT_CUE = re.compile(
     re.IGNORECASE,
 )
 _WORD = re.compile(r"[A-Za-z][A-Za-z0-9_+-]*")
+_IDENTIFIER_ANCHOR = re.compile(r"^(?=.*_)[A-Za-z_][A-Za-z0-9_]*$")
 _IDENTIFIER_PART = re.compile(r"[A-Z]+(?=[A-Z][a-z]|\d|\b)|[A-Z]?[a-z]+|[A-Z]+|\d+")
 _DEICTIC_CONSTRAINT = re.compile(
     r"\bthis\s+(?:feature|operation|method|format|path|mode|option)\b",
@@ -208,6 +209,12 @@ def _subject_is_bound(
     claim_subjects = _subject_tokens(claim_text)
     anchor_subjects = _subject_tokens(anchor)
     if claim_subjects & anchor_subjects:
+        return True
+    if (
+        observed_polarity == "explicit_constraint"
+        and _IDENTIFIER_ANCHOR.fullmatch(anchor)
+        and claim_subjects & _subject_tokens(context_excerpt)
+    ):
         return True
     return bool(
         observed_polarity == "explicit_constraint"
