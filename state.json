@@ -2037,6 +2037,18 @@
         "reason": "revision-addressed README candidate and native patch materialized",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "CANDIDATE_GENERATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\2e3d786b3fb6a112202b\\r\\32c3f6bcb6009c2d\\s\\c336fa7c1d6b\\receipts\\DETERMINISTIC_VALIDATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\receipts\\DETERMINISTIC_VALIDATED.json"
+        ],
+        "from_status": "CANDIDATE_GENERATED",
+        "observed_by": "portfolio-stage-reducer",
+        "occurred_at": "2026-08-01T08:16:08.552231+00:00",
+        "reason": "sealed deterministic README validation receipt promoted",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "intake_preflight_history": [
@@ -2065,11 +2077,11 @@
     "reviewer_standard_hash": "28e65f8a4a4f01c537754011ab8a6f6e4cf87861c845ca5cd7d54fa7ea59aa77",
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "CANDIDATE_GENERATED",
-    "updated_at": "2026-08-01T08:15:43.504577+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-08-01T08:16:08.552231+00:00"
   },
   "schema_version": 2,
-  "state_version": 200,
+  "state_version": 201,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
