@@ -39,3 +39,20 @@ def test_fixture_covers_the_dynamic_registry_and_every_configured_source(monkeyp
     }
     assert all(source.status == "complete" for source in inventory.sources)
     assert sum(source.observation_count for source in inventory.sources) == len(entries)
+
+
+def test_fixture_retains_an_injected_source_outage(monkeypatch):
+    monkeypatch.setenv("ACT", "true")
+    monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+    monkeypatch.setenv("README_AGENT_ACT_REGISTRY_SOURCE_FAILURE", "aspose-imaging-foss")
+
+    inventory = build_act_registry_inventory(Path("data/products.json"))
+    failure = next(
+        source
+        for source in inventory.sources
+        if source.source.organization == "aspose-imaging-foss"
+    )
+
+    assert inventory.complete is False
+    assert failure.status == "failed"
+    assert failure.error == "injected ACT source outage"

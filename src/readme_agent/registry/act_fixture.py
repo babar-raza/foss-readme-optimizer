@@ -34,6 +34,9 @@ def build_act_registry_inventory(
     sources = {
         str(family["github_org"]): DiscoverySourceV1.from_family(family) for family in families
     }
+    failed_owner = os.environ.get("README_AGENT_ACT_REGISTRY_SOURCE_FAILURE") or None
+    if failed_owner is not None and failed_owner not in sources:
+        raise UsageError(f"unknown ACT registry failure source: {failed_owner}")
     counts = {owner: 0 for owner in sources}
     observations: list[DiscoveryObservationV1] = []
     for entry in products:
@@ -41,6 +44,8 @@ def build_act_registry_inventory(
         source = sources.get(owner)
         if source is None:
             raise UsageError(f"registry entry {owner}/{entry['repo_name']} has no source catalog")
+        if owner == failed_owner:
+            continue
         identity = entry.get("provider_identity")
         if not isinstance(identity, dict):
             raise UsageError(
@@ -66,19 +71,22 @@ def build_act_registry_inventory(
                 platform=entry["platform"],
             )
         )
-    source_results = [
-        DiscoverySourceResultV1(
-            source=source,
-            status="complete",
-            observed_at=captured_at,
-            observation_count=counts[owner],
+    source_results = []
+    for owner, source in sorted(sources.items()):
+        failed = owner == failed_owner
+        source_results.append(
+            DiscoverySourceResultV1(
+                source=source,
+                status="failed" if failed else "complete",
+                observed_at=captured_at,
+                observation_count=counts[owner],
+                error="injected ACT source outage" if failed else None,
+            )
         )
-        for owner, source in sorted(sources.items())
-    ]
     observations.sort(key=lambda item: (item.source_id, item.full_name.casefold()))
     return DiscoveryInventoryV1(
         captured_at=captured_at,
         sources=source_results,
         observations=observations,
-        complete=True,
+        complete=failed_owner is None,
     )
