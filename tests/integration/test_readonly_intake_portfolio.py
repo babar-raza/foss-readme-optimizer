@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from readme_agent.cli import _build_parser
+from readme_agent.commands import cmd_supervise
 from readme_agent.gitsafety._git import run_git
 from readme_agent.registry.models import ProductEntry
 from readme_agent.state.backend import Lock, SaveResult
@@ -132,3 +134,88 @@ def test_seven_ecosystems_route_once_without_any_target_effect(monkeypatch, tmp_
         assert receipt["result"]["org_repo"] == entry.org_repo
         assert receipt["result"]["target_local_effects_allowed"] is False
         assert receipt["result"]["target_remote_effects_allowed"] is False
+
+
+def test_public_supervisor_admits_unseen_repository_and_runs_exactly_one_intake(
+    monkeypatch,
+    tmp_path,
+):
+    import readme_agent.commands_supervision as supervision_module
+    from readme_agent import env
+    from readme_agent.llm import prompt_hygiene
+    from readme_agent.registry import discovery
+
+    source = _source(tmp_path, "python", substantial=True)
+    repository_name = "Aspose.Widget-FOSS-for-Python"
+    org_repo = f"aspose-widget-foss/{repository_name}"
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "products.json").write_text("[]\n", encoding="utf-8")
+    (data / "families.json").write_text(
+        json.dumps(
+            [
+                {
+                    "family": "widget",
+                    "name": "Aspose.Widget",
+                    "github_org": "aspose-widget-foss",
+                }
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    observed = {
+        "id": 9001,
+        "node_id": "R_widget_python",
+        "name": repository_name,
+        "full_name": org_repo,
+        "html_url": f"https://github.com/{org_repo}",
+        "clone_url": str(source),
+        "visibility": "public",
+        "default_branch": "main",
+        "archived": False,
+        "topics": [],
+        "language": "Python",
+    }
+    scan_calls: list[str] = []
+
+    def _scan_org(org: str, **_kwargs):
+        scan_calls.append(org)
+        return [observed]
+
+    backend = _Backend()
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(env, "gh_token", lambda: "fixture-read-token")
+    monkeypatch.setattr(discovery, "scan_org", _scan_org)
+    monkeypatch.setattr(prompt_hygiene, "require_prompt_hygiene", lambda: None)
+    monkeypatch.setattr(supervision_module, "_force_durable_state_backend", lambda: backend)
+
+    args = _build_parser().parse_args(
+        [
+            "supervise",
+            "--repo",
+            org_repo,
+            "--execution-profile",
+            "local_poc",
+            "--bounded-verified-canary",
+            "--max-readme-poc-stage",
+            "INTAKE_READY",
+        ]
+    )
+
+    assert cmd_supervise(args) == 1
+
+    admitted = json.loads((data / "products.json").read_text(encoding="utf-8"))
+    assert len(admitted) == 1
+    assert admitted[0]["repo_url"] == f"https://github.com/{org_repo}"
+    assert admitted[0]["mode"] == "disabled"
+    assert scan_calls == ["aspose-widget-foss"]
+    lifecycle = backend.states[org_repo].readme_poc_lifecycle
+    assert lifecycle is not None
+    assert lifecycle.status == "INTAKE_READY"
+    assert len(lifecycle.intake_preflight_history) == 1
+    assert lifecycle.intake_preflight_history[0].outcome == "BLOCKED_CLASSIFICATION"
+    assert [transition.to_status for transition in lifecycle.history] == [
+        "INTAKE_PREFLIGHTING",
+        "INTAKE_READY",
+    ]
