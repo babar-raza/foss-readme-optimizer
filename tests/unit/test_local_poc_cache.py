@@ -8,6 +8,13 @@ import pytest
 from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
 from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
 from readme_agent.facts.local_verification import local_verification_contract_hash
+from readme_agent.facts.schema_v2 import (
+    REQUIRED_PRODUCT_FIELDS,
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.document_templates import document_template_hash
@@ -18,6 +25,38 @@ from readme_agent.supervisor import local_poc_cache, local_poc_noop_reuse
 ORG_REPO = "org/repo"
 SOURCE_REVISION = "a" * 40
 CONTROL_FINGERPRINT = "b" * 64
+
+
+def _ready_product_facts() -> ProductFactsV2:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://org/repo",
+        source_revision=SOURCE_REVISION,
+    )
+    renderable_values = {
+        "product.audience": ["Developers using Python"],
+        "product.problems_solved": ["Process widget files"],
+        "product.capabilities": ["Create and inspect widgets"],
+        "product.formats": ["WGT"],
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "cache-fixture"),
+            field=field,
+            value=renderable_values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    return ProductFactsV2(
+        org_repo=ORG_REPO,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
 
 
 def _valid_cache(tmp_path):
@@ -93,6 +132,10 @@ def _valid_cache(tmp_path):
             "llm_accounting_status": "EXACT",
             "new_provider_call_count": 0,
         },
+    )
+    write_redacted_json(
+        bundle / "facts" / "product-facts.json",
+        _ready_product_facts().model_dump(mode="json"),
     )
     refresh_sha256sums(bundle)
     return state, bundle
@@ -369,6 +412,25 @@ def test_checksum_valid_but_semantically_invalid_acceptance_evidence_denies_reus
     assert "artifact_inventory_invalid" not in decision.mismatch_reasons
     assert "no_op_proof_invalid" in decision.mismatch_reasons
     assert decision.earliest_affected_stage == "AGENT_REVIEWING"
+
+
+def test_checksum_valid_but_blocked_product_truth_denies_reuse(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    facts_path = bundle / "facts" / "product-facts.json"
+    payload = json.loads(facts_path.read_text(encoding="utf-8"))
+    example_id = payload["selected_fact_ids"]["example.minimal"]
+    for fact in payload["facts"]:
+        if fact["fact_id"] == example_id:
+            fact["verification_state"] = "blocked"
+            fact["confidence"] = 0.0
+    write_redacted_json(facts_path, payload)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "product_truth_blocked_missing_evidence" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "FACTS_COLLECTING"
 
 
 @pytest.mark.parametrize(

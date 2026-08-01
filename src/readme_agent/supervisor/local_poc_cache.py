@@ -10,8 +10,12 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.evidence.writer import sha256_file
-from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+from readme_agent.facts.acceptance_contract import (
+    classify_product_truth,
+    current_fact_acceptance_contract,
+)
 from readme_agent.facts.local_verification import local_verification_contract_hash
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.document_templates import document_template_hash
@@ -213,6 +217,7 @@ def _evaluate_local_poc_cache(
     """Bind approved or completed reuse to the same complete dependency set."""
 
     manifest = _load_json(bundle_dir / "manifest.json")
+    product_facts_payload = _load_json(bundle_dir / "facts" / "product-facts.json")
     document_plan = _load_json(bundle_dir / "planning" / "readme-document-plan.json")
     agentic_plan = _load_json(bundle_dir / "planning" / "agentic-composition-plan.json")
     final_verdict = _load_json(bundle_dir / "review" / "final-verdict.json")
@@ -257,6 +262,17 @@ def _evaluate_local_poc_cache(
             "NO_OP_PROVEN" not in manifest["completed_stages"]
         ):
             reasons.append("manifest_no_op_stage_missing")
+    if product_facts_payload is None:
+        reasons.append("product_truth_missing_or_invalid")
+    else:
+        try:
+            product_facts = ProductFactsV2.model_validate(product_facts_payload)
+        except ValueError:
+            reasons.append("product_truth_missing_or_invalid")
+        else:
+            product_truth_status = classify_product_truth(product_facts)
+            if product_truth_status != "FACTS_READY":
+                reasons.append(f"product_truth_{product_truth_status.lower()}")
     if document_plan is None:
         reasons.append("document_plan_missing_or_invalid")
     if agentic_plan is None:
@@ -389,6 +405,7 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
                 affected.append(scope if scope in _STAGE_ORDER else "FACTS_COLLECTING")
         elif (
             reason.startswith("fact_")
+            or reason.startswith("product_truth_")
             or reason.startswith("manifest_facts_")
             or reason == "local_verification_contract_hash_changed"
             or reason == "prompt_registry_content_hash_changed"
