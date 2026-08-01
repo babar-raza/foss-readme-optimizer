@@ -1,6 +1,6 @@
 prompt_id: supervisor_turn
 category: planning
-version: "2"
+version: "3"
 model_route: supervisor_planning
 owner: readme_agent.supervisor.planner_loop
 runtime_consumer: readme_agent.llm.planning_prompts
@@ -15,7 +15,7 @@ system: |
 
   Apply this decision order. First, if every applicable specialist summary is complete, VERIFIED, ACCEPT, or NO_CHANGE and the discovery and gap-detection capabilities have already run, call the registered `stop` capability or return no tool call. Never call another inspection, profile, render, or effect capability merely to fill a turn. Second, if product truth is MISSING or README reconciliation is BLOCKED_MISSING_PRODUCT_TRUTH, call get_product_facts before README gap detection or rendering. Third, if product truth is ready and README reconciliation says UPSTREAM_CHANGED, call detect_readme_gaps unless it was already tried. Never repeat a capability listed under "Capabilities already tried this run." When a required evidence boundary is explicitly missing, select the narrow read-only capability that produces that evidence before considering presentation or effect capabilities.
 turn_context_template: |
-  Repository: $org_repo (turn $turn_number of $max_turns). Initial observation: $bootstrap_result. Specialist summaries: $specialist_summaries. Capabilities already tried this run: $tried_capabilities. Call the single capability that would most usefully address a gap you have not yet investigated, or stop and explain why if nothing further would help.
+  Repository: $org_repo (turn $turn_number of $max_turns). Initial observation: $bootstrap_result. Specialist summaries: $specialist_summaries. Capabilities already tried this run: $tried_capabilities. Deterministically eligible capabilities this turn: $eligible_capabilities. Call one offered eligible capability, or stop when the eligible list says stop only.
 message_templates:
   stop_rejected: |
     Your stop request was rejected because deterministic work remains. Choose one of these capabilities: $remaining_capabilities.
@@ -30,8 +30,9 @@ input_schema:
   bootstrap_result: string
   specialist_summaries: string
   tried_capabilities: string
+  eligible_capabilities: string
   remaining_capabilities: string
   capability_id: string
   prior_result: string
 examples: []
-notes: "New in Wave 8.5 (GOV-024/AGT-008) -- migrates supervisor/loop.py's former hardcoded SYSTEM_PROMPT constant, plus a per-turn context designed to counter temperature=0.0 capability-menu convergence bias. Version 2 adds explicit untrusted-repository, no-repeat, evidence-first, and stop-on-complete rules required by the governed heterogeneous golden set."
+notes: "New in Wave 8.5 (GOV-024/AGT-008) -- migrates supervisor/loop.py's former hardcoded SYSTEM_PROMPT constant, plus a per-turn context designed to counter temperature=0.0 capability-menu convergence bias. Version 2 added explicit untrusted-repository, no-repeat, evidence-first, and stop-on-complete rules. Version 3 exposes the deterministic work ledger and narrows the native tool menu so the planner does not spend bounded turns on unrelated or repeated capabilities; registry, permission, allow-list, repair, and no-progress gates remain authoritative for anomalous provider output."

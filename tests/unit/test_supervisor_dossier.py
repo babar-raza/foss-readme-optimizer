@@ -6,6 +6,7 @@ from hashlib import sha256
 
 from readme_agent.errors import LLMError
 from readme_agent.llm.planner_client import PlannerTurn
+from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor import dossier, planner_loop
 
@@ -106,9 +107,11 @@ def test_planner_history_uses_bounded_capability_receipts(monkeypatch):
     class CaptureThenFailPlanner:
         def __init__(self):
             self.messages: list[list[dict]] = []
+            self.tool_names: list[list[str]] = []
 
-        def plan(self, messages, _tools):
+        def plan(self, messages, tools):
             self.messages.append(json.loads(json.dumps(messages)))
+            self.tool_names.append([(tool.get("function") or {}).get("name") for tool in tools])
             if len(self.messages) == 1:
                 return PlannerTurn(
                     tool_call={
@@ -118,7 +121,7 @@ def test_planner_history_uses_bounded_capability_receipts(monkeypatch):
                             "arguments": '{"org_repo":"example/repo"}',
                         },
                     },
-                    meta={},
+                    meta=LLMResponseMeta(),
                 )
             raise LLMError("test stop after history capture")
 
@@ -127,7 +130,13 @@ def test_planner_history_uses_bounded_capability_receipts(monkeypatch):
 
     planner_loop.run_planner_loop(
         org_repo="example/repo",
-        specialist_results={},
+        specialist_results={
+            "readme_presentation": DomainStateV1(
+                domain="readme_presentation",
+                accepted_status="CHANGED",
+                details={"render_status": "STALE_NONCOMPLIANT"},
+            )
+        },
         initial_decisions=[],
         state_backend=None,
         planner_client=client,
@@ -139,6 +148,15 @@ def test_planner_history_uses_bounded_capability_receipts(monkeypatch):
     )
 
     assert len(client.messages) == 2
+    assert set(client.tool_names[0]) == {
+        "detect_readme_gaps",
+        "get_product_facts",
+        "render_readme_candidate",
+        "verify_package_acquisition",
+    }
+    assert "detect_readme_gaps" not in client.tool_names[1]
+    assert "inspect_repository" not in client.tool_names[0]
+    assert "get_domain_findings" not in client.tool_names[0]
     assert len(json.dumps(client.messages[0])) < 10_000
     second_messages = json.dumps(client.messages[1])
     assert len(second_messages) < 15_000
@@ -151,6 +169,7 @@ class TestRenderTurnContext:
     def _template(self) -> str:
         return (
             "Repo: $org_repo turn $turn_number/$max_turns tried=$tried_capabilities "
+            "eligible=$eligible_capabilities "
             "bootstrap=$bootstrap_result dossier=$specialist_summaries"
         )
 
@@ -161,12 +180,14 @@ class TestRenderTurnContext:
             turn_number=2,
             max_turns=8,
             tried_capability_ids=["detect_readme_gaps"],
+            eligible_capability_ids=("render_readme_candidate",),
             bootstrap_result={"has_readme": True},
             dossier={"domain_a": "NO_CHANGE"},
         )
         assert "acme/widget" in rendered
         assert "turn 2/8" in rendered
         assert "detect_readme_gaps" in rendered
+        assert "render_readme_candidate" in rendered
         assert "has_readme" in rendered
         assert "domain_a" in rendered
 
@@ -177,7 +198,9 @@ class TestRenderTurnContext:
             turn_number=1,
             max_turns=8,
             tried_capability_ids=[],
+            eligible_capability_ids=(),
             bootstrap_result={},
             dossier={},
         )
         assert "none yet" in rendered
+        assert "stop only" in rendered

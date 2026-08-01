@@ -22,7 +22,7 @@ from readme_agent.supervisor.convergence import (
 )
 from readme_agent.supervisor.models import DecisionSummary
 from readme_agent.supervisor.task import Task, TaskGraph
-from readme_agent.supervisor.work_ledger import build_work_ledger
+from readme_agent.supervisor.work_ledger import WorkLedgerV1, build_work_ledger
 
 
 @dataclass
@@ -30,6 +30,27 @@ class PlannerLoopResult:
     graph: TaskGraph
     decisions: list[DecisionSummary]
     outcome: ConvergenceOutcome
+
+
+def _eligible_capability_ids_for_turn(work_ledger: WorkLedgerV1) -> tuple[str, ...]:
+    if work_ledger.capability_scope_enforced:
+        return work_ledger.eligible_capability_ids
+    return tuple(
+        name
+        for schema in registry.all_tool_schemas()
+        if (name := (schema.get("function") or {}).get("name"))
+    )
+
+
+def _tools_for_work_ledger(work_ledger: WorkLedgerV1) -> list[dict]:
+    if not work_ledger.capability_scope_enforced:
+        return registry.all_tool_schemas()
+    allowed = set(work_ledger.eligible_capability_ids or (STOP_CAPABILITY_ID,))
+    return [
+        schema
+        for schema in registry.all_tool_schemas()
+        if (schema.get("function") or {}).get("name") in allowed
+    ]
 
 
 def _default_planner_client() -> LivePlannerClient:
@@ -108,13 +129,17 @@ def run_planner_loop(
     client = planner_client or _default_planner_client()
     _, supervisor_turn_context = planning_prompts.supervisor_turn_prompt()
     initial_dossier = dossier.build_initial_dossier(specialist_results)
-    tried_capability_ids: list[str] = []
+    tried_capability_ids: list[str] = ["inspect_repository"]
     bootstrap_result = (
         dossier.bounded_capability_result(
             "inspect_repository",
             bootstrap.result or {},
         )
         or {}
+    )
+    initial_work_ledger = build_work_ledger(
+        specialist_results,
+        attempted_capability_ids=tried_capability_ids,
     )
     messages: list[dict[str, Any]] = planning_prompts.build_supervisor_turn_messages(
         dossier.render_turn_context(
@@ -123,6 +148,7 @@ def run_planner_loop(
             turn_number=1,
             max_turns=max_turns,
             tried_capability_ids=tried_capability_ids,
+            eligible_capability_ids=_eligible_capability_ids_for_turn(initial_work_ledger),
             bootstrap_result=bootstrap_result,
             dossier=initial_dossier,
         )
@@ -159,17 +185,25 @@ def run_planner_loop(
             if classified.status == "BLOCKED":
                 outcome = classified
                 break
+        work_ledger = build_work_ledger(
+            specialist_results,
+            attempted_capability_ids=tried_capability_ids,
+        )
         messages[1]["content"] = dossier.render_turn_context(
             supervisor_turn_context,
             org_repo=org_repo,
             turn_number=turn,
             max_turns=max_turns,
             tried_capability_ids=tried_capability_ids,
+            eligible_capability_ids=_eligible_capability_ids_for_turn(work_ledger),
             bootstrap_result=bootstrap_result,
             dossier=initial_dossier,
         )
         try:
-            plan = client.plan(messages, registry.all_tool_schemas())
+            plan = client.plan(
+                messages,
+                _tools_for_work_ledger(work_ledger),
+            )
         except LLMError as exc:
             decisions.append(
                 DecisionSummary(turn=turn, kind="stop", detail=f"planner_llm_failure: {exc}")
@@ -181,10 +215,26 @@ def run_planner_loop(
             )
             break
 
-        work_ledger = build_work_ledger(
-            specialist_results,
-            attempted_capability_ids=tried_capability_ids,
-        )
+        usage = plan.meta.usage
+        if (
+            usage is not None
+            and usage.prompt_tokens is not None
+            and usage.prompt_tokens > dossier_token_budget
+        ):
+            decisions.append(
+                DecisionSummary(
+                    turn=turn,
+                    kind="token_budget_exceeded",
+                    detail=f"prompt_tokens={usage.prompt_tokens}",
+                )
+            )
+            outcome = ConvergenceOutcome(
+                status="BLOCKED",
+                blocked_reason=f"dossier_token_budget_exceeded:{usage.prompt_tokens}",
+                blocked_category="agent_fixable",
+            )
+            break
+
         if plan.tool_call is None:
             if not work_ledger.stop_allowed:
                 consecutive_no_progress_turns += 1
@@ -382,25 +432,6 @@ def run_planner_loop(
                 specialist_results=specialist_results,
             )
             break
-
-        usage = plan.meta.usage
-        if (
-            usage is not None
-            and usage.prompt_tokens is not None
-            and usage.prompt_tokens > dossier_token_budget
-        ):
-            decisions.append(
-                DecisionSummary(
-                    turn=turn,
-                    kind="token_budget_exceeded",
-                    detail=f"prompt_tokens={usage.prompt_tokens}",
-                )
-            )
-            outcome = ConvergenceOutcome(
-                status="BLOCKED",
-                blocked_reason=f"dossier_token_budget_exceeded:{usage.prompt_tokens}",
-                blocked_category="agent_fixable",
-            )
 
     assert outcome is not None
     return PlannerLoopResult(graph=graph, decisions=decisions, outcome=outcome)

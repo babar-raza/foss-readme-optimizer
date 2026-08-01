@@ -70,6 +70,12 @@ class WorkLedgerV1(BaseModel):
 
         return not self.eligible_capability_ids
 
+    @property
+    def capability_scope_enforced(self) -> bool:
+        """Whether findings make this ledger authoritative for tool selection."""
+
+        return bool(self.unresolved_findings or self.ready_proposals)
+
 
 def _routes_for_finding(finding: str) -> tuple[str, ...]:
     for prefix, capability_ids in _CAPABILITY_ROUTES:

@@ -17,6 +17,7 @@ def test_stale_readme_exposes_untried_deterministic_actions():
     )
 
     assert ledger.stop_allowed is False
+    assert ledger.capability_scope_enforced is True
     assert ledger.unresolved_findings == ("readme_presentation:STALE_NONCOMPLIANT",)
     assert ledger.eligible_capability_ids == (
         "get_product_facts",
@@ -44,6 +45,7 @@ def test_stop_is_allowed_after_every_mapped_action_was_attempted():
     assert ledger.unresolved_findings == ("metadata_presentation:1_blocked",)
     assert ledger.eligible_capability_ids == ()
     assert ledger.stop_allowed is True
+    assert ledger.capability_scope_enforced is True
 
 
 def test_verified_proposal_is_terminal_without_being_mislabeled_no_change():
@@ -60,3 +62,20 @@ def test_verified_proposal_is_terminal_without_being_mislabeled_no_change():
     assert ledger.unresolved_findings == ()
     assert ledger.ready_proposals == ("metadata_presentation:proposal_ready",)
     assert ledger.stop_allowed is True
+    assert ledger.capability_scope_enforced is True
+
+
+def test_unclassified_specialist_state_does_not_claim_authoritative_tool_scope():
+    ledger = build_work_ledger(
+        {
+            "readme_presentation": DomainStateV1(
+                domain="readme_presentation",
+                accepted_status="FIRST_OBSERVATION",
+                details={},
+            )
+        }
+    )
+
+    assert ledger.unresolved_findings == ()
+    assert ledger.ready_proposals == ()
+    assert ledger.capability_scope_enforced is False

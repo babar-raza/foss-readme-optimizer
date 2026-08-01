@@ -49,10 +49,20 @@ def run_golden_set(
     planner_client: PlannerClient, scenarios: tuple[GoldenScenario, ...] = SCENARIOS
 ) -> list[ScenarioResult]:
     _, turn_context_template = planning_prompts.supervisor_turn_prompt()
-    tools = registry.all_tool_schemas()
+    all_tools = registry.all_tool_schemas()
     results: list[ScenarioResult] = []
 
     for scenario in scenarios:
+        untried_capability_ids = tuple(
+            name
+            for tool in all_tools
+            if (name := (tool.get("function") or {}).get("name"))
+            and name != "stop"
+            and name not in scenario.tried_capability_ids
+        )
+        eligible_capability_ids = (
+            () if scenario.expected_capability_id == STOP else untried_capability_ids
+        )
         messages = planning_prompts.build_supervisor_turn_messages(
             dossier.render_turn_context(
                 turn_context_template,
@@ -60,6 +70,7 @@ def run_golden_set(
                 turn_number=len(scenario.tried_capability_ids) + 1,
                 max_turns=8,
                 tried_capability_ids=scenario.tried_capability_ids,
+                eligible_capability_ids=eligible_capability_ids,
                 bootstrap_result=scenario.bootstrap_result,
                 dossier=scenario.dossier,
             )
@@ -67,7 +78,7 @@ def run_golden_set(
 
         start = time.monotonic()
         try:
-            plan = planner_client.plan(messages, tools)
+            plan = planner_client.plan(messages, all_tools)
         except LLMError as exc:
             results.append(
                 ScenarioResult(

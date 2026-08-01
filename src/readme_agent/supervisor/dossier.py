@@ -122,6 +122,7 @@ def render_turn_context(
     turn_number: int,
     max_turns: int,
     tried_capability_ids: list[str],
+    eligible_capability_ids: tuple[str, ...],
     bootstrap_result: dict,
     dossier: dict[str, str],
 ) -> str:
@@ -132,6 +133,7 @@ def render_turn_context(
             turn_number=turn_number,
             max_turns=max_turns,
             tried_capabilities=", ".join(tried_capability_ids) or "none yet",
+            eligible_capabilities=", ".join(eligible_capability_ids) or "stop only",
             bootstrap_result=json.dumps(bootstrap_result),
             specialist_summaries=json.dumps(dossier, sort_keys=True),
         )
