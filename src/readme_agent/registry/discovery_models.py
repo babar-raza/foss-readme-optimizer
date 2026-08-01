@@ -8,7 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, model_validator
 
 DiscoveryClassification = Literal["matched", "ambiguous", "unmatched"]
 DiscoveryDisposition = Literal["admit_candidate", "review_required"]
-SourceScanStatus = Literal["complete", "failed"]
+SourceScanStatus = Literal["complete", "excluded", "failed"]
 
 
 class DiscoverySourceV1(BaseModel):
@@ -22,14 +22,33 @@ class DiscoverySourceV1(BaseModel):
     organization: str
     family_hint: str | None = None
     enabled: bool = True
+    exclusion_reason: str | None = None
+
+    @model_validator(mode="after")
+    def exclusion_is_explicit(self) -> DiscoverySourceV1:
+        reason = self.exclusion_reason.strip() if self.exclusion_reason else None
+        if not self.enabled and not reason:
+            raise ValueError("disabled discovery sources require an exclusion reason")
+        if self.enabled and reason:
+            raise ValueError("enabled discovery sources cannot carry an exclusion reason")
+        return self
 
     @classmethod
     def from_family(cls, family: dict) -> DiscoverySourceV1:
         organization = str(family["github_org"])
+        enabled = family.get("enabled", True)
+        if not isinstance(enabled, bool):
+            raise ValueError("discovery source enabled must be a boolean")
         return cls(
             source_id=f"github-org:{organization}",
             organization=organization,
             family_hint=str(family["family"]) if family.get("family") else None,
+            enabled=enabled,
+            exclusion_reason=(
+                str(family["exclusion_reason"])
+                if family.get("exclusion_reason") is not None
+                else None
+            ),
         )
 
 
@@ -98,11 +117,18 @@ class DiscoverySourceResultV1(BaseModel):
     error: str | None = None
 
     @model_validator(mode="after")
-    def failure_requires_error(self) -> DiscoverySourceResultV1:
+    def terminal_state_matches_source(self) -> DiscoverySourceResultV1:
         if self.status == "failed" and not self.error:
             raise ValueError("failed source results require an error")
-        if self.status == "complete" and self.error is not None:
-            raise ValueError("complete source results cannot carry an error")
+        if self.status != "failed" and self.error is not None:
+            raise ValueError("non-failed source results cannot carry an error")
+        if self.status == "excluded":
+            if self.source.enabled:
+                raise ValueError("excluded source results require a disabled source")
+            if self.observation_count:
+                raise ValueError("excluded source results cannot contain observations")
+        elif not self.source.enabled:
+            raise ValueError("disabled sources must produce an excluded result")
         return self
 
 
@@ -119,7 +145,7 @@ class DiscoveryInventoryV1(BaseModel):
 
     @model_validator(mode="after")
     def completeness_matches_source_results(self) -> DiscoveryInventoryV1:
-        expected = all(source.status == "complete" for source in self.sources)
+        expected = all(source.status != "failed" for source in self.sources)
         if self.complete != expected:
             raise ValueError("inventory completeness must match source results")
         return self
@@ -127,6 +153,10 @@ class DiscoveryInventoryV1(BaseModel):
     @property
     def failures(self) -> list[DiscoverySourceResultV1]:
         return [source for source in self.sources if source.status == "failed"]
+
+    @property
+    def exclusions(self) -> list[DiscoverySourceResultV1]:
+        return [source for source in self.sources if source.status == "excluded"]
 
     @property
     def matched_observations(self) -> list[DiscoveryObservationV1]:

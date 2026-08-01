@@ -36,6 +36,14 @@ def inventory_sources(
     for family in families:
         source = DiscoverySourceV1.from_family(family)
         if not source.enabled:
+            source_results.append(
+                DiscoverySourceResultV1(
+                    source=source,
+                    status="excluded",
+                    observed_at=captured_at,
+                    observation_count=0,
+                )
+            )
             continue
         try:
             repositories = scan_organization(
@@ -79,7 +87,7 @@ def inventory_sources(
         captured_at=captured_at,
         sources=source_results,
         observations=observations,
-        complete=all(source.status == "complete" for source in source_results),
+        complete=all(source.status != "failed" for source in source_results),
     )
 
 

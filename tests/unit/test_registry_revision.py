@@ -121,6 +121,46 @@ def test_complete_revision_is_current_campaign_eligible():
     assert gate.reasons == []
 
 
+def test_disabled_source_is_revision_bound_without_blocking_completeness():
+    existing = [_entry()]
+    excluded_source = DiscoverySourceV1(
+        source_id="github-org:aspose-imaging-foss",
+        organization="aspose-imaging-foss",
+        family_hint="imaging",
+        enabled=False,
+        exclusion_reason="organization does not exist",
+    )
+    inventory = DiscoveryInventoryV1(
+        captured_at="2026-08-01T00:00:00+00:00",
+        sources=[
+            DiscoverySourceResultV1(
+                source=excluded_source,
+                status="excluded",
+                observed_at="2026-08-01T00:00:00+00:00",
+                observation_count=0,
+            )
+        ],
+        observations=[],
+        complete=True,
+    )
+    revision = build_registry_revision(
+        inventory,
+        reconcile_registry(existing, inventory),
+        previous_entries=existing,
+    )
+
+    assert revision.complete is True
+    assert revision.source_failures == []
+    assert revision.exclusions == [
+        {
+            "org_repo": "aspose-imaging-foss/*",
+            "classification": "source_excluded",
+            "reason": "organization does not exist",
+        }
+    ]
+    assert evaluate_registry_revision(revision, existing).eligible is True
+
+
 def test_changed_observation_creates_one_pending_intake_and_deduplicates_next_scan():
     first = _revision()
     changed = _revision(

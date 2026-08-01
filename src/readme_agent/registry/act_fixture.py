@@ -44,6 +44,10 @@ def build_act_registry_inventory(
         source = sources.get(owner)
         if source is None:
             raise UsageError(f"registry entry {owner}/{entry['repo_name']} has no source catalog")
+        if not source.enabled:
+            raise UsageError(
+                f"registry entry {owner}/{entry['repo_name']} belongs to an excluded source"
+            )
         if owner == failed_owner:
             continue
         identity = entry.get("provider_identity")
@@ -74,10 +78,12 @@ def build_act_registry_inventory(
     source_results = []
     for owner, source in sorted(sources.items()):
         failed = owner == failed_owner
+        if failed and not source.enabled:
+            raise UsageError(f"cannot inject an outage for excluded source: {owner}")
         source_results.append(
             DiscoverySourceResultV1(
                 source=source,
-                status="failed" if failed else "complete",
+                status="failed" if failed else ("complete" if source.enabled else "excluded"),
                 observed_at=captured_at,
                 observation_count=counts[owner],
                 error="injected ACT source outage" if failed else None,

@@ -138,7 +138,14 @@ def build_registry_revision(
     additions: list[str] = []
     renames: list[dict[str, str]] = []
     archives: list[str] = []
-    exclusions: list[dict[str, str]] = []
+    exclusions: list[dict[str, str]] = [
+        {
+            "org_repo": f"{result.source.organization}/*",
+            "classification": "source_excluded",
+            "reason": result.source.exclusion_reason or "source excluded by policy",
+        }
+        for result in inventory.exclusions
+    ]
     unexplained: list[str] = []
     changes: list[RegistryObservationChangeV1] = []
     for record in reconciliation.records:

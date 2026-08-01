@@ -55,6 +55,15 @@ def test_real_families_json_has_26_entries_with_matching_org_convention():
         assert fam["github_org"] == f"aspose-{fam['family']}-foss"
 
 
+def test_real_families_json_retains_nonexistent_imaging_source_as_explicit_exclusion():
+    families = registry_sync.load_families(REPO_ROOT / "data" / "families.json")
+    imaging = next(family for family in families if family["family"] == "imaging")
+
+    assert imaging["github_org"] == "aspose-imaging-foss"
+    assert imaging["enabled"] is False
+    assert "non-FOSS" in imaging["exclusion_reason"]
+
+
 def test_real_families_json_covers_every_org_referenced_by_products_json():
     families = registry_sync.load_families(REPO_ROOT / "data" / "families.json")
     known_orgs = {f["github_org"] for f in families}
@@ -307,3 +316,28 @@ def test_inventory_source_failure_is_explicitly_incomplete():
     assert len(inventory.failures) == 1
     assert inventory.failures[0].source.organization == "aspose-imaging-foss"
     assert inventory.failures[0].error == "404 source unavailable"
+
+
+def test_inventory_binds_disabled_source_as_exclusion_without_scanning():
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    calls = []
+    inventory = inventory_sources(
+        [
+            {
+                "family": "imaging",
+                "github_org": "aspose-imaging-foss",
+                "enabled": False,
+                "exclusion_reason": "organization does not exist",
+            }
+        ],
+        scan_organization=lambda org, **kwargs: calls.append(org),
+        classify_repository=registry_sync.classify_repo_name,
+    )
+
+    assert calls == []
+    assert inventory.complete is True
+    assert inventory.failures == []
+    assert len(inventory.exclusions) == 1
+    assert inventory.exclusions[0].source.organization == "aspose-imaging-foss"
+    assert inventory.exclusions[0].source.exclusion_reason == "organization does not exist"

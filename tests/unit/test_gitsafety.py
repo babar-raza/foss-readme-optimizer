@@ -472,6 +472,30 @@ class TestCloneBaselineRetryAndTimeout:
     so these test the retry/timeout decision logic in isolation from actual
     git subprocess behavior (already covered by `_git.py`'s own tests)."""
 
+    def test_clone_skips_lfs_payload_smudge(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.gitsafety import clone as clone_module
+
+        entry = _fake_entry("https://example.invalid/does-not-matter.git")
+        baseline_path = tmp_path / "baseline"
+        clone_environments = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            if args[0] == "rev-parse":
+                return subprocess.CompletedProcess(
+                    args=args, returncode=0, stdout="deadbeef", stderr=""
+                )
+            clone_environments.append(kwargs.get("env"))
+            baseline_path.mkdir(parents=True, exist_ok=True)
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+
+        clone_module.clone_baseline(entry, baseline_path)
+
+        assert clone_environments == [{"GIT_LFS_SKIP_SMUDGE": "1"}]
+
     def test_retries_once_on_synthetic_timeout_then_succeeds(self, monkeypatch, tmp_path):
         import subprocess
 

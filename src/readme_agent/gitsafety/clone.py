@@ -314,6 +314,10 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
         result = run_git(
             ["clone", "--depth", "1", entry.clone_url, str(baseline_path)],
             timeout=timeout,
+            # Repository analysis needs tracked source and LFS pointer metadata,
+            # not large binary payloads. Allowing checkout to invoke git-lfs can
+            # turn a bounded README intake into an unbounded asset download.
+            env={"GIT_LFS_SKIP_SMUDGE": "1"},
         )
         if result.returncode == 0:
             # A None SHA (rev-parse somehow failing right after a successful

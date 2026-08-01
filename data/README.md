@@ -66,6 +66,11 @@ here grants no permission to touch anything. It only tells the discovery script 
 { "family": "cells", "name": "Aspose.Cells", "github_org": "aspose-cells-foss" }
 ```
 
+A source that does not exist or is outside the authorized FOSS portfolio remains in the catalog as
+an explicit, revision-bound exclusion. Set `"enabled": false` and provide a nonempty
+`"exclusion_reason"`. The inventory records that source as `excluded`; it does not scan it, silently
+drop it, substitute a similarly named organization, or count the governed exclusion as an outage.
+
 ## How `data/products.json` stays current
 
 [`scripts/data-refresh/update_products_registry.py`](../scripts/data-refresh/update_products_registry.py)

@@ -37,22 +37,32 @@ def test_fixture_covers_the_dynamic_registry_and_every_configured_source(monkeyp
     assert {item.full_name for item in inventory.observations} == {
         entry.org_repo for entry in entries
     }
-    assert all(source.status == "complete" for source in inventory.sources)
+    assert {source.status for source in inventory.sources} == {"complete", "excluded"}
+    assert [source.source.organization for source in inventory.exclusions] == [
+        "aspose-imaging-foss"
+    ]
     assert sum(source.observation_count for source in inventory.sources) == len(entries)
 
 
 def test_fixture_retains_an_injected_source_outage(monkeypatch):
     monkeypatch.setenv("ACT", "true")
     monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
-    monkeypatch.setenv("README_AGENT_ACT_REGISTRY_SOURCE_FAILURE", "aspose-imaging-foss")
+    monkeypatch.setenv("README_AGENT_ACT_REGISTRY_SOURCE_FAILURE", "aspose-note-foss")
 
     inventory = build_act_registry_inventory(Path("data/products.json"))
     failure = next(
-        source
-        for source in inventory.sources
-        if source.source.organization == "aspose-imaging-foss"
+        source for source in inventory.sources if source.source.organization == "aspose-note-foss"
     )
 
     assert inventory.complete is False
     assert failure.status == "failed"
     assert failure.error == "injected ACT source outage"
+
+
+def test_fixture_rejects_outage_injection_for_excluded_source(monkeypatch):
+    monkeypatch.setenv("ACT", "true")
+    monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+    monkeypatch.setenv("README_AGENT_ACT_REGISTRY_SOURCE_FAILURE", "aspose-imaging-foss")
+
+    with pytest.raises(UsageError, match="cannot inject an outage for excluded source"):
+        build_act_registry_inventory(Path("data/products.json"))
