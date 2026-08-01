@@ -647,6 +647,15 @@
         "reason": "content assurance changed: begin repository-evidence verification",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "PROFILED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "PROFILED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-01T09:18:51.553611+00:00",
+        "reason": "collecting and reconciling repository product truth",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -675,11 +684,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-    "status": "PROFILED",
-    "updated_at": "2026-08-01T09:17:17.282338+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-01T09:18:51.553611+00:00"
   },
   "schema_version": 2,
-  "state_version": 49,
+  "state_version": 50,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
