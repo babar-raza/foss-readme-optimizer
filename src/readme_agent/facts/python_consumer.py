@@ -36,6 +36,7 @@ _COPY_IGNORE = shutil.ignore_patterns(".git", ".venv", "__pycache__", "build", "
 _DRIVER = r"""
 import importlib
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -60,6 +61,7 @@ install = subprocess.run(
         "--no-deps", "--no-build-isolation", "--target", str(target), ".",
     ],
     text=True, capture_output=True,
+    env={**os.environ, "PYTHONPATH": str(target)},
 )
 if install.returncode:
     sys.stderr.write(install.stdout + install.stderr)

@@ -116,7 +116,7 @@ def test_binary_wheel_acquisition_is_bounded_cached_and_checksum_validated(tmp_p
         runner=runner,
     )
     assert bundle is not None
-    assert bundle.acquisition.requirements == ["lxml>=4.9"]
+    assert bundle.acquisition.requirements == ["lxml>=4.9", "setuptools"]
     assert len(bundle.acquisition.artifacts) == 1
     docker_argv = next(argv for argv in runner.commands if argv[0] == "run")
     joined = "\0".join(docker_argv)
@@ -156,13 +156,14 @@ def test_binary_wheel_acquisition_is_bounded_cached_and_checksum_validated(tmp_p
         )
 
 
-def test_packages_without_declared_runtime_dependencies_need_no_network(tmp_path, monkeypatch):
+def test_packages_without_declared_dependencies_need_no_network(tmp_path, monkeypatch):
     source = tmp_path / "source"
     _source(source)
     (source / "pyproject.toml").write_text(
         (source / "pyproject.toml")
         .read_text(encoding="utf-8")
-        .replace('dependencies = ["lxml>=4.9"]\n', ""),
+        .replace('dependencies = ["lxml>=4.9"]\n', "")
+        .replace('requires = ["setuptools"]\n', "requires = []\n"),
         encoding="utf-8",
     )
     snapshot = _snapshot(source)

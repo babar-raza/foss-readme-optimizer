@@ -58,6 +58,21 @@ def declared_python_runtime_dependencies(root: Path, manifest_path: str) -> list
     return sorted(dict.fromkeys(item.strip() for item in dependencies if item.strip()))
 
 
+def declared_python_build_dependencies(root: Path, manifest_path: str) -> list[str]:
+    """Read literal PEP 517 build requirements without executing repository code."""
+
+    manifest = root / manifest_path
+    if manifest.name != "pyproject.toml" or not manifest.is_file():
+        return []
+    data = tomllib.loads(manifest.read_text(encoding="utf-8-sig", errors="replace"))
+    requirements = data.get("build-system", {}).get("requires", [])
+    if not isinstance(requirements, list) or any(
+        not isinstance(item, str) for item in requirements
+    ):
+        raise ValueError("build-system.requires must be a literal string list")
+    return sorted(dict.fromkeys(item.strip() for item in requirements if item.strip()))
+
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -215,7 +230,12 @@ def acquire_python_dependencies(
     """Resolve binary wheels in a bounded networked container for offline use."""
 
     verify_repository_snapshot(snapshot)
-    requirements = declared_python_runtime_dependencies(snapshot.root_path, package.manifest_path)
+    requirements = sorted(
+        set(
+            declared_python_runtime_dependencies(snapshot.root_path, package.manifest_path)
+            + declared_python_build_dependencies(snapshot.root_path, package.manifest_path)
+        )
+    )
     if not requirements:
         return None
     root = cache_root or _cache_root()
