@@ -104,8 +104,8 @@ class TestOpportunisticLayer:
             {
                 "family": "x",
                 "platform": "java",
-                "repo_name": "X-FOSS-for-Java",
-                "repo_url": "https://github.com/x-foss/X-FOSS-for-Java",
+                "repo_name": "Aspose.X-FOSS-for-Java",
+                "repo_url": "https://github.com/x-foss/Aspose.X-FOSS-for-Java",
                 "clone_url": str(source),
                 "active": True,
                 "discovered_via": "manual",
@@ -123,7 +123,9 @@ class TestOpportunisticLayer:
 
         monkeypatch.chdir(tmp_path)
         result = generate_repo(
-            "x-foss/X-FOSS-for-Java", llm_mode="fixture", fixture_response_path=fixture_path
+            "x-foss/Aspose.X-FOSS-for-Java",
+            llm_mode="fixture",
+            fixture_response_path=fixture_path,
         )
         assert result.evidence_dir is not None
 

@@ -193,14 +193,38 @@ to add a project fact here, it belongs in `master.md` instead.
     no-op-proven result. A strong existing README may produce a byte-identical empty-patch
     candidate, but it receives the same fact, inherited-claim, deterministic, independent-review,
     and no-op proof. (Added 2026-07-25; amended 2026-07-29 — see Decisions #78 and #84.)
-19. **One local operator; safe commands execute under standing authority.** During the autonomous
-    implementation sprint, Codex is the sole control-repository operator. Do not infer multiple
-    workers from Python, Git, Docker, compiler, or test descendants of Codex's active command.
+19. **One accountable coordinator; bounded agents execute through disjoint leases.** During the
+    autonomous implementation sprint, Codex is the sole coordinator and the only authority for
+    shared governance/state files, integration, task transitions, commits, final verification,
+    and final evidence. The required Repair, Advancement, Validator/Evidence,
+    Documentation/State-Sync, and Independent Verification roles may run in waves with no more
+    than three workers beside the coordinator. Before work starts, each worker receives a concrete
+    task and an exclusive non-shared path lease. Workers edit only those paths, produce lane
+    evidence, run isolated focused tests, and report exact results; they cannot claim closure,
+    mutate shared state, commit, integrate, or perform a product effect. Documentation/State-Sync
+    is proposal-only: it writes a proposed patch or reconciliation report under its
+    `runs/multi-agent/` lane, and only the coordinator applies accepted changes to `AGENTS.md`,
+    `plans/`, shared evidence, taskcards, or durable state. No overlapping writes are permitted.
+    The independent verifier must not author the implementation it verifies, and human review or
+    approval is requested only after independent acceptance.
+
+    Every claimed task receives one idempotent task-lane execution record under
+    `runs/multi-agent/<task-id>/execution-plan.json` before implementation. The record must
+    disposition all five required roles as active or not applicable with a task-specific reason.
+    Each active lane names its objective, exclusive non-shared allowed paths, forbidden shared
+    paths, focused checks, and evidence destination. Documentation/State-Sync receives only its
+    proposal-artifact path. Do not spawn a ceremonial worker where no independent lane
+    exists; do run useful roles in successive waves when the three-worker capacity is full. Missing
+    role dispositions, overlapping path leases, absent lane evidence, or independent-verifier
+    authorship of the verified implementation fail closeout.
+
     Before starting a long test, proof builder, supervisor campaign, build, or workflow
-    reproduction, inventory repository-owned processes. If a top-level process tree is active,
-    poll or resume it instead of launching another; only one such tree runs at a time. Future
-    production-trigger concurrency remains a runtime capability governed by leases,
-    deduplication, and isolation, not permission for concurrent local operators.
+    reproduction, the coordinator inventories repository-owned processes and grants the top-level
+    command lease. Lane-local focused tests may overlap only when resources and state are
+    demonstrably isolated. The bounded full-suite runner and integration/proof campaigns remain
+    serialized at governed campaign boundaries. Runtime repository fan-out remains governed by
+    leases, deduplication, isolation, and serialized aggregation; before representative/canary
+    qualification it stays serial, and afterwards the sole supervisor may own at most four lanes.
 
     The user has granted standing authority for every safe, plan-bound command that the current
     environment permits. Run reads, network inspection, `.venv` operations, formatting, tests,
@@ -210,7 +234,7 @@ to add a project fact here, it belongs in `master.md` instead.
     unavailable external authority, credentials, infrastructure, manual UI, or an explicitly gated
     external effect. Shell access never implies product-write authority, destructive history,
     secret disclosure, or deletion of non-disposable user data. (Added 2026-07-27, user directive;
-    see Decision #81 and `GOV-030`.)
+    see revised Decision #81 and `GOV-030`.)
 20. **Content assurance is explicit and cannot be promoted by implication.**
     `trusted_readme_transform` and `verified_repository_presentation` use the same canonical
     supervisor, registry, state, evidence, authorization, and effect systems, but their evidence

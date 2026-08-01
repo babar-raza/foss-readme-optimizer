@@ -399,7 +399,11 @@ def test_dynamic_scoreboard_counts_durable_lifecycle_progress(tmp_path):
             readme_poc_lifecycle=ReadmePocLifecycleStateV2(status=status),
         )
 
-    scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+    scoreboard = derive_lifecycle_scoreboard(
+        backend,
+        products_path=products_path,
+        verify_acceptance_freshness=False,
+    )
 
     assert scoreboard.denominator == 6
     assert (
@@ -411,6 +415,55 @@ def test_dynamic_scoreboard_counts_durable_lifecycle_progress(tmp_path):
         scoreboard.human_accepted,
     ) == (6, 5, 4, 3, 2, 1)
     assert scoreboard.first_failing_boundary == "CANDIDATE_GENERATED"
+
+
+def test_dynamic_scoreboard_reports_raw_but_excludes_stale_acceptance(
+    tmp_path,
+    monkeypatch,
+):
+    entry = load_products()[0]
+    products_path = tmp_path / "products.json"
+    source_products = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+    products_path.write_text(
+        json.dumps(
+            [
+                item
+                for item in source_products
+                if f"{item['repo_url'].split('/')[3]}/{item['repo_name']}" == entry.org_repo
+            ]
+        ),
+        encoding="utf-8",
+    )
+    backend = _MemoryStateBackend()
+    backend.records[entry.org_repo] = RunStateV1(
+        org_repo=entry.org_repo,
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            status="NO_OP_PROVEN",
+            source_revision="a" * 40,
+        ),
+    )
+    monkeypatch.setattr(
+        "readme_agent.supervisor.local_poc_cache.evaluate_completed_local_poc_cache",
+        lambda *args, **kwargs: type(
+            "Decision",
+            (),
+            {
+                "reusable": False,
+                "mismatch_reasons": ["current_template_hash_mismatch"],
+            },
+        )(),
+    )
+
+    scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+
+    assert scoreboard.raw_agent_approved == 1
+    assert scoreboard.raw_no_op_proven == 1
+    assert scoreboard.agent_approved == 0
+    assert scoreboard.no_op_proven == 0
+    assert scoreboard.stale_acceptance_repositories == {
+        entry.org_repo: ["current_template_hash_mismatch"]
+    }
+    assert scoreboard.first_failing_boundary == "AGENT_APPROVED"
 
 
 def test_lifecycle_scoreboard_registry_hash_is_line_ending_independent(tmp_path: Path):

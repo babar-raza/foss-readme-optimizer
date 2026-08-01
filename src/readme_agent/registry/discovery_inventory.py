@@ -118,6 +118,10 @@ def _observation(
         if str(raw["node_id"]) != override.provider_node_id:
             classification = "ambiguous"
             classification_reason = "provider node ID conflicts with governed classification"
+        elif pair is None:
+            classification_reason = (
+                "stable provider identity cannot override the required repository naming contract"
+            )
         elif pair is not None and pair != override_pair:
             classification = "ambiguous"
             classification_reason = "name-derived coordinates conflict with governed classification"

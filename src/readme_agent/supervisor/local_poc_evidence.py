@@ -24,6 +24,7 @@ from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.readme_poc_lifecycle import candidate_generation_origin_hash
+from readme_agent.supervisor.local_poc_superseded import preserve_superseded_candidate
 
 
 def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
@@ -200,6 +201,12 @@ def write_local_poc_product_facts(
     ):
         refresh_sha256sums(bundle_dir)
         return bundle_dir
+    if prior_manifest.get("candidate_hash"):
+        preserve_superseded_candidate(
+            bundle_dir,
+            prior_manifest,
+            reason="product fact or fact-acceptance dependency changed",
+        )
     write_local_poc_manifest(
         bundle_dir,
         {

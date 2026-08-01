@@ -89,6 +89,16 @@ def run_mission_command(args: argparse.Namespace) -> int:
         print(f"agent_approved: {scoreboard.agent_approved}/{scoreboard.denominator}")
         print(f"no_op_proven: {scoreboard.no_op_proven}/{scoreboard.denominator}")
         print(f"human_accepted: {scoreboard.human_accepted}/{scoreboard.denominator}")
+        print(
+            "raw_lifecycle_acceptance: "
+            f"agent_approved={scoreboard.raw_agent_approved}, "
+            f"no_op_proven={scoreboard.raw_no_op_proven}, "
+            f"human_accepted={scoreboard.raw_human_accepted}"
+        )
+        print(
+            "stale_acceptance_repositories: "
+            + (", ".join(scoreboard.stale_acceptance_repositories) or "-")
+        )
         print(f"first_failing_boundary: {scoreboard.first_failing_boundary}")
     print(f"core_goal_active: {str(evaluation.core_goal_active).lower()}")
     print(f"active_goal: {evaluation.active_goal_id or '-'}")

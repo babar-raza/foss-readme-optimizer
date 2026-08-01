@@ -117,8 +117,8 @@ def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
         {
             "family": "thing",
             "platform": "java",
-            "repo_name": "Example-FOSS-for-Java",
-            "repo_url": "https://github.com/example-foss/Example-FOSS-for-Java",
+            "repo_name": "Aspose.Thing-FOSS-for-Java",
+            "repo_url": "https://github.com/example-foss/Aspose.Thing-FOSS-for-Java",
             "clone_url": source_clone_url,
             "active": True,
             "discovered_via": "manual",
@@ -136,7 +136,7 @@ def _setup_project_root(tmp_path, source_clone_url: str, mode: str):
     return fixture_path
 
 
-ORG_REPO = "example-foss/Example-FOSS-for-Java"
+ORG_REPO = "example-foss/Aspose.Thing-FOSS-for-Java"
 
 
 class _FakeStateBackend:
@@ -289,7 +289,9 @@ class TestCalloutMigration:
         # Simulate a pre-Phase-21 work clone by appending a legacy callout
         # span directly to the on-disk work clone -- bypassing upsert_span,
         # which no longer accepts "callout" (see markers.py).
-        work_readme_path = paths.work_dir("example-foss", "Example-FOSS-for-Java") / "README.md"
+        work_readme_path = (
+            paths.work_dir("example-foss", "Aspose.Thing-FOSS-for-Java") / "README.md"
+        )
         legacy_span = render_span("callout", "old promotional banner", "deadbeef")
         work_readme_path.write_text(compliant_readme + "\n" + legacy_span, encoding="utf-8")
 
@@ -391,7 +393,7 @@ class TestRunRegistryBaselineCleanup:
 
         assert len(results) == 1
         assert results[0].ok
-        baseline_path = paths.baseline_dir("example-foss", "Example-FOSS-for-Java")
+        baseline_path = paths.baseline_dir("example-foss", "Aspose.Thing-FOSS-for-Java")
         assert not baseline_path.exists()
 
     def test_baseline_dir_is_removed_even_when_the_entry_errors(self, tmp_path, monkeypatch):
@@ -403,8 +405,8 @@ class TestRunRegistryBaselineCleanup:
             {
                 "family": "thing",
                 "platform": "java",
-                "repo_name": "Example-FOSS-for-Java",
-                "repo_url": "https://github.com/example-foss/Example-FOSS-for-Java",
+                "repo_name": "Aspose.Thing-FOSS-for-Java",
+                "repo_url": "https://github.com/example-foss/Aspose.Thing-FOSS-for-Java",
                 "clone_url": str(tmp_path / "does-not-exist"),
                 "active": True,
                 "discovered_via": "manual",
@@ -420,7 +422,7 @@ class TestRunRegistryBaselineCleanup:
 
         assert len(results) == 1
         assert not results[0].ok
-        baseline_path = paths.baseline_dir("example-foss", "Example-FOSS-for-Java")
+        baseline_path = paths.baseline_dir("example-foss", "Aspose.Thing-FOSS-for-Java")
         assert not baseline_path.exists()
 
 
@@ -554,9 +556,9 @@ class TestRunRegistryProfilingSweep:
             {
                 "family": "one",
                 "platform": "java",
-                "repo_name": "One",
-                "repo_url": "https://github.com/acme/One",
-                "clone_url": "https://github.com/acme/One.git",
+                "repo_name": "Aspose.One-FOSS-for-Java",
+                "repo_url": "https://github.com/acme/Aspose.One-FOSS-for-Java",
+                "clone_url": "https://github.com/acme/Aspose.One-FOSS-for-Java.git",
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "full",
@@ -566,9 +568,9 @@ class TestRunRegistryProfilingSweep:
             {
                 "family": "two",
                 "platform": "java",
-                "repo_name": "Two",
-                "repo_url": "https://github.com/acme/Two",
-                "clone_url": "https://github.com/acme/Two.git",
+                "repo_name": "Aspose.Two-FOSS-for-Java",
+                "repo_url": "https://github.com/acme/Aspose.Two-FOSS-for-Java",
+                "clone_url": "https://github.com/acme/Aspose.Two-FOSS-for-Java.git",
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "disabled",
@@ -591,7 +593,10 @@ class TestRunRegistryProfilingSweep:
 
         profiles = run_registry_profiling_sweep()
 
-        assert sorted(seen) == ["acme/One", "acme/Two"]
+        assert sorted(seen) == [
+            "acme/Aspose.One-FOSS-for-Java",
+            "acme/Aspose.Two-FOSS-for-Java",
+        ]
         assert len(profiles) == 2
 
     def test_continues_past_one_entrys_failure(self, tmp_path, monkeypatch):
@@ -600,9 +605,9 @@ class TestRunRegistryProfilingSweep:
             {
                 "family": "one",
                 "platform": "java",
-                "repo_name": "One",
-                "repo_url": "https://github.com/acme/One",
-                "clone_url": "https://github.com/acme/One.git",
+                "repo_name": "Aspose.One-FOSS-for-Java",
+                "repo_url": "https://github.com/acme/Aspose.One-FOSS-for-Java",
+                "clone_url": "https://github.com/acme/Aspose.One-FOSS-for-Java.git",
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "full",
@@ -612,9 +617,9 @@ class TestRunRegistryProfilingSweep:
             {
                 "family": "two",
                 "platform": "java",
-                "repo_name": "Two",
-                "repo_url": "https://github.com/acme/Two",
-                "clone_url": "https://github.com/acme/Two.git",
+                "repo_name": "Aspose.Two-FOSS-for-Java",
+                "repo_url": "https://github.com/acme/Aspose.Two-FOSS-for-Java",
+                "clone_url": "https://github.com/acme/Aspose.Two-FOSS-for-Java.git",
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "full",
@@ -626,7 +631,7 @@ class TestRunRegistryProfilingSweep:
         monkeypatch.chdir(tmp_path)
 
         def _flaky(entry, state_backend):
-            if entry.repo_name == "One":
+            if entry.repo_name == "Aspose.One-FOSS-for-Java":
                 raise RuntimeError("simulated profiling failure")
             return RepositoryProfile(
                 org_repo=entry.org_repo, detected_ecosystems=[], unresolved_manifests=[]
@@ -637,7 +642,7 @@ class TestRunRegistryProfilingSweep:
         profiles = run_registry_profiling_sweep()
 
         assert len(profiles) == 1
-        assert profiles[0].org_repo == "acme/Two"
+        assert profiles[0].org_repo == "acme/Aspose.Two-FOSS-for-Java"
 
     def test_cleans_up_baseline_dir_after_each_entry(self, tmp_path, monkeypatch):
         (tmp_path / "data").mkdir()
@@ -645,9 +650,9 @@ class TestRunRegistryProfilingSweep:
             {
                 "family": "one",
                 "platform": "java",
-                "repo_name": "One",
-                "repo_url": "https://github.com/acme/One",
-                "clone_url": "https://github.com/acme/One.git",
+                "repo_name": "Aspose.One-FOSS-for-Java",
+                "repo_url": "https://github.com/acme/Aspose.One-FOSS-for-Java",
+                "clone_url": "https://github.com/acme/Aspose.One-FOSS-for-Java.git",
                 "active": True,
                 "discovered_via": "manual",
                 "mode": "full",
@@ -670,7 +675,7 @@ class TestRunRegistryProfilingSweep:
 
         run_registry_profiling_sweep()
 
-        assert not paths.baseline_dir("acme", "One").exists()
+        assert not paths.baseline_dir("acme", "Aspose.One-FOSS-for-Java").exists()
 
 
 class TestStaleNoncompliantAndForceRegenerate:
@@ -784,7 +789,9 @@ class TestStaleNoncompliantAndForceRegenerate:
         # GENERATION_SCHEMA_VERSION bump) by rewriting the work clone's
         # resources span with a hash that can never match a freshly-derived
         # one.
-        work_readme_path = paths.work_dir("example-foss", "Example-FOSS-for-Java") / "README.md"
+        work_readme_path = (
+            paths.work_dir("example-foss", "Aspose.Thing-FOSS-for-Java") / "README.md"
+        )
         stale_text = re.sub(
             r'hash="sha256:[0-9a-f]+"',
             'hash="sha256:' + "0" * 64 + '"',

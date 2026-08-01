@@ -10,6 +10,10 @@ from urllib.parse import urlparse
 from readme_agent.errors import ConfigError
 from readme_agent.registry.discovery_models import DiscoveryInventoryV1, DiscoveryObservationV1
 from readme_agent.registry.models import ProductEntry
+from readme_agent.registry.naming import (
+    classify_managed_repository_name,
+    validate_managed_repository_coordinates,
+)
 from readme_agent.registry.reconciliation_models import (
     ReconciliationAction,
     RegistryReconciliationRecordV1,
@@ -38,6 +42,7 @@ def reconcile_registry(
             legacy_by_full_name.setdefault(_entry_full_name(item).casefold(), []).append(index)
 
     records: list[RegistryReconciliationRecordV1] = []
+    excluded_existing_repository_ids: set[int] = set()
     seen_observation_ids: set[int] = set()
     seen_node_ids: set[str] = set()
     for observation in sorted(
@@ -63,6 +68,39 @@ def reconcile_registry(
                     f"{existing_identity['node_id']!r} -> {observation.provider_node_id!r}"
                 )
             prior_full_name = _entry_full_name(entries[existing_index])
+            if observation.classification != "matched":
+                name_is_nonconforming = classify_managed_repository_name(observation.name) is None
+                if not name_is_nonconforming:
+                    held_action: ReconciliationAction = (
+                        "held_ambiguous"
+                        if observation.classification == "ambiguous"
+                        else "held_unmatched"
+                    )
+                    records.append(
+                        _record(
+                            observation,
+                            action=held_action,
+                            prior_full_name=prior_full_name,
+                            reason=(
+                                "a conforming admitted identity has unresolved classification; "
+                                "retain its prior registry entry without refreshing it"
+                            ),
+                        )
+                    )
+                    continue
+                excluded_existing_repository_ids.add(repository_id)
+                records.append(
+                    _record(
+                        observation,
+                        action="excluded_nonconforming",
+                        prior_full_name=prior_full_name,
+                        reason=(
+                            "an admitted provider identity no longer satisfies the required "
+                            "repository naming contract"
+                        ),
+                    )
+                )
+                continue
             entries[existing_index] = _refresh_entry(entries[existing_index], observation)
             records.append(
                 _record(
@@ -125,6 +163,12 @@ def reconcile_registry(
             )
         )
 
+    entries = [
+        entry
+        for entry in entries
+        if entry.get("provider_identity") is None
+        or int(entry["provider_identity"]["repository_id"]) not in excluded_existing_repository_ids
+    ]
     _validate_existing_entries(entries)
     entries.sort(key=_entry_sort_key)
     return RegistryReconciliationResultV1(
@@ -136,6 +180,15 @@ def reconcile_registry(
 
 def _validate_existing_entries(entries: list[dict[str, Any]]) -> None:
     validated = [ProductEntry.model_validate(item) for item in entries]
+    for entry in validated:
+        try:
+            validate_managed_repository_coordinates(
+                entry.repo_name,
+                entry.family,
+                entry.platform,
+            )
+        except ValueError as exc:
+            raise ConfigError(f"ineligible registry entry {entry.org_repo}: {exc}") from exc
     validate_stable_identities(validated)
 
 

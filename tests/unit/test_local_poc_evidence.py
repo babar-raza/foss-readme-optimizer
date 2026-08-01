@@ -298,3 +298,21 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert invalidated_manifest["lifecycle_status"] == "FACTS_READY"
     assert invalidated_manifest["local_verification_contract_hash"] == "w" * 64
     assert "candidate_hash" not in invalidated_manifest
+    superseded = bundle / "superseded" / candidate_hash[:16]
+    assert (superseded / "candidate" / "README.md").read_text(encoding="utf-8") == candidate
+    superseded_record = json.loads((superseded / "superseded.json").read_text(encoding="utf-8"))
+    assert superseded_record["candidate_hash"] == candidate_hash
+    assert superseded_record["candidate_binding"] == "manifest_bound"
+    assert "product fact or fact-acceptance dependency changed" in superseded_record["reason"]
+    assert "candidate/README.md" in (superseded / "sha256sums.txt").read_text(encoding="utf-8")
+
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="w" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    assert [path.name for path in (bundle / "superseded").iterdir()] == [candidate_hash[:16]]

@@ -39,9 +39,9 @@ def _entry(repository_id: int = 10) -> dict:
         },
         "family": "cells",
         "platform": "python",
-        "repo_name": "Aspose.Cells-FOSS-for-Python-via-.NET",
-        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET",
-        "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET.git",
+        "repo_name": "Aspose.Cells-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.git",
         "active": True,
         "discovered_via": "github",
         "mode": "disabled",
@@ -56,7 +56,7 @@ def _observation(repository_id: int = 10, *, pushed_at: str = "2026-08-01T00:00:
         source_id="github-org:aspose-cells-foss",
         provider_repository_id=repository_id,
         provider_node_id=f"R_{repository_id}",
-        full_name="aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET",
+        full_name="aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
         name=entry["repo_name"],
         html_url=entry["repo_url"],
         clone_url=entry["clone_url"],
@@ -169,9 +169,9 @@ def test_changed_observation_creates_one_pending_intake_and_deduplicates_next_sc
     )
 
     assert [(item.org_repo, item.change_kind) for item in changed.observation_changes] == [
-        ("aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET", "refreshed")
+        ("aspose-cells-foss/Aspose.Cells-FOSS-for-Python", "refreshed")
     ]
-    assert changed.pending_intake == ["aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET"]
+    assert changed.pending_intake == ["aspose-cells-foss/Aspose.Cells-FOSS-for-Python"]
 
     settled = with_pending_intake(changed, [])
     identical = _revision(
@@ -189,7 +189,7 @@ def test_gate_rejects_stale_incomplete_pending_and_products_drift():
         inventory,
         reconcile_registry(existing, inventory),
         previous_entries=existing,
-        pending_intake=["aspose-cells-foss/Aspose.Cells-FOSS-for-Python-via-.NET"],
+        pending_intake=["aspose-cells-foss/Aspose.Cells-FOSS-for-Python"],
         freshness_ttl=timedelta(hours=1),
     )
     drifted = [dict(_entry(), active=False)]

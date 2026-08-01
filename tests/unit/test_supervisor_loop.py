@@ -360,7 +360,7 @@ def _fake_repair_role_clients(*args, **kwargs):
     return _RejectThenAcceptBlindReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
-ORG_REPO = "example-foss/Example-FOSS-for-Java"
+ORG_REPO = "example-foss/Aspose.Thing-FOSS-for-Java"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -461,8 +461,8 @@ def _setup_project_root(tmp_path, source_clone_url: str):
         {
             "family": "thing",
             "platform": "java",
-            "repo_name": "Example-FOSS-for-Java",
-            "repo_url": "https://github.com/example-foss/Example-FOSS-for-Java",
+            "repo_name": "Aspose.Thing-FOSS-for-Java",
+            "repo_url": "https://github.com/example-foss/Aspose.Thing-FOSS-for-Java",
             "clone_url": source_clone_url,
             "active": True,
             "discovered_via": "manual",
@@ -1054,7 +1054,7 @@ class TestBasicLoop:
             project
             / "runs"
             / "readme-poc"
-            / "example-foss__Example-FOSS-for-Java"
+            / "example-foss__Aspose.Thing-FOSS-for-Java"
             / lifecycle.source_revision
         )
         receipt = bundle / "receipts" / f"{requested_stage}.json"
@@ -1137,7 +1137,10 @@ class TestBasicLoop:
             "independent_review": _FakeAcceptingRoleReviewClient.calls,
         }
         proposal_root = (
-            project / "runs" / "readme-proposal-bundles" / "example-foss__Example-FOSS-for-Java"
+            project
+            / "runs"
+            / "readme-proposal-bundles"
+            / "example-foss__Aspose.Thing-FOSS-for-Java"
         )
         proposal_bundles_after_first = sorted(
             path.name for path in proposal_root.iterdir() if path.is_dir()
@@ -1227,7 +1230,7 @@ class TestBasicLoop:
             project
             / "runs"
             / "readme-poc"
-            / "example-foss__Example-FOSS-for-Java"
+            / "example-foss__Aspose.Thing-FOSS-for-Java"
             / lifecycle.source_revision
         )
         assert (lifecycle_bundle / "review" / "deterministic-validation.json").is_file()
@@ -1396,7 +1399,7 @@ class TestBasicLoop:
             project
             / "runs"
             / "readme-poc"
-            / "example-foss__Example-FOSS-for-Java"
+            / "example-foss__Aspose.Thing-FOSS-for-Java"
             / lifecycle.source_revision
         )
         repair_history = json.loads(
@@ -1470,7 +1473,7 @@ class TestBasicLoop:
             project
             / "runs"
             / "readme-poc"
-            / "example-foss__Example-FOSS-for-Java"
+            / "example-foss__Aspose.Thing-FOSS-for-Java"
             / lifecycle.source_revision
         )
         repair_history = json.loads(
@@ -1494,35 +1497,40 @@ class TestBasicLoop:
         seed = json.loads(products_path.read_text(encoding="utf-8"))[0]
         entries = []
         repositories = [
-            ("example-java", "Example-FOSS-for-Java", "java", project / "source"),
+            ("example-java", "Aspose.Thing-FOSS-for-Java", "java", project / "source"),
             (
                 "example-net",
-                "Example-FOSS-for-NET",
+                "Aspose.Thing-FOSS-for-NET",
                 "net",
                 _init_source_repo(project / "source-net"),
             ),
             (
                 "example-python",
-                "Example-FOSS-for-Python",
+                "Aspose.Thing-FOSS-for-Python",
                 "python",
                 _init_source_repo(project / "source-python"),
             ),
             (
                 "example-typescript",
-                "Example-FOSS-for-TypeScript",
+                "Aspose.Thing-FOSS-for-TypeScript",
                 "typescript",
                 _init_source_repo(project / "source-typescript"),
             ),
             (
                 "example-cpp",
-                "Example-FOSS-for-CPP",
+                "Aspose.Thing-FOSS-for-CPP",
                 "cpp",
                 _init_source_repo(project / "source-cpp"),
             ),
-            ("example-go", "Example-FOSS-for-Go", "go", _init_source_repo(project / "source-go")),
+            (
+                "example-go",
+                "Aspose.Thing-FOSS-for-Go",
+                "go",
+                _init_source_repo(project / "source-go"),
+            ),
             (
                 "example-rust",
-                "Example-FOSS-for-Rust",
+                "Aspose.Thing-FOSS-for-Rust",
                 "rust",
                 _init_source_repo(project / "source-rust"),
             ),
@@ -2192,11 +2200,16 @@ class TestNotOnboardedGate:
         self._rewrite_products_json(
             project,
             platform="ruby",
+            repo_name="Aspose.Thing-FOSS-for-Ruby",
+            repo_url="https://github.com/example-foss/Aspose.Thing-FOSS-for-Ruby",
             ecosystem=None,
             policy_profile=None,
         )
 
-        result = supervise_repo(ORG_REPO, write_evidence_bundle=False)
+        result = supervise_repo(
+            "example-foss/Aspose.Thing-FOSS-for-Ruby",
+            write_evidence_bundle=False,
+        )
 
         assert result.status == "BLOCKED"
         assert result.blocked_reason == "unsupported_ecosystem:ruby"

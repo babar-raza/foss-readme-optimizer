@@ -66,7 +66,7 @@ from readme_agent.specialists import separated_readme_review
 from readme_agent.supervisor import planner_loop
 from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
-ORG_REPO = "example-foss/Example-Widget"
+ORG_REPO = "example-foss/Aspose.Widget-FOSS-for-Java"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 _FIXTURE_RELATIONSHIP_PARAGRAPH = (
@@ -228,8 +228,8 @@ def _setup_project_root(tmp_path, source_clone_url: str):
         {
             "family": "widget",
             "platform": "java",
-            "repo_name": "Example-Widget",
-            "repo_url": "https://github.com/example-foss/Example-Widget",
+            "repo_name": "Aspose.Widget-FOSS-for-Java",
+            "repo_url": "https://github.com/example-foss/Aspose.Widget-FOSS-for-Java",
             "clone_url": source_clone_url,
             "active": True,
             "discovered_via": "manual",

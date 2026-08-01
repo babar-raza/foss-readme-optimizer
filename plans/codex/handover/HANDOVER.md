@@ -185,7 +185,10 @@ before a third approach.
 
 ## 10. Decisions and Constraints
 
-- One operator and one top-level test/proof process.
+- One accountable coordinator owns shared files, integration, state, commits, final verification,
+  and final evidence. Repair, Advancement, Validator/Evidence, Documentation/State-Sync, and
+  Independent Verification workers run in bounded waves under disjoint path leases and cannot
+  claim closure or perform product effects.
 - Work directly on control-repository `main`; preserve unrelated work.
 - Do not create another plan, controller, queue, or state store.
 - Use `supervise` and the existing capability registry.
@@ -226,7 +229,9 @@ before a third approach.
   rather than adding another parallel renderer.
 - Provider availability can affect agent review; deterministic gates must fail closed and caches
   must prevent needless repeated calls.
-- The current registry denominator is 31 at the snapshot but discovery may change it.
+- The current eligible denominator is 31 and Python is 12. Discovery still records CSSForge and
+  PDF Go MCP, but both are explicit nonconforming exclusions. Historical closure evidence that
+  admitted either is stale and must not satisfy current acceptance.
 - The stale UI umbrella goal cannot be rewritten through the current goal API.
 
 ## 13. Receiving Agent Startup Steps

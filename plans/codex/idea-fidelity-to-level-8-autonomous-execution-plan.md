@@ -798,11 +798,13 @@ records and repairs the first failing boundary while all proof standards remain 
 ### 2026-07-29 source-complete discovery and intake amendment
 
 The runtime-loaded registry remains the execution allow-list, but it is not assumed to be a
-complete source inventory. A live read-only audit found one active PDF Go MCP repository outside
-the existing naming regex and one unavailable configured organization while the latest workflow
-still reported success/no additions. The visible-output route therefore starts with four bounded
-P0 prerequisites rather than allowing reviewer qualification to proceed against a potentially
-stale denominator:
+complete source inventory. Discovery records every visible repository. Execution eligibility is
+now fail-closed and case-insensitive: names must match exactly
+`Aspose[.-]{Family}-FOSS-for-{Platform}` with one terminal platform token. Dot/hyphen separators
+and casing variations remain eligible; CSSForge and PDF Go MCP remain discovery-only exclusions.
+Historical revisions that admitted either are stale. The visible-output route therefore starts
+with four bounded P0 prerequisites rather than allowing reviewer qualification to proceed against
+a potentially stale denominator:
 
 ```text
 L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
@@ -814,10 +816,11 @@ L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
 ```
 
 The first task inventories every visible repository from explicit authorized sources, retains
-unmatched/ambiguous names, makes source failures block completeness rather than unrelated work,
-and repairs the public CLI preflight-before-allow-list ordering. The second reconciles by provider
-repository ID and supports rename, transfer, archive, variants, and multiple repositories per
-family/platform without changing policy/authorization fields. The third admits new repositories
+unmatched/ambiguous/excluded names, enforces exact naming eligibility before admission, makes source
+failures block completeness rather than unrelated work, and repairs the public CLI
+preflight-before-allow-list ordering. The second reconciles eligible repositories by provider ID
+and supports rename, transfer, archive, and multiple conforming repositories per family/platform
+without changing policy/authorization fields. The third admits new eligible repositories
 only as disabled/read-only and runs exactly one durable intake preflight through the existing
 lifecycle; a strong existing README may take a byte-identical empty-patch fast path only after
 facts, inherited claims, deterministic assessment, independent approval, and no-op proof. The
@@ -854,13 +857,12 @@ targeted repair per repository/revision/campaign. Related repositories may share
 request only after typed per-repository accounting, outputs, verdicts, cache keys, and failure
 isolation pass cross-product and malformed-item controls.
 
-Parallelism is owned only by the canonical supervisor. One operator starts one top-level
-supervisor process tree; the supervisor may later create process-isolated repository lanes after
-the applicable promotion gate. Each lane owns its lease, revision root, lifecycle, accounting,
-evidence, and result envelope. Shared caches are read-only/content-addressed; only the scheduler
-reduces lane results into campaign state; resource-specific backpressure lowers or pauses
-admission. A source/toolchain build feeds all dependent checks until its exact key changes. URL,
-registry, workflow, and license evidence is fetched once per normalized freshness key.
+Repository parallelism is owned only by the canonical supervisor. It may create process-isolated
+repository lanes after the applicable promotion gate. Each lane owns its lease, revision root,
+lifecycle, accounting, evidence, and result envelope. Shared caches are read-only/content-addressed;
+only the scheduler reduces lane results into campaign state; resource-specific backpressure lowers
+or pauses admission. A source/toolchain build feeds all dependent checks until its exact key
+changes. URL, registry, workflow, and license evidence is fetched once per normalized freshness key.
 
 The authoritative rule remains serial through seven-representative qualification. The active
 shared presentation contract is repaired serially, lane isolation is proven on fixtures, and the
@@ -927,8 +929,9 @@ verification**.
 
 The following controls are part of the existing mission rather than a separate performance plan:
 
-- **One stable campaign tree.** Keep one operator and one top-level command tree. Avoid repeated
-  branch/worktree setup and do not create per-task implementation environments.
+- **One stable campaign tree.** Keep one coordinator, disjoint worker path leases, and one
+  coordinator-owned top-level campaign command tree. Avoid repeated branch/worktree setup and do
+  not create per-task implementation environments.
 - **Fewer coherent commits.** Commit runnable, reviewable campaign slices rather than mechanically
   creating one commit per taskcard. A normal C1/C2 implementation campaign should need only the
   fewest coherent commits its rollback boundaries require; every commit remains green for the
@@ -1019,9 +1022,11 @@ production scheduler:
 | Multiple top-level commands or thread-pool fan-out | Unsafe with process-local accounting/context and mutable compatibility views. | Reject. Use one top-level scheduler with spawned, process-isolated, one-stage lanes. |
 | LLM author/reviewer concurrency | Provider behavior is external and the reviewer route is not qualified. | Keep review at one initially; composition may rise to two only after exact accounting and circuit-breaker proof. |
 
-There was and is one operator. Child Python, Git, Docker, compiler, and test processes are not
-additional workers. The production risk is overlapping invocations and future scheduled
-deliveries, not a historical team of concurrent repository editors.
+Historically there was one implementation operator. The current model adds bounded disjoint
+implementation workers under one coordinator; child Python, Git, Docker, compiler, and test
+processes are still not workers by themselves. The production runtime remains one top-level
+supervisor campaign, because overlapping invocations and scheduled deliveries require its leases,
+not ad hoc editor fan-out.
 
 ### Fresh production findings from the real Cells C++ review
 
@@ -1168,7 +1173,7 @@ Do not create a second controller or queue. Refactor the registry branch of the 
 `supervise` command into `PortfolioSchedulerV1`:
 
 ```text
-one operator / one top-level supervise process
+one coordinator / one top-level supervise process
   -> load and hash registry + platform policy once
   -> load or create immutable CampaignContractV1
   -> acquire renewable campaign lease with fencing epoch
@@ -1741,26 +1746,38 @@ may create `BLOCKED_EXTERNAL`; unrelated ready work continues.
 No control-repository branches are created. Existing work is preserved: never reset, restore,
 clean, force-push, or silently overwrite it. Every AI-authored commit contains the Codex trailer.
 
-### One operator and one top-level process tree
+### Coordinator and bounded worker waves
 
-During this autonomous implementation sprint, Codex is the only operator and the only agent allowed
-to edit the control repository or launch top-level repository commands. Do not infer additional
-workers from child Python, Git, Docker, compiler, or test processes: they belong to the single
-operator's current process tree.
+During this autonomous implementation sprint, Codex is the accountable coordinator. It exclusively
+controls shared documentation/state, integration, taskcards, commits, final verification, and the
+final evidence bundle. The required Repair, Advancement, Validator/Evidence,
+Documentation/State-Sync, and Independent Verification roles run in waves with no more than three
+workers beside the coordinator. Every worker receives a concrete plan-bound task and disjoint
+non-shared path lease, edits only those paths, runs isolated focused tests, and returns exact lane
+evidence. Documentation/State-Sync is proposal-only under `runs/multi-agent/`; the coordinator
+alone applies accepted recommendations to `AGENTS.md`, `plans/`, shared evidence, taskcards, or
+durable state. Workers cannot claim closure, mutate shared state, integrate, commit, or perform product effects. The
+independent verifier does not author the implementation it verifies, and no human review/approval
+request precedes independent acceptance.
 
-Before starting any long-running test, proof builder, supervisor campaign, build, or workflow
-reproduction, inspect the repository process inventory. If an earlier top-level command from this
-operator is still active, attach to or poll that exact process tree; do not launch a duplicate.
-Run only one top-level test/proof/supervisor process tree at a time. Pytest-xdist, parallel test
-sessions, and ad hoc portfolio commands remain disabled during local implementation. The canonical
-supervisor may create the process-isolated repository lanes defined by the progressive promotion
-ladder only after their lease/fencing/isolation gate is active; those lanes remain descendants of
-the one command and are not additional operators. Every child must remain attributable to its work
-item and must be terminated with its descendants on cancellation.
+This protocol applies to every claimed task. Before implementation the coordinator writes or
+updates exactly one `runs/multi-agent/<task-id>/execution-plan.json` record. It dispositions Repair,
+Advancement, Validator/Evidence, Documentation/State-Sync, and Independent Verification as
+`active` or `not_applicable`, with a task-specific reason. Each active lane records a bounded
+objective, exclusive non-shared allowed paths, forbidden shared paths, focused verification, and
+evidence destination. Documentation/State-Sync receives only its proposal-artifact path. A role is not spawned merely to satisfy a count, but useful independent roles run in
+later waves when the three-worker limit is full. The coordinator integrates active lanes and runs
+the serialized integration gate before launching the independent verifier. Missing dispositions,
+overlapping leases, missing evidence, or verifier authorship fail task closeout and human-review
+readiness.
 
-The future production system still requires leases, deduplication, and concurrency controls because
-scheduled/event deliveries may overlap. That runtime obligation must not be misread as permission
-to run multiple local implementation operators.
+Before any long-running test, proof builder, supervisor campaign, build, or workflow reproduction,
+the coordinator inspects repository processes and grants the top-level command lease. Lane-local
+focused tests may overlap only when resources and state are isolated. The bounded four-worker
+complete-suite runner, integration campaigns, and final proof remain serialized at governed
+campaign boundaries. The canonical supervisor may create up to four process-isolated repository
+lanes only after representative/canary qualification and their lease/fencing/isolation gate. Every
+child remains attributable to its work item and terminates with its descendants on cancellation.
 
 ### Standing command authority
 

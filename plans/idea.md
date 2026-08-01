@@ -107,16 +107,21 @@ merely because its machinery, tests, or evidence exist.
 
 ## README POC Readiness and Ordered Delivery Gates
 
-The POC is the full currently discoverable authorized portfolio, not a sample and not merely a
-stale checked-in list. `data/products.json` remains the hard execution allow-list and its exact
-admitted count is computed at runtime (`len()` over its entries), never hard-coded. Gate-A closure
-also requires a fresh, complete discovery reconciliation: every repository visible from each
-authorized source has an explicit observation and disposition; pending intake, unexplained
-observations, source failures, and stale scans are zero. A new repository is admitted
-automatically only as disabled/read-only and enters the same preflight and README lifecycle. A
-naming mismatch may require classification, but it may never make a repository invisible. A
-result covering only part of the admitted registry, or a registry whose source inventory is
-incomplete, is a development batch or partial result and is never presented as "the POC."
+The POC is the full currently eligible, discoverable authorized portfolio, not a sample and not
+merely a stale checked-in list. `data/products.json` remains the hard execution allow-list and its
+exact admitted count is computed at runtime (`len()` over its entries), never hard-coded. Gate-A
+closure also requires a fresh, complete discovery reconciliation: every repository visible from
+each authorized source has an explicit observation and disposition; pending intake, unexplained
+observations, source failures, and stale scans are zero. Eligibility is fail-closed and
+case-insensitive: a repository name must have exactly the form
+`Aspose[.-]{Family}-FOSS-for-{Platform}`, with one terminal platform token and no trailing variant
+suffix. Both `Aspose.PDF-FOSS-for-Go` and `aspose-pdf-foss-for-go` qualify; `CSSForge` and
+`Aspose-PDF-FOSS-for-Go-MCP` remain visible discovery exclusions and never enter the execution
+allow-list. A newly observed eligible repository is admitted automatically only as disabled/read-only
+and enters the same preflight and README lifecycle. A naming mismatch never makes an observation
+invisible, but it prevents admission. A result covering only part of the admitted registry, or a
+registry whose source inventory is incomplete, is a development batch or partial result and is
+never presented as "the POC."
 
 ### Current verified Python proving milestone
 

@@ -36,16 +36,15 @@ def _raw_repository(name: str, *, repository_id: int = 1) -> dict:
         ("Aspose.Email-FOSS-for-.Net", ("email", "net")),
         ("aspose-pdf-foss-for-go", ("pdf", "go")),
         ("Aspose-PDF-FOSS-for-Go", ("pdf", "go")),
+        ("Aspose.PDF-FOSS-for-Go-MCP", None),
+        ("Aspose-PDF-FOSS-for-Go-MCP", None),
+        ("CSSForge", None),
         ("some-unrelated-repo", None),
         ("Aspose.Cells", None),
     ],
 )
 def test_classify_repo_name(repo_name, expected):
     assert registry_sync.classify_repo_name(repo_name) == expected
-
-
-def test_classify_repo_name_retains_platform_for_product_variant_suffix():
-    assert registry_sync.classify_repo_name("Aspose.PDF-FOSS-for-Go-MCP") == ("pdf", "go")
 
 
 def test_scan_org_requests_every_repository_visible_to_the_credential(monkeypatch):
@@ -309,7 +308,7 @@ def test_inventory_retains_matched_unmatched_and_ambiguous_repositories(monkeypa
     by_name = {observation.name: observation for observation in inventory.observations}
     assert by_name["Aspose.3D-FOSS-for-Java"].classification == "matched"
     assert by_name["Aspose.Cells-FOSS-for-Java"].classification == "ambiguous"
-    assert by_name["Aspose-PDF-FOSS-for-Go-MCP"].classification == "ambiguous"
+    assert by_name["Aspose-PDF-FOSS-for-Go-MCP"].classification == "unmatched"
     assert [item.name for item in inventory.matched_observations] == ["Aspose.3D-FOSS-for-Java"]
 
 
@@ -357,7 +356,7 @@ def test_inventory_binds_disabled_source_as_exclusion_without_scanning():
     assert inventory.exclusions[0].source.exclusion_reason == "organization does not exist"
 
 
-def test_inventory_classifies_nonstandard_name_by_stable_provider_identity():
+def test_inventory_cannot_admit_nonstandard_name_by_stable_provider_identity():
     from readme_agent.registry.discovery_inventory import inventory_sources
 
     repository = _raw_repository("CSSForge", repository_id=1319039143)
@@ -392,11 +391,12 @@ def test_inventory_classifies_nonstandard_name_by_stable_provider_identity():
     )
 
     assert inventory.complete is True
-    assert len(inventory.matched_observations) == 1
-    observation = inventory.matched_observations[0]
-    assert (observation.family, observation.platform) == ("html", "python")
+    assert inventory.matched_observations == []
+    observation = inventory.observations[0]
+    assert (observation.family, observation.platform) == (None, None)
     assert observation.visibility == "private"
-    assert observation.classification_reason.startswith("stable provider identity override:")
+    assert observation.classification == "unmatched"
+    assert "cannot override" in observation.classification_reason
 
 
 def test_provider_identity_override_conflict_fails_closed_as_ambiguous():

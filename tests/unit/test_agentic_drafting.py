@@ -132,7 +132,7 @@ def test_product_truth_prompt_requires_subject_bound_capability_anchors():
     prompt = prompt_registry.get("draft_product_truth")
 
     assert prompt is not None
-    assert prompt.version == "17"
+    assert prompt.version == "18"
     assert "claim itself MUST name the exact subject" in prompt.system
     assert "one ambiguous, constraint-bearing, or subject-unbound" in prompt.system
     assert "repository-owned example source before README prose" in prompt.system
@@ -140,6 +140,8 @@ def test_product_truth_prompt_requires_subject_bound_capability_anchors():
     assert "must contain no source comments" in prompt.system
     assert "add no unrelated or decorative anchors" in prompt.system
     assert "separately derives the actual imported package symbols" in prompt.system
+    assert "minimal_example.code_lines" in prompt.system
+    assert "Never submit a scalar code string" in prompt.system
 
 
 class TestSelectBoundedRepoContext:
@@ -328,7 +330,15 @@ class TestDraftProductTruth:
             def call(self, messages, tool_schema):
                 captured["messages"] = messages
                 captured["tool_schema"] = tool_schema
-                return SimpleNamespace(arguments=_draft_payload(), meta=LLMResponseMeta())
+                payload = _draft_payload()
+                minimal_example = dict(payload["minimal_example"])
+                minimal_example.pop("code")
+                minimal_example["code_lines"] = [
+                    "public class ReadmeExample {",
+                    "}",
+                ]
+                payload["minimal_example"] = minimal_example
+                return SimpleNamespace(arguments=payload, meta=LLMResponseMeta())
 
         monkeypatch.setattr(
             agentic_drafting,
@@ -384,6 +394,11 @@ class TestDraftProductTruth:
         assert parameters["properties"]["minimal_example"]["properties"]["language"]["enum"] == [
             "java"
         ]
+        code_schema = parameters["properties"]["minimal_example"]["properties"]["code_lines"]
+        assert code_schema["type"] == "array"
+        assert code_schema["maxItems"] == agentic_drafting._MAX_EXAMPLE_CODE_LINES
+        assert "code" not in parameters["properties"]["minimal_example"]["properties"]
+        assert draft.minimal_example.code == "public class ReadmeExample {\n}\n"
         assert "required_symbols" in parameters["properties"]["minimal_example"]["required"]
         assert (
             parameters["properties"]["minimal_example"]["properties"]["required_symbols"][
@@ -393,6 +408,56 @@ class TestDraftProductTruth:
         )
         assert captured["init"][1]["timeout"] == agentic_drafting._REQUEST_TIMEOUT_SECONDS
         assert captured["init"][1]["max_tokens"] == agentic_drafting._MAX_RESPONSE_TOKENS
+
+    def test_forced_tool_code_lines_preserve_python_statement_boundaries(self):
+        payload = _draft_payload()
+        minimal_example = dict(payload["minimal_example"])
+        minimal_example.pop("code")
+        minimal_example["code_lines"] = [
+            "from pathlib import Path",
+            "from aspose_tex import TeXJob, PdfDevice",
+            "",
+            "output = Path('output.pdf')",
+            "job = TeXJob(PdfDevice())",
+            "output.write_bytes(job.run())",
+        ]
+        payload["minimal_example"] = minimal_example
+
+        normalized = agentic_drafting._normalize_forced_tool_code_lines(payload)
+
+        code = normalized["minimal_example"]["code"]
+        compile(code, "<generated-readme-example>", "exec")
+        assert code.startswith("from pathlib import Path\nfrom aspose_tex")
+        assert code.endswith("output.write_bytes(job.run())\n")
+        assert "code_lines" not in normalized["minimal_example"]
+
+    def test_forced_tool_rejects_flattened_scalar_code(self):
+        payload = _draft_payload()
+        payload["minimal_example"]["code"] = (
+            "from pathlib import Path from aspose_tex import TeXJob output = Path('out.pdf')"
+        )
+
+        with pytest.raises(LLMError, match="flattened minimal_example.code"):
+            agentic_drafting._normalize_forced_tool_code_lines(payload)
+
+    @pytest.mark.parametrize(
+        "code_lines",
+        [
+            [],
+            ["first line\nsecond line"],
+            ["x" * (agentic_drafting._MAX_EXAMPLE_CODE_LINE_CHARS + 1)],
+            ["x" * 300, "y" * 300],
+        ],
+    )
+    def test_forced_tool_code_lines_fail_closed_on_invalid_transport_shape(self, code_lines):
+        payload = _draft_payload()
+        minimal_example = dict(payload["minimal_example"])
+        minimal_example.pop("code")
+        minimal_example["code_lines"] = code_lines
+        payload["minimal_example"] = minimal_example
+
+        with pytest.raises(LLMError):
+            agentic_drafting._normalize_forced_tool_code_lines(payload)
 
     def test_invalid_response_raises_llm_error(self, tmp_path, monkeypatch):
         monkeypatch.setattr(

@@ -126,21 +126,20 @@ def test_exact_legacy_full_name_is_migrated_without_overwriting_owned_fields():
     assert result.records[0].action == "migrated"
 
 
-def test_provider_repository_id_survives_rename_and_transfer():
+def test_provider_repository_id_survives_conforming_rename_and_transfer():
     existing = _identified_entry()
     renamed = _observation(
         10,
-        "transferred-owner/renamed-product",
-        family=None,
-        platform=None,
-        classification="unmatched",
+        "transferred-owner/aspose-cells-foss-for-java",
     )
 
     result = reconcile_registry([existing], _inventory(renamed))
 
     refreshed = result.entries[0]
-    assert refreshed["repo_name"] == "renamed-product"
-    assert refreshed["repo_url"] == "https://github.com/transferred-owner/renamed-product"
+    assert refreshed["repo_name"] == "aspose-cells-foss-for-java"
+    assert refreshed["repo_url"] == (
+        "https://github.com/transferred-owner/aspose-cells-foss-for-java"
+    )
     assert refreshed["family"] == "cells"
     assert refreshed["platform"] == "java"
     assert refreshed["mode"] == "full"
@@ -152,7 +151,7 @@ def test_multiple_repositories_for_one_family_platform_are_retained():
     existing = _identified_entry(10)
     variant = _observation(
         11,
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java-Experimental",
+        "aspose-cells-foss/Aspose-Cells-FOSS-for-Java",
     )
 
     result = reconcile_registry([existing], _inventory(variant))
@@ -172,7 +171,7 @@ def test_new_variant_inherits_one_unambiguous_local_profile_but_remains_disabled
     existing = _identified_entry(10)
     variant = _observation(
         11,
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java-MCP",
+        "aspose-cells-foss/Aspose-Cells-FOSS-for-Java",
     )
 
     result = reconcile_registry([existing], _inventory(variant))
@@ -205,6 +204,41 @@ def test_nonmatching_observations_remain_discovery_only(classification, expected
     assert result.records[0].resulting_full_name is None
 
 
+def test_nonconforming_rename_removes_existing_identity_from_execution_registry():
+    observation = _observation(
+        10,
+        "aspose-cells-foss/CSSForge",
+        family=None,
+        platform=None,
+        classification="unmatched",
+    )
+
+    result = reconcile_registry([_identified_entry()], _inventory(observation))
+
+    assert result.entries == []
+    assert result.records[0].action == "excluded_nonconforming"
+    assert result.records[0].prior_full_name == ("aspose-cells-foss/Aspose.Cells-FOSS-for-Java")
+    assert result.records[0].resulting_full_name is None
+
+
+def test_conforming_but_ambiguous_identity_is_retained_without_refresh():
+    existing = _identified_entry()
+    observation = _observation(
+        10,
+        "transferred-owner/Aspose.Cells-FOSS-for-Java",
+        family=None,
+        platform=None,
+        classification="ambiguous",
+    )
+
+    result = reconcile_registry([existing], _inventory(observation))
+
+    assert result.entries == [existing]
+    assert result.records[0].action == "held_ambiguous"
+    assert result.records[0].prior_full_name == "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    assert result.records[0].resulting_full_name is None
+
+
 def test_archived_observation_refreshes_activity_without_changing_policy():
     result = reconcile_registry(
         [_identified_entry()],
@@ -224,8 +258,8 @@ def test_archived_observation_refreshes_activity_without_changing_policy():
 
 def test_input_permutation_does_not_change_entries_or_ledger():
     observations = [
-        _observation(30, "aspose-cells-foss/Aspose.Cells-FOSS-for-Java-Three"),
-        _observation(20, "aspose-cells-foss/Aspose.Cells-FOSS-for-Java-Two"),
+        _observation(30, "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"),
+        _observation(20, "aspose-cells-foss/Aspose-Cells-FOSS-for-Java"),
     ]
 
     forward = reconcile_registry([], _inventory(*observations))
@@ -275,9 +309,9 @@ def test_provider_node_id_change_for_same_repository_id_fails_closed():
 
 def test_duplicate_admitted_stable_identity_fails_closed():
     duplicate = deepcopy(_identified_entry(10))
-    duplicate["repo_name"] = "duplicate"
-    duplicate["repo_url"] = "https://github.com/aspose-cells-foss/duplicate"
-    duplicate["clone_url"] = "https://github.com/aspose-cells-foss/duplicate.git"
+    duplicate["repo_name"] = "Aspose-Cells-FOSS-for-Java"
+    duplicate["repo_url"] = "https://github.com/aspose-cells-foss/Aspose-Cells-FOSS-for-Java"
+    duplicate["clone_url"] = "https://github.com/aspose-cells-foss/Aspose-Cells-FOSS-for-Java.git"
 
     with pytest.raises(ConfigError, match="duplicate provider repository IDs"):
         reconcile_registry([_identified_entry(10), duplicate], _inventory())
@@ -295,7 +329,7 @@ def test_public_identity_validator_rejects_duplicate_node_ids():
     first = ProductEntry.model_validate(_identified_entry(10))
     second_raw = _identified_entry(
         11,
-        full_name="aspose-cells-foss/Aspose.Cells-FOSS-for-Java-Two",
+        full_name="aspose-cells-foss/Aspose-Cells-FOSS-for-Java",
     )
     second_raw["provider_identity"]["node_id"] = "R_10"
     second = ProductEntry.model_validate(second_raw)

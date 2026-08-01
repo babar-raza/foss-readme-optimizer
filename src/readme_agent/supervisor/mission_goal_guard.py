@@ -101,6 +101,11 @@ _ORDERED_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
     "NO_OP_PROVEN",
     "HUMAN_ACCEPTED",
 )
+_ACCEPTANCE_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_ACCEPTED",
+)
 _TRUSTED_REACHED_STATUSES: dict[str, frozenset[str]] = {
     "trusted_facts_extracted": frozenset(
         {
@@ -155,15 +160,18 @@ def derive_lifecycle_scoreboard(
     backend: StateBackend,
     *,
     products_path: Path = PRODUCTS_PATH,
+    verify_acceptance_freshness: bool = True,
 ) -> MissionLifecycleScoreboardV1:
-    """Read the dynamic registry and each repository's durable lifecycle."""
+    """Read dynamic lifecycle progress and fail closed on stale acceptance proof."""
 
     entries = load_products(products_path)
     registry_sha256 = _canonical_text_sha256(products_path)
     counts = {boundary: 0 for boundary in _ORDERED_BOUNDARIES}
     trusted_counts = {boundary: 0 for boundary in _TRUSTED_REACHED_STATUSES}
+    raw_acceptance_counts = {boundary: 0 for boundary in _ACCEPTANCE_BOUNDARIES}
     status_counts: dict[str, int] = {}
     missing: list[str] = []
+    stale_acceptance: dict[str, list[str]] = {}
     watermarks: list[str] = []
     org_repos = [entry.org_repo for entry in entries]
     bulk_loader = getattr(backend, "load_many", None)
@@ -192,7 +200,47 @@ def derive_lifecycle_scoreboard(
                     trusted_counts[boundary] += 1
         for boundary in _ORDERED_BOUNDARIES:
             if status in _REACHED_STATUSES[boundary]:
+                if boundary in raw_acceptance_counts:
+                    raw_acceptance_counts[boundary] += 1
                 counts[boundary] += 1
+
+        if (
+            verify_acceptance_freshness
+            and isinstance(lifecycle, ReadmePocLifecycleStateV2)
+            and lifecycle.content_assurance == "repository_verified"
+            and status in _REACHED_STATUSES["AGENT_APPROVED"]
+        ):
+            from readme_agent import paths
+            from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+            from readme_agent.supervisor.local_poc_cache import (
+                evaluate_approved_local_poc_cache,
+                evaluate_completed_local_poc_cache,
+            )
+
+            org, repo = entry.org_repo.split("/", maxsplit=1)
+            bundle_dir = paths.readme_poc_repository_dir(
+                org,
+                repo,
+                lifecycle.source_revision or "missing-source-revision",
+            )
+            evaluator = (
+                evaluate_approved_local_poc_cache
+                if status == "AGENT_APPROVED"
+                else evaluate_completed_local_poc_cache
+            )
+            decision = evaluator(
+                state,
+                bundle_dir,
+                current_source_revision=lifecycle.source_revision,
+                current_control_plane_fingerprint=compute_control_plane_fingerprint(
+                    entry.policy_profile
+                ),
+            )
+            if not decision.reusable:
+                stale_acceptance[entry.org_repo] = decision.mismatch_reasons
+                for boundary in _ACCEPTANCE_BOUNDARIES:
+                    if status in _REACHED_STATUSES[boundary]:
+                        counts[boundary] -= 1
 
     denominator = len(entries)
     first_failing: MissionLifecycleBoundary = "MISSION_CLOSED"
@@ -215,6 +263,10 @@ def derive_lifecycle_scoreboard(
         agent_approved=counts["AGENT_APPROVED"],
         no_op_proven=counts["NO_OP_PROVEN"],
         human_accepted=counts["HUMAN_ACCEPTED"],
+        raw_agent_approved=raw_acceptance_counts["AGENT_APPROVED"],
+        raw_no_op_proven=raw_acceptance_counts["NO_OP_PROVEN"],
+        raw_human_accepted=raw_acceptance_counts["HUMAN_ACCEPTED"],
+        stale_acceptance_repositories=dict(sorted(stale_acceptance.items())),
         missing_lifecycle_repositories=sorted(missing),
         lifecycle_status_counts=dict(sorted(status_counts.items())),
         first_failing_boundary=first_failing,

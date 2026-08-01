@@ -32,6 +32,21 @@ class AutonomousExecutionContractV1(_StrictModel):
     resume_strategy: str
     rejected_alternative: str
     mechanism_locked: bool
+    multi_agent_model: Literal["coordinator_led_bounded_worker_waves"]
+    coordinator_role: str
+    required_worker_roles: list[
+        Literal[
+            "repair",
+            "advancement",
+            "validator_evidence",
+            "documentation_state_sync",
+            "independent_verification",
+        ]
+    ]
+    max_parallel_workers_beside_coordinator: int = Field(ge=1, le=3)
+    task_lane_plan_required: bool
+    task_lane_plan_path_template: str
+    task_lane_plan_protocol: list[str]
 
 
 class MissionAuthorityV1(_StrictModel):

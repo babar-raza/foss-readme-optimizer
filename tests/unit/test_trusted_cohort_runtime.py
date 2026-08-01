@@ -73,9 +73,14 @@ def _current_contract_manifest(tmp_path: Path) -> Path:
     return _copied_contract_manifest(tmp_path, refresh_candidate_contracts=True)
 
 
-def test_preserved_frozen_cohort_fails_closed_after_registry_change():
+def test_preserved_frozen_cohort_fails_closed_after_registry_change(tmp_path):
+    changed_registry = tmp_path / "products.json"
+    changed_registry.write_text(
+        Path("data/products.json").read_text(encoding="utf-8") + " ",
+        encoding="utf-8",
+    )
     with pytest.raises(ValueError, match="registry hash no longer matches"):
-        load_runtime_trusted_cohort(_manifest_path())
+        load_runtime_trusted_cohort(_manifest_path(), registry_path=changed_registry)
 
 
 def test_preserved_frozen_cohort_fails_closed_after_reviewer_standard_change(tmp_path):

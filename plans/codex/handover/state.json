@@ -58,12 +58,33 @@
   ],
   "portfolio_scoreboard": {
     "denominator": 31,
+    "python_denominator": 12,
     "facts_ready": 7,
     "candidate_generated": 7,
     "deterministic_validated": 7,
     "agent_approved": 0,
     "no_op_proven": 0,
     "human_accepted": 0
+  },
+  "registry_eligibility": {
+    "contract": "case-insensitive Aspose[.-]{Family}-FOSS-for-{Platform} with exactly one terminal platform token",
+    "discovery_only_exclusions": [
+      "aspose-html-foss/CSSForge",
+      "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP"
+    ]
+  },
+  "execution_model": {
+    "coordinator": "Codex",
+    "max_concurrent_workers": 3,
+    "required_roles": [
+      "Repair",
+      "Advancement",
+      "Validator/Evidence",
+      "Documentation/State-Sync",
+      "Independent Verification"
+    ],
+    "worker_closure_authority": false,
+    "worker_product_effect_authority": false
   },
   "critical_references": [
     "AGENTS.md",

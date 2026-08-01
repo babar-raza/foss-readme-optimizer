@@ -12,6 +12,7 @@ ReconciliationAction = Literal[
     "admitted_disabled",
     "held_unmatched",
     "held_ambiguous",
+    "excluded_nonconforming",
 ]
 
 

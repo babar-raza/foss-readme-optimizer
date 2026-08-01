@@ -138,9 +138,9 @@ def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_
                 {
                     "family": "widget",
                     "platform": "python",
-                    "repo_name": "Widget-FOSS-for-Python",
-                    "repo_url": "https://github.com/widget-foss/Widget-FOSS-for-Python",
-                    "clone_url": "https://github.com/widget-foss/Widget-FOSS-for-Python.git",
+                    "repo_name": "Aspose.Widget-FOSS-for-Python",
+                    "repo_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Python",
+                    "clone_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Python.git",
                     "active": True,
                     "discovered_via": "github",
                     "mode": "dry_run",
@@ -150,9 +150,9 @@ def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_
                 {
                     "family": "widget",
                     "platform": "java",
-                    "repo_name": "Widget-FOSS-for-Java",
-                    "repo_url": "https://github.com/widget-foss/Widget-FOSS-for-Java",
-                    "clone_url": "https://github.com/widget-foss/Widget-FOSS-for-Java.git",
+                    "repo_name": "Aspose.Widget-FOSS-for-Java",
+                    "repo_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Java",
+                    "clone_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Java.git",
                     "active": True,
                     "discovered_via": "github",
                     "mode": "full",
@@ -173,11 +173,11 @@ def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_
                 "generated_at": "2026-07-25T00:00:00+00:00",
                 "results": [
                     {
-                        "org_repo": "widget-foss/Widget-FOSS-for-Python",
+                        "org_repo": "widget-foss/Aspose.Widget-FOSS-for-Python",
                         "ecosystem": "python",
                         "readme_poc_status": None,
                     }
-                    # Widget-FOSS-for-Java (the "Java pilot" stand-in) is
+                    # Aspose.Widget-FOSS-for-Java (the "Java pilot" stand-in) is
                     # deliberately absent -- it runs through a separate
                     # evidence path and must not crash or be dropped.
                 ],
@@ -194,8 +194,12 @@ def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_
     assert manifest_path == manifest_dir / "portfolio-proof-manifest.json"
     by_org_repo = {row["org_repo"]: row for row in rows}
     assert len(rows) == 2
-    assert by_org_repo["widget-foss/Widget-FOSS-for-Python"]["readme_poc_status"] == "not_set"
-    assert by_org_repo["widget-foss/Widget-FOSS-for-Java"]["readme_poc_status"] == "not yet run"
+    assert by_org_repo["widget-foss/Aspose.Widget-FOSS-for-Python"]["readme_poc_status"] == (
+        "not_set"
+    )
+    assert by_org_repo["widget-foss/Aspose.Widget-FOSS-for-Java"]["readme_poc_status"] == (
+        "not yet run"
+    )
 
 
 def test_no_manifest_at_all_reports_every_repo_not_yet_run(matrix_tool, tmp_path, monkeypatch):
@@ -209,9 +213,9 @@ def test_no_manifest_at_all_reports_every_repo_not_yet_run(matrix_tool, tmp_path
                 {
                     "family": "widget",
                     "platform": "python",
-                    "repo_name": "Widget-FOSS-for-Python",
-                    "repo_url": "https://github.com/widget-foss/Widget-FOSS-for-Python",
-                    "clone_url": "https://github.com/widget-foss/Widget-FOSS-for-Python.git",
+                    "repo_name": "Aspose.Widget-FOSS-for-Python",
+                    "repo_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Python",
+                    "clone_url": "https://github.com/widget-foss/Aspose.Widget-FOSS-for-Python.git",
                     "active": True,
                     "discovered_via": "github",
                     "mode": "dry_run",

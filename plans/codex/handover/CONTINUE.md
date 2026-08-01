@@ -1,7 +1,13 @@
 # Continue the Verified Repository-Presentation Mission
 
-Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the sole operator on
-`main`. Live Git and supervisor state override this historical snapshot.
+Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the accountable
+coordinator on `main`. Live Git and supervisor state override this historical snapshot.
+
+Use bounded worker waves when paths are genuinely disjoint: Repair, Advancement,
+Validator/Evidence, Documentation/State-Sync, and Independent Verification. At most three workers
+run beside the coordinator. The coordinator alone owns shared files, integration, durable state,
+task transitions, commits, final verification, and final evidence. Workers have exclusive path
+leases, lane tests/evidence, no overlapping writes, no closure authority, and no product effects.
 
 Authority, in order:
 

@@ -173,10 +173,11 @@ non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 wo
 Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but those records
 are retained only as lower-assurance reuse candidates. The owner accepted the corrected Note
 Python golden reference structurally; its immutable committed reference is now the input to
-`L8-VPY-00-GOLDEN-TEMPLATE`. The dynamic denominator is now 32 after discovery admitted
-`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`; verified facts/candidates/deterministic validation
-stand at 17/32, while verified agent approval and unchanged no-op stand at 10/32. The separate
-Python boundary remains 10/12 because HTML and TeX retain source-owned blockers.
+`L8-VPY-00-GOLDEN-TEMPLATE`. The current eligible registry denominator is 31 and the Python
+denominator is 12. `CSSForge` and `Aspose-PDF-FOSS-for-Go-MCP` are discovery-only exclusions under
+the revised naming contract. The prior 17/32 facts/candidate/validation and 10/32 approval/no-op
+scoreboard admitted the MCP-suffixed repository and is stale for current campaign acceptance; all
+stage totals must be rederived against a freshness-valid 31-member registry revision before use.
 `TRP-04P-COHORT-FREEZE` is closed with the
 checksum-addressed cohort manifest under
 `plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/`; its three-member result is
@@ -204,11 +205,12 @@ test omission, or repository-attributable descendants. Evidence is under
 `plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01/02` are closed;
 `L8-INTAKE-03` is the next common intake boundary. TRP-04 remains preserved but non-executing under
 decision #88.
-The repository-verified scoreboard is 17 `FACTS_READY`, 17 candidates/validations,
-10 verified approvals/no-ops, and zero human acceptances. The complete Python cohort is 10/12;
-HTML requires a proven one-line product build-backend correction and TeX requires authoritative
-syntax-valid product source before either can pass verified truth.
-Discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
+The last recorded repository-verified scoreboard was 17 `FACTS_READY`, 17
+candidates/validations, 10 verified approvals/no-ops, and zero human acceptances; it is historical,
+not current proof after the eligibility change. The last Python result was 10/12; HTML required a
+proven one-line product build-backend correction and TeX required authoritative syntax-valid
+product source. Discovery must retain CSSForge and PDF Go MCP as explained exclusions and bind a
+new complete 31-member revision before any denominator-dependent closure is current.
 
 The legacy universal goal is absent from the executable graph and pre-migration durable records
 are additively refreshed without deleting task or goal history. The short-term visible milestone
@@ -1885,17 +1887,41 @@ that is the only permanence they carry; text is always the decision as it stands
     examples, and format direction. These tasks precede claim polarity, acquisition/example
     qualification, and all further heterogeneous LLM campaigns. See `L8-027`–`L8-033`.
 
-81. **Local implementation has one operator, serialized top-level execution, and standing command
-    authority.** During the current autonomous sprint, Codex is the sole control-repository
-    operator: no second agent, worker, or concurrent editor is assumed or permitted. Child Python,
-    Git, Docker, compiler, and test processes are descendants of that one operator, not independent
-    workers. Before a long-running test, proof builder, supervisor campaign, build, or workflow
-    reproduction starts, Codex inventories repository-owned processes. An existing top-level
-    process tree is polled or resumed; a duplicate is not launched. Only one top-level
-    test/proof/supervisor tree runs at a time during local implementation, and cancellation
-    terminates its descendants. The historical 2026-07-26 overlap was one operator starting two
-    process trees, not multiple workers. Production leases and concurrency controls remain required
-    for future overlapping external triggers, but they do not authorize concurrent local operators.
+81. **Local implementation has one accountable coordinator, bounded disjoint worker lanes,
+    serialized integration, and standing command authority.** Codex is the sole coordinator and
+    exclusively owns shared governance/state files, integration, task transitions, commits, final
+    verification, and final evidence. Five required roles support it: Repair, Advancement,
+    Validator/Evidence, Documentation/State-Sync, and Independent Verification. The environment
+    permits only three workers beside the coordinator, so roles run in waves rather than all at
+    once. Before delegation the coordinator grants a concrete task and exclusive path lease;
+    workers edit only leased non-shared paths, produce lane evidence, run isolated focused tests,
+    and report exact results. Documentation/State-Sync is proposal-only and writes its recommended
+    patch or reconciliation report under `runs/multi-agent/`; the coordinator alone applies
+    accepted changes to `AGENTS.md`, `plans/`, shared evidence, taskcards, or durable state. Workers
+    have no closure, commit, integration, shared-state, task-transition, or product-effect
+    authority. No overlapping writes are allowed, and the independent verifier cannot author the
+    implementation it verifies. Human review or approval is requested only after independent
+    acceptance.
+
+    This is evaluated for every claimed task, not only portfolio campaigns. Before implementation,
+    the coordinator writes one idempotent `TaskLanePlanV1`-equivalent execution record at
+    `runs/multi-agent/<task-id>/execution-plan.json`. It classifies each of the five roles as
+    `active` or `not_applicable` with a task-specific reason and, for every active role, records its
+    bounded objective, exclusive non-shared allowed paths, forbidden shared paths, focused checks,
+    and lane evidence destination. The Documentation/State-Sync role always has proposal-artifact
+    paths rather than authority-file paths. Roles with no genuinely independent work are not spawned merely for
+    ceremony. If more than three roles are useful, they run in waves. The coordinator reconciles
+    every lane result before the independent verifier starts; a missing disposition, overlapping
+    lease, missing lane evidence, or verifier-authorship conflict fails closeout. The graph-level
+    machine-readable contract is the source for this protocol; task prose cannot opt out of it.
+
+    Before a long-running test, proof builder, supervisor campaign, build, or workflow reproduction
+    starts, the coordinator inventories repository-owned processes and grants the top-level command
+    lease. Lane-focused tests may overlap only when their state and resources are demonstrably
+    isolated. The bounded complete suite, integration, and proof campaigns remain serialized at
+    governed campaign boundaries, and cancellation terminates descendants. Before representative
+    qualification repository execution is serial; afterwards only the canonical supervisor may
+    operate up to four isolated repository lanes with serialized aggregation.
 
     The user grants standing authority to run every safe, in-scope command available in the current
     environment without a separate conversational approval: reads, network inspection, `.venv`
@@ -1907,7 +1933,8 @@ that is the only permanence they carry; text is always the decision as it stands
     gated external effect. This standing command authority does not weaken product-push
     what/why/where confirmation, authorization records, default-branch/merge/package/release
     prohibitions, secret handling, destructive-history restrictions, or protection of
-    non-disposable user data. See `GOV-030` and Governance rule 19.
+    non-disposable user data. See `GOV-030` and Governance rule 19. (Revised 2026-08-02 by direct
+    user authorization of the bounded multi-agent execution model.)
 
 82. **Recover through output-first convergence, native ecosystem tools, and a frozen
     representative contract—not a rewrite or another control plane.** The project keeps the
@@ -2007,13 +2034,13 @@ that is the only permanence they carry; text is always the decision as it stands
     never changes the dynamic denominator or per-repository acceptance. Other ecosystem lists in
     this plan express coverage sets, not an alternate priority.
 
-84. **Portfolio completeness starts with source-complete discovery and durable read-only intake,
-    not a naming regex or a manually frozen allow-list.** A 2026-07-29 production-oriented audit
+84. **Portfolio completeness starts with source-complete discovery, a fail-closed naming
+    eligibility contract, and durable read-only intake.** A 2026-07-29 production-oriented audit
     compared the current mechanism, its focused tests, the latest workflow logs, and a live
     read-only scan of all configured organizations. The checked-in registry contained 31 entries
     and the workflow reported 31 naming matches, yet the same live inventory contained the active
-    `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository, which the exact
-    `Aspose.{Family}-FOSS-for-{Platform}` regex silently excluded. The configured
+    `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP` repository, which the then-current discovery
+    contract treated as an unexplained observation. The configured
     `aspose-imaging-foss` organization returned 404. A successful job or `NO_DRIFT` result is
     therefore not proof of a complete portfolio.
 
@@ -2022,10 +2049,15 @@ that is the only permanence they carry; text is always the decision as it stands
     intake boundary. `DiscoverySourceV1` explicitly names authorized organization/App sources;
     `DiscoveryObservationV1` records every visible repository with provider repository/node ID,
     full name, source, visibility, default branch, timestamps, topics/language, classification,
-    disposition, and scan-completeness provenance. Naming is a classification hint, never an
-    inclusion gate. Reconciliation keys on stable provider repository ID so rename, transfer,
-    archive, variants, and multiple repositories per family/platform are representable without
-    overwriting policy, mode, or authorization fields.
+    disposition, and scan-completeness provenance. Discovery records every visible repository, but
+    execution admission is now fail-closed and case-insensitive: a name must match exactly
+    `Aspose[.-]{Family}-FOSS-for-{Platform}`, with one terminal platform token and no trailing
+    suffix. The `.` and `-` family separators are both accepted, so
+    `Aspose.PDF-FOSS-for-Go` and `aspose-pdf-foss-for-go` qualify. `CSSForge` and
+    `Aspose-PDF-FOSS-for-Go-MCP` remain discovery-only exclusions and cannot be admitted through a
+    classification override. Reconciliation still keys eligible entries on stable provider
+    repository ID so rename, transfer, archive, and multiple conforming repositories per
+    family/platform remain representable without overwriting policy, mode, or authorization fields.
 
     Discovery authority, read-only admission, intake readiness, and write authorization are four
     separate states. A repository observed in an approved source may be added automatically only
@@ -2055,7 +2087,10 @@ that is the only permanence they carry; text is always the decision as it stands
     preflight-before-allow-list ordering, then make the existing reviewer and Python-first route
     operate over a truthful denominator. No prior task, gate, or quality standard is omitted.
     `CORE-003`, `CORE-004`, `CORE-023`, `CORE-034`, `OPS-005`, and `OPS-007` are downgraded to
-    `PARTIAL`; `L8-035`–`L8-039` define the missing proof. (2026-07-29, user directive.)
+    `PARTIAL`; `L8-035`–`L8-039` define the missing proof. Historical evidence that admitted
+    CSSForge or the MCP-suffixed repository remains immutable history but is stale for the current
+    denominator and cannot close a current campaign. (2026-07-29; revised 2026-08-02 by direct
+    user eligibility directive.)
 
 85. **Use an LLM-first, README-derived assurance lane as the trusted-priority delivery path while
     repository-verified work advances read-only in spare capacity.** The ultimate goal remains
@@ -2460,12 +2495,12 @@ GitHub concurrency is an optimization and overlap guard, not the recovery system
 
 ### Local implementation control
 
-The control repository has one operator: Codex. Local work is serialized at the top-level command
-tree even when the active command legitimately creates descendants. Before launching a long
-operation, the operator checks for an existing repository-owned process tree and polls or resumes it
-instead of starting another. Future production fan-out is exercised only inside the governed
-runtime and its lease/deduplication/isolation contracts; it is never simulated by overlapping local
-operators.
+The control repository has one accountable coordinator: Codex. It may delegate disjoint
+implementation, repair, validation/evidence, documentation/state-sync, and independent-verification
+lanes under Decision #81. Workers never share writable paths or own integration, commits, shared
+state, task transitions, closure, or product effects. The coordinator serializes the bounded full
+suite, integration, and final evidence boundary. Future production fan-out is exercised only inside
+the governed runtime and its lease/deduplication/isolation contracts.
 
 Safe, plan-bound command execution uses the user's standing authority and proceeds without a
 separate approval exchange. External effect authority remains a distinct boundary and is never
@@ -3137,10 +3172,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     - [x] Source-complete observation and admission-ordering boundary (`L8-INTAKE-00`,
           `L8-035`): 26 terminal source results, 32 retained observations, explicit imaging-source
           incompleteness, unmatched PDF Go MCP disposition, and allow-list-before-preflight proof.
-    - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): the original 31
-          identities passed no-loss migration/no-op proof; live revision preflight then admitted
-          the 32nd stable identity, a PDF Go MCP variant, while retaining disabled write mode and
-          inheriting only the unambiguous local ecosystem/policy profile.
+    - [ ] Stable provider-identity and naming-eligibility reconciliation (`L8-INTAKE-01`,
+          `L8-036`): the original stable-ID proof remains useful, but the later admission of PDF Go
+          MCP and CSSForge is stale under revised Decision #84. Re-close only after a current
+          no-loss proof retains both as discovery exclusions and binds the eligible 31-entry
+          registry without changing agent-owned fields.
     - [x] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`):
           implementation, 257 focused tests, the 2,183-test official gate, and an 8/31 Python
           zero-call/no-effect live slice pass. Commit `ff462cee` closes the remaining public seam:
@@ -3148,14 +3184,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           and exactly one durable intake, retaining missing ecosystem/policy ownership as a truthful
           `BLOCKED_CLASSIFICATION` result. The complete affected 127-test regression set passes.
     - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
-          `L8-038`–`L8-039`) is implemented and locally/live-partially proven: the 32nd repository
-          created one deduplicated trigger and one `READY_FAST_PATH` intake, manifests and health
-          bind revision `93c718b4…968f3`, and stale/pending/unexplained/drift controls pass. Closure
-          remains withheld because the current credential cannot enumerate `aspose-imaging-foss`
-          and live source enumeration remains incomplete. The real workflow's registry job now
-          passes under ACT at `dc47169a`; its complete 32-member fixture revision is provenance-
-          bound and rejected outside ACT. Full amended-workflow trigger/recovery/isolation proof
-          remains open.
+          `L8-038`–`L8-039`) has reusable implementation and historical ACT proof, but its
+          32/33-member admission evidence is stale. Re-close only with a current revision that
+          derives 31 eligible entries and 12 Python entries, explicitly excludes CSSForge and PDF
+          Go MCP, binds the naming-contract hash, and passes freshness, recovery, deduplication,
+          isolation, health, and no-op controls.
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [x] Goal-control foundation: bind executable work to typed contributions, derive the durable

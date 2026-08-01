@@ -30,13 +30,14 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import tempfile
 import time
 from collections.abc import Iterator
 from pathlib import Path
 
 import requests
+
+from readme_agent.registry.naming import classify_managed_repository_name
 
 # Deliberately cwd-relative, matching registry/loader.py's PRODUCTS_PATH (local
 # dev and CI runners both execute from the repo root).
@@ -45,25 +46,6 @@ PRODUCTS_PATH = Path("data/products.json")
 
 _GITHUB_API = "https://api.github.com"
 _RATE_SLEEP = 1.0
-
-# Aspose.{Family}-FOSS-for-{Platform} (e.g. Aspose.3D-FOSS-for-Java)
-_REPO_PATTERN_FOSS = re.compile(
-    r"^Aspose\.([A-Za-z0-9]+)-FOSS-for-([A-Za-z0-9.]+)(?:-[A-Za-z0-9.]+)*$"
-)
-# aspose-{family}-foss-for-{platform} (e.g. aspose-pdf-foss-for-go)
-_REPO_PATTERN_FOSS_LOWER = re.compile(r"^aspose-([a-z0-9]+)-foss-for-([a-z0-9]+)(?:-[a-z0-9.]+)*$")
-
-_PLATFORM_MAP = {
-    "python": "python",
-    "java": "java",
-    ".net": "net",
-    "net": "net",
-    "cpp": "cpp",
-    "typescript": "typescript",
-    "javascript": "javascript",
-    "nodejs": "nodejs",
-    "go": "go",
-}
 
 
 class RegistryScanRateLimited(Exception):
@@ -84,20 +66,9 @@ class RegistryScanRateLimited(Exception):
 
 
 def classify_repo_name(repo_name: str) -> tuple[str, str] | None:
-    """Return (family, platform) for a repo name, or None when it matches neither FOSS naming
-    convention observed across the registry (see data/products.json's real repo_name values)."""
-    m = _REPO_PATTERN_FOSS.match(repo_name)
-    if m:
-        family = m.group(1).lower()
-        platform_raw = m.group(2).lower()
-        return family, _PLATFORM_MAP.get(platform_raw, platform_raw)
+    """Return governed family/platform coordinates or ``None`` when execution-ineligible."""
 
-    m = _REPO_PATTERN_FOSS_LOWER.match(repo_name.lower())
-    if m:
-        platform_raw = m.group(2)
-        return m.group(1), _PLATFORM_MAP.get(platform_raw, platform_raw)
-
-    return None
+    return classify_managed_repository_name(repo_name)
 
 
 def load_families(path: Path = FAMILIES_PATH) -> list[dict]:

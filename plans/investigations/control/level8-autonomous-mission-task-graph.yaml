@@ -15,6 +15,33 @@ autonomous_execution_contract:
     C++, TypeScript, Rust, then Go.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
+  multi_agent_model: coordinator_led_bounded_worker_waves
+  coordinator_role: sole owner of shared files, integration, durable transitions, commits, final verification,
+    and aggregate evidence
+  required_worker_roles:
+  - repair
+  - advancement
+  - validator_evidence
+  - documentation_state_sync
+  - independent_verification
+  max_parallel_workers_beside_coordinator: 3
+  task_lane_plan_required: true
+  task_lane_plan_path_template: runs/multi-agent/{task_id}/execution-plan.json
+  task_lane_plan_protocol:
+  - Before implementation, classify every required worker role as active or not_applicable with a task-specific
+    reason; absence of useful disjoint work is valid, silent omission is not.
+  - Give every active worker one bounded deliverable, exclusive non-shared allowed paths, forbidden shared
+    paths, focused verification, and a lane-evidence destination before starting it.
+  - Documentation/State-Sync is proposal-only under runs/multi-agent; only the coordinator applies accepted
+    recommendations to AGENTS.md, plans, shared evidence, taskcards, or durable state.
+  - Use worker waves when more roles are useful than the three available worker slots; never overlap writes
+    or let a worker transition tasks, integrate, commit, perform effects, or claim closure.
+  - The coordinator serializes shared-file reconciliation, integrated tests, official checks, task transitions,
+    commits, and final evidence after all active implementation lanes report.
+  - Independent verification starts only after integration evidence exists, uses no implementation paths,
+    and must accept before human review, approval, effect authorization, or task closure.
+  - A failed or incomplete lane returns to repair or a governed resolver; it does not lower acceptance
+    criteria or stop unrelated dependency-ready work.
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   mission_summary: Complete verified_repository_presentation through an automatically derived ordered
@@ -60,6 +87,11 @@ mission_authority:
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries, but
     adjacent ready work executes in seven outcome campaigns rather than as one full-test, evidence, and
     commit cycle per task.'
+  - 'COORDINATED MULTI-AGENT DELIVERY: one coordinator owns shared governance/state, integration, task
+    transitions, commits, final verification, and final evidence. Repair, Advancement, Validator/Evidence,
+    Documentation/State-Sync, and Independent Verification roles run in waves with at most three workers
+    beside the coordinator, exclusive path leases, lane evidence/tests, no overlapping writes, and no
+    closure or product-effect authority.'
   - One canonical production supervisor and no alternate mutation path.
   - Restartable GitHub Actions runtime with durable lifecycle recovery.
   - Provenance-complete product facts and surface ownership.
@@ -120,8 +152,9 @@ mission_authority:
     gate; it cannot admit new candidates or enable portfolio content fan-out. Afterwards the sole supervisor
     may use at most four isolated lanes with three reserved for trusted work and at most one repository-verified
     read-only lane, with idle-capacity borrowing and serialized aggregation/effects. Broader verified
-    portfolio fan-out remains serial until seven-representative qualification. Concurrent control-repository
-    editing remains prohibited.
+    portfolio fan-out remains serial until seven-representative qualification. Bounded control-repository
+    agents may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
+    task state, final verification, and final evidence remain coordinator-only.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
     may be bypassed temporarily but remains visible and regains priority immediately when cleared.
@@ -6184,17 +6217,19 @@ taskcards:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   title: Establish source-complete repository discovery and repair admission ordering
-  source_audit_finding: A successful 31-match workflow omitted the active PDF Go MCP repository because
-    naming was an inclusion gate, tolerated an unavailable source, and the public supervise CLI can preflight
-    an unlisted repository before the hard allow-list check.
+  source_audit_finding: Earlier source-complete work correctly made every visible repository observable,
+    but later reconciliation admitted CSSForge and PDF Go MCP despite the now-governed exact naming eligibility
+    contract; historical denominator closure is therefore stale. The public supervise CLI's allow-list-before-preflight
+    safety repair remains required.
   audit_classification: partially_done
   priority: P0
   lane: local-registry-intake
   owner: readme-agent-supervisor
   status: TODO
   objective: Inventory every repository visible from explicit authorized discovery sources, retain unmatched
-    and ambiguous observations, make source failure block completeness rather than unrelated execution,
-    and enforce allow-list-before-repository-preflight ordering.
+    and ambiguous observations, admit only case-insensitive exact Aspose[.-]{Family}-FOSS-for-{Platform}
+    names with one terminal platform token, make source failure block completeness rather than unrelated
+    execution, and enforce allow-list-before-repository-preflight ordering.
   why_it_matters: Gate A cannot be truthful when the denominator can silently omit newly published repositories
     or an unlisted CLI target can reach a repository-specific network read.
   allowed_paths:
@@ -6218,7 +6253,9 @@ taskcards:
   - Complete raw inventory including matched, unmatched, ambiguous, and inaccessible sources
   - Public CLI allow-list-before-preflight repair
   acceptance_checks:
-  - The known PDF Go MCP repository remains visible even though it does not match the legacy regex
+  - CSSForge and PDF Go MCP remain visible with explicit discovery-only exclusion dispositions
+  - Dot or hyphen between Aspose and family, plus casing differences, remain eligible
+  - A classification override cannot admit a nonconforming name
   - An unavailable source makes the inventory incomplete and cannot produce NO_DRIFT
   - An unlisted public supervise target makes zero repository-specific network calls
   verification:
@@ -6226,7 +6263,7 @@ taskcards:
   - Live read-only authorized-source scan
   - allow-list, redaction, and no-write regression proof
   negative_controls:
-  - Naming mismatch cannot silently exclude a visible repository
+  - Naming mismatch cannot disappear from discovery or enter the execution allow-list
   - Source failure cannot be reported as a complete scan
   regression_checks:
   - Existing additive discovery and owned-field preservation
@@ -6284,10 +6321,11 @@ taskcards:
   - L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
   expected_outputs:
   - Stable-identity registry schema and migration
-  - Deterministic rename, transfer, archive, variant, and exclusion reconciliation
+  - Deterministic rename, transfer, archive, conforming-variant, and exclusion reconciliation
   acceptance_checks:
   - Provider repository ID remains identity across full-name changes
-  - Multiple repositories per family/platform are retained
+  - Multiple conforming repositories per family/platform are retained
+  - A rename outside the naming contract becomes an explicit execution exclusion
   - Agent-owned fields are never overwritten by discovery
   verification:
   - Schema, migration, merge, property, and live round-trip tests
@@ -6432,6 +6470,8 @@ taskcards:
   acceptance_checks:
   - Current authorized-source enumeration has zero unexplained observations, source failures, stale scans,
     and pending intake before trusted portfolio fan-out
+  - The current eligible revision contains 31 repositories and 12 Python repositories, derived dynamically,
+    while CSSForge and PDF Go MCP remain explicit discovery-only exclusions
   - Gate A rejects pending intake, unexplained observations, scan failures, stale sources, and hash drift
   - One logical discovery change creates one intake
   - One source/repository failure does not erase unrelated matrix progress
@@ -9254,7 +9294,7 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 593097f0dc7c09f5b720cd896b2c14e168ae1334ce3ecba19b2277eb603b5663
+  source_sha256: f3303a0422f855d5082cb02b94f68320f42e1dec86aceaf40f12042a41e593d3
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 459
   mandatory_requirement_rows: 433
@@ -10044,9 +10084,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: CORE-023
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: CORE-024
     priority: P2
@@ -11976,9 +12016,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-036
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-037
     priority: P0
@@ -11988,9 +12028,9 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-038
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: PARTIAL
     task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-039
     priority: P1

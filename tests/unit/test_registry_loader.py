@@ -89,6 +89,92 @@ def test_malformed_entry_fails_closed(tmp_path):
         loader.load_products(bad)
 
 
+def test_nonconforming_repository_name_fails_closed(tmp_path):
+    invalid = {
+        "family": "html",
+        "platform": "python",
+        "repo_name": "CSSForge",
+        "repo_url": "https://github.com/aspose-html-foss/CSSForge",
+        "clone_url": "https://github.com/aspose-html-foss/CSSForge.git",
+        "active": True,
+        "discovered_via": "github",
+        "mode": "disabled",
+    }
+    path = tmp_path / "products.json"
+    path.write_text(json.dumps([invalid]), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="repo_name must match"):
+        loader.load_products(path)
+
+
+@pytest.mark.parametrize(
+    ("repo_name", "family", "platform"),
+    [
+        ("Aspose.PDF-FOSS-for-Go", "pdf", "go"),
+        ("Aspose-PDF-FOSS-for-Go", "pdf", "go"),
+        ("aspose-pdf-foss-for-go", "pdf", "go"),
+        ("Aspose.Email-FOSS-for-.Net", "email", "net"),
+    ],
+)
+def test_governed_repository_name_forms_are_execution_eligible(
+    tmp_path,
+    repo_name,
+    family,
+    platform,
+):
+    entry = {
+        "family": family,
+        "platform": platform,
+        "repo_name": repo_name,
+        "repo_url": f"https://github.com/example/{repo_name}",
+        "clone_url": f"https://github.com/example/{repo_name}.git",
+        "active": True,
+        "discovered_via": "github",
+        "mode": "disabled",
+    }
+    path = tmp_path / "products.json"
+    path.write_text(json.dumps([entry]), encoding="utf-8")
+
+    assert loader.load_products(path)[0].repo_name == repo_name
+
+
+def test_product_variant_suffix_is_discovery_only(tmp_path):
+    repo_name = "Aspose-PDF-FOSS-for-Go-MCP"
+    entry = {
+        "family": "pdf",
+        "platform": "go",
+        "repo_name": repo_name,
+        "repo_url": f"https://github.com/aspose-pdf-foss/{repo_name}",
+        "clone_url": f"https://github.com/aspose-pdf-foss/{repo_name}.git",
+        "active": True,
+        "discovered_via": "github",
+        "mode": "disabled",
+    }
+    path = tmp_path / "products.json"
+    path.write_text(json.dumps([entry]), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="repo_name must match"):
+        loader.load_products(path)
+
+
+def test_name_coordinates_must_match_registry_coordinates(tmp_path):
+    invalid = {
+        "family": "cells",
+        "platform": "python",
+        "repo_name": "Aspose.Cells-FOSS-for-Java",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+        "active": True,
+        "discovered_via": "github",
+        "mode": "disabled",
+    }
+    path = tmp_path / "products.json"
+    path.write_text(json.dumps([invalid]), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="coordinates do not match"):
+        loader.load_products(path)
+
+
 def test_duplicate_provider_repository_identity_fails_closed(tmp_path):
     first = {
         "registry_schema_version": 2,
@@ -100,18 +186,18 @@ def test_duplicate_provider_repository_identity_fails_closed(tmp_path):
         },
         "family": "widget",
         "platform": "java",
-        "repo_name": "one",
-        "repo_url": "https://github.com/example/one",
-        "clone_url": "https://github.com/example/one.git",
+        "repo_name": "Aspose.Widget-FOSS-for-Java",
+        "repo_url": "https://github.com/example/Aspose.Widget-FOSS-for-Java",
+        "clone_url": "https://github.com/example/Aspose.Widget-FOSS-for-Java.git",
         "active": True,
         "discovered_via": "github",
         "mode": "disabled",
     }
     second = {
         **first,
-        "repo_name": "two",
-        "repo_url": "https://github.com/example/two",
-        "clone_url": "https://github.com/example/two.git",
+        "repo_name": "Aspose-Widget-FOSS-for-Java",
+        "repo_url": "https://github.com/example/Aspose-Widget-FOSS-for-Java",
+        "clone_url": "https://github.com/example/Aspose-Widget-FOSS-for-Java.git",
         "provider_identity": {**first["provider_identity"], "node_id": "R_OTHER"},
     }
     path = tmp_path / "products.json"

@@ -19,7 +19,7 @@ from readme_agent.verification.checks import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-ORG_REPO = "example-foss/Example-FOSS-for-Java"
+ORG_REPO = "example-foss/Aspose.Thing-FOSS-for-Java"
 
 BLANK_SLATE_README = (
     "# Example FOSS for Java\n\n"
@@ -105,8 +105,8 @@ def _setup_project_root(tmp_path, source_clone_url: str):
         {
             "family": "thing",
             "platform": "java",
-            "repo_name": "Example-FOSS-for-Java",
-            "repo_url": "https://github.com/example-foss/Example-FOSS-for-Java",
+            "repo_name": "Aspose.Thing-FOSS-for-Java",
+            "repo_url": "https://github.com/example-foss/Aspose.Thing-FOSS-for-Java",
             "clone_url": source_clone_url,
             "active": True,
             "discovered_via": "manual",
@@ -227,7 +227,7 @@ class TestIndependentlyVerifyReadmeCandidate:
         # prepare_readme_candidate never writes -- the on-disk README stays
         # exactly BLANK_SLATE_README, so claiming needs_write=False with
         # final_text == BLANK_SLATE_README matches reality.
-        work_path = paths.work_dir("example-foss", "Example-FOSS-for-Java")
+        work_path = paths.work_dir("example-foss", "Aspose.Thing-FOSS-for-Java")
         work_path.mkdir(parents=True, exist_ok=True)
         (work_path / "README.md").write_text(BLANK_SLATE_README, encoding="utf-8")
 

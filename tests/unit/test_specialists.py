@@ -22,7 +22,7 @@ from readme_agent.state.backend import SaveResult
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
-ORG_REPO = "example-foss/Example-Widget"
+ORG_REPO = "example-foss/Aspose.Widget-FOSS-for-Java"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -209,8 +209,8 @@ def _setup_project_root(tmp_path, source_clone_url: str):
         {
             "family": "widget",
             "platform": "java",
-            "repo_name": "Example-Widget",
-            "repo_url": "https://github.com/example-foss/Example-Widget",
+            "repo_name": "Aspose.Widget-FOSS-for-Java",
+            "repo_url": "https://github.com/example-foss/Aspose.Widget-FOSS-for-Java",
             "clone_url": source_clone_url,
             "active": True,
             "discovered_via": "manual",
@@ -902,7 +902,7 @@ class TestReadmePresentationSpecialist:
         # No new commit landed in the work clone.
         from readme_agent import paths
 
-        work_path = paths.work_dir("example-foss", "Example-Widget")
+        work_path = paths.work_dir("example-foss", "Aspose.Widget-FOSS-for-Java")
         after_log = run_git(["log", "--oneline"], cwd=work_path).stdout
         assert after_log.strip() == before_log.strip()
         # Wave 8d: the last-good accepted baseline is still never poisoned by
@@ -985,7 +985,7 @@ class TestReadmePresentationSpecialist:
         (source / "README.md").write_text(_BLANK_SLATE_WIDGET_README, encoding="utf-8")
         run_git(["add", "."], cwd=source)
         run_git(["commit", "-m", "fix: real body"], cwd=source)
-        force_rmtree(paths.work_dir("example-foss", "Example-Widget"))
+        force_rmtree(paths.work_dir("example-foss", "Aspose.Widget-FOSS-for-Java"))
         # Simulates the process boundary supervise_repo() gets for free via its
         # own invalidate_baseline_clone() call -- see this file's own
         # _clean_clone_memo fixture docstring for why a direct, in-process
@@ -1104,7 +1104,7 @@ class TestReadmePresentationSpecialist:
         # Simulate an ephemeral CI runner: the persistent local work clone
         # from the first run is gone, but the durable backend (this
         # project's own remote, in real use) survives.
-        work_path = paths.work_dir("example-foss", "Example-Widget")
+        work_path = paths.work_dir("example-foss", "Aspose.Widget-FOSS-for-Java")
         assert work_path.exists()  # sanity: the first run really did create one
         force_rmtree(work_path)
 

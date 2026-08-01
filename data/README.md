@@ -71,28 +71,33 @@ an explicit, revision-bound exclusion. Set `"enabled": false` and provide a none
 `"exclusion_reason"`. The inventory records that source as `excluded`; it does not scan it, silently
 drop it, substitute a similarly named organization, or count the governed exclusion as an outage.
 
-When a product repository deliberately does not use the normal Aspose FOSS naming convention, add
-a `repository_classifications` item to its source. The record binds the GitHub repository and node
-IDs to explicit family/platform coordinates and a rationale. Runtime code remains generic: an ID,
-node, source-family, or name-derived conflict becomes an ambiguous observation and cannot be
-admitted until the governed classification is corrected.
+Execution eligibility is fail-closed and case-insensitive. A repository must have exactly the
+shape `Aspose[.-]{Family}-FOSS-for-{Platform}`, with one terminal platform token and no trailing
+variant suffix. The separator between `Aspose` and the family may be `.` or `-`, so both
+`Aspose.PDF-FOSS-for-Go` and `aspose-pdf-foss-for-go` qualify. `CSSForge` and
+`Aspose-PDF-FOSS-for-Go-MCP` do not. Discovery still records every nonconforming repository with a
+stable identity and explicit exclusion; it does not silently omit it. A
+`repository_classifications` record may clarify an already-conforming repository's family or
+platform, but cannot override the naming eligibility contract or admit a nonconforming name.
 
 ## How `data/products.json` stays current
 
 [`scripts/data-refresh/update_products_registry.py`](../scripts/data-refresh/update_products_registry.py)
 scans every GitHub org in `families.json` (read-only `GET` calls against the GitHub REST API),
 records every repository visible to the authorized credential, classifies names against the
-`Aspose.{Family}-FOSS-for-{Platform}` convention, and
+case-insensitive `Aspose[.-]{Family}-FOSS-for-{Platform}` eligibility contract, and
 merges the result into `data/products.json`. The script is a thin CLI wrapper — the discovery,
 classification, and merge logic (and the safety contract) live once in
 [`src/readme_agent/registry/discovery.py`](../src/readme_agent/registry/discovery.py), shared with
 the runtime self-heal below:
 
-- Newly discovered `(family, platform)` pairs are added with `mode: "disabled"`,
+- Newly discovered eligible stable repository identities are added with `mode: "disabled"`,
   `ecosystem: null`, `policy_profile: null` — never auto-enabled.
 - Existing entries only have their upstream-shaped fields refreshed (e.g. a renamed repo or a
   newly archived one); `mode`/`ecosystem`/`policy_profile` are left untouched no matter what.
-- No entry is ever deleted, even if a repo disappears from GitHub — that's a human decision.
+- A repository renamed outside the eligibility grammar is removed from the execution allow-list
+  and retained as a discovery exclusion; archived or disappeared conforming identities retain an
+  explicit governed disposition rather than being silently discarded.
 - The write is atomic (temp file + rename).
 
 Run it yourself:

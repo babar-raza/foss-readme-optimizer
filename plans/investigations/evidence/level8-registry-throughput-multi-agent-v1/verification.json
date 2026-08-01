@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-08-02",
+  "branch": "main",
+  "base_head": "dd0fd06d6c0701050afcb645479ea6d801a1ca98",
+  "scope": "integrated_dirty_candidate_tree",
+  "registry": {
+    "entry_count": 31,
+    "products_sha256_normalized": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
+    "invalid_entry_count": 0,
+    "platform_counts": {
+      "python": 12,
+      "net": 6,
+      "java": 4,
+      "cpp": 4,
+      "typescript": 2,
+      "rust": 1,
+      "go": 2
+    },
+    "removed_relative_to_base": [
+      "aspose-html-foss/CSSForge",
+      "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP"
+    ],
+    "retained_control": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+    "fresh_live_all_visibility_revision_proved": false
+  },
+  "durable_status": {
+    "state_version": 676,
+    "active_task": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "active_goal": "GOAL-V1-VERIFIED-TRUTH",
+    "graph_drift": true,
+    "facts_ready": "17/31",
+    "candidate_generated": "9/31",
+    "deterministic_validated": "9/31",
+    "current_agent_approved": "0/31",
+    "current_no_op_proven": "0/31",
+    "raw_agent_approved": 2,
+    "raw_no_op_proven": 2,
+    "stale_acceptance_repositories": [
+      "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+    ]
+  },
+  "verification": {
+    "integrated_focused": {
+      "passed": 288,
+      "failed": 0,
+      "duration_seconds": 102.95
+    },
+    "specialist_fixture_focus": {
+      "passed": 47,
+      "failed": 0,
+      "duration_seconds": 28.57
+    },
+    "complete_non_live": {
+      "passed": 2639,
+      "failed": 0,
+      "duration_seconds": 259.95,
+      "inventory_sha256": "f42fd296f4c75f0930638ca64fc8d0d7c986470e60c1c40108aa7224a6434098",
+      "workers": 4,
+      "distribution": "worksteal",
+      "max_worker_restart": 0,
+      "leaked_process_ids": []
+    },
+    "ruff_check": "passed",
+    "ruff_format_check": "passed_851_files",
+    "mypy": "passed_490_source_files",
+    "plan_structure": "passed_with_nonblocking_warnings",
+    "verifier_wiring": "passed",
+    "prompt_hygiene": "passed_14_prompts",
+    "requirement_task_coverage": "passed_459_rows",
+    "semantic_traceability": "passed_160_implemented_rows_zero_closure_findings",
+    "actionlint": "passed_via_C:/Users/prora/go/bin/actionlint.EXE_not_on_PATH",
+    "git_diff_check": "passed"
+  },
+  "multi_agent": {
+    "model": "coordinator_led_bounded_worker_waves",
+    "max_workers_beside_coordinator": 3,
+    "roles": [
+      "repair",
+      "advancement",
+      "validator_evidence",
+      "documentation_state_sync",
+      "independent_verification"
+    ],
+    "task_lane_plan": "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
+    "independent_verdict": "accepted_bounded_slice_no_task_or_mission_closure",
+    "independent_report_sha256": "7186d83422c35371857c25a1a12d9d4a1949b1d924f1fd82da127d1739539641",
+    "independent_representative_tests": "130_passed_in_25.03s",
+    "independent_high_risk_nodes": "12_passed_in_1.60s"
+  },
+  "product_effects": [],
+  "closure_claimed": false
+}

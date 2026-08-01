@@ -127,6 +127,10 @@ MAX_FILE_EXCERPT_CHARS = 6_000
 
 _CONTEXT_PATH_HEADER = re.compile(r"(?m)^--- (?P<path>.+) ---$")
 
+_MAX_EXAMPLE_CODE_LINES = 20
+_MAX_EXAMPLE_CODE_LINE_CHARS = 300
+_MAX_EXAMPLE_CODE_CHARS = 600
+
 # Always excluded from what this module shows the model as "already-
 # established, citable objective facts": product.audience/problems_solved
 # would be self-referential (citing your own claim to ground itself), and
@@ -277,10 +281,14 @@ def _draft_product_truth_tool_schema(
                         "properties": {
                             "language": {"type": "string", "enum": [language]},
                             "class_name": {"type": "string", "minLength": 1},
-                            "code": {
-                                "type": "string",
-                                "minLength": 1,
-                                "maxLength": 600,
+                            "code_lines": {
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": _MAX_EXAMPLE_CODE_LINES,
+                                "items": {
+                                    "type": "string",
+                                    "maxLength": _MAX_EXAMPLE_CODE_LINE_CHARS,
+                                },
                             },
                             "evidence_paths": {
                                 "type": "array",
@@ -298,7 +306,7 @@ def _draft_product_truth_tool_schema(
                         "required": [
                             "language",
                             "class_name",
-                            "code",
+                            "code_lines",
                             "evidence_paths",
                             "required_symbols",
                         ],
@@ -315,6 +323,62 @@ def _draft_product_truth_tool_schema(
             },
         },
     }
+
+
+def _normalize_forced_tool_code_lines(arguments: dict) -> dict:
+    """Convert typed physical source lines into the domain model's code string.
+
+    A forced tool schema describes transport, while ``DraftProductTruthV1`` keeps
+    the established policy-compatible scalar ``minimal_example.code`` field.  The
+    explicit line array prevents gateways from flattening otherwise valid source
+    into one space-separated string.  This adapter is deliberately generic across
+    ecosystems and validates the same bounds even when a provider ignores the JSON
+    schema.  It never attempts to infer or repair missing statement boundaries.
+    """
+
+    raw_example = arguments.get("minimal_example")
+    if not isinstance(raw_example, dict):
+        return arguments
+    if "code" in raw_example:
+        raise LLMError(
+            "draft_product_truth forced-tool response used flattened minimal_example.code; "
+            "expected typed minimal_example.code_lines"
+        )
+    raw_lines = raw_example.get("code_lines")
+    if not isinstance(raw_lines, list) or not raw_lines:
+        raise LLMError(
+            "draft_product_truth forced-tool response requires non-empty minimal_example.code_lines"
+        )
+    if len(raw_lines) > _MAX_EXAMPLE_CODE_LINES:
+        raise LLMError(
+            "draft_product_truth forced-tool response exceeded the "
+            f"{_MAX_EXAMPLE_CODE_LINES}-line minimal example limit"
+        )
+    if any(not isinstance(line, str) for line in raw_lines):
+        raise LLMError("minimal_example.code_lines must contain only strings")
+    if any(len(line) > _MAX_EXAMPLE_CODE_LINE_CHARS for line in raw_lines):
+        raise LLMError(
+            "draft_product_truth forced-tool response exceeded the "
+            f"{_MAX_EXAMPLE_CODE_LINE_CHARS}-character physical line limit"
+        )
+    if any("\n" in line or "\r" in line for line in raw_lines):
+        raise LLMError(
+            "each minimal_example.code_lines item must contain exactly one physical source line"
+        )
+    code = "\n".join(raw_lines).rstrip("\r\n") + "\n"
+    if not code.strip():
+        raise LLMError("minimal_example.code_lines produced empty source")
+    if len(code) > _MAX_EXAMPLE_CODE_CHARS:
+        raise LLMError(
+            "draft_product_truth forced-tool response exceeded the "
+            f"{_MAX_EXAMPLE_CODE_CHARS}-character minimal example limit"
+        )
+    normalized_example = dict(raw_example)
+    normalized_example.pop("code_lines")
+    normalized_example["code"] = code
+    normalized = dict(arguments)
+    normalized["minimal_example"] = normalized_example
+    return normalized
 
 
 class _AnalysisClientLike(Protocol):
@@ -431,7 +495,10 @@ def draft_product_truth(
                 language=draft_language,
             ),
         )
-        result = AnalysisResult(parsed=forced_result.arguments, meta=forced_result.meta)
+        result = AnalysisResult(
+            parsed=_normalize_forced_tool_code_lines(forced_result.arguments),
+            meta=forced_result.meta,
+        )
     try:
         return DraftProductTruthV1.model_validate(result.parsed)
     except ValidationError as exc:

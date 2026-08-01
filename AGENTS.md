@@ -48,18 +48,39 @@ The unambiguous form works from any shell without activation — prefer it:
 `.venv/bin/`.) Activating instead (`.venv\Scripts\Activate.ps1` in PowerShell,
 `source .venv/Scripts/activate` in Git Bash) is fine too — then the bare commands above are safe.
 
-## One operator and standing command authority
+## Coordinator-led execution and standing command authority
 
-Codex is the sole operator for the current autonomous implementation sprint. Do not spawn or assume
-another repository-editing worker. Python, Git, Docker, compiler, and test child processes belong to
-Codex's one active command tree; they are not independent workers.
+Codex remains the accountable coordinator, but the user has authorized a bounded multi-agent
+execution model for this mission. The coordinator exclusively owns shared governance/state files,
+integration, task transitions, commits, final verification, and the final evidence bundle.
+Required roles are Repair, Advancement, Validator/Evidence, Documentation/State-Sync, and
+Independent Verification. Because the environment provides four concurrent slots including the
+coordinator, roles run in waves with at most three workers beside the coordinator.
+
+Before delegation, the coordinator assigns each worker one disjoint path lease and a concrete
+plan-bound deliverable. A worker edits only its leased non-shared paths, reports the exact diff,
+focused tests, and lane evidence, and has no closure, task-transition, commit, shared-state,
+integration, or product-effect authority. Documentation/State-Sync is proposal-only: it writes its
+recommended patch or reconciliation report under its `runs/multi-agent/` lane, and the coordinator
+alone applies accepted changes to `AGENTS.md`, `plans/`, shared evidence, taskcards, or durable
+state. No two agents may write the same path. The independent verifier must not author the
+implementation it verifies, and human review/approval is requested only after its evidence-backed
+acceptance. If disjoint ownership is unavailable, execute serially.
+
+Apply this decision to every claimed task. Before implementation, create or update the single
+idempotent `runs/multi-agent/<task-id>/execution-plan.json` record and classify all five roles as
+`active` or `not_applicable` with task-specific reasons. For every active role record its bounded
+objective, exclusive allowed paths, forbidden shared paths, focused checks, and evidence
+destination. Do not spawn ceremonial workers; run useful roles in later waves when all three worker
+slots are occupied. Missing dispositions, overlapping leases, missing lane evidence, or an
+independent verifier that authored the implementation fail closeout.
 
 Before starting a long test, proof builder, supervisor campaign, build, or workflow reproduction,
-inspect repository-owned processes. If an earlier top-level command is active, poll or resume that
-exact process tree rather than launching another. Run only one top-level test/proof/supervisor tree
-at a time during local implementation. Any descendants must remain attributable to it and must be
-terminated with it on cancellation. Future production concurrency is exercised only through the
-runtime's leases, deduplication, and isolation controls.
+inspect repository-owned processes. The coordinator grants the top-level command lease: lane-local
+focused tests run only when their resources are isolated, while the bounded complete non-live
+runner and integration/proof campaigns remain serialized. Descendants remain attributable to their
+owning command and terminate with it on cancellation. Production repository concurrency is
+exercised only through runtime leases, deduplication, isolation, and serialized aggregation.
 
 The user has granted standing authority to run every safe, plan-bound command available in the
 current environment. Execute repository reads, network inspection, `.venv` operations, formatting,
