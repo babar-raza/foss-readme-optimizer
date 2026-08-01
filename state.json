@@ -854,7 +854,7 @@
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "0a648d75ac2f7d45c59508daeeddf65a003ccefddb3d2f088427706696938c9a",
+      "accepted_facts_hash": "270976f2bf1d70b354e721dbc410fe930b9084f5d29c30b590e8f0b391d6e104",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -862,61 +862,61 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('prepare, review, package, and explain fonts') and avoids vague terms like 'leverage' or 'empower'.",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('prepare, review, package, and explain fonts') and avoids vague terms like 'leverage'.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The second sentence explicitly states the target audience ('teams that need to prepare, review, package, and explain fonts') and the context ('deployable web-font packages, visual review assets... from scripts, CI, or local CLI workflows').",
+            "note": "The opening paragraph and 'What You Get' section explicitly state the target audience (teams needing font automation), the ecosystem (Python), the formats handled (font formats), and common tasks (web packaging, QA, variable-font instance creation).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license in the final section, and badges for package registry (pip), though build status and version badges are missing \u2014 but license visibility alone satisfies the highest-priority trust signal.",
+            "note": "The README includes a visible, GitHub-recognized MIT license (in the License section), and while it lacks build/version badges, the presence of a working install path and active development context (CLI, MCP, tests) partially compensates; however, strictly speaking, it fails the 'build/version/package-registry badges' sub-criterion.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install section names real package coordinates (`aspose-font`) and provides working `pip install` commands that resolve against PyPI (verified via live PyPI search).",
+            "note": "The install section names real package coordinates (`aspose-font`) and provides working `pip install` commands that resolve against PyPI (verified via standard PyPI search).",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are multiple runnable code blocks (e.g., web handoff, QA report, variable instance) with no comments, docstrings, or extraneous text \u2014 just executable Python and surrounding prose.",
+            "note": "Beyond the install snippet, the README includes multiple runnable code blocks (e.g., web handoff, QA report, variable instance) with no comments, docstrings, or code annotations\u2014only surrounding prose explaining the operation.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 capabilities \u2192 license \u2014 with legal/contributing content after getting-started content.",
+            "note": "Section headers use consistent `##`/`###` Markdown levels, and the order follows the intended sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 capabilities \u2192 roadmap \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "All included images (e.g., QA report summary, axis grid, family review board) directly illustrate actual product outputs and workflows, not decorative or generic visuals.",
+            "note": "All visuals (screenshots of QA reports, axis grids, etc.) directly illustrate the product's input/output/workflow (e.g., generated artifacts), not decorative imagery, and are appropriately placed to support understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row (only README and LICENSE are recognized).",
+            "note": "The repository lacks GitHub-recognized community files beyond README: no LICENSE file is present in the repo root (only referenced as `./LICENSE.txt`), and there are no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files\u2014so GitHub's quick-link row will not appear.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes recent, detailed CLI/API examples and a Development section implying active maintenance \u2014 and GitHub's `pushed_at`/Releases sidebar (external to README) would provide structural evidence.",
+            "note": "While not stated in prose, the README implies recent activity through CLI examples, MCP support, and active development commands (pytest, ruff, build), and GitHub's `pushed_at` would reflect this\u2014no false claims are made.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README \u2014 which is acceptable per the standard, as long as the product explanation comes first and no commercial content appears before it; absence here does not violate the rule.",
+            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-first repo; if commercial licensing were relevant, the standard allows either a closing paragraph or one sentence under the product description\u2014but none is needed here.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, audience fit, verified examples, and visual usefulness \u2014 are well met and align with leading FOSS practices."
+        "overall_summary": "The README satisfies most dimensions, particularly excelling in product clarity, audience fit, verified examples, and visual usefulness. However, it fails on contribution readiness due to missing GitHub-recognized community files (especially a LICENSE file in the repo root), which is the highest-priority gap per the standard."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T08:29:16.928825+00:00",
+      "last_run_timestamp": "2026-08-01T08:42:55.473114+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
@@ -1354,7 +1354,7 @@
     "updated_at": "2026-08-01T08:25:29.046020+00:00"
   },
   "schema_version": 2,
-  "state_version": 129,
+  "state_version": 130,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "25c8d1447c85f4e365f92a48275552bf56f6b00468e7f7aafac60b75576da3bc",
