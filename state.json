@@ -810,7 +810,7 @@
       "accepted_facts_hash": "d4268a730cf28ec8343f85c4268496e718c2a14e430fbcd9875b0d6ea9d4888d",
       "accepted_status": "FIRST_OBSERVATION",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 0,
+      "consecutive_skip_count": 1,
       "details": {
         "alt_text": "email FOSS for python logo",
         "concerns": [],
@@ -826,6 +826,8 @@
         },
         "size_bytes": 2331,
         "size_within_reasonable_bounds": true,
+        "skip_reason": "llm_selected",
+        "skipped_at_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
@@ -838,9 +840,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:31:21.073047+00:00",
+      "last_run_timestamp": "2026-08-01T07:11:29.754972+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": false,
+      "skipped_this_run": true,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     }
   },
@@ -1203,7 +1205,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 104,
+  "state_version": 105,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
