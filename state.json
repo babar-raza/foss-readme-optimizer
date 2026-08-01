@@ -82,6 +82,23 @@
       "task_id": "231f190c6758410eaedd09eedee34d02",
       "trigger_dedup_key": "operator:20260801-070610-d9b6:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "298516c1945812d83e5b6b7f65521f6d4cde99ee0426279f3e72c667f34bff0b": {
+      "action": "verify_package_acquisition",
+      "attempt": 1,
+      "checkpoint_id": "298516c1945812d83e5b6b7f65521f6d4cde99ee0426279f3e72c667f34bff0b",
+      "completed_at": "2026-08-01T07:14:17.797969+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "c92300a72e534e243f613cf4ea3753a26aaa3ba5c86ec1d5ab53f4c5f026be7b",
+      "output_hash": "2191b6d6b1433a03558273b432521b5925ad0799caf1ca5c0698b12800e65e26",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260801-070610-d9b6",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-08-01T07:14:17.797963+00:00",
+      "task_id": "639606b62a63407c8b8111f0683d17fb",
+      "trigger_dedup_key": "operator:20260801-070610-d9b6:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "2ab9f51403b20b03e6f8f531169ca4b9f825231abca572ecb7f91b0ead48a745": {
       "action": "detect_readme_gaps",
       "attempt": 1,
@@ -1450,7 +1467,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 118,
+  "state_version": 119,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
@@ -1708,11 +1725,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "e6e954a64d8ddeaf8ce5e29d2cc0a55c82178e45b302bbd8760e0f5044e30d96",
+      "last_checkpoint_id": "298516c1945812d83e5b6b7f65521f6d4cde99ee0426279f3e72c667f34bff0b",
       "lease_expires_at": "2026-08-01T07:21:29.538948+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-01T07:14:10.601597+00:00"
+      "updated_at": "2026-08-01T07:14:17.797969+00:00"
     }
   },
   "trigger_records": {},
