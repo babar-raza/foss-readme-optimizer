@@ -23817,6 +23817,18 @@
         "reason": "entering repair attempt 1/2: Revise Additional examples for example_presentation around exact span: <details>\n<summary>Show additional examples</summary>\nRevise Scope and limitations for promotional_balance around exact span: [Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation and the limitations above; do not assume API or feature parity beyond verified behavior.\nRevise At a glance for markdown_integrity around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) files\"]\n    input_2[\"Binary streams\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title structure\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image extraction\"]\n    capability_5[\"PDF export via ReportLab\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"PDF documents\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- output_1\n  product --- output_2\n```\nRevise At a glance for product_specificity around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) files\"]\n    input_2[\"Binary streams\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title structure\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image extraction\"]\n    capability_5[\"PDF export via ReportLab\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"PDF documents\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- output_1\n  product --- output_2\n```",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f2",
+          "f3"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T05:07:50.624961+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=5c85a22603b59c830c589dd89a45a0fbfba7bd6ecf74b42a9a9d09ab87055c2f after=1f12f1930112460f2bb2ab565846b32eb686e2560dbf1946ff483472768614ce; unresolved=f2,f3",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -23845,11 +23857,11 @@
     "reviewer_standard_hash": "fa9ee4c9ce0301b838d16512751e500330b66ce42d9a80b7978d08178ee29c9d",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T05:06:53.157195+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T05:07:50.624961+00:00"
   },
   "schema_version": 2,
-  "state_version": 1511,
+  "state_version": 1512,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
