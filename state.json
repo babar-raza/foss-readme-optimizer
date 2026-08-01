@@ -569,7 +569,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "4212bf5899c6ef71a2b6dddfc6b662380b1d567c9fba33b0c55523a0f9114266",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "17b16cafff5336a832186222f07e45d161317fa825ce54ceb92d0566e062e7a3",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -782,6 +782,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\db763ccff900379bced7\\r\\c30d68f488692d90\\s\\4473f8cbeef1\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T11:14:33.027903+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -810,11 +822,11 @@
     "reviewer_standard_hash": "241304fea3e7a82db8fe83eb534b69e97b5b93ab3c72c2f7e21dfab8c22cdb01",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-01T11:14:27.066768+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-01T11:14:33.027903+00:00"
   },
   "schema_version": 2,
-  "state_version": 74,
+  "state_version": 75,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
