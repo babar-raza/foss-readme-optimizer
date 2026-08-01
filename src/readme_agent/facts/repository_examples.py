@@ -181,7 +181,9 @@ def repository_readme_example_candidates(
 
 def _is_repository_example_source(root: Path, path: Path) -> bool:
     parts = {part.casefold() for part in path.relative_to(root).parts[:-1]}
-    return bool(parts & _EXAMPLE_DIRECTORY_NAMES)
+    return bool(parts & _EXAMPLE_DIRECTORY_NAMES) or any(
+        part.endswith(("example", "examples", "sample", "samples")) for part in parts
+    )
 
 
 def _go_source_example(root: Path, path: Path) -> MinimalExamplePolicy | None:

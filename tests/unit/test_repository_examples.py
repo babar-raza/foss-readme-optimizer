@@ -201,7 +201,7 @@ def test_python_source_example_extracts_one_self_contained_public_operation(tmp_
         "        return cls()\n",
         encoding="utf-8",
     )
-    examples = tmp_path / "examples"
+    examples = tmp_path / "ApiExamples"
     examples.mkdir()
     (examples / "create_document.py").write_text(
         "import argparse\n"
@@ -221,7 +221,40 @@ def test_python_source_example_extracts_one_self_contained_public_operation(tmp_
         "document = api.Document.create('Quarterly update', 'Ready')\n"
     )
     assert candidates[0].class_name == "Document"
-    assert candidates[0].evidence_paths == ["examples/create_document.py"]
+    assert candidates[0].evidence_paths == ["ApiExamples/create_document.py"]
     assert candidates[0].required_symbols == ["api.Document.create"]
     assert "argparse" not in candidates[0].code
     assert "unused" not in candidates[0].code
+
+
+def test_python_source_example_closes_class_method_inputs_from_repository_code(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-widget-foss"\nversion = "1.0"\n'
+        '[tool.setuptools]\npackages = ["aspose", "aspose.widget"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "aspose" / "widget"
+    package.mkdir(parents=True)
+    (package / "__init__.py").write_text("class Document: pass\n", encoding="utf-8")
+    examples = tmp_path / "examples"
+    examples.mkdir()
+    (examples / "load_markdown.py").write_text(
+        "import io\n"
+        "import aspose.widget as aw\n\n"
+        "class Loading:\n"
+        "    def load(self):\n"
+        "        source = '# Title\\n'\n"
+        "        doc = aw.Document(io.BytesIO(source.encode('utf-8')))\n",
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "python")
+    document = next(candidate for candidate in candidates if candidate.class_name == "Document")
+
+    assert document.code == (
+        "import io\n"
+        "import aspose.widget as aw\n\n"
+        "source = '# Title\\n'\n"
+        "doc = aw.Document(io.BytesIO(source.encode('utf-8')))\n"
+    )
+    assert document.required_symbols == ["aw.Document"]

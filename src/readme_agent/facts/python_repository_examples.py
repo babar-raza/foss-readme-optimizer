@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import ast
 import builtins
+import sys
 from pathlib import Path
 
 from readme_agent.ecosystems.python_package_layout import inspect_python_package_layout
 from readme_agent.registry.models import MinimalExamplePolicy
 
 _BUILTIN_NAMES = frozenset(dir(builtins))
+_STDLIB_MODULES = frozenset(sys.stdlib_module_names)
 _SUPPORTED_STATEMENTS = (ast.Assign, ast.AnnAssign, ast.Expr)
 
 
@@ -43,6 +45,47 @@ def _minimal_import(node: ast.stmt, used_bindings: set[str]) -> ast.stmt | None:
     return None
 
 
+def _bound_names(node: ast.stmt) -> set[str]:
+    if isinstance(node, ast.Import):
+        return {alias.asname or alias.name.split(".", 1)[0] for alias in node.names}
+    if isinstance(node, ast.ImportFrom):
+        return {alias.asname or alias.name for alias in node.names if alias.name != "*"}
+    targets = (
+        node.targets
+        if isinstance(node, ast.Assign)
+        else [node.target]
+        if isinstance(node, ast.AnnAssign)
+        else []
+    )
+    return {target.id for target in targets if isinstance(target, ast.Name)}
+
+
+def _loaded_names(node: ast.AST) -> set[str]:
+    return {
+        item.id
+        for item in ast.walk(node)
+        if isinstance(item, ast.Name) and isinstance(item.ctx, ast.Load)
+    }
+
+
+def _supported_import(node: ast.stmt, package_name: str) -> bool:
+    if isinstance(node, ast.Import):
+        return all(
+            alias.name.split(".", 1)[0] in _STDLIB_MODULES
+            or alias.name == package_name
+            or alias.name.startswith(f"{package_name}.")
+            for alias in node.names
+        )
+    if isinstance(node, ast.ImportFrom) and node.module:
+        root = node.module.split(".", 1)[0]
+        return (
+            root in _STDLIB_MODULES
+            or node.module == package_name
+            or node.module.startswith(f"{package_name}.")
+        )
+    return True
+
+
 def _attribute_chain(node: ast.AST) -> tuple[str, ...] | None:
     parts: list[str] = []
     current = node
@@ -71,30 +114,51 @@ def _public_package_call(statement: ast.stmt, bindings: set[str]) -> tuple[str, 
 
 def _statement_candidate(
     statement: ast.stmt,
-    imports: list[tuple[ast.stmt, set[str]]],
+    package_imports: list[tuple[ast.stmt, set[str]]],
+    support_nodes: list[ast.stmt],
     *,
     relative_path: str,
     max_chars: int,
 ) -> MinimalExamplePolicy | None:
-    bindings = set().union(*(names for _, names in imports))
-    chain = _public_package_call(statement, bindings)
+    package_bindings = set().union(*(names for _, names in package_imports))
+    chain = _public_package_call(statement, package_bindings)
     if chain is None:
         return None
-    loaded_names = {
-        node.id
-        for node in ast.walk(statement)
-        if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)
-    }
-    used_bindings = loaded_names & bindings
-    if not used_bindings or loaded_names - used_bindings - _BUILTIN_NAMES:
+    available: dict[str, ast.stmt] = {}
+    for node in support_nodes:
+        for name in _bound_names(node):
+            available[name] = node
+    selected: set[ast.stmt] = set()
+    selected_binding_names: set[str] = set()
+    unresolved = list(_loaded_names(statement) - _BUILTIN_NAMES)
+    resolved: set[str] = set()
+    while unresolved:
+        name = unresolved.pop()
+        if name in resolved:
+            continue
+        dependency_node = available.get(name)
+        if dependency_node is None:
+            return None
+        selected.add(dependency_node)
+        selected_binding_names.add(name)
+        resolved.update(_bound_names(dependency_node))
+        unresolved.extend(_loaded_names(dependency_node) - resolved - _BUILTIN_NAMES)
+    if not (resolved & package_bindings):
         return None
-    selected_imports = [
-        selected
-        for node, _ in imports
-        if (selected := _minimal_import(node, used_bindings)) is not None
-    ]
-    code = "\n".join(ast.unparse(node) for node in selected_imports)
-    code += "\n\n" + ast.unparse(statement) + "\n"
+    ordered = sorted(selected, key=lambda node: (node.lineno, node.col_offset))
+    rendered_imports: list[str] = []
+    rendered_support: list[str] = []
+    for node in ordered:
+        if isinstance(node, (ast.Import, ast.ImportFrom)):
+            minimized = _minimal_import(node, selected_binding_names)
+            if minimized is not None:
+                rendered_imports.append(ast.unparse(minimized))
+        else:
+            rendered_support.append(ast.unparse(node))
+    code = "\n".join(rendered_imports)
+    if rendered_imports:
+        code += "\n\n"
+    code += "\n".join([*rendered_support, ast.unparse(statement)]) + "\n"
     if len(code) > max_chars:
         return None
     class_name = next((part for part in chain[1:] if part[:1].isupper()), "readme_example")
@@ -128,27 +192,47 @@ def python_source_example_candidates(
             )
         except (OSError, SyntaxError):
             continue
-        imports = [
+        package_imports = [
             (node, bindings)
             for node in tree.body
             if (bindings := _import_bindings(node, package_name))
         ]
-        if not imports:
+        if not package_imports:
             continue
+        module_support = [
+            node
+            for node in tree.body
+            if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
+            and _supported_import(node, package_name)
+        ]
         containers = [tree.body]
         containers.extend(
             node.body
             for node in tree.body
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
         )
+        containers.extend(
+            member.body
+            for node in tree.body
+            if isinstance(node, ast.ClassDef)
+            for member in node.body
+            if isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef))
+        )
         relative_path = path.relative_to(root).as_posix()
         for statements in containers:
-            for statement in statements:
+            for index, statement in enumerate(statements):
                 if not isinstance(statement, _SUPPORTED_STATEMENTS):
                     continue
+                local_support = [
+                    node
+                    for node in statements[:index]
+                    if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
+                    and _supported_import(node, package_name)
+                ]
                 candidate = _statement_candidate(
                     statement,
-                    imports,
+                    package_imports,
+                    [*module_support, *local_support],
                     relative_path=relative_path,
                     max_chars=max_chars,
                 )

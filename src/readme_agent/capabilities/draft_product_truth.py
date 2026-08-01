@@ -509,7 +509,15 @@ def orchestrate_product_truth_draft(
             root,
             draft.minimal_example.language,
         )
-        for repository_example in [*readme_examples, *source_examples]:
+        repository_examples = [*readme_examples, *source_examples]
+        repository_examples.sort(
+            key=lambda candidate: (
+                candidate.class_name.casefold() != draft.minimal_example.class_name.casefold(),
+                len(candidate.code),
+                candidate.evidence_paths[0],
+            )
+        )
+        for repository_example in repository_examples:
             fallback_fact = _gate_minimal_example(
                 repository_example,
                 root,
