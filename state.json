@@ -23574,6 +23574,18 @@
         "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=b50ead0d962aeeac3057bbb94879c499440842a1e47226546ffe2f60f021935d after=568137ad7e8e67fba55b480443e3e460ade0f0eb2632e38a18ed8f937842df61; unresolved=f1",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\da75ecd7a1a887aea964\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "README_ASSESSED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T04:27:31.496288+00:00",
+        "reason": "fact-cited source-span presentation plan completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "PLAN_READY"
       }
     ],
     "intake_preflight_history": [
@@ -23602,11 +23614,11 @@
     "reviewer_standard_hash": "cdac617bf36ae3a9a4d0ba6f3e8f41e2972029496c0fd6d4c7db812744b41019",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-08-01T04:19:58.747640+00:00"
+    "status": "PLAN_READY",
+    "updated_at": "2026-08-01T04:27:31.496288+00:00"
   },
   "schema_version": 2,
-  "state_version": 1473,
+  "state_version": 1474,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
