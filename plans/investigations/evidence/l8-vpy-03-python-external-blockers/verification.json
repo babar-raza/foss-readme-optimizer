@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "recorded_at": "2026-08-01",
+  "control_repository_head": "47e6f33e9491d1f93fb2f117c2e8f50befd8eef9",
+  "python_denominator": 12,
+  "no_op_proven": 10,
+  "blocked_external": 2,
+  "product_remote_writes": 0,
+  "repositories": [
+    {
+      "org_repo": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+      "upstream_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+      "status": "BLOCKED_MISSING_EVIDENCE",
+      "blocked_category": "infra_external",
+      "first_failing_boundary": "verified_source_acquisition",
+      "pypi_project": "aspose-html-foss",
+      "pypi_http_status": 404,
+      "source_manifest_sha256": "302fa1c7fb17328c435435b61e162db1a9b396ab583859050ada6813b551da8a",
+      "proposed_manifest_sha256": "0de2b3afa10026a86eded2d65e2634de036d8907b709c58b9acfd318ed09588",
+      "diagnostic_revision": "546d7fea104b7e54c3123dba47ba745492daeb3e",
+      "diagnostic_outcome": "SOURCE_BUILD_VERIFIED",
+      "diagnostic_exit_code": 0,
+      "verified_public_symbols": [
+        "aspose_html.HTMLDocument"
+      ],
+      "unblock_condition": "Apply the exact one-line PEP 517 backend correction upstream and rerun the verified canary."
+    },
+    {
+      "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+      "upstream_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+      "status": "BLOCKED_MISSING_EVIDENCE",
+      "blocked_category": "infra_external",
+      "first_failing_boundary": "repository_source_syntax",
+      "pypi_projects": {
+        "aspose-tex": 404,
+        "aspose-tex-foss": 404
+      },
+      "python_file_count": 119,
+      "syntax_invalid_count": 102,
+      "invalid_source_count": 35,
+      "invalid_test_count": 66,
+      "invalid_other_count": 1,
+      "syntax_error_inventory_sha256": "ef94d7e76fc1bd197fdd40e5cd687d6882ab9fb1c13d63402d31d74590f684ff",
+      "available_git_commits": [
+        "311455e",
+        "2f4bfab"
+      ],
+      "unblock_condition": "Publish an authoritative syntax-valid source revision and rerun all verified stages."
+    }
+  ]
+}
