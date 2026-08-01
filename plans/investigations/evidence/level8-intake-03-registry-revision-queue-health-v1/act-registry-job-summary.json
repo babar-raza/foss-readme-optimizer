@@ -30,5 +30,48 @@
     "bytes": 31360,
     "sha256": "a8fdfd796b891a22596a36d85b187152734a9c01afdf45d09da4403a41df7e18"
   },
+  "trigger_variants": [
+    {
+      "event": "workflow_dispatch",
+      "logical_run_id": "32",
+      "exit_code": 0
+    },
+    {
+      "event": "schedule",
+      "logical_run_id": "33",
+      "exit_code": 0,
+      "log_sha256": "3269a9ac09ae532e0f9c7007ca78bf514463c9eebb93f3fc6b43ddf4dff85c1c",
+      "artifact_sha256": "c8b3c231de40d9241e8c7cd9bb2ec4302dc46162b734eff39fe5376e4bc6ad59"
+    },
+    {
+      "event": "repository_dispatch",
+      "logical_run_id": "34",
+      "exit_code": 0,
+      "log_sha256": "7b9d422991506a41d74744a9297b3f174c90dacbe2580424368f65471964295c",
+      "artifact_sha256": "031a655cbf1f5c4a8daaaef2346b5a3618ae64081df09fd21e9c61a2db8b4fae"
+    },
+    {
+      "event": "workflow_call",
+      "logical_run_id": "35",
+      "exit_code": 0,
+      "log_sha256": "83ee76621803c821851451f7a3764062d620b2827db9521d1dddea9db8d799bf",
+      "artifact_sha256": "464ed52103ad91a5a76ca830935f8a24a3c9e3be34d7c961514e316631ca29c2"
+    }
+  ],
+  "source_outage_negative_control": {
+    "control_head": "965dd655",
+    "event": "workflow_dispatch",
+    "logical_run_id": "36",
+    "injected_source": "aspose-imaging-foss",
+    "act_exit_code": 1,
+    "gate_reasons": [
+      "source_scan_incomplete",
+      "source_failures_present"
+    ],
+    "registry_count_after_failure": 32,
+    "artifact_uploaded_after_failure": true,
+    "log_sha256": "5e48a46d74f74bd2dde1d89b96343b51b933e810f0338aeed30766bbd4000afb",
+    "artifact_sha256": "a8a4ee341c80f86e44cc67f4142e0d527d8a34e2752b40a3b245cd6c73838d27"
+  },
   "target_remote_writes": 0
 }

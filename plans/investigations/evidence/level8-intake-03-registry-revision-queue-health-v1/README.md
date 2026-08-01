@@ -28,6 +28,13 @@ source failures, pending intake, or unexplained observations. The fixture is exp
 is live source-enumeration evidence. `act-registry-job-summary.json` binds the raw disposable log
 and uploaded artifact by SHA-256.
 
+The same registry job also exits 0 for `schedule`, `repository_dispatch`, and `workflow_call` in
+ACT, with each run uploading its own revision artifact. An injected `aspose-imaging-foss` source
+outage exits 1, preserves the 32-entry registry, records both incomplete-source gate reasons, and
+still uploads diagnostic evidence through the workflow's `always()` path. These results close
+trigger parity and source-outage behavior for the registry job only; they do not yet prove the
+downstream recovery and matrix jobs after this new boundary.
+
 Reproduction commands:
 
 ```powershell

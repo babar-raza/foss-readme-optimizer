@@ -47,6 +47,8 @@
     "actionlint": "PASS: github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
     "git_diff_check": "PASS",
     "act_registry_job": "PASS: workflow_dispatch registry job exit 0 at dc47169a",
+    "act_registry_trigger_parity": "PASS: workflow_dispatch, schedule, repository_dispatch, workflow_call",
+    "act_registry_source_outage": "PASS: exit 1 plus always-uploaded evidence",
     "act_fixture_live_gate_isolation": "PASS: rejected outside ACT",
     "live_registry_preflight": "EXPECTED_FAIL_CLOSED",
     "live_health": "EXPECTED_UNHEALTHY"
