@@ -14273,7 +14273,14 @@
       }
     ],
     "intake_preflight_history": [],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "3fdc99ba301219f02131f2269f64c4d90154bbad0724b5cf2bb86490d857d3c4",
+      "schema_version": 1,
+      "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-01T14:47:31.838183+00:00"
+    },
     "presentation_plan_hash": "28b965bb054ba40ed52d66210d47deb4010d79e52d46c30961bd44a5054ff95e",
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
@@ -14283,10 +14290,10 @@
     "schema_version": 2,
     "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
     "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-07-28T18:37:25.820870+00:00"
+    "updated_at": "2026-08-01T14:47:31.838197+00:00"
   },
   "schema_version": 2,
-  "state_version": 153,
+  "state_version": 154,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
