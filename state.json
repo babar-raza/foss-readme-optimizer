@@ -611,13 +611,29 @@
     },
     "metadata_presentation": {
       "accepted_facts_hash": "b3369c801763642cfc50644fedb3004f0d40f205bd20686400f6466f42efaeb9",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [],
         "current_description": "The official open-source Python library by Aspose.Email for creating, reading, and editing Microsoft Outlook files (.msg)",
         "current_homepage": "https://products.aspose.org/email",
         "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
         "has_proposal": true,
         "proposed_description": null,
         "proposed_homepage": null,
@@ -628,7 +644,7 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:29:54.337120+00:00",
+      "last_run_timestamp": "2026-08-01T07:10:35.488288+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -1183,7 +1199,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 100,
+  "state_version": 101,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
