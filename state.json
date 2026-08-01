@@ -275,16 +275,24 @@
         "schema_version": 1,
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "354b5e85a4e990a6b4bfd3115d8951982fa48e5fbc83e614f759a7e0a425104c",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\737d26451ed5c58e53017e3c9460e834f99d20ed\\intake\\receipts\\354b5e85a4e990a6-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T01:45:36.612569+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "21fae14811c8f79917d5b3c3aa6ec2916430c219e2bcede34aa9553cbddb844f",
+        "schema_version": 1,
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "354b5e85a4e990a6b4bfd3115d8951982fa48e5fbc83e614f759a7e0a425104c",
-      "schema_version": 1,
-      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-01T01:45:16.862539+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "prompt_hash": "2c30e21d1a03d96fec5b2678fd8aa19b6a41e26efc3892d9cba35e3a3dce9827",
     "protected_content_fingerprint": null,
@@ -294,10 +302,10 @@
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
     "status": "TRUSTED_NO_OP_PROVEN",
-    "updated_at": "2026-08-01T01:45:16.862550+00:00"
+    "updated_at": "2026-08-01T01:45:36.612580+00:00"
   },
   "schema_version": 2,
-  "state_version": 24,
+  "state_version": 25,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
