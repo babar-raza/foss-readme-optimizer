@@ -5150,10 +5150,10 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "ValueError",
-          "failure_reason": "independent_review_exception",
-          "message": " review repair instructions are stale against the source candidate: expected c74d122850ff5db4059e865d009818d499fa1849d3e23f4dcbdac2acc3ef3f88, observed ['8c1b6c6f003c5ca61ddce93006f609c78e93fc0dcd400129cd118b38700369bd']",
-          "occurred_at": "2026-08-01T06:03:49.494931+00:00",
+          "error_type": "REJECT_REPAIRABLE",
+          "failure_reason": "independent_review_repair_rerouted",
+          "message": "REJECT_REPAIRABLE",
+          "occurred_at": "2026-08-01T06:23:18.556927+00:00",
           "schema_version": 1,
           "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
           "stage": null
@@ -11702,9 +11702,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "independent_review_exception",
+      "last_failure_reason": "independent_review_repair_rerouted",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T06:03:49.494931+00:00",
+      "last_run_timestamp": "2026-08-01T06:23:18.556927+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -15108,7 +15108,7 @@
     "updated_at": "2026-08-01T06:23:02.641571+00:00"
   },
   "schema_version": 2,
-  "state_version": 928,
+  "state_version": 929,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
