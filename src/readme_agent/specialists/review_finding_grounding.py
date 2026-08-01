@@ -594,6 +594,20 @@ def _validate_quality_finding(
             errors.append(
                 f"{finding.finding_id}:Mermaid-detail premise contradicts configured candidate"
             )
+        claims_generic_product_label = (
+            "generic" in premise
+            and "product" in premise
+            and any(term in premise for term in ("label", "node"))
+        )
+        if (
+            claims_generic_product_label
+            and _mermaid_has_specific_product_label(candidate_text)
+            and not _detailed_mermaid_contract_satisfied(candidate_text, mermaid_standard)
+        ):
+            errors.append(
+                f"{finding.finding_id}:Mermaid-product-label premise contradicts "
+                "visible candidate label"
+            )
         claims_missing_grammar_roles = (
             "missing" in premise
             and "input" in premise
@@ -1142,6 +1156,26 @@ def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) ->
             for connector in connectors
         )
     )
+
+
+def _mermaid_has_specific_product_label(candidate_text: str) -> bool:
+    """Distinguish the invisible Mermaid node ID from its visible product label."""
+
+    blocks = re.findall(r"(?ms)^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", candidate_text)
+    if len(blocks) != 1:
+        return False
+    match = re.search(
+        r'(?mi)^[ \t]*(?:product|PRODUCT)\["(?P<label>[^"\r\n]+)"\][ \t]*$',
+        blocks[0],
+    )
+    if match is None:
+        return False
+    return match.group("label").strip().casefold() not in {
+        "api",
+        "product",
+        "product api",
+        "product/api",
+    }
 
 
 def grounding_retry_context(

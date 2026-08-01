@@ -532,6 +532,63 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
     )
 
 
+def test_blind_reviewer_cannot_confuse_mermaid_node_id_with_visible_product_label() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## At a glance
+
+```mermaid
+flowchart LR
+  subgraph Inputs["Inputs and formats"]
+    input_1["PS/EPS input"]
+  end
+  product["Aspose.Page FOSS for Python"]
+  subgraph Capabilities["Core capabilities"]
+    capability_1["PS/EPS to PDF conversion"]
+  end
+  subgraph Outputs["Outputs and accessible content"]
+    output_1["PDF output"]
+  end
+  input_1 --- product
+  product --- capability_1
+  product --- output_1
+```
+"""
+    finding = GroundedReviewFindingV1.model_validate(
+        {
+            "finding_id": "mermaid-product-node-id",
+            "kind": "quality",
+            "criterion": "clarity",
+            "section": "At a glance",
+            "claim": (
+                "The Mermaid diagram uses generic labels like 'product' instead of the "
+                "product name."
+            ),
+            "quoted_candidate_span": "```mermaid",
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "not_applicable",
+            "required_repair": "Replace the generic product label with the product name.",
+        }
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert result.valid is False
+    assert result.errors == [
+        "mermaid-product-node-id:Mermaid-product-label premise contradicts visible candidate label"
+    ]
+
+
 def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:
     enterprise_url = "https://products.aspose.com/note/"
     paragraph = (

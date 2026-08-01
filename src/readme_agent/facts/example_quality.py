@@ -112,6 +112,44 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
             f"{len(tree.body)} executable statements; regenerate it with at most "
             f"{_MAX_PYTHON_TOP_LEVEL_STATEMENTS}"
         )
+    statement_lines = [statement.lineno for statement in tree.body if hasattr(statement, "lineno")]
+    if len(statement_lines) != len(set(statement_lines)):
+        failures.append(
+            "minimal Python README example packs multiple statements onto one line; "
+            "regenerate it with one short statement per line"
+        )
+    if any(
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Name)
+        and node.func.id == "__import__"
+        for node in ast.walk(tree)
+    ):
+        failures.append(
+            "minimal Python README example uses dynamic __import__; regenerate it with "
+            "ordinary, readable import statements"
+        )
+    if any(
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr == "mktemp"
+        for node in ast.walk(tree)
+    ):
+        failures.append(
+            "minimal Python README example uses unsafe tempfile.mktemp; regenerate it with "
+            "a clear deterministic output path or a safe temporary-file API"
+        )
+    if any(
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and isinstance(node.func.value, ast.Call)
+        and isinstance(node.func.value.func, ast.Name)
+        and node.func.value.func.id == "open"
+        for node in ast.walk(tree)
+    ):
+        failures.append(
+            "minimal Python README example chains an operation onto an unclosed open() call; "
+            "regenerate it with pathlib or a context-managed file"
+        )
     imported_names: set[str] = set()
     for statement in tree.body:
         if isinstance(statement, ast.Import):

@@ -35,8 +35,33 @@ def test_python_example_over_eight_statements_is_rejected() -> None:
 
     failures = generated_example_quality_failures("python", source)
 
-    assert len(failures) == 1
-    assert "9 executable statements" in failures[0]
+    assert any("9 executable statements" in failure for failure in failures)
+    assert any("multiple statements onto one line" in failure for failure in failures)
+
+
+def test_python_semicolon_packing_and_obscure_io_are_rejected() -> None:
+    source = (
+        "from package import Document; document = Document.load('input.bin'); "
+        "output = __import__('tempfile').mktemp(); open(output, 'wb').write(document.save())"
+    )
+
+    failures = generated_example_quality_failures("python", source)
+
+    assert any("multiple statements onto one line" in failure for failure in failures)
+    assert any("dynamic __import__" in failure for failure in failures)
+    assert any("tempfile.mktemp" in failure for failure in failures)
+    assert any("unclosed open()" in failure for failure in failures)
+
+
+def test_professional_multiline_python_example_is_accepted() -> None:
+    source = (
+        "from pathlib import Path\n"
+        "from package import Document\n\n"
+        "document = Document.load('input.bin')\n"
+        "Path('output.bin').write_bytes(document.save())\n"
+    )
+
+    assert generated_example_quality_failures("python", source) == []
 
 
 def test_bounded_repository_example_with_eight_statements_is_allowed() -> None:
