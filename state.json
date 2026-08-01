@@ -1015,19 +1015,19 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "failure_reason": "presentation_plan",
-          "message": "['presentation.promotional_imbalance.804a4405f7b6: Commercial calls to action precede or outweigh contextual product guidance.']",
-          "occurred_at": "2026-08-01T08:41:50.794886+00:00",
+          "error_type": "GroundedRoleFailure",
+          "failure_reason": "independent_review_exception",
+          "message": " blind_quality reviewer repeatedly returned ungrounded findings: ['f1:quoted span is outside the named candidate section', 'f2:heading-only quote cannot prove the claimed section content', 'f2:Enterprise Edition term premise contradicts candidate']",
+          "occurred_at": "2026-08-01T08:52:11.649116+00:00",
           "schema_version": 1,
           "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
           "stage": null
         }
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T08:41:50.794886+00:00",
+      "last_run_timestamp": "2026-08-01T08:52:11.649116+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -1507,7 +1507,7 @@
     "updated_at": "2026-08-01T08:52:05.990955+00:00"
   },
   "schema_version": 2,
-  "state_version": 154,
+  "state_version": 155,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "25c8d1447c85f4e365f92a48275552bf56f6b00468e7f7aafac60b75576da3bc",
