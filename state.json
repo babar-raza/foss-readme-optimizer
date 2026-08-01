@@ -116,6 +116,23 @@
       "task_id": "231f190c6758410eaedd09eedee34d02",
       "trigger_dedup_key": "operator:20260801-070610-d9b6:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "2442f9bc271673d8c96363fe3da69211eaea6785d1c42104f40c513237c44a84": {
+      "action": "get_domain_findings",
+      "attempt": 1,
+      "checkpoint_id": "2442f9bc271673d8c96363fe3da69211eaea6785d1c42104f40c513237c44a84",
+      "completed_at": "2026-08-01T07:27:32.522877+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "e314a016bff4fdf7e563922f6a4c4840619c6aa21e26cc5ac402da59330168ba",
+      "output_hash": null,
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260801-072120-9e1a",
+      "schema_version": 1,
+      "stage": "task_started",
+      "started_at": "2026-08-01T07:27:32.522863+00:00",
+      "task_id": "51b87698e04f4197a36f4dda5b9845dc",
+      "trigger_dedup_key": "operator:20260801-072120-9e1a:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "298516c1945812d83e5b6b7f65521f6d4cde99ee0426279f3e72c667f34bff0b": {
       "action": "verify_package_acquisition",
       "attempt": 1,
@@ -1756,7 +1773,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 152,
+  "state_version": 153,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "610bfd72787ffba72bd8b4a0601ff3715b8c2cfe6faf5d98386c1f8db8840661",
@@ -6813,11 +6830,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "e9401d9c213aa6cd65b09696a86030e1f56b81658b344ce68473c877689224d8",
+      "last_checkpoint_id": "2442f9bc271673d8c96363fe3da69211eaea6785d1c42104f40c513237c44a84",
       "lease_expires_at": "2026-08-01T07:36:40.117612+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-01T07:27:22.973543+00:00"
+      "updated_at": "2026-08-01T07:27:32.522877+00:00"
     }
   },
   "trigger_records": {},
