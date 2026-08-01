@@ -36,9 +36,9 @@
     "format": "PASS",
     "mypy_src": "PASS",
     "focused_tests": "PASS: 117",
-    "full_non_live_tests": "PASS: 2580",
-    "full_non_live_tests_control_head": "d56ca3651bf96854f59af0ebc3214b182269bbdc",
-    "full_test_inventory_sha256": "02e4282c1a15bc48cf4118105b7ba07c9bffdac4c2ff359fd9f4f8cc2ef84c24",
+    "full_non_live_tests": "PASS: 2593",
+    "full_non_live_tests_control_head": "845bbaa31483c8656905548571653dfdf079ef44",
+    "full_test_inventory_sha256": "b216ad6944efd8e91eadea42e5304cc021d05bc8b762ac24d7f7c413de946b1b",
     "plan_validation": "PASS with non-blocking historical row-length warnings",
     "verifier_wiring": "PASS",
     "prompt_hygiene": "PASS: 14 active prompts",
@@ -49,13 +49,15 @@
     "act_registry_job": "PASS: workflow_dispatch registry job exit 0 at dc47169a",
     "act_registry_trigger_parity": "PASS: workflow_dispatch, schedule, repository_dispatch, workflow_call",
     "act_registry_source_outage": "PASS: exit 1 plus always-uploaded evidence",
+    "act_registry_intake_happy_path": "PASS: run 42 exit 0; 32-member bound manifest; INTAKE_READY; zero LLM calls",
+    "act_registry_intake_matrix_isolation": "PASS: run 43 expected exit 1; unrelated Note/Python completed; health degraded visibly",
+    "act_registry_intake_recovery": "PASS: run 44 exit 0; expired processing trigger recovered and exact dedup key completed",
     "act_fixture_live_gate_isolation": "PASS: rejected outside ACT",
     "live_registry_preflight": "EXPECTED_FAIL_CLOSED",
     "live_health": "EXPECTED_UNHEALTHY"
   },
   "missing_proof": [
     "source-complete scan with an all-visibility credential for aspose-imaging-foss",
-    "ACT proof of the full amended workflow beyond the now-proven registry job",
     "independent task-close verification"
   ],
   "target_remote_writes": 0

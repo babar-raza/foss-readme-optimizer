@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "control_head": "845bbaa31483c8656905548571653dfdf079ef44",
+  "workflow": ".github/workflows/readme-agent-production.yml",
+  "proof_mode": "act_registry_intake",
+  "proof_scope": "act_fixture",
+  "target_remote_writes": 0,
+  "happy_path": {
+    "logical_run_id": "42",
+    "act_exit_code": 0,
+    "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+    "status": "STAGE_COMPLETE",
+    "readme_poc_status": "INTAKE_READY",
+    "registry_revision_id": "8aa308138ab89d0c798fd54709b60282d223e1c19fe72cc17f4080de0438bacc",
+    "admitted_count": 32,
+    "llm_call_count": 0,
+    "health_healthy": true,
+    "artifacts": [
+      {"path": "runs/act-registry-intake/artifacts/42/registry-revision-42-1/registry-revision-42-1.zip", "bytes": 56200, "sha256": "b4c36db1196dfeb899ef7c746fdde979491e1fe8a52d0cc13ebb7a887db58f70"},
+      {"path": "runs/act-registry-intake/artifacts/42/run-evidence-aspose-pdf-foss__Aspose-PDF-FOSS-for-Go-MCP-42/run-evidence-aspose-pdf-foss__Aspose-PDF-FOSS-for-Go-MCP-42.zip", "bytes": 5763, "sha256": "223a081503380c64505fb9c42cbbf1e7b2abe8cbfaee24152c552be270a075e0"},
+      {"path": "runs/act-registry-intake/artifacts/42/portfolio-health-42/portfolio-health-42.zip", "bytes": 604, "sha256": "42b3dc57b5c57949ed9221ad0d15d8288c04c23ad1a8f2168f05967f7df52e6a"}
+    ]
+  },
+  "matrix_isolation": {
+    "logical_run_id": "43",
+    "expected_act_exit_code": 1,
+    "failed_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+    "completed_repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "completed_status": "INTAKE_READY",
+    "registry_revision_id": "752ccf347227e235254d05cbeb25b03d4d865756688c1a736bedce74008451f7",
+    "admitted_count": 32,
+    "health_healthy": false,
+    "workflow_failures": [{"job": "analyze", "result": "failure"}],
+    "artifacts": [
+      {"path": "runs/act-registry-intake/artifacts/43/run-evidence-aspose-note-foss__Aspose.Note-FOSS-for-Python-43/run-evidence-aspose-note-foss__Aspose.Note-FOSS-for-Python-43.zip", "bytes": 5765, "sha256": "555bb55ba9b5eea83e486dd5e94f32084c1c354488fefcd13a59ed5100f4d4f8"},
+      {"path": "runs/act-registry-intake/artifacts/43/portfolio-health-43/portfolio-health-43.zip", "bytes": 667, "sha256": "9b86760bd14b71f9bccb34f2b566cd61bed4bcb7b0cb3ab189477028263e0af5"}
+    ]
+  },
+  "recovery": {
+    "logical_run_id": "44",
+    "act_exit_code": 0,
+    "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "prior_status": "processing",
+    "recovery_count": 1,
+    "trigger_dedup_key": "run:act-recovery-seed-44:aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "terminal_status": "completed",
+    "readme_poc_status": "INTAKE_READY",
+    "registry_revision_id": "0314cd5a8cf307dbc6459df8de5cdefe5701f2b61c7e84f8d271391d0bf57fde",
+    "admitted_count": 32,
+    "llm_call_count": 0,
+    "artifacts": [
+      {"path": "runs/act-registry-intake/artifacts/44/lifecycle-recovery-44-1/lifecycle-recovery-44-1.zip", "bytes": 378, "sha256": "0faf5f73d6ba6a3c5d657ebb885c445d4d4604f72ec70dabf125c372ba7cdcd9"},
+      {"path": "runs/act-registry-intake/artifacts/44/recovery-evidence-aspose-note-foss__Aspose.Note-FOSS-for-Python-44/recovery-evidence-aspose-note-foss__Aspose.Note-FOSS-for-Python-44.zip", "bytes": 5781, "sha256": "bc63c458a80d93e35608e49ddbcc2598b37b2df1cc0b21830572082f2200e272"}
+    ]
+  }
+}
