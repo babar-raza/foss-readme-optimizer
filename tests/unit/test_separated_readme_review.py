@@ -1859,3 +1859,43 @@ def test_page_reviewer_cannot_move_enterprise_term_already_in_scope() -> None:
     assert not result.valid
     assert any("heading-only quote" in error for error in result.errors)
     assert any("already satisfies contract" in error for error in result.errors)
+
+
+def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() -> None:
+    candidate = (
+        "# Aspose.PDF FOSS for Python\n\n## Scope and limitations\n\n"
+        "- OCR and layout reflow are not implemented.\n\n"
+        "[Aspose.PDF FOSS for Python](https://products.aspose.org/pdf/) and "
+        "[Aspose.PDF for Python Enterprise Edition](https://products.aspose.com/pdf/) "
+        "are separate products. This README documents the FOSS implementation.\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="pdf-enterprise-context",
+        kind="quality",
+        criterion="template_genericity",
+        section="Scope and limitations",
+        claim=(
+            "The section is insufficiently detailed and is missing required "
+            "Enterprise Edition relationship context."
+        ),
+        quoted_candidate_span="## Scope and limitations",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Expand the section to include the Enterprise Edition relationship language "
+            "and additional limitations."
+        ),
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("heading-only quote" in error for error in result.errors)
+    assert any(
+        "Enterprise Edition term premise contradicts candidate" in error for error in result.errors
+    )

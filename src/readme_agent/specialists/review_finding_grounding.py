@@ -44,7 +44,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v22-structural-claim-accountability"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v23-section-content-accountability"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -316,6 +316,12 @@ def _validate_quality_finding(
             "remove the section",
             "section order",
             "required h2 prefix",
+        )
+    ) or bool(
+        re.search(
+            r"\b(?:missing|lacks?|without|insufficient(?:ly)?)\b[^\n.]{0,160}"
+            r"\b(?:content|context|detail|limitations?|enterprise edition)\b",
+            premise,
         )
     )
     if heading_only_quote and block_dependent_premise:
@@ -724,6 +730,12 @@ def _validate_quality_finding(
             "missing the required" in premise
             or "term is missing" in premise
             or "missing entirely" in premise
+            or bool(
+                re.search(
+                    r"\bmissing (?:the )?required\b[^\n.]{0,160}\benterprise edition\b",
+                    premise,
+                )
+            )
         )
         if (
             claims_missing_required_term
