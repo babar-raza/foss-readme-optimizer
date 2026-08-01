@@ -700,6 +700,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-101131-9cf8:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
     },
+    "80fd34419ed95c6f99ffd3471b553fdadd634a6963986a757eb5c8686894c76e": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "80fd34419ed95c6f99ffd3471b553fdadd634a6963986a757eb5c8686894c76e",
+      "completed_at": "2026-08-01T17:37:24.436861+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "b1d091d0a5cf1fa467fd13a6d33357e315dcf3cb4fed0b097b3ab3f98c23f4f1",
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "run_id": "20260801-173505-3eab",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-01T17:37:24.436849+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-162557-90c0:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+    },
     "83052c4edde95c61a63e0e2792b62e6f63e35c907cf592c405aaa255c063cb17": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -8453,7 +8470,7 @@
     "updated_at": "2026-08-01T17:37:18.265813+00:00"
   },
   "schema_version": 2,
-  "state_version": 328,
+  "state_version": 329,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "95265de0c5fbc571e4d787c014da96d40194986e644c7ef5c9a995e309adc3d5",
@@ -8712,11 +8729,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "aff56e8998ba32abf0a28d45854ceac4337ef30b6712ef91115e07399d957841",
+      "last_checkpoint_id": "80fd34419ed95c6f99ffd3471b553fdadd634a6963986a757eb5c8686894c76e",
       "lease_expires_at": "2026-08-01T17:50:20.572978+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-01T17:35:56.797170+00:00"
+      "updated_at": "2026-08-01T17:37:24.436861+00:00"
     },
     "operator:20260801-163545-670c:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-01T16:35:51.776103+00:00",
