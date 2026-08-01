@@ -13,6 +13,7 @@
       "status": "applied"
     }
   ],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "8979b283fde6ef9640398714980bce1d6c0166a1ae910ac5fd2b2e4e9d053671",
@@ -393,10 +394,14 @@
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-22T15:01:35.130457+00:00",
+  "mission_execution": null,
   "open_proposals": {},
+  "open_proposals_v2": {},
   "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
   "profile_cache": null,
-  "state_version": 32,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 33,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
@@ -408,6 +413,7 @@
     "last_run_timestamp": "2026-07-22T15:03:19.837233+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -485,6 +491,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "delivery:registry:1185437353:c68a5376201559e811452a525e4f088c02ae877c55777e123a15285270aaa759": {
+      "accepted_at": "2026-08-01T14:51:36.718397+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1185437353:c68a5376201559e811452a525e4f088c02ae877c55777e123a15285270aaa759",
+        "delivery_id": "registry:1185437353:c68a5376201559e811452a525e4f088c02ae877c55777e123a15285270aaa759",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-01T14:32:16.905301+00:00",
+        "provider_event_id": "registry:1185437353:c68a5376201559e811452a525e4f088c02ae877c55777e123a15285270aaa759",
+        "repository_scope": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "c68a5376201559e811452a525e4f088c02ae877c55777e123a15285270aaa759",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-01T14:51:36.718412+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "d503994e6065ae9d89a55cca290cb58d3508278d7fc9ce5f40d14873007cb303",
   "upstream_revision_at_accept": null
 }
