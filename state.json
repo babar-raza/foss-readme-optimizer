@@ -5035,7 +5035,7 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "c66c00392cce9078a147d73087da317be7b743165d0d2f05adac5a8defd278e3",
+      "accepted_facts_hash": "7a75eb022bd3fb4f573b4a33ee39fbd704b250172d2a5090ee990c9a5be5def6",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -5048,56 +5048,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The README specifies the ecosystem (Python), file format (.one), and common tasks (reading, traversing, extracting content from OneNote files) in the opening block.",
+            "note": "The opening block explicitly names the ecosystem (Python), file format (.one), and common tasks (reading OneNote files), and later clarifies the target audience via the 'Quick start' and 'Examples' sections.",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present and prominently displayed via badge; build, version, and PyPI badges are also included.",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI version and Python version badges, and a working install path referencing PyPI.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install section names real PyPI coordinates (`aspose-note`) and provides working commands, including optional extras for PDF support.",
+            "note": "The install section names real PyPI coordinates (`aspose-note`) and provides working commands (`python -m pip install aspose-note`), including optional extras like `[pdf]`.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are multiple runnable code blocks (e.g., quick start, PDF export, and 10+ MS OneNote examples) that are self-contained and executable.",
+            "note": "Beyond the install snippet, there are multiple runnable code blocks (e.g., 'Quick start', 'Export to PDF', and 10+ MS OneNote examples), all free of comments or docstrings.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (`##`, `###`), and the section order follows logical intent: product description \u2192 features \u2192 quick start \u2192 installation \u2192 examples \u2192 API docs \u2192 limitations \u2192 commercial context.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows intent: product description \u2192 features \u2192 quick start \u2192 installation \u2192 examples \u2192 API docs \u2192 limitations \u2192 commercial context.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a library whose interface is API-based rather than visual \u2014 no decorative or misleading imagery is used.",
+            "note": "No visuals are present, and for a pure-API document-processing library like this, the absence of imagery is appropriate per the standard's rule.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo (though the badge implies one), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file.",
+            "note": "The README lacks GitHub-recognized community files: no LICENSE file is visible in the repo (though referenced), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file mentioned or linked.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "Recent activity is implied by the CI badge and active development section, and the README does not overclaim maintenance status.",
+            "note": "The presence of a CI badge, PyPI version badge, and recent release activity (implied by PyPI presence and active examples) supports active maintenance.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once at the end, in factual, capability-extension language: 'If you need the full-featured Aspose product... see the official libraries' \u2014 no promotional language or repeated links.",
+            "note": "The 'Other platforms' section mentions the official commercial Aspose products once, in factual, capability-extension language, placed after the product description and examples \u2014 not as a banner or repeated.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the main gap being contribution readiness (missing GitHub-recognized community files like LICENSE, CODE_OF_CONDUCT, and CONTRIBUTING). All other criteria\u2014including product clarity, installation path, and restrained commercial context\u2014are well met."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the main gap being contribution readiness (missing GitHub-recognized community files like LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT). All other presentation criteria \u2014 especially product clarity, installation path, and restrained commercial context \u2014 are well met."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T05:08:52.565941+00:00",
+      "last_run_timestamp": "2026-08-01T05:20:47.616055+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -23810,7 +23810,7 @@
     "updated_at": "2026-08-01T05:19:45.493821+00:00"
   },
   "schema_version": 2,
-  "state_version": 1542,
+  "state_version": 1543,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
