@@ -20,6 +20,7 @@ from readme_agent.commands_lifecycle import (
     cmd_health_report,
     cmd_qualified_cohort_matrix,
     cmd_recovery_sweep,
+    cmd_registry_preflight,
     cmd_restore_qualified_cohort,
     cmd_runtime_matrix,
 )
@@ -35,6 +36,7 @@ __all__ = [
     "cmd_preflight",
     "cmd_profile_registry",
     "cmd_qualified_cohort_matrix",
+    "cmd_registry_preflight",
     "cmd_restore_qualified_cohort",
     "cmd_report",
     "cmd_recovery_sweep",

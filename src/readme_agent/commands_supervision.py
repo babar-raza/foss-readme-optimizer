@@ -553,6 +553,10 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     from readme_agent.gitsafety.clone import remote_head_sha
     from readme_agent.registry.loader import load_products
     from readme_agent.registry.priority import order_entries_by_platform_priority
+    from readme_agent.registry.revision_store import (
+        bind_registry_revision,
+        reset_registry_revision,
+    )
     from readme_agent.state.recovery import recovery_sweep
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
     from readme_agent.supervisor.intake_cache import completed_intake_binding
@@ -598,6 +602,24 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         }
 
     registry_path = Path(args.registry)
+    state_backend = _force_durable_state_backend()
+    from readme_agent.supervisor.registry_revision_preflight import prepare_registry_revision
+
+    revision_preflight = prepare_registry_revision(
+        registry_path,
+        state_backend,
+        heal_enabled=not getattr(args, "no_registry_heal", False),
+    )
+    revision = revision_preflight.revision
+    revision_gate = revision_preflight.gate
+    if not revision_gate.eligible:
+        print(
+            "error: registry revision is not eligible for portfolio fan-out: "
+            + ", ".join(revision_gate.reasons),
+            file=sys.stderr,
+        )
+        return 1
+    revision_token = bind_registry_revision(revision)
     entries = order_entries_by_platform_priority(load_products(registry_path))
     readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     print(
@@ -610,7 +632,6 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     # shared by every member so the final summary can be derived from the
     # lifecycle state the canonical runs actually persisted, not their
     # console exit codes.
-    state_backend = _force_durable_state_backend()
     results: list[PortfolioRepositoryResultV1] = []
     slice_started = time.monotonic()
     execution_slice_complete = True
@@ -864,6 +885,8 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
 
     summary = PortfolioPocSummaryV1(
         registry_path=str(registry_path),
+        registry_revision_id=revision.revision_id,
+        registry_revision_gate_eligible=revision_gate.eligible,
         registry_count=len(entries),
         target_lifecycle_stage=(readme_poc_stage_limit or "NO_OP_PROVEN"),
         execution_slice_complete=execution_slice_complete,
@@ -871,6 +894,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     )
     write_portfolio_summary(paths.readme_poc_portfolio_summary_path(), summary)
     print(summary.summary_line())
+    reset_registry_revision(revision_token)
     return 1 if not execution_slice_complete or any(result.exit_code for result in results) else 0
 
 

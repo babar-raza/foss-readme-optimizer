@@ -173,8 +173,11 @@ non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 wo
 Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but those records
 are retained only as lower-assurance reuse candidates. The owner accepted the corrected Note
 Python golden reference structurally; its immutable committed reference is now the input to
-`L8-VPY-00-GOLDEN-TEMPLATE`. Verified facts/candidates/deterministic validation remain 7/31,
-while verified agent approval and unchanged no-op remain 0/31. `TRP-04P-COHORT-FREEZE` is closed with the
+`L8-VPY-00-GOLDEN-TEMPLATE`. The dynamic denominator is now 32 after discovery admitted
+`aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`; verified facts/candidates/deterministic validation
+stand at 17/32, while verified agent approval and unchanged no-op stand at 10/32. The separate
+Python boundary remains 10/12 because HTML and TeX retain source-owned blockers.
+`TRP-04P-COHORT-FREEZE` is closed with the
 checksum-addressed cohort manifest under
 `plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/`; its three-member result is
 evidence, not a hard-coded acceptance rule. `TRP-04P-ACT-WORKFLOW-PARITY` is also closed at
@@ -3134,9 +3137,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     - [x] Source-complete observation and admission-ordering boundary (`L8-INTAKE-00`,
           `L8-035`): 26 terminal source results, 32 retained observations, explicit imaging-source
           incompleteness, unmatched PDF Go MCP disposition, and allow-list-before-preflight proof.
-    - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): 31 unique
-          schema-v2 identities, no-loss live migration/no-op proof, variants retained, owned
-          policy fields preserved.
+    - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): the original 31
+          identities passed no-loss migration/no-op proof; live revision preflight then admitted
+          the 32nd stable identity, a PDF Go MCP variant, while retaining disabled write mode and
+          inheriting only the unambiguous local ecosystem/policy profile.
     - [x] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`):
           implementation, 257 focused tests, the 2,183-test official gate, and an 8/31 Python
           zero-call/no-effect live slice pass. Commit `ff462cee` closes the remaining public seam:
@@ -3144,7 +3148,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           and exactly one durable intake, retaining missing ecosystem/policy ownership as a truthful
           `BLOCKED_CLASSIFICATION` result. The complete affected 127-test regression set passes.
     - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
-          `L8-038`–`L8-039`).
+          `L8-038`–`L8-039`) is implemented and locally/live-partially proven: the 32nd repository
+          created one deduplicated trigger and one `READY_FAST_PATH` intake, manifests and health
+          bind revision `93c718b4…968f3`, and stale/pending/unexplained/drift controls pass. Closure
+          remains withheld because the current credential cannot enumerate `aspose-imaging-foss`
+          and the updated reusable workflow has not yet completed its ACT fixture proof.
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [x] Goal-control foundation: bind executable work to typed contributions, derive the durable

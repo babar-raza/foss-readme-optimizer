@@ -272,6 +272,26 @@ def _build_parser() -> argparse.ArgumentParser:
     p_runtime_matrix.add_argument("--only", help="Comma-separated allow-listed repositories")
     p_runtime_matrix.add_argument("--output", help="Also write the JSON payload to this path")
 
+    p_registry_preflight = sub.add_parser(
+        "registry-preflight",
+        help=(
+            "Reconcile authorized discovery sources, settle durable read-only intake, and "
+            "fail closed unless one current RegistryRevisionV1 can freeze the portfolio"
+        ),
+    )
+    p_registry_preflight.add_argument("--registry", default="data/products.json")
+    p_registry_preflight.add_argument(
+        "--no-refresh",
+        action="store_true",
+        help="Reuse a freshness-valid persisted revision without a source scan",
+    )
+    p_registry_preflight.add_argument(
+        "--force-refresh",
+        action="store_true",
+        help="Bypass the local freshness cache and rescan every authorized source",
+    )
+    p_registry_preflight.add_argument("--output", help="Also write the JSON payload to this path")
+
     p_cohort_matrix = sub.add_parser(
         "qualified-cohort-matrix",
         help="Emit an Actions matrix from one checksum-valid QualifiedTrustedCohortV1 manifest",
@@ -431,6 +451,7 @@ def main(argv: list[str] | None = None) -> int:
         "profile-registry": commands.cmd_profile_registry,
         "supervise": commands.cmd_supervise,
         "runtime-matrix": commands.cmd_runtime_matrix,
+        "registry-preflight": commands.cmd_registry_preflight,
         "qualified-cohort-matrix": commands.cmd_qualified_cohort_matrix,
         "restore-qualified-cohort": commands.cmd_restore_qualified_cohort,
         "recovery-sweep": commands.cmd_recovery_sweep,

@@ -5,6 +5,8 @@ on:
     # Off the top of the hour because GitHub documents that scheduled runs
     # can be delayed or dropped during high load.
     - cron: "17 5 * * *"
+    # Weekly full-source audit uses a distinct non-peak window and dedup key.
+    - cron: "43 4 * * 0"
   workflow_dispatch:
     inputs:
       repository:
@@ -58,8 +60,51 @@ permissions:
   contents: read
 
 jobs:
+  registry:
+    name: Reconcile authorized repository sources
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: ${{ env.ACT != 'true' }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - name: Mint control-scoped GitHub App discovery token
+        id: discovery-token
+        if: ${{ env.ACT != 'true' }}
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permission-contents: read
+      - name: Reconcile sources and settle durable intake
+        env:
+          README_AGENT_PRODUCTION_AUTH: ${{ env.ACT == 'true' && 'act_local' || 'github_app' }}
+          README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
+          README_AGENT_GITHUB_APP_TOKEN: ${{ steps.discovery-token.outputs.token }}
+        run: |
+          readme-agent registry-preflight \
+            --registry data/products.json \
+            --force-refresh \
+            --output runs/registry-revisions/workflow-preflight.json
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: registry-revision-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/products.json
+            runs/registry-revisions/
+
   recover:
     name: Recover unfinished durable work
+    needs: registry
     runs-on: ubuntu-latest
     permissions:
       # This token is scoped to this control repository and writes only the
@@ -140,6 +185,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           clean: ${{ steps.runtime-mode.outputs.is_act_proof != 'true' }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: registry-revision-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -289,7 +337,7 @@ jobs:
 
   plan:
     name: Build authoritative repository matrix
-    needs: recover
+    needs: [registry, recover]
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
@@ -345,6 +393,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           clean: ${{ steps.runtime-mode.outputs.is_act_proof != 'true' }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: registry-revision-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -386,7 +437,14 @@ jobs:
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
       - id: identity
         name: Derive stable schedule window
-        run: echo "schedule_window=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+        env:
+          SCHEDULE_EXPRESSION: ${{ github.event.schedule }}
+        run: |
+          window="$(date -u +%Y-%m-%d)"
+          if [ -n "$SCHEDULE_EXPRESSION" ]; then
+            window="$window:$SCHEDULE_EXPRESSION"
+          fi
+          echo "schedule_window=$window" >> "$GITHUB_OUTPUT"
 
   analyze:
     name: Observe ${{ matrix.repo }}
@@ -577,6 +635,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           clean: ${{ needs.plan.outputs.is_act_proof != 'true' }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: registry-revision-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

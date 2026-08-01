@@ -1,7 +1,7 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements.md",
-  "total_implemented_rows_checked": 161,
+  "total_implemented_rows_checked": 162,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
@@ -2719,7 +2719,8 @@
     "TRP-002",
     "L8-027",
     "L8-028",
-    "L8-033"
+    "L8-033",
+    "L8-037"
   ],
   "all_rows": [
     {
@@ -7257,6 +7258,39 @@
       "informational_findings": [
         "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
       ]
+    },
+    {
+      "id": "L8-037",
+      "line": 697,
+      "priority": "P0",
+      "cited_paths": [
+        "tests/integration/test_readonly_intake_portfolio.py",
+        "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json"
+      ],
+      "cited_paths_existing": [
+        "tests/integration/test_readonly_intake_portfolio.py",
+        "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/integration/test_readonly_intake_portfolio.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/integration/test_readonly_intake_portfolio.py::test_public_supervisor_admits_unseen_repository_and_runs_exactly_one_intake"
+      ],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json",
+          "bytes": 1460,
+          "sha256": "ce3b5f816bc76e1a82e560ed489c229aee6d6a77c3baf81a76708ffe834f44ff",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": []
     }
   ]
 }

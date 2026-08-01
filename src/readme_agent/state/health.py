@@ -16,6 +16,7 @@ def build_health_report(
     expected_schedule_interval: timedelta = timedelta(days=1),
     backlog_sla: timedelta = timedelta(minutes=15),
     repeated_failure_threshold: int = 3,
+    registry_revision_health: dict | None = None,
 ) -> HealthReportV1:
     observed_at = now or datetime.now(UTC)
     missed: list[dict] = []
@@ -126,6 +127,7 @@ def build_health_report(
             repeated_failures,
             evidence_failures,
             state_failures,
+            registry_revision_health and not bool(registry_revision_health.get("eligible")),
         )
     )
     return HealthReportV1(
@@ -139,5 +141,6 @@ def build_health_report(
         open_proposals=open_proposals,
         last_success=last_success,
         state_failures=state_failures,
+        registry_revision_health=registry_revision_health or {},
         healthy=healthy,
     )

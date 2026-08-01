@@ -943,6 +943,28 @@ class TestExecutionProfileFlag:
 
 
 class TestLocalPocPortfolioCommand:
+    @pytest.fixture(autouse=True)
+    def _complete_registry_revision(self, monkeypatch):
+        """Existing portfolio tests isolate member orchestration from discovery proof."""
+
+        from types import SimpleNamespace
+
+        import readme_agent.supervisor.registry_revision_preflight as preflight_module
+
+        revision = SimpleNamespace(
+            revision_id="a" * 64,
+            model_dump=lambda **kwargs: {"revision_id": "a" * 64},
+        )
+        gate = SimpleNamespace(eligible=True, reasons=[])
+        monkeypatch.setattr(
+            preflight_module,
+            "prepare_registry_revision",
+            lambda registry_path, state_backend, **kwargs: SimpleNamespace(
+                revision=revision,
+                gate=gate,
+            ),
+        )
+
     def test_facts_stage_runs_heterogeneous_registry_without_promoting_persisted_labels(
         self, monkeypatch, tmp_path, capsys
     ):

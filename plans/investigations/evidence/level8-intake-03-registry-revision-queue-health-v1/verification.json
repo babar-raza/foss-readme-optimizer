@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+  "status": "PARTIAL",
+  "control_head_before_slice": "15eecb9d3eba942926d1120b64e5f61281779e99",
+  "live_registry_revision_id": "93c718b4acea6850e2e7679ab1005306d34af261b385df24c7b35e6a021968f3",
+  "registry_count": 32,
+  "new_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+  "new_repository_mode": "disabled",
+  "intake_outcome": "READY_FAST_PATH",
+  "trigger_count_for_observation_change": 1,
+  "gate_eligible": false,
+  "gate_reasons": [
+    "source_scan_incomplete",
+    "source_failures_present"
+  ],
+  "source_failures": [
+    {
+      "source_id": "github-org:aspose-imaging-foss",
+      "organization": "aspose-imaging-foss",
+      "boundary": "HTTP 404 during authorized source enumeration",
+      "classification": "external_visibility_or_credential_authority"
+    }
+  ],
+  "health": {
+    "healthy": false,
+    "repositories_checked": 32,
+    "missed_schedule_windows": 20,
+    "backlog": 111,
+    "actionable_backlog": 111,
+    "repeated_failures": 66,
+    "state_failures": 0
+  },
+  "verification": {
+    "ruff": "PASS",
+    "format": "PASS",
+    "mypy_src": "PASS",
+    "focused_tests": "PASS: 117",
+    "full_non_live_tests": "PASS: 2580",
+    "full_test_inventory_sha256": "02e4282c1a15bc48cf4118105b7ba07c9bffdac4c2ff359fd9f4f8cc2ef84c24",
+    "plan_validation": "PASS with non-blocking historical row-length warnings",
+    "verifier_wiring": "PASS",
+    "prompt_hygiene": "PASS: 14 active prompts",
+    "requirement_taskcard_coverage": "PASS: 459 rows; 0 reopened IMPLEMENTED",
+    "semantic_traceability": "PASS: 162 IMPLEMENTED rows; 0 findings",
+    "actionlint": "PASS: github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
+    "git_diff_check": "PASS",
+    "live_registry_preflight": "EXPECTED_FAIL_CLOSED",
+    "live_health": "EXPECTED_UNHEALTHY"
+  },
+  "missing_proof": [
+    "source-complete scan with an all-visibility credential for aspose-imaging-foss",
+    "ACT fixture proof of the amended discovery-to-plan workflow",
+    "independent task-close verification"
+  ],
+  "target_remote_writes": 0
+}

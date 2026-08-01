@@ -44,6 +44,10 @@ def test_classify_repo_name(repo_name, expected):
     assert registry_sync.classify_repo_name(repo_name) == expected
 
 
+def test_classify_repo_name_retains_platform_for_product_variant_suffix():
+    assert registry_sync.classify_repo_name("Aspose.PDF-FOSS-for-Go-MCP") == ("pdf", "go")
+
+
 def test_real_families_json_has_26_entries_with_matching_org_convention():
     families = registry_sync.load_families(REPO_ROOT / "data" / "families.json")
     assert len(families) == 26
@@ -282,7 +286,7 @@ def test_inventory_retains_matched_unmatched_and_ambiguous_repositories(monkeypa
     by_name = {observation.name: observation for observation in inventory.observations}
     assert by_name["Aspose.3D-FOSS-for-Java"].classification == "matched"
     assert by_name["Aspose.Cells-FOSS-for-Java"].classification == "ambiguous"
-    assert by_name["Aspose-PDF-FOSS-for-Go-MCP"].classification == "unmatched"
+    assert by_name["Aspose-PDF-FOSS-for-Go-MCP"].classification == "ambiguous"
     assert [item.name for item in inventory.matched_observations] == ["Aspose.3D-FOSS-for-Java"]
 
 

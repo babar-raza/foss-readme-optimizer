@@ -164,8 +164,25 @@ def test_multiple_repositories_for_one_family_platform_are_retained():
         item for item in result.entries if item["provider_identity"]["repository_id"] == 11
     )
     assert admitted["mode"] == "disabled"
-    assert admitted["ecosystem"] is None
-    assert admitted["policy_profile"] is None
+    assert admitted["ecosystem"] == "maven"
+    assert admitted["policy_profile"] == "aspose-cells-foss"
+
+
+def test_new_variant_inherits_one_unambiguous_local_profile_but_remains_disabled():
+    existing = _identified_entry(10)
+    variant = _observation(
+        11,
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java-MCP",
+    )
+
+    result = reconcile_registry([existing], _inventory(variant))
+
+    admitted = next(
+        item for item in result.entries if item["provider_identity"]["repository_id"] == 11
+    )
+    assert admitted["mode"] == "disabled"
+    assert admitted["ecosystem"] == "maven"
+    assert admitted["policy_profile"] == "aspose-cells-foss"
 
 
 @pytest.mark.parametrize(

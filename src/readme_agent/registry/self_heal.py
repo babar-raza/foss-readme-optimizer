@@ -44,6 +44,14 @@ from readme_agent.registry import discovery
 from readme_agent.registry.discovery_inventory import inventory_sources
 from readme_agent.registry.models import ProductEntry
 from readme_agent.registry.reconciliation import reconcile_registry
+from readme_agent.registry.revision import (
+    RegistryRevisionV1,
+    build_registry_revision,
+)
+from readme_agent.registry.revision_store import (
+    load_current_registry_revision,
+    write_registry_revision,
+)
 
 HEAL_MIN_INTERVAL_SECONDS = 6 * 3600
 _MAX_RATE_LIMIT_WAIT_SECONDS = 60.0
@@ -61,6 +69,7 @@ class RegistryHealResult:
     observations: list[dict] = field(default_factory=list)
     reconciliation: list[dict] = field(default_factory=list)
     inventory_complete: bool | None = None
+    registry_revision: RegistryRevisionV1 | None = None
     run_id: str | None = None
 
     def summary_line(self) -> str:
@@ -108,7 +117,11 @@ def _heal(
     min_interval_seconds: float,
 ) -> RegistryHealResult:
     if not enabled:
-        return RegistryHealResult(status="SKIPPED_DISABLED", detail="--no-registry-heal")
+        return RegistryHealResult(
+            status="SKIPPED_DISABLED",
+            detail="--no-registry-heal",
+            registry_revision=load_current_registry_revision(),
+        )
 
     marker_age = _marker_age_seconds()
     if marker_age is not None and marker_age < min_interval_seconds:
@@ -117,6 +130,7 @@ def _heal(
             detail=(
                 f"last heal attempt {int(marker_age)}s ago, interval {int(min_interval_seconds)}s"
             ),
+            registry_revision=load_current_registry_revision(),
         )
 
     token = env.gh_token()
@@ -125,7 +139,9 @@ def _heal(
         # anonymous quota and invites long 403 waits -- and a run without
         # GH_TOKEN is about to fail preflight's own GitHub check anyway.
         return RegistryHealResult(
-            status="SKIPPED_NO_TOKEN", detail="set GH_TOKEN / GITHUB_PAT to enable"
+            status="SKIPPED_NO_TOKEN",
+            detail="set GH_TOKEN / GITHUB_PAT to enable",
+            registry_revision=load_current_registry_revision(),
         )
 
     if not products_path.is_file():
@@ -169,6 +185,13 @@ def _heal(
     refreshed_count = sum(
         record.action in {"migrated", "refreshed"} for record in reconciliation_result.records
     )
+    prior_revision = load_current_registry_revision()
+    registry_revision = build_registry_revision(
+        inventory,
+        reconciliation_result,
+        previous_entries=existing,
+        prior_revision=prior_revision,
+    )
 
     if merged == existing:
         result = RegistryHealResult(
@@ -179,6 +202,7 @@ def _heal(
             observations=observations,
             reconciliation=reconciliation,
             inventory_complete=inventory.complete,
+            registry_revision=registry_revision,
         )
     else:
         # Fail-closed write guard: the heal must never produce a file the
@@ -196,8 +220,10 @@ def _heal(
             observations=observations,
             reconciliation=reconciliation,
             inventory_complete=inventory.complete,
+            registry_revision=registry_revision,
         )
 
+    write_registry_revision(registry_revision)
     _try_write_marker(result)
     _try_write_evidence(result, orgs_scanned=[f["github_org"] for f in families])
     return result
@@ -273,6 +299,11 @@ def _try_write_evidence(result: RegistryHealResult, orgs_scanned: list[str] | No
                 "inventory_complete": result.inventory_complete,
                 "new_entries": result.new_entries,
                 "refreshed_count": result.refreshed_count,
+                "registry_revision": (
+                    result.registry_revision.model_dump(mode="json")
+                    if result.registry_revision is not None
+                    else None
+                ),
                 "timestamp": datetime.now(UTC).isoformat(),
             },
         )

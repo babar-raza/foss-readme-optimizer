@@ -47,9 +47,11 @@ _GITHUB_API = "https://api.github.com"
 _RATE_SLEEP = 1.0
 
 # Aspose.{Family}-FOSS-for-{Platform} (e.g. Aspose.3D-FOSS-for-Java)
-_REPO_PATTERN_FOSS = re.compile(r"^Aspose\.([A-Za-z0-9]+)-FOSS-for-([A-Za-z0-9.]+)$")
+_REPO_PATTERN_FOSS = re.compile(
+    r"^Aspose\.([A-Za-z0-9]+)-FOSS-for-([A-Za-z0-9.]+)(?:-[A-Za-z0-9.]+)*$"
+)
 # aspose-{family}-foss-for-{platform} (e.g. aspose-pdf-foss-for-go)
-_REPO_PATTERN_FOSS_LOWER = re.compile(r"^aspose-([a-z0-9]+)-foss-for-([a-z0-9]+)$")
+_REPO_PATTERN_FOSS_LOWER = re.compile(r"^aspose-([a-z0-9]+)-foss-for-([a-z0-9]+)(?:-[a-z0-9.]+)*$")
 
 _PLATFORM_MAP = {
     "python": "python",

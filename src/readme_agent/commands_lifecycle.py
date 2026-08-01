@@ -47,6 +47,22 @@ def cmd_runtime_matrix(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_registry_preflight(args: argparse.Namespace) -> int:
+    """Reconcile discovery and intake before a workflow freezes its matrix."""
+
+    from readme_agent.state.git_backend import default_state_backend
+    from readme_agent.supervisor.registry_revision_preflight import prepare_registry_revision
+
+    result = prepare_registry_revision(
+        Path(args.registry),
+        default_state_backend(),
+        heal_enabled=not args.no_refresh,
+        force_refresh=args.force_refresh,
+    )
+    _emit_json(result.model_dump(mode="json"), getattr(args, "output", None))
+    return 0 if result.gate.eligible else 1
+
+
 def cmd_qualified_cohort_matrix(args: argparse.Namespace) -> int:
     """Emit a checksum- and contract-validated frozen trusted cohort matrix."""
 
@@ -106,8 +122,20 @@ def cmd_health_report(args: argparse.Namespace) -> int:
 
     from datetime import timedelta
 
+    from readme_agent.registry.revision_gate import evaluate_registry_revision
+    from readme_agent.registry.revision_store import load_current_registry_revision
     from readme_agent.state.git_backend import default_state_backend
     from readme_agent.state.health import build_health_report
+
+    revision = load_current_registry_revision()
+    if revision is None:
+        registry_health = {
+            "eligible": False,
+            "reasons": ["registry_revision_missing"],
+        }
+    else:
+        products = json.loads(Path("data/products.json").read_text(encoding="utf-8"))
+        registry_health = evaluate_registry_revision(revision, products).model_dump(mode="json")
 
     repositories = _selected_repositories(getattr(args, "only", None))
     report = build_health_report(
@@ -116,6 +144,7 @@ def cmd_health_report(args: argparse.Namespace) -> int:
         expected_schedule_interval=timedelta(hours=args.expected_interval_hours),
         backlog_sla=timedelta(minutes=args.backlog_sla_minutes),
         repeated_failure_threshold=args.repeated_failure_threshold,
+        registry_revision_health=registry_health,
     )
     _emit_json(report.model_dump(mode="json"), getattr(args, "output", None))
     return 1 if args.fail_unhealthy and not report.healthy else 0

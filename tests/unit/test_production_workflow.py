@@ -12,6 +12,12 @@ def test_production_workflow_has_all_trigger_and_recovery_surfaces():
     for trigger in ("schedule:", "workflow_dispatch:", "workflow_call:", "repository_dispatch:"):
         assert trigger in text
     assert "readme-agent recovery-sweep" in text
+    assert "readme-agent registry-preflight" in text
+    assert text.count('cron: "') == 2
+    assert "SCHEDULE_EXPRESSION: ${{ github.event.schedule }}" in text
+    assert "needs: registry" in text
+    assert "needs: [registry, recover]" in text
+    assert "registry-revision-${{ github.run_id }}-${{ github.run_attempt }}" in text
     assert "--resume-trigger-key" in text
     assert "Resume the original durable trigger" in text
     assert "has_recovery" in text
@@ -26,8 +32,8 @@ def test_analysis_uses_dedicated_read_only_app_token_and_observe_profile():
     text = WORKFLOW.read_text(encoding="utf-8")
 
     assert "actions/create-github-app-token@v3" in text
-    assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 3
-    assert text.count("permission-contents: read") == 2
+    assert text.count("client-id: ${{ vars.GH_APP_CLIENT_ID }}") == 4
+    assert text.count("permission-contents: read") == 3
     assert "app-id:" not in text
     assert "permission-contents: read" in text
     assert "|| 'github_app' }}" in text
@@ -112,9 +118,9 @@ def test_hosted_staging_effect_has_no_pat_or_product_analysis_fallback():
 def test_every_production_job_uses_the_locked_pip_cache_key():
     text = WORKFLOW.read_text(encoding="utf-8")
 
-    assert text.count("uses: actions/setup-python@v5") == 6
-    assert text.count("cache: pip") == 6
-    assert text.count("cache-dependency-path: requirements-lock.txt") == 6
+    assert text.count("uses: actions/setup-python@v5") == 7
+    assert text.count("cache: pip") == 7
+    assert text.count("cache-dependency-path: requirements-lock.txt") == 7
 
 
 def test_only_production_runtime_is_scheduled():

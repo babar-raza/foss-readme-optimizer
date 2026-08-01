@@ -23,6 +23,7 @@ from readme_agent.state.lifecycle_schema import (
 class RunManifestV3(RunManifestV2):
     manifest_version: Literal[3] = 3
     content_assurance: ContentAssuranceV1 = "repository_verified"
+    registry_revision: dict = Field(default_factory=dict)
     trigger: TriggerEnvelopeV2 | None = None
     trigger_status: TriggerStatusV2 | None = None
     checkpoints: list[CheckpointV1] = Field(default_factory=list)

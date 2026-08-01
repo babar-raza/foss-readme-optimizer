@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from readme_agent import cli
-from readme_agent.evidence.writer import refresh_sha256sums
+from readme_agent.evidence.writer import refresh_sha256sums, sha256_file
 from readme_agent.llm import prompt_registry
 from readme_agent.readme.trusted_composition_candidate_validation import (
     TRUSTED_CANDIDATE_NORMALIZATION_VERSION,
@@ -35,14 +35,16 @@ def _manifest_path() -> Path:
     return Path(current["manifest_path"])
 
 
-def _current_contract_manifest(tmp_path: Path) -> Path:
+def _copied_contract_manifest(tmp_path: Path, *, refresh_candidate_contracts: bool) -> Path:
     copied = tmp_path / "current-contract-cohort"
     shutil.copytree(_manifest_path().parent, copied)
     manifest = copied / "manifest.json"
     payload = json.loads(manifest.read_text(encoding="utf-8"))
-    payload["reviewer_standard_sha256"] = trusted_reviewer_standard_hash()
-    payload["prompt_registry_sha256"] = prompt_registry.content_hash()
-    payload["candidate_normalization_version"] = TRUSTED_CANDIDATE_NORMALIZATION_VERSION
+    payload["registry_sha256"] = sha256_file(Path("data/products.json"))[0]
+    if refresh_candidate_contracts:
+        payload["reviewer_standard_sha256"] = trusted_reviewer_standard_hash()
+        payload["prompt_registry_sha256"] = prompt_registry.content_hash()
+        payload["candidate_normalization_version"] = TRUSTED_CANDIDATE_NORMALIZATION_VERSION
     payload["cohort_id"] = QualifiedTrustedCohortIdentityV1(
         control_revision=payload["control_revision"],
         registry_sha256=payload["registry_sha256"],
@@ -67,9 +69,20 @@ def _current_contract_manifest(tmp_path: Path) -> Path:
     return manifest
 
 
-def test_preserved_frozen_cohort_fails_closed_after_reviewer_standard_change():
-    with pytest.raises(ValueError, match="reviewer standard is stale"):
+def _current_contract_manifest(tmp_path: Path) -> Path:
+    return _copied_contract_manifest(tmp_path, refresh_candidate_contracts=True)
+
+
+def test_preserved_frozen_cohort_fails_closed_after_registry_change():
+    with pytest.raises(ValueError, match="registry hash no longer matches"):
         load_runtime_trusted_cohort(_manifest_path())
+
+
+def test_preserved_frozen_cohort_fails_closed_after_reviewer_standard_change(tmp_path):
+    with pytest.raises(ValueError, match="reviewer standard is stale"):
+        load_runtime_trusted_cohort(
+            _copied_contract_manifest(tmp_path, refresh_candidate_contracts=False)
+        )
 
 
 def test_current_contract_fixture_emits_exact_three_member_matrix(tmp_path):
@@ -93,15 +106,16 @@ def test_runtime_member_admission_fails_outside_frozen_cohort(tmp_path):
         )
 
 
-def test_local_repair_member_accepts_stale_candidate_contracts_but_not_outsiders():
+def test_local_repair_member_accepts_stale_candidate_contracts_but_not_outsiders(tmp_path):
+    manifest = _copied_contract_manifest(tmp_path, refresh_candidate_contracts=False)
     member = require_runtime_trusted_cohort_repair_member(
-        _manifest_path(),
+        manifest,
         "aspose-note-foss/Aspose.Note-FOSS-for-Python",
     )
     assert member.org_repo == "aspose-note-foss/Aspose.Note-FOSS-for-Python"
     with pytest.raises(ValueError, match="is not a member"):
         require_runtime_trusted_cohort_repair_member(
-            _manifest_path(),
+            manifest,
             "org/not-enrolled",
         )
 
@@ -174,7 +188,7 @@ def test_act_profile_requires_the_frozen_manifest(monkeypatch, capsys):
     assert "requires --qualified-cohort-manifest" in capsys.readouterr().err
 
 
-def test_local_profile_repair_rejects_a_nonmember_before_repository_work(capsys):
+def test_local_profile_repair_rejects_a_nonmember_before_repository_work(tmp_path, capsys):
     exit_code = cli.main(
         [
             "supervise",
@@ -183,7 +197,7 @@ def test_local_profile_repair_rejects_a_nonmember_before_repository_work(capsys)
             "--execution-profile",
             "local_poc",
             "--qualified-cohort-manifest",
-            str(_manifest_path()),
+            str(_copied_contract_manifest(tmp_path, refresh_candidate_contracts=False)),
         ]
     )
 

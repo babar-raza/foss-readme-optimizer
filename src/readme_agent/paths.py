@@ -124,6 +124,26 @@ def registry_heal_marker_path() -> Path:
     return runs_dir() / "registry-heal" / "last_heal.json"
 
 
+def registry_revision_root() -> Path:
+    """Durable local receipts for source-complete registry observations."""
+
+    return runs_dir() / "registry-revisions"
+
+
+def current_registry_revision_path() -> Path:
+    """Canonical pointer to the newest attempted registry revision."""
+
+    return registry_revision_root() / "current.json"
+
+
+def registry_revision_path(revision_id: str) -> Path:
+    """Immutable checksum-addressed receipt for one registry revision."""
+
+    if len(revision_id) != 64 or any(char not in "0123456789abcdef" for char in revision_id):
+        raise ValueError("revision_id must be a lowercase SHA-256 digest")
+    return registry_revision_root() / "revisions" / f"{revision_id}.json"
+
+
 def toolchains_dir() -> Path:
     """RPOC-041: cache root for auto-provisioned build JDKs (Eclipse
     Temurin), one `temurin-<version>/` subdirectory per extracted release --

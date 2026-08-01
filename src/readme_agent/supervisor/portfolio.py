@@ -69,6 +69,8 @@ class PortfolioPocSummaryV1(BaseModel):
 
     schema_version: int = 3
     registry_path: str
+    registry_revision_id: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    registry_revision_gate_eligible: bool | None = None
     target_lifecycle_stage: PortfolioTargetStageV1 = "NO_OP_PROVEN"
     generated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     registry_count: int = Field(ge=0)

@@ -100,7 +100,7 @@ def reconcile_registry(
             continue
 
         if observation.classification == "matched":
-            entries.append(_new_disabled_entry(observation))
+            entries.append(_new_disabled_entry(observation, entries))
             by_repository_id[repository_id] = len(entries) - 1
             records.append(
                 _record(
@@ -198,8 +198,23 @@ def _refresh_entry(
     return refreshed
 
 
-def _new_disabled_entry(observation: DiscoveryObservationV1) -> dict[str, Any]:
+def _new_disabled_entry(
+    observation: DiscoveryObservationV1,
+    existing_entries: list[dict[str, Any]],
+) -> dict[str, Any]:
     entry = observation.to_registry_entry()
+    inherited_profiles = {
+        (item.get("ecosystem"), item.get("policy_profile"))
+        for item in existing_entries
+        if item.get("family") == observation.family
+        and item.get("platform") == observation.platform
+        and item.get("ecosystem") is not None
+        and item.get("policy_profile") is not None
+    }
+    ecosystem = None
+    policy_profile = None
+    if len(inherited_profiles) == 1:
+        ecosystem, policy_profile = next(iter(inherited_profiles))
     entry.update(
         {
             "registry_schema_version": 2,
@@ -210,8 +225,8 @@ def _new_disabled_entry(observation: DiscoveryObservationV1) -> dict[str, Any]:
                 "node_id": observation.provider_node_id,
             },
             "mode": "disabled",
-            "ecosystem": None,
-            "policy_profile": None,
+            "ecosystem": ecosystem,
+            "policy_profile": policy_profile,
         }
     )
     return entry

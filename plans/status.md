@@ -34,6 +34,7 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 | aspose-note-foss/Aspose.Note-FOSS-for-Python | python | dry_run | not_set |
 | aspose-page-foss/Aspose.Page-FOSS-for-Python | python | dry_run | not_set |
 | aspose-pdf-foss/Aspose-PDF-FOSS-for-Go | go | dry_run | not_set |
+| aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP | go | disabled | not yet run |
 | aspose-pdf-foss/Aspose-PDF-FOSS-for-Python | python | dry_run | not_set |
 | aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET | net | dry_run | not_set |
 | aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp | cpp | dry_run | not_set |
@@ -46,8 +47,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 | aspose-words-foss/Aspose.Words-FOSS-for-.NET | net | dry_run | not_set |
 | aspose-words-foss/Aspose.Words-FOSS-for-Python | python | dry_run | not_set |
 
-- 31 total registry entries (live count from `data/products.json`).
-- 3 not yet run (absent from the manifest).
+- 32 total registry entries (live count from `data/products.json`).
+- 4 not yet run (absent from the manifest).
 - 28 present in the manifest but lifecycle status not yet set.
 - 0 with a real RPOC-070 lifecycle status recorded.
 
@@ -55,9 +56,9 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 | Status | Count |
 |---|---:|
-| IMPLEMENTED | 161 |
-| PLANNED | 137 |
-| PARTIAL | 94 |
+| IMPLEMENTED | 162 |
+| PLANNED | 135 |
+| PARTIAL | 95 |
 | GOVERNANCE | 35 |
 | BACKLOG | 26 |
 | RESEARCH-GATED | 6 |
@@ -67,8 +68,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 ## Implementation-truth matrix summary (Wave 9.2)
 
-- 161 `IMPLEMENTED` rows checked.
+- 162 `IMPLEMENTED` rows checked.
 - 0 with a semantic closure finding.
 - 93 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
-- 68 fully clean.
+- 69 fully clean.
 - Full detail: `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`.

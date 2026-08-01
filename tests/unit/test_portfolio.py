@@ -1,5 +1,12 @@
 """Tests for the derived full-registry local-POC portfolio summary."""
 
+from readme_agent.facts.schema_v2 import (
+    REQUIRED_PRODUCT_FIELDS,
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 from readme_agent.supervisor.portfolio import (
     PortfolioPocSummaryV1,
     PortfolioRepositoryResultV1,
@@ -8,6 +15,38 @@ from readme_agent.supervisor.portfolio import (
     select_portfolio_trigger,
     write_portfolio_summary,
 )
+
+
+def _ready_product_facts(source_revision: str) -> ProductFactsV2:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://org/repo",
+        source_revision=source_revision,
+    )
+    renderable_values = {
+        "product.audience": ["Developers using Python"],
+        "product.problems_solved": ["Process widget files"],
+        "product.capabilities": ["Create and inspect widgets"],
+        "product.formats": ["WGT"],
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "portfolio-fixture"),
+            field=field,
+            value=renderable_values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    return ProductFactsV2(
+        org_repo="org/repo",
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
 
 
 def test_summary_derives_counts_and_writes_a_checksum(tmp_path):
@@ -188,6 +227,10 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
     write_redacted_json(
         bundle_dir / "planning" / "readme-document-plan.json",
         {"template_sha256": document_template_hash()},
+    )
+    write_redacted_json(
+        bundle_dir / "facts" / "product-facts.json",
+        _ready_product_facts(source_revision).model_dump(mode="json"),
     )
     write_redacted_json(
         bundle_dir / "planning" / "agentic-composition-plan.json",

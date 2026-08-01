@@ -111,6 +111,9 @@ def write_supervise_evidence(
         and manifest.side_effect_class in {"local_write", "remote_write"}
     ]
     llm_summary = current_llm_accounting_summary()
+    from readme_agent.registry.revision_store import current_registry_revision
+
+    registry_revision = current_registry_revision()
     readme_poc_transitions = (
         sorted(
             [
@@ -155,6 +158,9 @@ def write_supervise_evidence(
                 readme_poc_lifecycle.content_assurance
                 if isinstance(readme_poc_lifecycle, ReadmePocLifecycleStateV2)
                 else "repository_verified"
+            ),
+            registry_revision=(
+                registry_revision.model_dump(mode="json") if registry_revision is not None else {}
             ),
             trigger=lifecycle_recorder.envelope if lifecycle_recorder else None,
             trigger_status="processing" if lifecycle_recorder else None,
