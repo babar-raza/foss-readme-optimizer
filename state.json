@@ -634,23 +634,14 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "39a0d8b13edd326c55c94b3f91ce58200ea4dbf80a9eb10cd69d31072c9051c4",
+      "accepted_facts_hash": "153f3909394eb5dd104ed34a36e69d7b176da7e6ce6f82103f78ece688c98fa4",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'python'",
-        "handoff_findings": [
-          {
-            "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T14:29:38.348485+00:00",
-            "evidence": {
-              "detail": "no live resolver registered for ecosystem 'python'"
-            },
-            "surface": "packages"
-          }
-        ],
-        "install_path_resolved": false,
+        "evidence": "PyPI: aspose-email-foss found",
+        "handoff_findings": [],
+        "install_path_resolved": true,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -658,7 +649,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:29:38.349005+00:00",
+      "last_run_timestamp": "2026-08-01T07:10:12.405535+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -1192,7 +1183,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 98,
+  "state_version": 99,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9de1541f653c0bbca960e577fb38c2c732f548753e48965b0f98996c05a0829e",
