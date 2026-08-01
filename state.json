@@ -1524,7 +1524,7 @@
     "updated_at": "2026-08-01T08:52:05.990955+00:00"
   },
   "schema_version": 2,
-  "state_version": 161,
+  "state_version": 162,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "25c8d1447c85f4e365f92a48275552bf56f6b00468e7f7aafac60b75576da3bc",
@@ -1761,13 +1761,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings: ['f1:quoted span is outside the named candidate section', 'f2:heading-only quote cannot prove the claimed section content', 'f2:Enterprise Edition term premise contradicts candidate']",
       "last_checkpoint_id": "d474fd8417a223e01312f78096f3310f06411add13d7f3683ae1ce90159b2170",
-      "lease_expires_at": "2026-08-01T09:01:44.356533+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-01T08:53:39.499422+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-01T08:54:02.369689+00:00"
     }
   },
   "trigger_records": {},
