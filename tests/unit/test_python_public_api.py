@@ -174,6 +174,40 @@ def test_public_surface_tracks_reexports_types_fields_and_full_property_stack(tm
     assert surface.unresolved_reexports == ["aspose.widget:2:from .wildcard import *"]
 
 
+def test_public_surface_does_not_parse_private_modules(tmp_path):
+    _write_package(tmp_path)
+    private_module = tmp_path / "src" / "aspose" / "widget" / "_broken.py"
+    private_module.write_text("for item in []:\nprint(item)\n", encoding="utf-8")
+
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo="acme/widget",
+        source_revision="revision-private-module",
+    )
+
+    assert any(symbol.qualified_name == "aspose.widget.Widget" for symbol in surface.symbols)
+    assert not any("_broken" in symbol.qualified_name for symbol in surface.symbols)
+
+
+def test_public_surface_records_and_skips_a_malformed_public_module(tmp_path):
+    _write_package(tmp_path)
+    public_module = tmp_path / "src" / "aspose" / "widget" / "broken.py"
+    public_module.write_text("for item in []:\nprint(item)\n", encoding="utf-8")
+
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo="acme/widget",
+        source_revision="revision-public-module",
+    )
+
+    assert any(symbol.qualified_name == "aspose.widget.Widget" for symbol in surface.symbols)
+    assert "aspose.widget:2:from .wildcard import *" in surface.unresolved_reexports
+    assert any(
+        item.startswith("aspose.widget.broken:2:syntax-error:src/aspose/widget/broken.py:")
+        for item in surface.unresolved_reexports
+    )
+
+
 def test_package_layout_and_public_api_accept_utf8_bom_source(tmp_path):
     _write_package(tmp_path, manifest="setup.py")
     setup = tmp_path / "setup.py"
