@@ -18093,7 +18093,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "b50ead0d962aeeac3057bbb94879c499440842a1e47226546ffe2f60f021935d",
+    "candidate_hash": "5c85a22603b59c830c589dd89a45a0fbfba7bd6ecf74b42a9a9d09ab87055c2f",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -23754,6 +23754,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\c91c56a98001e72707a1\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T05:04:41.662608+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -23782,11 +23794,11 @@
     "reviewer_standard_hash": "fa9ee4c9ce0301b838d16512751e500330b66ce42d9a80b7978d08178ee29c9d",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-01T05:04:35.838753+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-01T05:04:41.662608+00:00"
   },
   "schema_version": 2,
-  "state_version": 1504,
+  "state_version": 1505,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
