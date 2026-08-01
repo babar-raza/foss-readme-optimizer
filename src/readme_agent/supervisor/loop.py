@@ -755,6 +755,26 @@ def supervise_repo(
                 requested_readme_stage=boundary.requested_stage,
                 readme_lifecycle_status=boundary.observed_stage,
             )
+        current_fact_status = classify_product_truth(prepared_product_truth.facts)
+        if current_fact_status != "FACTS_READY":
+            return SuperviseResult(
+                status="BLOCKED",
+                org_repo=org_repo,
+                task_graph=TaskGraph(),
+                blocked_reason=f"product_truth_not_ready:{current_fact_status}",
+                blocked_category="agent_fixable",
+                decisions=[
+                    DecisionSummary(
+                        turn=0,
+                        kind="verified_readme_facts_blocked",
+                        detail=(
+                            f"product truth reached {current_fact_status}; complete README "
+                            "composition and independent approval were not invoked"
+                        ),
+                    )
+                ],
+                readme_lifecycle_status=current_fact_status,
+            )
     lifecycle_recorder = current_lifecycle_recorder()
     if lifecycle_recorder is not None and not track_readme_poc_lifecycle:
         lifecycle_recorder.checkpoint(

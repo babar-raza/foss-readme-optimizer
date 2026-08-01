@@ -16,9 +16,29 @@ def _section(text: str, start: str, end: str) -> str:
         raise AssertionError(f"fixture reviewer could not find prompt section {start!r}") from exc
 
 
-def _blind_accept(user_content: str) -> dict:
+def _blind_candidate_anchor(user_content: str) -> tuple[str, str | None]:
+    catalog_start = "Complete candidate README block catalog, in source order:\n"
+    catalog_end = "\n\nAuthoritative parser-derived mechanical observations:"
+    if catalog_start in user_content:
+        catalog = json.loads(_section(user_content, catalog_start, catalog_end))
+        if not isinstance(catalog, list) or not catalog:
+            raise AssertionError("fixture blind reviewer received an empty candidate catalog")
+        first = catalog[0]
+        if not isinstance(first, dict):
+            raise AssertionError("fixture blind reviewer received a malformed candidate catalog")
+        span = str(first.get("text", ""))
+        anchor_id = str(first.get("anchor_id", ""))
+        if not span.strip() or not anchor_id:
+            raise AssertionError("fixture blind reviewer received an incomplete candidate anchor")
+        return span, anchor_id
+
     candidate = _section(user_content, "Candidate README:\n", "\n\nReview only")
     span = next((line.strip() for line in candidate.splitlines() if line.strip()), "")
+    return span, None
+
+
+def _blind_accept(user_content: str) -> dict:
+    span, anchor_id = _blind_candidate_anchor(user_content)
     if not span:
         raise AssertionError("fixture blind reviewer received an empty candidate")
     return {
@@ -35,6 +55,7 @@ def _blind_accept(user_content: str) -> dict:
                 "section": "title",
                 "claim": "The candidate has a clear product title.",
                 "quoted_candidate_span": span,
+                "candidate_anchor_id": anchor_id,
                 "disposition": "supports_acceptance",
                 "fact_id": None,
                 "evidence_excerpt": None,

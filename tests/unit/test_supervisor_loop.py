@@ -834,6 +834,59 @@ class TestBasicLoop:
         assert result.decisions[0].kind == "readme_poc_stage_complete"
         assert result.requested_readme_stage == "FACTS_READY"
 
+    def test_full_verified_readme_stops_before_specialists_when_truth_is_blocked(
+        self,
+        project,
+        monkeypatch,
+    ):
+        from readme_agent.supervisor import loop as loop_module
+        from readme_agent.supervisor import product_truth
+
+        backend = FakeStateBackend()
+        prepare = product_truth.prepare_local_product_truth
+
+        def _blocked_truth(*args, **kwargs):
+            prepared = prepare(*args, **kwargs)
+            example = prepared.facts.selected_fact("example.minimal")
+            blocked = example.model_copy(
+                update={"verification_state": "blocked", "confidence": 0.0}
+            )
+            facts = prepared.facts.model_copy(
+                update={
+                    "facts": [
+                        blocked if fact.fact_id == example.fact_id else fact
+                        for fact in prepared.facts.facts
+                    ]
+                }
+            )
+            return prepared.model_copy(
+                update={
+                    "facts": facts,
+                    "lifecycle_status": "BLOCKED_MISSING_EVIDENCE",
+                }
+            )
+
+        monkeypatch.setattr(product_truth, "prepare_local_product_truth", _blocked_truth)
+        monkeypatch.setattr(
+            loop_module,
+            "run_specialist_tier",
+            lambda *args, **kwargs: pytest.fail(
+                "blocked verified truth must not enter the specialist tier"
+            ),
+        )
+
+        result = supervise_repo(
+            ORG_REPO,
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE"
+        assert result.readme_lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
+        assert result.decisions[0].kind == "verified_readme_facts_blocked"
+
     def test_verified_stage_switches_trusted_assurance_before_changed_snapshot(
         self,
         project,
