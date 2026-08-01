@@ -30,17 +30,37 @@
         "reason": "claimed source-bound read-only intake preflight",
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
         "to_status": "INTAKE_PREFLIGHTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\intake\\receipts\\429c8c19ce89c5f9-a1.json"
+        ],
+        "from_status": "INTAKE_PREFLIGHTING",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T15:13:07.113378+00:00",
+        "reason": "read-only intake classified READY_FAST_PATH",
+        "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "to_status": "INTAKE_READY"
       }
     ],
-    "intake_preflight_history": [],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "429c8c19ce89c5f949aa3c7fbda2749835a72a14daec00ba9de3c8878366c7b6",
-      "schema_version": 1,
-      "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-01T14:55:46.603059+00:00"
-    },
+    "intake_preflight_history": [
+      {
+        "attempt": 1,
+        "dedup_key": "429c8c19ce89c5f949aa3c7fbda2749835a72a14daec00ba9de3c8878366c7b6",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\intake\\receipts\\429c8c19ce89c5f9-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T15:13:07.113357+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "2a4f41c50240d61c067df173d1db472c22bb6753df6219dd75b98427efcfee35",
+        "schema_version": 1,
+        "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "source_revision_resolved": true
+      }
+    ],
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
@@ -49,11 +69,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": null,
-    "status": "INTAKE_PREFLIGHTING",
-    "updated_at": "2026-08-01T14:55:46.603063+00:00"
+    "status": "INTAKE_READY",
+    "updated_at": "2026-08-01T15:13:07.113378+00:00"
   },
   "schema_version": 2,
-  "state_version": 4,
+  "state_version": 5,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:4fa30ee7350677cd47fa73d23a7f2100e4ae39518e642a55bf8f7ad34dcfbf98": {
