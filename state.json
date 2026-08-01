@@ -133,6 +133,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260801-081006-0d50:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "17dd47717a22baaa61de909cb570064d6442852c7e0da676eff0afb436a35cb7": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "17dd47717a22baaa61de909cb570064d6442852c7e0da676eff0afb436a35cb7",
+      "completed_at": "2026-08-01T17:42:32.495441+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "bb27bdfb19edb50e7e1eb67aa4b045f5dd802077fa59beeb02ebe8b82617d763",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260801-174035-fb8b",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-01T17:42:32.495428+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-070610-d9b6:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "1dfcddf827b84a38a794d1c82dca8d4e05a5dc7f57183f30f13eec6042770791": {
       "action": "independent_verification",
       "attempt": 1,
@@ -8087,7 +8104,7 @@
     "updated_at": "2026-08-01T17:42:26.835163+00:00"
   },
   "schema_version": 2,
-  "state_version": 231,
+  "state_version": 232,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
@@ -8280,11 +8297,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "8e06fa368a9f41a6a54d8c98d21ad41065752334b1ddfbbb57f6dc4d245c3dce",
+      "last_checkpoint_id": "17dd47717a22baaa61de909cb570064d6442852c7e0da676eff0afb436a35cb7",
       "lease_expires_at": "2026-08-01T17:55:50.398865+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-01T17:41:27.270951+00:00"
+      "updated_at": "2026-08-01T17:42:32.495441+00:00"
     },
     "operator:20260801-072120-9e1a:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
       "accepted_at": "2026-08-01T07:21:25.733634+00:00",
