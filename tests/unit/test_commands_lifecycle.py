@@ -47,13 +47,8 @@ def test_runtime_matrix_covers_every_active_registry_entry(capsys):
     assert {item["repo"] for item in payload["include"]} == {
         entry.org_repo for entry in load_products() if entry.active
     }
-    # The set-equality assertion above already proves inclusion is mode-blind (every
-    # active entry appears, regardless of its mode) -- this used to additionally spot-
-    # check that a real `disabled` entry was among them, but as of the 2026-07-25
-    # zero-code disabled-entry onboarding pass, no registry entry is `disabled` anymore
-    # (all 31 are now onboarded). Asserting "the matrix never filters by mode" directly,
-    # rather than depending on a specific mode value existing in live data, so this
-    # can't churn again the next time the registry's mode distribution changes.
+    # Set equality proves mode-blind inclusion without coupling this test to the
+    # registry's current mix of full, dry-run, and disabled repositories.
     modes_present = {item["mode"] for item in payload["include"]}
     live_modes = {entry.mode for entry in load_products() if entry.active}
     assert modes_present == live_modes
@@ -96,6 +91,7 @@ def test_registry_preflight_emits_revision_and_fails_closed(monkeypatch, capsys,
     payload = json.loads(capsys.readouterr().out)
     assert payload["gate"]["reasons"] == ["source_scan_incomplete"]
     assert observed["heal_enabled"] is True
+    assert observed["act_fixture_inventory"] is False
     assert json.loads((tmp_path / "preflight.json").read_text(encoding="utf-8")) == payload
 
 

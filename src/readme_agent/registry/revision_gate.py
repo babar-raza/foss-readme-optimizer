@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from datetime import UTC, datetime
 from typing import Any, Literal
 
@@ -38,6 +39,8 @@ def evaluate_registry_revision(
     checked_at = now or datetime.now(UTC)
     products_hash = products_registry_hash(products)
     reasons: list[str] = []
+    if revision.proof_scope == "act_fixture" and os.environ.get("ACT", "").lower() != "true":
+        reasons.append("act_fixture_not_admissible")
     if not revision.complete:
         reasons.append("source_scan_incomplete")
     if revision.source_failures:

@@ -58,6 +58,7 @@ def cmd_registry_preflight(args: argparse.Namespace) -> int:
         default_state_backend(),
         heal_enabled=not args.no_refresh,
         force_refresh=args.force_refresh,
+        act_fixture_inventory=args.act_fixture_inventory,
     )
     _emit_json(result.model_dump(mode="json"), getattr(args, "output", None))
     return 0 if result.gate.eligible else 1

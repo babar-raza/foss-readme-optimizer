@@ -90,9 +90,14 @@ jobs:
           README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
           README_AGENT_GITHUB_APP_TOKEN: ${{ steps.discovery-token.outputs.token }}
         run: |
+          fixture_arg=""
+          if [ "${ACT:-}" = "true" ]; then
+            fixture_arg="--act-fixture-inventory"
+          fi
           readme-agent registry-preflight \
             --registry data/products.json \
             --force-refresh \
+            $fixture_arg \
             --output runs/registry-revisions/workflow-preflight.json
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}

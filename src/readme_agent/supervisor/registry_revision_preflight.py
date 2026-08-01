@@ -41,13 +41,20 @@ def prepare_registry_revision(
     *,
     heal_enabled: bool = True,
     force_refresh: bool = False,
+    act_fixture_inventory: bool = False,
 ) -> RegistryRevisionPreflightV1:
     """Run or reuse discovery, settle intake, and emit a fail-closed gate."""
 
+    inventory_override = None
+    if act_fixture_inventory:
+        from readme_agent.registry.act_fixture import build_act_registry_inventory
+
+        inventory_override = build_act_registry_inventory(products_path)
     heal = heal_registry_drift(
         enabled=heal_enabled,
         products_path=products_path,
         min_interval_seconds=0 if force_refresh else 6 * 3600,
+        inventory_override=inventory_override,
     )
     if heal.registry_revision is None and heal.status == "SKIPPED_RECENT":
         heal = heal_registry_drift(

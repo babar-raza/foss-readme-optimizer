@@ -13,6 +13,7 @@ def test_production_workflow_has_all_trigger_and_recovery_surfaces():
         assert trigger in text
     assert "readme-agent recovery-sweep" in text
     assert "readme-agent registry-preflight" in text
+    assert "--act-fixture-inventory" in text
     assert text.count('cron: "') == 2
     assert "SCHEDULE_EXPRESSION: ${{ github.event.schedule }}" in text
     assert "needs: registry" in text

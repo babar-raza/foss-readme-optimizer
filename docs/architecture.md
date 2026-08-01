@@ -371,6 +371,7 @@ accumulate as a historical audit trail.
 | `registry/revision.py` | Builds content-addressed `RegistryRevisionV1` receipts from authorized source observations, reconciliation, admitted denominator, failures, unresolved observations, and intake delivery state. |
 | `registry/revision_gate.py` | Evaluates freshness, source completeness, intake settlement, unexplained observations, and denominator drift before portfolio fan-out. |
 | `registry/revision_store.py` | Persists immutable/current revisions and context-binds one exact revision to every member manifest in a portfolio campaign. |
+| `registry/act_fixture.py` | Produces a complete no-network source inventory only under `ACT=true` plus the `act_local` provider, allowing the real workflow boundary to be reproduced without claiming live discovery coverage. |
 | `supervisor/registry_revision_preflight.py`, `supervisor/registry_intake_queue.py` | Own the sole pre-fan-out discovery boundary and map one provider-ID plus observation-revision change to one existing durable trigger and source-bound intake attempt. |
 | `commands.py`, `commands_*.py` | Stable CLI façade plus responsibility-sized compatibility, supervision, governance, and lifecycle handlers. `commands_lifecycle.py` owns registry preflight, the authoritative matrix, recovery sweep, and health report commands. Legacy verbs stay read-only. |
 | `orchestrator.py` | Compatibility inspection/reporting and candidate-evidence wiring. Its legacy `run_repo()` never commits; production mutation is not dispatched here. |

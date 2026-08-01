@@ -56,6 +56,7 @@ class RegistryRevisionV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     schema_version: Literal[1] = 1
+    proof_scope: Literal["act_fixture"] | None = None
     revision_id: str = Field(pattern=r"^[0-9a-f]{64}$")
     captured_at: str
     fresh_until: str
@@ -86,10 +87,12 @@ class RegistryRevisionV1(BaseModel):
 
 def registry_revision_identity(revision: RegistryRevisionV1 | dict[str, Any]) -> str:
     payload = (
-        revision.model_dump(mode="json", exclude={"revision_id"})
+        revision.model_dump(mode="json", exclude={"revision_id"}, exclude_none=True)
         if isinstance(revision, RegistryRevisionV1)
         else {key: value for key, value in revision.items() if key != "revision_id"}
     )
+    if payload.get("proof_scope") is None:
+        payload.pop("proof_scope", None)
     return _canonical_sha256(payload)
 
 
@@ -101,6 +104,7 @@ def build_registry_revision(
     prior_revision: RegistryRevisionV1 | None = None,
     freshness_ttl: timedelta = timedelta(days=1),
     pending_intake: list[str] | None = None,
+    proof_scope: Literal["act_fixture"] | None = None,
 ) -> RegistryRevisionV1:
     """Derive one deterministic revision from the complete reconciliation boundary."""
 
@@ -217,6 +221,7 @@ def build_registry_revision(
     captured_at = _parse_utc(inventory.captured_at)
     payload: dict[str, Any] = {
         "schema_version": 1,
+        "proof_scope": proof_scope,
         "revision_id": "0" * 64,
         "captured_at": captured_at.isoformat(),
         "fresh_until": (captured_at + freshness_ttl).isoformat(),

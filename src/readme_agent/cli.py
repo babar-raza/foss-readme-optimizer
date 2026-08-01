@@ -290,6 +290,11 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Bypass the local freshness cache and rescan every authorized source",
     )
+    p_registry_preflight.add_argument(
+        "--act-fixture-inventory",
+        action="store_true",
+        help="Use the complete no-network registry fixture; rejected unless ACT=true and act_local",
+    )
     p_registry_preflight.add_argument("--output", help="Also write the JSON payload to this path")
 
     p_cohort_matrix = sub.add_parser(

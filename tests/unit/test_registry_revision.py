@@ -170,6 +170,23 @@ def test_gate_rejects_stale_incomplete_pending_and_products_drift():
     }
 
 
+def test_gate_rejects_act_fixture_revision_outside_act(monkeypatch):
+    existing = [_entry()]
+    inventory = _inventory(_observation())
+    revision = build_registry_revision(
+        inventory,
+        reconcile_registry(existing, inventory),
+        previous_entries=existing,
+        proof_scope="act_fixture",
+    )
+    monkeypatch.delenv("ACT", raising=False)
+
+    assert evaluate_registry_revision(revision, existing).reasons == ["act_fixture_not_admissible"]
+
+    monkeypatch.setenv("ACT", "true")
+    assert evaluate_registry_revision(revision, existing).eligible is True
+
+
 def test_revision_persistence_is_idempotent_and_checksum_addressed(tmp_path, monkeypatch):
     monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
     revision = _revision()

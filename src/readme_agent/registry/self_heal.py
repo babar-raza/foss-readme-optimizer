@@ -42,6 +42,7 @@ from readme_agent import env, paths
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.registry import discovery
 from readme_agent.registry.discovery_inventory import inventory_sources
+from readme_agent.registry.discovery_models import DiscoveryInventoryV1
 from readme_agent.registry.models import ProductEntry
 from readme_agent.registry.reconciliation import reconcile_registry
 from readme_agent.registry.revision import (
@@ -90,6 +91,7 @@ def heal_registry_drift(
     products_path: Path = discovery.PRODUCTS_PATH,
     families_path: Path = discovery.FAMILIES_PATH,
     min_interval_seconds: float = HEAL_MIN_INTERVAL_SECONDS,
+    inventory_override: DiscoveryInventoryV1 | None = None,
 ) -> RegistryHealResult:
     """Detect and additively merge registry drift. Never raises."""
     try:
@@ -98,6 +100,7 @@ def heal_registry_drift(
             products_path=products_path,
             families_path=families_path,
             min_interval_seconds=min_interval_seconds,
+            inventory_override=inventory_override,
         )
     except Exception as exc:  # noqa: BLE001 -- fail-open is this module's contract
         result = RegistryHealResult(status="SKIPPED_ERROR", detail=str(exc))
@@ -115,6 +118,7 @@ def _heal(
     products_path: Path,
     families_path: Path,
     min_interval_seconds: float,
+    inventory_override: DiscoveryInventoryV1 | None,
 ) -> RegistryHealResult:
     if not enabled:
         return RegistryHealResult(
@@ -134,7 +138,7 @@ def _heal(
         )
 
     token = env.gh_token()
-    if token is None:
+    if token is None and inventory_override is None:
         # An unauthenticated 26-org scan burns most of GitHub's 60/hour
         # anonymous quota and invites long 403 waits -- and a run without
         # GH_TOKEN is about to fail preflight's own GitHub check anyway.
@@ -153,7 +157,7 @@ def _heal(
 
     existing = json.loads(products_path.read_text(encoding="utf-8"))
     families = discovery.load_families(families_path)
-    inventory = inventory_sources(
+    inventory = inventory_override or inventory_sources(
         families,
         scan_organization=discovery.scan_org,
         classify_repository=discovery.classify_repo_name,
@@ -185,12 +189,13 @@ def _heal(
     refreshed_count = sum(
         record.action in {"migrated", "refreshed"} for record in reconciliation_result.records
     )
-    prior_revision = load_current_registry_revision()
+    prior_revision = None if inventory_override is not None else load_current_registry_revision()
     registry_revision = build_registry_revision(
         inventory,
         reconciliation_result,
         previous_entries=existing,
         prior_revision=prior_revision,
+        proof_scope="act_fixture" if inventory_override is not None else None,
     )
 
     if merged == existing:
