@@ -1899,3 +1899,76 @@ def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() 
     assert any(
         "Enterprise Edition term premise contradicts candidate" in error for error in result.errors
     )
+
+
+def test_pdf_reviewer_cannot_remove_required_mit_benefits_as_promotion() -> None:
+    license_prose = (
+        "This project is available under the [MIT License](LICENSE). It permits use, "
+        "modification, distribution, and commercial use when the license and copyright "
+        "notice are retained."
+    )
+    candidate = f"# Aspose.PDF FOSS for Python\n\n## License\n\n{license_prose}\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="pdf-license-benefits",
+        kind="quality",
+        criterion="promotional_balance",
+        section="License",
+        claim="License section contains promotional language beyond a simple license reference.",
+        quoted_candidate_span=license_prose,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Trim the License section to a single sentence referencing the MIT License without "
+            "promotional language."
+        ),
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("license-benefits repair" in error for error in result.errors)
+
+
+def test_pdf_reviewer_cannot_move_enterprise_text_already_in_scope_section() -> None:
+    relationship = (
+        "[Aspose.PDF FOSS for Python](https://products.aspose.org/pdf/) and "
+        "[Aspose.PDF for Python Enterprise Edition](https://products.aspose.com/pdf/) "
+        "are separate products."
+    )
+    candidate = (
+        "# Aspose.PDF FOSS for Python\n\n## Scope and limitations\n\n"
+        "- OCR and layout reflow are not implemented.\n\n"
+        f"{relationship}\n\n## License\n\n[MIT License](LICENSE)\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="pdf-enterprise-section",
+        kind="quality",
+        criterion="hierarchy",
+        section="Scope and limitations",
+        claim=(
+            "Enterprise Edition relationship language is misplaced in the License section "
+            "instead of the Scope and limitations section."
+        ),
+        quoted_candidate_span=relationship,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Move the Enterprise Edition relationship language from the License section to the "
+            "Scope and limitations section."
+        ),
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("claimed source section" in error for error in result.errors)

@@ -44,7 +44,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v24-section-term-accountability"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v25-license-and-section-accountability"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -722,6 +722,26 @@ def _validate_quality_finding(
         and "forbid_parentheses" not in header
     ):
         errors.append(f"{finding.finding_id}:heading-parentheses premise is unconfigured")
+    license_standard = standards.get("readme.license")
+    if license_standard is not None and finding.section.casefold() == "license":
+        required_benefit_terms = tuple(
+            str(term).casefold()
+            for term in license_standard.get("required_benefit_terms", [])
+            if str(term).strip()
+        )
+        quote_text = quote.casefold()
+        rejects_required_benefits = "promotional language" in premise and (
+            "simple license reference" in premise or "single sentence" in premise
+        )
+        if (
+            license_standard.get("benefits_summary") == "required"
+            and rejects_required_benefits
+            and required_benefit_terms
+            and all(term in quote_text for term in required_benefit_terms)
+        ):
+            errors.append(
+                f"{finding.finding_id}:license-benefits repair contradicts configured contract"
+            )
     enterprise_standard = standards.get("readme.enterprise_edition_terminology")
     if enterprise_standard is not None and "enterprise edition" in premise:
         required_term = str(enterprise_standard.get("required_term", "Enterprise Edition"))
@@ -792,6 +812,18 @@ def _validate_quality_finding(
         ):
             errors.append(
                 f"{finding.finding_id}:Enterprise Edition placement already satisfies contract"
+            )
+        falsely_places_quote_in_license = (
+            "misplaced in the license section" in premise or "from the license section" in premise
+        )
+        if (
+            falsely_places_quote_in_license
+            and required_section
+            and _quality_quote_matches_named_section(candidate_text, required_section, quote)
+            and not _quality_quote_matches_named_section(candidate_text, "License", quote)
+        ):
+            errors.append(
+                f"{finding.finding_id}:claimed source section contradicts candidate structure"
             )
     claims_bare_url = "bare url" in premise or "bare-url" in premise
     quoted_descriptive_link = next(

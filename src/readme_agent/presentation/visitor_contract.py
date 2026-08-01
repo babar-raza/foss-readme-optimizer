@@ -89,6 +89,18 @@ def build_presentation_visitor_contract(
                 },
             },
             {
+                "standard_id": "readme.license",
+                "parameters": {
+                    "benefits_summary": "required",
+                    "required_benefit_terms": [
+                        "use",
+                        "modification",
+                        "distribution",
+                        "commercial use",
+                    ],
+                },
+            },
+            {
                 "standard_id": "readme.enterprise_edition_terminology",
                 "parameters": {
                     "required_term": contract.invariants.commercial_term,
