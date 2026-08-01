@@ -8359,7 +8359,7 @@
     "updated_at": "2026-08-01T16:55:00.640143+00:00"
   },
   "schema_version": 2,
-  "state_version": 321,
+  "state_version": 322,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "95265de0c5fbc571e4d787c014da96d40194986e644c7ef5c9a995e309adc3d5",
@@ -8616,13 +8616,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "99e5d6f55b55806faef9faf17df5d73ac7883a9e13b50c5beda24cb7d4ddd95d",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T16:30:18.634541+00:00"
+      "updated_at": "2026-08-01T17:34:56.081956+00:00"
     },
     "operator:20260801-163545-670c:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-01T16:35:51.776103+00:00",
@@ -8638,13 +8638,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "b55db889861edbe913820a188c640b2f7d93f438ee577292a526e152dcfe9ce1",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T16:40:57.020601+00:00"
+      "updated_at": "2026-08-01T17:34:56.081956+00:00"
     },
     "operator:20260801-163558-d498:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-01T16:36:05.205516+00:00",
@@ -8660,13 +8660,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "0573f22b0de296e354d6b3e8e076d0529b277dba7e2698d47d47d221a6faa9aa",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T16:41:20.171152+00:00"
+      "updated_at": "2026-08-01T17:34:56.081956+00:00"
     },
     "operator:20260801-164832-47f3:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-01T16:48:38.993259+00:00",
