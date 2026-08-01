@@ -72,6 +72,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "agentic_drafting.py",
         "example_quality.py",
         "problem_grounding.py",
+        "python_repository_examples.py",
         "repository_examples.py",
     ),
     "fact_schema": ("schema_v2.py",),

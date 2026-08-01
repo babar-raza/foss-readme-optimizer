@@ -53,6 +53,7 @@ _VERIFICATION_CONTRACT_FILES = (
     "python_consumer_schema.py",
     "python_example_normalization.py",
     "python_example_verifier.py",
+    "python_repository_examples.py",
     "typescript_consumer.py",
     "typescript_consumer_driver.js",
     "typescript_consumer_schema.py",

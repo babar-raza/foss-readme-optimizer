@@ -78,6 +78,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
     assert "../ecosystems/registry_request.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "acquisition_pins.py" in _COMPONENT_FILES["acquisition_truth"]
+    assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
 
 
 def test_component_or_rule_change_changes_the_contract_hash():

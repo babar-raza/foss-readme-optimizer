@@ -164,3 +164,45 @@ def test_go_source_examples_reject_sensitive_and_non_module_consumers(tmp_path):
     )
 
     assert repository_source_example_candidates(tmp_path, "go") == []
+
+
+def test_python_source_example_extracts_one_self_contained_public_operation(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-widget-foss"\nversion = "1.0"\n'
+        '[tool.setuptools]\npackages = ["aspose", "aspose.widget"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "aspose" / "widget"
+    package.mkdir(parents=True)
+    (package / "__init__.py").write_text("from . import api\n", encoding="utf-8")
+    (package / "api.py").write_text(
+        "class Document:\n"
+        "    @classmethod\n"
+        "    def create(cls, title, body):\n"
+        "        return cls()\n",
+        encoding="utf-8",
+    )
+    examples = tmp_path / "examples"
+    examples.mkdir()
+    (examples / "create_document.py").write_text(
+        "import argparse\n"
+        "from aspose.widget import api, unused\n\n"
+        "def main():\n"
+        "    parser = argparse.ArgumentParser()\n"
+        "    args = parser.parse_args()\n"
+        "    document = api.Document.create('Quarterly update', 'Ready')\n"
+        "    print(document, args)\n",
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "python")
+
+    assert candidates[0].code == (
+        "from aspose.widget import api\n\n"
+        "document = api.Document.create('Quarterly update', 'Ready')\n"
+    )
+    assert candidates[0].class_name == "Document"
+    assert candidates[0].evidence_paths == ["examples/create_document.py"]
+    assert candidates[0].required_symbols == ["api.Document.create"]
+    assert "argparse" not in candidates[0].code
+    assert "unused" not in candidates[0].code

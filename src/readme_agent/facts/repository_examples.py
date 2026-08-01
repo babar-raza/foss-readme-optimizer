@@ -10,6 +10,7 @@ from typing import Literal
 from markdown_it import MarkdownIt
 
 from readme_agent.facts.example_quality import strip_source_comments
+from readme_agent.facts.python_repository_examples import python_source_example_candidates
 from readme_agent.inspection.file_inventory import scan
 from readme_agent.registry.models import MinimalExamplePolicy
 
@@ -197,10 +198,11 @@ def repository_source_example_candidates(
     resolution, and the disposable OS-isolated compiler before it is trusted.
     """
 
-    if language != "go" or not (root / "go.mod").is_file():
+    if language not in {"go", "python"}:
         return []
-    candidates: list[MinimalExamplePolicy] = []
-    for path in root.rglob("*.go"):
+    suffix = "*.go" if language == "go" else "*.py"
+    paths: list[Path] = []
+    for path in root.rglob(suffix):
         relative_tokens = {
             token
             for part in path.relative_to(root).parts
@@ -213,6 +215,17 @@ def repository_source_example_candidates(
             or relative_tokens & _UNSUITABLE_VISITOR_EXAMPLE_PARTS
         ):
             continue
+        paths.append(path)
+    if language == "python":
+        return python_source_example_candidates(
+            root,
+            paths,
+            max_chars=_MAX_EXAMPLE_CHARS,
+        )
+    if not (root / "go.mod").is_file():
+        return []
+    candidates: list[MinimalExamplePolicy] = []
+    for path in paths:
         candidate = _go_source_example(root, path)
         if candidate is not None:
             candidates.append(candidate)
