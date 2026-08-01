@@ -8810,15 +8810,24 @@
         "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
-    "intake_preflight_history": [],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "fa62e6faf85d19c7106b63cdd90abefa56ba33c6114b1e6623b699c9cb1ce22a",
-      "schema_version": 1,
-      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-01T14:33:19.558011+00:00"
-    },
+    "intake_preflight_history": [
+      {
+        "attempt": 1,
+        "dedup_key": "fa62e6faf85d19c7106b63cdd90abefa56ba33c6114b1e6623b699c9cb1ce22a",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\intake\\receipts\\fa62e6faf85d19c7-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T14:33:33.485262+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "c97edc817cf0c94cf941802d43d8897c4ffa2159953cefa8632ae7e203cc04a5",
+        "schema_version": 1,
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "source_revision_resolved": true
+      }
+    ],
+    "intake_preflight_pending": null,
     "presentation_plan_hash": "20a0bf8b74d19151ba95301785c1771a2c646dd08b82bda2e93d02bdd5ce4b0d",
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
@@ -8828,10 +8837,10 @@
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
     "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-01T14:33:19.558029+00:00"
+    "updated_at": "2026-08-01T14:33:33.485275+00:00"
   },
   "schema_version": 2,
-  "state_version": 587,
+  "state_version": 588,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ccdd9e2fc364cf6cc8eac891a2e6b23ff41561957c5c635a74a1842928f2656",
