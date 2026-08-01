@@ -149,6 +149,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-html-foss__CSSForge\\b972777dd11f1045ac695513e73d68883404e7bc\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-01T17:54:26.116783+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -192,11 +203,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-01T17:54:17.321028+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-01T17:54:26.116783+00:00"
   },
   "schema_version": 2,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1319039143:00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205": {
