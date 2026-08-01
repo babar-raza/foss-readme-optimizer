@@ -56,6 +56,52 @@ def _start_intake_llm_accounting(
 
 
 def cmd_supervise(args: argparse.Namespace) -> int:
+    """Run supervision with any workflow-scoped registry revision context."""
+
+    if getattr(args, "execution_profile", None) != "act_registry_intake":
+        return _cmd_supervise_impl(args)
+
+    import json
+
+    from readme_agent.registry.loader import PRODUCTS_PATH
+    from readme_agent.registry.revision_gate import evaluate_registry_revision
+    from readme_agent.registry.revision_store import (
+        bind_registry_revision,
+        load_current_registry_revision,
+        reset_registry_revision,
+    )
+
+    revision = load_current_registry_revision()
+    if revision is None:
+        print(
+            "error: act_registry_intake requires the current workflow registry revision",
+            file=sys.stderr,
+        )
+        return 2
+    products = json.loads(PRODUCTS_PATH.read_text(encoding="utf-8"))
+    gate = evaluate_registry_revision(revision, products)
+    if not gate.eligible:
+        print(
+            "error: act_registry_intake registry revision is ineligible: "
+            + ", ".join(gate.reasons),
+            file=sys.stderr,
+        )
+        return 2
+    repository = getattr(args, "repo", None)
+    if repository not in revision.admitted_repositories:
+        print(
+            f"error: {repository!r} is not admitted by registry revision {revision.revision_id}",
+            file=sys.stderr,
+        )
+        return 2
+    token = bind_registry_revision(revision)
+    try:
+        return _cmd_supervise_impl(args)
+    finally:
+        reset_registry_revision(token)
+
+
+def _cmd_supervise_impl(args: argparse.Namespace) -> int:
     if getattr(args, "mission_task_graph", None):
         from readme_agent.supervisor.mission_command import run_mission_command
 
@@ -128,14 +174,15 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
-    if profile is not None and profile.name == "act_poc":
+    if profile is not None and profile.name in {"act_registry_intake", "act_poc"}:
         if env.gh_token() is None:
             print(
-                "error: act_poc requires ACT=true and a dedicated "
+                f"error: {profile.name} requires ACT=true and a dedicated "
                 "README_AGENT_ACT_GITHUB_TOKEN; ambient PAT variables are never accepted",
                 file=sys.stderr,
             )
             return 2
+    if profile is not None and profile.name == "act_poc":
         if not cohort_manifest:
             print(
                 "error: act_poc requires --qualified-cohort-manifest",
@@ -167,6 +214,12 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             return 2
         args._portfolio_member = True
         args._portfolio_source_revision = member.source_revision
+    elif profile is not None and profile.name == "act_registry_intake" and cohort_manifest:
+        print(
+            "error: act_registry_intake does not accept a qualified cohort manifest",
+            file=sys.stderr,
+        )
+        return 2
     elif cohort_manifest:
         print(
             "error: --qualified-cohort-manifest is valid only with --execution-profile "
@@ -181,12 +234,22 @@ def cmd_supervise(args: argparse.Namespace) -> int:
             flush=True,
         )
     readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
-    poc_profile_names = {"local_poc", "act_poc"}
+    poc_profile_names = {"local_poc", "act_registry_intake", "act_poc"}
     if readme_poc_stage_limit is not None and (
         profile is None or profile.name not in poc_profile_names
     ):
         print(
             "error: --max-readme-poc-stage is only valid with a local POC execution profile",
+            file=sys.stderr,
+        )
+        return 2
+    if (
+        profile is not None
+        and profile.name == "act_registry_intake"
+        and (readme_poc_stage_limit != "INTAKE_READY")
+    ):
+        print(
+            "error: act_registry_intake requires --max-readme-poc-stage INTAKE_READY",
             file=sys.stderr,
         )
         return 2

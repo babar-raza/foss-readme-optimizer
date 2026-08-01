@@ -119,6 +119,7 @@ jobs:
       matrix: ${{ steps.recovery-matrix.outputs.matrix }}
       has_recovery: ${{ steps.recovery-matrix.outputs.has_recovery }}
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
+      is_registry_intake: ${{ steps.runtime-mode.outputs.is_registry_intake }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
       is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
       is_hosted_staging_effect: ${{ steps.runtime-mode.outputs.is_hosted_staging_effect }}
@@ -134,16 +135,21 @@ jobs:
           requested="${REQUESTED_PROOF_MODE:-}"
           manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
           if [ "${ACT:-}" = "true" ]; then
-            if [ -n "$requested" ] && [ "$requested" != "act_qualified_cohort" ] && [ "$requested" != "act_staging_effect" ]; then
-              echo "::error::act accepts only qualified-cohort proof modes"
+            if [ -n "$requested" ] && [ "$requested" != "act_registry_intake" ] && [ "$requested" != "act_qualified_cohort" ] && [ "$requested" != "act_staging_effect" ]; then
+              echo "::error::act accepts only governed ACT proof modes"
               exit 2
             fi
-            if [ -z "$manifest" ]; then
+            if [ "$requested" != "act_registry_intake" ] && [ -z "$manifest" ]; then
               echo "::error::act_qualified_cohort requires a frozen cohort manifest"
               exit 2
             fi
             echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "act_registry_intake" ]; then
+              echo "is_registry_intake=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "is_registry_intake=false" >> "$GITHUB_OUTPUT"
+            fi
             if [ "$requested" = "act_staging_effect" ]; then
               test -n "$REQUESTED_STAGING_MANIFEST" || {
                 echo "::error::act_staging_effect requires a staging target manifest"
@@ -158,11 +164,12 @@ jobs:
               echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
             fi
           else
-            if [ "$requested" = "act_qualified_cohort" ] || [ "$requested" = "act_staging_effect" ]; then
-              echo "::error::act_qualified_cohort is forbidden outside ACT=true; act_staging_effect is also forbidden"
+            if [ "$requested" = "act_registry_intake" ] || [ "$requested" = "act_qualified_cohort" ] || [ "$requested" = "act_staging_effect" ]; then
+              echo "::error::ACT proof modes are forbidden outside ACT=true"
               exit 2
             fi
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
+            echo "is_registry_intake=false" >> "$GITHUB_OUTPUT"
             if [ "$requested" = "github_app_staging_effect" ]; then
               test -n "$manifest" || {
                 echo "::error::github_app_staging_effect requires a frozen cohort manifest"
@@ -201,7 +208,7 @@ jobs:
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
       - name: Restore immutable cohort inputs
-        if: ${{ steps.runtime-mode.outputs.is_act_proof == 'true' || steps.runtime-mode.outputs.is_hosted_staging_effect == 'true' }}
+        if: ${{ (steps.runtime-mode.outputs.is_act_proof == 'true' && steps.runtime-mode.outputs.is_registry_intake != 'true') || steps.runtime-mode.outputs.is_hosted_staging_effect == 'true' }}
         env:
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
         run: |
@@ -216,6 +223,13 @@ jobs:
               > "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker"
             echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
           fi
+      - name: Initialize isolated ACT registry-intake state
+        if: ${{ steps.runtime-mode.outputs.is_registry_intake == 'true' }}
+        run: |
+          mkdir -p runs/act-registry-intake
+          test -d runs/act-registry-intake/state.git || git init --bare runs/act-registry-intake/state.git
+          printf '%s\n' "act_registry_intake" > "runs/act-registry-intake/shared-workspace-${GITHUB_RUN_ID}.marker"
+          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-registry-intake/state.git" >> "$GITHUB_ENV"
       - name: Validate repository_dispatch identity
         if: ${{ github.event_name == 'repository_dispatch' }}
         env:
@@ -230,16 +244,25 @@ jobs:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
+          IS_REGISTRY_INTAKE: ${{ steps.runtime-mode.outputs.is_registry_intake }}
           IS_STAGING_EFFECT: ${{ steps.runtime-mode.outputs.is_staging_effect }}
         run: |
           mkdir -p runs/workflow
-          if [ "$IS_ACT_PROOF" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            export README_AGENT_STATE_REMOTE="$PWD/runs/act-registry-intake/state.git"
+          elif [ "$IS_ACT_PROOF" = "true" ]; then
             # Bind the disposable state remote in the consuming shell too.
             # GITHUB_ENV propagation varies across local workflow runners;
             # recovery must never silently fall back to the control origin.
             export README_AGENT_STATE_REMOTE="$PWD/runs/act-poc/state.git"
           fi
-          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            if [ -n "$REQUESTED_REPOSITORY" ]; then
+              readme-agent recovery-sweep --only "$REQUESTED_REPOSITORY" --output runs/workflow/recovery-candidates.json
+            else
+              readme-agent recovery-sweep --output runs/workflow/recovery-candidates.json
+            fi
+          elif [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             repositories=$(readme-agent qualified-cohort-matrix \
               --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
             readme-agent recovery-sweep \
@@ -298,11 +321,16 @@ jobs:
       - name: Bind isolated ACT state remote
         if: ${{ needs.recover.outputs.is_act_proof == 'true' }}
         run: |
-          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+          if [ "${{ needs.recover.outputs.is_registry_intake }}" = "true" ]; then
+            state_root=runs/act-registry-intake
+          else
+            state_root=runs/act-poc
+          fi
+          test -f "$state_root/shared-workspace-${GITHUB_RUN_ID}.marker" || {
             echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
             exit 2
           }
-          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+          echo "README_AGENT_STATE_REMOTE=$PWD/$state_root/state.git" >> "$GITHUB_ENV"
       - name: Mint repository-scoped read-only GitHub App token
         id: target-token
         if: ${{ needs.recover.outputs.is_act_proof != 'true' }}
@@ -316,6 +344,7 @@ jobs:
       - name: Resume the original durable trigger
         env:
           IS_ACT_PROOF: ${{ needs.recover.outputs.is_act_proof }}
+          IS_REGISTRY_INTAKE: ${{ needs.recover.outputs.is_registry_intake }}
           COHORT_MANIFEST: ${{ needs.recover.outputs.cohort_manifest }}
           README_AGENT_PRODUCTION_AUTH: ${{ needs.recover.outputs.is_act_proof == 'true' && 'act_local' || 'github_app' }}
           README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
@@ -323,7 +352,12 @@ jobs:
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
-          if [ "$IS_ACT_PROOF" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --resume-trigger-key "${{ matrix.dedup_key }}" \
+              --no-registry-heal --execution-profile act_registry_intake \
+              --max-readme-poc-stage INTAKE_READY
+          elif [ "$IS_ACT_PROOF" = "true" ]; then
             readme-agent supervise --repo "${{ matrix.repo }}" \
               --resume-trigger-key "${{ matrix.dedup_key }}" \
               --no-registry-heal --execution-profile act_poc \
@@ -348,6 +382,7 @@ jobs:
       matrix: ${{ steps.matrix.outputs.matrix }}
       schedule_window: ${{ steps.identity.outputs.schedule_window }}
       is_act_proof: ${{ steps.runtime-mode.outputs.is_act_proof }}
+      is_registry_intake: ${{ steps.runtime-mode.outputs.is_registry_intake }}
       cohort_manifest: ${{ steps.runtime-mode.outputs.cohort_manifest }}
       is_staging_effect: ${{ steps.runtime-mode.outputs.is_staging_effect }}
       is_hosted_staging_effect: ${{ steps.runtime-mode.outputs.is_hosted_staging_effect }}
@@ -363,10 +398,15 @@ jobs:
           requested="${REQUESTED_PROOF_MODE:-}"
           manifest="${REQUESTED_COHORT_MANIFEST:-${README_AGENT_QUALIFIED_COHORT_MANIFEST:-}}"
           if [ "${ACT:-}" = "true" ]; then
-            test -z "$requested" || test "$requested" = "act_qualified_cohort" || test "$requested" = "act_staging_effect"
-            test -n "$manifest"
+            test -z "$requested" || test "$requested" = "act_registry_intake" || test "$requested" = "act_qualified_cohort" || test "$requested" = "act_staging_effect"
+            if [ "$requested" != "act_registry_intake" ]; then test -n "$manifest"; fi
             echo "is_act_proof=true" >> "$GITHUB_OUTPUT"
             echo "cohort_manifest=$manifest" >> "$GITHUB_OUTPUT"
+            if [ "$requested" = "act_registry_intake" ]; then
+              echo "is_registry_intake=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "is_registry_intake=false" >> "$GITHUB_OUTPUT"
+            fi
             if [ "$requested" = "act_staging_effect" ]; then
               test -n "$REQUESTED_STAGING_MANIFEST"
               echo "is_staging_effect=true" >> "$GITHUB_OUTPUT"
@@ -378,8 +418,9 @@ jobs:
               echo "staging_target_manifest=" >> "$GITHUB_OUTPUT"
             fi
           else
-            test "$requested" != "act_qualified_cohort" && test "$requested" != "act_staging_effect"
+            test "$requested" != "act_registry_intake" && test "$requested" != "act_qualified_cohort" && test "$requested" != "act_staging_effect"
             echo "is_act_proof=false" >> "$GITHUB_OUTPUT"
+            echo "is_registry_intake=false" >> "$GITHUB_OUTPUT"
             if [ "$requested" = "github_app_staging_effect" ]; then
               test -n "$manifest"
               test -n "$REQUESTED_STAGING_MANIFEST"
@@ -414,15 +455,27 @@ jobs:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ steps.runtime-mode.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ steps.runtime-mode.outputs.is_act_proof }}
+          IS_REGISTRY_INTAKE: ${{ steps.runtime-mode.outputs.is_registry_intake }}
           IS_STAGING_EFFECT: ${{ steps.runtime-mode.outputs.is_staging_effect }}
         run: |
-          if [ "$IS_ACT_PROOF" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            test -f "runs/act-registry-intake/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+              echo "::error::ACT registry-intake proof requires a shared bound workspace; invoke act with --bind"
+              exit 2
+            }
+          elif [ "$IS_ACT_PROOF" = "true" ]; then
             test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
               echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
               exit 2
             }
           fi
-          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            if [ -n "$REQUESTED_REPOSITORY" ]; then
+              matrix=$(readme-agent runtime-matrix --only "$REQUESTED_REPOSITORY" | jq -c .)
+            else
+              matrix=$(readme-agent runtime-matrix | jq -c .)
+            fi
+          elif [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             matrix=$(readme-agent qualified-cohort-matrix --manifest "$COHORT_MANIFEST" | jq -c .)
             if [ -n "$REQUESTED_REPOSITORY" ]; then
               matrix=$(jq -cn \
@@ -481,11 +534,16 @@ jobs:
       - name: Bind isolated ACT state remote
         if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
         run: |
-          test -f "runs/act-poc/shared-workspace-${GITHUB_RUN_ID}.marker" || {
+          if [ "${{ needs.plan.outputs.is_registry_intake }}" = "true" ]; then
+            state_root=runs/act-registry-intake
+          else
+            state_root=runs/act-poc
+          fi
+          test -f "$state_root/shared-workspace-${GITHUB_RUN_ID}.marker" || {
             echo "::error::act proof requires a shared bound workspace; invoke act with --bind"
             exit 2
           }
-          echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+          echo "README_AGENT_STATE_REMOTE=$PWD/$state_root/state.git" >> "$GITHUB_ENV"
       - name: Controlled ACT matrix-isolation failure
         if: >-
           ${{
@@ -508,6 +566,7 @@ jobs:
       - name: Run canonical fail-closed supervisor
         env:
           IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
+          IS_REGISTRY_INTAKE: ${{ needs.plan.outputs.is_registry_intake }}
           COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
           README_AGENT_PRODUCTION_AUTH: ${{ needs.plan.outputs.is_act_proof == 'true' && 'act_local' || 'github_app' }}
           README_AGENT_ACT_GITHUB_TOKEN: ${{ secrets.ACT_GITHUB_READ_TOKEN }}
@@ -518,7 +577,11 @@ jobs:
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
-          if [ "$IS_ACT_PROOF" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            readme-agent supervise --repo "${{ matrix.repo }}" \
+              --no-registry-heal --execution-profile act_registry_intake \
+              --max-readme-poc-stage INTAKE_READY
+          elif [ "$IS_ACT_PROOF" = "true" ]; then
             readme-agent supervise --repo "${{ matrix.repo }}" \
               --no-registry-heal --execution-profile act_poc \
               --max-readme-poc-stage TRUSTED_NO_OP_PROVEN \
@@ -652,16 +715,29 @@ jobs:
       - run: pip install -e . --no-deps
       - name: Bind isolated ACT state remote
         if: ${{ needs.plan.outputs.is_act_proof == 'true' }}
-        run: echo "README_AGENT_STATE_REMOTE=$PWD/runs/act-poc/state.git" >> "$GITHUB_ENV"
+        run: |
+          if [ "${{ needs.plan.outputs.is_registry_intake }}" = "true" ]; then
+            state_root=runs/act-registry-intake
+          else
+            state_root=runs/act-poc
+          fi
+          echo "README_AGENT_STATE_REMOTE=$PWD/$state_root/state.git" >> "$GITHUB_ENV"
       - name: Aggregate durable health
         env:
           REQUESTED_REPOSITORY: ${{ inputs.repository || github.event.client_payload.repository }}
           COHORT_MANIFEST: ${{ needs.plan.outputs.cohort_manifest }}
           IS_ACT_PROOF: ${{ needs.plan.outputs.is_act_proof }}
+          IS_REGISTRY_INTAKE: ${{ needs.plan.outputs.is_registry_intake }}
           IS_STAGING_EFFECT: ${{ needs.plan.outputs.is_staging_effect }}
         run: |
           mkdir -p runs/workflow
-          if [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
+          if [ "$IS_REGISTRY_INTAKE" = "true" ]; then
+            if [ -n "$REQUESTED_REPOSITORY" ]; then
+              readme-agent health-report --only "$REQUESTED_REPOSITORY" --output runs/workflow/health-report.json
+            else
+              readme-agent health-report --output runs/workflow/health-report.json
+            fi
+          elif [ "$IS_ACT_PROOF" = "true" ] || [ "$IS_STAGING_EFFECT" = "true" ]; then
             repositories=$(readme-agent qualified-cohort-matrix \
               --manifest "$COHORT_MANIFEST" | jq -r '[.include[].repo] | join(",")')
             readme-agent health-report \

@@ -227,6 +227,7 @@ def _build_parser() -> argparse.ArgumentParser:
             "local_inspect",
             "local_dry_run",
             "local_poc",
+            "act_registry_intake",
             "act_poc",
             "github_observe",
             "github_proposal",

@@ -13,6 +13,9 @@ proposal-preparing vs. (future) fully-applying intent:
 - `local_poc`: the canonical, unattended full-registry local proof.  It has the same
   durable-state and independent-verification discipline as production, while allowing only
   local effects; it is never permitted to write to a product remote.
+- `act_registry_intake`: an ACT-only, lifecycle-bounded proof of discovery-to-intake workflow
+  wiring. It accepts Actions triggers but stops at `INTAKE_READY` and cannot dispatch a remote
+  write.
 - `act_poc`: the same local-only proof contract invoked by the actual reusable Actions workflow
   under `act`; it accepts Actions triggers but still cannot dispatch a remote write.
 - `github_observe` / `github_proposal` / `github_apply`: unattended GitHub Actions runs, always
@@ -39,6 +42,7 @@ ExecutionProfileName = Literal[
     "local_inspect",
     "local_dry_run",
     "local_poc",
+    "act_registry_intake",
     "act_poc",
     "github_observe",
     "github_proposal",
@@ -106,6 +110,18 @@ _PROFILES: dict[ExecutionProfileName, ExecutionProfileV1] = {
         verify_local_product_facts=True,
         allowed_triggers=["cli_manual"],
         rollback="discard only the neutered local work clone; product remotes are never writable",
+        allows_domain_bypass=False,
+    ),
+    "act_registry_intake": ExecutionProfileV1(
+        name="act_registry_intake",
+        requires_durable_state=True,
+        fail_closed_on_state_failure=True,
+        allowed_permission_classes=["read_only_local", "read_only_network", "local_write"],
+        require_evidence_bundle=True,
+        require_independent_verification=False,
+        verify_local_product_facts=False,
+        allowed_triggers=["workflow_dispatch", "workflow_call", "schedule", "repository_dispatch"],
+        rollback="discard the isolated ACT state remote and neutered local work clone",
         allows_domain_bypass=False,
     ),
     "act_poc": ExecutionProfileV1(

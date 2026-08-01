@@ -46,7 +46,7 @@ def test_analysis_uses_dedicated_read_only_app_token_and_observe_profile():
 def test_act_proof_is_explicit_isolated_and_still_uses_the_canonical_supervisor():
     text = WORKFLOW.read_text(encoding="utf-8")
 
-    assert "act_qualified_cohort is forbidden outside ACT=true" in text
+    assert "ACT proof modes are forbidden outside ACT=true" in text
     assert "readme-agent qualified-cohort-matrix" in text
     assert "readme-agent restore-qualified-cohort" in text
     assert "--execution-profile act_poc" in text
@@ -59,6 +59,17 @@ def test_act_proof_is_explicit_isolated_and_still_uses_the_canonical_supervisor(
     assert "invoke act with --bind" in text
     assert "README_AGENT_ACT_FAIL_REPOSITORY == matrix.repo" in text
     assert "controlled ACT failure for matrix-isolation proof" in text
+
+
+def test_act_registry_intake_uses_current_registry_without_trusted_cohort():
+    text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert 'requested" = "act_registry_intake"' in text
+    assert "ACT proof modes are forbidden outside ACT=true" in text
+    assert "runs/act-registry-intake/state.git" in text
+    assert "readme-agent runtime-matrix" in text
+    assert "--execution-profile act_registry_intake" in text
+    assert "--max-readme-poc-stage INTAKE_READY" in text
 
 
 def test_staging_effect_consumes_frozen_candidates_without_rerunning_analysis():

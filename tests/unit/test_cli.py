@@ -108,6 +108,29 @@ def _stub_preflight_ok(monkeypatch) -> None:
     )
 
 
+def _stub_act_registry_revision(monkeypatch, tmp_path, repository="org/repo"):
+    """Supply the immutable workflow revision required before ACT intake execution."""
+
+    import readme_agent.registry.loader as loader_module
+    import readme_agent.registry.revision_gate as gate_module
+    import readme_agent.registry.revision_store as store_module
+
+    products_path = tmp_path / "products.json"
+    products_path.write_text("[]\n", encoding="utf-8")
+    revision = argparse.Namespace(
+        revision_id="a" * 64,
+        admitted_repositories=[repository],
+    )
+    monkeypatch.setattr(loader_module, "PRODUCTS_PATH", products_path)
+    monkeypatch.setattr(store_module, "load_current_registry_revision", lambda: revision)
+    monkeypatch.setattr(
+        gate_module,
+        "evaluate_registry_revision",
+        lambda revision, products: argparse.Namespace(eligible=True, reasons=[]),
+    )
+    return revision
+
+
 def test_version_exits_zero(capsys):
     with pytest.raises(SystemExit) as exc:
         main(["--version"])
@@ -1517,6 +1540,88 @@ class TestLocalPocPortfolioCommand:
             _build_parser().parse_args(
                 ["supervise", "--repo", "org/repo", "--execution-profile", "not_a_real_profile"]
             )
+
+    def test_act_registry_intake_requires_act_local_provider(self, monkeypatch, tmp_path, capsys):
+        _stub_act_registry_revision(monkeypatch, tmp_path)
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.setenv("README_AGENT_ACT_GITHUB_TOKEN", "fixture-token")
+        monkeypatch.delenv("ACT", raising=False)
+
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="act_registry_intake",
+            qualified_cohort_manifest=None,
+            bounded_verified_canary=False,
+            max_readme_poc_stage="INTAKE_READY",
+        )
+
+        assert cmd_supervise(args) == 2
+        assert "requires ACT=true" in capsys.readouterr().err
+
+    def test_act_registry_intake_requires_exact_intake_stage_ceiling(
+        self, monkeypatch, tmp_path, capsys
+    ):
+        _stub_act_registry_revision(monkeypatch, tmp_path)
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.setenv("README_AGENT_ACT_GITHUB_TOKEN", "fixture-token")
+        monkeypatch.setenv("ACT", "true")
+
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="act_registry_intake",
+            qualified_cohort_manifest=None,
+            bounded_verified_canary=False,
+            max_readme_poc_stage="FACTS_READY",
+        )
+
+        assert cmd_supervise(args) == 2
+        assert "requires --max-readme-poc-stage INTAKE_READY" in capsys.readouterr().err
+
+    def test_act_registry_intake_rejects_trusted_cohort_manifest(
+        self, monkeypatch, tmp_path, capsys
+    ):
+        _stub_act_registry_revision(monkeypatch, tmp_path)
+        monkeypatch.setenv("README_AGENT_PRODUCTION_AUTH", "act_local")
+        monkeypatch.setenv("README_AGENT_ACT_GITHUB_TOKEN", "fixture-token")
+        monkeypatch.setenv("ACT", "true")
+
+        args = argparse.Namespace(
+            repo="org/repo",
+            durable_state=False,
+            domain=None,
+            execution_profile="act_registry_intake",
+            qualified_cohort_manifest="trusted.json",
+            bounded_verified_canary=False,
+            max_readme_poc_stage="INTAKE_READY",
+        )
+
+        assert cmd_supervise(args) == 2
+        assert "does not accept a qualified cohort manifest" in capsys.readouterr().err
+
+    def test_act_registry_intake_binds_revision_only_for_the_invocation(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.commands_supervision as supervision_module
+        from readme_agent.registry.revision_store import current_registry_revision
+
+        revision = _stub_act_registry_revision(monkeypatch, tmp_path)
+
+        def _assert_bound(args):
+            assert current_registry_revision() is revision
+            return 0
+
+        monkeypatch.setattr(supervision_module, "_cmd_supervise_impl", _assert_bound)
+        args = argparse.Namespace(
+            repo="org/repo",
+            execution_profile="act_registry_intake",
+        )
+
+        assert supervision_module.cmd_supervise(args) == 0
+        assert current_registry_revision() is None
 
     @pytest.mark.parametrize("profile_name", ["github_observe", "github_proposal", "github_apply"])
     def test_domain_rejected_under_every_github_profile_before_heal_or_preflight_run(
