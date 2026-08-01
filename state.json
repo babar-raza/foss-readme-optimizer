@@ -60,7 +60,14 @@
         "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 2,
+      "dedup_key": "5bd8efc79164e5b772361e315c8e04d9d7ec87a910b98d65b8494ab375afa869",
+      "schema_version": 1,
+      "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-01T15:43:37.814053+00:00"
+    },
     "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
@@ -70,10 +77,10 @@
     "schema_version": 2,
     "source_revision": null,
     "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-08-01T15:34:12.501483+00:00"
+    "updated_at": "2026-08-01T15:43:37.814081+00:00"
   },
   "schema_version": 2,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1319039143:00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205": {
