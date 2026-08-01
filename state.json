@@ -753,7 +753,7 @@
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": null,
+    "assessment_hash": "1ab49f8a798d1c3f46bf0fa6463dfe7737a803a65348ee00b4654df095ef8473",
     "assurance_history": [
       {
         "from_assurance": "repository_verified",
@@ -1051,6 +1051,18 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\5f4dde6a8b79c097c282\\r\\f62dc1a5ec302587\\s\\737d26451ed5\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\737d26451ed5c58e53017e3c9460e834f99d20ed\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T02:40:03.509510+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -1090,15 +1102,15 @@
     "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": null,
-    "reviewer_standard_hash": null,
+    "repair_budget_origin_hash": "ea7254d6add9311ae2c72ef1c99932e1aeab03acc1c963e2e5c996f863c00de9",
+    "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-01T02:17:28.244980+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T02:40:03.509510+00:00"
   },
   "schema_version": 2,
-  "state_version": 86,
+  "state_version": 87,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
