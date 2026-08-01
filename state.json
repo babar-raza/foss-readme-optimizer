@@ -1347,7 +1347,7 @@
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "44063fdbaec8ad7c00a727ba70d8c6ec0f78f9de457d63a1eb0adaedb5317378",
+      "accepted_facts_hash": "5001811560c81ffec9688da2f29c270a2c2bd1058b15ef833e1ffa3cc7443170",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1380,36 +1380,36 @@
           },
           {
             "dimension": "navigation",
-            "note": "Section headers follow consistent Markdown levels (`##`, `###`) and the order flows logically from product description \u2192 features \u2192 install \u2192 examples \u2192 advanced usage \u2192 license.",
+            "note": "Section headers follow consistent Markdown levels (`##`, `###`) and the order places product understanding and getting-started content (Installation, Quick Start) before development/legal content (Build/Test, License).",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The three images shown are illustrative of actual input/output results (XPS\u2192PDF, PS\u2192PDF, PS\u2192image), not decorative, and directly support understanding the product's function.",
+            "note": "The three images illustrate actual input/output results (XPS\u2192PDF, PS\u2192PDF, PS\u2192image), directly demonstrating the product's workflow rather than using generic decoration.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) \u2014 GitHub only shows README, per the repository's current state.",
+            "note": "The README lacks recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY), and GitHub shows only README as recognized \u2014 but LICENSE is present, satisfying the top-priority gate.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in prose, recent activity is implied by the presence of a working MCP feature and test suite \u2014 though the README itself does not display GitHub-generated signals like release dates.",
-            "satisfied": true
+            "note": "The README does not include or reference recent releases or commit activity; GitHub's `pushed_at` and Releases sidebar must be used for this signal, not prose.",
+            "satisfied": false
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-only Python package \u2014 the standard allows absence if no commercial tier exists or is promoted.",
+            "note": "There is no commercial mention in the README, which is acceptable since the standard allows absence if no commercial tier exists \u2014 and the license is MIT, indicating no dual-licensing.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies most presentation dimensions, especially product clarity, audience fit, examples, and visuals, but fails on installation path (local install instead of PyPI coordinates) and contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING/SECURITY files)."
+        "overall_summary": "The README satisfies most presentation dimensions, especially product clarity, audience fit, trust signals (via LICENSE), verified examples, navigation, and visual usefulness. However, it fails on installation path (uses local install instead of PyPI coordinates) and lacks full contribution-readiness files, while maintenance signals remain unaddressed in the README itself."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T00:05:31.246638+00:00",
+      "last_run_timestamp": "2026-08-01T00:54:01.725998+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -3060,7 +3060,7 @@
     "updated_at": "2026-08-01T00:53:00.939745+00:00"
   },
   "schema_version": 2,
-  "state_version": 365,
+  "state_version": 366,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
