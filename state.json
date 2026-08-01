@@ -366,13 +366,29 @@
     },
     "metadata_presentation": {
       "accepted_facts_hash": "6fdcee807ba369088e5034fc0deda6aa67b02d7e827acc2c57bd34baca7018d3",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [],
         "current_description": "The official open-source Python library by Aspose.Words for document conversion and data extraction",
         "current_homepage": null,
         "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
         "has_proposal": true,
         "proposed_description": null,
         "proposed_homepage": "https://products.aspose.org/words/python/",
@@ -383,10 +399,10 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:16:04.055462+00:00",
+      "last_run_timestamp": "2026-08-01T11:12:58.838844+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+      "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "package_release_audit": {
       "accepted_facts_hash": "eac0c9a8c82ed0c313a7d5d6a6dc64c2b031afe61fdee1d52b627a8165539009",
@@ -776,7 +792,7 @@
     "updated_at": "2026-08-01T11:11:19.590227+00:00"
   },
   "schema_version": 2,
-  "state_version": 69,
+  "state_version": 70,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
