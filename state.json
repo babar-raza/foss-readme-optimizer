@@ -813,6 +813,23 @@
       "task_id": "639606b62a63407c8b8111f0683d17fb",
       "trigger_dedup_key": "operator:20260801-070610-d9b6:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "e9401d9c213aa6cd65b09696a86030e1f56b81658b344ce68473c877689224d8": {
+      "action": "get_domain_findings",
+      "attempt": 1,
+      "checkpoint_id": "e9401d9c213aa6cd65b09696a86030e1f56b81658b344ce68473c877689224d8",
+      "completed_at": "2026-08-01T07:27:22.973543+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "6dbaa5285a59a8902812f2a76408472ea37a079bea2a027cbdd0654ee86a8410",
+      "output_hash": "98ff0429c6c7087105d02edce1f0cc03ddefff2262f6c2af8ed56fd2b9c48221",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260801-072120-9e1a",
+      "schema_version": 1,
+      "stage": "task_completed",
+      "started_at": "2026-08-01T07:27:22.973540+00:00",
+      "task_id": "df85c8738244487ca5c173dead2d501a",
+      "trigger_dedup_key": "operator:20260801-072120-9e1a:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "ebdb1429c070ca9096f4fdb1c6bdc1ea3be470df1051c988df70e27c8d126b9d": {
       "action": null,
       "attempt": 1,
@@ -1739,7 +1756,7 @@
     "updated_at": "2026-08-01T07:09:10.838020+00:00"
   },
   "schema_version": 2,
-  "state_version": 151,
+  "state_version": 152,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "610bfd72787ffba72bd8b4a0601ff3715b8c2cfe6faf5d98386c1f8db8840661",
@@ -6796,11 +6813,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "5855ad82346f30332e8c6a8c4e5e88ba894f7f2a9c039edc12eff3f19b6df5d4",
+      "last_checkpoint_id": "e9401d9c213aa6cd65b09696a86030e1f56b81658b344ce68473c877689224d8",
       "lease_expires_at": "2026-08-01T07:36:40.117612+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-01T07:27:15.704382+00:00"
+      "updated_at": "2026-08-01T07:27:22.973543+00:00"
     }
   },
   "trigger_records": {},
