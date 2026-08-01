@@ -3,6 +3,23 @@
   "accepted_status": null,
   "capability_outputs": [],
   "checkpoints": {
+    "06f5693aca203d6326e5001949f0890dec552a0169d49c015b43b088b52b3145": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "06f5693aca203d6326e5001949f0890dec552a0169d49c015b43b088b52b3145",
+      "completed_at": "2026-08-01T10:35:55.072642+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "76e23841d8c96958bad0d623c9963db48eb4550ebbbbece9fc389f36b65abd49",
+      "repository": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+      "run_id": "20260801-103434-3805",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-01T10:35:55.072627+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-103434-3805:aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
+    },
     "37c1e8b9e77770649dfd8cf95fcaef749036c8986c789e02d3f8970621644adb": {
       "action": null,
       "attempt": 1,
@@ -5374,7 +5391,7 @@
     "updated_at": "2026-08-01T10:30:45.446747+00:00"
   },
   "schema_version": 2,
-  "state_version": 75,
+  "state_version": 76,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e00621c9a87ed36e403b1fc8c9215f0a35558faf1450cd22b6dce1ed6198a688",
@@ -5501,11 +5518,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "858ae82b3ab2648b415d51c2af7fde858b68eb88a321c74a204510bb47c51967",
+      "last_checkpoint_id": "06f5693aca203d6326e5001949f0890dec552a0169d49c015b43b088b52b3145",
       "lease_expires_at": "2026-08-01T10:50:02.165905+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-01T10:35:08.618007+00:00"
+      "updated_at": "2026-08-01T10:35:55.072642+00:00"
     }
   },
   "trigger_records": {},
