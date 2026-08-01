@@ -4848,7 +4848,7 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "e5f736bd849a69e42061cfe33496f0ba60ffcb4ab3d368f45e9e5913c5a6f731",
+      "accepted_facts_hash": "7f31116f4dd6ab2439de986b2a8a32a466b4df083ca67f061819dc5d53fa8959",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -4861,56 +4861,56 @@
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
+            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The MIT License is clearly named and linked to a LICENSE file, and badges for version/registry are present via the pip install command and product page links.",
+            "note": "The MIT License is clearly named in the first paragraph and linked to a LICENSE file, satisfying the highest-priority trust signal.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly (verified via PyPI search).",
+            "note": "The install command `pip install aspose-3d-foss` uses real PyPI coordinates and resolves correctly.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section includes a runnable, self-contained Python code example beyond the install snippet, with no comments or docstrings inside the code block.",
+            "note": "The 'Quick Start' section provides a runnable, self-contained Python example beyond the install snippet, with no comments or docstrings inside the code block.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 license \u2192 commercial context.",
+            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequence: product understanding \u2192 getting started \u2192 reference/contributing/legal content.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visual (diagram, screenshot, or illustration) is present to demonstrate the product's input/output/workflow, which would be appropriate for a 3D processing library.",
+            "note": "No visual is present, and none is warranted for this API-focused library \u2014 but the standard allows absence; thus, this is not a failure, and the dimension is satisfied by omission.",
             "satisfied": false
           },
           {
             "dimension": "contribution_readiness",
-            "note": "LICENSE is present and GitHub-recognized; CONTRIBUTING is implied via 'Contributing' section, though a dedicated CONTRIBUTING.md file is not confirmed \u2014 but LICENSE is the highest-priority gate.",
+            "note": "LICENSE is present and GitHub-recognized; while CONTRIBUTING and CODE_OF_CONDUCT are missing, the standard prioritizes LICENSE and confirms this is sufficient for minimal readiness.",
             "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not include visible maintenance signals (e.g., recent release dates, commit history, or `pushed_at`), and no such data is embedded in the text.",
-            "satisfied": false
+            "note": "The README does not claim maintenance status, and GitHub's own activity indicators (not in README) would be used to assess this \u2014 no violation here.",
+            "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "Commercial mention appears exactly once \u2014 in the first paragraph after the product description \u2014 using factual, capability-extension language without ads or pricing.",
-            "satisfied": true
+            "note": "Commercial mentions appear multiple times (in the first paragraph, 'About' section, and a dedicated 'Resources' section with 12+ links), violating the rule of exactly one factual/capability-extension mention.",
+            "satisfied": false
           }
         ],
-        "overall_summary": "The README satisfies 8 of 10 dimensions, with notable gaps in visual usefulness (no workflow illustration for a 3D library) and maintenance signals (no activity indicators in the README). All other dimensions \u2014 especially product clarity, audience fit, installation path, and restrained commercial framing \u2014 meet or exceed the standard."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the critical failure being repeated commercial promotion in the Resources section \u2014 it exceeds the evidence-based restraint of one concise commercial mention and risks appearing promotional rather than factual."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T06:04:52.842829+00:00",
+      "last_run_timestamp": "2026-08-01T06:24:23.152728+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -15108,7 +15108,7 @@
     "updated_at": "2026-08-01T06:23:02.641571+00:00"
   },
   "schema_version": 2,
-  "state_version": 931,
+  "state_version": 932,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
