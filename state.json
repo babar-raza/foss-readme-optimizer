@@ -268,13 +268,29 @@
     },
     "metadata_presentation": {
       "accepted_facts_hash": "a54b71524076c8d5d47675acc9ac8f2cf145d22525c4264543f02f30b31bd1b4",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [],
         "current_description": "The official open-source Python library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations. https://products.aspose.org/slides/",
         "current_homepage": "",
         "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
         "has_proposal": true,
         "proposed_description": null,
         "proposed_homepage": "https://products.aspose.org/slides/python/",
@@ -285,10 +301,10 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:05:04.043642+00:00",
+      "last_run_timestamp": "2026-08-01T09:20:36.968501+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
+      "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
     },
     "package_release_audit": {
       "accepted_facts_hash": "46f0d8408ade89e397ce6846970c4425dc75e8ffbb599c0739c90a10c233daf2",
@@ -741,7 +757,7 @@
     "updated_at": "2026-08-01T09:18:56.997731+00:00"
   },
   "schema_version": 2,
-  "state_version": 57,
+  "state_version": 58,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
