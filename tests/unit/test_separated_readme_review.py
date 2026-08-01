@@ -1834,7 +1834,7 @@ def test_page_reviewer_cannot_move_enterprise_term_already_in_scope() -> None:
     finding = GroundedReviewFindingV1(
         finding_id="page-enterprise-placement",
         kind="quality",
-        criterion="template_genericity",
+        criterion="internal_terminology",
         section="Scope and limitations",
         claim=(
             "The section contains Enterprise Edition language but it must be placed "
@@ -1875,15 +1875,15 @@ def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() 
         criterion="template_genericity",
         section="Scope and limitations",
         claim=(
-            "The section is insufficiently detailed and is missing required "
-            "Enterprise Edition relationship context."
+            "The 'Scope and limitations' section does not contain the required term "
+            "'Enterprise Edition'."
         ),
         quoted_candidate_span="## Scope and limitations",
         disposition="requires_repair",
         polarity_result="not_applicable",
         required_repair=(
-            "Expand the section to include the Enterprise Edition relationship language "
-            "and additional limitations."
+            "Update the '## Scope and limitations' section to include the phrase "
+            "'Enterprise Edition' explicitly, as required by the contract."
         ),
     )
 
