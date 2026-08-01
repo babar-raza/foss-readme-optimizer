@@ -4798,7 +4798,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -5026,6 +5026,17 @@
           "agentic_review_reused": true,
           "lifecycle_status_reused": "AGENT_APPROVED",
           "outcome_kind": "unchanged_no_op"
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "ValueError",
+          "failure_reason": "independent_review_exception",
+          "message": " review repair instructions are stale against the source candidate: expected c74d122850ff5db4059e865d009818d499fa1849d3e23f4dcbdac2acc3ef3f88, observed ['8c1b6c6f003c5ca61ddce93006f609c78e93fc0dcd400129cd118b38700369bd']",
+          "occurred_at": "2026-08-01T06:03:49.494931+00:00",
+          "schema_version": 1,
+          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -11571,9 +11582,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-28T17:17:14.023730+00:00",
+      "last_run_timestamp": "2026-08-01T06:03:49.494931+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -14863,7 +14874,7 @@
     "updated_at": "2026-08-01T06:03:43.400943+00:00"
   },
   "schema_version": 2,
-  "state_version": 894,
+  "state_version": 895,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
