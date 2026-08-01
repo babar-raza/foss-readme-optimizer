@@ -5323,7 +5323,7 @@
     "updated_at": "2026-08-01T10:30:45.446747+00:00"
   },
   "schema_version": 2,
-  "state_version": 68,
+  "state_version": 69,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e00621c9a87ed36e403b1fc8c9215f0a35558faf1450cd22b6dce1ed6198a688",
@@ -5331,9 +5331,9 @@
     "in_flight_domains": [],
     "in_flight_run_id": null,
     "last_observed_upstream_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
-    "last_run_id": "20260801-100544-cb83",
-    "last_run_timestamp": "2026-08-01T10:05:44.238581+00:00",
-    "last_status": "CONVERGED_PROPOSAL_READY",
+    "last_run_id": null,
+    "last_run_timestamp": "2026-08-01T10:31:11.077862+00:00",
+    "last_status": "CONVERGED_NO_TRACKED_CHANGE",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
@@ -5365,9 +5365,7 @@
         "ttl_seconds": 86400
       }
     },
-    "task_graph_snapshot": {
-      "tasks": []
-    }
+    "task_graph_snapshot": null
   },
   "trigger_lifecycles": {
     "operator:20260801-095051-44e9:aspose-tex-foss/Aspose.TeX-FOSS-for-Python": {
