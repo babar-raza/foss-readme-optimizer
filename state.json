@@ -432,6 +432,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-01T10:43:09.237701+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -460,11 +471,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-01T10:43:00.053946+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-01T10:43:09.237701+00:00"
   },
   "schema_version": 2,
-  "state_version": 41,
+  "state_version": 42,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
