@@ -1,6 +1,6 @@
 # Verified Python Canary Cohort
 
-Verdict: **rejected**
+Verdict: **accepted**
 
 Members: 3
 

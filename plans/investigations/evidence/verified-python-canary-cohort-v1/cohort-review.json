@@ -2,30 +2,30 @@
   "schema_version": 1,
   "verifier_identity": "verified-python-canary-cohort-verifier-v1",
   "review_mode": "deterministic_side_by_side_over_agent_approved_members",
-  "control_revision": "a348799ce98a007eac78a0876462c8c0420ac8b4",
+  "control_revision": "3b324da71e107e06746d25e031828ae1920cc6fd",
   "member_count": 3,
   "members": [
     {
       "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
       "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
       "bundle_path": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7",
-      "bundle_manifest_sha256": "3d2838569dd57c209bb548b2260b0c58ef020eb5db74bea392ebd9001738684b",
-      "bundle_inventory_sha256": "0f939a668d02636a263c05db5062fc0826ea85e054d3ece390e86dfc87d76f41",
-      "facts_sha256": "7033c3095d1fbdaa6e2ee00fc5b34ebcaf61997dca5e76ef9a8bcd5ac96601eb",
-      "plan_sha256": "27f23be9e5c8abad8110fc5e74393201996c3e86e047d758522bf97aabdb5db3",
-      "template_sha256": "914aea6daae8227d1215f42e677c4ecc6f65448c68fb0646ed65a6b0cdfca913",
-      "candidate_sha256": "03082d62d3365ba964fc215efd68309bda1f75319f9d1a2559e610c550234808",
-      "independent_review_sha256": "ac3fe111875e14725893fa27d7e1d67ae122664744cebb2ffbbc32c16cdb4ff5",
-      "no_op_proof_sha256": "56401f765f263f9276edca9d9711211283f25b1a3bd6ec15d8da9b4854ca2e9b",
+      "bundle_manifest_sha256": "50b9eeb3b6863dd0ec402992f6277fcff855993a70e236d34fc315320f7d572b",
+      "bundle_inventory_sha256": "3c53fd79715658ce55e2f49072b9bc28f2fdb5af4ce960027fc10e04bbefa03e",
+      "facts_sha256": "94e7c243f8b6c8f828b7f926d9661ec8c88a799b1031711238ba9b954f289b2e",
+      "plan_sha256": "4027f5ad47b669407f354b1afd1b243ed6c9d253c932b3c48b73baf915fed977",
+      "template_sha256": "ec54384000c4e3d8dbd2b28f9ee14cb2b98d7c8e1084c7d1caff832b44b381c4",
+      "candidate_sha256": "5c85a22603b59c830c589dd89a45a0fbfba7bd6ecf74b42a9a9d09ab87055c2f",
+      "independent_review_sha256": "cea88af75e927a9236fbb1da994ec669b1a72ab2f173f13a343ea03053fd7aa3",
+      "no_op_proof_sha256": "c1aa76e77c5ca8facf132c3c9f12d690ea577e46617c6f5b019d742811acf7ea",
       "title": "Aspose.Note FOSS for Python",
       "badge_rows": 1,
       "h2_headings": [
         "Navigation",
         "At a glance",
         "Key capabilities",
+        "Installation",
         "Quick start",
         "Additional examples",
-        "Installation",
         "PDF golden workflow",
         "Public API (what is considered supported)",
         "MS OneNote Examples",
@@ -36,9 +36,9 @@
       "navigation_labels": [
         "At a glance",
         "Key capabilities",
+        "Installation",
         "Quick start",
         "Additional examples",
-        "Installation",
         "PDF golden workflow",
         "Public API (what is considered supported)",
         "MS OneNote Examples",
@@ -46,7 +46,7 @@
         "Development",
         "License"
       ],
-      "mermaid_sha256": "a72f59a964895d2e70b2826db1141440f35be750bc897a3b19fcd12fbfb963cd",
+      "mermaid_sha256": "33128fae0b25d233e880745bafaee8252fb7768c6c861033250799da26d857d5",
       "checks": {
         "bundle_checksum_inventory": true,
         "manifest_repository": true,
@@ -193,7 +193,7 @@
   ],
   "cohort_checks": {
     "expected_three_members": true,
-    "shared_template_contract": false,
+    "shared_template_contract": true,
     "distinct_candidate_hashes": true,
     "distinct_mermaid_content": true,
     "all_member_checks_pass": true,
@@ -208,8 +208,6 @@
     },
     "failures": []
   },
-  "verdict": "rejected",
-  "failures": [
-    "shared_template_contract"
-  ]
+  "verdict": "accepted",
+  "failures": []
 }
