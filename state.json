@@ -24047,7 +24047,7 @@
     "updated_at": "2026-08-01T06:38:49.179969+00:00"
   },
   "schema_version": 2,
-  "state_version": 974,
+  "state_version": 975,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
@@ -24656,13 +24656,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:ValueError: review repair instructions are stale against the source candidate: expected c74d122850ff5db4059e865d009818d499fa1849d3e23f4dcbdac2acc3ef3f88, observed ['8c1b6c6f003c5ca61ddce93006f609c78e93fc0dcd400129cd118b38700369bd']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "123d2240eb37ba525d8797b52cc683aa14b28c7bcd770cd13f9e3fdd2777852a",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T06:05:43.501289+00:00"
+      "updated_at": "2026-08-01T07:38:27.960776+00:00"
     },
     "operator:20260801-061451-a7af:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-01T06:14:57.731358+00:00",
@@ -24678,13 +24678,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_repair_rerouted:REJECT_REPAIRABLE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "85ad17e26efab5eebbf4cd733eac15b142063a29c369ab44065866e4789a4b20",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T06:25:23.661462+00:00"
+      "updated_at": "2026-08-01T07:38:27.960776+00:00"
     },
     "operator:20260801-062903-4894:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-01T06:29:08.974489+00:00",
