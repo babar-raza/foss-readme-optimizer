@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+  "implementation_commit": "ff462ceeaeb0d075dee56d5aa20477523711377b",
+  "test": "tests/integration/test_readonly_intake_portfolio.py::test_public_supervisor_admits_unseen_repository_and_runs_exactly_one_intake",
+  "public_entry_point": "readme-agent supervise",
+  "source_kind": "unseen discovery observation backed by a real local Git repository",
+  "observed_repository": "aspose-widget-foss/Aspose.Widget-FOSS-for-Python",
+  "reconciliation_action": "admitted_disabled",
+  "admitted_mode": "disabled",
+  "intake_executions": 1,
+  "intake_outcome": "BLOCKED_CLASSIFICATION",
+  "terminal_is_truthful": true,
+  "target_local_effects_allowed": false,
+  "target_remote_effects_allowed": false,
+  "focused_result": "1 passed, 1 deselected in 1.74s",
+  "affected_regression_result": "127 passed in 50.35s",
+  "static_results": {
+    "ruff": "passed",
+    "format": "passed",
+    "mypy_src": "passed",
+    "git_diff_check": "passed"
+  },
+  "interpretation": "The same public supervisor invocation discovered, additively admitted, allow-list reloaded, and durably preflighted the previously unseen repository. Missing ecosystem/policy ownership remained a narrow visible classification block and did not become false readiness."
+}

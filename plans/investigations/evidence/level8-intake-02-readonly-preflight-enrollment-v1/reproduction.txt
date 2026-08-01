@@ -1,3 +1,4 @@
 .venv/Scripts/python plans/investigations/tools/build_readonly_intake_preflight_evidence.py
 .venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc --max-readme-poc-stage INTAKE_READY
+.venv/Scripts/python -m pytest -q tests/integration/test_readonly_intake_portfolio.py tests/unit/test_registry_self_heal.py tests/unit/test_registry_reconciliation.py tests/unit/test_registry_intake.py tests/unit/test_readme_poc_intake.py tests/unit/test_cli.py
 .venv/Scripts/python scripts/governance/run_official_checks.py

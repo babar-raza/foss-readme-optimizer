@@ -20,12 +20,14 @@
     "duplicate_observation_reused": true,
     "exactly_one_terminal_intake": true,
     "no_duplicate_state_write": true,
-    "lifecycle_transitioned_through_intake": true
+    "lifecycle_transitioned_through_intake": true,
+    "public_supervisor_unseen_admission_proven": true,
+    "public_supervisor_disabled_mode_proven": true,
+    "public_supervisor_single_logical_run_proven": true,
+    "public_supervisor_zero_target_effects_proven": true
   },
   "failures": [],
-  "missing_proof": [
-    "One public-supervisor integration must start from an unseen discovery observation, admit the repository as disabled, and execute exactly one intake in the same logical run. Discovery admission and intake are currently proven separately."
-  ],
+  "missing_proof": [],
   "live_scope": {
     "processed": 8,
     "denominator": 31,
@@ -35,5 +37,6 @@
     "is_gate_a": false,
     "reason": "This is an intake-only Python-priority live slice. Seven-ecosystem routing is proven by the real-local-Git integration test; Gate A remains downstream."
   },
-  "verdict": "PARTIAL"
+  "closure_proof": "public-supervisor-proof.json",
+  "verdict": "VERIFIED"
 }

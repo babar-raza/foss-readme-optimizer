@@ -198,12 +198,14 @@ staging PRs before hosted continuation. `TRP-04P-TEST-LATENCY` is independently 
 now runs through a bounded four-worker closure command in about four minutes locally and 83-87
 seconds on the hosted Linux matrix, versus a 1,049-second serial reference, without worker restart,
 test omission, or repository-attributable descendants. Evidence is under
-`plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01` are closed and
-`L8-INTAKE-02` may run read-only. TRP-04 is deliberately held, remains open, and must resume
-immediately after the cohort PR package is presented.
-The repository-verified scoreboard remains 7 `FACTS_READY`,
-7 candidates/validations, and zero verified approvals/no-ops/human acceptances;
-discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
+`plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01/02` are closed;
+`L8-INTAKE-03` is the next common intake boundary. TRP-04 remains preserved but non-executing under
+decision #88.
+The repository-verified scoreboard is 17 `FACTS_READY`, 17 candidates/validations,
+10 verified approvals/no-ops, and zero human acceptances. The complete Python cohort is 10/12;
+HTML requires a proven one-line product build-backend correction and TeX requires authoritative
+syntax-valid product source before either can pass verified truth.
+Discovery still has one unmatched PDF Go MCP observation and one unavailable imaging source.
 
 The legacy universal goal is absent from the executable graph and pre-migration durable records
 are additively refreshed without deleting task or goal history. The short-term visible milestone
@@ -3135,11 +3137,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     - [x] Stable provider-identity reconciliation (`L8-INTAKE-01`, `L8-036`): 31 unique
           schema-v2 identities, no-loss live migration/no-op proof, variants retained, owned
           policy fields preserved.
-    - [ ] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`):
+    - [x] Durable read-only intake and fast/full-path enrollment (`L8-INTAKE-02`, `L8-037`):
           implementation, 257 focused tests, the 2,183-test official gate, and an 8/31 Python
-          zero-call/no-effect live slice pass. Closure is withheld until one public-supervisor
-          test performs unseen discovery → disabled admission → exactly one intake in one logical
-          run.
+          zero-call/no-effect live slice pass. Commit `ff462cee` closes the remaining public seam:
+          one supervisor invocation performs unseen discovery, disabled admission, allow-list reload,
+          and exactly one durable intake, retaining missing ecosystem/policy ownership as a truthful
+          `BLOCKED_CLASSIFICATION` result. The complete affected 127-test regression set passes.
     - [ ] Registry revision, queue, freshness, and health binding (`L8-INTAKE-03`,
           `L8-038`–`L8-039`).
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
