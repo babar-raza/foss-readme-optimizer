@@ -55,7 +55,7 @@ def _normalized_finding_id(value: object) -> str:
 
 
 def normalize_redundant_role_fields(role: str, value: object) -> object:
-    """Derive rejection summaries from detailed findings without changing their verdict."""
+    """Derive redundant summaries from verdict and findings without changing either."""
 
     if not isinstance(value, dict):
         return value
@@ -80,9 +80,21 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
                 normalized_item["required_repair"] = ""
             normalized_items.append(normalized_item)
         normalized["findings"] = normalized_items
-    if role != "blind_quality":
+    verdict = normalized.get("verdict")
+    if verdict in {"ACCEPT", "SYSTEM_FAILURE"}:
+        normalized["failed_criteria"] = []
+        normalized["sections_affected"] = []
+        normalized["required_repair"] = ""
         return normalized
-    if normalized.get("verdict") != "REJECT_REPAIRABLE":
+    summarizable_verdicts = {
+        "blind_quality": {"REJECT_REPAIRABLE"},
+        "factual_plan": {
+            "REJECT_REPAIRABLE",
+            "BLOCKED_FACT_CONFLICT",
+            "BLOCKED_MISSING_EVIDENCE",
+        },
+    }
+    if verdict not in summarizable_verdicts.get(role, set()):
         return normalized
     findings = normalized.get("findings")
     if not isinstance(findings, list) or not findings:
@@ -118,12 +130,17 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
             if str(item.get("section", "")).strip()
         )
     )
-    normalized["required_repair"] = " ".join(
-        dict.fromkeys(
-            str(item["required_repair"]).strip()
-            for item in normalized_findings
-            if str(item.get("required_repair", "")).strip()
+    normalized["required_repair"] = (
+        " ".join(
+            dict.fromkeys(
+                str(item["required_repair"]).strip()
+                for item in normalized_findings
+                if item.get("disposition") == "requires_repair"
+                and str(item.get("required_repair", "")).strip()
+            )
         )
+        if verdict == "REJECT_REPAIRABLE"
+        else ""
     )
     return normalized
 

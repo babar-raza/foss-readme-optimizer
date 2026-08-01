@@ -9,6 +9,7 @@ from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
+from readme_agent.specialists.readme_review_roles import FactualPlanReviewResultV1
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
@@ -1122,6 +1123,52 @@ def _factual_accept(reason):
             }
         ],
     }
+
+
+def test_factual_accept_clears_stale_redundant_failure_summaries() -> None:
+    parsed = _factual_accept("The accepted fact supports the candidate.")
+    parsed["failed_criteria"] = ["stale-model-summary"]
+    parsed["sections_affected"] = ["stale-model-section"]
+    parsed["required_repair"] = "This must not survive an ACCEPT verdict."
+
+    normalized = normalize_redundant_role_fields("factual_plan", parsed)
+    result = FactualPlanReviewResultV1.model_validate(normalized)
+
+    assert result.verdict == "ACCEPT"
+    assert result.failed_criteria == []
+    assert result.sections_affected == []
+    assert result.required_repair == ""
+
+
+def test_factual_accept_cannot_launder_a_repair_finding() -> None:
+    parsed = _factual_accept("The candidate needs repair despite the stated verdict.")
+    parsed["findings"][0]["disposition"] = "requires_repair"
+    parsed["findings"][0]["required_repair"] = "Correct the unsupported claim."
+
+    normalized = normalize_redundant_role_fields("factual_plan", parsed)
+
+    with pytest.raises(ValueError, match="requires grounded supporting findings"):
+        FactualPlanReviewResultV1.model_validate(normalized)
+
+
+def test_factual_block_derives_redundant_summary_from_blocking_findings() -> None:
+    parsed = _factual_accept("The candidate claim contradicts repository evidence.")
+    parsed["verdict"] = "BLOCKED_FACT_CONFLICT"
+    parsed["failed_criteria"] = ["wrong-summary"]
+    parsed["sections_affected"] = ["wrong-section"]
+    parsed["required_repair"] = "A blocked verdict cannot prescribe prose repair."
+    finding = parsed["findings"][0]
+    finding["disposition"] = "blocks"
+    finding["criterion"] = "factuality"
+    finding["section"] = "Installation"
+    finding["polarity_result"] = "contradicts"
+
+    normalized = normalize_redundant_role_fields("factual_plan", parsed)
+    result = FactualPlanReviewResultV1.model_validate(normalized)
+
+    assert result.failed_criteria == ["factuality"]
+    assert result.sections_affected == ["Installation"]
+    assert result.required_repair == ""
 
 
 def test_two_accepts_produce_hash_bound_separate_records():
