@@ -109,15 +109,25 @@
         "schema_version": 1,
         "to_assurance": "trusted_inherited",
         "to_status": "PROFILED"
+      },
+      {
+        "from_assurance": "trusted_inherited",
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-08-01T01:45:55.090107+00:00",
+        "reason": "begin repository-evidence verification",
+        "schema_version": 1,
+        "to_assurance": "repository_verified",
+        "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "52065437a22b9db2e5c3e645e90d7d414ea10455825c91eb74882e17880cc86b",
-    "content_assurance": "trusted_inherited",
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": "7213e05e1e828c62a4ddd1f2739d87dc3206f6d1be228f96a3424600592d46a8",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [],
@@ -258,6 +268,15 @@
         "reason": "exact trusted candidate and independent approval reused with zero provider calls",
         "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
         "to_status": "TRUSTED_NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TRUSTED_NO_OP_PROVEN",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-08-01T01:45:55.090107+00:00",
+        "reason": "content assurance changed: begin repository-evidence verification",
+        "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -294,18 +313,18 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "2c30e21d1a03d96fec5b2678fd8aa19b6a41e26efc3892d9cba35e3a3dce9827",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "e8ebaecc9120370efe46de2d5297b0e89a60f029",
-    "status": "TRUSTED_NO_OP_PROVEN",
-    "updated_at": "2026-08-01T01:45:36.612580+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-01T01:45:55.090107+00:00"
   },
   "schema_version": 2,
-  "state_version": 25,
+  "state_version": 26,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
