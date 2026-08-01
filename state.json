@@ -210,12 +210,12 @@
   },
   "domain_states": {
     "community_files_presentation": {
-      "accepted_facts_hash": "62e4a203dec06bb6b7ce2c028d8f292edbc090af0baad422fb43597c95059523",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "8979b283fde6ef9640398714980bce1d6c0166a1ae910ac5fd2b2e4e9d053671",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "community_profile_health_percentage": 25,
+        "community_profile_health_percentage": 37,
         "detected_license": "MIT",
         "missing_files": [
           "CODE_OF_CONDUCT",
@@ -230,9 +230,7 @@
             "source": "Contributor Covenant v2.1 (https://www.contributor-covenant.org/version/2/1/code_of_conduct/) -- verbatim, requires filling in the [INSERT CONTACT METHOD] placeholder before use"
           }
         },
-        "presence_recognition_gaps": [
-          "LICENSE"
-        ],
+        "presence_recognition_gaps": [],
         "present_files": {
           "CODE_OF_CONDUCT": false,
           "CONTRIBUTING": false,
@@ -243,16 +241,16 @@
         "recognized_files": {
           "CODE_OF_CONDUCT": false,
           "CONTRIBUTING": false,
-          "LICENSE": false
+          "LICENSE": true
         }
       },
       "domain": "community_files_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:16:18.068726+00:00",
+      "last_run_timestamp": "2026-08-01T11:13:14.148682+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+      "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "cross_surface_validation": {
       "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
@@ -792,7 +790,7 @@
     "updated_at": "2026-08-01T11:11:19.590227+00:00"
   },
   "schema_version": 2,
-  "state_version": 70,
+  "state_version": 71,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
