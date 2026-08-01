@@ -13,6 +13,7 @@
       "status": "applied"
     }
   ],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "4f8aea4a7e306c8c40c87ed8fe0fe5ebe86c5f804c2f6389133a99c656ddbced",
@@ -411,10 +412,14 @@
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-22T14:17:01.410991+00:00",
+  "mission_execution": null,
   "open_proposals": {},
+  "open_proposals_v2": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
   "profile_cache": null,
-  "state_version": 36,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "38e8e913956341f4407c728a26eeaf5638141b622cca1a73ebcd2e254e611afc",
@@ -457,6 +462,30 @@
       }
     },
     "task_graph_snapshot": null
+  },
+  "trigger_lifecycles": {
+    "delivery:registry:1224468949:e1f8c2d2fb075c8f28c1a60dd2291590a4e6a037447e9aaf6cedd4017698c302": {
+      "accepted_at": "2026-08-01T14:41:46.588894+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1224468949:e1f8c2d2fb075c8f28c1a60dd2291590a4e6a037447e9aaf6cedd4017698c302",
+        "delivery_id": "registry:1224468949:e1f8c2d2fb075c8f28c1a60dd2291590a4e6a037447e9aaf6cedd4017698c302",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-01T14:32:16.905301+00:00",
+        "provider_event_id": "registry:1224468949:e1f8c2d2fb075c8f28c1a60dd2291590a4e6a037447e9aaf6cedd4017698c302",
+        "repository_scope": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "e1f8c2d2fb075c8f28c1a60dd2291590a4e6a037447e9aaf6cedd4017698c302",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-01T14:41:46.588904+00:00"
+    }
   },
   "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "7eff660d70827433eefa5d5a53ac9fa8c12932b9a0ded4b6b505db73c8666bdc",
