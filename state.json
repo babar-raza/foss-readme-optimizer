@@ -23645,6 +23645,18 @@
         "reason": "entering repair attempt 1/2: Revise Quick start for hierarchy around exact span: ## Quick start\nRevise Additional examples for example_presentation around exact span: ## Additional examples",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f1",
+          "f2"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T04:30:44.289273+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=b50ead0d962aeeac3057bbb94879c499440842a1e47226546ffe2f60f021935d after=b50ead0d962aeeac3057bbb94879c499440842a1e47226546ffe2f60f021935d; unresolved=f1,f2",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -23673,11 +23685,11 @@
     "reviewer_standard_hash": "fa9ee4c9ce0301b838d16512751e500330b66ce42d9a80b7978d08178ee29c9d",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T04:29:58.570515+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T04:30:44.289273+00:00"
   },
   "schema_version": 2,
-  "state_version": 1481,
+  "state_version": 1482,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
