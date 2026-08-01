@@ -286,6 +286,24 @@ class TestCrossPilotSpecificity:
         assert not verdict.verified
         assert verdict.checks["each_candidate_has_own_identity"] is False
 
+    def test_accepts_hyphenated_pdf_repository_identity(self):
+        verdict = verify_cross_pilot_specificity(
+            [
+                (
+                    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+                    "# Aspose.PDF FOSS for Python\n",
+                ),
+                (
+                    "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+                    "# Aspose.Note FOSS for Python\n",
+                ),
+            ]
+        )
+
+        assert verdict.verified, verdict.failures
+        assert verdict.checks["each_candidate_has_own_identity"] is True
+        assert verdict.checks["no_cross_pilot_identity_leak"] is True
+
 
 class _FakeFact:
     def __init__(self, value, verification_state="verified"):

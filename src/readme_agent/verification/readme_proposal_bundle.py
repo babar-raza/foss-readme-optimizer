@@ -21,6 +21,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.links.runtime_context import load_runtime_link_inputs
@@ -50,7 +51,7 @@ _REQUIRED_ARTIFACTS = (
     "document-validation.json",
     "artifact-sha256.json",
 )
-_FAMILY_TOKEN = re.compile(r"Aspose\.[A-Za-z0-9]+")
+_FAMILY_TOKEN = re.compile(r"Aspose[.-][A-Za-z0-9]+", flags=re.IGNORECASE)
 _PATCH_TARGET = re.compile(r"^\+\+\+ b/(.+)$", re.MULTILINE)
 
 
@@ -111,8 +112,11 @@ def family_token(org_repo: str) -> str | None:
     """The distinctive product token (e.g. ``Aspose.Cells``) used to tell one
     pilot's candidate from another's -- ``None`` if the repo is not an Aspose one."""
 
-    match = _FAMILY_TOKEN.search(org_repo)
-    return match.group(0) if match else None
+    repository_name = org_repo.rsplit("/", maxsplit=1)[-1]
+    match = _FAMILY_TOKEN.search(repository_name)
+    if match is None:
+        return None
+    return canonical_aspose_family_name(match.group(0))
 
 
 def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdictV1:
