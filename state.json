@@ -634,7 +634,7 @@
       "upstream_revision_at_accept": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
     },
     "independent_verification": {
-      "accepted_facts_hash": "ba881c7f8eba0a0fea1ef3dcc36668c7b7bfa91a86c08bacfd6db1dffe533a2a",
+      "accepted_facts_hash": "94efe31c2870dbe9541734b1b5c3dc22d5ae4ed51c1489272d50c62b7c0eca4d",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -658,9 +658,24 @@
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
+          "FACT-003": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "L8-007": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
           "LLM-010": {
             "capability_id": "review_visual_asset_accuracy",
             "domain": "visual_preparation",
+            "exercised_without_error": true
+          },
+          "OWN-011": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
             "exercised_without_error": true
           },
           "PRL-001": {
@@ -688,9 +703,49 @@
             "domain": "readme_presentation",
             "exercised_without_error": true
           },
+          "RDM-003": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "RDM-004": {
+            "capability_id": "build_presentation_plan",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
           "RDM-020": {
             "capability_id": "verify_prose_quality",
             "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "TRP-002": {
+            "capability_id": "extract_trusted_readme_facts",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "TRP-003": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
+            "exercised_without_error": true
+          },
+          "TRP-004": {
+            "capability_id": "compose_trusted_readme",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "TRP-005": {
+            "capability_id": "compose_trusted_readme",
+            "domain": "readme_presentation",
+            "exercised_without_error": true
+          },
+          "TRP-006": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
+            "exercised_without_error": true
+          },
+          "TRP-007": {
+            "capability_id": "review_trusted_readme",
+            "domain": "independent_verification",
             "exercised_without_error": true
           },
           "VAL-005": {
@@ -699,8 +754,8 @@
             "exercised_without_error": true
           },
           "VER-001": {
-            "capability_id": "verify_readme_candidate",
-            "domain": "readme_presentation",
+            "capability_id": "verify_readme_proposal_bundle",
+            "domain": "independent_verification",
             "exercised_without_error": true
           },
           "VER-002": {
@@ -713,10 +768,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T07:08:51.511414+00:00",
+      "last_run_timestamp": "2026-08-01T07:03:05.859235+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "5b5b28eb372c28f4529928ea81696a0031b68d60"
+      "upstream_revision_at_accept": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "dfdbf97d3f766635a01f9030a51634800944d226abc367420fc4f48a6c9164fa",
@@ -6420,7 +6475,7 @@
     "updated_at": "2026-08-01T07:01:48.492482+00:00"
   },
   "schema_version": 2,
-  "state_version": 155,
+  "state_version": 156,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0850e18ac7a8f0cc91ccc249429994ff804e15476f7fa621e68ba691c7fd500a",
