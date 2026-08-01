@@ -11,7 +11,16 @@ from readme_agent.readme.document_templates import accepted_fact
 from readme_agent.readme.license_location import repository_license_path
 
 _BARE_LICENSE_LINK = re.compile(
-    r"(?im)^\s*\[(?:mit|apache(?: license)?(?: 2\.0)?|license)\]\([^)]+\)\.?\s*$"
+    r"(?im)^\s*\[(?:mit(?: license)?|apache(?: license)?(?: 2\.0)?|license)\]"
+    r"\([^)]+\)\.?\s*$"
+)
+_LICENSE_DECLARATION = re.compile(
+    r"(?im)^\s*[^\n]*(?:licensed under|available under)[^\n]*"
+    r"\[(?:mit(?: license)?|apache(?: license)?(?: 2\.0)?|license)\]\([^)]+\)\.?\s*$"
+)
+_COPYRIGHT_LINE = re.compile(
+    r"(?im)^\s*(?:copyright(?:\s+(?:©|Â©|\(c\)))?|©|Â©|\(c\))\s+"
+    r"\d{4}(?:\s*[-–]\s*\d{4})?[^\n]*(?:\n|$)"
 )
 
 
@@ -35,6 +44,32 @@ def _license_paragraph(name: str, path: str) -> str:
     )
 
 
+def _remove_copyright_operations(
+    context: DocumentRenderContext,
+    *,
+    body: str,
+    body_start: int,
+    fact_id: str,
+) -> list[ReadmeDocumentOperationV1]:
+    return [
+        build_operation(
+            operation_id=f"readme.license.remove-copyright:{body_start + match.start()}",
+            operation="remove",
+            source=context.source,
+            start=context.byte_offset(body_start + match.start()),
+            end=context.byte_offset(body_start + match.end()),
+            replacement="",
+            fact_ids=[fact_id],
+            treatment="presentation_policy_correction",
+            rationale=(
+                "Use the portfolio-wide license-benefits paragraph without a standalone "
+                "README copyright line."
+            ),
+        )
+        for match in _COPYRIGHT_LINE.finditer(body)
+    ]
+
+
 def build_license_operations(
     context: DocumentRenderContext,
 ) -> list[ReadmeDocumentOperationV1]:
@@ -51,25 +86,55 @@ def build_license_operations(
     target = context.h2("license")
     if target is not None:
         body = context.inner_text[target.heading_end : target.section_end]
+        copyright_operations = _remove_copyright_operations(
+            context,
+            body=body,
+            body_start=target.heading_end,
+            fact_id=license_fact.fact_id,
+        )
         if f"]({path})" in body and "permit" in body.casefold():
-            return []
+            return copyright_operations
+        declarations = [
+            match for match in _LICENSE_DECLARATION.finditer(body) if f"]({path})" in match.group()
+        ]
+        if declarations:
+            declaration = declarations[0]
+            return [
+                build_operation(
+                    operation_id="readme.license.replace-declaration",
+                    operation="replace",
+                    source=context.source,
+                    start=context.byte_offset(target.heading_end + declaration.start()),
+                    end=context.byte_offset(target.heading_end + declaration.end()),
+                    replacement=paragraph,
+                    fact_ids=[license_fact.fact_id],
+                    treatment="authoritative_fact_correction",
+                    rationale=(
+                        "Replace a simple license declaration with the accepted "
+                        "repository-relative path and readable permission summary."
+                    ),
+                ),
+                *copyright_operations,
+            ]
         bare_links = list(_BARE_LICENSE_LINK.finditer(body))
-        if bare_links and body.strip() == bare_links[0].group(0).strip():
+        if bare_links:
+            bare_link = bare_links[0]
             return [
                 build_operation(
                     operation_id="readme.license.replace-bare-link",
                     operation="replace",
                     source=context.source,
-                    start=context.byte_offset(target.heading_end),
-                    end=context.byte_offset(target.section_end),
-                    replacement=f"\n\n{paragraph}\n",
+                    start=context.byte_offset(target.heading_end + bare_link.start()),
+                    end=context.byte_offset(target.heading_end + bare_link.end()),
+                    replacement=paragraph,
                     fact_ids=[license_fact.fact_id],
                     treatment="authoritative_fact_correction",
                     rationale=(
                         "Replace a bare license link with the accepted repository-relative path "
                         "and readable permission summary."
                     ),
-                )
+                ),
+                *copyright_operations,
             ]
         return [
             build_operation(
@@ -86,22 +151,7 @@ def build_license_operations(
                     "practical permissions."
                 ),
             )
-        ] + [
-            build_operation(
-                operation_id=(
-                    f"readme.license.remove-bare-link:{target.heading_end + match.start()}"
-                ),
-                operation="remove",
-                source=context.source,
-                start=context.byte_offset(target.heading_end + match.start()),
-                end=context.byte_offset(target.heading_end + match.end()),
-                replacement="",
-                fact_ids=[license_fact.fact_id],
-                treatment="authoritative_fact_correction",
-                rationale="Remove a redundant bare license link after adding readable prose.",
-            )
-            for match in bare_links
-        ]
+        ] + copyright_operations
     return [
         build_operation(
             operation_id="readme.license.add-section",

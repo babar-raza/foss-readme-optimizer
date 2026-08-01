@@ -172,6 +172,32 @@ def test_missing_limitations_section_gets_every_verified_limitation():
     )
 
 
+def test_simple_license_declaration_is_replaced_without_duplication_or_copyright() -> None:
+    org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    facts, revision = _facts(org_repo)
+    source = """# Aspose.Cells FOSS for Java
+
+## License
+
+Aspose.Cells FOSS for Java is licensed under the [MIT License](License/LICENSE.txt).
+
+Copyright © 2026 Aspose Pty Ltd.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        org_repo, source, facts, base_revision=revision
+    )
+    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert decision.valid, decision.errors
+    assert candidate.count("[MIT License](License/LICENSE.txt)") == 1
+    assert "It permits use, modification, distribution, and commercial use" in candidate
+    assert "Copyright © 2026 Aspose Pty Ltd." not in candidate
+    operation_ids = {operation.operation_id for operation in plan.operations}
+    assert "readme.license.replace-declaration" in operation_ids
+    assert any(item.startswith("readme.license.remove-copyright:") for item in operation_ids)
+
+
 def test_existing_limitations_section_is_not_duplicated():
     org_repo = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     facts, revision = _facts(org_repo)
