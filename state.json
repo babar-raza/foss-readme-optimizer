@@ -1297,6 +1297,17 @@
         "reason": "entering repair attempt 1/2: Revise Scope and limitations for template_genericity around exact span: ## Scope and limitations",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f3"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T03:05:37.973835+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=fc61e9b5fe06f321d66b5370aad52415a37123bbb312855d7b5bba74740da04f after=2da8b171a19324a61c1dab18ee803ae95f2005771351507e68c29300486a6d80; unresolved=f3",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -1340,11 +1351,11 @@
     "reviewer_standard_hash": "81f59c5805d93626712ebb21faf8eb2bfcac696e5b956ec38ffa68b7414ec317",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T03:04:53.963161+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T03:05:37.973835+00:00"
   },
   "schema_version": 2,
-  "state_version": 125,
+  "state_version": 126,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
