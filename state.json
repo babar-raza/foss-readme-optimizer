@@ -14945,6 +14945,15 @@
         "reason": "independent review wiring failed: ValueError: review repair instructions are stale against the source candidate: expected c74d122850ff5db4059e865d009818d499fa1849d3e23f4dcbdac2acc3ef3f88, observed ['8c1b6c6f003c5ca61ddce93006f609c78e93fc0dcd400129cd118b38700369bd']",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-01T06:16:50.526537+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -14973,11 +14982,11 @@
     "reviewer_standard_hash": "ff59b1d10edb70129b1a1a9fa5e49fea588cc4e5acf6805b0595ce25c703a992",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-08-01T06:03:43.400943+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-01T06:16:50.526537+00:00"
   },
   "schema_version": 2,
-  "state_version": 907,
+  "state_version": 908,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
