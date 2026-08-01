@@ -14720,6 +14720,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:f2@At a glance:product_specificity; factual_plan:ACCEPT",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "product_specificity"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T06:00:52.016293+00:00",
+        "reason": "entering repair attempt 1/2: Revise At a glance for product_specificity around exact span: - **For:** Developers using Python.",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -14743,16 +14754,16 @@
     "presentation_plan_hash": "e9f0a025b58fa029e226870504908a8d9a23fe3abc40bfa8a597384aad3eab32",
     "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "cb338fb82ac93a371955702a7267dcaed4481a2b7ef2a7d7a7d69f4448b99042",
     "reviewer_standard_hash": "ff59b1d10edb70129b1a1a9fa5e49fea588cc4e5acf6805b0595ce25c703a992",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-01T06:00:45.922712+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-01T06:00:52.016293+00:00"
   },
   "schema_version": 2,
-  "state_version": 884,
+  "state_version": 885,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
