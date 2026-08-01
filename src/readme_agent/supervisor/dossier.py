@@ -13,6 +13,7 @@ the 9 specialist modules. A specialist MAY optionally override by writing
 `details["_planner_summary"]` itself; nothing does yet.
 """
 
+import hashlib
 import json
 from string import Template
 from typing import TYPE_CHECKING
@@ -21,6 +22,29 @@ if TYPE_CHECKING:
     from readme_agent.state.schema import DomainStateV1
 
 MAX_SUMMARY_CHARS = 400
+MAX_CAPABILITY_RESULT_CHARS = 2_000
+MAX_RESULT_KEYS = 40
+MAX_DECISION_FIELDS = 40
+MAX_DECISION_FIELD_CHARS = 200
+_DECISION_FIELD_NAMES = frozenset(
+    {
+        "accepted_status",
+        "blocked_reason",
+        "candidate_hash",
+        "changed",
+        "complete",
+        "error",
+        "executable",
+        "facts_hash",
+        "outcome",
+        "reason",
+        "source_revision",
+        "status",
+        "valid",
+        "verdict",
+        "verified",
+    }
+)
 
 
 def summarize_domain(domain: str, state: "DomainStateV1 | None") -> str:
@@ -39,6 +63,56 @@ def build_initial_dossier(specialist_results: "dict[str, DomainStateV1]") -> dic
     return {
         domain: summarize_domain(domain, result) for domain, result in specialist_results.items()
     }
+
+
+def bounded_capability_result(capability_id: str, result: dict | None) -> dict | None:
+    """Keep small results verbatim and replace large payloads with a decision receipt."""
+
+    canonical = json.dumps(result, sort_keys=True, separators=(",", ":"), default=str)
+    if len(canonical) <= MAX_CAPABILITY_RESULT_CHARS:
+        return result
+    top_level_keys = sorted(str(key) for key in result) if result is not None else []
+    return {
+        "capability_id": capability_id,
+        "decision_fields": _decision_fields(result),
+        "full_result_available_via": "durable task evidence or get_domain_findings",
+        "payload_omitted": True,
+        "result_chars": len(canonical),
+        "result_sha256": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+        "result_type": type(result).__name__,
+        "top_level_key_count": len(top_level_keys),
+        "top_level_keys": top_level_keys[:MAX_RESULT_KEYS],
+    }
+
+
+def _decision_fields(value: object) -> dict[str, object]:
+    fields: dict[str, object] = {}
+
+    def visit(current: object, path: str, depth: int) -> None:
+        if len(fields) >= MAX_DECISION_FIELDS or depth > 3:
+            return
+        if isinstance(current, dict):
+            for key in sorted(current, key=str):
+                child = current[key]
+                child_path = f"{path}.{key}" if path else str(key)
+                if str(key) in _DECISION_FIELD_NAMES and isinstance(
+                    child, (str, int, float, bool, type(None))
+                ):
+                    fields[child_path] = (
+                        child[:MAX_DECISION_FIELD_CHARS] if isinstance(child, str) else child
+                    )
+                elif depth < 3:
+                    visit(child, child_path, depth + 1)
+                if len(fields) >= MAX_DECISION_FIELDS:
+                    return
+        elif isinstance(current, list) and depth < 3:
+            for index, child in enumerate(current[:5]):
+                visit(child, f"{path}[{index}]", depth + 1)
+                if len(fields) >= MAX_DECISION_FIELDS:
+                    return
+
+    visit(value, "", 0)
+    return fields
 
 
 def render_turn_context(

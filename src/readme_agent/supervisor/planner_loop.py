@@ -109,7 +109,13 @@ def run_planner_loop(
     _, supervisor_turn_context = planning_prompts.supervisor_turn_prompt()
     initial_dossier = dossier.build_initial_dossier(specialist_results)
     tried_capability_ids: list[str] = []
-    bootstrap_result = bootstrap.result or {}
+    bootstrap_result = (
+        dossier.bounded_capability_result(
+            "inspect_repository",
+            bootstrap.result or {},
+        )
+        or {}
+    )
     messages: list[dict[str, Any]] = planning_prompts.build_supervisor_turn_messages(
         dossier.render_turn_context(
             supervisor_turn_context,
@@ -297,7 +303,12 @@ def run_planner_loop(
                 planning_prompts.build_supervisor_followup_message(
                     "duplicate_capability",
                     capability_id=capability_id or "",
-                    prior_result=json.dumps(new_task.result),
+                    prior_result=json.dumps(
+                        dossier.bounded_capability_result(
+                            capability_id or "unknown",
+                            new_task.result,
+                        )
+                    ),
                 )
             )
             continue
@@ -341,8 +352,12 @@ def run_planner_loop(
                     "tool_call_id": plan.tool_call.get("id", ""),
                     "content": json.dumps(
                         {
+                            "capability_id": resolved.capability_id,
                             "state": resolved.state,
-                            "result": resolved.result,
+                            "result": dossier.bounded_capability_result(
+                                resolved.capability_id or "unknown",
+                                resolved.result,
+                            ),
                             "error": resolved.blocked_reason,
                         }
                     ),

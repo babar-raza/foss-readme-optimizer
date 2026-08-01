@@ -2,9 +2,12 @@
 (AGT-008, Wave 8.5) -- supervisor/dossier.py."""
 
 import json
+from hashlib import sha256
 
+from readme_agent.errors import LLMError
+from readme_agent.llm.planner_client import PlannerTurn
 from readme_agent.state.schema import DomainStateV1
-from readme_agent.supervisor import dossier
+from readme_agent.supervisor import dossier, planner_loop
 
 
 class TestSummarizeDomain:
@@ -61,6 +64,87 @@ class TestBuildInitialDossier:
         forward = dossier.build_initial_dossier(results)
         backward = dossier.build_initial_dossier(dict(reversed(list(results.items()))))
         assert forward == backward
+
+
+class TestBoundedCapabilityResult:
+    def test_small_result_is_preserved_verbatim(self):
+        result = {"status": "ready", "count": 2}
+
+        assert dossier.bounded_capability_result("inspect_repository", result) is result
+
+    def test_large_result_becomes_a_content_addressed_decision_receipt(self):
+        result = {
+            "status": "ready",
+            "source_revision": "a" * 40,
+            "candidate": {"candidate_hash": "b" * 64, "body": "x" * 50_000},
+        }
+        canonical = json.dumps(result, sort_keys=True, separators=(",", ":"), default=str)
+
+        bounded = dossier.bounded_capability_result("render_readme_candidate", result)
+
+        assert isinstance(bounded, dict)
+        assert bounded["payload_omitted"] is True
+        assert bounded["result_sha256"] == sha256(canonical.encode()).hexdigest()
+        assert bounded["decision_fields"] == {
+            "candidate.candidate_hash": "b" * 64,
+            "source_revision": "a" * 40,
+            "status": "ready",
+        }
+        assert "x" * 1_000 not in json.dumps(bounded)
+
+
+def test_planner_history_uses_bounded_capability_receipts(monkeypatch):
+    huge_result = {
+        "status": "ready",
+        "candidate_hash": "b" * 64,
+        "candidate": "x" * 100_000,
+    }
+
+    def fake_dispatch(graph, task, **_kwargs):
+        return graph.mark(task.task_id, "PASSED", result=huge_result)
+
+    class CaptureThenFailPlanner:
+        def __init__(self):
+            self.messages: list[list[dict]] = []
+
+        def plan(self, messages, _tools):
+            self.messages.append(json.loads(json.dumps(messages)))
+            if len(self.messages) == 1:
+                return PlannerTurn(
+                    tool_call={
+                        "id": "call-1",
+                        "function": {
+                            "name": "detect_readme_gaps",
+                            "arguments": '{"org_repo":"example/repo"}',
+                        },
+                    },
+                    meta={},
+                )
+            raise LLMError("test stop after history capture")
+
+    client = CaptureThenFailPlanner()
+    monkeypatch.setattr(planner_loop, "dispatch_and_record", fake_dispatch)
+
+    planner_loop.run_planner_loop(
+        org_repo="example/repo",
+        specialist_results={},
+        initial_decisions=[],
+        state_backend=None,
+        planner_client=client,
+        repair_planner_client=None,
+        allowed_permission_classes=None,
+        max_turns=8,
+        no_progress_turn_limit=3,
+        dossier_token_budget=25_000,
+    )
+
+    assert len(client.messages) == 2
+    assert len(json.dumps(client.messages[0])) < 10_000
+    second_messages = json.dumps(client.messages[1])
+    assert len(second_messages) < 15_000
+    assert "x" * 1_000 not in second_messages
+    tool_receipt = json.loads(client.messages[1][-1]["content"])
+    assert tool_receipt["result"]["payload_omitted"] is True
 
 
 class TestRenderTurnContext:
