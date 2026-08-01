@@ -280,13 +280,29 @@
     },
     "metadata_presentation": {
       "accepted_facts_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
+        "blocked_findings": [],
         "current_description": null,
         "current_homepage": null,
         "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
         "has_proposal": true,
         "proposed_description": "tex FOSS library for python",
         "proposed_homepage": "https://products.aspose.org/tex/python/",
@@ -297,7 +313,7 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:10:03.816173+00:00",
+      "last_run_timestamp": "2026-08-01T10:00:39.589743+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2f4bfab3863e66ef32868f5464685eb4c2d36911"
@@ -613,7 +629,7 @@
     "updated_at": "2026-08-01T09:59:16.471959+00:00"
   },
   "schema_version": 2,
-  "state_version": 43,
+  "state_version": 44,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "505dc361197f0f26dc8845f5c70ba0e7720de8daa296a081c3d9332bcb1f6a41",
