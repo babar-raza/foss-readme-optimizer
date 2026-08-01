@@ -3064,7 +3064,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": null,
+    "candidate_hash": "2e2d2c26fbc92a9dc5a3b01fa9122be6b14baaa800a7df96ffd3e6eff957d6ad",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -3843,6 +3843,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\2347d154b5fcc92bc259\\r\\278daa59f213fedd\\s\\53f2c3350b81\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\53f2c3350b8171f2c8275e7b1a178f218695ac45\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T06:46:51.984963+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -3871,11 +3883,11 @@
     "reviewer_standard_hash": "28e65f8a4a4f01c537754011ab8a6f6e4cf87861c845ca5cd7d54fa7ea59aa77",
     "schema_version": 2,
     "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-01T06:46:46.632009+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-01T06:46:51.984963+00:00"
   },
   "schema_version": 2,
-  "state_version": 248,
+  "state_version": 249,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e35e3116fafd9828ea0702b5050b042fd642af1dbcb42d76f05e80e8092a2fac",
