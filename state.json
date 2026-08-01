@@ -389,23 +389,14 @@
       "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "39a0d8b13edd326c55c94b3f91ce58200ea4dbf80a9eb10cd69d31072c9051c4",
+      "accepted_facts_hash": "eac0c9a8c82ed0c313a7d5d6a6dc64c2b031afe61fdee1d52b627a8165539009",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'python'",
-        "handoff_findings": [
-          {
-            "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T15:15:48.575056+00:00",
-            "evidence": {
-              "detail": "no live resolver registered for ecosystem 'python'"
-            },
-            "surface": "packages"
-          }
-        ],
-        "install_path_resolved": false,
+        "evidence": "PyPI: aspose-words-foss found",
+        "handoff_findings": [],
+        "install_path_resolved": true,
         "latest_release_name": null,
         "latest_release_tag": null,
         "releases_count": 0
@@ -413,10 +404,10 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:15:48.575474+00:00",
+      "last_run_timestamp": "2026-08-01T11:12:36.384215+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+      "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "2743fc0073563619dfc8bb013bf1e40a65a31b7ceb4c3571732a34cdd2778125",
@@ -785,7 +776,7 @@
     "updated_at": "2026-08-01T11:11:19.590227+00:00"
   },
   "schema_version": 2,
-  "state_version": 67,
+  "state_version": 68,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
