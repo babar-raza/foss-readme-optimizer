@@ -5,6 +5,7 @@ from pathlib import Path
 
 from readme_agent.ecosystems.registry import parse_manifest
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
+from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.root_role_schema import (
     PackageRootRoleInventoryV1,
     filesystem_repository_path,
@@ -40,7 +41,7 @@ def _registry_product_name(entry: ProductEntry) -> str | None:
     if match is None:
         return None
     product_name = match.group(1).strip()
-    return product_name or None
+    return canonical_aspose_family_name(product_name) or product_name or None
 
 
 def _fact(

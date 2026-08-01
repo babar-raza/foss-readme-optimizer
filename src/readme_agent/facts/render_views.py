@@ -7,6 +7,7 @@ from collections.abc import Callable
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
@@ -150,7 +151,12 @@ def _identity_phrases(value: object) -> list[str]:
         return []
     product_name = str(value.get("product_name") or "").strip()
     family_key = str(value.get("family") or "").strip().lower()
-    family = product_name if _is_visitor_phrase(product_name) else _FAMILY_LABELS.get(family_key)
+    canonical_product_name = canonical_aspose_family_name(product_name)
+    family = (
+        canonical_product_name
+        or (product_name if _is_visitor_phrase(product_name) else None)
+        or _FAMILY_LABELS.get(family_key)
+    )
     if family is None and family_key:
         family = family_key.replace("-", " ").replace("_", " ").title()
     ecosystem = str(value.get("ecosystem") or value.get("platform") or "").strip().lower()

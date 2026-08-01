@@ -78,6 +78,33 @@ def test_repository_bound_product_name_preserves_canonical_aspose_casing():
     assert view.phrases == ["Aspose.Note FOSS for Python"]
 
 
+def test_repository_bound_hyphenated_aspose_name_is_canonicalized() -> None:
+    facts = _facts("python")
+    identity = facts.selected_fact("product.identity")
+    value = {
+        **identity.value,
+        "family": "pdf",
+        "product_name": "Aspose-PDF",
+        "platform": "python",
+        "ecosystem": "python",
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": value})
+                if fact.fact_id == identity.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.identity")
+
+    assert view is not None
+    assert view.phrases == ["Aspose.PDF FOSS for Python"]
+
+
 def test_unknown_product_family_has_a_generic_visitor_identity():
     facts = _facts()
     identity = facts.selected_fact("product.identity")
