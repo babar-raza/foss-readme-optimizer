@@ -28,8 +28,9 @@ import sys
 from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
+from readme_agent import env
 from readme_agent.errors import StateBackendError
-from readme_agent.gitsafety._git import run_git
+from readme_agent.gitsafety._git import github_https_auth_env, run_git
 from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import Lock, SaveResult
 from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
@@ -90,6 +91,13 @@ _COMMIT_IDENTITY_ENV = {
 }
 
 
+def _run_remote_git(args: list[str]):
+    """Run state-remote Git with ephemeral GitHub auth when a token is available."""
+
+    auth_env = github_https_auth_env(env.gh_token())
+    return run_git(args, env=auth_env) if auth_env else run_git(args)
+
+
 def _ref_key(org_repo: str) -> str:
     """Matches `paths.py`'s `{org}__{repo}` convention -- `org_repo` is
     always exactly one slash (`registry/models.py::ProductEntry.org_repo`)."""
@@ -121,7 +129,7 @@ def _fetch_remote_sha(remote_ref: str, *, remote: str = "origin") -> str | None:
     local_ref = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
 
     def fetch_once():
-        result = run_git(
+        result = _run_remote_git(
             [
                 "fetch",
                 "--no-write-fetch-head",
@@ -219,7 +227,7 @@ def _acquire_lock_generic(
         message=f"lock: {org_repo}",
     )
 
-    push = run_git(["push", remote, f"{commit_sha}:{remote_ref}"])
+    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"])
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None  # lost the race to acquire/reclaim
@@ -248,7 +256,7 @@ def _release_lock_generic(
         )
         return
 
-    push = run_git(
+    push = _run_remote_git(
         ["push", remote, f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"]
     )
     if push.returncode != 0 and not _is_non_fast_forward(push.stderr):
@@ -286,7 +294,7 @@ def _renew_lock_generic(
         parent_sha=current_sha,
         message=f"renew lock: {lock.org_repo}",
     )
-    push = run_git(["push", remote, f"{commit_sha}:{remote_ref}"])
+    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"])
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None
@@ -359,7 +367,7 @@ class GitStateBackend:
 
         if not org_repos:
             return {}
-        remote = run_git(["ls-remote", self._remote, f"{STATE_REF_PREFIX}/*"])
+        remote = _run_remote_git(["ls-remote", self._remote, f"{STATE_REF_PREFIX}/*"])
         if remote.returncode != 0:
             raise StateBackendError(f"listing {STATE_REF_PREFIX} failed: {remote.stderr}")
         available_refs = {
@@ -383,7 +391,7 @@ class GitStateBackend:
         if not refspecs:
             return dict.fromkeys(org_repos)
 
-        fetched = run_git(["fetch", "--no-write-fetch-head", self._remote, *refspecs])
+        fetched = _run_remote_git(["fetch", "--no-write-fetch-head", self._remote, *refspecs])
         if fetched.returncode != 0:
             raise StateBackendError(f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}")
 
@@ -452,7 +460,7 @@ class GitStateBackend:
             message=f"state: {org_repo} v{new_version}",
         )
 
-        push = run_git(["push", self._remote, f"{commit_sha}:{remote_ref}"])
+        push = _run_remote_git(["push", self._remote, f"{commit_sha}:{remote_ref}"])
         if push.returncode != 0:
             if _is_non_fast_forward(push.stderr):
                 return SaveResult(outcome="stale", new_version=None)
@@ -577,7 +585,7 @@ class GitStateBackend:
                 parent_sha=sha,
                 message=f"model-route: {status.job} -> {status.status}",
             )
-            push = run_git(["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"])
+            push = _run_remote_git(["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"])
             if push.returncode == 0:
                 return
             if _is_non_fast_forward(push.stderr):

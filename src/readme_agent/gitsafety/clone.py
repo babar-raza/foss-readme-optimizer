@@ -14,7 +14,7 @@ from pathlib import Path
 
 from readme_agent import env
 from readme_agent.errors import GitSafetyError
-from readme_agent.gitsafety._git import run_git
+from readme_agent.gitsafety._git import github_https_auth_env, run_git
 from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import (
     current_repository_snapshot,
@@ -274,6 +274,14 @@ def _local_head_sha(repo_path: Path) -> str | None:
     return result.stdout.strip() if result.returncode == 0 else None
 
 
+def _github_read_auth_env(clone_url: str) -> dict[str, str]:
+    """Return process-local GitHub auth without persisting or exposing the token."""
+
+    if not clone_url.casefold().startswith("https://github.com/"):
+        return {}
+    return github_https_auth_env(env.gh_token())
+
+
 def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
     """Read-only reference clone, memoized against a cheap freshness probe
     rather than blind process-lifetime trust: if this path already holds a
@@ -317,7 +325,7 @@ def clone_baseline(entry: ProductEntry, baseline_path: Path) -> Path:
             # Repository analysis needs tracked source and LFS pointer metadata,
             # not large binary payloads. Allowing checkout to invoke git-lfs can
             # turn a bounded README intake into an unbounded asset download.
-            env={"GIT_LFS_SKIP_SMUDGE": "1"},
+            env={"GIT_LFS_SKIP_SMUDGE": "1", **_github_read_auth_env(entry.clone_url)},
         )
         if result.returncode == 0:
             # A None SHA (rev-parse somehow failing right after a successful
@@ -478,7 +486,11 @@ def remote_head_sha(clone_url: str, timeout: float = 15) -> str | None:
     this is an optimization, not a correctness dependency: falling back to a
     real clone is always safe."""
     try:
-        result = run_git(["ls-remote", clone_url, "HEAD"], timeout=timeout)
+        result = run_git(
+            ["ls-remote", clone_url, "HEAD"],
+            timeout=timeout,
+            env=_github_read_auth_env(clone_url),
+        )
     except Exception:  # noqa: BLE001 -- a failed probe just means "clone anyway"
         return None
     if result.returncode != 0 or not result.stdout.strip():

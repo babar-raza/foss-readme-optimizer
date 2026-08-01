@@ -480,6 +480,8 @@ class TestCloneBaselineRetryAndTimeout:
         entry = _fake_entry("https://example.invalid/does-not-matter.git")
         baseline_path = tmp_path / "baseline"
         clone_environments = []
+        monkeypatch.delenv("GH_TOKEN", raising=False)
+        monkeypatch.delenv("GITHUB_PAT", raising=False)
 
         def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
             if args[0] == "rev-parse":
@@ -495,6 +497,37 @@ class TestCloneBaselineRetryAndTimeout:
         clone_module.clone_baseline(entry, baseline_path)
 
         assert clone_environments == [{"GIT_LFS_SKIP_SMUDGE": "1"}]
+
+    def test_clone_uses_process_local_github_auth_without_raw_token(self, monkeypatch, tmp_path):
+        import subprocess
+
+        from readme_agent.gitsafety import clone as clone_module
+
+        token = "private-read-token"
+        monkeypatch.setenv("GH_TOKEN", token)
+        entry = _fake_entry("https://github.com/example/private.git")
+        baseline_path = tmp_path / "baseline"
+        clone_environments = []
+
+        def _fake_run_git(args, cwd=None, timeout=None, **kwargs):
+            if args[0] == "rev-parse":
+                return subprocess.CompletedProcess(
+                    args=args, returncode=0, stdout="deadbeef", stderr=""
+                )
+            clone_environments.append(kwargs["env"])
+            baseline_path.mkdir(parents=True, exist_ok=True)
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr(clone_module, "run_git", _fake_run_git)
+
+        clone_module.clone_baseline(entry, baseline_path)
+
+        clone_env = clone_environments[0]
+        assert clone_env["GIT_LFS_SKIP_SMUDGE"] == "1"
+        assert clone_env["GIT_CONFIG_COUNT"] == "1"
+        assert clone_env["GIT_CONFIG_KEY_0"] == "http.https://github.com/.extraheader"
+        assert clone_env["GIT_CONFIG_VALUE_0"].startswith("AUTHORIZATION: basic ")
+        assert token not in clone_env["GIT_CONFIG_VALUE_0"]
 
     def test_retries_once_on_synthetic_timeout_then_succeeds(self, monkeypatch, tmp_path):
         import subprocess

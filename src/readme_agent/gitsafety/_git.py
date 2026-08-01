@@ -1,5 +1,6 @@
 """Small subprocess wrapper shared by the gitsafety modules."""
 
+import base64
 import os
 import subprocess
 from pathlib import Path
@@ -95,6 +96,19 @@ REF_LOCK_WAIT_FLAGS = [
 # a real, already-cached credential helper silently supplying push
 # credentials with zero interaction) that this project still relies on.
 GIT_SAFETY_ENV = {"GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "never"}
+
+
+def github_https_auth_env(token: str | None) -> dict[str, str]:
+    """Build process-local GitHub HTTPS authentication without persisting a secret."""
+
+    if token is None:
+        return {}
+    basic_auth = base64.b64encode(f"x-access-token:{token}".encode()).decode()
+    return {
+        "GIT_CONFIG_COUNT": "1",
+        "GIT_CONFIG_KEY_0": "http.https://github.com/.extraheader",
+        "GIT_CONFIG_VALUE_0": f"AUTHORIZATION: basic {basic_auth}",
+    }
 
 
 def run_git(

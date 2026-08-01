@@ -65,6 +65,25 @@ def test_fetch_remote_sha_uses_explicit_state_remote(monkeypatch):
     assert calls[0][2] == "file:///isolated/state.git"
 
 
+def test_remote_state_git_uses_ephemeral_github_auth(monkeypatch):
+    captured_env: dict[str, str] = {}
+
+    def fake_run_git(args: list[str], *, env: dict[str, str]):
+        assert args == ["ls-remote", "origin", "refs/readme-agent-state/*"]
+        captured_env.update(env)
+        return _completed()
+
+    monkeypatch.setattr(git_backend.env, "gh_token", lambda: "fixture-token")
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    result = git_backend._run_remote_git(["ls-remote", "origin", "refs/readme-agent-state/*"])
+
+    assert result.returncode == 0
+    assert captured_env["GIT_CONFIG_KEY_0"] == "http.https://github.com/.extraheader"
+    assert captured_env["GIT_CONFIG_VALUE_0"].startswith("AUTHORIZATION: basic ")
+    assert "fixture-token" not in captured_env["GIT_CONFIG_VALUE_0"]
+
+
 def test_default_backend_reads_only_dedicated_state_remote(monkeypatch):
     monkeypatch.setenv("README_AGENT_STATE_REMOTE", "file:///isolated/state.git")
 
