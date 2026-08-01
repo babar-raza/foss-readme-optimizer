@@ -381,9 +381,49 @@
   "open_proposals_v2": {},
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
   "profile_cache": null,
-  "readme_poc_lifecycle": null,
+  "readme_poc_lifecycle": {
+    "assessment_hash": null,
+    "assurance_history": [],
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
+    "details": {},
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_history": [],
+    "facts_hash": null,
+    "history": [
+      {
+        "evidence_refs": [],
+        "from_status": "DISCOVERED",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T14:37:08.753333+00:00",
+        "reason": "claimed source-bound read-only intake preflight",
+        "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+        "to_status": "INTAKE_PREFLIGHTING"
+      }
+    ],
+    "intake_preflight_history": [],
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "90b4e4b77fc2bb1e81d138f206e13b7126d95d5576f53ae6115bafe66c1174f2",
+      "schema_version": 1,
+      "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-01T14:37:08.753329+00:00"
+    },
+    "presentation_plan_hash": null,
+    "prompt_hash": null,
+    "protected_content_fingerprint": null,
+    "repair_attempts_for_revision": 0,
+    "repair_budget_origin_hash": null,
+    "reviewer_standard_hash": null,
+    "schema_version": 2,
+    "source_revision": null,
+    "status": "INTAKE_PREFLIGHTING",
+    "updated_at": "2026-08-01T14:37:08.753333+00:00"
+  },
   "schema_version": 2,
-  "state_version": 50,
+  "state_version": 51,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "df7f1f92fc60332bd56c5a37be6ad2a116e7dbb075e12db5b29b4fdd7ad5cb63",
