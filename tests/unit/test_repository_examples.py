@@ -227,6 +227,33 @@ def test_python_source_example_extracts_one_self_contained_public_operation(tmp_
     assert "unused" not in candidates[0].code
 
 
+def test_python_source_example_accepts_directly_imported_public_function(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-widget-foss"\nversion = "1.0"\n'
+        '[tool.setuptools]\npackages = ["aspose_widget_foss"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "aspose_widget_foss"
+    package.mkdir()
+    (package / "__init__.py").write_text(
+        "def create_widget(name): return name\n",
+        encoding="utf-8",
+    )
+    examples = tmp_path / "examples"
+    examples.mkdir()
+    (examples / "quickstart.py").write_text(
+        "from aspose_widget_foss import create_widget, unused\n\nwidget = create_widget('demo')\n",
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "python")
+
+    assert candidates[0].code == (
+        "from aspose_widget_foss import create_widget\n\nwidget = create_widget('demo')\n"
+    )
+    assert candidates[0].required_symbols == ["create_widget"]
+
+
 def test_python_source_example_closes_class_method_inputs_from_repository_code(tmp_path):
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname = "aspose-widget-foss"\nversion = "1.0"\n'

@@ -28,10 +28,10 @@ from readme_agent.facts.python_dependency_schema import (
     PythonDependencyAcquisitionV1,
     PythonWheelArtifactV1,
 )
+from readme_agent.facts.python_toolchain import PYTHON_311_IMAGE
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 from readme_agent.retry import RetryableOperationError, run_with_retry
 
-PYTHON_311_IMAGE = "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91"
 _ENVIRONMENT = {"HOME": "/tmp", "PIP_CACHE_DIR": "/tmp/pip-cache"}
 
 

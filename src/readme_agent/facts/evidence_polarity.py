@@ -8,6 +8,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.python_evidence_polarity import function_is_unimplemented
+
 ExpectedEvidencePolarity = Literal["positive_implementation", "explicit_constraint"]
 ObservedEvidencePolarity = Literal[
     "positive_implementation",
@@ -177,12 +179,18 @@ def _positive_implementation_occurrence(path: Path, exact_excerpt: str) -> bool:
 def _classify_occurrence(
     *,
     path: Path,
+    content: str,
+    line_number: int,
     exact_excerpt: str,
     context_excerpt: str,
 ) -> ObservedEvidencePolarity:
-    if _CONSTRAINT_CUE.search(exact_excerpt) or (
-        _positive_implementation_occurrence(path, exact_excerpt)
-        and _CODE_CONTEXT_CONSTRAINT_CUE.search(context_excerpt)
+    if (
+        _CONSTRAINT_CUE.search(exact_excerpt)
+        or (
+            _positive_implementation_occurrence(path, exact_excerpt)
+            and _CODE_CONTEXT_CONSTRAINT_CUE.search(context_excerpt)
+        )
+        or (path.suffix.casefold() == ".py" and function_is_unimplemented(content, line_number))
     ):
         return "explicit_constraint"
     if _positive_implementation_occurrence(path, exact_excerpt):
@@ -235,6 +243,8 @@ def assess_evidence_polarity(
         for line_number, exact_excerpt, context_excerpt in _find_anchors(content, anchor):
             observed_polarity = _classify_occurrence(
                 path=candidate,
+                content=content,
+                line_number=line_number,
                 exact_excerpt=exact_excerpt,
                 context_excerpt=context_excerpt,
             )

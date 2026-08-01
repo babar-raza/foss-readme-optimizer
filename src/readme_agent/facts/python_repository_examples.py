@@ -107,7 +107,7 @@ def _public_package_call(statement: ast.stmt, bindings: set[str]) -> tuple[str, 
     )
     for call in calls:
         chain = _attribute_chain(call.func)
-        if chain is not None and len(chain) >= 2 and chain[0] in bindings:
+        if chain is not None and chain[0] in bindings:
             return chain
     return None
 

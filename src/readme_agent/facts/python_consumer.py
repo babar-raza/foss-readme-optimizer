@@ -13,7 +13,6 @@ from readme_agent.ecosystems.python_api_schema import (
     ConsumerExampleV1,
     PublicApiSurfaceV1,
     PublicSymbolV1,
-    PythonPackageLayoutV1,
 )
 from readme_agent.facts.isolated_execution import execute_isolated
 from readme_agent.facts.isolated_execution_schema import (
@@ -24,11 +23,11 @@ from readme_agent.facts.isolated_execution_schema import (
 from readme_agent.facts.python_consumer_fixtures import stage_repository_input_fixtures
 from readme_agent.facts.python_consumer_schema import PythonConsumerProofV1
 from readme_agent.facts.python_dependency_acquisition import (
-    PYTHON_311_IMAGE,
     PythonDependencyBundle,
     acquire_python_dependencies,
     materialize_python_dependencies,
 )
+from readme_agent.facts.python_toolchain import select_python_image
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 
 _RESULT_PREFIX = "README_AGENT_PYTHON_CONSUMER="
@@ -85,9 +84,7 @@ print("README_AGENT_PYTHON_CONSUMER=" + json.dumps({"verified_symbols": verified
 """.strip()
 
 IsolatedExecutor = Callable[[IsolatedExecutionRequestV1], IsolatedExecutionResultV1]
-DependencyAcquirer = Callable[
-    [RepositorySnapshotV1, PythonPackageLayoutV1], PythonDependencyBundle | None
-]
+DependencyAcquirer = Callable[..., PythonDependencyBundle | None]
 
 
 def _required_surface_symbols(
@@ -155,7 +152,7 @@ def prove_python_consumer(
     *,
     executor: IsolatedExecutor = execute_isolated,
     dependency_acquirer: DependencyAcquirer = acquire_python_dependencies,
-    immutable_image: str = PYTHON_311_IMAGE,
+    immutable_image: str | None = None,
 ) -> PythonConsumerProofV1:
     """Install the immutable source with no dependencies/network, then import and use symbols."""
 
@@ -164,7 +161,12 @@ def prove_python_consumer(
         raise ValueError("Python surface does not belong to the immutable repository snapshot")
     selected = _required_surface_symbols(surface, example)
     _example_imports_and_uses(example.code, selected)
-    dependency_bundle = dependency_acquirer(snapshot, surface.package)
+    active_image = immutable_image or select_python_image(surface.package.requires_python)
+    dependency_bundle = dependency_acquirer(
+        snapshot,
+        surface.package,
+        immutable_image=active_image,
+    )
     with tempfile.TemporaryDirectory(prefix="readme-agent-python-consumer-") as temp:
         workspace = Path(temp) / "workspace"
         _copy_snapshot(snapshot, workspace)
@@ -208,7 +210,7 @@ def prove_python_consumer(
             argv=["python", "-I", ".readme-agent-consumer-driver.py"],
             environment={"HOME": "/tmp", "PIP_CACHE_DIR": "/tmp/pip-cache"},
             policy=IsolatedExecutionPolicyV1(
-                immutable_image=immutable_image,
+                immutable_image=active_image,
                 timeout_seconds=300,
                 memory_mebibytes=512,
                 pids_limit=64,

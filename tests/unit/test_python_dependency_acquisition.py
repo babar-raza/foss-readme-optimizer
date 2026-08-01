@@ -15,6 +15,7 @@ from readme_agent.facts.python_dependency_acquisition import (
     acquire_python_dependencies,
     materialize_python_dependencies,
 )
+from readme_agent.facts.python_toolchain import PYTHON_312_IMAGE, select_python_image
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
 
@@ -183,3 +184,23 @@ def test_packages_without_declared_dependencies_need_no_network(tmp_path, monkey
         )
         is None
     )
+
+
+@pytest.mark.parametrize(
+    ("requires_python", "expected"),
+    [
+        (None, PYTHON_311_IMAGE),
+        (">=3.7", PYTHON_311_IMAGE),
+        (">=3.11,<3.13", PYTHON_311_IMAGE),
+        (">=3.12", PYTHON_312_IMAGE),
+    ],
+)
+def test_selects_lowest_compatible_approved_python_runtime(requires_python, expected):
+    assert select_python_image(requires_python) == expected
+
+
+def test_rejects_unsupported_or_invalid_python_runtime_ranges():
+    with pytest.raises(ValueError, match="no approved immutable Python runtime"):
+        select_python_image(">=3.13")
+    with pytest.raises(ValueError, match="invalid requires-python"):
+        select_python_image("not-a-version")

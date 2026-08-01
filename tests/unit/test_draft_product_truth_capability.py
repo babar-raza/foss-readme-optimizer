@@ -914,10 +914,13 @@ public class ReadmeExample {}
             verify_example_fn=verify,
         )
 
-        assert result.repair_attempts == capability.MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS
+        assert result.repair_attempts == 0
         assert verified == ["public class ReadmeExample {}\n"]
         assert result.draft.minimal_example.code == "public class ReadmeExample {}\n"
-        assert result.gated_facts["example.minimal"].verification_state == "verified"
+        example_fact = result.gated_facts["example.minimal"]
+        assert example_fact.verification_state == "verified"
+        assert example_fact.fact_id == "example.minimal:repository-example"
+        assert example_fact.source.source_type == "mechanical_repository"
         assert all(finding["field"] != "example.minimal" for finding in result.findings)
 
     def test_repeated_bad_go_draft_uses_verified_repository_source_example(self, tmp_path):
@@ -1090,6 +1093,7 @@ class TestSourceBuildAcquisitionPromotion:
 
         promoted = updates["installation.verified_acquisition"]
         assert promoted.verification_state == "verified"
+        assert promoted.fact_id == "installation.verified_acquisition:verified-source-build"
         assert promoted.value["outcome"] == "SOURCE_BUILD_VERIFIED"
         assert promoted.value["registry_receipt"]["status_code"] == 404
         assert promoted.value["source_build_receipt"]["network_mode"] == "none"

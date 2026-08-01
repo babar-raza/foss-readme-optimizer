@@ -19,7 +19,8 @@ from readme_agent.facts.isolated_execution_schema import (
     IsolatedExecutionRequestV1,
     IsolatedExecutionResultV1,
 )
-from readme_agent.facts.python_consumer import PYTHON_311_IMAGE, prove_python_consumer
+from readme_agent.facts.python_consumer import prove_python_consumer
+from readme_agent.facts.python_toolchain import PYTHON_312_IMAGE
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
 
@@ -265,8 +266,8 @@ def _successful_executor(
         policy_sha256="b" * 64,
         policy=request.policy,
         image=ContainerImageIdentityV1(
-            requested_reference=PYTHON_311_IMAGE,
-            repo_digest=PYTHON_311_IMAGE,
+            requested_reference=request.policy.immutable_image,
+            repo_digest=request.policy.immutable_image,
             image_id="sha256:" + "c" * 64,
             operating_system="linux",
             architecture="amd64",
@@ -312,6 +313,33 @@ def test_consumer_requires_public_symbols_and_installed_import_use(tmp_path):
     assert proof.isolated_execution.policy.network_mode == "none"
     assert proof.isolated_execution.policy.read_only_rootfs is True
     assert proof.isolated_execution.policy.tmpfs_mebibytes == 256
+
+
+def test_consumer_selects_python_312_for_repository_requirement(tmp_path):
+    _write_package(tmp_path)
+    manifest = tmp_path / "pyproject.toml"
+    manifest.write_text(
+        manifest.read_text(encoding="utf-8").replace(
+            'requires-python = ">=3.11"',
+            'requires-python = ">=3.12"',
+        ),
+        encoding="utf-8",
+    )
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code="from aspose.widget import Widget\nprint(Widget.name)\n",
+        required_symbols=["aspose.widget.Widget", "aspose.widget.Widget.name"],
+    )
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=_successful_executor)
+
+    assert proof.accepted is True
+    assert proof.isolated_execution.policy.immutable_image == PYTHON_312_IMAGE
 
 
 def test_consumer_accepts_and_requires_use_of_an_aliased_package_import(tmp_path):

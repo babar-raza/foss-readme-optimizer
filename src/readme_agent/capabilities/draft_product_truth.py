@@ -257,6 +257,8 @@ def _gate_minimal_example(
     source_revision: str | None,
     observed_at: str,
     verify_example_fn: VerifyExampleFn,
+    *,
+    repository_authored: bool = False,
 ) -> FactRecordV2:
     """Mirrors `facts/provider.py::_local_verification_facts()`'s own
     two-phase shape: a cheap `evidence_failures()` pre-check for the
@@ -264,8 +266,12 @@ def _gate_minimal_example(
     a real disposable build (never waste a build on a citation that is
     already invalid), then the real per-ecosystem verifier."""
     source = FactSourceV2(
-        source_type="agent_drafted",
-        location="agent-draft://example.minimal",
+        source_type="mechanical_repository" if repository_authored else "agent_drafted",
+        location=(
+            "repository://" + ",".join(example.evidence_paths)
+            if repository_authored
+            else "agent-draft://example.minimal"
+        ),
         source_revision=source_revision,
         retrieved_at=observed_at,
     )
@@ -278,7 +284,10 @@ def _gate_minimal_example(
     quality_failures = generated_example_quality_failures(example.language, example.code)
     if pre_check_failures or quality_failures:
         return FactRecordV2(
-            fact_id=descriptive_fact_id("example.minimal", "agent-drafted-blocked"),
+            fact_id=descriptive_fact_id(
+                "example.minimal",
+                "repository-example-blocked" if repository_authored else "agent-drafted-blocked",
+            ),
             field="example.minimal",
             value={
                 "language": example.language,
@@ -303,7 +312,10 @@ def _gate_minimal_example(
         and outcome == "SOURCE_BUILD_VERIFIED"
     )
     return FactRecordV2(
-        fact_id=descriptive_fact_id("example.minimal", "agent-drafted-example"),
+        fact_id=descriptive_fact_id(
+            "example.minimal",
+            "repository-example" if repository_authored else "agent-drafted-example",
+        ),
         field="example.minimal",
         value={
             "language": example.language,
@@ -456,11 +468,53 @@ def orchestrate_product_truth_draft(
     attempt = 0
     draft: DraftProductTruthV1
     gated: dict[str, FactRecordV2]
+    repository_examples_checked = False
+    verified_repository_example: MinimalExamplePolicy | None = None
+    verified_repository_fact: FactRecordV2 | None = None
     while True:
         draft = _normalize_draft_example(draft_fn(hints, current_facts), root)
         gated = _gate_draft(
             draft, current_facts, root, source_revision, observed_at, verify_example_fn
         )
+        example_fact = gated.get("example.minimal")
+        if example_fact is not None and example_fact.verification_state == "blocked":
+            if not repository_examples_checked:
+                readme_examples = repository_readme_example_candidates(
+                    root,
+                    draft.minimal_example.language,
+                    supporting_paths=draft.minimal_example.evidence_paths,
+                )
+                source_examples = repository_source_example_candidates(
+                    root,
+                    draft.minimal_example.language,
+                )
+                repository_examples = [*readme_examples, *source_examples]
+                repository_examples.sort(
+                    key=lambda candidate: (
+                        candidate.class_name.casefold()
+                        != draft.minimal_example.class_name.casefold(),
+                        len(candidate.code),
+                        candidate.evidence_paths[0],
+                    )
+                )
+                for repository_example in repository_examples:
+                    fallback_fact = _gate_minimal_example(
+                        repository_example,
+                        root,
+                        source_revision,
+                        observed_at,
+                        verify_example_fn,
+                        repository_authored=True,
+                    )
+                    if fallback_fact.verification_state == "verified":
+                        verified_repository_example = repository_example
+                        verified_repository_fact = fallback_fact
+                        break
+                repository_examples_checked = True
+            if verified_repository_example is not None:
+                draft = draft.model_copy(update={"minimal_example": verified_repository_example})
+                assert verified_repository_fact is not None
+                gated["example.minimal"] = verified_repository_fact
         passed_evidence_facts = {
             field_name: fact
             for field_name, fact in gated.items()
@@ -497,39 +551,6 @@ def orchestrate_product_truth_draft(
         source_revision=source_revision,
         observed_at=observed_at,
     )
-
-    example_fact = gated.get("example.minimal")
-    if example_fact is not None and example_fact.verification_state == "blocked":
-        readme_examples = repository_readme_example_candidates(
-            root,
-            draft.minimal_example.language,
-            supporting_paths=draft.minimal_example.evidence_paths,
-        )
-        source_examples = repository_source_example_candidates(
-            root,
-            draft.minimal_example.language,
-        )
-        repository_examples = [*readme_examples, *source_examples]
-        repository_examples.sort(
-            key=lambda candidate: (
-                candidate.class_name.casefold() != draft.minimal_example.class_name.casefold(),
-                len(candidate.code),
-                candidate.evidence_paths[0],
-            )
-        )
-        for repository_example in repository_examples:
-            fallback_fact = _gate_minimal_example(
-                repository_example,
-                root,
-                source_revision,
-                observed_at,
-                verify_example_fn,
-            )
-            if fallback_fact.verification_state != "verified":
-                continue
-            draft = draft.model_copy(update={"minimal_example": repository_example})
-            gated["example.minimal"] = fallback_fact
-            break
 
     blocked = {
         field_name: fact
@@ -593,6 +614,10 @@ def _promote_source_build_acquisition(
         return updates
     updates["installation.verified_acquisition"] = acquisition.model_copy(
         update={
+            "fact_id": descriptive_fact_id(
+                "installation.verified_acquisition",
+                "verified-source-build" if decision.truth_eligible else "blocked-source-build",
+            ),
             "value": decision.model_dump(mode="json"),
             "source": FactSourceV2(
                 source_type="mechanical_test",
@@ -669,8 +694,11 @@ def execute(
     def verify_example_fn(example: MinimalExamplePolicy) -> LocalProductVerificationV1 | None:
         if not local_fact_verification_allowed():
             return None
+        key = example.model_dump_json()
+        if key in verification_by_example:
+            return verification_by_example[key]
         result = verify_local_product_example(snapshot, example)
-        verification_by_example[example.model_dump_json()] = result
+        verification_by_example[key] = result
         return result
 
     result = orchestrate_product_truth_draft(

@@ -34,6 +34,9 @@ dependencies = [
     # Proof publishers use a process-safe lock so concurrent sessions cannot
     # interleave files inside one checksum-addressed evidence root.
     "filelock>=3.12",
+    # Python source-consumer proof selects the lowest approved immutable
+    # interpreter satisfying each repository's PEP 440 requires-python range.
+    "packaging>=24.0",
     # Rust public-API truth needs syntax-aware module, visibility, re-export,
     # trait, implementation, and member resolution. Use the maintained
     # language grammar instead of textual `pub` matching or a bespoke parser.

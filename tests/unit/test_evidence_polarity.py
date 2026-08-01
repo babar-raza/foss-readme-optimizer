@@ -182,6 +182,55 @@ def test_comment_occurrence_cannot_prove_positive_implementation(tmp_path: Path)
     assert assessment.observed_polarity == "ambiguous_occurrence"
 
 
+def test_python_unimplemented_function_body_proves_constraint(tmp_path: Path):
+    source = tmp_path / "src" / "result.py"
+    source.parent.mkdir()
+    source.write_text(
+        "def to_pdf(\n"
+        "    options=None,\n"
+        "):\n"
+        '    """Render as PDF when available."""\n'
+        "    raise NotImplementedError\n",
+        encoding="utf-8",
+    )
+
+    assessment = assess_evidence_polarity(
+        root=tmp_path,
+        evidence_paths=["src/result.py"],
+        anchor="to_pdf",
+        fact_id="product.limitations:repository-evidence",
+        claim_text="PDF output is not implemented by to_pdf.",
+        expected_polarity="explicit_constraint",
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert assessment is not None
+    assert assessment.accepted is True
+    assert assessment.observed_polarity == "explicit_constraint"
+
+
+def test_python_implemented_function_is_not_a_constraint(tmp_path: Path):
+    source = tmp_path / "src" / "result.py"
+    source.parent.mkdir()
+    source.write_text("def to_pdf():\n    return render_pdf()\n", encoding="utf-8")
+
+    assessment = assess_evidence_polarity(
+        root=tmp_path,
+        evidence_paths=["src/result.py"],
+        anchor="to_pdf",
+        fact_id="product.limitations:repository-evidence",
+        claim_text="PDF output is not implemented by to_pdf.",
+        expected_polarity="explicit_constraint",
+        source_revision="abc123",
+        observed_at=None,
+    )
+
+    assert assessment is not None
+    assert assessment.accepted is False
+    assert assessment.observed_polarity == "positive_implementation"
+
+
 def test_format_anchor_keeps_its_separate_directional_truth_contract(tmp_path: Path):
     source = tmp_path / "src" / "FileFormat.java"
     source.parent.mkdir()
