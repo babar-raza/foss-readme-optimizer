@@ -37,6 +37,7 @@
     "mypy_src": "PASS",
     "focused_tests": "PASS: 117",
     "full_non_live_tests": "PASS: 2580",
+    "full_non_live_tests_control_head": "d56ca3651bf96854f59af0ebc3214b182269bbdc",
     "full_test_inventory_sha256": "02e4282c1a15bc48cf4118105b7ba07c9bffdac4c2ff359fd9f4f8cc2ef84c24",
     "plan_validation": "PASS with non-blocking historical row-length warnings",
     "verifier_wiring": "PASS",
@@ -45,12 +46,14 @@
     "semantic_traceability": "PASS: 162 IMPLEMENTED rows; 0 findings",
     "actionlint": "PASS: github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
     "git_diff_check": "PASS",
+    "act_registry_job": "PASS: workflow_dispatch registry job exit 0 at dc47169a",
+    "act_fixture_live_gate_isolation": "PASS: rejected outside ACT",
     "live_registry_preflight": "EXPECTED_FAIL_CLOSED",
     "live_health": "EXPECTED_UNHEALTHY"
   },
   "missing_proof": [
     "source-complete scan with an all-visibility credential for aspose-imaging-foss",
-    "ACT fixture proof of the amended discovery-to-plan workflow",
+    "ACT proof of the full amended workflow beyond the now-proven registry job",
     "independent task-close verification"
   ],
   "target_remote_writes": 0

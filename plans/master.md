@@ -3152,7 +3152,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           created one deduplicated trigger and one `READY_FAST_PATH` intake, manifests and health
           bind revision `93c718b4…968f3`, and stale/pending/unexplained/drift controls pass. Closure
           remains withheld because the current credential cannot enumerate `aspose-imaging-foss`
-          and the updated reusable workflow has not yet completed its ACT fixture proof.
+          and live source enumeration remains incomplete. The real workflow's registry job now
+          passes under ACT at `dc47169a`; its complete 32-member fixture revision is provenance-
+          bound and rejected outside ACT. Full amended-workflow trigger/recovery/isolation proof
+          remains open.
   - [x] Canonical full-registry `local_poc` profile, dynamic denominator, durable lifecycle V2,
         immutable revision bundles, and mandatory dynamic planning foundation.
   - [x] Goal-control foundation: bind executable work to typed contributions, derive the durable

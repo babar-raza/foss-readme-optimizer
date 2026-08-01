@@ -12,13 +12,21 @@ control reused the same trigger.
 The resulting revision is not Gate-A eligible. The configured `aspose-imaging-foss` source returns
 HTTP 404 to the current credential, so the revision retains one explicit source failure and health
 reports `source_scan_incomplete` plus `source_failures_present`. The task also awaits execution of
-the amended reusable workflow under its local ACT fixture. No product remote was written.
+the complete amended reusable workflow beyond its registry job. No product remote was written.
 
 The coherent regression campaign passed Ruff, formatting, mypy, all 2,580 non-live tests, plan
 validation, verifier wiring, prompt hygiene, requirement/taskcard coverage, semantic traceability,
 pinned actionlint 1.7.7, and `git diff --check`. Expanding the registry correctly invalidated the
 historical three-member trusted cohort by its registry hash; focused controls prove this is a
 fail-closed contract transition, not a relaxation of frozen-cohort admission.
+
+The real reusable workflow's `registry` job then passed under Docker/ACT at control commit
+`dc47169a` with exit 0. It emitted and uploaded a complete 32-member fixture revision, with zero
+source failures, pending intake, or unexplained observations. The fixture is explicitly bound as
+`proof_scope: act_fixture`; evaluating the persisted revision outside ACT fails closed with
+`act_fixture_not_admissible`. This proves the new workflow boundary without pretending the fixture
+is live source-enumeration evidence. `act-registry-job-summary.json` binds the raw disposable log
+and uploaded artifact by SHA-256.
 
 Reproduction commands:
 

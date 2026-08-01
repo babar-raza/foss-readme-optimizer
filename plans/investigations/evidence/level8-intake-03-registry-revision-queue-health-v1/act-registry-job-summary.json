@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "control_head": "dc47169aa9628787a41ed8bad8669facc5ad5a93",
+  "workflow": ".github/workflows/readme-agent-production.yml",
+  "event": "workflow_dispatch",
+  "job": "registry",
+  "logical_run_id": "32",
+  "act_exit_code": 0,
+  "proof_scope": "act_fixture",
+  "revision_id": "4e593b933b2b117135bb12d8312f3c967760bac268112701e21323c1ad62d91d",
+  "captured_at": "2026-08-01T12:51:18.599378+00:00",
+  "source_catalog_hash": "aee3122d35055215a76cc96461c12caefdb94c0b36adb47a5488265236541cd8",
+  "observation_snapshot_hash": "bca340c521c23e4ca855443c2aaf35e3caebdcd445a2448bcb4113bd791e2f96",
+  "products_registry_hash": "af3c2e87ec2c013bbce4b99fdac73b98d1e7256afd25159859674ecf6afad893",
+  "reconciliation_hash": "3493a03d32f2b6221154d0de208254fbd0d61950d7ed02c311d076871929d09e",
+  "admitted_count": 32,
+  "source_failure_count": 0,
+  "pending_intake_count": 0,
+  "unexplained_observation_count": 0,
+  "gate_eligible_inside_act": true,
+  "gate_eligible_outside_act": false,
+  "outside_act_gate_reason": "act_fixture_not_admissible",
+  "raw_log": {
+    "runtime_path": "runs/act-registry-fixture/registry-run-32.log",
+    "bytes": 104032,
+    "sha256": "e1dd90498da8ab20ebbe975c44a8d904ab8189ed7abb8ccc3718962c788130f4"
+  },
+  "uploaded_artifact": {
+    "runtime_path": "runs/act-registry-fixture/artifacts/32/registry-revision-32-1/registry-revision-32-1.zip",
+    "bytes": 31360,
+    "sha256": "a8fdfd796b891a22596a36d85b187152734a9c01afdf45d09da4403a41df7e18"
+  },
+  "target_remote_writes": 0
+}
