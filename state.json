@@ -14822,6 +14822,15 @@
         "reason": "entering repair attempt 2/2: Revise Scope and limitations for hierarchy around exact span: ## Scope and limitations",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REPAIRING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-01T06:03:43.400943+00:00",
+        "reason": "independent review wiring failed: ValueError: review repair instructions are stale against the source candidate: expected c74d122850ff5db4059e865d009818d499fa1849d3e23f4dcbdac2acc3ef3f88, observed ['8c1b6c6f003c5ca61ddce93006f609c78e93fc0dcd400129cd118b38700369bd']",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -14850,11 +14859,11 @@
     "reviewer_standard_hash": "ff59b1d10edb70129b1a1a9fa5e49fea588cc4e5acf6805b0595ce25c703a992",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T06:03:35.096709+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-08-01T06:03:43.400943+00:00"
   },
   "schema_version": 2,
-  "state_version": 893,
+  "state_version": 894,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
