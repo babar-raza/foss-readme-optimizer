@@ -2013,6 +2013,18 @@
         "reason": "source-bound README assessment completed",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\e0bf7a786b35dbbe5cba\\r\\32c3f6bcb6009c2d\\s\\c336fa7c1d6b\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\c336fa7c1d6b90c6155ecf25a261477640c2b1b6\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "README_ASSESSED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T08:15:37.692486+00:00",
+        "reason": "fact-cited source-span presentation plan completed",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "PLAN_READY"
       }
     ],
     "intake_preflight_history": [
@@ -2033,7 +2045,7 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": null,
+    "presentation_plan_hash": "7cb8125969d31d002e5a5b9765d731eb7c703f89e7f092c2b159c77a2ed003a4",
     "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
@@ -2041,11 +2053,11 @@
     "reviewer_standard_hash": "28e65f8a4a4f01c537754011ab8a6f6e4cf87861c845ca5cd7d54fa7ea59aa77",
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-08-01T08:15:32.343434+00:00"
+    "status": "PLAN_READY",
+    "updated_at": "2026-08-01T08:15:37.692486+00:00"
   },
   "schema_version": 2,
-  "state_version": 197,
+  "state_version": 198,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
