@@ -687,6 +687,7 @@ def supervise_repo(
         from readme_agent.supervisor.product_truth import (
             classify_product_truth,
             prepare_local_product_truth,
+            product_truth_blocked_category,
         )
 
         with repository_snapshot_scope(
@@ -724,7 +725,9 @@ def supervise_repo(
                         f"stage_limit_not_reached:{boundary.requested_stage}:"
                         f"{boundary.observed_stage}"
                     ),
-                    blocked_category="agent_fixable",
+                    blocked_category=product_truth_blocked_category(
+                        prepared_product_truth.findings
+                    ),
                     decisions=[
                         DecisionSummary(
                             turn=0,
@@ -762,7 +765,7 @@ def supervise_repo(
                 org_repo=org_repo,
                 task_graph=TaskGraph(),
                 blocked_reason=f"product_truth_not_ready:{current_fact_status}",
-                blocked_category="agent_fixable",
+                blocked_category=product_truth_blocked_category(prepared_product_truth.findings),
                 decisions=[
                     DecisionSummary(
                         turn=0,

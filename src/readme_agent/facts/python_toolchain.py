@@ -7,10 +7,12 @@ from packaging.version import Version
 
 PYTHON_311_IMAGE = "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91"
 PYTHON_312_IMAGE = "python@sha256:a9e4190f02729f01e5b3719bd8b3ea0f8d9350dc17d01a1ce1ca6e3fbfcf7a99"
+PYTHON_313_IMAGE = "python@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419"
 
 _APPROVED_RUNTIMES = (
     (Version("3.11.15"), PYTHON_311_IMAGE),
     (Version("3.12.13"), PYTHON_312_IMAGE),
+    (Version("3.13.5"), PYTHON_313_IMAGE),
 )
 
 

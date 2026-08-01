@@ -163,7 +163,9 @@ def _declared_package_paths(declared: list[str]) -> list[Path]:
         if not isinstance(item, str) or not item:
             continue
         value = item.replace("\\", "/").strip("./")
-        value = value.removesuffix(".*").replace(".", "/")
+        value = value.removesuffix("*").removesuffix(".").replace(".", "/")
+        if any(character in value for character in "?[]"):
+            continue
         if value:
             normalized.append(Path(value))
     return sorted(set(normalized), key=lambda item: (len(item.parts), item.as_posix()))

@@ -186,56 +186,73 @@ def python_source_example_candidates(
     candidates: list[MinimalExamplePolicy] = []
     for path in paths:
         try:
-            tree = ast.parse(
-                path.read_text(encoding="utf-8-sig", errors="replace"),
-                filename=str(path),
+            source = path.read_text(encoding="utf-8-sig", errors="replace")
+        except OSError:
+            continue
+        candidates.extend(
+            python_code_example_candidates(
+                source,
+                package_name=package_name,
+                relative_path=path.relative_to(root).as_posix(),
+                max_chars=max_chars,
             )
-        except (OSError, SyntaxError):
-            continue
-        package_imports = [
-            (node, bindings)
-            for node in tree.body
-            if (bindings := _import_bindings(node, package_name))
-        ]
-        if not package_imports:
-            continue
-        module_support = [
-            node
-            for node in tree.body
-            if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
-            and _supported_import(node, package_name)
-        ]
-        containers = [tree.body]
-        containers.extend(
-            node.body
-            for node in tree.body
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
         )
-        containers.extend(
-            member.body
-            for node in tree.body
-            if isinstance(node, ast.ClassDef)
-            for member in node.body
-            if isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef))
-        )
-        relative_path = path.relative_to(root).as_posix()
-        for statements in containers:
-            for index, statement in enumerate(statements):
-                if not isinstance(statement, _SUPPORTED_STATEMENTS):
-                    continue
-                local_support = [
-                    node
-                    for node in statements[:index]
-                    if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
-                    and _supported_import(node, package_name)
-                ]
-                candidate = _statement_candidate(
-                    statement,
-                    package_imports,
-                    [*module_support, *local_support],
-                    relative_path=relative_path,
-                    max_chars=max_chars,
-                )
-                if candidate is not None:
-                    candidates.append(candidate)
+    return sorted(candidates, key=lambda item: (len(item.code), item.evidence_paths[0]))
+
+
+def python_code_example_candidates(
+    source: str,
+    *,
+    package_name: str,
+    relative_path: str,
+    max_chars: int,
+) -> list[MinimalExamplePolicy]:
+    """Extract self-contained public operations from repository-authored Python text."""
+
+    try:
+        tree = ast.parse(source, filename=relative_path)
+    except SyntaxError:
+        return []
+    package_imports = [
+        (node, bindings) for node in tree.body if (bindings := _import_bindings(node, package_name))
+    ]
+    if not package_imports:
+        return []
+    module_support = [
+        node
+        for node in tree.body
+        if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
+        and _supported_import(node, package_name)
+    ]
+    containers = [tree.body]
+    containers.extend(
+        node.body for node in tree.body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+    )
+    containers.extend(
+        member.body
+        for node in tree.body
+        if isinstance(node, ast.ClassDef)
+        for member in node.body
+        if isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef))
+    )
+    candidates: list[MinimalExamplePolicy] = []
+    for statements in containers:
+        for index, statement in enumerate(statements):
+            if not isinstance(statement, _SUPPORTED_STATEMENTS):
+                continue
+            local_support = [
+                node
+                for node in statements[:index]
+                if isinstance(node, (ast.Import, ast.ImportFrom, ast.Assign, ast.AnnAssign))
+                and _supported_import(node, package_name)
+            ]
+            candidate = _statement_candidate(
+                statement,
+                package_imports,
+                [*module_support, *local_support],
+                relative_path=relative_path,
+                max_chars=max_chars,
+            )
+            if candidate is not None:
+                candidates.append(candidate)
     return sorted(candidates, key=lambda item: (len(item.code), item.evidence_paths[0]))

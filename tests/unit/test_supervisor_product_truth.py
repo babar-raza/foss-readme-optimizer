@@ -34,6 +34,15 @@ ORG_REPO = "acme/widget"
 REVISION = "a" * 40
 
 
+def test_product_truth_block_category_is_external_only_when_every_finding_is_external():
+    external = {"blocked_category": "infra_external"}
+    agent = {"blocked_category": "agent_fixable"}
+
+    assert product_truth.product_truth_blocked_category([external]) == "infra_external"
+    assert product_truth.product_truth_blocked_category([external, agent]) == "agent_fixable"
+    assert product_truth.product_truth_blocked_category([]) == "agent_fixable"
+
+
 class _Backend:
     def __init__(self):
         self.states: dict[str, RunStateV2] = {}

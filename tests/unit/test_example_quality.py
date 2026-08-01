@@ -91,13 +91,22 @@ def test_python_four_used_product_imports_are_allowed() -> None:
     assert generated_example_quality_failures("python", source) == []
 
 
-def test_python_import_inventory_over_four_without_usage_is_rejected() -> None:
-    source = "from aspose.threed import Scene, Node, Mesh, Vector3, FileFormat"
+def test_imports_do_not_count_as_executable_statements() -> None:
+    imports = "\n".join(f"import package_{index}" for index in range(12))
+    source = f"{imports}\nvalue = 1\n"
 
     failures = generated_example_quality_failures("python", source)
 
-    assert any("imports 5 symbols" in failure for failure in failures)
-    assert any("at most 4" in failure for failure in failures)
+    assert not any("executable statements" in failure for failure in failures)
+
+
+def test_python_import_inventory_over_five_without_usage_is_rejected() -> None:
+    source = "from aspose.threed import Scene, Node, Mesh, Vector3, FileFormat, SaveOptions"
+
+    failures = generated_example_quality_failures("python", source)
+
+    assert any("imports 6 symbols" in failure for failure in failures)
+    assert any("at most 5" in failure for failure in failures)
     assert any("contains only imports" in failure for failure in failures)
     assert any("unused imported symbol" in failure for failure in failures)
 

@@ -10,7 +10,7 @@ from pygments.token import Comment, String
 from pygments.util import ClassNotFound
 
 _MAX_PYTHON_TOP_LEVEL_STATEMENTS = 8
-_MAX_PYTHON_IMPORTED_SYMBOLS = 4
+_MAX_PYTHON_IMPORTED_SYMBOLS = 5
 _LEXER_BY_LANGUAGE = {
     "cpp": "cpp",
     "dotnet": "csharp",
@@ -107,10 +107,15 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
             "minimal Python README example uses private attribute(s) "
             f"{private_attributes}; regenerate it with repository-evidenced public APIs"
         )
-    if len(tree.body) > _MAX_PYTHON_TOP_LEVEL_STATEMENTS:
+    executable_statements = [
+        statement
+        for statement in tree.body
+        if not isinstance(statement, (ast.Import, ast.ImportFrom))
+    ]
+    if len(executable_statements) > _MAX_PYTHON_TOP_LEVEL_STATEMENTS:
         failures.append(
             "minimal Python README example has "
-            f"{len(tree.body)} executable statements; regenerate it with at most "
+            f"{len(executable_statements)} executable statements; regenerate it with at most "
             f"{_MAX_PYTHON_TOP_LEVEL_STATEMENTS}"
         )
     statement_lines = [statement.lineno for statement in tree.body if hasattr(statement, "lineno")]
@@ -166,11 +171,6 @@ def generated_example_quality_failures(language: str, source: str) -> list[str]:
             f"{_MAX_PYTHON_IMPORTED_SYMBOLS}"
         )
 
-    executable_statements = [
-        statement
-        for statement in tree.body
-        if not isinstance(statement, (ast.Import, ast.ImportFrom))
-    ]
     if not executable_statements:
         failures.append(
             "minimal Python README example contains only imports; regenerate it with "

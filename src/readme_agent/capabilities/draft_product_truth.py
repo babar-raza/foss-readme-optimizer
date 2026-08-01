@@ -251,6 +251,38 @@ def _local_verification_detail(result: LocalProductVerificationV1 | None) -> str
     return f"{result.detail}; compiler diagnostic:\n{diagnostic}"
 
 
+def _repairable_by_example_change(result: LocalProductVerificationV1 | None) -> bool:
+    """Return whether different example text can cross the failed verifier boundary."""
+
+    if result is None or result.outcome in {"BLOCKED_TOOLCHAIN", "ISOLATION_REQUIRED"}:
+        return False
+    if result.outcome == "SOURCE_BUILD_VERIFIED":
+        return True
+    if result.ecosystem == "python" and result.isolated_execution is not None:
+        return result.isolated_execution.return_code == 22
+    return result.example_compile is not None
+
+
+def _example_blocked_category(result: LocalProductVerificationV1 | None) -> str:
+    """Assign product-owned Python install/import defects to external authority."""
+
+    if (
+        result is not None
+        and result.ecosystem == "python"
+        and result.isolated_execution is not None
+        and result.isolated_execution.return_code in {20, 21}
+    ):
+        return "infra_external"
+    return "agent_fixable"
+
+
+def _blocked_example_is_repairable(fact: FactRecordV2) -> bool:
+    value = fact.value
+    return (
+        not isinstance(value, dict) or value.get("repairable_by_example_change", True) is not False
+    )
+
+
 def _gate_minimal_example(
     example: MinimalExamplePolicy,
     root: Path,
@@ -323,6 +355,8 @@ def _gate_minimal_example(
             "code": example.code,
             "verification_outcome": outcome,
             "verification_detail": detail,
+            "repairable_by_example_change": _repairable_by_example_change(local_result),
+            "blocked_category": _example_blocked_category(local_result),
             **(local_result.fact_projection() if local_result is not None else {}),
         },
         source=source,
@@ -417,6 +451,12 @@ def _build_finding(org_repo: str, field_name: str, fact: FactRecordV2, attempts:
     finding()` already established for the identical "bounded repair
     attempts exhausted, still blocked" outcome -- `OWN-010` requires this
     surfaced as a finding, never a silent guess."""
+    value = fact.value
+    blocked_category = (
+        value.get("blocked_category", "agent_fixable")
+        if isinstance(value, dict)
+        else "agent_fixable"
+    )
     return {
         "repository": org_repo,
         "field": field_name,
@@ -426,6 +466,7 @@ def _build_finding(org_repo: str, field_name: str, fact: FactRecordV2, attempts:
             f"{attempts}/{MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS} repair attempts"
         ),
         "actionable": True,
+        "blocked_category": blocked_category,
         "repair_attempts": attempts,
         "failure_reasons": _extract_failure_reasons(fact),
     }
@@ -510,6 +551,8 @@ def orchestrate_product_truth_draft(
                         verified_repository_example = repository_example
                         verified_repository_fact = fallback_fact
                         break
+                    if not _blocked_example_is_repairable(fallback_fact):
+                        break
                 repository_examples_checked = True
             if verified_repository_example is not None:
                 draft = draft.model_copy(update={"minimal_example": verified_repository_example})
@@ -538,9 +581,17 @@ def orchestrate_product_truth_draft(
             for field_name, fact in gated.items()
             if fact.verification_state == "blocked"
         }
-        if not blocked or attempt >= MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS:
+        repairable_blocked = {
+            field_name: fact
+            for field_name, fact in blocked.items()
+            if field_name != "example.minimal" or _blocked_example_is_repairable(fact)
+        }
+        if not repairable_blocked or attempt >= MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS:
             break
-        hints = {field_name: _extract_failure_reasons(fact) for field_name, fact in blocked.items()}
+        hints = {
+            field_name: _extract_failure_reasons(fact)
+            for field_name, fact in repairable_blocked.items()
+        }
         attempt += 1
 
     gated = reconcile_final_interpretive_grounding(

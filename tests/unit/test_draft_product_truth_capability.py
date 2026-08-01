@@ -418,8 +418,57 @@ class TestMinimalExampleGating:
         )
 
         assert result.gated_facts["example.minimal"].verification_state == "blocked"
-        assert result.repair_attempts == capability.MAX_PRODUCT_TRUTH_DRAFT_REPAIR_ATTEMPTS
+        assert result.repair_attempts == 0
         assert any(f["field"] == "example.minimal" for f in result.findings)
+
+    def test_python_package_install_failure_does_not_consume_prose_repairs(self, tmp_path):
+        root = _make_repo(tmp_path)
+        calls = 0
+        process = ExampleExecutionResultV1(
+            argv=["python", "-I", ".readme-agent-consumer-driver.py"],
+            return_code=20,
+            stdout="",
+            stderr="package installation failed",
+            timed_out=False,
+            environment_names=[],
+            isolation_kind="isolated_result_projection",
+        )
+        isolated = _verified_local_result().isolated_execution.model_copy(
+            update={"truth_eligible": False, "return_code": 20, "stderr": process.stderr}
+        )
+        failed_result = LocalProductVerificationV1(
+            org_repo=ORG_REPO,
+            source_revision="abc1234",
+            ecosystem="python",
+            outcome="BUILD_FAILED",
+            detail="pinned package installation failed",
+            build=process,
+            example_compile=process,
+            isolated_execution=isolated,
+        )
+
+        def draft_fn(hints, current_facts):
+            nonlocal calls
+            calls += 1
+            return _good_draft()
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=lambda example: failed_result,
+        )
+
+        assert calls == 1
+        assert result.repair_attempts == 0
+        assert result.gated_facts["example.minimal"].value["repairable_by_example_change"] is False
+        finding = next(
+            finding for finding in result.findings if finding["field"] == "example.minimal"
+        )
+        assert finding["blocked_category"] == "infra_external"
 
     def test_compiler_diagnostic_is_passed_to_the_repair_attempt(self, tmp_path):
         root = _make_repo(tmp_path)

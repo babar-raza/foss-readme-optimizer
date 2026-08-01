@@ -10,8 +10,12 @@ from typing import Literal
 
 from markdown_it import MarkdownIt
 
+from readme_agent.ecosystems.python_package_layout import inspect_python_package_layout
 from readme_agent.facts.example_quality import strip_source_comments
-from readme_agent.facts.python_repository_examples import python_source_example_candidates
+from readme_agent.facts.python_repository_examples import (
+    python_code_example_candidates,
+    python_source_example_candidates,
+)
 from readme_agent.inspection.file_inventory import scan
 from readme_agent.registry.models import MinimalExamplePolicy
 
@@ -167,6 +171,21 @@ def repository_readme_example_candidates(
         ):
             continue
         required_symbols = _imported_symbol_anchors(language, code) or [anchor]
+        if language == "python":
+            try:
+                package_name = inspect_python_package_layout(root).canonical_import
+            except (OSError, SyntaxError, ValueError):
+                package_name = ""
+            if package_name:
+                candidates.extend(
+                    candidate.model_copy(update={"evidence_paths": evidence_paths})
+                    for candidate in python_code_example_candidates(
+                        code,
+                        package_name=package_name,
+                        relative_path=readme_path,
+                        max_chars=_MAX_EXAMPLE_CHARS,
+                    )
+                )
         candidates.append(
             MinimalExamplePolicy(
                 language=language,

@@ -35,6 +35,7 @@ from readme_agent.supervisor.local_poc_evidence import (
 )
 
 ResolutionSource = Literal["repository_and_policy", "agent_draft", "durable_revision_cache"]
+BlockedCategory = Literal["agent_fixable", "infra_external"]
 
 _DRAFTABLE_ECOSYSTEMS = frozenset({"java", "net", "python", "typescript", "go", "cpp", "rust"})
 _CACHEABLE_LIFECYCLE_STATES = frozenset(
@@ -75,6 +76,16 @@ class PreparedProductTruthV1(BaseModel):
     resolution_source: ResolutionSource
     lifecycle_status: ReadmePocStatusV2
     bundle_dir: str
+
+
+def product_truth_blocked_category(findings: list[dict]) -> BlockedCategory:
+    """Return external only when every surfaced fact block is explicitly product-owned."""
+
+    if findings and all(
+        finding.get("blocked_category") == "infra_external" for finding in findings
+    ):
+        return "infra_external"
+    return "agent_fixable"
 
 
 def _facts_need_drafting(facts: ProductFactsV2) -> bool:

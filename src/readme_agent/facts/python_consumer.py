@@ -39,6 +39,7 @@ import os
 import pathlib
 import subprocess
 import sys
+import traceback
 
 target = pathlib.Path("/workspace/.readme-agent-installed")
 wheelhouse = pathlib.Path("/workspace/.readme-agent-wheelhouse")
@@ -68,18 +69,26 @@ if install.returncode:
 sys.path.insert(0, str(target))
 specs = json.loads(pathlib.Path(".readme-agent-symbols.json").read_text())
 verified = []
-for spec in specs:
-    value = importlib.import_module(spec["module"])
-    for part in filter(None, spec["name"].split(".")):
-        if hasattr(value, part):
-            value = getattr(value, part)
-        elif part in getattr(value, "__annotations__", {}):
-            value = value.__annotations__[part]
-        else:
-            raise AttributeError(f'{spec["qualified_name"]} is not publicly resolvable')
-    verified.append(spec["qualified_name"])
+try:
+    for spec in specs:
+        value = importlib.import_module(spec["module"])
+        for part in filter(None, spec["name"].split(".")):
+            if hasattr(value, part):
+                value = getattr(value, part)
+            elif part in getattr(value, "__annotations__", {}):
+                value = value.__annotations__[part]
+            else:
+                raise AttributeError(f'{spec["qualified_name"]} is not publicly resolvable')
+        verified.append(spec["qualified_name"])
+except Exception:
+    traceback.print_exc()
+    raise SystemExit(21)
 code = pathlib.Path(".readme-agent-consumer.py").read_text()
-exec(compile(code, ".readme-agent-consumer.py", "exec"), {"__name__": "__main__"})
+try:
+    exec(compile(code, ".readme-agent-consumer.py", "exec"), {"__name__": "__main__"})
+except Exception:
+    traceback.print_exc()
+    raise SystemExit(22)
 print("README_AGENT_PYTHON_CONSUMER=" + json.dumps({"verified_symbols": verified}, sort_keys=True))
 """.strip()
 

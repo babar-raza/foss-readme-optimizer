@@ -147,6 +147,23 @@ def test_package_layout_detects_pep420_leaf_without_initializer(tmp_path):
     assert layout.namespace_packages == ["acme"]
 
 
+def test_package_layout_expands_setuptools_trailing_wildcard_include(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "cssforge"\nrequires-python = ">=3.13"\n'
+        '[tool.setuptools.packages.find]\ninclude = ["engine*"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "engine"
+    package.mkdir()
+    (package / "__init__.py").write_text("", encoding="utf-8")
+    (package / "driver.py").write_text("def render(): pass\n", encoding="utf-8")
+
+    layout = inspect_python_package_layout(tmp_path)
+
+    assert layout.canonical_import == "engine"
+    assert layout.package_paths == ["engine"]
+
+
 def test_hatch_package_declaration_excludes_repository_example_packages(tmp_path):
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname = "aspose-words-foss"\nversion = "1.0.0"\n'

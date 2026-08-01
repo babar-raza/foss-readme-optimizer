@@ -112,6 +112,42 @@ doc.save("output.pdf", aw.SaveFormat.PDF)
     assert candidates[0].required_symbols == ["aw.Document", "aw.SaveFormat.PDF"]
 
 
+def test_python_readme_fence_yields_smallest_self_contained_public_operation(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "cssforge"\n[tool.setuptools.packages.find]\ninclude = ["engine*"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "engine"
+    package.mkdir()
+    (package / "__init__.py").write_text("", encoding="utf-8")
+    (tmp_path / "README.md").write_text(
+        """# CSSForge
+
+```python
+from engine.dom import DictNode
+from engine.paint import SkiaPaintSink
+
+dom = DictNode("div", {"display": "block"}, text="Hello")
+sink = SkiaPaintSink(400, 200)
+sink.paint(dom)
+```
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "python")
+    minimal = next(
+        candidate for candidate in candidates if candidate.required_symbols == ["DictNode"]
+    )
+
+    assert minimal.code == (
+        "from engine.dom import DictNode\n\n"
+        "dom = DictNode('div', {'display': 'block'}, text='Hello')\n"
+    )
+    assert minimal.required_symbols == ["DictNode"]
+    assert minimal.evidence_paths == ["README.md"]
+
+
 def test_rust_readme_local_names_resolve_only_to_unique_public_symbols():
     available = {
         "aspose_cells_foss_rust::CellValue",
