@@ -420,6 +420,17 @@
         "reason": "read-only intake classified READY_FULL_PIPELINE",
         "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-tex-foss__Aspose.TeX-FOSS-for-Python\\2f4bfab3863e66ef32868f5464685eb4c2d36911\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-01T09:52:01.058960+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -447,12 +458,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T09:51:41.285685+00:00"
+    "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-01T09:52:01.058960+00:00"
   },
   "schema_version": 2,
-  "state_version": 26,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "505dc361197f0f26dc8845f5c70ba0e7720de8daa296a081c3d9332bcb1f6a41",
