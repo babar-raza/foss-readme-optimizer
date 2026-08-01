@@ -473,15 +473,25 @@
         "schema_version": 1,
         "to_assurance": "trusted_inherited",
         "to_status": "PROFILED"
+      },
+      {
+        "from_assurance": "trusted_inherited",
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-08-01T09:17:17.282338+00:00",
+        "reason": "begin repository-evidence verification",
+        "schema_version": 1,
+        "to_assurance": "repository_verified",
+        "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "7f6809a4d4668c4f0f939a14db28d1738492172a79cf8ff88e005596e8e60a21",
-    "content_assurance": "trusted_inherited",
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {},
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
-    "facts_hash": "91f4aacd425f2962a69f3cee2592c8f4f7866614fd2528c64e3f2d4d339f26b9",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [],
@@ -611,6 +621,15 @@
         "reason": "independent trusted review reduced to SYSTEM_FAILURE",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor",
+        "occurred_at": "2026-08-01T09:17:17.282338+00:00",
+        "reason": "content assurance changed: begin repository-evidence verification",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -632,18 +651,18 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
-    "prompt_hash": "1f84ebf8eb904654d7cbf03575be4a909578ec6de3d122368bebef8bd30c7b56",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-07-30T04:54:56.200054+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-01T09:17:17.282338+00:00"
   },
   "schema_version": 2,
-  "state_version": 47,
+  "state_version": 48,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
