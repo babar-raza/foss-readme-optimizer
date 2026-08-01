@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Prove three coherent, product-specific, repository-verified Python README candidates."
+  },
+  "acceptance_checks_passed": [
+    "Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are consistent",
+    "Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific",
+    "Shared repairs invalidate only the responsible dependency and reuse unaffected Note receipts"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/verified-python-canary-cohort-v1/cohort-review.json",
+    "plans/investigations/evidence/verified-python-canary-cohort-v1/SUMMARY.md"
+  ],
+  "scoreboard_before_sha256": "87aef4e43dd2651604f6945ef690bd4741c1434329a8c3e3b40edaeb80d608e0",
+  "scoreboard_after_sha256": "87aef4e43dd2651604f6945ef690bd4741c1434329a8c3e3b40edaeb80d608e0",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
