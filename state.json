@@ -491,7 +491,7 @@
     "updated_at": "2026-08-01T09:52:08.038267+00:00"
   },
   "schema_version": 2,
-  "state_version": 29,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "505dc361197f0f26dc8845f5c70ba0e7720de8daa296a081c3d9332bcb1f6a41",
@@ -598,13 +598,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IndentationError: expected an indented block after 'for' statement on line 62 (box_builder.py, line 63)",
       "last_checkpoint_id": "f37c340de4fcc100b5c97866821d847f0f2e623930db1037816d43ac088c0bbe",
-      "lease_expires_at": "2026-08-01T10:06:09.823162+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-01T09:52:16.829498+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-01T09:53:37.703006+00:00"
     }
   },
   "trigger_records": {},
