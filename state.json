@@ -51,7 +51,7 @@
       }
     ],
     "graph_sha256": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
-    "last_evaluated_at": "2026-08-01T05:36:53.627909+00:00",
+    "last_evaluated_at": "2026-08-01T05:37:06.672157+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 3,
       "candidate_generated": 10,
@@ -188,7 +188,7 @@
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
-      "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "IMPLEMENTED",
+      "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "VERIFIED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -5606,6 +5606,17 @@
         "reason": "Canonical verified-canary machinery and current Note, Page, PDF runtime bundles are implemented and checksum-bound at control revision dc67ad8c.",
         "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/verified-python-canary-cohort-v1"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-08-01T05:37:06.672150+00:00",
+        "reason": "Each member is deterministically accepted, independently AGENT_APPROVED through Qwen Next, and identical-rerun NO_OP_PROVEN with zero provider calls; cohort evidence reproduces checksums and specificity.",
+        "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -5615,7 +5626,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 651,
+  "state_version": 652,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
