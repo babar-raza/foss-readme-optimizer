@@ -1986,7 +1986,7 @@ def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() 
         criterion="template_genericity",
         section="Scope and limitations",
         claim=(
-            "The 'Scope and limitations' section does not contain the required term "
+            "The 'Scope and limitations' section does not explicitly contain the required term "
             "'Enterprise Edition'."
         ),
         quoted_candidate_span="## Scope and limitations",
@@ -1996,6 +1996,8 @@ def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() 
             "Update the '## Scope and limitations' section to include the phrase "
             "'Enterprise Edition' explicitly, as required by the contract."
         ),
+        mechanical_check_id="document.required_h2_prefix",
+        reported_observed_value=False,
     )
 
     result = validate_review_findings(
@@ -2010,6 +2012,36 @@ def test_pdf_reviewer_cannot_claim_visible_enterprise_relationship_is_missing() 
     assert any(
         "Enterprise Edition term premise contradicts candidate" in error for error in result.errors
     )
+
+
+def test_quality_reviewer_cannot_launder_prose_judgment_through_unrelated_check() -> None:
+    scope = "This README documents the verified FOSS implementation."
+    candidate = f"# Product\n\n## Scope and limitations\n\n{scope}\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="scope-clarity",
+        kind="quality",
+        criterion="clarity",
+        section="Scope and limitations",
+        claim="The scope explanation is unclear.",
+        quoted_candidate_span=scope,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Clarify the scope explanation.",
+        mechanical_check_id="document.required_h2_prefix",
+        reported_observed_value=False,
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert result.errors == [
+        "scope-clarity:mechanical premise cites unrelated check document.required_h2_prefix"
+    ]
 
 
 def test_pdf_reviewer_cannot_remove_required_mit_benefits_as_promotion() -> None:

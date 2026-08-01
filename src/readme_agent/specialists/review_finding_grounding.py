@@ -47,7 +47,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v28-configured-standard-premises"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v29-mechanical-premise-ownership"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -331,7 +331,8 @@ def _validate_quality_finding(
         )
     ) or bool(
         re.search(
-            r"\b(?:missing|lacks?|without|insufficient(?:ly)?|does not contain)\b[^\n.]{0,160}"
+            r"\b(?:missing|lacks?|without|insufficient(?:ly)?|"
+            r"does not(?:\s+\w+){0,3}\s+contain)\b[^\n.]{0,160}"
             r"\b(?:content|context|detail|limitations?|enterprise edition)\b",
             premise,
         )
@@ -779,7 +780,8 @@ def _validate_quality_finding(
             or "missing entirely" in premise
             or bool(
                 re.search(
-                    r"\bdoes not contain\b[^\n.]{0,160}\benterprise edition\b",
+                    r"\bdoes not\b[^\n.]{0,40}\bcontain\b[^\n.]{0,160}"
+                    r"\benterprise edition\b",
                     premise,
                 )
             )
@@ -1024,6 +1026,11 @@ def _validate_typed_mechanical_finding(
         ]
     if finding.mechanical_check_id is None:
         return []
+    if expected_check is None:
+        return [
+            f"{finding.finding_id}:mechanical premise cites unrelated check "
+            f"{finding.mechanical_check_id}"
+        ]
     observation = mechanical_observations.get(finding.mechanical_check_id)
     if observation is None:
         return [f"{finding.finding_id}:mechanical check is unavailable for configured candidate"]
