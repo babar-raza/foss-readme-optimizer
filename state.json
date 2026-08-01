@@ -424,72 +424,72 @@
       "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "2743fc0073563619dfc8bb013bf1e40a65a31b7ceb4c3571732a34cdd2778125",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_facts_hash": "780b42a6c5fee0da8007972d9365d15aa1f5c2d17b28ead640107b109fdfbae7",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs ('converting', 'without requiring Microsoft Word').",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs ('converting DOCX, DOC, RTF, TXT, and MD files to DOCX, Markdown, plain text, and PDF') before any other content.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The second sentence identifies the audience (users of Aspose.Words for Python via .NET seeking a free/lightweight alternative) and specifies the ecosystem (Python), formats (DOCX, DOC, RTF, TXT, MD), and common tasks (converting to Markdown, plain text, PDF).",
+            "note": "The second sentence specifies the audience (users of Aspose.Words for Python via .NET seeking a free/lightweight alternative) and context (compatible API), while the first sentence implies the ecosystem (Python) and common tasks (document conversion).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "MIT license is visible and GitHub-recognized (via badge + link to license file), and build/version badges (Python version) are present.",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI and Python version badges, and a working install path against PyPI \u2014 satisfying all top trust signals.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command uses `git+https://...`, which is not a real package registry coordinate (PyPI); it does not resolve against PyPI, and no PyPI badge or link is provided.",
-            "satisfied": false
+            "note": "The install section names real package coordinates (`aspose-words-foss` on PyPI) and provides a working `pip install` command, verified via the PyPI badge and link.",
+            "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "The 'Quick Start' section includes four runnable code blocks beyond the install snippet, covering Markdown, PDF, plain text, and options-based export.",
+            "note": "Beyond the install snippet, there are six runnable code blocks (convert to Markdown, PDF, DOCX, extract text, stream loading, save with options), plus a full 'API Examples' section with runnable scripts and execution instructions.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 requirements \u2192 license \u2192 support.",
+            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 installation \u2192 examples \u2192 requirements \u2192 license \u2192 support.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a pure API library; the standard allows absence when visuals do not improve understanding.",
+            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence when visuals do not improve understanding of the product or workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository lacks recognized community files: no visible `CONTRIBUTING`, `CODE_OF_CONDUCT`, or `SECURITY` files are referenced or present, and GitHub would only show README and LICENSE.",
+            "note": "The README lacks a LICENSE file reference in the repository root (only a relative link `License/license.txt` is provided), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 GitHub will not show the community quick-link row.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub's own `pushed_at`/release data (not in README) would be the source for this \u2014 no violation here.",
+            "note": "While not stated in prose, the README includes recent PyPI and Python version badges and references to a live GitHub repo, implying structural maintenance signals (though full verification requires external GitHub checks).",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The second sentence mentions the commercial counterpart (`Aspose.Words for Python via .NET`) in factual, capability-extension language, placed after the product description \u2014 matching the acceptable SheetJS/iText pattern.",
+            "note": "The second sentence mentions the commercial counterpart (`Aspose.Words for Python via .NET`) factually and only once, as a point of API compatibility \u2014 no promotional language, pricing, or repeated mentions.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (non-PyPI install) and contribution readiness (missing community files beyond LICENSE). The product clarity, audience fit, trust signals, examples, navigation, and commercial context are well-handled."
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing GitHub-recognized community files like LICENSE in root, CODE_OF_CONDUCT, and CONTRIBUTING). All other dimensions \u2014 especially product clarity, installation path, and verified examples \u2014 are well-executed and align with leading FOSS practices."
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:17:40.714223+00:00",
+      "last_run_timestamp": "2026-08-01T11:17:44.548883+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+      "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "readme_presentation": {
       "accepted_facts_hash": "e597457da924b4781512ca6f9c7351aa362b3db364a0ef3ca7ede63a8f6dd043",
@@ -6565,7 +6565,7 @@
     "updated_at": "2026-08-01T11:16:51.298826+00:00"
   },
   "schema_version": 2,
-  "state_version": 81,
+  "state_version": 82,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7fd042f3d6f868eb81b5eef39097ef0b408aa405abcd59b919c909b2c2c8d5d6",
