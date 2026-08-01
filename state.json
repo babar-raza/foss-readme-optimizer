@@ -138,6 +138,17 @@
         "reason": "reconciled successful read-only intake retry",
         "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-html-foss__CSSForge\\b972777dd11f1045ac695513e73d68883404e7bc\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-01T17:54:17.321028+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -180,12 +191,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T16:00:11.591576+00:00"
+    "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-01T17:54:17.321028+00:00"
   },
   "schema_version": 2,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1319039143:00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205": {
