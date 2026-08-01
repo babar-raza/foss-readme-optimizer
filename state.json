@@ -636,6 +636,7 @@
     "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
+    "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
@@ -643,7 +644,7 @@
     "updated_at": "2026-07-31T10:06:34.531103+00:00"
   },
   "schema_version": 2,
-  "state_version": 54,
+  "state_version": 55,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260729-063434-cfef:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
@@ -726,13 +727,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "a55934f6372e911a29db9d2c060a40ebb1753f5843ecf4588c719d1d8f460850",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-07-31T10:06:50.469102+00:00"
+      "updated_at": "2026-08-01T07:38:27.960776+00:00"
     }
   },
   "trigger_records": {},
