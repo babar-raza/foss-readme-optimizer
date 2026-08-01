@@ -84,6 +84,7 @@ _CONCRETE_PHRASES = (
     "working with",
     "library for",
     "implementation of",
+    "workflow automation",
     "provides",
     "toolkit for",
     "sdk for",

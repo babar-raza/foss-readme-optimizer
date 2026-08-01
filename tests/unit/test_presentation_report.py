@@ -41,6 +41,17 @@ class TestProductExplanationOffset:
 
         assert product_explanation_offset(text) is None
 
+    def test_recognizes_workflow_automation_as_a_concrete_product_class(self):
+        text = (
+            "# Aspose.Font FOSS for Python\n\n"
+            "Pure-Python font workflow automation for teams that prepare and review fonts.\n"
+        )
+
+        offset = product_explanation_offset(text)
+
+        assert offset is not None
+        assert text[offset:].startswith("Pure-Python font workflow automation")
+
 
 class TestDetectPresentation:
     def test_explains_product_in_opening(self):
