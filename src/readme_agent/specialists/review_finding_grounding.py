@@ -21,6 +21,9 @@ from readme_agent.specialists.review_mechanical_observations import (
     quick_start_max_nonblank_code_lines,
     visible_header_badge_row_count,
 )
+from readme_agent.specialists.review_standard_premises import (
+    validate_configured_standard_premise,
+)
 
 FindingKind = Literal["quality", "factual"]
 FindingPolarityResult = Literal["not_applicable", "supports", "contradicts", "missing"]
@@ -44,7 +47,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v27-parser-owned-h2-prefix"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v28-configured-standard-premises"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -291,6 +294,15 @@ def _validate_quality_finding(
         return []
     errors: list[str] = []
     premise = f"{finding.claim}\n{finding.required_repair}".casefold()
+    errors.extend(
+        validate_configured_standard_premise(
+            finding_id=finding.finding_id,
+            section=finding.section,
+            premise=premise,
+            candidate_text=candidate_text,
+            visitor_contract=visitor_contract,
+        )
+    )
     quote = finding.quoted_candidate_span
     removes_prose_block = bool(
         re.search(r"\b(?:remove|delete|omit)\b[^\n.]*\b(?:paragraph|prose|sentence)\b", premise)

@@ -591,6 +591,116 @@ flowchart LR
     ]
 
 
+def test_blind_reviewer_cannot_invert_configured_note_presentation_standards() -> None:
+    mermaid = """```mermaid
+flowchart LR
+  subgraph Inputs["Inputs and formats"]
+    input_1["Microsoft OneNote (.one) files"]
+    input_2["Binary streams"]
+  end
+  product["Aspose.Note FOSS for Python"]
+  subgraph Capabilities["Core capabilities"]
+    capability_1["Document traversal"]
+    capability_2["PDF export"]
+    capability_3["Image extraction"]
+  end
+  subgraph Outputs["Outputs and accessible content"]
+    output_1["Document object model"]
+    output_2["PDF documents"]
+  end
+  input_1 --- product
+  product --- capability_1
+  product --- output_1
+```"""
+    details = "<details>\n<summary>Show additional examples</summary>\n\nExample.\n</details>"
+    relationship = (
+        "[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and "
+        "[Aspose.Note for Python Enterprise Edition](https://products.aspose.com/note/) "
+        "are separate products. This README documents the FOSS implementation; do not "
+        "assume API or feature parity beyond verified behavior."
+    )
+    candidate = (
+        "# Aspose.Note FOSS for Python\n\n"
+        f"## At a glance\n\n{mermaid}\n\n"
+        f"## Additional examples\n\n{details}\n\n"
+        f"## Scope and limitations\n\n{relationship}\n"
+    )
+    common = {
+        "kind": "quality",
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+    }
+    findings = [
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "collapsed-examples",
+                "criterion": "example_presentation",
+                "section": "Additional examples",
+                "claim": "Secondary examples are collapsed, violating the configured rule.",
+                "quoted_candidate_span": details,
+                "required_repair": "Move secondary examples out of the details block.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "directional-mermaid",
+                "criterion": "markdown_integrity",
+                "section": "At a glance",
+                "claim": "The Mermaid diagram uses directional arrows.",
+                "quoted_candidate_span": mermaid,
+                "required_repair": "Replace directional arrows with --- connectors.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "thin-mermaid",
+                "criterion": "product_specificity",
+                "section": "At a glance",
+                "claim": "The Mermaid diagram does not show three capabilities or input/output.",
+                "quoted_candidate_span": mermaid,
+                "required_repair": "Add three capabilities and an input/output pair.",
+            }
+        ),
+        GroundedReviewFindingV1.model_validate(
+            {
+                **common,
+                "finding_id": "promotional-scope",
+                "criterion": "promotional_balance",
+                "section": "Scope and limitations",
+                "claim": (
+                    "The Enterprise Edition relationship is a promotional link rather than "
+                    "scope context."
+                ),
+                "quoted_candidate_span": relationship,
+                "required_repair": "Rewrite it as compatibility context rather than promotion.",
+            }
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert result.valid is False
+    assert result.errors == [
+        "collapsed-examples:collapsed-example premise contradicts configured presentation",
+        "directional-mermaid:Mermaid-direction premise contradicts parsed connectors",
+        "thin-mermaid:Mermaid-role-count premise contradicts parsed candidate",
+        "promotional-scope:Enterprise-scope premise contradicts configured candidate context",
+    ]
+
+
 def test_blind_reviewer_cannot_call_a_descriptive_enterprise_link_bare() -> None:
     enterprise_url = "https://products.aspose.com/note/"
     paragraph = (
