@@ -291,34 +291,25 @@
       "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "41958c12ba44b09f75be54f3bb9842d6f2d45d393dfe3cc57d55fdf289f64957",
+      "accepted_facts_hash": "46f0d8408ade89e397ce6846970c4425dc75e8ffbb599c0739c90a10c233daf2",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'python'",
-        "handoff_findings": [
-          {
-            "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T15:04:47.216283+00:00",
-            "evidence": {
-              "detail": "no live resolver registered for ecosystem 'python'"
-            },
-            "surface": "packages"
-          }
-        ],
-        "install_path_resolved": false,
-        "latest_release_name": "Release v26.4",
-        "latest_release_tag": "26.4.0",
-        "releases_count": 2
+        "evidence": "PyPI: aspose-slides-foss found",
+        "handoff_findings": [],
+        "install_path_resolved": true,
+        "latest_release_name": "Release 26.8.0",
+        "latest_release_tag": "26.8.0",
+        "releases_count": 3
       },
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:04:47.216729+00:00",
+      "last_run_timestamp": "2026-08-01T09:20:09.577494+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "6ca17fd6593e0f31ed5e6fb53eb4c5896b7a6525"
+      "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "e094fe07a87f69d1797e15e9a457ba3980fd69f200d81005919528b259e284f3",
@@ -750,7 +741,7 @@
     "updated_at": "2026-08-01T09:18:56.997731+00:00"
   },
   "schema_version": 2,
-  "state_version": 55,
+  "state_version": 56,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a9923ae0c61def22dd5553b3cd1897b3a8d95eb6af21d1a3bb89d8845f68ee83",
