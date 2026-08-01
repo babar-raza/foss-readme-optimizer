@@ -535,6 +535,44 @@ def test_legacy_false_terminal_graph_reopens_at_current_blocked_fact_boundary(
     assert "candidate_hash" not in manifest
 
 
+def test_current_contract_false_terminal_graph_reopens_at_blocked_fact_boundary(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts_with_missing("installation.verified_acquisition")
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="python"),
+    )
+    prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    _advance_to_no_op(backend)
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("current cached truth must be reclassified in place"),
+    )
+
+    cached = product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
+
+    assert cached is not None
+    assert cached.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert lifecycle.status == "BLOCKED_MISSING_EVIDENCE"
+    assert lifecycle.fact_acceptance_contract_hash is not None
+    manifest = json.loads((Path(prepared.bundle_dir) / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["lifecycle_status"] == "BLOCKED_MISSING_EVIDENCE"
+    assert manifest["complete"] is False
+    assert "candidate_hash" not in manifest
+
+
 def test_missing_durable_fact_evidence_fails_closed(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)

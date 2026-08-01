@@ -181,13 +181,14 @@ def load_prepared_product_truth(
     )
     outcome = classify_product_truth(facts, contract)
     returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
+    outcome_matches_lifecycle = _cached_outcome_matches_lifecycle(lifecycle.status, outcome)
     if not (manifest_contract_current and lifecycle_contract_current):
         if _changed_evidence_gate_requires_recollection(
             lifecycle.fact_acceptance_component_hashes,
             contract,
         ):
             return None
-        if _cached_outcome_matches_lifecycle(lifecycle.status, outcome):
+        if outcome_matches_lifecycle:
             bind_fact_acceptance_contract(
                 state_backend,
                 org_repo,
@@ -204,30 +205,30 @@ def load_prepared_product_truth(
                 contract_hash=contract_hash,
                 component_hashes=contract.component_hashes,
             )
-        else:
-            reclassify_local_poc_fact_acceptance(
-                bundle_dir,
-                source_revision=source_revision,
-                lifecycle_status=outcome,
-                contract_hash=contract_hash,
-                component_hashes=contract.component_hashes,
-            )
-            record_product_facts_outcome(
-                state_backend,
-                org_repo,
-                source_revision=source_revision,
-                facts_hash=facts.canonical_hash(),
-                outcome=outcome,
-                evidence_refs=[
-                    str(facts_path),
-                    str(bundle_dir / "facts" / "provenance.json"),
-                    str(bundle_dir / "facts" / "conflicts.json"),
-                ],
-                prompt_hash=lifecycle.prompt_hash,
-                fact_acceptance_contract_hash=contract_hash,
-                fact_acceptance_component_hashes=contract.component_hashes,
-            )
-            returned_lifecycle_status = outcome
+    if not outcome_matches_lifecycle:
+        reclassify_local_poc_fact_acceptance(
+            bundle_dir,
+            source_revision=source_revision,
+            lifecycle_status=outcome,
+            contract_hash=contract_hash,
+            component_hashes=contract.component_hashes,
+        )
+        record_product_facts_outcome(
+            state_backend,
+            org_repo,
+            source_revision=source_revision,
+            facts_hash=facts.canonical_hash(),
+            outcome=outcome,
+            evidence_refs=[
+                str(facts_path),
+                str(bundle_dir / "facts" / "provenance.json"),
+                str(bundle_dir / "facts" / "conflicts.json"),
+            ],
+            prompt_hash=lifecycle.prompt_hash,
+            fact_acceptance_contract_hash=contract_hash,
+            fact_acceptance_component_hashes=contract.component_hashes,
+        )
+        returned_lifecycle_status = outcome
     return PreparedProductTruthV1(
         facts=facts,
         findings=findings,
