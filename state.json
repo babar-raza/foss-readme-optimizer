@@ -139,6 +139,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260801-175316-b6ab:aspose-html-foss/CSSForge"
     },
+    "b0cecb1a4954d5dc29c139c5875574455fec41603d47e54e2fa1ff7f76d01617": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "b0cecb1a4954d5dc29c139c5875574455fec41603d47e54e2fa1ff7f76d01617",
+      "completed_at": "2026-08-01T18:11:53.132729+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "fbab58390fcc66ea93fa49a62ada603560ba9b9f7b34e52bf4a88689c63ea80a",
+      "repository": "aspose-html-foss/CSSForge",
+      "run_id": "20260801-180921-ebc7",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-01T18:11:53.132720+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-180921-ebc7:aspose-html-foss/CSSForge"
+    },
     "d41474ce44c50057b06fdeb63f94a1550ed1ebb822bbd349bf4c744af1d1b8c2": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -389,7 +406,7 @@
     "updated_at": "2026-08-01T18:11:47.314743+00:00"
   },
   "schema_version": 2,
-  "state_version": 32,
+  "state_version": 33,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1319039143:00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205": {
@@ -474,11 +491,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "d41474ce44c50057b06fdeb63f94a1550ed1ebb822bbd349bf4c744af1d1b8c2",
+      "last_checkpoint_id": "b0cecb1a4954d5dc29c139c5875574455fec41603d47e54e2fa1ff7f76d01617",
       "lease_expires_at": "2026-08-01T18:24:40.296129+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-01T18:10:19.379907+00:00"
+      "updated_at": "2026-08-01T18:11:53.132729+00:00"
     }
   },
   "trigger_records": {},
