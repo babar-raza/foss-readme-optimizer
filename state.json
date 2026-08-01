@@ -1417,25 +1417,25 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "REJECT_REPAIRABLE",
-          "failure_reason": "independent_review_repair_rerouted",
-          "message": "REJECT_REPAIRABLE",
-          "occurred_at": "2026-08-01T00:04:35.844921+00:00",
+          "error_type": "GroundedRoleFailure",
+          "failure_reason": "independent_review_exception",
+          "message": " factual_plan reviewer repeatedly returned ungrounded findings: [\"factual README plan review violated its output contract: 1 validation error for FactualPlanReviewResultV1\\n  Value error, factual-plan ACCEPT cannot carry failure details [type=value_error, input_value={'verdict': 'ACCEPT', 're...'required_repair': ''}]}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\"]",
+          "occurred_at": "2026-08-01T00:53:06.555620+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": null
         }
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "independent_review_repair_rerouted",
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T00:04:35.844921+00:00",
+      "last_run_timestamp": "2026-08-01T00:53:06.555620+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -3060,7 +3060,7 @@
     "updated_at": "2026-08-01T00:53:00.939745+00:00"
   },
   "schema_version": 2,
-  "state_version": 362,
+  "state_version": 363,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f0ed7256cdbe4e3a03fbf4c7287b650f3718ff7544f31f6789189daea61cc4b2",
