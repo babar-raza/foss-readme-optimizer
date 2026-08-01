@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V1-VERIFIED-TRUTH",
-    "active_task_id": null,
+    "active_task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 4,
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 4
     },
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-01T16:51:50.247284+00:00",
+    "claim_id": "6bc44c3e1c024535a50f4726310d14ba",
+    "claimed_at": "2026-08-01T16:21:50.247284+00:00",
+    "claimed_by": "Codex",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -69,7 +69,7 @@
       }
     ],
     "graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
-    "last_evaluated_at": "2026-08-01T16:21:24.169682+00:00",
+    "last_evaluated_at": "2026-08-01T16:21:50.247284+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
@@ -209,7 +209,7 @@
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
       "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "CLOSED",
-      "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "TODO",
+      "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "IN_PROGRESS",
       "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION": "CLOSED",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
@@ -5760,6 +5760,15 @@
         "reason": "current complete 33-repository revision is intake-settled, campaign-bound, recoverable, and independently verified",
         "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "Codex",
+        "occurred_at": "2026-08-01T16:21:50.247491+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -5769,7 +5778,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 675,
+  "state_version": 676,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
