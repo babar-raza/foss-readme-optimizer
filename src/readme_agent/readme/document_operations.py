@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import (
+    DocumentCoordinateSpace,
     DocumentOperation,
     ProtectedContentTreatment,
     ReadmeDocumentOperationV1,
@@ -47,11 +48,13 @@ def build_operation(
     fact_ids: list[str],
     treatment: ProtectedContentTreatment,
     rationale: str,
+    coordinate_space: DocumentCoordinateSpace = "presentation_inner_utf8",
 ) -> ReadmeDocumentOperationV1:
     replacement_bytes = replacement.encode("utf-8")
     return ReadmeDocumentOperationV1(
         operation_id=operation_id,
         operation=operation,
+        coordinate_space=coordinate_space,
         source_byte_start=start,
         source_byte_end=end,
         expected_sha256=sha256_hex(source[start:end]),
@@ -79,24 +82,28 @@ def build_operation(
 
 def apply_document_operations(source: bytes, operations: list[ReadmeDocumentOperationV1]) -> bytes:
     rendered = source
-    for operation in sorted(
-        operations,
-        key=lambda item: (
-            item.source_byte_start,
-            item.source_byte_end,
-            _same_boundary_rank(item),
-            item.operation_id,
-        ),
-        reverse=True,
-    ):
-        current = rendered[operation.source_byte_start : operation.source_byte_end]
-        if sha256_hex(current) != operation.expected_sha256:
-            raise ValueError(f"source span changed for {operation.operation_id}")
-        rendered = (
-            rendered[: operation.source_byte_start]
-            + operation.replacement_text.encode("utf-8")
-            + rendered[operation.source_byte_end :]
-        )
+    for coordinate_space in ("presentation_inner_utf8", "candidate_utf8"):
+        coordinate_operations = [
+            operation for operation in operations if operation.coordinate_space == coordinate_space
+        ]
+        for operation in sorted(
+            coordinate_operations,
+            key=lambda item: (
+                item.source_byte_start,
+                item.source_byte_end,
+                _same_boundary_rank(item),
+                item.operation_id,
+            ),
+            reverse=True,
+        ):
+            current = rendered[operation.source_byte_start : operation.source_byte_end]
+            if sha256_hex(current) != operation.expected_sha256:
+                raise ValueError(f"source span changed for {operation.operation_id}")
+            rendered = (
+                rendered[: operation.source_byte_start]
+                + operation.replacement_text.encode("utf-8")
+                + rendered[operation.source_byte_end :]
+            )
     return rendered
 
 

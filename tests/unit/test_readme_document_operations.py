@@ -61,6 +61,37 @@ class TestApplyDocumentOperations:
     def test_empty_operations_returns_source_unchanged(self):
         assert apply_document_operations(b"unchanged", []) == b"unchanged"
 
+    def test_candidate_coordinate_move_runs_after_source_operations(self):
+        source = b"# Product\n\n## Quick start\n\nOLD\n\n## Installation\n\npip install product\n"
+        source_operation = _op(
+            "test.quick-start",
+            source.index(b"OLD"),
+            source.index(b"OLD") + 3,
+            "VERIFIED",
+            source,
+        )
+        preliminary = apply_document_operations(source, [source_operation])
+        quick = b"## Quick start\n\nVERIFIED\n\n"
+        installation = b"## Installation\n\npip install product\n"
+        start = preliminary.index(quick)
+        end = len(preliminary)
+        move = build_operation(
+            operation_id="test.move",
+            operation="move_exact",
+            source=preliminary,
+            start=start,
+            end=end,
+            replacement=(installation + b"\n" + quick).decode(),
+            fact_ids=[],
+            treatment="preserve",
+            rationale="test candidate-coordinate section move",
+            coordinate_space="candidate_utf8",
+        )
+
+        assert apply_document_operations(source, [source_operation, move]) == (
+            source[: source.index(b"## Quick start")] + installation + b"\n" + quick
+        )
+
     def test_equal_boundary_core_sections_have_stable_semantic_order(self):
         source = b"# Product\n"
         boundary = len(source)

@@ -73,15 +73,16 @@ def build_readme_claim_map(
     source_inner = existing.content if existing is not None else source_text
     source_bytes = source_inner.encode("utf-8")
     for operation in plan.operations:
+        if not operation.fact_ids:
+            continue
         if operation.replacement_text:
             replacement_character_start = candidate_text.find(operation.replacement_text)
-            if replacement_character_start < 0:
-                raise ValueError(
-                    f"document operation replacement is absent from candidate: "
-                    f"{operation.operation_id!r}"
-                )
             operation_claim_text = operation.replacement_text
-            operation_byte_start = len(candidate_text[:replacement_character_start].encode("utf-8"))
+            operation_byte_start = (
+                len(candidate_text[:replacement_character_start].encode("utf-8"))
+                if replacement_character_start >= 0
+                else None
+            )
             coordinate_space: Literal["candidate_utf8", "presentation_inner_source_utf8"] = (
                 "candidate_utf8"
             )
@@ -115,11 +116,20 @@ def build_readme_claim_map(
             if literal_match is None:
                 continue
             claim_text = operation_claim_text[literal_match.line_start : literal_match.line_end]
-            relative_character_start = literal_match.line_start
-            relative_byte_start = len(
-                operation_claim_text[:relative_character_start].encode("utf-8")
-            )
-            byte_start = operation_byte_start + relative_byte_start
+            if operation_byte_start is None:
+                candidate_character_start = candidate_text.find(claim_text)
+                if candidate_character_start < 0:
+                    raise ValueError(
+                        "document operation fact text is absent from candidate: "
+                        f"{operation.operation_id!r}:{selected.field!r}"
+                    )
+                byte_start = len(candidate_text[:candidate_character_start].encode("utf-8"))
+            else:
+                relative_character_start = literal_match.line_start
+                relative_byte_start = len(
+                    operation_claim_text[:relative_character_start].encode("utf-8")
+                )
+                byte_start = operation_byte_start + relative_byte_start
             byte_end = byte_start + len(claim_text.encode("utf-8"))
             claims.append(
                 ReadmeClaimBindingV1(

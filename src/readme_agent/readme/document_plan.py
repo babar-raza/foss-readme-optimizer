@@ -21,6 +21,7 @@ DocumentOperation = Literal[
     "move_exact",
     "remove",
 ]
+DocumentCoordinateSpace = Literal["presentation_inner_utf8", "candidate_utf8"]
 ProtectedContentTreatment = Literal[
     "preserve",
     "additive",
@@ -60,7 +61,7 @@ class ReadmeDocumentOperationV1(_StrictModel):
     operation_id: str
     operation: DocumentOperation
     path: Literal["README.md"] = "README.md"
-    coordinate_space: Literal["presentation_inner_utf8"] = "presentation_inner_utf8"
+    coordinate_space: DocumentCoordinateSpace = "presentation_inner_utf8"
     source_byte_start: int = Field(ge=0)
     source_byte_end: int = Field(ge=0)
     expected_sha256: str
@@ -97,6 +98,8 @@ class ReadmeDocumentOperationV1(_StrictModel):
             raise ValueError("insert operations require an empty source span")
         if self.operation == "remove" and self.replacement_text:
             raise ValueError("remove operations require an empty replacement")
+        if self.coordinate_space == "candidate_utf8" and self.operation != "move_exact":
+            raise ValueError("candidate_utf8 coordinates are reserved for move_exact operations")
         if (
             self.protected_content_treatment == "authoritative_fact_correction"
             and not self.fact_ids
@@ -137,16 +140,20 @@ class ReadmeDocumentPlanV1(_StrictModel):
         operation_ids = [operation.operation_id for operation in self.operations]
         if len(operation_ids) != len(set(operation_ids)):
             raise ValueError("document plan contains duplicate operation IDs")
-        occupied = sorted(
-            (
-                operation.source_byte_start,
-                operation.source_byte_end,
-                operation.operation_id,
+        for coordinate_space in {operation.coordinate_space for operation in self.operations}:
+            occupied = sorted(
+                (
+                    operation.source_byte_start,
+                    operation.source_byte_end,
+                    operation.operation_id,
+                )
+                for operation in self.operations
+                if operation.coordinate_space == coordinate_space
+                and operation.source_byte_start != operation.source_byte_end
             )
-            for operation in self.operations
-            if operation.source_byte_start != operation.source_byte_end
-        )
-        for previous, current in zip(occupied, occupied[1:], strict=False):
-            if current[0] < previous[1]:
-                raise ValueError(f"document operations {previous[2]!r} and {current[2]!r} overlap")
+            for previous, current in zip(occupied, occupied[1:], strict=False):
+                if current[0] < previous[1]:
+                    raise ValueError(
+                        f"document operations {previous[2]!r} and {current[2]!r} overlap"
+                    )
         return self

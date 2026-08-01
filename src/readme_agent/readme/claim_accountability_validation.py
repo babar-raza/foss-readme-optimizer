@@ -24,6 +24,8 @@ def _operation_overlaps(
     start: int,
     end: int,
 ) -> bool:
+    if operation.coordinate_space != "presentation_inner_utf8":
+        return False
     if operation.source_byte_start == operation.source_byte_end:
         return start <= operation.source_byte_start <= end
     return operation.source_byte_start < end and start < operation.source_byte_end

@@ -131,8 +131,19 @@ def validate_readme_document_candidate(
     citations_valid = True
     span_hashes_valid = True
     authorized_fragment_ids: set[str] = set()
+    source_operations = [
+        operation
+        for operation in plan.operations
+        if operation.coordinate_space == "presentation_inner_utf8"
+    ]
+    preliminary_candidate = apply_document_operations(source, source_operations)
     for operation in plan.operations:
-        selected = source[operation.source_byte_start : operation.source_byte_end]
+        coordinate_document = (
+            source
+            if operation.coordinate_space == "presentation_inner_utf8"
+            else preliminary_candidate
+        )
+        selected = coordinate_document[operation.source_byte_start : operation.source_byte_end]
         if _sha256(selected) != operation.expected_sha256:
             span_hashes_valid = False
             errors.append(f"{operation.operation_id}: source span hash changed")
@@ -152,10 +163,14 @@ def validate_readme_document_candidate(
             if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
                 citations_valid = False
                 errors.append(f"{operation.operation_id}: {fact_id} is {fact.verification_state}")
-        if operation.protected_content_treatment in {
-            "authoritative_fact_correction",
-            "presentation_policy_correction",
-        }:
+        if (
+            operation.coordinate_space == "presentation_inner_utf8"
+            and operation.protected_content_treatment
+            in {
+                "authoritative_fact_correction",
+                "presentation_policy_correction",
+            }
+        ):
             authorized_fragment_ids.update(
                 protected_fragment_ids_overlapping_byte_span(
                     source_inner,
