@@ -60,7 +60,7 @@
       }
     ],
     "graph_sha256": "df1da13107adf0f54e8b3fbfc80c92233617781eb8fd7bec6bfedd56011dbf7c",
-    "last_evaluated_at": "2026-08-01T16:17:12.314260+00:00",
+    "last_evaluated_at": "2026-08-01T16:17:27.771971+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
@@ -124,7 +124,7 @@
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
-      "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "IMPLEMENTED",
+      "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "VERIFIED",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-FULL-REGISTRY-GATE-A": "REGRESSED",
       "L8-LOCAL-HETEROGENEOUS-QUALIFICATION": "REGRESSED",
@@ -5705,6 +5705,18 @@
         "reason": "implementation and local production-like proof complete",
         "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/verification.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-08-01T16:17:27.771964+00:00",
+        "reason": "focused, full regression, workflow, live inventory, and independent evidence replay passed",
+        "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -5714,7 +5726,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 670,
+  "state_version": 671,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
