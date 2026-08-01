@@ -14586,7 +14586,7 @@
     "updated_at": "2026-07-31T09:20:16.617416+00:00"
   },
   "schema_version": 2,
-  "state_version": 863,
+  "state_version": 864,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "949916cdfbb461817445c28ec86424210fed3cfdaaae4c2c5934bd10ffa2113c",
@@ -15199,13 +15199,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:draft_product_truth dispatch failed: execution_error: IsolatedExecutionError: docker image inspect failed: ",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "189102605ef17c35e4f4a44d99452c3453055b4fedfde5207e3f492732c45241",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-01T06:09:27.274199+00:00",
       "recovery_count": 0,
-      "status": "retryable",
-      "updated_at": "2026-08-01T05:54:21.616546+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-01T05:54:27.274199+00:00"
     }
   },
   "trigger_records": {},
