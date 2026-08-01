@@ -367,9 +367,49 @@
   "open_proposals_v2": {},
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "readme_poc_lifecycle": null,
+  "readme_poc_lifecycle": {
+    "assessment_hash": null,
+    "assurance_history": [],
+    "candidate_hash": null,
+    "content_assurance": "repository_verified",
+    "details": {},
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_history": [],
+    "facts_hash": null,
+    "history": [
+      {
+        "evidence_refs": [],
+        "from_status": "DISCOVERED",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-01T14:50:55.588201+00:00",
+        "reason": "claimed source-bound read-only intake preflight",
+        "source_revision": "12ae9e183a093d40afd3b502a368963f19ed83a3",
+        "to_status": "INTAKE_PREFLIGHTING"
+      }
+    ],
+    "intake_preflight_history": [],
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "328ffa92ec36ec9bf8577ccaefc3da2ff2d0c5b7cf0fbde12d968bdffbdadc9c",
+      "schema_version": 1,
+      "source_revision": "12ae9e183a093d40afd3b502a368963f19ed83a3",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-01T14:50:55.588195+00:00"
+    },
+    "presentation_plan_hash": null,
+    "prompt_hash": null,
+    "protected_content_fingerprint": null,
+    "repair_attempts_for_revision": 0,
+    "repair_budget_origin_hash": null,
+    "reviewer_standard_hash": null,
+    "schema_version": 2,
+    "source_revision": null,
+    "status": "INTAKE_PREFLIGHTING",
+    "updated_at": "2026-08-01T14:50:55.588201+00:00"
+  },
   "schema_version": 2,
-  "state_version": 28,
+  "state_version": 29,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ea0b74bcbab4133ffc7cd243b529a932edfab27dc17f2ee258f2e2578c82fb20",
