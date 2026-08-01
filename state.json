@@ -1451,6 +1451,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-01T08:52:05.990955+00:00",
+        "reason": "independent review wiring failed: GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings: ['f1:quoted span is outside the named candidate section', 'f2:heading-only quote cannot prove the claimed section content', 'f2:Enterprise Edition term premise contradicts candidate']",
+        "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -1494,11 +1503,11 @@
     "reviewer_standard_hash": "28e65f8a4a4f01c537754011ab8a6f6e4cf87861c845ca5cd7d54fa7ea59aa77",
     "schema_version": 2,
     "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-08-01T08:51:17.878984+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-08-01T08:52:05.990955+00:00"
   },
   "schema_version": 2,
-  "state_version": 153,
+  "state_version": 154,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "25c8d1447c85f4e365f92a48275552bf56f6b00468e7f7aafac60b75576da3bc",
