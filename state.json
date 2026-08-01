@@ -60,7 +60,7 @@
       }
     ],
     "graph_sha256": "b6b3a0330bac75bedd317e1f8ca41288325f191d6cf2d0e8fc3f10e0328b5ad7",
-    "last_evaluated_at": "2026-08-01T11:40:04.188827+00:00",
+    "last_evaluated_at": "2026-08-01T11:40:16.744112+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
@@ -136,7 +136,7 @@
       "L8-GATEA-04-REPRODUCE": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
-      "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "VERIFIED",
+      "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "SCORED",
       "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": "TODO",
       "L8-LOCAL-CENTRAL-AGENT-RESILIENCE": "TODO",
       "L8-LOCAL-FULL-REGISTRY-GATE-A": "REGRESSED",
@@ -5675,6 +5675,17 @@
         "reason": "Public supervisor unseen-discovery admission and exactly-one durable intake proof passes with truthful classification blocking and zero target effects",
         "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex",
+        "occurred_at": "2026-08-01T11:40:16.744105+00:00",
+        "reason": "All task acceptance checks and L8-037 evidence are current and independently reproduced",
+        "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -5684,7 +5695,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 660,
+  "state_version": 661,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
