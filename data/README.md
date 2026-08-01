@@ -75,7 +75,8 @@ drop it, substitute a similarly named organization, or count the governed exclus
 
 [`scripts/data-refresh/update_products_registry.py`](../scripts/data-refresh/update_products_registry.py)
 scans every GitHub org in `families.json` (read-only `GET` calls against the GitHub REST API),
-classifies each public repo by its `Aspose.{Family}-FOSS-for-{Platform}` naming convention, and
+records every repository visible to the authorized credential, classifies names against the
+`Aspose.{Family}-FOSS-for-{Platform}` convention, and
 merges the result into `data/products.json`. The script is a thin CLI wrapper — the discovery,
 classification, and merge logic (and the safety contract) live once in
 [`src/readme_agent/registry/discovery.py`](../src/readme_agent/registry/discovery.py), shared with

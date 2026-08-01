@@ -173,9 +173,9 @@ def scan_org(
     token: str | None = None,
     max_rate_limit_wait_seconds: float | None = None,
 ) -> list[dict]:
-    """List public repos for one GitHub org. Read-only GET, paginated."""
+    """List every repository visible to the authorized GitHub credential."""
     url = f"{_GITHUB_API}/orgs/{org}/repos"
-    params = {"type": "public", "per_page": 100, "sort": "pushed"}
+    params = {"type": "all", "per_page": 100, "sort": "pushed"}
     repos = []
     for raw in _paginate(
         url, params, token, max_rate_limit_wait_seconds=max_rate_limit_wait_seconds

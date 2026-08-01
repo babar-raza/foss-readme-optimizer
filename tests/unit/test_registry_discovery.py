@@ -48,6 +48,20 @@ def test_classify_repo_name_retains_platform_for_product_variant_suffix():
     assert registry_sync.classify_repo_name("Aspose.PDF-FOSS-for-Go-MCP") == ("pdf", "go")
 
 
+def test_scan_org_requests_every_repository_visible_to_the_credential(monkeypatch):
+    captured = {}
+
+    def _fake_paginate(url, params, token, **kwargs):
+        captured.update({"url": url, "params": params, "token": token, **kwargs})
+        return iter(())
+
+    monkeypatch.setattr(registry_sync, "_paginate", _fake_paginate)
+
+    assert registry_sync.scan_org("aspose-cells-foss", token="credential") == []
+    assert captured["params"] == {"type": "all", "per_page": 100, "sort": "pushed"}
+    assert captured["token"] == "credential"
+
+
 def test_real_families_json_has_26_entries_with_matching_org_convention():
     families = registry_sync.load_families(REPO_ROOT / "data" / "families.json")
     assert len(families) == 26
