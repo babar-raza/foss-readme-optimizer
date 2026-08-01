@@ -2,7 +2,7 @@
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the accountable
 coordinator on `main`. The historical checkpoint for this prompt is
-`908f9f3b54a93ef12a6eb265e17366b0cb0ac21a`, but live Git and supervisor state always override it.
+`fe285db4551f8282b33ca1237c0b24b61a8c3070`, but live Git and supervisor state always override it.
 
 ## Authority
 
@@ -21,9 +21,9 @@ narrative file to override durable state.
 At capture, durable state was version 678 with graph hash
 `d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7`, active goal
 `GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. The scoreboard was
-17/31 facts ready, 9/31 candidates and deterministic validations, and 0/31 current independent
-approvals/no-op proofs. Two raw approval/no-op pairs for Slides Python and Words Python were stale
-and must not count.
+17/31 raw/unreconciled facts-stage states, 9/31 raw candidates and deterministic validations, and
+0/31 current independent approvals/no-op proofs. Freshness-aware reconstruction found every prior
+Python result stale; the new Note canary now establishes 1/12 current Python `FACTS_READY`.
 
 ## Startup
 
@@ -37,18 +37,21 @@ git rev-parse HEAD
   --durable-state
 ```
 
-If graph drift is reported, run `evaluate`. If the claim lease expired, reclaim through
+If graph drift is reported, run `evaluate`. The captured claim lease expired; reclaim through
 `--mission-action claim`; never steal an unexpired claim or edit state manually. Inspect
 repository-owned processes before any long campaign and run only one top-level integrated
 test/proof/supervisor tree at a time.
 
 ## Immediate task
 
-Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` at the first `FACTS_READY` boundary. Reconcile the
-existing committed implementation and current runtime bundles, identify the next Python failure,
-and make the smallest permanent producer or ecosystem repair. Known leads are the invalid HTML
-Python build backend and TeX Python's source/package verification failure; verify the live first
-failing boundary before choosing one.
+Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Preserve the independently accepted Note Python
+current-contract `FACTS_READY` canary and its zero-provider-call identical rerun. First repair the
+two agent-fixable machinery findings in
+`runs/multi-agent/independent-verification/python-facts-ready-01/REPORT.md`: `IV-PFR-001`
+(freshness-aware mission facts numerator) and `IV-PFR-002` (facts-stage RunManifestV3 revision and
+snapshot fields). Then requalify Page and PDF Python. Keep HTML visible at its invalid upstream
+`setuptools.backends.legacy:build` metadata boundary; do not substitute different metadata inside
+the verifier.
 
 Before implementation, update
 `runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json`. Disposition all five

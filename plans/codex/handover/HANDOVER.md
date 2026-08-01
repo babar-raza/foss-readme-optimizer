@@ -4,19 +4,20 @@
 
 - Repository: `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer`
 - Branch: `main`
-- Content checkpoint: `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a`
-- Upstream relation at capture: `main` is one commit ahead of `origin/main` and not behind.
+- Content checkpoint: `fe285db4551f8282b33ca1237c0b24b61a8c3070`
+- Upstream relation at capture: `main` is two commits ahead of `origin/main` and not behind.
 - Working tree at capture: clean.
 - Executable authority: `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
 - Graph SHA-256: `d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7`
 - Durable state: version 678, no graph drift.
 - Active goal: `GOAL-V1-VERIFIED-TRUTH`.
 - Active task: `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`, `IN_PROGRESS`, claimed by `Codex`.
-- Portfolio boundary: 17/31 facts ready; 9/31 candidates and deterministic validations; 0/31
-  current agent approvals and no-op proofs.
-- Exact next action: resume the current Wave 3 claim at the first `FACTS_READY` boundary. Use
-  Python-first ordering to repair the next repository-specific product-truth failure, then run the
-  bounded canonical command shown in section 13 and independently reconstruct the lifecycle result.
+- Portfolio boundary: mission status reports a raw/unreconciled 17/31 facts ready; freshness-aware
+  reconstruction found every prior Python result stale and the new Note canary now establishes
+  exactly 1/12 current Python `FACTS_READY`. Current approvals and no-op proofs remain 0/31.
+- Exact next action: reclaim the expired Wave 3 lease, log and repair `IV-PFR-001` (freshness-aware
+  mission facts count) and `IV-PFR-002` (facts-stage manifest provenance), then requalify Page and
+  PDF Python without rerunning the unchanged Note canary.
 - Overall status: `PARTIAL`. A bounded throughput/control slice is committed and accepted by an
   independent verifier, but Wave 3, Gate A, and the Level-8 mission are not closed.
 
@@ -85,7 +86,9 @@ Document hashes at capture are recorded in `state.json`.
 - Required work: complete provenance, precedence/conflict behavior, field ownership, protected
   content, isolated package/example verification, prompt-injection resistance, and fact-to-claim
   gating.
-- Current progress: 17/31 repositories have current facts. Structured minimal-example transport,
+- Current progress: mission status reports 17/31 raw facts-stage lifecycle states, but those are not
+  freshness-filtered. Independent reconstruction found prior Python bundles stale; Note Python is
+  now the first current-contract result at 1/12. Structured minimal-example transport,
   registry grammar, stale-acceptance invalidation, and multi-agent controls were repaired in commit
   `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a`.
 - Remaining: resolve the 14 FACTS_READY gaps, starting with Python; obtain representative real
@@ -155,7 +158,8 @@ Document hashes at capture are recorded in `state.json`.
 - `CORE-023`, `L8-036`, and `L8-038` are correctly `PARTIAL`: code enforces the revised registry
   grammar, but a fresh authenticated all-visibility `RegistryRevisionV1` proof for the 31-member
   set and explicit exclusions is still absent.
-- Wave 3 foundations exist, but only 17/31 repositories are at current `FACTS_READY`.
+- Wave 3 foundations exist. The 17/31 mission numerator is raw/unreconciled; only 1/12 Python
+  repositories has been requalified against the current fact contract.
 - Nine current candidates are deterministically validated, but none has a current independent
   approval/no-op pair. Two older raw pairs are stale and cannot count.
 - Latest full-suite receipt was made on the integrated candidate tree before commit; it is strong
@@ -172,25 +176,29 @@ Document hashes at capture are recorded in `state.json`.
 ## 7. Current Working State
 
 The tree was clean at `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a` before this handover refresh.
-The active Wave 3 claim was reclaimed as `Codex`, producing durable state version 678. The current
-task lane record still describes the just-integrated throughput slice and must be updated before a
-new implementation wave.
+The active Wave 3 claim was reclaimed as `Codex`, producing durable state version 678, but its lease
+expired at this checkpoint. The current task lane record describes the completed
+`python-facts-ready-recovery-01` slice and must be updated before a new implementation wave. All
+worker lanes and repository-owned command trees are stopped.
 
-Latest successful boundary: registry/structured-fact/freshness/multi-agent control repairs were
-integrated, fully regression-tested, independently accepted, and committed.
+Latest successful boundary: Note Python requalified at current `FACTS_READY` with one provider call;
+its immediate identical rerun made zero provider calls, added no lifecycle transition or effect,
+and reused the same revision bundle. Independent verification accepted this bounded slice. HTML
+Python was independently confirmed fail-closed on invalid upstream PEP 517 backend metadata.
 
-Latest unresolved boundary: 14 registry members have not reached current `FACTS_READY`. The first
-known Python blockers include ecosystem/package evidence failures rather than missing prose:
-HTML Python reports an invalid build backend path; TeX Python has widespread source syntax failure
-and no verified published-package route. These are facts/evidence problems and must not be papered
-over with generic README text.
+Latest unresolved boundary: mission facts-stage counts are not freshness-filtered (`IV-PFR-001`),
+and facts-stage RunManifestV3 omits known immutable source fields (`IV-PFR-002`). HTML Python has an
+invalid upstream build backend; TeX remains agent-fixable until its current requalification proves
+otherwise. These are facts/evidence problems and must not be papered over with generic prose.
 
 ## 8. Remaining Gaps
 
 | ID | Severity/status | First failing boundary | Permanent solution and proof |
 |---|---|---|---|
 | `FACT-017`, `L8-006` | P1/P0, open | Agent-drafted product truth is not fully mechanically grounded | Repair each producer/verification boundary; require citations, deterministic checks, isolated consumer proof, conflict controls, and independent factuality acceptance |
-| `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` | P0, in progress | `FACTS_READY` at 17/31 | Resolve Python-first fact failures, then remaining platforms; close only after every Wave 3 acceptance check passes |
+| `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` | P0, in progress | Raw 17/31; current Python 1/12 | Repair freshness/provenance defects, requalify Python, then remaining platforms; close only after every Wave 3 acceptance check passes |
+| `IV-PFR-001` | P1, agent-fixable | Mission facts numerator ignores stale fact contracts | Apply the per-repository fact-cache freshness predicate or label a separate raw count; prove stale/current controls and status output |
+| `IV-PFR-002` | P1, agent-fixable | Facts-stage RunManifestV3 omits captured revision/snapshot | Populate immutable trigger/upstream/snapshot fields from the captured snapshot and prove checksum-complete semantic manifests |
 | `CORE-023`, `L8-036`, `L8-038` | P0, partial | Current all-visibility registry proof absent | Generate a fresh authenticated `RegistryRevisionV1` proving 31 admissions, 12 Python members, explicit CSSForge/MCP exclusions, zero unexplained observations, recovery, and no-op |
 | Current lifecycle acceptance | P0, 0/31 | Stale approval fingerprints | Rebuild only invalidated dependent stages; rerun deterministic review, independent review, repair, and no-op proof |
 | TeX Python truth | P0 for Python cohort | Source/package consumer verification | Determine whether repository syntax/build state permits a supported evidence path; record a narrow external fact block only if no locally recoverable authoritative route exists |
@@ -200,10 +208,10 @@ over with generic README text.
 
 ## 9. Ordered Execution Queue
 
-1. `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` - update its task-lane record for the next bounded slice;
-   repair the next Python FACTS_READY failure; run focused facts/ecosystem/security tests; run the
-   canonical bounded portfolio command; independently verify lifecycle/fact evidence.
-2. Continue the same task across remaining Python repositories, then .NET, Java, C++, TypeScript,
+1. `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` - reclaim its expired lease and update its task-lane record;
+   repair `IV-PFR-001` and `IV-PFR-002`; run focused mission/manifest/security tests and independent
+   verification. Preserve the accepted Note evidence.
+2. Requalify Page and PDF Python, then the remaining Python repositories, followed by .NET, Java, C++, TypeScript,
    Rust, and Go. Reuse content-addressed valid stages; do not rerun unchanged work.
 3. Generate the fresh authenticated all-visibility registry revision and restore `CORE-023`,
    `L8-036`, and `L8-038` only when its evidence passes.
@@ -251,9 +259,12 @@ Primary evidence:
 - `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/sha256sums.txt`
 - `runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json`
 - `runs/verification/pytest-full-latest.json`
+- `runs/multi-agent/independent-verification/python-facts-ready-01/REPORT.md`
+- `runs/multi-agent/independent-verification/python-facts-ready-01/verification.json`
 
 The exact 288-test command and all static commands are recorded in the committed evidence README.
-The independent report records its separate replay. Tests still required before Wave 3 closure are
+The latest independent report records 60 acquisition tests and 98 current README-operation tests
+passing; the older literal 88-test count is stale. Tests still required before Wave 3 closure are
 real isolated package/example execution for affected ecosystems, current representative facts,
 prompt-injection/false-coordinate/protected-content negative controls, and a clean committed-tree
 official campaign at the task boundary.
@@ -281,7 +292,8 @@ No product remote effect was performed by the latest slice.
 3. Run `git status --short --branch`, `git rev-parse HEAD`, and inspect upstream divergence.
 4. Run mission `status` below. If graph drift is true, run `evaluate`. Reclaim only an expired
    claim through `--mission-action claim`; never overwrite durable state manually.
-5. Reconstruct the lifecycle scoreboard and identify the first Python `FACTS_READY` failure.
+5. Reclaim the expired Wave 3 claim and verify the Note evidence; do not rerun it unless a dependency
+   fingerprint changed. Start the next slice with `IV-PFR-001` and `IV-PFR-002`.
 6. Update the same task-lane record, disposition all five roles, and grant disjoint paths. Use
    Repair for the producer defect, Advancement for a separate unaffected repository, Validator/
    Evidence for read-only reconstruction, Documentation/State-Sync for proposal-only changes, and

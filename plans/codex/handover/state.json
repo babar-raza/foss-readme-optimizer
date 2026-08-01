@@ -4,10 +4,10 @@
   "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "head": "908f9f3b54a93ef12a6eb265e17366b0cb0ac21a",
+  "head": "fe285db4551f8282b33ca1237c0b24b61a8c3070",
   "upstream_divergence": {
     "behind": 0,
-    "ahead": 1
+    "ahead": 2
   },
   "working_tree_at_capture": "clean",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -30,9 +30,9 @@
     "claim_id": "03bc10605ecd440892effdcae83c6aca",
     "claimed_by": "Codex",
     "claim_expires_at": "2026-08-01T21:01:07.849256+00:00",
-    "restart_rule": "Re-read live state and reclaim only if expired."
+    "restart_rule": "Lease expired at the checkpoint; re-read live state and reclaim through the supervisor."
   },
-  "next_action": "Update the Wave 3 task-lane plan, identify the first current Python FACTS_READY failure, repair the smallest producer/ecosystem boundary, run focused proof and the bounded local_poc FACTS_READY campaign, then independently reconstruct lifecycle evidence.",
+  "next_action": "Reclaim the expired Wave 3 lease, update its task-lane plan, repair IV-PFR-001 freshness-aware mission counting and IV-PFR-002 facts-stage manifest provenance, independently verify them, then requalify Page and PDF Python while preserving the accepted Note canary.",
   "mandatory_outcomes": [
     "Repository-derived provenance-complete ProductFactsV2 and ownership safety",
     "Current independently approved and no-op-proven README bundles for the complete dynamic registry",
@@ -46,17 +46,22 @@
     "Integrated focused matrix passed 288 tests.",
     "Complete non-live suite passed 2639 tests with zero leaked repository-owned processes.",
     "Independent verification accepted the bounded slice without granting task or mission closure."
+    ,"Note Python reached current FACTS_READY with one provider call; its identical rerun used zero provider calls, zero effects, and no duplicate bundle."
   ],
   "implemented_unverified": [
     "Revised registry grammar exists, but the fresh authenticated all-visibility RegistryRevisionV1 proof is absent.",
     "Nine current candidates are deterministically validated but have no current independent approval/no-op pair.",
-    "Latest full-suite receipt binds the integrated candidate tree before commit rather than a clean committed-tree closure run."
+    "Latest full-suite receipt binds the integrated candidate tree before commit rather than a clean committed-tree closure run.",
+    "Mission status reports 17/31 raw facts-stage states but does not freshness-filter stale fact contracts.",
+    "Facts-stage RunManifestV3 leaves known trigger/upstream revision and repository snapshot fields null."
   ],
   "portfolio_scoreboard": {
     "denominator": 31,
-    "facts_ready": 17,
-    "candidate_generated": 9,
-    "deterministic_validated": 9,
+    "facts_ready_raw_unreconciled": 17,
+    "python_facts_ready_current": 1,
+    "python_denominator": 12,
+    "candidate_generated_raw": 9,
+    "deterministic_validated_raw": 9,
     "agent_approved_current": 0,
     "no_op_proven_current": 0,
     "agent_approved_raw": 2,
@@ -69,6 +74,8 @@
   },
   "remaining_tasks": [
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "IV-PFR-001 freshness-aware mission FACTS_READY numerator",
+    "IV-PFR-002 facts-stage RunManifestV3 source provenance",
     "Fresh all-visibility registry revision for CORE-023/L8-036/L8-038",
     "Current full-registry independent approval and no-op proof",
     "Gate B human review",
@@ -107,6 +114,13 @@
     "worker_closure_authority": false,
     "worker_product_effect_authority": false
   },
+  "safe_checkpoint": {
+    "repository_owned_processes_running": false,
+    "worker_agents_running": false,
+    "note_python_current_facts_ready": true,
+    "independent_slice_verdict": "ACCEPTED_FOR_BOUNDED_SLICE_ONLY",
+    "wave3_closed": false
+  },
   "critical_references": [
     "AGENTS.md",
     "plans/idea.md",
@@ -123,6 +137,8 @@
     "plans/investigations/evidence/implementation-truth-matrix-2026",
     "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
     "runs/verification/pytest-full-latest.json"
+    ,"runs/multi-agent/independent-verification/python-facts-ready-01/REPORT.md"
+    ,"runs/multi-agent/independent-verification/python-facts-ready-01/verification.json"
   ],
   "resume_protocol": [
     "Read live Git and supervisor state before trusting this historical snapshot.",
