@@ -1371,7 +1371,7 @@
     "updated_at": "2026-08-01T08:25:29.046020+00:00"
   },
   "schema_version": 2,
-  "state_version": 133,
+  "state_version": 134,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "25c8d1447c85f4e365f92a48275552bf56f6b00468e7f7aafac60b75576da3bc",
@@ -1586,13 +1586,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.promotional_imbalance.804a4405f7b6: Commercial calls to action precede or outweigh contextual product guidance.']",
       "last_checkpoint_id": "bc67c25bbb8f7de27fefc902efdcb64a2fd83216900c35302d708de483bd17c9",
-      "lease_expires_at": "2026-08-01T08:53:08.658156+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-01T08:43:20.527634+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-01T08:43:45.617253+00:00"
     }
   },
   "trigger_records": {},
