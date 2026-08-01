@@ -288,6 +288,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\737d26451ed5c58e53017e3c9460e834f99d20ed\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-01T01:46:08.993137+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -331,11 +342,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-01T01:46:02.039979+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-01T01:46:08.993137+00:00"
   },
   "schema_version": 2,
-  "state_version": 27,
+  "state_version": 28,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260730-043049-ddbf:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
