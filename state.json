@@ -1629,6 +1629,18 @@
         "reason": "entering repair attempt 1/2: Revise License for promotional_balance around exact span: This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\nRevise Scope and limitations for hierarchy around exact span: [Aspose.PDF FOSS for Python](https://products.aspose.org/pdf/) and [Aspose.PDF for Python Enterprise Edition](https://products.aspose.com/pdf/) are separate products. This README documents the FOSS implementation and the limitations above; do not assume API or feature parity beyond verified behavior.",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f2",
+          "f3"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T03:36:13.293300+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=4ef82d6c8585e424083d7f5ddb9ad553e9231c91e593f912e3187dc149703c92 after=ca202b4366caf9bdfbf762192875b2baaaf2a5232b3b71cea89e563585c5271f; unresolved=f2,f3",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -1672,11 +1684,11 @@
     "reviewer_standard_hash": "71f6af05d82a0985c88e54d00cfd863b14fc04d86e09705e59d7348d38e6483f",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T03:35:25.204812+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T03:36:13.293300+00:00"
   },
   "schema_version": 2,
-  "state_version": 185,
+  "state_version": 186,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
