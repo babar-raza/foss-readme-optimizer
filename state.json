@@ -149,6 +149,36 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "59fe6dfcb1375c7168a3d01a64da423b29c7d993433fad9e4d5ca61d4e8fc74e",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "evidence": "PyPI: aspose-pdf-foss NOT FOUND (404)",
+        "handoff_findings": [
+          {
+            "anomaly": "install path did not resolve against the live package registry",
+            "detected_at": "2026-08-01T01:50:47.483588+00:00",
+            "evidence": {
+              "detail": "PyPI: aspose-pdf-foss NOT FOUND (404)"
+            },
+            "surface": "packages"
+          }
+        ],
+        "install_path_resolved": false,
+        "latest_release_name": null,
+        "latest_release_tag": null,
+        "releases_count": 0
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-01T01:50:47.484029+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
       "accepted_status": "FIRST_OBSERVATION",
@@ -476,7 +506,7 @@
     "updated_at": "2026-08-01T01:49:49.748160+00:00"
   },
   "schema_version": 2,
-  "state_version": 35,
+  "state_version": 36,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
