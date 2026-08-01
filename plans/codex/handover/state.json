@@ -1,81 +1,100 @@
 {
-  "schema_version": 8,
+  "schema_version": 9,
   "handover_status": "HANDOVER_READY",
   "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "content_checkpoint_head": "bb081e3ac161f718581d0c8fc6240877eb49848b",
+  "head": "908f9f3b54a93ef12a6eb265e17366b0cb0ac21a",
+  "upstream_divergence": {
+    "behind": 0,
+    "ahead": 1
+  },
+  "working_tree_at_capture": "clean",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7",
-  "idea_hash": "3962f9f78250762eb23c0cc1f7ff5b662a13e90e035206375f4aba03d062cec3",
-  "master_hash": "6b419bfee1eb3429ee6c3219de43f2cdfd976c8c52fc33fc27ae6465d7b4d45c",
-  "requirements_hash": "639468b303843040481cb0c32fc9083925ca74b07095c1822193beec6c59944f",
-  "durable_state_version": 635,
+  "authoritative_plan_hash": "d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7",
+  "document_hashes": {
+    "plans/GOVERNANCE.md": "84b874f8d6e09c91e7f425bca793f2a65afca1bbcbfd2956b87886d41ef038df",
+    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md": "ea5abe8c52b0a35b38763cfc96dedf5f33b455db9b46dcdb98b6fc7d985195ab",
+    "plans/idea.md": "bf461e7dce3d32b3d8455eb7c70ee0d85d7d80fd59d6f35c3fa67be7b67d5854",
+    "plans/master.md": "ced87b79d73d324a1da521a6615d0bc79859c68cd573e850fd1f53ab030abb9f",
+    "plans/requirements.md": "f3303a0422f855d5082cb02b94f68320f42e1dec86aceaf40f12042a41e593d3"
+  },
+  "durable_state_version": 678,
   "graph_drift": false,
-  "current_phase": "verified Python repository-presentation POC",
-  "active_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
-  "current_task": "L8-VPY-00-GOLDEN-TEMPLATE",
-  "current_task_status": "ELIGIBLE",
-  "active_claim": null,
-  "next_action": "Claim L8-VPY-00-GOLDEN-TEMPLATE and implement the reusable fact-slot presentation contract from the accepted Note reference.",
+  "current_phase": "Wave 3 verified product truth and ownership",
+  "active_goal": "GOAL-V1-VERIFIED-TRUTH",
+  "current_task": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+  "current_task_status": "IN_PROGRESS",
+  "active_claim": {
+    "claim_id": "03bc10605ecd440892effdcae83c6aca",
+    "claimed_by": "Codex",
+    "claim_expires_at": "2026-08-01T21:01:07.849256+00:00",
+    "restart_rule": "Re-read live state and reclaim only if expired."
+  },
+  "next_action": "Update the Wave 3 task-lane plan, identify the first current Python FACTS_READY failure, repair the smallest producer/ecosystem boundary, run focused proof and the bounded local_poc FACTS_READY campaign, then independently reconstruct lifecycle evidence.",
   "mandatory_outcomes": [
-    "Reusable compact, standard, and extended repository-presentation template",
-    "Repository-verified Note Python canary",
-    "Repository-verified Page and PDF Python canaries",
-    "All dynamically discovered Python repositories independently approved and no-op-proven",
-    "Complete verified portfolio Gate A, Gate B, and Gate C",
-    "Hosted production runtime and all presentation surfaces",
-    "Level 5, Level 6, 30-day Level 7, and 90-day Level 8 proof"
+    "Repository-derived provenance-complete ProductFactsV2 and ownership safety",
+    "Current independently approved and no-op-proven README bundles for the complete dynamic registry",
+    "Human Gate B after full agent approval",
+    "Canonical act, disposable staging, and governed draft-PR proof",
+    "Hosted GitHub App runtime and all repository-presentation surfaces",
+    "Level 5, 30-day Level 7, and 90-day Level 8 independent proof"
   ],
   "completed_verified": [
-    "Accepted Aspose.Note FOSS for Python structural reference promoted with SHA-256 0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864",
-    "Stage-goal scheduler excludes execution_required=false goals",
-    "Mission graph and durable state select GOAL-V0-VERIFIED-PYTHON-POC",
-    "Focused control suite: 36 passed",
-    "Full non-live suite: 2442 passed with zero leaked processes"
+    "Commit 908f9f3b54a93ef12a6eb265e17366b0cb0ac21a integrates registry grammar, structured product-fact transport, freshness handling, and bounded multi-agent controls.",
+    "Integrated focused matrix passed 288 tests.",
+    "Complete non-live suite passed 2639 tests with zero leaked repository-owned processes.",
+    "Independent verification accepted the bounded slice without granting task or mission closure."
   ],
   "implemented_unverified": [
-    "Existing seven verified facts/candidate/deterministic bundles have not reached independent approval or no-op",
-    "Trusted LLM, act, staging, GitHub App, and proposal-effect machinery is reusable only after dependency and assurance revalidation"
-  ],
-  "remaining_tasks": [
-    "L8-VPY-00-GOLDEN-TEMPLATE",
-    "L8-VPY-01-NOTE-VERIFIED-CANARY",
-    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
-    "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
-    "Remaining verified Gate A, Gate B, and Gate C work",
-    "Hosted runtime and remaining presentation surfaces",
-    "Level 5, Level 6, 30-day Level 7, and 90-day Level 8 proof"
-  ],
-  "blockers": [
-    {
-      "id": "THREAD-GOAL-OBJECTIVE-STALE",
-      "classification": "INTERFACE_CONSTRAINT",
-      "scope": "Visible chat umbrella goal only",
-      "unblock_condition": "The UI owner clears or replaces the unfinished blocked goal because the available API cannot mutate its objective."
-    }
+    "Revised registry grammar exists, but the fresh authenticated all-visibility RegistryRevisionV1 proof is absent.",
+    "Nine current candidates are deterministically validated but have no current independent approval/no-op pair.",
+    "Latest full-suite receipt binds the integrated candidate tree before commit rather than a clean committed-tree closure run."
   ],
   "portfolio_scoreboard": {
     "denominator": 31,
-    "python_denominator": 12,
-    "facts_ready": 7,
-    "candidate_generated": 7,
-    "deterministic_validated": 7,
-    "agent_approved": 0,
-    "no_op_proven": 0,
-    "human_accepted": 0
+    "facts_ready": 17,
+    "candidate_generated": 9,
+    "deterministic_validated": 9,
+    "agent_approved_current": 0,
+    "no_op_proven_current": 0,
+    "agent_approved_raw": 2,
+    "no_op_proven_raw": 2,
+    "stale_acceptance_repositories": [
+      "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "aspose-words-foss/Aspose.Words-FOSS-for-Python"
+    ],
+    "first_failing_boundary": "FACTS_READY"
   },
-  "registry_eligibility": {
-    "contract": "case-insensitive Aspose[.-]{Family}-FOSS-for-{Platform} with exactly one terminal platform token",
-    "discovery_only_exclusions": [
-      "aspose-html-foss/CSSForge",
-      "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP"
-    ]
-  },
+  "remaining_tasks": [
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "Fresh all-visibility registry revision for CORE-023/L8-036/L8-038",
+    "Current full-registry independent approval and no-op proof",
+    "Gate B human review",
+    "Canonical act workflow proof",
+    "Disposable GitHub staging",
+    "Gate C governed draft-PR proof",
+    "GitHub App hosted runtime",
+    "Level 5 and complete presentation surfaces",
+    "30-day Level 7 proof",
+    "90-day Level 8 proof"
+  ],
+  "blockers": [
+    {
+      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+      "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
+      "mission_impact": "Does not block the active Wave 3 local truth task; reconcile only through the executable graph."
+    },
+    {
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
+      "mission_impact": "Hosted/production-like proof remains downstream; local truth work continues."
+    }
+  ],
   "execution_model": {
     "coordinator": "Codex",
-    "max_concurrent_workers": 3,
+    "max_concurrent_workers_beside_coordinator": 3,
     "required_roles": [
       "Repair",
       "Advancement",
@@ -83,6 +102,8 @@
       "Documentation/State-Sync",
       "Independent Verification"
     ],
+    "task_lane_plan": "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
+    "documentation_state_sync_is_proposal_only": true,
     "worker_closure_authority": false,
     "worker_product_effect_authority": false
   },
@@ -93,22 +114,22 @@
     "plans/requirements.md",
     "plans/GOVERNANCE.md",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-    "plans/investigations/evidence/readme-presentation-contract-v1/reference.json",
-    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md"
+    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
+    "plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/README.md"
   ],
   "evidence_paths": [
-    "plans/investigations/evidence/readme-presentation-contract-v1",
+    "plans/investigations/evidence/level8-registry-throughput-multi-agent-v1",
     "plans/investigations/evidence/level8-requirement-taskcard-coverage",
     "plans/investigations/evidence/implementation-truth-matrix-2026",
+    "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
     "runs/verification/pytest-full-latest.json"
   ],
   "resume_protocol": [
     "Read live Git and supervisor state before trusting this historical snapshot.",
-    "Verify main, HEAD, upstream, working tree, repository-owned processes, graph hash, and mission status.",
-    "Run evaluate on graph drift; never use narrative files to override durable state.",
-    "Claim L8-VPY-00-GOLDEN-TEMPLATE through the supervisor without stealing an unexpired claim.",
-    "Implement the smallest non-duplicative task slice and prove positive, negative, integration, regression, safety, recovery, idempotency, and evidence controls as applicable.",
-    "After two ineffective attempts or 15 minutes at one boundary, perform a first-principles review before a third approach.",
-    "Independently verify, record checksum-complete evidence, update the same state, commit to main, evaluate, and continue."
+    "Run mission status; evaluate on graph drift; reclaim only an expired claim through the supervisor.",
+    "Update the current task-lane record and disposition all five roles before implementation.",
+    "Use disjoint worker paths, serialized coordinator integration, and implementation-independent verification.",
+    "Repair the first Python FACTS_READY boundary and run the bounded canonical local_poc facts proof.",
+    "Capture redacted checksum-complete evidence, update the same durable authorities, commit to main, evaluate, and continue."
   ]
 }

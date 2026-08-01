@@ -4,255 +4,327 @@
 
 - Repository: `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer`
 - Branch: `main`
-- Content checkpoint: `bb081e3ac161f718581d0c8fc6240877eb49848b`
-- Executable authority:
-  `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
-- Graph SHA-256:
-  `a08ffa3972921357a4797161dfe2064347031b7511589e2bec4cf8ccdecee4f7`
-- Durable state at this snapshot: version 635, no graph drift, no active claim
-- Active stage goal: `GOAL-V0-VERIFIED-PYTHON-POC`
-- Next task: `L8-VPY-00-GOLDEN-TEMPLATE`
-- Exact next action: claim that task through the supervisor, extract the accepted Aspose.Note FOSS
-  for Python reference into the reusable `RepositoryPresentationTemplateV1` contract, and prove
-  compact, standard, and extended profiles without copying Note-specific facts.
-- Overall state: trusted-lane execution is suspended. Its code and evidence are preserved for
-  reuse, but only the repository-verified Python path has execution authority.
+- Content checkpoint: `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a`
+- Upstream relation at capture: `main` is one commit ahead of `origin/main` and not behind.
+- Working tree at capture: clean.
+- Executable authority: `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`
+- Graph SHA-256: `d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7`
+- Durable state: version 678, no graph drift.
+- Active goal: `GOAL-V1-VERIFIED-TRUTH`.
+- Active task: `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`, `IN_PROGRESS`, claimed by `Codex`.
+- Portfolio boundary: 17/31 facts ready; 9/31 candidates and deterministic validations; 0/31
+  current agent approvals and no-op proofs.
+- Exact next action: resume the current Wave 3 claim at the first `FACTS_READY` boundary. Use
+  Python-first ordering to repair the next repository-specific product-truth failure, then run the
+  bounded canonical command shown in section 13 and independently reconstruct the lifecycle result.
+- Overall status: `PARTIAL`. A bounded throughput/control slice is committed and accepted by an
+  independent verifier, but Wave 3, Gate A, and the Level-8 mission are not closed.
 
-This is a historical restart snapshot. Live Git and supervisor state always override it.
+This document is a historical restart snapshot. Live Git and supervisor state override it after
+every task transition or commit.
 
 ## 2. Ultimate Goal
 
-Deliver `verified_repository_presentation`: an autonomous system that derives product truth from
-repository evidence, produces professional and factually supported GitHub presentation, creates
-only authorized draft proposals, recovers durably, and earns independently reproducible Level 5,
-Level 7, and Level 8 evidence.
+Deliver the system described in `plans/idea.md`: an autonomous, evidence-first repository-
+presentation manager that derives product truth from repository/package/test evidence, creates
+professional and consistent repository-specific presentation, proposes only authorized draft
+changes, recovers durably, and earns independently reproducible Level 5, Level 7, and Level 8
+proof.
 
-The immediate goal is narrower and visible: complete repository-verified README proposals for all
-dynamically discovered Python repositories. The first milestone is a reusable presentation
-template derived from the user-accepted Note reference; it is followed by verified Note, Page/PDF,
-then the remaining Python cohort.
+The immediate visible horizon is verified README management. It requires complete, current,
+independently approved and unchanged-no-op-proven local bundles for the dynamic registry. Python
+has first platform priority, followed by .NET, Java, C++, TypeScript, Rust, and Go. A partial batch
+is development evidence, never the POC.
 
 ## 3. Current Mission and Scope
 
 Mission ID: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
 
-Mandatory immediate outcomes:
+Current mission:
 
-1. Preserve the accepted Note structure as an immutable reference.
-2. Express its reusable design as typed slots, invariants, and compact/standard/extended profiles.
-3. Keep product names, APIs, packages, formats, examples, links, licenses, and limitations
-   repository-specific and evidence-backed.
-4. Prove the template against positive and cross-product-leakage controls.
-5. Run the verified Note candidate through deterministic validation, independent review, repair,
-   and unchanged no-op.
-6. Repeat for Page/PDF, then every current Python repository selected dynamically.
+1. Complete repository-derived `ProductFactsV2` and ownership safety for every required claim.
+2. Advance each repository through immutable snapshot, verified facts, assessment, structured
+   plan, candidate, deterministic validation, independent review, repair, and no-op proof.
+3. Close full-registry local Gate A, then human Gate B.
+4. Prove the same canonical runtime under `act`, disposable staging, and governed draft-PR effects.
+5. Add hosted GitHub App operation only after its upstream gates, then complete all presentation
+   surfaces and the elapsed Level 7/8 evidence windows.
 
-Trusted output may supply implementation patterns or cached transport evidence only when every
-dependency hash still matches. It cannot satisfy verified facts or candidate approval. GitHub App,
-staging, and product effects remain downstream of local verified gates.
+Non-goals for the current task are product-repository writes, default-branch changes, merges,
+package/release writes, production App installation, a competing controller, and a rewrite of the
+working supervisor/capability/state/evidence foundations.
+
+Completion requires actual evidence, not code presence or plan prose. Every mandatory durable
+task must be `CLOSED`, every normative requirement must have current proof, all safety/recovery/
+idempotency gates must pass, and an independent audit must award the claimed maturity level.
 
 ## 4. Authority and Reference Map
 
-| Reference | Role | Status |
+| Reference | Role and relevant key | Authority/status |
 |---|---|---|
-| `plans/idea.md` | Product outcome | Current |
-| `plans/master.md` decision #88 | Architecture, goal pivot, gate order | Current |
-| `plans/requirements.md` `L8-042` | Normative template and anti-stall acceptance | Current |
-| Mission task graph | Sole executable task graph | Current, hash above |
-| Supervisor Git-ref state | Claims, transitions, scoreboard | Live authority |
-| `plans/GOVERNANCE.md` | Governance and evidence rules | Binding |
-| `AGENTS.md` | Operator, safety, verification rules | Binding |
-| `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` | Detailed supporting route | Supporting |
-| `plans/investigations/evidence/readme-presentation-contract-v1/` | Accepted Note reference | Current input evidence |
-| Trusted TRP evidence | Lower-assurance implementation and transport history | Preserved, non-executing |
+| `plans/idea.md` | Product outcome and ordered README gates | Highest product authority; current |
+| `plans/master.md` | Mission, decisions #81-#88, architecture, build/verification gates | Governed execution design; current |
+| `plans/requirements.md` | Normative obligations including `GOV-030`, `FACT-017`, `L8-006`, `CORE-023`, `L8-036`, `L8-038` | Acceptance authority; mixed statuses are intentional |
+| `plans/GOVERNANCE.md` | Rules 18-20, especially rule 19 multi-agent execution | Binding governance; current |
+| `AGENTS.md` | One coordinator, safety, verification, platform order | Binding operator instructions; current |
+| `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` | Sole executable task graph; current task at `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` | Executable authority; current hash above |
+| Supervisor Git-ref state | Version 678 claim/task/lifecycle authority | Live authority; always re-read |
+| `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` | Detailed route and coordinator/worker protocol | Supporting design; not a second controller |
+| `runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json` | Current task lane dispositions and leases | Runtime record; current for the completed slice, update before the next slice |
+| `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/` | Committed bounded slice evidence | Current supporting proof; explicitly not task closure |
+| `runs/verification/pytest-full-latest.json` | Latest complete non-live suite receipt | Current candidate-tree proof; not a clean-HEAD closure proof |
+| Old trusted/VPY handover text | Earlier route and counters | Superseded; must not override live state |
+
+Document hashes at capture are recorded in `state.json`.
 
 ## 5. Exact Plan
 
-### V0.1 — Reusable golden template
+### Phase A - Wave 3 product truth and ownership (current)
 
-- Entry: accepted Note reference is checksum-bound.
-- Steps: model structural slots and invariants; add compact, standard, and extended profiles;
-  separate repository facts from brand structure; validate headers, TOC, Mermaid, contextual
-  links, collapsible sections, license prose, third-party notices, and optional copyright.
-- Proof: exact Note reconstruction where applicable; a second synthetic product; negative
-  cross-product leakage and unsupported-slot controls; cache-key invalidation tests.
-- Exit: `L8-VPY-00-GOLDEN-TEMPLATE` closes with independent evidence.
+- Entry: local runtime/foundation tasks exist and the durable graph has selected Wave 3.
+- Required work: complete provenance, precedence/conflict behavior, field ownership, protected
+  content, isolated package/example verification, prompt-injection resistance, and fact-to-claim
+  gating.
+- Current progress: 17/31 repositories have current facts. Structured minimal-example transport,
+  registry grammar, stale-acceptance invalidation, and multi-agent controls were repaired in commit
+  `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a`.
+- Remaining: resolve the 14 FACTS_READY gaps, starting with Python; obtain representative real
+  package/example proof; independently accept the fact graphs; satisfy all Wave 3 exit gates.
+- Exit: false coordinates cannot pass, unsupported claims remain blocked, protected content cannot
+  disappear, isolated execution is proven, and the independent factuality reviewer accepts the
+  representative evidence.
 
-### V0.2 — Verified Note canary
+### Phase B - Verified README qualification and Gate A
 
-- Entry: V0.1 closed.
-- Steps: collect repository-derived facts; reconcile every inherited README claim; render through
-  the template; validate, independently review, repair, and prove unchanged no-op.
-- Exit: Note reaches verified agent approval and no-op proof without trusted-content promotion.
+- Use the finalized global presentation contract and reusable profiles.
+- For every runtime registry member: assessment, fact-bound document plan, candidate, native patch,
+  deterministic verification, independent review, bounded repair, and unchanged no-op proof.
+- Invalidate stale acceptance when source, facts, prompt, template, policy, validator, reviewer, or
+  protected-content fingerprints change.
+- Exit: current `AGENT_APPROVED == NO_OP_PROVEN == len(data/products.json)`, with zero system
+  failures and checksum-complete manifests. Current denominator is 31; always recompute it.
 
-### V0.3 — Verified Page and PDF canaries
+### Phase C - Human review, workflow, staging, and publication proof
 
-- Entry: Note canary closed.
-- Steps: prove variation in document size, sections, product capabilities, formats, diagrams,
-  examples, and link budgets.
-- Exit: both are independently approved and no-op-proven.
+- Gate B presents only agent-approved/no-op-proven bundles.
+- Reproduce the full workflow under `act`, including recovery, deduplication, isolation, and evidence.
+- Use disposable GitHub staging to prove proposal create/update/no-op/drift/lost-response/recovery.
+- Gate C uses fresh what/why/where authorization for each product-repository draft PR. Never merge,
+  mark ready, force-push, close, or write the default branch.
 
-### V0.4 — Complete verified Python POC
+### Phase D - Hosted operation and maturity
 
-- Entry: three canaries closed.
-- Steps: discover current Python repositories; process by repository-specific delta; reuse only
-  dependency-complete caches; repair the first failing boundary; continue until all are approved.
-- Exit: every dynamically selected Python repository has a checksum-complete verified local bundle
-  and unchanged no-op.
-
-### Later gates
-
-Resume the complete verified portfolio, Gate A/B/C, hosted runtime, remaining presentation
-surfaces, Level 5, portfolio Level 6, the 30-day Level-7 proof, and the 90-day Level-8 proof. No
-later acceptance condition is removed by the Python milestone.
+- Request GitHub App organization access only after preceding gates require it.
+- Prove token isolation, hosted triggers/checkpoints/recovery/health/dead-man monitoring.
+- Complete remaining GitHub presentation surfaces and the controlled Java Level-5 pilot.
+- Prove the heterogeneous portfolio and 30-day Level 7 window.
+- Prove the 90-day Level 8 self-maintenance window and obtain independent audit acceptance.
 
 ## 6. Work Completed
 
-Verified:
+### Verified complete for the latest bounded slice
 
-- The accepted Note reference is promoted with SHA-256
-  `0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864`.
-- Durable scheduling excludes goals whose `execution_required` value is false.
-- The mission graph selects `GOAL-V0-VERIFIED-PYTHON-POC` and
-  `L8-VPY-00-GOLDEN-TEMPLATE`.
-- Focused control tests passed: 36 tests.
-- Full non-live inventory passed: 2,442 tests, four workers, zero worker restart, zero leaked
-  repository-attributable process.
-- Ruff check, Ruff format check, mypy, plan structure, requirement/task coverage, semantic
-  traceability, and `git diff --check` passed. `actionlint` was unavailable on PATH; workflows
-  were not changed by the pivot.
+- `GOV-030` multi-agent protocol is machine-readable in the graph and synchronized in
+  `AGENTS.md`, `plans/master.md` decision #81, `plans/GOVERNANCE.md` rule 19, and the supporting
+  execution plan. Documentation/State-Sync is proposal-only; the coordinator alone applies shared
+  changes.
+- Registry naming is centralized in `src/readme_agent/registry/naming.py`: case-insensitive exact
+  `Aspose[.-]{Family}-FOSS-for-{Platform}`, no terminal suffix. CSSForge and the MCP-suffixed Go
+  repository are excluded; the ordinary Go repository remains admitted.
+- Product-fact LLM output uses structured `minimal_example.code_lines[]` and a deterministic
+  normalizer. The prompt is version 18.
+- Lifecycle summaries separate current from raw/stale acceptance. Slides Python and Words Python
+  are explicitly stale rather than counted as current approvals.
+- Invalidated candidates are preserved under checksum-addressed `superseded/` storage with
+  collision validation.
+- Commit `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a` contains the integrated slice. Independent verdict:
+  accepted for the bounded slice, no Wave 3/Gate A/mission closure.
 
-Preserved but not verified acceptance:
+### Verification performed
 
-- Nine trusted Python lifecycle records.
-- Trusted LLM composition/review machinery.
-- `act`, staging, GitHub App, and draft-PR transport evidence.
-- Three human-rejected trusted proposal contents.
+- Focused integrated matrix: 288 passed in 102.95 seconds.
+- Complete non-live suite after fixture repairs: 2639 passed in 259.95 seconds; zero leaked
+  repository-owned processes.
+- Ruff check, Ruff format check, mypy, plan structure, requirement coverage, semantic
+  traceability, verifier enforcement, prompt hygiene, actionlint, and `git diff --check` passed.
+- Independent replay: 130 representative tests passed in 25.03 seconds; 12 high-risk nodes passed
+  in 1.60 seconds; static/governance/actionlint checks accepted.
+
+### Partial or implemented but unverified
+
+- `CORE-023`, `L8-036`, and `L8-038` are correctly `PARTIAL`: code enforces the revised registry
+  grammar, but a fresh authenticated all-visibility `RegistryRevisionV1` proof for the 31-member
+  set and explicit exclusions is still absent.
+- Wave 3 foundations exist, but only 17/31 repositories are at current `FACTS_READY`.
+- Nine current candidates are deterministically validated, but none has a current independent
+  approval/no-op pair. Two older raw pairs are stale and cannot count.
+- Latest full-suite receipt was made on the integrated candidate tree before commit; it is strong
+  regression evidence but not a clean-HEAD task-closure receipt.
+
+### Contradicted or stale claims
+
+- Any 33-repository denominator is stale. Current admitted registry count is 31.
+- Any claim of 13 current no-op-proven repositories is contradicted by current lifecycle
+  reconstruction: current count is zero.
+- Any handover selecting `GOAL-V0-VERIFIED-PYTHON-POC` or `L8-VPY-00-GOLDEN-TEMPLATE` is stale.
+- CSSForge and `Aspose-PDF-FOSS-for-Go-MCP` are observations/exclusions, not portfolio members.
 
 ## 7. Current Working State
 
-The coherent pivot is committed at `bb081e3ac161f718581d0c8fc6240877eb49848b`. The durable
-controller is at state 635 with no
-graph drift and `L8-VPY-00-GOLDEN-TEMPLATE` eligible. No product repository effect is authorized.
+The tree was clean at `908f9f3b54a93ef12a6eb265e17366b0cb0ac21a` before this handover refresh.
+The active Wave 3 claim was reclaimed as `Codex`, producing durable state version 678. The current
+task lane record still describes the just-integrated throughput slice and must be updated before a
+new implementation wave.
 
-The visible chat-goal interface still contains an older blocked trusted-lane objective. The
-available goal API cannot edit or replace an unfinished blocked objective, and the old objective
-must not be falsely marked complete. Repository execution authority is nevertheless correct and
-must not be overridden by that stale UI label.
+Latest successful boundary: registry/structured-fact/freshness/multi-agent control repairs were
+integrated, fully regression-tested, independently accepted, and committed.
+
+Latest unresolved boundary: 14 registry members have not reached current `FACTS_READY`. The first
+known Python blockers include ecosystem/package evidence failures rather than missing prose:
+HTML Python reports an invalid build backend path; TeX Python has widespread source syntax failure
+and no verified published-package route. These are facts/evidence problems and must not be papered
+over with generic README text.
 
 ## 8. Remaining Gaps
 
-### L8-042 / L8-VPY-00
-
-- Severity: P0.
-- First failing boundary: an accepted reference exists, but no typed reusable template contract
-  consumes it.
-- Permanent solution: structural slots plus typed profiles, fact binding, validation, caching, and
-  negative controls.
-- Exact next action: claim the task and inspect the current presentation renderer/contracts before
-  adding the smallest non-duplicative implementation.
-
-### Verified Python candidates
-
-- Severity: P0.
-- Current proof: 7/31 facts, candidates, and deterministic validations; 0 independent verified
-  approvals and no-op proofs.
-- Missing: Note, Page/PDF, and remaining dynamic Python verified lifecycles.
-
-### Full mission
-
-- Severity: mandatory long term.
-- Missing: complete verified registry gates, human acceptance, authorized effects, hosted
-  production proof, remaining surfaces, heterogeneous operation, and elapsed Level-7/8 windows.
+| ID | Severity/status | First failing boundary | Permanent solution and proof |
+|---|---|---|---|
+| `FACT-017`, `L8-006` | P1/P0, open | Agent-drafted product truth is not fully mechanically grounded | Repair each producer/verification boundary; require citations, deterministic checks, isolated consumer proof, conflict controls, and independent factuality acceptance |
+| `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` | P0, in progress | `FACTS_READY` at 17/31 | Resolve Python-first fact failures, then remaining platforms; close only after every Wave 3 acceptance check passes |
+| `CORE-023`, `L8-036`, `L8-038` | P0, partial | Current all-visibility registry proof absent | Generate a fresh authenticated `RegistryRevisionV1` proving 31 admissions, 12 Python members, explicit CSSForge/MCP exclusions, zero unexplained observations, recovery, and no-op |
+| Current lifecycle acceptance | P0, 0/31 | Stale approval fingerprints | Rebuild only invalidated dependent stages; rerun deterministic review, independent review, repair, and no-op proof |
+| TeX Python truth | P0 for Python cohort | Source/package consumer verification | Determine whether repository syntax/build state permits a supported evidence path; record a narrow external fact block only if no locally recoverable authoritative route exists |
+| HTML Python truth | P0 for Python cohort | Invalid setuptools backend/acquisition | Correct ecosystem detection or source-build metadata interpretation, then rerun isolated acquisition and facts gates |
+| `L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME` | `BLOCKED_EXTERNAL` in durable state | Hosted/production-like proof | Do not let it block independent local truth work; revisit at the plan's `act`/hosted gate with required infrastructure |
+| `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` | `BLOCKED_EXTERNAL` in durable state | Old Python goal route | Reconcile its dependency/status only through the same graph; it cannot substitute for the current Wave 3 claim |
 
 ## 9. Ordered Execution Queue
 
-1. `L8-VPY-00-GOLDEN-TEMPLATE`
-2. `L8-VPY-01-NOTE-VERIFIED-CANARY`
-3. `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES`
-4. `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`
-5. Remaining verified Gate A work
-6. Gate B human review
-7. `act` and disposable staging proof where current evidence cannot be reused
-8. Gate C authorized draft-PR proof
-9. Hosted GitHub App runtime
-10. Level 5, Level 6, 30-day Level 7, 90-day Level 8
+1. `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP` - update its task-lane record for the next bounded slice;
+   repair the next Python FACTS_READY failure; run focused facts/ecosystem/security tests; run the
+   canonical bounded portfolio command; independently verify lifecycle/fact evidence.
+2. Continue the same task across remaining Python repositories, then .NET, Java, C++, TypeScript,
+   Rust, and Go. Reuse content-addressed valid stages; do not rerun unchanged work.
+3. Generate the fresh authenticated all-visibility registry revision and restore `CORE-023`,
+   `L8-036`, and `L8-038` only when its evidence passes.
+4. Complete current independent approval and no-op proof for each repository; stale raw verdicts
+   must be regenerated, not relabeled.
+5. Close full-registry Gate A and prepare Gate B only when the dynamic denominator is complete.
+6. Proceed in dependency order through `act`, staging, Gate C, GitHub App/hosted runtime, Level 5,
+   Level 7, and Level 8.
 
-For each task: implement the smallest complete slice, run focused tests, integration/regression and
-safety proof, independent verification, evidence checksums, state reconciliation, and a coherent
-commit. Two ineffective attempts or 15 minutes at one boundary trigger first-principles review
-before a third approach.
+For each task the coordinator must write one `runs/multi-agent/<task-id>/execution-plan.json`,
+disposition all five roles, lease disjoint paths, integrate serially, run required regression/
+safety proof, then launch an implementation-independent verifier. At most three workers may run
+beside the coordinator; roles run in waves when needed.
 
 ## 10. Decisions and Constraints
 
-- One accountable coordinator owns shared files, integration, state, commits, final verification,
-  and final evidence. Repair, Advancement, Validator/Evidence, Documentation/State-Sync, and
-  Independent Verification workers run in bounded waves under disjoint path leases and cannot
-  claim closure or perform product effects.
-- Work directly on control-repository `main`; preserve unrelated work.
-- Do not create another plan, controller, queue, or state store.
-- Use `supervise` and the existing capability registry.
-- Existing README prose is valuable evidence but not verified truth.
-- The accepted sample defines structure, not product facts or universal prose.
-- No emojis or visible implementation comments in generated READMEs.
-- Consistent professional headers; detailed capability/format Mermaid; list TOC; correct
-  third-party and MIT-license prose.
-- Full product names outside API/package contexts.
-- Contextual link budgets come from configured sources; product links have priority; commercial
-  products are called Enterprise Edition.
-- Cache only with complete correctness dependencies.
-- Never weaken safety or evidence to meet a time target.
-- No product write without fresh exact what/why/where approval.
+- One accountable coordinator. Workers never own shared plans/state, integration, commits, closure,
+  final evidence, or product effects.
+- Required roles: Repair, Advancement, Validator/Evidence, Documentation/State-Sync, Independent
+  Verification. Spawn only roles with useful independent work; always disposition all five.
+- Documentation/State-Sync writes proposals under `runs/multi-agent/`; the coordinator applies them.
+- Work directly on control-repository `main`. Do not create control branches.
+- Preserve user/concurrent work; no reset, restore, clean, destructive history, or force-push.
+- Use `.venv/Scripts/python` and `.venv/Scripts/readme-agent`; never the global Python toolchain.
+- `supervise` is the sole production runtime. `data/products.json` is the allow-list.
+- Existing README text is valuable evidence, not automatically true. Every material final claim
+  needs accepted facts, authority, or an explicit uncertainty/correction disposition.
+- No comments in generated READMEs, no emojis, standard consistent header, detailed non-directional
+  Mermaid, full product names outside API/package identifiers, natural contextual links, link-budget
+  controls, and the phrase `Enterprise Edition` for aspose.com products.
+- No product remote write without fresh exact what/why/where confirmation. Never merge or write a
+  target default branch.
+- Safe local commands are pre-authorized. Ask only for genuine external authority, secrets,
+  infrastructure, manual UI, or an explicitly gated external effect.
+- After two ineffective attempts or 15 minutes at the same failing boundary, stop repeating the
+  same approach and perform a first-principles redesign of that boundary.
 
 ## 11. Tests, Proof, and Evidence
 
-- Full-suite receipt: `runs/verification/pytest-full-latest.json` (runtime, ignored).
-- Accepted reference:
-  `plans/investigations/evidence/readme-presentation-contract-v1/`.
-- Generated requirement/task coverage:
-  `plans/investigations/evidence/level8-requirement-taskcard-coverage/`.
-- Generated implementation truth:
-  `plans/investigations/evidence/implementation-truth-matrix-2026/`.
-- Latest focused command:
-  `.venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_trusted_cohort_runtime.py`
-  returned 36 passed.
-- Full non-live command:
-  `.venv/Scripts/python -m pytest -q -n 4 --dist worksteal --max-worker-restart 0`
-  returned 2,442 passed.
-- Not yet proved: the template contract and every verified Python candidate.
+Primary evidence:
+
+- `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/README.md`
+- `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/verification.json`
+- `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/independent-verification.md`
+- `plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/sha256sums.txt`
+- `runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json`
+- `runs/verification/pytest-full-latest.json`
+
+The exact 288-test command and all static commands are recorded in the committed evidence README.
+The independent report records its separate replay. Tests still required before Wave 3 closure are
+real isolated package/example execution for affected ecosystems, current representative facts,
+prompt-injection/false-coordinate/protected-content negative controls, and a clean committed-tree
+official campaign at the task boundary.
+
+No product remote effect was performed by the latest slice.
 
 ## 12. Risks and Uncertainty
 
-- The Note reference may overfit unless its facts are explicitly excluded and a second-product
-  negative control passes.
-- Current renderers and validators may contain overlapping trusted-era contracts; inspect and reuse
-  rather than adding another parallel renderer.
-- Provider availability can affect agent review; deterministic gates must fail closed and caches
-  must prevent needless repeated calls.
-- The current eligible denominator is 31 and Python is 12. Discovery still records CSSForge and
-  PDF Go MCP, but both are explicit nonconforming exclusions. Historical closure evidence that
-  admitted either is stale and must not satisfy current acceptance.
-- The stale UI umbrella goal cannot be rewritten through the current goal API.
+- Live repository/package state can change; current facts and registry visibility require fresh
+  revision-bound evidence.
+- Python repositories differ materially. A shared parser or prompt fix may not repair broken
+  upstream source/build metadata; keep failures repository-bound.
+- Latest regression receipt binds a dirty pre-commit tree, not the exact current commit.
+- The two durable `BLOCKED_EXTERNAL` tasks are real recorded state, but unrelated local Wave 3 work
+  remains available, so the mission itself is not globally blocked.
+- The active claim has a lease. Re-read it on restart and never steal an unexpired claim.
+- Runtime files under `runs/` are disposable and may not exist on another machine; committed
+  evidence and durable Git-ref state are the cross-session authorities.
 
 ## 13. Receiving Agent Startup Steps
 
-1. Read `AGENTS.md`, this file, `plans/idea.md`, decision #88 in `plans/master.md`, `L8-042`,
-   `plans/GOVERNANCE.md`, and the mission graph.
-2. Inspect Git status, HEAD/upstream, and repository-owned processes.
-3. Run mission `status`; if drift appears, run `evaluate`.
-4. Claim `L8-VPY-00-GOLDEN-TEMPLATE` through the same supervisor; never seize an unexpired claim.
-5. Inspect existing presentation schemas/renderers/validators and their tests before editing.
-6. Implement the smallest non-duplicative template contract in taskcard-allowed paths.
-7. Bind the exact accepted reference hash and separate structure from facts.
-8. Run focused tests, positive/negative template controls, relevant renderer/validator/safety
-   regressions, and a representative integration proof.
-9. Record checksum-complete evidence and independently review it.
-10. Transition/close only when all acceptance conditions pass, update the same authorities and
-    handover, commit with the Codex trailer, evaluate, and immediately continue to VPY-01.
+1. Start in `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer`.
+2. Read `AGENTS.md`, `plans/idea.md`, relevant current sections of `plans/master.md`,
+   `plans/requirements.md`, `plans/GOVERNANCE.md`, and the current task in the mission graph.
+3. Run `git status --short --branch`, `git rev-parse HEAD`, and inspect upstream divergence.
+4. Run mission `status` below. If graph drift is true, run `evaluate`. Reclaim only an expired
+   claim through `--mission-action claim`; never overwrite durable state manually.
+5. Reconstruct the lifecycle scoreboard and identify the first Python `FACTS_READY` failure.
+6. Update the same task-lane record, disposition all five roles, and grant disjoint paths. Use
+   Repair for the producer defect, Advancement for a separate unaffected repository, Validator/
+   Evidence for read-only reconstruction, Documentation/State-Sync for proposal-only changes, and
+   Independent Verification only after integration.
+7. Implement the smallest complete permanent repair through public seams.
+8. Run focused tests, relevant safety/regression tests, then this bounded canonical proof:
+
+```powershell
+.venv/Scripts/readme-agent supervise `
+  --registry data/products.json `
+  --execution-profile local_poc `
+  --max-readme-poc-stage FACTS_READY
+```
+
+9. Capture revision, inputs, hashes, lifecycle transitions, LLM calls, validations, failures, and
+   reproduction commands in redacted evidence.
+10. Integrate serially, run independent verification, update the same requirements/task/log/
+    handover state, commit a coherent slice directly to `main` with the Codex trailer, evaluate,
+    rebuild eligibility, and continue without waiting for another prompt.
+
+Mission status command:
+
+```powershell
+.venv/Scripts/readme-agent supervise `
+  --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+  --mission-action status `
+  --mission-observer Codex `
+  --durable-state
+```
 
 ## 14. Closure Standard
 
-The umbrella mission closes only when every mandatory graph task and requirement is truthfully
-closed, all repository/workflow/effect/recovery/idempotency/safety gates pass, the 30-day and
-90-day windows complete, and an independent audit reproduces and awards Level 8. The verified
-Python milestone is an interim deliverable, not mission closure.
+The receiving agent may not declare this mission complete until:
+
+- every mandatory graph task is `CLOSED` with current evidence;
+- every normative requirement is truthfully reconciled;
+- the dynamic registry has complete current verified bundles and no-op proof;
+- local, `act`, staging, proposal, hosted, recovery, safety, idempotency, and evidence-corruption
+  gates pass;
+- no unauthorized/default-branch/package/release/GitHub-generated-surface write occurred;
+- the 30-day Level 7 and 90-day Level 8 windows complete;
+- an implementation-independent audit reproduces the evidence and awards Level 8; and
+- reevaluation finds no mandatory ready, in-progress, agent-fixable blocked, reopened, regressed,
+  or unresolved task.
+
+Current verdict: `HANDOVER_READY` for continuation, not mission completion.
