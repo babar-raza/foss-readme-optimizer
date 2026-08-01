@@ -123,7 +123,24 @@
       "trigger_dedup_key": "operator:20260801-014440-42bb:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
     }
   },
-  "domain_states": {},
+  "domain_states": {
+    "readme_reconciliation": {
+      "accepted_facts_hash": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "license_claim": "MIT"
+      },
+      "domain": "readme_reconciliation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-01T01:50:14.040060+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
+    }
+  },
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": null,
@@ -434,7 +451,7 @@
     "updated_at": "2026-08-01T01:49:49.748160+00:00"
   },
   "schema_version": 2,
-  "state_version": 33,
+  "state_version": 34,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
