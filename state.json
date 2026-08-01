@@ -149,6 +149,46 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
     },
+    "metadata_presentation": {
+      "accepted_facts_hash": "7aae282451c341506e5f2b35d20617c9aa33d4a60f9b98ea01edac2cd18e437c",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "blocked_findings": [],
+        "current_description": "Python-native Aspose.PDF FOSS package for reading, writing, parsing, encryption, signing, and working with PDF primitives",
+        "current_homepage": null,
+        "current_topics": [],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:agent-drafted-grounded",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:primary"
+          ],
+          "metadata.topics": [
+            "product.capabilities:repository-evidence",
+            "product.formats:repository-evidence",
+            "product.platforms:manifest"
+          ]
+        },
+        "has_proposal": true,
+        "proposed_description": null,
+        "proposed_homepage": "https://products.aspose.org/pdf/",
+        "proposed_topics": [
+          "python"
+        ]
+      },
+      "domain": "metadata_presentation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-01T01:51:09.393546+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
+    },
     "package_release_audit": {
       "accepted_facts_hash": "59fe6dfcb1375c7168a3d01a64da423b29c7d993433fad9e4d5ca61d4e8fc74e",
       "accepted_status": "FIRST_OBSERVATION",
@@ -506,7 +546,7 @@
     "updated_at": "2026-08-01T01:49:49.748160+00:00"
   },
   "schema_version": 2,
-  "state_version": 37,
+  "state_version": 38,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
