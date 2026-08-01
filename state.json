@@ -1795,6 +1795,17 @@
         "reason": "entering repair attempt 1/2: Revise Navigation for navigation around exact span: - [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Requirements](#requirements)\n- [Feature Boundaries](#feature-boundaries)\n- [Development](#development)\n- [Repository Map](#repository-map)\n- [Contributing](#contributing)\n- [Security](#security)\n- [License](#license)\n- [Scope and limitations](#scope-and-limitations)",
         "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "f2"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-01T03:46:53.927640+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=0111b912a4865878287143462b2e7e356bb53136c3a318de6110bb44d8dbdcdc after=abfedd79d6318794ccd28fd1e46b7c166e3950e1cf83ba961e1b87687a3db681; unresolved=f2",
+        "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -1838,11 +1849,11 @@
     "reviewer_standard_hash": "d4ccddd7ab8d9abee4cd3d149e29db06287f84d40c2333fe9a3de6af642375b1",
     "schema_version": 2,
     "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-01T03:46:07.358593+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-01T03:46:53.927640+00:00"
   },
   "schema_version": 2,
-  "state_version": 215,
+  "state_version": 216,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fb6372d02d8ce64b130a8639555251771b3b5bd90c7affd56d2c0c6eaaac8cfb",
