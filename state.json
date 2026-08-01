@@ -19,7 +19,7 @@
     "claimed_at": null,
     "claimed_by": null,
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "df1da13107adf0f54e8b3fbfc80c92233617781eb8fd7bec6bfedd56011dbf7c",
+    "goal_activation_graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -68,8 +68,8 @@
         "to_primary_goal_id": "GOAL-V1-VERIFIED-TRUTH"
       }
     ],
-    "graph_sha256": "df1da13107adf0f54e8b3fbfc80c92233617781eb8fd7bec6bfedd56011dbf7c",
-    "last_evaluated_at": "2026-08-01T16:18:25.331734+00:00",
+    "graph_sha256": "a1ab8af9ed233e9262b29cc6709091ce4192c8a47c786c43a6f1a677627bec94",
+    "last_evaluated_at": "2026-08-01T16:21:24.169682+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 17,
@@ -98,7 +98,17 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Implement ProductFactsV2, precedence/conflict behavior, claim citations, surface ownership, protected-content fingerprints, isolated example execution, and prompt-injection treatment."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH"
+      ],
+      "stage_goal_id": "GOAL-V1-VERIFIED-TRUTH",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP"
+    },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "TODO",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
@@ -5759,7 +5769,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 674,
+  "state_version": 675,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
