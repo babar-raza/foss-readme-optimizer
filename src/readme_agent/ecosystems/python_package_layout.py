@@ -70,7 +70,8 @@ def _setup_cfg_metadata(path: Path) -> dict[str, Any]:
 def _pyproject_metadata(path: Path) -> dict[str, Any]:
     data = tomllib.loads(path.read_text(encoding="utf-8-sig", errors="replace"))
     project = data.get("project", {})
-    setuptools = data.get("tool", {}).get("setuptools", {})
+    tools = data.get("tool", {})
+    setuptools = tools.get("setuptools", {})
     package_dir = setuptools.get("package-dir", {})
     source_root = package_dir.get("", ".") if isinstance(package_dir, dict) else "."
     packages = setuptools.get("packages", [])
@@ -81,6 +82,15 @@ def _pyproject_metadata(path: Path) -> dict[str, Any]:
     includes = find.get("include", []) if isinstance(find, dict) else []
     if isinstance(packages, list):
         includes = packages
+    hatch_packages = (
+        tools.get("hatch", {})
+        .get("build", {})
+        .get("targets", {})
+        .get("wheel", {})
+        .get("packages", [])
+    )
+    if not includes and isinstance(hatch_packages, list):
+        includes = hatch_packages
     return {
         "name": project.get("name"),
         "version": project.get("version"),
@@ -147,11 +157,38 @@ def _module_all(path: Path) -> list[str]:
     return []
 
 
+def _declared_package_paths(declared: list[str]) -> list[Path]:
+    normalized: list[Path] = []
+    for item in declared:
+        if not isinstance(item, str) or not item:
+            continue
+        value = item.replace("\\", "/").strip("./")
+        value = value.removesuffix(".*").replace(".", "/")
+        if value:
+            normalized.append(Path(value))
+    return sorted(set(normalized), key=lambda item: (len(item.parts), item.as_posix()))
+
+
 def _canonical_import(packages: list[Path], source_root: Path, declared: list[str]) -> str:
-    explicit = [item for item in declared if isinstance(item, str) and item and "*" not in item]
-    dotted_explicit = [item for item in explicit if "." in item]
+    explicit_paths = _declared_package_paths(declared)
+    dotted_explicit = [".".join(item.parts) for item in explicit_paths if len(item.parts) > 1]
     if dotted_explicit:
         return dotted_explicit[0]
+    if len(explicit_paths) == 1 and explicit_paths[0] in packages:
+        root_package = explicit_paths[0]
+        exported = _module_all(source_root / root_package / "__init__.py")
+        direct_children = {
+            package.parts[-1]: package
+            for package in packages
+            if len(package.parts) == len(root_package.parts) + 1
+            and package.parts[: len(root_package.parts)] == root_package.parts
+        }
+        public_children = [direct_children[name] for name in exported if name in direct_children]
+        if len(public_children) == 1:
+            return ".".join(public_children[0].parts)
+        if len(direct_children) == 1 and root_package.name.casefold() == "aspose":
+            return ".".join(next(iter(direct_children.values())).parts)
+        return ".".join(root_package.parts)
     shallow = [package for package in packages if len(package.parts) == 1]
     if len(shallow) == 1:
         root_package = shallow[0]
@@ -186,6 +223,16 @@ def inspect_python_package_layout(repository_root: Path) -> PythonPackageLayoutV
     declared = metadata.get("declared_packages") or []
     if isinstance(declared, str):
         declared = [item.strip() for item in declared.splitlines() if item.strip()]
+    declared_paths = _declared_package_paths(list(declared))
+    if declared_paths:
+        packages = [
+            package
+            for package in packages
+            if any(
+                package == declared_path or package.is_relative_to(declared_path)
+                for declared_path in declared_paths
+            )
+        ]
     canonical = _canonical_import(packages, source_root, list(declared))
     digest = hashlib.sha256()
     digest.update(manifest.relative_to(repository_root).as_posix().encode("utf-8"))

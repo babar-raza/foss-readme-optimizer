@@ -146,6 +146,26 @@ def test_package_layout_detects_pep420_leaf_without_initializer(tmp_path):
     assert layout.namespace_packages == ["acme"]
 
 
+def test_hatch_package_declaration_excludes_repository_example_packages(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-words-foss"\nversion = "1.0.0"\n'
+        '[build-system]\nrequires = ["hatchling"]\nbuild-backend = "hatchling.build"\n'
+        '[tool.hatch.build.targets.wheel]\npackages = ["aspose"]\n',
+        encoding="utf-8",
+    )
+    (tmp_path / "ApiExamples").mkdir()
+    (tmp_path / "ApiExamples" / "__init__.py").write_text("", encoding="utf-8")
+    package = tmp_path / "aspose" / "words_foss"
+    package.mkdir(parents=True)
+    (tmp_path / "aspose" / "__init__.py").write_text("", encoding="utf-8")
+    (package / "__init__.py").write_text("class Document: pass\n", encoding="utf-8")
+
+    layout = inspect_python_package_layout(tmp_path)
+
+    assert layout.canonical_import == "aspose.words_foss"
+    assert layout.package_paths == ["aspose", "aspose/words_foss"]
+
+
 def test_public_surface_tracks_reexports_types_fields_and_full_property_stack(tmp_path):
     _write_package(tmp_path)
 
