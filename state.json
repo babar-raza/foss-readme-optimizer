@@ -643,34 +643,34 @@
       "upstream_revision_at_accept": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "74c5333fba5a27086d95bddfe0d3d69d79a9f555cf869cea4d9dae591745c166",
+      "accepted_facts_hash": "c35e62e7505daf4255c9c1b44f499303b1f80030ba254218d9f90cae4fe30264",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "no live resolver registered for ecosystem 'python'",
+        "evidence": "PyPI: aspose-font-foss NOT FOUND (404)",
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-07-22T14:35:52.470847+00:00",
+            "detected_at": "2026-08-01T08:26:38.375066+00:00",
             "evidence": {
-              "detail": "no live resolver registered for ecosystem 'python'"
+              "detail": "PyPI: aspose-font-foss NOT FOUND (404)"
             },
             "surface": "packages"
           }
         ],
         "install_path_resolved": false,
-        "latest_release_name": "Aspose.Font FOSS for Python 26.7.3",
-        "latest_release_tag": "26.7.3",
-        "releases_count": 16
+        "latest_release_name": "Aspose.Font FOSS for Python 26.7.5",
+        "latest_release_tag": "26.7.5",
+        "releases_count": 18
       },
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T14:35:52.471269+00:00",
+      "last_run_timestamp": "2026-08-01T08:26:38.375720+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "ef1bf4191341aa93f618bf3b0c06165eb5bee4db"
+      "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "bfa36d0e874f94c46e8c7c94ac3a2918419afa18df88feef8a4023c76a70c23e",
@@ -1161,7 +1161,7 @@
     "updated_at": "2026-08-01T08:25:29.046020+00:00"
   },
   "schema_version": 2,
-  "state_version": 99,
+  "state_version": 100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e796fc6253c87a7962fa406b10905df767a6fb7b510a73e6a2685d2a9ef34f90",
