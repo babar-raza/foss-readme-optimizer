@@ -13,6 +13,7 @@
       "status": "applied"
     }
   ],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
@@ -387,10 +388,14 @@
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-22T14:21:38.694866+00:00",
+  "mission_execution": null,
   "open_proposals": {},
+  "open_proposals_v2": {},
   "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
   "profile_cache": null,
-  "state_version": 29,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 30,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8841a5dcef7c6ebac09690e95e658cace15e994f8fdf8579387b0e377ee17a7",
@@ -402,6 +407,7 @@
     "last_run_timestamp": "2026-07-22T14:23:10.400181+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -482,6 +488,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "delivery:registry:1193857039:14588830212638d817de1375415586ca3e4f96e9fa8482c7793f8ce668d4638c": {
+      "accepted_at": "2026-08-01T14:43:33.370286+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1193857039:14588830212638d817de1375415586ca3e4f96e9fa8482c7793f8ce668d4638c",
+        "delivery_id": "registry:1193857039:14588830212638d817de1375415586ca3e4f96e9fa8482c7793f8ce668d4638c",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-01T14:32:16.905301+00:00",
+        "provider_event_id": "registry:1193857039:14588830212638d817de1375415586ca3e4f96e9fa8482c7793f8ce668d4638c",
+        "repository_scope": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "14588830212638d817de1375415586ca3e4f96e9fa8482c7793f8ce668d4638c",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-01T14:43:33.370295+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "3e231cad58b2cc9629827ad3fb8ff580148f272318e5693f62eb762160fc3fcd",
   "upstream_revision_at_accept": null
 }
