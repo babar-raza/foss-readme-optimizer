@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+  "verifier": "independent_evidence_replay_v1",
+  "implementation_path_executed": false,
+  "checks": {
+    "registry_revision_schema_and_hash_fields_present": true,
+    "admitted_equals_current_registry_denominator": true,
+    "zero_unexplained_source_failure_pending_and_stale": true,
+    "excluded_source_has_explicit_disposition": true,
+    "cssforge_identity_and_source_revision_are_stable": true,
+    "successful_retry_reconciled_terminal_lifecycle": true,
+    "unchanged_replay_has_no_queue": true,
+    "act_trigger_recovery_isolation_evidence_present": true,
+    "clean_test_manifest_matches_control_head": true,
+    "all_task_acceptance_checks_have_proof": true,
+    "target_product_writes_are_zero": true,
+    "hosted_dead_man_not_overclaimed": true
+  },
+  "scoreboard_sha256": "d89a0d85206d722e34d455cd39d26ebf25c483267dce6467ba3cda7fe446aa0b",
+  "first_failing_boundary": "FACTS_READY",
+  "verdict": "ACCEPT_LOCAL_TASK_CLOSURE"
+}

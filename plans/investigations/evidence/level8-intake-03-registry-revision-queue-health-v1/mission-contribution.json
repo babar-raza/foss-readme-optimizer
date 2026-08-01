@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+  "stage_goal_id": "GOAL-C0-AUTHORIZED-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-AUTONOMY",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "acceptance_proof",
+    "summary": "Make repository discovery an observable, recoverable input to the same Gate-A campaign."
+  },
+  "acceptance_checks_passed": [
+    "Current authorized-source enumeration has zero unexplained observations, source failures, stale scans, and pending intake before trusted portfolio fan-out",
+    "Gate A rejects pending intake, unexplained observations, scan failures, stale sources, and hash drift",
+    "One logical discovery change creates one intake",
+    "One source/repository failure does not erase unrelated matrix progress",
+    "This local task neither requests nor requires GitHub App authority; hosted proof occurs later at trusted T3"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/README.md",
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/registry-revision-summary.json",
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/trigger-history.json",
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/act-registry-intake-workflow-summary.json",
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/live-registry-all-visibility-summary.json",
+    "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/independent-verification.json"
+  ],
+  "scoreboard_before_sha256": "d89a0d85206d722e34d455cd39d26ebf25c483267dce6467ba3cda7fe446aa0b",
+  "scoreboard_after_sha256": "d89a0d85206d722e34d455cd39d26ebf25c483267dce6467ba3cda7fe446aa0b",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

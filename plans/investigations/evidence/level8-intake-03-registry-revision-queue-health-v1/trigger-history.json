@@ -1,12 +1,27 @@
 {
   "schema_version": 1,
-  "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
-  "provider_repository_id": 1287149459,
-  "observation_revision": "6575fb825c210bf635fe3f22b4711979454e5cad2ea512be3474a68bbdde1374",
-  "trigger_dedup_key": "delivery:registry:1287149459:6575fb825c210bf635fe3f22b4711979454e5cad2ea512be3474a68bbdde1374",
-  "trigger_executed": true,
-  "intake_executed": true,
-  "intake_outcome": "READY_FAST_PATH",
-  "settled": true,
-  "pending_after_settlement": false
+  "repository": "aspose-html-foss/CSSForge",
+  "provider_repository_id": 1319039143,
+  "observation_revision": "00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205",
+  "source_revision": "b972777dd11f1045ac695513e73d68883404e7bc",
+  "trigger_dedup_key": "delivery:registry:1319039143:00f61674f9c3dee293491c5f92b4de77f40ac104c335ebcca3c3684068622205",
+  "trigger_delivery_count": 1,
+  "trigger_status": "completed",
+  "intake_attempts": [
+    {
+      "attempt": 1,
+      "outcome": "SYSTEM_FAILURE",
+      "classification": "agent_fixable_private_git_auth"
+    },
+    {
+      "attempt": 2,
+      "outcome": "READY_FULL_PIPELINE",
+      "result_hash": "9b4fb55c099c7732ad8222578034d145cce5baa431e5a13d4071064e6c7aa80f"
+    }
+  ],
+  "final_lifecycle_status": "INTAKE_READY",
+  "pending_after_settlement": false,
+  "unchanged_replay_created_queue": false,
+  "act_recovery_run": 44,
+  "act_recovery_result": "expired processing trigger resumed by exact dedup key and completed"
 }

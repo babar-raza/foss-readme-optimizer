@@ -1,19 +1,26 @@
 {
   "schema_version": 1,
-  "revision_id": "93c718b4acea6850e2e7679ab1005306d34af261b385df24c7b35e6a021968f3",
-  "captured_at": "2026-08-01T12:04:10.362597+00:00",
-  "fresh_until": "2026-08-02T12:04:10.362597+00:00",
-  "complete": false,
-  "admitted_repository_count": 32,
-  "observation_count": 32,
+  "revision_id": "d610fc75069655d0f9d83f37198c3ba1f92b29d06bc210858150bf245722bb7e",
+  "captured_at": "2026-08-01T15:32:42.274612+00:00",
+  "fresh_until": "2026-08-02T15:32:42.274612+00:00",
+  "complete": true,
+  "admitted_repository_count": 33,
+  "observation_count": 33,
   "additions": [
-    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP"
+    "aspose-html-foss/CSSForge"
+  ],
+  "exclusions": [
+    {
+      "org_repo": "aspose-imaging-foss/*",
+      "classification": "source_excluded",
+      "reason": "No aspose-imaging-foss organization exists; aspose-imaging is a separate non-FOSS source and is not authorized for this portfolio."
+    }
   ],
   "pending_intake": [],
   "unexplained_observations": [],
-  "source_failures": [
-    "github-org:aspose-imaging-foss"
-  ],
-  "products_registry_hash": "af3c2e87ec2c013bbce4b99fdac73b98d1e7256afd25159859674ecf6afad893",
-  "observation_snapshot_hash": "2469fcabac72ca9089cc2131d99b8493bf9314db3832bc5902a9f49a58d71af2"
+  "source_failures": [],
+  "products_registry_hash": "69fc71338530af3a130b95d52d4bf5b807143a6c0faa83d39bdf8433788ae2c8",
+  "source_catalog_hash": "5eb22efa642771f9d50f852554fce1495bfcd9ef875be3e96579920b6a07205a",
+  "observation_snapshot_hash": "3c3d26683ff9c7ea71aa24fb3222393881e342baaa9fef9f347c6bc806fc9214",
+  "reconciliation_hash": "6b1ea29cc7f96ff723e63508290e7f8df1f2efae1bdd38405d960be05c972f42"
 }

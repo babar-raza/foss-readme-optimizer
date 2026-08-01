@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "control_head": "1f4f8a98f1f3c4e1510ce028d11c55f10bf0320b",
+  "live_revision_id": "d610fc75069655d0f9d83f37198c3ba1f92b29d06bc210858150bf245722bb7e",
+  "raw_artifacts": [
+    {
+      "path": "runs/registry-revisions/live-preflight-cssforge-admission.json",
+      "sha256": "8f47fc080991d19f4006ebd19cf9c1abeb94c70d0c8d09f9d1ba3419c2f72260",
+      "role": "33rd repository discovery and initial failed intake"
+    },
+    {
+      "path": "runs/registry-revisions/live-preflight-cssforge-resume.json",
+      "sha256": "a086cbe9edf35734959188039bcf6f39126963aa66754f1e00fb1984593d0f4b",
+      "role": "successful private clone and intake retry"
+    },
+    {
+      "path": "runs/registry-revisions/live-preflight-clean-33-noop-final.json",
+      "sha256": "2adfd8e5fa7e2cae87d3b376c286e8fa45523a4c9e3393db5c8d4063181ec23f",
+      "role": "clean committed unchanged no-op"
+    },
+    {
+      "path": "runs/registry-revisions/live-health-clean-33.json",
+      "sha256": "4ba9b08b53590637d3aa7f62660e42c900c2ec029680fb1294b3a061109952c3",
+      "role": "33-repository health aggregation"
+    },
+    {
+      "path": "runs/verification/pytest-full-latest.json",
+      "sha256": "8c4dea3db970243b80d34aa1fdd73a96b3d779d963015f49223f89b067cdfddf",
+      "role": "clean 2,604-test official manifest"
+    }
+  ],
+  "source_complete": true,
+  "admitted_repository_count": 33,
+  "source_exclusion_count": 1,
+  "source_failure_count": 0,
+  "unexplained_observation_count": 0,
+  "pending_intake_count": 0,
+  "noop_queue_created": false,
+  "gate_eligible": true,
+  "product_remote_writes": 0
+}

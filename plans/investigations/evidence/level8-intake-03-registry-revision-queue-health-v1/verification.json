@@ -1,64 +1,63 @@
 {
   "schema_version": 1,
   "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
-  "status": "PARTIAL",
-  "control_head_before_slice": "15eecb9d3eba942926d1120b64e5f61281779e99",
-  "live_registry_revision_id": "93c718b4acea6850e2e7679ab1005306d34af261b385df24c7b35e6a021968f3",
-  "registry_count": 32,
-  "new_repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
-  "new_repository_mode": "disabled",
-  "intake_outcome": "READY_FAST_PATH",
-  "trigger_count_for_observation_change": 1,
-  "gate_eligible": false,
-  "gate_reasons": [
-    "source_scan_incomplete",
-    "source_failures_present"
-  ],
-  "source_failures": [
-    {
-      "source_id": "github-org:aspose-imaging-foss",
-      "organization": "aspose-imaging-foss",
-      "boundary": "HTTP 404 during authorized source enumeration",
-      "classification": "external_visibility_or_credential_authority"
-    }
-  ],
+  "status": "VERIFIED_LOCAL",
+  "control_head": "1f4f8a98f1f3c4e1510ce028d11c55f10bf0320b",
+  "registry_count": 33,
+  "registry_revision_id": "d610fc75069655d0f9d83f37198c3ba1f92b29d06bc210858150bf245722bb7e",
+  "gate_eligible": true,
+  "gate_reasons": [],
+  "source_failures": [],
+  "unexplained_observations": [],
+  "pending_intake": [],
+  "lifecycle_status_counts": {
+    "BLOCKED_MISSING_EVIDENCE": 2,
+    "DETERMINISTIC_VALIDATED": 7,
+    "INTAKE_READY": 14,
+    "NO_OP_PROVEN": 10
+  },
+  "first_failing_boundary": "FACTS_READY",
   "health": {
     "healthy": false,
-    "repositories_checked": 32,
-    "missed_schedule_windows": 20,
-    "backlog": 111,
+    "repositories_checked": 33,
+    "missed_schedule_windows": 0,
     "actionable_backlog": 111,
     "repeated_failures": 66,
-    "state_failures": 0
+    "stale_leases": 0,
+    "state_failures": 0,
+    "evidence_failures": 0,
+    "workflow_failures": 0,
+    "registry_revision_gate_eligible": true
   },
   "verification": {
     "ruff": "PASS",
     "format": "PASS",
     "mypy_src": "PASS",
-    "focused_tests": "PASS: 117",
-    "full_non_live_tests": "PASS: 2593",
-    "full_non_live_tests_control_head": "845bbaa31483c8656905548571653dfdf079ef44",
-    "full_test_inventory_sha256": "b216ad6944efd8e91eadea42e5304cc021d05bc8b762ac24d7f7c413de946b1b",
+    "focused_retry_and_intake_tests": "PASS: 23",
+    "full_non_live_tests": "PASS: 2604",
+    "full_non_live_tests_control_head": "1f4f8a98f1f3c4e1510ce028d11c55f10bf0320b",
+    "full_test_inventory_sha256": "a12140f7fbb051abe88d7481d5ced5771ffb25a252a17936c969871f1308c159",
+    "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c",
+    "leaked_process_ids": [],
     "plan_validation": "PASS with non-blocking historical row-length warnings",
     "verifier_wiring": "PASS",
     "prompt_hygiene": "PASS: 14 active prompts",
-    "requirement_taskcard_coverage": "PASS: 459 rows; 0 reopened IMPLEMENTED",
-    "semantic_traceability": "PASS: 162 IMPLEMENTED rows; 0 findings",
+    "requirement_taskcard_coverage": "PASS: 459 rows",
+    "semantic_traceability": "PASS: 162 IMPLEMENTED rows; 0 closure findings",
     "actionlint": "PASS: github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
     "git_diff_check": "PASS",
-    "act_registry_job": "PASS: workflow_dispatch registry job exit 0 at dc47169a",
-    "act_registry_trigger_parity": "PASS: workflow_dispatch, schedule, repository_dispatch, workflow_call",
-    "act_registry_source_outage": "PASS: exit 1 plus always-uploaded evidence",
-    "act_registry_intake_happy_path": "PASS: run 42 exit 0; 32-member bound manifest; INTAKE_READY; zero LLM calls",
-    "act_registry_intake_matrix_isolation": "PASS: run 43 expected exit 1; unrelated Note/Python completed; health degraded visibly",
-    "act_registry_intake_recovery": "PASS: run 44 exit 0; expired processing trigger recovered and exact dedup key completed",
-    "act_fixture_live_gate_isolation": "PASS: rejected outside ACT",
-    "live_registry_preflight": "EXPECTED_FAIL_CLOSED",
-    "live_health": "EXPECTED_UNHEALTHY"
+    "live_registry_preflight": "PASS: complete 33-member revision",
+    "live_registry_noop": "PASS: no intake queue or effect",
+    "act_registry_trigger_parity": "PASS",
+    "act_registry_source_outage": "PASS: fail closed plus always-uploaded evidence",
+    "act_registry_intake_happy_path": "PASS: run 42",
+    "act_registry_intake_matrix_isolation": "PASS: run 43",
+    "act_registry_intake_recovery": "PASS: run 44",
+    "act_fixture_live_gate_isolation": "PASS"
   },
-  "missing_proof": [
-    "source-complete scan with an all-visibility credential for aspose-imaging-foss",
-    "independent task-close verification"
+  "missing_local_task_proof": [],
+  "deferred_hosted_proof": [
+    "hosted schedule and dead-man operation at trusted T3/hosted runtime"
   ],
   "target_remote_writes": 0
 }
