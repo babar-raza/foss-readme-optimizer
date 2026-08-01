@@ -14,7 +14,10 @@ def _visitor_contract() -> dict:
         "configured_standards": [
             {
                 "standard_id": "readme.header",
-                "parameters": {"brand_contract_version": "v1"},
+                "parameters": {
+                    "brand_contract_version": "v1",
+                    "required_h2_prefix": ["Quick start", "Additional examples"],
+                },
             },
             {
                 "standard_id": "readme.badges",
@@ -63,6 +66,7 @@ def test_candidate_mechanical_observations_are_section_scoped() -> None:
 
     assert observations["document.h1_blocks"].observed_value == 1
     assert observations["document.duplicate_h2_headings"].observed_value == 0
+    assert observations["document.required_h2_prefix"].observed_value is True
     assert observations["header.badge_rows"].observed_value == 1
     assert observations["quick_start.fenced_blocks"].observed_value == 1
     assert observations["quick_start.max_nonblank_code_lines"].observed_value == 2
@@ -225,3 +229,55 @@ Details.
 
     assert not result.valid
     assert any("heading-only quote" in error for error in result.errors)
+
+
+def test_note_reviewer_cannot_invent_navigation_prefix_failure() -> None:
+    candidate = """# Aspose.Note FOSS for Python
+
+## Navigation
+
+- [At a glance](#at-a-glance)
+
+## At a glance
+
+```mermaid
+flowchart LR
+  navigation["Navigation"]
+```
+
+## Key capabilities
+
+- Read OneNote files.
+"""
+    contract = _visitor_contract()
+    contract["configured_standards"][0]["parameters"]["required_h2_prefix"] = [
+        "Navigation",
+        "At a glance",
+        "Key capabilities",
+    ]
+    finding = GroundedReviewFindingV1(
+        finding_id="note-navigation-prefix",
+        kind="quality",
+        criterion="hierarchy",
+        section="Navigation",
+        claim=(
+            "Navigation must be the first labeled section after the header, but the candidate "
+            "places it after At a glance and does not follow the required prefix order."
+        ),
+        quoted_candidate_span="## Navigation",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair=(
+            "Ensure Navigation is the first H2 section after the header, before At a glance."
+        ),
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=contract,
+    )
+
+    assert not result.valid
+    assert any("document.required_h2_prefix" in error for error in result.errors)

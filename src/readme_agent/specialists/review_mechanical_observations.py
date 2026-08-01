@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, model_validator
 MechanicalCheckId = Literal[
     "document.h1_blocks",
     "document.duplicate_h2_headings",
+    "document.required_h2_prefix",
     "header.badge_rows",
     "quick_start.fenced_blocks",
     "quick_start.max_nonblank_code_lines",
@@ -18,6 +19,7 @@ MechanicalCheckId = Literal[
 MECHANICAL_CHECK_IDS: tuple[MechanicalCheckId, ...] = (
     "document.h1_blocks",
     "document.duplicate_h2_headings",
+    "document.required_h2_prefix",
     "header.badge_rows",
     "quick_start.fenced_blocks",
     "quick_start.max_nonblank_code_lines",
@@ -79,6 +81,16 @@ def build_candidate_mechanical_observations(
                 configured_value=0,
             )
         )
+        required_h2_prefix = header.get("required_h2_prefix")
+        if isinstance(required_h2_prefix, list) and required_h2_prefix:
+            observations.append(
+                _observation(
+                    check_id="document.required_h2_prefix",
+                    observed_value=_h2_prefix_matches(candidate_text, required_h2_prefix),
+                    configured_operator="eq",
+                    configured_value=True,
+                )
+            )
     badges = standards.get("readme.badges")
     if badges is not None and isinstance(badges.get("badge_rows"), int):
         observations.append(
@@ -207,6 +219,18 @@ def _duplicate_h2_heading_count(candidate_text: str) -> int:
         if title:
             headings[title] = headings.get(title, 0) + 1
     return sum(max(0, count - 1) for count in headings.values())
+
+
+def _h2_prefix_matches(candidate_text: str, required_prefix: list[object]) -> bool:
+    titles: list[str] = []
+    tokens = MarkdownIt("commonmark").parse(candidate_text)
+    for index, token in enumerate(tokens):
+        if token.type != "heading_open" or token.tag != "h2":
+            continue
+        if index + 1 < len(tokens) and tokens[index + 1].type == "inline":
+            titles.append(tokens[index + 1].content.strip().casefold())
+    expected = [str(title).strip().casefold() for title in required_prefix]
+    return titles[: len(expected)] == expected
 
 
 def _quick_start_body(candidate_text: str) -> str:

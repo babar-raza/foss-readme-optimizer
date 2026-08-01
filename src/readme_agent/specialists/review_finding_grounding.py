@@ -44,7 +44,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v26-applicability-resolved-contract"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v27-parser-owned-h2-prefix"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -1110,6 +1110,16 @@ def _mechanical_check_for_premise(
         )
     ):
         return "document.h1_blocks"
+    if any(
+        term in premise
+        for term in (
+            "first h2",
+            "first labeled section",
+            "required h2 prefix",
+            "required prefix order",
+        )
+    ):
+        return "document.required_h2_prefix"
     if finding.section.casefold() == "quick start" or "quick start" in premise:
         quantified = bool(
             re.search(r"\b(?:two|three|four|\d+)\b", premise)
