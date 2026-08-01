@@ -13,6 +13,7 @@
       "status": "applied"
     }
   ],
+  "checkpoints": {},
   "domain_states": {
     "community_files_presentation": {
       "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
@@ -361,18 +362,26 @@
   },
   "last_run_id": null,
   "last_run_timestamp": "2026-07-20T12:46:26.020316+00:00",
+  "mission_execution": null,
+  "open_proposals": {},
+  "open_proposals_v2": {},
   "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
   "profile_cache": null,
-  "state_version": 26,
+  "readme_poc_lifecycle": null,
+  "schema_version": 2,
+  "state_version": 27,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ea0b74bcbab4133ffc7cd243b529a932edfab27dc17f2ee258f2e2578c82fb20",
     "domain_coverage_complete": true,
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "1ed0a411171e49758b462321ed24bff568bb4444",
     "last_run_id": "20260722-075551-50cf",
     "last_run_timestamp": "2026-07-22T07:55:51.725687+00:00",
     "last_status": "CONVERGED_NO_CHANGE",
     "repair_history": [],
+    "surface_freshness": {},
     "task_graph_snapshot": {
       "tasks": [
         {
@@ -454,6 +463,31 @@
       ]
     }
   },
+  "trigger_lifecycles": {
+    "delivery:registry:1245412430:7302f547045493ab15289082733e1ced2be3ea41387a5b4545e2f8a4d53cc1c1": {
+      "accepted_at": "2026-08-01T14:50:35.539471+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1245412430:7302f547045493ab15289082733e1ced2be3ea41387a5b4545e2f8a4d53cc1c1",
+        "delivery_id": "registry:1245412430:7302f547045493ab15289082733e1ced2be3ea41387a5b4545e2f8a4d53cc1c1",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-01T14:32:16.905301+00:00",
+        "provider_event_id": "registry:1245412430:7302f547045493ab15289082733e1ced2be3ea41387a5b4545e2f8a4d53cc1c1",
+        "repository_scope": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "7302f547045493ab15289082733e1ced2be3ea41387a5b4545e2f8a4d53cc1c1",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-01T14:50:35.539488+00:00"
+    }
+  },
+  "trigger_records": {},
   "upstream_content_fingerprint_at_accept": "18101b773803a6576c6549f772d97fa70931f9c9f349d00492c632dddf372b43",
   "upstream_revision_at_accept": null
 }
