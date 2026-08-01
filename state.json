@@ -494,7 +494,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "2e2c29732b2a5fdd1e45a90d25e142f02e681de05f02691289b7128ac5fbbaaf",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "a80a98a7794929bec4180ceec7eb6b9824565ce84f9c36ef8ccc8098b9099576",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -621,6 +621,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\095536677fb8353f64d1\\r\\af924c0fdf70f3d7\\s\\2f4bfab3863e\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-tex-foss__Aspose.TeX-FOSS-for-Python\\2f4bfab3863e66ef32868f5464685eb4c2d36911\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-01T10:02:04.021876+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -649,11 +661,11 @@
     "reviewer_standard_hash": "241304fea3e7a82db8fe83eb534b69e97b5b93ab3c72c2f7e21dfab8c22cdb01",
     "schema_version": 2,
     "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-01T10:01:58.579903+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-01T10:02:04.021876+00:00"
   },
   "schema_version": 2,
-  "state_version": 48,
+  "state_version": 49,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "505dc361197f0f26dc8845f5c70ba0e7720de8daa296a081c3d9332bcb1f6a41",
