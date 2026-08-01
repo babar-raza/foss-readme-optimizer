@@ -355,3 +355,75 @@ def test_inventory_binds_disabled_source_as_exclusion_without_scanning():
     assert len(inventory.exclusions) == 1
     assert inventory.exclusions[0].source.organization == "aspose-imaging-foss"
     assert inventory.exclusions[0].source.exclusion_reason == "organization does not exist"
+
+
+def test_inventory_classifies_nonstandard_name_by_stable_provider_identity():
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    repository = _raw_repository("CSSForge", repository_id=1319039143)
+    repository.update(
+        {
+            "node_id": "R_kgDOTp7wpw",
+            "full_name": "aspose-html-foss/CSSForge",
+            "html_url": "https://github.com/aspose-html-foss/CSSForge",
+            "clone_url": "https://github.com/aspose-html-foss/CSSForge.git",
+            "visibility": "private",
+            "language": "Python",
+        }
+    )
+    family = {
+        "family": "html",
+        "github_org": "aspose-html-foss",
+        "repository_classifications": [
+            {
+                "provider_repository_id": 1319039143,
+                "provider_node_id": "R_kgDOTp7wpw",
+                "family": "html",
+                "platform": "python",
+                "rationale": "private Python FOSS product",
+            }
+        ],
+    }
+
+    inventory = inventory_sources(
+        [family],
+        scan_organization=lambda org, **kwargs: [repository],
+        classify_repository=registry_sync.classify_repo_name,
+    )
+
+    assert inventory.complete is True
+    assert len(inventory.matched_observations) == 1
+    observation = inventory.matched_observations[0]
+    assert (observation.family, observation.platform) == ("html", "python")
+    assert observation.visibility == "private"
+    assert observation.classification_reason.startswith("stable provider identity override:")
+
+
+def test_provider_identity_override_conflict_fails_closed_as_ambiguous():
+    from readme_agent.registry.discovery_inventory import inventory_sources
+
+    repository = _raw_repository("CSSForge", repository_id=1319039143)
+    repository["node_id"] = "unexpected-node"
+    family = {
+        "family": "html",
+        "github_org": "aspose-html-foss",
+        "repository_classifications": [
+            {
+                "provider_repository_id": 1319039143,
+                "provider_node_id": "R_kgDOTp7wpw",
+                "family": "html",
+                "platform": "python",
+                "rationale": "private Python FOSS product",
+            }
+        ],
+    }
+
+    inventory = inventory_sources(
+        [family],
+        scan_organization=lambda org, **kwargs: [repository],
+        classify_repository=registry_sync.classify_repo_name,
+    )
+
+    assert inventory.matched_observations == []
+    assert inventory.observations[0].classification == "ambiguous"
+    assert "node ID conflicts" in inventory.observations[0].classification_reason

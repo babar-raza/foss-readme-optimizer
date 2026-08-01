@@ -99,13 +99,37 @@ def _observation(
     classify_repository: ClassifyRepository,
 ) -> DiscoveryObservationV1:
     pair = classify_repository(str(raw["name"]))
+    override = next(
+        (
+            item
+            for item in source.repository_classifications
+            if item.provider_repository_id == raw["id"]
+        ),
+        None,
+    )
     classification: DiscoveryClassification = "unmatched"
     classification_reason = "repository name does not match a known product/platform convention"
     disposition: DiscoveryDisposition = "review_required"
     family = None
     platform = None
 
-    if pair is not None:
+    if override is not None:
+        override_pair = (override.family, override.platform)
+        if str(raw["node_id"]) != override.provider_node_id:
+            classification = "ambiguous"
+            classification_reason = "provider node ID conflicts with governed classification"
+        elif pair is not None and pair != override_pair:
+            classification = "ambiguous"
+            classification_reason = "name-derived coordinates conflict with governed classification"
+        elif source.family_hint is not None and override.family != source.family_hint:
+            classification = "ambiguous"
+            classification_reason = "source family conflicts with governed classification"
+        else:
+            classification = "matched"
+            classification_reason = f"stable provider identity override: {override.rationale}"
+            disposition = "admit_candidate"
+            family, platform = override_pair
+    elif pair is not None:
         candidate_family, candidate_platform = pair
         if source.family_hint is not None and candidate_family != source.family_hint:
             classification = "ambiguous"

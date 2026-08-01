@@ -11,6 +11,18 @@ DiscoveryDisposition = Literal["admit_candidate", "review_required"]
 SourceScanStatus = Literal["complete", "excluded", "failed"]
 
 
+class DiscoveryRepositoryClassificationV1(BaseModel):
+    """Governed classification for a stable provider identity with a nonstandard name."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    provider_repository_id: StrictInt = Field(gt=0)
+    provider_node_id: str = Field(min_length=1)
+    family: str = Field(min_length=1)
+    platform: str = Field(min_length=1)
+    rationale: str = Field(min_length=1)
+
+
 class DiscoverySourceV1(BaseModel):
     """One explicitly authorized source that discovery may inventory read-only."""
 
@@ -23,6 +35,9 @@ class DiscoverySourceV1(BaseModel):
     family_hint: str | None = None
     enabled: bool = True
     exclusion_reason: str | None = None
+    repository_classifications: list[DiscoveryRepositoryClassificationV1] = Field(
+        default_factory=list
+    )
 
     @model_validator(mode="after")
     def exclusion_is_explicit(self) -> DiscoverySourceV1:
@@ -31,6 +46,9 @@ class DiscoverySourceV1(BaseModel):
             raise ValueError("disabled discovery sources require an exclusion reason")
         if self.enabled and reason:
             raise ValueError("enabled discovery sources cannot carry an exclusion reason")
+        identities = [item.provider_repository_id for item in self.repository_classifications]
+        if len(identities) != len(set(identities)):
+            raise ValueError("discovery source repository classifications must be unique by ID")
         return self
 
     @classmethod
@@ -49,6 +67,7 @@ class DiscoverySourceV1(BaseModel):
                 if family.get("exclusion_reason") is not None
                 else None
             ),
+            repository_classifications=family.get("repository_classifications", []),
         )
 
 

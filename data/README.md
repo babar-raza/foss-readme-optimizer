@@ -71,6 +71,12 @@ an explicit, revision-bound exclusion. Set `"enabled": false` and provide a none
 `"exclusion_reason"`. The inventory records that source as `excluded`; it does not scan it, silently
 drop it, substitute a similarly named organization, or count the governed exclusion as an outage.
 
+When a product repository deliberately does not use the normal Aspose FOSS naming convention, add
+a `repository_classifications` item to its source. The record binds the GitHub repository and node
+IDs to explicit family/platform coordinates and a rationale. Runtime code remains generic: an ID,
+node, source-family, or name-derived conflict becomes an ambiguous observation and cannot be
+admitted until the governed classification is corrected.
+
 ## How `data/products.json` stays current
 
 [`scripts/data-refresh/update_products_registry.py`](../scripts/data-refresh/update_products_registry.py)
