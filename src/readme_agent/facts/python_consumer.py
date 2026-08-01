@@ -212,6 +212,7 @@ def prove_python_consumer(
                 timeout_seconds=300,
                 memory_mebibytes=512,
                 pids_limit=64,
+                tmpfs_mebibytes=256,
             ),
         )
         result = executor(request)

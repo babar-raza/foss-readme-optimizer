@@ -311,6 +311,7 @@ def test_consumer_requires_public_symbols_and_installed_import_use(tmp_path):
     assert proof.verified_symbols == ["aspose.widget.Widget", "aspose.widget.Widget.name"]
     assert proof.isolated_execution.policy.network_mode == "none"
     assert proof.isolated_execution.policy.read_only_rootfs is True
+    assert proof.isolated_execution.policy.tmpfs_mebibytes == 256
 
 
 def test_consumer_accepts_and_requires_use_of_an_aliased_package_import(tmp_path):
