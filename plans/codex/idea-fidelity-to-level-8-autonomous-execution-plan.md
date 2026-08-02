@@ -17,10 +17,36 @@ Authority is, in order:
 6. This document, `plans/codex/production-system-redesign.md`, the former RPOC ledger, roadmap,
    status, reports, and evidence -- supporting reference only.
 
-The immediate outcome is now the complete dynamic Python
-`verified_repository_presentation` POC. The trusted lane is preserved as reusable
+The immutable goal is the complete dynamic-portfolio `verified_repository_presentation` system
+through Level 8. The immediate platform milestone is the complete dynamic Python POC; it is the
+first vertical delivery boundary, not the umbrella goal or a permission to stop. The trusted lane is preserved as reusable
 lower-assurance implementation/evidence, but its remaining goals are non-executable and cannot
 regain primary authority automatically. The denominator is always loaded at runtime.
+
+### Accelerated portfolio sprint and visible artifact contract (2026-08-02)
+
+The active sprint targets the complete portfolio within twelve hours of focused execution while
+preserving every acceptance invariant. Sequencing is optimized around visible vertical delivery:
+finish and commit Note, Page, and PDF Python README review artifacts first; continue the remaining
+Python cohort; then automatically consume the same frozen contract in .NET, Java, C++, TypeScript,
+Rust, and Go priority. A narrow external repository fact may remain visibly blocked while unrelated
+repositories advance, but an agent-fixable system defect is repaired at its first shared boundary.
+
+Every finalized README is promoted into
+`plans/investigations/evidence/finalized-repository-readmes-v1/repositories/<platform>/<org>__<repo>/<revision>/<readme-sha256>/README.md`.
+Promotion stores the exact independently approved/no-op-proven candidate once. A compact committed
+cohort manifest hash-binds the original, patch, facts, plan, deterministic verdict, independent
+verdict, no-op receipt, exact LLM accounting, effects, runtime inventory, and committed acceptance
+evidence. A platform/portfolio index links directly to each `README.md` for human review. Mutable
+`runs/` artifacts remain resumable execution state and are not copied into the finalized root;
+committed artifacts are the durable review surface. Neither location substitutes for proof.
+
+Use bounded parallelism only where state and evidence isolation are already proven. Independent
+research, validation, evidence reconstruction, and disjoint implementation repairs run under
+exclusive leases. Repository state mutation and aggregation remain serial until the seven-real-
+representative isolation gate passes; afterwards the sole supervisor uses two to four fenced
+repository lanes with serialized reduction. Run focused/affected checks per repair and the
+optimized complete suite at coherent integration and gate boundaries, not after every micro-edit.
 
 ### Active verified Python execution block (2026-07-31)
 
@@ -749,14 +775,19 @@ The binding platform priority is:
 This is the tie-break and cohort order whenever more than one platform-scoped task or repository
 is dependency-ready. `data/platform_priorities.json` is the fail-closed machine-readable source
 used by canonical portfolio execution. It does not override a prerequisite, abandon an already valid claim, weaken
-a safety gate, or serialize independent work behind a narrow external block. The current
-cross-platform facts task therefore closes its remaining Go dependency; the first new
-platform-scoped README output after that is Python. If a higher-priority platform is externally
+a safety gate, or serialize independent work behind a narrow external block. Current Note,
+Page, and PDF Python facts already satisfy their bounded composition prerequisites, so their
+visible README requalification runs before the remaining cross-platform facts campaign. If a higher-priority platform is externally
 blocked, retain its visible blocked state, advance temporarily, and return to it as soon as the
 block clears. Ecosystem enumerations elsewhere are coverage sets unless explicitly labeled an
 order.
 
-### 2026-07-29 approved visible-output resequencing
+### 2026-07-29 visible-output resequencing (historical; superseded 2026-08-02)
+
+The seven-representative-first ordering below is retained as the design history that established
+the P3 fan-out gate. It no longer delays current Note/Page/PDF or all-Python vertical delivery.
+The active route is the accelerated portfolio sprint at the top of this document; the seven-real-
+representative proof still gates multi-repository state mutation before later Gate-A fan-out.
 
 The work is resequenced without deleting, weakening, or deferring any acceptance requirement:
 
@@ -971,9 +1002,10 @@ The following controls are part of the existing mission rather than a separate p
 
 ### Diagnosis: symptoms, root causes, and structural weaknesses
 
-The visible symptom is low throughput: the durable scoreboard is 8/31 at `FACTS_READY`,
-`CANDIDATE_GENERATED`, and `DETERMINISTIC_VALIDATED`, but 0/31 at `AGENT_APPROVED` and
-`NO_OP_PROVEN`. The solution is not to fan the present command out over 31 repositories. That
+The visible symptom is low throughput: at durable state 682 the current-contract scoreboard is
+8/31 at `FACTS_READY` and 0/31 at `CANDIDATE_GENERATED`, `DETERMINISTIC_VALIDATED`,
+`AGENT_APPROVED`, `NO_OP_PROVEN`, and `HUMAN_ACCEPTED`. Raw historical later-stage artifacts are
+reuse candidates, not current proof. The solution is not to fan the present command out over 31 repositories. That
 would multiply contract defects and produce results faster than they can be trusted.
 
 The production diagnosis is:

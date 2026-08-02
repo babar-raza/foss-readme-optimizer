@@ -205,22 +205,21 @@ test omission, or repository-attributable descendants. Evidence is under
 `plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01/02` are closed;
 `L8-INTAKE-03` is the next common intake boundary. TRP-04 remains preserved but non-executing under
 decision #88.
-The last recorded repository-verified scoreboard was 17 `FACTS_READY`, 17
-candidates/validations, 10 verified approvals/no-ops, and zero human acceptances; it is historical,
-not current proof after the eligibility change. The last Python result was 10/12; HTML required a
-proven one-line product build-backend correction and TeX required authoritative syntax-valid
-product source. Discovery must retain CSSForge and PDF Go MCP as explained exclusions and bind a
-new complete 31-member revision before any denominator-dependent closure is current.
+At durable mission state 682, the current-contract scoreboard is 8/31 `FACTS_READY` and zero
+current candidates, validations, approvals, no-ops, or human acceptances. The current Python facts
+numerator is 8/12: Note, Page, PDF, 3D, BarCode, Cells, Email, and Font. HTML is a current,
+zero-repeat-call `BLOCKED_MISSING_EVIDENCE` result at its invalid upstream build-backend/package
+boundary; Slides, TeX, and Words remain to reconcile. Raw historical counts are reuse candidates,
+not current proof. Discovery must retain CSSForge and PDF Go MCP as explained exclusions and bind
+a new complete 31-member revision before any denominator-dependent closure is current.
 
 The legacy universal goal is absent from the executable graph and pre-migration durable records
 are additively refreshed without deleting task or goal history. The short-term visible milestone
-remains one LLM-first, README-derived, independently
-transformation-approved/no-op-proven draft PR per runtime-loaded registry entry. Trusted artifacts
-declare `trusted_inherited` and do not satisfy verified Gate A. The executable path is `TRP-00`
-through `TRP-07`: assurance separation, README-derived facts, bounded LLM composition,
-independent quality/fidelity review, the `TRP-04P-*` cohort production-path POC, resumed
-adversarial canaries, full-registry fan-out, authorization/access, and exactly one draft PR per
-repository.
+is the committed, repository-verified Note/Page/PDF Python README review batch, followed by every
+current Python repository. Trusted artifacts remain reusable but non-executable and declare
+`trusted_inherited`; they cannot satisfy verified facts, Gate A, or maturity. After Python, the
+same executable portfolio path continues through .NET, Java, C++, TypeScript, Rust, Go,
+full-registry Gates A/B/C, and Levels 5-8.
 
 The owner reports organization-owner access. Live credential and per-repository permission checks
 plus reviewed authorization records remain required before effects. GitHub App authority is
@@ -2429,6 +2428,30 @@ that is the only permanence they carry; text is always the decision as it stands
     selector prevents a Note/Page/PDF canary task from repeatedly recomputing unrelated earlier
     portfolio members while preserving factual verification, dynamic planning, durable state,
     validation, independent review, evidence, and zero remote writes.
+
+    The mission remains portfolio-wide. Python is the first mandatory platform milestone and
+    visible quality gate, never the umbrella closure boundary. After Python closes, the same
+    verified campaign continues automatically through .NET, Java, C++, TypeScript, Rust, and Go,
+    then dynamic full-registry Gates A/B/C and Levels 5-8. Each finalized README is promoted from
+    its mutable runtime bundle into the committed, versioned evidence root
+    `plans/investigations/evidence/finalized-repository-readmes-v1/repositories/<platform>/<org>__<repo>/<revision>/<readme-sha256>/`.
+    That directory stores the exact `README.md` once. A compact committed cohort manifest
+    hash-binds its source, facts, plan, patch, deterministic and independent verdicts, no-op
+    receipt, call accounting, effects, runtime inventory, and committed acceptance evidence
+    without copying mutable `runs/` trees. The cohort index provides direct human-review links. Promotion is forbidden
+    before independent approval and unchanged no-op proof; committed visibility is not itself an
+    acceptance shortcut.
+
+    For the 2026-08-02 accelerated portfolio sprint, visible vertical delivery and shared-seam
+    repair take precedence over broad reports or repeated full-suite runs. Note, Page, and PDF are
+    the first committed review batch as soon as their current verified inputs pass the active
+    contracts. Independent read-only research, validation, and evidence reconstruction may run
+    in parallel under disjoint leases. State-mutating repository runs remain serialized until the
+    seven-representative isolation gate passes; afterwards the sole supervisor uses the governed
+    two-to-four repository lanes with serialized aggregation. Focused and affected tests run at
+    repair boundaries; the optimized complete suite runs once per coherent integration or gate
+    boundary. The time target changes sequencing and resource use, never factuality, safety,
+    review, idempotency, or evidence acceptance.
     (2026-07-31, user directive.)
 
 ## Architecture
@@ -3049,8 +3072,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [ ] `L8-VPY-03`: inventory the dynamic Python denominator without paid calls, reuse every valid
         content-addressed stage, then complete every current Python repository with no agent-fixable
         failure and no product-remote write.
+  - [ ] Promote every independently approved/no-op-proven Python README into
+        `plans/investigations/evidence/finalized-repository-readmes-v1/`, including a direct
+        review index and compact manifests that hash-bind complete provenance, patch, validation,
+        review, call-accounting, effects, runtime inventory, and acceptance evidence (`RDM-026`).
   - **Exit:** verified `AGENT_APPROVED == NO_OP_PROVEN == dynamic Python denominator`; the indexed
-    Python POC and SHA-256 inventory reproduce independently.
+    Python POC, committed README files, and SHA-256 inventory reproduce independently. This
+    advances the portfolio mission to .NET; it does not close the umbrella goal.
 
 - [ ] **Preserved trusted-lane record — execution suspended by decision #88**
   - Remaining unchecked TP/T0R/T1/T2/T3 items are retained for evidence and machinery reuse, not
@@ -3271,11 +3299,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         Note revision-bundle files in bytes and modification times on independent replay
         (`IV-PFR-001`, `IV-PFR-002`, `IV-PFR-005`, commit `6dcf2205`). This is machinery proof,
         not Wave 3 closure. `plans/status.md` remains a stale derived view tracked by `GOV-031`.
-  - [x] Python facts canaries: Note, Page, and PDF are current-contract `FACTS_READY` (3/31
-        portfolio; 3/12 Python). Page/PDF first runs each made one exact product-truth call; their
-        identical reruns made zero calls/effects and preserved sealed bundles. Independent verdict:
-        `ACCEPTED_FOR_PAGE_PDF_FACTS_SLICE_ONLY`. The open null top-level manifest fact hash is
-        tracked by `EVID-005`; nine Python repositories and every later stage remain open.
+  - [x] Python facts slice: Note, Page, PDF, 3D, BarCode, Cells, Email, and Font are current-contract
+        `FACTS_READY` (8/31 portfolio; 8/12 Python). Current identical reruns made zero
+        calls/effects and preserved sealed bundles for the accepted slice. HTML terminates
+        honestly at `BLOCKED_MISSING_EVIDENCE` with zero repeated provider calls; Slides, TeX,
+        Words, independent aggregate review, every README candidate stage, and the remaining
+        portfolio stay open. The null top-level manifest fact hash remains tracked by `EVID-005`.
   - Ship `ProductFactsV2`, precedence/conflict behavior, per-surface ownership, fact citations,
     protected-content fingerprints, and prompt-injection treatment.
   - Execute examples/package acquisition in isolated, secret-free jobs.

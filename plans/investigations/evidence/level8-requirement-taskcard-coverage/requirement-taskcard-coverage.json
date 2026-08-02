@@ -4,21 +4,22 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "fffe0871106db4c1e5282bcd170e54ddce7086d4f1f2ea848346c00c13d94eb5",
+  "source_sha256": "59ff4e4c7baef81ebec31d93bd5dc107f73be7f18fbd9b0bdeea0e3968a77bd7",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 461,
-  "mandatory_requirement_rows": 433,
+  "total_requirement_rows": 462,
+  "mandatory_requirement_rows": 434,
   "excluded_backlog_rows": 28,
   "excluded_deprecated_rows": 0,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 28,
-    "open_mandatory": 238,
+    "open_mandatory": 239,
     "preserved_verified": 160
   },
   "taskcard_counts": {
     "L8-VPY-00-GOLDEN-TEMPLATE": 1,
+    "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": 1,
     "TRP-00-ASSURANCE-CONTRACT": 3,
     "TRP-01-README-DERIVED-FACTS": 2,
     "TRP-02-LLM-FIRST-COMPOSITION": 2,
@@ -814,6 +815,14 @@
       "priority": "P1",
       "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-026",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },

@@ -69,10 +69,11 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
     portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
     for 90 days with an independent award.'
-  - 'SHORT-TERM HORIZON: target the next two days at a repository-verified Python POC. First freeze the
-    accepted Note reference as a reusable template contract, then prove Note, Page, and PDF canaries,
-    then every runtime-loaded Python repository through repository-verified independent approval and unchanged
-    no-op. The time target never weakens facts, review, safety, or evidence acceptance.'
+  - 'ACCELERATED SHORT-TERM HORIZON: target twelve hours of focused execution for visible Note, Page,
+    and PDF Python artifacts, then every runtime-loaded Python repository through repository-verified
+    independent approval, unchanged no-op, and committed source/content-addressed README storage. Continue
+    automatically through .NET, Java, C++, TypeScript, Rust, Go, Gates A/B/C, and maturity; Python never
+    closes the portfolio umbrella. The time target never weakens facts, review, safety, or evidence acceptance.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
@@ -195,7 +196,7 @@ mission_authority:
       portfolio before broader Gate-A work.
     acceptance_boundary: Every runtime-loaded Python repository is repository-verified, independently
       approved, and unchanged-no-op-proven under the accepted reusable presentation contract.
-    max_concurrent_verified_lanes: 4
+    max_concurrent_verified_lanes: 1
   - goal_id: GOAL-TP-TRUSTED-COHORT-POC
     order: 12
     execution_required: false
@@ -446,6 +447,8 @@ taskcards:
   - ProductFactsV2 and complete inherited/final claim accountability
   - structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op
     proof, and manifest
+  - Committed review artifact under plans/investigations/evidence/finalized-repository-readmes-v1/ containing
+    the exact finalized README and a compact manifest that hash-binds its complete acceptance inputs
   acceptance_checks:
   - Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked
   - The verified candidate remains presentation-equivalent to the accepted reference except where evidence
@@ -520,6 +523,7 @@ taskcards:
   expected_outputs:
   - Complete verified Page and PDF bundles
   - Three-candidate structural-consistency and product-specificity verdict
+  - Direct committed README review paths for Note, Page, and PDF under the portfolio evidence root
   acceptance_checks:
   - Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are
     consistent
@@ -593,13 +597,17 @@ taskcards:
   - Zero-paid-call Python readiness and cache inventory
   - Complete verified Python bundle set and indexed review package
   - Dynamic-denominator closure and SHA-256 inventory
+  - Complete committed README.md set under the source-and-content-addressed plans/investigations/evidence/finalized-repository-readmes-v1/
+    root
   acceptance_checks:
   - Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator
   - Agent-fixable Python failures equal zero
   - Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer,
     and protected-content fingerprints
-  - At most four supervisor-owned isolated lanes run only after canary qualification, with serialized
-    aggregation
+  - Repository state mutation remains one supervisor lane until seven-real-representative isolation, recovery,
+    golden, cost, and campaign-freeze proof; disjoint read-only worker lanes may run earlier
+  - Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate
+    and is linked from the cohort index
   verification:
   - Dynamic denominator reconstruction
   - per-repository lifecycle and manifest reconstruction
@@ -622,6 +630,7 @@ taskcards:
   - Dynamic Python inventory
   - per-repository facts, plans, candidates, patches, verdicts, no-op receipts, call ledgers, and manifests
   - Complete official-check receipt and SHA-256 inventory
+  - Committed review index with direct paths to every finalized Python README.md
   rollback_or_recovery: Reopen only invalidated repositories or shared dependencies and preserve every
     valid immutable stage.
   failure_reroute: A repeated agent-fixable failure must reopen its exact owner; a genuine narrow external
@@ -635,7 +644,8 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Deliver the complete dynamic Python verified README POC under one reproducible contract.
-  requirement_ids: []
+  requirement_ids:
+  - RDM-026
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
 - task_id: TRP-00-ASSURANCE-CONTRACT
@@ -9296,10 +9306,10 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: fffe0871106db4c1e5282bcd170e54ddce7086d4f1f2ea848346c00c13d94eb5
+  source_sha256: 59ff4e4c7baef81ebec31d93bd5dc107f73be7f18fbd9b0bdeea0e3968a77bd7
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 461
-  mandatory_requirement_rows: 433
+  total_requirement_rows: 462
+  mandatory_requirement_rows: 434
   excluded_backlog_rows: 28
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
@@ -9860,6 +9870,12 @@ requirement_coverage:
     priority: P1
     requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: RDM-026
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: SURF-001

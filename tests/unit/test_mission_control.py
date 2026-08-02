@@ -266,6 +266,10 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
         mapping for mapping in coverage.mappings if mapping.requirement_id == "AUTH-008"
     )
     assert auth_mapping.task_id == "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION"
+    finalized_readme_mapping = next(
+        mapping for mapping in coverage.mappings if mapping.requirement_id == "RDM-026"
+    )
+    assert finalized_readme_mapping.task_id == "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
     hosted_revalidation_mapping = next(
         mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-001"
     )
