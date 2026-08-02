@@ -1,0 +1,2140 @@
+{
+  "schema_version": 2,
+  "content_assurance": "repository_verified",
+  "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "note",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-note"
+        ],
+        "product_name": "Aspose.Note"
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.audience:agent-drafted-grounded",
+      "field": "product.audience",
+      "value": [
+        "Developers using python."
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.audience",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": "2026-08-02T14:26:15.561882+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "product.platforms:manifest",
+        "installation.coordinates:manifest"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:agent-drafted-grounded",
+      "field": "product.problems_solved",
+      "value": [
+        "Document and traversal",
+        "Page and Title nodes",
+        "RichText with formatting runs",
+        "Image and AttachedFile content"
+      ],
+      "source": {
+        "source_type": "agent_drafted",
+        "location": "agent-draft://product.problems_solved",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": "2026-08-02T14:26:15.561882+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Document and traversal",
+        "Page and Title nodes",
+        "RichText with formatting runs",
+        "Image and AttachedFile content",
+        "Table with rows and cells",
+        "OneNote tags on content nodes",
+        "Numbered lists and outline elements",
+        "PDF export via SaveFormat.Pdf"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": "2026-08-02T14:26:15.561882+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Document and traversal",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 68,
+          "anchor": "Document",
+          "exact_excerpt": "class DocumentVisitor:",
+          "context_excerpt": "except (TypeError, ValueError):\n        return None\n\n\nclass DocumentVisitor:\n    def __new__(cls, *args, **kwargs):\n        if cls is DocumentVisitor:\n            raise TypeError(\"DocumentVisitor is an abstract compatibility base type and cannot be instantiated directly\")\n        return object.__new__(cls)",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Page and Title nodes",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 80,
+          "anchor": "Page",
+          "exact_excerpt": "def VisitPageStart(self, page: Page) -> None:  # noqa: N802",
+          "context_excerpt": "def VisitDocumentEnd(self, document: Document) -> None:  # noqa: N802\n        pass\n\n    def VisitPageStart(self, page: Page) -> None:  # noqa: N802\n        pass\n\n    def VisitPageEnd(self, page: Page) -> None:  # noqa: N802\n        pass",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "RichText with formatting runs",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 104,
+          "anchor": "RichText",
+          "exact_excerpt": "def VisitRichTextStart(self, rich_text: RichText) -> None:  # noqa: N802",
+          "context_excerpt": "def VisitOutlineElementEnd(self, outline_element: OutlineElement) -> None:  # noqa: N802\n        pass\n\n    def VisitRichTextStart(self, rich_text: RichText) -> None:  # noqa: N802\n        pass\n\n    def VisitRichTextEnd(self, rich_text: RichText) -> None:  # noqa: N802\n        pass",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Image and AttachedFile content",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 110,
+          "anchor": "Image",
+          "exact_excerpt": "def VisitImageStart(self, image: Image) -> None:  # noqa: N802",
+          "context_excerpt": "def VisitRichTextEnd(self, rich_text: RichText) -> None:  # noqa: N802\n        pass\n\n    def VisitImageStart(self, image: Image) -> None:  # noqa: N802\n        pass\n\n    def VisitImageEnd(self, image: Image) -> None:  # noqa: N802\n        pass",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Table with rows and cells",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 1114,
+          "anchor": "Table",
+          "exact_excerpt": "class TableCell(CompositeNode):",
+          "context_excerpt": "return self._tags\n\n\n@dataclass(slots=True)\nclass TableCell(CompositeNode):\n    pass\n\n\n@dataclass(slots=True)",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "OneNote tags on content nodes",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 220,
+          "anchor": "NoteTag",
+          "exact_excerpt": "class NoteTag:",
+          "context_excerpt": "found.extend(child.GetChildNodes(node_type))\n        return found\n\n\nclass NoteTag:\n    __slots__ = (\"_label\", \"_icon\", \"_status\", \"_highlight\", \"_creation_time\", \"_completed_time\", \"_font_color\")\n\n    def __new__(cls, construction_token: object | None = None, /, *args, **kwargs):\n        if cls is NoteTag and construction_token is not _NOTE_TAG_INTERNAL_CREATE:",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Numbered lists and outline elements",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 913,
+          "anchor": "NumberList",
+          "exact_excerpt": "class NumberList:",
+          "context_excerpt": "visitor.VisitTitleEnd(self)\n\n\n@dataclass(slots=True)\nclass NumberList:\n    Format: str | None = None\n    NumberFormat: str | None = None\n    Font: str | None = None\n    FontSize: float | None = None",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "PDF export via SaveFormat.Pdf",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose/note/model.py",
+          "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+          "observed_at": "2026-08-02T14:26:15.561882+00:00",
+          "line_number": 1298,
+          "anchor": "PdfSaveOptions",
+          "exact_excerpt": "options: SaveOptions | None = PdfSaveOptions()",
+          "context_excerpt": "def Save(self, target: str | Path | BinaryIO, format_or_options: SaveFormat | SaveOptions | None = None) -> None:  # noqa: N802\n        if format_or_options is None:\n            save_format = _infer_save_format(target)\n            options: SaveOptions | None = PdfSaveOptions()\n        elif isinstance(format_or_options, SaveFormat):\n            save_format = format_or_options\n            options = PdfSaveOptions()\n        elif isinstance(format_or_options, SaveOptions):",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:repository-evidence",
+      "field": "product.formats",
+      "value": [
+        "Microsoft OneNote (.one)",
+        "PDF"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,pyproject.toml,src/aspose/note/enums.py",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": "2026-08-02T14:26:15.561882+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "pyproject.toml",
+          "name": "aspose-note",
+          "version": "26.3.2",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:registry-pypi",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "schema_version": 1,
+        "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "ecosystem": "python",
+        "method": "pypi",
+        "outcome": "REGISTRY_VERIFIED",
+        "detail": "PyPI: aspose-note found",
+        "coordinate": {
+          "name": "aspose-note"
+        },
+        "registry_receipt": {
+          "schema_version": 1,
+          "resolver_ecosystem": "python",
+          "registry_label": "PyPI",
+          "coordinate": {
+            "name": "aspose-note"
+          },
+          "request_url": "https://pypi.org/pypi/aspose-note/json",
+          "status_code": 200,
+          "response_sha256": "9b9ec6cc1634a8600b2d4316a93b2f26b1eaf681e8488fe43a8c384c28a3e4aa",
+          "retrieved_at": "2026-08-02T14:26:15.559086Z",
+          "found": true,
+          "detail": "PyPI: aspose-note found"
+        },
+        "source_build_receipt": null,
+        "truth_eligible": true
+      },
+      "source": {
+        "source_type": "external_registry",
+        "location": "https://pypi.org/pypi/aspose-note/json",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:repository-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "python",
+        "class_name": "readme_example",
+        "code": "from aspose.note import Document, Image\n\ndoc = Document(\"testfiles/3ImagesWithDifferentAlignment.one\")\nfor i, img in enumerate(doc.GetChildNodes(Image), start=1):\n    name = img.FileName or f\"image_{i}.bin\"\n    with open(name, \"wb\") as f:\n        f.write(img.Bytes)\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "pinned package installed and exact public Python imports/example executed",
+        "repairable_by_example_change": true,
+        "blocked_category": "agent_fixable",
+        "verified_public_symbols": [
+          "aspose.note.Document",
+          "aspose.note.Image"
+        ],
+        "input_fixture_bindings": [
+          {
+            "source_path": "testfiles/3ImagesWithDifferentAlignment.one",
+            "target_path": "testfiles/3ImagesWithDifferentAlignment.one",
+            "sha256": "6f1450f523467f0f2c6c4f93077ab59aa075a92aae8a5f6c9cee9e2fc3225702",
+            "size_bytes": 273088
+          }
+        ],
+        "public_api_sha256": "eb36dc5dd87c76d12bcb39d2b622b5dcd7e19faa4825c0dde0a8a1d91bf4a8ea",
+        "python_package": {
+          "schema_version": 1,
+          "manifest_path": "pyproject.toml",
+          "distribution_name": "aspose-note",
+          "version": "26.3.2",
+          "requires_python": ">=3.10",
+          "source_root": "src",
+          "package_paths": [
+            "aspose",
+            "aspose/note",
+            "aspose/note/_internal",
+            "aspose/note/saving",
+            "aspose/note/_internal/ms_one",
+            "aspose/note/_internal/onestore",
+            "aspose/note/_internal/ms_one/entities"
+          ],
+          "canonical_import": "aspose.note",
+          "namespace_packages": [],
+          "source_sha256": "c7504832668ce5cff839b83cb9e691e22968beb7241870b91eee7cddd1696ac3"
+        },
+        "typescript_package": null,
+        "rust_package": null,
+        "rust_formats": [],
+        "rust_source_dependency": null,
+        "acquisition_dependency_pins": [
+          "python_package_source_sha256=c7504832668ce5cff839b83cb9e691e22968beb7241870b91eee7cddd1696ac3",
+          "python_dependency_inventory_sha256=cf887094b07b161c7659f3b5389f257fcfab77bf1d38c8037a31f044ba7b0d0c",
+          "python_dependency_packaging-26.2-py3-none-any.whl_sha256=5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e",
+          "python_dependency_setuptools-83.0.0-py3-none-any.whl_sha256=29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3",
+          "python_dependency_wheel-0.47.0-py3-none-any.whl_sha256=212281cab4dff978f6cedd499cd893e1f620791ca6ff7107cf270781e587eced"
+        ],
+        "compiled_consumer": null
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,examples/export_pdf.py,src/aspose/note/model.py,src/aspose/note/enums.py",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": "2026-08-02T14:26:15.561882+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/note/python/",
+          "family_url": "https://products.aspose.org/note/",
+          "label": "Aspose.Note FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/note/",
+          "family_url": "https://products.aspose.com/note",
+          "label": "Aspose.Note for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "manifest_path": "pyproject.toml",
+          "version": "26.3.2",
+          "active": true,
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:executable-constraints",
+      "field": "product.limitations",
+      "value": [
+        {
+          "statement": "Only .pdf file targets are supported for save operations",
+          "path": "src/aspose/note/model.py",
+          "line": 1380,
+          "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755"
+        },
+        {
+          "statement": "Password-protected documents are not supported",
+          "path": "src/aspose/note/model.py",
+          "line": 1270,
+          "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755"
+        },
+        {
+          "statement": "Only PDF save is supported",
+          "path": "src/aspose/note/model.py",
+          "line": 1309,
+          "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755"
+        },
+        {
+          "statement": "PDF export requires reportlab",
+          "path": "src/aspose/note/saving/pdf_writer.py",
+          "line": 1534,
+          "source_sha256": "8af05e1b3f78acea39702057c33d6d5442cf8d670f2e115ea80740af56269122"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "python",
+          "runtime_label": "Python",
+          "minimum_runtime": ">=3.10",
+          "compatibility_kind": "minimum_runtime",
+          "manifest_path": "pyproject.toml",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    },
+    {
+      "fact_id": "api.public_surface:python-exports",
+      "field": "api.public_surface",
+      "value": {
+        "modules": [
+          {
+            "module": "aspose",
+            "exports": [
+              "note"
+            ],
+            "source_path": "src/aspose/__init__.py",
+            "source_sha256": "03aec3124b6456b5666251127c233c901e6148b408d015334884e24819dba6a2"
+          },
+          {
+            "module": "aspose.note",
+            "exports": [
+              "FileCorruptedException",
+              "IncorrectDocumentStructureException",
+              "IncorrectPasswordException",
+              "UnsupportedFileFormatException",
+              "UnsupportedSaveFormatException",
+              "SaveFormat",
+              "FileFormat",
+              "HorizontalAlignment",
+              "TagStatus",
+              "NodeType",
+              "DocumentVisitor",
+              "License",
+              "Metered",
+              "LoadOptions",
+              "Node",
+              "NoteTag",
+              "ParagraphStyle",
+              "TextStyle",
+              "TextRun",
+              "RichText",
+              "Title",
+              "NumberList",
+              "OutlineElement",
+              "Outline",
+              "Image",
+              "AttachedFile",
+              "TableColumn",
+              "TableCell",
+              "TableRow",
+              "Table",
+              "Page",
+              "PageHistory",
+              "Document"
+            ],
+            "source_path": "src/aspose/note/__init__.py",
+            "source_sha256": "e001fc6075b7c13530736dacb8cddb46c05626d297f0e6e1f2483eada9c331be"
+          },
+          {
+            "module": "aspose.note.saving",
+            "exports": [
+              "SaveOptions",
+              "PdfSaveOptions"
+            ],
+            "source_path": "src/aspose/note/saving/__init__.py",
+            "source_sha256": "8466123ac359b06f6838a3165675cec3ca721c32253843fecb16bc9c809433b1"
+          }
+        ],
+        "classes": [
+          {
+            "name": "UnsupportedFileFormatException",
+            "members": [
+              {
+                "name": "FileFormat",
+                "kind": "property",
+                "surface": "FileFormat: FileFormat"
+              }
+            ],
+            "source_path": "src/aspose/note/exceptions.py",
+            "source_sha256": "a1cefc04098cec72238fc78f1bdb12dfb065f900d4d0f947ab759cf7f667cb66",
+            "line": 41
+          },
+          {
+            "name": "DocumentVisitor",
+            "members": [
+              {
+                "name": "VisitDocumentStart",
+                "kind": "method",
+                "surface": "VisitDocumentStart(document) -> None"
+              },
+              {
+                "name": "VisitDocumentEnd",
+                "kind": "method",
+                "surface": "VisitDocumentEnd(document) -> None"
+              },
+              {
+                "name": "VisitPageStart",
+                "kind": "method",
+                "surface": "VisitPageStart(page) -> None"
+              },
+              {
+                "name": "VisitPageEnd",
+                "kind": "method",
+                "surface": "VisitPageEnd(page) -> None"
+              },
+              {
+                "name": "VisitTitleStart",
+                "kind": "method",
+                "surface": "VisitTitleStart(title) -> None"
+              },
+              {
+                "name": "VisitTitleEnd",
+                "kind": "method",
+                "surface": "VisitTitleEnd(title) -> None"
+              },
+              {
+                "name": "VisitOutlineStart",
+                "kind": "method",
+                "surface": "VisitOutlineStart(outline) -> None"
+              },
+              {
+                "name": "VisitOutlineEnd",
+                "kind": "method",
+                "surface": "VisitOutlineEnd(outline) -> None"
+              },
+              {
+                "name": "VisitOutlineElementStart",
+                "kind": "method",
+                "surface": "VisitOutlineElementStart(outline_element) -> None"
+              },
+              {
+                "name": "VisitOutlineElementEnd",
+                "kind": "method",
+                "surface": "VisitOutlineElementEnd(outline_element) -> None"
+              },
+              {
+                "name": "VisitRichTextStart",
+                "kind": "method",
+                "surface": "VisitRichTextStart(rich_text) -> None"
+              },
+              {
+                "name": "VisitRichTextEnd",
+                "kind": "method",
+                "surface": "VisitRichTextEnd(rich_text) -> None"
+              },
+              {
+                "name": "VisitImageStart",
+                "kind": "method",
+                "surface": "VisitImageStart(image) -> None"
+              },
+              {
+                "name": "VisitImageEnd",
+                "kind": "method",
+                "surface": "VisitImageEnd(image) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 68
+          },
+          {
+            "name": "License",
+            "members": [
+              {
+                "name": "SetLicense",
+                "kind": "method",
+                "surface": "SetLicense(license_path_or_stream) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 117
+          },
+          {
+            "name": "Metered",
+            "members": [
+              {
+                "name": "SetMeteredKey",
+                "kind": "method",
+                "surface": "SetMeteredKey(public_key, private_key) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 122
+          },
+          {
+            "name": "LoadOptions",
+            "members": [
+              {
+                "name": "DocumentPassword",
+                "kind": "attribute",
+                "surface": "DocumentPassword: str | None"
+              },
+              {
+                "name": "LoadHistory",
+                "kind": "attribute",
+                "surface": "LoadHistory: bool"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 128
+          },
+          {
+            "name": "Node",
+            "members": [
+              {
+                "name": "ParentNode",
+                "kind": "property",
+                "surface": "ParentNode: Node | None"
+              },
+              {
+                "name": "Document",
+                "kind": "property",
+                "surface": "Document: Document | None"
+              },
+              {
+                "name": "Accept",
+                "kind": "method",
+                "surface": "Accept(visitor) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 134
+          },
+          {
+            "name": "NoteTag",
+            "members": [
+              {
+                "name": "Label",
+                "kind": "property",
+                "surface": "Label: str | None"
+              },
+              {
+                "name": "Label",
+                "kind": "method",
+                "surface": "Label(value) -> None"
+              },
+              {
+                "name": "Icon",
+                "kind": "property",
+                "surface": "Icon: int | None"
+              },
+              {
+                "name": "Icon",
+                "kind": "method",
+                "surface": "Icon(value) -> None"
+              },
+              {
+                "name": "Status",
+                "kind": "property",
+                "surface": "Status: TagStatus"
+              },
+              {
+                "name": "Highlight",
+                "kind": "property",
+                "surface": "Highlight: int | None"
+              },
+              {
+                "name": "Highlight",
+                "kind": "method",
+                "surface": "Highlight(value) -> None"
+              },
+              {
+                "name": "CreationTime",
+                "kind": "property",
+                "surface": "CreationTime: datetime | None"
+              },
+              {
+                "name": "CreationTime",
+                "kind": "method",
+                "surface": "CreationTime(value) -> None"
+              },
+              {
+                "name": "CompletedTime",
+                "kind": "property",
+                "surface": "CompletedTime: datetime | None"
+              },
+              {
+                "name": "FontColor",
+                "kind": "property",
+                "surface": "FontColor: int | None"
+              },
+              {
+                "name": "FontColor",
+                "kind": "method",
+                "surface": "FontColor(value) -> None"
+              },
+              {
+                "name": "CreateYellowStar",
+                "kind": "method",
+                "surface": "CreateYellowStar(label=None) -> NoteTag"
+              },
+              {
+                "name": "CreateQuestionMark",
+                "kind": "method",
+                "surface": "CreateQuestionMark(label=None) -> NoteTag"
+              },
+              {
+                "name": "CreateMusicalNote",
+                "kind": "method",
+                "surface": "CreateMusicalNote(label=None) -> NoteTag"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 220
+          },
+          {
+            "name": "ParagraphStyle",
+            "members": [
+              {
+                "name": "FontStyle",
+                "kind": "property",
+                "surface": "FontStyle: int"
+              },
+              {
+                "name": "Default",
+                "kind": "method",
+                "surface": "Default() -> ParagraphStyle"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 340
+          },
+          {
+            "name": "TextStyle",
+            "members": [
+              {
+                "name": "IsHyperlink",
+                "kind": "property",
+                "surface": "IsHyperlink: bool"
+              },
+              {
+                "name": "IsHyperlink",
+                "kind": "method",
+                "surface": "IsHyperlink(value) -> None"
+              },
+              {
+                "name": "HyperlinkAddress",
+                "kind": "property",
+                "surface": "HyperlinkAddress: str | None"
+              },
+              {
+                "name": "HyperlinkAddress",
+                "kind": "method",
+                "surface": "HyperlinkAddress(value) -> None"
+              },
+              {
+                "name": "FontName",
+                "kind": "property",
+                "surface": "FontName: str | None"
+              },
+              {
+                "name": "FontName",
+                "kind": "method",
+                "surface": "FontName(value) -> None"
+              },
+              {
+                "name": "FontSize",
+                "kind": "property",
+                "surface": "FontSize: float | None"
+              },
+              {
+                "name": "FontSize",
+                "kind": "method",
+                "surface": "FontSize(value) -> None"
+              },
+              {
+                "name": "FontColor",
+                "kind": "property",
+                "surface": "FontColor: int | None"
+              },
+              {
+                "name": "FontColor",
+                "kind": "method",
+                "surface": "FontColor(value) -> None"
+              },
+              {
+                "name": "Highlight",
+                "kind": "property",
+                "surface": "Highlight: int | None"
+              },
+              {
+                "name": "Highlight",
+                "kind": "method",
+                "surface": "Highlight(value) -> None"
+              },
+              {
+                "name": "Language",
+                "kind": "property",
+                "surface": "Language: int | None"
+              },
+              {
+                "name": "Language",
+                "kind": "method",
+                "surface": "Language(value) -> None"
+              },
+              {
+                "name": "IsBold",
+                "kind": "property",
+                "surface": "IsBold: bool"
+              },
+              {
+                "name": "IsBold",
+                "kind": "method",
+                "surface": "IsBold(value) -> None"
+              },
+              {
+                "name": "IsItalic",
+                "kind": "property",
+                "surface": "IsItalic: bool"
+              },
+              {
+                "name": "IsItalic",
+                "kind": "method",
+                "surface": "IsItalic(value) -> None"
+              },
+              {
+                "name": "IsUnderline",
+                "kind": "property",
+                "surface": "IsUnderline: bool"
+              },
+              {
+                "name": "IsUnderline",
+                "kind": "method",
+                "surface": "IsUnderline(value) -> None"
+              },
+              {
+                "name": "IsStrikethrough",
+                "kind": "property",
+                "surface": "IsStrikethrough: bool"
+              },
+              {
+                "name": "IsStrikethrough",
+                "kind": "method",
+                "surface": "IsStrikethrough(value) -> None"
+              },
+              {
+                "name": "IsSuperscript",
+                "kind": "property",
+                "surface": "IsSuperscript: bool"
+              },
+              {
+                "name": "IsSuperscript",
+                "kind": "method",
+                "surface": "IsSuperscript(value) -> None"
+              },
+              {
+                "name": "IsSubscript",
+                "kind": "property",
+                "surface": "IsSubscript: bool"
+              },
+              {
+                "name": "IsSubscript",
+                "kind": "method",
+                "surface": "IsSubscript(value) -> None"
+              },
+              {
+                "name": "IsHidden",
+                "kind": "property",
+                "surface": "IsHidden: bool"
+              },
+              {
+                "name": "IsHidden",
+                "kind": "method",
+                "surface": "IsHidden(value) -> None"
+              },
+              {
+                "name": "IsMathFormatting",
+                "kind": "property",
+                "surface": "IsMathFormatting: bool"
+              },
+              {
+                "name": "IsMathFormatting",
+                "kind": "method",
+                "surface": "IsMathFormatting(value) -> None"
+              },
+              {
+                "name": "FontStyle",
+                "kind": "property",
+                "surface": "FontStyle: int"
+              },
+              {
+                "name": "Default",
+                "kind": "method",
+                "surface": "Default() -> TextStyle"
+              },
+              {
+                "name": "DefaultMsOneNoteTitleTextStyle",
+                "kind": "method",
+                "surface": "DefaultMsOneNoteTitleTextStyle() -> TextStyle"
+              },
+              {
+                "name": "DefaultMsOneNoteTitleDateStyle",
+                "kind": "method",
+                "surface": "DefaultMsOneNoteTitleDateStyle() -> TextStyle"
+              },
+              {
+                "name": "DefaultMsOneNoteTitleTimeStyle",
+                "kind": "method",
+                "surface": "DefaultMsOneNoteTitleTimeStyle() -> TextStyle"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 397
+          },
+          {
+            "name": "TextRun",
+            "members": [
+              {
+                "name": "Text",
+                "kind": "attribute",
+                "surface": "Text: str"
+              },
+              {
+                "name": "Style",
+                "kind": "attribute",
+                "surface": "Style: TextStyle"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 622
+          },
+          {
+            "name": "RichText",
+            "members": [
+              {
+                "name": "Text",
+                "kind": "property",
+                "surface": "Text: str"
+              },
+              {
+                "name": "Text",
+                "kind": "method",
+                "surface": "Text(value) -> None"
+              },
+              {
+                "name": "TextRuns",
+                "kind": "property",
+                "surface": "TextRuns: list[TextRun]"
+              },
+              {
+                "name": "ParagraphStyle",
+                "kind": "property",
+                "surface": "ParagraphStyle: ParagraphStyle"
+              },
+              {
+                "name": "ParagraphStyle",
+                "kind": "method",
+                "surface": "ParagraphStyle(value) -> None"
+              },
+              {
+                "name": "Tags",
+                "kind": "property",
+                "surface": "Tags: list[NoteTag]"
+              },
+              {
+                "name": "Length",
+                "kind": "property",
+                "surface": "Length: int"
+              },
+              {
+                "name": "Alignment",
+                "kind": "property",
+                "surface": "Alignment: HorizontalAlignment | None"
+              },
+              {
+                "name": "Alignment",
+                "kind": "method",
+                "surface": "Alignment(value) -> None"
+              },
+              {
+                "name": "IsTitleText",
+                "kind": "property",
+                "surface": "IsTitleText: bool"
+              },
+              {
+                "name": "IsTitleDate",
+                "kind": "property",
+                "surface": "IsTitleDate: bool"
+              },
+              {
+                "name": "IsTitleTime",
+                "kind": "property",
+                "surface": "IsTitleTime: bool"
+              },
+              {
+                "name": "Append",
+                "kind": "method",
+                "surface": "Append(text, style=None) -> RichText"
+              },
+              {
+                "name": "AppendFront",
+                "kind": "method",
+                "surface": "AppendFront(text, style=None) -> RichText"
+              },
+              {
+                "name": "Clear",
+                "kind": "method",
+                "surface": "Clear() -> RichText"
+              },
+              {
+                "name": "GetEnumerator",
+                "kind": "method",
+                "surface": "GetEnumerator() -> Iterator[str]"
+              },
+              {
+                "name": "IndexOf",
+                "kind": "method",
+                "surface": "IndexOf(value, startIndex=0, count=None, comparison=None) -> int"
+              },
+              {
+                "name": "Insert",
+                "kind": "method",
+                "surface": "Insert(index, text, style=None) -> RichText"
+              },
+              {
+                "name": "Remove",
+                "kind": "method",
+                "surface": "Remove(start, count=None) -> RichText"
+              },
+              {
+                "name": "Replace",
+                "kind": "method",
+                "surface": "Replace(old_value, new_value, style=None) -> RichText"
+              },
+              {
+                "name": "Trim",
+                "kind": "method",
+                "surface": "Trim() -> RichText"
+              },
+              {
+                "name": "TrimStart",
+                "kind": "method",
+                "surface": "TrimStart() -> RichText"
+              },
+              {
+                "name": "TrimEnd",
+                "kind": "method",
+                "surface": "TrimEnd() -> RichText"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 627
+          },
+          {
+            "name": "Title",
+            "members": [
+              {
+                "name": "TitleText",
+                "kind": "property",
+                "surface": "TitleText: RichText | None"
+              },
+              {
+                "name": "TitleText",
+                "kind": "method",
+                "surface": "TitleText(value) -> None"
+              },
+              {
+                "name": "TitleDate",
+                "kind": "property",
+                "surface": "TitleDate: RichText | None"
+              },
+              {
+                "name": "TitleDate",
+                "kind": "method",
+                "surface": "TitleDate(value) -> None"
+              },
+              {
+                "name": "TitleTime",
+                "kind": "property",
+                "surface": "TitleTime: RichText | None"
+              },
+              {
+                "name": "TitleTime",
+                "kind": "method",
+                "surface": "TitleTime(value) -> None"
+              },
+              {
+                "name": "GetEnumerator",
+                "kind": "method",
+                "surface": "GetEnumerator() -> Iterator[Node]"
+              },
+              {
+                "name": "GetChildNodes",
+                "kind": "method",
+                "surface": "GetChildNodes(node_type) -> list[TNode]"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 836
+          },
+          {
+            "name": "NumberList",
+            "members": [
+              {
+                "name": "Format",
+                "kind": "attribute",
+                "surface": "Format: str | None"
+              },
+              {
+                "name": "NumberFormat",
+                "kind": "attribute",
+                "surface": "NumberFormat: str | None"
+              },
+              {
+                "name": "Font",
+                "kind": "attribute",
+                "surface": "Font: str | None"
+              },
+              {
+                "name": "FontSize",
+                "kind": "attribute",
+                "surface": "FontSize: float | None"
+              },
+              {
+                "name": "FontColor",
+                "kind": "attribute",
+                "surface": "FontColor: int | None"
+              },
+              {
+                "name": "IsBold",
+                "kind": "attribute",
+                "surface": "IsBold: bool"
+              },
+              {
+                "name": "IsItalic",
+                "kind": "attribute",
+                "surface": "IsItalic: bool"
+              },
+              {
+                "name": "LastModifiedTime",
+                "kind": "attribute",
+                "surface": "LastModifiedTime: datetime | None"
+              },
+              {
+                "name": "Restart",
+                "kind": "attribute",
+                "surface": "Restart: int | None"
+              },
+              {
+                "name": "GetNumberedListHeader",
+                "kind": "method",
+                "surface": "GetNumberedListHeader(number) -> str"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 913
+          },
+          {
+            "name": "OutlineElement",
+            "members": [
+              {
+                "name": "NumberList",
+                "kind": "attribute",
+                "surface": "NumberList: NumberList | None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 933
+          },
+          {
+            "name": "Outline",
+            "members": [
+              {
+                "name": "HorizontalOffset",
+                "kind": "attribute",
+                "surface": "HorizontalOffset: float | None"
+              },
+              {
+                "name": "VerticalOffset",
+                "kind": "attribute",
+                "surface": "VerticalOffset: float | None"
+              },
+              {
+                "name": "MaxWidth",
+                "kind": "attribute",
+                "surface": "MaxWidth: float | None"
+              },
+              {
+                "name": "MaxHeight",
+                "kind": "attribute",
+                "surface": "MaxHeight: float | None"
+              },
+              {
+                "name": "MinWidth",
+                "kind": "attribute",
+                "surface": "MinWidth: float | None"
+              },
+              {
+                "name": "ReservedWidth",
+                "kind": "attribute",
+                "surface": "ReservedWidth: float | None"
+              },
+              {
+                "name": "IndentPosition",
+                "kind": "attribute",
+                "surface": "IndentPosition: float | None"
+              },
+              {
+                "name": "DescendantsCannotBeMoved",
+                "kind": "attribute",
+                "surface": "DescendantsCannotBeMoved: bool"
+              },
+              {
+                "name": "LastModifiedTime",
+                "kind": "attribute",
+                "surface": "LastModifiedTime: datetime | None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 944
+          },
+          {
+            "name": "Image",
+            "members": [
+              {
+                "name": "FileName",
+                "kind": "property",
+                "surface": "FileName: str | None"
+              },
+              {
+                "name": "FilePath",
+                "kind": "property",
+                "surface": "FilePath: str | None"
+              },
+              {
+                "name": "Format",
+                "kind": "property",
+                "surface": "Format: str | None"
+              },
+              {
+                "name": "Bytes",
+                "kind": "property",
+                "surface": "Bytes: bytes"
+              },
+              {
+                "name": "OriginalWidth",
+                "kind": "property",
+                "surface": "OriginalWidth: float | None"
+              },
+              {
+                "name": "OriginalHeight",
+                "kind": "property",
+                "surface": "OriginalHeight: float | None"
+              },
+              {
+                "name": "Tags",
+                "kind": "property",
+                "surface": "Tags: list[NoteTag]"
+              },
+              {
+                "name": "Alignment",
+                "kind": "property",
+                "surface": "Alignment: HorizontalAlignment | None"
+              },
+              {
+                "name": "Alignment",
+                "kind": "method",
+                "surface": "Alignment(value) -> None"
+              },
+              {
+                "name": "Replace",
+                "kind": "method",
+                "surface": "Replace(image) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 962
+          },
+          {
+            "name": "AttachedFile",
+            "members": [
+              {
+                "name": "FileName",
+                "kind": "property",
+                "surface": "FileName: str | None"
+              },
+              {
+                "name": "Bytes",
+                "kind": "property",
+                "surface": "Bytes: bytes"
+              },
+              {
+                "name": "Tags",
+                "kind": "property",
+                "surface": "Tags: list[NoteTag]"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1085
+          },
+          {
+            "name": "TableColumn",
+            "members": [
+              {
+                "name": "Width",
+                "kind": "attribute",
+                "surface": "Width: float | None"
+              },
+              {
+                "name": "LockedWidth",
+                "kind": "attribute",
+                "surface": "LockedWidth: bool"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1124
+          },
+          {
+            "name": "Table",
+            "members": [
+              {
+                "name": "Tags",
+                "kind": "property",
+                "surface": "Tags: list[NoteTag]"
+              },
+              {
+                "name": "Columns",
+                "kind": "property",
+                "surface": "Columns: list[TableColumn]"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1129
+          },
+          {
+            "name": "Page",
+            "members": [
+              {
+                "name": "Title",
+                "kind": "attribute",
+                "surface": "Title: Title | None"
+              },
+              {
+                "name": "Author",
+                "kind": "attribute",
+                "surface": "Author: str | None"
+              },
+              {
+                "name": "CreationTime",
+                "kind": "attribute",
+                "surface": "CreationTime: datetime | None"
+              },
+              {
+                "name": "LastModifiedTime",
+                "kind": "attribute",
+                "surface": "LastModifiedTime: datetime | None"
+              },
+              {
+                "name": "Level",
+                "kind": "attribute",
+                "surface": "Level: int | None"
+              },
+              {
+                "name": "BackgroundColor",
+                "kind": "attribute",
+                "surface": "BackgroundColor: int | None"
+              },
+              {
+                "name": "Margin",
+                "kind": "attribute",
+                "surface": "Margin: Any | None"
+              },
+              {
+                "name": "SizeType",
+                "kind": "attribute",
+                "surface": "SizeType: Any | None"
+              },
+              {
+                "name": "PageLayoutSize",
+                "kind": "attribute",
+                "surface": "PageLayoutSize: Any | None"
+              },
+              {
+                "name": "IsConflictPage",
+                "kind": "attribute",
+                "surface": "IsConflictPage: bool"
+              },
+              {
+                "name": "PageContentRevisionSummary",
+                "kind": "attribute",
+                "surface": "PageContentRevisionSummary: Any | None"
+              },
+              {
+                "name": "Clone",
+                "kind": "method",
+                "surface": "Clone(cloneHistory=False, **kwargs) -> Page"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1156
+          },
+          {
+            "name": "PageHistory",
+            "members": [
+              {
+                "name": "Count",
+                "kind": "property",
+                "surface": "Count: int"
+              },
+              {
+                "name": "Current",
+                "kind": "property",
+                "surface": "Current: Page"
+              },
+              {
+                "name": "IsReadOnly",
+                "kind": "property",
+                "surface": "IsReadOnly: bool"
+              },
+              {
+                "name": "Add",
+                "kind": "method",
+                "surface": "Add(page) -> None"
+              },
+              {
+                "name": "AddRange",
+                "kind": "method",
+                "surface": "AddRange(pages) -> None"
+              },
+              {
+                "name": "Clear",
+                "kind": "method",
+                "surface": "Clear() -> None"
+              },
+              {
+                "name": "Contains",
+                "kind": "method",
+                "surface": "Contains(page) -> bool"
+              },
+              {
+                "name": "CopyTo",
+                "kind": "method",
+                "surface": "CopyTo(target, index) -> None"
+              },
+              {
+                "name": "GetEnumerator",
+                "kind": "method",
+                "surface": "GetEnumerator() -> Iterator[Page]"
+              },
+              {
+                "name": "IndexOf",
+                "kind": "method",
+                "surface": "IndexOf(page) -> int"
+              },
+              {
+                "name": "Insert",
+                "kind": "method",
+                "surface": "Insert(index, page) -> None"
+              },
+              {
+                "name": "Remove",
+                "kind": "method",
+                "surface": "Remove(page) -> bool"
+              },
+              {
+                "name": "RemoveAt",
+                "kind": "method",
+                "surface": "RemoveAt(index) -> None"
+              },
+              {
+                "name": "RemoveRange",
+                "kind": "method",
+                "surface": "RemoveRange(index, count) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1186
+          },
+          {
+            "name": "Document",
+            "members": [
+              {
+                "name": "FileFormat",
+                "kind": "property",
+                "surface": "FileFormat: FileFormat"
+              },
+              {
+                "name": "DetectLayoutChanges",
+                "kind": "method",
+                "surface": "DetectLayoutChanges() -> None"
+              },
+              {
+                "name": "GetPageHistory",
+                "kind": "method",
+                "surface": "GetPageHistory(page) -> PageHistory"
+              },
+              {
+                "name": "Save",
+                "kind": "method",
+                "surface": "Save(target, format_or_options=None) -> None"
+              }
+            ],
+            "source_path": "src/aspose/note/model.py",
+            "source_sha256": "ca0132d622e3a0d99899752494fcaae6a8a9df502e9326faf219f0d4846c6755",
+            "line": 1257
+          },
+          {
+            "name": "SaveOptions",
+            "members": [
+              {
+                "name": "SaveFormat",
+                "kind": "property",
+                "surface": "SaveFormat: SaveFormat"
+              }
+            ],
+            "source_path": "src/aspose/note/saving/options.py",
+            "source_sha256": "67c42ca02081473fcc56db261b3c82eefe4db4b9ecc34a25c031f96811b9c7c5",
+            "line": 8
+          }
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose/__init__.py,src/aspose/note/__init__.py,src/aspose/note/exceptions.py,src/aspose/note/model.py,src/aspose/note/saving/__init__.py,src/aspose/note/saving/options.py",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.api_reference"
+      ]
+    },
+    {
+      "fact_id": "development.assets:repository-inventory",
+      "field": "development.assets",
+      "value": {
+        "tests": {
+          "count": 13,
+          "inventory_sha256": "81927d7c97b29cfb5c870f2a5c5a9abc966679bd47f0c2c4917d7ad2fe21858d",
+          "representative_paths": [
+            {
+              "path": "tests/__init__.py",
+              "sha256": "6a5296a8a2fca6e76fdff367638cc87a1cd8fab5279b99068663253d625ab636"
+            },
+            {
+              "path": "tests/_bootstrap.py",
+              "sha256": "cfc4be40f103aa877cf7bfe9b02fb87b105f37c6f0c1bd1300db78e746a54e78"
+            },
+            {
+              "path": "tests/_pdf_goldens.py",
+              "sha256": "40cf0c18096f28ac2fdca537bb7f7a1f3506869f198965205ac05066f012046d"
+            },
+            {
+              "path": "tests/test_aspose_note_compat_smoke.py",
+              "sha256": "635ff580fe0a6a4e4cd4ba7411cdf4cc91297088b6b08df52c6bf0630d8c41ed"
+            },
+            {
+              "path": "tests/test_aspose_note_dom_content.py",
+              "sha256": "b9661d9c93c51dc501c9f398d010ba5ad8e14e54e7a6f5e74c2afddbac60e10f"
+            },
+            {
+              "path": "tests/test_aspose_note_dom_document.py",
+              "sha256": "dcaea8fddb6782a645c6920b33d32d23c8dc65da35cc40c0dc3001c7d139ee7b"
+            },
+            {
+              "path": "tests/test_aspose_note_exceptions_and_stubs.py",
+              "sha256": "eab15038c0513234d1de07270c42f968d99bd1f9f76c851c8135e7bc2a800003"
+            },
+            {
+              "path": "tests/test_aspose_note_history.py",
+              "sha256": "c027973661d3a8c4222dc7a190ab2973737ce23abc1179022b3b0c0f169a9a5b"
+            }
+          ]
+        },
+        "tools": {
+          "count": 1,
+          "inventory_sha256": "b24b7cbc69047691db9ced092dce33b4b7638dac43770060276454e5e91f2ca0",
+          "representative_paths": [
+            {
+              "path": "tools/regenerate_pdf_goldens.py",
+              "sha256": "73ec62a468f7c1d248b707ffabe01b07fb1c552befcf1d5f47087acb28661970"
+            }
+          ]
+        },
+        "goldens": {
+          "count": 13,
+          "inventory_sha256": "8e1ff9927022efa7b193131e5e5f44bb4016faf375b8af16339636851cc86cf9",
+          "representative_paths": [
+            {
+              "path": "tests/goldens/pdf/attached_file_with_tag.manifest.json",
+              "sha256": "208cc6a4a6daa2445bfce1d704ec4fd1484ce660baa4b026f1ebb902f317f584"
+            },
+            {
+              "path": "tests/goldens/pdf/formatted_richtext.manifest.json",
+              "sha256": "173987e6c69da25b780ed21aa6dc766d1aaeb47cf6c9556336ef275dcea59acd"
+            },
+            {
+              "path": "tests/goldens/pdf/image_with_tag.manifest.json",
+              "sha256": "4413664f25709a63fad46d95af95c6d745c4b6a451aba481bea4cfe0cdcba06e"
+            },
+            {
+              "path": "tests/goldens/pdf/images_with_alignment.manifest.json",
+              "sha256": "287a6b87b959d2b80c390c18e04b539fb8cf5a6b992b782bdd6a8b4e9eb1f463"
+            },
+            {
+              "path": "tests/goldens/pdf/numbered_list_with_tags.manifest.json",
+              "sha256": "7373811feb4dcc5e76222f2b3ad70ceacda301b2f6b5983e47267a07e704f3db"
+            },
+            {
+              "path": "tests/goldens/pdf/one_page_with_file.manifest.json",
+              "sha256": "368b97014c93397af83cf78ca233ba031d7c89c8f870c87c62f1e007448e4d4d"
+            },
+            {
+              "path": "tests/goldens/pdf/page_with_subpage.manifest.json",
+              "sha256": "6a4e7207886dd32338fa3c4113aa66b8ba73abe2c0b206870529aa9ec7e37d14"
+            },
+            {
+              "path": "tests/goldens/pdf/page_with_subpage.pdf",
+              "sha256": "f00e8e8ededf481f79a4bbd61f94dfafdb9910bfc495bec880d8459e8f3662ff"
+            }
+          ]
+        }
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://tests/__init__.py,tests/_bootstrap.py,tests/_pdf_goldens.py,tests/test_aspose_note_compat_smoke.py,tests/test_aspose_note_dom_content.py,tests/test_aspose_note_dom_document.py,tests/test_aspose_note_exceptions_and_stubs.py,tests/test_aspose_note_history.py,tools/regenerate_pdf_goldens.py,tests/goldens/pdf/attached_file_with_tag.manifest.json,tests/goldens/pdf/formatted_richtext.manifest.json,tests/goldens/pdf/image_with_tag.manifest.json,tests/goldens/pdf/images_with_alignment.manifest.json,tests/goldens/pdf/numbered_list_with_tags.manifest.json,tests/goldens/pdf/one_page_with_file.manifest.json,tests/goldens/pdf/page_with_subpage.manifest.json,tests/goldens/pdf/page_with_subpage.pdf",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.development"
+      ]
+    },
+    {
+      "fact_id": "distribution.license_expression:manifest",
+      "field": "distribution.license_expression",
+      "value": "LicenseRef-Aspose-Split",
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "readme.third_party_notices"
+      ]
+    },
+    {
+      "fact_id": "installation.optional_extras:python-manifest",
+      "field": "installation.optional_extras",
+      "value": {
+        "manifest_path": "pyproject.toml",
+        "extras": {
+          "dev": [
+            "build>=1.2",
+            "twine>=5.0"
+          ],
+          "pdf": [
+            "reportlab>=3.6"
+          ],
+          "test-pdf": [
+            "pypdf>=5.3",
+            "Pillow>=10.0",
+            "PyMuPDF>=1.25"
+          ]
+        }
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.development"
+      ]
+    },
+    {
+      "fact_id": "repository.ci:canonical-workflow",
+      "field": "repository.ci",
+      "value": {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "d8b66bf27e63ac2dcefb144fb29624d28276ae977ffe3c9cfbeed24d558ab9f0"
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://.github/workflows/ci.yml",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.header"
+      ]
+    },
+    {
+      "fact_id": "repository.examples:repository-inventory",
+      "field": "repository.examples",
+      "value": {
+        "files": [
+          {
+            "path": "examples/export_pdf.py",
+            "sha256": "c9c78a365346fac45f426ff4f3bb62a3088e55b352a1f735a41425c5b2b8ef00",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/extract_text.py",
+            "sha256": "1283d80a674b7effb0daa91628f7cafd0cdbcf0cf94bbb701f7d8074fdba296d",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/save_images.py",
+            "sha256": "4bb478eea20c83426b03d73361e165449c89087097e1d4ec24820bd0fbf44078",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/README.md",
+            "sha256": "2d35278cb880be363c8186054db1d494e51f664ec90456c95b78ca1b2a66980a",
+            "execution_verified": false
+          }
+        ],
+        "execution_policy": "inventory_only"
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://examples/export_pdf.py,examples/extract_text.py,examples/save_images.py,examples/README.md",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.examples"
+      ]
+    },
+    {
+      "fact_id": "repository.third_party_notices:root-notices-file",
+      "field": "repository.third_party_notices",
+      "value": {
+        "path": "THIRD_PARTY_NOTICES.md",
+        "sha256": "65b52d73ffec74aa59f8887761b039854d6228d96dce1b219fb9430f65c9c936"
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://THIRD_PARTY_NOTICES.md",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.third_party_notices"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:agent-drafted-grounded",
+    "product.problems_solved": "product.problems_solved:agent-drafted-grounded",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:repository-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:registry-pypi",
+    "example.minimal": "example.minimal:repository-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:executable-constraints",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary",
+    "api.public_surface": "api.public_surface:python-exports",
+    "development.assets": "development.assets:repository-inventory",
+    "distribution.license_expression": "distribution.license_expression:manifest",
+    "installation.optional_extras": "installation.optional_extras:python-manifest",
+    "repository.ci": "repository.ci:canonical-workflow",
+    "repository.examples": "repository.examples:repository-inventory",
+    "repository.third_party_notices": "repository.third_party_notices:root-notices-file"
+  },
+  "package_root_roles": {
+    "schema_version": 1,
+    "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+    "selection_state": "selected",
+    "selected_product_manifest_path": "pyproject.toml",
+    "selection_rationale": [
+      "the sole non-secondary root matching the registry ecosystem was selected",
+      "manifest identity matches registry product family",
+      "manifest declares a distributable package identity",
+      "repository-root manifest"
+    ],
+    "roots": [
+      {
+        "path": "examples",
+        "ecosystem": "python",
+        "manifest_path": "examples/pyproject.toml",
+        "role": "sample",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "aspose-note-examples",
+          "version": "0.0.0"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "path token(s) identify sample: examples"
+        ]
+      },
+      {
+        "path": ".",
+        "ecosystem": "python",
+        "manifest_path": "pyproject.toml",
+        "role": "product",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "aspose-note",
+          "version": "26.3.2"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "selected as the canonical distributed product manifest",
+          "the sole non-secondary root matching the registry ecosystem was selected",
+          "manifest identity matches registry product family",
+          "manifest declares a distributable package identity",
+          "repository-root manifest"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "platform": "python",
+  "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "content_assurance": "repository_verified",
+  "lifecycle_status": "NO_OP_PROVEN",
+  "complete": true,
+  "facts_hash": "03e739cd2fcdfad01e0957bae5244d5d1ff26215ae374ddbffdf8b2b4a9aa66f",
+  "assessment_hash": "b60a800b0c1304d18277a505421b58e5611b8bc763e67b00c35bffb84e77e7d0",
+  "presentation_plan_hash": "5e78d154ca0cb9f65ed0e78a32904264e4a1037999077f5175d25bf6759bd0b4",
+  "candidate_hash": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
+  "fact_acceptance_contract_hash": "0246cc2cc21bc71ec9c031d5e552a1da39be2377863a432f1fb9efbcb2bddb78",
+  "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
+  "runtime_bundle": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "runtime_bundle_inventory_sha256": "17340d85dc2a04e4c62ee9e0ed49dbb23cdd19e3c35b2d707b549e40d555abe4",
+  "runtime_manifest_sha256": "975d1b7c97e83983734d47eafe1f21f9ea19c3aebc44069a778fea2cee10b8f7",
+  "runtime_document_plan_sha256": "3d1bdf72d4e4017737d2cfba4210d524315d2433e833e4e7703a4f00c67590c4",
+  "runtime_llm_call_ledger_sha256": "012f2a071ad92daa625e4238ef0bdce5c167a2dfd1e1dd6012c92844cb6c24ef",
+  "committed_artifacts": {
+    "ORIGINAL-README.md": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+    "README.md": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
+    "README.patch": "74d8d28a267c86c35f6ce41d5b3c2c9b3c80d5cf006dd344f2fee490543cb8eb",
+    "product-facts.json": "410bb0f72373343e8193ff922ef2d55ed85f3130e7d72b872a21224db1cf5375",
+    "provenance.json": "8f656be19317067137093f98fd2c7bccd9c2699026148bd9a88787b904215f37",
+    "deterministic-validation.json": "04b744072ef0e09d25250623d7823008d6a87c6d20b2cae9e678d658b140b282",
+    "independent-agent-review.json": "58f2cb6ce9785a5aa115c715548f5a80d82de2d7137254bb904982a6fefdd996",
+    "final-verdict.json": "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508",
+    "repair-history.json": "4a1456120a785d48f492be4735fed1793af5458929a33b0b57e52fa506505109",
+    "no-op-proof.json": "f53c1eff0736e9b7b4af242b2376984df6bda19431e985a379cd5c85b2bc8cba"
+  },
+  "no_op": {
+    "new_provider_call_count": 0,
+    "patch_created": false,
+    "duplicate_bundle_created": false,
+    "agentic_review_reused": true,
+    "llm_accounting_status": "EXACT"
+  },
+  "effects": {
+    "product_remote_writes": 0,
+    "default_branch_writes": 0,
+    "pull_requests": 0
+  },
+  "canonical_command": ".venv/Scripts/readme-agent supervise --repo aspose-note-foss/Aspose.Note-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary"
+}

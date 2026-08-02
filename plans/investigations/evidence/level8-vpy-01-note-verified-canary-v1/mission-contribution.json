@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-THREE-SLICES",
+  "goal_ids": ["GOAL-TRUTH", "GOAL-README"],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the first repository-verified Python README under the accepted presentation contract."
+  },
+  "acceptance_checks_passed": [
+    "Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked",
+    "The verified candidate remains presentation-equivalent to the accepted reference except where evidence requires a correction",
+    "An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/aspose-note-foss__Aspose.Note-FOSS-for-Python/finalized-manifest.json",
+    "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/terminal-summary.json",
+    "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/validator-receipt.json",
+    "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/independent-verification-receipt.json"
+  ],
+  "scoreboard_before_sha256": "dff946418c3c73e2b17746794c9d8fc142af75d911a2d5f1a316c6316e1daeea",
+  "scoreboard_after_sha256": "67c64368598a72fad105a6482632a1c10c72ef0deb9d5203fb4a1cdc04b56658",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
