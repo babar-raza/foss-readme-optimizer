@@ -17766,7 +17766,7 @@
     "updated_at": "2026-08-02T22:32:40.213971+00:00"
   },
   "schema_version": 2,
-  "state_version": 285,
+  "state_version": 286,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9ea1d6fb937d693198ddf58499e8a08fe4ce8302d9e49e0758a79e21f2381abb",
@@ -18047,13 +18047,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:agentic_composition:execution_error:LLMError: composition diagram assigns infrastructure or non-product facts to visitor roles: input:'Java source code' is not grounded in its cited fact text",
       "last_checkpoint_id": "6e06980f4f7a6e902ecb3b590f1c85b543026e35e14cac8fdabbc3d5bd4f399f",
-      "lease_expires_at": "2026-08-02T22:52:39.072674+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T22:42:45.884669+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-02T22:43:07.905470+00:00"
     }
   },
   "trigger_records": {},
