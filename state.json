@@ -3756,68 +3756,19 @@
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "1cf5640ef1a8a2fd7cb28c5ed1dd38e94b50028c8d6979af173eae123646eda4",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does ('provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET') using a concrete verb ('working').",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and common tasks (working with 3D scenes/models), and the 'About' section elaborates on the target user (developers building 3D apps).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The MIT License is prominently displayed in the first paragraph and again in the License section, and GitHub will recognize it as a license file; badges are not present but not required per the standard.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install command names real package coordinates (`Aspose.3D.FOSS`) and uses the correct .NET CLI syntax; assuming the package exists on NuGet (as implied by context), this satisfies the dimension.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "The 'Quick Start' section provides a runnable C# code block beyond the install snippet, demonstrating scene creation and saving to OBJ.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Headers use consistent Markdown levels (`##`), and the section order follows the expected intent: product description \u2192 features/status \u2192 install \u2192 examples \u2192 resources \u2192 license.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a library whose interface is purely API-based; the standard explicitly allows this for document/data-processing libraries like 3D format converters.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README mentions contributing but lacks GitHub-recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) \u2014 only README and LICENSE are present, so GitHub's quick-link row will show only two items.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and the 'Status' section honestly describes the work-in-progress nature \u2014 this aligns with the standard's requirement that maintenance signals be structural, not prose.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial edition is mentioned exactly once in factual/capability-extension language (in the first paragraph and again in 'About' and 'Limitations'), placed after the product explanation, with no promotional language or repeated links.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions; the main gap is in contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files), which is a GitHub-file presence issue rather than a README content issue."
+        "status": "DEFERRED_UPSTREAM_FAILURE",
+        "upstream_domain": "readme_presentation",
+        "upstream_failure_reason": "presentation_plan",
+        "upstream_status": "CHANGED"
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-26T08:38:05.653000+00:00",
+      "last_run_timestamp": "2026-08-02T20:51:15.415583+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -9316,7 +9267,7 @@
     "updated_at": "2026-08-02T20:36:02.890860+00:00"
   },
   "schema_version": 2,
-  "state_version": 644,
+  "state_version": 645,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ccdd9e2fc364cf6cc8eac891a2e6b23ff41561957c5c635a74a1842928f2656",
