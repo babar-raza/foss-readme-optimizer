@@ -917,7 +917,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "0f92d19afe39a61c881b6c2def168dbe0e7c0eb51eb19b97937cb9c96d938c8b",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "bundle_verification": {
@@ -994,6 +994,17 @@
           "valid": true
         },
         "fresh_fingerprint": "bdd8cb73e9051847687888fc05a9464b1ab330798ec3aab36e13a9c5f22532ad",
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "REJECT_REPAIRABLE",
+          "failure_reason": "independent_review_repair_rerouted",
+          "message": "REJECT_REPAIRABLE",
+          "occurred_at": "2026-08-02T21:59:59.280053+00:00",
+          "schema_version": 1,
+          "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "stage": null
+        },
         "llm_called": true,
         "llm_calls": [
           "relationship_explained"
@@ -6025,9 +6036,9 @@
         "written": true
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "independent_review_repair_rerouted",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-28T17:24:12.598543+00:00",
+      "last_run_timestamp": "2026-08-02T21:59:59.280053+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -6543,7 +6554,7 @@
     "updated_at": "2026-08-02T21:59:53.596881+00:00"
   },
   "schema_version": 2,
-  "state_version": 186,
+  "state_version": 187,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
