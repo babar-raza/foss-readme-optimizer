@@ -45855,6 +45855,18 @@
         "reason": "blind_quality:ACCEPT; factual_plan:ACCEPT",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\cded1049170d2f2d87a5\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T15:57:26.605617+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -45879,15 +45891,15 @@
     "prompt_hash": "d0e1e768ce32aaa1443062da91e3e9fa0e282badbe22ab0b3d58f12d4abbc9e2",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "6957ceec8aa813beb2c7b05629ca5f493704c420610b7ce7f24beae67265cdc1",
+    "repair_budget_origin_hash": "2df11a76b009b0433010244bdc334b2c78827a70b3d7224bdc784caf91ab877c",
     "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-08-02T15:55:21.713388+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T15:57:26.605617+00:00"
   },
   "schema_version": 2,
-  "state_version": 1838,
+  "state_version": 1839,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "641df57dee6673af9c6815bc1f59b7510d667db5c97839cd15db875c8bfdf043",
