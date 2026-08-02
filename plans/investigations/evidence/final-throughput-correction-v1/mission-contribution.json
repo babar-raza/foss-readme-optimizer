@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+  "stage_goal_id": "GOAL-P0-PLAN-FREEZE",
+  "campaign_id": "CAMP-PLAN-FREEZE",
+  "goal_ids": [
+    "GOAL-AUTONOMY",
+    "GOAL-MATURITY"
+  ],
+  "core_contribution": {
+    "kind": "indispensable_safety",
+    "summary": "Remove contradictory execution authority and freeze one reproducible accelerated campaign before product execution resumes."
+  },
+  "acceptance_checks_passed": [
+    "Clean committed PlanFreezeV1 binds every governed plan and control member",
+    "PipelineContractSnapshotV1 materializes and replays all 85 selected exact dirty bytes",
+    "Workers are bound to read-only snapshot inputs and selected stage dependency keys",
+    "Campaign 2 and Campaign 3 manifests reconcile graph membership, exact evidence, and durable transition identity without false task closure",
+    "The canonical Aspose.org catalog is data/aspose_org_links.json",
+    "The non-authoring independent verifier accepted the stable final boundary"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/final-throughput-correction-v1/freeze-acceptance-receipt-v1.json",
+    "plans/investigations/evidence/final-throughput-correction-v1/campaign-evidence-shared_acceleration-v1.json",
+    "plans/investigations/evidence/final-throughput-correction-v1/campaign-evidence-three_slices-v1.json",
+    "plans/investigations/evidence/final-throughput-correction-v1/independent-verification-receipt.json"
+  ],
+  "scoreboard_before_sha256": "7166f36e9456510789a7ac877608721add35c0ebf35da0058c2648daa873c1d4",
+  "scoreboard_after_sha256": "7166f36e9456510789a7ac877608721add35c0ebf35da0058c2648daa873c1d4",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
