@@ -1356,7 +1356,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "0f92d19afe39a61c881b6c2def168dbe0e7c0eb51eb19b97937cb9c96d938c8b",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "bundle_verification": {
@@ -3017,8 +3017,8 @@
           "domain": "readme_presentation",
           "error_type": "execution_error",
           "failure_reason": "agentic_composition",
-          "message": "LLMError: composition diagram assigns infrastructure or non-product facts to visitor roles: capability:'Read XLSX files' cites ['product.formats']; capability:'Write XLSX files' cites ['product.formats']",
-          "occurred_at": "2026-08-02T22:23:51.036324+00:00",
+          "message": "LLMError: composition diagram assigns infrastructure or non-product facts to visitor roles: input:'Java source code' is not grounded in its cited fact text",
+          "occurred_at": "2026-08-02T22:41:19.426379+00:00",
           "schema_version": 1,
           "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
           "stage": null
@@ -17102,9 +17102,9 @@
         "written": true
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "agentic_composition",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T22:32:45.585234+00:00",
+      "last_run_timestamp": "2026-08-02T22:41:19.426379+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -17744,7 +17744,7 @@
     "updated_at": "2026-08-02T22:32:40.213971+00:00"
   },
   "schema_version": 2,
-  "state_version": 279,
+  "state_version": 280,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "772851aeb22f116245b5fb5b53ad173a7e01e6069707a315d8315db47ed00faf",
