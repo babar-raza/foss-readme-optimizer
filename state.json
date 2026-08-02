@@ -126,7 +126,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-02T19:52:28.842694+00:00",
+    "last_evaluated_at": "2026-08-02T19:52:50.572826+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -256,19 +256,20 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-SHARED-ACCELERATION",
+      "campaign_id": "CAMP-THREE-SLICES",
       "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Freeze the known regression corpus and qualify one independent evidence-grounded reviewer plus typed risk-derived escalation."
+        "kind": "visible_deliverable",
+        "summary": "Deliver the first repository-verified Python README under the accepted presentation contract."
       },
       "goal_ids": [
+        "GOAL-TRUTH",
         "GOAL-README"
       ],
-      "stage_goal_id": "GOAL-V2-VERIFIED-GATE-A",
-      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS"
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY"
     },
     "task_statuses": {
-      "L8-ACCEL-00-PYTHON-READINESS": "SCORED",
+      "L8-ACCEL-00-PYTHON-READINESS": "CLOSED",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
       "L8-ACCEL-02-EIGHT-PYTHON": "TODO",
       "L8-ACCEL-03-ALL-PYTHON": "TODO",
@@ -6218,6 +6219,17 @@
         "reason": "Registry completeness, deterministic selection, cache preservation, provider accounting, and no-write controls satisfy the task acceptance boundary",
         "task_id": "L8-ACCEL-00-PYTHON-READINESS",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-accel-00-python-readiness-v1/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-08-02T19:52:50.572812+00:00",
+        "reason": "The deterministic Note/.NET/Java queue and full-registry legacy salvage baseline are committed, reproducible, independently accepted, and ready for execution",
+        "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -6227,7 +6239,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 715,
+  "state_version": 716,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
