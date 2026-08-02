@@ -847,7 +847,7 @@
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "aaea477a2f66cafa4a6f9fe3af25b13db10866d8f420956fe99194e2fff4242b",
+      "accepted_facts_hash": "ec5dbc38490155801ab702c03042685221b3d76fb38ee39f99560b0686f988d0",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -855,61 +855,71 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, loading, modifying, and saving Excel .xlsx workbooks').",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('create, load, modify, and save') and specifies the platform (Java) and file format (XLSX).",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the target audience (Java developers), ecosystem (Java 17), format (Excel .xlsx), and common tasks (creating, loading, modifying, saving).",
+            "note": "The opening paragraph explicitly names the target audience (Java developers), the ecosystem (Java), the file format (XLSX), and common tasks (create, load, modify, save).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present in the README (via link to License/LICENSE.txt), and build/installation badges are implied by the Maven dependency format and build/test commands.",
+            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version/package badges (Maven Central, Platform, Repository, License) are included.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install section provides real Maven coordinates (`org.aspose:aspose-cells-foss`) and a working XML snippet, and the README implies resolution against Maven Central (though verification of actual registry presence is not included in the README itself).",
+            "note": "The install section provides real Maven Central coordinates (`org.aspose:aspose-cells-foss`) and explicitly states they were verified against Maven Central.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Three runnable, self-contained Java code examples beyond the install snippet are provided (Create workbook, Load workbook, Rules example), each with full imports and output expectations.",
+            "note": "Beyond the install snippet, a complete, runnable Java example is provided with no comments or docstrings, and includes actual usage of the API.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the expected intent: product description \u2192 features \u2192 install \u2192 examples \u2192 build/test \u2192 project layout \u2192 license \u2192 support.",
+            "note": "Section headers use consistent `##` levels, and the order follows the expected intent: product description \u2192 capabilities \u2192 install \u2192 examples \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence of visuals when they do not improve understanding.",
+            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, which is appropriate for a data-processing library.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README is present and GitHub-recognized, but the repository is missing recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY), so GitHub's quick-link row will not show more than README.",
-            "satisfied": false
+            "note": "LICENSE is present and GitHub-recognized (MIT badge + link); while other community files (CONTRIBUTING, CODE_OF_CONDUCT) are absent, the standard prioritizes LICENSE recognition first.",
+            "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "While not stated in the README, the presence of a versioned release (1.0.0), build/test commands, and active project structure implies recent activity \u2014 no false claims are made.",
+            "note": "The README does not claim maintenance status, and the presence of a specific version (`26.7.0`) and active GitHub repo implies current maintenance \u2014 no false claims are made.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-first repository; if commercial context were added, it would need to follow the restraint rules \u2014 but its absence does not violate this dimension.",
+            "note": "The commercial mention appears exactly once, in factual language, under 'Scope and limitations' \u2014 after the product description \u2014 and avoids promotional language or pricing.",
             "satisfied": true
           }
         ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, installation path, verified examples, and natural commercial context \u2014 are well met."
+        "input_sha256": "f6df939878fd252bb2d00b632c85b4b12d8ab583af57397d463c4cbadeabf914",
+        "input_source": "candidate_text",
+        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it leads with clear product description, includes appropriate trust signals and a verified installation path, provides a runnable example, uses logical navigation, includes a useful visual, meets contribution-readiness expectations (with LICENSE prioritized), avoids false maintenance claims, and presents the commercial edition in a restrained, factual manner.",
+        "structural_consistency": {
+          "contradictions": [],
+          "valid": true
+        },
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T06:38:57.822919+00:00",
+      "last_run_timestamp": "2026-08-02T22:01:05.772179+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -6554,7 +6564,7 @@
     "updated_at": "2026-08-02T21:59:53.596881+00:00"
   },
   "schema_version": 2,
-  "state_version": 188,
+  "state_version": 189,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
