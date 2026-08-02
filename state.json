@@ -18343,8 +18343,8 @@
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "e372bd0bcece4474165aa350d781d2e00f237dd137f1d2bc9dac4f7b37a1816b",
-      "classification_semantics": "a63ad301eb075b7811a8ef1455b29046a409f0a113517cf1b0e6a8e92dcf23b7",
-      "conflict_semantics": "9b4d2f9608462d1360f734a9a93497a893fafa108b15fed5310e2870335bc35a",
+      "classification_semantics": "4d864ac8e0767ee975e315e0e906a4f57e76c0715caf3be688e95fbb261efacf",
+      "conflict_semantics": "8e967b3dd57c91d66ddfe04c662f13bbf75052f7c51d458a7e7e6bde5be3f35b",
       "drafting_and_example_selection": "e900e714070f61ef7e16448aa2f9c87edd79b9b89f74bf41c126019c56afd22b",
       "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
@@ -18352,7 +18352,7 @@
       "root_role_selection": "da703fc2d8489848a0dfebb75b64dacddfd4ecf819fe894eca11040d5f3081b0",
       "visitor_render_eligibility": "0d28a5905c09685f2489ec706dc37f669d623a5b747afc78698c788540375815"
     },
-    "fact_acceptance_contract_hash": "0cc7c29968f6ba9d87cd201d2e47359dd966f87f947b442c51a90715e8625b6b",
+    "fact_acceptance_contract_hash": "3e470fb2cdb0ff04600c4624563f6b88c1612d43ba07c4ad61e7e8ae38f3d019",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -18498,6 +18498,27 @@
         "occurred_at": "2026-08-01T20:48:35.790947+00:00",
         "outcome": "FACTS_READY",
         "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "e372bd0bcece4474165aa350d781d2e00f237dd137f1d2bc9dac4f7b37a1816b",
+          "classification_semantics": "4d864ac8e0767ee975e315e0e906a4f57e76c0715caf3be688e95fbb261efacf",
+          "conflict_semantics": "8e967b3dd57c91d66ddfe04c662f13bbf75052f7c51d458a7e7e6bde5be3f35b",
+          "drafting_and_example_selection": "e900e714070f61ef7e16448aa2f9c87edd79b9b89f74bf41c126019c56afd22b",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "da703fc2d8489848a0dfebb75b64dacddfd4ecf819fe894eca11040d5f3081b0",
+          "visitor_render_eligibility": "0d28a5905c09685f2489ec706dc37f669d623a5b747afc78698c788540375815"
+        },
+        "contract_hash": "3e470fb2cdb0ff04600c4624563f6b88c1612d43ba07c4ad61e7e8ae38f3d019",
+        "facts_hash": "563a240ba9e314893e93fd7f60321a0f39c2b8eed9e8647ed558c46d71d1f2d3",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-02T03:37:08.264011+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "legacy cached fact graph re-evaluated under the current contract",
         "schema_version": 1,
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
       }
@@ -24256,10 +24277,10 @@
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-01T20:48:33.937678+00:00"
+    "updated_at": "2026-08-02T03:37:08.264011+00:00"
   },
   "schema_version": 2,
-  "state_version": 1592,
+  "state_version": 1593,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
