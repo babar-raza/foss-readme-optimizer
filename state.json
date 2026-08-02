@@ -786,7 +786,7 @@
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "independent_verification": {
-      "accepted_facts_hash": "49985731fbe36f2123f503c44ca5b53d26ebc83cbb1e2c370c465c81d6c75094",
+      "accepted_facts_hash": "94efe31c2870dbe9541734b1b5c3dc22d5ae4ed51c1489272d50c62b7c0eca4d",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -798,12 +798,7 @@
           "adversarial_cross_domain"
         ],
         "completeness": {},
-        "failure_escalations": {
-          "readme_presentation": {
-            "consecutive_failure_count": 1,
-            "last_failure_reason": "independent_review_repair_rerouted"
-          }
-        },
+        "failure_escalations": {},
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -925,7 +920,7 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T22:01:18.754191+00:00",
+      "last_run_timestamp": "2026-08-02T22:14:02.665888+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -17635,7 +17630,7 @@
     "updated_at": "2026-08-02T22:12:43.511552+00:00"
   },
   "schema_version": 2,
-  "state_version": 214,
+  "state_version": 215,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "058f72ff92f514e0d310cbd73a7dc480887ba1580259379800d3355c0772a9d9",
