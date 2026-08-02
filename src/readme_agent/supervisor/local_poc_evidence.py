@@ -1,4 +1,4 @@
-"""Materialize revision-addressed local-POC snapshot evidence."""
+"""Materialize revision-addressed local-POC fact and candidate evidence."""
 
 from __future__ import annotations
 
@@ -15,123 +15,23 @@ from readme_agent.evidence.writer import (
 )
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
-from readme_agent.llm import prompt_registry
-from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
-from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.readme_poc_lifecycle import candidate_generation_origin_hash
+from readme_agent.supervisor.local_poc_snapshot_evidence import (
+    load_existing_local_poc_manifest,
+    write_local_poc_manifest,
+)
+from readme_agent.supervisor.local_poc_snapshot_evidence import (
+    mark_local_poc_profiled as mark_local_poc_profiled,
+)
+from readme_agent.supervisor.local_poc_snapshot_evidence import (
+    write_local_poc_snapshot as write_local_poc_snapshot,
+)
 from readme_agent.supervisor.local_poc_superseded import preserve_superseded_candidate
-
-
-def _existing_manifest(bundle_dir: Path, source_revision: str) -> dict:
-    manifest_path = bundle_dir / "manifest.json"
-    if not manifest_path.is_file():
-        return {}
-    loaded = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if not isinstance(loaded, dict) or loaded.get("source_revision") != source_revision:
-        return {}
-    return loaded
-
-
-def write_local_poc_manifest(
-    bundle_dir: Path,
-    manifest: dict,
-    *,
-    content_assurance: ContentAssuranceV1 | None = None,
-) -> None:
-    """Write one bundle manifest with cumulative, fail-closed LLM accounting."""
-
-    path = bundle_dir / "manifest.json"
-    prior: dict = {}
-    if path.is_file():
-        loaded = json.loads(path.read_text(encoding="utf-8"))
-        if isinstance(loaded, dict):
-            prior = loaded
-    write_redacted_json(
-        path,
-        {
-            **manifest,
-            "content_assurance": (
-                content_assurance
-                or manifest.get("content_assurance")
-                or prior.get("content_assurance")
-                or "repository_verified"
-            ),
-            "prompt_registry_content_hash": prompt_registry.content_hash(),
-            "prompt_hashes_by_id": prompt_registry.prompt_hashes(),
-            "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
-            **local_bundle_llm_accounting_fields(bundle_dir, prior),
-        },
-    )
-
-
-def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
-    """Write the immutable source portion of one local-POC bundle idempotently.
-
-    This deliberately records only the boundary actually reached.  Facts,
-    plans, candidates, reviews, and the final manifest are owned by their
-    later stages; writing placeholders for them would make an incomplete run
-    look presentation-ready.
-    """
-    org, repo = snapshot.org_repo.split("/", maxsplit=1)
-    bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
-    prior_manifest = _existing_manifest(bundle_dir, snapshot.source_revision)
-    source_dir = bundle_dir / "source"
-    write_redacted_json(source_dir / "revision.json", snapshot)
-    write_redacted_json(
-        source_dir / "repository-profile.json",
-        {
-            "org_repo": snapshot.org_repo,
-            "inventory_sha256": snapshot.inventory_sha256,
-            "package_roots": [root.model_dump(mode="json") for root in snapshot.package_roots],
-        },
-    )
-    if snapshot.readme_path is None:
-        write_redacted_json(
-            source_dir / "readme-absence.json",
-            {"reason": "README absent at immutable source revision"},
-        )
-    else:
-        readme = snapshot.root_path / snapshot.readme_path
-        write_redacted_text(source_dir / "README.md", readme.read_text(encoding="utf-8"))
-    if not prior_manifest:
-        write_local_poc_manifest(
-            bundle_dir,
-            {
-                "schema_version": 1,
-                "org_repo": snapshot.org_repo,
-                "source_revision": snapshot.source_revision,
-                "lifecycle_status": "SNAPSHOTTED",
-                "complete": False,
-                "completed_stages": ["SNAPSHOTTED"],
-            },
-        )
-    refresh_sha256sums(bundle_dir)
-    return bundle_dir
-
-
-def mark_local_poc_profiled(snapshot: RepositorySnapshotV1, bundle_dir: Path) -> None:
-    """Advance the bundle manifest after the durable profile transition."""
-    existing = _existing_manifest(bundle_dir, snapshot.source_revision)
-    if "PROFILED" in existing.get("completed_stages", []):
-        refresh_sha256sums(bundle_dir)
-        return
-    write_local_poc_manifest(
-        bundle_dir,
-        {
-            "schema_version": 1,
-            "org_repo": snapshot.org_repo,
-            "source_revision": snapshot.source_revision,
-            "lifecycle_status": "PROFILED",
-            "complete": False,
-            "completed_stages": ["SNAPSHOTTED", "PROFILED"],
-        },
-    )
-    refresh_sha256sums(bundle_dir)
 
 
 def write_local_poc_product_facts(
@@ -188,7 +88,7 @@ def write_local_poc_product_facts(
     if proposed_product_truth is not None:
         write_redacted_json(facts_dir / "proposed-product-truth.json", proposed_product_truth)
     facts_hash = facts.canonical_hash()
-    prior_manifest = _existing_manifest(bundle_dir, snapshot.source_revision)
+    prior_manifest = load_existing_local_poc_manifest(bundle_dir, snapshot.source_revision)
     if (
         prior_manifest.get("candidate_hash")
         and prior_manifest.get("facts_hash") == facts_hash
@@ -304,7 +204,7 @@ def bind_local_poc_fact_acceptance(
 ) -> None:
     """Attach the current contract to a still-valid later-stage manifest."""
 
-    manifest = _existing_manifest(bundle_dir, source_revision)
+    manifest = load_existing_local_poc_manifest(bundle_dir, source_revision)
     if not manifest:
         raise RuntimeError(
             f"cannot bind fact acceptance without a matching manifest at {bundle_dir}"
@@ -335,7 +235,7 @@ def reclassify_local_poc_fact_acceptance(
 ) -> None:
     """Reopen a stale later manifest at its current blocked fact boundary."""
 
-    manifest = _existing_manifest(bundle_dir, source_revision)
+    manifest = load_existing_local_poc_manifest(bundle_dir, source_revision)
     if not manifest:
         raise RuntimeError(
             f"cannot reclassify fact acceptance without a matching manifest at {bundle_dir}"

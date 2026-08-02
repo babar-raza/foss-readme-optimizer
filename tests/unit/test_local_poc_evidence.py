@@ -4,7 +4,11 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from readme_agent import paths
+from readme_agent.errors import RepositorySnapshotError
+from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 from readme_agent.facts.root_role_schema import (
     PackageRootRoleInventoryV1,
     PackageRootRoleV1,
@@ -29,17 +33,25 @@ from readme_agent.supervisor.local_poc_evidence import (
 )
 
 
-def _snapshot(tmp_path: Path, *, readme: bool = True) -> RepositorySnapshotV1:
+def _snapshot(
+    tmp_path: Path,
+    *,
+    readme: bool = True,
+    captured_at: str = "2026-07-25T00:00:00+00:00",
+) -> RepositorySnapshotV1:
     if readme:
         (tmp_path / "README.md").write_text("# Product\n", encoding="utf-8")
+    readme_sha256 = (
+        hashlib.sha256((tmp_path / "README.md").read_bytes()).hexdigest() if readme else None
+    )
     return RepositorySnapshotV1(
         org_repo="acme/product",
         source_revision="a" * 40,
         snapshot_root=str(tmp_path),
         readme_path="README.md" if readme else None,
-        readme_sha256="b" * 64 if readme else None,
+        readme_sha256=readme_sha256,
         inventory_sha256="c" * 64,
-        captured_at="2026-07-25T00:00:00+00:00",
+        captured_at=captured_at,
         provenance=SnapshotProvenanceV1(
             clone_url="https://example.test/acme/product.git", git_tree_sha256="c" * 64
         ),
@@ -64,6 +76,112 @@ def test_snapshot_bundle_is_revision_addressed_idempotent_and_checksum_complete(
     assert manifest["complete"] is False
     assert manifest["prompt_hashes_by_id"] == prompt_registry.prompt_hashes()
     assert manifest["prompt_dependency_hashes"]["FACTS_COLLECTING"]
+    assert verify_sha256sums(bundle)
+
+
+def test_same_revision_recapture_preserves_every_bundle_byte_and_mtime(tmp_path, monkeypatch):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    first_root = tmp_path / "first-capture"
+    second_root = tmp_path / "second-capture"
+    first_root.mkdir()
+    second_root.mkdir()
+    first = _snapshot(first_root)
+    bundle = write_local_poc_snapshot(first)
+    before = {
+        path.relative_to(bundle).as_posix(): (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in bundle.rglob("*")
+        if path.is_file()
+    }
+
+    second = _snapshot(
+        second_root,
+        captured_at="2026-07-26T12:34:56+00:00",
+    )
+    assert write_local_poc_snapshot(second) == bundle
+    after = {
+        path.relative_to(bundle).as_posix(): (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in bundle.rglob("*")
+        if path.is_file()
+    }
+
+    assert after == before
+    persisted = RepositorySnapshotV1.model_validate_json(
+        (bundle / "source" / "revision.json").read_text(encoding="utf-8")
+    )
+    assert persisted.captured_at == first.captured_at
+    assert persisted.snapshot_root == first.snapshot_root
+    assert verify_sha256sums(bundle)
+
+
+def test_snapshot_identity_mismatch_fails_without_overwriting_sealed_evidence(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    before = {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()}
+    mismatched = snapshot.model_copy(update={"inventory_sha256": "d" * 64})
+
+    with pytest.raises(RepositorySnapshotError, match="inventory"):
+        write_local_poc_snapshot(mismatched)
+
+    assert {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()} == before
+    assert verify_sha256sums(bundle)
+
+
+def test_checksum_corruption_fails_without_repair_or_overwrite(tmp_path, monkeypatch):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    revision_path = bundle / "source" / "revision.json"
+    revision_path.write_text("{}\n", encoding="utf-8")
+    corrupt_bytes = revision_path.read_bytes()
+    corrupt_inventory = (bundle / "sha256sums.txt").read_bytes()
+
+    with pytest.raises(RepositorySnapshotError, match="checksum inventory"):
+        write_local_poc_snapshot(snapshot)
+
+    assert revision_path.read_bytes() == corrupt_bytes
+    assert (bundle / "sha256sums.txt").read_bytes() == corrupt_inventory
+    assert not verify_sha256sums(bundle)
+
+
+@pytest.mark.parametrize("failure", ["missing", "malformed"])
+def test_invalid_revision_with_self_consistent_inventory_fails_closed(
+    tmp_path, monkeypatch, failure
+):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    revision_path = bundle / "source" / "revision.json"
+    if failure == "missing":
+        revision_path.unlink()
+    else:
+        revision_path.write_text("{}\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
+    before = {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()}
+
+    with pytest.raises(RepositorySnapshotError, match="RepositorySnapshotV1"):
+        write_local_poc_snapshot(snapshot)
+
+    assert {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()} == before
+    assert verify_sha256sums(bundle)
+
+
+def test_source_readme_mismatch_with_valid_inventory_fails_without_overwrite(tmp_path, monkeypatch):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    persisted_readme = bundle / "source" / "README.md"
+    persisted_readme.write_text("# Replaced evidence\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
+    before = {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()}
+
+    with pytest.raises(RepositorySnapshotError, match="sealed README differs"):
+        write_local_poc_snapshot(snapshot)
+
+    assert {path: path.read_bytes() for path in bundle.rglob("*") if path.is_file()} == before
+    assert verify_sha256sums(bundle)
 
 
 def test_missing_readme_is_explicit_evidence_not_a_fake_empty_readme(tmp_path, monkeypatch):
@@ -73,6 +191,23 @@ def test_missing_readme_is_explicit_evidence_not_a_fake_empty_readme(tmp_path, m
 
     assert (bundle / "source" / "readme-absence.json").is_file()
     assert not (bundle / "source" / "README.md").exists()
+    before = {
+        path.relative_to(bundle).as_posix(): (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in bundle.rglob("*")
+        if path.is_file()
+    }
+    recaptured = _snapshot(
+        tmp_path,
+        readme=False,
+        captured_at="2026-07-27T00:00:00+00:00",
+    )
+    assert write_local_poc_snapshot(recaptured) == bundle
+    assert {
+        path.relative_to(bundle).as_posix(): (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in bundle.rglob("*")
+        if path.is_file()
+    } == before
+    assert verify_sha256sums(bundle)
 
 
 def test_profile_boundary_updates_manifest_without_claiming_completion(tmp_path, monkeypatch):
