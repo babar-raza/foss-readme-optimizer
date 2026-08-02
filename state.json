@@ -3757,7 +3757,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "67e8ba5071bb3166ee81382a78b715e5a77bcd605f58e075d223421e9dc0b722",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3972,6 +3972,17 @@
           "agentic_review_reused": true,
           "lifecycle_status_reused": "AGENT_APPROVED",
           "outcome_kind": "unchanged_no_op"
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "execution_error",
+          "failure_reason": "agentic_composition",
+          "message": "LLMError: composition diagram returned duplicate labels",
+          "occurred_at": "2026-08-02T20:39:45.277671+00:00",
+          "schema_version": 1,
+          "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -7610,9 +7621,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "agentic_composition",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-28T17:11:22.786792+00:00",
+      "last_run_timestamp": "2026-08-02T20:39:45.277671+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -9237,7 +9248,7 @@
     "updated_at": "2026-08-02T20:36:02.890860+00:00"
   },
   "schema_version": 2,
-  "state_version": 628,
+  "state_version": 629,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "3ccdd9e2fc364cf6cc8eac891a2e6b23ff41561957c5c635a74a1842928f2656",
