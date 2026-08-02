@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V1-VERIFIED-TRUTH",
-    "active_task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "active_task_id": null,
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 4,
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 4
     },
-    "claim_expires_at": "2026-08-02T03:24:54.499925+00:00",
-    "claim_id": "ffefd7dcbe84427eb89957d585ca6054",
-    "claimed_at": "2026-08-02T02:54:54.499925+00:00",
-    "claimed_by": "Codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "a60e1a073ab401ff3c9754c4ea1541a89e83181d7e612240347aabdff8c4fdbb",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -69,7 +69,7 @@
       }
     ],
     "graph_sha256": "a60e1a073ab401ff3c9754c4ea1541a89e83181d7e612240347aabdff8c4fdbb",
-    "last_evaluated_at": "2026-08-02T07:30:22.802307+00:00",
+    "last_evaluated_at": "2026-08-02T07:30:59.690734+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -280,7 +280,7 @@
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
       "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION": "CLOSED",
-      "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "IN_PROGRESS",
+      "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": "REGRESSED",
       "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION": "CLOSED",
       "L8-WAVE4-PRESENTATION-INTELLIGENCE": "TODO",
       "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": "TODO",
@@ -5876,6 +5876,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "runs/multi-agent/validator-evidence/mission-reconcile-python-visible-01/reconciliation.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "Codex",
+        "occurred_at": "2026-08-02T07:30:59.690727+00:00",
+        "reason": "Current evidence reports zero candidate, validation, approval, and no-op results; visible Python canaries must be requalified before broader truth work continues.",
+        "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -5885,7 +5896,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 683,
+  "state_version": 684,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
