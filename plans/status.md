@@ -40,10 +40,10 @@ Current completion is derived from the runtime registry, durable repository life
 
 ### Live mission
 
-- Durable state version: `698`.
-- Active task: `L8-PLAN-RECONCILIATION-ACCELERATION`.
-- Active goal: `GOAL-P0-PLAN-FREEZE`.
-- Claim: `f61641e939264611863df4e6b46f6a10`; expires `2026-08-02T18:01:42.406198+00:00`.
+- Durable state version: `703`.
+- Active task: `-`.
+- Active goal: `GOAL-V0-VERIFIED-PYTHON-POC`.
+- Claim: `-`; expires `-`.
 - Loaded graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`.
 - Durable graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`; drift: **false**.
 
