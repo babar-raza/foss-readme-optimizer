@@ -19,7 +19,7 @@
     "claimed_at": "2026-08-02T17:05:18.888548+00:00",
     "claimed_by": "codex-plan-reconciliation",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "c97fb06942ecfef1ed3a7f47bd54a5b59572beb302275a52be8bf63f91f2b2b2",
+    "goal_activation_graph_sha256": "799c28d583f79e626be855daa65122a87f8a9df40d320509ab6ad05ddb4c3fd8",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -86,8 +86,8 @@
         "to_primary_goal_id": "GOAL-P0-PLAN-FREEZE"
       }
     ],
-    "graph_sha256": "c97fb06942ecfef1ed3a7f47bd54a5b59572beb302275a52be8bf63f91f2b2b2",
-    "last_evaluated_at": "2026-08-02T17:05:18.888548+00:00",
+    "graph_sha256": "799c28d583f79e626be855daa65122a87f8a9df40d320509ab6ad05ddb4c3fd8",
+    "last_evaluated_at": "2026-08-02T17:31:22.679836+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -217,6 +217,7 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
+      "campaign_id": "CAMP-PLAN-FREEZE",
       "core_contribution": {
         "kind": "first_boundary_removal",
         "summary": "Remove contradictory execution authority and freeze one reproducible accelerated campaign."
@@ -6017,7 +6018,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 692,
+  "state_version": 693,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
