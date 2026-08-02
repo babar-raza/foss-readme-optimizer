@@ -18,6 +18,9 @@ _PRODUCT_LINK = re.compile(
 )
 _ASPOSE_SCOPE = re.compile(r"\bAspose(?:\.[A-Za-z0-9]+)?\b|https://[^ \t)\]]*aspose\.com", re.I)
 _FOSS_RELATIONSHIP_SCOPE = re.compile(r"\b(?:the\s+)?FOSS edition\b", re.IGNORECASE)
+_ASPOSE_FOSS_IDENTITY = re.compile(
+    r"^(Aspose\.[A-Za-z0-9]+)\s+FOSS(?:\s+for\s+.+)?$",
+)
 _PROHIBITED = re.compile(
     r"\b(?:"
     r"(?:full[- ]featured\s+|full\s+)?commercial(?:\s+On-Premise)?"
@@ -61,7 +64,13 @@ def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str | None:
     identity = visitor_fact_render_view(facts, "product.identity")
     if identity is None or not identity.phrases:
         raise ValueError("Enterprise terminology requires accepted product identity")
-    product_name = identity.phrases[0].replace(" FOSS", "", 1).strip()
+    accepted_identity = identity.phrases[0].strip()
+    foss_identity = _ASPOSE_FOSS_IDENTITY.fullmatch(accepted_identity)
+    product_name = (
+        foss_identity.group(1)
+        if foss_identity is not None
+        else accepted_identity.replace(" FOSS", "", 1).strip()
+    )
     if (
         not product_name.startswith("Aspose.")
         or len(product_name) <= len("Aspose.")

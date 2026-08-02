@@ -4,10 +4,46 @@ from __future__ import annotations
 
 import pytest
 
+from readme_agent.links import terminology
 from readme_agent.links.terminology import (
     canonicalize_enterprise_edition,
+    enterprise_product_name_from_facts,
     find_enterprise_terminology_findings,
 )
+
+
+def test_accepted_foss_identity_derives_family_level_enterprise_base(monkeypatch) -> None:
+    phrases = ["Aspose.Note FOSS for Python"]
+    monkeypatch.setattr(
+        terminology,
+        "visitor_fact_render_view",
+        lambda facts, field: type("View", (), {"phrases": phrases})(),
+    )
+
+    product_name = enterprise_product_name_from_facts(object())  # type: ignore[arg-type]
+    rendered, corrections = canonicalize_enterprise_edition(
+        "Install `aspose-note` and see "
+        "[Aspose.Note for Python](https://products.aspose.com/note/python-net/).\n",
+        enterprise_product_name=product_name or "",
+    )
+
+    assert product_name == "Aspose.Note"
+    assert corrections
+    assert rendered == (
+        "Install `aspose-note` and see "
+        "[Aspose.Note Enterprise Edition](https://products.aspose.com/note/python-net/).\n"
+    )
+    assert phrases == ["Aspose.Note FOSS for Python"]
+
+
+def test_non_aspose_identity_remains_outside_enterprise_terminology(monkeypatch) -> None:
+    monkeypatch.setattr(
+        terminology,
+        "visitor_fact_render_view",
+        lambda facts, field: type("View", (), {"phrases": ["Acme.Note FOSS for Python"]})(),
+    )
+
+    assert enterprise_product_name_from_facts(object()) is None  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(
