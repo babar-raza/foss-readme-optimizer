@@ -6489,6 +6489,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:qf-1@Quick start:example_presentation; factual_plan:ACCEPT",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "example_presentation"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-02T21:58:49.887282+00:00",
+        "reason": "entering repair attempt 1/2: Revise Quick start for example_presentation around exact span: ```java\nimport org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}\n```",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "REPAIRING"
       }
     ],
     "intake_preflight_history": [
@@ -6512,16 +6523,16 @@
     "presentation_plan_hash": "0858fb4b7ae7734d5dbe5b64250caf2cab73f169c1e9b5d6aaf70f91cf7bfb43",
     "prompt_hash": null,
     "protected_content_fingerprint": null,
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "41f189c352fb8ff8b3b0ee31ba4d27e77ac6b3fac5a29009de5de994438c1cd2",
     "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-02T21:58:44.446281+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-02T21:58:49.887282+00:00"
   },
   "schema_version": 2,
-  "state_version": 184,
+  "state_version": 185,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
