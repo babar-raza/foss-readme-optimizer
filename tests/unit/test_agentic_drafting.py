@@ -14,6 +14,10 @@ from pydantic import ValidationError
 from readme_agent.errors import LLMError
 from readme_agent.facts import agentic_drafting
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
+from readme_agent.facts.interpretive_evidence import InterpretiveClaimV1
+from readme_agent.facts.interpretive_resolution import (
+    reconcile_final_interpretive_grounding,
+)
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
     FactRecordV2,
@@ -112,6 +116,116 @@ class TestCitableObjectiveFacts:
 
         assert citable["facts"] == []
         assert citable["org_repo"] == ORG_REPO
+
+
+class TestFinalInterpretiveResolution:
+    @staticmethod
+    def _gated_draft_fact(field_name: str, value, qualifier: str) -> FactRecordV2:
+        fact = _fact(field_name, value, qualifier=qualifier)
+        return fact.model_copy(
+            update={
+                "source": FactSourceV2(
+                    source_type="mechanical_repository",
+                    location=(
+                        "repository://verified-empty"
+                        if value == []
+                        else "repository://src/widget.py"
+                    ),
+                    source_revision="abc1234",
+                )
+            }
+        )
+
+    @staticmethod
+    def _reconcile(
+        facts: ProductFactsV2,
+        candidate: FactRecordV2,
+        problem_claims: list[InterpretiveClaimV1] | None = None,
+    ) -> dict[str, FactRecordV2]:
+        identity = facts.selected_fact("product.identity")
+        return reconcile_final_interpretive_grounding(
+            facts_before_attempt=facts,
+            gated_facts={"product.limitations": candidate},
+            audience_claims=[
+                InterpretiveClaimV1(
+                    claim_id="audience",
+                    text="Developers using Python.",
+                    supporting_fact_ids=[identity.fact_id],
+                )
+            ],
+            problem_claims=problem_claims or [],
+            source_revision="abc1234",
+            observed_at=None,
+        )
+
+    def test_empty_agent_limitations_do_not_erase_repository_constraints(self):
+        identity = _fact(
+            "product.identity",
+            {"family": "Note", "ecosystem": "Python"},
+            qualifier="identity",
+        )
+        established = _fact(
+            "product.limitations",
+            ["Password-protected documents are not supported."],
+            qualifier="repository-evidence",
+        )
+        facts = _facts_so_far(identity, established)
+        empty_draft = self._gated_draft_fact("product.limitations", [], "agent-drafted-evidence")
+        problem_claim = InterpretiveClaimV1(
+            claim_id="problem",
+            text="Password-protected documents are not supported.",
+            supporting_fact_ids=[established.fact_id],
+        )
+
+        reconciled = self._reconcile(facts, empty_draft, [problem_claim])
+
+        assert reconciled["product.limitations"] == established
+        assert reconciled["product.problems_solved"].verification_state == "verified"
+        assert reconciled["product.problems_solved"].supporting_fact_ids == [established.fact_id]
+
+    def test_nonempty_accepted_agent_limitations_replace_established_constraints(self):
+        identity = _fact(
+            "product.identity",
+            {"family": "Note", "ecosystem": "Python"},
+            qualifier="identity",
+        )
+        established = _fact(
+            "product.limitations",
+            ["Old repository constraint."],
+            qualifier="repository-evidence",
+        )
+        facts = _facts_so_far(identity, established)
+        replacement = self._gated_draft_fact(
+            "product.limitations",
+            ["New evidence-backed constraint."],
+            "agent-drafted-evidence",
+        )
+
+        reconciled = self._reconcile(facts, replacement)
+
+        assert reconciled["product.limitations"] == replacement
+
+    def test_blocked_agent_limitations_fall_back_to_established_constraints(self):
+        identity = _fact(
+            "product.identity",
+            {"family": "Note", "ecosystem": "Python"},
+            qualifier="identity",
+        )
+        established = _fact(
+            "product.limitations",
+            ["Repository constraint."],
+            qualifier="repository-evidence",
+        )
+        facts = _facts_so_far(identity, established)
+        blocked = self._gated_draft_fact(
+            "product.limitations",
+            {"evidence_failures": ["stale source anchor"]},
+            "agent-drafted-evidence",
+        ).model_copy(update={"verification_state": "blocked", "confidence": 0.0})
+
+        reconciled = self._reconcile(facts, blocked)
+
+        assert reconciled["product.limitations"] == established
 
 
 class TestFormatRepairHints:

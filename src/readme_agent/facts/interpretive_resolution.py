@@ -22,6 +22,31 @@ def _accepted(fact: FactRecordV2) -> bool:
     return fact.verification_state in _ACCEPTED_STATES and not fact.has_unresolved_conflict
 
 
+def retain_established_repository_limitations(
+    field: str,
+    candidate: FactRecordV2,
+    established: FactRecordV2,
+) -> bool:
+    """Keep proved constraints when an interpretive repair contributes none."""
+
+    repository_sources = {
+        "mechanical_repository",
+        "mechanical_manifest",
+        "mechanical_test",
+    }
+    return (
+        field == "product.limitations"
+        and _accepted(candidate)
+        and candidate.value == []
+        and candidate.source.location == "repository://verified-empty"
+        and established.source.source_type in repository_sources
+        and isinstance(established.value, list)
+        and bool(established.value)
+        and _accepted(established)
+        and candidate.source.source_revision == established.source.source_revision
+    )
+
+
 def _replace_selected(
     facts: ProductFactsV2,
     replacements: Mapping[str, FactRecordV2],
@@ -64,7 +89,10 @@ def reconcile_final_interpretive_grounding(
         if candidate is None:
             continue
         established = facts_before_attempt.selected_fact(field)
-        selected = candidate if _accepted(candidate) else established
+        if retain_established_repository_limitations(field, candidate, established):
+            selected = established
+        else:
+            selected = candidate if _accepted(candidate) else established
         if not _accepted(selected):
             selected = candidate
         reconciled[field] = selected

@@ -54,8 +54,12 @@ from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
 from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.code_normalization import normalize_generated_code
 from readme_agent.facts.example_quality import generated_example_quality_failures
+from readme_agent.facts.example_value import assess_minimal_example_value
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
-from readme_agent.facts.interpretive_resolution import reconcile_final_interpretive_grounding
+from readme_agent.facts.interpretive_resolution import (
+    reconcile_final_interpretive_grounding,
+    retain_established_repository_limitations,
+)
 from readme_agent.facts.local_verification import (
     LocalProductVerificationV1,
     verify_local_product_example,
@@ -200,6 +204,20 @@ def _replace_facts(
     )
 
 
+def _retain_established_technical_facts(
+    facts_so_far: ProductFactsV2,
+    updates: dict[str, FactRecordV2],
+) -> dict[str, FactRecordV2]:
+    """Keep stronger repository facts after the intentionally blank drafting view."""
+
+    retained = dict(updates)
+    for field_name, candidate in updates.items():
+        established = facts_so_far.selected_fact(field_name)
+        if retain_established_repository_limitations(field_name, candidate, established):
+            retained[field_name] = established
+    return retained
+
+
 class DraftProductTruthOrchestrationResultV1(BaseModel):
     """`orchestrate_product_truth_draft()`'s own return value. `gated_facts`
     always has exactly the 6 `_GATED_FIELDS` keys, whatever the outcome --
@@ -314,6 +332,15 @@ def _gate_minimal_example(
         allow_partial_symbols=True,
     )
     quality_failures = generated_example_quality_failures(example.language, example.code)
+    if example.language == "python" and not quality_failures:
+        value_assessment = assess_minimal_example_value(example.language, example.code)
+        if not value_assessment.approval_eligible:
+            quality_failures.append(
+                "minimal Python README example is "
+                f"{value_assessment.classification.replace('_', ' ')}; regenerate or select "
+                "a verified public workflow that performs a meaningful product operation and "
+                "produces an observable result"
+            )
     if pre_check_failures or quality_failures:
         return FactRecordV2(
             fact_id=descriptive_fact_id(
@@ -384,6 +411,30 @@ def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftPro
     if normalized_example == example:
         return draft
     return draft.model_copy(update={"minimal_example": normalized_example})
+
+
+def _repository_example_preference(
+    candidate: MinimalExamplePolicy,
+    requested: MinimalExamplePolicy,
+    repository_position: int,
+) -> tuple[bool, bool, int, int, int, str]:
+    """Prefer a complete workflow, then retain the repository author's order."""
+
+    if candidate.language == "python":
+        value = assess_minimal_example_value(candidate.language, candidate.code)
+        incomplete = not value.approval_eligible
+        score = -value.score
+    else:
+        incomplete = False
+        score = 0
+    return (
+        candidate.class_name.casefold() != requested.class_name.casefold(),
+        incomplete,
+        score,
+        repository_position,
+        len(candidate.code),
+        candidate.evidence_paths[0],
+    )
 
 
 def _gate_draft(
@@ -530,14 +581,13 @@ def orchestrate_product_truth_draft(
                     draft.minimal_example.language,
                 )
                 repository_examples = [*readme_examples, *source_examples]
-                repository_examples.sort(
-                    key=lambda candidate: (
-                        candidate.class_name.casefold()
-                        != draft.minimal_example.class_name.casefold(),
-                        len(candidate.code),
-                        candidate.evidence_paths[0],
+                indexed_examples = list(enumerate(repository_examples))
+                indexed_examples.sort(
+                    key=lambda item: _repository_example_preference(
+                        item[1], draft.minimal_example, item[0]
                     )
                 )
+                repository_examples = [candidate for _index, candidate in indexed_examples]
                 for repository_example in repository_examples:
                     fallback_fact = _gate_minimal_example(
                         repository_example,
@@ -558,11 +608,14 @@ def orchestrate_product_truth_draft(
                 draft = draft.model_copy(update={"minimal_example": verified_repository_example})
                 assert verified_repository_fact is not None
                 gated["example.minimal"] = verified_repository_fact
-        passed_evidence_facts = {
-            field_name: fact
-            for field_name, fact in gated.items()
-            if field_name in _EVIDENCE_BACKED_FIELDS and fact.verification_state == "verified"
-        }
+        passed_evidence_facts = {}
+        for field_name, fact in gated.items():
+            if field_name not in _EVIDENCE_BACKED_FIELDS or fact.verification_state != "verified":
+                continue
+            established = current_facts.selected_fact(field_name)
+            if retain_established_repository_limitations(field_name, fact, established):
+                continue
+            passed_evidence_facts[field_name] = fact
         if passed_evidence_facts:
             current_facts = _replace_facts(current_facts, passed_evidence_facts)
         problem_fact = gated.get("product.problems_solved")
@@ -771,6 +824,7 @@ def execute(
         entry=entry,
         local_verification=selected_verification,
     )
+    gated_updates = _retain_established_technical_facts(facts_so_far, gated_updates)
     candidates = [fact for fact in facts_so_far.facts if fact.field not in gated_updates]
     candidates.extend(gated_updates.values())
     resolved = resolve_product_facts(

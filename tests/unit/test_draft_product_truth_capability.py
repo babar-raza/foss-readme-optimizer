@@ -284,6 +284,39 @@ class TestAllFieldsPass:
         )
 
 
+class TestEstablishedRepositoryLimitations:
+    def test_empty_draft_does_not_erase_same_revision_repository_constraints(self, tmp_path):
+        root = _make_repo(tmp_path)
+        facts = _facts_so_far()
+        established = _established_fact(
+            "product.limitations",
+            ["Password-protected documents are not supported."],
+            "executable-constraints",
+        )
+        facts = ProductFactsV2(
+            org_repo=facts.org_repo,
+            facts=[
+                established if fact.field == "product.limitations" else fact for fact in facts.facts
+            ],
+            selected_fact_ids={
+                **facts.selected_fact_ids,
+                "product.limitations": established.fact_id,
+            },
+        )
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            facts,
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, current: _good_draft(),
+            verify_example_fn=_always_verified_example,
+        )
+
+        assert result.gated_facts["product.limitations"] == established
+
+
 class TestOneFieldBlockedThenRepaired:
     def test_repair_hint_fixes_the_blocked_field_on_second_attempt(self, tmp_path):
         root = _make_repo(tmp_path)
@@ -838,7 +871,11 @@ class TestGeneratedExampleQuality:
                 "minimal_example": _good_draft().minimal_example.model_copy(
                     update={
                         "language": "python",
-                        "code": "from package import Widget\n\nwidget = Widget()\n",
+                        "code": (
+                            "from package import Widget\n\n"
+                            "widget = Widget()\n"
+                            'widget.save("output.bin")\n'
+                        ),
                     }
                 )
             }
@@ -1029,6 +1066,60 @@ func main() {
         assert "explanation" not in result.draft.minimal_example.code
         assert result.gated_facts["example.minimal"].verification_state == "verified"
 
+    def test_python_fallback_selects_complete_workflow_before_setup_only(self, tmp_path):
+        root = _make_repo(tmp_path)
+        setup_only = """from aspose_pdf import Document
+
+document = Document()
+"""
+        complete = """from aspose_pdf import Document
+
+with Document() as document:
+    document.pages.add()
+    document.save("output.pdf")
+"""
+        (root / "README.md").write_text(
+            f"""# Widget
+
+```python
+{setup_only}```
+
+```python
+{complete}```
+""",
+            encoding="utf-8",
+        )
+        bad = _good_draft().model_copy(
+            update={
+                "minimal_example": MinimalExamplePolicy(
+                    language="python",
+                    class_name="readme_example",
+                    code=setup_only,
+                    evidence_paths=["README.md"],
+                    required_symbols=["from aspose_pdf import Document"],
+                )
+            }
+        )
+        verified: list[str] = []
+
+        def verify(example):
+            verified.append(example.code)
+            return _always_verified_example(example)
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=lambda hints, facts: bad,
+            verify_example_fn=verify,
+        )
+
+        assert verified == [complete], result.model_dump_json(indent=2)
+        assert result.draft.minimal_example.code == complete
+        assert result.gated_facts["example.minimal"].verification_state == "verified"
+
 
 class TestGatedFieldsExhaustive:
     def test_all_six_gated_fields_always_present_in_result(self, tmp_path):
@@ -1083,6 +1174,40 @@ class TestReplaceFacts:
 
         assert updated.selected_fact("product.capabilities").fact_id == new_capabilities.fact_id
         assert len([f for f in updated.facts if f.field == "product.capabilities"]) == 1
+
+    def test_final_merge_retains_repository_limitations_hidden_from_drafting(self):
+        facts = _facts_so_far()
+        established = _established_fact(
+            "product.limitations",
+            ["Only PDF save is supported."],
+            "executable-constraints",
+        )
+        facts = ProductFactsV2(
+            org_repo=facts.org_repo,
+            facts=[
+                established if fact.field == "product.limitations" else fact for fact in facts.facts
+            ],
+            selected_fact_ids={
+                **facts.selected_fact_ids,
+                "product.limitations": established.fact_id,
+            },
+        )
+        empty_draft = established.model_copy(
+            update={
+                "fact_id": "product.limitations:repository-evidence",
+                "value": [],
+                "source": established.source.model_copy(
+                    update={"location": "repository://verified-empty"}
+                ),
+            }
+        )
+
+        updates = capability._retain_established_technical_facts(
+            facts,
+            {"product.limitations": empty_draft},
+        )
+
+        assert updates["product.limitations"] == established
 
 
 class TestSourceBuildAcquisitionPromotion:
