@@ -35,6 +35,16 @@ def complete_supervise_command(
         result.evidence_dir = paths.evidence_dir(f"{fallback_run_id}/{repository_key}")
         persisted = state_backend.load(args.repo) if state_backend is not None else None
         readme_poc_lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
+        repository_snapshot = None
+        upstream_revision = None
+        if result.requested_readme_stage == "FACTS_READY":
+            from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+            from readme_agent.supervisor.facts_stage_evidence import load_facts_stage_snapshot
+
+            if not isinstance(readme_poc_lifecycle, ReadmePocLifecycleStateV2):
+                raise RuntimeError("facts-stage evidence requires a V2 README lifecycle")
+            repository_snapshot = load_facts_stage_snapshot(args.repo, readme_poc_lifecycle)
+            upstream_revision = repository_snapshot.source_revision
         with activate_lifecycle(lifecycle_recorder):
             evidence_module.write_supervise_evidence(
                 result.evidence_dir,
@@ -43,6 +53,8 @@ def complete_supervise_command(
                 result.status,
                 result.task_graph,
                 result.decisions,
+                upstream_revision=upstream_revision,
+                repository_snapshot=repository_snapshot,
                 readme_poc_lifecycle=readme_poc_lifecycle,
             )
         evidence_module.assert_evidence_complete(result.evidence_dir)

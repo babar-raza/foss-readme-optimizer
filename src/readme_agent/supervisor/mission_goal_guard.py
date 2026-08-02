@@ -8,7 +8,10 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
+from readme_agent import paths
 from readme_agent.errors import ConfigError
+from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.registry.loader import PRODUCTS_PATH, load_products
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import (
@@ -20,134 +23,14 @@ from readme_agent.state.mission_goal_schema import (
     MissionLifecycleBoundary,
     MissionLifecycleScoreboardV1,
 )
+from readme_agent.supervisor.mission_lifecycle_freshness import (
+    ACCEPTANCE_BOUNDARIES,
+    ORDERED_BOUNDARIES,
+    REACHED_STATUSES,
+    TRUSTED_REACHED_STATUSES,
+    evaluate_lifecycle_fact_freshness,
+)
 from readme_agent.supervisor.mission_schema import TaskCardV1
-
-_REACHED_STATUSES: dict[MissionLifecycleBoundary, frozenset[str]] = {
-    "FACTS_READY": frozenset(
-        {
-            "FACTS_READY",
-            "README_ASSESSED",
-            "PLAN_READY",
-            "CANDIDATE_GENERATED",
-            "DETERMINISTIC_VALIDATION_FAILED",
-            "DETERMINISTIC_VALIDATED",
-            "AGENT_REVIEWING",
-            "AGENT_REVIEW_REJECTED",
-            "REPAIRING",
-            "AGENT_APPROVED",
-            "NO_OP_PROVEN",
-            "HUMAN_REVIEW_READY",
-            "HUMAN_ACCEPTED",
-            "PR_ELIGIBLE",
-            "PR_PROOF_COMPLETE",
-        }
-    ),
-    "CANDIDATE_GENERATED": frozenset(
-        {
-            "CANDIDATE_GENERATED",
-            "DETERMINISTIC_VALIDATION_FAILED",
-            "DETERMINISTIC_VALIDATED",
-            "AGENT_REVIEWING",
-            "AGENT_REVIEW_REJECTED",
-            "REPAIRING",
-            "AGENT_APPROVED",
-            "NO_OP_PROVEN",
-            "HUMAN_REVIEW_READY",
-            "HUMAN_ACCEPTED",
-            "PR_ELIGIBLE",
-            "PR_PROOF_COMPLETE",
-        }
-    ),
-    "DETERMINISTIC_VALIDATED": frozenset(
-        {
-            "DETERMINISTIC_VALIDATED",
-            "AGENT_REVIEWING",
-            "AGENT_REVIEW_REJECTED",
-            "AGENT_APPROVED",
-            "NO_OP_PROVEN",
-            "HUMAN_REVIEW_READY",
-            "HUMAN_ACCEPTED",
-            "PR_ELIGIBLE",
-            "PR_PROOF_COMPLETE",
-        }
-    ),
-    "AGENT_APPROVED": frozenset(
-        {
-            "AGENT_APPROVED",
-            "NO_OP_PROVEN",
-            "HUMAN_REVIEW_READY",
-            "HUMAN_ACCEPTED",
-            "PR_ELIGIBLE",
-            "PR_PROOF_COMPLETE",
-        }
-    ),
-    "NO_OP_PROVEN": frozenset(
-        {
-            "NO_OP_PROVEN",
-            "HUMAN_REVIEW_READY",
-            "HUMAN_ACCEPTED",
-            "PR_ELIGIBLE",
-            "PR_PROOF_COMPLETE",
-        }
-    ),
-    "HUMAN_ACCEPTED": frozenset({"HUMAN_ACCEPTED", "PR_ELIGIBLE", "PR_PROOF_COMPLETE"}),
-    "MISSION_CLOSED": frozenset(),
-}
-_ORDERED_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
-    "FACTS_READY",
-    "CANDIDATE_GENERATED",
-    "DETERMINISTIC_VALIDATED",
-    "AGENT_APPROVED",
-    "NO_OP_PROVEN",
-    "HUMAN_ACCEPTED",
-)
-_ACCEPTANCE_BOUNDARIES: tuple[MissionLifecycleBoundary, ...] = (
-    "AGENT_APPROVED",
-    "NO_OP_PROVEN",
-    "HUMAN_ACCEPTED",
-)
-_TRUSTED_REACHED_STATUSES: dict[str, frozenset[str]] = {
-    "trusted_facts_extracted": frozenset(
-        {
-            "TRUSTED_FACTS_EXTRACTED",
-            "TRUSTED_PLAN_READY",
-            "TRUSTED_CANDIDATE_GENERATED",
-            "TRUSTED_DETERMINISTIC_VALIDATED",
-            "TRUSTED_REVIEWING",
-            "TRUSTED_REVIEW_REJECTED",
-            "TRUSTED_REPAIRING",
-            "TRUSTED_TRANSFORM_APPROVED",
-            "TRUSTED_NO_OP_PROVEN",
-            "TRUSTED_PR_ELIGIBLE",
-            "TRUSTED_PR_OPEN",
-        }
-    ),
-    "trusted_candidate_generated": frozenset(
-        {
-            "TRUSTED_CANDIDATE_GENERATED",
-            "TRUSTED_DETERMINISTIC_VALIDATED",
-            "TRUSTED_REVIEWING",
-            "TRUSTED_REVIEW_REJECTED",
-            "TRUSTED_REPAIRING",
-            "TRUSTED_TRANSFORM_APPROVED",
-            "TRUSTED_NO_OP_PROVEN",
-            "TRUSTED_PR_ELIGIBLE",
-            "TRUSTED_PR_OPEN",
-        }
-    ),
-    "trusted_transform_approved": frozenset(
-        {
-            "TRUSTED_TRANSFORM_APPROVED",
-            "TRUSTED_NO_OP_PROVEN",
-            "TRUSTED_PR_ELIGIBLE",
-            "TRUSTED_PR_OPEN",
-        }
-    ),
-    "trusted_no_op_proven": frozenset(
-        {"TRUSTED_NO_OP_PROVEN", "TRUSTED_PR_ELIGIBLE", "TRUSTED_PR_OPEN"}
-    ),
-    "trusted_pr_open": frozenset({"TRUSTED_PR_OPEN"}),
-}
 
 
 def _canonical_text_sha256(path: Path) -> str:
@@ -162,15 +45,16 @@ def derive_lifecycle_scoreboard(
     products_path: Path = PRODUCTS_PATH,
     verify_acceptance_freshness: bool = True,
 ) -> MissionLifecycleScoreboardV1:
-    """Read dynamic lifecycle progress and fail closed on stale acceptance proof."""
+    """Read dynamic lifecycle progress and fail closed on stale dependent proof."""
 
     entries = load_products(products_path)
     registry_sha256 = _canonical_text_sha256(products_path)
-    counts = {boundary: 0 for boundary in _ORDERED_BOUNDARIES}
-    trusted_counts = {boundary: 0 for boundary in _TRUSTED_REACHED_STATUSES}
-    raw_acceptance_counts = {boundary: 0 for boundary in _ACCEPTANCE_BOUNDARIES}
+    counts = {boundary: 0 for boundary in ORDERED_BOUNDARIES}
+    raw_counts = {boundary: 0 for boundary in ORDERED_BOUNDARIES}
+    trusted_counts = {boundary: 0 for boundary in TRUSTED_REACHED_STATUSES}
     status_counts: dict[str, int] = {}
     missing: list[str] = []
+    stale_facts: dict[str, list[str]] = {}
     stale_acceptance: dict[str, list[str]] = {}
     watermarks: list[str] = []
     org_repos = [entry.org_repo for entry in entries]
@@ -180,6 +64,8 @@ def derive_lifecycle_scoreboard(
         if callable(bulk_loader)
         else {org_repo: backend.load(org_repo) for org_repo in org_repos}
     )
+    fact_contract = current_fact_acceptance_contract() if verify_acceptance_freshness else None
+    verification_hash = local_verification_contract_hash() if verify_acceptance_freshness else None
 
     for entry in entries:
         state = states[entry.org_repo]
@@ -195,22 +81,43 @@ def derive_lifecycle_scoreboard(
             isinstance(lifecycle, ReadmePocLifecycleStateV2)
             and lifecycle.content_assurance == "trusted_inherited"
         ):
-            for boundary, reached_statuses in _TRUSTED_REACHED_STATUSES.items():
+            for boundary, reached_statuses in TRUSTED_REACHED_STATUSES.items():
                 if status in reached_statuses:
                     trusted_counts[boundary] += 1
-        for boundary in _ORDERED_BOUNDARIES:
-            if status in _REACHED_STATUSES[boundary]:
-                if boundary in raw_acceptance_counts:
-                    raw_acceptance_counts[boundary] += 1
+        for boundary in ORDERED_BOUNDARIES:
+            if status in REACHED_STATUSES[boundary]:
+                raw_counts[boundary] += 1
                 counts[boundary] += 1
 
+        facts_are_current = True
+        if verify_acceptance_freshness and status in REACHED_STATUSES["FACTS_READY"]:
+            source_revision = getattr(lifecycle, "source_revision", None)
+            org, repo = entry.org_repo.split("/", maxsplit=1)
+            bundle_dir = paths.readme_poc_repository_dir(
+                org,
+                repo,
+                source_revision or "0" * 40,
+            )
+            fact_decision = evaluate_lifecycle_fact_freshness(
+                state,
+                bundle_dir,
+                current_contract=fact_contract,
+                current_local_verification_hash=verification_hash,
+            )
+            facts_are_current = fact_decision.reusable
+            if not facts_are_current:
+                stale_facts[entry.org_repo] = fact_decision.mismatch_reasons
+                for boundary in ORDERED_BOUNDARIES:
+                    if status in REACHED_STATUSES[boundary]:
+                        counts[boundary] -= 1
+
         if (
-            verify_acceptance_freshness
+            facts_are_current
+            and verify_acceptance_freshness
             and isinstance(lifecycle, ReadmePocLifecycleStateV2)
             and lifecycle.content_assurance == "repository_verified"
-            and status in _REACHED_STATUSES["AGENT_APPROVED"]
+            and status in REACHED_STATUSES["AGENT_APPROVED"]
         ):
-            from readme_agent import paths
             from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
             from readme_agent.supervisor.local_poc_cache import (
                 evaluate_approved_local_poc_cache,
@@ -221,7 +128,7 @@ def derive_lifecycle_scoreboard(
             bundle_dir = paths.readme_poc_repository_dir(
                 org,
                 repo,
-                lifecycle.source_revision or "missing-source-revision",
+                lifecycle.source_revision or "0" * 40,
             )
             evaluator = (
                 evaluate_approved_local_poc_cache
@@ -238,13 +145,13 @@ def derive_lifecycle_scoreboard(
             )
             if not decision.reusable:
                 stale_acceptance[entry.org_repo] = decision.mismatch_reasons
-                for boundary in _ACCEPTANCE_BOUNDARIES:
-                    if status in _REACHED_STATUSES[boundary]:
+                for boundary in ACCEPTANCE_BOUNDARIES:
+                    if status in REACHED_STATUSES[boundary]:
                         counts[boundary] -= 1
 
     denominator = len(entries)
     first_failing: MissionLifecycleBoundary = "MISSION_CLOSED"
-    for boundary in _ORDERED_BOUNDARIES:
+    for boundary in ORDERED_BOUNDARIES:
         if counts[boundary] < denominator:
             first_failing = boundary
             break
@@ -263,17 +170,18 @@ def derive_lifecycle_scoreboard(
         agent_approved=counts["AGENT_APPROVED"],
         no_op_proven=counts["NO_OP_PROVEN"],
         human_accepted=counts["HUMAN_ACCEPTED"],
-        raw_agent_approved=raw_acceptance_counts["AGENT_APPROVED"],
-        raw_no_op_proven=raw_acceptance_counts["NO_OP_PROVEN"],
-        raw_human_accepted=raw_acceptance_counts["HUMAN_ACCEPTED"],
+        raw_facts_ready=raw_counts["FACTS_READY"],
+        raw_candidate_generated=raw_counts["CANDIDATE_GENERATED"],
+        raw_deterministic_validated=raw_counts["DETERMINISTIC_VALIDATED"],
+        raw_agent_approved=raw_counts["AGENT_APPROVED"],
+        raw_no_op_proven=raw_counts["NO_OP_PROVEN"],
+        raw_human_accepted=raw_counts["HUMAN_ACCEPTED"],
+        stale_fact_contract_repositories=dict(sorted(stale_facts.items())),
         stale_acceptance_repositories=dict(sorted(stale_acceptance.items())),
         missing_lifecycle_repositories=sorted(missing),
         lifecycle_status_counts=dict(sorted(status_counts.items())),
         first_failing_boundary=first_failing,
-        derived_at=max(
-            watermarks,
-            default=f"registry:{registry_sha256}",
-        ),
+        derived_at=max(watermarks, default=f"registry:{registry_sha256}"),
     )
 
 

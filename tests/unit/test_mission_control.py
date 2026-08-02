@@ -9,6 +9,14 @@ import pytest
 import yaml
 
 from readme_agent.errors import ConfigError
+from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+from readme_agent.facts.schema_v2 import (
+    REQUIRED_PRODUCT_FIELDS,
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 from readme_agent.registry.loader import load_products
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -27,6 +35,9 @@ from readme_agent.supervisor.mission_goal_guard import (
     lifecycle_scoreboard_sha256,
 )
 from readme_agent.supervisor.mission_graph import load_mission_graph
+from readme_agent.supervisor.mission_lifecycle_freshness import (
+    evaluate_lifecycle_fact_freshness,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 REAL_GRAPH = (
@@ -443,6 +454,14 @@ def test_dynamic_scoreboard_reports_raw_but_excludes_stale_acceptance(
         ),
     )
     monkeypatch.setattr(
+        "readme_agent.supervisor.mission_goal_guard.evaluate_lifecycle_fact_freshness",
+        lambda *args, **kwargs: type(
+            "Decision",
+            (),
+            {"reusable": True, "mismatch_reasons": []},
+        )(),
+    )
+    monkeypatch.setattr(
         "readme_agent.supervisor.local_poc_cache.evaluate_completed_local_poc_cache",
         lambda *args, **kwargs: type(
             "Decision",
@@ -464,6 +483,188 @@ def test_dynamic_scoreboard_reports_raw_but_excludes_stale_acceptance(
         entry.org_repo: ["current_template_hash_mismatch"]
     }
     assert scoreboard.first_failing_boundary == "AGENT_APPROVED"
+
+
+def test_dynamic_scoreboard_reports_raw_but_excludes_stale_fact_contract(
+    tmp_path,
+    monkeypatch,
+):
+    entry = load_products()[0]
+    products_path = tmp_path / "products.json"
+    source_products = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+    products_path.write_text(
+        json.dumps(
+            [
+                item
+                for item in source_products
+                if f"{item['repo_url'].split('/')[3]}/{item['repo_name']}" == entry.org_repo
+            ]
+        ),
+        encoding="utf-8",
+    )
+    backend = _MemoryStateBackend()
+    backend.records[entry.org_repo] = RunStateV1(
+        org_repo=entry.org_repo,
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            status="DETERMINISTIC_VALIDATED",
+            source_revision="a" * 40,
+        ),
+    )
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_goal_guard.evaluate_lifecycle_fact_freshness",
+        lambda *args, **kwargs: type(
+            "Decision",
+            (),
+            {
+                "reusable": False,
+                "mismatch_reasons": ["fact_acceptance_contract_hash_changed"],
+            },
+        )(),
+    )
+
+    scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
+
+    assert (
+        scoreboard.raw_facts_ready,
+        scoreboard.raw_candidate_generated,
+        scoreboard.raw_deterministic_validated,
+    ) == (1, 1, 1)
+    assert (
+        scoreboard.facts_ready,
+        scoreboard.candidate_generated,
+        scoreboard.deterministic_validated,
+    ) == (0, 0, 0)
+    assert scoreboard.stale_fact_contract_repositories == {
+        entry.org_repo: ["fact_acceptance_contract_hash_changed"]
+    }
+    assert scoreboard.first_failing_boundary == "FACTS_READY"
+
+
+def test_fact_freshness_reuses_public_truth_contract_without_state_mutation(tmp_path):
+    org_repo = "org/repo"
+    source_revision = "a" * 40
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://org/repo",
+        source_revision=source_revision,
+    )
+    renderable_values = {
+        "product.audience": ["Developers using Python"],
+        "product.problems_solved": ["Process note files"],
+        "product.capabilities": ["Create and inspect notes"],
+        "product.formats": ["ONE"],
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "mission-freshness-fixture"),
+            field=field,
+            value=renderable_values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+    contract = current_fact_acceptance_contract()
+    verification_hash = "b" * 64
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="FACTS_READY",
+        source_revision=source_revision,
+        facts_hash=facts.canonical_hash(),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    state = RunStateV1(org_repo=org_repo, readme_poc_lifecycle=lifecycle)
+    bundle_dir = tmp_path / "bundle"
+    (bundle_dir / "facts").mkdir(parents=True)
+    (bundle_dir / "facts" / "product-facts.json").write_text(
+        facts.model_dump_json(), encoding="utf-8"
+    )
+    (bundle_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "org_repo": org_repo,
+                "source_revision": source_revision,
+                "facts_hash": facts.canonical_hash(),
+                "content_assurance": "repository_verified",
+                "fact_acceptance_contract_hash": contract.canonical_hash(),
+                "fact_acceptance_component_hashes": contract.component_hashes,
+                "local_verification_contract_hash": verification_hash,
+            }
+        ),
+        encoding="utf-8",
+    )
+    state_before = state.model_dump(mode="json")
+
+    decision = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+
+    assert decision.reusable is True
+    assert decision.mismatch_reasons == []
+    assert state.model_dump(mode="json") == state_before
+
+    lifecycle.fact_acceptance_contract_hash = "0" * 64
+    classification_only_change = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+    assert classification_only_change.reusable is True
+
+    lifecycle.fact_acceptance_component_hashes = {
+        **contract.component_hashes,
+        "fact_schema": "0" * 64,
+    }
+    recollection_change = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+    assert recollection_change.reusable is False
+    assert recollection_change.mismatch_reasons == [
+        "fact_acceptance_recollection_component_changed"
+    ]
+
+    lifecycle.fact_acceptance_contract_hash = contract.canonical_hash()
+    lifecycle.fact_acceptance_component_hashes = contract.component_hashes
+    manifest_path = bundle_dir / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.pop("content_assurance")
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    missing_assurance = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+    assert missing_assurance.reusable is False
+    assert missing_assurance.mismatch_reasons == ["manifest_content_assurance_mismatch"]
+
+    manifest["content_assurance"] = "repository_verified"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    (bundle_dir / "facts" / "proposed-product-truth.json").write_text("{}", encoding="utf-8")
+    lifecycle.prompt_hash = "0" * 64
+    stale_prompt = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+    assert stale_prompt.reusable is False
+    assert stale_prompt.mismatch_reasons == ["draft_product_truth_prompt_hash_changed"]
 
 
 def test_lifecycle_scoreboard_registry_hash_is_line_ending_independent(tmp_path: Path):

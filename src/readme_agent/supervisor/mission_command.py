@@ -90,10 +90,17 @@ def run_mission_command(args: argparse.Namespace) -> int:
         print(f"no_op_proven: {scoreboard.no_op_proven}/{scoreboard.denominator}")
         print(f"human_accepted: {scoreboard.human_accepted}/{scoreboard.denominator}")
         print(
-            "raw_lifecycle_acceptance: "
+            "raw_lifecycle_progress: "
+            f"facts_ready={scoreboard.raw_facts_ready}, "
+            f"candidate_generated={scoreboard.raw_candidate_generated}, "
+            f"deterministic_validated={scoreboard.raw_deterministic_validated}, "
             f"agent_approved={scoreboard.raw_agent_approved}, "
             f"no_op_proven={scoreboard.raw_no_op_proven}, "
             f"human_accepted={scoreboard.raw_human_accepted}"
+        )
+        print(
+            "stale_fact_contract_repositories: "
+            + (", ".join(scoreboard.stale_fact_contract_repositories) or "-")
         )
         print(
             "stale_acceptance_repositories: "

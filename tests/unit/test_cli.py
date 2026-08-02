@@ -1,4 +1,5 @@
 import argparse
+import json
 
 import pytest
 
@@ -37,6 +38,22 @@ def _terminal_supervise_result(status="CONVERGED_NO_CHANGE"):
     from readme_agent.supervisor.task import TaskGraph
 
     return SuperviseResult(status=status, org_repo="org/repo", task_graph=TaskGraph())
+
+
+def _facts_stage_snapshot(org_repo: str, source_revision: str, snapshot_root: str):
+    from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
+
+    return RepositorySnapshotV1(
+        org_repo=org_repo,
+        source_revision=source_revision,
+        snapshot_root=snapshot_root,
+        inventory_sha256="b" * 64,
+        captured_at="2026-08-02T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url=f"https://example.invalid/{org_repo}.git",
+            git_tree_sha256="b" * 64,
+        ),
+    )
 
 
 @pytest.fixture(autouse=True)
@@ -561,6 +578,83 @@ class TestExecutionProfileFlag:
     def test_execution_profile_defaults_to_none(self):
         args = _build_parser().parse_args(["supervise", "--repo", "org/repo"])
         assert args.execution_profile is None
+
+    def test_facts_stage_fallback_manifest_binds_the_captured_snapshot(self, monkeypatch, tmp_path):
+        import readme_agent.paths as paths_module
+        from readme_agent.commands_supervision_result import complete_supervise_command
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.state.schema import RunStateV2
+        from readme_agent.supervisor.execution_profile import get_profile
+
+        source_revision = "a" * 40
+        snapshot = _facts_stage_snapshot("org/repo", source_revision, str(tmp_path.resolve()))
+        monkeypatch.setattr(paths_module, "readme_poc_root", lambda: tmp_path / "readme-poc")
+        monkeypatch.setattr(paths_module, "evidence_dir", lambda run_id: tmp_path / "evidence")
+        revision_path = (
+            paths_module.readme_poc_repository_dir("org", "repo", source_revision)
+            / "source"
+            / "revision.json"
+        )
+        revision_path.parent.mkdir(parents=True)
+        revision_path.write_text(snapshot.model_dump_json(indent=2) + "\n", encoding="utf-8")
+        backend = _LifecycleFakeBackend()
+        backend._state = RunStateV2(
+            org_repo="org/repo",
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="FACTS_READY",
+                source_revision=source_revision,
+            ),
+        )
+        result = _terminal_supervise_result("STAGE_COMPLETE")
+        result.requested_readme_stage = "FACTS_READY"
+        result.readme_lifecycle_status = "FACTS_READY"
+
+        exit_code = complete_supervise_command(
+            argparse.Namespace(repo="org/repo"),
+            result,
+            profile=get_profile("local_poc"),
+            state_backend=backend,
+            lifecycle_recorder=None,
+        )
+
+        assert exit_code == 0
+        assert result.evidence_dir is not None
+        manifest = json.loads((result.evidence_dir / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["upstream_revision"] == source_revision
+        assert manifest["facts"]["repository_snapshot_v1"] == snapshot.model_dump(mode="json")
+
+    def test_facts_stage_fallback_fails_closed_without_snapshot_evidence(
+        self, monkeypatch, tmp_path
+    ):
+        import readme_agent.paths as paths_module
+        from readme_agent.commands_supervision_result import complete_supervise_command
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.state.schema import RunStateV2
+        from readme_agent.supervisor.execution_profile import get_profile
+
+        source_revision = "a" * 40
+        monkeypatch.setattr(paths_module, "readme_poc_root", lambda: tmp_path / "readme-poc")
+        monkeypatch.setattr(paths_module, "evidence_dir", lambda run_id: tmp_path / "evidence")
+        backend = _LifecycleFakeBackend()
+        backend._state = RunStateV2(
+            org_repo="org/repo",
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="FACTS_READY",
+                source_revision=source_revision,
+            ),
+        )
+        result = _terminal_supervise_result("STAGE_COMPLETE")
+        result.requested_readme_stage = "FACTS_READY"
+        result.readme_lifecycle_status = "FACTS_READY"
+
+        with pytest.raises(RuntimeError, match="facts-stage snapshot evidence is missing"):
+            complete_supervise_command(
+                argparse.Namespace(repo="org/repo"),
+                result,
+                profile=get_profile("local_poc"),
+                state_backend=backend,
+                lifecycle_recorder=None,
+            )
 
     def test_execution_profile_flag_sets_value(self):
         args = _build_parser().parse_args(

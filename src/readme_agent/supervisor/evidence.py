@@ -114,6 +114,13 @@ def write_supervise_evidence(
     from readme_agent.registry.revision_store import current_registry_revision
 
     registry_revision = current_registry_revision()
+    trigger = lifecycle_recorder.envelope if lifecycle_recorder else None
+    if trigger is not None and upstream_revision is not None:
+        if trigger.source_revision not in {None, upstream_revision}:
+            raise RuntimeError(
+                "terminal evidence source revision conflicts with the trigger envelope"
+            )
+        trigger = trigger.model_copy(update={"source_revision": upstream_revision})
     readme_poc_transitions = (
         sorted(
             [
@@ -162,7 +169,7 @@ def write_supervise_evidence(
             registry_revision=(
                 registry_revision.model_dump(mode="json") if registry_revision is not None else {}
             ),
-            trigger=lifecycle_recorder.envelope if lifecycle_recorder else None,
+            trigger=trigger,
             trigger_status="processing" if lifecycle_recorder else None,
             checkpoints=lifecycle_recorder.checkpoints() if lifecycle_recorder else [],
             facts=facts,

@@ -831,6 +831,7 @@ class TestBasicLoop:
         assert lifecycle is not None
         assert lifecycle.status == "FACTS_READY"
         assert backend.load(ORG_REPO).domain_states == {}
+        assert result.task_graph.tasks == {}
         assert result.decisions[0].kind == "readme_poc_stage_complete"
         assert result.requested_readme_stage == "FACTS_READY"
 

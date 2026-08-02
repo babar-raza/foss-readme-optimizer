@@ -151,6 +151,22 @@ def current_fact_acceptance_contract() -> FactAcceptanceContractV1:
     )
 
 
+def fact_contract_change_requires_recollection(
+    stored_components: dict[str, str],
+    current_contract: FactAcceptanceContractV1,
+) -> bool:
+    """Return whether a changed contract can alter the persisted selected fact graph."""
+
+    if not stored_components:
+        # Bundles predating component hashes are reclassified once under the current
+        # contract. The caller remains responsible for binding the migrated contract.
+        return False
+    return any(
+        stored_components.get(component) != current_contract.component_hashes.get(component)
+        for component in current_contract.recollect_on_component_change
+    )
+
+
 def classify_product_truth(
     facts: ProductFactsV2,
     contract: FactAcceptanceContractV1 | None = None,

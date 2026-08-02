@@ -1,5 +1,8 @@
 import json
 import re
+from types import SimpleNamespace
+
+import pytest
 
 from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.writer import (
@@ -12,6 +15,22 @@ from readme_agent.evidence.writer import (
     write_run_manifest_v2,
 )
 from readme_agent.state.schema import SurfaceFreshnessContractV1
+
+
+def _repository_snapshot(org_repo: str, source_revision: str, snapshot_root: str):
+    from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
+
+    return RepositorySnapshotV1(
+        org_repo=org_repo,
+        source_revision=source_revision,
+        snapshot_root=snapshot_root,
+        inventory_sha256="b" * 64,
+        captured_at="2026-08-02T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url=f"https://example.invalid/{org_repo}.git",
+            git_tree_sha256="b" * 64,
+        ),
+    )
 
 
 class TestGenerateRunId:
@@ -181,3 +200,124 @@ class TestWriteRunManifestV2:
         )
         write_run_manifest_v2(tmp_path, manifest)
         assert not (tmp_path / "manifest.json.tmp").exists()
+
+
+class TestFactsStageEvidence:
+    def test_loads_only_the_snapshot_bound_to_durable_lifecycle(self, tmp_path, monkeypatch):
+        import readme_agent.paths as paths_module
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.supervisor.facts_stage_evidence import load_facts_stage_snapshot
+
+        source_revision = "a" * 40
+        snapshot = _repository_snapshot("org/repo", source_revision, str(tmp_path.resolve()))
+        monkeypatch.setattr(paths_module, "readme_poc_root", lambda: tmp_path / "readme-poc")
+        revision_path = (
+            paths_module.readme_poc_repository_dir("org", "repo", source_revision)
+            / "source"
+            / "revision.json"
+        )
+        revision_path.parent.mkdir(parents=True)
+        revision_path.write_text(snapshot.model_dump_json(indent=2) + "\n", encoding="utf-8")
+        lifecycle = ReadmePocLifecycleStateV2(
+            status="FACTS_READY",
+            source_revision=source_revision,
+        )
+
+        loaded = load_facts_stage_snapshot("org/repo", lifecycle)
+
+        assert loaded == snapshot
+
+    @pytest.mark.parametrize("failure", ["missing", "repository_mismatch", "revision_mismatch"])
+    def test_fails_closed_when_snapshot_does_not_match_lifecycle(
+        self, tmp_path, monkeypatch, failure
+    ):
+        import readme_agent.paths as paths_module
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.supervisor.facts_stage_evidence import load_facts_stage_snapshot
+
+        source_revision = "a" * 40
+        monkeypatch.setattr(paths_module, "readme_poc_root", lambda: tmp_path / "readme-poc")
+        revision_path = (
+            paths_module.readme_poc_repository_dir("org", "repo", source_revision)
+            / "source"
+            / "revision.json"
+        )
+        if failure != "missing":
+            snapshot = _repository_snapshot(
+                "other/repo" if failure == "repository_mismatch" else "org/repo",
+                "c" * 40 if failure == "revision_mismatch" else source_revision,
+                str(tmp_path.resolve()),
+            )
+            revision_path.parent.mkdir(parents=True)
+            revision_path.write_text(
+                snapshot.model_dump_json(indent=2) + "\n",
+                encoding="utf-8",
+            )
+        lifecycle = ReadmePocLifecycleStateV2(
+            status="FACTS_READY",
+            source_revision=source_revision,
+        )
+
+        with pytest.raises(RuntimeError, match="facts-stage snapshot"):
+            load_facts_stage_snapshot("org/repo", lifecycle)
+
+    def test_manifest_binds_trigger_to_the_same_upstream_revision(self, tmp_path, monkeypatch):
+        import readme_agent.supervisor.evidence as evidence_module
+        from readme_agent.state.lifecycle_schema import TriggerEnvelopeV2
+        from readme_agent.supervisor.task import TaskGraph
+
+        source_revision = "a" * 40
+        trigger = TriggerEnvelopeV2(
+            provider_event_id="event-1",
+            event_type="cli_manual",
+            repository_scope="org/repo",
+            dedup_key="dedup-1",
+        )
+        monkeypatch.setattr(
+            evidence_module,
+            "current_lifecycle_recorder",
+            lambda: SimpleNamespace(envelope=trigger, checkpoints=lambda: []),
+        )
+
+        evidence_module.write_supervise_evidence(
+            tmp_path,
+            "run-1",
+            "org/repo",
+            "STAGE_COMPLETE",
+            TaskGraph(),
+            [],
+            upstream_revision=source_revision,
+        )
+
+        manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+        assert manifest["upstream_revision"] == source_revision
+        assert manifest["trigger"]["source_revision"] == source_revision
+
+    def test_manifest_rejects_a_conflicting_trigger_revision(self, tmp_path, monkeypatch):
+        import readme_agent.supervisor.evidence as evidence_module
+        from readme_agent.state.lifecycle_schema import TriggerEnvelopeV2
+        from readme_agent.supervisor.task import TaskGraph
+
+        trigger = TriggerEnvelopeV2(
+            provider_event_id="event-1",
+            event_type="cli_manual",
+            repository_scope="org/repo",
+            source_revision="b" * 40,
+            dedup_key="dedup-1",
+        )
+        monkeypatch.setattr(
+            evidence_module,
+            "current_lifecycle_recorder",
+            lambda: SimpleNamespace(envelope=trigger, checkpoints=lambda: []),
+        )
+
+        with pytest.raises(RuntimeError, match="conflicts with the trigger envelope"):
+            evidence_module.write_supervise_evidence(
+                tmp_path,
+                "run-1",
+                "org/repo",
+                "STAGE_COMPLETE",
+                TaskGraph(),
+                [],
+                upstream_revision="a" * 40,
+            )

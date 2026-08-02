@@ -11,9 +11,9 @@ from readme_agent import paths
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import README_PRESENTATION
 from readme_agent.facts.acceptance_contract import (
-    FactAcceptanceContractV1,
     classify_product_truth,
     current_fact_acceptance_contract,
+    fact_contract_change_requires_recollection,
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
@@ -102,23 +102,6 @@ def _cached_outcome_matches_lifecycle(status: str, outcome: ReadmePocStatusV2) -
     return status == outcome
 
 
-def _changed_evidence_gate_requires_recollection(
-    stored_components: dict[str, str],
-    current_contract: FactAcceptanceContractV1,
-) -> bool:
-    """Recollect when a changed component can alter the persisted selected fact graph."""
-
-    if not stored_components:
-        # One-time migration for bundles created before this contract existed.
-        # Their exact four known outcomes are replayed and promoted as evidence
-        # by L8-TRUTH-01A before this compatibility path can be removed.
-        return False
-    return any(
-        stored_components.get(component) != current_contract.component_hashes.get(component)
-        for component in current_contract.recollect_on_component_change
-    )
-
-
 def load_prepared_product_truth(
     org_repo: str,
     state_backend: StateBackend,
@@ -194,7 +177,7 @@ def load_prepared_product_truth(
     returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
     outcome_matches_lifecycle = _cached_outcome_matches_lifecycle(lifecycle.status, outcome)
     if not (manifest_contract_current and lifecycle_contract_current):
-        if _changed_evidence_gate_requires_recollection(
+        if fact_contract_change_requires_recollection(
             lifecycle.fact_acceptance_component_hashes,
             contract,
         ):
