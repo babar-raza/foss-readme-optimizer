@@ -1,0 +1,29 @@
+{
+  "schema_version": "IndependentFreezeVerificationReceiptV1",
+  "verdict": "ACCEPTED",
+  "verified_head": "fd9dac759bea78f34f3d836c1256bf35f06dd05b",
+  "verifier_role": "independent_non_authoring_agent",
+  "raw_report_path": "runs/multi-agent/L8-FINAL-THROUGHPUT-CORRECTION-2026-08-02/independent-verification/report.md",
+  "raw_report_sha256": "e3f2ba5e9b4a36738c0875af2bbbb7b39e79ea2204e3bda6e53f2a35104c6f75",
+  "freeze_replay": "PASSED",
+  "pipeline_snapshot_files_verified": 85,
+  "pipeline_snapshot_files_total": 85,
+  "campaign_manifests_replayed": [
+    "CAMP-SHARED-ACCELERATION",
+    "CAMP-THREE-SLICES"
+  ],
+  "durable_state_version": 707,
+  "focused_tests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "checks": {
+    "plan_structure": "PASSED",
+    "requirement_coverage_464": "PASSED",
+    "traceability": "PASSED",
+    "ruff": "PASSED",
+    "format": "PASSED",
+    "mypy": "PASSED"
+  },
+  "scope_limit": "This accepts the execution freeze only; it does not claim Campaign 2, Campaign 3, README, Gate-A, or portfolio closure."
+}
