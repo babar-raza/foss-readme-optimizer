@@ -17851,7 +17851,7 @@
     "updated_at": "2026-08-02T22:32:40.213971+00:00"
   },
   "schema_version": 2,
-  "state_version": 305,
+  "state_version": 306,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9ea1d6fb937d693198ddf58499e8a08fe4ce8302d9e49e0758a79e21f2381abb",
@@ -18154,13 +18154,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:agentic_composition:execution_error:LLMError: composition diagram does not meet role minimums: {'capability': 6}",
       "last_checkpoint_id": "22585aca494a699244dba1a7837b61be9c73c26f1e9d309d5ae25d1d50a959b5",
-      "lease_expires_at": "2026-08-02T23:00:23.987910+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T22:50:29.799432+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-02T22:50:52.359056+00:00"
     }
   },
   "trigger_records": {},
