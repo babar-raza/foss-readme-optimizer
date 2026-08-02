@@ -2,7 +2,7 @@
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the accountable
 coordinator on `main`. The bound content checkpoint is
-`eac2a202b547fc09a86e4b08a3916084be681abb`, but live Git and supervisor state always override it.
+`62e0e79be4affde292d4d2a01c3db330f61a323c`, but live Git and supervisor state always override it.
 
 ## Authority
 
@@ -21,9 +21,11 @@ narrative file to override durable state.
 At capture, durable state was version 681 with graph hash
 `e25fb8973d27a8e07c3cc3bfae3d83d1b11c0e5a57356de821c5ee20857e2618`, active goal
 `GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Current/raw
-`FACTS_READY` is 3/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
+`FACTS_READY` is 8/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
 current/raw approval and no-op counts are 0/2. Note, Page, and PDF are current Python results
-(3/12).
+with committed independent evidence. 3D, BarCode, Cells, Email, and Font are also current
+at the facts boundary (8/12 total), with unchanged zero-call/effect reruns retained under `runs/`;
+the combined remaining-Python slice still needs independent verification and committed evidence.
 `IV-PFR-001`, `IV-PFR-002`, and `IV-PFR-005` are independently accepted bounded repairs.
 
 ## Startup
@@ -45,12 +47,16 @@ test/proof/supervisor tree at a time.
 
 ## Immediate task
 
-Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Preserve the independently accepted Note Python
-current-contract `FACTS_READY` canary and the independently accepted Page/PDF bounded facts
-results and zero-call reruns. Update the task-lane plan, then qualify the nine remaining Python
-repositories serially through the bounded canonical `local_poc` facts path. Keep HTML visible at its invalid upstream
-`setuptools.backends.legacy:build` metadata boundary; do not substitute different metadata inside
-the verifier.
+Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. First confirm no repository-owned command remains.
+Preserve the eight current Python fact bundles; do not rerun them unless a dependency fingerprint
+changed. The HTML canary wrote a checksum-valid revision bundle with
+`BLOCKED_MISSING_EVIDENCE` and 12 `draft_product_truth` calls, then was cancelled for the
+machine-restart checkpoint before terminal `runs/evidence` output/command return. Validate and
+reuse that bundle; rerun only if the terminal evidence contract cannot be repaired without
+recomputation. Retain its invalid upstream `setuptools.backends.legacy:build` metadata boundary,
+then qualify Slides, TeX, and Words serially. After integration, run the already-dispositioned
+Documentation/State-Sync and Independent Verification roles for the complete remaining-Python
+slice.
 
 Before implementation, update
 `runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json`. Disposition all five

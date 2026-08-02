@@ -4,7 +4,7 @@
   "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "head": "eac2a202b547fc09a86e4b08a3916084be681abb",
+  "head": "62e0e79be4affde292d4d2a01c3db330f61a323c",
   "head_role": "content checkpoint before the following durable-state handover refresh",
   "working_tree_at_capture": "clean before durable-state handover refresh",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
@@ -16,12 +16,12 @@
   "current_goal": "GOAL-V1-VERIFIED-TRUTH",
   "current_task": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
   "current_task_status": "IN_PROGRESS",
-  "next_action": "Update the Wave 3 task-lane plan and qualify the nine remaining Python repositories serially to FACTS_READY through the canonical bounded local_poc supervisor, independently verifying and repairing each while preserving sealed Note, Page, and PDF work.",
+  "next_action": "Confirm no repository-owned process remains, re-read durable mission state, validate and reuse HTML's checksum-valid BLOCKED_MISSING_EVIDENCE revision bundle, repair only the missing terminal run-evidence boundary if required, then continue Slides, TeX, and Words serially and complete independent verification for the whole remaining-Python slice.",
   "portfolio_scoreboard": {
     "denominator": 31,
     "python_denominator": 12,
-    "python_facts_ready_current": 3,
-    "facts_ready_current": 3,
+    "python_facts_ready_current": 8,
+    "facts_ready_current": 8,
     "facts_ready_raw": 17,
     "candidate_generated_current": 0,
     "candidate_generated_raw": 9,
@@ -44,6 +44,7 @@
   ],
   "implemented_unverified": [
     "ProductFactsV2 machinery exists beyond Note, but current-contract portfolio proof is incomplete",
+    "3D, BarCode, Cells, Email, and Font Python reached current FACTS_READY with one-call first runs and zero-call/effect unchanged reruns; slice-level independent verification and committed evidence remain pending",
     "Historical raw candidate and review states are preserved but not current acceptance"
   ],
   "remaining_tasks": [
@@ -76,6 +77,13 @@
   "open_findings": [
     "EVID-005: fact-backed terminal RunManifestV3 top-level facts_hash is null and must equal durable lifecycle and revision-bundle hashes"
   ],
+  "safe_checkpoint": {
+    "reason": "operator_requested_machine_restart",
+    "repository_owned_processes_remaining": 0,
+    "cancelled_repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "cancelled_result": "Checksum-valid revision bundle records BLOCKED_MISSING_EVIDENCE after 12 draft_product_truth calls; no terminal runs/evidence bundle or FACTS_READY advancement was observed",
+    "resume_boundary": "Validate and reuse the HTML blocked bundle after live status and process checks; rerun only if the terminal evidence contract cannot be repaired without recomputation"
+  },
   "critical_references": [
     "AGENTS.md",
     "plans/idea.md",
@@ -88,6 +96,7 @@
   "evidence_paths": [
     "plans/investigations/evidence/level8-wave3-truth-machinery-repair-2026-08-02",
     "plans/investigations/evidence/level8-wave3-python-page-pdf-facts-2026-08-02",
+    "runs/readme-poc/aspose-html-foss__Aspose.HTML-FOSS-for-Python/c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
     "runs/multi-agent/independent-verification/wave3-truth-machinery-repair-02/verification.json",
     "runs/verification/pytest-full-latest.json"
   ],
@@ -95,7 +104,8 @@
     "Read live Git and supervisor state before trusting this historical snapshot.",
     "Run mission status; evaluate on graph drift; reclaim only an expired claim through the supervisor.",
     "Update the task-lane execution plan and disposition all five required roles.",
-    "Run the nine remaining Python repositories serially through bounded FACTS_READY; preserve sealed Note, Page, and PDF work.",
+    "Preserve current Note, Page, PDF, 3D, BarCode, Cells, Email, and Font facts; do not rerun them unless a dependency fingerprint changed.",
+    "Validate and reuse HTML's blocked revision bundle; repair only the missing terminal evidence boundary if required, then run Slides, TeX, and Words serially through bounded FACTS_READY.",
     "Independently verify, repair agent-fixable failures, write evidence, reconcile requirements and task state, commit to main, evaluate, and continue."
   ]
 }
