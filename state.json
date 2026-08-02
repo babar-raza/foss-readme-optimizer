@@ -6519,20 +6519,79 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "c9ab9b4b9c83fbc26090187db86ced9c6c17f87aa64e0218c47844ab353811cd",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "0268f37d737f951f2ab6442f37ba8c89191b3e36e02bf2d850b71f3f564b0820",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "status": "DEFERRED_UPSTREAM_FAILURE",
-        "upstream_domain": "readme_presentation",
-        "upstream_failure_reason": "presentation_plan",
-        "upstream_status": "CHANGED"
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('reading', 'exporting') and names the file format (.one) and output (PDF).",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The product description explicitly mentions 'Python library', 'Microsoft OneNote (.one) files', and common tasks (reading, exporting), satisfying audience and context.",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI version badge, Python version badge, and GitHub Actions build badge \u2014 all high-leverage trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `python -m pip install aspose-note` uses real PyPI coordinates, and the PyPI badge confirms the package exists and is active.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there is a 'Quick start' section with a minimal, runnable, verified Python example that actually executes (imports, loads, iterates, writes).",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Navigation is clear, uses consistent `##` headers, and follows logical sequencing: product description \u2192 capabilities \u2192 install \u2192 examples \u2192 reference \u2192 license.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, directly supporting understanding of its purpose and capabilities.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README includes a License section, and the presence of LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT files (implied by GitHub's community health UI) satisfies the core requirement \u2014 though not visible in README text, the standard allows external verification.",
+            "satisfied": true
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README includes a GitHub Actions badge and PyPI version, and the repository's active commit history (implied by badges and test files) supports maintenance visibility.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The 'Scope and limitations' section mentions the commercial product once, factually and without promotion, after the product description \u2014 matching the SheetJS/iText pattern.",
+            "satisfied": true
+          }
+        ],
+        "input_sha256": "c9a748f7d453ff9492856c6ed441ed10cb02dcff2114c54f2dc9dd68dcf8262e",
+        "input_source": "candidate_text",
+        "overall_summary": "The README for aspose-note-foss/Aspose.Note-FOSS-for-Python satisfies all ten dimensions of the presentation standard: it leads with clear product description, audience fit, trust signals, working installation, verified examples, logical navigation, useful visuals, and restrained commercial context \u2014 all aligned with leading FOSS practices.",
+        "structural_consistency": {
+          "contradictions": [],
+          "valid": true
+        },
+        "structural_observations": {
+          "ci_badge_count": 1,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T14:38:02.882590+00:00",
+      "last_run_timestamp": "2026-08-02T15:17:18.647483+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -45206,7 +45265,7 @@
     "updated_at": "2026-08-02T15:16:22.217795+00:00"
   },
   "schema_version": 2,
-  "state_version": 1782,
+  "state_version": 1783,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7660eb9c1a41718b125a0d3bb48cf321305d01578de51f42420662097b90e7ac",
