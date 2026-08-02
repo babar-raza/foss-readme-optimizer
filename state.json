@@ -126,7 +126,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-02T20:06:57.173337+00:00",
+    "last_evaluated_at": "2026-08-02T20:07:31.901303+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -357,7 +357,7 @@
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-01-NOTE-VERIFIED-CANARY": "SCORED",
+      "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REOPENED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
@@ -6271,6 +6271,17 @@
         "reason": "Repository truth, presentation equivalence, deterministic acceptance, reviewer independence, no-op, evidence, and safety all pass",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-08-02T20:07:31.901280+00:00",
+        "reason": "Aspose.Note FOSS for Python is repository-verified, independently approved, unchanged-no-op-proven, committed for review, and effect-free",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -6280,7 +6291,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 721,
+  "state_version": 722,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
