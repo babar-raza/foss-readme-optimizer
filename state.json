@@ -1122,7 +1122,7 @@
     "updated_at": "2026-08-02T06:34:58.348343+00:00"
   },
   "schema_version": 2,
-  "state_version": 101,
+  "state_version": 102,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:cd51d99ee6d72d899a29b5a494445443c3509cf059483dbeb19d2d97da7d942f": {
@@ -1337,13 +1337,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:StateBackendError:push of refs/readme-agent-state/aspose-html-foss__Aspose.HTML-FOSS-for-Python failed: fatal: unable to access 'https://github.com/babar-raza/foss-readme-optimizer.git/': Empty reply from server ",
       "last_checkpoint_id": "a78164ee6e69a4a2dcdaedc522119c72dfb59d7f669600badb681964d3052b7b",
-      "lease_expires_at": "2026-08-02T06:49:23.901770+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T06:34:28.364963+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-02T06:35:07.135699+00:00"
     }
   },
   "trigger_records": {},
