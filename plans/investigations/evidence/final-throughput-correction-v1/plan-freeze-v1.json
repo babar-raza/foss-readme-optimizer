@@ -1,9 +1,9 @@
 {
-  "acceptance_receipt_id": "af74b46dcf2f40aa2ac02c642bcd350e1542e219953344739fddd32d8c80025e",
+  "acceptance_receipt_id": "0d4c5ce3ffe28ef4a4b19d3e119bec0a30d9312009c5275f000369bc2ec2eecb",
   "campaign_id": "CAMP-PLAN-FREEZE",
   "control_branch": "main",
-  "control_commit": "4fb6e906ec9b040019d1b7e96bda0a641c017da7",
-  "created_at": "2026-08-02T19:12:31.351433+00:00",
+  "control_commit": "2dff75805e85d24c72477f2e46179e5b0897c3e0",
+  "created_at": "2026-08-02T19:18:15.374815+00:00",
   "freeze_status": "SEALED",
   "graph_sha256": "a0185e592fb62060696f3a4ec63435a47c41ed38d5089187bce56bc495f5a7d7",
   "members": [
@@ -78,9 +78,14 @@
       "size": 3495
     },
     {
+      "path": "scripts/governance/build_minimum_campaign_evidence.py",
+      "sha256": "44e86f1cf6c7c5603b15d565a3c68e3e6a87bc826c965dfe478cdebfa83681bc",
+      "size": 4580
+    },
+    {
       "path": "scripts/governance/seal_final_throughput_contracts.py",
-      "sha256": "f2375818c7ca227aa57fa5a19c8810f439410986429861e9259dda7a2f5dbbd0",
-      "size": 7539
+      "sha256": "b84cf5a35b00739fdabd8a52b35595b88f3bee68ce421a82587bc60deb98be4a",
+      "size": 7600
     },
     {
       "path": "src/readme_agent/state/mission_goal_schema.py",
@@ -89,8 +94,8 @@
     },
     {
       "path": "src/readme_agent/supervisor/campaign_evidence.py",
-      "sha256": "1a30ab382d1e437fa171f44dac0ce3820ee4d476afa063e3c1fa3984b729da84",
-      "size": 8529
+      "sha256": "6f2dfe831f05c4a82e82b43bef0b67793549e41375f79942f84b5bfe1b8be496",
+      "size": 8553
     },
     {
       "path": "src/readme_agent/supervisor/campaign_packets.py",
@@ -113,6 +118,6 @@
       "size": 2925
     }
   ],
-  "plan_set_sha256": "efbe70fed4952e502bde1d0e74738293c8eba302bc870ac15a100284ea415f66",
+  "plan_set_sha256": "3540081f855cf236685130e67652a649b078dbe5d3b19d95832fa9043594463d",
   "schema_version": "PlanFreezeV1"
 }

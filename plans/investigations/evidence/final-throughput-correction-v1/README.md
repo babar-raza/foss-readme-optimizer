@@ -8,11 +8,15 @@ the rejected boundary.
 The operative split is:
 
 - `plan-freeze-v1.json`: `SEALED` committed authority/control bytes at control commit
-  `4fb6e906ec9b040019d1b7e96bda0a641c017da7`;
+  `2dff75805e85d24c72477f2e46179e5b0897c3e0`;
 - `pipeline-contract-snapshot-v1.json`: `SEALED` exact raw bytes for 85 selected dirty pipeline
   implementation/test files, materialized below the content-addressed runtime root under `runs/`;
 - `freeze-acceptance-receipt-v1.json`: `ACCEPTED` replay binding both manifests and the canonical
   `data/aspose_org_links.json` catalog.
+- `campaign-evidence-shared_acceleration-v1.json` and
+  `campaign-evidence-three_slices-v1.json`: replay-accepted graph/durable-state snapshots. Their
+  per-task verdicts remain truthful (`OPEN`/`PARTIAL` where work is unfinished); acceptance of the
+  aggregate manifest is not campaign closure.
 
 Reproduce from the repository root:
 

@@ -1,0 +1,329 @@
+{
+  "campaign_id": "CAMP-SHARED-ACCELERATION",
+  "durable_state_version": 707,
+  "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
+  "manifest_sha256": "0871c86a00dfb1ab2d914a4bf787feda95147734fd458a1c73ecb12e424ae791",
+  "replay_id": "a96da9bbc725ce3ebe9e0bc89f80dc5710fe2e7ea56f832510933920d84983d3",
+  "replay_result": "ACCEPTED",
+  "requirement_ids": [
+    "AGT-001",
+    "AGT-002",
+    "AGT-003",
+    "AGT-004",
+    "AGT-005",
+    "AGT-006",
+    "AGT-007",
+    "AGT-008",
+    "AGT-009",
+    "AGT-010",
+    "CAP-001",
+    "CAP-002",
+    "CAP-003",
+    "CAP-004",
+    "CAP-005",
+    "CAP-006",
+    "CAP-007",
+    "CAP-008",
+    "CAP-009",
+    "CORE-001",
+    "CORE-002",
+    "CORE-003",
+    "CORE-004",
+    "CORE-005",
+    "CORE-006",
+    "CORE-007",
+    "CORE-008",
+    "CORE-009",
+    "CORE-010",
+    "CORE-011",
+    "CORE-012",
+    "CORE-013",
+    "CORE-014",
+    "CORE-015",
+    "CORE-016",
+    "CORE-017",
+    "CORE-018",
+    "CORE-019",
+    "CORE-020",
+    "CORE-021",
+    "CORE-022",
+    "CORE-023",
+    "CORE-024",
+    "CORE-025",
+    "CORE-026",
+    "CORE-027",
+    "CORE-028",
+    "CORE-029",
+    "CORE-030",
+    "CORE-031",
+    "CORE-032",
+    "CORE-033",
+    "CORE-034",
+    "GAP-001",
+    "GAP-002",
+    "GAP-003",
+    "L8-002",
+    "L8-013",
+    "L8-035",
+    "L8-036",
+    "L8-037",
+    "L8-038",
+    "L8-039",
+    "L8-042",
+    "L8-043",
+    "ORC-001",
+    "ORC-002",
+    "ORC-003",
+    "ORC-004",
+    "ORC-005",
+    "ORC-006",
+    "ORC-007",
+    "ORC-008",
+    "ORC-009",
+    "VER-001",
+    "VER-002",
+    "VER-003",
+    "VER-004",
+    "VER-005",
+    "VER-006",
+    "VER-007",
+    "VER-008",
+    "VER-009",
+    "VER-010",
+    "VER-011"
+  ],
+  "schema_version": "CampaignEvidenceManifestV1",
+  "task_verdicts": [
+    {
+      "durable_status": "TODO",
+      "evidence": [],
+      "requirement_ids": [
+        "L8-043"
+      ],
+      "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+      "verdict": "OPEN"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/mission-contribution.json",
+          "requirement_ids": [
+            "L8-035"
+          ],
+          "sha256": "a50ab44959e658797f135272f5124ec23737a6124383cebc703a1a909f55fd1c"
+        },
+        {
+          "path": "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json",
+          "requirement_ids": [],
+          "sha256": "6665d9d27f4f56e85c7106e1bbd135f321b9749569afb2d18a75bcab6db64650"
+        }
+      ],
+      "requirement_ids": [
+        "L8-035"
+      ],
+      "task_id": "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json",
+          "requirement_ids": [
+            "L8-036"
+          ],
+          "sha256": "ddcbc8ac35080e38fce1fdea9b01e12bc8d9f0f6895492a620650b0f1209de76"
+        },
+        {
+          "path": "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/mission-contribution.json",
+          "requirement_ids": [],
+          "sha256": "09b5e6eb69766374ea6d2a516eec3d5250242e32c8fdae8b65e280c46b096bdc"
+        }
+      ],
+      "requirement_ids": [
+        "L8-036"
+      ],
+      "task_id": "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/mission-contribution.json",
+          "requirement_ids": [
+            "L8-037"
+          ],
+          "sha256": "230f886b1d35f4ec8bef65445857dce5c2090c6267b145892b44abf33b6e8366"
+        }
+      ],
+      "requirement_ids": [
+        "L8-037"
+      ],
+      "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/mission-contribution.json",
+          "requirement_ids": [
+            "L8-038",
+            "L8-039"
+          ],
+          "sha256": "e15d918f3a515f099d789e32bf3ba4a3207d79947b51a48ba8c34b4e7123b06a"
+        },
+        {
+          "path": "plans/investigations/evidence/level8-intake-03-registry-revision-queue-health-v1/verification.json",
+          "requirement_ids": [],
+          "sha256": "fc5a86ff815e7bf4c3a0d4f78090108b1fc525975ff0a1404984b14ccf5e47f9"
+        }
+      ],
+      "requirement_ids": [
+        "L8-038",
+        "L8-039"
+      ],
+      "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-preproduction-truthful-baseline-2026-07-24/truthful-baseline-acceptance.json",
+          "requirement_ids": [],
+          "sha256": "0d2e9eddc3a64d03db7e6c2ac4cb1115c2de860054f29bd1658b9b7b5d6c3c09"
+        }
+      ],
+      "requirement_ids": [],
+      "task_id": "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "REGRESSED",
+      "evidence": [],
+      "requirement_ids": [],
+      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS",
+      "verdict": "PARTIAL"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-separated-review-runtime/mission-contribution.json",
+          "requirement_ids": [],
+          "sha256": "89d47deb2542f1a7d867ddd8853fc4fc73a385d6830282419e4e0c6241850b29"
+        }
+      ],
+      "requirement_ids": [],
+      "task_id": "L8-REVIEW-01-FREEZE-ROLES",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/readme-presentation-contract-v1/contribution.json",
+          "requirement_ids": [
+            "L8-042"
+          ],
+          "sha256": "83d6bead1c5e0599aa8c7c9bf13c362729d07e12488aff9dae66137b6b444313"
+        }
+      ],
+      "requirement_ids": [
+        "L8-042"
+      ],
+      "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+      "verdict": "CLOSED"
+    },
+    {
+      "durable_status": "CLOSED",
+      "evidence": [],
+      "requirement_ids": [
+        "AGT-001",
+        "AGT-002",
+        "AGT-003",
+        "AGT-004",
+        "AGT-005",
+        "AGT-006",
+        "AGT-007",
+        "AGT-008",
+        "AGT-009",
+        "AGT-010",
+        "CAP-001",
+        "CAP-002",
+        "CAP-003",
+        "CAP-004",
+        "CAP-005",
+        "CAP-006",
+        "CAP-007",
+        "CAP-008",
+        "CAP-009",
+        "CORE-001",
+        "CORE-002",
+        "CORE-003",
+        "CORE-004",
+        "CORE-005",
+        "CORE-006",
+        "CORE-007",
+        "CORE-008",
+        "CORE-009",
+        "CORE-010",
+        "CORE-011",
+        "CORE-012",
+        "CORE-013",
+        "CORE-014",
+        "CORE-015",
+        "CORE-016",
+        "CORE-017",
+        "CORE-018",
+        "CORE-019",
+        "CORE-020",
+        "CORE-021",
+        "CORE-022",
+        "CORE-023",
+        "CORE-024",
+        "CORE-025",
+        "CORE-026",
+        "CORE-027",
+        "CORE-028",
+        "CORE-029",
+        "CORE-030",
+        "CORE-031",
+        "CORE-032",
+        "CORE-033",
+        "CORE-034",
+        "GAP-001",
+        "GAP-002",
+        "GAP-003",
+        "L8-002",
+        "L8-013",
+        "ORC-001",
+        "ORC-002",
+        "ORC-003",
+        "ORC-004",
+        "ORC-005",
+        "ORC-006",
+        "ORC-007",
+        "ORC-008",
+        "ORC-009",
+        "VER-001",
+        "VER-002",
+        "VER-003",
+        "VER-004",
+        "VER-005",
+        "VER-006",
+        "VER-007",
+        "VER-008",
+        "VER-009",
+        "VER-010",
+        "VER-011"
+      ],
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "verdict": "PARTIAL"
+    }
+  ],
+  "transition_id": "a70b29bbc1dde8f35e8e8d2a3972fd0cdb89809400cd6dc4a7d205c4ec13d395"
+}
