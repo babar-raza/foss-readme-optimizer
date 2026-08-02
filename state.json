@@ -126,7 +126,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-02T20:06:40.656495+00:00",
+    "last_evaluated_at": "2026-08-02T20:06:57.173337+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -357,7 +357,7 @@
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-01-NOTE-VERIFIED-CANARY": "VERIFIED",
+      "L8-VPY-01-NOTE-VERIFIED-CANARY": "SCORED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REOPENED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
@@ -6260,6 +6260,17 @@
         "reason": "Independent non-authoring review found zero material defects across factuality, presentation, no-op integrity, and zero effects",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/validator-receipt.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "Codex-Portfolio-Executor",
+        "occurred_at": "2026-08-02T20:06:57.173329+00:00",
+        "reason": "Repository truth, presentation equivalence, deterministic acceptance, reviewer independence, no-op, evidence, and safety all pass",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -6269,7 +6280,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 720,
+  "state_version": 721,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
