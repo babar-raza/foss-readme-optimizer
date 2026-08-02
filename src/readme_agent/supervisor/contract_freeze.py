@@ -105,8 +105,15 @@ def build_plan_freeze(
     for relative in sorted(set(members)):
         committed = _git(repo_root, "show", f"{control_commit}:{relative}")
         assert isinstance(committed, bytes)
-        current = (repo_root / relative).read_bytes()
-        if current != committed:
+        clean = (
+            subprocess.run(
+                ["git", "diff", "--quiet", control_commit, "--", relative],
+                cwd=repo_root,
+                check=False,
+            ).returncode
+            == 0
+        )
+        if not clean:
             raise ValueError(
                 f"plan-freeze member is dirty relative to {control_commit}: {relative}"
             )
@@ -169,8 +176,12 @@ def materialize_pipeline_snapshot(
         relative_snapshot = f"files/{path}"
         target = snapshot_root / relative_snapshot
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
-        target.chmod(0o444)
+        if target.exists():
+            if raw_sha256(target.read_bytes()) != digest:
+                raise ValueError(f"existing content-addressed snapshot is corrupt: {path}")
+        else:
+            shutil.copyfile(source, target)
+            target.chmod(0o444)
         files.append(
             PipelineContractFileV1(
                 path=path,
@@ -194,6 +205,14 @@ def materialize_pipeline_snapshot(
         acceptance_receipt_id=acceptance_receipt_id,
     )
     manifest_path = snapshot_root / "manifest.json"
+    if manifest_path.exists():
+        existing = PipelineContractSnapshotV1.model_validate_json(
+            manifest_path.read_text(encoding="utf-8")
+        )
+        verify_pipeline_snapshot(existing)
+        if existing.snapshot_id != manifest.snapshot_id or existing.files != manifest.files:
+            raise ValueError("existing content-addressed snapshot manifest does not match")
+        return existing
     manifest_path.write_text(
         json.dumps(manifest.model_dump(mode="json"), indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
