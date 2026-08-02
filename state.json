@@ -17790,6 +17790,18 @@
         "reason": "blind_quality:ACCEPT; factual_plan:ACCEPT",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\4c13c3f71955ff5c9f68\\r\\a03538c5c152fdb1\\s\\2be25d979d1f\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T22:29:50.358554+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -17814,15 +17826,15 @@
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "9e52c9375e443f26fb2bd27b1d4953316a4dd5d0d3f2ad211a7cc989fd4ccc35",
+    "repair_budget_origin_hash": "0087487900c9b7ed77b40bec464a142ff7a682c8b5ebab2a5669f06d0587c5b5",
     "reviewer_standard_hash": "43b422f2eea699f6f893a48b036afcc823ad8f89d4eacf01593df0c73fd6479c",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-08-02T22:12:43.511552+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T22:29:50.358554+00:00"
   },
   "schema_version": 2,
-  "state_version": 252,
+  "state_version": 253,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "13314313a9cca123a2b830a1cf8c11f546818ae95bbffa9466caa0ccece69ebf",
