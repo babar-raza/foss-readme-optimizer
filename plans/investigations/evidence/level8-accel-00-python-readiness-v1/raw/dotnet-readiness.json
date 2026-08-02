@@ -1,0 +1,368 @@
+{
+  "schema_version": "DotnetReadinessClassificationV1",
+  "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+  "platform": "net",
+  "classification_mode": "zero_provider_call_read_only",
+  "created_at": "2026-08-02T19:34:52.251683+00:00",
+  "control_repository": {
+    "branch": "main",
+    "head": "88380723078a5aff28bf29f7ba70ecc709ba760a",
+    "tree_status_counts_at_classification": {
+      "modified_unstaged": 66,
+      "untracked": 20
+    },
+    "dirty_tree_preserved": true
+  },
+  "input_contracts": {
+    "registry": {
+      "path": "data/products.json",
+      "sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+      "runtime_entry_count": 31,
+      "net_entry_count": 6
+    },
+    "platform_priorities": {
+      "path": "data/platform_priorities.json",
+      "sha256": "8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec",
+      "net_priority": 2
+    },
+    "mission_graph": {
+      "path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+      "sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456"
+    },
+    "execution_plan": {
+      "path": "runs/multi-agent/L8-ACCEL-00-PYTHON-READINESS/execution-plan.json",
+      "sha256": "751ab4ba5bfe0f5981f62ea2ba4c232c319086af3194fbaebbdb60abbf9feee2"
+    },
+    "plan_freeze": {
+      "path": "plans/investigations/evidence/final-throughput-correction-v1/plan-freeze-v1.json",
+      "sha256": "5080cdd8a92dd01b53c2cd1981ab6252d5ab30b96c51eafd22c856afc6bcf8d2",
+      "freeze_status": "SEALED",
+      "control_commit": "2dff75805e85d24c72477f2e46179e5b0897c3e0",
+      "note": "The current registry hash is newer than the registry member recorded by this freeze; this ranking is deliberately bound to the current runtime registry hash above."
+    },
+    "pipeline_contract_snapshot": {
+      "path": "plans/investigations/evidence/final-throughput-correction-v1/pipeline-contract-snapshot-v1.json",
+      "sha256": "b3172a9302763e36cf800117b5ea5002f6273205a7bc4572f060556aaa9fa7f7",
+      "snapshot_id": "f7a8ba0a77fa953773623e0a74ecf74d0d3eefb7e9bfb6a9946fa1289bc25379",
+      "acceptance_receipt_id": "bf06976e6123ccbef9d8cb9bc63bf37c0364a6ffabbacb19a101517373f13063",
+      "materialized_file_count": 85,
+      "materialized_hash_mismatch_count": 0
+    }
+  },
+  "ranking_contract": {
+    "ordered_keys": [
+      "current_source_revision_resolved",
+      "reusable_current_revision_stages_descending",
+      "estimated_remaining_work_units_ascending",
+      "validator_risk_ascending",
+      "stable_registry_index_ascending"
+    ],
+    "canonical_target": "NO_OP_PROVEN",
+    "estimated_work_formula": "remaining canonical lifecycle stages from first_required_boundary plus deterministic complexity surcharge: READY_FULL_PIPELINE=2, README bytes >7000=1, code blocks >8=1, headings >20=1; already reusable current-revision stages reduce the base stage count",
+    "stage_reuse_rule": "A source/profile artifact may be preserved only when revision and checksum evidence agree. An old reducer receipt is recorded but cannot skip execution when current fact, prompt, template, reviewer, control-plane, or StageDependencyManifestV1 acceptance does not agree.",
+    "tie_break_rule": "stable position in the current data/products.json"
+  },
+  "winner": {
+    "rank": 1,
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+    "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+    "selection_reason": "It is the only current .NET entry with a checksum-valid immutable source/profile bundle and structurally valid candidate and deterministic reducer receipts at the current source revision. Current contract changes invalidate facts and all dependent terminal stages, so the permanent next action is fact requalification under the frozen contracts, not reuse of stale approval/no-op files.",
+    "exact_next_action": "Materialize the current StageDependencyManifestV1 for the existing immutable source/profile, requalify ProductFactsV2 under current net fact/local-verification contracts, then regenerate and independently validate downstream stages through NO_OP_PROVEN."
+  },
+  "repositories": [
+    {
+      "rank": 1,
+      "stable_registry_index": 1,
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "provider_repository_id": 1178837115,
+      "mode": "dry_run",
+      "policy_profile": "aspose-3d-foss-net",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "source_revision_matches_durable_lifecycle": true,
+      "durable_state_version": 589,
+      "durable_lifecycle_status": "DETERMINISTIC_VALIDATED",
+      "intake_outcome": "READY_FAST_PATH",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/6a209e8fc3dfc305df39a417037e32a4d4c7b2be/intake/receipts/fa62e6faf85d19c7-a1.json",
+        "sha256": "559facfc9cf6b1264833cb039c296c21d3c16a46ed31427f186056fffd17e14d"
+      },
+      "current_revision_bundle": {
+        "path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "manifest_present": true,
+        "sha256_inventory_valid": true,
+        "immutable_reducer_receipts": [
+          {
+            "stage": "CANDIDATE_GENERATED",
+            "path": "receipts/CANDIDATE_GENERATED.json",
+            "sha256": "5e8cf12e812c0e7673730b5f16f725b9ddbf877a033b8cb9e5a73bd30288f92a",
+            "structurally_valid": true,
+            "reusable_under_current_contract": false
+          },
+          {
+            "stage": "DETERMINISTIC_VALIDATED",
+            "path": "receipts/DETERMINISTIC_VALIDATED.json",
+            "sha256": "8e870b5679007068c11f2e0f169cbaf5769ebae9359a8f7e13e1118e40b5c6a8",
+            "structurally_valid": true,
+            "reusable_under_current_contract": false
+          }
+        ]
+      },
+      "reusable_current_revision_stages": [
+        "SNAPSHOTTED",
+        "PROFILED"
+      ],
+      "earliest_valid_boundary": "PROFILED",
+      "first_required_boundary": "FACTS_COLLECTING",
+      "estimated_remaining_work_units": 9,
+      "validator_risk": "medium",
+      "risk_reasons": [
+        "current fact-acceptance contract hash 26371723168158635e6126e5585975c887de663cb4877ef86bd678e410bbe473 differs from stored 2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
+        "current completed-cache evaluator reports earliest_affected_stage SNAPSHOTTED and 18 mismatch reasons",
+        "old final-verdict/no-op artifacts do not bind the current lifecycle candidate hash",
+        "old reducer receipts predate StageDependencyManifestV1 binding"
+      ],
+      "cache_decision": {
+        "reusable_terminal_cache": false,
+        "cache_key": "f6dfd35e75af26943ea21662f759775f7ebe0b5a86baa6b778825d3d94612ec7",
+        "canonical_evaluator_earliest_affected_stage": "SNAPSHOTTED",
+        "mismatch_reasons": [
+          "composition_prompt_hash_changed",
+          "control_plane_fingerprint_changed",
+          "fact_acceptance_component_hashes_changed",
+          "fact_acceptance_contract_hash_changed",
+          "lifecycle_not_complete",
+          "local_verification_contract_hash_changed",
+          "manifest_no_op_stage_missing",
+          "manifest_not_complete",
+          "manifest_reviewer_standard_hash_mismatch",
+          "no_op_proof_invalid",
+          "prompt_scope_AGENT_REVIEWING_changed",
+          "prompt_scope_FACTS_COLLECTING_changed",
+          "prompt_scope_PLAN_READY_changed",
+          "prompt_scope_SUPERVISOR_PLANNING_changed",
+          "prompt_scope_TRUSTED_PLAN_READY_changed",
+          "prompt_scope_TRUSTED_REVIEWING_changed",
+          "reviewer_standard_hash_changed",
+          "template_hash_changed"
+        ]
+      },
+      "slice_eligibility": "SELECTED_ISOLATED_SLICE",
+      "batch_eligibility": "NOT_ELIGIBLE_UNTIL_STAGE_DEPENDENCY_REBIND_AND_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0,
+      "future_slice_provider_budget": "UNASSIGNED_BY_READINESS; derive and enforce in L8-VPY-02 from qualified route and review-risk contracts"
+    },
+    {
+      "rank": 2,
+      "stable_registry_index": 8,
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+      "provider_repository_id": 1203447266,
+      "mode": "dry_run",
+      "policy_profile": "aspose-cells-foss-net",
+      "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+      "durable_state_version": 53,
+      "durable_lifecycle_status": "INTAKE_READY",
+      "intake_outcome": "READY_FAST_PATH",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-.NET/c0176f510f1370dd51472b6d147daaaf1a2e0787/intake/receipts/90b4e4b77fc2bb1e-a1.json",
+        "sha256": "35dccecad115a5ce600309a740a9c63e81bd4e112edb279c50b2fd4b223a76c7"
+      },
+      "readme_signals": {
+        "byte_count": 4254,
+        "heading_count": 12,
+        "code_block_count": 4,
+        "link_count": 5,
+        "reader_section_signal_count": 4
+      },
+      "reusable_current_revision_stages": [],
+      "earliest_valid_boundary": "INTAKE_READY",
+      "first_required_boundary": "SNAPSHOTTED",
+      "estimated_remaining_work_units": 11,
+      "validator_risk": "low_medium",
+      "rejection_reason": "No current immutable snapshot, ProductFactsV2, candidate, or reducer receipt; it ranks behind 3D but is the next-lowest estimated .NET workload.",
+      "slice_eligibility": "ELIGIBLE_AFTER_WINNER",
+      "batch_eligibility": "NOT_ELIGIBLE_BEFORE_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0
+    },
+    {
+      "rank": 3,
+      "stable_registry_index": 26,
+      "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+      "provider_repository_id": 1185437353,
+      "mode": "dry_run",
+      "policy_profile": "aspose-slides-foss-net",
+      "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
+      "durable_state_version": 37,
+      "durable_lifecycle_status": "INTAKE_READY",
+      "intake_outcome": "READY_FAST_PATH",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-.NET/bd19e16057b628310b4a04330585d366cb40e9b7/intake/receipts/bad661787e774ed4-a1.json",
+        "sha256": "ed59c2af4f057b211a7c2a5d8b2b3a5cc96c2f0f8d768c15e54cb2744d208f4f"
+      },
+      "readme_signals": {
+        "byte_count": 5422,
+        "heading_count": 15,
+        "code_block_count": 9,
+        "link_count": 3,
+        "reader_section_signal_count": 3
+      },
+      "reusable_current_revision_stages": [],
+      "earliest_valid_boundary": "INTAKE_READY",
+      "first_required_boundary": "SNAPSHOTTED",
+      "estimated_remaining_work_units": 12,
+      "validator_risk": "medium",
+      "rejection_reason": "No post-intake artifacts; nine code blocks add deterministic example/protected-content workload.",
+      "slice_eligibility": "ELIGIBLE_AFTER_WINNER",
+      "batch_eligibility": "NOT_ELIGIBLE_BEFORE_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0
+    },
+    {
+      "rank": 4,
+      "stable_registry_index": 29,
+      "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+      "provider_repository_id": 1159931799,
+      "mode": "dry_run",
+      "policy_profile": "aspose-words-foss-net",
+      "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+      "durable_state_version": 6,
+      "durable_lifecycle_status": "INTAKE_READY",
+      "intake_outcome": "READY_FAST_PATH",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-.NET/572fc748b45fe5efce5d93d0684c5ac78fc8affe/intake/receipts/429c8c19ce89c5f9-a1.json",
+        "sha256": "aed747d808aeb0f8ea3ae4e5ad17f7726f1ebef32441e2d87deeac78ca6c6451"
+      },
+      "readme_signals": {
+        "byte_count": 7719,
+        "heading_count": 10,
+        "code_block_count": 3,
+        "link_count": 13,
+        "reader_section_signal_count": 5
+      },
+      "reusable_current_revision_stages": [],
+      "earliest_valid_boundary": "INTAKE_READY",
+      "first_required_boundary": "SNAPSHOTTED",
+      "estimated_remaining_work_units": 12,
+      "validator_risk": "medium",
+      "rejection_reason": "No post-intake artifacts; larger inherited README raises claim-accountability workload. It loses the equal-work tie to Slides by stable registry order.",
+      "slice_eligibility": "ELIGIBLE_AFTER_WINNER",
+      "batch_eligibility": "NOT_ELIGIBLE_BEFORE_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0
+    },
+    {
+      "rank": 5,
+      "stable_registry_index": 13,
+      "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+      "provider_repository_id": 1193864496,
+      "mode": "dry_run",
+      "policy_profile": "aspose-email-foss-net",
+      "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+      "durable_state_version": 26,
+      "durable_lifecycle_status": "INTAKE_READY",
+      "intake_outcome": "READY_FULL_PIPELINE",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-.Net/a8999e259143a9ffc660086b34a7f39516da29f5/intake/receipts/f6f46c8dbfa02136-a1.json",
+        "sha256": "0e2b4ac00c4fe5d55bd74f5d137449cb7909f9d74681554ead47b040e76b68af"
+      },
+      "readme_signals": {
+        "byte_count": 2355,
+        "heading_count": 7,
+        "code_block_count": 5,
+        "link_count": 0,
+        "reader_section_signal_count": 2
+      },
+      "reusable_current_revision_stages": [],
+      "earliest_valid_boundary": "INTAKE_READY",
+      "first_required_boundary": "SNAPSHOTTED",
+      "estimated_remaining_work_units": 13,
+      "validator_risk": "high",
+      "rejection_reason": "The current zero-call intake is the cohort's only READY_FULL_PIPELINE result and reports no links/two reader-section signals, increasing ordinary evidence-backed composition work.",
+      "slice_eligibility": "ELIGIBLE_AFTER_WINNER",
+      "batch_eligibility": "NOT_ELIGIBLE_BEFORE_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0
+    },
+    {
+      "rank": 6,
+      "stable_registry_index": 22,
+      "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+      "provider_repository_id": 1250546660,
+      "mode": "dry_run",
+      "policy_profile": "aspose-pdf-foss-net",
+      "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
+      "durable_state_version": 26,
+      "durable_lifecycle_status": "INTAKE_READY",
+      "intake_outcome": "READY_FAST_PATH",
+      "intake_receipt": {
+        "path": "runs/readme-poc/aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET/8a3131b9a6f7e97c20214896c615dbee86272459/intake/receipts/1bb0d810df307ea7-a1.json",
+        "sha256": "81bdc6097c9f54c30a6830557675e7b0e3b2d678b42c58274c5ee9e2c3f53d3e"
+      },
+      "readme_signals": {
+        "byte_count": 15513,
+        "heading_count": 33,
+        "code_block_count": 10,
+        "link_count": 22,
+        "reader_section_signal_count": 6
+      },
+      "reusable_current_revision_stages": [],
+      "earliest_valid_boundary": "INTAKE_READY",
+      "first_required_boundary": "SNAPSHOTTED",
+      "estimated_remaining_work_units": 14,
+      "validator_risk": "high",
+      "rejection_reason": "Although intake says READY_FAST_PATH, it has the largest README, most headings, and most code blocks in the cohort, so protected-content and claim-accountability cost is highest among entries without post-intake artifacts.",
+      "slice_eligibility": "ELIGIBLE_AFTER_WINNER",
+      "batch_eligibility": "NOT_ELIGIBLE_BEFORE_THREE_LANE_ISOLATION_PROOF",
+      "readiness_provider_call_budget": 0
+    }
+  ],
+  "cache_invalidation_matrix": [
+    {
+      "dependency_change": "source_revision",
+      "earliest_reopened_boundary": "SNAPSHOTTED",
+      "cohort_result": "No current .NET source revision changed during classification."
+    },
+    {
+      "dependency_change": "fact_acceptance_or_local_verification_contract",
+      "earliest_reopened_boundary": "FACTS_COLLECTING",
+      "cohort_result": "3D stored fact/local-verification contracts differ from current contracts; facts and every dependent stage are invalidated. Other entries have not reached facts."
+    },
+    {
+      "dependency_change": "composition_prompt_or_template",
+      "earliest_reopened_boundary": "PLAN_READY",
+      "cohort_result": "3D stored composition prompt and template differ from current contracts; candidate and later receipts cannot skip execution."
+    },
+    {
+      "dependency_change": "validator_contract",
+      "earliest_reopened_boundary": "DETERMINISTIC_VALIDATED",
+      "cohort_result": "3D old deterministic receipt is structurally valid evidence but is downstream of already-invalid facts/candidate."
+    },
+    {
+      "dependency_change": "reviewer_standard",
+      "earliest_reopened_boundary": "AGENT_REVIEWING",
+      "cohort_result": "3D manifest has no bound current reviewer standard; its old independent review/final verdict cannot count."
+    },
+    {
+      "dependency_change": "no_op_contract_or_candidate_hash",
+      "earliest_reopened_boundary": "NO_OP_PROVEN",
+      "cohort_result": "3D old no-op proof candidate hash differs from the current lifecycle candidate and lacks exact current LLM accounting fields."
+    }
+  ],
+  "accounting": {
+    "registry_entries_classified": 6,
+    "registry_entries_expected": 6,
+    "provider_call_count": 0,
+    "composition_provider_call_count": 0,
+    "review_provider_call_count": 0,
+    "product_effect_count": 0,
+    "remote_write_count": 0,
+    "read_only_remote_revision_probe_count": 6,
+    "read_only_durable_state_load_count": 6,
+    "pre_slice_finalized_output_count": 0,
+    "pre_slice_reusable_terminal_cache_count": 0,
+    "selected_slice_count": 1
+  },
+  "verdict": "DOTNET_READINESS_CLASSIFIED",
+  "limitations": [
+    "This is readiness classification, not a completed .NET verified slice and not Gate A.",
+    "No StageDependencyManifestV1-bound .NET terminal receipt exists yet; the selected slice must bind the current frozen dependencies before any stage skip.",
+    "Estimated remaining-work units are deterministic relative ranking units, not elapsed-time promises.",
+    "The current dirty implementation tree is intentionally not modified or normalized by this lane."
+  ]
+}

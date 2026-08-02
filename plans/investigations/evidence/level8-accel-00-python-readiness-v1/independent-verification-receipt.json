@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+  "verifier_role": "independent_verification",
+  "verdict": "ACCEPTED",
+  "verifier_authored_implementation": false,
+  "runtime_report_path": "runs/multi-agent/L8-ACCEL-00-PYTHON-READINESS/independent-verification/report.md",
+  "runtime_report_sha256": "a344ac720d41ee36605b7ef7ba8913d4a5e35fdbdd45b1ab36e7f215e320e3b1",
+  "runtime_verification_path": "runs/multi-agent/L8-ACCEL-00-PYTHON-READINESS/independent-verification/verification.json",
+  "runtime_verification_sha256": "699cc589ed3ac32e39635b411d825e18d5a81cb63e3b51a68abd37be8682c4c3",
+  "accepted_checks": [
+    "raw artifact integrity",
+    "6/6 .NET readiness ranking",
+    "4/4 Java readiness ranking",
+    "Note exact approved-cache/no-op boundary",
+    "31 x 6 legacy salvage decisions",
+    "zero provider and product effects",
+    "97 focused regression tests",
+    "freeze replay",
+    "checksum inventory"
+  ],
+  "scope": "Readiness selection and salvage only; no downstream candidate or product effect is approved."
+}

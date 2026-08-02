@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+  "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "platform": "python",
+  "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "content_assurance": "repository_verified",
+  "durable_state_version": 1852,
+  "lifecycle_status": "AGENT_APPROVED",
+  "bundle_path": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "facts_hash": "03e739cd2fcdfad01e0957bae5244d5d1ff26215ae374ddbffdf8b2b4a9aa66f",
+  "candidate_hash": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
+  "fact_acceptance_contract_hash": "0246cc2cc21bc71ec9c031d5e552a1da39be2377863a432f1fb9efbcb2bddb78",
+  "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
+  "control_plane_fingerprint": "641df57dee6673af9c6815bc1f59b7510d667db5c97839cd15db875c8bfdf043",
+  "approved_cache": {
+    "reusable": true,
+    "cache_key": "92b11581e79d075ca3bab01057f2aae434277f5c451130740248899a2c4b515b",
+    "mismatch_reasons": [],
+    "artifact_inventory_sha256": "fdaf60d6ddb1a0848a499494d0e95d4396ca7e0c432b48761c381cd1a2479b10"
+  },
+  "completed_cache": {
+    "reusable": false,
+    "earliest_affected_stage": "SNAPSHOTTED",
+    "mismatch_reasons": [
+      "lifecycle_not_complete",
+      "manifest_no_op_stage_missing",
+      "manifest_not_complete",
+      "no_op_proof_invalid"
+    ]
+  },
+  "readiness_classification": "APPROVED_REUSABLE_NO_OP_PENDING",
+  "exact_next_action": "Run the canonical unchanged local_poc path so the reusable approved bundle advances to NO_OP_PROVEN with zero provider calls.",
+  "provider_calls_during_classification": 0,
+  "remote_write_attempts": 0
+}

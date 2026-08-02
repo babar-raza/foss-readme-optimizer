@@ -1,0 +1,168 @@
+{
+  "schema_version": "JavaReadinessClassificationV1",
+  "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+  "snapshot": {
+    "control_branch": "main",
+    "control_head": "88380723078a5aff28bf29f7ba70ecc709ba760a",
+    "registry_path": "data/products.json",
+    "registry_sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+    "registry_count": 31,
+    "pipeline_contract_record": "plans/investigations/evidence/final-throughput-correction-v1/pipeline-contract-snapshot-v1.json",
+    "pipeline_contract_record_sha256": "b3172a9302763e36cf800117b5ea5002f6273205a7bc4572f060556aaa9fa7f7",
+    "pipeline_snapshot_id": "f7a8ba0a77fa953773623e0a74ecf74d0d3eefb7e9bfb6a9946fa1289bc25379",
+    "pipeline_acceptance_receipt_id": "bf06976e6123ccbef9d8cb9bc63bf37c0364a6ffabbacb19a101517373f13063",
+    "pipeline_selected_member_count": 85,
+    "pipeline_members_match_live_bytes": true,
+    "pipeline_member_mismatches": [],
+    "plan_freeze_id": "3540081f855cf236685130e67652a649b078dbe5d3b19d95832fa9043594463d",
+    "provider_calls": 0,
+    "remote_effects": 0,
+    "lifecycle_mutations": 0
+  },
+  "selection_policy": {
+    "rank_order": [
+      "current exact snapshot",
+      "exact compatible stages",
+      "physical current-revision stages",
+      "valid immutable CAS stage attempts",
+      "fewest invalid stages",
+      "fewest rerenders",
+      "fewest upstream-only stages",
+      "mode full",
+      "registry order"
+    ],
+    "provider_calls": 0,
+    "remote_effects": 0
+  },
+  "java_registry_count": 4,
+  "repositories": [
+    {
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "mode": "full",
+      "current_source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "baseline_clone_dirty_count": 0,
+      "root_inventory_valid": true,
+      "stage_classifications": {
+        "SNAPSHOT": "REUSE_EXACT",
+        "FACTS": "REUSE_UPSTREAM_ONLY",
+        "CANDIDATE": "RERENDER_REQUIRED",
+        "DETERMINISTIC": "REUSE_UPSTREAM_ONLY",
+        "APPROVAL": "MISSING",
+        "NOOP": "MISSING"
+      },
+      "exact_stage_count": 1,
+      "physical_stage_count": 4,
+      "valid_immutable_stage_attempt_count": 2,
+      "rank_tuple": [
+        1,
+        1,
+        4,
+        2,
+        0,
+        -1,
+        -2,
+        1,
+        -7
+      ],
+      "first_required_action": "reuse the exact current immutable snapshot; rebuild repository-verified facts, then rerender under the frozen contract",
+      "evidence_bundle_root": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619"
+    },
+    {
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+      "mode": "full",
+      "current_source_revision": "35963f673e0811285d6b1ad0911fd7171bf70f41",
+      "baseline_clone_dirty_count": 0,
+      "root_inventory_valid": true,
+      "stage_classifications": {
+        "SNAPSHOT": "MISSING",
+        "FACTS": "MISSING",
+        "CANDIDATE": "MISSING",
+        "DETERMINISTIC": "MISSING",
+        "APPROVAL": "MISSING",
+        "NOOP": "MISSING"
+      },
+      "exact_stage_count": 0,
+      "physical_stage_count": 0,
+      "valid_immutable_stage_attempt_count": 0,
+      "rank_tuple": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "first_required_action": "capture the current immutable snapshot, then build repository-verified facts",
+      "evidence_bundle_root": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Java/35963f673e0811285d6b1ad0911fd7171bf70f41"
+    },
+    {
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+      "mode": "dry_run",
+      "current_source_revision": "12ae9e183a093d40afd3b502a368963f19ed83a3",
+      "baseline_clone_dirty_count": 0,
+      "root_inventory_valid": true,
+      "stage_classifications": {
+        "SNAPSHOT": "MISSING",
+        "FACTS": "MISSING",
+        "CANDIDATE": "MISSING",
+        "DETERMINISTIC": "MISSING",
+        "APPROVAL": "MISSING",
+        "NOOP": "MISSING"
+      },
+      "exact_stage_count": 0,
+      "physical_stage_count": 0,
+      "valid_immutable_stage_attempt_count": 0,
+      "rank_tuple": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -21
+      ],
+      "first_required_action": "capture the current immutable snapshot, then build repository-verified facts",
+      "evidence_bundle_root": "runs/readme-poc/aspose-pdf-foss__Aspose.PDF-FOSS-for-Java/12ae9e183a093d40afd3b502a368963f19ed83a3"
+    },
+    {
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+      "mode": "dry_run",
+      "current_source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+      "baseline_clone_dirty_count": 0,
+      "root_inventory_valid": true,
+      "stage_classifications": {
+        "SNAPSHOT": "MISSING",
+        "FACTS": "MISSING",
+        "CANDIDATE": "MISSING",
+        "DETERMINISTIC": "MISSING",
+        "APPROVAL": "MISSING",
+        "NOOP": "MISSING"
+      },
+      "exact_stage_count": 0,
+      "physical_stage_count": 0,
+      "valid_immutable_stage_attempt_count": 0,
+      "rank_tuple": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -25
+      ],
+      "first_required_action": "capture the current immutable snapshot, then build repository-verified facts",
+      "evidence_bundle_root": "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Java/9968c5b42525919f50bca3cdbcedd3ae1dc382c4"
+    }
+  ],
+  "selected_repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "selection_verdict": "WINNER_SELECTED_DETERMINISTICALLY",
+  "selection_reason": "Cells Java is the only Java entry with an exact current immutable snapshot plus current-revision facts/candidate/deterministic artifacts and two valid sealed CAS attempts. Its fact/template/prompt contracts are stale, so only the snapshot is reusable exactly; facts must be rebuilt and the candidate rerendered.",
+  "next_action": "Reuse the exact current snapshot for aspose-cells-foss/Aspose.Cells-FOSS-for-Java; rebuild repository-verified FACTS under the frozen contract, then rerender, deterministically validate, independently review, and prove no-op."
+}

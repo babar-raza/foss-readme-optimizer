@@ -1,0 +1,4 @@
+.venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml --mission-action status
+.venv/Scripts/python -m pytest -q tests/unit/test_registry_loader.py tests/unit/test_registry_priority.py tests/unit/test_local_poc_cache.py tests/unit/test_gitsafety.py
+.venv/Scripts/python -c "import json; from pathlib import Path; root=Path('runs/multi-agent/L8-ACCEL-00-PYTHON-READINESS'); [json.loads(p.read_text(encoding='utf-8')) for p in root.rglob('*.json')]"
+.venv/Scripts/python -c "from pathlib import Path; from readme_agent.evidence.writer import verify_sha256sums; assert verify_sha256sums(Path('plans/investigations/evidence/level8-accel-00-python-readiness-v1'))"

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+  "control_branch": "main",
+  "control_head": "88380723078a5aff28bf29f7ba70ecc709ba760a",
+  "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
+  "registry": {
+    "path": "data/products.json",
+    "sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+    "denominator": 31
+  },
+  "platform_priority_sha256": "8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec",
+  "accepted_freeze": {
+    "plan_freeze_acceptance_id": "0d4c5ce3ffe28ef4a4b19d3e119bec0a30d9312009c5275f000369bc2ec2eecb",
+    "pipeline_snapshot_acceptance_id": "bf06976e6123ccbef9d8cb9bc63bf37c0364a6ffabbacb19a101517373f13063"
+  },
+  "raw_lane_artifacts": [
+    {"path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/raw/note-readiness.json", "sha256": "1e4389d19d9cbf113fa9337aab407a0876dfbe38c024fc65dbc1f05aa4d6f58d"},
+    {"path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/raw/dotnet-readiness.json", "sha256": "11c0a47e054600c26263b82b26fc88f7430831065e26dd231aa501c2ec6d4df4"},
+    {"path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/raw/java-readiness.json", "sha256": "fc2a72765138929dc4064b522c1d6721f4660b6f6ec58fb96ae1a521d87c8532"},
+    {"path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/raw/legacy-salvage.json", "sha256": "c34681b78ea3ef068ef79bc85a492dc803e0e2d13c5d614bce327b9525badb7b"},
+    {"path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/raw/focused-verification.json", "sha256": "d84eef2afec9c2eec64ff2a06e941caf792f09eff7e0fb8389fe39697a08cbfe"}
+  ],
+  "three_slice_queue": [
+    {
+      "rank": 1,
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "earliest_valid_boundary": "AGENT_APPROVED",
+      "first_required_boundary": "NO_OP_PROVEN",
+      "cache_decision": "REUSE_APPROVED_EXACT",
+      "provider_budget": 0
+    },
+    {
+      "rank": 2,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "platform": "net",
+      "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+      "earliest_valid_boundary": "PROFILED",
+      "first_required_boundary": "FACTS_COLLECTING",
+      "cache_decision": "REUSE_SNAPSHOT_AND_PROFILE_ONLY",
+      "estimated_remaining_work_units": 9,
+      "validator_risk": "medium"
+    },
+    {
+      "rank": 3,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "platform": "java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "earliest_valid_boundary": "SNAPSHOTTED",
+      "first_required_boundary": "FACTS_COLLECTING",
+      "cache_decision": "REUSE_SNAPSHOT_EXACT"
+    }
+  ],
+  "dotnet_ranking": [
+    {"rank": 1, "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET", "revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be", "first_required_boundary": "FACTS_COLLECTING", "remaining_work_units": 9, "risk": "medium"},
+    {"rank": 2, "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET", "revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787", "first_required_boundary": "SNAPSHOTTED", "remaining_work_units": 11, "risk": "low_medium"},
+    {"rank": 3, "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET", "revision": "bd19e16057b628310b4a04330585d366cb40e9b7", "first_required_boundary": "SNAPSHOTTED", "remaining_work_units": 12, "risk": "medium"},
+    {"rank": 4, "repository": "aspose-words-foss/Aspose.Words-FOSS-for-.NET", "revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe", "first_required_boundary": "SNAPSHOTTED", "remaining_work_units": 12, "risk": "medium"},
+    {"rank": 5, "repository": "aspose-email-foss/Aspose.Email-FOSS-for-.Net", "revision": "a8999e259143a9ffc660086b34a7f39516da29f5", "first_required_boundary": "SNAPSHOTTED", "remaining_work_units": 13, "risk": "high"},
+    {"rank": 6, "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET", "revision": "8a3131b9a6f7e97c20214896c615dbee86272459", "first_required_boundary": "SNAPSHOTTED", "remaining_work_units": 14, "risk": "high"}
+  ],
+  "java_ranking": [
+    {"rank": 1, "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java", "revision": "2be25d979d1f3bf2875a1798aed62a16efab6619", "first_required_boundary": "FACTS_COLLECTING", "cache_decision": "REUSE_SNAPSHOT_EXACT"},
+    {"rank": 2, "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java", "revision": "35963f673e0811285d6b1ad0911fd7171bf70f41", "first_required_boundary": "SNAPSHOTTED", "cache_decision": "MISSING"},
+    {"rank": 3, "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java", "revision": "12ae9e183a093d40afd3b502a368963f19ed83a3", "first_required_boundary": "SNAPSHOTTED", "cache_decision": "MISSING"},
+    {"rank": 4, "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java", "revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4", "first_required_boundary": "SNAPSHOTTED", "cache_decision": "MISSING"}
+  ],
+  "legacy_salvage": {
+    "repositories": 31,
+    "stages_per_repository": 6,
+    "decisions": 186,
+    "classification_counts": {
+      "REUSE_EXACT": 18,
+      "REUSE_UPSTREAM_ONLY": 58,
+      "RERENDER_REQUIRED": 16,
+      "REREVIEW_REQUIRED": 0,
+      "INVALID_STALE": 4,
+      "MISSING": 90
+    },
+    "immutable_cas_attempts_valid": 119,
+    "immutable_cas_attempts_invalid": 0
+  },
+  "pre_slice_scoreboard": {
+    "contract_valid": {"facts_ready": 1, "candidate_generated": 1, "deterministic_validated": 1, "agent_approved": 1, "no_op_proven": 0},
+    "raw": {"facts_ready": 17, "candidate_generated": 10, "deterministic_validated": 10, "agent_approved": 3, "no_op_proven": 2}
+  },
+  "accounting": {
+    "classification_provider_calls": 0,
+    "composition_provider_calls": 0,
+    "review_provider_calls": 0,
+    "product_remote_writes": 0,
+    "durable_lifecycle_mutations": 0
+  },
+  "focused_verification": {"tests_passed": 97, "duration_seconds": 29.59},
+  "verdict": "QUEUE_FROZEN_ZERO_PROVIDER"
+}
