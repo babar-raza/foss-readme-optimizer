@@ -38,6 +38,7 @@ PLAN_MEMBERS = [
     "src/readme_agent/supervisor/campaign_evidence.py",
     "src/readme_agent/supervisor/campaign_packets.py",
     "scripts/governance/seal_final_throughput_contracts.py",
+    "scripts/governance/build_minimum_campaign_evidence.py",
     "data/products.json",
     "data/platform_priorities.json",
     "data/aspose_com_links.json",
