@@ -39461,9 +39461,9 @@
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
       "root_role_selection": "dcb07b46c3a842d813e1026a6793d56d4893198c5b4b666aeb6ecd5d91ae3c7e",
-      "visitor_render_eligibility": "2db9a70e526d1200095346e7b7471ee6926f8240c91b051b61500ae51b83c50c"
+      "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
     },
-    "fact_acceptance_contract_hash": "ded670dfb453167076905a5893973ec555adea9e43027e7242298ccf5328ae96",
+    "fact_acceptance_contract_hash": "0246cc2cc21bc71ec9c031d5e552a1da39be2377863a432f1fb9efbcb2bddb78",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -39735,6 +39735,27 @@
         "occurred_at": "2026-08-02T14:27:21.024882+00:00",
         "outcome": "FACTS_READY",
         "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "d1040b29eb470332244fda064d4c583ad2d8a2b135e5925c196efdfe380d67ac",
+          "classification_semantics": "6322a3eb7e3544692e8a96c5e67db5d522ef7b1667cc7a70bf6d1fcd0c473d9e",
+          "conflict_semantics": "be0114137bd2f7bbae52b2100e68f70f98576684be71d397c13108a7293fdcab",
+          "drafting_and_example_selection": "9704eedfbedd858a18111108a617a9532b9b0abc076e197d8a082ca2b6e49d6e",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "dcb07b46c3a842d813e1026a6793d56d4893198c5b4b666aeb6ecd5d91ae3c7e",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "0246cc2cc21bc71ec9c031d5e552a1da39be2377863a432f1fb9efbcb2bddb78",
+        "facts_hash": "03e739cd2fcdfad01e0957bae5244d5d1ff26215ae374ddbffdf8b2b4a9aa66f",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-02T15:55:21.713388+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "legacy cached fact graph re-evaluated under the current contract",
         "schema_version": 1,
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
       }
@@ -45829,10 +45850,10 @@
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
     "status": "AGENT_APPROVED",
-    "updated_at": "2026-08-02T15:50:27.564599+00:00"
+    "updated_at": "2026-08-02T15:55:21.713388+00:00"
   },
   "schema_version": 2,
-  "state_version": 1828,
+  "state_version": 1829,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "641df57dee6673af9c6815bc1f59b7510d667db5c97839cd15db875c8bfdf043",
