@@ -4183,7 +4183,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "67e8ba5071bb3166ee81382a78b715e5a77bcd605f58e075d223421e9dc0b722",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -6110,10 +6110,10 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "execution_error",
-          "failure_reason": "agentic_composition",
-          "message": "LLMError: composition diagram returned duplicate labels",
-          "occurred_at": "2026-08-02T20:58:28.170390+00:00",
+          "error_type": "blocked",
+          "failure_reason": "presentation_plan",
+          "message": "['fact-backed audience/problem overview is absent']",
+          "occurred_at": "2026-08-02T21:22:42.386635+00:00",
           "schema_version": 1,
           "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
           "stage": null
@@ -15908,9 +15908,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:06:51.262682+00:00",
+      "last_run_timestamp": "2026-08-02T21:22:42.386635+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -17614,7 +17614,7 @@
     "updated_at": "2026-08-02T21:09:58.931454+00:00"
   },
   "schema_version": 2,
-  "state_version": 718,
+  "state_version": 719,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36bff2b2c8166fb4672948b6f73075990d1ad4492786df2f449b3e3cb85c48c0",
