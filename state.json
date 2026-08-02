@@ -3,6 +3,23 @@
   "accepted_status": null,
   "capability_outputs": [],
   "checkpoints": {
+    "008531b0cc6115203b3fe8e2acc19f47b2a27de355223bf50dfb7210220e7956": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "008531b0cc6115203b3fe8e2acc19f47b2a27de355223bf50dfb7210220e7956",
+      "completed_at": "2026-08-02T05:33:27.518597+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "14a4e4c63810ed257a1a2705ebcc1b968b0fcbe300ba1077fe8c3111c96ebdf8",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260802-053303-a820",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-02T05:33:27.518583+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-053303-a820:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "00d1977ebba037fa66b7c17dfeb7a229f29a26f0bed4a9477ea5634bcfddd4dd": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -24576,7 +24593,7 @@
     "updated_at": "2026-08-02T05:32:17.433219+00:00"
   },
   "schema_version": 2,
-  "state_version": 1021,
+  "state_version": 1022,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
@@ -25341,11 +25358,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "4190b1624dd7cd19eb958b7c496e1ca3777b4da48192bf36546420865fb04425",
+      "last_checkpoint_id": "008531b0cc6115203b3fe8e2acc19f47b2a27de355223bf50dfb7210220e7956",
       "lease_expires_at": "2026-08-02T05:48:22.303999+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-02T05:33:22.303999+00:00"
+      "updated_at": "2026-08-02T05:33:27.518597+00:00"
     }
   },
   "trigger_records": {},
