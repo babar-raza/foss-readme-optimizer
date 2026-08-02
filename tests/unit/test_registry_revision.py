@@ -27,6 +27,8 @@ from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.schema import RunStateV2
 from readme_agent.supervisor.registry_intake_queue import settle_registry_intake_queue
 
+FIXTURE_EVALUATION_TIME = datetime(2026, 8, 1, 1, tzinfo=UTC)
+
 
 def _entry(repository_id: int = 10) -> dict:
     return {
@@ -158,7 +160,9 @@ def test_disabled_source_is_revision_bound_without_blocking_completeness():
             "reason": "organization does not exist",
         }
     ]
-    assert evaluate_registry_revision(revision, existing).eligible is True
+    assert (
+        evaluate_registry_revision(revision, existing, now=FIXTURE_EVALUATION_TIME).eligible is True
+    )
 
 
 def test_changed_observation_creates_one_pending_intake_and_deduplicates_next_scan():
@@ -221,10 +225,16 @@ def test_gate_rejects_act_fixture_revision_outside_act(monkeypatch):
     )
     monkeypatch.delenv("ACT", raising=False)
 
-    assert evaluate_registry_revision(revision, existing).reasons == ["act_fixture_not_admissible"]
+    assert evaluate_registry_revision(
+        revision,
+        existing,
+        now=FIXTURE_EVALUATION_TIME,
+    ).reasons == ["act_fixture_not_admissible"]
 
     monkeypatch.setenv("ACT", "true")
-    assert evaluate_registry_revision(revision, existing).eligible is True
+    assert (
+        evaluate_registry_revision(revision, existing, now=FIXTURE_EVALUATION_TIME).eligible is True
+    )
 
 
 def test_revision_persistence_is_idempotent_and_checksum_addressed(tmp_path, monkeypatch):
