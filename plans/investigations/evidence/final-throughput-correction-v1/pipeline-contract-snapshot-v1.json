@@ -1,0 +1,777 @@
+{
+  "acceptance_receipt_id": "67810fa7ea7f8acd027eabfe06ac8854d9521084e21a73a2b3df7c0f5624e121",
+  "created_at": "2026-08-02T19:12:11.160466+00:00",
+  "files": [
+    {
+      "contract_group": "prompt-jobs",
+      "path": "prompts/generation/plan_readme_composition.yaml",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "6a91a20a53b4b1a3c0e043b5cd7a7fb8e4115e8e531b3a0777a313303c97d83c",
+      "size": 4160,
+      "snapshot_path": "files/prompts/generation/plan_readme_composition.yaml",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "ecosystem-adapters",
+      "path": "src/readme_agent/ecosystems/python.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "4363b90ffc340d3bc44db73b2e5d24222867878027211de8bd92751e1242a78e",
+      "size": 7534,
+      "snapshot_path": "files/src/readme_agent/ecosystems/python.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "ecosystem-adapters",
+      "path": "src/readme_agent/ecosystems/python_package_layout.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "4f7cdef62ef451e9a2cce8e98e274c1e0b776cfd671203a0c6d028f5d64806a5",
+      "size": 11017,
+      "snapshot_path": "files/src/readme_agent/ecosystems/python_package_layout.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/acceptance_contract.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "bdb5be60f8fbd5e21e129ccfa437fd2328330a5764c0d0f700ca1352de8e5e88",
+      "size": 8285,
+      "snapshot_path": "files/src/readme_agent/facts/acceptance_contract.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/curated_constraint_evidence.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "0524747064cb8454147af076b8c3203c7c5ff8314187a6289668820921f10851",
+      "size": 1913,
+      "snapshot_path": "files/src/readme_agent/facts/curated_constraint_evidence.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/curated_python_evidence.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "6b3f157683433f52ef683bc218910f329117842d6b7caaa7086dfdbee11a156e",
+      "size": 7358,
+      "snapshot_path": "files/src/readme_agent/facts/curated_python_evidence.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/curated_readme_evidence.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "be115d5d382d626d918d5018c48fef2a892ba19aa0fd221ef1b7c4a64fd8cc28",
+      "size": 3450,
+      "snapshot_path": "files/src/readme_agent/facts/curated_readme_evidence.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/curated_repository_assets.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "d148d10b1c8c9d08c69fa3ea20b9fcc1fd52da2126c3f9a44b4da85255552b21",
+      "size": 2484,
+      "snapshot_path": "files/src/readme_agent/facts/curated_repository_assets.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/local_verification.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "838a73dd0f7af6ae83e4014643f4c9a2d02c35b3e8667921ef47e934547f2222",
+      "size": 33529,
+      "snapshot_path": "files/src/readme_agent/facts/local_verification.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/migration.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "f08b9765230f40e4ed29bc3394e68a4b599657c90f69b73b337da25159c17cbf",
+      "size": 8761,
+      "snapshot_path": "files/src/readme_agent/facts/migration.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/python_consumer_fixtures.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "1dec1fbd66e2ad9e5ae44cb386aad49cdd35e3d151432397bedd6ee1d6c6bb71",
+      "size": 6349,
+      "snapshot_path": "files/src/readme_agent/facts/python_consumer_fixtures.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/render_views.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "b116e526a32b203563bb252345f30e77110fd15c78c8f149c52e99854e290136",
+      "size": 11324,
+      "snapshot_path": "files/src/readme_agent/facts/render_views.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/repository_ingestion.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "86b18e15db492d2c081b96f7965e3164343de3020c51db8811f7e1f965f54aa8",
+      "size": 5045,
+      "snapshot_path": "files/src/readme_agent/facts/repository_ingestion.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "fact-extractors",
+      "path": "src/readme_agent/facts/verification_contract.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "aac20c00d693d92e8ee61cb653c804833d233041ab67bc4bf97f1dde9a6e3013",
+      "size": 3876,
+      "snapshot_path": "files/src/readme_agent/facts/verification_contract.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "prompt-jobs",
+      "path": "src/readme_agent/llm/generation_prompts.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "3314a5bdce8e69e075b8fddf91072d9a14ab25452205ca6da9341fb61d8637b6",
+      "size": 13301,
+      "snapshot_path": "files/src/readme_agent/llm/generation_prompts.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/document_planner.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "47b0e445f5fce94306c53571153ca8a8e54e9be284c0ccf58d70e6e38b5a97aa",
+      "size": 8236,
+      "snapshot_path": "files/src/readme_agent/presentation/document_planner.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/runtime_repairs.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "e24eb21ca9d1c8ecade3abd4c01e6b6a3c125d5edf372aece39df832e0e1f112",
+      "size": 3200,
+      "snapshot_path": "files/src/readme_agent/presentation/runtime_repairs.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/template_adapters.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "1ab82c8ab8b954fda99786a3f658cd380dcb3bf7e70d89969fc5bb99ee92d019",
+      "size": 5862,
+      "snapshot_path": "files/src/readme_agent/presentation/template_adapters.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/template_schema.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "021d0312412226b54322b33739f7d17019fecbe2dc63714b287aa67896f18552",
+      "size": 9564,
+      "snapshot_path": "files/src/readme_agent/presentation/template_schema.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/verified_template_draft.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "95e92f0fb3757551762e9b0fce33e19aefc40c3495cabfec56c7979c1a60505b",
+      "size": 9950,
+      "snapshot_path": "files/src/readme_agent/presentation/verified_template_draft.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/verified_template_provenance.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "ca51d29b698a78bc9da5980d08200652c06bba7546e5f221f0a86d0902fb14f9",
+      "size": 17678,
+      "snapshot_path": "files/src/readme_agent/presentation/verified_template_provenance.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/verified_template_runtime.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "63c50d06ba713a8aa5dcec7f8a532407c242519b8a7cd927e2382f07bdee5935",
+      "size": 7846,
+      "snapshot_path": "files/src/readme_agent/presentation/verified_template_runtime.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/presentation/verified_template_sections.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "92012423e2477a8a3faef5af3bd5d28ae16828c737a9579ee37b02a9282ea180",
+      "size": 6707,
+      "snapshot_path": "files/src/readme_agent/presentation/verified_template_sections.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/agentic_composition.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "a0e287aaff633b921c793c4c75395b16f41ced620ccf5ba6c9362edbf9671079",
+      "size": 7531,
+      "snapshot_path": "files/src/readme_agent/readme/agentic_composition.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/agentic_composition_validation.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "b8b4ee89d8c5ac929fbb19f81e1692efa94d503d1feed0bdae3d4e193bca95f7",
+      "size": 11424,
+      "snapshot_path": "files/src/readme_agent/readme/agentic_composition_validation.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7f7149666c9d9cce04cfde27feb6c8e7ad1afe63f8d2ae587c90c91489d052d5",
+      "size": 13266,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_api_coordinates.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7d953c9138c46613fcb04bfd460319de4f85bbf39230e5d0eb9d9d5994ad4209",
+      "size": 9027,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_api_coordinates.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_api_index.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "a2256961322dd8ad60a80a6fe9d391665aee74150289ccad4df4f2dd053ab81c",
+      "size": 2307,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_api_index.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_coordinates.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "45c4e91510ae3c0b9837a9d5ccfe6dc2052f1b2e88c9e9f792bdb2094809835a",
+      "size": 8920,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_coordinates.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_helpers.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "e4d177f94be0db5fa5919c5d07d247e1f5aa8f23423f417a2956896e031c2dbb",
+      "size": 10127,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_helpers.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_models.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "a591ae97699058786f0313fb4865baab9c4166a284354e003bacb13aabf2e2f3",
+      "size": 3390,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_models.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_accountability_validation.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "8de7a7ca0b60452e42717b00dd4880bb5db2411e012077719a275075d278fea6",
+      "size": 17194,
+      "snapshot_path": "files/src/readme_agent/readme/claim_accountability_validation.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/claim_map.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "1cd74141ea44af21c0d9384a23979377a195c66462b68bea26b41fec22fce60e",
+      "size": 8999,
+      "snapshot_path": "files/src/readme_agent/readme/claim_map.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_legal.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "726dee6c3f74c906b8e2c6f8a7a539a204fc14f1834a79ea553fff6749d86e95",
+      "size": 9506,
+      "snapshot_path": "files/src/readme_agent/readme/document_legal.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_links.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "0bf0f1eacccdb3cd904f065109731b471db6db8df42412320454a5eb5273bb00",
+      "size": 12598,
+      "snapshot_path": "files/src/readme_agent/readme/document_links.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_opening.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "257dfeb70434cafe254f620adad5aed940bd3e858817631ca4af6a2a3055d835",
+      "size": 6900,
+      "snapshot_path": "files/src/readme_agent/readme/document_opening.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_plan.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "42e0939bc16ac287c7fcae9244459751da98586dcf884962af2b9d202148d739",
+      "size": 11305,
+      "snapshot_path": "files/src/readme_agent/readme/document_plan.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_plan_finalizer.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "ded1c8c8281a01ac8c2c95fd1062926825dbf1ad3a5367f3d753b5ab25815ce9",
+      "size": 3464,
+      "snapshot_path": "files/src/readme_agent/readme/document_plan_finalizer.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_renderer.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "e6d450d8a5228e830333ce093fb5c2f1a4b8e7ecb526880f5b1e1c6e46a6744d",
+      "size": 11729,
+      "snapshot_path": "files/src/readme_agent/readme/document_renderer.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/document_templates.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "276a17ea12ce79718434ad3e4c8768fb94b91071413dbb94b77974677df564cc",
+      "size": 14862,
+      "snapshot_path": "files/src/readme_agent/readme/document_templates.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/document_validation.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "9f594531681802450892524c679da0f7331987a8e57f855f6ecef38859866c37",
+      "size": 14505,
+      "snapshot_path": "files/src/readme_agent/readme/document_validation.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/fact_grounding.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "fe45a8553a42aa4c0ff66d6d4aecb1fece6ada59a931942c4c46f89da130d365",
+      "size": 8328,
+      "snapshot_path": "files/src/readme_agent/readme/fact_grounding.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/header_badges.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "2aae91b737c16c8979d4b6816e2314d3d9ab3c21609082cb4e89a9edfecdfcf6",
+      "size": 13151,
+      "snapshot_path": "files/src/readme_agent/readme/header_badges.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/header_visual.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "29844ca8c13c45a51c9384a6ce54f5c108779c9c20cc6f6b93e4be5f44843352",
+      "size": 8629,
+      "snapshot_path": "files/src/readme_agent/readme/header_visual.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/header_visual_models.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "fe5e39aeccc766d79831024ef964675cf253ccf9ba7605cb3674bfe96f5ad507",
+      "size": 3001,
+      "snapshot_path": "files/src/readme_agent/readme/header_visual_models.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/header_visual_validation.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7a7ec53305f9dfbecfb74441fd27b8048cafa3ee59c460774cab2e63c054a9e7",
+      "size": 6181,
+      "snapshot_path": "files/src/readme_agent/readme/header_visual_validation.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "src/readme_agent/readme/presentation_contract.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "a78baf7ce9cd146e006ff54068ea5c51fa56d5273da47259ac1da84bc78ff6fc",
+      "size": 1158,
+      "snapshot_path": "files/src/readme_agent/readme/presentation_contract.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/presentation_lint_structure.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "121bda61aee561759d63e33a238536f78c3c73b60f5811279b747997dd0a7e42",
+      "size": 8978,
+      "snapshot_path": "files/src/readme_agent/readme/presentation_lint_structure.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "validators",
+      "path": "src/readme_agent/readme/source_claim_risk.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "63a3b16f15a98ae417b88ed49eac6dd5d5735dfed2acf9b6dd67d4714a2eb0cc",
+      "size": 7713,
+      "snapshot_path": "files/src/readme_agent/readme/source_claim_risk.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/local_poc_cache.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "33c87f030703c7f4beeaf70f98ad47091cd10ff846e0db6b6c81d25c3f5d0e7b",
+      "size": 18085,
+      "snapshot_path": "files/src/readme_agent/supervisor/local_poc_cache.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/local_poc_noop_reuse.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "00bd44f4ab02bd7e50a855409a7713cda6c49fd42e2b30d4d76ea35fdf5d1e69",
+      "size": 7938,
+      "snapshot_path": "files/src/readme_agent/supervisor/local_poc_noop_reuse.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/loop.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "fc9d03c3e06ac47ff4e3af2d6abd7a65b2098f7eaa117fff8f77442eba8a8567",
+      "size": 60376,
+      "snapshot_path": "files/src/readme_agent/supervisor/loop.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/mission_lifecycle_freshness.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "f3d1973127775d4943f7c496d13002db7855f74561bdde8aff25cb1cfe77215c",
+      "size": 9244,
+      "snapshot_path": "files/src/readme_agent/supervisor/mission_lifecycle_freshness.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/portfolio.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "8457ae00ac8e658b3a53dba5549d64d6f63b7057d7c0bd49290430591fad248a",
+      "size": 13671,
+      "snapshot_path": "files/src/readme_agent/supervisor/portfolio.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/product_truth.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "054cbc78c1ba3616258671a3c8c68ae00db22c7aeba635031f2cf6af8c38fefd",
+      "size": 16403,
+      "snapshot_path": "files/src/readme_agent/supervisor/product_truth.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "runtime",
+      "path": "src/readme_agent/supervisor/product_truth_recovery.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "c86f655cdded40182083558ba4c18f3f8542ad5075a34c5c424ab083d3822f09",
+      "size": 10897,
+      "snapshot_path": "files/src/readme_agent/supervisor/product_truth_recovery.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "templates/readme/contextual-product-relationship.md",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "30a8c491fb6402428cce655148180677506238d0e25ef9e4737d769337cc03ab",
+      "size": 235,
+      "snapshot_path": "files/templates/readme/contextual-product-relationship.md",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "templates/readme/repository-presentation-v1.json",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "9a49c180523c2ff29e6a52a75ab53b4e18b3295fb1d4eb4bcdb07c99f14ed3ea",
+      "size": 1991,
+      "snapshot_path": "files/templates/readme/repository-presentation-v1.json",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "templates/readme/verified-minimal-example.md",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "01b7c60f79594c86112b25f5bdcb33a31ad1c47356efd60316e4b3182924106d",
+      "size": 70,
+      "snapshot_path": "files/templates/readme/verified-minimal-example.md",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "presentation",
+      "path": "templates/readme/verified-python-pypi-acquisition.md",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "cffd8763534a4c60e02119f026e26822d88d241e9786459b64af1636eb5981a8",
+      "size": 66,
+      "snapshot_path": "files/templates/readme/verified-python-pypi-acquisition.md",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/review_role_fixture_support.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "522399415ed3f73c0dd0839c9a8effbcb9aa91c9664a50f205cb2021e75e74d1",
+      "size": 9038,
+      "snapshot_path": "files/tests/review_role_fixture_support.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_agentic_readme_composition.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "d0aae39e9a048826097df0008ea7d9a40c386b738806e133b0824b4750e372c3",
+      "size": 31260,
+      "snapshot_path": "files/tests/unit/test_agentic_readme_composition.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_cli.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "b0dc2cc58c11ae536a6e1bccb7b09b31795d1c54dfb50617f735facec433440e",
+      "size": 95181,
+      "snapshot_path": "files/tests/unit/test_cli.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_curated_readme_evidence.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "c7804167880b465ac3367813faab680ff66ea2216ca3b634d1a471cc3af8130d",
+      "size": 4586,
+      "snapshot_path": "files/tests/unit/test_curated_readme_evidence.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_ecosystems.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "529542cf7bccdf4cc1d5ec27793fc570118235fdd508d528707b4bb133c3086c",
+      "size": 15303,
+      "snapshot_path": "files/tests/unit/test_ecosystems.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_fact_acceptance_contract.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "00d6cd5bb9d1f662c65d7a99ca51e4ea14019e0560dd1d77196c77aaaaf83d27",
+      "size": 8650,
+      "snapshot_path": "files/tests/unit/test_fact_acceptance_contract.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_link_allocation.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "411da3d9fddd76d4da4152597f7373f18a70f60284f103b92fb49427f88c2bbf",
+      "size": 5401,
+      "snapshot_path": "files/tests/unit/test_link_allocation.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_local_poc_cache.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "c31a1d04467da4f3c51dd3d0696c212fe6b42feb4862b634b4bb776d02c6e75d",
+      "size": 19998,
+      "snapshot_path": "files/tests/unit/test_local_poc_cache.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_presentation_document_planner.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7cf4c7040f213e5749cf90138a585ccc4ab8afb09e065e0eee9f37a73a71b120",
+      "size": 10544,
+      "snapshot_path": "files/tests/unit/test_presentation_document_planner.py",
+      "source_status": "untracked"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_python_public_api.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "08f9d7d824eeae8b24b3ba0569037a2963d58f144dae13a5b0d28c42b837706b",
+      "size": 20620,
+      "snapshot_path": "files/tests/unit/test_python_public_api.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_assessment.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "fa41497ea57fcd929c564062b1ef2cf45e5772bad2c898ceb18932709c63b485",
+      "size": 23362,
+      "snapshot_path": "files/tests/unit/test_readme_assessment.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_composition_characterization.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "437ffd2b67d8adb5093515422c646eecd33d8cd4b68e2b5f4c1db26db77f2d2f",
+      "size": 7651,
+      "snapshot_path": "files/tests/unit/test_readme_composition_characterization.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_composition_module_boundaries.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "2e090a102fb95f09df14cc7737721cda7f32d055baec20ea7246da45aa394903",
+      "size": 3142,
+      "snapshot_path": "files/tests/unit/test_readme_composition_module_boundaries.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_contextual_links.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7728e45187eba6266b22a9ef23d362a60b65c066a0d89e03bf4b93bc5655bdfa",
+      "size": 15842,
+      "snapshot_path": "files/tests/unit/test_readme_contextual_links.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_document_plan.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "edc34927e5b86806cad53777198f509057d8b3d887044252884dbb80e44723b3",
+      "size": 22634,
+      "snapshot_path": "files/tests/unit/test_readme_document_plan.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_existing_section_regressions.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "7d8a2652cf6de37e5ee42ea0f08ed94d5923ccc4d5639a9dd4aade96ebb84e8c",
+      "size": 6663,
+      "snapshot_path": "files/tests/unit/test_readme_existing_section_regressions.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_fact_grounding.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "665064dd3a5225bb42733a5a3a2bd6177b4cbb178b080b6b542be10223025fb4",
+      "size": 4904,
+      "snapshot_path": "files/tests/unit/test_readme_fact_grounding.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_factuality.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "2bc1534b49cb6e25813d3075c335419a1fefb1edb63bbb819e0a0c9658ea50c6",
+      "size": 6545,
+      "snapshot_path": "files/tests/unit/test_readme_factuality.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_final_claim_corpus.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "84826a47fc445115cafd4b5712b0149f44e0a6c1a0a40244d005a71047fd4d43",
+      "size": 29693,
+      "snapshot_path": "files/tests/unit/test_readme_final_claim_corpus.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_header_visual.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "294838fa0aac975f9c82e49d2f7e277cf0296ab27a17e6ce3f4e4297e82c801a",
+      "size": 10714,
+      "snapshot_path": "files/tests/unit/test_readme_header_visual.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_presentation_lint.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "c7ee3ba67b71250704427bbfbacd764a0a720aaddf08403b9b42ef50e9115187",
+      "size": 9477,
+      "snapshot_path": "files/tests/unit/test_readme_presentation_lint.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_proposal_bundle_verifier.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "dbdf4e6a9a770f136459489eeb94820d3af7a55cdf8c261d0998cf8f3fb58e08",
+      "size": 33785,
+      "snapshot_path": "files/tests/unit/test_readme_proposal_bundle_verifier.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_readme_section_journey.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "9e52e5e581e8fea49837f13c63e8d778425168063c2f5f3603fae53d6048a0f0",
+      "size": 5678,
+      "snapshot_path": "files/tests/unit/test_readme_section_journey.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_supervisor_loop.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "6e4b62728d5178aabd29e0d3b06e8a5e9701cb7784a0f9393e237d023f5a4657",
+      "size": 160171,
+      "snapshot_path": "files/tests/unit/test_supervisor_loop.py",
+      "source_status": "modified"
+    },
+    {
+      "contract_group": "focused-tests",
+      "path": "tests/unit/test_verification_contract.py",
+      "selection_reason": "dirty implementation byte selected by the final throughput execution contract",
+      "sha256": "c405b163edbe5217a5fa4a4b6b44feec9d0655466becc4783a30bacd95aebf3f",
+      "size": 1261,
+      "snapshot_path": "files/tests/unit/test_verification_contract.py",
+      "source_status": "untracked"
+    }
+  ],
+  "schema_version": "PipelineContractSnapshotV1",
+  "snapshot_id": "0545585a27d01447018ef34426578afd6a5e008826edd7d353825103f4400201",
+  "snapshot_root": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\pipeline-contract-snapshots\\0545585a27d01447018ef34426578afd6a5e008826edd7d353825103f4400201",
+  "snapshot_status": "SEALED",
+  "source_head": "4fb6e906ec9b040019d1b7e96bda0a641c017da7",
+  "source_worktree": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer"
+}
