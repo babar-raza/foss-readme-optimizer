@@ -18435,6 +18435,18 @@
         "reason": "blind_quality:ACCEPT; factual_plan:ACCEPT",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\5b5690db5cab7fcbabb5\\r\\a03538c5c152fdb1\\s\\2be25d979d1f\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T23:32:25.620686+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -18459,15 +18471,15 @@
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "044b358106b7e8571d9dcf9cb34b8c3c5a871f997b891a9d5079c74aa410e802",
-    "reviewer_standard_hash": "a40a9572f2fdf74d24d01721884e6b3ec6e2e0fda267276fda31decfde9672dd",
+    "repair_budget_origin_hash": "2d32de1198a4d59fe7cb5ffd49cde063a815564ef07ac5446e95fcda2b9b09c0",
+    "reviewer_standard_hash": "061da8b41dc663b8eef48ee71cf608f20adbe10bff186eca9e826263478b1fa6",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-08-02T23:13:23.953677+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T23:32:25.620686+00:00"
   },
   "schema_version": 2,
-  "state_version": 380,
+  "state_version": 381,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
