@@ -18689,7 +18689,7 @@
   "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": null,
+    "assessment_hash": "29c564e0235463ea3a963a54f39d5abe4d274fcbfbf822fe5d587d9620fea0ab",
     "assurance_history": [
       {
         "from_assurance": "repository_verified",
@@ -24622,6 +24622,18 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\278a1c3b347f3b3d6c5a\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "FACTS_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T07:36:29.931160+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -24646,15 +24658,15 @@
     "prompt_hash": "d0e1e768ce32aaa1443062da91e3e9fa0e282badbe22ab0b3d58f12d4abbc9e2",
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": null,
-    "reviewer_standard_hash": null,
+    "repair_budget_origin_hash": "6c23b4887b2178526072138a65614f2e4a520b269beee1b85f4573fdfa3b0e1a",
+    "reviewer_standard_hash": "241304fea3e7a82db8fe83eb534b69e97b5b93ab3c72c2f7e21dfab8c22cdb01",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "FACTS_READY",
-    "updated_at": "2026-08-02T03:37:08.264011+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T07:36:29.931160+00:00"
   },
   "schema_version": 2,
-  "state_version": 1637,
+  "state_version": 1638,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "83d9652fb1c983929a94658ecc7ea9621f0845da1778a987dc65c233c21dad0e",
