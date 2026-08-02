@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+  "stage_goal_id": "GOAL-P0-PLAN-FREEZE",
+  "campaign_id": "CAMP-PLAN-FREEZE",
+  "goal_ids": [
+    "GOAL-AUTONOMY",
+    "GOAL-MATURITY"
+  ],
+  "core_contribution": {
+    "kind": "indispensable_safety",
+    "summary": "Remove contradictory execution authority and freeze one reproducible accelerated campaign before product execution resumes."
+  },
+  "acceptance_checks_passed": [
+    "Domain-specific authority is consistent in every owning file",
+    "Every trusted goal is non-executable with zero reserved capacity and effect authority",
+    "The canonical sequence and cross-platform/Page-PDF task meanings are unambiguous",
+    "Durable state remains the live status authority and migration preserves every transition",
+    "Current status uses the dynamic registry and current acceptance contracts",
+    "Campaign freeze binds every shared dependency before product execution"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/plan-reconciliation-acceleration-2026-08-02/validation.json",
+    "plans/investigations/evidence/plan-reconciliation-acceleration-2026-08-02/freeze-validation.json",
+    "plans/investigations/evidence/plan-reconciliation-acceleration-2026-08-02/review-package-receipt.json",
+    "runs/multi-agent/PLAN-RECONCILIATION-ACCELERATION-2026-08-02/independent-verification/verification.json",
+    "runs/share/repository-presenter-plan-review.zip"
+  ],
+  "scoreboard_before_sha256": "dff946418c3c73e2b17746794c9d8fc142af75d911a2d5f1a316c6316e1daeea",
+  "scoreboard_after_sha256": "dff946418c3c73e2b17746794c9d8fc142af75d911a2d5f1a316c6316e1daeea",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}
