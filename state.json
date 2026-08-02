@@ -17968,6 +17968,21 @@
         "reason": "entering repair attempt 1/2: Revise At a glance for clarity around exact span: ```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"XLSX files\"]\n    input_2[\"Writes XLSX files\"]\n    input_3[\"Reads XLSX files\"]\n  end\n\n  product[\"Aspose.Cells FOSS for Java\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Cell values for strings, numbers, booleans, date/time values, and formulas\"]\n    capability_2[\"Defined names\"]\n    capability_3[\"Chart creation for 21 standard chart types via ChartCollection.add()\"]\n    capability_4[\"Load diagnostics, repair reporting, and preservation of unsupported packageparts\"]\n    capability_5[\"Load diagnostics, repair reporting, and preservation of unsupported package part\"]\n    capability_6[\"Writes XLSX files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"XLSX files\"]\n    output_2[\"Cell values\"]\n    output_3[\"Defined names\"]\n    output_4[\"Charts\"]\n    output_5[\"Load diagnostics\"]\n    output_6[\"Package parts\"]\n    output_7[\"Repair reporting\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n  product --- output_6\n  product --- output_7\n```",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\claim-map.json"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T23:01:11.657148+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -17996,11 +18011,11 @@
     "reviewer_standard_hash": "43b422f2eea699f6f893a48b036afcc823ad8f89d4eacf01593df0c73fd6479c",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-02T22:59:42.328461+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T23:01:11.657148+00:00"
   },
   "schema_version": 2,
-  "state_version": 326,
+  "state_version": 327,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9ea1d6fb937d693198ddf58499e8a08fe4ce8302d9e49e0758a79e21f2381abb",
