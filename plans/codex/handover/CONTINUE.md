@@ -1,8 +1,8 @@
 # Continue the Level-8 Repository-Presentation Mission
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the accountable
-coordinator on `main`. The bound implementation checkpoint is
-`6dcf22052a936cc7ff1763c57500eaf92457de7a`, but live Git and supervisor state always override it.
+coordinator on `main`. The bound content checkpoint is
+`70a2953d23b450ce7fccdbca441d7fff651b3f49`, but live Git and supervisor state always override it.
 
 ## Authority
 
@@ -18,7 +18,7 @@ Use exactly this order:
 Do not select or create a competing plan, controller, queue, or mission state. Do not use this
 narrative file to override durable state.
 
-At capture, durable state was version 679 with graph hash
+At capture, durable state was version 680 with graph hash
 `15e35a99b427780c30b44ed4f4eedf5c9ec1f13e3ad887184863040355e6f219`, active goal
 `GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Current/raw
 `FACTS_READY` is 1/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
