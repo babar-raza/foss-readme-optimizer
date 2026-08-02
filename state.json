@@ -8,16 +8,16 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-P0-PLAN-FREEZE",
-    "active_task_id": null,
+    "active_task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 0,
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 0
     },
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-02T19:16:46.109448+00:00",
+    "claim_id": "bbd698f280b143e282b396867c959bad",
+    "claimed_at": "2026-08-02T18:46:46.109448+00:00",
+    "claimed_by": "Codex-Throughput-Correction",
     "concurrent_goal_ids": [],
     "goal_activation_graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
@@ -111,7 +111,7 @@
       }
     ],
     "graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
-    "last_evaluated_at": "2026-08-02T18:46:28.708231+00:00",
+    "last_evaluated_at": "2026-08-02T18:46:46.109448+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -300,7 +300,7 @@
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
-      "L8-PLAN-RECONCILIATION-ACCELERATION": "REOPENED",
+      "L8-PLAN-RECONCILIATION-ACCELERATION": "IN_PROGRESS",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -6107,6 +6107,15 @@
         "reason": "Independent final throughput review found the accepted freeze depended on mutable implementation bytes and current plan fields remained stale.",
         "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
         "to_status": "REOPENED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REOPENED",
+        "observed_by": "Codex-Throughput-Correction",
+        "occurred_at": "2026-08-02T18:46:46.109679+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -6116,7 +6125,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 705,
+  "state_version": 706,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
