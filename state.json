@@ -6500,6 +6500,17 @@
         "reason": "entering repair attempt 1/2: Revise Quick start for example_presentation around exact span: ```java\nimport org.aspose.cells_foss.Cell;\nimport org.aspose.cells_foss.Style;\nimport org.aspose.cells_foss.Workbook;\nimport org.aspose.cells_foss.Worksheet;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Workbook workbook = new Workbook()) {\n            Worksheet sheet = workbook.getWorksheets().get(0);\n            sheet.setName(\"Report\");\n\n            sheet.getCells().get(\"A1\").putValue(\"Revenue\");\n            sheet.getCells().get(\"B1\").putValue(12500.75);\n\n            Cell total = sheet.getCells().get(\"B1\");\n            Style style = total.getStyle();\n            style.getFont().setBold(true);\n            style.setCustom(\"#,##0.00\");\n            total.setStyle(style);\n\n            sheet.getCells().getRows().get(0).setHeight(22.0);\n            sheet.getCells().getColumns().get(1).setWidth(14.5);\n\n            workbook.save(\"report.xlsx\");\n        }\n    }\n}\n```",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "qf-1"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-02T21:59:53.596881+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=f6df939878fd252bb2d00b632c85b4b12d8ab583af57397d463c4cbadeabf914 after=b8d315e7a436548e845f8aa7074bfdc8adf596f2c1481ece9b91c56d1b181836; unresolved=qf-1",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -6528,11 +6539,11 @@
     "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-02T21:58:49.887282+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-02T21:59:53.596881+00:00"
   },
   "schema_version": 2,
-  "state_version": 185,
+  "state_version": 186,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
