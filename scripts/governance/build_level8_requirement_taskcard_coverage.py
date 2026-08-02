@@ -33,6 +33,7 @@ REPORT_PATH = (
 )
 
 STAGE_GOAL_ORDER = {
+    "GOAL-P0-PLAN-FREEZE": 0,
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
     "GOAL-V0-VERIFIED-PYTHON-POC": 11,
     "GOAL-TP-TRUSTED-COHORT-POC": 12,
@@ -54,7 +55,11 @@ STAGE_GOAL_ORDER = {
 def task_stage_goal(task_id: str) -> tuple[str, str]:
     """Return the governed stage and concurrency class for every mission task."""
 
+    if task_id == "L8-PLAN-RECONCILIATION-ACCELERATION":
+        return "GOAL-P0-PLAN-FREEZE", "primary_only"
     if task_id.startswith("L8-VPY-"):
+        return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
+    if task_id == "L8-ACCEL-00-PYTHON-READINESS":
         return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
     if task_id == "L8-TRUTH-08-FULL-REGISTRY":
         return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
@@ -72,17 +77,15 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-T2-WORKFLOW-STAGING", "primary_only"
     if task_id.startswith(("TRP-05C-", "TRP-06-", "TRP-07-")):
         return "GOAL-T3-HOSTED-TRUSTED-DELIVERY", "primary_only"
-    if task_id.startswith(
-        (
-            "L8-MISSION-",
-            "L8-REQUIREMENT-",
-            "L8-WAVE0-",
-            "L8-WAVE1-",
-            "L8-WAVE2-",
-            "L8-PREPRODUCTION-",
-        )
-    ):
-        return "GOAL-T0-TRUSTED-QUALIFICATION", "primary_only"
+    if task_id.startswith(("L8-MISSION-", "L8-REQUIREMENT-", "L8-WAVE0-")):
+        return "GOAL-P0-PLAN-FREEZE", "primary_only"
+    if task_id in {"L8-WAVE1-CANONICAL-SAFETY-SPINE", "L8-PREPRODUCTION-TRUTHFUL-BASELINE"}:
+        return "GOAL-V1-VERIFIED-TRUTH", "read_only_assurance_isolated"
+    if task_id in {
+        "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+        "L8-PREPRODUCTION-IDEA-FIDELITY-GATE",
+    }:
+        return "GOAL-V3-HUMAN-AND-JAVA-PROOF", "primary_only"
     if task_id.startswith(
         (
             "L8-WAVE3-",
@@ -132,6 +135,45 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
     raise ValueError(f"no stage-goal mapping declared for task {task_id!r}")
 
 
+def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
+    """Map every executable task to exactly one governed campaign."""
+
+    if stage_goal_id.startswith("GOAL-T"):
+        return None
+    if stage_goal_id == "GOAL-P0-PLAN-FREEZE":
+        return "CAMP-PLAN-FREEZE"
+    if task_id in {
+        "L8-VPY-00-GOLDEN-TEMPLATE",
+        "L8-ACCEL-00-PYTHON-READINESS",
+        "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+        "L8-PREPRODUCTION-TRUTHFUL-BASELINE",
+        "L8-REVIEW-00-CONTEXT-CORPUS",
+        "L8-REVIEW-01-FREEZE-ROLES",
+    } or task_id.startswith("L8-INTAKE-"):
+        return "CAMP-SHARED-ACCELERATION"
+    if task_id in {
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+    }:
+        return "CAMP-THREE-SLICES"
+    if task_id in {
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "L8-ACCEL-02-EIGHT-PYTHON",
+        "L8-ACCEL-03-ALL-PYTHON",
+    }:
+        return "CAMP-PYTHON-PORTFOLIO"
+    if stage_goal_id in {
+        "GOAL-V3-HUMAN-AND-JAVA-PROOF",
+        "GOAL-L5-PRESENTATION-PILOT",
+        "GOAL-L6-AUTONOMOUS-PORTFOLIO",
+        "GOAL-L7-HETEROGENEOUS-30D",
+        "GOAL-L8-SELF-MAINTAINING-90D",
+    }:
+        return "CAMP-GATE-B-AND-LATER"
+    return "CAMP-GATE-A-PORTFOLIO"
+
+
 def bind_stage_goals(graph: dict) -> None:
     """Add deterministic stage ownership and reject backward goal dependencies."""
 
@@ -140,6 +182,7 @@ def bind_stage_goals(graph: dict) -> None:
         stage_goal_id, concurrency_class = task_stage_goal(task["task_id"])
         task["stage_goal_id"] = stage_goal_id
         task["concurrency_class"] = concurrency_class
+        task["campaign_id"] = task_campaign(task["task_id"], stage_goal_id)
     violations = []
     for task in tasks.values():
         task_order = STAGE_GOAL_ORDER[task["stage_goal_id"]]
@@ -257,6 +300,8 @@ L8_TO_TASK = {
     "L8-040": "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO",
     "L8-041": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
     "L8-042": "L8-VPY-00-GOLDEN-TEMPLATE",
+    "L8-043": "L8-ACCEL-00-PYTHON-READINESS",
+    "L8-044": "L8-PLAN-RECONCILIATION-ACCELERATION",
     "PIL-016": "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF",
     "TRP-001": "TRP-00-ASSURANCE-CONTRACT",
     "TRP-002": "TRP-01-README-DERIVED-FACTS",

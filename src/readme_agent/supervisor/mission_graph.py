@@ -6,6 +6,7 @@ from pathlib import Path
 import yaml
 
 from readme_agent.errors import ConfigError
+from readme_agent.state.mission_goal_schema import ExecutionCampaignId, StageGoalId
 from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
 
 _SUBORDINATE_GOAL_IDS = {
@@ -17,6 +18,7 @@ _SUBORDINATE_GOAL_IDS = {
     "GOAL-MATURITY",
 }
 _STAGE_GOAL_ORDERS = {
+    "GOAL-P0-PLAN-FREEZE": 0,
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
     "GOAL-V0-VERIFIED-PYTHON-POC": 11,
     "GOAL-TP-TRUSTED-COHORT-POC": 12,
@@ -32,6 +34,22 @@ _STAGE_GOAL_ORDERS = {
     "GOAL-L6-AUTONOMOUS-PORTFOLIO": 90,
     "GOAL-L7-HETEROGENEOUS-30D": 100,
     "GOAL-L8-SELF-MAINTAINING-90D": 110,
+}
+_HISTORICAL_TRUSTED_STAGE_GOALS: set[StageGoalId] = {
+    "GOAL-T0-TRUSTED-QUALIFICATION",
+    "GOAL-TP-TRUSTED-COHORT-POC",
+    "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION",
+    "GOAL-T1-TRUSTED-PORTFOLIO",
+    "GOAL-T2-WORKFLOW-STAGING",
+    "GOAL-T3-HOSTED-TRUSTED-DELIVERY",
+}
+_CAMPAIGN_ORDERS: dict[ExecutionCampaignId, int] = {
+    "CAMP-PLAN-FREEZE": 0,
+    "CAMP-SHARED-ACCELERATION": 10,
+    "CAMP-THREE-SLICES": 20,
+    "CAMP-PYTHON-PORTFOLIO": 30,
+    "CAMP-GATE-A-PORTFOLIO": 40,
+    "CAMP-GATE-B-AND-LATER": 50,
 }
 _VAGUE_CONTRIBUTIONS = {
     "complete the task",
@@ -73,6 +91,18 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
         raise ConfigError("mission stage_goal_catalog contains duplicate goal IDs")
     if {goal.goal_id: goal.order for goal in stage_goals} != _STAGE_GOAL_ORDERS:
         raise ConfigError("mission stage_goal_catalog does not match the governed ordered catalog")
+    by_goal = {goal.goal_id: goal for goal in stage_goals}
+    for goal_id in _HISTORICAL_TRUSTED_STAGE_GOALS:
+        goal = by_goal[goal_id]
+        if goal.execution_required or goal.product_effects_allowed or goal.reserved_trusted_lanes:
+            raise ConfigError(
+                f"historical trusted goal {goal_id!r} must be non-executable with zero "
+                "effect and reserved capacity"
+            )
+
+    campaigns = graph.campaign_catalog
+    if {campaign.campaign_id: campaign.order for campaign in campaigns} != _CAMPAIGN_ORDERS:
+        raise ConfigError("mission campaign_catalog does not match the governed six campaigns")
 
     by_id: dict[str, TaskCardV1] = {}
     for task in graph.taskcards:
@@ -90,9 +120,16 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
         if task.stage_goal_id not in _STAGE_GOAL_ORDERS:
             raise ConfigError(f"task {task.task_id!r} has an unknown stage goal")
         stage_goal = next(goal for goal in stage_goals if goal.goal_id == task.stage_goal_id)
+        historical = task.stage_goal_id in _HISTORICAL_TRUSTED_STAGE_GOALS
+        if historical and task.campaign_id is not None:
+            raise ConfigError(
+                f"historical task {task.task_id!r} cannot join an executable campaign"
+            )
+        if not historical and task.campaign_id is None:
+            raise ConfigError(f"executable task {task.task_id!r} must belong to one campaign")
         if (
             task.concurrency_class == "read_only_assurance_isolated"
-            and not stage_goal.concurrent_when_trusted_primary
+            and not stage_goal.concurrent_when_earlier_primary
         ):
             raise ConfigError(
                 f"task {task.task_id!r} declares concurrent execution under a non-concurrent goal"

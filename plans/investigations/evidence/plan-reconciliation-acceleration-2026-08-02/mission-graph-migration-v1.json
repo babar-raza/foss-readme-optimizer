@@ -1,0 +1,61 @@
+{
+  "schema_version": "MissionGraphMigrationV1",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "snapshot_base_head": "59b94b9ecc089c3dca96856077559a4efca35566",
+  "branch": "main",
+  "durable_state_before": {
+    "state_version": 690,
+    "graph_sha256": "b5c61bdad93a5cc0362e2f2297d8dec23910bcc892ca4c54ea7b672c5e6f48e3",
+    "task_count": 127,
+    "transition_count": 504,
+    "closed_task_count": 65,
+    "active_task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+    "active_task_status": "IN_PROGRESS",
+    "claim_id": "d7ae88933daa48919b52b06acf825aec",
+    "claim_expires_at": "2026-08-02T08:02:16.500140+00:00",
+    "claim_disposition": "expired; recover through the existing lease transition during evaluate",
+    "blocked_external_task_ids": [
+      "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME"
+    ]
+  },
+  "graph_after_candidate": {
+    "graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
+    "task_count": 129,
+    "stage_goal_count": 16,
+    "added_task_ids": [
+      "L8-PLAN-RECONCILIATION-ACCELERATION",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    ],
+    "removed_task_ids": [],
+    "renamed_task_ids": [],
+    "compatibility_ids": {
+      "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "Cross-platform .NET and Java verified vertical slices"
+    }
+  },
+  "stage_goal_migrations": {
+    "L8-MISSION-CONTROL-CONSUMER": "GOAL-P0-PLAN-FREEZE",
+    "L8-MISSION-GOAL-GUARD": "GOAL-P0-PLAN-FREEZE",
+    "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "GOAL-P0-PLAN-FREEZE",
+    "L8-WAVE0-*": "GOAL-P0-PLAN-FREEZE",
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": "GOAL-V1-VERIFIED-TRUTH",
+    "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "GOAL-V1-VERIFIED-TRUTH",
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "GOAL-V3-HUMAN-AND-JAVA-PROOF",
+    "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "GOAL-V3-HUMAN-AND-JAVA-PROOF"
+  },
+  "history_policy": "preserve all existing task IDs, statuses, evidence refs, and transition history; add new tasks at bootstrap status; recover only the expired active claim",
+  "old_graph_bytes_available": false,
+  "old_graph_bytes_note": "The durable hash was not found in any committed graph revision; migration is anchored to the durable state record and the accepted pre-edit status receipt.",
+  "durable_state_after": {
+    "state_version": 698,
+    "graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
+    "task_count": 129,
+    "transition_count": 506,
+    "active_goal_id": "GOAL-P0-PLAN-FREEZE",
+    "active_task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+    "active_campaign_id": "CAMP-PLAN-FREEZE",
+    "note_task_status": "REGRESSED",
+    "graph_drift": false,
+    "history_deleted": false
+  },
+  "migration_status": "APPLIED_CLAIMED_AND_CURRENT"
+}

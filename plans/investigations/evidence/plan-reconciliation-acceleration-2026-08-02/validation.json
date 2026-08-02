@@ -1,0 +1,80 @@
+{
+  "schema_version": "PlanReconciliationValidationV1",
+  "snapshot_base_head": "59b94b9ecc089c3dca96856077559a4efca35566",
+  "branch": "main",
+  "graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
+  "durable_state_version": 698,
+  "registry_denominator": 31,
+  "full_pytest_intentionally_not_run": true,
+  "campaign_policy": "CAMP-PLAN-FREEZE requires focused plan, governance, traceability, and changed-seam tests; it prohibits a redundant portfolio-wide full suite.",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python scripts/governance/validate_plan_structure.py",
+      "exit_code": 0,
+      "result": "clean; 68 non-blocking retrofit warnings"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+      "exit_code": 0,
+      "result": "464 rows current; 414 mandatory; 0 reopened implemented rows"
+    },
+    {
+      "command": ".venv/Scripts/python plans/investigations/tools/traceability_matrix.py --check",
+      "exit_code": 0,
+      "result": "155 implemented rows; 0 semantic closure findings"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/check_verifiers_are_wired.py --check",
+      "exit_code": 0,
+      "result": "every verify function has a source call site"
+    },
+    {
+      "command": ".venv/Scripts/python scripts/governance/check_prompt_hygiene.py --check",
+      "exit_code": 0,
+      "result": "14 active prompts clean"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check <10 changed Python plan/control/test files>",
+      "exit_code": 0,
+      "result": "all checks passed"
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff format --check <10 changed Python plan/control/test files>",
+      "exit_code": 0,
+      "result": "10 files already formatted"
+    },
+    {
+      "command": ".venv/Scripts/python -m mypy <6 changed source mission-control files>",
+      "exit_code": 0,
+      "result": "no issues in 6 source files"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest -q tests/unit/test_mission_control.py tests/unit/test_traceability_matrix.py tests/unit/test_registry_revision.py tests/unit/test_content_assurance.py",
+      "exit_code": 0,
+      "result": "56 passed in 69.09 seconds on the final candidate"
+    },
+    {
+      "command": "actionlint",
+      "exit_code": 0,
+      "result": "no workflow findings"
+    },
+    {
+      "command": "git diff --check -- <plan campaign paths>",
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "portfolio_truth": {
+    "facts_ready": "1/31",
+    "candidate_generated": "1/31",
+    "deterministic_validated": "1/31",
+    "agent_approved": "1/31",
+    "no_op_proven": "0/31"
+  },
+  "independent_pre_freeze_verdict": {
+    "verdict": "PRE_FREEZE_ACCEPTED",
+    "report_sha256": "83924cba33a4ced22981fd80d9a7602edb4db3170f32819386dfd234cfcce672",
+    "structured_verdict_sha256": "7f2901ae314aa0508e851e40080381f836914d025623cd0e1bc90d6633990bda"
+  },
+  "status": "FOCUSED_CHECKS_AND_INDEPENDENT_PRE_FREEZE_VERDICT_PASSED"
+}

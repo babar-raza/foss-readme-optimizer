@@ -21,7 +21,15 @@ Read these before making non-trivial changes:
   (the single owned span, `facts_hash` exclusions, persistent work clone for idempotency).
 - `docs/safety-model.md` — the two named safety properties (push-blocking, allow-list).
 - `docs/policy-authoring.md` — how to enable a repo or add a policy profile (config-only, no code).
-- `plans/master.md` — the single executable spec; see "Spec governance" below.
+- `plans/master.md` — current architecture, decisions, sequencing, and rollout; see "Spec
+  governance" below.
+
+Authority is resolved by subject: `plans/idea.md` owns product outcome and intent;
+`plans/requirements.md` owns obligations and acceptance; `plans/master.md` owns architecture,
+decisions, sequence, and rollout; `plans/GOVERNANCE.md` and this file own editing, safety,
+execution, and coordination; the Level-8 mission graph is the sole machine-readable task graph;
+durable supervisor state alone owns live claims, transitions, and runtime status. Codex plans,
+roadmap, status, reports, audits, and handovers are derived guidance/evidence only.
 
 ## Setup and everyday commands
 
@@ -292,9 +300,11 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   inherited claims, facts, and protected content; deterministic assessment may then produce a
   byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
   mandatory.
-- **Verified Python is the immediate POC.** First compile the accepted Note reference into a
-  reusable fact-slot structural template, then prove repository-verified Note, Page, and PDF,
-  then every runtime-loaded Python repository. No product effect occurs in this local POC.
+- **Verified Python is the immediate complete-platform POC.** First compile the accepted Note
+  reference into a reusable fact-slot structural template. Next run zero-provider-call readiness
+  for current .NET and Java repositories, then prove repository-verified Note and one
+  readiness-selected vertical slice from each in parallel. Then prove
+  Page/PDF and every runtime-loaded Python repository. No product effect occurs in this local POC.
   Continue common C0 and the complete verified Gate A/B/C sequence afterwards. For every verified
   entry, capture the current
   default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
@@ -327,20 +337,14 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   deterministic validation, independent agentic review, repair, and no-op proof before a human
   acceptance decision. Human acceptance is a separate recorded Gate-B state; it is never inferred from
   agent approval.
-- **Trusted delivery is primary while verified work advances read-only in spare capacity.** After
-  TRP-03, freeze every source-current, checksum-valid `TRUSTED_NO_OP_PROVEN` result into one
-  `QualifiedTrustedCohortV1`. Hold, but do not close or discard,
-  `TRP-04-CANARY-QUALIFICATION`; use the exact frozen cohort to prove the canonical workflow under
-  `act`, disposable staging, GitHub App/hosted operation, authorization, and one draft PR per
-  authorized cohort member. This is a qualified-cohort production-path POC, not trusted
-  full-registry closure: it cannot unlock portfolio fan-out or satisfy verified facts, Gate A/B/C,
-  or maturity. After its indexed presentation package is complete, resume TRP-04 at its durable
-  boundary; only then may the existing full-registry trusted campaign and read-only verified
-  spare-capacity lane proceed. Verified Java Gate C remains behind verified Gates A/B and
-  revalidates the already-qualified transport rather than performing first-time App integration.
-- **GitHub App provisioning is autonomous except for a proven manual authority boundary.** At
-  `TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION` (and again at full-registry TRP-05C only if scope must
-  be expanded or revalidated), attempt supported non-interactive `gh`/API operations first. If GitHub requires browser
+- **Trusted execution is suspended; compatible machinery remains reusable.** Trusted goals,
+  candidate work, reviews, effects, and delivery may not be selected, claimed, or reserve capacity.
+  Reuse proven code, tests, caches, retries, leases, workflow/staging/App/effect machinery, and
+  lessons only behind verified contracts. Trusted facts, candidates, verdicts, no-op evidence,
+  proposals, and PRs never satisfy verified facts, Gate A/B/C, or maturity.
+- **GitHub App provisioning is autonomous except for a proven manual authority boundary.** At the
+  later verified hosted-runtime gate, attempt supported non-interactive `gh`/API operations first.
+  If GitHub requires browser
   creation, owner confirmation, organization/repository installation, or an unavailable secret,
   persist `WAITING_HUMAN_APP_PROVISIONING`, notify the owner once with the exact app name,
   permissions, events, callback/webhook, installation scope/URL, secret locations, and resume
@@ -373,11 +377,10 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 
 ## Stage goals and accelerated execution
 
-Decision #88 in `plans/master.md` supersedes the remaining trusted-delivery critical path. The
+Decision #88 in `plans/master.md` suspends the remaining trusted-delivery critical path. The
 immutable mission outcome is not an active goal. Mission `evaluate` derives exactly one primary
 goal from the earliest incomplete stage in this order:
-`GOAL-T0-TRUSTED-QUALIFICATION`, `GOAL-V0-VERIFIED-PYTHON-POC`,
-`GOAL-C0-AUTHORIZED-PORTFOLIO`,
+`GOAL-P0-PLAN-FREEZE`, `GOAL-V0-VERIFIED-PYTHON-POC`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
 `GOAL-L6-AUTONOMOUS-PORTFOLIO`, `GOAL-L7-HETEROGENEOUS-30D`, and
@@ -385,7 +388,7 @@ goal from the earliest incomplete stage in this order:
 dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
 advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest
 affected goal after regression, invalidation, or denominator growth. Only a goal with
-`execution_required: true` may become primary. TP/T0R/T1/T2/T3 remain inspectable but cannot be
+`execution_required: true` may become primary. T0/TP/T0R/T1/T2/T3 remain inspectable but cannot be
 selected. Safety, autonomy, authorization, factuality, idempotency, and evidence are always-on
 acceptance invariants, not competing goals.
 
@@ -409,15 +412,19 @@ in stable registry order until the user assigns them a priority.
 Portfolio reuse follows `validated source README + applicable family evidence + applicable
 ecosystem evidence + repository-specific delta`. Shared evidence must be content-addressed and
 repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,
-and inherited claims remain per-repository proof. Before seven-representative qualification,
-execution stays serial. Afterwards, only the sole supervisor may use two to four isolated
-repository lanes with separate leases/state/evidence and serialized aggregation. Follow the four
-local full-suite campaign boundaries and one closure evidence package per campaign specified by
-Decision #83; do not revive micro-fix evidence churn or pre-qualification portfolio fan-out.
+and inherited claims remain per-repository proof. After focused transaction, cache, cancellation,
+and serialized-aggregation isolation pass, the sole supervisor may use up to three read-only lanes
+for the early Note Python plus readiness-selected .NET/Java slices. After those three slices pass,
+it may use two to four isolated repository lanes with separate leases/state/evidence and serialized
+aggregation. Follow the graph's six-campaign mapping and one closure evidence package per campaign.
+Run the optimized complete non-live suite at three-slice closure and Gate-A closure, plus only a
+declared later repository-wide gate or typed P0 exception; do not revive micro-fix evidence churn.
 
 The immediate small-goal sequence is `L8-VPY-00-GOLDEN-TEMPLATE` →
-`L8-VPY-01-NOTE-VERIFIED-CANARY` → `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` →
-`L8-VPY-03-ALL-PYTHON-VERIFIED-POC`. Two ineffective attempts with one approach fingerprint or
+`L8-ACCEL-00-PYTHON-READINESS` → `L8-VPY-01-NOTE-VERIFIED-CANARY` plus
+`L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (readiness-selected .NET and Java slices) →
+`L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` → `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`.
+Two ineffective attempts with one approach fingerprint or
 15 minutes without material narrowing prohibit another equivalent attempt. Before a third
 approach, record a first-principles review and change the causal owner, pipeline boundary, or
 mechanism. Reuse a sealed stage only when source, facts, template, prompts, policy, validators,
@@ -558,8 +565,8 @@ where". The short version every agent must follow:
 
 ## Spec governance
 
-`plans/master.md` is the single executable spec and always describes the **current** intended
-state — no design-history narrative; that lives in `logs/` (index `logs/README.md`, daily
+`plans/master.md` owns the **current** architecture, decisions, sequence, and rollout — no
+design-history narrative; that lives in `logs/` (index `logs/README.md`, daily
 shards `logs/<YYYY-MM-DD>.md`), merged from `master.md`'s and `requirements.md`'s former inline
 Changelogs. When a change alters a decision, edit the affected section(s) surgically, update
 Status/Build Checklist if needed, and append one dated entry to `logs/`, not inline.

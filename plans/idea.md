@@ -2,6 +2,14 @@
 
 ## Core Principle
 
+This document owns the permanent product outcome and operating intent. Authority is otherwise
+domain-specific: `plans/requirements.md` owns normative acceptance; `plans/master.md` owns
+architecture, decisions, sequencing, and rollout; `plans/GOVERNANCE.md` and `AGENTS.md` own
+editing, safety, execution, and coordination; the Level-8 mission graph is the sole
+machine-readable task/dependency graph; durable supervisor state owns live claims, transitions,
+and runtime status. Supporting plans, roadmap, status, reports, audits, and handovers are derived
+guidance/evidence and cannot override their owning authority.
+
 The issue is not only where links to `aspose.org` and `aspose.com` are placed. A FOSS
 repository must first establish the product as useful, credible, and professionally maintained.
 When promotional links appear before the product has clearly explained its value, they can reduce
@@ -130,17 +138,22 @@ LLM composition, targeted repair, cache, retry, lease, workflow, staging, App, a
 remain reusable only within their proven assurance boundary. They never become repository facts
 or verified acceptance merely through reuse.
 
-The immediate executable milestone is a repository-verified Python POC:
+The immediate executable milestone is a repository-verified Python POC with early cross-platform
+feedback:
 
 1. retain the human-accepted Aspose.Note FOSS for Python reference and compile its structure into
    `RepositoryPresentationTemplateV1`, not a universal prose template;
-2. rebuild Note from repository/package/example/policy evidence and prove independent approval
-   plus unchanged no-op;
-3. prove Page and PDF as side-by-side conformance canaries with repository-specific facts, formats,
-   capabilities, examples, and Mermaid maps;
-4. reconcile the dynamic Python denominator and complete every current Python repository using
+2. classify every current .NET and Java repository with zero provider calls and freeze the
+   evidence-readiest current slice from each platform;
+3. rebuild Note from repository/package/example/policy evidence and prove the selected .NET and
+   Java vertical slices beside Note's independent approval and fresh unchanged no-op;
+4. run the official integration suite once after all three slices are independently approved and
+   no-op-proven;
+5. prove Page and PDF as side-by-side Python conformance canaries with repository-specific facts,
+   formats, capabilities, examples, and Mermaid maps;
+6. reconcile the dynamic Python denominator and complete every current Python repository using
    content-addressed stage reuse;
-5. resume complete discovery and the full verified Gate A/B/C and maturity path.
+7. continue .NET, Java, C++, TypeScript, Rust, and Go, then verified Gate A/B/C and maturity.
 
 Two ineffective attempts with one approach fingerprint, or 15 minutes without a materially
 narrower result, prohibit another equivalent attempt. Before a third approach, the agent records
@@ -150,121 +163,41 @@ fingerprint, and runtime reuse sealed results; a changed dependency reopens only
 stages. These speed controls never weaken factuality, validation, independent review, safety, or
 evidence.
 
-Two content-assurance horizons deliberately share one supervisor, lifecycle store, evidence
-system, and proposal mechanism:
-
-1. **`trusted_readme_transform` is the temporary short-term POC.** The README at the immutable
-   default-branch revision is authoritative *for inherited POC content only*. The system extracts
-   a typed fact/claim graph from that README, with exact source spans and
-   `README_INHERITED` provenance, and uses it through the same assessment, planning, composition,
-   validation, review, caching, evidence, and effect boundaries used by the final system. It does
-   not verify those inherited claims against repository source, tests, package registries,
-   documentation, or other external authorities, and it never labels them repository-verified.
-   Approved presentation-contract additions such as badges, navigation, Mermaid, and catalog
-   links use separate `CONFIGURED_STANDARD` provenance. The LLM is the primary interpreter,
-   planner, section composer, and targeted repairer because the source READMEs are structurally
-   heterogeneous; deterministic code is limited to generic Markdown segmentation/assembly,
-   schemas, provenance, safety, link policy, validation, caching, and effects.
-2. **`verified_repository_presentation` remains the ultimate production goal.** It independently
-   derives mechanically testable facts from repository source, manifests, public consumer
-   surfaces, tests, examples, releases, and approved external authorities, reconciles inherited
-   README claims against that evidence, and governs every presentation surface. A trusted
-   transformation or trusted POC pull request is useful delivery evidence but can never satisfy a
-   verified fact, verified proposal, Gate A, maturity, or production-readiness requirement.
-
-The assurance mode is explicit and hashed into facts, candidates, reviews, manifests, lifecycle
-state, caches, proposals, and effects. Changing from `README_INHERITED` to repository-verified
-evidence invalidates the earliest dependent boundary; it does not silently promote or reuse the
-trusted verdict. Repository README text is authoritative content in the trusted lane but remains
-untrusted instruction data: prompt injection, hidden directives, and requests to bypass policy
-are never obeyed.
+`verified_repository_presentation` is the only executable content-assurance horizon. It derives
+mechanically testable facts from repository source, manifests, public consumer surfaces, tests,
+examples, releases, and approved external authorities; reconciles inherited README claims; and
+governs every presentation surface. The historical `trusted_readme_transform` lane is suspended.
+Its code, tests, caches, retries, leases, workflow/staging/App/effect proof, and lessons may be
+reused only behind verified contracts and within their demonstrated boundary. Trusted facts,
+candidates, verdicts, no-op evidence, proposals, and PRs never satisfy verified acceptance.
 
 The mission outcome is immutable, but it is not an always-active execution goal. The supervisor
-derives the primary goal from the earliest incomplete accepted gate and persists it with the task
-claim. It also derives zero or more concurrent goals whose work is dependency-ready, read-only,
-assurance-isolated, and permitted by the primary goal's capacity policy. Trusted delivery owns the
-critical path and reserved capacity; concurrent repository-verified work is an accelerator, never
-alternate completion authority or an effect path. Evidence-backed closure advances goals
-automatically; a regression, invalidated dependency, or newly admitted repository reactivates the
-earliest affected goal. Safety, factuality, authorization, evidence, and idempotency are always-on
-acceptance invariants rather than competing universal goals.
+derives the primary verified goal from the earliest incomplete accepted gate and persists it with
+the task claim. It may derive concurrent dependency-ready read-only work within the goal's capacity
+policy. Historical trusted goals are inspectable with `execution_required: false`; they receive no
+claim, capacity, or effect authority. Evidence-backed closure advances goals automatically; a
+regression, invalidated dependency, or newly admitted repository reactivates the earliest affected
+goal. Safety, factuality, authorization, evidence, and idempotency remain always-on acceptance
+invariants.
 
 Delivery proceeds through ordered gates, and a later gate never starts before the gate it depends
 on is actually accepted, not merely attempted:
 
-1. **Trusted Gate T0 — assurance and initial real qualification.** Add explicit
-   trusted-versus-verified contracts, qualify README-derived extraction, LLM-first bounded
-   composition, deterministic validation, independent blind-quality and inheritance-fidelity
-   review, repair, recovery, and no-op behavior, and retain every real repository that already
-   reaches `TRUSTED_NO_OP_PROVEN`. This gate changes no product remote. The broader adversarial
-   `TRP-04` matrix remains mandatory before portfolio fan-out, but it no longer prevents the
-   already-qualified cohort from exercising delivery.
-2. **Trusted Gate TP — qualified-cohort production-path POC.** Freeze the current
-   `TRUSTED_NO_OP_PROVEN` cohort by repository, source revision, candidate hash, contract hash,
-   verdicts, no-op proof, and manifest checksum. Revalidate source freshness, run those exact
-   candidates through the canonical reusable workflow under `act`, prove the assurance-specific
-   proposal/effect lifecycle in disposable staging, qualify GitHub App hosted execution on
-   staging, verify cohort write access and reviewed authorization, then create or update one
-   clearly disclosed draft PR for each still-current authorized cohort member. The workflow,
-   supervisor, state, evidence, authorization, token isolation, and effect ledger are the intended
-   production system—no retrofit script or alternate controller is accepted. This is a
-   presentable trusted POC tranche, not full-registry trusted completion, verified Gate A/B/C, or
-   maturity proof. Human review findings become hash-bound regressions and reopen only affected
-   candidates or shared contracts.
-3. **Trusted Gate T0R — resume adversarial qualification.** Immediately after the cohort PR
-   package is presented, resume `TRP-04` at its durable boundary and qualify Python, .NET,
-   ordinary Java, malformed/prompt-injected content, and the largest current README. Cohort
-   publication never waives, closes, or weakens this gate, and full-registry fan-out remains
-   locked until it passes.
-4. **Common Gate C0 — complete authorized-portfolio discovery and intake.** After assurance
-   separation, inventory every repository visible from every explicitly authorized organization
-   or App-installation source using authenticated all-visibility pagination. Record public,
-   private, internal, archived, unmatched, ambiguous, inaccessible, renamed, and transferred
-   observations by stable provider identity. Every active product repository is admitted as
-   disabled/read-only and receives exactly one durable preflight; every non-product exclusion is
-   explicit and evidence-backed. Zero unexplained observations, source failures, stale scans, or
-   pending intake are required before trusted portfolio fan-out. This shared gate may advance
-   concurrently with the remaining T0 canary work after `ContentAssuranceV1` is installed.
-5. **Trusted Gate T1 — full-registry LLM-first transformation proof.** For every current registry
-   repository, the system captures the immutable README bytes, extracts README-derived
-   facts/claims, produces a typed transformation plan and repository-specific candidate, and
-   passes deterministic presentation/safety validation plus independent blind-quality and
-   inheritance-fidelity review. It records source-span accountability, targeted repair, exact LLM
-   calls, cache reuse, and an unchanged no-op rerun. This gate may use section-bounded calls for
-   large READMEs; no universal template or whole-document token assumption is allowed.
-6. **Trusted Gate T2 — full-registry workflow and disposable staging revalidation.** Run the same supervisor,
-   lifecycle, evidence, authorization, and effect contracts under the actual reusable workflow
-   through `act`, then disposable GitHub staging. Prove dispatch variants, matrix isolation,
-   checkpoint recovery, deduplication, proposal create/update/drift/lost-response/crash handling,
-   analysis/effect credential isolation, and byte-identical default branches. A planning-job-only
-   or mocked-effect result cannot close this gate.
-   Reuse TP evidence only when every workflow, contract, environment, and effect hash remains
-   current; otherwise rerun the invalidated scenario. Cohort proof never substitutes for the
-   full-registry matrix.
-7. **Trusted Gate T3 — GitHub App hosted revalidation and authorized draft-PR portfolio.** After
-   T2, Codex first attempts every supported non-interactive `gh`/GitHub API registration,
-   configuration, and installation operation within the granted authority. If GitHub App creation
-   or organization installation requires a browser, owner confirmation, or unavailable secret,
-   the supervisor records `WAITING_HUMAN_APP_PROVISIONING`, emits one exact app name, permissions,
-   events, callback/webhook, organization/repository scope, installation URL, and secret-location
-   handoff, notifies the owner, and continues all eligible verified read-only work. Once the owner
-   completes that manual boundary, Codex validates the installation and resumes automatically.
-   Prove fresh short-lived installation tokens, fail-closed PAT/ambient-token
-   rejection, scheduler/recovery/health/dead-man behavior, and write-token isolation using
-   staging targets. Then the same hosted runtime creates or
-   updates exactly one clearly labelled `trusted_readme_transform` draft pull request for every
-   current registry repository. Each effect requires verified repository write access and a
-   reviewed, unexpired authorization record. Expected future access is not present access:
-   repositories without it remain visibly blocked while all independently eligible repositories
-   continue. These PRs never merge, become ready, force-push, or write a default branch, and their
-   bodies disclose that inherited product claims were not repository-verified.
-   The trusted lane may prove the complete operational integration, but it proves only inherited
-   content fidelity—not product factuality or verified presentation maturity.
-8. **Gate A — full-registry verified local README proof.** Repository-verified discovery, facts,
-   reconciliation, and candidate work begins read-only after assurance separation and common Gate
-   C0, using spare supervisor capacity while trusted delivery remains primary. Trusted T3 is not a
-   prerequisite for that read-only work and trusted evidence is never promoted. Gate A still
-   closes only from complete repository-verified evidence. For every registry repository, the system reads
+1. **Historical trusted proof — preserved, non-executable.** T0, TP, T0R, T1, T2, and T3 records
+   remain forensic evidence and reusable implementation inputs only. They are not active gates,
+   do not reserve capacity, cannot be selected or claimed, and cannot satisfy any verified
+   acceptance. No trusted candidate, review, no-op, proposal, or PR may be resumed as mission work.
+2. **Common Gate C0 — complete authorized-portfolio discovery and intake.** Inventory every
+   repository visible from every explicitly authorized source using authenticated all-visibility
+   pagination. Record public, private, internal, archived, unmatched, ambiguous, inaccessible,
+   renamed, and transferred observations by stable provider identity. Every active product
+   repository is admitted as disabled/read-only and receives exactly one durable preflight; every
+   exclusion is explicit and evidence-backed. Zero unexplained observations, source failures,
+   stale scans, or pending intake are required for portfolio completeness. Read-only intake may
+   advance concurrently when dependency-ready.
+3. **Gate A — full-registry verified local README proof.** Repository-verified discovery, facts,
+   reconciliation, and candidate work is the exclusive active presentation path. Gate A closes
+   only from complete repository-verified evidence. For every registry repository, the system reads
    the README from the repository's current default branch, records the source revision and exact
    original bytes, assesses that README against this document, verifies product facts against the
    repository and relevant package/platform evidence, and produces a repository-specific enhanced
@@ -272,23 +205,24 @@ on is actually accepted, not merely attempted:
    and review verdict remain reviewable local artifacts. Read-only GitHub access needed to obtain
    this evidence is part of Gate A; remote writes, pull requests, and GitHub App integration are
    not.
-9. **Independent agentic approval completes the system portion of Gate A.** Every candidate is
-   judged by an independent agentic reviewer — a separate LLM judgment role from whatever
-   produced the candidate — and repaired until approved or honestly blocked. The system is ready
+4. **Independent agentic approval completes the system portion of Gate A.** Every candidate passes
+   deterministic factuality, claim-accountability, preservation, structure, links, safety, and
+   golden-contract gates, then one independent non-authoring evidence-grounded reviewer. A second
+   reviewer runs only for a typed risk trigger proven by the regression corpus. The system is ready
    for POC human review only when every entry in the current complete registry revision has an
    agent-approved, no-op-proven local candidate and intake is fully reconciled. A candidate file
    merely existing is not approval. A strong existing README may take a fast path, but still needs
    verified inherited claims, deterministic assessment, an empty-patch candidate, independent
    approval, and no-op proof.
-10. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
+5. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
    passed independent agentic review. Human acceptance is recorded separately; it is not inferred
    from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
-11. **Gate C — verified Java proposal proof follows full local and human acceptance.** Trusted T3
-   PRs do not satisfy this gate. Creating or updating verified proposals against the designated
+6. **Gate C — verified Java proposal proof follows full local and human acceptance.** Historical
+   trusted PRs do not satisfy this gate. Creating or updating verified proposals against the designated
    Java repositories is attempted only after every current registry repository has passed Gates A
    and B, not before. Gate C reuses the already qualified App/workflow/effect machinery and proves
    that repository-verified candidates, authorization, and proposal semantics work at the higher
-   assurance; it is not the first App integration gate.
+   assurance. Prior transport proof is reusable only when its exact dependencies remain current.
 
 Standing constraints apply across every gate:
 
@@ -300,10 +234,8 @@ Standing constraints apply across every gate:
   validated against accepted repository/package evidence or an authoritative owner. Verified
   content is reused; stale or contradicted content is corrected with evidence; unresolved content
   is omitted or carried as explicit uncertainty for owner resolution. Regeneration convenience is
-  never a reason to discard valuable curated information. This is the
-  `verified_repository_presentation` rule. During the temporary `trusted_readme_transform` lane,
-  the same content is intentionally accepted as `README_INHERITED` evidence without external
-  reconciliation, and that reduced assurance is recorded in every downstream artifact and PR.
+  never a reason to discard valuable curated information. Historical trusted-lane inheritance may
+  help locate content but never satisfies this verified rule.
 - **LLM/agentic reasoning is required for repository interpretation and composition.** Understanding
   what a repository's product actually does, who it is for, and how to present it credibly is a
   judgment task no fixed rule set can fully express. Deterministic code supplies safety,
@@ -425,8 +357,8 @@ fall back to a personal access token or local-development credential.
 ### Deterministic and Agentic Approach
 
 The system must combine deterministic and agentic approaches. Responsibilities that can be
-expressed as explicit rulesâ€”including control flow, safety checks, state management, caching,
-idempotency, validation, and repeatable transformationsâ€”should be implemented deterministically.
+expressed as explicit rules—including control flow, safety checks, state management, caching,
+idempotency, validation, and repeatable transformations—should be implemented deterministically.
 
 Agentic reasoning should be used where interpretation, planning, editorial judgment, or adaptation
 to repository-specific context is genuinely required. Agentic outputs must remain subject to

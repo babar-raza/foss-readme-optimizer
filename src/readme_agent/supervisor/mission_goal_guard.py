@@ -64,8 +64,11 @@ def derive_lifecycle_scoreboard(
         if callable(bulk_loader)
         else {org_repo: backend.load(org_repo) for org_repo in org_repos}
     )
-    fact_contract = current_fact_acceptance_contract() if verify_acceptance_freshness else None
-    verification_hash = local_verification_contract_hash() if verify_acceptance_freshness else None
+    fact_contracts = (
+        {entry.ecosystem: current_fact_acceptance_contract(entry.ecosystem) for entry in entries}
+        if verify_acceptance_freshness
+        else {}
+    )
 
     for entry in entries:
         state = states[entry.org_repo]
@@ -101,8 +104,9 @@ def derive_lifecycle_scoreboard(
             fact_decision = evaluate_lifecycle_fact_freshness(
                 state,
                 bundle_dir,
-                current_contract=fact_contract,
-                current_local_verification_hash=verification_hash,
+                current_contract=fact_contracts.get(entry.ecosystem),
+                current_local_verification_hash=local_verification_contract_hash(entry.ecosystem),
+                ecosystem=entry.ecosystem,
             )
             facts_are_current = fact_decision.reusable
             if not facts_are_current:
@@ -142,6 +146,7 @@ def derive_lifecycle_scoreboard(
                 current_control_plane_fingerprint=compute_control_plane_fingerprint(
                     entry.policy_profile
                 ),
+                ecosystem=entry.ecosystem,
             )
             if not decision.reusable:
                 stale_acceptance[entry.org_repo] = decision.mismatch_reasons
@@ -218,6 +223,7 @@ def validate_task_contribution_evidence(
     evidence = matching[0]
     if (
         evidence.stage_goal_id != task.stage_goal_id
+        or evidence.campaign_id != task.campaign_id
         or evidence.goal_ids != task.goal_ids
         or evidence.core_contribution != task.core_contribution
     ):

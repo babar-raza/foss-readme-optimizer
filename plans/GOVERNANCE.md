@@ -1,10 +1,14 @@
 # Plan Governance
 
-`plans/master.md` is the single executable spec for this project. It always describes the
-**current** intended state — never a journal of how the design got here. This file is the thin
-process that keeps it that way, and it also defines how machinery artifacts (investigation
-tools, evidence, reports, tags) are named and organized. It changes rarely; if you're tempted
-to add a project fact here, it belongs in `master.md` instead.
+Authority is resolved by subject, not by one total file ordering. `plans/idea.md` owns the
+permanent product outcome and operating intent; `plans/requirements.md` owns normative obligations
+and acceptance; `plans/master.md` owns current architecture, decisions, sequencing, and rollout;
+this file and `AGENTS.md` own editing, safety, execution, and coordination governance; the Level-8
+mission graph owns machine-readable tasks and dependencies; and durable supervisor state alone
+owns live claims, transitions, and runtime status. Supporting Codex plans, roadmap, status,
+reports, and audits are derived guidance/evidence. A conflict is corrected in the file that owns
+its subject, with dependent views regenerated; no narrative file may override durable runtime
+state. This file also defines machinery-artifact naming and organization.
 
 ## Rules
 
@@ -125,31 +129,24 @@ to add a project fact here, it belongs in `master.md` instead.
     generalizes `CONTINUE.md`'s own prior, narrower statement ("local difficulty … is not an
     external blocker; repair root causes") into a named, propagated, machine-readable policy. (Added
     2026-07-25, user directive — see Decision #77, `AGT-009`/`AGT-010`, `GOV-028`.)
-14. **The authoritative planning set governs; everything else is reference.** `plans/idea.md`
-    (vision and intended operating model), `plans/master.md` (architecture, sequencing, Decision
-    Ledger, Build Checklist), `plans/requirements.md` (normative obligations and acceptance), and
-    this file (process and governance rules) are the authoritative planning set for this project.
-    Every other planning document — `plans/roadmap.md`, `plans/status.md`, `plans/changelog.md`,
-    `plans/codex/*`, and any other untracked or exploratory plan candidate — is reference, history,
-    or working material; it may inform the authoritative set but never overrides it, and a conflict
-    between a non-authoritative file and that set is always resolved in the authoritative set's
-    favor.
-    This restates and generalizes what `master.md`'s own Wave 0 Build Checklist entry already
-    states for `roadmap.md`/`status.md`/`changelog.md` specifically ("are not authority") into a
-    standing rule covering any file of this kind, present or future. (Added 2026-07-25, user
-    directive — see Decision #78, `plans/idea.md`'s "README POC Readiness and Ordered Delivery
-    Gates" section.)
-15. **Trusted operational qualification precedes trusted product PRs; verified content gates
-    remain disjoint.** After trusted local T1 closes, the same canonical pipeline MUST pass `act`
-    and disposable staging (T2), then GitHub App authentication and hosted staging qualification
-    (T3), before it may open trusted product draft PRs. App authority is requested only after T2
-    proof exists. Every trusted proposal declares `trusted_inherited`, uses README-derived rather
-    than repository-verified evidence, passes transformation-specific deterministic and
-    independent review, and carries reviewed unexpired effect authorization. Trusted operational
-    proof may be reused by hash/freshness, but trusted artifacts and PRs never satisfy verified
-    facts, Gate A, Gate B, Gate C, verified proposal, or maturity requirements. Verified Gate C
-    remains behind repository-verified Gates A/B and revalidates the already-qualified transport.
-    This applies regardless of wave numbering. See Decisions #78/#85.
+14. **Authority is domain-specific; derived views never override their source.** `plans/idea.md`
+    owns product outcome and operating intent; `plans/requirements.md` owns normative obligations
+    and acceptance; `plans/master.md` owns architecture, decisions, sequencing, and rollout; this
+    file and `AGENTS.md` own editing, safety, execution, and coordination governance; the Level-8
+    mission graph is the sole machine-readable task/dependency graph; durable supervisor state is
+    the sole live claim, transition, and runtime-status authority. `plans/roadmap.md`,
+    `plans/status.md`, `plans/changelog.md`, `plans/codex/*`, reports, audits, and handovers are
+    derived guidance, history, or evidence. Resolve a conflict in the file that owns its subject,
+    then regenerate dependent views. A narrative or static task status may never override durable
+    runtime state. (Amended 2026-08-02 for the plan-reconciliation campaign.)
+15. **Trusted execution is suspended; only assurance-safe machinery is reusable.**
+    `trusted_readme_transform` goals, task paths, candidate production, review, delivery, and
+    effects are non-executable. They receive no reserved capacity and cannot be selected or
+    claimed. Code, tests, cache/retry/lease controls, workflow/staging/App/effect proof, and lessons
+    may be reused only behind the active `verified_repository_presentation` contracts and within
+    their demonstrated boundary. Trusted facts, candidates, verdicts, no-op evidence, proposals,
+    and PRs never satisfy verified facts, Gate A, Gate B, Gate C, or maturity. This applies
+    regardless of historical wave or task numbering. See Decisions #78/#85/#88.
 16. **New custom infrastructure requires a documented build-vs-adopt comparison first.** This
     sharpens rule 8 (hand-rolling requires a reasoned Decision Ledger entry) into a specific,
     checkable artifact requirement: before adding new custom infrastructure of any real size (a new
@@ -178,9 +175,8 @@ to add a project fact here, it belongs in `master.md` instead.
     three-repository or other partial result being described as if it were the whole POC. (Added
     2026-07-25, user directive — see Decision #78.)
 18. **Gate A has a discovery-to-candidate artifact contract and makes its own
-    repository-specific decisions.** Verified Gate-A read-only work may advance after assurance
-    separation and common discovery while trusted delivery remains primary; no trusted artifact
-    satisfies it. Every Gate-A campaign first binds a complete discovery-source
+    repository-specific decisions.** Verified Gate-A work is the exclusive active presentation
+    path; no trusted artifact satisfies it. Every Gate-A campaign first binds a complete discovery-source
     catalog, raw observation snapshot, registry revision, and intake disposition, then starts from
     the README at each admitted repository's observed default-branch
     revision and records the original bytes/revision, verified facts and conflicts, selected
@@ -251,17 +247,10 @@ to add a project fact here, it belongs in `master.md` instead.
     (Added 2026-07-29 and amended 2026-07-31, user directives; see Decisions #85/#88,
     `TRP-001`–`TRP-023`, and `L8-042`.)
 
-    A freshness-revalidated cohort whose members already reached checksum-valid
-    `TRUSTED_NO_OP_PROVEN` may exercise the canonical production delivery path before the broader
-    TRP-04 adversarial matrix closes. This exception permits only exact frozen cohort candidates
-    through `act`, disposable staging, hosted GitHub App qualification, reviewed authorization,
-    and serialized disclosed draft PRs. It does not permit portfolio content fan-out, add a
-    partially qualified member, promote trusted evidence, or close TRP-04, T1/T2/T3,
-    verified Gate A/B/C, or maturity. After the cohort package is presented, TRP-04 immediately
-    resumes at its durable boundary. (Amended 2026-07-30, user directive; `TRP-016`–`TRP-019`.)
 21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
     mission outcome is a closure standard, not an active goal. The sole mission graph declares the
-    ordered T0/V0/TP/T0R/C0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal catalog. Mission `evaluate` derives exactly
+    ordered P0/V0/C0/V1/V2/V3/L5/L6/L7/L8 executable goal catalog. Historical trusted goals remain
+    inspectable with `execution_required: false`. Mission `evaluate` derives exactly
     one primary goal from the earliest incomplete gate whose `execution_required` flag is true and zero or more concurrent goals only for
     dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy.
     It records both atomically with task state, advances only on current evidence, withdraws

@@ -4,63 +4,61 @@ Regenerate with `python plans/investigations/tools/traceability_matrix.py`. This
 
 **Latest Decision Ledger entry**: #88
 
-## Full-registry README POC status
+## Current verified portfolio status
 
-**Primary status measure (sprint charter Part B.2 Phase 5 Lane S).** Every `data/products.json` entry, counted live at generation time (never hard-coded), with its current `readme_poc_status` (RPOC-070 lifecycle vocabulary -- `src/readme_agent/state/lifecycle_schema.py::ReadmePocStatusV1`). Test counts, capability counts, plan closure, and three-pilot status are NOT the measure here; the requirement-status and Build Checklist sections below remain as supporting governance detail, not the headline.
+Current completion is derived from the runtime registry, durable repository lifecycle state, and current fact/acceptance contracts.
 
-Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/portfolio-proof-manifest.json` (generated_at: 2026-07-25T02:55:29.666916+00:00).
+| Boundary | Current contract-valid | Raw lifecycle label (non-closing) |
+|---|---:|---:|
+| FACTS_READY | 1/31 | 17/31 |
+| CANDIDATE_GENERATED | 1/31 | 10/31 |
+| DETERMINISTIC_VALIDATED | 1/31 | 10/31 |
+| AGENT_APPROVED | 1/31 | 3/31 |
+| NO_OP_PROVEN | 0/31 | 2/31 |
+| HUMAN_ACCEPTED | 0/31 | 0/31 |
 
-`not yet run` = absent from the source manifest entirely (e.g. the 3 Java pilots, proven through their own dedicated evidence path, or any registry entry newer than the last portfolio run). `not_set` = present in the manifest but the RPOC-070 lifecycle field has not been populated by a real run yet -- expected for most repos today, since that field is brand new.
+### Registry authority
 
-| Org/Repo | Ecosystem | Mode | README POC status |
-|---|---|---|---|
-| aspose-3d-foss/Aspose.3D-FOSS-for-.NET | net | dry_run | not_set |
-| aspose-3d-foss/Aspose.3D-FOSS-for-Java | java | full | not yet run |
-| aspose-3d-foss/Aspose.3D-FOSS-for-Python | python | dry_run | not_set |
-| aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript | typescript | dry_run | not_set |
-| aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python | python | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-.NET | net | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp | cpp | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-Go | go | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-Java | java | full | not yet run |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-Python | python | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-Rust | rust | dry_run | not_set |
-| aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript | typescript | dry_run | not_set |
-| aspose-email-foss/Aspose.Email-FOSS-for-.Net | net | dry_run | not_set |
-| aspose-email-foss/Aspose.Email-FOSS-for-Cpp | cpp | dry_run | not_set |
-| aspose-email-foss/Aspose.Email-FOSS-for-Python | python | dry_run | not_set |
-| aspose-font-foss/Aspose.Font-FOSS-for-Python | python | dry_run | not_set |
-| aspose-html-foss/Aspose.HTML-FOSS-for-Python | python | dry_run | not_set |
-| aspose-note-foss/Aspose.Note-FOSS-for-Python | python | dry_run | not_set |
-| aspose-page-foss/Aspose.Page-FOSS-for-Python | python | dry_run | not_set |
-| aspose-pdf-foss/Aspose-PDF-FOSS-for-Go | go | dry_run | not_set |
-| aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP | go | disabled | not yet run |
-| aspose-pdf-foss/Aspose-PDF-FOSS-for-Python | python | dry_run | not_set |
-| aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET | net | dry_run | not_set |
-| aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp | cpp | dry_run | not_set |
-| aspose-pdf-foss/Aspose.PDF-FOSS-for-Java | java | dry_run | not yet run |
-| aspose-slides-foss/Aspose.Slides-FOSS-for-.NET | net | dry_run | not_set |
-| aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp | cpp | dry_run | not_set |
-| aspose-slides-foss/Aspose.Slides-FOSS-for-Java | java | dry_run | not_set |
-| aspose-slides-foss/Aspose.Slides-FOSS-for-Python | python | dry_run | not_set |
-| aspose-tex-foss/Aspose.TeX-FOSS-for-Python | python | dry_run | not_set |
-| aspose-words-foss/Aspose.Words-FOSS-for-.NET | net | dry_run | not_set |
-| aspose-words-foss/Aspose.Words-FOSS-for-Python | python | dry_run | not_set |
+- Denominator: **31**, loaded from `data/products.json`.
+- Raw SHA-256: `d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3`.
+- Canonical-text SHA-256: `f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb`.
+- Canonical-JSON SHA-256: `ee34782b1f0e567437ad27ced93c73c9e617d8126b2de57875cc5ed694b04aac`.
+- Registry revision: `35e44d036bf1097394ecfaeaeb3ba15e842d398cc28df0d2e3371d54a93652f9`.
+- Campaign eligible: **false**; reasons: pending_intake_present, unexplained_observations_present
 
-- 32 total registry entries (live count from `data/products.json`).
-- 4 not yet run (absent from the manifest).
-- 28 present in the manifest but lifecycle status not yet set.
-- 0 with a real RPOC-070 lifecycle status recorded.
+### Excluded discoveries and intake
+
+- `{"classification": "source_excluded", "org_repo": "aspose-imaging-foss/*", "reason": "No aspose-imaging-foss organization exists; aspose-imaging is a separate non-FOSS source and is not authorized for this portfolio."}`
+- `{"classification": "unmatched", "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP", "reason": "non-matching observation remains discovery-only pending explicit disposition"}`
+- Unexplained observation: `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`.
+- Pending intake: `aspose-3d-foss/Aspose.3D-FOSS-for-Java`.
+
+### Blocked admitted repositories
+
+- `aspose-html-foss/Aspose.HTML-FOSS-for-Python` — BLOCKED_MISSING_EVIDENCE: product facts persisted with a narrowly scoped unresolved evidence boundary
+- `aspose-tex-foss/Aspose.TeX-FOSS-for-Python` — BLOCKED_MISSING_EVIDENCE: product facts persisted with a narrowly scoped unresolved evidence boundary
+
+### Live mission
+
+- Durable state version: `698`.
+- Active task: `L8-PLAN-RECONCILIATION-ACCELERATION`.
+- Active goal: `GOAL-P0-PLAN-FREEZE`.
+- Claim: `f61641e939264611863df4e6b46f6a10`; expires `2026-08-02T18:01:42.406198+00:00`.
+- Loaded graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`.
+- Durable graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`; drift: **false**.
+
+Historical portfolio manifests remain inspectable evidence but never supply headline current status.
 
 ## Requirement status counts (supporting detail -- see the Full-registry table above for the primary measure)
 
 | Status | Count |
 |---|---:|
-| IMPLEMENTED | 162 |
-| PLANNED | 135 |
-| PARTIAL | 95 |
+| IMPLEMENTED | 155 |
+| PLANNED | 124 |
+| PARTIAL | 94 |
 | GOVERNANCE | 35 |
-| BACKLOG | 26 |
+| BACKLOG | 28 |
+| DEPRECATED | 22 |
 | RESEARCH-GATED | 6 |
 
 ## Build Checklist wave state
@@ -68,8 +66,8 @@ Source manifest: `plans/investigations/evidence/level8-portfolio-readme-proposal
 
 ## Implementation-truth matrix summary (Wave 9.2)
 
-- 162 `IMPLEMENTED` rows checked.
+- 155 `IMPLEMENTED` rows checked.
 - 0 with a semantic closure finding.
-- 93 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
-- 69 fully clean.
+- 87 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
+- 68 fully clean.
 - Full detail: `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`.

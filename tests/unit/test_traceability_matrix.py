@@ -113,17 +113,12 @@ def test_generator_runs_without_error_against_current_real_data(matrix_tool):
 
     markdown = matrix_tool.build_status_markdown(matrix)
 
-    assert "## Full-registry README POC status" in markdown
-    # The repo table's rows are the only "| " lines before the "## Requirement
-    # status counts" heading; slicing there avoids double-counting the
-    # differently-shaped requirement-status table that follows it.
-    full_registry_section = markdown.split("## Requirement status counts", 1)[0]
-    repo_table_lines = [
-        line
-        for line in full_registry_section.splitlines()
-        if line.startswith("| ") and "Org/Repo" not in line and "---" not in line
-    ]
-    assert len(repo_table_lines) == len(products)
+    assert "## Current verified portfolio status" in markdown
+    assert f"- Denominator: **{len(products)}**, loaded from `data/products.json`." in markdown
+    assert "| FACTS_READY |" in markdown
+    assert "| NO_OP_PROVEN |" in markdown
+    assert "### Excluded discoveries and intake" in markdown
+    assert "### Blocked admitted repositories" in markdown
 
 
 def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_path, monkeypatch):

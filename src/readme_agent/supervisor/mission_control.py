@@ -247,21 +247,13 @@ def _derive_goal_selection(
     concurrent = [
         goal.goal_id
         for goal in incomplete[1:]
-        if goal.concurrent_when_trusted_primary
+        if goal.concurrent_when_earlier_primary
         and any(
             task.stage_goal_id == goal.goal_id
             and task.concurrency_class == "read_only_assurance_isolated"
             for task in ready
         )
-        and primary.goal_id
-        in {
-            "GOAL-T0-TRUSTED-QUALIFICATION",
-            "GOAL-TP-TRUSTED-COHORT-POC",
-            "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION",
-            "GOAL-T1-TRUSTED-PORTFOLIO",
-            "GOAL-T2-WORKFLOW-STAGING",
-            "GOAL-T3-HOSTED-TRUSTED-DELIVERY",
-        }
+        and primary.max_concurrent_verified_lanes > 0
     ]
     capacity = {
         "total_repository_lanes": (
@@ -279,9 +271,16 @@ def _ready_tasks(graph: MissionTaskGraphV1, state: MissionExecutionStateV1) -> l
     permitted = {goal for goal in [primary, *concurrent] if goal is not None}
     ready = [task for task in ready if task.stage_goal_id in permitted]
 
-    def sort_key(task: TaskCardV1) -> tuple[int, int, str]:
+    campaign_order = {campaign.campaign_id: campaign.order for campaign in graph.campaign_catalog}
+
+    def sort_key(task: TaskCardV1) -> tuple[int, int, int, str]:
         goal_rank = 0 if task.stage_goal_id == primary else 1
-        return goal_rank, _PRIORITY_ORDER[task.priority], task.task_id
+        campaign_rank = (
+            campaign_order[task.campaign_id]
+            if task.campaign_id is not None
+            else len(campaign_order) + 1
+        )
+        return goal_rank, campaign_rank, _PRIORITY_ORDER[task.priority], task.task_id
 
     return sorted(ready, key=sort_key)
 
@@ -322,6 +321,7 @@ def evaluate_mission(
         MissionNextTaskV1(
             task_id=selected.task_id,
             stage_goal_id=selected.stage_goal_id,
+            campaign_id=selected.campaign_id,
             goal_ids=selected.goal_ids,
             core_contribution=selected.core_contribution,
         )

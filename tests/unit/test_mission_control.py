@@ -86,6 +86,7 @@ def _write_contribution_evidence(
     evidence = MissionContributionEvidenceV1(
         task_id=task.task_id,
         stage_goal_id=task.stage_goal_id,
+        campaign_id=task.campaign_id,
         goal_ids=task.goal_ids,
         core_contribution=task.core_contribution,
         acceptance_checks_passed=task.acceptance_checks,
@@ -118,15 +119,40 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-MISSION-GOAL-GUARD"].goal_ids == ["GOAL-AUTONOMY"]
     assert tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].goal_ids == ["GOAL-DELIVERY"]
     assert tasks["L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"].goal_ids == ["GOAL-MATURITY"]
-    assert tasks["L8-VPY-00-GOLDEN-TEMPLATE"].dependencies == []
-    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
-    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
-        "L8-VPY-01-NOTE-VERIFIED-CANARY"
+    assert tasks["L8-VPY-00-GOLDEN-TEMPLATE"].dependencies == [
+        "L8-PLAN-RECONCILIATION-ACCELERATION"
     ]
-    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
+    assert tasks["L8-ACCEL-00-PYTHON-READINESS"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
+    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-ACCEL-00-PYTHON-READINESS"]
+    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+        "L8-ACCEL-00-PYTHON-READINESS"
+    ]
+    assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
     ]
+    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    ]
     goals = {goal.goal_id: goal for goal in graph.mission_authority.stage_goal_catalog}
+    campaigns = {campaign.campaign_id: campaign for campaign in graph.campaign_catalog}
+    assert list(campaigns) == [
+        "CAMP-PLAN-FREEZE",
+        "CAMP-SHARED-ACCELERATION",
+        "CAMP-THREE-SLICES",
+        "CAMP-PYTHON-PORTFOLIO",
+        "CAMP-GATE-A-PORTFOLIO",
+        "CAMP-GATE-B-AND-LATER",
+    ]
+    assert all(
+        task.campaign_id is None
+        for task in graph.taskcards
+        if task.stage_goal_id.startswith("GOAL-T")
+    )
+    assert all(
+        task.campaign_id is not None
+        for task in graph.taskcards
+        if not task.stage_goal_id.startswith("GOAL-T")
+    )
     assert goals["GOAL-V0-VERIFIED-PYTHON-POC"].execution_required is True
     assert goals["GOAL-TP-TRUSTED-COHORT-POC"].execution_required is False
     assert tasks["TRP-04P-COHORT-FREEZE"].dependencies == ["TRP-03-INDEPENDENT-FIDELITY-REVIEW"]
@@ -171,7 +197,8 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
-    statuses["TRP-01-README-DERIVED-FACTS"] = "TODO"
+    statuses["L8-VPY-00-GOLDEN-TEMPLATE"] = "TODO"
+    statuses["L8-PLAN-RECONCILIATION-ACCELERATION"] = "CLOSED"
     statuses["L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT"] = "TODO"
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
@@ -181,18 +208,20 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     )
 
     qualification = evaluate_mission(graph, state)
-    assert qualification.active_goal_id == "GOAL-T0-TRUSTED-QUALIFICATION"
+    assert qualification.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
     assert qualification.concurrent_goal_ids == ["GOAL-C0-AUTHORIZED-PORTFOLIO"]
     assert [task.task_id for task in qualification.eligible_tasks[:2]] == [
-        "TRP-01-README-DERIVED-FACTS",
+        "L8-VPY-00-GOLDEN-TEMPLATE",
         "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
     ]
+    assert qualification.next_task is not None
+    assert qualification.next_task.campaign_id == "CAMP-SHARED-ACCELERATION"
 
     after_qualification = state.model_copy(
         update={
             "task_statuses": {
                 **statuses,
-                "TRP-01-README-DERIVED-FACTS": "CLOSED",
+                "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
             }
         }
     )
@@ -223,7 +252,8 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
             }
         ),
     )
-    assert reopened.active_goal_id == "GOAL-T0-TRUSTED-QUALIFICATION"
+    assert reopened.active_goal_id is None
+    assert "TRP-01-README-DERIVED-FACTS" not in reopened.unresolved_task_ids
     tasks = {task.task_id: task for task in graph.taskcards}
     local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
     assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
@@ -785,6 +815,7 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path)
     evaluation = evaluate_mission(graph, state)
     assert [task.task_id for task in evaluation.eligible_tasks] == [
         "L8-MISSION-GOAL-GUARD",
+        "L8-PLAN-RECONCILIATION-ACCELERATION",
         "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
     ]
 
@@ -811,7 +842,10 @@ def test_rerouted_parent_does_not_unlock_dependent_tasks():
 
     eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
 
-    assert eligible == ["L8-MISSION-GOAL-GUARD"]
+    assert eligible == [
+        "L8-MISSION-GOAL-GUARD",
+        "L8-PLAN-RECONCILIATION-ACCELERATION",
+    ]
     assert "L8-WAVE1-CANONICAL-SAFETY-SPINE" not in eligible
 
 

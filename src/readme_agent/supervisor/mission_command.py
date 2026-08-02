@@ -121,11 +121,13 @@ def run_mission_command(args: argparse.Namespace) -> int:
     )
     if evaluation.next_task is None:
         print("next_task: -")
+        print("next_task_campaign: -")
         print("next_task_goals: -")
         print("next_task_contribution: -")
     else:
         print(f"next_task: {evaluation.next_task.task_id}")
         print(f"next_task_stage_goal: {evaluation.next_task.stage_goal_id}")
+        print(f"next_task_campaign: {evaluation.next_task.campaign_id or '-'}")
         print(f"next_task_goals: {', '.join(evaluation.next_task.goal_ids)}")
         print(
             "next_task_contribution: "

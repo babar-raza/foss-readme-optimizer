@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.state.mission_goal_schema import (
     CoreContributionV1,
+    ExecutionCampaignId,
     MissionGoalDefinitionV1,
     MissionGoalId,
     StageGoalDefinitionV1,
@@ -77,6 +78,16 @@ class BlockerAttemptV1(_StrictModel):
     reason_for_next_attempt: str
 
 
+class ExecutionCampaignV1(_StrictModel):
+    """Scheduling and aggregate-evidence group inside the sole mission graph."""
+
+    campaign_id: ExecutionCampaignId
+    order: int = Field(ge=0)
+    summary: str = Field(min_length=20)
+    acceptance_boundary: str = Field(min_length=20)
+    full_suite_policy: str = Field(min_length=20)
+
+
 class TaskCardV1(_StrictModel):
     task_id: str
     mission_id: str
@@ -112,6 +123,7 @@ class TaskCardV1(_StrictModel):
     failure_reroute: str
     closeout_rules: list[str]
     stage_goal_id: StageGoalId
+    campaign_id: ExecutionCampaignId | None = None
     concurrency_class: Literal["primary_only", "read_only_assurance_isolated"] = "primary_only"
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
@@ -162,6 +174,7 @@ class MissionTaskGraphV1(_StrictModel):
     autonomous_execution_contract: AutonomousExecutionContractV1
     mission_authority: MissionAuthorityV1
     verified_baseline: dict
+    campaign_catalog: list[ExecutionCampaignV1]
     taskcards: list[TaskCardV1]
     requirement_coverage: RequirementCoverageV1 | None = None
-    continuation_state: dict
+    bootstrap_state: dict

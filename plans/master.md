@@ -7,6 +7,13 @@ current working position, revisable through the governance procedure (edit in pl
 rule 12, agents update this file routinely whenever evidence changes the current plan or status;
 no separate section-specific approval is required.
 
+Authority is resolved by subject. `plans/idea.md` owns product outcome and intent;
+`plans/requirements.md` owns normative obligations and acceptance; this file owns architecture,
+decisions, sequencing, and rollout; `plans/GOVERNANCE.md` and `AGENTS.md` own editing, safety,
+execution, and coordination; the Level-8 mission graph is the sole machine-readable task and
+dependency graph; durable supervisor state owns live claims, transitions, and runtime status.
+Codex plans, roadmap, status, reports, audits, and handovers are derived views only.
+
 **Normative requirements:** [`plans/requirements.md`](requirements.md) is the authoritative,
 complete register of what the system must do, must not do, and how each requirement is accepted.
 This master plan defines why, architecture direction, sequencing, current status, and rollout.
@@ -73,8 +80,9 @@ history:
 
 | Order | Goal ID | Concrete closure outcome |
 |---:|---|---|
-| 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Trusted/verified assurance is disjoint and the initial real trusted cohort is transformation-approved and no-op-proven. |
-| 11 | `GOAL-V0-VERIFIED-PYTHON-POC` | The accepted Note reference is compiled into a reusable fact-slot template; Note, Page, PDF, then every current Python repository are repository-verified, independently approved, and no-op-proven. |
+| 0 | `GOAL-P0-PLAN-FREEZE` | The authoritative plan, graph/state migration, current status, validation, coherent plan commit, and `CampaignFreezeV1` pass before product execution. |
+| 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Preserved historical goal, non-executable after decision #88. |
+| 11 | `GOAL-V0-VERIFIED-PYTHON-POC` | The accepted Note reference becomes a reusable fact-slot template; Note Python plus measured .NET/Java vertical slices prove the accelerated path, then Page/PDF and every current Python repository are repository-verified, independently approved, and no-op-proven. |
 | 12 | `GOAL-TP-TRUSTED-COHORT-POC` | Preserved historical goal, non-executable after decision #88; its artifacts remain reusable. |
 | 13 | `GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION` | Preserved historical goal, non-executable after decision #88. |
 | 15 | `GOAL-C0-AUTHORIZED-PORTFOLIO` | Every repository visible from every authorized organization/App source has a current observation and evidence-backed admission or exclusion; every admitted repository is disabled/read-only, intake-ready, and bound to one complete registry revision. |
@@ -114,10 +122,11 @@ manually chosen. `evaluate` MUST:
 The trusted TP/T0R/T1/T2/T3 goals are preserved but `execution_required: false`; they cannot be
 derived, claimed, or regain effect authority without an explicit evidence-backed amendment.
 Their code, contracts, fixtures, call ledgers, staging proof, retry/lease controls, and accepted
-lessons remain inputs to verified work. Verified Python starts serially with the template and
-Note canary, then Page/PDF. Only after those canaries pass may the sole supervisor use at most
-four isolated Python repository lanes with serialized aggregation. No product effect is part of
-this local POC.
+lessons remain inputs to verified work. Verified execution starts with the template and Note,
+then runs zero-call .NET/Java readiness and the two selected slices alongside Note no-op under at
+most three isolated lanes. After all three slices pass, Page/PDF and the dynamic Python cohort run
+with two-to-four isolated repository lanes and serialized aggregation. No product effect is part
+of this local POC.
 
 Newly discovered repositories never create ad hoc goals. They reopen the earliest catalogued goal
 whose denominator-dependent acceptance is no longer true. A maturity window already in progress
@@ -153,91 +162,28 @@ without improving one of those states or removing its evidenced blocker is a dri
 
 ## Status
 
-The repository has substantial foundations, but it is **not Level 8**. Decision #88 supersedes
-the remaining trusted-delivery critical path without deleting it. The active sequence is
-**accepted Note reference → reusable fact-slot template → repository-verified Note →
-repository-verified Page/PDF → complete dynamic Python cohort → discovery/intake reconciliation
-→ complete verified Gate A/B/C → Levels 5/6 → day-30 Level 7 → day-90 Level 8**.
-Trusted implementation and evidence remain reusable lower-assurance assets, never verified proof.
+The repository has substantial foundations, but it is **not Level 8**. Live portfolio counts,
+claims, graph drift, registry eligibility, and blocked repositories are generated in
+`plans/status.md` from the runtime registry, durable state, and current acceptance contracts.
+This section records sequence and interpretation only; it is not runtime status authority.
 
-`TRP-00` is regression-proven at `181879c7`; its controller derives
-`GOAL-T0-TRUSTED-QUALIFICATION` and isolates trusted identity from verified acceptance. `TRP-01`
-is verified at `2b48ebed` with immutable `README_INHERITED` spans, disjoint configured standards,
-checksum-safe reuse, and Python/.NET/Java/102 KB Go evidence. `TRP-02` is verified at `6804e20e`
-with bounded LLM inventory/drafting, source-accountable assembly, presentation validation, and
-native patches—without a universal template. `TRP-03` is verified at `3cdf5dc9`: deterministic
-validation now precedes separate blind-quality and inheritance-fidelity roles, findings and
-section repair are grounded, unchanged repair fails visibly, and exact accepted inputs reuse the review without a provider call or duplicate lifecycle transition, while trusted approval never
-claims repository truth. The hosted `qwen3-next` backend was unavailable during the earlier
-non-promoting diagnostic, so complete adversarial canary proof remains TRP-04 work.
-Nine Python repositories have durable `TRUSTED_NO_OP_PROVEN` lifecycle records, but those records
-are retained only as lower-assurance reuse candidates. The owner accepted the corrected Note
-Python golden reference structurally; its immutable committed reference is now the input to
-`L8-VPY-00-GOLDEN-TEMPLATE`. The current eligible registry denominator is 31 and the Python
-denominator is 12. `CSSForge` and `Aspose-PDF-FOSS-for-Go-MCP` are discovery-only exclusions under
-the revised naming contract. The prior 17/32 facts/candidate/validation and 10/32 approval/no-op
-scoreboard admitted the MCP-suffixed repository and is stale for current campaign acceptance; all
-stage totals must be rederived against a freshness-valid 31-member registry revision before use.
-`TRP-04P-COHORT-FREEZE` is closed with the
-checksum-addressed cohort manifest under
-`plans/investigations/evidence/trp-04p-qualified-trusted-cohort-v1/`; its three-member result is
-evidence, not a hard-coded acceptance rule. `TRP-04P-ACT-WORKFLOW-PARITY` is also closed at
-`700b232d`: the exact cohort passed the reusable workflow under `act --bind`, including
-cross-job state/evidence sharing, dispatch variants, recovery, deduplication, matrix failure
-isolation, health reduction, and ambient-token rejection, with zero effects.
-`TRP-04P-STAGING-EFFECT-PROOF` is independently accepted at `8c78e7f9`: the frozen cohort
-passed create/no-op/update/drift/deduplication/lost-response/expiry/crash-boundary scenarios
-against private disposable staging, and an additional creation-only control proved first draft-PR
-creation through the canonical workflow. All four staging default branches remain byte-identical,
-every stable proposal branch contains the exact qualified candidate, and each target has exactly
-one open draft PR. Evidence is under
-`plans/investigations/evidence/trp-04p-staging-effect-proof-v1/`. Durable evaluation selected
-`TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION`; subsequent hosted runs proved the configured App and
-staging effect route, but human content review rejected all three visible README proposals for
-inconsistent branding/header structure, insufficient contextual Enterprise Edition linking, and
-immature At-a-glance diagrams. The task was therefore rerouted without discarding its transport
-evidence. `TRP-04P-COHERENT-PRESENTATION-REPAIR` now owns the shared-contract repair, exact
-three-candidate regeneration, cohort-level review, no-op proof, and in-place update of the same
-staging PRs before hosted continuation. `TRP-04P-TEST-LATENCY` is independently accepted: the exact current non-live inventory
-now runs through a bounded four-worker closure command in about four minutes locally and 83-87
-seconds on the hosted Linux matrix, versus a 1,049-second serial reference, without worker restart,
-test omission, or repository-attributable descendants. Evidence is under
-`plans/investigations/evidence/trp-04p-test-latency-v1/`. `L8-INTAKE-00/01/02` are closed;
-`L8-INTAKE-03` is the next common intake boundary. TRP-04 remains preserved but non-executing under
-decision #88.
-At durable mission state 682, the current-contract scoreboard is 8/31 `FACTS_READY` and zero
-current candidates, validations, approvals, no-ops, or human acceptances. The current Python facts
-numerator is 8/12: Note, Page, PDF, 3D, BarCode, Cells, Email, and Font. HTML is a current,
-zero-repeat-call `BLOCKED_MISSING_EVIDENCE` result at its invalid upstream build-backend/package
-boundary; Slides, TeX, and Words remain to reconcile. Raw historical counts are reuse candidates,
-not current proof. Discovery must retain CSSForge and PDF Go MCP as explained exclusions and bind
-a new complete 31-member revision before any denominator-dependent closure is current.
+Decision #88 suspends the remaining trusted-delivery path without deleting its implementation or
+evidence. Trusted artifacts are lower-assurance reuse inputs only. They cannot satisfy verified
+facts, candidate approval, no-op proof, Gate A/B/C, or maturity, and no trusted task may reserve
+capacity or authorize an effect.
 
-The legacy universal goal is absent from the executable graph and pre-migration durable records
-are additively refreshed without deleting task or goal history. The short-term visible milestone
-is the committed, repository-verified Note/Page/PDF Python README review batch, followed by every
-current Python repository. Trusted artifacts remain reusable but non-executable and declare
-`trusted_inherited`; they cannot satisfy verified facts, Gate A, or maturity. After Python, the
-same executable portfolio path continues through .NET, Java, C++, TypeScript, Rust, Go,
-full-registry Gates A/B/C, and Levels 5-8.
+The active sequence is: plan reconciliation and `CampaignFreezeV1`; shared acceleration and
+isolation proof; fresh Note no-op plus readiness-selected .NET and Java slices; one official suite
+at three-slice closure; Page/PDF and the dynamic Python cohort; remaining platforms in Python,
+.NET, Java, C++, TypeScript, Rust, Go priority; dynamic Gate A; Gate B; Gate C; hosted operation;
+and Levels 5-8. Seven ecosystems remain mandatory heterogeneous coverage, not a prerequisite for
+the early slices, Python delivery, or later-platform read-only preparation.
 
-The owner reports organization-owner access. Live credential and per-repository permission checks
-plus reviewed authorization records remain required before effects. GitHub App authority is
-requested when the qualified cohort's local/`act`/staging gates reach that boundary; Codex first attempts
-supported `gh`/API operations and otherwise emits the exact manual creation/installation handoff
-and continues verified read-only work. The one-day target applies only to the qualified
-campaign execution after its contracts and credentials are ready; the present amendment targets
-a reviewable cohort POC within two days without counting implementation defects, unavailable
-external authority, or human response time as successful execution. Verified
-intake/facts/composition/review may advance concurrently
-after TRP-00 and complete discovery, under trusted-priority capacity. After `TRP-07`, it becomes
-the primary path; trusted operational proof is reused only
-when its input and control hashes still match, while content assurance is independently reproved.
-Verified Gate B/C, Level 5, Level 6, day-30 Level 7, and day-90 Level 8 remain mandatory.
-
-`plans/requirements.md` is normative; the task graph and live mission state drive execution;
-`plans/status.md`, `logs/`, and investigation evidence hold generated truth/history.
-
+Product execution remains paused until the P0 plan campaign has current migration evidence,
+focused validation, independent acceptance, a coherent control-repository commit, and a frozen
+contract manifest. Current registry completeness is separately fail-closed when discovery has
+pending intake or unexplained observations; unrelated admitted read-only work may continue after
+the plan gate.
 ## Decision Ledger
 
 Current working positions, not locked commitments (see GOVERNANCE.md rule 4). Any entry can be
@@ -1918,9 +1864,10 @@ that is the only permanence they carry; text is always the decision as it stands
     starts, the coordinator inventories repository-owned processes and grants the top-level command
     lease. Lane-focused tests may overlap only when their state and resources are demonstrably
     isolated. The bounded complete suite, integration, and proof campaigns remain serialized at
-    governed campaign boundaries, and cancellation terminates descendants. Before representative
-    qualification repository execution is serial; afterwards only the canonical supervisor may
-    operate up to four isolated repository lanes with serialized aggregation.
+    governed campaign boundaries, and cancellation terminates descendants. After focused
+    transaction/cache/cancellation/aggregation isolation, the canonical supervisor may operate up
+    to three early slice lanes; after those slices close it may use two to four isolated repository
+    lanes with serialized aggregation.
 
     The user grants standing authority to run every safe, in-scope command available in the current
     environment without a separate conversational approval: reads, network inspection, `.venv`
@@ -1935,25 +1882,28 @@ that is the only permanence they carry; text is always the decision as it stands
     non-disposable user data. See `GOV-030` and Governance rule 19. (Revised 2026-08-02 by direct
     user authorization of the bounded multi-agent execution model.)
 
-82. **Recover through output-first convergence, native ecosystem tools, and a frozen
-    representative contract—not a rewrite or another control plane.** The project keeps the
+82. **Recover through output-first convergence, native ecosystem tools, and a frozen campaign
+    contract—not a rewrite or another control plane.** The project keeps the
     proven supervisor, safety, isolation, lifecycle, facts, evidence, independent-review, and LLM
     accounting foundations. It does not extend production, proposal, scheduling, or generic
     abstraction work unless that work removes a demonstrated blocker on the current local
-    deliverable. Three nested outcomes govern execution: first, one latest-contract independently
-    approved and unchanged-no-op-proven README for each of Java, .NET, Python, TypeScript, C++,
-    Go, and Rust; second, the same result for every runtime-loaded registry entry (Gate A); third,
-    the ordered Gate B through Level-8 operating proof. A seven-repository result is a
-    representative qualification milestone, never the full POC.
+    deliverable. The first output boundary is Note Python plus one readiness-selected .NET and one
+    Java verified vertical slice. Page/PDF and the complete dynamic Python cohort follow, then the
+    remaining platforms and full registry. The seven-ecosystem set remains heterogeneous
+    qualification, never a prerequisite for those early slices, Python completion, read-only
+    preparation, or post-three-slice bounded concurrency.
 
-    The current presentation contract is `L8-020`, `L8-021`, `L8-023`, `L8-024`, and `L8-026`.
-    It remains frozen until all seven representatives pass. A newly discovered factual or safety
+    `CampaignFreezeV1` binds the current presentation, truth, prompt, model, validator, reviewer,
+    lifecycle, cache, registry, graph, runtime, and test-inventory contracts before product work
+    resumes. It remains frozen through the active campaign. A newly discovered factual or safety
     defect reopens its first responsible boundary; a non-safety presentation preference enters
     backlog instead of invalidating the campaign. The historical 3D Java candidate is an explicit
     negative control and must fail the current validator before it is regenerated. The corrected
-    dependency order is: close `L8-TRUTH-07-SEVEN-ECOSYSTEMS` (including Go), implement and verify
-    the frozen composition/review contract, qualify seven complete real lifecycles, then run the
-    full-registry `FACTS_READY` preflight and Gate-A candidate fan-out.
+    dependency order is: reconcile/freeze the plan; preserve the Note structural contract;
+    zero-call classify .NET/Java; no-op Note while producing selected .NET/Java slices;
+    approve/no-op all three; run
+    one official suite; process Page/PDF and all Python; then qualify the remaining platforms and
+    close Gate A.
 
     Ecosystem adapters use official consumer/build semantics as their primary authority inside
     the `L8-019` isolation boundary: Maven effective-POM/dependency output; evaluated MSBuild
@@ -1965,12 +1915,13 @@ that is the only permanence they carry; text is always the decision as it stands
     and requires decision #30's build-vs-adopt justification.
 
     Cost and verification are bounded without weakening truth. The normal per-repository/revision
-    path permits one composition call, one independent-review call, and at most one targeted repair
+    path permits one composition call, one mandatory independent-review call, and at most one targeted repair
     call; deterministic failures make no additional prose call, and any exceptional provider call
     carries a manifest rationale. Content-addressed stages reuse unchanged repository, toolchain,
     dependency, fact, prompt, renderer, and acceptance-contract inputs. Focused checks run after a
-    local change; one real representative proves an adapter; all seven prove a presentation
-    contract; the complete official suite runs at coherent commit/gate boundaries; the full
+    local change; one real representative proves an adapter; the three early slices prove lane
+    isolation and cross-platform contract use; the complete official suite runs at the declared
+    three-slice and Gate-A boundaries; the full
     registry runs only under the frozen qualified campaign. Runtime bundles remain mutable,
     revision-addressed `runs/` state; checksum evidence is promoted once at task closure rather
     than duplicated after every diagnosis. See `GOV-015`, `NFR-012`, and `L8-016`.
@@ -1995,17 +1946,17 @@ that is the only permanence they carry; text is always the decision as it stands
     be physically batched only after typed per-repository inputs, outputs, accounting, cache keys,
     verdicts, and failure isolation prove that one item cannot contaminate another.
 
-    After seven real representatives pass the frozen contract, one supervisor may execute two to
-    four isolated repository lanes. Per-repository leases and revision roots remain separate;
+    After focused transaction, cache, cancellation, and serialized-aggregation isolation, one
+    supervisor may execute up to three lanes for the early Note/.NET/Java slices. After those three
+    pass, it may execute two to four isolated repository lanes. Per-repository leases and revision roots remain separate;
     shared caches are read-only/content-addressed; portfolio aggregation is serialized; API/model
-    backpressure may reduce the lane count. Before that gate, local execution remains serial.
+    backpressure may reduce the lane count. The seven-ecosystem qualification does not gate this concurrency.
     One source/toolchain build result supplies every dependent fact, API, example, and validation
     stage until its exact dependency hash changes. URL, package-registry, workflow, license, and
     other external evidence is fetched once per normalized key and governed freshness interval.
 
-    The complete official suite is required at four local campaign boundaries: before resumed
-    execution, after the first latest-contract README, after seven-representative qualification,
-    and at full-registry Gate-A closure. Focused and impact-mapped integration/safety checks remain
+    The complete official suite is required at two local campaign boundaries: after three-slice
+    closure and at full-registry Gate-A closure. Focused and impact-mapped integration/safety checks remain
     mandatory between those boundaries. Failed attempts stay as redacted diagnostics under
     `runs/`; one checksum-complete evidence package is promoted per coherent closure campaign.
     Gate-B human review and non-mutating `act` proof may overlap after Gate A; staging preparation,
@@ -2091,112 +2042,30 @@ that is the only permanence they carry; text is always the decision as it stands
     denominator and cannot close a current campaign. (2026-07-29; revised 2026-08-02 by direct
     user eligibility directive.)
 
-85. **Use an LLM-first, README-derived assurance lane as the trusted-priority delivery path while
-    repository-verified work advances read-only in spare capacity.** The ultimate goal remains
-    `verified_repository_presentation`. Its facts continue to come from repository source,
-    manifests, consumer tooling, tests, examples, releases, verified registries, and approved
-    policy—not from README self-assertion. The immediate goal is
-    `trusted_readme_transform`: open one draft PR for every runtime-loaded registry repository
-    after transforming its existing README under a deliberately lower, explicit assurance.
+85. **Suspend trusted execution and reuse only assurance-safe machinery behind verified
+    contracts.** `verified_repository_presentation` is the exclusive active content path. Its facts
+    come from repository source, manifests, consumer tooling, tests, examples, releases, verified
+    registries, and approved policy—not README self-assertion. `trusted_readme_transform` goals,
+    candidate work, review, delivery, and effects are historical and non-executable. They receive
+    no claim or reserved capacity.
 
-    Trusted mode preserves the current pipeline shape rather than creating a shortcut controller.
-    It captures the immutable source README and extracts a typed fact/claim graph whose records
-    use `README_INHERITED` provenance, source spans, source revision, and an explicit
-    `trusted_inherited` assurance state. It does not check those inherited claims against code,
-    tests, package registries, documentation, or external sources. Approved badge, Mermaid,
-    navigation, terminology, and link-catalog additions use `CONFIGURED_STANDARD` provenance and
-    remain subject to the existing presentation contract. Repository README text is trusted
-    content but untrusted instruction data; prompt injection never changes runtime behavior.
+    Trusted code, tests, cache/retry/lease controls, workflow/staging/App/effect proof, and lessons
+    may be reused only within their demonstrated boundary and behind current verified contracts.
+    `README_INHERITED` facts, trusted candidates, verdicts, no-op evidence, proposals, and PRs
+    cannot satisfy verified facts, Gate A, Gate B, Gate C, or maturity. Assurance remains explicit
+    in every dependency identity so no migration or human interpretation can promote trusted proof.
 
-    LLM judgment is the primary implementation mechanism: one typed inventory/plan stage, one or
-    more Markdown-section composition stages sized to the source document, independent
-    blind-quality and inheritance-fidelity review, and section-scoped repair. Generic
-    deterministic code owns Markdown source spans and hashes, schema validation, source-to-output
-    accountability, comment/code-fence/link/header/Mermaid/terminology controls, assembly, cache
-    identity, no-op behavior, authorization, and effects. It must not grow a universal
-    deterministic template system merely to support this temporary mode. A repair must change the
-    affected candidate bytes and close grounded findings; repeating an unchanged oversized request
-    is a system failure, not a repair.
+    Historical trusted transport/effect evidence remains attributable and reusable only when every
+    workflow, environment, contract, credential-isolation, and effect hash remains current. It may
+    reduce later verified `act`, staging, and hosted qualification work, but it never reactivates a
+    trusted task or authorizes a product effect. Complete authorized-source discovery remains a
+    verified portfolio prerequisite and uses all-visibility enumeration, stable provider identity,
+    disabled/read-only admission, durable preflight, and `RegistryRevisionV1`.
 
-    `ContentAssuranceV1` is orthogonal to execution profile and is hashed into facts, candidates,
-    reviews, manifests, caches, lifecycle state, proposals, and effect identity. Trusted lifecycle
-    states and verdicts are distinct from `FACTS_READY`, `AGENT_APPROVED`, `NO_OP_PROVEN`,
-    `VerifiedProposalV1`, and verified maturity counters. A trusted proposal body discloses that
-    inherited claims were not repository-verified. Switching to verified mode reopens the earliest
-    evidence-dependent boundary and independently reconciles every material claim; trusted
-    acceptance never promotes automatically.
-
-    Execution remains serial while the trusted content contract is unstable. Once real repositories
-    have reached checksum-complete `TRUSTED_NO_OP_PROVEN`, however, those exact immutable candidates
-    form a qualified cohort that may exercise the intended production delivery path before the
-    broader adversarial canary matrix closes. The supervisor freezes cohort membership by
-    repository identity, source revision, README and candidate hashes, contract/prompt/configuration
-    hashes, reviewer verdicts, no-op proof, and manifest checksum; it rechecks the target head before
-    any proposal and removes or regenerates stale members. No new or partial candidate may join by
-    convenience.
-
-    The frozen cohort then runs through the actual reusable workflow under `act`, the
-    assurance-specific proposal/effect matrix in disposable staging, GitHub App hosted
-    qualification on staging, live permission and reviewed authorization checks, and serialized
-    draft-PR effects. This is a production-path POC tranche, not T1 full-registry closure,
-    repository-verified Gate A/B/C, or maturity proof. It may reveal presentation defects through
-    real review; each accepted finding is bound to the affected source/candidate/contract hash,
-    repaired at the earliest shared owner, and promoted into deterministic or golden regression
-    coverage before the affected PR is updated.
-
-    Immediately after the cohort PR package is presented, `TRP-04` resumes at its durable boundary
-    and still proves Python, .NET, ordinary Java, malformed/prompt-injected content, the largest
-    current README, recovery, exact accounting, and no-op behavior. Portfolio fan-out remains
-    disabled until that broader qualification closes. After it closes, the sole supervisor may run
-    at most four isolated repository lanes in the existing platform priority. Trusted work is the
-    primary goal and owns three reserved lanes; at most one lane advances repository-verified
-    read-only work. Verified work may borrow idle capacity but cannot delay trusted work or issue a
-    product effect. The qualified full-registry trusted campaign retains its one-day target;
-    implementation, canary repair, unavailable permissions, and human authorization are not hidden
-    inside that clock.
-
-    Trusted effects retain the allow-list, effect ledger, reviewed expiring authorization,
-    candidate-aware idempotency, fresh-head reconciliation, draft-only behavior, and prohibitions
-    on default-branch writes, force pushes, ready-for-review transitions, and merge. The owner
-    intends to obtain write access to the remaining repositories, but access is considered present
-    only after a live per-repository permission check. Missing access blocks only that repository.
-    Direct authorized branches are the intended POC route; fork publication is not added unless
-    direct access proves unavailable and a separate build-vs-adopt/effect-safety decision
-    authorizes the extra machinery.
-
-    Complete authorized-source discovery is a shared prerequisite for portfolio fan-out. It uses
-    authenticated all-visibility pagination, stable provider identity, explicit disposition for
-    every visible repository, disabled/read-only admission, durable preflight, and a
-    freshness-bound `RegistryRevisionV1`. Source failures, unexplained observations, stale scans,
-    and pending intake prevent trusted T1 closure as well as verified Gate A.
-
-    The trusted lane exercises the complete operational pipeline rather than stopping at local
-    generation. The qualified cohort first runs the canonical reusable workflow under `act`,
-    proves the proposal/effect matrix in disposable GitHub staging, then qualifies fresh
-    short-lived GitHub App authentication and hosted scheduling/recovery against staging targets.
-    Codex first attempts supported non-interactive `gh` and GitHub API operations.
-    If App registration or organization/repository installation requires a manual owner/browser
-    action, the system emits one exact request containing the app name, permissions, subscribed
-    events, callback/webhook configuration, installation scope, URL, and secret locations; records
-    `WAITING_HUMAN_APP_PROVISIONING`; notifies the owner; and continues every eligible verified
-    read-only task. It validates the supplied installation and resumes automatically. Only after
-    those gates pass may the hosted runtime open the authorized cohort draft PRs. After TRP-04 and
-    full-registry transformation close, the full-registry `act`, staging, App, authorization, and
-    effect gates revalidate every invalidated or denominator-dependent scenario before the
-    remaining trusted PR portfolio proceeds. Cohort operational proof may be reused later only
-    when all workflow, environment, contract, and effect hashes remain current; it cannot prove repository factuality,
-    `VerifiedProposalV1`, verified Gate A/B/C, or maturity. Trusted Gate T3 remains required before
-    any trusted product effect campaign closes, but it does not block repository-verified
-    read-only discovery, facts, reconciliation, planning, composition, or review.
-
-    Runtime goals are stage-derived rather than universal. TRP-00 migrates the legacy
-    `GOAL-CORE-PRESENTABLE-PORTFOLIO`/subordinate goal guard into the ordered goal catalog in this
-    plan, binds each task to one owning stage goal, and makes `evaluate` atomically advance or
-    reactivate the primary goal while deriving only permitted concurrent goals. The runtime keeps
-    `active_goal_id` separate from `concurrent_goal_ids`; a concurrent goal has no independent stop
-    authority. (2026-07-29, user directive, revised 2026-07-29 for assurance-pipeline
-    clarification and trusted-priority dual-lane execution; revised 2026-07-30 to deliver the
-    already-qualified cohort through the production path before resuming adversarial qualification.)
+    Runtime goals are stage-derived. Historical trusted goals remain inspectable with
+    `execution_required: false`, cannot be derived or claimed, and have no capacity or effect
+    authority. `evaluate` advances only verified goals and permitted dependency-ready read-only
+    concurrency. (Revised in place 2026-08-02 by the plan-reconciliation campaign.)
 
 86. **Make verification latency and recurring real-input defects owned production contracts, not
     repeated surprises.** The current non-live suite contains more than 2,300 tests and the last two
@@ -2281,8 +2150,9 @@ that is the only permanence they carry; text is always the decision as it stands
     promoted as workflow closure. This prevents late discovery of planning gaps where the expected
     final state existed but the production route that created it had never been exercised.
 
-87. **Separate presentation acceptance from transport proof and govern trusted portfolio branding
-    as one versioned cohort contract.** A successful App token, workflow, branch, PR, deduplication,
+87. **Separate presentation acceptance from transport proof and govern portfolio branding as one
+    versioned verified-presentation contract.** A successful App token, workflow, branch, PR,
+    deduplication,
     or recovery scenario proves delivery machinery only. It cannot approve the README bytes it
     transported. Human rejection of a visible candidate invalidates that candidate and every
     dependent review, no-op, authorization, proposal, and presentation artifact while preserving
@@ -2291,7 +2161,8 @@ that is the only permanence they carry; text is always the decision as it stands
     `RepositoryPresentationBrandContractV1` is assurance-neutral and owns the common visual
     grammar for both `trusted_readme_transform` and `verified_repository_presentation`. Assurance
     controls which evidence may support a label or claim; it never lowers visible presentation
-    quality. The trusted cohort is the first proving consumer. Every
+    quality. The accepted Note reference is the first structural proving consumer, and repository-
+    verified Note is the first factual proving consumer. Every
     candidate uses one H1 and contains no emoji anywhere in the README, plus exactly one compact
     badge row in stable slot order (package/version when supported, platform/runtime, real build
     status when evidenced, license, contributors when supported). Badges are never duplicated
@@ -2307,7 +2178,7 @@ that is the only permanence they carry; text is always the decision as it stands
     identity.
 
     This contract is frozen from a manually composed extended-density golden reference before
-    another live LLM cohort regeneration. Aspose.Note FOSS for Python is the first binding because
+    another live LLM campaign. Aspose.Note FOSS for Python is the first binding because
     it exercises the largest current examples and API surfaces. Human review of that reference
     freezes Presentation Contract v1; Page and PDF then act as compact/standard conformance
     canaries. The reference fixes structure and visual grammar, not universal product prose.
@@ -2318,7 +2189,8 @@ that is the only permanence they carry; text is always the decision as it stands
     heading and repository-relative link. MIT license prose summarizes practical permissions and
     the retained-notice condition while leaving the license file authoritative.
 
-    Each trusted cohort README contains exactly one catalog-verified `products.aspose.com` link.
+    Each verified README contains exactly one catalog-verified `products.aspose.com` link when the
+    configured relationship slot applies.
     It appears below the opening in ordinary explanatory prose where the inherited product's scope,
     compatibility, or limitations make the relationship useful; it is never a header CTA,
     navigation item, badge target, standalone promotion, or blockquote. A separate Other platforms
@@ -2349,17 +2221,18 @@ that is the only permanence they carry; text is always the decision as it stands
     batch. Deterministic assembly emits `CandidateSpanOwnershipMapV1`, mapping every material
     candidate byte span through normalization to one stable system-issued segment owner and its
     inherited/configured provenance. A grounded reviewer finding compiles to hash-bound
-    `TrustedRepairActionV1`: deterministic code executes unique `remove_exact`, `move_exact`, or
+    `OwnedSpanRepairActionV1`: deterministic code executes unique `remove_exact`, `move_exact`, or
     non-generative `replace_exact` actions, while the LLM is invoked only for a bounded
     `rewrite_owned_span` that actually requires new prose. Stale or ambiguous ownership, multiple
     matches, changed protected siblings, or byte-identical output fails before rereview; no local
     defect may trigger generic whole-batch regeneration.
 
-    Trusted live stages also bind a provider-work and continuation contract. Evidence distinguishes
+    Verified live stages also bind a provider-work and continuation contract. Evidence distinguishes
     logical role, composition batch, repair action, physical provider attempt, retry, and cache
-    reuse. A normal cohort member uses one initial composition campaign, one blind and one fidelity
-    review, at most one prose-authoring repair, and one invalidated-batch rereview pair; a grounded
-    exact edit uses no authoring call and an unchanged no-op uses no provider call. Repository and
+    reuse. A normal candidate uses one composition call, one mandatory independent non-authoring
+    evidence-grounded review, and at most one prose-authoring repair. `ReviewRiskProfileV1` adds a
+    second independent reviewer only for a typed risk class proven to need it; a grounded exact edit
+    uses no authoring call and an unchanged no-op uses no provider call. Repository and
     mission leases renew with fencing across long calls, stage deadlines prevent unbounded retry,
     and pre/post-call receipts resume the first unsealed boundary after cancellation. Provider or
     lease uncertainty is visible retryable/system failure, never permission to broaden mutation or
@@ -2400,19 +2273,35 @@ that is the only permanence they carry; text is always the decision as it stands
 
     `GOAL-V0-VERIFIED-PYTHON-POC` is the first executable goal after completed assurance
     separation. Its ordered small milestones are:
-    `L8-VPY-00-GOLDEN-TEMPLATE` → `L8-VPY-01-NOTE-VERIFIED-CANARY` →
-    `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` →
+    `L8-VPY-00-GOLDEN-TEMPLATE` → `L8-ACCEL-00-PYTHON-READINESS` →
+    `L8-VPY-01-NOTE-VERIFIED-CANARY` plus
+    `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (compatibility ID; canonical display name
+    **Cross-platform .NET and Java vertical slices**) →
+    `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` →
     `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`. The first task retains the accepted Note bytes and hash,
     then compiles—not copies—them into `RepositoryPresentationTemplateV1`. The template owns
     visual and structural grammar, density profiles, conditional slots, and deterministic
     conformance. `ProductFactsV2`, source reconciliation, and repository-specific LLM composition
-    continue to own facts and prose. The Note canary proves the first verified binding; Page/PDF
-    prove consistency without prose cloning; only then may up to four supervisor-owned isolated
-    lanes finish the dynamic Python cohort.
+    continue to own facts and prose. After the structural template freezes, the zero-call
+    `L8-ACCEL-00` selector measures readiness and freezes the evidence-readiest Java and .NET
+    slices. The Note canary and `L8-VPY-02` then proceed as the three presentation-quality
+    bindings. Once lane-isolation,
+    fail-closed aggregation, and cache-boundary tests pass, the sole supervisor may run at most
+    three read-only repository lanes for these pilots. Python receives the first lane and highest
+    scheduling priority; that priority does not leave ready .NET or Java work idle. Page/PDF then
+    prove Python consistency without prose cloning, and the qualified scheduler completes the
+    dynamic Python cohort while safe later-platform evidence work progresses independently.
 
-    Every stage uses dependency-complete content-addressed receipts. Unchanged source, facts,
+    Every stage uses dependency-complete, platform-scoped content-addressed receipts. Unchanged source, facts,
     template, prompts, policy, validators, reviewer standard, protected-content fingerprint, and
-    runtime reuse their sealed results; a changed dependency reopens only downstream stages.
+    runtime reuse their sealed results; a changed dependency reopens only downstream stages. An
+    ecosystem adapter change cannot invalidate unrelated ecosystems, and a presentation-only
+    change cannot cause a reclone or fact re-extraction. Shared product/family/ecosystem evidence
+    is extracted once, content-addressed, and revalidated for repository applicability before use.
+    The normal verified path targets no more than one repository-specific composition and one
+    mandatory independent non-authoring evidence-grounded reviewer; a second reviewer runs only
+    for a typed risk trigger proven necessary by the regression corpus. Unchanged reruns make zero provider calls. Typed batching may reduce
+    physical requests only after per-repository attribution and failure isolation are proven.
     The two-attempt/15-minute anti-stall rule from `TRP-023` is promoted to verified execution.
     Before a third approach, the agent performs and records a first-principles review, including
     whether deletion, resequencing, or a battle-tested existing seam is simpler than another
@@ -2425,13 +2314,14 @@ that is the only permanence they carry; text is always the decision as it stands
     `supervise --repo <allow-listed-repository> --execution-profile local_poc
     --bounded-verified-canary` through the same fail-closed runtime. This is repository-scoped
     partial proof only: it cannot populate a portfolio denominator or satisfy Gate A. The explicit
-    selector prevents a Note/Page/PDF canary task from repeatedly recomputing unrelated earlier
+    selector prevents a bounded canary task from repeatedly recomputing unrelated earlier
     portfolio members while preserving factual verification, dynamic planning, durable state,
     validation, independent review, evidence, and zero remote writes.
 
     The mission remains portfolio-wide. Python is the first mandatory platform milestone and
-    visible quality gate, never the umbrella closure boundary. After Python closes, the same
-    verified campaign continues automatically through .NET, Java, C++, TypeScript, Rust, and Go,
+    visible quality gate, never the umbrella closure boundary. The early .NET/Java slices provide
+    cross-platform feedback but do not close their cohorts. After Python closes, the same verified
+    campaign continues automatically through .NET, Java, C++, TypeScript, Rust, and Go,
     then dynamic full-registry Gates A/B/C and Levels 5-8. Each finalized README is promoted from
     its mutable runtime bundle into the committed, versioned evidence root
     `plans/investigations/evidence/finalized-repository-readmes-v1/repositories/<platform>/<org>__<repo>/<revision>/<readme-sha256>/`.
@@ -2443,16 +2333,29 @@ that is the only permanence they carry; text is always the decision as it stands
     acceptance shortcut.
 
     For the 2026-08-02 accelerated portfolio sprint, visible vertical delivery and shared-seam
-    repair take precedence over broad reports or repeated full-suite runs. Note, Page, and PDF are
-    the first committed review batch as soon as their current verified inputs pass the active
-    contracts. Independent read-only research, validation, and evidence reconstruction may run
-    in parallel under disjoint leases. State-mutating repository runs remain serialized until the
-    seven-representative isolation gate passes; afterwards the sole supervisor uses the governed
-    two-to-four repository lanes with serialized aggregation. Focused and affected tests run at
+    repair take precedence over broad reports or repeated full-suite runs. The first proof batch is
+    Note/Python plus the evidence-readiest Java and .NET repositories; Note, Page, and PDF remain
+    the first complete platform batch. Independent read-only research, validation, fact extraction,
+    rendering, and evidence reconstruction may run in parallel under disjoint repository leases.
+    After focused scheduler isolation proof, one supervisor may use up to three pilot lanes with
+    serialized aggregate mutation; after the three vertical slices pass, the existing governed
+    two-to-four repository lanes may fan out across the portfolio. Focused and affected tests run at
     repair boundaries; the optimized complete suite runs once per coherent integration or gate
     boundary. The time target changes sequencing and resource use, never factuality, safety,
-    review, idempotency, or evidence acceptance.
-    (2026-07-31, user directive.)
+    review, idempotency, or evidence acceptance. Progress is measured by current verified facts,
+    candidates, deterministic passes, independent approvals, no-op proofs, cache reuse, LLM calls,
+    and repositories completed per hour. Infrastructure that does not materially advance or protect
+    one of those measures leaves the critical path. Focused targets are at most 60 minutes for plan
+    reconciliation/freeze, three active hours for Note no-op plus .NET/Java slices, six active hours
+    for the current Python portfolio, and one measured focused execution window for the current
+    Gate-A candidate set. A breach repairs the first measured boundary without weakening acceptance.
+    The graph maps every executable task exactly once to `CAMP-PLAN-FREEZE`,
+    `CAMP-SHARED-ACCELERATION`, `CAMP-THREE-SLICES`, `CAMP-PYTHON-PORTFOLIO`,
+    `CAMP-GATE-A-PORTFOLIO`, or `CAMP-GATE-B-AND-LATER`; historical trusted tasks have no
+    executable campaign. Campaign order reduces control-plane churn and influences ready-task
+    scheduling, but it never changes task status: only individually evidenced `CLOSED` taskcards
+    satisfy dependencies, and each aggregate manifest maps every task and requirement to exact proof.
+    (2026-08-02, user acceleration directive; revises the prior serial-pilot interpretation.)
 
 ## Architecture
 
@@ -2481,9 +2384,10 @@ Both lanes share `supervise`, `RepositoryPresentationBrandContractV1`, snapshots
 leases, redaction, manifests, authorization, effect ledger, and reconciliation. Trusted execution
 is suspended, but compatible machinery remains reusable. Assurance-specific facts, verdicts,
 caches, proposals, and counters prevent a trusted result from impersonating verified evidence.
-The scheduler derives only goals marked `execution_required`. Verified Python canaries run
-serially; after qualification, the sole supervisor may use up to four isolated repository lanes
-with serialized aggregation and no product effects.
+The scheduler derives only goals marked `execution_required`. The sole supervisor may use up to
+three isolated, read-only repository lanes for the early Python/Java/.NET vertical slices after
+transaction and aggregation isolation are proven, then up to four qualified portfolio lanes. All
+shared aggregation remains serialized and no local POC lane has product-effect authority.
 
 ### Canonical production flow
 
@@ -2493,9 +2397,9 @@ schedule / repository_dispatch / workflow_call / operator request
   → persist and deduplicate trigger
   → acquire per-repository lease
   → capture immutable repository snapshot
-  → select the mission-bound ContentAssuranceV1
-  → trusted lane: derive README_INHERITED facts and transformation plan
-    or verified lane: profile repository and every package root
+  → select verified_repository_presentation assurance
+  → profile repository and every package root
+  → optionally reuse hash-current trusted machinery only behind verified fact contracts
   → build provenance-complete, assurance-labelled ProductFactsV2
   → assess every applicable presentation surface
   → build RepositoryPresentationPlanV1
@@ -2574,8 +2478,9 @@ open without blocking the document. One isolated build/tool result is reused by 
 and example checks while its complete dependency key remains unchanged. External URLs, registry
 queries, workflow metadata, and license classification use normalized freshness-bounded caches.
 
-After the seven-representative qualification freezes the campaign, a single supervisor may run two
-to four per-repository lanes. Lanes never share mutable repository state, claims, outputs, or
+After the three-slice isolation and aggregation proof freezes the lane contract, a single
+supervisor may run two to four per-repository lanes. Seven-representative qualification remains a
+coverage milestone, not a concurrency prerequisite. Lanes never share mutable repository state, claims, outputs, or
 verdicts. Portfolio aggregation remains serialized, and rate-limit/backpressure controls reduce
 concurrency automatically. Physical LLM batching is an optional transport optimization only after
 per-repository schemas, attribution, independent verdicts, caches, and failure isolation pass
@@ -2750,50 +2655,49 @@ The Phase 20 control matrix is the authority for these values.
 
 ## Validator Registry
 
-All 10 rules always run (decision #16). All are hard `ERROR`-severity gates except `prominence`
-(`WARNING`, decision #17):
+The current verified pipeline runs deterministic gates before independent review. The registry is
+extensible by one rule module and registry entry; it is not limited to the historical ten-rule
+renderer. Required gate families are:
 
-| Rule | Checks |
+| Gate family | Required checks |
 |---|---|
-| `word_count` | LLM-authored relationship prose only, within policy's `word_limit` |
-| `prohibited_terms` | Flat phrase list, word-boundary, case-insensitive, against content rendered *this run* only |
-| `link_whitelist` | Every link in content rendered this run resolves to a whitelisted domain |
-| `change_boundary` | Strip all owned spans from current README → must equal baseline exactly |
-| `talking_points` | Cross-checks LLM's self-reported `talking_points_covered` against a deterministic keyword heuristic on the actual prose — self-report never trusted alone |
-| `referential_integrity` | LLM's claimed license/URLs must match ground truth and the actual rendered output (decision #6) |
-| `idempotency` | Re-derived `facts_hash` matches the hash embedded in the existing span, when one exists |
-| `prominence` | WARNING only — required element present but outside the prominent zone (decision #17) |
-| `product_first_opening` (Phase 21c) | ERROR — fails if any commercial link precedes the README's product-description sentence; checks the *whole* current README text, not just content rendered this run |
-| `commercial_mention_discipline` (Phase 21c) | ERROR — fails on ≥2 list-item-formatted commercial links, promotional/CTA/pricing language near a mention, or a mention outside the two evidenced acceptable positions (decision #9); also checks the *whole* current README text |
+| factuality and claims | Every material inherited or generated claim maps to accepted facts, owner disposition, correction, omission, or visible block; coordinates, APIs, examples, formats, compatibility, limitations, license, and notices are directionally supported. |
+| preservation and mutation | Protected content and content outside authorized spans are byte-accounted; every change has a typed operation, expected hash, rollback, and no unexplained loss. |
+| presentation contract | One factual H1, one non-duplicated applicable badge row, list navigation, density/disclosure rules, complete product identity, no emoji, professional opening, and consistent section journey. |
+| links and promotion | Catalog-backed URLs only; contextual relevance; configurable total/domain/surface ceilings; `products.*` priority; below-fold natural placement; **Enterprise Edition** terminology; no redundant platform promotion. |
+| Mermaid and visuals | Repository-specific verified input formats, full product name, capabilities, and output formats; non-directional unless flow is evidenced; valid grammar, bounded labels, no generic/shallow clone. |
+| legal and community | Readable license prose, correct repository-relative notices link under its own heading when applicable, copyright only under portfolio policy, and applicable community/security surfaces. |
+| safety and integrity | Prompt injection is data; allow-list, push-blocking, redaction, effect isolation, schema validation, patch/candidate/manifest checksums, and no remote writes remain enforced. |
+| idempotency and evidence | Complete dependency fingerprints, narrow invalidation, exact call/cache accounting, unchanged zero-provider-call/zero-effect no-op, and checksum-complete manifests. |
+
+A warning may inform quality, but no warning can substitute for a required `ERROR` gate. Candidate
+review starts only after every required deterministic gate passes.
 
 ## LLM Contract
 
-Adapted (not imported) from aspose.org's `professionalize_client.py` / `llm_registry.yaml` —
-exact request/response shape and defaults, independent implementation and package boundary (see
-Reference Data for why no literal cross-repo import).
+The prompt registry and typed job routes are the contract; no one model or provider is hard-coded
+as the product architecture. Current jobs include evidence-bounded product-truth interpretation,
+repository-specific composition, specialist selection, one mandatory independent review, typed
+risk escalation, and targeted prose repair. Deterministic extraction, structure, validation,
+cache identity, safety, and effects never move into free-form model output.
 
-- Base URL: `LLM_BASE_URL` > `GPT_OSS_ENDPOINT`. Key: `LLM_API_KEY` > `PROFESSIONALIZE_API_KEY` >
-  `GPT_OSS_API_KEY`.
-- `POST {base}/chat/completions`, `Authorization: Bearer <key>`, payload
-  `{"messages": [...], "model": "gpt-oss", "temperature": 0.0, "max_tokens": 8000}`, response at
-  `choices[0].message.content`.
-- Bounded retry (max 2, only on connection errors/timeouts/429/502/503/504 — never on other 4xx
-  or local schema-validation failures, since retrying a malformed response risks silently
-  accepting a second, differently-wrong one). `LLM_MODEL` always re-validated against the live
-  `/models` list by preflight before use.
-- Strict response schema (`LLMBlockResponse`) — scope narrowed to exactly what decision #8
-  requires:
-  ```json
-  {
-    "relationship_paragraph": "prose only, no marker comments, no raw URLs the model invents",
-    "talking_points_covered": ["open_source_scope", "commercial_upgrade_path"],
-    "claims": { "license_name": "MIT", "commercial_link_url": "https://products.aspose.com/3d/java/" }
-  }
-  ```
-- `[unverified]` at time of writing, needs empirical re-confirmation if the gateway changes: the
-  live response echoes back the requested `model` string but has no separate model-version
-  identifier; `id` (per-request) and `created` (timestamp) are the best available drift signals
-  for Phase 18's monitoring work.
+Normal first-pass README budget is one composition call, one mandatory independent review call,
+and at most one targeted repair call, targeting no more than 40,000 combined provider tokens.
+Deterministic failures make no prose call; unchanged reruns make zero provider calls. Every logical
+job, physical attempt, retry, cache reuse, model route, prompt/schema hash, latency, token count,
+and outcome is repository/revision/stage attributable.
+
+The mandatory reviewer is non-authoring and receives only evidence-grounded inputs. A second
+reviewer runs only for a typed risk condition: candidate-changing repair, conflicting evidence,
+high-risk installation/API claims, a new or materially changed shared contract, reviewer
+uncertainty, sampled portfolio audit, or a regression class demonstrated to escape one reviewer.
+Before universal dual review is removed, the merged mandatory reviewer plus deterministic gates
+must pass the frozen known-regression corpus; failing risk classes retain targeted second review.
+
+Provider retries are bounded and apply only to typed transient failures. Local schema, factuality,
+or validation failures are not retried as transport. Model routes are live-preflighted, centrally
+configured, content-addressed in stage receipts, automatically disabled on golden-set regression,
+and never selected from repository instructions.
 
 ## CI & Safety
 
@@ -3059,28 +2963,32 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] Make offline cancellation credential-free and descendant-clean.
   - **Exit:** no required failure exits zero or converges; no production mutation bypass exists.
 
-- [ ] **Immediate verified Python POC — accepted template to complete platform**
+- [ ] **Accelerated verified POC — measured cross-platform slices, then complete Python**
   - [x] `L8-VPY-00`: retain the accepted Note bytes/hash, compile
         `RepositoryPresentationTemplateV1`, and prove compact/standard/extended conformance without
         Note-specific prose leakage. Commit `5f463e75`; 16 focused tests, 127 affected
         integration/safety tests, and a clean 2,458-test inventory pass. Evidence:
         `plans/investigations/evidence/readme-presentation-contract-v1/`.
   - [ ] `L8-VPY-01`: rebuild Note through repository/package/example/policy evidence, deterministic
-        validation, independent review, and unchanged no-op.
-  - [ ] `L8-VPY-02`: prove Page and PDF under the same structure with product-specific facts,
-        features, formats, examples, limitations, badges, and Mermaid maps.
-  - [ ] `L8-VPY-03`: inventory the dynamic Python denominator without paid calls, reuse every valid
-        content-addressed stage, then complete every current Python repository with no agent-fixable
-        failure and no product-remote write.
+        validation, independent review, unchanged no-op, strict-cache, risk, call, and timing receipts.
+  - [ ] `L8-ACCEL-00`: reconstruct the execution-cost baseline, audit Aspose.org efficiency machinery,
+        and freeze one .NET and one Java pilot from strict current-stage readiness with zero provider calls.
+  - [ ] `L8-VPY-02`: prove the readiness-selected .NET and Java repositories under the same golden
+        structure with product-specific facts, validation, independent review, no-op, and a three-slice
+        throughput scoreboard. Aspose.org prose is never an acceptance source.
+  - [ ] `L8-VPY-03`: process Page and PDF first, then the dynamic Python denominator; reuse every valid
+        content-addressed stage and complete every current Python repository with no agent-fixable failure
+        and no product-remote write.
   - [ ] Promote every independently approved/no-op-proven Python README into
         `plans/investigations/evidence/finalized-repository-readmes-v1/`, including a direct
         review index and compact manifests that hash-bind complete provenance, patch, validation,
         review, call-accounting, effects, runtime inventory, and acceptance evidence (`RDM-026`).
-  - **Exit:** verified `AGENT_APPROVED == NO_OP_PROVEN == dynamic Python denominator`; the indexed
+  - **Exit:** the early Python/.NET/Java slices are measured and no-op-proven, then verified
+    `AGENT_APPROVED == NO_OP_PROVEN == dynamic Python denominator`; the indexed
     Python POC, committed README files, and SHA-256 inventory reproduce independently. This
     advances the portfolio mission to .NET; it does not close the umbrella goal.
 
-- [ ] **Preserved trusted-lane record — execution suspended by decision #88**
+- [x] **Preserved trusted-lane record — historical evidence only; execution suspended by decision #88**
   - Remaining unchecked TP/T0R/T1/T2/T3 items are retained for evidence and machinery reuse, not
     executable work. They cannot satisfy or delay the verified Python/portfolio path.
   - [x] `TRP-00`: add `ContentAssuranceV1`, separate trusted lifecycle/verdict/proposal states,
@@ -3089,10 +2997,6 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         or execution profile. Commit `181879c7`; 2,190 non-live tests and the complete governance
         gate pass, with evidence under
         `plans/investigations/evidence/trp-00-assurance-contract-v1/`.
-  - [ ] Complete common Gate C0 after TRP-00 and before TRP-05: finish
-        `L8-INTAKE-02/03`, enumerate every authorized source with authenticated all-visibility
-        pagination, disposition every visible repository, admit active products disabled/read-only,
-        preflight each exactly once, and bind the dynamic denominator to `RegistryRevisionV1`.
   - [x] `TRP-01`: derive typed README facts/claims from the immutable source README with exact
         `README_INHERITED` spans; admit only separately identified `CONFIGURED_STANDARD` additions.
         Do not query repository code, tests, package registries, documentation, or external fact
@@ -3108,7 +3012,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         cache/no-op reuse. Commit `3cdf5dc9`; 398 focused regressions and a clean 2,233-test
         commit-bound official run pass, with evidence under
         `plans/investigations/evidence/trp-03-independent-fidelity-review-v1/`.
-  - [ ] **Two-day presentable cohort POC (`TRP-04P-*`) — execute before resuming TRP-04:**
+  - **Historical `TRP-04P-*` evidence; unchecked descendants are non-executable:**
     - [x] `TRP-04P-COHORT-FREEZE`: derive `QualifiedTrustedCohortV1` from every current
           checksum-valid `TRUSTED_NO_OP_PROVEN` bundle, recheck each source head, exclude or
           regenerate stale members, and freeze exact source/candidate/contract/manifest hashes.
@@ -3133,39 +3037,39 @@ only as historical implementation evidence in decisions and `logs/`; they are no
           expiry/crash recovery against disposable staging with byte-identical default branches
           and no analysis write credential. Commit `8c78e7f9`; independently accepted evidence:
           `plans/investigations/evidence/trp-04p-staging-effect-proof-v1/verification.json`.
-    - [ ] `TRP-04P-BRAND`: replace the human-rejected candidate hashes with one versioned
+    - Historical unmet `TRP-04P-BRAND`: replace the human-rejected candidate hashes with one versioned
           portfolio brand contract, regenerate Note/Page/PDF Python through the canonical
           supervisor, pass deterministic and side-by-side independent review, prove no-op, and
           update the same three staging draft PRs without changing their default branches.
-    - [ ] `TRP-04P-APP`: publish the verified control-repository commit to `main`, attempt supported
+    - Historical unmet `TRP-04P-APP`: publish the verified control-repository commit to `main`, attempt supported
           `gh`/API App setup, issue one exact manual provisioning handoff only if unavoidable, then
           qualify fresh installation tokens and hosted trigger/recovery/health behavior on staging.
-    - [ ] `TRP-04P-AUTH`: live-check direct write permission and consume a reviewed, unexpired,
+    - Historical unmet `TRP-04P-AUTH`: live-check direct write permission and consume a reviewed, unexpired,
           trusted-assurance authorization for every frozen cohort repository.
-    - [ ] `TRP-04P-PR`: after presenting one exact what/why/where authorization package, use only
+    - Historical unmet `TRP-04P-PR`: after presenting one exact what/why/where authorization package, use only
           the hosted canonical workflow to create or update one disclosed draft PR per authorized,
           current cohort member. Never merge, mark ready, force-push, or write a default branch.
-    - [ ] `TRP-04P-PRESENT`: deliver an indexed PR/review package, bind any accepted feedback to
+    - Historical unmet `TRP-04P-PRESENT`: deliver an indexed PR/review package, bind any accepted feedback to
           the affected hashes, promote common defects into regression coverage, and reopen only
           invalidated candidates or shared contracts.
-  - [ ] `TRP-04`: immediately after `TRP-04P-PRESENT`, resume the durable canary task and qualify
+  - Historical unmet `TRP-04` (non-executable): qualify
         short, ordinary, malformed/prompt-injected, and largest-current-README canaries across at
         least Python, .NET, Java, and the large-document outlier before portfolio fan-out.
-  - [ ] `TRP-05`: after common Gate C0, execute the dynamic registry denominator in the configured
+  - Historical unmet `TRP-05` (non-executable): execute the dynamic registry denominator in the configured
         platform order using at most four supervisor-owned isolated lanes. Reserve three lanes for
         trusted work and permit at most one repository-verified read-only lane; verified work may
         borrow idle capacity but may not delay trusted work or emit an effect. Create
         checksum-valid source, fact, plan, candidate, patch, review, repair, no-op, call-ledger,
         and manifest artifacts for every repository.
-  - [ ] `TRP-05A`: revalidate the same canonical trusted supervisor and actual reusable workflow
+  - Historical unmet `TRP-05A` (non-executable): revalidate the same canonical trusted supervisor and actual reusable workflow
         under `act` for the complete current denominator; reuse cohort evidence only while every
         relevant hash remains current. Prove dispatch variants, matrix isolation, duplicate
         delivery, checkpoint resume, recovery, evidence upload, health aggregation, and
         production-profile rejection of PAT/ambient-token fallback.
-  - [ ] `TRP-05B`: revalidate the complete proposal/effect lifecycle against disposable GitHub staging;
+  - Historical unmet `TRP-05B` (non-executable): revalidate the complete proposal/effect lifecycle against disposable GitHub staging;
         prove create/no-op/update/drift/dedup/lost-response/expired-authorization/crash recovery,
         analysis/effect credential isolation, and byte-identical default branches.
-  - [ ] `TRP-05C`: after 05A/05B pass, revalidate the cohort-qualified GitHub App installation and
+  - Historical unmet `TRP-05C` (non-executable): revalidate the cohort-qualified GitHub App installation and
         attempt supported `gh`/API setup only for any missing scope. If a browser,
         owner confirmation, or unavailable secret is required, record
         `WAITING_HUMAN_APP_PROVISIONING`, notify the owner with one exact app/permission/event/
@@ -3173,24 +3077,24 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         validate and qualify the App against staging, then prove fresh installation tokens,
         scheduling, recovery sweeps, leases, backlog, health, alerts, and dead-man monitoring
         without touching a product repository.
-  - [ ] `TRP-06`: generate reviewed authorization records and verify direct write permission for
+  - Historical unmet `TRP-06` (non-executable): generate reviewed authorization records and verify direct write permission for
         every repository. Expected future access is not evidence; missing access is an
         `infra_external` repository-local block while unrelated repositories continue.
-  - [ ] `TRP-07`: create or update exactly one clearly labelled trusted draft PR per repository;
+  - Historical unmet `TRP-07` (non-executable): create or update exactly one clearly labelled trusted draft PR per repository;
         prove candidate update, target drift, duplicate trigger, lost response, authorization
         expiry, recovery, and default-branch byte identity.
-  - **Exit:** `TRUSTED_PR_OPEN == len(data/products.json)` for a freshness-valid, source-complete
+  - **Historical acceptance record only:** `TRUSTED_PR_OPEN == len(data/products.json)` for a freshness-valid, source-complete
     registry revision;
     trusted system failures, unprocessed entries, duplicate PRs, manifest failures, default-branch
     writes, and undisclosed assurance are zero; `act`, staging, App authentication, hosted
     scheduling/recovery, and effect reconciliation have current checksum-complete proof. Verified
-    read-only work may already be current; after this exit it becomes the primary goal.
+    read-only work may already be current. This record cannot become an execution goal.
 
 - [ ] **Local pre-production Gate A — atomic idea-fidelity proof**
-  - **Concurrency rule (decision #85):** after TRP-00 and common Gate C0, verified read-only work
-    may advance as a concurrent goal in spare capacity while the trusted POC remains primary.
-    Trusted README facts, reviews, and PRs are inputs to inspect, not verified evidence and not
-    credit toward this gate. Gate-A closure and every verified effect retain their own dependencies.
+  - **Concurrency rule (decisions #83/#88):** verified work is the exclusive active path. After
+    focused isolation proof use up to three early slice lanes; after three-slice closure use two to
+    four repository lanes with serialized aggregation. Trusted artifacts are inputs to inspect,
+    never verified evidence or Gate-A credit.
   - [ ] Establish source-complete discovery and durable read-only intake before reviewer
         qualification: inventory every repository from explicit authorized sources, fix the
         public CLI allow-list/preflight ordering, reconcile by provider repository ID, enroll new
@@ -3246,38 +3150,24 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         symbols, typed fields, and decorator stacks, then install the pinned package and exercise
         selected APIs inside the disposable executor (`L8-TRUTH-02B`, `L8-030`, evidence commit
         `c514fa7`).
-  - [ ] Representative product truth: close the active seven-ecosystem facts campaign, using
-        official/native tool output behind thin isolated adapters and completing the remaining Go
-        representative. Reuse unchanged results, accept `FACTS_READY` when every selected material
-        README claim is supported or omitted, and do not wait for optional exhaustive research.
-        Do not run the full-registry facts preflight yet. For equally ready work use Python, .NET,
-        Java, C++, TypeScript, Rust, then Go; do not repeat the first six merely because only Go
-        remains in this already-active campaign. Target: close this boundary within one working
-        day; a breach reroutes to the smallest failing truth owner
-        (`L8-TRUTH-07-SEVEN-ECOSYSTEMS`, decisions #82–#83).
-  - [ ] Frozen presentation contract: make the historical 3D Java candidate fail for its known
-        current-contract defects, then implement `L8-020`, `L8-021`, `L8-023`, `L8-024`, and
-        `L8-026`; split only the responsibilities touched, reconcile existing sections, require
-        complete inherited/generated claim coverage, enforce presentation lint, and produce the
-        corrected 3D Java result within 1–2 working days and seven deterministic latest-contract
-        candidates within 3–5 working days. Factor inputs as validated source README plus
-        family evidence, ecosystem evidence, and a repository-specific delta; share one
-        provenance-reviewed illustration per product family (`L8-COMPOSE-*` task group).
-  - [ ] Review: separate blind quality from factual/plan review, ground findings, require
-        candidate-changing repair, prove no-op caching, and pass the real heterogeneous campaign
-        (`L8-REVIEW-*` task group).
-  - [ ] Seven-output qualification: bind and freeze one campaign, pass one latest-contract
-        `NO_OP_PROVEN` lifecycle in platform priority order: Python, .NET, Java, C++, TypeScript,
-        Rust, and Go, then pass
-        single-writer/recovery controls and the governed three-session golden set. This is a
-        representative qualification milestone, not the POC (`L8-QUAL-*` task group).
-  - [ ] Gate A: only after seven-output qualification, run the facts-only full-registry preflight,
-        then execute two-to-four-lane candidate cohorts inside one supervisor, heal every
-        agent-fixable failure, obtain current-contract no-op proof for the dynamic registry
-        denominator, and independently reproduce the portfolio. Reuse one build/tool result and
-        normalized external-evidence result until its exact dependency/freshness key changes.
-        Target: close Gate A within 7–12 working days (`L8-TRUTH-08-FULL-REGISTRY`,
-        `L8-GATEA-*` task group).
+  - [ ] Shared acceleration and isolation: freeze CampaignFreezeV1 dependencies, run zero-call
+        .NET/Java readiness, qualify immutable revision reuse and narrow cache invalidation, and
+        prove up to three isolated early lanes. Freeze the reviewer regression corpus and qualify
+        one mandatory independent evidence-grounded reviewer plus ReviewRiskProfileV1 before
+        removing universal dual review (`CAMP-SHARED-ACCELERATION`).
+  - [ ] Three verified slices: complete the fresh unchanged Note no-op and the readiness-selected
+        .NET and Java candidates, deterministic gates, independent reviews, repairs, and no-op
+        proofs. Run the optimized complete non-live suite once after all three integrate; target
+        three active hours after plan freeze (`CAMP-THREE-SLICES`).
+  - [ ] Python portfolio: process Page and PDF first, then every runtime-loaded Python repository.
+        Use focused/impacted checks at repair boundaries and no extra Python-closure full suite;
+        target six active hours after plan freeze (`CAMP-PYTHON-PORTFOLIO`).
+  - [ ] Remaining Gate A: continue .NET, Java, C++, TypeScript, Rust, and Go in the governed
+        priority, using two-to-four isolated lanes after three-slice proof. Complete seven-
+        ecosystem heterogeneous qualification as coverage, not as a fan-out prerequisite; run
+        the complete non-live suite once at dynamic Gate-A closure. The focused execution-window
+        forecast is frozen from measured three-slice median/p90 and lane throughput
+        (`CAMP-GATE-A-PORTFOLIO`).
   - **Exit:** the frozen campaign uses the current complete registry revision; pending intake,
     unexplained observations, and source failures are zero; every admitted registry entry has a
     checksum-valid, independently agent-approved, no-op-proven local bundle; no remote write
@@ -3463,18 +3353,18 @@ only as historical implementation evidence in decisions and `logs/`; they are no
 - [ ] **Local untrusted-execution gate:** source builds and examples for every supported ecosystem
       run in a disposable OS-isolated, resource-bounded, network-governed environment; hostile
       repository/dependency code cannot access the operator host or leave descendants.
-- [ ] **Trusted assurance-separation gate:** every README-derived fact, candidate, review,
+- **Historical trusted assurance-separation evidence (non-executable):** every README-derived fact, candidate, review,
       lifecycle event, cache entry, manifest, proposal, and effect declares
       `trusted_inherited`; none increments verified facts, approval, proposal, Gate-A, or maturity
       counters. Switching assurance reopens the earliest evidence-dependent stage.
-- [ ] **Trusted LLM-first transformation gate:** real short, ordinary, malformed/prompt-injected,
+- **Historical trusted LLM-first transformation evidence (non-executable):** real short, ordinary, malformed/prompt-injected,
       and largest-current-README canaries prove typed source inventory, bounded section
       composition, deterministic assembly, zero unexplained source-content loss, no unsupported
       standard addition, grounded independent reviews, effective repair, and exact call
       accounting. The offline/live-like `TRP-01`–`TRP-03` extraction, composition, deterministic
       validation, dual-review, repair, accounting, cache, and lifecycle foundation is verified;
-      this gate remains open for `TRP-04` real-provider canonical-supervisor canaries.
-- [ ] **Qualified trusted cohort POC gate:** `QualifiedTrustedCohortV1` contains only
+      the unproved `TRP-04` boundary is retained as history, not an execution gate.
+- **Historical qualified trusted cohort record (non-executable):** `QualifiedTrustedCohortV1` contains only
       freshness-revalidated, checksum-valid `TRUSTED_NO_OP_PROVEN` members; those exact candidates
       pass the real reusable workflow under `act`, disposable staging, hosted GitHub App
       qualification, live permission/authorization, and serialized disclosed draft-PR effects.
@@ -3489,16 +3379,16 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       selected test inventory and outcome across repeated serial/parallel controls. The complete
       official suite remains green at cohort closure, while unchanged runtime-only reruns reuse a
       checksum-bound receipt instead of repeating it.
-- [ ] **Trusted full-registry gate:** transformation-approved and trusted-no-op-proven equals the
+- **Historical trusted full-registry criterion (non-executable):** transformation-approved and trusted-no-op-proven equals the
       freshness-valid runtime denominator; system failures, unprocessed entries, manifest
       failures, content-loss findings, and undisclosed assurance are zero.
 - [x] **Trusted workflow/staging gate:** the actual reusable workflow passes under `act`, then
       create/no-op/update/drift/dedup/lost-response/expiry/crash recovery passes against
       disposable staging with no analysis write token and byte-identical default branches.
-- [ ] **Trusted hosted-App gate:** fresh short-lived App tokens, PAT/ambient-token rejection,
+- **Historical trusted hosted-App criterion (non-executable):** fresh short-lived App tokens, PAT/ambient-token rejection,
       hosted triggers, recovery, leases, backlog, health, alerts, dead-man monitoring, and terminal
       manifests pass on staging before any trusted product effect.
-- [ ] **Trusted PR portfolio gate:** exactly one authorized draft PR exists per current registry
+- **Historical trusted PR portfolio criterion (non-executable):** exactly one authorized draft PR exists per current registry
       repository; direct permission and authorization are checked before each effect; candidate
       update, drift, deduplication, lost response, expiry, recovery, and default-branch byte
       identity pass. No PR is counted from expected future access.
@@ -3519,17 +3409,18 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       normal path stays within one composition, one independent-review, and one targeted-repair
       provider call per repository/revision; deterministic defects make zero additional calls.
 - [ ] **Stage-goal anti-drift gate:** the immutable mission outcome is never reported as the active
-      goal; `evaluate` derives exactly one T0/T1/T2/T3/V1/V2/V3/L5/L6/L7/L8 goal, atomically
+      goal; `evaluate` derives exactly one P0/V0/C0/V1/V2/V3/L5/L6/L7/L8 executable goal, atomically
       advances it on current closure evidence, reactivates the earliest affected goal after
-      regression/invalidation/denominator growth, and rejects manual/stale/out-of-stage claims.
+      regression/invalidation/denominator growth, rejects manual/stale/out-of-stage claims, and
+      cannot derive historical trusted T0/TP/T0R/T1/T2/T3 goals.
 - [ ] **Portfolio-reuse gate:** shared family/ecosystem evidence is content-addressed and admitted
       only through a repository-specific applicability/provenance binding; coordinates, APIs,
       examples, limitations, license, workflows, and inherited claims remain independently
       validated for every repository. Cross-family leakage and stale shared evidence fail.
 - [ ] **Verification-economy gate:** focused/impact-mapped checks run after edits; the complete
-      official suite passes before resume, after the first latest-contract README, after
-      seven-representative qualification, and at Gate-A closure; failed diagnostics remain under
-      `runs/` and exactly one checksum evidence package is promoted per coherent closure.
+      official suite runs once at three-slice closure and once at Gate-A closure, plus only a
+      declared later repository-wide gate or typed P0 exception. Failed diagnostics remain under
+      `runs/` and exactly one checksum evidence package is promoted per typed campaign closure.
 - [ ] **Local recovery gate:** one portfolio writer, renewable mission claim, cancellation/resume,
       duplicate-trigger, descendant cleanup, current-state aggregation, and post-qualification
       two-to-four-lane isolation/backpressure controls pass.

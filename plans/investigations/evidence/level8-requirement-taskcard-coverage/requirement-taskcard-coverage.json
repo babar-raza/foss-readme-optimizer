@@ -4,20 +4,22 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "59ff4e4c7baef81ebec31d93bd5dc107f73be7f18fbd9b0bdeea0e3968a77bd7",
+  "source_sha256": "9ae9edbaa1a12eac132cccd6f7b51c88d4b713493c848f9870b553a5a8491ab6",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 462,
-  "mandatory_requirement_rows": 434,
+  "total_requirement_rows": 464,
+  "mandatory_requirement_rows": 414,
   "excluded_backlog_rows": 28,
-  "excluded_deprecated_rows": 0,
+  "excluded_deprecated_rows": 22,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 28,
-    "open_mandatory": 239,
-    "preserved_verified": 160
+    "excluded_deprecated": 22,
+    "open_mandatory": 224,
+    "preserved_verified": 155
   },
   "taskcard_counts": {
+    "L8-PLAN-RECONCILIATION-ACCELERATION": 1,
     "L8-VPY-00-GOLDEN-TEMPLATE": 1,
     "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": 1,
     "TRP-00-ASSURANCE-CONTRACT": 3,
@@ -54,6 +56,7 @@
     "L8-TRUTH-02D-RUST-API-TRUTH": 1,
     "L8-TRUTH-03A-ISOLATED-EXECUTOR": 1,
     "L8-TRUTH-07-SEVEN-ECOSYSTEMS": 1,
+    "L8-ACCEL-00-PYTHON-READINESS": 1,
     "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 2,
     "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
     "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
@@ -2116,7 +2119,7 @@
     },
     {
       "requirement_id": "NFR-012",
-      "priority": "P1",
+      "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
       "disposition": "open_mandatory",
@@ -2132,10 +2135,10 @@
     },
     {
       "requirement_id": "NFR-014",
-      "priority": "P1",
-      "requirement_status": "IMPLEMENTED",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
       "task_id": "TRP-04P-TEST-LATENCY",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
@@ -3092,7 +3095,7 @@
     },
     {
       "requirement_id": "SCL-002",
-      "priority": "P1",
+      "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
       "disposition": "open_mandatory",
@@ -3261,177 +3264,177 @@
     {
       "requirement_id": "TRP-002",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-01-README-DERIVED-FACTS",
-      "disposition": "preserved_verified",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-003",
       "priority": "P0",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-01-README-DERIVED-FACTS",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-004",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
-      "disposition": "preserved_verified",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-005",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-02-LLM-FIRST-COMPOSITION",
-      "disposition": "preserved_verified",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-006",
       "priority": "P0",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-007",
       "priority": "P0",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-03-INDEPENDENT-FIDELITY-REVIEW",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-008",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04-CANARY-QUALIFICATION",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-009",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-05-FULL-REGISTRY-TRANSFORM",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-012",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-05A-ACT-WORKFLOW-PARITY",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-013",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-05B-STAGING-EFFECT-PROOF",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-014",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-015",
       "priority": "P0",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-00-ASSURANCE-CONTRACT",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-016",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-COHORT-FREEZE",
-      "disposition": "preserved_verified",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-017",
       "priority": "P0",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-018",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-DRAFT-PR-COHORT",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-019",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-POC-PRESENTATION",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-020",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-021",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-022",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-023",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-010",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-06-AUTHORIZATION-ACCESS",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
       "requirement_id": "TRP-011",
       "priority": "P0",
-      "requirement_status": "PLANNED",
+      "requirement_status": "DEPRECATED",
       "task_id": "TRP-07-DRAFT-PR-PORTFOLIO",
-      "disposition": "open_mandatory",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
@@ -3767,6 +3770,22 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-VPY-00-GOLDEN-TEMPLATE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-043",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-044",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

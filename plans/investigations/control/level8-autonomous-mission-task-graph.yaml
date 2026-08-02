@@ -4,8 +4,10 @@ autonomous_execution_contract:
   mechanism_type: autonomous_supervision
   entry_point: readme-agent supervise
   invocation: .venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml
-  governing_state: Versioned mission state persisted by the supervisor; the committed task graph is the
-    declarative source and audit record.
+  governing_state: Versioned mission state persisted by the supervisor is the sole live claim, transition,
+    and task-status authority; task status values committed in this graph are bootstrap defaults only
+    and never overwrite or supersede durable state. The graph is the declarative task/dependency source
+    and audit record.
   task_source: plans/investigations/control/level8-autonomous-mission-task-graph.yaml
   continuation_source: dependency-ready taskcards in this graph
   continuation_consumer: readme-agent supervisor mission controller
@@ -48,9 +50,10 @@ mission_authority:
     stage-goal state machine. Preserve the trusted_readme_transform implementation, artifacts, operational
     proof, and lessons as reusable lower-assurance inputs, but suspend its remaining execution goals.
     First convert the human-accepted Aspose.Note FOSS for Python reference into an assurance-neutral,
-    fact-slot-driven template contract; prove repository-verified Note, Page, and PDF Python canaries;
-    then complete every current Python repository before resuming the complete dynamic-portfolio Gate
-    A, Gate B/C, and Level 5, 6, 7, and 8 program. Never promote trusted evidence into verified acceptance.
+    fact-slot-driven template contract; prove repository-verified Note Python plus the evidence-readiest
+    Java and .NET vertical slices; then prove Page and PDF and complete every current Python repository
+    before resuming the complete dynamic-portfolio Gate A, Gate B/C, and Level 5, 6, 7, and 8 program.
+    Never promote trusted evidence into verified acceptance.
   governing_plan_path: plans/master.md
   current_phase: verified Python POC beginning with the accepted golden-reference template contract
   in_scope_outcomes:
@@ -69,24 +72,26 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
     portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
     for 90 days with an independent award.'
-  - 'ACCELERATED SHORT-TERM HORIZON: target twelve hours of focused execution for visible Note, Page,
-    and PDF Python artifacts, then every runtime-loaded Python repository through repository-verified
-    independent approval, unchanged no-op, and committed source/content-addressed README storage. Continue
-    automatically through .NET, Java, C++, TypeScript, Rust, Go, Gates A/B/C, and maturity; Python never
-    closes the portfolio umbrella. The time target never weakens facts, review, safety, or evidence acceptance.'
+  - 'ACCELERATED SHORT-TERM HORIZON: finish Note Python, deterministically select and complete one .NET
+    and one Java vertical slice from current evidence readiness, then finish Page/PDF and every runtime-loaded
+    Python repository through repository-verified independent approval, unchanged no-op, and committed
+    source/content-addressed README storage. Continue automatically through .NET, Java, C++, TypeScript,
+    Rust, Go, Gates A/B/C, and maturity; Python never closes the portfolio umbrella. The time target never
+    weakens facts, review, safety, or evidence acceptance.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
   - 'MEDIUM-TERM HORIZON: after the verified Python POC, reconcile complete discovery/intake and finish
     repository-verified Gate A in Python, .NET, Java, C++, TypeScript, Rust, Go order; then Gate B, Gate
     C, and Level 5.'
-  - 'PYTHON-FIRST MILESTONES: freeze the template contract; prove Note; prove Page/PDF side by side; run
-    the zero-paid-call Python readiness inventory; close eight-total, eight-Python, and all-Python milestones;
-    then continue lower-priority platforms without omitting any Gate-A task or repository.'
+  - 'ACCELERATED VERTICAL-SLICE MILESTONES: freeze the template contract; prove Note; run the zero-paid-call
+    Python/.NET/Java readiness inventory; prove the selected .NET and Java slices; prove Page/PDF side
+    by side; close the dynamic all-Python milestone; then continue lower-priority platforms without omitting
+    any Gate-A task or repository.'
   - 'LONG-TERM HORIZON: Level-8-grade controls from hosted day 1, Level 7 at clean day 30, and Level 8
     from the same uninterrupted series at day 90.'
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries, but
-    adjacent ready work executes in seven outcome campaigns rather than as one full-test, evidence, and
+    adjacent ready work executes in six outcome campaigns rather than as one full-test, evidence, and
     commit cycle per task.'
   - 'COORDINATED MULTI-AGENT DELIVERY: one coordinator owns shared governance/state, integration, task
     transitions, commits, final verification, and final evidence. Repair, Advancement, Validator/Evidence,
@@ -114,19 +119,9 @@ mission_authority:
     denominator growth. Zero or more concurrent goals are derived only for dependency-ready, read-only,
     assurance-isolated work admitted by the primary capacity policy; only the primary owns stop/effect
     authority.
-  - Trusted README facts cite immutable README spans and make zero repository/package/external fact-verification
-    calls; CONFIGURED_STANDARD additions remain separately attributable.
-  - Trusted transformation is LLM-first for inventory, planning, section composition, and repair, with
-    deterministic code limited to generic segmentation/assembly, contracts, provenance, safety, validation,
-    caching, and effects.
-  - Qualified-cohort publication accepts only current checksum-valid TRUSTED_NO_OP_PROVEN bundles, uses
-    the canonical production workflow and hosted App path, and remains explicitly non-promoting and non-closing
-    for TRP-04, full-registry trusted gates, verified gates, and maturity.
-  - Trusted T2 closes only after the actual reusable workflow passes under act and the complete proposal/effect
-    matrix passes in disposable staging.
-  - Trusted T3 closes only after App authentication and hosted operation are qualified on staging and
-    every current registry repository has exactly one authorized disclosed draft PR; expected future write
-    access does not count until a live permission check passes.
+  - Historical trusted facts, candidates, verdicts, no-op evidence, proposals, and PRs remain assurance-labelled
+    and cannot satisfy or block verified facts, Gate A/B/C, or maturity; no trusted goal is executable
+    or reserves capacity.
   - Every task transition recomputes the dynamic-denominator lifecycle scoreboard, first failing boundary,
     exact next task, derived stage goal, and concrete contribution.
   - Every selected task remains inside its functional goal's short, medium, long, or cross-cutting horizon;
@@ -135,7 +130,7 @@ mission_authority:
   - Campaign batching changes scheduling cost only; every task keeps separately inspectable focused proof,
     result mapping, and transition evidence, and only CLOSED satisfies a dependency.
   - Verification uses continuous touched-seam Ruff and focused tests, impact-mapped integration/safety/no-op
-    proof at coherent slices, and the complete official suite only at the four local campaign boundaries
+    proof at coherent slices, and the complete official suite only at three-slice and Gate-A local closure
     plus later delivery or maturity gates that claim its scope.
   - Verification latency is measured before optimization. Runtime-only reruns may reuse a complete-suite
     receipt only under identical commit, lock, runtime, test-inventory, and gate hashes. Bounded xdist
@@ -148,14 +143,14 @@ mission_authority:
     prove several adjacent tasks only when it contains per-task and per-requirement acceptance mappings.
   - Deterministic gates run before paid composition or review; unchanged work is reused only under a complete
     dependency fingerprint, and shared failures are repaired once at their earliest common owner.
-  - Content qualification remains one repository lane through trusted adversarial canary qualification.
-    The frozen already-terminal cohort may use the canonical workflow with serialized effects before that
-    gate; it cannot admit new candidates or enable portfolio content fan-out. Afterwards the sole supervisor
-    may use at most four isolated lanes with three reserved for trusted work and at most one repository-verified
-    read-only lane, with idle-capacity borrowing and serialized aggregation/effects. Broader verified
-    portfolio fan-out remains serial until seven-representative qualification. Bounded control-repository
-    agents may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
-    task state, final verification, and final evidence remain coordinator-only.
+  - Content qualification remains coordinated by one supervisor. After transaction, cache, cancellation,
+    and serialized-aggregation isolation pass, up to three read-only repository lanes may execute the
+    early Python/.NET/Java vertical slices; no lane has product-effect authority. The sole supervisor
+    may use at most three repository-verified lanes for the early slices and two to four isolated lanes
+    after they pass, with serialized aggregation/effects. Broader verified portfolio fan-out remains subject
+    to platform priority and per-repository proof. Bounded control-repository agents may work only through
+    coordinator-issued disjoint path leases; shared files, integration, commits, task state, final verification,
+    and final evidence remain coordinator-only.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
     may be bypassed temporarily but remains visible and regains priority immediately when cleared.
@@ -183,28 +178,36 @@ mission_authority:
   - Requirement closure prose and current repository evidence contain semantic contradictions, including
     VER-001 and the still-live alternate mutation path.
   stage_goal_catalog:
+  - goal_id: GOAL-P0-PLAN-FREEZE
+    order: 0
+    summary: Reconcile and freeze the authoritative plan, graph, migration, status, and campaign dependencies.
+    acceptance_boundary: The contradiction matrix, graph/state migration, current status, validations,
+      coherent plan commit, and CampaignFreezeV1 are independently accepted before product execution.
+    max_concurrent_verified_lanes: 0
   - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
     order: 10
+    execution_required: false
     summary: Separate trusted and verified assurance, then establish an initial real terminal trusted
       cohort.
     acceptance_boundary: Assurance isolation is proven and at least one current real repository is trusted
       approved and no-op-proven.
-    reserved_trusted_lanes: 1
+    reserved_trusted_lanes: 0
   - goal_id: GOAL-V0-VERIFIED-PYTHON-POC
     order: 11
-    summary: Convert the accepted golden reference into a reusable contract and prove the verified Python
-      portfolio before broader Gate-A work.
+    summary: Convert the accepted golden reference into a reusable contract, prove Note plus measured
+      .NET and Java vertical slices, then complete the verified Python portfolio before broader Gate-A
+      work.
     acceptance_boundary: Every runtime-loaded Python repository is repository-verified, independently
       approved, and unchanged-no-op-proven under the accepted reusable presentation contract.
-    max_concurrent_verified_lanes: 1
+    max_concurrent_verified_lanes: 3
   - goal_id: GOAL-TP-TRUSTED-COHORT-POC
     order: 12
     execution_required: false
     summary: Present the current qualified trusted cohort through the intended production delivery path.
     acceptance_boundary: The frozen cohort passes act, staging, hosted App, authorization, and disclosed
       draft-PR proof without changing a default branch.
-    product_effects_allowed: true
-    reserved_trusted_lanes: 1
+    product_effects_allowed: false
+    reserved_trusted_lanes: 0
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
     order: 13
@@ -212,20 +215,20 @@ mission_authority:
     summary: Resume and complete the broader adversarial trusted canary matrix after the cohort POC.
     acceptance_boundary: Python, .NET, ordinary Java, injected or malformed, and largest-current README
       canaries are approved and no-op-proven under one frozen contract.
-    reserved_trusted_lanes: 1
+    reserved_trusted_lanes: 0
   - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
     order: 15
     summary: Discover and reconcile every repository visible from every explicitly authorized source.
     acceptance_boundary: One complete current registry revision has zero unexplained observations or pending
       intake.
-    concurrent_when_trusted_primary: true
+    concurrent_when_earlier_primary: true
   - goal_id: GOAL-T1-TRUSTED-PORTFOLIO
     order: 20
     execution_required: false
     summary: Produce an independently approved trusted README transformation for the complete current
       portfolio.
     acceptance_boundary: Every registry entry has a trusted approved bundle and unchanged no-op proof.
-    reserved_trusted_lanes: 3
+    reserved_trusted_lanes: 0
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T2-WORKFLOW-STAGING
     order: 30
@@ -233,7 +236,7 @@ mission_authority:
     summary: Prove the canonical trusted runtime under the reusable workflow and disposable GitHub staging.
     acceptance_boundary: Act and staging recovery, deduplication, and effect matrices pass without default-branch
       writes.
-    reserved_trusted_lanes: 3
+    reserved_trusted_lanes: 0
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
     order: 40
@@ -241,8 +244,8 @@ mission_authority:
     summary: Qualify hosted GitHub App operation and deliver disclosed trusted draft pull requests.
     acceptance_boundary: Hosted staging is proven and exactly one authorized trusted draft PR exists per
       repository.
-    product_effects_allowed: true
-    reserved_trusted_lanes: 3
+    product_effects_allowed: false
+    reserved_trusted_lanes: 0
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-V1-VERIFIED-TRUTH
     order: 50
@@ -250,13 +253,13 @@ mission_authority:
       evidence.
     acceptance_boundary: Required verified facts are accepted or narrowly and visibly blocked for every
       repository.
-    concurrent_when_trusted_primary: true
+    concurrent_when_earlier_primary: true
     max_concurrent_verified_lanes: 4
   - goal_id: GOAL-V2-VERIFIED-GATE-A
     order: 60
     summary: Produce independently approved repository-verified README bundles for the complete portfolio.
     acceptance_boundary: Every registry entry is repository-verified, agent-approved, and no-op-proven.
-    concurrent_when_trusted_primary: true
+    concurrent_when_earlier_primary: true
     max_concurrent_verified_lanes: 4
   - goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
     order: 70
@@ -316,7 +319,123 @@ verified_baseline:
   - The dirty plan candidate has not been accepted as authoritative current truth.
   - A compliant all-visibility organization-discovery credential, GitHub App credentials, and reviewed
     authorization records are not yet proven present.
+campaign_catalog:
+- campaign_id: CAMP-PLAN-FREEZE
+  order: 0
+  summary: Reconcile authority, graph, durable state, status, validation, and frozen dependencies.
+  acceptance_boundary: Every contradiction and migration is independently accepted before product work.
+  full_suite_policy: Plan, governance, traceability, focused tests, and actionlint only; no full pytest.
+- campaign_id: CAMP-SHARED-ACCELERATION
+  order: 10
+  summary: Qualify shared cache, extraction, review-risk, immutable-revision, and lane-isolation seams.
+  acceptance_boundary: Shared mechanisms are frozen and proven without producing a false portfolio result.
+  full_suite_policy: Focused and impacted safety, cache, cancellation, routing, and isolation tests only.
+- campaign_id: CAMP-THREE-SLICES
+  order: 20
+  summary: Complete Note no-op plus readiness-selected .NET and Java verified vertical slices.
+  acceptance_boundary: All three slices are independently approved and no-op-proven under one frozen contract.
+  full_suite_policy: Run the optimized complete non-live suite once after all three slices integrate.
+- campaign_id: CAMP-PYTHON-PORTFOLIO
+  order: 30
+  summary: Complete Page and PDF, then every runtime-loaded Python repository.
+  acceptance_boundary: The dynamic Python denominator is independently approved and no-op-proven.
+  full_suite_policy: Focused and impacted tests only; Python closure does not add another full-suite boundary.
+- campaign_id: CAMP-GATE-A-PORTFOLIO
+  order: 40
+  summary: Complete the remaining verified portfolio and heterogeneous qualification.
+  acceptance_boundary: Every admitted repository satisfies dynamic verified Gate A with reconstructable
+    evidence.
+  full_suite_policy: Run the optimized complete non-live suite once at Gate-A closure.
+- campaign_id: CAMP-GATE-B-AND-LATER
+  order: 50
+  summary: Execute Gate B, Gate C, hosted operation, presentation surfaces, and Levels 5 through 8.
+  acceptance_boundary: Each governed later gate closes in dependency order with its required independent
+    proof.
+  full_suite_policy: Run a full suite only for a declared later gate with repository-wide acceptance scope.
 taskcards:
+- task_id: L8-PLAN-RECONCILIATION-ACCELERATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Reconcile and freeze the accelerated verified execution plan
+  source_audit_finding: Conflicting authority, trusted priority, task identity, status, review, concurrency,
+    and time rules can route execution back to obsolete work and invalidate expensive portfolio output.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: plan-control
+  owner: Codex
+  status: TODO
+  objective: Amend the owning plan/governance/requirements/graph sources in place, migrate durable state
+    without history loss, regenerate current status, validate the plan set, and freeze all campaign dependencies.
+  why_it_matters: Product execution cannot be efficient or reproducible while the same task has conflicting
+    meaning or obsolete trusted work remains eligible.
+  allowed_paths:
+  - AGENTS.md
+  - plans/
+  - src/readme_agent/supervisor/mission_schema.py
+  - src/readme_agent/supervisor/mission_graph.py
+  - src/readme_agent/supervisor/mission_control.py
+  - src/readme_agent/supervisor/mission_command.py
+  - src/readme_agent/state/mission_goal_schema.py
+  - scripts/governance/
+  - tests/unit/test_mission_control.py
+  - tests/unit/test_traceability_matrix.py
+  - tests/unit/test_registry_revision.py
+  - runs/multi-agent/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - product candidate generation
+  dependencies: []
+  expected_outputs:
+  - Contradiction matrix and amended-file inventory
+  - Updated graph and state-migration mapping with preserved history
+  - Current 31-repository status separating current, raw/stale, excluded, and blocked results
+  - Plan, governance, traceability, and focused validation receipts
+  - CampaignFreezeV1 and coherent exact-path-staged control-repository commit
+  acceptance_checks:
+  - Domain-specific authority is consistent in every owning file
+  - Every trusted goal is non-executable with zero reserved capacity and effect authority
+  - The canonical sequence and cross-platform/Page-PDF task meanings are unambiguous
+  - Durable state remains the live status authority and migration preserves every transition
+  - Current status uses the dynamic registry and current acceptance contracts
+  - Campaign freeze binds every shared dependency before product execution
+  verification:
+  - Typed graph load and acyclic dependency validation
+  - Plan structure, requirement coverage, semantic traceability, and status-generation checks
+  - Focused mission-control, status, registry, and reviewer-contract tests
+  - Independent non-authoring plan reconciliation review
+  negative_controls:
+  - Static graph TODO cannot overwrite durable CLOSED, REGRESSED, or IN_PROGRESS state
+  - Trusted regression cannot become primary, reserve capacity, or authorize an effect
+  - Historical manifests cannot become headline current status
+  regression_checks:
+  - Mission goal derivation and claim recovery
+  - requirement coverage
+  - status generator
+  - registry revision gate
+  - plan structure
+  evidence_requirements:
+  - Pre/post hashes, contradiction resolutions, migration manifest, validation receipts, freeze manifest,
+    independent verdict, and commit identity
+  rollback_or_recovery: Correct the first plan/schema/migration defect without restoring obsolete trusted
+    authority or deleting durable history.
+  failure_reroute: Apply the two-attempt/15-minute anti-stall rule; no broad re-audit or competing plan.
+  closeout_rules:
+  - Every required reconciliation artifact is checksum-complete and independently accepted
+  - Product execution may resume only after the coherent plan commit and CampaignFreezeV1 pass
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-MATURITY
+  core_contribution:
+    kind: indispensable_safety
+    summary: Remove contradictory execution authority and freeze one reproducible accelerated campaign
+      before product execution resumes.
+  requirement_ids:
+  - L8-044
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-VPY-00-GOLDEN-TEMPLATE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -348,7 +467,8 @@ taskcards:
   - production target repository remotes
   - target default branches
   - universal product prose
-  dependencies: []
+  dependencies:
+  - L8-PLAN-RECONCILIATION-ACCELERATION
   expected_outputs:
   - Immutable accepted Note reference and provenance record
   - RepositoryPresentationTemplateV1 with stable header, navigation, section, disclosure, Mermaid, license,
@@ -414,6 +534,7 @@ taskcards:
   - L8-042
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-VPY-01-NOTE-VERIFIED-CANARY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -442,7 +563,7 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-00-GOLDEN-TEMPLATE
+  - L8-ACCEL-00-PYTHON-READINESS
   expected_outputs:
   - ProductFactsV2 and complete inherited/final claim accountability
   - structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op
@@ -491,21 +612,23 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
+  campaign_id: CAMP-THREE-SLICES
 - task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
-  title: Prove Page and PDF Python as independent template-conformance canaries
-  source_audit_finding: A single accepted extended README cannot prove that the template adapts to different
-    content density, package evidence, feature sets, formats, and source structures.
+  title: Prove measured .NET and Java verified vertical slices
+  source_audit_finding: A Python-only canary cannot expose cross-platform cache, adapter, validation,
+    or composition defects early enough to support an accelerated verified portfolio.
   audit_classification: not_attempted
   priority: P0
-  lane: verified-python-poc
+  lane: verified-cross-platform-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: Run Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python through the same verified
-    template, repair shared defects once, and independently review the three candidates side by side.
-  why_it_matters: These canaries prove consistent branding without cloned product prose before portfolio
-    fan-out.
+  objective: Run the readiness-selected .NET and Java repositories through the same verified template
+    from immutable source facts to unchanged no-op, repair shared defects once, and independently review
+    them beside the completed Note Python slice.
+  why_it_matters: These slices prove consistent branding and repository-specific truth across three platforms
+    before portfolio fan-out.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -519,15 +642,16 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-01-NOTE-VERIFIED-CANARY
+  - L8-ACCEL-00-PYTHON-READINESS
   expected_outputs:
-  - Complete verified Page and PDF bundles
-  - Three-candidate structural-consistency and product-specificity verdict
-  - Direct committed README review paths for Note, Page, and PDF under the portfolio evidence root
+  - Complete verified .NET and Java bundles
+  - Three-slice structural-consistency, product-specificity, cache, risk, LLM, and throughput scoreboard
+  - Direct committed README review paths for Note Python plus the selected .NET and Java repositories
   acceptance_checks:
   - Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are
     consistent
   - Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific
+  - Aspose.org-generated prose is not used as factual or presentation acceptance evidence
   - Shared repairs invalidate only the responsible dependency and reuse unaffected Note receipts
   verification:
   - Per-repository deterministic and independent validation
@@ -538,47 +662,48 @@ taskcards:
   - Cross-product prose, generic Mermaid nodes, repeated badge rows, bare license links, redundant platform
     promotion, and unsupported contextual links fail
   regression_checks:
-  - Python truth
+  - Python, .NET, and Java truth
   - template conformance
   - product specificity
   - review
   - cache
   - no-write
   evidence_requirements:
-  - Per-repository facts, plans, patches, verdicts, no-op receipts, call ledgers, and manifests
+  - Per-repository facts, plans, patches, verdicts, no-op receipts, call ledgers, timing, and manifests
   - Cohort consistency matrix and SHA-256 inventory
   rollback_or_recovery: Reopen only the invalid repository or shared template dependency and retain every
     valid content-addressed stage.
   failure_reroute: Stop repeating the same repair after two ineffective attempts; perform the recorded
     first-principles decomposition before a third approach.
   closeout_rules:
-  - Note, Page, and PDF Python are repository-verified, independently approved, no-op-proven, coherent,
-    and product-specific
+  - Note Python and the selected .NET and Java repositories are repository-verified, independently approved,
+    no-op-proven, measured, coherent, zero-effect, and product-specific
   goal_ids:
   - GOAL-TRUTH
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Prove three coherent, product-specific, repository-verified Python README candidates.
+    summary: Prove three coherent, measured, product-specific cross-platform verified README candidates.
   requirement_ids: []
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
-- task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  campaign_id: CAMP-THREE-SLICES
+- task_id: L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
-  title: Complete the dynamic verified Python README POC
-  source_audit_finding: Three canaries establish contract quality but do not satisfy the user's Python-first
-    POC or prove the template across the complete current Python cohort.
+  parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  title: Prove Page and PDF Python under the frozen verified contract
+  source_audit_finding: The compatibility ID L8-VPY-02 now exclusively owns .NET and Java slices; Page
+    and PDF require their own unambiguous Python boundary before cohort fan-out.
   audit_classification: not_attempted
   priority: P0
   lane: verified-python-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: Reconcile every runtime-loaded Python repository, reuse valid content-addressed stages, and
-    process the cohort through verified facts, composition, independent review, repair, and unchanged
-    no-op proof.
-  why_it_matters: The first presentable POC must be a complete dynamic platform cohort, not another hand-picked
-    sample.
+  objective: Run Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python through immutable facts, composition,
+    deterministic validation, independent review, targeted repair, and unchanged no-op under the frozen
+    campaign contract.
+  why_it_matters: These repositories prove compact and standard density adaptation before the remaining
+    Python cohort without overloading the cross-platform compatibility task.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -594,7 +719,80 @@ taskcards:
   dependencies:
   - L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
   expected_outputs:
-  - Zero-paid-call Python readiness and cache inventory
+  - Complete verified Page and PDF bundles
+  - Side-by-side product-specificity and template-conformance verdict
+  - Unchanged zero-provider-call and zero-effect no-op receipts
+  acceptance_checks:
+  - Both repositories use the frozen structure without copied product prose
+  - Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked
+  - Both candidates pass deterministic gates and independent non-authoring review
+  - Both unchanged reruns are byte-identical and make zero provider calls and effects
+  verification:
+  - Per-repository deterministic and independent validation
+  - side-by-side conformance review
+  - unchanged no-op and cache reconstruction
+  - checksum inventory
+  negative_controls:
+  - Cross-product prose, unsupported formats, generic Mermaid nodes, stale facts, and trusted evidence
+    fail
+  regression_checks:
+  - Python truth
+  - template conformance
+  - preservation
+  - review
+  - cache
+  - no-write
+  evidence_requirements:
+  - Immutable sources, facts, plans, candidates, patches, verdicts, repair histories, no-op receipts,
+    provider/cache ledgers, timings, and manifests
+  rollback_or_recovery: Reopen only the affected repository or shared dependency and preserve every unaffected
+    content-addressed receipt.
+  failure_reroute: Apply the two-attempt/15-minute rule and repair the first causal boundary before another
+    equivalent attempt.
+  closeout_rules:
+  - Page and PDF are independently approved, unchanged-no-op-proven, zero-effect, and product-specific
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Establish the explicit Page/PDF Python boundary before full Python fan-out.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
+- task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  title: Complete the dynamic verified Python README POC
+  source_audit_finding: Cross-platform slices establish early adapter quality but do not satisfy the user's
+    Python-first POC or prove the template across Page, PDF, and the complete current Python cohort.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Process Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python first, then reconcile
+    every remaining runtime-loaded Python repository, reuse valid content-addressed stages, and complete
+    verified facts, composition, independent review, repair, and unchanged no-op proof.
+  why_it_matters: The first presentable POC must be a complete dynamic platform cohort, not another hand-picked
+    sample.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
+  expected_outputs:
+  - Page/PDF-first zero-paid-call Python readiness and cache inventory
   - Complete verified Python bundle set and indexed review package
   - Dynamic-denominator closure and SHA-256 inventory
   - Complete committed README.md set under the source-and-content-addressed plans/investigations/evidence/finalized-repository-readmes-v1/
@@ -604,8 +802,8 @@ taskcards:
   - Agent-fixable Python failures equal zero
   - Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer,
     and protected-content fingerprints
-  - Repository state mutation remains one supervisor lane until seven-real-representative isolation, recovery,
-    golden, cost, and campaign-freeze proof; disjoint read-only worker lanes may run earlier
+  - One supervisor owns state; after three-slice isolation, recovery, cache, and aggregation proof it
+    may use two to four repository lanes with serialized aggregate mutation
   - Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate
     and is linked from the cohort index
   verification:
@@ -614,7 +812,8 @@ taskcards:
   - serial/parallel equivalence
   - cancellation/resume
   - duplicate/no-op proof
-  - full official suite at campaign closure
+  - Focused Python lifecycle, cache, scheduler-isolation, and manifest reconstruction checks; the next
+    complete-suite boundary remains Gate-A closure
   negative_controls:
   - Three canaries, eight candidates, stale verdicts, trusted approval, or visible files without no-op
     proof cannot satisfy this task
@@ -648,6 +847,7 @@ taskcards:
   - RDM-026
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
 - task_id: TRP-00-ASSURANCE-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -689,8 +889,9 @@ taskcards:
   acceptance_checks:
   - Trusted artifacts cannot satisfy verified facts, approval, proposal, Gate-A, or maturity states
   - Switching assurance reopens the earliest evidence-dependent boundary
-  - Status derives GOAL-T0-TRUSTED-QUALIFICATION, derives only permitted concurrent goals, and automatically
-    advances, withdraws, or reactivates goals
+  - Historical trusted task state remains inspectable but cannot become a primary or concurrent goal
+  - Current status derives only executable verified goals and automatically advances, withdraws, or reactivates
+    them from durable evidence
   - Existing verified records remain intact and may advance read-only after common discovery
   verification:
   - Schema, goal derivation/migration/reactivation, lifecycle, scoreboard, cache-collision, and effect-identity
@@ -724,6 +925,7 @@ taskcards:
   - L8-025
   stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-01-README-DERIVED-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -790,6 +992,7 @@ taskcards:
   - TRP-003
   stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-02-LLM-FIRST-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -853,6 +1056,7 @@ taskcards:
   - TRP-005
   stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -915,6 +1119,7 @@ taskcards:
   - TRP-007
   stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-COHORT-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -984,6 +1189,7 @@ taskcards:
   - TRP-016
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-TEST-LATENCY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1053,6 +1259,7 @@ taskcards:
   - NFR-014
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-ACT-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1115,6 +1322,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-STAGING-EFFECT-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1181,6 +1389,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1309,6 +1518,7 @@ taskcards:
   - TRP-023
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1381,6 +1591,7 @@ taskcards:
   - TRP-017
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-AUTHORIZATION-ACCESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1442,6 +1653,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-DRAFT-PR-COHORT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1511,6 +1723,7 @@ taskcards:
   - TRP-018
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04P-POC-PRESENTATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1577,6 +1790,7 @@ taskcards:
   - TRP-019
   stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-04-CANARY-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1636,6 +1850,7 @@ taskcards:
   - TRP-008
   stage_goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-05-FULL-REGISTRY-TRANSFORM
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1700,6 +1915,7 @@ taskcards:
   - TRP-009
   stage_goal_id: GOAL-T1-TRUSTED-PORTFOLIO
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-05A-ACT-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1760,6 +1976,7 @@ taskcards:
   - TRP-012
   stage_goal_id: GOAL-T2-WORKFLOW-STAGING
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-05B-STAGING-EFFECT-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1825,6 +2042,7 @@ taskcards:
   - TRP-013
   stage_goal_id: GOAL-T2-WORKFLOW-STAGING
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1899,6 +2117,7 @@ taskcards:
   - TRP-014
   stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-06-AUTHORIZATION-ACCESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1960,6 +2179,7 @@ taskcards:
   - TRP-010
   stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: TRP-07-DRAFT-PR-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2026,6 +2246,7 @@ taskcards:
   - TRP-011
   stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
   concurrency_class: primary_only
+  campaign_id: null
 - task_id: L8-MISSION-CONTROL-CONSUMER
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2099,8 +2320,9 @@ taskcards:
     summary: Extend the existing supervisor, without creating another controller, so it loads this graph,
       validates it, reconciles durable state, claims the next eligible task, and evaluates mission completion.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-MISSION-GOAL-GUARD
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2178,8 +2400,9 @@ taskcards:
     summary: Add validated task goal/contribution bindings and a durable lifecycle scoreboard so selection,
       transition, and closure remain tied to the presentable full-portfolio deliverable.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2242,8 +2465,9 @@ taskcards:
     summary: Add stable, deduplicated taskcards for every mandatory non-deprecated requirement and record
       verified completion without reopening valid evidence.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2344,8 +2568,9 @@ taskcards:
   - BIZ-006
   - BIZ-007
   - BIZ-008
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -2451,8 +2676,9 @@ taskcards:
     new_information: No repository-local workaround may legitimately manufacture this authority.
     reason_for_next_attempt: No safe authority substitute remains; preserve the exact external action
       and continue independent work.
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -2511,8 +2737,9 @@ taskcards:
     summary: Investigate every finding, add exact existing evidence when genuine, downgrade unsupported
       claims when permitted, and drive the semantic matrix to zero high-confidence findings.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -2565,8 +2792,9 @@ taskcards:
     summary: Inventory provenance and useful content, preserve it without legitimizing a conflicting plan,
       and record the exact gated migration/disposition.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
@@ -2616,8 +2844,9 @@ taskcards:
     summary: Clone the current committed HEAD into runs, install only from the committed lock, and rerun
       all official checks without relying on the dirty source working tree.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
   concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
 - task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2758,8 +2987,9 @@ taskcards:
   - GAP-003
   - L8-002
   - L8-013
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  concurrency_class: primary_only
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2878,8 +3108,9 @@ taskcards:
   - L8-003
   - L8-004
   - L8-005
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -2985,6 +3216,7 @@ taskcards:
   - L8-006
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
@@ -3062,6 +3294,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -3242,6 +3475,7 @@ taskcards:
   - L8-012
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
@@ -3321,6 +3555,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -3419,8 +3654,9 @@ taskcards:
       resumes.
   requirement_ids:
   - L8-014
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-PREPRODUCTION-TRUTHFUL-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -3483,8 +3719,9 @@ taskcards:
     summary: Finish deterministic finding, proposal, remaining-work, and stop classification and restore
       every official local check without weakening any safety boundary.
   requirement_ids: []
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  concurrency_class: primary_only
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -3547,6 +3784,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-README-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -3606,6 +3844,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-PORTFOLIO-RUNTIME
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -3660,6 +3899,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-01-STAGE-LIMIT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3723,6 +3963,7 @@ taskcards:
   - L8-015
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-01A-FACT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3788,6 +4029,7 @@ taskcards:
   - L8-018
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-01B-LLM-CALL-LEDGER
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3873,6 +4115,7 @@ taskcards:
   - L8-027
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-01C-PROMPT-HYGIENE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -3955,6 +4198,7 @@ taskcards:
   - L8-028
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-02-ROOT-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4015,6 +4259,7 @@ taskcards:
   - L8-033
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-02A-ASPOSE-ORG-ADAPTATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4084,6 +4329,7 @@ taskcards:
   - L8-029
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-02B-PYTHON-API-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4156,6 +4402,7 @@ taskcards:
   - L8-030
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4225,6 +4472,7 @@ taskcards:
   - L8-031
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-02D-RUST-API-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4298,6 +4546,7 @@ taskcards:
   - L8-032
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-03-CLAIM-POLARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4361,6 +4610,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4432,6 +4682,7 @@ taskcards:
   - L8-019
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-04-ACQUISITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4507,6 +4758,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-05-PUBLIC-EXAMPLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4591,6 +4843,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-06-INTERPRETIVE-VIEWS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4654,6 +4907,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-TRUTH-07-SEVEN-ECOSYSTEMS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
@@ -4722,23 +4976,23 @@ taskcards:
   - L8-034
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-ACCEL-00-PYTHON-READINESS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
-  title: Freeze the Python-first readiness and reuse queue
-  source_audit_finding: Python is the largest current platform cohort, but only one repository is currently
-    deterministic-valid, one is fact-blocked, and the remainder are discovered; registry order alone is
-    not the fastest safe completion order.
+  title: Freeze the measured Python, .NET, and Java vertical-slice queue
+  source_audit_finding: The former Python-only serial gate delayed cross-platform feedback and reused
+    neither warm evidence nor measured remaining-stage cost when choosing representative work.
   audit_classification: not_attempted
   priority: P0
-  lane: local-python-acceleration
+  lane: local-vertical-slice-acceleration
   owner: readme-agent-supervisor
   status: TODO
-  objective: Load every current Python entry from the runtime registry, reconcile its valid lifecycle
-    and cache state under the frozen campaign, and order incomplete work by valid-stage reuse, evidence
-    readiness, and family reuse without making a paid LLM call.
-  why_it_matters: Python is the binding platform priority, while a cheap readiness pass prevents expensive
-    work from starting on a repository whose earliest invalid boundary is already known.
+  objective: Reconcile strict stage keys and measured remaining work for all current .NET and Java entries,
+    freeze one winner per platform before the Note, .NET, and Java slice executions begin, and emit the
+    pre-slice throughput baseline without making a paid LLM call.
+  why_it_matters: Deterministic readiness selection produces cross-platform feedback early while preserving
+    Python priority and avoiding expensive work on repositories whose earliest invalid boundary is known.
   allowed_paths:
   - runs/
   - plans/investigations/evidence/
@@ -4747,15 +5001,16 @@ taskcards:
   - production target repository remotes
   - src/readme_agent/
   dependencies:
-  - L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  - L8-VPY-00-GOLDEN-TEMPLATE
   expected_outputs:
-  - Frozen Python denominator and source revisions
-  - per-repository earliest valid and failing boundary
-  - ordered reuse/fact-block/execution queue
-  - zero-paid-call receipt
+  - Exact .NET and Java winners and revisions plus rejected readiness ranking
+  - per-repository earliest valid/failing boundary and cache-invalidation matrix
+  - validator-risk, LLM-budget, batch-eligibility, and estimated remaining-work receipt
+  - pre-slice throughput baseline and zero-paid-call receipt
   acceptance_checks:
-  - Every runtime-loaded Python repository appears exactly once
-  - The queue preserves every valid cache receipt and bypasses a narrow external block only temporarily
+  - Every runtime-loaded .NET and Java repository appears exactly once in its platform ranking
+  - The queue preserves every valid cache receipt and selects by current revision, reusable sealed stages,
+    estimated remaining work, then stable registry order
   - No composition or review provider call occurs during readiness classification
   verification:
   - Registry reconciliation
@@ -4779,15 +5034,18 @@ taskcards:
   failure_reroute: Reopen the exact truth, composition, review, or cache owner and retain unaffected queue
     entries.
   closeout_rules:
-  - One deterministic Python-first queue covers the current Python denominator with zero paid calls
+  - One deterministic three-slice queue binds Note Python and the selected .NET/Java winners with zero
+    paid calls
   goal_ids:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Freeze the complete Python denominator and fastest safe reuse-aware completion queue.
-  requirement_ids: []
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  concurrency_class: read_only_assurance_isolated
+    summary: Freeze the fastest safe Python/.NET/Java vertical-slice queue and measured baseline.
+  requirement_ids:
+  - L8-043
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-ACCEL-01-EIGHT-TOTAL
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -4812,7 +5070,7 @@ taskcards:
   - production target repository remotes
   - src/readme_agent/
   dependencies:
-  - L8-ACCEL-00-PYTHON-READINESS
+  - L8-VPY-03-ALL-PYTHON-VERIFIED-POC
   expected_outputs:
   - Eight complete current-contract local README bundles
   - portfolio milestone summary
@@ -4851,6 +5109,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-ACCEL-02-EIGHT-PYTHON
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -4913,6 +5172,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-PYTHON-PORTFOLIO
 - task_id: L8-ACCEL-03-ALL-PYTHON
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -4973,6 +5233,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-PYTHON-PORTFOLIO
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -4987,8 +5248,9 @@ taskcards:
   objective: Preserve the completed Python cohort, then run every remaining current registry entry only
     through FACTS_READY in .NET, Java, C++, TypeScript, Rust, Go order and classify essential external
     fact blocks exactly.
-  why_it_matters: Full-registry fact coverage is required for Gate A, but running it before the seven
-    latest-contract representatives qualify would multiply invalidation and paid-call churn.
+  why_it_matters: Full-registry fact coverage is required for Gate A. The three early vertical slices
+    qualify bounded fan-out, while seven ecosystems remain a coverage milestone rather than a scheduler
+    gate.
   allowed_paths:
   - runs/
   - plans/investigations/evidence/
@@ -5048,6 +5310,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -5106,7 +5369,8 @@ taskcards:
   - The renderer receives the verified merged fact graph rather than re-reading policy truth.
   - Every representative has useful verified render views and a public-API usage path or a narrowly-scoped
     visible essential-fact block.
-  - Full-registry fact preflight remains deferred until the seven latest-contract README lifecycles qualify
+  - Full-registry fact preflight may begin after three-slice isolation proof; seven representatives remain
+    mandatory before heterogeneous coverage is claimed
   - Real Java, .NET, and Python regression bundles pass, not only synthetic fact fixtures.
   goal_ids:
   - GOAL-TRUTH
@@ -5117,6 +5381,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-00-CHARACTERIZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5172,6 +5437,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5230,6 +5496,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5292,6 +5559,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5350,6 +5618,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5410,6 +5679,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-04B-STAGE-TRANSACTIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5487,6 +5757,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-01-DECOMPOSE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5545,6 +5816,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5629,6 +5901,7 @@ taskcards:
   - L8-041
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5744,6 +6017,7 @@ taskcards:
   - L8-026
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-02-EXISTING-SECTIONS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5817,6 +6091,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5888,6 +6163,7 @@ taskcards:
   - L8-020
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-03-OPERATION-COVERAGE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -5956,6 +6232,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-04-PRESENTATION-LINT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -6014,6 +6291,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
@@ -6070,6 +6348,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-COMPOSE-05A-RUST-EXECUTION-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
@@ -6148,6 +6427,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -6183,8 +6463,8 @@ taskcards:
     is executable.
   - Visitor-facing authored prose with sentence/paragraph fact citations rather than arbitrary nested-value
     flattening.
-  - One latest-contract Python candidate against the 1-2-working-day target, followed by .NET, Java, C++,
-    TypeScript, Rust, and Go representatives against the 3-5-working-day target.
+  - One latest-contract Python candidate contributes to the three-slice target, followed by Page/PDF and
+    the dynamic Python cohort; later representatives contribute to the freeze-derived Gate-A window.
   - Candidate inputs explicitly factored as validated source README, applicable family evidence, applicable
     ecosystem evidence, and repository-specific delta.
   acceptance_checks:
@@ -6225,6 +6505,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6305,6 +6586,7 @@ taskcards:
   - L8-035
   stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6365,6 +6647,7 @@ taskcards:
   - L8-036
   stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6441,6 +6724,7 @@ taskcards:
   - L8-037
   stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -6524,10 +6808,11 @@ taskcards:
   - L8-039
   stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-REVIEW-00-CONTEXT-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
-  title: Freeze separate blind-quality and factual-plan reviewer roles
+  title: Freeze the merged reviewer regression corpus and typed risk classes
   source_audit_finding: The reviewer saw producer plan and deterministic acceptance context and falsely
     praised content absent from a defective candidate.
   audit_classification: partially_done
@@ -6535,8 +6820,8 @@ taskcards:
   lane: local-independent-review
   owner: readme-agent-supervisor
   status: TODO
-  objective: Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches,
-    and verdict combination.
+  objective: Freeze known quality, factuality, grounding, repair, and false-accept regressions; define
+    one independent non-authoring evidence-grounded reviewer and typed escalation risks.
   why_it_matters: Independent review cannot be anchored by the producer's own acceptance evidence.
   allowed_paths:
   - src/readme_agent/specialists/
@@ -6551,9 +6836,10 @@ taskcards:
   dependencies:
   - L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
   expected_outputs:
-  - Two typed reviewer contracts and one deterministic combined verdict
+  - Frozen reviewer regression corpus, one mandatory reviewer contract, and ReviewRiskProfileV1
   acceptance_checks:
-  - Either reviewer can fail the candidate and the author cannot accept its own output
+  - The mandatory reviewer plus deterministic gates has zero critical false accepts on the frozen corpus
+  - The author cannot approve its own output and second review has no authority without a typed risk trigger
   verification:
   - Context inspection
   - anchoring negative control
@@ -6569,22 +6855,22 @@ taskcards:
   - Prompt hashes
   - context inventories
   - identities
-  - combined verdict record
+  - frozen regression corpus and risk-class map
   rollback_or_recovery: Disable the unqualified role without weakening deterministic validation.
   failure_reroute: Qualify another governed route if the current route cannot satisfy the corpus.
   closeout_rules:
-  - Reviewer roles are separate
-  - frozen
-  - and fail closed
+  - The mandatory reviewer contract and corpus are frozen and fail closed
+  - Universal dual review remains until this corpus proves the one-plus-risk design
   goal_ids:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: Define independent blind visitor-quality and factual-plan inputs, prompts, identities, caches,
-      and verdict combination.
+    summary: Freeze the known regression corpus and qualify one independent evidence-grounded reviewer
+      plus typed risk-derived escalation.
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-REVIEW-01A-FINDING-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -6646,6 +6932,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-02A-REPAIR-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -6707,6 +6994,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -6782,6 +7070,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-04A-REAL-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -6845,10 +7134,11 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-01-FREEZE-ROLES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
-  title: Separate blind visitor-quality and factual plan review
+  title: Qualify one mandatory independent reviewer plus risk-derived escalation
   source_audit_finding: The reviewer accepted a visibly defective Java README after seeing producer plans
     and deterministic acceptance context.
   audit_classification: partially_done
@@ -6856,8 +7146,8 @@ taskcards:
   lane: local-independent-review
   owner: readme-agent-supervisor
   status: TODO
-  objective: Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent
-    prompts, contexts, identities, and caches.
+  objective: Qualify one merged non-authoring reviewer with independent prompt, context, identity, and
+    cache; retain a second reviewer only for risk classes the frozen corpus proves need it.
   why_it_matters: Producer context can anchor the quality judgment that is meant to challenge it.
   allowed_paths:
   - src/readme_agent/specialists/
@@ -6872,9 +7162,10 @@ taskcards:
   dependencies:
   - L8-REVIEW-00-CONTEXT-CORPUS
   expected_outputs:
-  - Two typed review records and deterministic combined-verdict rules
+  - One mandatory review record, ReviewRiskProfileV1, and risk-derived escalation rules
   acceptance_checks:
-  - Blind quality review receives candidate bytes and rubric but no producer verdict or plan conclusion
+  - The mandatory reviewer receives candidate bytes, evidence, and rubric but no producer verdict
+  - A second independent record exists only when ReviewRiskProfileV1 selects a qualified risk class
   verification:
   - Prompt/context inspection
   - author-reviewer identity
@@ -6890,20 +7181,22 @@ taskcards:
   - Prompt hashes
   - context inventories
   - reviewer identities
-  - verdict combination
+  - risk classification and verdict combination
   rollback_or_recovery: Restore the prior reviewer only as a diagnostic route, never as acceptance authority.
   failure_reroute: Repair reviewer wiring before any live review campaign.
   closeout_rules:
-  - The two reviewers are structurally and evidentially independent
+  - The mandatory reviewer is structurally independent from the author and evidence-grounded
+  - ReviewRiskProfileV1 invokes an independent second reviewer only for a qualified typed risk class
   goal_ids:
   - GOAL-README
   core_contribution:
     kind: acceptance_proof
-    summary: Define separate blind visitor-quality and fact-and-plan reviewer contracts with independent
-      prompts, contexts, identities, and caches.
+    summary: Qualify one independent evidence-grounded reviewer and typed risk-derived escalation without
+      author self-approval or universal duplicate review.
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-REVIEW-02-FINDING-GROUNDING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -6967,6 +7260,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -7026,6 +7320,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-04-NO-OP-CACHE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -7099,6 +7394,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-REVIEW-05-REAL-CAMPAIGN
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
@@ -7162,6 +7458,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -7190,13 +7487,13 @@ taskcards:
   dependencies:
   - L8-REVIEW-05-REAL-CAMPAIGN
   expected_outputs:
-  - Mandatory verifier gate, separate blind-quality and factual/plan review records, deterministic combined
-    verdict, durable lifecycle V2, and repair history.
+  - Mandatory verifier gate, one independent evidence-grounded review record, typed risk escalation when
+    selected, durable lifecycle V2, and repair history.
   - Reviewer-reasoning span citations and pre-rereview candidate-delta/finding-resolution evidence.
   acceptance_checks:
   - No candidate reaches AGENT_APPROVED without deterministic and independent acceptance.
-  - Repairable rejection repairs autonomously and repeats both gates.
-  - Producer/deterministic acceptance context cannot anchor the blind visitor-quality verdict.
+  - Repairable rejection repairs autonomously and repeats deterministic plus required independent gates.
+  - Producer/deterministic acceptance context cannot anchor the independent visitor-quality verdict.
   - A byte-identical repair is rerouted as agent_fixable before another reviewer call.
   verification:
   - Negative generic/factual/protected-loss controls and controlled repair proof.
@@ -7223,6 +7520,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7279,6 +7577,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7336,6 +7635,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-02A-FAILURE-MATRIX
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7402,6 +7702,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-03A-EVALUATION-CORPUS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7465,6 +7766,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-04A-FREEZE-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7520,6 +7822,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7581,6 +7884,7 @@ taskcards:
   - L8-016
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-02-SEVEN-E2E
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7636,6 +7940,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-03-RECOVERY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7703,6 +8008,7 @@ taskcards:
   - L8-017
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-04-GOLDEN-SET
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7761,6 +8067,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-04B-COST-BASELINE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7842,6 +8149,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-QUAL-05-FREEZE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
@@ -7897,6 +8205,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -7937,8 +8246,8 @@ taskcards:
   - Zero critical false accepts across raw-token, duplication, competing-example, private-API, unresolved-symbol,
     plan/candidate-disagreement, and ineffective-repair cases.
   - Every real representative reaches AGENT_APPROVED and then NO_OP_PROVEN under one frozen contract.
-  - The seven-output campaign completes against the 3-5-working-day target; a breach names the first boundary
-    and smallest repair without lowering any score or verdict threshold.
+  - Seven representatives complete as heterogeneous coverage inside the measured Gate-A window; a breach
+    names the first boundary and smallest repair without lowering any score or verdict threshold.
   verification:
   - Complete canonical runs for real Java, .NET, Python, TypeScript, C++, Go, and Rust representatives
     plus fixture controls for malformed/multi-root/prompt-injected, source-build-only, strong-content,
@@ -7967,6 +8276,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-00-COHORT-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8039,6 +8349,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-01A-FAILURE-ROUTING
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8101,6 +8412,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-02A-CURRENT-CONTRACT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8159,6 +8471,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-03A-REPRO-CONTROLS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8219,6 +8532,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-01-COHORTS
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8257,8 +8571,8 @@ taskcards:
   - Cohorts and each serialized aggregate preserve the closed Python-first milestones, then use .NET,
     Java, C++, TypeScript, Rust, Go priority after dependency, live-claim, safety, and narrow-external-block
     handling
-  - Full Gate A closes against the 7-12-working-day target or records the exact breached boundary and
-    smallest permanent repair without widening scope
+  - Full Gate A closes inside the freeze-derived focused execution window or records the exact breached
+    boundary and smallest permanent repair without widening scope
   verification:
   - Registry partition
   - restart
@@ -8292,6 +8606,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-02-HEAL-FAILURES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8358,6 +8673,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-03-NO-OP
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8418,6 +8734,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-GATEA-04-REPRODUCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
@@ -8479,6 +8796,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-README-PROPOSAL-PROOF
@@ -8510,8 +8828,8 @@ taskcards:
   - One complete runtime bundle per registry entry and a dynamic portfolio summary.
   - Independent portfolio-manifest reproduction and SHA-256 inventory.
   - Frozen campaign identity and incremental summary updates after every repository.
-  - A family × ecosystem × repository-delta reuse report, lane/isolation report, and elapsed result against
-    the 7-12-working-day target.
+  - A family-by-ecosystem-by-repository-delta reuse report, lane/isolation report, and elapsed result
+    against the freeze-derived focused execution window.
   acceptance_checks:
   - approved equals len(data/products.json); system_failed, unprocessed, and manifest_failures equal zero.
   - Every shared fact has a repository applicability/provenance binding and every repository-specific
@@ -8542,6 +8860,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -8598,6 +8917,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -8658,6 +8978,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -8718,6 +9039,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
@@ -8776,6 +9098,7 @@ taskcards:
   requirement_ids: []
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -8896,6 +9219,7 @@ taskcards:
   - L8-009
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -8959,6 +9283,7 @@ taskcards:
   - PIL-016
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -9033,6 +9358,7 @@ taskcards:
   - PIL-015
   stage_goal_id: GOAL-L5-PRESENTATION-PILOT
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -9089,6 +9415,7 @@ taskcards:
   - L8-001
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -9150,6 +9477,7 @@ taskcards:
   - L8-040
   stage_goal_id: GOAL-L6-AUTONOMOUS-PORTFOLIO
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -9220,6 +9548,7 @@ taskcards:
   - L8-010
   stage_goal_id: GOAL-L7-HETEROGENEOUS-30D
   concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -9295,23 +9624,24 @@ taskcards:
   - L8-011
   stage_goal_id: GOAL-L8-SELF-MAINTAINING-90D
   concurrency_class: primary_only
-continuation_state:
-  selected_task_id: L8-MISSION-CONTROL-CONSUMER
-  claim_status: bootstrapped_in_progress
-  claimed_by: readme-agent-supervisor
-  next_evaluation_after: mission-control consumer implementation and verification
+  campaign_id: CAMP-GATE-B-AND-LATER
+bootstrap_state:
+  selected_task_id: L8-PLAN-RECONCILIATION-ACCELERATION
+  claim_status: bootstrap_default_only
+  claimed_by: null
+  next_evaluation_after: durable-state initialization or explicit graph migration
   eligible_after_current:
-  - L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  - L8-VPY-01-NOTE-VERIFIED-CANARY
   mission_complete: false
-  stop_reason: mandatory implementation and proof work remains
+  stop_reason: bootstrap metadata only; durable supervisor state owns live execution
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 59ff4e4c7baef81ebec31d93bd5dc107f73be7f18fbd9b0bdeea0e3968a77bd7
+  source_sha256: 9ae9edbaa1a12eac132cccd6f7b51c88d4b713493c848f9870b553a5a8491ab6
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 462
-  mandatory_requirement_rows: 434
+  total_requirement_rows: 464
+  mandatory_requirement_rows: 414
   excluded_backlog_rows: 28
-  excluded_deprecated_rows: 0
+  excluded_deprecated_rows: 22
   reopened_implemented_rows: 0
   mappings:
   - requirement_id: GOV-001
@@ -10845,7 +11175,7 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: NFR-012
-    priority: P1
+    priority: P0
     requirement_status: PARTIAL
     task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
     disposition: open_mandatory
@@ -10857,10 +11187,10 @@ requirement_coverage:
     disposition: active_governance
     semantic_findings: []
   - requirement_id: NFR-014
-    priority: P1
-    requirement_status: IMPLEMENTED
+    priority: P0
+    requirement_status: PARTIAL
     task_id: TRP-04P-TEST-LATENCY
-    disposition: preserved_verified
+    disposition: open_mandatory
     semantic_findings: []
   - requirement_id: PIL-001
     priority: P0
@@ -11577,7 +11907,7 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: SCL-002
-    priority: P1
+    priority: P0
     requirement_status: PLANNED
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
     disposition: open_mandatory
@@ -11704,135 +12034,135 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: TRP-002
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: DEPRECATED
     task_id: TRP-01-README-DERIVED-FACTS
-    disposition: preserved_verified
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-003
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: DEPRECATED
     task_id: TRP-01-README-DERIVED-FACTS
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-004
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: DEPRECATED
     task_id: TRP-02-LLM-FIRST-COMPOSITION
-    disposition: preserved_verified
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-005
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: DEPRECATED
     task_id: TRP-02-LLM-FIRST-COMPOSITION
-    disposition: preserved_verified
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-006
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: DEPRECATED
     task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-007
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: DEPRECATED
     task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-008
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04-CANARY-QUALIFICATION
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-009
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-05-FULL-REGISTRY-TRANSFORM
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-012
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-05A-ACT-WORKFLOW-PARITY
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-013
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-05B-STAGING-EFFECT-PROOF
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-014
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-015
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: DEPRECATED
     task_id: TRP-00-ASSURANCE-CONTRACT
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-016
     priority: P0
-    requirement_status: IMPLEMENTED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-COHORT-FREEZE
-    disposition: preserved_verified
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-017
     priority: P0
-    requirement_status: PARTIAL
+    requirement_status: DEPRECATED
     task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-018
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-DRAFT-PR-COHORT
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-019
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-POC-PRESENTATION
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-020
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-021
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-022
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-023
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-010
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-06-AUTHORIZATION-ACCESS
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: TRP-011
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: DEPRECATED
     task_id: TRP-07-DRAFT-PR-PORTFOLIO
-    disposition: open_mandatory
+    disposition: excluded_deprecated
     semantic_findings: []
   - requirement_id: L8-001
     priority: P0
@@ -12084,5 +12414,17 @@ requirement_coverage:
     priority: P0
     requirement_status: PLANNED
     task_id: L8-VPY-00-GOLDEN-TEMPLATE
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-043
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-ACCEL-00-PYTHON-READINESS
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-044
+    priority: P0
+    requirement_status: PARTIAL
+    task_id: L8-PLAN-RECONCILIATION-ACCELERATION
     disposition: open_mandatory
     semantic_findings: []

@@ -16,6 +16,7 @@ MissionGoalId = Literal[
     "GOAL-MATURITY",
 ]
 StageGoalId = Literal[
+    "GOAL-P0-PLAN-FREEZE",
     "GOAL-T0-TRUSTED-QUALIFICATION",
     "GOAL-V0-VERIFIED-PYTHON-POC",
     "GOAL-TP-TRUSTED-COHORT-POC",
@@ -31,6 +32,14 @@ StageGoalId = Literal[
     "GOAL-L6-AUTONOMOUS-PORTFOLIO",
     "GOAL-L7-HETEROGENEOUS-30D",
     "GOAL-L8-SELF-MAINTAINING-90D",
+]
+ExecutionCampaignId = Literal[
+    "CAMP-PLAN-FREEZE",
+    "CAMP-SHARED-ACCELERATION",
+    "CAMP-THREE-SLICES",
+    "CAMP-PYTHON-PORTFOLIO",
+    "CAMP-GATE-A-PORTFOLIO",
+    "CAMP-GATE-B-AND-LATER",
 ]
 SubordinateGoalId = Literal[
     "GOAL-TRUTH",
@@ -78,7 +87,7 @@ class StageGoalDefinitionV1(_StrictModel):
     summary: str = Field(min_length=20)
     acceptance_boundary: str = Field(min_length=10)
     execution_required: bool = True
-    concurrent_when_trusted_primary: bool = False
+    concurrent_when_earlier_primary: bool = False
     product_effects_allowed: bool = False
     reserved_trusted_lanes: int = Field(default=0, ge=0, le=4)
     max_concurrent_verified_lanes: int = Field(default=0, ge=0, le=4)
@@ -142,6 +151,7 @@ class MissionNextTaskV1(_StrictModel):
     # Optional only while loading pre-TRP-00 durable state. Every refreshed
     # mission decision writes the governed stage.
     stage_goal_id: StageGoalId | None = None
+    campaign_id: ExecutionCampaignId | None = None
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
 
@@ -154,6 +164,7 @@ class MissionContributionEvidenceV1(_StrictModel):
     # Historical evidence remains readable; the close guard requires this for
     # every post-migration transition.
     stage_goal_id: StageGoalId | None = None
+    campaign_id: ExecutionCampaignId | None = None
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
     acceptance_checks_passed: list[str] = Field(min_length=1)
