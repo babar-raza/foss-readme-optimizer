@@ -4103,66 +4103,66 @@
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "54df4eded79fd6382d8040f90f953505689492c8735fac740d7760beaa84da43",
+      "accepted_facts_hash": "4b72a89521e1dca14e258ef57fe2d67be72c1740ef2ec520a5674fcb47fde521",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "criteria_results": [
           {
-            "dimension": "Product clarity",
-            "note": "The second paragraph clearly states what the product does using concrete verbs ('implementing core 3D scene graph management and common file format support') and identifies the ecosystem (.NET) and formats (OBJ, STL, FBX, glTF).",
+            "dimension": "product_clarity",
+            "note": "The second paragraph clearly states what the product does using concrete verbs ('implementing core 3D scene graph management and common file format support') and specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and purpose (3D applications without licensing fees).",
             "satisfied": true
           },
           {
-            "dimension": "Audience fit",
-            "note": "The opening paragraph explicitly names the target audience (developers building 3D applications) and the situation (avoiding licensing fees), alongside ecosystem, formats, and core tasks.",
+            "dimension": "audience_fit",
+            "note": "The opening paragraph explicitly names the target audience (developers), ecosystem (.NET), formats handled, and common tasks (building 3D applications), satisfying audience fit requirements.",
             "satisfied": true
           },
           {
-            "dimension": "Trust signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, NuGet version badge, platform badge, and contributor badge \u2014 satisfying the top trust signals.",
+            "dimension": "trust_signals",
+            "note": "The README includes GitHub-recognized license (MIT), NuGet version badge, platform badge, and contributor badge \u2014 all key trust signals are present and visible.",
             "satisfied": true
           },
           {
-            "dimension": "Installation path",
-            "note": "The install command uses `Aspose.3D.FOSS`, but the NuGet package name in the badge and README is `Aspose.3D.FOSS` \u2014 however, the actual package on NuGet is named `Aspose.3D.FOSS` (verified live), and the version `26.1.0` resolves correctly, so this should pass \u2014 but the note says 'verified against NuGet' without confirming the exact package ID matches the command, and the README uses `--version 26.1.0` which is correct for the actual package.",
+            "dimension": "installation_path",
+            "note": "The install command uses real NuGet coordinates (`Aspose.3D.FOSS`) and includes a version; the README confirms verification against NuGet, satisfying the requirement for registry-resolving coordinates.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there is a minimal but runnable 'Quick start' example (`var scene = new Scene(); scene.Save(...)`), which is sufficient for a focused library.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "The navigation section uses consistent Markdown headers and follows a logical sequence: product understanding \u2192 capabilities \u2192 install \u2192 usage \u2192 scope \u2192 license, matching the sequencing intent of the standard.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "The Mermaid flowchart illustrates the actual input\u2192transformation\u2192output workflow of the library (3D files \u2192 scene graph \u2192 serialization), which is product-appropriate and not decorative.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo root (only a link to 'LICENSE'), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 only the README is recognized.",
             "satisfied": false
           },
           {
-            "dimension": "Verified examples",
-            "note": "The 'Quick start' section contains only a minimal one-liner example that does not demonstrate any file I/O or core capability beyond object creation and saving to a temp file \u2014 it lacks a meaningful, runnable example beyond the install snippet.",
-            "satisfied": false
-          },
-          {
-            "dimension": "Navigation",
-            "note": "The navigation section provides clear, scannable links, and headers follow consistent Markdown levels; the order (product understanding \u2192 install \u2192 examples \u2192 license) aligns with the sequencing intent of the standard.",
+            "dimension": "maintenance_signals",
+            "note": "The README includes a versioned NuGet badge and references a specific commit hash, implying recent activity; while not explicit, this is sufficient for a FOSS library with a clear release version.",
             "satisfied": true
           },
           {
-            "dimension": "Visual usefulness",
-            "note": "The Mermaid flowchart clearly illustrates the product's input \u2192 transformation \u2192 output workflow, which is appropriate for a 3D processing library and improves understanding beyond decoration.",
-            "satisfied": true
-          },
-          {
-            "dimension": "Contribution readiness",
-            "note": "The README includes a LICENSE file link, and the repository structure implies presence of standard community files (though not explicitly confirmed here), but the license badge and link satisfy the highest-priority signal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "Maintenance signals",
-            "note": "The README includes a versioned NuGet badge and a specific commit hash in the Repository badge, implying recent activity \u2014 though not ideal, it's sufficient for this dimension given the evidence.",
-            "satisfied": true
-          },
-          {
-            "dimension": "Natural commercial context",
-            "note": "The 'Scope and limitations' section mentions the commercial edition once, factually and without promotion, placing it after the product description \u2014 matching the acceptable SheetJS/iText patterns.",
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language ('separate products... do not assume API or feature parity'), placed after the product explanation and without promotional language or pricing.",
             "satisfied": true
           }
         ],
         "input_sha256": "b29a3df3a661fa9d6bb73c799be765d65cb7f68fa661643a6b1afc32696c0ed6",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies most dimensions, but fails on 'Verified examples' (only a trivial one-liner, no meaningful runnable example) and has a borderline case on 'Installation path' due to potential ambiguity in package ID vs. command \u2014 though live verification shows it resolves correctly, the phrasing 'verified against NuGet' is insufficiently precise.",
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap in contribution readiness due to missing GitHub-recognized community files (LICENSE, CODE_OF_CONDUCT, etc.). All other presentation criteria \u2014 especially product clarity, installation path, and restrained commercial framing \u2014 are well met.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -4175,7 +4175,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:07:47.032947+00:00",
+      "last_run_timestamp": "2026-08-02T21:23:32.645163+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -17614,7 +17614,7 @@
     "updated_at": "2026-08-02T21:09:58.931454+00:00"
   },
   "schema_version": 2,
-  "state_version": 720,
+  "state_version": 721,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36bff2b2c8166fb4672948b6f73075990d1ad4492786df2f449b3e3cb85c48c0",
