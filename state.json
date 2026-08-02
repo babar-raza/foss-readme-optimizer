@@ -17348,7 +17348,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "67059690d54a62de08930e216bf2d5c9bf2d138caaae20ae5b50ec2c16cf9adb",
     "assurance_history": [],
-    "candidate_hash": "2e288e13bc4c3122de542a644f3122f8b93ec1d82dcbb68af817726b753eaa2c",
+    "candidate_hash": "ab7a9ce7a6d64be14148d92256655f1b2177a9f7e479dfc482e34686b98d8a1d",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -17998,6 +17998,21 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\assessment\\current-readme-assessment.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\planning\\readme-document-plan.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\README.md",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\README.patch",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\candidate\\claim-map.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T23:01:22.118311+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -18026,11 +18041,11 @@
     "reviewer_standard_hash": "43b422f2eea699f6f893a48b036afcc823ad8f89d4eacf01593df0c73fd6479c",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-02T23:01:17.046574+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-02T23:01:22.118311+00:00"
   },
   "schema_version": 2,
-  "state_version": 328,
+  "state_version": 329,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9ea1d6fb937d693198ddf58499e8a08fe4ce8302d9e49e0758a79e21f2381abb",
