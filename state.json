@@ -1650,7 +1650,7 @@
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "d9c2326a98f4f58c42372a5063a9eff6d884d813c0ce7add617898a44d3c7896",
+      "accepted_facts_hash": "d55ba3145bb0ca799a177b4f267d7c45a8dfbfdb429f444786dc1278e6187093",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1658,58 +1658,58 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('create, load, modify, and save Excel .xlsx workbooks') before any other content.",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'is a Java 17 spreadsheet library for developers [...] to create, load, modify, and save Excel XLSX workbooks.'",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the audience (Java developers), ecosystem (Java), format (Excel .xlsx), and common tasks (create, load, modify, save), satisfying audience fit inline.",
+            "note": "The opening paragraph explicitly names the audience (Java developers), ecosystem (Java), format (Excel XLSX), and common tasks (create, load, modify, save).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version/package badges (Maven Central, Platform) are included, and the install path resolves to a real registry.",
+            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version badges (Maven Central), platform badge, and contributor badge are included.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The Maven Central coordinates (`org.aspose:aspose-cells-foss`) are named explicitly and verified to resolve against the live registry.",
+            "note": "The install section provides real Maven Central coordinates (`org.aspose:aspose-cells-foss`) and explicitly states they were verified against Maven Central.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, a minimal, runnable Java example is provided with no comments or docstrings, and it demonstrates a complete working workflow.",
+            "note": "Beyond the install snippet, a full, runnable Java example is provided with imports, execution logic, and output (saving 'report.xlsx'), with no comments or docstrings inside the code block.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent Markdown levels (`##`), and the order follows the intended sequencing: product understanding \u2192 getting started \u2192 reference/contrib/legal content.",
+            "note": "Section headers use consistent `##` levels, and the order follows the intended sequencing: product understanding \u2192 getting started \u2192 reference/contrib/legal content.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, which is appropriate and useful for a data-processing library.",
+            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, not decorative imagery, and is appropriate for a data-processing library.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "While LICENSE is present and recognized, GitHub's quick-link row requires additional community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY) to appear \u2014 none of which are present in the README or confirmed to exist in the repo.",
+            "note": "While LICENSE is present and recognized, the README does not include recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY), and GitHub would only show README and License in the quick-link row.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README includes a versioned Maven Central badge and the install snippet uses a concrete version (`26.7.0`), implying recent activity \u2014 though actual commit/release evidence is GitHub-generated, not stated in prose.",
+            "note": "The Maven Central badge includes a version (26.7.0), and the repository's recent commit hash is pinned in the Source badge, implying active maintenance (though not explicitly stated in prose).",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual language, under a dedicated 'Scope and limitations' section after the product explanation, matching the iText/n8n closing-section pattern.",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under 'Scope and limitations' \u2014 stating FOSS and Enterprise are separate products \u2014 and does not appear before the product description.",
             "satisfied": true
           }
         ],
-        "input_sha256": "bbbd769e8d2481466bad5e4fb92a9fed862306e57a78e3370769325a69d3d75e",
+        "input_sha256": "bd061f9360c3d770861a9c2ddaf02a449ba91c2306ebd0d61f9f90c80661700a",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness \u2014 specifically, missing GitHub-recognized community files beyond LICENSE. All other criteria, including product clarity, installation validity, and restrained commercial framing, are well met.",
+        "overall_summary": "The README satisfies 9 of 10 dimensions; the sole gap is in contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files), which is a known portfolio-wide issue but not required to be perfect per the standard \u2014 LICENSE recognition is prioritized and satisfied.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -1722,7 +1722,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T23:14:30.237794+00:00",
+      "last_run_timestamp": "2026-08-02T23:35:46.244969+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -18515,7 +18515,7 @@
     "updated_at": "2026-08-02T23:34:40.385010+00:00"
   },
   "schema_version": 2,
-  "state_version": 388,
+  "state_version": 389,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
