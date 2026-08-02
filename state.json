@@ -16069,7 +16069,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "64e2e6ab80ab806ff77f29e62d8faedca5742130357a34872133e04bdddd7540",
     "assurance_history": [],
-    "candidate_hash": "b29a3df3a661fa9d6bb73c799be765d65cb7f68fa661643a6b1afc32696c0ed6",
+    "candidate_hash": "c8a82f58a09eaf873e5fcc2a002c68f5e3bd5121e037e78e3527d0e65463c54e",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -17696,6 +17696,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\c6b25cd2e819d64e5136\\r\\779de6c1a8811ac4\\s\\6a209e8fc3df\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T21:31:01.608971+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -17724,11 +17736,11 @@
     "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-02T21:30:56.372095+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-02T21:31:01.608971+00:00"
   },
   "schema_version": 2,
-  "state_version": 740,
+  "state_version": 741,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36bff2b2c8166fb4672948b6f73075990d1ad4492786df2f449b3e3cb85c48c0",
