@@ -1169,7 +1169,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "0f92d19afe39a61c881b6c2def168dbe0e7c0eb51eb19b97937cb9c96d938c8b",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "bundle_verification": {
@@ -2960,10 +2960,10 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "REJECT_REPAIRABLE",
-          "failure_reason": "independent_review_repair_rerouted",
-          "message": "REJECT_REPAIRABLE",
-          "occurred_at": "2026-08-02T21:59:59.280053+00:00",
+          "error_type": "execution_error",
+          "failure_reason": "agentic_composition",
+          "message": "LLMError: composition diagram assigns infrastructure or non-product facts to visitor roles: capability:'Read XLSX files' cites ['product.formats']; capability:'Write XLSX files' cites ['product.formats']",
+          "occurred_at": "2026-08-02T22:23:51.036324+00:00",
           "schema_version": 1,
           "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
           "stage": null
@@ -17158,9 +17158,9 @@
         "written": true
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "agentic_composition",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T22:12:49.095995+00:00",
+      "last_run_timestamp": "2026-08-02T22:23:51.036324+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -17732,7 +17732,7 @@
     "updated_at": "2026-08-02T22:12:43.511552+00:00"
   },
   "schema_version": 2,
-  "state_version": 232,
+  "state_version": 233,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "058f72ff92f514e0d310cbd73a7dc480887ba1580259379800d3355c0772a9d9",
