@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPTED_FOR_PAGE_PDF_FACTS_SLICE_ONLY",
+  "authored_implementation": false,
+  "source_record": "runs/multi-agent/independent-verification/wave3-python-page-pdf-facts-04/verification.json",
+  "source_record_sha256": "2bef2aab92b96fc6d07a409af0bbfd8a592b8203be173819f0ce644d34b76fc7",
+  "page": {"current_facts_ready": true, "freshness_mismatches": [], "first_llm_calls": 1, "rerun_llm_calls": 0, "effects": 0, "bundle_files": 63},
+  "pdf": {"current_facts_ready": true, "freshness_mismatches": [], "first_llm_calls": 1, "rerun_llm_calls": 0, "effects": 0, "bundle_files": 35},
+  "four_run_inventories_valid": true,
+  "focused_replay": "5 passed, 36 deselected",
+  "mission_facts_ready": "3/31",
+  "wave3_closed": false,
+  "observation": "Top-level facts_hash is null in all four terminal manifests; EVID-005 remains open."
+}

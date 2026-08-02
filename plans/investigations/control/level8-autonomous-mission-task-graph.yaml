@@ -2833,6 +2833,7 @@ taskcards:
   - EVID-002
   - EVID-003
   - EVID-004
+  - EVID-005
   - RUN-001
   - RUN-002
   - RUN-003
@@ -9295,11 +9296,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 7ed78b3a17e9f72662fbd6f55fb3e9bcd717ae0df7b5811f11f6450a80d8a081
+  source_sha256: fffe0871106db4c1e5282bcd170e54ddce7086d4f1f2ea848346c00c13d94eb5
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 460
+  total_requirement_rows: 461
   mandatory_requirement_rows: 433
-  excluded_backlog_rows: 27
+  excluded_backlog_rows: 28
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -10646,6 +10647,12 @@ requirement_coverage:
     requirement_status: PARTIAL
     task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
     disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: EVID-005
+    priority: P0
+    requirement_status: BACKLOG
+    task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+    disposition: excluded_backlog
     semantic_findings: []
   - requirement_id: AUTH-001
     priority: P0

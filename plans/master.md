@@ -3271,6 +3271,11 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         Note revision-bundle files in bytes and modification times on independent replay
         (`IV-PFR-001`, `IV-PFR-002`, `IV-PFR-005`, commit `6dcf2205`). This is machinery proof,
         not Wave 3 closure. `plans/status.md` remains a stale derived view tracked by `GOV-031`.
+  - [x] Python facts canaries: Note, Page, and PDF are current-contract `FACTS_READY` (3/31
+        portfolio; 3/12 Python). Page/PDF first runs each made one exact product-truth call; their
+        identical reruns made zero calls/effects and preserved sealed bundles. Independent verdict:
+        `ACCEPTED_FOR_PAGE_PDF_FACTS_SLICE_ONLY`. The open null top-level manifest fact hash is
+        tracked by `EVID-005`; nine Python repositories and every later stage remain open.
   - Ship `ProductFactsV2`, precedence/conflict behavior, per-surface ownership, fact citations,
     protected-content fingerprints, and prompt-injection treatment.
   - Execute examples/package acquisition in isolated, secret-free jobs.

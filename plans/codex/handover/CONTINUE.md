@@ -19,10 +19,11 @@ Do not select or create a competing plan, controller, queue, or mission state. D
 narrative file to override durable state.
 
 At capture, durable state was version 680 with graph hash
-`15e35a99b427780c30b44ed4f4eedf5c9ec1f13e3ad887184863040355e6f219`, active goal
+`e25fb8973d27a8e07c3cc3bfae3d83d1b11c0e5a57356de821c5ee20857e2618`, active goal
 `GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Current/raw
-`FACTS_READY` is 1/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
-current/raw approval and no-op counts are 0/2. Note is the sole current Python result (1/12).
+`FACTS_READY` is 3/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
+current/raw approval and no-op counts are 0/2. Note, Page, and PDF are current Python results
+(3/12).
 `IV-PFR-001`, `IV-PFR-002`, and `IV-PFR-005` are independently accepted bounded repairs.
 
 ## Startup
@@ -45,9 +46,9 @@ test/proof/supervisor tree at a time.
 ## Immediate task
 
 Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Preserve the independently accepted Note Python
-current-contract `FACTS_READY` canary and its sealed zero-provider-call identical reruns. Update
-the task-lane plan, then requalify Page and PDF Python through the bounded canonical `local_poc`
-facts path and independently verify them before continuing remaining Python. Keep HTML visible at its invalid upstream
+current-contract `FACTS_READY` canary and the independently accepted Page/PDF bounded facts
+results and zero-call reruns. Update the task-lane plan, then qualify the nine remaining Python
+repositories serially through the bounded canonical `local_poc` facts path. Keep HTML visible at its invalid upstream
 `setuptools.backends.legacy:build` metadata boundary; do not substitute different metadata inside
 the verifier.
 

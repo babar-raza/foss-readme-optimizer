@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPTED_FOR_PAGE_PDF_FACTS_SLICE_ONLY",
+  "control_head": "d6bc79c6043c4ebe5f7bfef824b6cb0222eaf323",
+  "mission_state_version": 680,
+  "graph_sha256": "15e35a99b427780c30b44ed4f4eedf5c9ec1f13e3ad887184863040355e6f219",
+  "projection": {"facts_ready_current": 3, "facts_ready_raw": 17, "denominator": 31, "python_facts_ready_current": 3, "python_denominator": 12},
+  "repositories": [
+    {
+      "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+      "facts_hash": "bfea20c996feadabceaa97b931d275868ad2253a6bbd8e65289b4d4fb7cd4513",
+      "first_manifest": "runs/evidence/20260802-045816-1244/aspose-page-foss__Aspose.Page-FOSS-for-Python/manifest.json",
+      "first_manifest_sha256": "5c947dbbe91051f34efa9801dd94a63b3c00d141da0eb49bb898f2c463d2cbdc",
+      "first_llm_calls": 1,
+      "first_llm_tokens": 53100,
+      "rerun_manifest": "runs/evidence/20260802-050411-c51a/aspose-page-foss__Aspose.Page-FOSS-for-Python/manifest.json",
+      "rerun_manifest_sha256": "16b95d40562f82ded59e92954138e1f75d3a69a231d1f475be5050f96eb69632",
+      "rerun_llm_calls": 0,
+      "rerun_llm_tokens": 0,
+      "effects_each_run": 0,
+      "bundle_file_count": 63,
+      "coordinator_unchanged_map_sha256": "96c0b954edd0bf1a8930cef4feaddae9fbb1df0e5ceffe40a6d2da5f4501df03"
+    },
+    {
+      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+      "facts_hash": "825fa4e9140b1e0c5c23336a4ac41292bc36e86ea28e1464ed598e998e86f8ef",
+      "first_manifest": "runs/evidence/20260802-050547-5d00/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/manifest.json",
+      "first_manifest_sha256": "957ee0645b877cc8f55a7b07ca3baa1ff3a7d6bb4697e78b839f0e5f20405098",
+      "first_llm_calls": 1,
+      "first_llm_tokens": 50000,
+      "rerun_manifest": "runs/evidence/20260802-050856-00ad/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/manifest.json",
+      "rerun_manifest_sha256": "925fbbd6bf4f80f359859928f72c212e775f8a034d471c71a96d2a4fbb9f9c9f",
+      "rerun_llm_calls": 0,
+      "rerun_llm_tokens": 0,
+      "effects_each_run": 0,
+      "bundle_file_count": 35,
+      "coordinator_unchanged_map_sha256": "9bc124f6d92a306832c209165b39f4f1c4d21bcb0afff28c3a3e724a7e206c0f"
+    }
+  ],
+  "coordinator_tests": ["103 truth/cache/snapshot/stage/Python tests passed", "65 push-blocking/allow-list/redaction tests passed"],
+  "docker_recovery": {"classification": "infra_external_recovered", "implementation_changed": false, "isolation_weakened": false},
+  "open_finding": {"id": "EVID-005", "status": "BACKLOG", "summary": "fact-backed terminal RunManifestV3 top-level facts_hash is null"},
+  "scope_limits": ["Wave 3 remains open", "No current README candidate or review acceptance is proved", "No product effect was authorized or performed"]
+}
