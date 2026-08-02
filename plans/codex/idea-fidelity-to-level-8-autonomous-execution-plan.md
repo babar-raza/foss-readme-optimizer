@@ -55,8 +55,9 @@ This sequence appears once and is binding as derived guidance:
 1. Reconcile and freeze the plan set under `GOAL-P0-PLAN-FREEZE` and
    `L8-PLAN-RECONCILIATION-ACCELERATION`.
 2. Reconcile the live durable state to the corrected graph without deleting transition history.
-3. Freeze the accepted Note structural contract and every campaign dependency in
-   `CampaignFreezeV1`.
+3. Seal clean governance/control bytes in `PlanFreezeV1`, materialize selected candidate bytes in
+   `PipelineContractSnapshotV1`, and bind repository-stage inputs through
+   `StageDependencyManifestV1`.
 4. Run zero-provider-call readiness classification for every current .NET and Java repository.
 5. Complete the fresh unchanged Note no-op proof.
 6. In parallel, execute one readiness-selected .NET and one Java verified vertical slice.
@@ -99,7 +100,7 @@ Outputs:
 - graph/state migration map;
 - current status derived from the registry and durable state;
 - plan/governance/coverage/traceability validation;
-- `CampaignFreezeV1`;
+- clean committed `PlanFreezeV1`, immutable `PipelineContractSnapshotV1`, and accepted replay receipt;
 - coherent exact-path-staged control-repository commit.
 
 No product pipeline work starts before this campaign passes.
@@ -116,6 +117,11 @@ Implement only boundaries that directly unlock visible repository output:
 - one mandatory reviewer plus risk-derived escalation;
 - repository-lane isolation, cancellation, recovery, and serialized aggregation;
 - full-suite campaign-boundary guard.
+
+The minimum enabler is the immutable pipeline snapshot, selected stage-dependency manifests, typed
+worker receipts, and a functional `CampaignEvidenceManifestV1` for Campaigns 2 and 3. Broader
+cache/reporting generalization is deferred while visible repository output proceeds. Workers consume
+only the sealed snapshot, never mutable coordinator-worktree bytes.
 
 Aspose.org knowledge is an index/cache, never authority. Its generated prose is never reused.
 
@@ -149,7 +155,9 @@ authorization and elapsed-time requirements.
 
 ## Frozen campaign contracts
 
-`CampaignFreezeV1` binds:
+`PlanFreezeV1` binds clean committed authority/control inputs. `PipelineContractSnapshotV1`
+materializes selected candidate implementation bytes for read-only worker consumption.
+`StageDependencyManifestV1` then binds only the dependencies selected by a repository stage:
 
 - control HEAD and graph hash;
 - registry hash, denominator, and discovery revision;

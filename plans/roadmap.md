@@ -18,7 +18,8 @@ close tasks and historical trusted work is not executable.
 1. **Plan reconciliation and freeze**
    - Resolve the accepted contradiction inventory.
    - Migrate graph/state without deleting transition history.
-   - Regenerate current status and freeze `CampaignFreezeV1`.
+   - Regenerate current status, seal clean committed `PlanFreezeV1`, and materialize immutable
+     `PipelineContractSnapshotV1` with an accepted replay receipt.
 2. **Shared acceleration and isolation proof**
    - Freeze Note and campaign dependencies.
    - Run zero-provider-call .NET/Java readiness classification.

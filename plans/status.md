@@ -24,7 +24,7 @@ Current completion is derived from the runtime registry, durable repository life
 - Canonical-text SHA-256: `f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb`.
 - Canonical-JSON SHA-256: `ee34782b1f0e567437ad27ced93c73c9e617d8126b2de57875cc5ed694b04aac`.
 - Registry revision: `35e44d036bf1097394ecfaeaeb3ba15e842d398cc28df0d2e3371d54a93652f9`.
-- Campaign eligible: **false**; reasons: pending_intake_present, unexplained_observations_present
+- Gate-A closure eligible: **false**; reasons: pending_intake_present, unexplained_observations_present
 
 ### Excluded discoveries and intake
 
@@ -40,12 +40,12 @@ Current completion is derived from the runtime registry, durable repository life
 
 ### Live mission
 
-- Durable state version: `703`.
-- Active task: `-`.
-- Active goal: `GOAL-V0-VERIFIED-PYTHON-POC`.
-- Claim: `-`; expires `-`.
-- Loaded graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`.
-- Durable graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`; drift: **false**.
+- Durable state version: `706`.
+- Active task: `L8-PLAN-RECONCILIATION-ACCELERATION`.
+- Active goal: `GOAL-P0-PLAN-FREEZE`.
+- Claim: `bbd698f280b143e282b396867c959bad`; expires `2026-08-02T19:16:46.109448+00:00`.
+- Loaded graph: `033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456`.
+- Durable graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`; drift: **true**.
 
 Historical portfolio manifests remain inspectable evidence but never supply headline current status.
 
@@ -54,8 +54,8 @@ Historical portfolio manifests remain inspectable evidence but never supply head
 | Status | Count |
 |---|---:|
 | IMPLEMENTED | 155 |
-| PLANNED | 124 |
-| PARTIAL | 94 |
+| PLANNED | 123 |
+| PARTIAL | 95 |
 | GOVERNANCE | 35 |
 | BACKLOG | 28 |
 | DEPRECATED | 22 |

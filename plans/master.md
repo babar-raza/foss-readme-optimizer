@@ -80,7 +80,7 @@ history:
 
 | Order | Goal ID | Concrete closure outcome |
 |---:|---|---|
-| 0 | `GOAL-P0-PLAN-FREEZE` | The authoritative plan, graph/state migration, current status, validation, coherent plan commit, and `CampaignFreezeV1` pass before product execution. |
+| 0 | `GOAL-P0-PLAN-FREEZE` | The authoritative plan, graph/state migration, current status, validation, coherent plan commit, sealed `PlanFreezeV1`, immutable `PipelineContractSnapshotV1`, and replay receipt pass before product execution. |
 | 10 | `GOAL-T0-TRUSTED-QUALIFICATION` | Preserved historical goal, non-executable after decision #88. |
 | 11 | `GOAL-V0-VERIFIED-PYTHON-POC` | The accepted Note reference becomes a reusable fact-slot template; Note Python plus measured .NET/Java vertical slices prove the accelerated path, then Page/PDF and every current Python repository are repository-verified, independently approved, and no-op-proven. |
 | 12 | `GOAL-TP-TRUSTED-COHORT-POC` | Preserved historical goal, non-executable after decision #88; its artifacts remain reusable. |
@@ -172,7 +172,8 @@ evidence. Trusted artifacts are lower-assurance reuse inputs only. They cannot s
 facts, candidate approval, no-op proof, Gate A/B/C, or maturity, and no trusted task may reserve
 capacity or authorize an effect.
 
-The active sequence is: plan reconciliation and `CampaignFreezeV1`; shared acceleration and
+The active sequence is: plan reconciliation with sealed `PlanFreezeV1` and immutable
+`PipelineContractSnapshotV1`; shared acceleration and
 isolation proof; fresh Note no-op plus readiness-selected .NET and Java slices; one official suite
 at three-slice closure; Page/PDF and the dynamic Python cohort; remaining platforms in Python,
 .NET, Java, C++, TypeScript, Rust, Go priority; dynamic Gate A; Gate B; Gate C; hosted operation;
@@ -1893,7 +1894,9 @@ that is the only permanence they carry; text is always the decision as it stands
     qualification, never a prerequisite for those early slices, Python completion, read-only
     preparation, or post-three-slice bounded concurrency.
 
-    `CampaignFreezeV1` binds the current presentation, truth, prompt, model, validator, reviewer,
+    `PlanFreezeV1` binds clean committed governance/control bytes while
+    `PipelineContractSnapshotV1` materializes the current presentation, truth, prompt, model,
+    validator, reviewer,
     lifecycle, cache, registry, graph, runtime, and test-inventory contracts before product work
     resumes. It remains frozen through the active campaign. A newly discovered factual or safety
     defect reopens its first responsible boundary; a non-safety presentation preference enters
@@ -2969,10 +2972,10 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         Note-specific prose leakage. Commit `5f463e75`; 16 focused tests, 127 affected
         integration/safety tests, and a clean 2,458-test inventory pass. Evidence:
         `plans/investigations/evidence/readme-presentation-contract-v1/`.
-  - [ ] `L8-VPY-01`: rebuild Note through repository/package/example/policy evidence, deterministic
-        validation, independent review, unchanged no-op, strict-cache, risk, call, and timing receipts.
   - [ ] `L8-ACCEL-00`: reconstruct the execution-cost baseline, audit Aspose.org efficiency machinery,
         and freeze one .NET and one Java pilot from strict current-stage readiness with zero provider calls.
+  - [ ] `L8-VPY-01`: rebuild Note through repository/package/example/policy evidence, deterministic
+        validation, independent review, unchanged no-op, strict-cache, risk, call, and timing receipts.
   - [ ] `L8-VPY-02`: prove the readiness-selected .NET and Java repositories under the same golden
         structure with product-specific facts, validation, independent review, no-op, and a three-slice
         throughput scoreboard. Aspose.org prose is never an acceptance source.
@@ -3150,7 +3153,7 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         symbols, typed fields, and decorator stacks, then install the pinned package and exercise
         selected APIs inside the disposable executor (`L8-TRUTH-02B`, `L8-030`, evidence commit
         `c514fa7`).
-  - [ ] Shared acceleration and isolation: freeze CampaignFreezeV1 dependencies, run zero-call
+  - [ ] Shared acceleration and isolation: consume sealed plan/pipeline contracts, run zero-call
         .NET/Java readiness, qualify immutable revision reuse and narrow cache invalidation, and
         prove up to three isolated early lanes. Freeze the reviewer regression corpus and qualify
         one mandatory independent evidence-grounded reviewer plus ReviewRiskProfileV1 before

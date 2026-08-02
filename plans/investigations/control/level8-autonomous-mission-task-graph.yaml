@@ -168,21 +168,14 @@ mission_authority:
   - Level 7 has 30 consecutive production days meeting its gates.
   - Level 8 has 90 consecutive production days meeting its gates.
   - An independent audit reproduces the evidence and awards Level 8.
-  conflicts_found:
-  - Historical master-plan approval gating was superseded by current GOV-023 and GOVERNANCE.md rule 12;
-    master remains freely maintainable with evidence, traceability, and log validation.
-  - Uncommitted plans/status.md, plans/roadmap.md, and plans/changelog.md are not currently listed as
-    allowed plan homes by plans/GOVERNANCE.md.
-  - The production supervisor owns product-repository capability tasks but has no consumer for central-repository
-    implementation taskcards.
-  - Requirement closure prose and current repository evidence contain semantic contradictions, including
-    VER-001 and the still-live alternate mutation path.
+  conflicts_found: []
   stage_goal_catalog:
   - goal_id: GOAL-P0-PLAN-FREEZE
     order: 0
     summary: Reconcile and freeze the authoritative plan, graph, migration, status, and campaign dependencies.
     acceptance_boundary: The contradiction matrix, graph/state migration, current status, validations,
-      coherent plan commit, and CampaignFreezeV1 are independently accepted before product execution.
+      coherent plan commit, sealed PlanFreezeV1, and immutable PipelineContractSnapshotV1 are independently
+      accepted before product execution.
     max_concurrent_verified_lanes: 0
   - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
     order: 10
@@ -291,34 +284,22 @@ mission_authority:
     product_effects_allowed: true
   mission_locked: true
 verified_baseline:
-  repository_root: D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer
-  branch: main
-  head: 79c7beadbc0072714198e03a8f58b46c431d3a4a
-  upstream_head: 674285a7c1fd9df1308944f549a94b36f29f9c11
-  dirty_paths:
-  - plans/idea.md
-  - plans/master.md
-  - plans/changelog.md
-  - plans/roadmap.md
-  - plans/status.md
-  preserved_user_or_agent_work: true
-  evidence_roots:
-  - runs/
-  - plans/investigations/evidence/
-  fresh_clone_evidence: plans/investigations/evidence/wave-0-fresh-clone-reproduction-2026-07-23/ official-checks.json
-  baseline_checks:
-    ruff: passed
-    format: passed
-    mypy: passed
-    pytest: 1174 passed, 18 deselected
-    plan_validation: passed with 51 warnings
-    actionlint: 9 workflows passed
-  baseline_commit_proven: 674285a7c1fd9df1308944f549a94b36f29f9c11
-  known_limitations:
-  - The fresh-clone proof predates the two local commits at current HEAD.
-  - The dirty plan candidate has not been accepted as authoritative current truth.
-  - A compliant all-visibility organization-discovery credential, GitHub App credentials, and reviewed
-    authorization records are not yet proven present.
+  schema: PlanFreezeReferenceV1
+  plan_freeze_path: plans/investigations/evidence/final-throughput-correction-v1/plan-freeze-v1.json
+  acceptance_receipt_path: plans/investigations/evidence/final-throughput-correction-v1/freeze-acceptance-receipt-v1.json
+  interpretation: The sealed PlanFreezeV1 binds committed plan, governance, graph, schema, registry, and
+    platform-priority bytes; mutable live HEAD and dirty-tree observations remain runtime evidence and
+    are not embedded in this static graph.
+  resolved_conflicts:
+  - finding: Historical master-plan approval gating contradicted current autonomous maintenance.
+    resolution: Superseded by GOV-023 and GOVERNANCE.md rule 12; evidence and traceability remain mandatory.
+  - finding: Generated roadmap, status, and changelog paths were not recognized as derived plan views.
+    resolution: Current governance explicitly classifies and validates those derived views.
+  - finding: The production supervisor lacked a consumer for central-repository implementation taskcards.
+    resolution: The durable mission task graph, claim lease, transition, and status consumer now own those
+      tasks.
+  - finding: VER-001 and an alternate mutation path contradicted canonical-runtime closure.
+    resolution: Current requirement evidence records VER-001 implemented and the alternate path retired.
 campaign_catalog:
 - campaign_id: CAMP-PLAN-FREEZE
   order: 0
@@ -392,7 +373,8 @@ taskcards:
   - Updated graph and state-migration mapping with preserved history
   - Current 31-repository status separating current, raw/stale, excluded, and blocked results
   - Plan, governance, traceability, and focused validation receipts
-  - CampaignFreezeV1 and coherent exact-path-staged control-repository commit
+  - Sealed PlanFreezeV1, immutable PipelineContractSnapshotV1, acceptance receipt, and coherent exact-path-staged
+    control-repository commit
   acceptance_checks:
   - Domain-specific authority is consistent in every owning file
   - Every trusted goal is non-executable with zero reserved capacity and effect authority
@@ -423,7 +405,8 @@ taskcards:
   failure_reroute: Apply the two-attempt/15-minute anti-stall rule; no broad re-audit or competing plan.
   closeout_rules:
   - Every required reconciliation artifact is checksum-complete and independently accepted
-  - Product execution may resume only after the coherent plan commit and CampaignFreezeV1 pass
+  - Product execution may resume only after the coherent plan commit, PlanFreezeV1, immutable PipelineContractSnapshotV1,
+    and replay receipt pass
   goal_ids:
   - GOAL-AUTONOMY
   - GOAL-MATURITY
@@ -9636,7 +9619,7 @@ bootstrap_state:
   stop_reason: bootstrap metadata only; durable supervisor state owns live execution
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 9ae9edbaa1a12eac132cccd6f7b51c88d4b713493c848f9870b553a5a8491ab6
+  source_sha256: 8b7d6a7086d7a0d1fba5ea8e6773e51fe45fb5ef31da02ce8ffdac80b7d9c930
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 464
   mandatory_requirement_rows: 414
@@ -12412,7 +12395,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-042
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-VPY-00-GOLDEN-TEMPLATE
     disposition: open_mandatory
     semantic_findings: []

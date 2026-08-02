@@ -606,7 +606,7 @@ def _render_current_project_status(status: dict) -> list[str]:
         f"- Canonical-text SHA-256: `{hashes['canonical_text_sha256']}`.",
         f"- Canonical-JSON SHA-256: `{hashes['canonical_json_sha256']}`.",
         f"- Registry revision: `{revision['revision_id']}`.",
-        f"- Campaign eligible: **{str(gate['eligible']).lower()}**; reasons: "
+        f"- Gate-A closure eligible: **{str(gate['eligible']).lower()}**; reasons: "
         + (", ".join(gate["reasons"]) or "none"),
         "",
         "### Excluded discoveries and intake",
