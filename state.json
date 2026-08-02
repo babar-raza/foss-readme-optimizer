@@ -19,7 +19,7 @@
     "claimed_at": "2026-08-02T17:31:42.406198+00:00",
     "claimed_by": "codex-plan-reconciliation",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "799c28d583f79e626be855daa65122a87f8a9df40d320509ab6ad05ddb4c3fd8",
+    "goal_activation_graph_sha256": "960e389ff6f4c17f950ffdad00db7195831876b09281c07ca581aedd446d3d4b",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -86,8 +86,8 @@
         "to_primary_goal_id": "GOAL-P0-PLAN-FREEZE"
       }
     ],
-    "graph_sha256": "799c28d583f79e626be855daa65122a87f8a9df40d320509ab6ad05ddb4c3fd8",
-    "last_evaluated_at": "2026-08-02T17:31:42.406198+00:00",
+    "graph_sha256": "960e389ff6f4c17f950ffdad00db7195831876b09281c07ca581aedd446d3d4b",
+    "last_evaluated_at": "2026-08-02T17:36:15.069683+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -219,8 +219,8 @@
     "next_task": {
       "campaign_id": "CAMP-PLAN-FREEZE",
       "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Remove contradictory execution authority and freeze one reproducible accelerated campaign."
+        "kind": "indispensable_safety",
+        "summary": "Remove contradictory execution authority and freeze one reproducible accelerated campaign before product execution resumes."
       },
       "goal_ids": [
         "GOAL-AUTONOMY",
@@ -6018,7 +6018,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 694,
+  "state_version": 695,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
