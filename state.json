@@ -4193,7 +4193,7 @@
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "4b72a89521e1dca14e258ef57fe2d67be72c1740ef2ec520a5674fcb47fde521",
+      "accepted_facts_hash": "b5c383cc2a45805746c5e79fd5edaf76fe45cb88a39ea607e39adc57bdfca977",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -4201,58 +4201,58 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The second paragraph clearly states what the product does using concrete verbs ('implementing core 3D scene graph management and common file format support') and specifies the ecosystem (.NET), formats (OBJ, STL, FBX, glTF), and purpose (3D applications without licensing fees).",
+            "note": "The second paragraph clearly states what the product does ('a free, open-source .NET library for 3D scene graph management and file format conversion') using concrete verbs and names the supported formats.",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the target audience (developers), ecosystem (.NET), formats handled, and common tasks (building 3D applications), satisfying audience fit requirements.",
+            "note": "The second paragraph explicitly states the target audience (.NET developers) and the situation (seeking a permissive MIT-licensed alternative to the commercial product).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes GitHub-recognized license (MIT), NuGet version badge, platform badge, and contributor badge \u2014 all key trust signals are present and visible.",
+            "note": "The README includes a visible, GitHub-recognized MIT license badge, NuGet version badge, platform badge, and contributor badge \u2014 satisfying the top trust signals.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command uses real NuGet coordinates (`Aspose.3D.FOSS`) and includes a version; the README confirms verification against NuGet, satisfying the requirement for registry-resolving coordinates.",
+            "note": "The install command names real NuGet coordinates (`Aspose.3D.FOSS`) and states the version; the badge confirms it's on NuGet, and the note says it was verified.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a minimal but runnable 'Quick start' example (`var scene = new Scene(); scene.Save(...)`), which is sufficient for a focused library.",
+            "note": "The 'Quick start' section includes a minimal, runnable .NET code example beyond the install snippet, with no comments or docstrings.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "The navigation section uses consistent Markdown headers and follows a logical sequence: product understanding \u2192 capabilities \u2192 install \u2192 usage \u2192 scope \u2192 license, matching the sequencing intent of the standard.",
+            "note": "The navigation section provides a clear table of contents using consistent `##` headers, and the order follows the intended sequencing: product understanding \u2192 getting started \u2192 license.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input\u2192transformation\u2192output workflow of the library (3D files \u2192 scene graph \u2192 serialization), which is product-appropriate and not decorative.",
+            "note": "The Mermaid diagram illustrates the actual input \u2192 transformation \u2192 output workflow of the product, which is appropriate for a 3D processing library and improves understanding.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README lacks GitHub-recognized community files: no LICENSE file is referenced in the repo root (only a link to 'LICENSE'), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 only the README is recognized.",
+            "note": "The README does not mention or link to a CODE_OF_CONDUCT, Contributing, or Security file \u2014 GitHub would only show README and License in the quick-link row, per the standard's evidence.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README includes a versioned NuGet badge and references a specific commit hash, implying recent activity; while not explicit, this is sufficient for a FOSS library with a clear release version.",
+            "note": "The README includes a versioned install command and a NuGet badge, implying recent activity; though not explicit, this is sufficient per the standard's emphasis on structural signals.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language ('separate products... do not assume API or feature parity'), placed after the product explanation and without promotional language or pricing.",
+            "note": "The 'Scope and limitations' section contains exactly one factual, capability-extension mention of the commercial product, placed after the product description and without promotional language.",
             "satisfied": true
           }
         ],
-        "input_sha256": "b29a3df3a661fa9d6bb73c799be765d65cb7f68fa661643a6b1afc32696c0ed6",
+        "input_sha256": "c8a82f58a09eaf873e5fcc2a002c68f5e3bd5121e037e78e3527d0e65463c54e",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap in contribution readiness due to missing GitHub-recognized community files (LICENSE, CODE_OF_CONDUCT, etc.). All other presentation criteria \u2014 especially product clarity, installation path, and restrained commercial framing \u2014 are well met.",
+        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, Contributing, and Security files). All other dimensions \u2014 especially product clarity, installation path, and commercial context \u2014 meet or exceed the standard's evidence-based expectations.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -4265,7 +4265,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:23:32.645163+00:00",
+      "last_run_timestamp": "2026-08-02T21:33:55.986149+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -17735,7 +17735,7 @@
     "updated_at": "2026-08-02T21:32:59.641076+00:00"
   },
   "schema_version": 2,
-  "state_version": 746,
+  "state_version": 747,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "36bff2b2c8166fb4672948b6f73075990d1ad4492786df2f449b3e3cb85c48c0",
