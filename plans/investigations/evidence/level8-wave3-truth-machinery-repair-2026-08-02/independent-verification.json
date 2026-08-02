@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPTED_FOR_BOUNDED_SLICE_ONLY",
+  "tested_head": "6dcf22052a936cc7ff1763c57500eaf92457de7a",
+  "verifier_role": "independent_verification",
+  "authored_implementation": false,
+  "source_record": "runs/multi-agent/independent-verification/wave3-truth-machinery-repair-02/verification.json",
+  "source_record_sha256": "4cdc927039039cdc163e3efa1327e94d7861c011a3f6e3426fcea72ae83c7aba",
+  "focused_results": [
+    "55 passed at the mission/provenance/clock boundary",
+    "11 passed for sealed local POC evidence"
+  ],
+  "real_replay": {
+    "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "result": "STAGE_COMPLETE",
+    "lifecycle_status": "FACTS_READY",
+    "bundle_files_before": 81,
+    "bundle_files_after": 81,
+    "maps_equal": true,
+    "changed_paths": [],
+    "provider_calls": 0,
+    "effects": 0
+  },
+  "accepted_findings": ["IV-PFR-001", "IV-PFR-002", "IV-PFR-005"],
+  "remaining_boundary": "FACTS_READY for Page, PDF, and the remaining portfolio",
+  "wave3_closed": false
+}

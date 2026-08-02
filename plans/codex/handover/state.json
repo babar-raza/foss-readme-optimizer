@@ -1,126 +1,78 @@
 {
-  "schema_version": 9,
+  "schema_version": 10,
   "handover_status": "HANDOVER_READY",
   "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "head": "fe285db4551f8282b33ca1237c0b24b61a8c3070",
-  "upstream_divergence": {
-    "behind": 0,
-    "ahead": 2
-  },
-  "working_tree_at_capture": "clean",
+  "head": "6dcf22052a936cc7ff1763c57500eaf92457de7a",
+  "head_role": "accepted implementation checkpoint before the following documentation/evidence commit",
+  "working_tree_at_capture": "clean before documentation/evidence synchronization",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7",
-  "document_hashes": {
-    "plans/GOVERNANCE.md": "84b874f8d6e09c91e7f425bca793f2a65afca1bbcbfd2956b87886d41ef038df",
-    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md": "ea5abe8c52b0a35b38763cfc96dedf5f33b455db9b46dcdb98b6fc7d985195ab",
-    "plans/idea.md": "bf461e7dce3d32b3d8455eb7c70ee0d85d7d80fd59d6f35c3fa67be7b67d5854",
-    "plans/master.md": "ced87b79d73d324a1da521a6615d0bc79859c68cd573e850fd1f53ab030abb9f",
-    "plans/requirements.md": "f3303a0422f855d5082cb02b94f68320f42e1dec86aceaf40f12042a41e593d3"
-  },
-  "durable_state_version": 678,
+  "authoritative_plan_hash": "15e35a99b427780c30b44ed4f4eedf5c9ec1f13e3ad887184863040355e6f219",
+  "durable_state_version": 679,
   "graph_drift": false,
   "current_phase": "Wave 3 verified product truth and ownership",
-  "active_goal": "GOAL-V1-VERIFIED-TRUTH",
+  "current_goal": "GOAL-V1-VERIFIED-TRUTH",
   "current_task": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
   "current_task_status": "IN_PROGRESS",
-  "active_claim": {
-    "claim_id": "03bc10605ecd440892effdcae83c6aca",
-    "claimed_by": "Codex",
-    "claim_expires_at": "2026-08-01T21:01:07.849256+00:00",
-    "restart_rule": "Lease expired at the checkpoint; re-read live state and reclaim through the supervisor."
-  },
-  "next_action": "Reclaim the expired Wave 3 lease, update its task-lane plan, repair IV-PFR-001 freshness-aware mission counting and IV-PFR-002 facts-stage manifest provenance, independently verify them, then requalify Page and PDF Python while preserving the accepted Note canary.",
-  "mandatory_outcomes": [
-    "Repository-derived provenance-complete ProductFactsV2 and ownership safety",
-    "Current independently approved and no-op-proven README bundles for the complete dynamic registry",
-    "Human Gate B after full agent approval",
-    "Canonical act, disposable staging, and governed draft-PR proof",
-    "Hosted GitHub App runtime and all repository-presentation surfaces",
-    "Level 5, 30-day Level 7, and 90-day Level 8 independent proof"
-  ],
-  "completed_verified": [
-    "Commit 908f9f3b54a93ef12a6eb265e17366b0cb0ac21a integrates registry grammar, structured product-fact transport, freshness handling, and bounded multi-agent controls.",
-    "Integrated focused matrix passed 288 tests.",
-    "Complete non-live suite passed 2639 tests with zero leaked repository-owned processes.",
-    "Independent verification accepted the bounded slice without granting task or mission closure."
-    ,"Note Python reached current FACTS_READY with one provider call; its identical rerun used zero provider calls, zero effects, and no duplicate bundle."
-  ],
-  "implemented_unverified": [
-    "Revised registry grammar exists, but the fresh authenticated all-visibility RegistryRevisionV1 proof is absent.",
-    "Nine current candidates are deterministically validated but have no current independent approval/no-op pair.",
-    "Latest full-suite receipt binds the integrated candidate tree before commit rather than a clean committed-tree closure run.",
-    "Mission status reports 17/31 raw facts-stage states but does not freshness-filter stale fact contracts.",
-    "Facts-stage RunManifestV3 leaves known trigger/upstream revision and repository snapshot fields null."
-  ],
+  "next_action": "Update the Wave 3 task-lane plan, requalify Page and PDF Python to FACTS_READY through the canonical bounded local_poc supervisor, independently verify and repair them, then continue remaining Python repositories.",
   "portfolio_scoreboard": {
     "denominator": 31,
-    "facts_ready_raw_unreconciled": 17,
-    "python_facts_ready_current": 1,
     "python_denominator": 12,
+    "python_facts_ready_current": 1,
+    "facts_ready_current": 1,
+    "facts_ready_raw": 17,
+    "candidate_generated_current": 0,
     "candidate_generated_raw": 9,
+    "deterministic_validated_current": 0,
     "deterministic_validated_raw": 9,
     "agent_approved_current": 0,
-    "no_op_proven_current": 0,
     "agent_approved_raw": 2,
+    "no_op_proven_current": 0,
     "no_op_proven_raw": 2,
-    "stale_acceptance_repositories": [
-      "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
-      "aspose-words-foss/Aspose.Words-FOSS-for-Python"
-    ],
+    "human_accepted_current": 0,
+    "human_accepted_raw": 0,
     "first_failing_boundary": "FACTS_READY"
   },
+  "completed_verified": [
+    "IV-PFR-001: freshness-aware read-only mission projection with separate current and raw lifecycle counts",
+    "IV-PFR-002: exact source revision and RepositorySnapshotV1 in bounded facts-stage RunManifestV3 evidence",
+    "IV-PFR-005: sealed same-revision snapshot evidence preserved all 81 Note bundle files across independent replay",
+    "Clean implementation HEAD passed 2655 non-live tests with no leaked processes"
+  ],
+  "implemented_unverified": [
+    "ProductFactsV2 machinery exists beyond Note, but current-contract portfolio proof is incomplete",
+    "Historical raw candidate and review states are preserved but not current acceptance"
+  ],
   "remaining_tasks": [
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-    "IV-PFR-001 freshness-aware mission FACTS_READY numerator",
-    "IV-PFR-002 facts-stage RunManifestV3 source provenance",
-    "Fresh all-visibility registry revision for CORE-023/L8-036/L8-038",
-    "Current full-registry independent approval and no-op proof",
-    "Gate B human review",
-    "Canonical act workflow proof",
-    "Disposable GitHub staging",
-    "Gate C governed draft-PR proof",
-    "GitHub App hosted runtime",
-    "Level 5 and complete presentation surfaces",
-    "30-day Level 7 proof",
-    "90-day Level 8 proof"
+    "Page and PDF Python FACTS_READY qualification",
+    "Remaining Python FACTS_READY qualification",
+    "Remaining ecosystem product truth and ownership",
+    "Current full-registry candidate, deterministic validation, independent approval, and no-op proof",
+    "Gate B human acceptance",
+    "Canonical act and disposable staging proof",
+    "Gate C authorized draft-PR proof",
+    "Hosted GitHub App runtime",
+    "Complete presentation surfaces and Level 5",
+    "Level 6 operation, 30-day Level 7 proof, and 90-day Level 8 proof"
   ],
   "blockers": [
     {
-      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
-      "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
-      "mission_impact": "Does not block the active Wave 3 local truth task; reconcile only through the executable graph."
-    },
-    {
       "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
       "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
-      "mission_impact": "Hosted/production-like proof remains downstream; local truth work continues."
+      "mission_impact": "Does not block current local product-truth work."
+    },
+    {
+      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+      "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
+      "mission_impact": "Historical route does not override the current Wave 3 task."
     }
   ],
-  "execution_model": {
-    "coordinator": "Codex",
-    "max_concurrent_workers_beside_coordinator": 3,
-    "required_roles": [
-      "Repair",
-      "Advancement",
-      "Validator/Evidence",
-      "Documentation/State-Sync",
-      "Independent Verification"
-    ],
-    "task_lane_plan": "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
-    "documentation_state_sync_is_proposal_only": true,
-    "worker_closure_authority": false,
-    "worker_product_effect_authority": false
-  },
-  "safe_checkpoint": {
-    "repository_owned_processes_running": false,
-    "worker_agents_running": false,
-    "note_python_current_facts_ready": true,
-    "independent_slice_verdict": "ACCEPTED_FOR_BOUNDED_SLICE_ONLY",
-    "wave3_closed": false
-  },
+  "stale_views": [
+    "plans/status.md reports a historical 32-member view and is tracked by GOV-031",
+    "runs/readme-poc/portfolio-summary.json reports a historical 33-member view containing CSSForge"
+  ],
   "critical_references": [
     "AGENTS.md",
     "plans/idea.md",
@@ -128,24 +80,18 @@
     "plans/requirements.md",
     "plans/GOVERNANCE.md",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-    "plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md",
-    "plans/investigations/evidence/level8-registry-throughput-multi-agent-v1/README.md"
+    "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json"
   ],
   "evidence_paths": [
-    "plans/investigations/evidence/level8-registry-throughput-multi-agent-v1",
-    "plans/investigations/evidence/level8-requirement-taskcard-coverage",
-    "plans/investigations/evidence/implementation-truth-matrix-2026",
-    "runs/multi-agent/L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP/execution-plan.json",
+    "plans/investigations/evidence/level8-wave3-truth-machinery-repair-2026-08-02",
+    "runs/multi-agent/independent-verification/wave3-truth-machinery-repair-02/verification.json",
     "runs/verification/pytest-full-latest.json"
-    ,"runs/multi-agent/independent-verification/python-facts-ready-01/REPORT.md"
-    ,"runs/multi-agent/independent-verification/python-facts-ready-01/verification.json"
   ],
   "resume_protocol": [
     "Read live Git and supervisor state before trusting this historical snapshot.",
     "Run mission status; evaluate on graph drift; reclaim only an expired claim through the supervisor.",
-    "Update the current task-lane record and disposition all five roles before implementation.",
-    "Use disjoint worker paths, serialized coordinator integration, and implementation-independent verification.",
-    "Repair the first Python FACTS_READY boundary and run the bounded canonical local_poc facts proof.",
-    "Capture redacted checksum-complete evidence, update the same durable authorities, commit to main, evaluate, and continue."
+    "Update the task-lane execution plan and disposition all five required roles.",
+    "Run Page then PDF Python through bounded FACTS_READY; preserve sealed Note work.",
+    "Independently verify, repair agent-fixable failures, write evidence, reconcile requirements and task state, commit to main, evaluate, and continue."
   ]
 }

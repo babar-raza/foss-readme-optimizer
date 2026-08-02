@@ -3265,6 +3265,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
     execution/effect; every accepted trigger is terminal or visibly retryable/blocked.
 
 - [ ] **Wave 3 — Product truth and ownership**
+  - [x] Bounded truth-machinery repair: mission projection now separates current reusable facts
+        from raw lifecycle history (1/31 versus 17/31 `FACTS_READY` at state 679); facts-stage
+        manifests bind the exact source snapshot; and create-or-verify evidence preserved all 81
+        Note revision-bundle files in bytes and modification times on independent replay
+        (`IV-PFR-001`, `IV-PFR-002`, `IV-PFR-005`, commit `6dcf2205`). This is machinery proof,
+        not Wave 3 closure. `plans/status.md` remains a stale derived view tracked by `GOV-031`.
   - Ship `ProductFactsV2`, precedence/conflict behavior, per-surface ownership, fact citations,
     protected-content fingerprints, and prompt-injection treatment.
   - Execute examples/package acquisition in isolated, secret-free jobs.

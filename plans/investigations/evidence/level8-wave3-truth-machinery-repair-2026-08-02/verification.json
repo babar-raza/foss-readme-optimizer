@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "verdict": "BOUNDED_SLICE_ACCEPTED",
+  "wave3_closed": false,
+  "branch": "main",
+  "implementation_head": "6dcf22052a936cc7ff1763c57500eaf92457de7a",
+  "repair_commits": [
+    "d65ea04e3087614158b835b79bfa5a3c18d103c2",
+    "9e6c25d70906856503d5ee6853920f24a2a57b53",
+    "6dcf22052a936cc7ff1763c57500eaf92457de7a"
+  ],
+  "mission": {
+    "id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+    "state_version": 679,
+    "graph_sha256": "d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7",
+    "active_task": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+    "active_goal": "GOAL-V1-VERIFIED-TRUTH",
+    "graph_drift": false,
+    "denominator": 31,
+    "current": {"facts_ready": 1, "candidate_generated": 0, "deterministic_validated": 0, "agent_approved": 0, "no_op_proven": 0, "human_accepted": 0},
+    "raw": {"facts_ready": 17, "candidate_generated": 9, "deterministic_validated": 9, "agent_approved": 2, "no_op_proven": 2, "human_accepted": 0}
+  },
+  "registry": {
+    "path": "data/products.json",
+    "sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+    "count": 31,
+    "python_count": 12
+  },
+  "official_suite": {
+    "receipt": "runs/verification/pytest-full-latest.json",
+    "receipt_sha256": "c9f15e6ba708bc0a00cfe0e3307143d2815c53b38408e2ae4c868ee995c7e9cc",
+    "test_inventory_count": 2655,
+    "test_inventory_sha256": "c5bbb3cd7e311da97da2f496eb2324c3818c01f9dd17d6d66bc5b2d4a0c3b518",
+    "exit_code": 0,
+    "worker_count": 4,
+    "leaked_process_ids": []
+  },
+  "note_proof": {
+    "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+    "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+    "coordinator_manifests": [
+      "runs/evidence/20260802-041540-3311/aspose-note-foss__Aspose.Note-FOSS-for-Python/manifest.json",
+      "runs/evidence/20260802-041657-9fab/aspose-note-foss__Aspose.Note-FOSS-for-Python/manifest.json"
+    ],
+    "independent_manifest": "runs/evidence/20260802-042450-41b0/aspose-note-foss__Aspose.Note-FOSS-for-Python/manifest.json",
+    "bundle_file_count": 81,
+    "before_after_map_sha256": "23712b721101cabed451c8717bdaacda0f997debc3870181aab97c68ac948f1d",
+    "provider_calls": 0,
+    "effects": 0,
+    "checksum_inventories_valid": true
+  },
+  "findings": {
+    "IV-PFR-001": "VERIFIED_FOR_BOUNDED_CLAIM",
+    "IV-PFR-002": "VERIFIED_FOR_BOUNDED_CLAIM",
+    "IV-PFR-005": "VERIFIED_REPAIRED"
+  },
+  "scope_limits": [
+    "Wave 3 remains open at one current FACTS_READY repository out of 31.",
+    "No current README candidate, independent README approval, no-op acceptance, or human acceptance is proved.",
+    "No product repository effect was authorized or performed."
+  ]
+}

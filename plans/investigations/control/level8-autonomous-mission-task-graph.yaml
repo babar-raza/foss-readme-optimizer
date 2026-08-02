@@ -2325,6 +2325,7 @@ taskcards:
   - GOV-028
   - GOV-029
   - GOV-030
+  - GOV-031
   - BIZ-001
   - BIZ-002
   - BIZ-003
@@ -9294,11 +9295,11 @@ continuation_state:
   stop_reason: mandatory implementation and proof work remains
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: f3303a0422f855d5082cb02b94f68320f42e1dec86aceaf40f12042a41e593d3
+  source_sha256: 7ed78b3a17e9f72662fbd6f55fb3e9bcd717ae0df7b5811f11f6450a80d8a081
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 459
+  total_requirement_rows: 460
   mandatory_requirement_rows: 433
-  excluded_backlog_rows: 26
+  excluded_backlog_rows: 27
   excluded_deprecated_rows: 0
   reopened_implemented_rows: 0
   mappings:
@@ -9475,6 +9476,12 @@ requirement_coverage:
     requirement_status: GOVERNANCE
     task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
     disposition: active_governance
+    semantic_findings: []
+  - requirement_id: GOV-031
+    priority: P1
+    requirement_status: BACKLOG
+    task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+    disposition: excluded_backlog
     semantic_findings: []
   - requirement_id: BIZ-001
     priority: P0

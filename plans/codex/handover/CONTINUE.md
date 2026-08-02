@@ -1,8 +1,8 @@
 # Continue the Level-8 Repository-Presentation Mission
 
 Resume `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` as the accountable
-coordinator on `main`. The historical checkpoint for this prompt is
-`fe285db4551f8282b33ca1237c0b24b61a8c3070`, but live Git and supervisor state always override it.
+coordinator on `main`. The bound implementation checkpoint is
+`6dcf22052a936cc7ff1763c57500eaf92457de7a`, but live Git and supervisor state always override it.
 
 ## Authority
 
@@ -18,12 +18,12 @@ Use exactly this order:
 Do not select or create a competing plan, controller, queue, or mission state. Do not use this
 narrative file to override durable state.
 
-At capture, durable state was version 678 with graph hash
-`d5a99e705688404887d36d107ab822dd8283e44f7b9b5b21664447b8b8941eb7`, active goal
-`GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. The scoreboard was
-17/31 raw/unreconciled facts-stage states, 9/31 raw candidates and deterministic validations, and
-0/31 current independent approvals/no-op proofs. Freshness-aware reconstruction found every prior
-Python result stale; the new Note canary now establishes 1/12 current Python `FACTS_READY`.
+At capture, durable state was version 679 with graph hash
+`15e35a99b427780c30b44ed4f4eedf5c9ec1f13e3ad887184863040355e6f219`, active goal
+`GOAL-V1-VERIFIED-TRUTH`, and active task `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Current/raw
+`FACTS_READY` is 1/31 versus 17/31; current/raw candidate and deterministic counts are 0/9, and
+current/raw approval and no-op counts are 0/2. Note is the sole current Python result (1/12).
+`IV-PFR-001`, `IV-PFR-002`, and `IV-PFR-005` are independently accepted bounded repairs.
 
 ## Startup
 
@@ -37,19 +37,17 @@ git rev-parse HEAD
   --durable-state
 ```
 
-If graph drift is reported, run `evaluate`. The captured claim lease expired; reclaim through
-`--mission-action claim`; never steal an unexpired claim or edit state manually. Inspect
+If graph drift is reported, run `evaluate`. Inspect the live claim and reclaim only when expired;
+never steal an unexpired claim or edit state manually. Inspect
 repository-owned processes before any long campaign and run only one top-level integrated
 test/proof/supervisor tree at a time.
 
 ## Immediate task
 
 Continue `L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP`. Preserve the independently accepted Note Python
-current-contract `FACTS_READY` canary and its zero-provider-call identical rerun. First repair the
-two agent-fixable machinery findings in
-`runs/multi-agent/independent-verification/python-facts-ready-01/REPORT.md`: `IV-PFR-001`
-(freshness-aware mission facts numerator) and `IV-PFR-002` (facts-stage RunManifestV3 revision and
-snapshot fields). Then requalify Page and PDF Python. Keep HTML visible at its invalid upstream
+current-contract `FACTS_READY` canary and its sealed zero-provider-call identical reruns. Update
+the task-lane plan, then requalify Page and PDF Python through the bounded canonical `local_poc`
+facts path and independently verify them before continuing remaining Python. Keep HTML visible at its invalid upstream
 `setuptools.backends.legacy:build` metadata boundary; do not substitute different metadata inside
 the verifier.
 
