@@ -32,6 +32,7 @@ class EvidenceBindingV1(_StrictFrozenModel):
 class CampaignTaskVerdictV1(_StrictFrozenModel):
     task_id: str
     requirement_ids: list[str]
+    durable_status: str
     verdict: TaskEvidenceVerdict
     evidence: list[EvidenceBindingV1] = Field(default_factory=list)
 

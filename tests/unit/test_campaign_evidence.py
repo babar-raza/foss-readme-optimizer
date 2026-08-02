@@ -16,13 +16,16 @@ from readme_agent.supervisor.campaign_evidence import (
 
 def test_closed_task_requires_exact_evidence() -> None:
     with pytest.raises(ValidationError, match="requires exact evidence"):
-        CampaignTaskVerdictV1(task_id="TASK", requirement_ids=["REQ"], verdict="CLOSED")
+        CampaignTaskVerdictV1(
+            task_id="TASK", requirement_ids=["REQ"], durable_status="CLOSED", verdict="CLOSED"
+        )
 
 
 def test_campaign_manifest_replays_deterministically() -> None:
     task = CampaignTaskVerdictV1(
         task_id="TASK",
         requirement_ids=["REQ"],
+        durable_status="CLOSED",
         verdict="CLOSED",
         evidence=[
             EvidenceBindingV1(path="evidence.json", sha256="a" * 64, requirement_ids=["REQ"])
@@ -68,6 +71,7 @@ def test_campaign_manifest_replays_graph_membership_and_evidence(tmp_path: Path)
     task = CampaignTaskVerdictV1(
         task_id="TASK",
         requirement_ids=["REQ"],
+        durable_status="CLOSED",
         verdict="CLOSED",
         evidence=[
             EvidenceBindingV1(
