@@ -39104,7 +39104,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "c9a748f7d453ff9492856c6ed441ed10cb02dcff2114c54f2dc9dd68dcf8262e",
+    "candidate_hash": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -45411,6 +45411,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\dde18ee057df028011b4\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-02T15:47:56.836811+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -45439,11 +45451,11 @@
     "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-02T15:47:50.840610+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-02T15:47:56.836811+00:00"
   },
   "schema_version": 2,
-  "state_version": 1812,
+  "state_version": 1813,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7660eb9c1a41718b125a0d3bb48cf321305d01578de51f42420662097b90e7ac",
