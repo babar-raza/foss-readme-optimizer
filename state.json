@@ -7096,9 +7096,9 @@
           "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
           "tool_schema_sha256": "55afc7b750339eeccf77809c5d81f792fb989cefda68f4ca4f9860c4c9b8a3d3"
         },
-        "agentic_composition_reused": false,
+        "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260802-154734-f6f3",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260802-155717-3ab7",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -7140,13 +7140,13 @@
           "escalation": null,
           "final_review": {
             "blind_quality_review": {
-              "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+              "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
               "content_assurance": "repository_verified",
               "failed_criteria": [],
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                  "claim": "H1 title is clear, sentence-case, and undecorated with no emoji.",
+                  "claim": "The H1 title is clear, factual, and uses sentence case without emoji.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7164,8 +7164,8 @@
                   "section": "Header"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.92c333a7df84da85a22b.1",
-                  "claim": "Opening paragraph clearly describes the product's purpose and scope.",
+                  "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
+                  "claim": "The Mermaid diagram uses the required grammar (inputs-product-capabilities-outputs) and shows concrete product-specific formats.",
                   "criterion": "product_specificity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7177,15 +7177,15 @@
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "Aspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.",
+                  "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Opening paragraph"
+                  "section": "At a glance"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
-                  "claim": "Navigation section lists all required H2 headings in correct order.",
-                  "criterion": "hierarchy",
+                  "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
+                  "claim": "The installation command is presented clearly in a fenced code block.",
+                  "criterion": "installation_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
@@ -7196,14 +7196,14 @@
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
+                  "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Navigation"
+                  "section": "Installation"
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.418e24cc26aa78745082.1",
-                  "claim": "Quick start section contains one fenced code block with 6 nonblank lines, within the 12-line limit.",
+                  "claim": "The primary example is concise, uses one fenced block, and contains 6 nonblank code lines, within the 12-line limit.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7221,9 +7221,9 @@
                   "section": "Quick start"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
-                  "claim": "Mermaid diagram uses correct grammar with inputs, product, capabilities, and outputs.",
-                  "criterion": "markdown_integrity",
+                  "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
+                  "claim": "The Navigation section lists all required H2 labels as markdown bullets.",
+                  "criterion": "navigation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
@@ -7234,14 +7234,14 @@
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
+                  "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "At a glance"
+                  "section": "Navigation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.db68b0ffbd9c10283fcc.1",
-                  "claim": "Enterprise Edition relationship is placed below the fold and clearly distinguishes FOSS from Enterprise Edition.",
+                  "candidate_anchor_id": "candidate.anchor.74af660195af1fdcfbd8.1",
+                  "claim": "The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold.",
                   "criterion": "promotional_balance",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7253,14 +7253,14 @@
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "[Aspose.Note FOSS for python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
+                  "quoted_candidate_span": "[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
                   "reported_observed_value": null,
                   "required_repair": "",
                   "section": "Scope and limitations"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.5ff1385a1ef9f329d70f.1",
-                  "claim": "Badge row is compact and contains only allowed badge kinds on one line.",
+                  "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
+                  "claim": "The header contains exactly one H1 title block and one badge row, with no visible duplication.",
                   "criterion": "visible_duplication",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7269,18 +7269,18 @@
                   "fact_id": null,
                   "finding_id": "f7",
                   "kind": "quality",
-                  "mechanical_check_id": "header.badge_rows",
+                  "mechanical_check_id": "document.h1_blocks",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
+                  "quoted_candidate_span": "# Aspose.Note FOSS for Python",
                   "reported_observed_value": 1,
                   "required_repair": "",
                   "section": "Header"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
-                  "claim": "Installation section provides clear pip command and optional dependency groups.",
-                  "criterion": "installation_presentation",
+                  "candidate_anchor_id": "candidate.anchor.76e1e5fc3e2b77ae0391.1",
+                  "claim": "The License section explicitly lists all four required benefit terms: use, modification, distribution, and commercial use.",
+                  "criterion": "markdown_integrity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
@@ -7291,10 +7291,10 @@
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
+                  "quoted_candidate_span": "This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Installation"
+                  "section": "License"
                 }
               ],
               "grounding_validation": {
@@ -7317,21 +7317,21 @@
                 "prompt_sha256": "707811d40ca68f7cb7c84edb2e56c8d231ef784dd094f5382f06a9c02963884d",
                 "role": "blind_quality_reviewer"
               },
-              "input_sha256": "bbfb60810d7c60929ff49450d6635d851da1e100020097c50a3fb78685cfd8ca",
-              "reasoning": "The candidate README meets all visible quality criteria per the visitor contract. It has a single H1 title followed by one badge row, a concise product description, required H2 sections in correct order, a Mermaid diagram with inputs-product-capabilities-outputs grammar, a single Quick start example with 6 nonblank code lines, no comments, and a License section containing all required benefit terms. The Enterprise Edition relationship is correctly placed below the fold in the Scope and limitations section.",
+              "input_sha256": "a7e2a40776e73822c190a45b0610140ce699b1198a9514a9c9ee01675dcb263d",
+              "reasoning": "The candidate README complies with all applicable visitor contract requirements. It has exactly one H1 title, one badge row with four core badges, and all required H2 sections in the correct order. The 'At a glance' Mermaid diagram shows inputs, product, capabilities, and outputs as required. The 'Quick start' section contains one fenced block with 6 nonblank code lines, under the 12-line limit. The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold. The 'License' section explicitly lists all four required benefit terms. No comments or emojis are present. All mechanical checks pass.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
             },
             "combined_review": {
               "blind_quality": {
-                "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                 "content_assurance": "repository_verified",
                 "failed_criteria": [],
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                    "claim": "H1 title is clear, sentence-case, and undecorated with no emoji.",
+                    "claim": "The H1 title is clear, factual, and uses sentence case without emoji.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7349,8 +7349,8 @@
                     "section": "Header"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.92c333a7df84da85a22b.1",
-                    "claim": "Opening paragraph clearly describes the product's purpose and scope.",
+                    "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
+                    "claim": "The Mermaid diagram uses the required grammar (inputs-product-capabilities-outputs) and shows concrete product-specific formats.",
                     "criterion": "product_specificity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7362,15 +7362,15 @@
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "Aspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.",
+                    "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Opening paragraph"
+                    "section": "At a glance"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
-                    "claim": "Navigation section lists all required H2 headings in correct order.",
-                    "criterion": "hierarchy",
+                    "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
+                    "claim": "The installation command is presented clearly in a fenced code block.",
+                    "criterion": "installation_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
@@ -7381,14 +7381,14 @@
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
+                    "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Navigation"
+                    "section": "Installation"
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.418e24cc26aa78745082.1",
-                    "claim": "Quick start section contains one fenced code block with 6 nonblank lines, within the 12-line limit.",
+                    "claim": "The primary example is concise, uses one fenced block, and contains 6 nonblank code lines, within the 12-line limit.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7406,9 +7406,9 @@
                     "section": "Quick start"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
-                    "claim": "Mermaid diagram uses correct grammar with inputs, product, capabilities, and outputs.",
-                    "criterion": "markdown_integrity",
+                    "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
+                    "claim": "The Navigation section lists all required H2 labels as markdown bullets.",
+                    "criterion": "navigation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
@@ -7419,14 +7419,14 @@
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
+                    "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "At a glance"
+                    "section": "Navigation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.db68b0ffbd9c10283fcc.1",
-                    "claim": "Enterprise Edition relationship is placed below the fold and clearly distinguishes FOSS from Enterprise Edition.",
+                    "candidate_anchor_id": "candidate.anchor.74af660195af1fdcfbd8.1",
+                    "claim": "The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold.",
                     "criterion": "promotional_balance",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7438,14 +7438,14 @@
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "[Aspose.Note FOSS for python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
+                    "quoted_candidate_span": "[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
                     "reported_observed_value": null,
                     "required_repair": "",
                     "section": "Scope and limitations"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.5ff1385a1ef9f329d70f.1",
-                    "claim": "Badge row is compact and contains only allowed badge kinds on one line.",
+                    "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
+                    "claim": "The header contains exactly one H1 title block and one badge row, with no visible duplication.",
                     "criterion": "visible_duplication",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7454,18 +7454,18 @@
                     "fact_id": null,
                     "finding_id": "f7",
                     "kind": "quality",
-                    "mechanical_check_id": "header.badge_rows",
+                    "mechanical_check_id": "document.h1_blocks",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
+                    "quoted_candidate_span": "# Aspose.Note FOSS for Python",
                     "reported_observed_value": 1,
                     "required_repair": "",
                     "section": "Header"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
-                    "claim": "Installation section provides clear pip command and optional dependency groups.",
-                    "criterion": "installation_presentation",
+                    "candidate_anchor_id": "candidate.anchor.76e1e5fc3e2b77ae0391.1",
+                    "claim": "The License section explicitly lists all four required benefit terms: use, modification, distribution, and commercial use.",
+                    "criterion": "markdown_integrity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
@@ -7476,10 +7476,10 @@
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
+                    "quoted_candidate_span": "This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Installation"
+                    "section": "License"
                   }
                 ],
                 "grounding_validation": {
@@ -7502,16 +7502,16 @@
                   "prompt_sha256": "707811d40ca68f7cb7c84edb2e56c8d231ef784dd094f5382f06a9c02963884d",
                   "role": "blind_quality_reviewer"
                 },
-                "input_sha256": "bbfb60810d7c60929ff49450d6635d851da1e100020097c50a3fb78685cfd8ca",
-                "reasoning": "The candidate README meets all visible quality criteria per the visitor contract. It has a single H1 title followed by one badge row, a concise product description, required H2 sections in correct order, a Mermaid diagram with inputs-product-capabilities-outputs grammar, a single Quick start example with 6 nonblank code lines, no comments, and a License section containing all required benefit terms. The Enterprise Edition relationship is correctly placed below the fold in the Scope and limitations section.",
+                "input_sha256": "a7e2a40776e73822c190a45b0610140ce699b1198a9514a9c9ee01675dcb263d",
+                "reasoning": "The candidate README complies with all applicable visitor contract requirements. It has exactly one H1 title, one badge row with four core badges, and all required H2 sections in the correct order. The 'At a glance' Mermaid diagram shows inputs, product, capabilities, and outputs as required. The 'Quick start' section contains one fenced block with 6 nonblank code lines, under the 12-line limit. The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold. The 'License' section explicitly lists all four required benefit terms. No comments or emojis are present. All mechanical checks pass.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
               },
-              "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+              "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
               "content_assurance": "repository_verified",
               "factual_plan": {
-                "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                 "content_assurance": "repository_verified",
                 "failed_criteria": [],
                 "findings": [
@@ -7688,8 +7688,8 @@
                   "prompt_sha256": "1d2605f3e8ad92f5145071f11bbb9a821db348f2e5b022d3ddc53d6face9f1d4",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "c6724291c4d1f8c461584441742677e18dd7d948556b5e099e94d85722fd5b7f",
-                "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (positive_implementation or explicit_constraint as appropriate). The plan correctly preserves source sections and applies only fact-backed corrections. No contradictions, missing evidence, or bounded plan mismatches exist.",
+                "input_sha256": "d00ac115e94182105f3d469e4c1a6a223125b24d2cae26a11d8078735b3bb4b0",
+                "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (supports_acceptance). The plan correctly maps operations to facts, and the candidate accurately reflects the repository evidence, registry data, and manifest information. No contradictions, missing evidence, or bounded plan mismatches exist.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -7703,7 +7703,7 @@
             },
             "content_assurance": "repository_verified",
             "factual_plan_review": {
-              "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+              "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
               "content_assurance": "repository_verified",
               "failed_criteria": [],
               "findings": [
@@ -7880,8 +7880,8 @@
                 "prompt_sha256": "1d2605f3e8ad92f5145071f11bbb9a821db348f2e5b022d3ddc53d6face9f1d4",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "c6724291c4d1f8c461584441742677e18dd7d948556b5e099e94d85722fd5b7f",
-              "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (positive_implementation or explicit_constraint as appropriate). The plan correctly preserves source sections and applies only fact-backed corrections. No contradictions, missing evidence, or bounded plan mismatches exist.",
+              "input_sha256": "d00ac115e94182105f3d469e4c1a6a223125b24d2cae26a11d8078735b3bb4b0",
+              "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (supports_acceptance). The plan correctly maps operations to facts, and the candidate accurately reflects the repository evidence, registry data, and manifest information. No contradictions, missing evidence, or bounded plan mismatches exist.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -7972,7 +7972,7 @@
           "outcome_kind": "accepted",
           "repair_history": [
             {
-              "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+              "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
               "deterministic_validation": {
                 "checks": {
                   "adoption_preserved_source": true,
@@ -7998,7 +7998,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260802-154734-f6f3",
+                "nonce": "20260802-155717-3ab7",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -8006,22 +8006,22 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "83f3b7e25c07050ee7bead5742eba57d15f49d995ae1cbf1888f2198be74ed2f",
+                "token": "67f3759cce9df4fb4335f156183207fb87138ef29a7516bebd0d4b6b90ccd3d8",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260802-154734-f6f3"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260802-155717-3ab7"
               ],
               "repair_attempt": 0,
               "review": {
                 "blind_quality_review": {
-                  "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "content_assurance": "repository_verified",
                   "failed_criteria": [],
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                      "claim": "H1 title is clear, sentence-case, and undecorated with no emoji.",
+                      "claim": "The H1 title is clear, factual, and uses sentence case without emoji.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8039,8 +8039,8 @@
                       "section": "Header"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.92c333a7df84da85a22b.1",
-                      "claim": "Opening paragraph clearly describes the product's purpose and scope.",
+                      "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
+                      "claim": "The Mermaid diagram uses the required grammar (inputs-product-capabilities-outputs) and shows concrete product-specific formats.",
                       "criterion": "product_specificity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8052,15 +8052,15 @@
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "Aspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.",
+                      "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Opening paragraph"
+                      "section": "At a glance"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
-                      "claim": "Navigation section lists all required H2 headings in correct order.",
-                      "criterion": "hierarchy",
+                      "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
+                      "claim": "The installation command is presented clearly in a fenced code block.",
+                      "criterion": "installation_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
@@ -8071,14 +8071,14 @@
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
+                      "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Navigation"
+                      "section": "Installation"
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.418e24cc26aa78745082.1",
-                      "claim": "Quick start section contains one fenced code block with 6 nonblank lines, within the 12-line limit.",
+                      "claim": "The primary example is concise, uses one fenced block, and contains 6 nonblank code lines, within the 12-line limit.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8096,9 +8096,9 @@
                       "section": "Quick start"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
-                      "claim": "Mermaid diagram uses correct grammar with inputs, product, capabilities, and outputs.",
-                      "criterion": "markdown_integrity",
+                      "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
+                      "claim": "The Navigation section lists all required H2 labels as markdown bullets.",
+                      "criterion": "navigation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
@@ -8109,14 +8109,14 @@
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
+                      "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "At a glance"
+                      "section": "Navigation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.db68b0ffbd9c10283fcc.1",
-                      "claim": "Enterprise Edition relationship is placed below the fold and clearly distinguishes FOSS from Enterprise Edition.",
+                      "candidate_anchor_id": "candidate.anchor.74af660195af1fdcfbd8.1",
+                      "claim": "The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold.",
                       "criterion": "promotional_balance",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8128,14 +8128,14 @@
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "[Aspose.Note FOSS for python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
+                      "quoted_candidate_span": "[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
                       "reported_observed_value": null,
                       "required_repair": "",
                       "section": "Scope and limitations"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.5ff1385a1ef9f329d70f.1",
-                      "claim": "Badge row is compact and contains only allowed badge kinds on one line.",
+                      "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
+                      "claim": "The header contains exactly one H1 title block and one badge row, with no visible duplication.",
                       "criterion": "visible_duplication",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8144,18 +8144,18 @@
                       "fact_id": null,
                       "finding_id": "f7",
                       "kind": "quality",
-                      "mechanical_check_id": "header.badge_rows",
+                      "mechanical_check_id": "document.h1_blocks",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
+                      "quoted_candidate_span": "# Aspose.Note FOSS for Python",
                       "reported_observed_value": 1,
                       "required_repair": "",
                       "section": "Header"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
-                      "claim": "Installation section provides clear pip command and optional dependency groups.",
-                      "criterion": "installation_presentation",
+                      "candidate_anchor_id": "candidate.anchor.76e1e5fc3e2b77ae0391.1",
+                      "claim": "The License section explicitly lists all four required benefit terms: use, modification, distribution, and commercial use.",
+                      "criterion": "markdown_integrity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
@@ -8166,10 +8166,10 @@
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
+                      "quoted_candidate_span": "This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Installation"
+                      "section": "License"
                     }
                   ],
                   "grounding_validation": {
@@ -8192,21 +8192,21 @@
                     "prompt_sha256": "707811d40ca68f7cb7c84edb2e56c8d231ef784dd094f5382f06a9c02963884d",
                     "role": "blind_quality_reviewer"
                   },
-                  "input_sha256": "bbfb60810d7c60929ff49450d6635d851da1e100020097c50a3fb78685cfd8ca",
-                  "reasoning": "The candidate README meets all visible quality criteria per the visitor contract. It has a single H1 title followed by one badge row, a concise product description, required H2 sections in correct order, a Mermaid diagram with inputs-product-capabilities-outputs grammar, a single Quick start example with 6 nonblank code lines, no comments, and a License section containing all required benefit terms. The Enterprise Edition relationship is correctly placed below the fold in the Scope and limitations section.",
+                  "input_sha256": "a7e2a40776e73822c190a45b0610140ce699b1198a9514a9c9ee01675dcb263d",
+                  "reasoning": "The candidate README complies with all applicable visitor contract requirements. It has exactly one H1 title, one badge row with four core badges, and all required H2 sections in the correct order. The 'At a glance' Mermaid diagram shows inputs, product, capabilities, and outputs as required. The 'Quick start' section contains one fenced block with 6 nonblank code lines, under the 12-line limit. The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold. The 'License' section explicitly lists all four required benefit terms. No comments or emojis are present. All mechanical checks pass.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
                 },
                 "combined_review": {
                   "blind_quality": {
-                    "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                    "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                     "content_assurance": "repository_verified",
                     "failed_criteria": [],
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                        "claim": "H1 title is clear, sentence-case, and undecorated with no emoji.",
+                        "claim": "The H1 title is clear, factual, and uses sentence case without emoji.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8224,8 +8224,8 @@
                         "section": "Header"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.92c333a7df84da85a22b.1",
-                        "claim": "Opening paragraph clearly describes the product's purpose and scope.",
+                        "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
+                        "claim": "The Mermaid diagram uses the required grammar (inputs-product-capabilities-outputs) and shows concrete product-specific formats.",
                         "criterion": "product_specificity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8237,15 +8237,15 @@
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "Aspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.",
+                        "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Opening paragraph"
+                        "section": "At a glance"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
-                        "claim": "Navigation section lists all required H2 headings in correct order.",
-                        "criterion": "hierarchy",
+                        "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
+                        "claim": "The installation command is presented clearly in a fenced code block.",
+                        "criterion": "installation_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
@@ -8256,14 +8256,14 @@
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
+                        "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Navigation"
+                        "section": "Installation"
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.418e24cc26aa78745082.1",
-                        "claim": "Quick start section contains one fenced code block with 6 nonblank lines, within the 12-line limit.",
+                        "claim": "The primary example is concise, uses one fenced block, and contains 6 nonblank code lines, within the 12-line limit.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8281,9 +8281,9 @@
                         "section": "Quick start"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.d6c64ba6b9334da8b270.1",
-                        "claim": "Mermaid diagram uses correct grammar with inputs, product, capabilities, and outputs.",
-                        "criterion": "markdown_integrity",
+                        "candidate_anchor_id": "candidate.anchor.0804e09b6216db5446fe.1",
+                        "claim": "The Navigation section lists all required H2 labels as markdown bullets.",
+                        "criterion": "navigation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
@@ -8294,14 +8294,14 @@
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```",
+                        "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "At a glance"
+                        "section": "Navigation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.db68b0ffbd9c10283fcc.1",
-                        "claim": "Enterprise Edition relationship is placed below the fold and clearly distinguishes FOSS from Enterprise Edition.",
+                        "candidate_anchor_id": "candidate.anchor.74af660195af1fdcfbd8.1",
+                        "claim": "The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold.",
                         "criterion": "promotional_balance",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8313,14 +8313,14 @@
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "[Aspose.Note FOSS for python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
+                        "quoted_candidate_span": "[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.",
                         "reported_observed_value": null,
                         "required_repair": "",
                         "section": "Scope and limitations"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.5ff1385a1ef9f329d70f.1",
-                        "claim": "Badge row is compact and contains only allowed badge kinds on one line.",
+                        "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
+                        "claim": "The header contains exactly one H1 title block and one badge row, with no visible duplication.",
                         "criterion": "visible_duplication",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8329,18 +8329,18 @@
                         "fact_id": null,
                         "finding_id": "f7",
                         "kind": "quality",
-                        "mechanical_check_id": "header.badge_rows",
+                        "mechanical_check_id": "document.h1_blocks",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
+                        "quoted_candidate_span": "# Aspose.Note FOSS for Python",
                         "reported_observed_value": 1,
                         "required_repair": "",
                         "section": "Header"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.984fd262b3f250ac6611.1",
-                        "claim": "Installation section provides clear pip command and optional dependency groups.",
-                        "criterion": "installation_presentation",
+                        "candidate_anchor_id": "candidate.anchor.76e1e5fc3e2b77ae0391.1",
+                        "claim": "The License section explicitly lists all four required benefit terms: use, modification, distribution, and commercial use.",
+                        "criterion": "markdown_integrity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
@@ -8351,10 +8351,10 @@
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "```bash\npython -m pip install aspose-note\n```",
+                        "quoted_candidate_span": "This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Installation"
+                        "section": "License"
                       }
                     ],
                     "grounding_validation": {
@@ -8377,16 +8377,16 @@
                       "prompt_sha256": "707811d40ca68f7cb7c84edb2e56c8d231ef784dd094f5382f06a9c02963884d",
                       "role": "blind_quality_reviewer"
                     },
-                    "input_sha256": "bbfb60810d7c60929ff49450d6635d851da1e100020097c50a3fb78685cfd8ca",
-                    "reasoning": "The candidate README meets all visible quality criteria per the visitor contract. It has a single H1 title followed by one badge row, a concise product description, required H2 sections in correct order, a Mermaid diagram with inputs-product-capabilities-outputs grammar, a single Quick start example with 6 nonblank code lines, no comments, and a License section containing all required benefit terms. The Enterprise Edition relationship is correctly placed below the fold in the Scope and limitations section.",
+                    "input_sha256": "a7e2a40776e73822c190a45b0610140ce699b1198a9514a9c9ee01675dcb263d",
+                    "reasoning": "The candidate README complies with all applicable visitor contract requirements. It has exactly one H1 title, one badge row with four core badges, and all required H2 sections in the correct order. The 'At a glance' Mermaid diagram shows inputs, product, capabilities, and outputs as required. The 'Quick start' section contains one fenced block with 6 nonblank code lines, under the 12-line limit. The 'Scope and limitations' section includes the required 'Enterprise Edition' term below the fold. The 'License' section explicitly lists all four required benefit terms. No comments or emojis are present. All mechanical checks pass.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
                   },
-                  "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "content_assurance": "repository_verified",
                   "factual_plan": {
-                    "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                    "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                     "content_assurance": "repository_verified",
                     "failed_criteria": [],
                     "findings": [
@@ -8563,8 +8563,8 @@
                       "prompt_sha256": "1d2605f3e8ad92f5145071f11bbb9a821db348f2e5b022d3ddc53d6face9f1d4",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "c6724291c4d1f8c461584441742677e18dd7d948556b5e099e94d85722fd5b7f",
-                    "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (positive_implementation or explicit_constraint as appropriate). The plan correctly preserves source sections and applies only fact-backed corrections. No contradictions, missing evidence, or bounded plan mismatches exist.",
+                    "input_sha256": "d00ac115e94182105f3d469e4c1a6a223125b24d2cae26a11d8078735b3bb4b0",
+                    "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (supports_acceptance). The plan correctly maps operations to facts, and the candidate accurately reflects the repository evidence, registry data, and manifest information. No contradictions, missing evidence, or bounded plan mismatches exist.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -8578,7 +8578,7 @@
                 },
                 "content_assurance": "repository_verified",
                 "factual_plan_review": {
-                  "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "content_assurance": "repository_verified",
                   "failed_criteria": [],
                   "findings": [
@@ -8755,8 +8755,8 @@
                     "prompt_sha256": "1d2605f3e8ad92f5145071f11bbb9a821db348f2e5b022d3ddc53d6face9f1d4",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "c6724291c4d1f8c461584441742677e18dd7d948556b5e099e94d85722fd5b7f",
-                  "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (positive_implementation or explicit_constraint as appropriate). The plan correctly preserves source sections and applies only fact-backed corrections. No contradictions, missing evidence, or bounded plan mismatches exist.",
+                  "input_sha256": "d00ac115e94182105f3d469e4c1a6a223125b24d2cae26a11d8078735b3bb4b0",
+                  "reasoning": "The candidate README is fully supported by the selected facts and the bounded plan. All claims in the candidate are bound to verified facts with correct polarity (supports_acceptance). The plan correctly maps operations to facts, and the candidate accurately reflects the repository evidence, registry data, and manifest information. No contradictions, missing evidence, or bounded plan mismatches exist.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -8861,15 +8861,8 @@
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "7c990286dfb36e699803459458dad70a136de4dbc8c275f2476e5c316c7e0f00",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "6a91a20a53b4b1a3c0e043b5cd7a7fb8e4115e8e531b3a0777a313303c97d83c"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "no_op_bundle_reused": true,
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
@@ -9123,7 +9116,7 @@
             "tool_schema_sha256": "55afc7b750339eeccf77809c5d81f792fb989cefda68f4ca4f9860c4c9b8a3d3"
           },
           "claim_map": {
-            "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+            "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
             "claims": [
               {
                 "byte_end": 29,
@@ -12321,12 +12314,12 @@
                 "byte_end": 11408,
                 "byte_start": 11133,
                 "claim_id": "template.section.scope_and_limitations:product.identity",
-                "claim_text_sha256": "db68b0ffbd9c10283fcca1c9e8df4c154ea1980d154d428bd50727739118147b",
+                "claim_text_sha256": "74af660195af1fdcfbd8896e7aa0af731486ee3b7dd6764cc90f50fbd4eadc1f",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "product.identity:manifest-and-registry",
                 "fact_value_sha256": "58ed8f020704bc7815b056a02d9cea132ca4727b6ec3f2c0d64cc12aa8bc121d",
                 "field": "product.identity",
-                "introduced_text_sha256": "a1f85f1240c61dd1762cc6c45f24f609887b7531e84c546c0733a4b8b6e59882",
+                "introduced_text_sha256": "759488f2cd6229240440b87c6c1488a593b667939f36249a1d36f9cc2fabe092",
                 "operation_id": "template.section.scope_and_limitations",
                 "rationale": "Bind one exact compiled slot to its accepted inputs.",
                 "verification_state": "verified"
@@ -12340,7 +12333,7 @@
                 "fact_id": "product.limitations:executable-constraints",
                 "fact_value_sha256": "164bde8061cb601706e68814901a3d3e7d60ebededa2c4008c1b3deed1dbff80",
                 "field": "product.limitations",
-                "introduced_text_sha256": "a1f85f1240c61dd1762cc6c45f24f609887b7531e84c546c0733a4b8b6e59882",
+                "introduced_text_sha256": "759488f2cd6229240440b87c6c1488a593b667939f36249a1d36f9cc2fabe092",
                 "operation_id": "template.section.scope_and_limitations",
                 "rationale": "Bind one exact compiled slot to its accepted inputs.",
                 "verification_state": "verified"
@@ -12891,10 +12884,10 @@
           },
           "executable": true,
           "git_patch_proof": {
-            "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+            "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
             "git_apply_check_passed": true,
             "outside_spans_preserved": true,
-            "patch_sha256": "65f55f760be804824ff7bed1bf6f634f07280165835726521bae302af212308e",
+            "patch_sha256": "74d8d28a267c86c35f6ce41d5b3c2c9b3c80d5cf006dd344f2fee490543cb8eb",
             "path": "README.md",
             "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4"
           },
@@ -14948,7 +14941,7 @@
                   "repository.third_party_notices:root-notices-file"
                 ],
                 "ownership_class": "repository_file",
-                "patch_sha256": "65f55f760be804824ff7bed1bf6f634f07280165835726521bae302af212308e",
+                "patch_sha256": "74d8d28a267c86c35f6ce41d5b3c2c9b3c80d5cf006dd344f2fee490543cb8eb",
                 "proposed_operation": "local_patch",
                 "region_id": "readme.presentation",
                 "rollback": "revert the bounded file patch",
@@ -14959,7 +14952,7 @@
                     "expected_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
                     "path": "README.md",
                     "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
-                    "replacement_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf"
+                    "replacement_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0"
                   }
                 ],
                 "stop_conditions": [
@@ -14982,7 +14975,7 @@
               }
             ],
             "archetype": "python-library",
-            "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+            "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
             "content_assurance": "repository_verified",
             "facts_hash": "03e739cd2fcdfad01e0957bae5244d5d1ff26215ae374ddbffdf8b2b4a9aa66f",
             "findings": [
@@ -21225,9 +21218,9 @@
                 "rationale": "Bind one exact compiled slot to its accepted inputs."
               }
             ],
-            "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+            "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
             "claim_accountability": {
-              "candidate_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+              "candidate_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
               "claims": [
                 {
                   "accepted_fact_coordinates": [],
@@ -34886,12 +34879,12 @@
                   "authoritative_owners": [
                     "repository-owner"
                   ],
-                  "claim_id": "candidate:claim:11133:60a659867bef1a99",
+                  "claim_id": "candidate:claim:11133:771a81506d3cf5ae",
                   "configured_standard_ids": [
                     "readme.contextual_links",
                     "readme.enterprise_edition_terminology"
                   ],
-                  "content_sha256": "60a659867bef1a997b74f65099750e0ff41582e677845bc5ad8804b1f53187d0",
+                  "content_sha256": "771a81506d3cf5aedc5316150d921c849bb2efb103920be6f1bc2faa4141aa5c",
                   "current_disposition": "remove_update",
                   "currently_accountable": true,
                   "equivalence_group_id": null,
@@ -35802,8 +35795,8 @@
                 "path": "README.md",
                 "protected_content_treatment": "presentation_policy_correction",
                 "rationale": "Compile the accepted fact-slot presentation contract; exact candidate provenance and source-claim resolutions remain independently fail-closed.",
-                "replacement_sha256": "558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
-                "replacement_text": "# Aspose.Note FOSS for Python\n\n[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)\n\nAspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.\n\n## Navigation\n\n- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)\n\n## At a glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```\n\n## Key capabilities\n\n- Document and traversal.\n- Page and Title nodes.\n- RichText with formatting runs.\n- Image and AttachedFile content.\n- Table with rows and cells.\n- OneNote tags on content nodes.\n- Numbered lists and outline elements.\n- PDF export via SaveFormat.Pdf.\n\n## Installation\n\n```bash\npython -m pip install aspose-note\n```\n\nRequires Python 3.10 or later.\n\nOptional dependency groups declared in `pyproject.toml`:\n- `dev`: `python -m pip install \"aspose-note[dev]\"`\n- `pdf`: `python -m pip install \"aspose-note[pdf]\"`\n- `test-pdf`: `python -m pip install \"aspose-note[test-pdf]\"`\n\n## Quick start\n\n### Minimal verified example\n\n- Before running the example, provide `testfiles/3ImagesWithDifferentAlignment.one`; verification used the repository fixture `testfiles/3ImagesWithDifferentAlignment.one`.\n\n```python\nfrom aspose.note import Document, Image\n\ndoc = Document(\"testfiles/3ImagesWithDifferentAlignment.one\")\nfor i, img in enumerate(doc.GetChildNodes(Image), start=1):\n    name = img.FileName or f\"image_{i}.bin\"\n    with open(name, \"wb\") as f:\n        f.write(img.Bytes)\n```\n\n## Additional examples\n\nExplore additional examples for common product workflows.\n\n<details>\n<summary>View additional source examples</summary>\n\n- [`export_pdf.py`](examples/export_pdf.py)\n- [`extract_text.py`](examples/extract_text.py)\n- [`save_images.py`](examples/save_images.py)\n\n</details>\n\n## API reference\n\nThe package declares 36 public exports in its static `__all__` surface.\n\n<details>\n<summary>View the public API inventory</summary>\n\n### `aspose`\n\n- `note`\n\n### `aspose.note`\n\n- `FileCorruptedException`\n- `IncorrectDocumentStructureException`\n- `IncorrectPasswordException`\n- `UnsupportedFileFormatException`\n- `UnsupportedSaveFormatException`\n- `SaveFormat`\n- `FileFormat`\n- `HorizontalAlignment`\n- `TagStatus`\n- `NodeType`\n- `DocumentVisitor`\n- `License`\n- `Metered`\n- `LoadOptions`\n- `Node`\n- `NoteTag`\n- `ParagraphStyle`\n- `TextStyle`\n- `TextRun`\n- `RichText`\n- `Title`\n- `NumberList`\n- `OutlineElement`\n- `Outline`\n- `Image`\n- `AttachedFile`\n- `TableColumn`\n- `TableCell`\n- `TableRow`\n- `Table`\n- `Page`\n- `PageHistory`\n- `Document`\n\n### `aspose.note.saving`\n\n- `SaveOptions`\n- `PdfSaveOptions`\n\n### `UnsupportedFileFormatException` members\n\n- `FileFormat: FileFormat`\n\n### `DocumentVisitor` members\n\n- `VisitDocumentStart(document) -> None`\n- `VisitDocumentEnd(document) -> None`\n- `VisitPageStart(page) -> None`\n- `VisitPageEnd(page) -> None`\n- `VisitTitleStart(title) -> None`\n- `VisitTitleEnd(title) -> None`\n- `VisitOutlineStart(outline) -> None`\n- `VisitOutlineEnd(outline) -> None`\n- `VisitOutlineElementStart(outline_element) -> None`\n- `VisitOutlineElementEnd(outline_element) -> None`\n- `VisitRichTextStart(rich_text) -> None`\n- `VisitRichTextEnd(rich_text) -> None`\n- `VisitImageStart(image) -> None`\n- `VisitImageEnd(image) -> None`\n\n### `License` members\n\n- `SetLicense(license_path_or_stream) -> None`\n\n### `Metered` members\n\n- `SetMeteredKey(public_key, private_key) -> None`\n\n### `LoadOptions` members\n\n- `DocumentPassword: str | None`\n- `LoadHistory: bool`\n\n### `Node` members\n\n- `ParentNode: Node | None`\n- `Document: Document | None`\n- `Accept(visitor) -> None`\n\n### `NoteTag` members\n\n- `Label: str | None`\n- `Label(value) -> None`\n- `Icon: int | None`\n- `Icon(value) -> None`\n- `Status: TagStatus`\n- `Highlight: int | None`\n- `Highlight(value) -> None`\n- `CreationTime: datetime | None`\n- `CreationTime(value) -> None`\n- `CompletedTime: datetime | None`\n- `FontColor: int | None`\n- `FontColor(value) -> None`\n- `CreateYellowStar(label=None) -> NoteTag`\n- `CreateQuestionMark(label=None) -> NoteTag`\n- `CreateMusicalNote(label=None) -> NoteTag`\n\n### `ParagraphStyle` members\n\n- `FontStyle: int`\n- `Default() -> ParagraphStyle`\n\n### `TextStyle` members\n\n- `IsHyperlink: bool`\n- `IsHyperlink(value) -> None`\n- `HyperlinkAddress: str | None`\n- `HyperlinkAddress(value) -> None`\n- `FontName: str | None`\n- `FontName(value) -> None`\n- `FontSize: float | None`\n- `FontSize(value) -> None`\n- `FontColor: int | None`\n- `FontColor(value) -> None`\n- `Highlight: int | None`\n- `Highlight(value) -> None`\n- `Language: int | None`\n- `Language(value) -> None`\n- `IsBold: bool`\n- `IsBold(value) -> None`\n- `IsItalic: bool`\n- `IsItalic(value) -> None`\n- `IsUnderline: bool`\n- `IsUnderline(value) -> None`\n- `IsStrikethrough: bool`\n- `IsStrikethrough(value) -> None`\n- `IsSuperscript: bool`\n- `IsSuperscript(value) -> None`\n- `IsSubscript: bool`\n- `IsSubscript(value) -> None`\n- `IsHidden: bool`\n- `IsHidden(value) -> None`\n- `IsMathFormatting: bool`\n- `IsMathFormatting(value) -> None`\n- `FontStyle: int`\n- `Default() -> TextStyle`\n- `DefaultMsOneNoteTitleTextStyle() -> TextStyle`\n- `DefaultMsOneNoteTitleDateStyle() -> TextStyle`\n- `DefaultMsOneNoteTitleTimeStyle() -> TextStyle`\n\n### `TextRun` members\n\n- `Text: str`\n- `Style: TextStyle`\n\n### `RichText` members\n\n- `Text: str`\n- `Text(value) -> None`\n- `TextRuns: list[TextRun]`\n- `ParagraphStyle: ParagraphStyle`\n- `ParagraphStyle(value) -> None`\n- `Tags: list[NoteTag]`\n- `Length: int`\n- `Alignment: HorizontalAlignment | None`\n- `Alignment(value) -> None`\n- `IsTitleText: bool`\n- `IsTitleDate: bool`\n- `IsTitleTime: bool`\n- `Append(text, style=None) -> RichText`\n- `AppendFront(text, style=None) -> RichText`\n- `Clear() -> RichText`\n- `GetEnumerator() -> Iterator[str]`\n- `IndexOf(value, startIndex=0, count=None, comparison=None) -> int`\n- `Insert(index, text, style=None) -> RichText`\n- `Remove(start, count=None) -> RichText`\n- `Replace(old_value, new_value, style=None) -> RichText`\n- `Trim() -> RichText`\n- `TrimStart() -> RichText`\n- `TrimEnd() -> RichText`\n\n### `Title` members\n\n- `TitleText: RichText | None`\n- `TitleText(value) -> None`\n- `TitleDate: RichText | None`\n- `TitleDate(value) -> None`\n- `TitleTime: RichText | None`\n- `TitleTime(value) -> None`\n- `GetEnumerator() -> Iterator[Node]`\n- `GetChildNodes(node_type) -> list[TNode]`\n\n### `NumberList` members\n\n- `Format: str | None`\n- `NumberFormat: str | None`\n- `Font: str | None`\n- `FontSize: float | None`\n- `FontColor: int | None`\n- `IsBold: bool`\n- `IsItalic: bool`\n- `LastModifiedTime: datetime | None`\n- `Restart: int | None`\n- `GetNumberedListHeader(number) -> str`\n\n### `OutlineElement` members\n\n- `NumberList: NumberList | None`\n\n### `Outline` members\n\n- `HorizontalOffset: float | None`\n- `VerticalOffset: float | None`\n- `MaxWidth: float | None`\n- `MaxHeight: float | None`\n- `MinWidth: float | None`\n- `ReservedWidth: float | None`\n- `IndentPosition: float | None`\n- `DescendantsCannotBeMoved: bool`\n- `LastModifiedTime: datetime | None`\n\n### `Image` members\n\n- `FileName: str | None`\n- `FilePath: str | None`\n- `Format: str | None`\n- `Bytes: bytes`\n- `OriginalWidth: float | None`\n- `OriginalHeight: float | None`\n- `Tags: list[NoteTag]`\n- `Alignment: HorizontalAlignment | None`\n- `Alignment(value) -> None`\n- `Replace(image) -> None`\n\n### `AttachedFile` members\n\n- `FileName: str | None`\n- `Bytes: bytes`\n- `Tags: list[NoteTag]`\n\n### `TableColumn` members\n\n- `Width: float | None`\n- `LockedWidth: bool`\n\n### `Table` members\n\n- `Tags: list[NoteTag]`\n- `Columns: list[TableColumn]`\n\n### `Page` members\n\n- `Title: Title | None`\n- `Author: str | None`\n- `CreationTime: datetime | None`\n- `LastModifiedTime: datetime | None`\n- `Level: int | None`\n- `BackgroundColor: int | None`\n- `Margin: Any | None`\n- `SizeType: Any | None`\n- `PageLayoutSize: Any | None`\n- `IsConflictPage: bool`\n- `PageContentRevisionSummary: Any | None`\n- `Clone(cloneHistory=False, **kwargs) -> Page`\n\n### `PageHistory` members\n\n- `Count: int`\n- `Current: Page`\n- `IsReadOnly: bool`\n- `Add(page) -> None`\n- `AddRange(pages) -> None`\n- `Clear() -> None`\n- `Contains(page) -> bool`\n- `CopyTo(target, index) -> None`\n- `GetEnumerator() -> Iterator[Page]`\n- `IndexOf(page) -> int`\n- `Insert(index, page) -> None`\n- `Remove(page) -> bool`\n- `RemoveAt(index) -> None`\n- `RemoveRange(index, count) -> None`\n\n### `Document` members\n\n- `FileFormat: FileFormat`\n- `DetectLayoutChanges() -> None`\n- `GetPageHistory(page) -> PageHistory`\n- `Save(target, format_or_options=None) -> None`\n\n### `SaveOptions` members\n\n- `SaveFormat: SaveFormat`\n\n</details>\n\n## Scope and limitations\n\n- Only .pdf file targets are supported for save operations\n- Password-protected documents are not supported\n- Only PDF save is supported\n- PDF export requires ReportLab\n\n[Aspose.Note FOSS for python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.\n\n## Development and testing\n\nThe repository includes 13 test files, 1 maintenance tool, 13 golden assets.\n\n<details>\n<summary>View development and testing resources</summary>\n\n### Tests\n\n- [`tests/test_aspose_note_compat_smoke.py`](tests/test_aspose_note_compat_smoke.py)\n- [`tests/test_aspose_note_dom_content.py`](tests/test_aspose_note_dom_content.py)\n- [`tests/test_aspose_note_dom_document.py`](tests/test_aspose_note_dom_document.py)\n- [`tests/test_aspose_note_exceptions_and_stubs.py`](tests/test_aspose_note_exceptions_and_stubs.py)\n- [`tests/test_aspose_note_history.py`](tests/test_aspose_note_history.py)\n- [Browse all test files](tests)\n\n### Tools\n\n- [`tools/regenerate_pdf_goldens.py`](tools/regenerate_pdf_goldens.py)\n\n### Goldens\n\n- [`tests/goldens/pdf/attached_file_with_tag.manifest.json`](tests/goldens/pdf/attached_file_with_tag.manifest.json)\n- [`tests/goldens/pdf/formatted_richtext.manifest.json`](tests/goldens/pdf/formatted_richtext.manifest.json)\n- [`tests/goldens/pdf/image_with_tag.manifest.json`](tests/goldens/pdf/image_with_tag.manifest.json)\n- [`tests/goldens/pdf/images_with_alignment.manifest.json`](tests/goldens/pdf/images_with_alignment.manifest.json)\n- [`tests/goldens/pdf/numbered_list_with_tags.manifest.json`](tests/goldens/pdf/numbered_list_with_tags.manifest.json)\n- [`tests/goldens/pdf/one_page_with_file.manifest.json`](tests/goldens/pdf/one_page_with_file.manifest.json)\n- [`tests/goldens/pdf/page_with_subpage.manifest.json`](tests/goldens/pdf/page_with_subpage.manifest.json)\n- [`tests/goldens/pdf/page_with_subpage.pdf`](tests/goldens/pdf/page_with_subpage.pdf)\n- [Browse all golden assets](tests/goldens)\n\n\n</details>\n\n## Third-party notices\n\nThird-party attribution and dependency license notices are recorded in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).\n\n## License\n\nThis project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
+                "replacement_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
+                "replacement_text": "# Aspose.Note FOSS for Python\n\n[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)\n\nAspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.\n\n## Navigation\n\n- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [API reference](#api-reference)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [Third-party notices](#third-party-notices)\n- [License](#license)\n\n## At a glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"Microsoft OneNote (.one) file\"]\n    input_2[\"Binary stream\"]\n    input_3[\"Python 3.10+ runtime\"]\n  end\n\n  product[\"Aspose.Note FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Document and traversal\"]\n    capability_2[\"Page and Title nodes\"]\n    capability_3[\"RichText with formatting runs\"]\n    capability_4[\"Image and AttachedFile content\"]\n    capability_5[\"Table with rows and cells\"]\n    capability_6[\"OneNote tags on content nodes\"]\n    capability_7[\"PDF export via SaveFormat.Pdf\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"Document object model\"]\n    output_2[\"Extracted text and metadata\"]\n    output_3[\"PDF document\"]\n    output_4[\"Image and attached file bytes\"]\n    output_5[\"Tagged content nodes\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- capability_7\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n  product --- output_5\n```\n\n## Key capabilities\n\n- Document and traversal.\n- Page and Title nodes.\n- RichText with formatting runs.\n- Image and AttachedFile content.\n- Table with rows and cells.\n- OneNote tags on content nodes.\n- Numbered lists and outline elements.\n- PDF export via SaveFormat.Pdf.\n\n## Installation\n\n```bash\npython -m pip install aspose-note\n```\n\nRequires Python 3.10 or later.\n\nOptional dependency groups declared in `pyproject.toml`:\n- `dev`: `python -m pip install \"aspose-note[dev]\"`\n- `pdf`: `python -m pip install \"aspose-note[pdf]\"`\n- `test-pdf`: `python -m pip install \"aspose-note[test-pdf]\"`\n\n## Quick start\n\n### Minimal verified example\n\n- Before running the example, provide `testfiles/3ImagesWithDifferentAlignment.one`; verification used the repository fixture `testfiles/3ImagesWithDifferentAlignment.one`.\n\n```python\nfrom aspose.note import Document, Image\n\ndoc = Document(\"testfiles/3ImagesWithDifferentAlignment.one\")\nfor i, img in enumerate(doc.GetChildNodes(Image), start=1):\n    name = img.FileName or f\"image_{i}.bin\"\n    with open(name, \"wb\") as f:\n        f.write(img.Bytes)\n```\n\n## Additional examples\n\nExplore additional examples for common product workflows.\n\n<details>\n<summary>View additional source examples</summary>\n\n- [`export_pdf.py`](examples/export_pdf.py)\n- [`extract_text.py`](examples/extract_text.py)\n- [`save_images.py`](examples/save_images.py)\n\n</details>\n\n## API reference\n\nThe package declares 36 public exports in its static `__all__` surface.\n\n<details>\n<summary>View the public API inventory</summary>\n\n### `aspose`\n\n- `note`\n\n### `aspose.note`\n\n- `FileCorruptedException`\n- `IncorrectDocumentStructureException`\n- `IncorrectPasswordException`\n- `UnsupportedFileFormatException`\n- `UnsupportedSaveFormatException`\n- `SaveFormat`\n- `FileFormat`\n- `HorizontalAlignment`\n- `TagStatus`\n- `NodeType`\n- `DocumentVisitor`\n- `License`\n- `Metered`\n- `LoadOptions`\n- `Node`\n- `NoteTag`\n- `ParagraphStyle`\n- `TextStyle`\n- `TextRun`\n- `RichText`\n- `Title`\n- `NumberList`\n- `OutlineElement`\n- `Outline`\n- `Image`\n- `AttachedFile`\n- `TableColumn`\n- `TableCell`\n- `TableRow`\n- `Table`\n- `Page`\n- `PageHistory`\n- `Document`\n\n### `aspose.note.saving`\n\n- `SaveOptions`\n- `PdfSaveOptions`\n\n### `UnsupportedFileFormatException` members\n\n- `FileFormat: FileFormat`\n\n### `DocumentVisitor` members\n\n- `VisitDocumentStart(document) -> None`\n- `VisitDocumentEnd(document) -> None`\n- `VisitPageStart(page) -> None`\n- `VisitPageEnd(page) -> None`\n- `VisitTitleStart(title) -> None`\n- `VisitTitleEnd(title) -> None`\n- `VisitOutlineStart(outline) -> None`\n- `VisitOutlineEnd(outline) -> None`\n- `VisitOutlineElementStart(outline_element) -> None`\n- `VisitOutlineElementEnd(outline_element) -> None`\n- `VisitRichTextStart(rich_text) -> None`\n- `VisitRichTextEnd(rich_text) -> None`\n- `VisitImageStart(image) -> None`\n- `VisitImageEnd(image) -> None`\n\n### `License` members\n\n- `SetLicense(license_path_or_stream) -> None`\n\n### `Metered` members\n\n- `SetMeteredKey(public_key, private_key) -> None`\n\n### `LoadOptions` members\n\n- `DocumentPassword: str | None`\n- `LoadHistory: bool`\n\n### `Node` members\n\n- `ParentNode: Node | None`\n- `Document: Document | None`\n- `Accept(visitor) -> None`\n\n### `NoteTag` members\n\n- `Label: str | None`\n- `Label(value) -> None`\n- `Icon: int | None`\n- `Icon(value) -> None`\n- `Status: TagStatus`\n- `Highlight: int | None`\n- `Highlight(value) -> None`\n- `CreationTime: datetime | None`\n- `CreationTime(value) -> None`\n- `CompletedTime: datetime | None`\n- `FontColor: int | None`\n- `FontColor(value) -> None`\n- `CreateYellowStar(label=None) -> NoteTag`\n- `CreateQuestionMark(label=None) -> NoteTag`\n- `CreateMusicalNote(label=None) -> NoteTag`\n\n### `ParagraphStyle` members\n\n- `FontStyle: int`\n- `Default() -> ParagraphStyle`\n\n### `TextStyle` members\n\n- `IsHyperlink: bool`\n- `IsHyperlink(value) -> None`\n- `HyperlinkAddress: str | None`\n- `HyperlinkAddress(value) -> None`\n- `FontName: str | None`\n- `FontName(value) -> None`\n- `FontSize: float | None`\n- `FontSize(value) -> None`\n- `FontColor: int | None`\n- `FontColor(value) -> None`\n- `Highlight: int | None`\n- `Highlight(value) -> None`\n- `Language: int | None`\n- `Language(value) -> None`\n- `IsBold: bool`\n- `IsBold(value) -> None`\n- `IsItalic: bool`\n- `IsItalic(value) -> None`\n- `IsUnderline: bool`\n- `IsUnderline(value) -> None`\n- `IsStrikethrough: bool`\n- `IsStrikethrough(value) -> None`\n- `IsSuperscript: bool`\n- `IsSuperscript(value) -> None`\n- `IsSubscript: bool`\n- `IsSubscript(value) -> None`\n- `IsHidden: bool`\n- `IsHidden(value) -> None`\n- `IsMathFormatting: bool`\n- `IsMathFormatting(value) -> None`\n- `FontStyle: int`\n- `Default() -> TextStyle`\n- `DefaultMsOneNoteTitleTextStyle() -> TextStyle`\n- `DefaultMsOneNoteTitleDateStyle() -> TextStyle`\n- `DefaultMsOneNoteTitleTimeStyle() -> TextStyle`\n\n### `TextRun` members\n\n- `Text: str`\n- `Style: TextStyle`\n\n### `RichText` members\n\n- `Text: str`\n- `Text(value) -> None`\n- `TextRuns: list[TextRun]`\n- `ParagraphStyle: ParagraphStyle`\n- `ParagraphStyle(value) -> None`\n- `Tags: list[NoteTag]`\n- `Length: int`\n- `Alignment: HorizontalAlignment | None`\n- `Alignment(value) -> None`\n- `IsTitleText: bool`\n- `IsTitleDate: bool`\n- `IsTitleTime: bool`\n- `Append(text, style=None) -> RichText`\n- `AppendFront(text, style=None) -> RichText`\n- `Clear() -> RichText`\n- `GetEnumerator() -> Iterator[str]`\n- `IndexOf(value, startIndex=0, count=None, comparison=None) -> int`\n- `Insert(index, text, style=None) -> RichText`\n- `Remove(start, count=None) -> RichText`\n- `Replace(old_value, new_value, style=None) -> RichText`\n- `Trim() -> RichText`\n- `TrimStart() -> RichText`\n- `TrimEnd() -> RichText`\n\n### `Title` members\n\n- `TitleText: RichText | None`\n- `TitleText(value) -> None`\n- `TitleDate: RichText | None`\n- `TitleDate(value) -> None`\n- `TitleTime: RichText | None`\n- `TitleTime(value) -> None`\n- `GetEnumerator() -> Iterator[Node]`\n- `GetChildNodes(node_type) -> list[TNode]`\n\n### `NumberList` members\n\n- `Format: str | None`\n- `NumberFormat: str | None`\n- `Font: str | None`\n- `FontSize: float | None`\n- `FontColor: int | None`\n- `IsBold: bool`\n- `IsItalic: bool`\n- `LastModifiedTime: datetime | None`\n- `Restart: int | None`\n- `GetNumberedListHeader(number) -> str`\n\n### `OutlineElement` members\n\n- `NumberList: NumberList | None`\n\n### `Outline` members\n\n- `HorizontalOffset: float | None`\n- `VerticalOffset: float | None`\n- `MaxWidth: float | None`\n- `MaxHeight: float | None`\n- `MinWidth: float | None`\n- `ReservedWidth: float | None`\n- `IndentPosition: float | None`\n- `DescendantsCannotBeMoved: bool`\n- `LastModifiedTime: datetime | None`\n\n### `Image` members\n\n- `FileName: str | None`\n- `FilePath: str | None`\n- `Format: str | None`\n- `Bytes: bytes`\n- `OriginalWidth: float | None`\n- `OriginalHeight: float | None`\n- `Tags: list[NoteTag]`\n- `Alignment: HorizontalAlignment | None`\n- `Alignment(value) -> None`\n- `Replace(image) -> None`\n\n### `AttachedFile` members\n\n- `FileName: str | None`\n- `Bytes: bytes`\n- `Tags: list[NoteTag]`\n\n### `TableColumn` members\n\n- `Width: float | None`\n- `LockedWidth: bool`\n\n### `Table` members\n\n- `Tags: list[NoteTag]`\n- `Columns: list[TableColumn]`\n\n### `Page` members\n\n- `Title: Title | None`\n- `Author: str | None`\n- `CreationTime: datetime | None`\n- `LastModifiedTime: datetime | None`\n- `Level: int | None`\n- `BackgroundColor: int | None`\n- `Margin: Any | None`\n- `SizeType: Any | None`\n- `PageLayoutSize: Any | None`\n- `IsConflictPage: bool`\n- `PageContentRevisionSummary: Any | None`\n- `Clone(cloneHistory=False, **kwargs) -> Page`\n\n### `PageHistory` members\n\n- `Count: int`\n- `Current: Page`\n- `IsReadOnly: bool`\n- `Add(page) -> None`\n- `AddRange(pages) -> None`\n- `Clear() -> None`\n- `Contains(page) -> bool`\n- `CopyTo(target, index) -> None`\n- `GetEnumerator() -> Iterator[Page]`\n- `IndexOf(page) -> int`\n- `Insert(index, page) -> None`\n- `Remove(page) -> bool`\n- `RemoveAt(index) -> None`\n- `RemoveRange(index, count) -> None`\n\n### `Document` members\n\n- `FileFormat: FileFormat`\n- `DetectLayoutChanges() -> None`\n- `GetPageHistory(page) -> PageHistory`\n- `Save(target, format_or_options=None) -> None`\n\n### `SaveOptions` members\n\n- `SaveFormat: SaveFormat`\n\n</details>\n\n## Scope and limitations\n\n- Only .pdf file targets are supported for save operations\n- Password-protected documents are not supported\n- Only PDF save is supported\n- PDF export requires ReportLab\n\n[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.\n\n## Development and testing\n\nThe repository includes 13 test files, 1 maintenance tool, 13 golden assets.\n\n<details>\n<summary>View development and testing resources</summary>\n\n### Tests\n\n- [`tests/test_aspose_note_compat_smoke.py`](tests/test_aspose_note_compat_smoke.py)\n- [`tests/test_aspose_note_dom_content.py`](tests/test_aspose_note_dom_content.py)\n- [`tests/test_aspose_note_dom_document.py`](tests/test_aspose_note_dom_document.py)\n- [`tests/test_aspose_note_exceptions_and_stubs.py`](tests/test_aspose_note_exceptions_and_stubs.py)\n- [`tests/test_aspose_note_history.py`](tests/test_aspose_note_history.py)\n- [Browse all test files](tests)\n\n### Tools\n\n- [`tools/regenerate_pdf_goldens.py`](tools/regenerate_pdf_goldens.py)\n\n### Goldens\n\n- [`tests/goldens/pdf/attached_file_with_tag.manifest.json`](tests/goldens/pdf/attached_file_with_tag.manifest.json)\n- [`tests/goldens/pdf/formatted_richtext.manifest.json`](tests/goldens/pdf/formatted_richtext.manifest.json)\n- [`tests/goldens/pdf/image_with_tag.manifest.json`](tests/goldens/pdf/image_with_tag.manifest.json)\n- [`tests/goldens/pdf/images_with_alignment.manifest.json`](tests/goldens/pdf/images_with_alignment.manifest.json)\n- [`tests/goldens/pdf/numbered_list_with_tags.manifest.json`](tests/goldens/pdf/numbered_list_with_tags.manifest.json)\n- [`tests/goldens/pdf/one_page_with_file.manifest.json`](tests/goldens/pdf/one_page_with_file.manifest.json)\n- [`tests/goldens/pdf/page_with_subpage.manifest.json`](tests/goldens/pdf/page_with_subpage.manifest.json)\n- [`tests/goldens/pdf/page_with_subpage.pdf`](tests/goldens/pdf/page_with_subpage.pdf)\n- [Browse all golden assets](tests/goldens)\n\n\n</details>\n\n## Third-party notices\n\nThird-party attribution and dependency license notices are recorded in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).\n\n## License\n\nThis project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
                 "rollback": "Restore the exact immutable source bytes for this operation.",
                 "source_byte_end": 14703,
                 "source_byte_start": 0,
@@ -36248,7 +36241,7 @@
                 "evidence": [
                   "source-claim:claim:1996:d10e48c4c108a4f2",
                   "source-content-sha256:d10e48c4c108a4f221a887013b853be4b5dbf157529e17952d44048f26ce31f3",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36629,7 +36622,7 @@
                 "evidence": [
                   "source-claim:claim:2596:f48ecc15ca755b89",
                   "source-content-sha256:f48ecc15ca755b890bfb76f53785b4e11cfa3662d5aa88e7d00d0788f2667b51",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36650,7 +36643,7 @@
                 "evidence": [
                   "source-claim:claim:3018:e9167496d512ab00",
                   "source-content-sha256:e9167496d512ab00a0321eb95b8f6d1d99aaf5f8cce9dd69970213d572a66b6b",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36671,7 +36664,7 @@
                 "evidence": [
                   "source-claim:claim:3050:c291212a7aa65db1",
                   "source-content-sha256:c291212a7aa65db160d10a4ccb073f288ed0497882d6971966767d5305239e46",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36692,7 +36685,7 @@
                 "evidence": [
                   "source-claim:claim:3102:65b6e3fb61c392d4",
                   "source-content-sha256:65b6e3fb61c392d4dd95b11bdb52eb8552032bc9dd64f456d7274e3269cbd581",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36713,7 +36706,7 @@
                 "evidence": [
                   "source-claim:claim:3135:c02e457e730f85d6",
                   "source-content-sha256:c02e457e730f85d65fc99766ca9b48292bd34c3b045d3699d6302c8ece19047c",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36734,7 +36727,7 @@
                 "evidence": [
                   "source-claim:claim:3233:4d49ade74c81e65d",
                   "source-content-sha256:4d49ade74c81e65d1f07b48dbe2e18c04b05fbe57e9a007b7056b03440a2a423",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36755,7 +36748,7 @@
                 "evidence": [
                   "source-claim:claim:3267:1c2373b88460d4ba",
                   "source-content-sha256:1c2373b88460d4ba4dcd92038cd3cf92ddb417196bf8e6a3d92985b35f963afd",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36776,7 +36769,7 @@
                 "evidence": [
                   "source-claim:claim:3337:8958f0d914c343eb",
                   "source-content-sha256:8958f0d914c343ebba93ec1efd25a053c4a8003de55725d2014a7af52206f64b",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36818,7 +36811,7 @@
                 "evidence": [
                   "source-claim:claim:3848:42a0d21d3a9978a4",
                   "source-content-sha256:42a0d21d3a9978a445a924caaadfc283e6f22a74e8a3a88cbf8b59d12fa2df81",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36839,7 +36832,7 @@
                 "evidence": [
                   "source-claim:claim:4018:7094728017815aed",
                   "source-content-sha256:7094728017815aed8449d731a5261a4b859b7f3a39a8f517d90905918378d27e",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36860,7 +36853,7 @@
                 "evidence": [
                   "source-claim:claim:4117:3f6538e2d12c104f",
                   "source-content-sha256:3f6538e2d12c104f29730730f7f154be734d78acc91f5b28485c1498117015c6",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36881,7 +36874,7 @@
                 "evidence": [
                   "source-claim:claim:4162:bc110a733243c36a",
                   "source-content-sha256:bc110a733243c36a137e26e9d760a4db0663a0ffebd1e4834d511a34ac2245e4",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36902,7 +36895,7 @@
                 "evidence": [
                   "source-claim:claim:4192:882e5b040c9671b6",
                   "source-content-sha256:882e5b040c9671b690529b5e55946c923195ef7c3ee73a1c434fd1d576f18e43",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36923,7 +36916,7 @@
                 "evidence": [
                   "source-claim:claim:4228:d33484b27d4e720a",
                   "source-content-sha256:d33484b27d4e720a6ccd6bc0d8abe7ed43fb9bb25fb716a27c1135ec5330bfdd",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36944,7 +36937,7 @@
                 "evidence": [
                   "source-claim:claim:4266:892e819f700dbdf1",
                   "source-content-sha256:892e819f700dbdf17b3caab2c704dc751b7fa31a1cb3b836a33917b7e15612c0",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -36987,7 +36980,7 @@
                 "evidence": [
                   "source-claim:claim:4353:c44450ba12ab44ec",
                   "source-content-sha256:c44450ba12ab44ecfc9003960bb0be5babc8735263c02366fd1cf1387bc5899b",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37008,7 +37001,7 @@
                 "evidence": [
                   "source-claim:claim:4402:3cc812c471e839fe",
                   "source-content-sha256:3cc812c471e839fecb5d4329cd834a2de221fb63bf8e1e9be52f450172007de2",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37029,7 +37022,7 @@
                 "evidence": [
                   "source-claim:claim:4445:c0b123d92abb2036",
                   "source-content-sha256:c0b123d92abb2036a22e03a2762e67d1c250252b13bacc4edb9dc6982488c919",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37072,7 +37065,7 @@
                 "evidence": [
                   "source-claim:claim:4521:f7f9585a2cdf31da",
                   "source-content-sha256:f7f9585a2cdf31da1d08e248a49e7c67cff58789ea0e4958aa3d4fa37837257c",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37093,7 +37086,7 @@
                 "evidence": [
                   "source-claim:claim:4558:2b327bce94ead66f",
                   "source-content-sha256:2b327bce94ead66f44061377189dbab57ece90fe47ae13bf6a425bc25868f2d2",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37114,7 +37107,7 @@
                 "evidence": [
                   "source-claim:claim:4613:ce582f8665d5bfba",
                   "source-content-sha256:ce582f8665d5bfba4592b8b8b80499e75be4d44bc81addaa3fca0c20394b3a73",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37135,7 +37128,7 @@
                 "evidence": [
                   "source-claim:claim:4665:75ffcccb65465ab0",
                   "source-content-sha256:75ffcccb65465ab0d094e259ec06d8bbbe6485362e2e5e9d14f7215f1fef9a42",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37156,7 +37149,7 @@
                 "evidence": [
                   "source-claim:claim:4859:918ba00f76dfe034",
                   "source-content-sha256:918ba00f76dfe034cfd9a1604169237fc630adc12eecdc98adb6f959c5a2e543",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37177,7 +37170,7 @@
                 "evidence": [
                   "source-claim:claim:4876:b68c855f646a4b0a",
                   "source-content-sha256:b68c855f646a4b0aab611999f6d8056923268c0c700e0077bd7e56df506a13d5",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37198,7 +37191,7 @@
                 "evidence": [
                   "source-claim:claim:4937:82af31dd828745ad",
                   "source-content-sha256:82af31dd828745ada529893df3573de9940af416614eb45ddd4b36815d47ee37",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37219,7 +37212,7 @@
                 "evidence": [
                   "source-claim:claim:4960:4cff5abe97e5dd3b",
                   "source-content-sha256:4cff5abe97e5dd3bfbb69fd95fc3e059ae2c78fd1c1c8ed873f546ea65853365",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37240,7 +37233,7 @@
                 "evidence": [
                   "source-claim:claim:5080:4521199c24fb1940",
                   "source-content-sha256:4521199c24fb194071e0d33d8d0d548916a5dfd1fb81e7e16eef13d1a7077036",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37261,7 +37254,7 @@
                 "evidence": [
                   "source-claim:claim:5110:3773dba7e67a5a79",
                   "source-content-sha256:3773dba7e67a5a7911ffa1d94cc0a4c017e30f42feeb030cfc9db50dbc0da483",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37282,7 +37275,7 @@
                 "evidence": [
                   "source-claim:claim:5213:95807acde85d1f8d",
                   "source-content-sha256:95807acde85d1f8d184760d6ea25fecfae6c7d93af35948979bbfc0360a4158e",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37303,7 +37296,7 @@
                 "evidence": [
                   "source-claim:claim:5272:187928c88f846ad3",
                   "source-content-sha256:187928c88f846ad3840e27881fbc8275b02412175af270016a24e4e1b32096be",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37368,7 +37361,7 @@
                 "evidence": [
                   "source-claim:claim:5434:5cd2afbec21c16fe",
                   "source-content-sha256:5cd2afbec21c16fed546fc4a3530103a88155176f45653987b95a5d9c7cf59d5",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37411,7 +37404,7 @@
                 "evidence": [
                   "source-claim:claim:5531:f65b4c2357367ea1",
                   "source-content-sha256:f65b4c2357367ea1aca7ed2de083b51757e868c90cf16f7b5ec74f2526b7466c",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37498,7 +37491,7 @@
                 "evidence": [
                   "source-claim:claim:5702:563fbabdc99c2825",
                   "source-content-sha256:563fbabdc99c282587851875fcab0921e0a1b294d40e96d821194990511b22e4",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37519,7 +37512,7 @@
                 "evidence": [
                   "source-claim:claim:5755:4e4d1baa0137296a",
                   "source-content-sha256:4e4d1baa0137296abbb49a3e088f38dc18af2322b977cfccd70fc80a2047609f",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37540,7 +37533,7 @@
                 "evidence": [
                   "source-claim:claim:5818:5aa1e56180680cb3",
                   "source-content-sha256:5aa1e56180680cb3a787ff1ae21a50bf9806b35a89d75edcb97f155d2786421d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37583,7 +37576,7 @@
                 "evidence": [
                   "source-claim:claim:5944:7f47dcfdcd1dbcd1",
                   "source-content-sha256:7f47dcfdcd1dbcd1e8637cc44e363a0f95098868e1358ee2edad71c1ee6290c6",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37604,7 +37597,7 @@
                 "evidence": [
                   "source-claim:claim:5963:bd3ce817d69772e3",
                   "source-content-sha256:bd3ce817d69772e30b24a2c4317a8aa101cc17a445c67abe300892f569300b1d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37625,7 +37618,7 @@
                 "evidence": [
                   "source-claim:claim:5979:d3a66fa565efeca1",
                   "source-content-sha256:d3a66fa565efeca131d09691579aae7e9aa9ca5ee356eb04e37e5b9935b7a8f4",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37690,7 +37683,7 @@
                 "evidence": [
                   "source-claim:claim:6087:fc9fc38c57ee50b2",
                   "source-content-sha256:fc9fc38c57ee50b221a6b555e1008e9e91bab5a885aa5cd57275d6d445aec12d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37711,7 +37704,7 @@
                 "evidence": [
                   "source-claim:claim:6131:6ec63c9b0a1accfa",
                   "source-content-sha256:6ec63c9b0a1accfa3f5ea8c5aa74c4de39799a020cefed962a73d27b44bc2b74",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37754,7 +37747,7 @@
                 "evidence": [
                   "source-claim:claim:6200:bc996fd296ff55da",
                   "source-content-sha256:bc996fd296ff55da126d0c88cf4e48932223f928bfd1d26d1ea53183afae3a44",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37775,7 +37768,7 @@
                 "evidence": [
                   "source-claim:claim:6248:7472ea261800cef1",
                   "source-content-sha256:7472ea261800cef1c34bad31a221ce0ece727b974fef9c80c93ae5a858c51f24",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37796,7 +37789,7 @@
                 "evidence": [
                   "source-claim:claim:6287:bd3ce817d69772e3",
                   "source-content-sha256:bd3ce817d69772e30b24a2c4317a8aa101cc17a445c67abe300892f569300b1d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37839,7 +37832,7 @@
                 "evidence": [
                   "source-claim:claim:6346:1c6f662070a84004",
                   "source-content-sha256:1c6f662070a840041638ada5b90f7ad5b27d5ab93f9d5e47cd9d1db4028ae93b",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37860,7 +37853,7 @@
                 "evidence": [
                   "source-claim:claim:6439:e7ab2a6819d09fad",
                   "source-content-sha256:e7ab2a6819d09fad3330a4fe1db6d872483e288cfa5eb853a34721c3fecdef42",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37881,7 +37874,7 @@
                 "evidence": [
                   "source-claim:claim:6521:2fcd1aa7eaeb281f",
                   "source-content-sha256:2fcd1aa7eaeb281f70b51d4b0311eddc549779fb3985a708ff56bf1c7ab7ec68",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37902,7 +37895,7 @@
                 "evidence": [
                   "source-claim:claim:6568:3626628f6ee2fcb9",
                   "source-content-sha256:3626628f6ee2fcb9785ab957204389f2c81ec27a9a27e5f893a2f4219a13c62d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37923,7 +37916,7 @@
                 "evidence": [
                   "source-claim:claim:6621:daf17af5b107dd71",
                   "source-content-sha256:daf17af5b107dd71e964010d76d76ec35b76c79ec6bb26b5264c1f95a6423592",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37966,7 +37959,7 @@
                 "evidence": [
                   "source-claim:claim:6701:f267bb409235cec3",
                   "source-content-sha256:f267bb409235cec326281333c76d42856a7a740fcb09eaa6a068e88018bd0113",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -37987,7 +37980,7 @@
                 "evidence": [
                   "source-claim:claim:6722:348c4ec49f894612",
                   "source-content-sha256:348c4ec49f8946128f40c7f1403cf81fb79812621480d4d042b9bb827eb5a7bc",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38008,7 +38001,7 @@
                 "evidence": [
                   "source-claim:claim:6789:f2c948ea571b6e9f",
                   "source-content-sha256:f2c948ea571b6e9f88c7cca3ea9fde409e6c611423202702cac004038f6a2a49",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38029,7 +38022,7 @@
                 "evidence": [
                   "source-claim:claim:6832:aa201ad1b3f82e4e",
                   "source-content-sha256:aa201ad1b3f82e4ef00e798464e9e240e751d5ec0ef7995d9bf96d8ef3abc99c",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38050,7 +38043,7 @@
                 "evidence": [
                   "source-claim:claim:6882:67d1a830d8a13404",
                   "source-content-sha256:67d1a830d8a13404fb42cc843480679da4de1c6f17962ccd56cb724ef5d2124d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38071,7 +38064,7 @@
                 "evidence": [
                   "source-claim:claim:6963:86f6a547214a7402",
                   "source-content-sha256:86f6a547214a740283d44b4b990647a683ab60b03f30a5d9494f6d394f2ba9e2",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38092,7 +38085,7 @@
                 "evidence": [
                   "source-claim:claim:6994:6ec63c9b0a1accfa",
                   "source-content-sha256:6ec63c9b0a1accfa3f5ea8c5aa74c4de39799a020cefed962a73d27b44bc2b74",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38113,7 +38106,7 @@
                 "evidence": [
                   "source-claim:claim:7020:16855308f60d16d0",
                   "source-content-sha256:16855308f60d16d0f2199c74f71ab580885ec66b2ad7ff04961197308b2cb9f7",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38134,7 +38127,7 @@
                 "evidence": [
                   "source-claim:claim:7077:bb2b084ffdaed886",
                   "source-content-sha256:bb2b084ffdaed886c22efeb331abaed2f27d22c8913b7bbb165b21c27e9cf7c7",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38155,7 +38148,7 @@
                 "evidence": [
                   "source-claim:claim:7100:f2c948ea571b6e9f",
                   "source-content-sha256:f2c948ea571b6e9f88c7cca3ea9fde409e6c611423202702cac004038f6a2a49",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38176,7 +38169,7 @@
                 "evidence": [
                   "source-claim:claim:7143:6ec63c9b0a1accfa",
                   "source-content-sha256:6ec63c9b0a1accfa3f5ea8c5aa74c4de39799a020cefed962a73d27b44bc2b74",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38219,7 +38212,7 @@
                 "evidence": [
                   "source-claim:claim:7213:f9a9b6e2b96d10ef",
                   "source-content-sha256:f9a9b6e2b96d10ef1fa3939ea8b4fbfea60f7155ce90aec15a652136c656b761",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38240,7 +38233,7 @@
                 "evidence": [
                   "source-claim:claim:7242:6ec63c9b0a1accfa",
                   "source-content-sha256:6ec63c9b0a1accfa3f5ea8c5aa74c4de39799a020cefed962a73d27b44bc2b74",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38305,7 +38298,7 @@
                 "evidence": [
                   "source-claim:claim:7336:01ca893143e8d7c7",
                   "source-content-sha256:01ca893143e8d7c7d80fdef3da9b75390fab624eefec113fef9015eb34621c84",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38326,7 +38319,7 @@
                 "evidence": [
                   "source-claim:claim:7375:61739488e2558595",
                   "source-content-sha256:61739488e2558595f721ddf4e6307a8731799572e733e561c1ed512578eb7b93",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38347,7 +38340,7 @@
                 "evidence": [
                   "source-claim:claim:7464:a89fd2f26e57d941",
                   "source-content-sha256:a89fd2f26e57d941780af363fbccb86120cc15092af1879cd95ca47aeeced6c9",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38368,7 +38361,7 @@
                 "evidence": [
                   "source-claim:claim:7555:852a7503efa94b16",
                   "source-content-sha256:852a7503efa94b1623c9a249acabb16c9799335fa4cf71419251ac47721ad7c4",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38389,7 +38382,7 @@
                 "evidence": [
                   "source-claim:claim:7608:51b1e9be52eeda3b",
                   "source-content-sha256:51b1e9be52eeda3be28c3ad51d1f87431f544259371199f66ecabd7bb9763a20",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38410,7 +38403,7 @@
                 "evidence": [
                   "source-claim:claim:7682:0a4a2f2a2117dc7a",
                   "source-content-sha256:0a4a2f2a2117dc7a2172ccf848204008a3827e1b94d0508704c45c11aea475c0",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38453,7 +38446,7 @@
                 "evidence": [
                   "source-claim:claim:7832:8d0c522f968c96c8",
                   "source-content-sha256:8d0c522f968c96c8a157a82fad69918bb62a1417224f40fd5d92f84ea5d8a368",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38496,7 +38489,7 @@
                 "evidence": [
                   "source-claim:claim:7935:832e9bbdf987d097",
                   "source-content-sha256:832e9bbdf987d09737c9022acd5cf7ad3f72dca239c52d5f09cc44bbb6c418eb",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38517,7 +38510,7 @@
                 "evidence": [
                   "source-claim:claim:7977:e344334df9e54a69",
                   "source-content-sha256:e344334df9e54a692ce0d1fe0e16bfa2ae4642171517e0533093a3b7d4de1047",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38560,7 +38553,7 @@
                 "evidence": [
                   "source-claim:claim:8043:327ea9c49c8b8930",
                   "source-content-sha256:327ea9c49c8b8930a8724a5e357916b8ee6280d8d05e8d704134a639aa8fb02f",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38581,7 +38574,7 @@
                 "evidence": [
                   "source-claim:claim:8108:88ff8a0e07f842bd",
                   "source-content-sha256:88ff8a0e07f842bdeeb945722863ad5e53d2485c315f3c189727873ff94d2ac6",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38602,7 +38595,7 @@
                 "evidence": [
                   "source-claim:claim:8168:0bd421806a067083",
                   "source-content-sha256:0bd421806a067083800b1b35dccdd9f17e46c80ce4566fdc9fdf06a126afb52e",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38623,7 +38616,7 @@
                 "evidence": [
                   "source-claim:claim:8214:8c67b3b31c63229c",
                   "source-content-sha256:8c67b3b31c63229c9df3980bd2534d7a6f219e7e88f706a1aed07c547dba9006",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38644,7 +38637,7 @@
                 "evidence": [
                   "source-claim:claim:8311:67943e97ec3627ed",
                   "source-content-sha256:67943e97ec3627eddd341823d49f2205bda0c886c5d96420e78a324226d813a8",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38665,7 +38658,7 @@
                 "evidence": [
                   "source-claim:claim:8333:625e45898246ed20",
                   "source-content-sha256:625e45898246ed20ae24c45b2ced229a7c105a4d4afe3e71a34020f5bb77e818",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38686,7 +38679,7 @@
                 "evidence": [
                   "source-claim:claim:8395:891d595d4af327f7",
                   "source-content-sha256:891d595d4af327f713ef76d1bab10167b2021fb9a920b393b2b2140a36041d1a",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38707,7 +38700,7 @@
                 "evidence": [
                   "source-claim:claim:8446:2b6cbc82f9789c91",
                   "source-content-sha256:2b6cbc82f9789c91bc118c9af2d86b28e2e73e88e4dc80aed9c8a46596d3dad0",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38728,7 +38721,7 @@
                 "evidence": [
                   "source-claim:claim:8674:50e0f7e52161ec29",
                   "source-content-sha256:50e0f7e52161ec29a0de78670af8a1486e6fcb4545eceb9703ed8716f7761a8d",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38749,7 +38742,7 @@
                 "evidence": [
                   "source-claim:claim:8801:0126c56a73e7e97c",
                   "source-content-sha256:0126c56a73e7e97c242a184950d80f289d9752c9abea79199c889064e3642d6a",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38770,7 +38763,7 @@
                 "evidence": [
                   "source-claim:claim:8948:bcaef40aded605e4",
                   "source-content-sha256:bcaef40aded605e4c8ffa0f7d46a3a532ece07b16229f4ba160ea3077c23b928",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38791,7 +38784,7 @@
                 "evidence": [
                   "source-claim:claim:9537:d410be61acfac992",
                   "source-content-sha256:d410be61acfac9926a4c62a34e16d65be646d7510e7e40772cea78c1bf4f052c",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38812,7 +38805,7 @@
                 "evidence": [
                   "source-claim:claim:9813:79b88f882e1d7572",
                   "source-content-sha256:79b88f882e1d7572311b231445878b54160761ee554b7996be04dd894a0e37d8",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38833,7 +38826,7 @@
                 "evidence": [
                   "source-claim:claim:10111:ccd5e26d98e39f84",
                   "source-content-sha256:ccd5e26d98e39f8421481ee8a1c10e21c118a952104d355fe3ff07912e1e71db",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38854,7 +38847,7 @@
                 "evidence": [
                   "source-claim:claim:10767:31395e0056ce44b9",
                   "source-content-sha256:31395e0056ce44b9e3f9c99109d637302826555ad793cbeab7d0555b5a82c580",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38875,7 +38868,7 @@
                 "evidence": [
                   "source-claim:claim:11489:a201b9b08399bbdb",
                   "source-content-sha256:a201b9b08399bbdbbe022a30867de97b45f65cdc617c6cf9f7d59098d2b56e87",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38896,7 +38889,7 @@
                 "evidence": [
                   "source-claim:claim:11847:a9bb751a4e6ed969",
                   "source-content-sha256:a9bb751a4e6ed969d255e5bf8bf0b27dace8962440687ee0909a2b69a450b405",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38917,7 +38910,7 @@
                 "evidence": [
                   "source-claim:claim:12337:56138026069afb51",
                   "source-content-sha256:56138026069afb51878726ef89b9b53bd033e872fb03664f31b2ef3910635442",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38938,7 +38931,7 @@
                 "evidence": [
                   "source-claim:claim:12958:dddf7be02ff9b919",
                   "source-content-sha256:dddf7be02ff9b919afbd227810b63c176d512e7a99e67ce3c80d2a54a0db5f05",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -38959,7 +38952,7 @@
                 "evidence": [
                   "source-claim:claim:13317:d8d33497ee230ce2",
                   "source-content-sha256:d8d33497ee230ce265decb25c2f0c9c41f4643a0d6b42151fbed6a19e089545f",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -39280,7 +39273,7 @@
                 "evidence": [
                   "source-claim:claim:14441:e3d30a25433a3b1c",
                   "source-content-sha256:e3d30a25433a3b1c790eb8e7073f9cc269abd02b48d697c11c25c35200c60885",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -39301,7 +39294,7 @@
                 "evidence": [
                   "source-claim:claim:14453:79f52c4e7d394c93",
                   "source-content-sha256:79f52c4e7d394c935d1163d3bd44430bc5bd87b07def042d8b39aaeedbf17e9f",
-                  "candidate-content-sha256:558f035d6286bb5c80fac0bdc6b4428fe9a85c25715c3de1c8376eb1169cb0bf",
+                  "candidate-content-sha256:131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
                   "risk-policy:optional-inherited-detail-deferred-v1"
                 ],
                 "fact_ids": [],
@@ -39340,7 +39333,7 @@
               }
             ],
             "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
-            "template_sha256": "1ce7b9225b626f2f09dcdf36c020815ecdcc3d061ccd429c9cd29851161346e8"
+            "template_sha256": "f8f0ea07527900dbeec334874f632266b526e0a620cd62dd3d2e86b4dc077773"
           }
         },
         "proposal_only": true,
@@ -39377,7 +39370,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260802-154734-f6f3",
+          "nonce": "20260802-155717-3ab7",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -39385,7 +39378,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "83f3b7e25c07050ee7bead5742eba57d15f49d995ae1cbf1888f2198be74ed2f",
+          "token": "67f3759cce9df4fb4335f156183207fb87138ef29a7516bebd0d4b6b90ccd3d8",
           "verdict": "accept"
         },
         "written": false
@@ -39393,7 +39386,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T15:50:33.652761+00:00",
+      "last_run_timestamp": "2026-08-02T15:59:50.956133+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -45955,7 +45948,7 @@
     "updated_at": "2026-08-02T15:59:45.732840+00:00"
   },
   "schema_version": 2,
-  "state_version": 1844,
+  "state_version": 1845,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "641df57dee6673af9c6815bc1f59b7510d667db5c97839cd15db875c8bfdf043",
