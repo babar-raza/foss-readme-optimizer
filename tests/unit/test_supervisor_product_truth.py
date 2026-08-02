@@ -20,6 +20,7 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 from readme_agent.state.backend import Lock, SaveResult
+from readme_agent.state.lifecycle_schema import FactAcceptanceBindingV1
 from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.readme_poc_lifecycle import (
     record_repository_profile,
@@ -46,11 +47,13 @@ def test_product_truth_block_category_is_external_only_when_every_finding_is_ext
 class _Backend:
     def __init__(self):
         self.states: dict[str, RunStateV2] = {}
+        self.save_calls = 0
 
     def load(self, org_repo):
         return self.states.get(org_repo)
 
     def save(self, org_repo, state, expected_version):
+        self.save_calls += 1
         current = self.states.get(org_repo)
         current_version = current.state_version if current else None
         if current_version != expected_version:
@@ -81,6 +84,23 @@ class _Backend:
 
     def save_model_route_status(self, status):
         return None
+
+
+class _RacingBackend(_Backend):
+    """Replace state on a selected load to reproduce a stale-read/CAS overlap."""
+
+    def __init__(self):
+        super().__init__()
+        self.load_count = 0
+        self.race_on_load: int | None = None
+        self.race_state: RunStateV2 | None = None
+
+    def load(self, org_repo):
+        self.load_count += 1
+        if self.load_count == self.race_on_load:
+            assert self.race_state is not None
+            self.states[org_repo] = self.race_state
+        return super().load(org_repo)
 
 
 def _snapshot(tmp_path: Path) -> RepositorySnapshotV1:
@@ -221,6 +241,59 @@ def _remove_fact_acceptance_binding(backend: _Backend, bundle_dir: Path) -> None
     )
 
 
+def _write_interrupted_fact_commit(
+    tmp_path: Path,
+    monkeypatch,
+) -> tuple[RepositorySnapshotV1, _Backend, ProductFactsV2, Path]:
+    """Seal a newer fact bundle while leaving durable state on the prior graph."""
+
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    contract = product_truth.current_fact_acceptance_contract()
+    old_facts = _facts_with_missing("installation.verified_acquisition")
+    bundle_dir = product_truth.write_local_poc_product_facts(
+        snapshot,
+        old_facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        lifecycle_status="BLOCKED_MISSING_EVIDENCE",
+        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    product_truth.record_product_facts_outcome(
+        backend,
+        ORG_REPO,
+        source_revision=REVISION,
+        facts_hash=old_facts.canonical_hash(),
+        outcome="BLOCKED_MISSING_EVIDENCE",
+        evidence_refs=[str(bundle_dir / "facts" / "product-facts.json")],
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    records = [
+        (
+            fact.model_copy(update={"value": ["Create, inspect, and convert widgets"]})
+            if fact.field == "product.capabilities"
+            else fact
+        )
+        for fact in old_facts.facts
+    ]
+    new_facts = old_facts.model_copy(update={"facts": records})
+    product_truth.write_local_poc_product_facts(
+        snapshot,
+        new_facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        lifecycle_status="BLOCKED_MISSING_EVIDENCE",
+        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    return snapshot, backend, new_facts, bundle_dir
+
+
 @pytest.mark.parametrize(
     "ecosystem",
     ["java", "net", "python", "typescript", "cpp", "go", "rust"],
@@ -328,6 +401,316 @@ def test_same_revision_reuses_durable_fact_graph_without_collection_or_llm(tmp_p
     assert second.resolution_source == "durable_revision_cache"
     assert second.proposed_product_truth == first.proposed_product_truth
     assert len(backend.load(ORG_REPO).readme_poc_lifecycle.history) == 4
+
+
+def test_interrupted_sealed_fact_bundle_recovers_state_without_collection_or_llm(
+    tmp_path, monkeypatch
+):
+    snapshot, backend, new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("sealed crash recovery must not recollect facts"),
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "dispatch_tool_call",
+        lambda *args, **kwargs: pytest.fail("sealed crash recovery must not call the LLM"),
+    )
+
+    recovered = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert recovered.resolution_source == "durable_revision_cache"
+    assert recovered.facts == new_facts
+    assert recovered.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
+    assert lifecycle.facts_hash == new_facts.canonical_hash()
+    assert [item.to_status for item in lifecycle.history[-2:]] == [
+        "FACTS_COLLECTING",
+        "BLOCKED_MISSING_EVIDENCE",
+    ]
+    latest_binding = lifecycle.fact_acceptance_history[-1]
+    assert latest_binding.facts_hash == new_facts.canonical_hash()
+    history_count = len(lifecycle.history)
+    binding_count = len(lifecycle.fact_acceptance_history)
+    state_version = backend.load(ORG_REPO).state_version
+    save_calls = backend.save_calls
+
+    repeated = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    repeated_lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert repeated.facts == new_facts
+    assert len(repeated_lifecycle.history) == history_count
+    assert len(repeated_lifecycle.fact_acceptance_history) == binding_count
+    assert repeated_lifecycle == lifecycle
+    assert backend.load(ORG_REPO).state_version == state_version
+    assert backend.save_calls == save_calls
+
+
+@pytest.mark.parametrize("starting_status", ["PROFILED", "FACTS_COLLECTING"])
+def test_first_collection_sealed_bundle_recovers_from_fact_boundary(
+    tmp_path, monkeypatch, starting_status
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    if starting_status == "FACTS_COLLECTING":
+        transition_readme_poc_status(
+            backend,
+            ORG_REPO,
+            "FACTS_COLLECTING",
+            observed_by="test",
+            reason="simulate collection interrupted before the durable outcome",
+            source_revision=REVISION,
+        )
+    facts = _facts()
+    contract = product_truth.current_fact_acceptance_contract()
+    product_truth.write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("first-collection recovery must reuse sealed facts"),
+    )
+
+    recovered = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert recovered.facts == facts
+    assert lifecycle.status == "FACTS_READY"
+    assert lifecycle.fact_acceptance_history[-1].facts_hash == facts.canonical_hash()
+    expected_tail = (
+        ["FACTS_COLLECTING", "FACTS_READY"] if starting_status == "PROFILED" else ["FACTS_READY"]
+    )
+    assert [item.to_status for item in lifecycle.history[-len(expected_tail) :]] == expected_tail
+
+
+def test_interrupted_fact_recovery_rejects_corrupt_bundle_before_collection(tmp_path, monkeypatch):
+    snapshot, backend, _new_facts, bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    facts_path = bundle_dir / "facts" / "product-facts.json"
+    facts_path.write_text(facts_path.read_text(encoding="utf-8") + " ", encoding="utf-8")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: pytest.fail("corrupt sealed evidence must fail before recollection"),
+    )
+
+    with pytest.raises(RuntimeError, match="invalid checksum inventory"):
+        product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+
+@pytest.mark.parametrize("inventory_defect", ["missing", "extra"])
+def test_interrupted_fact_recovery_requires_exact_checksum_inventory(
+    tmp_path, monkeypatch, inventory_defect
+):
+    snapshot, backend, _new_facts, bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    if inventory_defect == "missing":
+        (bundle_dir / "facts" / "findings.json").unlink()
+    else:
+        (bundle_dir / "facts" / "unexpected.json").write_text("{}\n", encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="invalid checksum inventory"):
+        product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
+
+
+@pytest.mark.parametrize(
+    ("resolution_source", "proposal", "prompt_hash", "error"),
+    [
+        (
+            "agent_draft",
+            None,
+            product_truth.prompt_registry.prompt_hash("draft_product_truth"),
+            "requires a proposal artifact",
+        ),
+        (
+            "repository_and_policy",
+            {"audience": ["stale proposal"]},
+            None,
+            "cannot retain agent proposal provenance",
+        ),
+        ("unknown_mode", None, None, "unknown product-truth resolution source"),
+    ],
+)
+def test_interrupted_fact_recovery_rejects_incoherent_proposal_provenance(
+    tmp_path,
+    monkeypatch,
+    resolution_source,
+    proposal,
+    prompt_hash,
+    error,
+):
+    snapshot, backend, new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    contract = product_truth.current_fact_acceptance_contract()
+    product_truth.write_local_poc_product_facts(
+        snapshot,
+        new_facts,
+        findings=[],
+        resolution_source=resolution_source,
+        proposed_product_truth=proposal,
+        lifecycle_status="BLOCKED_MISSING_EVIDENCE",
+        prompt_hash=prompt_hash,
+        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    before = backend.states[ORG_REPO].model_dump(mode="json")
+
+    with pytest.raises(RuntimeError, match=error):
+        product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
+
+    assert backend.states[ORG_REPO].model_dump(mode="json") == before
+
+
+def test_interrupted_fact_recovery_refuses_to_overwrite_downstream_state(tmp_path, monkeypatch):
+    snapshot, backend, _new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    state = backend.load(ORG_REPO)
+    lifecycle = state.readme_poc_lifecycle
+    old_hash = lifecycle.fact_acceptance_history[0].facts_hash
+    backend.states[ORG_REPO] = state.model_copy(
+        update={
+            "readme_poc_lifecycle": lifecycle.model_copy(
+                update={"status": "README_ASSESSED", "facts_hash": old_hash}
+            )
+        }
+    )
+
+    with pytest.raises(RuntimeError, match="evidence hash does not match lifecycle state"):
+        product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+
+def test_interrupted_fact_recovery_rechecks_fresh_state_inside_cas(tmp_path, monkeypatch):
+    snapshot, seeded_backend, _new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    racing = _RacingBackend()
+    racing.states = dict(seeded_backend.states)
+    initial = racing.states[ORG_REPO]
+    lifecycle = initial.readme_poc_lifecycle
+    advanced_lifecycle = lifecycle.model_copy(
+        update={
+            "status": "README_ASSESSED",
+            "assessment_hash": "d" * 64,
+        }
+    )
+    racing.race_state = initial.model_copy(update={"readme_poc_lifecycle": advanced_lifecycle})
+    racing.race_on_load = 2
+
+    with pytest.raises(RuntimeError, match="newer incompatible lifecycle state"):
+        product_truth.load_prepared_product_truth(ORG_REPO, racing, REVISION)
+
+    stored = racing.states[ORG_REPO].readme_poc_lifecycle
+    assert stored.status == "README_ASSESSED"
+    assert stored.assessment_hash == "d" * 64
+    assert stored.facts_hash == lifecycle.facts_hash
+    assert len(stored.history) == len(advanced_lifecycle.history)
+
+
+def test_interrupted_fact_recovery_preserves_fresh_downstream_same_binding(tmp_path, monkeypatch):
+    snapshot, seeded_backend, new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    racing = _RacingBackend()
+    racing.states = dict(seeded_backend.states)
+    initial = racing.states[ORG_REPO]
+    lifecycle = initial.readme_poc_lifecycle
+    contract = product_truth.current_fact_acceptance_contract()
+    new_binding = FactAcceptanceBindingV1(
+        source_revision=REVISION,
+        facts_hash=new_facts.canonical_hash(),
+        contract_hash=contract.canonical_hash(),
+        component_hashes=contract.component_hashes,
+        outcome="BLOCKED_MISSING_EVIDENCE",
+        observed_by="concurrent-owner",
+        reason="concurrent owner accepted the same sealed graph",
+    )
+    advanced_lifecycle = lifecycle.model_copy(
+        update={
+            "status": "README_ASSESSED",
+            "facts_hash": new_facts.canonical_hash(),
+            "assessment_hash": "e" * 64,
+            "fact_acceptance_history": [*lifecycle.fact_acceptance_history, new_binding],
+        }
+    )
+    racing.race_state = initial.model_copy(update={"readme_poc_lifecycle": advanced_lifecycle})
+    racing.race_on_load = 2
+
+    cached = product_truth.load_prepared_product_truth(ORG_REPO, racing, REVISION)
+
+    stored = racing.states[ORG_REPO].readme_poc_lifecycle
+    assert cached is not None
+    assert cached.lifecycle_status == "README_ASSESSED"
+    assert stored.status == "README_ASSESSED"
+    assert stored.assessment_hash == "e" * 64
+    assert len(stored.history) == len(advanced_lifecycle.history)
+    assert len(stored.fact_acceptance_history) == len(advanced_lifecycle.fact_acceptance_history)
+
+
+def test_changed_facts_under_same_contract_append_one_exact_acceptance_binding(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    verification_hash = {"value": "1" * 64}
+    current_facts = {"value": _facts()}
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": current_facts["value"]},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="python"),
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "local_verification_contract_hash",
+        lambda: verification_hash["value"],
+    )
+
+    first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    changed_records = [
+        (
+            fact.model_copy(update={"value": ["Create and convert widgets"]})
+            if fact.field == "product.capabilities"
+            else fact
+        )
+        for fact in first.facts.facts
+    ]
+    current_facts["value"] = first.facts.model_copy(update={"facts": changed_records})
+    verification_hash["value"] = "2" * 64
+
+    refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+
+    assert refreshed.facts.canonical_hash() != first.facts.canonical_hash()
+    assert [binding.facts_hash for binding in lifecycle.fact_acceptance_history[-2:]] == [
+        first.facts.canonical_hash(),
+        refreshed.facts.canonical_hash(),
+    ]
+    binding_count = len(lifecycle.fact_acceptance_history)
+
+    product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    assert len(backend.load(ORG_REPO).readme_poc_lifecycle.fact_acceptance_history) == binding_count
 
 
 def test_verified_truth_reopens_a_trusted_lifecycle_without_promoting_trusted_facts(

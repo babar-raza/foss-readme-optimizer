@@ -33,6 +33,8 @@ def save_state_patch(
         expected_version = current.state_version if current is not None else None
         base = current or RunStateV2(org_repo=org_repo)
         updated = patch(base)
+        if current is not None and updated == current:
+            return current
         result = backend.save(org_repo, updated, expected_version)
         if result.outcome == "saved":
             return updated.model_copy(update={"state_version": result.new_version or 0})

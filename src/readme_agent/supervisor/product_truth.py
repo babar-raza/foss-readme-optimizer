@@ -33,6 +33,15 @@ from readme_agent.supervisor.local_poc_evidence import (
     reclassify_local_poc_fact_acceptance,
     write_local_poc_product_facts,
 )
+from readme_agent.supervisor.product_truth_acceptance import (
+    ensure_product_truth_acceptance_binding,
+)
+from readme_agent.supervisor.product_truth_provenance import (
+    load_coherent_product_truth_proposal,
+)
+from readme_agent.supervisor.product_truth_recovery import (
+    recover_interrupted_product_truth_commit,
+)
 
 ResolutionSource = Literal["repository_and_policy", "agent_draft", "durable_revision_cache"]
 BlockedCategory = Literal["agent_fixable", "infra_external"]
@@ -115,16 +124,32 @@ def load_prepared_product_truth(
         lifecycle is None
         or isinstance(lifecycle, ReadmePocLifecycleStateV1)
         or lifecycle.source_revision != source_revision
-        or lifecycle.facts_hash is None
-        or lifecycle.status not in _CACHEABLE_LIFECYCLE_STATES
     ):
         return None
 
     org, repo = org_repo.split("/", maxsplit=1)
     bundle_dir = paths.readme_poc_repository_dir(org, repo, source_revision)
+    recovered = recover_interrupted_product_truth_commit(
+        org_repo,
+        source_revision,
+        bundle_dir,
+        state_backend,
+        lifecycle,
+    )
+    recovered_later_lifecycle = False
+    if recovered is not None:
+        lifecycle = recovered
+        recovered_later_lifecycle = lifecycle.status not in {
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "BLOCKED_FACT_CONFLICT",
+            "BLOCKED_MISSING_EVIDENCE",
+        }
+    if lifecycle.facts_hash is None or lifecycle.status not in _CACHEABLE_LIFECYCLE_STATES:
+        return None
     facts_path = bundle_dir / "facts" / "product-facts.json"
     findings_path = bundle_dir / "facts" / "findings.json"
-    proposal_path = bundle_dir / "facts" / "proposed-product-truth.json"
     manifest_path = bundle_dir / "manifest.json"
     if not manifest_path.is_file():
         return None
@@ -156,11 +181,10 @@ def load_prepared_product_truth(
     findings = (
         json.loads(findings_path.read_text(encoding="utf-8")) if findings_path.is_file() else []
     )
-    proposed_product_truth = (
-        json.loads(proposal_path.read_text(encoding="utf-8")) if proposal_path.is_file() else None
-    )
-    if proposed_product_truth is not None and lifecycle.prompt_hash != prompt_registry.prompt_hash(
-        "draft_product_truth"
+    proposed_product_truth = load_coherent_product_truth_proposal(bundle_dir, manifest)
+    if proposed_product_truth is not None and (
+        manifest.get("prompt_hash") != prompt_registry.prompt_hash("draft_product_truth")
+        or lifecycle.prompt_hash != manifest.get("prompt_hash")
     ):
         return None
     contract = current_fact_acceptance_contract()
@@ -176,6 +200,15 @@ def load_prepared_product_truth(
     outcome = classify_product_truth(facts, contract)
     returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
     outcome_matches_lifecycle = _cached_outcome_matches_lifecycle(lifecycle.status, outcome)
+    if recovered_later_lifecycle and lifecycle.fact_acceptance_history:
+        latest_binding = lifecycle.fact_acceptance_history[-1]
+        outcome_matches_lifecycle = (
+            latest_binding.source_revision == source_revision
+            and latest_binding.facts_hash == facts.canonical_hash()
+            and latest_binding.contract_hash == contract_hash
+            and latest_binding.component_hashes == contract.component_hashes
+            and latest_binding.outcome == outcome
+        )
     if not (manifest_contract_current and lifecycle_contract_current):
         if fact_contract_change_requires_recollection(
             lifecycle.fact_acceptance_component_hashes,
@@ -223,6 +256,15 @@ def load_prepared_product_truth(
             fact_acceptance_component_hashes=contract.component_hashes,
         )
         returned_lifecycle_status = outcome
+    ensure_product_truth_acceptance_binding(
+        state_backend,
+        org_repo,
+        source_revision=source_revision,
+        facts_hash=facts.canonical_hash(),
+        contract_hash=contract_hash,
+        component_hashes=contract.component_hashes,
+        outcome=outcome,
+    )
     return PreparedProductTruthV1(
         facts=facts,
         findings=findings,
@@ -351,6 +393,15 @@ def prepare_local_product_truth(
         prompt_hash=prompt_hash,
         fact_acceptance_contract_hash=fact_acceptance_contract_hash,
         fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
+    )
+    ensure_product_truth_acceptance_binding(
+        state_backend,
+        org_repo,
+        source_revision=snapshot.source_revision,
+        facts_hash=facts.canonical_hash(),
+        contract_hash=fact_acceptance_contract_hash,
+        component_hashes=fact_acceptance_contract.component_hashes,
+        outcome=lifecycle_status,
     )
     return PreparedProductTruthV1(
         facts=facts,

@@ -273,12 +273,28 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
         snapshot,
         facts,
         findings=[],
+        resolution_source="agent_draft",
+        proposed_product_truth={"audience": ["Product users"]},
+        prompt_hash=prompt_registry.prompt_hash("draft_product_truth"),
+        local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    proposal_path = bundle / "facts" / "proposed-product-truth.json"
+    assert proposal_path.is_file()
+
+    bundle = write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="v" * 64,
         fact_acceptance_contract_hash="a" * 64,
         fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
     )
 
+    assert not proposal_path.exists()
+    assert verify_sha256sums(bundle)
     assert (bundle / "facts" / "product-facts.json").is_file()
     assert (bundle / "facts" / "provenance.json").is_file()
     assert (bundle / "facts" / "conflicts.json").is_file()

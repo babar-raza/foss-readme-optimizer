@@ -51,6 +51,9 @@ def write_local_poc_product_facts(
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
     bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
     facts_dir = bundle_dir / "facts"
+    proposal_path = facts_dir / "proposed-product-truth.json"
+    if proposed_product_truth is None:
+        proposal_path.unlink(missing_ok=True)
     write_redacted_json(facts_dir / "product-facts.json", facts)
     write_redacted_json(
         facts_dir / "provenance.json",
@@ -86,7 +89,7 @@ def write_local_poc_product_facts(
     )
     write_redacted_json(facts_dir / "findings.json", findings)
     if proposed_product_truth is not None:
-        write_redacted_json(facts_dir / "proposed-product-truth.json", proposed_product_truth)
+        write_redacted_json(proposal_path, proposed_product_truth)
     facts_hash = facts.canonical_hash()
     prior_manifest = load_existing_local_poc_manifest(bundle_dir, snapshot.source_revision)
     if (
