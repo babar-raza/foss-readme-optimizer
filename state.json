@@ -126,7 +126,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-02T19:46:12.566779+00:00",
+    "last_evaluated_at": "2026-08-02T19:52:13.327088+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -268,7 +268,7 @@
       "task_id": "L8-REVIEW-00-CONTEXT-CORPUS"
     },
     "task_statuses": {
-      "L8-ACCEL-00-PYTHON-READINESS": "IMPLEMENTED",
+      "L8-ACCEL-00-PYTHON-READINESS": "VERIFIED",
       "L8-ACCEL-01-EIGHT-TOTAL": "TODO",
       "L8-ACCEL-02-EIGHT-PYTHON": "TODO",
       "L8-ACCEL-03-ALL-PYTHON": "TODO",
@@ -6196,6 +6196,17 @@
         "reason": "Zero-provider .NET/Java readiness and 31-repository salvage completed; deterministic three-slice queue and typed evidence are materialized",
         "task_id": "L8-ACCEL-00-PYTHON-READINESS",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-accel-00-python-readiness-v1/independent-verification-receipt.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Independent-Readiness-Verifier",
+        "occurred_at": "2026-08-02T19:52:13.327080+00:00",
+        "reason": "Independent non-authoring replay accepted exact rankings, salvage counts, zero-provider accounting, freeze replay, focused tests, and checksum inventory",
+        "task_id": "L8-ACCEL-00-PYTHON-READINESS",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -6205,7 +6216,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 713,
+  "state_version": 714,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
