@@ -45,3 +45,12 @@ README composition, fact extraction, prompts, templates, ecosystem adapters, pro
 other candidate implementation already present in the working tree were preserved but not treated
 as part of this plan-reconciliation implementation. `CampaignFreezeV1` content-addresses the
 applicable contract bytes without claiming those unrelated changes are committed or verified.
+
+## Freeze and external-review package
+
+- `campaign-freeze-v1.json` - control commit plus eleven dependency-group and seven critical-file
+  hashes, with dirty-contract and incomplete-registry disclosure.
+- `freeze-validation.json` and `freeze-validation-history.md` - rejected ambiguous membership
+  attempt followed by independent 11/11 and 7/7 acceptance.
+- `INDEPENDENT-REVIEW-START.md` and `review-zip-files.txt` - canonical external-review entrypoint
+  and exact archive membership.

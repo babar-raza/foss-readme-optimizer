@@ -9,12 +9,13 @@ trusted goals cannot execute, reserve capacity, authorize effects, or satisfy ve
 ## Canonical order
 
 1. P0 plan reconciliation and dependency freeze.
-2. Note verified no-op canary.
-3. Zero-call .NET/Java selection and their verified slices.
-4. Three approved/no-op slices and their bounded integration suite.
-5. Page/PDF canaries, then every Python repository.
-6. Remaining platforms in configured order.
-7. Dynamic full-registry verified Gate A, Gate B, Gate C, then Levels 5-8.
+2. Compile the accepted Note reference into the reusable structural contract.
+3. Zero-call .NET/Java selection.
+4. Run the Note verified no-op canary and the selected .NET/Java slices together.
+5. Close the three approved/no-op slices and their bounded integration suite.
+6. Page/PDF canaries, then every Python repository.
+7. Remaining platforms in configured order.
+8. Dynamic full-registry verified Gate A, Gate B, Gate C, then Levels 5-8.
 
 The graph retains historical IDs when required for durable compatibility. In particular,
 `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` now unambiguously owns .NET/Java slices, while
@@ -25,7 +26,10 @@ The graph retains historical IDs when required for durable compatibility. In par
 This campaign did not advance product lifecycle claims. Current valid results remain 1/31 through
 agent approval and 0/31 through no-op; raw historical reach is displayed separately. One old
 external block remains visible. Product execution remains prohibited until independent acceptance,
-the coherent plan commit, and `CampaignFreezeV1` are complete.
+the coherent plan commit, and `CampaignFreezeV1` are complete. The plan commit is
+`83d43102582c4cf7d74250529927b2256e30f718`; the independently reproduced freeze passed all
+eleven dependency groups and all seven critical files. The fresh external-review ZIP is the final
+P0 packaging boundary before the durable task may close.
 
 ## Review design
 

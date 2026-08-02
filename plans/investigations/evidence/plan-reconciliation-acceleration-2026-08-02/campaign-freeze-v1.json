@@ -1,0 +1,132 @@
+{
+  "schema_version": "CampaignFreezeV1",
+  "campaign_id": "CAMP-PLAN-FREEZE",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "created_at": "2026-08-02T18:04:01.8196911Z",
+  "control_branch": "main",
+  "control_commit": "83d43102582c4cf7d74250529927b2256e30f718",
+  "graph_sha256": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
+  "durable_state_version_at_freeze": 698,
+  "durable_transition_count_at_freeze": 506,
+  "active_task_at_freeze": "L8-PLAN-RECONCILIATION-ACCELERATION",
+  "registry": {
+    "denominator": 31,
+    "raw_sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+    "registry_revision": "35e44d036bf1097394ecfaeaeb3ba15e842d398cc28df0d2e3371d54a93652f9",
+    "gate_a_eligible": false,
+    "open_conditions": [
+      "pending_intake_present",
+      "unexplained_observations_present"
+    ],
+    "interpretation": "The current 31 admitted repositories may progress independently; this freeze does not claim complete discovery or Gate-A eligibility."
+  },
+  "hash_algorithm": {
+    "name": "sha256-sorted-path-file-digest-v1",
+    "definition": "For each selected file sorted by repository-relative POSIX path, append UTF-8 path, NUL, lowercase raw-file SHA-256, and LF; SHA-256 the concatenation.",
+    "excluded_path_segments": [
+      ".git",
+      ".venv",
+      "runs",
+      "__pycache__",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".ruff_cache"
+    ]
+  },
+  "dependency_groups": {
+    "registry": {
+      "membership": ["data/products.json", "data/platform_priorities.json"],
+      "file_count": 2,
+      "dirty_file_count": 0,
+      "sha256": "5dd340a97b1f1e965512ac0fe4598257933b735ed61ae8f91951a4c0870f551a"
+    },
+    "presentation_template": {
+      "membership": ["templates/readme/**", "src/readme_agent/presentation/**", "src/readme_agent/readme/presentation_contract.py", "src/readme_agent/readme/document_templates.py", "src/readme_agent/readme/document_renderer.py"],
+      "file_count": 36,
+      "dirty_file_count": 15,
+      "sha256": "6e33bc27611a2204a679a5d4b3f9f62835b0861ef30ee113b5b1511ee7ce086e"
+    },
+    "facts_and_ecosystems": {
+      "membership": ["src/readme_agent/facts/**", "src/readme_agent/ecosystems/**"],
+      "file_count": 107,
+      "dirty_file_count": 13,
+      "sha256": "85d13caea7e368e53ad841de916398d2e37d211d21e1c61dd9360553f07c717e"
+    },
+    "prompts": {
+      "membership": ["prompts/**", "src/readme_agent/llm/prompt_registry.py", "src/readme_agent/llm/generation_prompts.py"],
+      "file_count": 17,
+      "dirty_file_count": 2,
+      "sha256": "7555724795b0a8f02f019bd3e7ed91236ba7993f2d183deb6be0844b7d534373"
+    },
+    "model_routes": {
+      "membership": ["src/readme_agent/env.py", "src/readme_agent/llm/*router*", "src/readme_agent/llm/*routing*", "src/readme_agent/llm/*client*"],
+      "file_count": 9,
+      "dirty_file_count": 0,
+      "sha256": "3f9cc98aaa62eba364e9aa37a5c45eccc4afedbcaf299e101613462af9090ef6"
+    },
+    "policy_and_links": {
+      "membership": ["config/policies/**", "data/aspose_com_links.json", "plans/aspose_org_links.json"],
+      "file_count": 32,
+      "dirty_file_count": 0,
+      "sha256": "6ec975f9db985691077da5291b1df259cb8be78e3560e8f8901e99d35c0c73ae"
+    },
+    "validators": {
+      "selection_rule": {
+        "include_if": "path starts with src/readme_agent/validation/ OR (path starts with src/readme_agent/readme/ AND basename contains any of validation, lint, claim, fact_grounding, header_visual)",
+        "path_representation": "repository-relative POSIX path",
+        "basename_match": "case-sensitive substring"
+      },
+      "file_count": 41,
+      "dirty_file_count": 16,
+      "sha256": "589902e6c4f015aa0471328ab20b5162d6085dd2b2b222895ba28a4bac35f786"
+    },
+    "independent_review": {
+      "selection_rule": {
+        "include_if": "(path starts with src/readme_agent/specialists/ AND full path contains review or verif) OR (path starts with prompts/ AND full path contains review or verif)",
+        "path_representation": "repository-relative POSIX path",
+        "substring_match": "case-sensitive"
+      },
+      "file_count": 25,
+      "dirty_file_count": 0,
+      "sha256": "1efae7febe06dfb6e98b735dc018252d1661969fe093edb151ca6da48899b55f"
+    },
+    "lifecycle_and_mission": {
+      "membership": ["src/readme_agent/state/**", "src/readme_agent/supervisor/**"],
+      "file_count": 84,
+      "dirty_file_count": 7,
+      "sha256": "fd38b1aac0a36b84bd8bb486e8e4596b874cfe100fc053df00e708075f14c7dd"
+    },
+    "runtime_toolchain": {
+      "membership": ["pyproject.toml", "uv.lock", "requirements.lock", "src/readme_agent/cli.py", "src/readme_agent/commands_supervision.py", ".github/workflows/ci.yml", "scripts/governance/run_full_pytest.py"],
+      "file_count": 5,
+      "dirty_file_count": 1,
+      "sha256": "80373c158bf6e08891b766a6058a3a9506ba3f05ea5d5bebb18d5b12d7bda0c5"
+    },
+    "test_inventory": {
+      "membership": ["tests/**/*.py", "scripts/governance/run_full_pytest.py"],
+      "file_count": 231,
+      "dirty_file_count": 25,
+      "sha256": "dcff7f0da42b6d4ff302f61456d8e606f1cadc78e84c96cfb8a0a5d28e01fb94"
+    }
+  },
+  "critical_files": {
+    "data/products.json": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
+    "data/platform_priorities.json": "8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec",
+    "templates/readme/repository-presentation-v1.json": "9a49c180523c2ff29e6a52a75ab53b4e18b3295fb1d4eb4bcdb07c99f14ed3ea",
+    "src/readme_agent/facts/acceptance_contract.py": "bdb5be60f8fbd5e21e129ccfa437fd2328330a5764c0d0f700ca1352de8e5e88",
+    "src/readme_agent/env.py": "176c3d158641c1b8191826fb660645bfefac4b49bfbc4672526487c6844943b1",
+    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml": "37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3",
+    "pyproject.toml": "a46f521529ec708094c88ebe1ea5e5115e198ba61be5c0183413965fa2ac36e0"
+  },
+  "worktree_contract": {
+    "contract_files_dirty_relative_to_control_commit": true,
+    "total_worktree_entries_at_freeze": 87,
+    "rule": "A reuse or execution attempt must recompute every dependency-group digest. Any mismatch invalidates only the dependent stages. The control commit alone is insufficient while contract files remain dirty."
+  },
+  "pre_freeze_independent_verdict": {
+    "verdict": "PRE_FREEZE_ACCEPTED",
+    "report_sha256": "83924cba33a4ced22981fd80d9a7602edb4db3170f32819386dfd234cfcce672",
+    "structured_verdict_sha256": "7f2901ae314aa0508e851e40080381f836914d025623cd0e1bc90d6633990bda"
+  },
+  "freeze_status": "CREATED"
+}
