@@ -111,7 +111,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-02T19:22:25.392142+00:00",
+    "last_evaluated_at": "2026-08-02T19:22:43.233703+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -288,7 +288,7 @@
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
-      "L8-PLAN-RECONCILIATION-ACCELERATION": "IMPLEMENTED",
+      "L8-PLAN-RECONCILIATION-ACCELERATION": "VERIFIED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -6117,6 +6117,17 @@
         "reason": "Committed clean plan freeze, immutable 85-file pipeline snapshot, narrow stage/campaign contracts, and replayable evidence",
         "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/final-throughput-correction-v1/independent-verification-receipt.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "Independent-Throughput-Verifier",
+        "occurred_at": "2026-08-02T19:22:43.233697+00:00",
+        "reason": "Independent non-authoring replay accepted all plan members, 85 snapshot bytes, campaign manifests, and focused checks",
+        "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -6126,7 +6137,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 708,
+  "state_version": 709,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
