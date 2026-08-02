@@ -47,6 +47,23 @@
     }
   ],
   "checkpoints": {
+    "074bbe6b9cc6f841e3b2ed7ed08194ae6f36da15f9213aed34de490cd822e9c9": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "074bbe6b9cc6f841e3b2ed7ed08194ae6f36da15f9213aed34de490cd822e9c9",
+      "completed_at": "2026-08-02T23:04:26.898063+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "067c51f8777a84f1523942254e077251b922f52d8f7a2ecf222970dfbaea8ec6",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "run_id": "20260802-225359-c0fc",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-02T23:04:26.898053+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-225359-c0fc:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    },
     "0e976c98db92dc417469e2456ff0b22f8976571b0519e28140a5c45aafaf5c1e": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -19012,7 +19029,7 @@
     "updated_at": "2026-08-02T23:02:52.370459+00:00"
   },
   "schema_version": 2,
-  "state_version": 336,
+  "state_version": 337,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9ea1d6fb937d693198ddf58499e8a08fe4ce8302d9e49e0758a79e21f2381abb",
@@ -19350,11 +19367,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "5888fa893bac93a2bb3a1bfb4d734e1cb0d70e1007a918a9b699d127d1f25125",
+      "last_checkpoint_id": "074bbe6b9cc6f841e3b2ed7ed08194ae6f36da15f9213aed34de490cd822e9c9",
       "lease_expires_at": "2026-08-02T23:09:16.994439+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-02T22:55:59.045024+00:00"
+      "updated_at": "2026-08-02T23:04:26.898063+00:00"
     }
   },
   "trigger_records": {},
