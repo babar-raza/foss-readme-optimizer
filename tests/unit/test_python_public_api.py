@@ -422,6 +422,40 @@ def test_consumer_stages_repository_fixture_for_placeholder_input(tmp_path):
     ]
 
 
+def test_consumer_binds_fixture_already_copied_at_exact_repository_path(tmp_path):
+    _write_package(tmp_path)
+    fixture = tmp_path / "testfiles" / "TagSizes.one"
+    fixture.parent.mkdir()
+    fixture.write_bytes(b"exact repository fixture\n")
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code=("from aspose.widget import Widget\nWidget.from_file('testfiles/TagSizes.one')\n"),
+        required_symbols=["aspose.widget.Widget"],
+    )
+
+    def asserting_executor(request):
+        copied = request.source_root / "testfiles" / "TagSizes.one"
+        assert copied.read_bytes() == fixture.read_bytes()
+        return _successful_executor(request)
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=asserting_executor)
+
+    assert proof.accepted is True
+    assert [binding.model_dump() for binding in proof.fixture_bindings] == [
+        {
+            "source_path": "testfiles/TagSizes.one",
+            "target_path": "testfiles/TagSizes.one",
+            "sha256": hashlib.sha256(fixture.read_bytes()).hexdigest(),
+            "size_bytes": fixture.stat().st_size,
+        }
+    ]
+
+
 def test_consumer_rejects_missing_reexport_private_and_detached_compile(tmp_path):
     _write_package(tmp_path)
     snapshot = _git_snapshot(tmp_path)

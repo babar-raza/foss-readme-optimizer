@@ -102,6 +102,7 @@ def stage_repository_input_fixtures(
 
     bindings: list[PythonFixtureBindingV1] = []
     workspace_root = workspace.resolve()
+    snapshot_root = snapshot.root_path.resolve()
     for target in _input_paths_from_example(code):
         destination = (workspace_root / target).resolve()
         try:
@@ -109,8 +110,30 @@ def stage_repository_input_fixtures(
         except ValueError:
             continue
         if destination.exists():
+            exact_source = (snapshot_root / target).resolve()
+            try:
+                exact_source.relative_to(snapshot_root)
+            except ValueError:
+                continue
+            if not exact_source.is_file() or not destination.is_file():
+                continue
+            source_bytes = exact_source.read_bytes()
+            if not 0 < len(source_bytes) <= _MAX_FIXTURE_BYTES:
+                continue
+            if destination.read_bytes() != source_bytes:
+                raise ValueError(
+                    f"copied repository fixture differs from immutable source: {target.as_posix()}"
+                )
+            bindings.append(
+                PythonFixtureBindingV1(
+                    source_path=exact_source.relative_to(snapshot_root).as_posix(),
+                    target_path=target.as_posix(),
+                    sha256=hashlib.sha256(source_bytes).hexdigest(),
+                    size_bytes=len(source_bytes),
+                )
+            )
             continue
-        source = _select_repository_fixture(snapshot.root_path, target)
+        source = _select_repository_fixture(snapshot_root, target)
         if source is None:
             continue
         destination.parent.mkdir(parents=True, exist_ok=True)
