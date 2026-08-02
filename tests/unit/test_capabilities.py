@@ -5,6 +5,7 @@ scope: the registry and its family of implementations are tested together as
 one cohesive unit. No real clone, no real network -- everything the
 capabilities call into is monkeypatched."""
 
+import hashlib
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -42,7 +43,7 @@ from readme_agent.capabilities.schema import (
     CapabilityManifest,
     OrgRepoOnlyInputV1,
 )
-from readme_agent.errors import NotAllowlistedError
+from readme_agent.errors import NotAllowlistedError, ValidationFailure
 from readme_agent.facts import provider as facts_provider
 from readme_agent.facts.migration import migrate_product_facts_v1
 from readme_agent.facts.schema import ProductFactsV1
@@ -1305,14 +1306,73 @@ class TestCompareAgainstPresentationStandard:
             ]
         )
 
+        candidate = (
+            "# Widget\n\n"
+            "```mermaid\nflowchart LR\n  input --> output\n```\n\n"
+            "A widget library without a CI badge.\n"
+        )
         result = compare_against_presentation_standard.execute(
-            "acme/widget", "# Widget\n\nA widget library.\n", client=client
+            "acme/widget", candidate, client=client
         )
 
         assert result["criteria_results"] == [
             {"dimension": "Product clarity", "satisfied": True, "note": "ok"}
         ]
         assert result["overall_summary"] == "Mostly compliant."
+        assert result["input_source"] == "candidate_text"
+        assert result["input_sha256"] == hashlib.sha256(candidate.encode("utf-8")).hexdigest()
+        assert result["structural_observations"] == {
+            "has_mermaid": True,
+            "ci_badge_count": 0,
+        }
+        assert result["structural_consistency"] == {"valid": True, "contradictions": []}
+
+    def test_structural_claim_contradictions_fail_closed(self, monkeypatch):
+        from readme_agent.llm.analysis_client import AnalysisResult, FixtureAnalysisClient
+        from readme_agent.llm.schema import LLMResponseMeta
+        from readme_agent.registry.models import ProductEntry
+
+        fake_entry = ProductEntry(
+            repo_name="widget",
+            repo_url="https://github.com/acme/widget",
+            clone_url="https://github.com/acme/widget.git",
+            active=True,
+            discovered_via="manual",
+            mode="dry_run",
+            ecosystem="python",
+            family="widget",
+            platform="python",
+            policy_profile="test-profile",
+        )
+        monkeypatch.setattr(
+            compare_against_presentation_standard, "require_listed", lambda org_repo: fake_entry
+        )
+        client = FixtureAnalysisClient(
+            [
+                AnalysisResult(
+                    parsed={
+                        "criteria_results": [
+                            {
+                                "dimension": "visual_usefulness",
+                                "satisfied": True,
+                                "note": "No visuals are present.",
+                            },
+                            {
+                                "dimension": "maintenance_signals",
+                                "satisfied": True,
+                                "note": "The README includes a CI badge linking to Actions.",
+                            },
+                        ],
+                        "overall_summary": "incorrect",
+                    },
+                    meta=LLMResponseMeta(),
+                )
+            ]
+        )
+        candidate = "# Widget\n\n```mermaid\nflowchart LR\n  a --> b\n```\n"
+
+        with pytest.raises(ValidationFailure, match="no visual.*CI badge"):
+            compare_against_presentation_standard.execute("acme/widget", candidate, client=client)
 
 
 class TestCompareReferenceRepositories:

@@ -1100,6 +1100,7 @@ def supervise_repo(
             if write_evidence_bundle:
                 shortcut_run_id = generate_run_id()
                 shortcut_evidence_dir = paths.evidence_dir(shortcut_run_id)
+                shortcut_state = state_backend.load(org_repo) if state_backend is not None else None
                 _write_supervise_evidence(
                     shortcut_evidence_dir,
                     shortcut_run_id,
@@ -1117,6 +1118,11 @@ def supervise_repo(
                     domain_coverage_complete=True,
                     surface_freshness=refreshed_surface_freshness,
                     repository_snapshot=repository_snapshot,
+                    readme_poc_lifecycle=(
+                        shortcut_state.readme_poc_lifecycle
+                        if shortcut_state is not None and track_readme_poc_lifecycle
+                        else None
+                    ),
                 )
                 _assert_evidence_complete(shortcut_evidence_dir)
             return SuperviseResult(
@@ -1234,6 +1240,7 @@ def supervise_repo(
             if write_evidence_bundle:
                 assert run_id is not None
                 evidence_path = paths.evidence_dir(run_id)
+                terminal_state = state_backend.load(org_repo) if state_backend is not None else None
                 _write_supervise_evidence(
                     evidence_path,
                     run_id,
@@ -1246,6 +1253,11 @@ def supervise_repo(
                     upstream_revision=current_revision,
                     surface_freshness=refreshed_surface_freshness,
                     repository_snapshot=repository_snapshot,
+                    readme_poc_lifecycle=(
+                        terminal_state.readme_poc_lifecycle
+                        if terminal_state is not None and track_readme_poc_lifecycle
+                        else None
+                    ),
                 )
                 _assert_evidence_complete(evidence_path)
 

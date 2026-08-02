@@ -108,6 +108,7 @@ _SPECIALISTS: tuple[SpecialistManifest, ...] = (
         purpose="Compare the current README against docs/presentation-standard.md's codified "
         "rules via a structured LLM analysis call -- evidence, never a blocking gate (Wave 8.6).",
         run=presentation_benchmarking.run,
+        depends_on=presentation_benchmarking.DEPENDS_ON,
     ),
     SpecialistManifest(
         domain=independent_verification.DOMAIN,

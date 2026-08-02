@@ -198,6 +198,10 @@ def finish_local_poc_preclone_reuse(
     )
     evidence_dir = None
     if write_evidence_bundle:
+        current = backend.load(org_repo)
+        lifecycle = current.readme_poc_lifecycle if current is not None else None
+        if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+            raise RuntimeError("local-POC reuse evidence requires a V2 README lifecycle")
         run_id = generate_run_id()
         evidence_dir = paths.evidence_dir(run_id)
         write_supervise_evidence(
@@ -210,6 +214,7 @@ def finish_local_poc_preclone_reuse(
             control_plane_fingerprint=current_control_plane_fingerprint,
             upstream_revision=current_source_revision,
             surface_freshness=prior_surface_freshness,
+            readme_poc_lifecycle=lifecycle,
         )
         assert_evidence_complete(evidence_dir)
     return SuperviseResult(

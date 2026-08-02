@@ -30,6 +30,42 @@ EXPECTED_EVIDENCE_FILES = (
     "sha256sums.txt",
 )
 
+_VERIFIED_FACT_BOUND_STATUSES = {
+    "FACTS_READY",
+    "README_ASSESSED",
+    "PLAN_READY",
+    "CANDIDATE_GENERATED",
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_REVIEWING",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+    "DETERMINISTIC_VALIDATION_FAILED",
+    "AGENT_REVIEW_REJECTED",
+    "REPAIRING",
+}
+
+
+def _terminal_facts_hash(
+    lifecycle: ReadmePocLifecycleStateV1 | ReadmePocLifecycleStateV2 | None,
+) -> str | None:
+    """Project the canonical V2 fact binding into terminal evidence."""
+
+    if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+        return None
+    if (
+        lifecycle.content_assurance == "repository_verified"
+        and lifecycle.status in _VERIFIED_FACT_BOUND_STATUSES
+        and lifecycle.facts_hash is None
+    ):
+        raise RuntimeError(
+            f"repository-verified terminal lifecycle {lifecycle.status!r} has no facts_hash"
+        )
+    return lifecycle.facts_hash
+
 
 def requirement_ids_exercised(
     specialist_results: dict[str, DomainStateV1],
@@ -146,6 +182,7 @@ def write_supervise_evidence(
             upstream_revision=upstream_revision,
             domain_coverage_complete=domain_coverage_complete,
             surface_freshness=surface_freshness or {},
+            facts_hash=_terminal_facts_hash(readme_poc_lifecycle),
             requirement_ids_exercised=requirement_results,
             llm_accounting_status=llm_summary.status,
             llm_call_count=llm_summary.provider_call_count,

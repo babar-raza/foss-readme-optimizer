@@ -3,8 +3,10 @@ the specialist registry -- real local git repos, real capability dispatch
 through classify_upstream_change (proving decision #34's domain enforcement
 end to end, not mocked), a fake in-memory StateBackend. No network."""
 
+import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -17,9 +19,15 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
-from readme_agent.specialists import readme_reconciliation, registry, separated_readme_review
+from readme_agent.specialists import (
+    presentation_benchmarking,
+    readme_reconciliation,
+    registry,
+    separated_readme_review,
+)
 from readme_agent.state.backend import SaveResult
-from readme_agent.state.schema import DomainStateV1, RunStateV1
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.schema import DomainStateV1, RunStateV1, RunStateV2
 from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
 ORG_REPO = "example-foss/Aspose.Widget-FOSS-for-Java"
@@ -287,6 +295,218 @@ class TestSpecialistsRegistry:
 
         assert result is not None
         assert result.accepted_status == "FIRST_OBSERVATION"
+
+    def test_presentation_benchmarking_declares_readme_candidate_dependency(self):
+        manifest = next(
+            item for item in registry._SPECIALISTS if item.domain == "presentation_benchmarking"
+        )
+        assert manifest.depends_on == ("readme_presentation",)
+
+
+class TestPresentationBenchmarkingCandidateBinding:
+    _REVISION = "a" * 40
+    _FACTS_HASH = "b" * 64
+
+    def _seed_bound_candidate(self, tmp_path, candidate: str) -> _FakeStateBackend:
+        candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
+        bundle = (
+            tmp_path
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Aspose.Widget-FOSS-for-Java"
+            / self._REVISION
+        )
+        (bundle / "candidate").mkdir(parents=True)
+        (bundle / "candidate" / "README.md").write_text(candidate, encoding="utf-8", newline="")
+        (bundle / "manifest.json").write_text(
+            json.dumps({"candidate_hash": candidate_hash}), encoding="utf-8"
+        )
+        backend = _FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV2(
+            org_repo=ORG_REPO,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="AGENT_APPROVED",
+                source_revision=self._REVISION,
+                facts_hash=self._FACTS_HASH,
+                candidate_hash=candidate_hash,
+            ),
+        )
+        return backend
+
+    def test_dispatches_exact_hash_checked_candidate_not_baseline(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        candidate = (
+            "# Candidate\n\n"
+            "```mermaid\nflowchart LR\n  input --> output\n```\n\n"
+            "No CI badge is present.\n"
+        )
+        backend = self._seed_bound_candidate(tmp_path, candidate)
+        dispatched: list[dict] = []
+
+        def _dispatch(tool_call, *args, **kwargs):
+            dispatched.append(json.loads(tool_call["function"]["arguments"]))
+            return SimpleNamespace(
+                outcome="executed",
+                result={
+                    "criteria_results": [],
+                    "overall_summary": "candidate assessed",
+                    "input_source": "candidate_text",
+                    "input_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+                    "structural_observations": {
+                        "has_mermaid": True,
+                        "ci_badge_count": 0,
+                    },
+                },
+            )
+
+        monkeypatch.setattr(presentation_benchmarking, "dispatch_tool_call", _dispatch)
+        result = presentation_benchmarking._classify_node(
+            DomainStateV1(domain="presentation_benchmarking"),
+            {
+                "configurable": {
+                    "org_repo": ORG_REPO,
+                    "backend": backend,
+                    "current_revision": self._REVISION,
+                }
+            },
+        )
+
+        assert dispatched == [{"org_repo": ORG_REPO, "candidate_text": candidate}]
+        assert result["details"]["input_source"] == "candidate_text"
+        assert result["details"]["structural_observations"] == {
+            "has_mermaid": True,
+            "ci_badge_count": 0,
+        }
+
+    def test_hash_mismatch_fails_before_baseline_or_dispatch(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        backend = self._seed_bound_candidate(tmp_path, "# Candidate\n")
+        candidate_path = (
+            tmp_path
+            / "runs"
+            / "readme-poc"
+            / "example-foss__Aspose.Widget-FOSS-for-Java"
+            / self._REVISION
+            / "candidate"
+            / "README.md"
+        )
+        candidate_path.write_text("# Tampered\n", encoding="utf-8", newline="")
+        monkeypatch.setattr(
+            presentation_benchmarking,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: pytest.fail("mismatched candidate must not be dispatched"),
+        )
+
+        with pytest.raises(RuntimeError, match="candidate hash does not match"):
+            presentation_benchmarking._classify_node(
+                DomainStateV1(domain="presentation_benchmarking"),
+                {
+                    "configurable": {
+                        "org_repo": ORG_REPO,
+                        "backend": backend,
+                        "current_revision": self._REVISION,
+                    }
+                },
+            )
+
+    def test_local_poc_without_bound_candidate_fails_before_baseline(self, monkeypatch):
+        from readme_agent.supervisor.execution_context import proposal_only_scope
+
+        monkeypatch.setattr(
+            presentation_benchmarking,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: pytest.fail("local POC must not benchmark the baseline"),
+        )
+
+        with (
+            proposal_only_scope(),
+            pytest.raises(RuntimeError, match="local-POC.*lifecycle-bound candidate"),
+        ):
+            presentation_benchmarking._classify_node(
+                DomainStateV1(domain="presentation_benchmarking"),
+                {
+                    "configurable": {
+                        "org_repo": ORG_REPO,
+                        "backend": None,
+                        "current_revision": self._REVISION,
+                    }
+                },
+            )
+
+    def test_local_poc_defers_only_behind_recorded_upstream_failure(self, monkeypatch):
+        from readme_agent.supervisor.execution_context import proposal_only_scope
+
+        backend = _FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV2(
+            org_repo=ORG_REPO,
+            domain_states={
+                "readme_presentation": DomainStateV1(
+                    domain="readme_presentation",
+                    last_failure_reason="presentation_plan",
+                )
+            },
+        )
+        monkeypatch.setattr(
+            presentation_benchmarking,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: pytest.fail("deferred benchmark must not dispatch baseline"),
+        )
+
+        with proposal_only_scope():
+            result = presentation_benchmarking._classify_node(
+                DomainStateV1(domain="presentation_benchmarking"),
+                {
+                    "configurable": {
+                        "org_repo": ORG_REPO,
+                        "backend": backend,
+                        "current_revision": self._REVISION,
+                    }
+                },
+            )
+
+        assert result == {
+            "accepted_status": "NO_CHANGE",
+            "details": {
+                "status": "DEFERRED_UPSTREAM_FAILURE",
+                "upstream_domain": "readme_presentation",
+                "upstream_status": None,
+                "upstream_failure_reason": "presentation_plan",
+            },
+        }
+
+    def test_non_local_without_candidate_preserves_labeled_baseline_fallback(self, monkeypatch):
+        dispatched: list[dict] = []
+
+        def _dispatch(tool_call, *args, **kwargs):
+            dispatched.append(json.loads(tool_call["function"]["arguments"]))
+            return SimpleNamespace(
+                outcome="executed",
+                result={
+                    "criteria_results": [],
+                    "overall_summary": "baseline assessed",
+                    "input_source": "baseline_readme",
+                    "input_sha256": "c" * 64,
+                    "structural_observations": {
+                        "has_mermaid": False,
+                        "ci_badge_count": 0,
+                    },
+                    "structural_consistency": {"valid": True, "contradictions": []},
+                },
+            )
+
+        monkeypatch.setattr(presentation_benchmarking, "dispatch_tool_call", _dispatch)
+        presentation_benchmarking._classify_node(
+            DomainStateV1(domain="presentation_benchmarking"),
+            {
+                "configurable": {
+                    "org_repo": ORG_REPO,
+                    "backend": None,
+                    "current_revision": self._REVISION,
+                }
+            },
+        )
+
+        assert dispatched == [{"org_repo": ORG_REPO}]
 
 
 class TestSpecialistsRegistryCompletenessGate:

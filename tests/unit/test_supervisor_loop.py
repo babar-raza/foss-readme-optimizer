@@ -1198,6 +1198,12 @@ class TestBasicLoop:
             first.blocked_category,
             first_domain_details,
         )
+        assert first.evidence_dir is not None
+        first_terminal_manifest = json.loads(
+            (first.evidence_dir / "manifest.json").read_text(encoding="utf-8")
+        )
+        assert first_terminal_manifest["facts_hash"] == lifecycle.facts_hash
+        assert first_terminal_manifest["readme_poc_status"] == "AGENT_APPROVED"
         assert first_domain_details["proposal_only"] is True
         assert first_domain_details["written"] is False
         assert first_domain_details["committed"] is False
@@ -1209,6 +1215,12 @@ class TestBasicLoop:
             second.blocked_reason,
             second.blocked_category,
         )
+        assert second.evidence_dir is not None
+        second_terminal_manifest = json.loads(
+            (second.evidence_dir / "manifest.json").read_text(encoding="utf-8")
+        )
+        assert second_terminal_manifest["facts_hash"] == lifecycle.facts_hash
+        assert second_terminal_manifest["readme_poc_status"] == "NO_OP_PROVEN"
         assert first_readme_llm_calls == {
             "relationship": 0,
             "composition": 1,
@@ -2649,6 +2661,28 @@ class TestEvidenceCompletenessGate:
         assert manifest["content_assurance"] == "trusted_inherited"
         assert manifest["readme_poc_status"] == "TRUSTED_NO_OP_PROVEN"
         assert manifest["readme_poc_transitions"] == []
+
+    def test_terminal_manifest_rejects_verified_fact_bound_lifecycle_without_hash(self, tmp_path):
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.supervisor.evidence import write_supervise_evidence
+        from readme_agent.supervisor.task import TaskGraph
+
+        lifecycle = ReadmePocLifecycleStateV2(
+            status="AGENT_APPROVED",
+            content_assurance="repository_verified",
+            source_revision="a" * 40,
+        )
+
+        with pytest.raises(RuntimeError, match="AGENT_APPROVED.*no facts_hash"):
+            write_supervise_evidence(
+                tmp_path,
+                "run-1",
+                ORG_REPO,
+                "CONVERGED_PROPOSAL_READY",
+                TaskGraph(),
+                [],
+                readme_poc_lifecycle=lifecycle,
+            )
 
 
 class TestEscalationAlert:
