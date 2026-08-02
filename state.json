@@ -6252,6 +6252,15 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-02T21:52:03.983489+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -6280,11 +6289,11 @@
     "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-01T14:40:01.106420+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-02T21:52:03.983489+00:00"
   },
   "schema_version": 2,
-  "state_version": 159,
+  "state_version": 160,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "16ac72e7decf4be9eb7d2864488cc7f7f0679704c94925e3f008c3e2914ebbc2",
