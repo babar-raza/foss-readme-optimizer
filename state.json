@@ -46094,13 +46094,24 @@
     "updated_at": "2026-08-03T01:00:47.676856+00:00"
   },
   "schema_version": 2,
-  "state_version": 1908,
+  "state_version": 1909,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5df69159621cc005a9f7d9d50b655b75600a242c56d3a67222f6138c7ee7b278",
     "domain_coverage_complete": true,
-    "in_flight_domains": [],
-    "in_flight_run_id": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260803-010109-4b9d",
     "last_observed_upstream_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
     "last_run_id": "20260803-004801-a77e",
     "last_run_timestamp": "2026-08-03T00:48:01.167751+00:00",
