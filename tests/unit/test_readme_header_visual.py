@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -366,6 +367,31 @@ System.out.println(url);
     assert "// Explain this in prose instead." not in candidate
     assert '"https://example.test/value//literal"' in candidate
     assert validation.checks["candidate_has_no_comments"] is True
+
+
+def test_final_validation_rejects_inline_comments_in_fenced_source() -> None:
+    facts, revision = _facts()
+    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+    candidate, plan = build_readme_document_candidate(
+        ORG_REPO,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    candidate += (
+        "\n```python\n"
+        'url = "https://example.test/value#literal"\n'
+        "svg = barcode.to_svg()  # -> str\n"
+        "```\n"
+    )
+    plan = plan.model_copy(
+        update={"candidate_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest()}
+    )
+
+    validation = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert validation.checks["candidate_has_no_comments"] is False
+    assert any("source comment in the python fence" in error for error in validation.errors)
 
 
 def test_no_agentic_repository_verified_render_cannot_be_mistaken_for_approval() -> None:

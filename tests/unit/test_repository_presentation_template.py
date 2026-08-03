@@ -29,6 +29,7 @@ from readme_agent.presentation.template_schema import (
 from readme_agent.presentation.verified_template_draft import build_verified_template_draft
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
+    additional_examples_markdown,
     contributing_markdown,
     dependency_markdown,
     development_markdown,
@@ -599,6 +600,54 @@ def test_additional_examples_execution_disclosure_has_exact_standard_provenance(
     assert bound_text == disclosure
     assert binding.fact_ids == []
     assert binding.configured_standard_ids == ["readme.additional_examples"]
+
+
+def test_additional_examples_remove_source_comments_but_preserve_string_literals() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://README.md",
+        source_revision="a" * 40,
+    )
+    examples = FactRecordV2(
+        fact_id="repository.examples:test",
+        field="repository.examples",
+        value={
+            "inline_examples": [
+                {
+                    "title": "Quick Start",
+                    "language": "python",
+                    "code": (
+                        'url = "https://example.test/value#literal"\n'
+                        "svg = barcode.to_svg()  # -> str\n"
+                        "png = barcode.to_png()  # -> bytes\n"
+                    ),
+                    "static_api_verified": True,
+                }
+            ]
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, examples],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                examples.field: examples.fact_id,
+            },
+        }
+    )
+
+    rendered = additional_examples_markdown(facts)
+
+    assert rendered is not None
+    assert '"https://example.test/value#literal"' in rendered
+    assert "# -> str" not in rendered
+    assert "# -> bytes" not in rendered
 
 
 @pytest.mark.parametrize(

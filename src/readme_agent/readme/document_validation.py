@@ -5,8 +5,10 @@ from __future__ import annotations
 import hashlib
 import re
 
+from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.example_quality import source_contains_comments
 from readme_agent.facts.protected_content import (
     fingerprint_protected_content,
     protected_fragment_ids_overlapping_byte_span,
@@ -88,7 +90,21 @@ def accepted_fact_is_represented(
 
 
 def _comment_failures(candidate_text: str) -> list[str]:
-    return ["README contains an HTML comment"] if _HTML_COMMENT.search(candidate_text) else []
+    failures = ["README contains an HTML comment"] if _HTML_COMMENT.search(candidate_text) else []
+    for token in MarkdownIt("commonmark").parse(candidate_text):
+        if token.type != "fence":
+            continue
+        language = token.info.strip().split(maxsplit=1)[0]
+        if (
+            language
+            and language.casefold() != "mermaid"
+            and source_contains_comments(language, token.content)
+        ):
+            line = token.map[0] + 1 if token.map is not None else "unknown"
+            failures.append(
+                f"README contains a source comment in the {language} fence at line {line}"
+            )
+    return failures
 
 
 def validate_readme_document_candidate(

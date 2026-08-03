@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 
 _ACCEPTED = {"verified", "policy_approved"}
@@ -158,7 +159,9 @@ def additional_examples_markdown(facts: ProductFactsV2) -> str | None:
     for item in verified_inline:
         title = str(item.get("title") or "Additional workflow").strip()
         language = str(item.get("language") or "text").strip()
-        code = str(item["code"]).rstrip()
+        code = strip_source_comments(language, str(item["code"])).strip()
+        if not code:
+            continue
         body.extend([f"### {title}", "", f"```{language}", code, "```", ""])
     if paths:
         body.extend(
