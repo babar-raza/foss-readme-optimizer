@@ -38,13 +38,14 @@ _MEANINGFUL_PREFIXES = (
     "remove",
     "render",
     "replace",
+    "run",
     "save",
     "split",
     "to_",
     "transform",
     "write",
 )
-_OBSERVABLE_PREFIXES = ("export", "save", "write")
+_OBSERVABLE_PREFIXES = ("export", "run", "save", "write")
 
 ExampleClassification = Literal[
     "complete_workflow",

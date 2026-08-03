@@ -112,6 +112,35 @@ doc.save("output.pdf", aw.SaveFormat.PDF)
     assert candidates[0].required_symbols == ["aw.Document", "aw.SaveFormat.PDF"]
 
 
+def test_python_readme_candidate_strips_comments_without_changing_string_literals(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "aspose-tex-foss"\n[tool.setuptools.packages.find]\n'
+        'include = ["aspose_tex*"]\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "aspose_tex"
+    package.mkdir()
+    (package / "__init__.py").write_text("", encoding="utf-8")
+    (tmp_path / "README.md").write_text(
+        """# TeX
+
+```python
+from aspose_tex import TeXJob
+
+job = TeXJob("https://example.test/#literal")
+job.run()  # The output is written by the configured device.
+```
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "python")
+
+    assert candidates
+    assert all("configured device" not in candidate.code for candidate in candidates)
+    assert any('"https://example.test/#literal"' in candidate.code for candidate in candidates)
+
+
 def test_python_readme_fence_yields_smallest_self_contained_public_operation(tmp_path):
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname = "cssforge"\n[tool.setuptools.packages.find]\ninclude = ["engine*"]\n',

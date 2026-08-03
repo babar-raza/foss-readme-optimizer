@@ -38,6 +38,16 @@ document.pages.add()
 document.save("output.pdf")
 """
 
+TEX_JOB_RUN = """\
+from pathlib import Path
+from aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source
+
+source = create_input_source("Hello World\\n\\\\bye")
+device = PdfDevice(Path("hello.pdf"))
+job = TeXJob(source, device, options=TeXOptions(load_format=False))
+job.run()
+"""
+
 
 def _candidate(candidate_id: str, code: str) -> VerifiedExampleCandidateV1:
     return VerifiedExampleCandidateV1(
@@ -80,6 +90,15 @@ def test_pdf_limits_constructor_is_setup_not_a_complete_workflow() -> None:
 
 def test_pdf_create_and_save_is_complete() -> None:
     result = assess_minimal_example_value("python", PDF_CREATE_SAVE)
+
+    assert result.classification == "complete_workflow"
+    assert result.signals.has_meaningful_operation is True
+    assert result.signals.has_observable_result is True
+    assert result.approval_eligible is True
+
+
+def test_tex_job_run_with_file_device_is_a_complete_workflow() -> None:
+    result = assess_minimal_example_value("python", TEX_JOB_RUN)
 
     assert result.classification == "complete_workflow"
     assert result.signals.has_meaningful_operation is True

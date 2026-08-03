@@ -161,6 +161,8 @@ def repository_readme_example_candidates(
     for token in MarkdownIt("commonmark").parse(text):
         info = token.info.strip().split(maxsplit=1)[0].lower() if token.info.strip() else ""
         code = token.content.strip()
+        if info in _LANGUAGE_ALIASES["python"]:
+            code = strip_source_comments("python", code).strip()
         anchor = _evidence_anchor(code)
         if (
             token.type != "fence"
