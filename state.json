@@ -10235,6 +10235,17 @@
         "reason": "reconciled successful read-only intake retry",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\intake\\receipts\\49b5bd2f1aa7b653-a1.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-03T04:25:11.681189+00:00",
+        "reason": "recovered checksum-bound safe boundary after non-intake system failure",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "intake_preflight_history": [
@@ -10263,11 +10274,11 @@
     "reviewer_standard_hash": "b850bf2dec1c2afae95f1533aebad3c412a74fc40ecdf42cb4b99f5a641adb24",
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-03T04:16:53.214397+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-08-03T04:25:11.681189+00:00"
   },
   "schema_version": 2,
-  "state_version": 540,
+  "state_version": 541,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
