@@ -10813,7 +10813,7 @@
     "updated_at": "2026-08-03T05:02:36.671881+00:00"
   },
   "schema_version": 2,
-  "state_version": 640,
+  "state_version": 641,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
@@ -11600,13 +11600,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:LLMError: forced tool call returned an invalid structured response after 1 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 232 column 30 (char 15931); finish_reason='length'; completion_tokens=4000",
       "last_checkpoint_id": "844cad5f9951aeafbc521b54d5e5d3f57ab127f28ea5effad7ccdb2b6aa57738",
-      "lease_expires_at": "2026-08-03T05:12:18.150615+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-03T05:03:30.295149+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-03T05:03:53.665250+00:00"
     }
   },
   "trigger_records": {},
