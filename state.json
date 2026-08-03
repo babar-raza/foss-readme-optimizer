@@ -10278,7 +10278,7 @@
     "updated_at": "2026-08-03T04:25:11.681189+00:00"
   },
   "schema_version": 2,
-  "state_version": 541,
+  "state_version": 542,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
@@ -10977,13 +10977,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RuntimeError:durable product-facts evidence hash does not match lifecycle state for aspose-page-foss/Aspose.Page-FOSS-for-Python@dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
       "last_checkpoint_id": "72c2a65592525ce79b377762b15d6a124b0718974af8ef0437a0b1be9d1fe10e",
-      "lease_expires_at": "2026-08-03T04:39:54.600441+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-03T04:24:59.522387+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-03T04:25:34.797406+00:00"
     }
   },
   "trigger_records": {},
