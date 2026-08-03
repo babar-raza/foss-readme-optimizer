@@ -15,6 +15,9 @@ from readme_agent.facts.python_barcode_format_functionality import (
 from readme_agent.facts.python_email_format_functionality import (
     corroborate_python_email_format_directions,
 )
+from readme_agent.facts.python_html_format_functionality import (
+    corroborate_python_html_format_directions,
+)
 
 _Corroborator = Callable[
     [Path, str, list[AsposeOrgFormatEvidenceV1]],
@@ -58,10 +61,23 @@ def _corroborate_email(
     )
 
 
+def _corroborate_html(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_html_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
 _CORROBORATORS: dict[str, _Corroborator] = {
     "3d": _corroborate_3d,
     "barcode": _corroborate_barcode,
     "email": _corroborate_email,
+    "html": _corroborate_html,
 }
 
 

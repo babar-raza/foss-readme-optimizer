@@ -146,7 +146,7 @@ def test_python_family_adapter_hashes_invalidate_only_their_owner(tmp_path):
     component = "drafting_and_example_selection"
     family_files = {
         family: _scoped_component_files(component, "python", family)
-        for family in ("3d", "page", "pdf", "barcode")
+        for family in ("3d", "page", "pdf", "barcode", "html")
     }
     for relative_path in set().union(*map(set, family_files.values())):
         target = tmp_path / relative_path
@@ -168,6 +168,7 @@ def test_python_family_adapter_hashes_invalidate_only_their_owner(tmp_path):
     assert after_three_d["page"] == baseline["page"]
     assert after_three_d["pdf"] == baseline["pdf"]
     assert after_three_d["barcode"] == baseline["barcode"]
+    assert after_three_d["html"] == baseline["html"]
 
     common_adapter = tmp_path / "python_family_format_functionality.py"
     common_adapter.write_text("changed common Python corroborator\n", encoding="utf-8")

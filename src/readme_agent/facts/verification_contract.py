@@ -40,6 +40,7 @@ _ECOSYSTEM_FILES: dict[str, tuple[str, ...]] = {
         "python_3d_format_functionality.py",
         "python_barcode_format_functionality.py",
         "python_email_format_functionality.py",
+        "python_html_format_functionality.py",
         "python_repository_examples.py",
         "../ecosystems/python_api_schema.py",
         "../ecosystems/python_package_layout.py",

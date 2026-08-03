@@ -85,6 +85,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "python_3d_format_functionality.py",
         "python_barcode_format_functionality.py",
         "python_email_format_functionality.py",
+        "python_html_format_functionality.py",
         "dotnet_3d_format_functionality.py",
         "repository_examples.py",
         "verified_repository_examples.py",
@@ -138,6 +139,7 @@ _FAMILY_FILE_OWNERS = {
     "python_3d_format_functionality.py": ("python", "3d"),
     "python_barcode_format_functionality.py": ("python", "barcode"),
     "python_email_format_functionality.py": ("python", "email"),
+    "python_html_format_functionality.py": ("python", "html"),
     "dotnet_3d_format_functionality.py": ("net", "3d"),
 }
 
