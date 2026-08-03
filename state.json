@@ -10352,7 +10352,7 @@
     "updated_at": "2026-08-03T04:33:39.129643+00:00"
   },
   "schema_version": 2,
-  "state_version": 564,
+  "state_version": 565,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
@@ -11073,13 +11073,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:agentic_composition:execution_error:LLMError: composition diagram returned duplicate labels within one role: ['input:ps/eps input files']",
       "last_checkpoint_id": "673a86bae3cb29305b0ea400e3dd1e86c79c589da222163fc39b4b49e7afc356",
-      "lease_expires_at": "2026-08-03T04:46:46.490219+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-03T04:37:35.172604+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-03T04:37:56.226371+00:00"
     }
   },
   "trigger_records": {},
