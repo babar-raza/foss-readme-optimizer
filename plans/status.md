@@ -10,11 +10,11 @@ Current completion is derived from the runtime registry, durable repository life
 
 | Boundary | Current contract-valid | Raw lifecycle label (non-closing) |
 |---|---:|---:|
-| FACTS_READY | 1/31 | 17/31 |
-| CANDIDATE_GENERATED | 1/31 | 10/31 |
-| DETERMINISTIC_VALIDATED | 1/31 | 10/31 |
-| AGENT_APPROVED | 1/31 | 3/31 |
-| NO_OP_PROVEN | 0/31 | 2/31 |
+| FACTS_READY | 0/31 | 16/31 |
+| CANDIDATE_GENERATED | 0/31 | 9/31 |
+| DETERMINISTIC_VALIDATED | 0/31 | 9/31 |
+| AGENT_APPROVED | 0/31 | 4/31 |
+| NO_OP_PROVEN | 0/31 | 4/31 |
 | HUMAN_ACCEPTED | 0/31 | 0/31 |
 
 ### Registry authority
@@ -23,7 +23,7 @@ Current completion is derived from the runtime registry, durable repository life
 - Raw SHA-256: `d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3`.
 - Canonical-text SHA-256: `f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb`.
 - Canonical-JSON SHA-256: `ee34782b1f0e567437ad27ced93c73c9e617d8126b2de57875cc5ed694b04aac`.
-- Registry revision: `35e44d036bf1097394ecfaeaeb3ba15e842d398cc28df0d2e3371d54a93652f9`.
+- Registry revision: `4f1c446d1eb4f14f180b835712fc37f1171d864151b4e2a6561a44a0dbfd7ce6`.
 - Gate-A closure eligible: **false**; reasons: pending_intake_present, unexplained_observations_present
 
 ### Excluded discoveries and intake
@@ -31,21 +31,23 @@ Current completion is derived from the runtime registry, durable repository life
 - `{"classification": "source_excluded", "org_repo": "aspose-imaging-foss/*", "reason": "No aspose-imaging-foss organization exists; aspose-imaging is a separate non-FOSS source and is not authorized for this portfolio."}`
 - `{"classification": "unmatched", "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP", "reason": "non-matching observation remains discovery-only pending explicit disposition"}`
 - Unexplained observation: `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP`.
+- Pending intake: `aspose-3d-foss/Aspose.3D-FOSS-for-.NET`.
 - Pending intake: `aspose-3d-foss/Aspose.3D-FOSS-for-Java`.
 
 ### Blocked admitted repositories
 
+- `aspose-3d-foss/Aspose.3D-FOSS-for-.NET` — BLOCKED_MISSING_EVIDENCE: product facts persisted with a narrowly scoped unresolved evidence boundary
 - `aspose-html-foss/Aspose.HTML-FOSS-for-Python` — BLOCKED_MISSING_EVIDENCE: product facts persisted with a narrowly scoped unresolved evidence boundary
 - `aspose-tex-foss/Aspose.TeX-FOSS-for-Python` — BLOCKED_MISSING_EVIDENCE: product facts persisted with a narrowly scoped unresolved evidence boundary
 
 ### Live mission
 
-- Durable state version: `706`.
-- Active task: `L8-PLAN-RECONCILIATION-ACCELERATION`.
-- Active goal: `GOAL-P0-PLAN-FREEZE`.
-- Claim: `bbd698f280b143e282b396867c959bad`; expires `2026-08-02T19:16:46.109448+00:00`.
-- Loaded graph: `033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456`.
-- Durable graph: `37e33944e5d99ca32897c2a23dcf7e882f14ccb3d4a37c5edc510d99c9231ae3`; drift: **true**.
+- Durable state version: `736`.
+- Active task: `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES`.
+- Active goal: `GOAL-V0-VERIFIED-PYTHON-POC`.
+- Claim: `c7bf73f82ee04f10a4713ed9973663fb`; expires `2026-08-03T13:37:44.972415+00:00`.
+- Loaded graph: `53bdf17302827e05e488a38fb0e266ea00c47683cdca5ee42a17ceb15885a12c`.
+- Durable graph: `53bdf17302827e05e488a38fb0e266ea00c47683cdca5ee42a17ceb15885a12c`; drift: **false**.
 
 Historical portfolio manifests remain inspectable evidence but never supply headline current status.
 
@@ -54,8 +56,8 @@ Historical portfolio manifests remain inspectable evidence but never supply head
 | Status | Count |
 |---|---:|
 | IMPLEMENTED | 155 |
-| PLANNED | 123 |
-| PARTIAL | 95 |
+| PLANNED | 122 |
+| PARTIAL | 96 |
 | GOVERNANCE | 35 |
 | BACKLOG | 28 |
 | DEPRECATED | 22 |

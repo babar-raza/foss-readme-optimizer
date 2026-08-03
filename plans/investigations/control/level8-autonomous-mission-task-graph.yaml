@@ -667,7 +667,8 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Prove three coherent, measured, product-specific cross-platform verified README candidates.
-  requirement_ids: []
+  requirement_ids:
+  - L8-043
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
   campaign_id: CAMP-THREE-SLICES
@@ -5024,8 +5025,7 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Freeze the fastest safe Python/.NET/Java vertical-slice queue and measured baseline.
-  requirement_ids:
-  - L8-043
+  requirement_ids: []
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
   campaign_id: CAMP-SHARED-ACCELERATION
@@ -9619,7 +9619,7 @@ bootstrap_state:
   stop_reason: bootstrap metadata only; durable supervisor state owns live execution
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: 8b7d6a7086d7a0d1fba5ea8e6773e51fe45fb5ef31da02ce8ffdac80b7d9c930
+  source_sha256: 0858ef4760c714832481fc59dd2a8e3b1764c594a1f59effb6b2365d0891ef29
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
   total_requirement_rows: 464
   mandatory_requirement_rows: 414
@@ -12389,7 +12389,7 @@ requirement_coverage:
     semantic_findings: []
   - requirement_id: L8-041
     priority: P0
-    requirement_status: PLANNED
+    requirement_status: PARTIAL
     task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
     disposition: open_mandatory
     semantic_findings: []
@@ -12402,7 +12402,7 @@ requirement_coverage:
   - requirement_id: L8-043
     priority: P0
     requirement_status: PLANNED
-    task_id: L8-ACCEL-00-PYTHON-READINESS
+    task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-044

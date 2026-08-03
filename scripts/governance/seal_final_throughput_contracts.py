@@ -180,6 +180,7 @@ def replay() -> dict[str, object]:
         control_commit=plan_payload["control_commit"],
         members=[item["path"] for item in plan_payload["members"]],
         acceptance_receipt_id=plan_payload["acceptance_receipt_id"],
+        require_worktree_match=False,
     )
     if plan.model_dump(mode="json") | {"created_at": plan_payload["created_at"]} != plan_payload:
         raise ValueError("plan freeze replay mismatch")

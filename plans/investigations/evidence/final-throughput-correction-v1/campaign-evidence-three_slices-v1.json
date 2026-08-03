@@ -1,11 +1,13 @@
 {
   "campaign_id": "CAMP-THREE-SLICES",
   "durable_state_version": 734,
-  "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-  "manifest_sha256": "1aa42bdf0f2385105366b3c57e485585bc766e5e594ff935e80edbbfa2732e36",
-  "replay_id": "ab67634d12af42911254ab79d4c0b9d286a1259b95685dacdab71a0d6546b0d6",
+  "graph_sha256": "53bdf17302827e05e488a38fb0e266ea00c47683cdca5ee42a17ceb15885a12c",
+  "manifest_sha256": "5e9206b71d9015bba85f57ab6ba5dca540a7fcf30e57f8ecdc5d71b1b95d4c89",
+  "replay_id": "5865edfadc2b1274ae96aa497df3978d3874609672816840773a4beaa3182155",
   "replay_result": "ACCEPTED",
-  "requirement_ids": [],
+  "requirement_ids": [
+    "L8-043"
+  ],
   "schema_version": "CampaignEvidenceManifestV1",
   "task_verdicts": [
     {
@@ -26,11 +28,15 @@
       "evidence": [
         {
           "path": "plans/investigations/evidence/level8-vpy-02-three-slices-v1/mission-contribution.json",
-          "requirement_ids": [],
+          "requirement_ids": [
+            "L8-043"
+          ],
           "sha256": "b1f5be4274ef1873f3e60841f3bb4fbfb4a2d1d2ba9a1dedc9d8a1dff8cb4373"
         }
       ],
-      "requirement_ids": [],
+      "requirement_ids": [
+        "L8-043"
+      ],
       "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
       "verdict": "CLOSED"
     }
