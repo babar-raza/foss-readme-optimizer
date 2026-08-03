@@ -636,6 +636,39 @@ def test_generation_capabilities_supply_literal_content_inputs_for_output_only_p
     }
 
 
+def test_generation_supplies_an_output_when_no_output_format_is_verified():
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": ["Input format: .TTF"],
+        "product.capabilities": [
+            "Font format conversion",
+            "Web font bundle generation",
+            "Delta inspection for variable fonts",
+        ],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    nodes = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+        target_counts={"input": 4, "capability": 6, "output": 5},
+    )
+
+    assert ".TTF files" in {node.label for node in nodes if node.role == "input"}
+    assert "Web font bundle" in {node.label for node in nodes if node.role == "output"}
+    assert "Web font bundle content" not in {node.label for node in nodes if node.role == "input"}
+
+
 def test_read_write_capability_supplies_fact_grounded_input_when_formats_are_output_only():
     facts, _revision = _facts()
     replacements = {

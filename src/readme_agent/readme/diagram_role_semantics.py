@@ -190,6 +190,7 @@ def _capability_flow_candidates(
     view = visitor_fact_render_view(facts, "product.capabilities")
     if view is None:
         return []
+    has_verified_output_formats = bool(_format_node_candidates(facts, "output"))
     candidates: list[AgenticDiagramNodeV1] = []
     for phrase in view.phrases:
         conversion = _CONVERSION_CAPABILITY.fullmatch(" ".join(phrase.split()).rstrip("."))
@@ -200,7 +201,9 @@ def _capability_flow_candidates(
             endpoint = conversion.group(1 if role == "input" else 2)
         elif extraction is not None and role == "output":
             endpoint = extraction.group(1)
-        elif generation is not None and role == "input":
+        elif generation is not None and (
+            role == "output" or (role == "input" and has_verified_output_formats)
+        ):
             endpoint = generation.group(1)
         if endpoint is None:
             continue
@@ -211,6 +214,8 @@ def _capability_flow_candidates(
                     _bounded_label(endpoint)
                     if extraction is not None
                     else _bounded_label(f"{endpoint} content")
+                    if generation is not None and role == "input"
+                    else _bounded_label(endpoint)
                     if generation is not None
                     else _format_label(endpoint)
                 ),
