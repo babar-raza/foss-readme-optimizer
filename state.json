@@ -2752,8 +2752,8 @@
     "readme_presentation": {
       "accepted_facts_hash": "d3c6d28e1792b9813c58579b1283ddec45f49953670e647e82c01a11ea105255",
       "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 1,
-      "consecutive_skip_count": 1,
+      "consecutive_failure_count": 2,
+      "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
           "assessment_hash": "72efb0404c9c6d32050f4bea5e1d234afba5b65909dd876b65599c177ec2f8fe",
@@ -4693,12 +4693,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
-          "error_type": "LLMInfrastructureError",
+          "error_type": "LLMError",
           "failure_reason": "independent_review_exception",
-          "message": " forced tool call failed after retries: network error: HTTPSConnectionPool(host='llm.professionalize.com', port=443): Read timed out. (read timeout=90)",
-          "occurred_at": "2026-08-03T04:46:36.544626+00:00",
+          "message": " forced tool call returned an invalid structured response after 1 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 232 column 30 (char 15931); finish_reason='length'; completion_tokens=4000",
+          "occurred_at": "2026-08-03T05:02:41.874279+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": null
@@ -8549,9 +8549,9 @@
       "domain": "readme_presentation",
       "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-03T04:53:35.885391+00:00",
+      "last_run_timestamp": "2026-08-03T05:02:41.874279+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "readme_reconciliation": {
@@ -10796,7 +10796,7 @@
     "updated_at": "2026-08-03T05:02:36.671881+00:00"
   },
   "schema_version": 2,
-  "state_version": 634,
+  "state_version": 635,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
