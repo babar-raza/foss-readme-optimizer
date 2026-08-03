@@ -1235,6 +1235,14 @@ class TestReadmePresentationSpecialist:
     thing faked is the one LLM call `render_readme_candidate`'s underlying
     pipeline needs for this fixture's real gap (relationship_explained)."""
 
+    def test_deterministic_preservation_plan_rebuilds_after_stage_invalidation(self):
+        from readme_agent.specialists import readme_presentation
+
+        assert not readme_presentation._composition_plan_reusable(
+            {"model": "deterministic-verified-preservation-v1"}
+        )
+        assert readme_presentation._composition_plan_reusable({"model": "fixture-author"})
+
     def test_failed_composition_clears_prior_candidate_details(self, monkeypatch):
         from readme_agent.specialists import readme_presentation
 

@@ -154,6 +154,14 @@ def _without_transient_candidate_details(state: DomainStateV1) -> dict:
     }
 
 
+def _composition_plan_reusable(plan: dict | None) -> bool:
+    """Reuse live plans, but rebuild deterministic plans after stage invalidation."""
+
+    return bool(plan) and not str((plan or {}).get("model", "")).startswith(
+        "deterministic-verified-preservation-"
+    )
+
+
 def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
     arguments: dict = {"org_repo": org_repo}
@@ -201,7 +209,8 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 prepared.facts,
                 base_revision=snapshot.source_revision,
             )
-            if prior_plan:
+            if _composition_plan_reusable(prior_plan):
+                assert isinstance(prior_plan, dict)
                 try:
                     reusable_plan = validate_readme_composition_plan(
                         prior_plan,
