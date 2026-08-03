@@ -165,6 +165,7 @@ def test_compact_page_profile_is_product_specific_and_valid() -> None:
 def test_verified_template_omits_missing_compatibility_from_installation_binding() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     compatibility_id = facts.selected_fact_ids["product.compatibility"]
+    limitations_id = facts.selected_fact_ids["product.limitations"]
     identity_id = facts.selected_fact_ids["product.identity"]
     replacement_values = {
         facts.selected_fact_ids["installation.coordinates"]: [
@@ -183,6 +184,8 @@ def test_verified_template_omits_missing_compatibility_from_installation_binding
     payload = facts.model_dump(mode="json")
     for record in payload["facts"]:
         if record["fact_id"] == compatibility_id:
+            record.update(verification_state="missing", value=None, confidence=0.0)
+        elif record["fact_id"] == limitations_id:
             record.update(verification_state="missing", value=None, confidence=0.0)
         elif record["fact_id"] == identity_id:
             record["value"] = {

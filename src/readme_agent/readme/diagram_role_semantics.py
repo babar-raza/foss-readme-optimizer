@@ -160,22 +160,25 @@ def _format_node_candidates(
 
 
 def _input_node_candidates(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
-    return _merge_role_candidates(
+    candidates = _merge_role_candidates(
         _format_node_candidates(facts, "input"),
         _capability_flow_candidates(facts, "input"),
     )
+    return candidates or _bidirectional_capability_candidates(facts, "input")
 
 
 def _output_node_candidates(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
-    return _merge_role_candidates(
+    candidates = _merge_role_candidates(
         _format_node_candidates(facts, "output"),
         _capability_flow_candidates(facts, "output"),
     )
+    return candidates or _bidirectional_capability_candidates(facts, "output")
 
 
 _CONVERSION_CAPABILITY = re.compile(r"(?i)^(.+?)\s+to\s+(.+?)\s+conversion$")
 _EXTRACTION_CAPABILITY = re.compile(r"(?i)^(.+?)\s+extraction$")
 _GENERATION_CAPABILITY = re.compile(r"(?i)^(.+?)\s+generation(?:\s+with\s+.+)?$")
+_BIDIRECTIONAL_CAPABILITY = re.compile(r"(?i)^(?:read\s+and\s+write|load\s+and\s+save)\s+(.+)$")
 
 
 def _capability_flow_candidates(
@@ -215,6 +218,27 @@ def _capability_flow_candidates(
             )
         )
     return candidates
+
+
+def _bidirectional_capability_candidates(
+    facts: ProductFactsV2,
+    role: Literal["input", "output"],
+) -> list[AgenticDiagramNodeV1]:
+    """Use read/write or load/save content only when no stronger endpoint exists."""
+
+    view = visitor_fact_render_view(facts, "product.capabilities")
+    if view is None:
+        return []
+    return [
+        AgenticDiagramNodeV1(
+            role=role,
+            label=_bounded_label(match.group(1)),
+            supporting_fact_ids=view.citation_fact_ids,
+        )
+        for phrase in view.phrases
+        if (match := _BIDIRECTIONAL_CAPABILITY.fullmatch(" ".join(phrase.split()).rstrip(".")))
+        is not None
+    ]
 
 
 def _merge_role_candidates(*groups: list[AgenticDiagramNodeV1]) -> list[AgenticDiagramNodeV1]:

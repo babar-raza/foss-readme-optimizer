@@ -51,7 +51,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "b5abcade8a5ce3073a85d4b7d5b6b96ad50f55162557d4f18a6bfbe69a4e712c"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "227cf37503665943d632818f49913f1b6c1cef8dfb4e09f0d9aa674cdffdfd4e"
+    "70773f79022298c317358de04904c04d9bea21e2355d9aef4bbf216ff153ec7c"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -633,6 +633,37 @@ def test_generation_capabilities_supply_literal_content_inputs_for_output_only_p
     assert {node.label for node in nodes if node.role == "output"} == {
         "SVG files",
         "PNG files",
+    }
+
+
+def test_read_write_capability_supplies_fact_grounded_input_when_formats_are_output_only():
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": ["Output format: XLSX", "Output format: CSV"],
+        "product.capabilities": ["Read and write cell values and formulas"],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    nodes = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+        target_counts={"input": 2, "capability": 3, "output": 2},
+    )
+
+    assert {node.label for node in nodes if node.role == "input"} == {"cell values and formulas"}
+    assert {node.label for node in nodes if node.role == "output"} == {
+        "XLSX files",
+        "CSV files",
     }
 
 

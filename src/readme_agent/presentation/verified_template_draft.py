@@ -106,7 +106,8 @@ def _scope_text(
         paragraphs.append(
             "Verified scope: " + "; ".join(item.rstrip(". ") for item in scope_items) + "."
         )
-        fields.extend(["product.capabilities", "product.formats", "product.compatibility"])
+        fields.extend(["product.capabilities", "product.formats"])
+        fields.extend(_accepted_fields(facts, "product.compatibility"))
     return "\n\n".join(paragraphs), fields, tuple(standards)
 
 
