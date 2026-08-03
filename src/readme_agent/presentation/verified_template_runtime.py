@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections import Counter
+
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -19,6 +21,11 @@ from readme_agent.presentation.verified_template_provenance import (
     build_template_provenance,
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
+from readme_agent.readme.assessment_claims import (
+    ReadmeMaterialClaimAssessmentV1,
+    assess_material_claims,
+)
 from readme_agent.readme.claim_accountability import build_readme_claim_accountability_map
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_hashing import sha256_hex
@@ -29,6 +36,7 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentPlanV1,
 )
 from readme_agent.readme.document_templates import document_template_hash
+from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.header_visual import (
     has_marker_free_presentation_contract,
     render_readme_header_visual,
@@ -46,6 +54,62 @@ class VerifiedTemplateCompilationV1(BaseModel):
     candidate: str
     template_input: PresentationTemplateInputV1
     provenance: list[CandidateContentProvenanceV1]
+
+
+def _preserved_claim_is_bound(
+    claim: ReadmeMaterialClaimAssessmentV1,
+    *,
+    source: bytes,
+    candidate: str,
+    candidate_hashes: Counter[str],
+    facts: ProductFactsV2,
+    fact_ids: list[str],
+) -> bool:
+    text = source[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    if candidate_hashes[claim.content_sha256] > 0 or text in candidate:
+        return True
+    stripped = text.strip()
+    if stripped.endswith(":") and len(stripped.split()) <= 6:
+        return False
+    return bool(literal_fact_ids(text, facts, fact_ids))
+
+
+def _fact_bound_preserve_ranges(
+    source_text: str,
+    candidate: str,
+    facts: ProductFactsV2,
+    assessment: ReadmeAssessmentV1,
+) -> list[tuple[int, int]]:
+    """Enforce preserve only where every material claim survives or has exact fact support."""
+
+    source = source_text.encode("utf-8")
+    candidate_hashes = Counter(claim.content_sha256 for claim in assess_material_claims(candidate))
+    ranges: list[tuple[int, int]] = []
+    for section in assessment.sections:
+        if section.level != 2 or section.disposition != "preserve":
+            continue
+        claims = [
+            claim
+            for claim in assessment.material_claims
+            if section.source_byte_start <= claim.source_byte_start
+            and claim.source_byte_end <= section.source_byte_end
+        ]
+        if not claims:
+            continue
+
+        if all(
+            _preserved_claim_is_bound(
+                claim,
+                source=source,
+                candidate=candidate,
+                candidate_hashes=candidate_hashes,
+                facts=facts,
+                fact_ids=section.fact_ids,
+            )
+            for claim in claims
+        ):
+            ranges.append((section.source_byte_start, section.source_byte_end))
+    return ranges
 
 
 def build_verified_template_compilation(
@@ -125,11 +189,26 @@ def build_verified_template_document_candidate(
     inner_text = existing.content if existing is not None else source_text
     source = inner_text.encode("utf-8")
     candidate = compiled.candidate
+    assessment = assess_readme_document(
+        facts.org_repo,
+        inner_text,
+        facts,
+        base_revision=source_revision,
+    )
+    if assessment.canonical_hash() != agentic_plan.assessment_hash:
+        raise ValueError("verified template composition assessment binding changed")
+    preserved_source_ranges = _fact_bound_preserve_ranges(
+        inner_text,
+        candidate,
+        facts,
+        assessment,
+    )
     source_claim_resolutions = build_source_claim_resolutions(
         inner_text,
         candidate,
         facts,
         compiled.provenance,
+        preserved_source_ranges=preserved_source_ranges,
     )
     operations = []
     if inner_text != candidate:

@@ -46,6 +46,14 @@ _PROMOTIONAL_CALLOUT = re.compile(
 )
 _PACKAGE_INSTALL_MARKERS = ("<dependency>", "implementation 'org.", 'implementation "org.')
 _ACCEPTED_STATES = {"verified", "policy_approved"}
+_HEADING_FACT_FIELDS: tuple[tuple[tuple[str, ...], tuple[str, ...]], ...] = (
+    (("feature boundar",), ("product.limitations",)),
+    (("feature", "capabilit"), ("product.capabilities", "product.formats")),
+    (("requirement",), ("product.compatibility", "installation.optional_extras")),
+    (("mcp",), ("api.public_surface", "installation.optional_extras")),
+    (("example result",), ("repository.examples",)),
+    (("development", "build", "test", "repository map"), ("development.assets",)),
+)
 
 
 class _StrictModel(BaseModel):
@@ -85,8 +93,23 @@ def _byte_offset(text: str, character_offset: int) -> int:
 
 
 def _accepted_id(facts: ProductFactsV2, field_name: str) -> str | None:
-    selected = accepted_fact(facts, field_name)
+    try:
+        selected = accepted_fact(facts, field_name)
+    except KeyError:
+        return None
     return selected.fact_id if selected is not None else None
+
+
+def _accepted_ids(facts: ProductFactsV2, fields: tuple[str, ...]) -> list[str]:
+    return [fact_id for field in fields if (fact_id := _accepted_id(facts, field)) is not None]
+
+
+def _heading_fact_ids(heading: str, facts: ProductFactsV2) -> list[str]:
+    normalized = heading.strip().casefold()
+    for markers, fields in _HEADING_FACT_FIELDS:
+        if any(marker in normalized for marker in markers):
+            return _accepted_ids(facts, fields)
+    return []
 
 
 def _protected_ids(section_text: str) -> list[str]:
@@ -117,11 +140,14 @@ def _section_disposition(
                 [],
                 "Installation prose cannot be changed while acquisition truth is unresolved.",
             )
-        fact_ids = [
-            fact_id
-            for field_name in ("installation.coordinates", "installation.verified_acquisition")
-            if (fact_id := _accepted_id(facts, field_name)) is not None
-        ]
+        fact_ids = _accepted_ids(
+            facts,
+            (
+                "installation.coordinates",
+                "installation.verified_acquisition",
+                "installation.optional_extras",
+            ),
+        )
         value = acquisition.value if isinstance(acquisition.value, dict) else {}
         if value.get("method") == "source_build" and any(
             marker in section_text for marker in _PACKAGE_INSTALL_MARKERS
@@ -144,7 +170,7 @@ def _section_disposition(
         return (
             "preserve",
             fact_ids,
-            "The existing section is retained unless a verified gap exists.",
+            "Retain the section while downstream claim accountability verifies each claim.",
         )
     if normalized in {"quick start", "usage", "getting started"}:
         example = accepted_fact(facts, "example.minimal")
@@ -154,15 +180,35 @@ def _section_disposition(
                 [],
                 "Example prose is preserved while executable example evidence is unresolved.",
             )
-        disposition: AssessmentDisposition = (
-            "preserve" if example_code in section_text else "repair"
-        )
+        if example_code not in section_text:
+            return (
+                "repair",
+                [example.fact_id],
+                "The section does not contain the exact locally verified minimal example.",
+            )
         return (
-            disposition,
-            [example.fact_id],
-            "The section is assessed against the exact locally verified minimal example.",
+            "preserve",
+            [example.fact_id, *_accepted_ids(facts, ("repository.examples",))],
+            "Retain the exact locally verified minimal example.",
         )
-    return "preserve", [], "Maintainer-authored content is preserved by default."
+    fact_ids = _heading_fact_ids(heading, facts)
+    if fact_ids:
+        return (
+            "preserve",
+            fact_ids,
+            "Retain the section while downstream claim accountability verifies each claim.",
+        )
+    if any(marker in normalized for marker in ("security", "contribut", "repository map")):
+        return (
+            "investigate",
+            [],
+            f"The {heading} section requires dedicated repository-source evidence.",
+        )
+    return (
+        "preserve",
+        [],
+        "Retain this maintainer-authored section exactly until dedicated evidence is available.",
+    )
 
 
 def _section_record(
@@ -210,6 +256,14 @@ def assess_readme_document(
     opening_end = first_h2.start if first_h2 is not None else len(source_text)
     opening = source_text[:opening_end]
     untrusted = [match.group(0) for match in _PROMPT_INJECTION.finditer(source_text)]
+    opening_fact_ids = _accepted_ids(facts, ("product.identity", "relationship.commercial_foss"))
+    opening_disposition: AssessmentDisposition
+    if _PROMOTIONAL_CALLOUT.search(opening):
+        opening_disposition = "remove_update"
+        opening_rationale = "Remove only the detected promotional opening callout."
+    else:
+        opening_disposition = "preserve"
+        opening_rationale = "Preserve the opening unless a bounded promotional correction applies."
     sections = [
         ReadmeSectionAssessmentV1(
             section_id="opening",
@@ -217,17 +271,11 @@ def assess_readme_document(
             level=0,
             source_byte_start=0,
             source_byte_end=_byte_offset(source_text, opening_end),
-            disposition="remove_update" if _PROMOTIONAL_CALLOUT.search(opening) else "preserve",
-            fact_ids=[
-                fact_id
-                for field_name in ("product.identity", "relationship.commercial_foss")
-                if (fact_id := _accepted_id(facts, field_name)) is not None
-            ],
+            disposition=opening_disposition,
+            fact_ids=opening_fact_ids,
             protected_fragment_ids=_protected_ids(opening),
             evidence=[f"README.md:0:{opening_end}"],
-            rationale=(
-                "Remove only a detected promotional callout; otherwise preserve the opening."
-            ),
+            rationale=opening_rationale,
         ),
         *[
             _section_record(source_text, heading, facts, example_code=_example_code(facts))

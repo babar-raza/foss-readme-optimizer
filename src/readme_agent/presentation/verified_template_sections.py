@@ -56,6 +56,72 @@ def optional_extras_markdown(facts: ProductFactsV2) -> str | None:
     return "\n".join(lines)
 
 
+def dependency_markdown(facts: ProductFactsV2) -> str | None:
+    """Render only manifest or source-bound Python dependency coordinates."""
+
+    sections: list[str] = []
+    distribution = _accepted(facts, "python.distribution")
+    if distribution is not None and isinstance(distribution.value, dict):
+        dependencies = distribution.value.get("runtime_dependencies")
+        if isinstance(dependencies, list) and dependencies:
+            sections.append(
+                "Required runtime dependencies declared in `pyproject.toml`: "
+                + ", ".join(f"`{item}`" for item in dependencies if isinstance(item, str))
+                + "."
+            )
+    capabilities = _accepted(facts, "installation.capability_dependencies")
+    if capabilities is not None and isinstance(capabilities.value, dict):
+        entries = capabilities.value.get("entries")
+        if isinstance(entries, list) and entries:
+            lines: list[str] = []
+            for item in entries:
+                if not isinstance(item, dict) or not item.get("install_command"):
+                    continue
+                purpose = str(item.get("purpose") or "Optional capability")
+                lines.append(f"- {purpose}: `{item['install_command']}`")
+            if lines:
+                sections.append("\n".join(lines))
+    return "\n\n".join(sections) or None
+
+
+def package_status_markdown(facts: ProductFactsV2) -> str | None:
+    """Render manifest-bound maturity and typing status."""
+
+    fact = _accepted(facts, "python.distribution")
+    if fact is None or not isinstance(fact.value, dict):
+        return None
+    statements: list[str] = []
+    status = str(fact.value.get("development_status") or "").strip()
+    if status:
+        statements.append(f"The package manifest classifies this release as **{status}**.")
+    typed = fact.value.get("typed_marker")
+    if fact.value.get("typed_classifier") is True and isinstance(typed, dict):
+        path = str(typed.get("path") or "").strip()
+        if path:
+            statements.append(f"The distribution includes the [`{path}`]({path}) type marker.")
+    return " ".join(statements) or None
+
+
+def repository_documents_markdown(facts: ProductFactsV2) -> str | None:
+    """Render exact checksum-bound repository documentation links."""
+
+    fact = _accepted(facts, "repository.documentation_assets")
+    if fact is None or not isinstance(fact.value, dict):
+        return None
+    entries = fact.value.get("entries")
+    if not isinstance(entries, list):
+        return None
+    paths = {
+        str(item.get("path")) for item in entries if isinstance(item, dict) and item.get("path")
+    }
+    if "supported-features.md" not in paths:
+        return None
+    return (
+        "Review [`supported-features.md`](supported-features.md) for the repository's detailed "
+        "implementation boundaries."
+    )
+
+
 def additional_examples_markdown(facts: ProductFactsV2) -> str | None:
     """Render repository examples without overstating their execution assurance."""
 
@@ -205,14 +271,13 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
     """Summarize repository development assets without claiming they executed."""
 
     fact = _accepted(facts, "development.assets")
-    if fact is None or not isinstance(fact.value, dict):
-        return None
+    assets = fact.value if fact is not None and isinstance(fact.value, dict) else {}
     counts: list[str] = []
     body: list[str] = []
     labels = {"tests": "test files", "tools": "maintenance tools", "goldens": "golden assets"}
     singular = {"tests": "test file", "tools": "maintenance tool", "goldens": "golden asset"}
     for group in ("tests", "tools", "goldens"):
-        inventory = fact.value.get(group)
+        inventory = assets.get(group)
         if not isinstance(inventory, dict):
             continue
         count = inventory.get("count")
@@ -233,7 +298,7 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
             directory = "tests/goldens" if group == "goldens" else group
             body.append(f"- [Browse all {labels[group]}]({directory})")
         body.append("")
-    commands = fact.value.get("commands")
+    commands = assets.get("commands")
     entries = commands.get("entries") if isinstance(commands, dict) else None
     if isinstance(entries, list) and entries:
         body.extend(["### Repository Make targets", ""])
@@ -242,6 +307,22 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
                 continue
             body.extend(["```bash", str(item["command"]), "```", ""])
         counts.append(f"{len(entries)} declared Make targets")
+    guidance = _accepted(facts, "development.commands")
+    guidance_value = (
+        guidance.value if guidance is not None and isinstance(guidance.value, dict) else {}
+    )
+    guidance_entries = guidance_value.get("entries")
+    if isinstance(guidance_entries, list) and guidance_entries:
+        body.extend(["### Focused commands and repository scripts", ""])
+        rendered_count = 0
+        for item in guidance_entries:
+            if not isinstance(item, dict) or not item.get("command"):
+                continue
+            body.extend(["```bash", str(item["command"]), "```", ""])
+            rendered_count += 1
+        if rendered_count:
+            label = "command" if rendered_count == 1 else "commands"
+            counts.append(f"{rendered_count} source-bound validation {label}")
     if not counts:
         return None
     return (
@@ -250,6 +331,85 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
         + ".\n\n"
         + _details("View development and testing resources", body)
     )
+
+
+def contributing_markdown(facts: ProductFactsV2) -> str | None:
+    """Render repository-owned contribution entry points without inventing policy."""
+
+    fact = _accepted(facts, "repository.contribution_guidance")
+    if fact is None or not isinstance(fact.value, dict):
+        return None
+    path = str(fact.value.get("path") or "").strip()
+    if path:
+        return f"See [`{path}`]({path}) for the repository's contribution guidance."
+    scripts = fact.value.get("validation_scripts")
+    if not isinstance(scripts, list) or not scripts:
+        return None
+    paths = [
+        str(item.get("path")) for item in scripts if isinstance(item, dict) and item.get("path")
+    ]
+    if not paths:
+        return None
+    return "Validate a proposed change with the checked-in repository scripts:\n\n" + "\n".join(
+        f"- [`{path}`]({path})" for path in paths
+    )
+
+
+def security_markdown(facts: ProductFactsV2) -> str | None:
+    """Render repository-owned security reporting and resource-limit evidence."""
+
+    fact = _accepted(facts, "repository.security_guidance")
+    if fact is None or not isinstance(fact.value, dict):
+        return None
+    paragraphs: list[str] = []
+    policy = fact.value.get("policy")
+    if isinstance(policy, dict):
+        path = str(policy.get("path") or "").strip()
+        private_url = str(policy.get("private_reporting_url") or "").strip()
+        if path and private_url:
+            paragraphs.append(
+                f"Follow the [`{path}`]({path}) policy and use "
+                f"[GitHub private vulnerability reporting]({private_url}) for security issues."
+            )
+        elif path:
+            paragraphs.append(f"Follow the repository's [`{path}`]({path}) policy.")
+    limits = fact.value.get("resource_limits")
+    if isinstance(limits, dict):
+        class_name = str(limits.get("class") or "").strip()
+        fields = limits.get("fields")
+        if class_name and isinstance(fields, list) and fields:
+            paragraphs.append(
+                f"`{class_name}` exposes {len(fields)} source-defined limits for bounding "
+                "untrusted input and authored assets."
+            )
+            entry_points = limits.get("entry_points")
+            if isinstance(entry_points, list) and entry_points:
+                rendered = ", ".join(f"`{item}`" for item in entry_points)
+                paragraphs.append(
+                    f"Pass a `{class_name}` policy through the source-defined {rendered} "
+                    "entry points when tighter limits are required."
+                )
+    guidance = fact.value.get("operational_guidance")
+    if isinstance(guidance, dict):
+        if guidance.get("lazy_work_uses_shared_limits") is True:
+            paragraphs.append(
+                "Lazy decoding and streaming work continue to consume the document's shared "
+                "resource limits."
+            )
+        if guidance.get("unlimited_disables_safeguards") is True:
+            paragraphs.append(
+                "`PdfLoadLimits.unlimited()` disables every safeguard and is appropriate only "
+                "for trusted input with external resource controls."
+            )
+        if guidance.get("limits_are_not_a_complete_dos_sandbox") is True:
+            statement = (
+                "These limits reduce known parser and allocation risks but are not a complete "
+                "denial-of-service sandbox."
+            )
+            if guidance.get("isolate_highly_hostile_documents") is True:
+                statement += " Isolate highly hostile PDF workloads at the process boundary."
+            paragraphs.append(statement)
+    return "\n\n".join(paragraphs) or None
 
 
 def third_party_notices_markdown(facts: ProductFactsV2) -> str | None:

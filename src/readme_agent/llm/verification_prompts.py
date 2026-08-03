@@ -19,10 +19,7 @@ from string import Template
 from readme_agent.llm import prompt_registry
 from readme_agent.presentation.template_schema import repository_presentation_template_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
-from readme_agent.specialists.review_candidate_anchors import (
-    build_candidate_review_anchors,
-    render_candidate_review_anchor_catalog,
-)
+from readme_agent.specialists.factual_review_projection import compact_candidate_anchor_catalog
 from readme_agent.specialists.review_finding_grounding import (
     BLIND_GROUNDING_CONTRACT_VERSION,
     BLIND_QUALITY_CRITERIA,
@@ -131,11 +128,11 @@ def _role_review_tool_schema(
             "claim": {"type": "string", "maxLength": 500},
             "quoted_candidate_span": {"type": "string", "maxLength": 1200},
             "candidate_anchor_id": {
-                "type": "string" if finding_kind == "quality" else ["string", "null"],
+                "type": "string",
                 "pattern": r"^candidate\.anchor\.[0-9a-f]{20}\.[0-9]+$",
                 "description": (
-                    "For blind quality review, select one exact candidate.anchor ID from the "
-                    "supplied catalog. Null is retained for compatibility with other roles."
+                    "Select one exact candidate.anchor ID from the supplied catalog. The runtime "
+                    "binds it to exact candidate bytes before validating the finding."
                 ),
             },
             "disposition": {
@@ -197,7 +194,7 @@ def _role_review_tool_schema(
             "observed_polarity",
             "polarity_result",
             "required_repair",
-            *(["candidate_anchor_id"] if finding_kind == "quality" else []),
+            "candidate_anchor_id",
             *(
                 ["mechanical_check_id", "reported_observed_value"]
                 if finding_kind == "quality"
@@ -489,8 +486,10 @@ def build_blind_quality_review_messages(
         Template(manifest.user_template)
         .substitute(
             org_repo=org_repo,
-            candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
-                build_candidate_review_anchors(candidate_readme_text)
+            candidate_anchor_catalog_json=json.dumps(
+                compact_candidate_anchor_catalog(candidate_readme_text),
+                ensure_ascii=False,
+                separators=(",", ":"),
             ),
             candidate_mechanical_observations_json=json.dumps(
                 render_candidate_mechanical_observations(
@@ -526,8 +525,10 @@ def build_factual_plan_review_messages(
         .substitute(
             org_repo=org_repo,
             candidate_readme_text=candidate_readme_text,
-            candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
-                build_candidate_review_anchors(candidate_readme_text)
+            candidate_anchor_catalog_json=json.dumps(
+                compact_candidate_anchor_catalog(candidate_readme_text),
+                ensure_ascii=False,
+                separators=(",", ":"),
             ),
             product_facts_json=product_facts_json,
             presentation_plan_json=presentation_plan_json,

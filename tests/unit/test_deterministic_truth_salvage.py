@@ -4,9 +4,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 from readme_agent.evidence.writer import refresh_sha256sums
-from readme_agent.facts.deterministic_truth_salvage import load_salvage_candidate
+from readme_agent.facts.deterministic_truth_salvage import (
+    _repository_enriched_technical_facts,
+    _verified_example_fact,
+    load_salvage_candidate,
+)
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.registry.models import ProductTruthPolicy
 
 ORG_REPO = "acme/widget"
 CURRENT_REVISION = "b" * 40
@@ -75,6 +82,161 @@ def test_missing_repository_bundle_parent_fails_closed(tmp_path: Path) -> None:
         )
         is None
     )
+
+
+def test_normalized_display_literal_is_the_exact_code_sent_to_local_verification(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    candidate = _candidate()
+    candidate["minimal_example"]["code"] = (
+        'from aspose_pdf import Document\nprint("Hello from Aspose.PDF FOSS!")'
+    )
+    identity = FactRecordV2(
+        fact_id="product.identity:verified",
+        field="product.identity",
+        value={"product_name": "Aspose.PDF", "platform": "python"},
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="pyproject.toml",
+            source_revision=CURRENT_REVISION,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[identity],
+        selected_fact_ids={"product.identity": identity.fact_id},
+        package_root_roles=None,
+    )
+    captured = {}
+
+    def verify(_snapshot, example):
+        captured["code"] = example.code
+        return SimpleNamespace(
+            detail="controlled non-truth-eligible result",
+            truth_eligible=False,
+            outcome="BUILD_FAILED",
+            fact_projection=lambda: {},
+        )
+
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.evidence_failures",
+        lambda *_args, **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.generated_example_quality_failures",
+        lambda *_args, **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.local_fact_verification_allowed",
+        lambda: True,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.verify_local_product_example",
+        verify,
+    )
+
+    fact, _verification = _verified_example_fact(
+        SimpleNamespace(
+            root_path=tmp_path,
+            source_revision=CURRENT_REVISION,
+        ),
+        ProductTruthPolicy.model_validate(candidate),
+        facts,
+        "2026-08-03T00:00:00+00:00",
+    )
+
+    expected = 'from aspose_pdf import Document\nprint("Hello from Aspose.PDF FOSS for Python!")'
+    assert captured["code"] == expected
+    assert fact.value["code"] == expected
+
+
+def test_repository_extensions_enrich_only_selected_verified_technical_facts() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://source.py,tests/test_source.py",
+        source_revision=CURRENT_REVISION,
+    )
+    detail = FactRecordV2(
+        fact_id="repository.capability_details:python-public-source-surfaces",
+        field="repository.capability_details",
+        value={
+            "input_formats": ["PDF"],
+            "output_formats": ["PDF", "PNG", "TIFF"],
+            "capability_groups": [
+                {"label": "Render PDF pages to PNG or TIFF images"},
+                {"label": "Extract text, images, and attachments"},
+            ],
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    boundaries = FactRecordV2(
+        fact_id="repository.verified_boundaries:authoritative-source-and-tests",
+        field="repository.verified_boundaries",
+        value={"boundaries": ["OCR is not implemented.", "Rendering is best effort."]},
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.limitations"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[detail, boundaries],
+        selected_fact_ids={
+            detail.field: detail.fact_id,
+            boundaries.field: boundaries.fact_id,
+        },
+        package_root_roles=None,
+    )
+    technical = {
+        field: FactRecordV2(
+            fact_id=f"{field}:policy",
+            field=field,
+            value=value,
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field, value in {
+            "product.capabilities": ["Document lifecycle management"],
+            "product.formats": ["Input format: PDF", "Output format: PDF"],
+            "product.limitations": ["OCR is not implemented."],
+        }.items()
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    assert enriched["product.capabilities"].value == [
+        "Render PDF pages to PNG or TIFF images",
+        "Extract text, images, and attachments",
+        "Document lifecycle management",
+    ]
+    assert enriched["product.formats"].value == [
+        "Input format: PDF",
+        "Output format: PDF",
+        "Output format: PNG",
+        "Output format: TIFF",
+    ]
+    assert enriched["product.limitations"].value == [
+        "OCR is not implemented.",
+        "Rendering is best effort.",
+    ]
+    assert all(fact.source.source_type == "mechanical_repository" for fact in enriched.values())
 
 
 def _write_bundle(

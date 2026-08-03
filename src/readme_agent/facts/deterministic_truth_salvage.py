@@ -12,6 +12,10 @@ from pydantic import BaseModel, ConfigDict, Field
 from readme_agent.evidence.writer import verify_sha256sums
 from readme_agent.facts.acquisition_facts import reconcile_acquisition_fact
 from readme_agent.facts.aspose_org_format_adapter import extract_aspose_org_formats
+from readme_agent.facts.example_branding import (
+    full_product_display_name,
+    normalize_example_display_literals,
+)
 from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.format_direction import directional_format_fact_from_verified_evidence
@@ -149,12 +153,114 @@ def _replace_selected(
     )
 
 
+def _repository_enriched_technical_facts(
+    base_facts: ProductFactsV2,
+    technical: dict[str, FactRecordV2],
+) -> dict[str, FactRecordV2]:
+    """Project exact repository extension facts into the selected product fields."""
+
+    try:
+        detail = base_facts.selected_fact("repository.capability_details")
+    except KeyError:
+        detail = None
+    try:
+        boundaries = base_facts.selected_fact("repository.verified_boundaries")
+    except KeyError:
+        boundaries = None
+    detail_value = (
+        detail.value
+        if detail is not None
+        and detail.verification_state == "verified"
+        and not detail.has_unresolved_conflict
+        and isinstance(detail.value, dict)
+        else {}
+    )
+    boundary_value = (
+        boundaries.value
+        if boundaries is not None
+        and boundaries.verification_state == "verified"
+        and not boundaries.has_unresolved_conflict
+        and isinstance(boundaries.value, dict)
+        else {}
+    )
+
+    def extension_fact(
+        field: str,
+        values: list[str],
+        extension: FactRecordV2,
+    ) -> FactRecordV2:
+        primary = technical[field]
+        locations = sorted({primary.source.location, extension.source.location})
+        return FactRecordV2(
+            fact_id=descriptive_fact_id(field, "repository-extension"),
+            field=field,
+            value=values,
+            source=FactSourceV2(
+                source_type="mechanical_repository",
+                location=";".join(locations),
+                source_revision=extension.source.source_revision,
+                retrieved_at=extension.source.retrieved_at,
+            ),
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=SURFACE_DEPENDENCIES[field],
+        )
+
+    groups = detail_value.get("capability_groups")
+    if detail is not None and isinstance(groups, list):
+        detailed = [
+            str(item.get("label") or "").strip()
+            for item in groups
+            if isinstance(item, dict) and str(item.get("label") or "").strip()
+        ]
+        existing = technical["product.capabilities"].value
+        existing = existing if isinstance(existing, list) else [existing]
+        capabilities = list(dict.fromkeys([*detailed, *(str(item) for item in existing)]))
+        if detailed:
+            technical["product.capabilities"] = extension_fact(
+                "product.capabilities", capabilities, detail
+            )
+
+    if detail is not None:
+        input_formats = detail_value.get("input_formats")
+        output_formats = detail_value.get("output_formats")
+        directional = [
+            *(f"Input format: {item}" for item in input_formats or []),
+            *(f"Output format: {item}" for item in output_formats or []),
+        ]
+        if directional:
+            technical["product.formats"] = extension_fact(
+                "product.formats", list(dict.fromkeys(directional)), detail
+            )
+
+    verified_boundaries = boundary_value.get("boundaries")
+    if boundaries is not None and isinstance(verified_boundaries, list):
+        limitations = [str(item).strip() for item in verified_boundaries if str(item).strip()]
+        if limitations:
+            technical["product.limitations"] = extension_fact(
+                "product.limitations", limitations, boundaries
+            )
+    return technical
+
+
 def _verified_example_fact(
     snapshot: RepositorySnapshotV1,
     truth: ProductTruthPolicy,
+    base_facts: ProductFactsV2,
     observed_at: str,
 ) -> tuple[FactRecordV2, LocalProductVerificationV1 | None]:
     example = truth.minimal_example
+    identity = base_facts.selected_fact("product.identity")
+    identity_value = identity.value if isinstance(identity.value, dict) else {}
+    product_name = str(identity_value.get("product_name") or "").strip()
+    normalized_code = normalize_example_display_literals(
+        example.code,
+        product_name=product_name,
+        full_display_name=full_product_display_name(base_facts),
+    )
+    if normalized_code != example.code:
+        example = example.model_copy(update={"code": normalized_code})
     failures = evidence_failures(
         snapshot.root_path,
         example.evidence_paths,
@@ -242,7 +348,12 @@ def salvage_product_truth_candidate(
 
     truth = ProductTruthPolicy.model_validate(candidate)
     observed_at = datetime.now(UTC).isoformat()
-    example_fact, local_verification = _verified_example_fact(snapshot, truth, observed_at)
+    example_fact, local_verification = _verified_example_fact(
+        snapshot,
+        truth,
+        base_facts,
+        observed_at,
+    )
     entry = require_listed(base_facts.org_repo)
     acquisition_fact = reconcile_acquisition_fact(
         entry,
@@ -279,6 +390,7 @@ def salvage_product_truth_candidate(
             allow_partial=True,
         ),
     }
+    technical = _repository_enriched_technical_facts(base_facts, technical)
     grounded = _replace_selected(base_facts, technical)
     platform = grounded.selected_fact("product.platforms")
     platforms = platform.value if isinstance(platform.value, list) else [platform.value]

@@ -27,7 +27,15 @@ from readme_agent.presentation.template_schema import (
     repository_presentation_template_hash,
 )
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
-from readme_agent.presentation.verified_template_sections import optional_extras_markdown
+from readme_agent.presentation.verified_template_sections import (
+    contributing_markdown,
+    dependency_markdown,
+    development_markdown,
+    optional_extras_markdown,
+    package_status_markdown,
+    repository_documents_markdown,
+    security_markdown,
+)
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
@@ -201,6 +209,258 @@ def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
     assert "aspose-page-foss[test]" not in rendered
 
 
+def test_repository_enrichment_sections_render_only_selected_accepted_facts() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://pyproject.toml,SECURITY.md,supported-features.md,scripts/check.sh",
+        source_revision="a" * 40,
+    )
+    values = {
+        "python.distribution": {
+            "manifest_path": "pyproject.toml",
+            "runtime_dependencies": ["cryptography>=42", "asn1crypto>=1.5"],
+            "development_status": "Alpha",
+            "typed_classifier": True,
+            "typed_marker": {"path": "src/acme/py.typed", "sha256": HASH},
+        },
+        "installation.capability_dependencies": {
+            "entries": [
+                {
+                    "distribution": "fastmcp",
+                    "purpose": "MCP server hosting",
+                    "install_command": "python -m pip install fastmcp",
+                }
+            ]
+        },
+        "development.commands": {
+            "entries": [{"kind": "repository_script", "command": "scripts/check.sh"}]
+        },
+        "repository.documentation_assets": {
+            "entries": [{"path": "supported-features.md", "sha256": HASH}]
+        },
+        "repository.contribution_guidance": {
+            "validation_scripts": [{"path": "scripts/check.sh", "sha256": HASH}]
+        },
+        "repository.security_guidance": {
+            "policy": {
+                "path": "SECURITY.md",
+                "sha256": HASH,
+                "private_reporting_url": "https://github.com/acme/pdf/security/advisories/new",
+            },
+            "resource_limits": {
+                "class": "PdfLoadLimits",
+                "fields": ["max_input_bytes"],
+                "entry_points": ["__init__", "load_from", "open_streaming"],
+            },
+            "operational_guidance": {
+                "lazy_work_uses_shared_limits": True,
+                "unlimited_disables_safeguards": True,
+                "limits_are_not_a_complete_dos_sandbox": True,
+                "isolate_highly_hostile_documents": True,
+            },
+        },
+    }
+    additions = [
+        FactRecordV2(
+            fact_id=f"{field}:test",
+            field=field,
+            value=value,
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field, value in values.items()
+    ]
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, *additions],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                **{fact.field: fact.fact_id for fact in additions},
+            },
+        }
+    )
+
+    assert "cryptography>=42" in (dependency_markdown(facts) or "")
+    assert "python -m pip install fastmcp" in (dependency_markdown(facts) or "")
+    assert "**Alpha**" in (package_status_markdown(facts) or "")
+    assert "supported-features.md" in (repository_documents_markdown(facts) or "")
+    development = development_markdown(facts) or ""
+    assert "scripts/check.sh" in development
+    assert "1 source-bound validation command" in development
+    assert "1 source-bound validation commands" not in development
+    assert "scripts/check.sh" in (contributing_markdown(facts) or "")
+    assert "private vulnerability reporting" in (security_markdown(facts) or "")
+    assert "shared resource limits" in (security_markdown(facts) or "")
+    assert "unlimited()` disables every safeguard" in (security_markdown(facts) or "")
+    assert "not a complete denial-of-service sandbox" in (security_markdown(facts) or "")
+
+    blocked = additions[0].model_copy(update={"verification_state": "blocked"})
+    blocked_facts = facts.model_copy(
+        update={
+            "facts": [blocked if item.fact_id == blocked.fact_id else item for item in facts.facts]
+        }
+    )
+    assert "cryptography>=42" not in (dependency_markdown(blocked_facts) or "")
+
+
+def test_curated_repository_claims_receive_exact_fact_or_structural_provenance() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://pyproject.toml,SECURITY.md,supported-features.md,scripts",
+        source_revision="a" * 40,
+    )
+    values = {
+        "installation.capability_dependencies": {
+            "entries": [
+                {
+                    "distribution": "Pillow",
+                    "purpose": "optional image capability",
+                    "install_command": "python -m pip install Pillow",
+                }
+            ]
+        },
+        "python.distribution": {
+            "manifest_path": "pyproject.toml",
+            "development_status": "Alpha",
+        },
+        "development.commands": {
+            "entries": [
+                {"command": "scripts/build.sh"},
+                {"command": "scripts/check.sh"},
+            ]
+        },
+        "repository.documentation_assets": {
+            "entries": [{"path": "supported-features.md", "sha256": HASH}]
+        },
+        "repository.contribution_guidance": {
+            "validation_scripts": [{"path": "scripts/check.sh", "sha256": HASH}]
+        },
+        "repository.security_guidance": {
+            "policy": {
+                "path": "SECURITY.md",
+                "private_reporting_url": "https://github.com/acme/widget/security/advisories/new",
+            }
+        },
+    }
+    additions = [
+        FactRecordV2(
+            fact_id=f"{field}:claim-test",
+            field=field,
+            value=value,
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field, value in values.items()
+    ]
+    added_fields = set(values)
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                *[record for record in facts.facts if record.field not in added_fields],
+                *additions,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                **{fact.field: fact.fact_id for fact in additions},
+            },
+        }
+    )
+    fact_ids = {fact.field: fact.fact_id for fact in additions}
+    template_input = _page_input()
+    sections = {
+        **template_input.sections,
+        "installation": BoundTemplateContentV1(
+            markdown="- optional capability: python -m pip install Pillow",
+            source_kind="repository_fact",
+            fact_ids=[fact_ids["installation.capability_dependencies"]],
+        ),
+        "scope_and_limitations": BoundTemplateContentV1(
+            markdown=(
+                "The package status is **Alpha**. See [supported features](supported-features.md)."
+            ),
+            source_kind="repository_fact",
+            fact_ids=[
+                fact_ids["python.distribution"],
+                fact_ids["repository.documentation_assets"],
+            ],
+        ),
+        "development_and_testing": BoundTemplateContentV1(
+            markdown="```bash\nscripts/build.sh\n```\n\n```bash\nscripts/check.sh\n```",
+            source_kind="repository_fact",
+            fact_ids=[fact_ids["development.commands"]],
+        ),
+        "contributing": BoundTemplateContentV1(
+            markdown=(
+                "Validate a proposed change with the checked-in repository scripts:\n\n"
+                "- [scripts/check.sh](scripts/check.sh)"
+            ),
+            source_kind="repository_fact_and_configured_standard",
+            fact_ids=[fact_ids["repository.contribution_guidance"]],
+            standard_ids=["readme.contributing"],
+        ),
+        "security": BoundTemplateContentV1(
+            markdown=(
+                "Review [SECURITY.md](SECURITY.md) and use "
+                "[private vulnerability reporting]"
+                "(https://github.com/acme/widget/security/advisories/new)."
+            ),
+            source_kind="repository_fact",
+            fact_ids=[fact_ids["repository.security_guidance"]],
+        ),
+    }
+    ordered_sections = {
+        slot: sections[slot]
+        for slot in load_repository_presentation_template().section_order
+        if slot in sections
+    }
+    template_input = template_input.model_copy(update={"sections": ordered_sections})
+    candidate = compile_repository_presentation(template_input)
+
+    provenance = build_template_provenance(candidate, template_input, facts)
+    claim_bindings = {
+        candidate.encode("utf-8")[binding.candidate_byte_start : binding.candidate_byte_end]
+        .decode("utf-8")
+        .strip(): binding
+        for binding in provenance
+        if ".claim:" in binding.provenance_id
+    }
+
+    expected_fact_bindings = {
+        "- optional capability: python -m pip install Pillow": [
+            fact_ids["installation.capability_dependencies"]
+        ],
+        "```bash\nscripts/build.sh\n```": [fact_ids["development.commands"]],
+        "```bash\nscripts/check.sh\n```": [fact_ids["development.commands"]],
+        "- [scripts/check.sh](scripts/check.sh)": [fact_ids["repository.contribution_guidance"]],
+    }
+    for claim, expected_ids in expected_fact_bindings.items():
+        assert claim_bindings[claim].fact_ids == expected_ids
+
+    contributing_intro = claim_bindings[
+        "Validate a proposed change with the checked-in repository scripts:"
+    ]
+    assert contributing_intro.fact_ids == []
+    assert contributing_intro.configured_standard_ids == ["readme.contributing"]
+    assert claim_bindings[
+        "The package status is **Alpha**. See [supported features](supported-features.md)."
+    ].fact_ids == [
+        fact_ids["python.distribution"],
+        fact_ids["repository.documentation_assets"],
+    ]
+    assert claim_bindings[
+        "Review [SECURITY.md](SECURITY.md) and use [private vulnerability reporting]"
+        "(https://github.com/acme/widget/security/advisories/new)."
+    ].fact_ids == [fact_ids["repository.security_guidance"]]
+
+
 @pytest.mark.parametrize(
     ("line_count", "expected"),
     [(180, "compact"), (181, "standard"), (420, "standard"), (421, "extended")],
@@ -230,8 +490,13 @@ def _additional_examples_provenance(markdown: str):
         if slot in original_sections
     }
     template_input = template_input.model_copy(update={"profile": "extended", "sections": sections})
-    candidate = compile_repository_presentation(template_input)
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    sections = dict(template_input.sections)
+    sections["scope_and_limitations"] = sections["scope_and_limitations"].model_copy(
+        update={"fact_ids": [facts.selected_fact_ids["product.limitations"]]}
+    )
+    template_input = template_input.model_copy(update={"sections": sections})
+    candidate = compile_repository_presentation(template_input)
     provenance = build_template_provenance(candidate, template_input, facts)
     return candidate, [
         binding

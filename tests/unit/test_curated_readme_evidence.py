@@ -122,8 +122,11 @@ document.save("output.bin")
     assert set(selected) == {
         "api.public_surface",
         "development.assets",
+        "development.commands",
+        "installation.capability_dependencies",
         "installation.optional_extras",
         "product.limitations",
+        "python.distribution",
         "repository.ci",
         "repository.examples",
         "repository.third_party_notices",
@@ -140,6 +143,13 @@ document.save("output.bin")
         "dev": ["build>=1.2"],
         "pdf": ["reportlab>=3.6"],
     }
+    assert (
+        selected["installation.capability_dependencies"].value["entries"][0]["install_command"]
+        == "python -m pip install fastmcp"
+    )
+    assert selected["development.commands"].value["entries"][0]["command"] == (
+        "python -m unittest tests.mcp.test_server"
+    )
     example = selected["repository.examples"].value["files"][0]
     assert example["path"] == "examples/export_pdf.py"
     assert example["execution_verified"] is False
@@ -306,7 +316,7 @@ def test_direct_quick_start_rejects_unknown_calls_and_methods(tmp_path: Path) ->
         assert all(fact.field != "repository.examples" for fact in facts)
 
 
-def test_constraint_extraction_is_product_neutral_and_raise_only(tmp_path: Path) -> None:
+def test_constraint_extraction_is_product_neutral_and_source_bound(tmp_path: Path) -> None:
     _write(
         tmp_path,
         "src/widget/core.py",
@@ -322,3 +332,265 @@ def test_constraint_extraction_is_product_neutral_and_raise_only(tmp_path: Path)
         "Only XML output is supported",
         "Input archive requires an index",
     ]
+
+
+def test_page_dependencies_and_focused_mcp_command_are_source_bound(tmp_path: Path) -> None:
+    _write(tmp_path, "pyproject.toml", "[project]\nname='page'\ndependencies=[]\n")
+    _write(
+        tmp_path,
+        "src/aspose/page/mcp/server.py",
+        "def create_server():\n    from fastmcp import FastMCP\n    return FastMCP('Page')\n",
+    )
+    _write(
+        tmp_path,
+        "src/aspose/page/image/skia_raster_writer.py",
+        '"""Image renderer (requires skia-python)."""\nimport skia\n',
+    )
+    _write(tmp_path, "tests/mcp/test_handlers.py", "def test_handlers(): pass\n")
+    _write(tmp_path, "tests/mcp/test_server.py", "def test_server(): pass\n")
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "page-revision", None)
+    }
+
+    dependencies = selected["installation.capability_dependencies"]
+    assert [item["distribution"] for item in dependencies.value["entries"]] == [
+        "fastmcp",
+        "skia-python",
+    ]
+    assert all(item["source_sha256"] for item in dependencies.value["entries"])
+    command = selected["development.commands"].value["entries"][0]
+    assert command["command"] == (
+        "python -m unittest tests.mcp.test_handlers tests.mcp.test_server"
+    )
+    assert [item["path"] for item in command["sources"]] == [
+        "tests/mcp/test_handlers.py",
+        "tests/mcp/test_server.py",
+    ]
+
+
+def test_pdf_distribution_guidance_constraints_and_security_are_repository_derived(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        """
+[project]
+name = "aspose-pdf-foss-for-python"
+requires-python = ">=3.11"
+dependencies = ["cryptography>=42", "asn1crypto>=1.5"]
+classifiers = ["Development Status :: 3 - Alpha", "Typing :: Typed"]
+""".strip(),
+    )
+    _write(tmp_path, "src/aspose_pdf/py.typed", "")
+    _write(
+        tmp_path,
+        "src/aspose_pdf/pdfa.py",
+        'NOTICE = "PDF/A validation is heuristic, not certification-grade conformance."\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/document.py",
+        'def replace_text():\n    """This operation does not perform layout reflow."""\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/load_limits.py",
+        """
+from dataclasses import dataclass
+
+@dataclass
+class PdfLoadLimits:
+    max_input_bytes: int | None = 1
+
+    @classmethod
+    def unlimited(cls):
+        return cls(max_input_bytes=None)
+""".strip(),
+    )
+    _write(tmp_path, "supported-features.md", "# Supported features\n")
+    _write(
+        tmp_path,
+        "SECURITY.md",
+        "Use https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/"
+        "security/advisories/new for private reports.\n",
+    )
+    _write(
+        tmp_path,
+        "scripts/check.sh",
+        "#!/usr/bin/env bash\npython -m ruff check src/\npython -m pytest -q\n",
+    )
+    _write(tmp_path, "scripts/build.sh", "#!/usr/bin/env bash\npython -m build\n")
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "pdf-revision", None)
+    }
+
+    distribution = selected["python.distribution"].value
+    assert distribution["runtime_dependencies"] == ["cryptography>=42", "asn1crypto>=1.5"]
+    assert distribution["development_status"] == "Alpha"
+    assert distribution["typed_marker"]["path"] == "src/aspose_pdf/py.typed"
+    assert selected["repository.documentation_assets"].value["entries"][0]["path"] == (
+        "supported-features.md"
+    )
+    statements = [item["statement"] for item in selected["product.limitations"].value]
+    assert "PDF/A validation is heuristic, not certification-grade conformance." in statements
+    assert "This operation does not perform layout reflow." in statements
+    assert (
+        selected["repository.security_guidance"]
+        .value["policy"]["private_reporting_url"]
+        .endswith("/security/advisories/new")
+    )
+    assert selected["repository.contribution_guidance"].value["validation_scripts"]
+    assert [item["command"] for item in selected["development.commands"].value["entries"]] == [
+        "scripts/build.sh",
+        "scripts/check.sh",
+    ]
+
+
+def test_pdf_detail_projection_requires_source_apis_tests_and_authoritative_boundaries(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "src/aspose_pdf/document.py",
+        '''
+class Document:
+    def __init__(self, source=None, *, limits=None): pass
+    @classmethod
+    def open_streaming(cls, source, *, limits=None): pass
+    def load_from(self, source, *, limits=None): pass
+    def save(self, target): pass
+    def merge(self, other): pass
+    def validate(self): pass
+    def encrypt(self, password): pass
+    def decrypt(self, password): pass
+    def optimize(self): pass
+    def compress_streams(self): pass
+    def validate_pdfa(self): pass
+    def validate_pdfua(self): pass
+    def convert_to_pdfa(self): pass
+    def convert_to_pdfua(self): pass
+    def replace_text(self):
+        """This operation does not perform layout reflow."""
+'''.strip(),
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/pages.py",
+        '''
+class Page:
+    def add_text(self): pass
+    def add_image(self): pass
+    def replace_text(self): pass
+    def redact_text(self): pass
+    def render(self):
+        """The renderer is dependency-free and supports common page content."""
+    def save_as_image(self): pass
+'''.strip(),
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/facades.py",
+        """
+class PdfExtractor:
+    def extract_text(self): pass
+    def get_text(self): pass
+    def extract_image(self): pass
+    def extract_attachment(self): pass
+
+class PdfFileEditor:
+    def concatenate(self): pass
+    def extract(self): pass
+    def insert(self): pass
+    def delete(self): pass
+    def append(self): pass
+""".strip(),
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/forms.py",
+        "class Form:\n"
+        "    def add_text_field(self): pass\n"
+        "    def add_checkbox(self): pass\n"
+        "    def add_radio_group(self): pass\n"
+        "    def flatten(self): pass\n",
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/annotations/__init__.py",
+        "class AnnotationCollection:\n"
+        "    def add(self): pass\n"
+        "    def insert(self): pass\n"
+        "    def delete(self): pass\n"
+        "    def clear(self): pass\n",
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/load_limits.py",
+        """
+class PdfLoadLimits:
+    max_input_bytes: int | None = 1024
+    @classmethod
+    def unlimited(cls): return cls()
+""".strip(),
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/pdfa.py",
+        'NOTICE = "not certification-grade PDF/A conformance"\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/pdfua.py",
+        'NOTICE = "not certification-grade PDF/UA conformance"\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/signature.py",
+        'NOTICE = "does **not** perform full PKCS#7 certificate chain checking"\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/exceptions.py",
+        "class UnsupportedFeature(Exception):\n"
+        '    """Raised when a compatibility surface names a feature this package lacks."""\n',
+    )
+    _write(tmp_path, "tests/test_page_rendering.py", 'png = "page.png"\ntiff = "page.tiff"\n')
+    _write(tmp_path, "SECURITY.md", "Report security issues privately.\n")
+    _write(
+        tmp_path,
+        "supported-features.md",
+        "The contract is the active `tests/test_*.py` suite.\n"
+        "Layout reflow remains out of scope in this prerelease.\n"
+        "OCR is not implemented.\n"
+        "These are heuristic signals, not certification-grade results.\n"
+        "Lazy opening still defers page-content decoding.\n"
+        "`PdfLoadLimits.unlimited()` returns a policy with every field disabled.\n"
+        "The limits reduce risk; they are not a proof of complete isolation.\n"
+        "Run highly hostile documents in an isolated worker.\n",
+    )
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "pdf-revision", None)
+    }
+
+    details = selected["repository.capability_details"].value
+    assert len(details["capability_groups"]) == 9
+    assert details["input_formats"] == ["PDF"]
+    assert details["output_formats"] == ["PDF", "PNG", "TIFF"]
+    boundaries = selected["repository.verified_boundaries"].value
+    assert len(boundaries["boundaries"]) == 6
+    assert all(len(item["sha256"]) == 64 for item in boundaries["evidence"])
+    security = selected["repository.security_guidance"].value
+    assert security["resource_limits"]["bounded_defaults"] is True
+    assert security["resource_limits"]["entry_points"] == [
+        "__init__",
+        "load_from",
+        "open_streaming",
+    ]
+    assert security["operational_guidance"]["limits_are_not_a_complete_dos_sandbox"] is True

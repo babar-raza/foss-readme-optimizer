@@ -4,6 +4,8 @@ import hashlib
 import json
 from typing import Any
 
+from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
+
 _EVIDENCE_ASSESSMENT_PROMPT_KEYS = (
     "claim_text",
     "expected_polarity",
@@ -26,6 +28,85 @@ def compact_evidence_assessments(value: object) -> list[dict[str, Any]]:
         for item in value
         if isinstance(item, dict)
     ]
+
+
+def compact_candidate_anchor_catalog(candidate_text: str) -> list[list[str]]:
+    """Return exact candidate blocks as compact ``[anchor_id, text]`` pairs."""
+
+    return [
+        [anchor.anchor_id, anchor.text] for anchor in build_candidate_review_anchors(candidate_text)
+    ]
+
+
+def compact_review_fact(fact: dict[str, Any]) -> dict[str, Any]:
+    """Project one selected fact without duplicating verifier-only evidence bulk."""
+
+    value = fact.get("value")
+    if fact.get("field") == "repository.examples" and isinstance(value, dict):
+        value = _compact_repository_examples(value)
+    accepted_evidence = []
+    for assessment in fact.get("evidence_assessments") or []:
+        if not isinstance(assessment, dict) or not assessment.get("accepted"):
+            continue
+        excerpt = next(
+            (
+                str(assessment.get(key, "")).strip()
+                for key in ("exact_excerpt", "anchor", "claim_text")
+                if str(assessment.get(key, "")).strip()
+            ),
+            "",
+        )
+        if not excerpt:
+            continue
+        accepted_evidence.append(
+            {
+                "excerpt": excerpt,
+                "expected_polarity": assessment.get("expected_polarity"),
+                "observed_polarity": assessment.get("observed_polarity"),
+            }
+        )
+    return {
+        "fact_id": fact.get("fact_id"),
+        "field": fact.get("field"),
+        "value": value,
+        "verification_state": fact.get("verification_state"),
+        "evidence_location": fact.get("evidence_location"),
+        "accepted_evidence": accepted_evidence,
+        "unresolved_conflicts": fact.get("unresolved_conflicts") or [],
+    }
+
+
+def _compact_repository_examples(value: dict[str, Any]) -> dict[str, Any]:
+    """Keep reviewable examples while omitting duplicated asset checksums."""
+
+    inline_examples = [
+        {
+            key: item[key]
+            for key in (
+                "title",
+                "language",
+                "code",
+                "static_api_verified",
+                "execution_verified",
+                "evidence_modules",
+            )
+            if key in item
+        }
+        for item in value.get("inline_examples") or []
+        if isinstance(item, dict)
+    ]
+    result_assets = [
+        {key: item[key] for key in ("alt", "path") if key in item}
+        for item in value.get("result_assets") or []
+        if isinstance(item, dict)
+    ]
+    return {
+        "file_count": len(value.get("files") or []),
+        "execution_policy": value.get("execution_policy"),
+        "inline_examples": inline_examples,
+        "result_assets": result_assets,
+        "readme_sha256": value.get("readme_sha256"),
+    }
 
 
 def claim_polarity(fact: dict[str, Any]) -> tuple[str, str, str]:

@@ -7,6 +7,10 @@ from urllib.parse import quote
 
 from readme_agent.facts.render_views import ecosystem_display_label
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.readme.header_badge_targets import (
+    badge_target_is_already_used,
+    verified_compatibility_badge_signal,
+)
 from readme_agent.readme.header_visual_models import ReadmeBadgeV1, safe_mermaid_label
 from readme_agent.readme.license_location import repository_license_path
 
@@ -267,6 +271,7 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
     if identity is not None and ecosystem:
         if method == "pypi" and coordinate.get("name"):
             package = quote(str(coordinate["name"]), safe="")
+            package_target = f"https://pypi.org/project/{package}/"
             badges.append(
                 _badge(
                     "platform",
@@ -275,7 +280,13 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                     ecosystem_label,
                     "blue",
                     [identity.fact_id, acquisition.fact_id] if acquisition else [identity.fact_id],
-                    target_url=f"https://pypi.org/project/{package}/",
+                    target_url=(
+                        None
+                        if badge_target_is_already_used(
+                            (badge.target_url for badge in badges), package_target
+                        )
+                        else package_target
+                    ),
                     image_url=f"https://img.shields.io/pypi/pyversions/{package}.svg",
                     alt_text="Python versions",
                 )
@@ -292,6 +303,20 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 )
             )
 
+    compatibility = verified_compatibility_badge_signal(facts)
+    if compatibility is not None:
+        compatibility_value, compatibility_fact_ids = compatibility
+        badges.append(
+            _badge(
+                "compatibility",
+                "platform",
+                "Requires",
+                compatibility_value,
+                "blue",
+                compatibility_fact_ids,
+            )
+        )
+
     ci = _accepted(facts, "repository.ci")
     ci_value = ci.value if ci is not None and isinstance(ci.value, dict) else {}
     workflow_path = str(ci_value.get("path") or "").strip()
@@ -299,6 +324,7 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
     if (
         ci is not None
         and identity is not None
+        and compatibility is None
         and workflow_path
         and len(repository.split("/")) == 2
     ):
@@ -324,17 +350,22 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
     ):
         revision = str(value.get("source_revision") or acquisition.source.source_revision or "")
         if revision:
-            badges.append(
-                _badge(
-                    "source",
-                    "source",
-                    "Repository",
-                    "Source",
-                    "blue",
-                    [identity.fact_id],
-                    target_url=f"https://github.com/{repository}/tree/{quote(revision, safe='')}",
-                )
+            source_badge = _badge(
+                "source",
+                "source",
+                "Repository",
+                "Source",
+                "blue",
+                [identity.fact_id],
+                target_url=f"https://github.com/{repository}/tree/{quote(revision, safe='')}",
             )
+            if (
+                not badge_target_is_already_used(
+                    (badge.target_url for badge in badges), source_badge.target_url
+                )
+                and compatibility is None
+            ):
+                badges.append(source_badge)
 
     license_fact = _accepted(facts, "product.license")
     license_name = safe_mermaid_label(license_fact.value) if license_fact is not None else None

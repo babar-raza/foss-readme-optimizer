@@ -356,7 +356,7 @@ def test_header_contains_only_supported_fact_backed_badge_kinds():
     )
 
 
-def test_header_adds_build_badge_only_for_fact_bound_canonical_workflow() -> None:
+def test_header_prefers_verified_runtime_requirement_over_build_status() -> None:
     facts, _revision = _facts()
     ci = FactRecordV2(
         fact_id="repository.ci:canonical-workflow",
@@ -376,6 +376,51 @@ def test_header_adds_build_badge_only_for_fact_bound_canonical_workflow() -> Non
         update={
             "facts": [*facts.facts, ci],
             "selected_fact_ids": {**facts.selected_fact_ids, "repository.ci": ci.fact_id},
+        }
+    )
+
+    badges = render_readme_badges(facts_with_ci)
+    assert [badge.kind for badge in badges] == [
+        "package",
+        "platform",
+        "platform",
+        "license",
+        "contributors",
+    ]
+    assert next(badge for badge in badges if badge.badge_id == "compatibility").alt_text.startswith(
+        "Requires:"
+    )
+    assert all(badge.kind != "build" for badge in badges)
+
+
+def test_header_adds_build_badge_when_no_runtime_requirement_is_verified() -> None:
+    facts, _revision = _facts()
+    compatibility_id = facts.selected_fact_ids["product.compatibility"]
+    ci = FactRecordV2(
+        fact_id="repository.ci:canonical-workflow",
+        field="repository.ci",
+        value={"path": ".github/workflows/ci.yml", "sha256": "a" * 64},
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://.github/workflows/ci.yml",
+            source_revision="abc123",
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.header"],
+    )
+    facts_with_ci = facts.model_copy(
+        update={
+            "facts": [fact for fact in facts.facts if fact.fact_id != compatibility_id] + [ci],
+            "selected_fact_ids": {
+                **{
+                    field: fact_id
+                    for field, fact_id in facts.selected_fact_ids.items()
+                    if field != "product.compatibility"
+                },
+                "repository.ci": ci.fact_id,
+            },
         }
     )
 
@@ -422,3 +467,70 @@ def test_header_uses_visitor_facing_dotnet_platform_label() -> None:
 
     assert platform_badge.alt_text == "Platform: .NET"
     assert "Platform-.NET-" in platform_badge.image_url
+
+
+def test_source_build_header_replaces_duplicate_source_target_with_compatibility() -> None:
+    facts, revision = _facts()
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    coordinates = facts.selected_fact("installation.coordinates")
+    coordinate = next(row for row in coordinates.value if isinstance(row, dict))
+    source_acquisition = acquisition.model_copy(
+        update={
+            "value": {
+                "method": "source_build",
+                "outcome": "SOURCE_BUILD_VERIFIED",
+                "truth_eligible": True,
+                "coordinate": coordinate,
+                "source_revision": revision,
+                "source_build_receipt": {"truth_eligible": True},
+            }
+        }
+    )
+    source_facts = facts.model_copy(
+        update={
+            "facts": [
+                source_acquisition if fact.fact_id == acquisition.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    badges = render_readme_badges(source_facts)
+    targets = [badge.target_url for badge in badges if badge.target_url]
+
+    assert [badge.badge_id for badge in badges] == [
+        "version",
+        "platform",
+        "compatibility",
+        "license",
+        "contributors",
+    ]
+    assert len(targets) == len(set(targets))
+    assert next(badge for badge in badges if badge.badge_id == "compatibility").alt_text.startswith(
+        "Requires:"
+    )
+    assert all(badge.badge_id != "source" for badge in badges)
+
+
+def test_header_visual_validation_rejects_semantically_duplicate_badge_targets() -> None:
+    facts, _revision = _facts()
+    visual = render_readme_header_visual(facts)
+    first_target = next(badge.target_url for badge in visual.badges if badge.target_url)
+    duplicate_index = next(
+        index
+        for index, badge in enumerate(visual.badges)
+        if badge.target_url and badge.target_url != first_target
+    )
+    duplicated_badges = list(visual.badges)
+    duplicated_badges[duplicate_index] = duplicated_badges[duplicate_index].model_copy(
+        update={"target_url": f"{first_target}/"}
+    )
+
+    result = validate_readme_header_visual(
+        visual.model_copy(update={"badges": duplicated_badges}),
+        facts,
+    )
+
+    assert result.valid is False
+    assert result.checks["badge_targets_distinct"] is False
+    assert "badge_targets_distinct failed" in result.errors

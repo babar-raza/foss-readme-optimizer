@@ -148,6 +148,15 @@ def build_readme_claim_accountability_map(
 
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate_text)
+    source_bytes = source_text.encode("utf-8")
+    raw_candidate_occurrences = Counter(
+        {
+            claim.content_sha256: candidate_text.count(
+                source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+            )
+            for claim in source_claims
+        }
+    )
     remaining_inherited = Counter(claim.content_sha256 for claim in source_claims)
     candidate_origins: dict[str, ClaimOrigin] = {}
     for claim in candidate_claims:
@@ -241,9 +250,11 @@ def build_readme_claim_accountability_map(
                 fact_ids.add(fact_id)
         fact_coordinates = structured_fact_coordinates(source_text, claim, facts)
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
-        survives = candidate_hashes[claim.content_sha256] > 0
+        survives = raw_candidate_occurrences[claim.content_sha256] > 0
         if survives:
-            candidate_hashes[claim.content_sha256] -= 1
+            raw_candidate_occurrences[claim.content_sha256] -= 1
+            if candidate_hashes[claim.content_sha256] > 0:
+                candidate_hashes[claim.content_sha256] -= 1
         expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",

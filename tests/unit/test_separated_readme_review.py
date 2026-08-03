@@ -1957,6 +1957,9 @@ def test_literal_accepted_fact_false_block_gets_bounded_correction():
     ]
     assert factual_history[0]["valid"] is False
     assert "contradicts accepted facts" in factual_history[0]["errors"][0]
+    assert factual_history[0]["context_mode"] == "full_review_packet"
+    assert factual_history[1]["context_mode"] == "compact_grounding_retry"
+    assert factual_history[1]["input_character_count"] < factual_history[0]["input_character_count"]
     assert factual_history[1]["validation_result"]["valid"] is True
     assert '"evidence_location": "README.md"' in factual.messages_seen[1][-1]["content"]
 

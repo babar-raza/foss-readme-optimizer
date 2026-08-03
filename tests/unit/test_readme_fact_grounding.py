@@ -176,3 +176,107 @@ def test_altered_or_registry_only_maven_text_cannot_ground_coordinates() -> None
 
     for claim in altered:
         assert literal_fact_ids(claim, facts, [coordinate.fact_id]) == []
+
+
+def test_curated_structured_fields_expose_only_visitor_meaningful_values() -> None:
+    records = [
+        _structured_fact(
+            "installation.capability_dependencies",
+            {
+                "entries": [
+                    {
+                        "distribution": "Pillow",
+                        "purpose": "optional image capability",
+                        "install_command": "python -m pip install Pillow",
+                        "source_sha256": "1" * 64,
+                    }
+                ]
+            },
+        ),
+        _structured_fact(
+            "python.distribution",
+            {
+                "manifest_path": "pyproject.toml",
+                "requires_python": ">=3.11",
+                "runtime_dependencies": ["cryptography>=42"],
+                "development_status": "Alpha",
+                "typed_marker": {"path": "src/aspose_pdf/py.typed", "sha256": "2" * 64},
+            },
+        ),
+        _structured_fact(
+            "development.commands",
+            {
+                "entries": [
+                    {
+                        "command": "scripts/build.sh",
+                        "embedded_commands": ["python -m build"],
+                        "sources": [{"path": "scripts/build.sh", "sha256": "3" * 64}],
+                    },
+                    {"command": "scripts/check.sh"},
+                ]
+            },
+        ),
+        _structured_fact(
+            "repository.documentation_assets",
+            {"entries": [{"path": "supported-features.md", "sha256": "4" * 64}]},
+        ),
+        _structured_fact(
+            "repository.contribution_guidance",
+            {
+                "path": "CONTRIBUTING.md",
+                "validation_scripts": [{"path": "scripts/check.sh", "sha256": "5" * 64}],
+            },
+        ),
+        _structured_fact(
+            "repository.security_guidance",
+            {
+                "policy": {
+                    "path": "SECURITY.md",
+                    "private_reporting_url": (
+                        "https://github.com/acme/widget/security/advisories/new"
+                    ),
+                    "sha256": "6" * 64,
+                },
+                "resource_limits": {
+                    "class": "PdfLoadLimits",
+                    "fields": ["max_input_bytes"],
+                },
+            },
+        ),
+    ]
+    facts = _facts(*records)
+
+    expected_claims = {
+        records[0].fact_id: "- optional capability: python -m pip install Pillow",
+        records[1].fact_id: "Alpha; cryptography>=42; src/aspose_pdf/py.typed",
+        records[2].fact_id: "Run `scripts/build.sh` and `scripts/check.sh`.",
+        records[3].fact_id: "See [supported features](supported-features.md).",
+        records[4].fact_id: "Run [scripts/check.sh](scripts/check.sh) before contributing.",
+        records[5].fact_id: (
+            "See SECURITY.md or report privately at "
+            "https://github.com/acme/widget/security/advisories/new; PdfLoadLimits defines "
+            "1 source-defined limits."
+        ),
+    }
+    for fact_id, claim in expected_claims.items():
+        assert literal_fact_ids(claim, facts, [fact_id]) == [fact_id]
+
+    for record in records:
+        assert literal_fact_ids("Internal digest " + "1" * 64, facts, [record.fact_id]) == []
+
+
+def test_unknown_or_altered_structured_values_remain_ungrounded() -> None:
+    known = _structured_fact(
+        "development.commands",
+        {"entries": [{"command": "scripts/check.sh"}]},
+    )
+    unknown = _structured_fact(
+        "repository.unknown_structure",
+        {"command": "scripts/check.sh", "path": "CONTRIBUTING.md"},
+    )
+    facts = _facts(known, unknown)
+
+    assert literal_fact_ids("Run `scripts/check.sh`.", facts, [known.fact_id]) == [known.fact_id]
+    assert literal_fact_ids("Run `scripts/check.ps1`.", facts, [known.fact_id]) == []
+    assert literal_fact_ids("Run `scripts/check.sh`.", facts, [unknown.fact_id]) == []
+    assert literal_fact_ids("See CONTRIBUTING.md.", facts, [unknown.fact_id]) == []

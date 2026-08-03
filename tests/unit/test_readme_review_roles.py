@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.merged_readme_review import build_merged_readme_review_messages
 from readme_agent.llm.verification_prompts import (
+    FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
 )
@@ -146,6 +147,15 @@ def test_factual_plan_context_has_no_deterministic_or_producer_verdict() -> None
     assert "deterministic validation result" not in serialized.casefold()
     assert "producer verdict" not in serialized.casefold()
     assert '"verdict": "accept"' not in serialized.casefold()
+
+
+def test_factual_review_tool_requires_an_exact_candidate_anchor() -> None:
+    finding_schema = FACTUAL_PLAN_REVIEW_TOOL_SCHEMA["function"]["parameters"]["properties"][
+        "findings"
+    ]["items"]
+
+    assert "candidate_anchor_id" in finding_schema["required"]
+    assert finding_schema["properties"]["candidate_anchor_id"]["type"] == "string"
 
 
 def test_merged_context_contains_one_candidate_catalog_and_both_evidence_facets() -> None:

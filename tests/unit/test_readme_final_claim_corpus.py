@@ -25,6 +25,7 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.source_claim_risk import classify_source_claim_risk
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REPRESENTATIVES = (
@@ -628,6 +629,112 @@ def test_deferred_source_claim_is_retained_in_evidence_but_excluded_from_candida
     assert record.expected_disposition == "deferred_verification"
     assert verdict.approval_eligible is True
     assert verdict.checks["deferred_claims_are_excluded_and_unverified"] is True
+
+
+def test_preserved_section_claim_cannot_be_deferred_or_replaced():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\n## Security\n\nRetain repository-specific resource limits.\n"
+    candidate = "# Product\n"
+    security = next(heading for heading in parse_headings(source) if heading.title == "Security")
+
+    with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
+        build_source_claim_resolutions(
+            source,
+            candidate,
+            facts,
+            [],
+            preserved_source_ranges=[(security.start, security.section_end)],
+        )
+
+
+def test_exact_source_claim_survives_when_collapsed_inside_html_details():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\n## Results\n\n![Verified result](assets/result.png)\n"
+    candidate = (
+        "# Product\n\n## Results\n\n<details>\n<summary>View results</summary>\n\n"
+        "![Verified result](assets/result.png)\n\n</details>\n"
+    )
+    results = next(heading for heading in parse_headings(source) if heading.title == "Results")
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        [],
+        preserved_source_ranges=[(results.start, results.section_end)],
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=resolutions,
+    )
+    source_record = _record_containing(
+        accountability,
+        source,
+        "source",
+        "assets/result.png",
+    )
+
+    assert resolutions == []
+    assert source_record.survives_in_candidate is True
+    assert source_record.currently_accountable is False
+    assert "Byte preservation is not factual approval" in source_record.rationale
+
+
+@pytest.mark.parametrize(
+    ("heading", "expected_class", "expected_obligation"),
+    [
+        ("Feature Boundaries", "mandatory_fact_resolution", "scope_and_limitations"),
+        ("Contributing", "optional_explicit_deferral", None),
+        ("Security", "optional_explicit_deferral", None),
+        ("Repository Map", "optional_explicit_deferral", None),
+    ],
+)
+def test_repository_governance_claims_do_not_map_to_positive_product_obligations(
+    heading, expected_class, expected_obligation
+):
+    source = f"# Product\n\n## {heading}\n\nRepository-specific safety detail.\n"
+    claim = assess_material_claims(source)[0]
+
+    risk = classify_source_claim_risk(source, claim)
+
+    assert risk.risk_class == expected_class
+    assert risk.obligation_id == expected_obligation
+
+
+def test_positive_capability_slot_cannot_replace_unbound_negative_boundary_claim():
+    _source, candidate, facts, _plan, _accountability = _case("python")
+    source = (
+        "# Product\n\n## Feature Boundaries\n\n"
+        "Rendering has strict memory and resource limitations.\n"
+    )
+    capability_heading = next(
+        heading
+        for heading in parse_headings(candidate)
+        if heading.title.casefold() in {"key capabilities", "capabilities"}
+    )
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.key_capabilities",
+            candidate_byte_start=len(candidate[: capability_heading.heading_end].encode("utf-8")),
+            candidate_byte_end=len(candidate[: capability_heading.section_end].encode("utf-8")),
+            fact_ids=[facts.selected_fact("product.capabilities").fact_id],
+            rationale="Bind the positive capability slot to the accepted capability fact.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(source, candidate, facts, provenance)
+
+    assert resolutions == []
 
 
 def test_mandatory_source_claim_requires_exact_fact_bound_slot_replacement():

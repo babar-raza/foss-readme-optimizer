@@ -15,6 +15,7 @@ from readme_agent.specialists.factual_review_projection import (
     claim_polarity,
     compact_evidence_assessments,
     compact_plan_context,
+    compact_review_fact,
 )
 from readme_agent.specialists.readme_review_roles import json_hash
 
@@ -106,7 +107,7 @@ class FactualReviewPacketV1(_StrictModel):
         if not referenced_fact_ids:
             referenced_fact_ids = {fact.fact_id for fact in self.selected_facts}
         selected = [
-            fact.model_dump(mode="json")
+            compact_review_fact(fact.model_dump(mode="json"))
             for fact in self.selected_facts
             if fact.fact_id in referenced_fact_ids
         ]

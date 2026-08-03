@@ -8,6 +8,7 @@ from markdown_it import MarkdownIt
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.header_badge_targets import normalized_badge_target
 from readme_agent.readme.header_visual_models import (
     HeaderVisualValidationV1,
     ReadmeHeaderVisualV1,
@@ -83,6 +84,12 @@ def validate_readme_header_visual(
         }
         for badge in visual.badges
     )
+    badge_targets = [
+        target
+        for badge in visual.badges
+        if (target := normalized_badge_target(badge.target_url)) is not None
+    ]
+    checks["badge_targets_distinct"] = len(badge_targets) == len(set(badge_targets))
     registry_badges = [
         badge for badge in visual.badges if badge.kind in {"version", "package", "download"}
     ]

@@ -229,9 +229,29 @@ def _verified_opening_summary(facts: ProductFactsV2) -> AgenticOverviewSentenceV
     purpose_text = _natural_fragment(purpose.phrases[0])
     if not title or not audience_text or not purpose_text:
         return None
+    text = _opening_text(title, audience_text, purpose_text)
+    supporting_fact_ids = [identity.fact_id, audience.fact_id, purpose.fact_id]
+    capabilities = visitor_fact_render_view(facts, "product.capabilities")
+    if capabilities is not None and any(
+        phrase.casefold().rstrip(". ") == purpose.phrases[0].casefold().rstrip(". ")
+        for phrase in capabilities.phrases
+    ):
+        remaining = [
+            _natural_fragment(phrase)
+            for phrase in capabilities.phrases
+            if phrase.casefold().rstrip(". ") != purpose.phrases[0].casefold().rstrip(". ")
+        ]
+        if remaining:
+            tail = (
+                remaining[0]
+                if len(remaining) == 1
+                else ", ".join(remaining[:-1]) + f", and {remaining[-1]}"
+            )
+            text += f" Its verified scope also includes {tail}."
+            supporting_fact_ids.append(capabilities.fact_id)
     return AgenticOverviewSentenceV1(
-        text=_opening_text(title, audience_text, purpose_text),
-        supporting_fact_ids=[identity.fact_id, audience.fact_id, purpose.fact_id],
+        text=text,
+        supporting_fact_ids=supporting_fact_ids,
     )
 
 

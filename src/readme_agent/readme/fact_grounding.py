@@ -117,6 +117,114 @@ def _typed_fact_strings(field: str, value: object) -> list[str]:
         if not isinstance(extras, dict):
             return []
         return fact_strings([value.get("manifest_path"), list(extras), list(extras.values())])
+    if field == "installation.capability_dependencies":
+        entries = value.get("entries")
+        if not isinstance(entries, list):
+            return []
+        return fact_strings(
+            [
+                [
+                    item.get("distribution"),
+                    item.get("purpose"),
+                    item.get("install_command"),
+                ]
+                for item in entries
+                if isinstance(item, dict)
+            ]
+        )
+    if field == "python.distribution":
+        marker = value.get("typed_marker")
+        return fact_strings(
+            [
+                value.get("manifest_path"),
+                value.get("requires_python"),
+                value.get("runtime_dependencies"),
+                value.get("development_status"),
+                marker.get("path") if isinstance(marker, dict) else None,
+            ]
+        )
+    if field == "development.commands":
+        entries = value.get("entries")
+        if not isinstance(entries, list):
+            return []
+        return fact_strings(
+            [
+                [
+                    item.get("command"),
+                    item.get("embedded_commands"),
+                    [
+                        source.get("path")
+                        for source in item.get("sources", [])
+                        if isinstance(source, dict)
+                    ]
+                    if isinstance(item.get("sources"), list)
+                    else [],
+                ]
+                for item in entries
+                if isinstance(item, dict)
+            ]
+        )
+    if field == "repository.documentation_assets":
+        entries = value.get("entries")
+        if not isinstance(entries, list):
+            return []
+        return fact_strings([item.get("path") for item in entries if isinstance(item, dict)])
+    if field == "repository.contribution_guidance":
+        scripts = value.get("validation_scripts")
+        return fact_strings(
+            [
+                value.get("path"),
+                [item.get("path") for item in scripts if isinstance(item, dict)]
+                if isinstance(scripts, list)
+                else [],
+            ]
+        )
+    if field == "repository.security_guidance":
+        policy = value.get("policy")
+        limits = value.get("resource_limits")
+        limit_fields = limits.get("fields") if isinstance(limits, dict) else None
+        limit_methods = limits.get("methods") if isinstance(limits, dict) else None
+        entry_points = limits.get("entry_points") if isinstance(limits, dict) else None
+        guidance = value.get("operational_guidance")
+        operational: list[str] = []
+        if isinstance(guidance, dict):
+            if guidance.get("lazy_work_uses_shared_limits") is True:
+                operational.append(
+                    "Lazy decoding and streaming work continue to consume the document's shared "
+                    "resource limits."
+                )
+            if guidance.get("unlimited_disables_safeguards") is True:
+                operational.append(
+                    "`PdfLoadLimits.unlimited()` disables every safeguard and is appropriate "
+                    "only for trusted input with external resource controls."
+                )
+            if guidance.get("limits_are_not_a_complete_dos_sandbox") is True:
+                statement = (
+                    "These limits reduce known parser and allocation risks but are not a complete "
+                    "denial-of-service sandbox."
+                )
+                if guidance.get("isolate_highly_hostile_documents") is True:
+                    statement += " Isolate highly hostile PDF workloads at the process boundary."
+                operational.append(statement)
+        return fact_strings(
+            [
+                [policy.get("path"), policy.get("private_reporting_url")]
+                if isinstance(policy, dict)
+                else [],
+                [
+                    limits.get("class"),
+                    limit_fields,
+                    limit_methods,
+                    entry_points,
+                    f"{len(limit_fields)} source-defined limits"
+                    if isinstance(limit_fields, list) and limit_fields
+                    else None,
+                ]
+                if isinstance(limits, dict)
+                else [],
+                operational,
+            ]
+        )
     if field == "installation.verified_acquisition":
         coordinate = value.get("coordinate")
         return fact_strings(coordinate) if isinstance(coordinate, dict) else []

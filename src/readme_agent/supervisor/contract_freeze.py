@@ -97,8 +97,9 @@ def build_plan_freeze(
     control_commit: str,
     members: list[str],
     acceptance_receipt_id: str,
+    require_worktree_match: bool = True,
 ) -> PlanFreezeV1:
-    """Bind exact committed bytes and reject dirty or missing membership."""
+    """Bind exact committed bytes and optionally reject a divergent worktree."""
 
     branch = str(_git(repo_root, "branch", "--show-current", text=True)).strip()
     frozen: list[FrozenFileV1] = []
@@ -113,7 +114,7 @@ def build_plan_freeze(
             ).returncode
             == 0
         )
-        if not clean:
+        if require_worktree_match and not clean:
             raise ValueError(
                 f"plan-freeze member is dirty relative to {control_commit}: {relative}"
             )

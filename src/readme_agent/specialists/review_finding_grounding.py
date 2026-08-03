@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from typing import Literal
@@ -10,10 +11,14 @@ from urllib.parse import urlsplit
 from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from readme_agent.facts.prompt_projection import prompt_fact_value
+from readme_agent.readme.agentic_composition_inputs import compact_prompt_fact_value
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
+from readme_agent.specialists.factual_review_projection import (
+    compact_candidate_anchor_catalog,
+    compact_review_fact,
+)
 from readme_agent.specialists.review_mechanical_observations import (
     MechanicalCheckId,
     MechanicalValue,
@@ -1284,9 +1289,42 @@ def grounding_retry_context(
     """Return bounded reconciliation evidence without another producer verdict."""
 
     disproven_ids = deterministically_disproven_finding_ids(errors)
+    selected_fact_ids = (product_facts or {}).get("selected_fact_ids", {})
+    selected_ids = set(selected_fact_ids.values())
+    finding_fact_ids = {finding.fact_id for finding in findings if finding.fact_id}
+    relevant_fact_ids = finding_fact_ids or selected_ids
+    accepted_fact_evidence = []
+    for fact in (product_facts or {}).get("facts", []):
+        if (
+            not isinstance(fact, dict)
+            or fact.get("fact_id") not in selected_ids
+            or fact.get("fact_id") not in relevant_fact_ids
+        ):
+            continue
+        accepted_fact_evidence.append(
+            compact_review_fact(
+                {
+                    "fact_id": fact.get("fact_id"),
+                    "field": fact.get("field"),
+                    "value": compact_prompt_fact_value(
+                        str(fact.get("field", "")), fact.get("value")
+                    ),
+                    "verification_state": fact.get("verification_state"),
+                    "evidence_location": (fact.get("source") or {}).get("location"),
+                    "evidence_assessments": fact.get("evidence_assessments") or [],
+                    "unresolved_conflicts": [
+                        conflict
+                        for conflict in fact.get("conflicts") or []
+                        if isinstance(conflict, dict) and conflict.get("status") == "unresolved"
+                    ],
+                }
+            )
+        )
     payload = {
         "validation_errors": errors,
-        "candidate_sha256_input_length": len(candidate_text.encode("utf-8")),
+        "candidate_sha256": hashlib.sha256(candidate_text.encode("utf-8")).hexdigest(),
+        "candidate_size_bytes": len(candidate_text.encode("utf-8")),
+        "candidate_anchor_catalog": compact_candidate_anchor_catalog(candidate_text),
         "invalid_findings": [
             (
                 {
@@ -1298,35 +1336,26 @@ def grounding_retry_context(
                     "finding_id": finding.finding_id,
                     "claim": finding.claim,
                     "quoted_candidate_span": finding.quoted_candidate_span,
+                    "candidate_anchor_id": finding.candidate_anchor_id,
+                    "disposition": finding.disposition,
+                    "fact_id": finding.fact_id,
+                    "evidence_excerpt": finding.evidence_excerpt,
+                    "evidence_location": finding.evidence_location,
+                    "expected_polarity": finding.expected_polarity,
+                    "observed_polarity": finding.observed_polarity,
+                    "polarity_result": finding.polarity_result,
                     "required_repair": finding.required_repair,
                 }
             )
             for finding in findings
         ],
         "visitor_contract": visitor_contract or {},
-        "selected_fact_ids": (product_facts or {}).get("selected_fact_ids", {}),
-        "accepted_fact_evidence": [
-            {
-                "fact_id": fact.get("fact_id"),
-                "verification_state": fact.get("verification_state"),
-                "evidence_location": (fact.get("source") or {}).get("location"),
-                "evidence": sorted(
-                    _fact_evidence_strings(
-                        {
-                            **fact,
-                            "value": prompt_fact_value(
-                                str(fact.get("field", "")), fact.get("value")
-                            ),
-                        }
-                    )
-                ),
-                "evidence_assessments": fact.get("evidence_assessments") or [],
-            }
-            for fact in (product_facts or {}).get("facts", [])
-            if isinstance(fact, dict)
-            and fact.get("fact_id")
-            in set((product_facts or {}).get("selected_fact_ids", {}).values())
-        ],
+        "selected_fact_ids": {
+            field: fact_id
+            for field, fact_id in selected_fact_ids.items()
+            if fact_id in relevant_fact_ids
+        },
+        "accepted_fact_evidence": accepted_fact_evidence,
     }
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 

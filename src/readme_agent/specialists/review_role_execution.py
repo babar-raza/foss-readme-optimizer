@@ -381,6 +381,7 @@ def run_grounded_role(
 
     history: list[dict] = []
     current_messages = list(messages)
+    context_mode = "full_review_packet"
     candidate_anchors = build_candidate_review_anchors(candidate_text)
     if max_attempts_override is not None and max_attempts_override < 1:
         raise ValueError("max_attempts_override must be at least 1")
@@ -437,6 +438,10 @@ def run_grounded_role(
             {
                 "role": role,
                 "attempt": attempt,
+                "context_mode": context_mode,
+                "input_character_count": sum(
+                    len(str(message.get("content", ""))) for message in current_messages
+                ),
                 "valid": not errors,
                 "errors": errors,
                 "validation_result": grounding.model_dump(mode="json") if grounding else None,
@@ -451,6 +456,14 @@ def run_grounded_role(
                         "section": finding.section,
                         "claim": finding.claim,
                         "quoted_candidate_span": finding.quoted_candidate_span,
+                        "candidate_anchor_id": finding.candidate_anchor_id,
+                        "disposition": finding.disposition,
+                        "fact_id": finding.fact_id,
+                        "evidence_excerpt": finding.evidence_excerpt,
+                        "evidence_location": finding.evidence_location,
+                        "expected_polarity": finding.expected_polarity,
+                        "observed_polarity": finding.observed_polarity,
+                        "polarity_result": finding.polarity_result,
                         "required_repair": finding.required_repair,
                     }
                     for finding in parsed.findings
@@ -467,17 +480,19 @@ def run_grounded_role(
                 f"{role} reviewer repeatedly returned ungrounded findings: {errors}",
                 retry_history=tuple(history),
             )
-        current_messages = [
-            *messages,
-            build_role_grounding_retry_message(
-                prompt_id,
-                grounding_retry_context(
-                    errors=errors,
-                    candidate_text=candidate_text,
-                    product_facts=product_facts,
-                    findings=tuple(parsed.findings) if parsed is not None else (),
-                    visitor_contract=visitor_contract,
-                ),
+        retry_message = build_role_grounding_retry_message(
+            prompt_id,
+            grounding_retry_context(
+                errors=errors,
+                candidate_text=candidate_text,
+                product_facts=product_facts,
+                findings=tuple(parsed.findings) if parsed is not None else (),
+                visitor_contract=visitor_contract,
             ),
+        )
+        current_messages = [
+            *[message for message in messages if message.get("role") == "system"],
+            retry_message,
         ]
+        context_mode = "compact_grounding_retry"
     raise AssertionError("grounding retry loop must return or raise")

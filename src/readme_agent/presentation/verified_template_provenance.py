@@ -24,8 +24,11 @@ from readme_agent.readme.source_claim_risk import (
 _CLAIM_LEVEL_SLOTS = {
     "additional_examples",
     "api_reference",
+    "contributing",
     "development_and_testing",
     "installation",
+    "scope_and_limitations",
+    "security",
     "third_party_notices",
 }
 _STRUCTURAL_SHELL = re.compile(
@@ -42,6 +45,7 @@ _STRUCTURAL_SHELL = re.compile(
     r"these additional workflows were syntax-checked and matched to the repository's static "
     r"public api\. they were not executed by the evidence collector\.|"
     r"the repository registers these mcp tools:|"
+    r"validate a proposed change with the checked-in repository scripts:|"
     r"<details>\s*<summary>[^<]+</summary>|</details>|"
     r"- \[browse all [^]]+\]\([^)]+\))\s*$"
 )
@@ -208,12 +212,24 @@ def build_source_claim_resolutions(
     candidate: str,
     facts: ProductFactsV2,
     candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
+    *,
+    preserved_source_ranges: list[tuple[int, int]] | None = None,
 ) -> list[SourceClaimResolutionV1]:
     """Resolve removed claims by risk; mandatory claims fail closed without verified slots."""
 
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate)
     candidate_hashes = Counter(claim.content_sha256 for claim in candidate_claims)
+    raw_candidate_occurrences = Counter(
+        {
+            claim.content_sha256: candidate.count(
+                source_text.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
+                    "utf-8"
+                )
+            )
+            for claim in source_claims
+        }
+    )
     candidate_bytes = candidate.encode("utf-8")
     selected_fact_ids = list(facts.selected_fact_ids.values())
     equivalence_candidates: dict[str, list] = {}
@@ -226,7 +242,13 @@ def build_source_claim_resolutions(
         )
     resolutions: list[SourceClaimResolutionV1] = []
     source_bytes = source_text.encode("utf-8")
+    preserve_ranges = preserved_source_ranges or []
     for claim in source_claims:
+        if raw_candidate_occurrences[claim.content_sha256] > 0:
+            raw_candidate_occurrences[claim.content_sha256] -= 1
+            if candidate_hashes[claim.content_sha256] > 0:
+                candidate_hashes[claim.content_sha256] -= 1
+            continue
         survives = candidate_hashes[claim.content_sha256] > 0
         if survives:
             candidate_hashes[claim.content_sha256] -= 1
@@ -265,6 +287,14 @@ def build_source_claim_resolutions(
                     )
                 )
                 continue
+        if any(
+            claim.source_byte_start < end and start < claim.source_byte_end
+            for start, end in preserve_ranges
+        ):
+            raise ValueError(
+                "preserve disposition lost a source claim without exact fact-equivalent "
+                f"candidate content: {claim.claim_id}"
+            )
         folded = claim_text.strip().casefold()
         risk = (
             classify_source_claim_risk(source_text, claim)
@@ -281,6 +311,9 @@ def build_source_claim_resolutions(
             if accepted is None:
                 continue
             bindings, replacement_fact_ids = accepted
+            source_fact_ids = literal_fact_ids(claim_text, facts, replacement_fact_ids)
+            if not source_fact_ids:
+                continue
             replacement_ids = sorted(binding.provenance_id for binding in bindings)
             resolutions.append(
                 SourceClaimResolutionV1(

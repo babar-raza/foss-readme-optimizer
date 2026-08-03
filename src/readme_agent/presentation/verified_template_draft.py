@@ -13,8 +13,13 @@ from readme_agent.presentation.template_schema import (
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     api_reference_markdown,
+    contributing_markdown,
+    dependency_markdown,
     development_markdown,
     optional_extras_markdown,
+    package_status_markdown,
+    repository_documents_markdown,
+    security_markdown,
     third_party_notices_markdown,
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
@@ -53,6 +58,21 @@ def _fields_for_fact_ids(facts: ProductFactsV2, fact_ids: list[str]) -> list[str
     return sorted({facts.fact_by_id(fact_id).field for fact_id in fact_ids})
 
 
+def _accepted_fields(facts: ProductFactsV2, *fields: str) -> tuple[str, ...]:
+    accepted: list[str] = []
+    for field in fields:
+        try:
+            fact = facts.selected_fact(field)
+        except KeyError:
+            continue
+        if (
+            fact.verification_state in {"verified", "policy_approved"}
+            and not fact.has_unresolved_conflict
+        ):
+            accepted.append(field)
+    return tuple(accepted)
+
+
 def _scope_text(
     facts: ProductFactsV2,
     contextual_links: ContextualLinkPlanV1 | None,
@@ -60,6 +80,14 @@ def _scope_text(
     limitations = _phrases(facts, "product.limitations")
     paragraphs = ["\n".join(f"- {item}" for item in limitations)] if limitations else []
     fields = ["product.limitations"] if limitations else []
+    package_status = package_status_markdown(facts)
+    if package_status:
+        paragraphs.append(package_status)
+        fields.append("python.distribution")
+    repository_documents = repository_documents_markdown(facts)
+    if repository_documents:
+        paragraphs.append(repository_documents)
+        fields.append("repository.documentation_assets")
     standards = ["readme.enterprise_edition_terminology"]
     if contextual_links is not None:
         relationship_markdown, relationship_fact_ids = render_contextual_relationship_markdown(
@@ -75,7 +103,9 @@ def _scope_text(
             *_phrases(facts, "product.formats")[:3],
             *_phrases(facts, "product.compatibility")[:1],
         ]
-        paragraphs.append("Verified scope: " + "; ".join(scope_items) + ".")
+        paragraphs.append(
+            "Verified scope: " + "; ".join(item.rstrip(". ") for item in scope_items) + "."
+        )
         fields.extend(["product.capabilities", "product.formats", "product.compatibility"])
     return "\n\n".join(paragraphs), fields, tuple(standards)
 
@@ -139,6 +169,9 @@ def build_verified_template_draft(
     optional_extras = optional_extras_markdown(facts)
     if installation is not None and optional_extras:
         installation += "\n\n" + optional_extras
+    dependencies = dependency_markdown(facts)
+    if installation is not None and dependencies:
+        installation += "\n\n" + dependencies
     example = example_text(facts, source_revision)
     example_standards = ["readme.primary_example"]
     example_fields = ["example.minimal"]
@@ -180,6 +213,9 @@ def build_verified_template_draft(
             "license",
         }
     }
+    development = development_markdown(facts)
+    contributing = contributing_markdown(facts)
+    security = security_markdown(facts)
     optional_sections = {
         "additional_examples": (
             additional_examples_markdown(facts),
@@ -192,9 +228,19 @@ def build_verified_template_draft(
             ("readme.api_reference",),
         ),
         "development_and_testing": (
-            development_markdown(facts),
-            ("development.assets",),
+            development,
+            _accepted_fields(facts, "development.assets", "development.commands"),
             ("readme.development_and_testing",),
+        ),
+        "contributing": (
+            contributing,
+            _accepted_fields(facts, "repository.contribution_guidance"),
+            ("readme.contributing",),
+        ),
+        "security": (
+            security,
+            _accepted_fields(facts, "repository.security_guidance"),
+            ("readme.security",),
         ),
         "third_party_notices": (
             third_party_notices_markdown(facts),
@@ -224,6 +270,14 @@ def build_verified_template_draft(
                 "installation.coordinates",
                 "product.compatibility",
                 *(["installation.optional_extras"] if optional_extras else []),
+                *_accepted_fields(
+                    facts,
+                    *(
+                        ("python.distribution", "installation.capability_dependencies")
+                        if dependencies
+                        else ()
+                    ),
+                ),
                 standards=("readme.verified_acquisition",),
             ),
             "quick_start": _included(

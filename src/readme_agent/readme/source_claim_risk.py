@@ -143,7 +143,11 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="Installation claims require an exact verified-acquisition replacement.",
         )
-    if "limitation" in primary or primary in {"scope", "scope and limitations"}:
+    if (
+        "limitation" in primary
+        or "boundar" in primary
+        or primary in {"scope", "scope and limitations"}
+    ):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
             obligation_id="scope_and_limitations",
@@ -177,6 +181,33 @@ def classify_source_claim_risk(
             rationale=(
                 "MCP tools, setup, and dependency detail require a dedicated repository-source "
                 "fact before they may be rewritten or omitted from protected content."
+            ),
+        )
+    if "security" in primary:
+        return SourceClaimRiskV1(
+            risk_class="optional_explicit_deferral",
+            heading_path=path,
+            rationale=(
+                "Security guidance requires dedicated repository-source evidence; generic "
+                "product overview or capability prose cannot replace it."
+            ),
+        )
+    if "contribut" in primary:
+        return SourceClaimRiskV1(
+            risk_class="optional_explicit_deferral",
+            heading_path=path,
+            rationale=(
+                "Contribution instructions require repository-owned workflow evidence; generic "
+                "product overview prose cannot replace them."
+            ),
+        )
+    if primary == "repository map":
+        return SourceClaimRiskV1(
+            risk_class="optional_explicit_deferral",
+            heading_path=path,
+            rationale=(
+                "Repository-layout detail requires an inventory-bound replacement and cannot be "
+                "discharged by generic product overview prose."
             ),
         )
     if any(token in primary for token in ("build", "developer", "test")):

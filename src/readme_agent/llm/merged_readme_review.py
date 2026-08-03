@@ -9,10 +9,7 @@ from readme_agent.llm.verification_prompts import (
     BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
     FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
 )
-from readme_agent.specialists.review_candidate_anchors import (
-    build_candidate_review_anchors,
-    render_candidate_review_anchor_catalog,
-)
+from readme_agent.specialists.factual_review_projection import compact_candidate_anchor_catalog
 from readme_agent.specialists.review_mechanical_observations import (
     render_candidate_mechanical_observations,
 )
@@ -70,8 +67,10 @@ def build_merged_readme_review_messages(
         .substitute(
             org_repo=org_repo,
             visitor_contract_json=visitor_contract_json,
-            candidate_anchor_catalog_json=render_candidate_review_anchor_catalog(
-                build_candidate_review_anchors(candidate_readme_text)
+            candidate_anchor_catalog_json=json.dumps(
+                compact_candidate_anchor_catalog(candidate_readme_text),
+                ensure_ascii=False,
+                separators=(",", ":"),
             ),
             candidate_mechanical_observations_json=json.dumps(
                 render_candidate_mechanical_observations(

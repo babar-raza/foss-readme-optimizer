@@ -4,7 +4,10 @@ import pytest
 
 from readme_agent.supervisor.contract_freeze import (
     PipelineContractSnapshotV1,
+    build_plan_freeze,
+    canonical_sha256,
     materialize_pipeline_snapshot,
+    raw_sha256,
     verify_pipeline_snapshot,
 )
 
@@ -58,3 +61,51 @@ def test_pipeline_snapshot_rejects_mutated_bytes(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="snapshot mismatch"):
         verify_pipeline_snapshot(manifest)
+
+
+def test_plan_freeze_replay_uses_committed_bytes_after_later_worktree_change(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    member = repo / "level8-autonomous-mission-task-graph.yaml"
+    member.write_text("frozen\n", encoding="utf-8")
+    import subprocess
+
+    subprocess.run(["git", "init"], cwd=repo, check=True, capture_output=True)
+    subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=repo, check=True)
+    subprocess.run(["git", "config", "user.name", "Test"], cwd=repo, check=True)
+    subprocess.run(["git", "add", "."], cwd=repo, check=True)
+    subprocess.run(["git", "commit", "-m", "seed"], cwd=repo, check=True, capture_output=True)
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=repo, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    frozen_bytes = subprocess.run(
+        ["git", "show", f"{commit}:level8-autonomous-mission-task-graph.yaml"],
+        cwd=repo,
+        check=True,
+        capture_output=True,
+    ).stdout
+    path = "level8-autonomous-mission-task-graph.yaml"
+    members = [{"path": path, "sha256": raw_sha256(frozen_bytes), "size": len(frozen_bytes)}]
+    acceptance_id = canonical_sha256(
+        {"control_commit": commit, "members": members, "result": "ACCEPTED"}
+    )
+    member.write_text("later valid work\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="member is dirty"):
+        build_plan_freeze(
+            repo,
+            control_commit=commit,
+            members=[path],
+            acceptance_receipt_id=acceptance_id,
+        )
+
+    replayed = build_plan_freeze(
+        repo,
+        control_commit=commit,
+        members=[path],
+        acceptance_receipt_id=acceptance_id,
+        require_worktree_match=False,
+    )
+    assert replayed.members[0].sha256 == raw_sha256(frozen_bytes)

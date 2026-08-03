@@ -309,6 +309,84 @@ def test_installation_assessment_repairs_a_stale_selected_coordinate_version():
     assert "coordinate version" in installation.rationale
 
 
+def test_page_pdf_governance_sections_are_investigated_not_falsely_preserved():
+    facts, revision = _java_facts()
+    source = """# Aspose.Product FOSS
+
+## Repository Map
+
+The generated compatibility tree mirrors a separately maintained API surface.
+
+## Contributing
+
+Run repository-specific checks and document every public API change.
+
+## Security
+
+Treat input files as hostile and configure repository-specific resource limits.
+"""
+
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    dispositions = {section.heading: section.disposition for section in assessment.sections}
+    assert dispositions["Aspose.Product FOSS"] == "preserve"
+    assert dispositions["Repository Map"] == "investigate"
+    assert dispositions["Contributing"] == "investigate"
+    assert dispositions["Security"] == "investigate"
+
+
+def test_fact_exact_limitation_and_minimal_example_remain_preservable():
+    facts, revision = _java_facts()
+    limitation = facts.selected_fact("product.limitations")
+    limitation_value = limitation.value
+    assert isinstance(limitation_value, list) and limitation_value
+    statement = str(limitation_value[0])
+    example = facts.selected_fact("example.minimal")
+    assert isinstance(example.value, dict)
+    code = str(example.value["code"])
+    language = str(example.value.get("language") or "java")
+    source = f"""# Aspose.Product FOSS
+
+## Feature Boundaries
+
+- {statement}
+
+## Quick Start
+
+```{language}
+{code}
+```
+"""
+
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    boundaries = next(
+        section for section in assessment.sections if section.heading == "Feature Boundaries"
+    )
+    quick_start = next(
+        section for section in assessment.sections if section.heading == "Quick Start"
+    )
+    assert boundaries.disposition == "preserve"
+    assert boundaries.fact_ids == [limitation.fact_id]
+    assert quick_start.disposition == "preserve"
+    assert example.fact_id in quick_start.fact_ids
+    assert all(
+        claim.disposition == "preserve"
+        for claim in assessment.material_claims
+        if boundaries.source_byte_start <= claim.source_byte_start < quick_start.source_byte_end
+    )
+
+
 def test_verified_go_acquisition_uses_go_command_not_java_template():
     facts, revision = _java_facts()
     identity = facts.selected_fact("product.identity")
@@ -512,10 +590,10 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
     assert "python -m pip install ." in rendered
     assert "pip install aspose-page-foss" not in rendered
     assert "did not find a published package" in rendered
-    assert [badge.kind for badge in render_readme_badges(python_facts)] == [
+    assert [badge.badge_id for badge in render_readme_badges(python_facts)] == [
         "version",
         "platform",
-        "source",
+        "compatibility",
         "license",
         "contributors",
     ]
