@@ -10233,7 +10233,7 @@
     "updated_at": "2026-08-03T04:16:53.214397+00:00"
   },
   "schema_version": 2,
-  "state_version": 535,
+  "state_version": 536,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
@@ -10910,13 +10910,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:StateBackendError:invalid README-POC lifecycle transition 'INTAKE_READY' -> 'FACTS_COLLECTING' for 'aspose-page-foss/Aspose.Page-FOSS-for-Python'",
       "last_checkpoint_id": "22e0d9d0e278fd7a28f6491e28d99918c4867c3ae417eb7b44adb24b57a29938",
-      "lease_expires_at": "2026-08-03T04:31:33.490478+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-03T04:17:18.351827+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-03T04:18:27.228998+00:00"
     }
   },
   "trigger_records": {},
