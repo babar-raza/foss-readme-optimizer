@@ -2007,7 +2007,7 @@
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "70c95e8cee3d84b1a197c81e9487096f898876c95058c0aa19342e09ddfdcaf5",
+      "accepted_facts_hash": "df60784f25c5c77049c5c68086f4f8d40ed05a97a9dc3bbcf54941d2416b5265",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -2015,17 +2015,17 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('is a Java 17 spreadsheet library for developers... to create, load, modify, and save Excel .xlsx workbooks').",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('is a Java 17 spreadsheet library for developers... to create, load, modify, and save Excel XLSX workbooks').",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the audience (Java developers), ecosystem (Java), format (Excel .xlsx), and common tasks (create, load, modify, save).",
+            "note": "The opening paragraph explicitly names the audience (Java developers), ecosystem (Java), format (Excel XLSX), and common tasks (create, load, modify, save).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version/package badges (Maven Central, Platform, Repository, License, Contributors) are included.",
+            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version/package-registry badges (Maven Central, Platform) are included.",
             "satisfied": true
           },
           {
@@ -2035,7 +2035,7 @@
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a fully runnable, self-contained Java example with no comments or docstrings, and it demonstrates core functionality.",
+            "note": "Beyond the install snippet, a complete, runnable Java example is provided with no comments or docstrings, and includes actual file I/O (`workbook.save(\"report.xlsx\")`).",
             "satisfied": true
           },
           {
@@ -2045,28 +2045,28 @@
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, which is appropriate for a data-processing library.",
+            "note": "The Mermaid flowchart illustrates the actual product workflow (input \u2192 transformation \u2192 output) and is directly relevant to a data-processing library, satisfying the rule for product-appropriate visuals.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README is present and GitHub-recognized, but the repository is missing LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT files in GitHub's community health check (only README is recognized).",
-            "satisfied": false
+            "note": "LICENSE is present, GitHub-recognized (MIT badge + link), and is the highest-priority community file; other files (CONTRIBUTING, CODE_OF_CONDUCT) are not required by this standard.",
+            "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README includes a versioned Maven artifact (`26.7.0`) and the repository's recent commit history (implied by the pinned commit SHA in the Repository badge) supports active maintenance.",
+            "note": "The README does not claim maintenance status, and the presence of a specific version (`26.7.0`) and recent commit reference implies verifiable activity (GitHub-generated signal).",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under a dedicated 'Scope and limitations' section after the product description, with no promotional language or repeated links.",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under 'Scope and limitations' \u2014 after the product description \u2014 and avoids promotional language or pricing.",
             "satisfied": true
           }
         ],
-        "input_sha256": "edc32bc31a2a3042e4ba19b37c9f38e78e21b3e4839ae9ff7390466e1f2fa4f3",
+        "input_sha256": "b19ca68e7c8ac30bdfb7b03e6c06b8fd4b486d23ee9121ec3a8dee3644243ada",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 9 of 10 dimensions; the sole failure is in contribution readiness due to missing GitHub-recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT), despite having a well-structured, professional README.",
+        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it leads with clear product description and audience fit, includes all required trust and installation signals, provides a verified runnable example, uses appropriate navigation and visuals, and presents the commercial context restraintfully and correctly.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -2079,7 +2079,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-03T00:11:51.054589+00:00",
+      "last_run_timestamp": "2026-08-03T00:28:30.671872+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -19129,7 +19129,7 @@
     "updated_at": "2026-08-03T00:27:15.770525+00:00"
   },
   "schema_version": 2,
-  "state_version": 478,
+  "state_version": 479,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
