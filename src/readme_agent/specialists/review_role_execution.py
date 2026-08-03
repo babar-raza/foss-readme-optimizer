@@ -76,6 +76,25 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
                 normalized_item["finding_id"] = (
                     base_finding_id if occurrence == 1 else f"{base_finding_id}.{occurrence}"
                 )
+            if role == "blind_quality" and normalized_item.get("kind") == "quality":
+                # Some gateways serialize nullable fields as empty strings. Canonicalize only
+                # empty placeholders; substantive factual content remains a contract violation
+                # because silently erasing it could launder a cross-role premise.
+                for field in (
+                    "fact_id",
+                    "evidence_excerpt",
+                    "evidence_location",
+                    "expected_polarity",
+                    "observed_polarity",
+                ):
+                    value = normalized_item.get(field)
+                    if value is None or (isinstance(value, str) and not value.strip()):
+                        normalized_item[field] = None
+                polarity_result = normalized_item.get("polarity_result")
+                if polarity_result is None or (
+                    isinstance(polarity_result, str) and not polarity_result.strip()
+                ):
+                    normalized_item["polarity_result"] = "not_applicable"
             if normalized_item.get("disposition") != "requires_repair":
                 normalized_item["required_repair"] = ""
             normalized_items.append(normalized_item)

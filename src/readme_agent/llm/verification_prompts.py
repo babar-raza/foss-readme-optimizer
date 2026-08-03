@@ -137,32 +137,54 @@ def _role_review_tool_schema(
             },
             "disposition": {
                 "type": "string",
-                "enum": ["supports_acceptance", "requires_repair", "blocks"],
+                "enum": (
+                    ["supports_acceptance", "requires_repair"]
+                    if finding_kind == "quality"
+                    else ["supports_acceptance", "requires_repair", "blocks"]
+                ),
             },
-            "fact_id": {"type": ["string", "null"]},
-            "evidence_excerpt": {"type": ["string", "null"]},
-            "evidence_location": {"type": ["string", "null"]},
+            "fact_id": (
+                {"type": "null"} if finding_kind == "quality" else {"type": ["string", "null"]}
+            ),
+            "evidence_excerpt": (
+                {"type": "null"} if finding_kind == "quality" else {"type": ["string", "null"]}
+            ),
+            "evidence_location": (
+                {"type": "null"} if finding_kind == "quality" else {"type": ["string", "null"]}
+            ),
             "expected_polarity": {
-                "type": ["string", "null"],
-                "enum": [
-                    "positive_implementation",
-                    "explicit_constraint",
-                    "ambiguous_occurrence",
-                    None,
-                ],
+                "type": "null" if finding_kind == "quality" else ["string", "null"],
+                "enum": (
+                    [None]
+                    if finding_kind == "quality"
+                    else [
+                        "positive_implementation",
+                        "explicit_constraint",
+                        "ambiguous_occurrence",
+                        None,
+                    ]
+                ),
             },
             "observed_polarity": {
-                "type": ["string", "null"],
-                "enum": [
-                    "positive_implementation",
-                    "explicit_constraint",
-                    "ambiguous_occurrence",
-                    None,
-                ],
+                "type": "null" if finding_kind == "quality" else ["string", "null"],
+                "enum": (
+                    [None]
+                    if finding_kind == "quality"
+                    else [
+                        "positive_implementation",
+                        "explicit_constraint",
+                        "ambiguous_occurrence",
+                        None,
+                    ]
+                ),
             },
             "polarity_result": {
                 "type": "string",
-                "enum": ["not_applicable", "supports", "contradicts", "missing"],
+                "enum": (
+                    ["not_applicable"]
+                    if finding_kind == "quality"
+                    else ["supports", "contradicts", "missing"]
+                ),
             },
             **(
                 {

@@ -218,6 +218,16 @@ def test_role_tool_schemas_require_grounded_acceptance_fields():
         blind_finding["required"]
     )
     assert blind_finding["properties"]["kind"]["enum"] == ["quality"]
+    assert blind_finding["properties"]["disposition"]["enum"] == [
+        "supports_acceptance",
+        "requires_repair",
+    ]
+    assert blind_finding["properties"]["fact_id"] == {"type": "null"}
+    assert blind_finding["properties"]["evidence_excerpt"] == {"type": "null"}
+    assert blind_finding["properties"]["evidence_location"] == {"type": "null"}
+    assert blind_finding["properties"]["expected_polarity"]["enum"] == [None]
+    assert blind_finding["properties"]["observed_polarity"]["enum"] == [None]
+    assert blind_finding["properties"]["polarity_result"]["enum"] == ["not_applicable"]
     assert blind_findings["maxItems"] == 8
     assert blind_finding["properties"]["quoted_candidate_span"]["maxLength"] == 1200
     assert factual_finding["properties"]["kind"]["enum"] == ["factual"]

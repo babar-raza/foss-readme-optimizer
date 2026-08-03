@@ -8,6 +8,7 @@ from readme_agent.errors import LLMError
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.merged_readme_review import build_merged_readme_review_messages
+from readme_agent.llm.verification_prompts import build_blind_quality_review_messages
 from readme_agent.specialists.merged_readme_review_contracts import (
     MergedReadmeReviewResultV1,
     MergedReviewCallReceiptV1,
@@ -24,10 +25,16 @@ from readme_agent.specialists.readme_review_roles import (
     input_hash,
     json_hash,
 )
-from readme_agent.specialists.review_role_execution import AnalysisClientLike, run_grounded_role
+from readme_agent.specialists.review_role_execution import (
+    AnalysisClientLike,
+    GroundedRoleFailure,
+    run_grounded_role,
+)
 
 _MERGED_PROMPT_ID = "merged_readme_review"
 _MERGED_ACTOR_ID = "llm-route:merged-readme-review"
+_BLIND_PROMPT_ID = "blind_readme_quality_review"
+_BLIND_ACTOR_ID = "llm-route:blind-readme-quality"
 
 
 @dataclass(frozen=True)
@@ -38,7 +45,7 @@ class MergedReviewExecutionV1:
     factual_result: FactualPlanReviewResultV1
     blind_record: RoleReviewRecordV1
     factual_record: RoleReviewRecordV1
-    receipt: MergedReviewCallReceiptV1
+    receipt: MergedReviewCallReceiptV1 | None
     grounding_history: list[dict]
 
 
@@ -53,8 +60,9 @@ def execute_merged_readme_review(
     blind_input: BlindQualityReviewInputV1,
     factual_input: FactualPlanReviewInputV1,
     client: AnalysisClientLike,
+    blind_fallback_client: AnalysisClientLike | None = None,
 ) -> MergedReviewExecutionV1:
-    """Make one paid call, then ground both returned facets without provider retries."""
+    """Make one merged call, with one isolated blind fallback for cross-role leakage."""
 
     messages = build_merged_readme_review_messages(
         org_repo,
@@ -70,16 +78,6 @@ def execute_merged_readme_review(
     factual_payload = analysis.parsed["factual"]
     if not isinstance(quality_payload, dict) or not isinstance(factual_payload, dict):
         raise LLMError("merged README review facets must each be structured objects")
-    blind_result, blind_history, blind_grounding = run_grounded_role(
-        role="blind_quality",
-        prompt_id=_MERGED_PROMPT_ID,
-        client=_OneResultClient(quality_payload, analysis),
-        messages=messages,
-        candidate_text=candidate_text,
-        product_facts=None,
-        visitor_contract=visitor_contract,
-        max_attempts_override=1,
-    )
     factual_result, factual_history, factual_grounding = run_grounded_role(
         role="factual_plan",
         prompt_id=_MERGED_PROMPT_ID,
@@ -89,15 +87,56 @@ def execute_merged_readme_review(
         product_facts=product_facts,
         max_attempts_override=1,
     )
-    blind_result = cast(BlindQualityReviewResultV1, blind_result)
     factual_result = cast(FactualPlanReviewResultV1, factual_result)
+    used_blind_fallback = False
+    fallback_event: dict | None = None
+    try:
+        blind_result, blind_history, blind_grounding = run_grounded_role(
+            role="blind_quality",
+            prompt_id=_MERGED_PROMPT_ID,
+            client=_OneResultClient(quality_payload, analysis),
+            messages=messages,
+            candidate_text=candidate_text,
+            product_facts=None,
+            visitor_contract=visitor_contract,
+            max_attempts_override=1,
+        )
+    except GroundedRoleFailure as exc:
+        if blind_fallback_client is None:
+            raise
+        used_blind_fallback = True
+        fallback_event = {
+            "role": "blind_quality",
+            "fallback": "isolated_blind_quality",
+            "trigger": "merged_quality_contract_failure",
+            "merged_raw_output_sha256": json_hash(analysis.parsed),
+            "merged_provider_request_id": analysis.meta.request_id,
+            "merged_failure_history": list(exc.retry_history),
+        }
+        blind_result, blind_history, blind_grounding = run_grounded_role(
+            role="blind_quality",
+            prompt_id=_BLIND_PROMPT_ID,
+            client=blind_fallback_client,
+            messages=build_blind_quality_review_messages(
+                blind_input.org_repo,
+                blind_input.original_readme_text,
+                blind_input.candidate_readme_text,
+                _canonical_json(blind_input.visitor_contract),
+            ),
+            candidate_text=candidate_text,
+            product_facts=None,
+            visitor_contract=visitor_contract,
+        )
+    blind_result = cast(BlindQualityReviewResultV1, blind_result)
     MergedReadmeReviewResultV1(quality=blind_result, factual=factual_result)
     prompt_sha256 = prompt_registry.prompt_hash(_MERGED_PROMPT_ID)
     blind_identity = ReviewActorIdentityV1(
-        actor_id=_MERGED_ACTOR_ID,
+        actor_id=_BLIND_ACTOR_ID if used_blind_fallback else _MERGED_ACTOR_ID,
         role="blind_quality_reviewer",
-        prompt_id=_MERGED_PROMPT_ID,
-        prompt_sha256=prompt_sha256,
+        prompt_id=_BLIND_PROMPT_ID if used_blind_fallback else _MERGED_PROMPT_ID,
+        prompt_sha256=(
+            prompt_registry.prompt_hash(_BLIND_PROMPT_ID) if used_blind_fallback else prompt_sha256
+        ),
     )
     factual_identity = ReviewActorIdentityV1(
         actor_id=_MERGED_ACTOR_ID,
@@ -129,16 +168,20 @@ def execute_merged_readme_review(
         findings=factual_result.findings,
         grounding_validation=factual_grounding,
     )
-    receipt = MergedReviewCallReceiptV1(
-        actor_id=_MERGED_ACTOR_ID,
-        prompt_id=_MERGED_PROMPT_ID,
-        prompt_sha256=prompt_sha256,
-        input_sha256=json_hash({"messages": messages}),
-        raw_output_sha256=json_hash(analysis.parsed),
-        blind_record_sha256=role_record_hash(blind_record),
-        factual_record_sha256=role_record_hash(factual_record),
-        provider_request_id=analysis.meta.request_id,
-        provider_model=analysis.meta.model,
+    receipt = (
+        None
+        if used_blind_fallback
+        else MergedReviewCallReceiptV1(
+            actor_id=_MERGED_ACTOR_ID,
+            prompt_id=_MERGED_PROMPT_ID,
+            prompt_sha256=prompt_sha256,
+            input_sha256=json_hash({"messages": messages}),
+            raw_output_sha256=json_hash(analysis.parsed),
+            blind_record_sha256=role_record_hash(blind_record),
+            factual_record_sha256=role_record_hash(factual_record),
+            provider_request_id=analysis.meta.request_id,
+            provider_model=analysis.meta.model,
+        )
     )
     return MergedReviewExecutionV1(
         blind_result=blind_result,
@@ -146,7 +189,11 @@ def execute_merged_readme_review(
         blind_record=blind_record,
         factual_record=factual_record,
         receipt=receipt,
-        grounding_history=[*blind_history, *factual_history],
+        grounding_history=[
+            *([fallback_event] if fallback_event is not None else []),
+            *blind_history,
+            *factual_history,
+        ],
     )
 
 

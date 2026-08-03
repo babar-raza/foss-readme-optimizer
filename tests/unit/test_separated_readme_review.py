@@ -11,6 +11,7 @@ from readme_agent.llm.verification_prompts import separated_reviewer_standard_ha
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.specialists.readme_review_roles import (
+    BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
     ReviewActorIdentityV1,
 )
@@ -1183,6 +1184,52 @@ def test_blind_rejection_derives_missing_finding_repair_from_its_claim() -> None
     assert result["required_repair"] == result["findings"][0]["required_repair"]
 
 
+def test_blind_role_canonicalizes_only_empty_shared_schema_factual_placeholders() -> None:
+    parsed = _blind_accept("The opening is visibly clear.")
+    finding = parsed["findings"][0]
+    finding.update(
+        {
+            "fact_id": "",
+            "evidence_excerpt": "   ",
+            "evidence_location": "",
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "",
+        }
+    )
+
+    normalized = normalize_redundant_role_fields("blind_quality", parsed)
+    result = BlindQualityReviewResultV1.model_validate(normalized)
+
+    assert result.findings[0].claim == "The opening is clear."
+    assert result.findings[0].quoted_candidate_span == "Specific, useful candidate."
+    assert result.findings[0].fact_id is None
+    assert result.findings[0].evidence_excerpt is None
+    assert result.findings[0].evidence_location is None
+    assert result.findings[0].expected_polarity is None
+    assert result.findings[0].observed_polarity is None
+    assert result.findings[0].polarity_result == "not_applicable"
+
+
+def test_blind_role_does_not_erase_substantive_cross_role_factual_fields() -> None:
+    parsed = _blind_accept("The opening is visibly clear.")
+    parsed["findings"][0].update(
+        {
+            "fact_id": "out-of-role-fact",
+            "evidence_excerpt": "out-of-role evidence",
+            "evidence_location": "README.md",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+        }
+    )
+
+    normalized = normalize_redundant_role_fields("blind_quality", parsed)
+
+    with pytest.raises(ValueError, match="quality finding cannot carry factual evidence fields"):
+        BlindQualityReviewResultV1.model_validate(normalized)
+
+
 def _blind_accept(reason):
     return {
         "verdict": "ACCEPT",
@@ -1349,6 +1396,47 @@ def test_default_merged_client_makes_one_call_and_binds_two_grounded_facets():
     assert "Complete candidate README block catalog" in serialized
     assert "fact-1" in serialized
     assert ORIGINAL not in serialized
+
+
+def test_merged_cross_role_quality_leakage_uses_one_isolated_blind_fallback():
+    leaked_quality = _blind_accept("visitor-ready")
+    leaked_quality["findings"][0].update(
+        {
+            "fact_id": "fact-1",
+            "evidence_excerpt": "Example",
+            "evidence_location": "README.md",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+        }
+    )
+    merged = SequenceClient([{"quality": leaked_quality, "factual": _factual_accept("grounded")}])
+    fallback = SequenceClient([_blind_accept("visitor-ready after isolated retry")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(merged.messages_seen) == 1
+    assert len(fallback.messages_seen) == 1
+    assert result.combined_review.merged_call_receipt is None
+    assert result.blind_quality_review.identity.prompt_id == "blind_readme_quality_review"
+    assert result.factual_plan_review.identity.prompt_id == "merged_readme_review"
+    assert result.combined_review.identity_separation_valid
+    fallback_context = "\n".join(message["content"] for message in fallback.messages_seen[0])
+    assert "fact-1" not in fallback_context
+    assert "readme.overview" not in fallback_context
+    event = result.grounding_retry_history[0]
+    assert event["fallback"] == "isolated_blind_quality"
+    assert event["trigger"] == "merged_quality_contract_failure"
+    assert event["merged_raw_output_sha256"]
 
 
 def test_merged_false_missing_premise_fails_closed_without_repeating_call():

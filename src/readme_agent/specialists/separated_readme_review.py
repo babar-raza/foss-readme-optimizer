@@ -10,7 +10,10 @@ from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.llm import prompt_registry
-from readme_agent.llm.reviewer_client import build_live_merged_review_client
+from readme_agent.llm.reviewer_client import (
+    build_live_merged_review_client,
+    build_live_role_review_clients,
+)
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
@@ -83,6 +86,7 @@ def run_separated_readme_review(
     blind_client: AnalysisClientLike | None = None,
     factual_client: AnalysisClientLike | None = None,
     merged_client: AnalysisClientLike | None = None,
+    blind_fallback_client: AnalysisClientLike | None = None,
     backend: StateBackend | None = None,
     repair_attempt: int = 0,
     author_identity: ReviewActorIdentityV1 | None = None,
@@ -94,8 +98,13 @@ def run_separated_readme_review(
     explicit_separated = blind_client is not None and factual_client is not None
     if explicit_separated and merged_client is not None:
         raise ValueError("merged and separated review clients are mutually exclusive")
+    if explicit_separated and blind_fallback_client is not None:
+        raise ValueError("a blind fallback is only valid with the merged reviewer")
     if not explicit_separated and merged_client is None:
         merged_client = build_live_merged_review_client(env.llm_base_url(), env.llm_api_key())
+        blind_fallback_client = build_live_role_review_clients(
+            env.llm_base_url(), env.llm_api_key()
+        )[0]
 
     if product_facts_v2 is None:
         facts_dispatch = dispatch_tool_call(
@@ -230,6 +239,7 @@ def run_separated_readme_review(
             blind_input=blind_input,
             factual_input=factual_input,
             client=merged_client,
+            blind_fallback_client=blind_fallback_client,
         )
         blind_result = execution.blind_result
         factual_result = execution.factual_result
