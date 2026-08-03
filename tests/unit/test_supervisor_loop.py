@@ -277,7 +277,7 @@ def _merged_accept_payload(messages) -> tuple[dict, dict]:
     catalog = json.loads(catalog_text)
     facts = json.loads(facts_text)
     first = catalog[0]
-    candidate_text = "\n\n".join(str(item["text"]) for item in catalog)
+    candidate_text = "\n\n".join(str(item[1]) for item in catalog)
     selected_ids = set(facts.get("selected_fact_ids", {}).values())
     supported = next(
         (
@@ -308,8 +308,8 @@ def _merged_accept_payload(messages) -> tuple[dict, dict]:
                 "criterion": "clarity",
                 "section": "title",
                 "claim": "The candidate has a clear title.",
-                "quoted_candidate_span": first["text"],
-                "candidate_anchor_id": first["anchor_id"],
+                "quoted_candidate_span": first[1],
+                "candidate_anchor_id": first[0],
                 "disposition": "supports_acceptance",
                 "fact_id": None,
                 "evidence_excerpt": None,
@@ -383,9 +383,7 @@ class _RejectThenAcceptMergedReviewClient:
                 )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
             )
             diagram_anchor = next(
-                anchor
-                for anchor in catalog
-                if str(anchor.get("text", "")).lstrip().startswith("```mermaid")
+                anchor for anchor in catalog if str(anchor[1]).lstrip().startswith("```mermaid")
             )
             quality = {
                 "verdict": "REJECT_REPAIRABLE",
@@ -400,8 +398,8 @@ class _RejectThenAcceptMergedReviewClient:
                         "criterion": "product_specificity",
                         "section": "At a glance",
                         "claim": "The overview diagram is generic.",
-                        "quoted_candidate_span": str(diagram_anchor["text"]),
-                        "candidate_anchor_id": str(diagram_anchor["anchor_id"]),
+                        "quoted_candidate_span": str(diagram_anchor[1]),
+                        "candidate_anchor_id": str(diagram_anchor[0]),
                         "disposition": "requires_repair",
                         "fact_id": None,
                         "evidence_excerpt": None,
@@ -552,7 +550,7 @@ class _RejectThenAcceptBlindReviewClient:
             diagram_anchor = next(
                 anchor
                 for anchor in anchor_catalog
-                if str(anchor.get("text", "")).lstrip().startswith("```mermaid")
+                if str(anchor[1]).lstrip().startswith("```mermaid")
             )
             parsed = {
                 "verdict": "REJECT_REPAIRABLE",
@@ -569,8 +567,8 @@ class _RejectThenAcceptBlindReviewClient:
                         "criterion": "product_specificity",
                         "section": "At a glance",
                         "claim": "The overview diagram is generic.",
-                        "quoted_candidate_span": str(diagram_anchor["text"]),
-                        "candidate_anchor_id": str(diagram_anchor["anchor_id"]),
+                        "quoted_candidate_span": str(diagram_anchor[1]),
+                        "candidate_anchor_id": str(diagram_anchor[0]),
                         "disposition": "requires_repair",
                         "fact_id": None,
                         "evidence_excerpt": None,

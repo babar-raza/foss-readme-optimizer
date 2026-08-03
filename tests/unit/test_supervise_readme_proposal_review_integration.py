@@ -139,7 +139,7 @@ class _FakeAcceptingMergedReviewClient:
         catalog = json.loads(catalog_text)
         facts = json.loads(facts_text)
         first = catalog[0]
-        candidate_text = "\n\n".join(str(item["text"]) for item in catalog)
+        candidate_text = "\n\n".join(str(item[1]) for item in catalog)
         selected_ids = set(facts.get("selected_fact_ids", {}).values())
         supported = next(
             (
@@ -170,8 +170,8 @@ class _FakeAcceptingMergedReviewClient:
                     "criterion": "clarity",
                     "section": "title",
                     "claim": "The candidate has a clear title.",
-                    "quoted_candidate_span": first["text"],
-                    "candidate_anchor_id": first["anchor_id"],
+                    "quoted_candidate_span": first[1],
+                    "candidate_anchor_id": first[0],
                     "disposition": "supports_acceptance",
                     "fact_id": None,
                     "evidence_excerpt": None,

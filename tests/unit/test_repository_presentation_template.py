@@ -793,6 +793,8 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     ]
     assert standards["readme.at_a_glance_mermaid"]["minimum_capabilities"] == 1
     assert standards["readme.at_a_glance_mermaid"]["target_capabilities"] == 6
+    assert standards["readme.at_a_glance_mermaid"]["capability_coverage"] == "all_selected_verified"
+    assert standards["readme.at_a_glance_mermaid"]["maximum_capabilities_per_group"] == 6
     assert standards["readme.at_a_glance_mermaid"]["target_outputs"] == 5
     assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is False
     assert standards["readme.primary_example"] == {

@@ -7,6 +7,7 @@ import re
 from markdown_it import MarkdownIt
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.diagram_role_semantics import selected_verified_capability_nodes
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.header_badge_targets import normalized_badge_target
 from readme_agent.readme.header_visual_models import (
@@ -57,6 +58,19 @@ def validate_readme_header_visual(
         (node.role, " ".join(node.label.casefold().split())) for node in visual.diagram_nodes
     ]
     checks["diagram_role_labels_unique"] = len(role_labels) == len(set(role_labels))
+    expected_capabilities = {
+        " ".join(node.label.casefold().split()): set(node.supporting_fact_ids)
+        for node in selected_verified_capability_nodes(facts)
+    }
+    rendered_capabilities = {
+        " ".join(node.label.casefold().split()): set(node.fact_ids)
+        for node in visual.diagram_nodes
+        if node.role == "capability"
+    }
+    checks["selected_capabilities_complete"] = all(
+        label in rendered_capabilities and fact_ids <= rendered_capabilities[label]
+        for label, fact_ids in expected_capabilities.items()
+    )
     checks["maps_match_markdown"] = all(
         f'  {node.node_id}["{node.label}"]' in visual.mermaid_source
         for node in visual.diagram_nodes

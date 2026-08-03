@@ -101,6 +101,10 @@ def build_presentation_visitor_contract(
                     "target_inputs": contract.invariants.target_mermaid_inputs,
                     "target_capabilities": contract.invariants.target_mermaid_capabilities,
                     "target_outputs": contract.invariants.target_mermaid_outputs,
+                    "capability_coverage": "all_selected_verified",
+                    "maximum_capabilities_per_group": (
+                        contract.invariants.target_mermaid_capabilities
+                    ),
                     "directional_workflow": False,
                 },
             },

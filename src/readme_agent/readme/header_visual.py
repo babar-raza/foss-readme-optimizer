@@ -8,7 +8,10 @@ from typing import Literal
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
-from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
+from readme_agent.readme.diagram_role_semantics import (
+    normalize_diagram_role_nodes,
+    selected_verified_capability_nodes,
+)
 from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual_models import (
     MermaidNodeV1,
@@ -44,16 +47,17 @@ def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:
             fact_ids=identity.citation_fact_ids,
         )
     )
-    limits: dict[str, tuple[Literal["input", "capability", "output"], int]] = {
+    limits: dict[str, tuple[Literal["input", "capability", "output"], int | None]] = {
         "product.formats": ("input", 3),
-        "product.capabilities": ("capability", 6),
+        "product.capabilities": ("capability", None),
         "product.problems_solved": ("output", 1),
     }
     for field, (role, maximum) in limits.items():
         view = visitor_fact_render_view(facts, field)
         if view is None:
             continue
-        accepted_labels = [safe_mermaid_label(phrase) for phrase in view.phrases[:maximum]]
+        phrases = view.phrases if maximum is None else view.phrases[:maximum]
+        accepted_labels = [safe_mermaid_label(phrase) for phrase in phrases]
         if any(label is None for label in accepted_labels):
             raise ValueError(f"unsafe Mermaid label selected from accepted {field} fact")
         for index, label in enumerate(accepted_labels, start=1):
@@ -155,9 +159,21 @@ def _mermaid_source(nodes: list[MermaidNodeV1]) -> str:
     lines = ["flowchart LR", '  subgraph Inputs["Inputs and formats"]']
     lines.extend(f'    {node.node_id}["{node.label}"]' for node in grouped["input"])
     lines.extend(["  end", "", f'  {product.node_id}["{product.label}"]', ""])
-    lines.append('  subgraph Capabilities["Core capabilities"]')
-    lines.extend(f'    {node.node_id}["{node.label}"]' for node in grouped["capability"])
-    lines.extend(["  end", "", '  subgraph Outputs["Outputs and accessible content"]'])
+    capabilities = grouped["capability"]
+    capability_groups = [
+        capabilities[index : index + 6] for index in range(0, len(capabilities), 6)
+    ]
+    for index, capability_group in enumerate(capability_groups, start=1):
+        group_id = "Capabilities" if len(capability_groups) == 1 else f"Capabilities{index}"
+        group_label = (
+            "Core capabilities"
+            if len(capability_groups) == 1
+            else f"Core capabilities {index} of {len(capability_groups)}"
+        )
+        lines.append(f'  subgraph {group_id}["{group_label}"]')
+        lines.extend(f'    {node.node_id}["{node.label}"]' for node in capability_group)
+        lines.extend(["  end", ""])
+    lines.append('  subgraph Outputs["Outputs and accessible content"]')
     lines.extend(f'    {node.node_id}["{node.label}"]' for node in grouped["output"])
     lines.extend(["  end", ""])
     lines.extend(f"  {node.node_id} --- product" for node in grouped["input"])
@@ -184,6 +200,20 @@ def render_readme_header_visual(
         if agentic_plan is not None and agentic_plan.diagram.nodes
         else _fallback_nodes(facts)
     )
+    expected_capabilities = selected_verified_capability_nodes(facts)
+    rendered_capability_labels = {
+        " ".join(node.label.casefold().split()) for node in nodes if node.role == "capability"
+    }
+    missing_capabilities = [
+        node.label
+        for node in expected_capabilities
+        if " ".join(node.label.casefold().split()) not in rendered_capability_labels
+    ]
+    if missing_capabilities:
+        raise ValueError(
+            "README diagram omits selected verified capabilities: "
+            + ", ".join(missing_capabilities)
+        )
     role_counts = {
         role: sum(node.role == role for node in nodes) for role in ("input", "capability", "output")
     }

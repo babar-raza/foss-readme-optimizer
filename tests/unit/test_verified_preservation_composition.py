@@ -314,6 +314,49 @@ def test_page_opening_keeps_later_contextual_enterprise_link_balanced():
     assert "promotional_imbalance" not in {finding.rule_id for finding in findings}
 
 
+def test_pdf_opening_preserves_action_punctuation_and_bounds_scope():
+    capabilities = [
+        "Create, load, save, merge, and inspect PDF documents",
+        "Add and edit text and images",
+        "Extract text and attachments",
+        "Render PDF pages to images",
+        "PDF/A validation",
+    ]
+    facts = _with_fact_values(
+        _facts(converter=False),
+        {
+            "product.identity": {
+                "product_name": "Aspose.PDF",
+                "family": "pdf",
+                "ecosystem": "python",
+            },
+            "product.audience": ["Developers using Python."],
+            "product.problems_solved": [capabilities[0]],
+            "product.capabilities": capabilities,
+        },
+    )
+    source = _source_readme("Aspose.PDF")
+    assessment = assess_readme_document(ORG_REPO, source, facts, base_revision=REVISION)
+
+    plan = build_verified_preservation_composition_plan(
+        ORG_REPO,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+
+    assert plan is not None and plan.opening_summary is not None
+    summary = plan.opening_summary.text
+    assert "create, load, save" in summary
+    assert "create load, save" not in summary
+    assert "also includes add and edit text and images, and extract text and attachments" in summary
+    assert "Render PDF pages" not in summary
+    assert "PDF/A validation" not in summary
+    diagram_labels = {node.label for node in plan.diagram.nodes if node.role == "capability"}
+    assert set(capabilities) <= diagram_labels
+
+
 def test_weak_readme_and_non_ready_facts_keep_live_composition_path():
     facts = _facts(converter=False)
     weak = "# Aspose.BarCode FOSS for Python\n\nSmall README.\n"

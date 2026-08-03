@@ -241,6 +241,33 @@ def _merge_role_candidates(*groups: list[AgenticDiagramNodeV1]) -> list[AgenticD
     return merged
 
 
+def selected_verified_capability_nodes(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
+    """Return every safe selected capability in stable repository-evidence order."""
+
+    view = visitor_fact_render_view(facts, "product.capabilities")
+    if view is None:
+        return []
+    nodes: list[AgenticDiagramNodeV1] = []
+    identities: set[tuple[str, frozenset[str] | str]] = set()
+    for phrase in view.phrases:
+        if not phrase.strip() or _label_has_forbidden_role_semantics(phrase):
+            continue
+        label = _bounded_label(phrase)
+        identity = _role_identity("capability", label)
+        if identity in identities:
+            continue
+        candidate = AgenticDiagramNodeV1(
+            role="capability",
+            label=label,
+            supporting_fact_ids=view.citation_fact_ids,
+        )
+        if _node_semantic_error(candidate, facts) is not None:
+            continue
+        identities.add(identity)
+        nodes.append(candidate)
+    return nodes
+
+
 def _node_semantic_error(node: AgenticDiagramNodeV1, facts: ProductFactsV2) -> str | None:
     try:
         cited_fields = sorted(
@@ -325,16 +352,10 @@ def normalize_diagram_role_nodes(
                 )
             }
         )
-    capability_target = (target_counts or required_counts).get("capability", 1)
     capability_view = visitor_fact_render_view(facts, "product.capabilities")
     if capability_view is not None:
-        safe_capability_phrases = [
-            phrase
-            for phrase in capability_view.phrases
-            if not _label_has_forbidden_role_semantics(phrase)
-        ]
-        for phrase in safe_capability_phrases[:capability_target]:
-            capability_label = _bounded_label(phrase)
+        for capability in selected_verified_capability_nodes(facts):
+            capability_label = capability.label
             if any(
                 node.role == "capability"
                 and " ".join(node.label.casefold().split())
@@ -346,7 +367,7 @@ def normalize_diagram_role_nodes(
                 AgenticDiagramNodeV1(
                     role="capability",
                     label=capability_label,
-                    supporting_fact_ids=capability_view.citation_fact_ids,
+                    supporting_fact_ids=capability.supporting_fact_ids,
                 )
             )
     capability_fact_fields = ("product.capabilities", "product.problems_solved")
@@ -495,7 +516,7 @@ def diagram_role_phrase_guidance(facts: ProductFactsV2) -> dict[str, list[str]]:
                     and normalized not in phrases
                 ):
                     phrases.append(normalized)
-        guidance[role] = phrases[:12]
+        guidance[role] = phrases if role == "capability" else phrases[:12]
     return guidance
 
 

@@ -20,6 +20,7 @@ from readme_agent.readme.agentic_composition_models import (
     AgenticSectionDecisionV1,
     ReadmeAgenticCompositionPlanV1,
 )
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import (
@@ -63,7 +64,7 @@ def _verified_facts() -> ProductFactsV2:
     return ProductFactsV2.model_validate(pilot["product_facts_v2"])
 
 
-def _verified_plan(facts: ProductFactsV2) -> ReadmeAgenticCompositionPlanV1:
+def _verified_plan(facts: ProductFactsV2, source: str) -> ReadmeAgenticCompositionPlanV1:
     identity = facts.selected_fact("product.identity")
     audience = facts.selected_fact("product.audience")
     problems = facts.selected_fact("product.problems_solved")
@@ -75,11 +76,19 @@ def _verified_plan(facts: ProductFactsV2) -> ReadmeAgenticCompositionPlanV1:
         capabilities.value if isinstance(capabilities.value, list) else [capabilities.value]
     )
     format_value = str(formats.value[0] if isinstance(formats.value, list) else formats.value)
+    revision = facts.selected_fact("product.identity").source.source_revision
+    assert revision is not None
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
     return ReadmeAgenticCompositionPlanV1(
         org_repo=facts.org_repo,
-        source_sha256="a" * 64,
+        source_sha256=assessment.source_sha256,
         facts_hash=facts.canonical_hash(),
-        assessment_hash="b" * 64,
+        assessment_hash=assessment.canonical_hash(),
         prompt_sha256="c" * 64,
         tool_schema_sha256="d" * 64,
         input_sha256="e" * 64,
@@ -216,13 +225,14 @@ def test_verified_opening_summary_is_not_padded_with_fragmentary_overview_phrase
     facts = _verified_facts()
     revision = facts.selected_fact("product.identity").source.source_revision
     assert revision is not None
-    plan = _verified_plan(facts)
+    source = "# Existing title\n"
+    plan = _verified_plan(facts, source)
     assert plan.opening_summary is not None
     problem_text = plan.overview_sentences[1].text
 
     candidate, _document_plan = build_verified_template_document_candidate(
         facts,
-        "# Existing title\n",
+        source,
         revision,
         plan,
     )
@@ -350,7 +360,7 @@ def test_verified_template_binds_contextual_plan_before_compilation() -> None:
         facts,
         source,
         revision,
-        _verified_plan(facts),
+        _verified_plan(facts, source),
         link_catalogs=catalogs,
         link_allocation_policy=LinkAllocationPolicyV1(),
     )

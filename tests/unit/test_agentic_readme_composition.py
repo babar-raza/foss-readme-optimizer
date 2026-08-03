@@ -51,7 +51,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "b5abcade8a5ce3073a85d4b7d5b6b96ad50f55162557d4f18a6bfbe69a4e712c"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "cf6d8f3c8412dad2d488c4e7a43cf7e13f95812f770ad20790fb48ca646c80a8"
+    "227cf37503665943d632818f49913f1b6c1cef8dfb4e09f0d9aa674cdffdfd4e"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -1328,7 +1328,7 @@ def test_structured_load_save_format_facts_render_as_input_and_output_nouns():
     )
 
 
-def test_diagram_includes_each_safe_verified_capability_until_the_detail_target():
+def test_diagram_includes_every_safe_selected_verified_capability():
     facts, revision = _facts()
     capabilities = facts.selected_fact("product.capabilities")
     facts = facts.model_copy(
@@ -1342,6 +1342,15 @@ def test_diagram_includes_each_safe_verified_capability_until_the_detail_target(
                             "Modify workbooks",
                             "Save workbooks",
                             "Read cell values",
+                            "Write cell values",
+                            "Calculate formulas",
+                            "Render worksheets",
+                            "Export charts",
+                            "Import tabular data",
+                            "Protect documents",
+                            "Inspect styles",
+                            "Manage metadata",
+                            "Validate formats",
                             "Load diagnostics and repair reporting",
                         ]
                     }
@@ -1376,8 +1385,8 @@ def test_diagram_includes_each_safe_verified_capability_until_the_detail_target(
     )
 
     capability_labels = {node.label for node in plan.diagram.nodes if node.role == "capability"}
-    assert "Load diagnostics and repair reporting" in capability_labels
-    assert len(capability_labels) >= 6
+    selected_labels = {str(value) for value in facts.selected_fact("product.capabilities").value}
+    assert selected_labels <= capability_labels
 
 
 def test_domain_package_parts_capability_is_not_misclassified_as_package_infrastructure():

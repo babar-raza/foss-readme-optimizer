@@ -60,6 +60,8 @@ _MINIMUM_SOURCE_BYTES = 512
 _MINIMUM_H2_SECTIONS = 3
 _MINIMUM_MATERIAL_CLAIMS = 4
 _ACTION_BASES = {
+    "add": "add",
+    "adds": "add",
     "build": "build",
     "builds": "build",
     "convert": "convert",
@@ -200,13 +202,28 @@ def _natural_fragment(text: str, *, audience: bool = False) -> str:
     return fragment
 
 
-def _opening_text(title: str, audience: str, purpose: str) -> str:
-    first_match = re.match(r"([^\s]+)", purpose)
-    assert first_match is not None
+def _sentence_internal_action_fragment(text: str) -> str | None:
+    """Lower only a known leading action verb for safe sentence-internal prose."""
+
+    fragment = _natural_fragment(text)
+    first_match = re.match(r"([A-Za-z]+)", fragment)
+    if first_match is None:
+        return None
     first = first_match.group(1)
-    base = _ACTION_BASES.get(re.sub(r"[^A-Za-z]", "", first).casefold())
+    base = _ACTION_BASES.get(first.casefold())
+    if base is None:
+        return None
+    return base + fragment[first_match.end(1) :]
+
+
+def _opening_text(title: str, audience: str, purpose: str) -> str:
+    first_match = re.match(r"([A-Za-z]+)", purpose)
+    if first_match is None:
+        return f"{title} provides {purpose} for {audience}."
+    first = first_match.group(1)
+    base = _ACTION_BASES.get(first.casefold())
     if base is not None:
-        infinitive = base + purpose[len(first) :]
+        infinitive = base + purpose[first_match.end(1) :]
         return f"{title} provides {audience} a way to {infinitive}."
     return f"{title} provides {purpose} for {audience}."
 
@@ -237,10 +254,12 @@ def _verified_opening_summary(facts: ProductFactsV2) -> AgenticOverviewSentenceV
         for phrase in capabilities.phrases
     ):
         remaining = [
-            _natural_fragment(phrase)
+            fragment
             for phrase in capabilities.phrases
             if phrase.casefold().rstrip(". ") != purpose.phrases[0].casefold().rstrip(". ")
+            if (fragment := _sentence_internal_action_fragment(phrase)) is not None
         ]
+        remaining = remaining[:2]
         if remaining:
             tail = (
                 remaining[0]

@@ -178,6 +178,66 @@ def test_cached_agentic_plan_is_normalized_again_at_render_time():
     assert "EPS metadata files" not in labels
 
 
+def test_mermaid_represents_all_selected_capabilities_and_chunks_large_sets():
+    facts, _revision = _facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    values = [
+        "Create workbooks",
+        "Load workbooks",
+        "Modify workbooks",
+        "Save workbooks",
+        "Read cell values",
+        "Write cell values",
+        "Calculate formulas",
+        "Render worksheets",
+        "Export charts",
+        "Import tabular data",
+        "Protect documents",
+        "Inspect styles",
+        "Manage metadata",
+        "Validate formats",
+        "Repair workbooks",
+    ]
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": values})
+                if fact.fact_id == capabilities.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    visual = render_readme_header_visual(facts)
+    capability_nodes = [node for node in visual.diagram_nodes if node.role == "capability"]
+
+    assert [node.label for node in capability_nodes] == values
+    assert visual.mermaid_source.count("subgraph Capabilities") == 3
+    assert "Core capabilities 1 of 3" in visual.mermaid_source
+    assert "Core capabilities 3 of 3" in visual.mermaid_source
+    assert validate_readme_header_visual(visual, facts).checks["selected_capabilities_complete"]
+
+
+def test_header_visual_validation_rejects_omitted_selected_capability():
+    facts, _revision = _facts()
+    visual = render_readme_header_visual(facts)
+    omitted = visual.model_copy(
+        update={
+            "diagram_nodes": [
+                node
+                for node in visual.diagram_nodes
+                if not (node.role == "capability" and node.node_id == "capability_1")
+            ]
+        }
+    )
+
+    verdict = validate_readme_header_visual(omitted, facts)
+
+    assert verdict.valid is False
+    assert verdict.checks["selected_capabilities_complete"] is False
+
+
 def test_unverified_header_badges_are_replaced_by_exact_supported_set():
     facts, revision = _facts()
     source = """# Aspose.Cells FOSS for Java
