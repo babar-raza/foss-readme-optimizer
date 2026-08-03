@@ -126,7 +126,7 @@
       }
     ],
     "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-    "last_evaluated_at": "2026-08-03T13:05:12.511312+00:00",
+    "last_evaluated_at": "2026-08-03T13:05:47.294301+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -257,16 +257,17 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-SHARED-ACCELERATION",
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
       "core_contribution": {
-        "kind": "acceptance_proof",
-        "summary": "Freeze the known regression corpus and qualify one independent evidence-grounded reviewer plus typed risk-derived escalation."
+        "kind": "visible_deliverable",
+        "summary": "Establish the explicit Page/PDF Python boundary before full Python fan-out."
       },
       "goal_ids": [
+        "GOAL-TRUTH",
         "GOAL-README"
       ],
-      "stage_goal_id": "GOAL-V2-VERIFIED-GATE-A",
-      "task_id": "L8-REVIEW-00-CONTEXT-CORPUS"
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "CLOSED",
@@ -359,7 +360,7 @@
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
-      "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "SCORED",
+      "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REOPENED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -6398,6 +6399,17 @@
         "reason": "Committed scoreboard binds 3/3 current slices, 3/3 zero-call replays, seven measured calls, 50,552 tokens, zero repair calls, and zero product effects.",
         "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-02-three-slices-v1/mission-contribution.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-03T13:05:47.294289+00:00",
+        "reason": "Portable closeout complete at control commit 6a650e9c4: all exact README review paths and independently verified evidence are committed and checksum-bound.",
+        "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -6407,7 +6419,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 733,
+  "state_version": 734,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
