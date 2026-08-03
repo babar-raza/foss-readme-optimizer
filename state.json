@@ -18286,7 +18286,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "ea4973b5619054954e5a4938962baa7e0c88c2f0d4d399ccce99841a2e1959b0",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "d52a36cb7471dfe046f92076a541d894cec3160bdbf4476e827ca74c86b7c7bf",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -19413,6 +19413,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\43ac84676565697bf510\\r\\a03538c5c152fdb1\\s\\2be25d979d1f\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-03T03:26:50.194825+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -19441,11 +19453,11 @@
     "reviewer_standard_hash": "b850bf2dec1c2afae95f1533aebad3c412a74fc40ecdf42cb4b99f5a641adb24",
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-03T03:26:44.402589+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-03T03:26:50.194825+00:00"
   },
   "schema_version": 2,
-  "state_version": 518,
+  "state_version": 519,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
