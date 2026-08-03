@@ -8048,7 +8048,7 @@
       "accepted_facts_hash": "c9b0093a2f06fff8998e6c41d53f5366f76819c689e1d161830606f430829819",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 1,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "page FOSS for python logo",
         "concerns": [],
@@ -8064,13 +8064,11 @@
         },
         "size_bytes": 2380,
         "size_within_reasonable_bounds": true,
-        "skip_reason": "llm_selected",
-        "skipped_at_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
           "depicts_unsupported_content": false,
-          "rationale": "The text 'page FOSS for python' in the image accurately reflects the product name 'Aspose.Page-FOSS-for-Python', which is a FOSS (Free and Open Source Software) library for Python. There are no unsupported claims or misleading elements in the image.",
+          "rationale": "The text 'page FOSS for python' in the image accurately reflects the product name 'Aspose.Page-FOSS-for-Python', which is a Python-based FOSS library for page processing. There are no unsupported claims or misleading elements in the visual.",
           "verdict": "accept"
         },
         "width": 800
@@ -8078,9 +8076,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T01:40:41.775074+00:00",
+      "last_run_timestamp": "2026-08-03T03:48:55.919248+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
+      "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     }
   },
@@ -9988,7 +9986,7 @@
     "updated_at": "2026-08-03T03:45:38.235348+00:00"
   },
   "schema_version": 2,
-  "state_version": 497,
+  "state_version": 498,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "66f712b5d1daa09e9b89e1ce434b766bfe53086ab91a929675d61125c83fbe5c",
