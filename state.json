@@ -47089,6 +47089,18 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\6312326a1e577906c79f\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-03T03:11:04.079471+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "intake_preflight_history": [
@@ -47113,15 +47125,15 @@
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "7d3b858fb85dbdcf9698bb21cbf47aec0f01400d81500b8341bf7b13685f45ec",
+    "repair_budget_origin_hash": "bff0f908dd6762e7e3c94b657ff1b8a1c90c49eddff8311aacef8ad7bdd42eda",
     "reviewer_standard_hash": "b850bf2dec1c2afae95f1533aebad3c412a74fc40ecdf42cb4b99f5a641adb24",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-03T02:58:53.836166+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-03T03:11:04.079471+00:00"
   },
   "schema_version": 2,
-  "state_version": 2046,
+  "state_version": 2047,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a4b7f029865a8bfe344416baf21bbcbee219a17d14212af537ceeb5b1bc97627",
