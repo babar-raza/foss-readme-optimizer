@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
@@ -53,6 +54,7 @@ _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = 
     "license": ("template.section.license",),
     "contextual_product_relationship": ("template.section.scope_and_limitations",),
 }
+_OTHER_PLATFORMS_HEADING = re.compile(r"other platforms(?: \(official [^)]+\))?")
 
 
 def obligation_required_fact_fields(obligation: SourceClaimObligation) -> frozenset[str]:
@@ -112,7 +114,7 @@ def classify_source_claim_risk(
     text = document.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
     folded = _normalized(text)
 
-    if "other platforms" in primary:
+    if _OTHER_PLATFORMS_HEADING.fullmatch(primary):
         return SourceClaimRiskV1(
             risk_class="governed_valid_omission",
             obligation_id="contextual_product_relationship",

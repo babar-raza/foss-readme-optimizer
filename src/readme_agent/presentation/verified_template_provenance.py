@@ -351,9 +351,6 @@ def build_source_claim_resolutions(
             if accepted is None:
                 continue
             bindings, replacement_fact_ids = accepted
-            source_fact_ids = literal_fact_ids(claim_text, facts, replacement_fact_ids)
-            if not source_fact_ids:
-                continue
             replacement_ids = sorted(binding.provenance_id for binding in bindings)
             resolutions.append(
                 SourceClaimResolutionV1(

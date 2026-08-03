@@ -711,6 +711,61 @@ def test_repository_governance_claims_do_not_map_to_positive_product_obligations
     assert risk.obligation_id == expected_obligation
 
 
+@pytest.mark.parametrize(
+    ("heading", "expected_class"),
+    [
+        ("Other platforms", "governed_valid_omission"),
+        ("Other platforms (official Aspose.Note)", "governed_valid_omission"),
+        ("Other platforms limitations", "mandatory_fact_resolution"),
+    ],
+)
+def test_only_exact_other_platforms_heading_allows_governed_omission(
+    heading: str, expected_class: str
+) -> None:
+    source = f"# Product\n\n## {heading}\n\nRepository-specific platform detail.\n"
+    risk = classify_source_claim_risk(source, assess_material_claims(source)[0])
+
+    assert risk.risk_class == expected_class
+
+
+def test_exact_other_platforms_directory_uses_fact_bound_relationship_omission() -> None:
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = (
+        "# Product\n\n## Other platforms (official Aspose.PDF)\n\n"
+        "For the full-featured Aspose product, see the official libraries:\n\n"
+        "- Aspose.PDF for .NET\n"
+        "  - Product: https://products.aspose.com/pdf/net/\n"
+        "  - Documentation: https://docs.aspose.com/pdf/net/\n"
+    )
+    candidate = (
+        "# Product\n\n## Scope and limitations\n\n"
+        "The FOSS implementation and Enterprise Edition are separate products.\n"
+    )
+    relationship = facts.selected_fact("relationship.commercial_foss")
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.scope_and_limitations",
+            candidate_byte_start=0,
+            candidate_byte_end=len(candidate.encode("utf-8")),
+            fact_ids=[relationship.fact_id],
+            rationale="Bind the relationship replacement to accepted portfolio policy.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+    )
+
+    claims = assess_material_claims(source)
+    assert len(resolutions) == len(claims)
+    assert all(item.resolution == "verified_omission" for item in resolutions)
+    assert all(item.obligation_id == "contextual_product_relationship" for item in resolutions)
+    assert all(item.replacement_provenance_ids for item in resolutions)
+
+
 def test_positive_capability_slot_cannot_replace_unbound_negative_boundary_claim():
     _source, candidate, facts, _plan, _accountability = _case("python")
     source = (
