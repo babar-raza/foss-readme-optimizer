@@ -21198,16 +21198,16 @@
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "d1040b29eb470332244fda064d4c583ad2d8a2b135e5925c196efdfe380d67ac",
-      "classification_semantics": "0a871bc9fc8e3f234cd91255a861d86cdce4b9aa1d89d31ff60eb9081c56defa",
-      "conflict_semantics": "2016ba9cd4a74ed60e79e23782e67dd48666b0b13382ca470daf628f4bfa77b6",
-      "drafting_and_example_selection": "7b1c9b2ef9e8f337420d912248646d54a42fd717fe7ed27f1af0e07391da21e1",
+      "classification_semantics": "70edb318c62a83f515040632f35ed45806f251dded55e54ca09c7fbed35171eb",
+      "conflict_semantics": "be77b1ca6da7760e53b2f4546d97c1522950febb00df12493af49c994da8e320",
+      "drafting_and_example_selection": "4bfa99edd4300c0a0c9d3dba6fc304fc2ac0a8d73972f37e55168a1d7387ddf7",
       "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
       "root_role_selection": "4d7f82edf1e8024b6c0e83ab0d4084f925b83924d0f95b5ee9a5171d86853ef2",
       "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
     },
-    "fact_acceptance_contract_hash": "bbef4da1bc79ad7a0d79c75d1d806c3acac9a4306eed238bb4c5820bb772e265",
+    "fact_acceptance_contract_hash": "a04688544505de6b0d56af15f4ed2284fd79945d84af52c1f6d406dfffe9af5c",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -21533,9 +21533,30 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "schema_version": 1,
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "d1040b29eb470332244fda064d4c583ad2d8a2b135e5925c196efdfe380d67ac",
+          "classification_semantics": "70edb318c62a83f515040632f35ed45806f251dded55e54ca09c7fbed35171eb",
+          "conflict_semantics": "be77b1ca6da7760e53b2f4546d97c1522950febb00df12493af49c994da8e320",
+          "drafting_and_example_selection": "4bfa99edd4300c0a0c9d3dba6fc304fc2ac0a8d73972f37e55168a1d7387ddf7",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "4d7f82edf1e8024b6c0e83ab0d4084f925b83924d0f95b5ee9a5171d86853ef2",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "a04688544505de6b0d56af15f4ed2284fd79945d84af52c1f6d406dfffe9af5c",
+        "facts_hash": "101ac85a4d44237137f51a7c479c3a66b64407c4f2867ed32026678d47346989",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T08:44:50.294431+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
       }
     ],
-    "facts_hash": "ecd1fa47ef0e22ee90a6154a5b76409b61e80f16f41c4ca49e7ec0c093d44d2d",
+    "facts_hash": "101ac85a4d44237137f51a7c479c3a66b64407c4f2867ed32026678d47346989",
     "history": [
       {
         "evidence_refs": [
@@ -24766,6 +24787,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T08:44:48.793311+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "FACTS_READY"
       }
     ],
     "intake_preflight_history": [
@@ -24794,11 +24828,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-03T08:44:43.423137+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-08-03T08:44:48.793311+00:00"
   },
   "schema_version": 2,
-  "state_version": 1040,
+  "state_version": 1041,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
