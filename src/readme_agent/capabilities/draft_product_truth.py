@@ -76,10 +76,6 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.python_example_normalization import (
     normalize_python_import_inventory,
 )
-from readme_agent.facts.repository_examples import (
-    repository_readme_example_candidates,
-    repository_source_example_candidates,
-)
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.rust_example_normalization import normalize_rust_public_consumer
 from readme_agent.facts.schema_v2 import (
@@ -91,6 +87,9 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.facts.typescript_example_normalization import (
     normalize_typescript_package_consumer,
+)
+from readme_agent.facts.verified_repository_examples import (
+    select_verified_repository_example,
 )
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.registry.loader import require_listed
@@ -310,6 +309,7 @@ def _gate_minimal_example(
     verify_example_fn: VerifyExampleFn,
     *,
     repository_authored: bool = False,
+    preverified_result: LocalProductVerificationV1 | None = None,
 ) -> FactRecordV2:
     """Mirrors `facts/provider.py::_local_verification_facts()`'s own
     two-phase shape: a cheap `evidence_failures()` pre-check for the
@@ -363,7 +363,7 @@ def _gate_minimal_example(
             affected_surfaces=SURFACE_DEPENDENCIES["example.minimal"],
         )
 
-    local_result = verify_example_fn(example)
+    local_result = preverified_result or verify_example_fn(example)
     outcome = local_result.outcome if local_result is not None else "BLOCKED_LOCAL_VERIFICATION"
     detail = _local_verification_detail(local_result)
     verified = (
@@ -412,30 +412,6 @@ def _normalize_draft_example(draft: DraftProductTruthV1, root: Path) -> DraftPro
     if normalized_example == example:
         return draft
     return draft.model_copy(update={"minimal_example": normalized_example})
-
-
-def _repository_example_preference(
-    candidate: MinimalExamplePolicy,
-    requested: MinimalExamplePolicy,
-    repository_position: int,
-) -> tuple[bool, bool, int, int, int, str]:
-    """Prefer a complete workflow, then retain the repository author's order."""
-
-    if candidate.language == "python":
-        value = assess_minimal_example_value(candidate.language, candidate.code)
-        incomplete = not value.approval_eligible
-        score = -value.score
-    else:
-        incomplete = False
-        score = 0
-    return (
-        candidate.class_name.casefold() != requested.class_name.casefold(),
-        incomplete,
-        score,
-        repository_position,
-        len(candidate.code),
-        candidate.evidence_paths[0],
-    )
 
 
 def _gate_draft(
@@ -574,38 +550,23 @@ def orchestrate_product_truth_draft(
         example_fact = gated.get("example.minimal")
         if example_fact is not None and example_fact.verification_state == "blocked":
             if not repository_examples_checked:
-                readme_examples = repository_readme_example_candidates(
+                selection = select_verified_repository_example(
                     root,
-                    draft.minimal_example.language,
-                    supporting_paths=draft.minimal_example.evidence_paths,
+                    source_revision=source_revision,
+                    requested=draft.minimal_example,
+                    verify_example_fn=verify_example_fn,
                 )
-                source_examples = repository_source_example_candidates(
-                    root,
-                    draft.minimal_example.language,
-                )
-                repository_examples = [*readme_examples, *source_examples]
-                indexed_examples = list(enumerate(repository_examples))
-                indexed_examples.sort(
-                    key=lambda item: _repository_example_preference(
-                        item[1], draft.minimal_example, item[0]
-                    )
-                )
-                repository_examples = [candidate for _index, candidate in indexed_examples]
-                for repository_example in repository_examples:
-                    fallback_fact = _gate_minimal_example(
-                        repository_example,
+                if selection is not None:
+                    verified_repository_example = selection.example
+                    verified_repository_fact = _gate_minimal_example(
+                        selection.example,
                         root,
                         source_revision,
                         observed_at,
                         verify_example_fn,
                         repository_authored=True,
+                        preverified_result=selection.verification,
                     )
-                    if fallback_fact.verification_state == "verified":
-                        verified_repository_example = repository_example
-                        verified_repository_fact = fallback_fact
-                        break
-                    if not _blocked_example_is_repairable(fallback_fact):
-                        break
                 repository_examples_checked = True
             if verified_repository_example is not None:
                 draft = draft.model_copy(update={"minimal_example": verified_repository_example})

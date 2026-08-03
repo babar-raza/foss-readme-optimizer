@@ -13,6 +13,7 @@ _COMMON_FILES = (
     "isolated_execution_schema.py",
     "example_quality.py",
     "repository_examples.py",
+    "verified_repository_examples.py",
     "example_verification_schema.py",
     "aspose_org_dependency_snapshot.py",
     "aspose_org_format_adapter.py",

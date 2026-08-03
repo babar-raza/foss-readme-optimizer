@@ -87,6 +87,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "python_email_format_functionality.py",
         "dotnet_3d_format_functionality.py",
         "repository_examples.py",
+        "verified_repository_examples.py",
     ),
     "fact_schema": ("schema_v2.py",),
     "fact_eligibility": ("gating.py",),

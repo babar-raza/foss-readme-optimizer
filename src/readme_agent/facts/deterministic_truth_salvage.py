@@ -34,8 +34,11 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.facts.verified_repository_examples import (
+    select_verified_repository_example,
+)
 from readme_agent.registry.loader import require_listed
-from readme_agent.registry.models import ProductTruthPolicy
+from readme_agent.registry.models import MinimalExamplePolicy, ProductTruthPolicy
 from readme_agent.repository_snapshot import (
     RepositorySnapshotV1,
     local_fact_verification_allowed,
@@ -251,6 +254,47 @@ def _verified_example_fact(
     observed_at: str,
 ) -> tuple[FactRecordV2, LocalProductVerificationV1 | None]:
     example = truth.minimal_example
+    fact, verification = _example_fact_for_candidate(
+        snapshot,
+        example,
+        base_facts,
+        observed_at,
+    )
+    if fact.verification_state == "verified" or not local_fact_verification_allowed():
+        return fact, verification
+    isolated_execution = getattr(verification, "isolated_execution", None)
+    if (
+        verification is not None
+        and getattr(verification, "ecosystem", None) == "python"
+        and isolated_execution is not None
+        and isolated_execution.return_code in {20, 21}
+    ):
+        return fact, verification
+    selection = select_verified_repository_example(
+        snapshot.root_path,
+        source_revision=snapshot.source_revision,
+        requested=example,
+        verify_example_fn=lambda candidate: verify_local_product_example(snapshot, candidate),
+    )
+    if selection is None:
+        return fact, verification
+    return _example_fact_for_candidate(
+        snapshot,
+        selection.example,
+        base_facts,
+        observed_at,
+        preverified_result=selection.verification,
+    )
+
+
+def _example_fact_for_candidate(
+    snapshot: RepositorySnapshotV1,
+    example: MinimalExamplePolicy,
+    base_facts: ProductFactsV2,
+    observed_at: str,
+    *,
+    preverified_result: LocalProductVerificationV1 | None = None,
+) -> tuple[FactRecordV2, LocalProductVerificationV1 | None]:
     identity = base_facts.selected_fact("product.identity")
     identity_value = identity.value if isinstance(identity.value, dict) else {}
     product_name = str(identity_value.get("product_name") or "").strip()
@@ -268,8 +312,8 @@ def _verified_example_fact(
         allow_partial_symbols=True,
     )
     failures.extend(generated_example_quality_failures(example.language, example.code))
-    verification = None
-    if not failures and local_fact_verification_allowed():
+    verification = preverified_result
+    if verification is None and not failures and local_fact_verification_allowed():
         verification = verify_local_product_example(snapshot, example)
     if failures:
         detail = "; ".join(failures)
