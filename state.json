@@ -18182,23 +18182,23 @@
   "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "67059690d54a62de08930e216bf2d5c9bf2d138caaae20ae5b50ec2c16cf9adb",
+    "assessment_hash": null,
     "assurance_history": [],
-    "candidate_hash": "b19ca68e7c8ac30bdfb7b03e6c06b8fd4b486d23ee9121ec3a8dee3644243ada",
+    "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "749c84f2860fbbd0556754ead77a132a86762ba5fd71bbb81f0c7e596c32f6b1",
-      "classification_semantics": "a6a88f80a7b747a9dc12cfb816588da7eb45d41650b4aef7166b47d2d64cf633",
-      "conflict_semantics": "1e77c8e28cae357cb514d7a73c4f070a62c212fab6e96677e49ee04506cea7f7",
-      "drafting_and_example_selection": "3c2079066a43f92ef3fc7d4d7812ea82488837f28fcd01c42e8d6782ca716abe",
+      "classification_semantics": "0e28d651211ad51b76752310a3ae9cf63e8ba81ead54e982d871a5f8760a2d7d",
+      "conflict_semantics": "b63899938319b6ec30aa340755942cab4ea2243cd9b56bcd3bf73355e35897a1",
+      "drafting_and_example_selection": "fe4ba5cee079736821ead381894e07e30243fd01ca7dc7c418018f0b75a64015",
       "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
       "root_role_selection": "b6966cdbaf3898221d269522cd629b7d325ccf1faaec3a6ef8299d926aabcd12",
       "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
     },
-    "fact_acceptance_contract_hash": "549dbe8aaf0bd4d41c8e0dfda2d92cdf59ec6eb6b4ac67c9389a9e1459c32fe9",
+    "fact_acceptance_contract_hash": "e6396fde61481d07b388c23b49505829983ba83f04f8a3cbb4bfffa191415610",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -18302,9 +18302,30 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "749c84f2860fbbd0556754ead77a132a86762ba5fd71bbb81f0c7e596c32f6b1",
+          "classification_semantics": "0e28d651211ad51b76752310a3ae9cf63e8ba81ead54e982d871a5f8760a2d7d",
+          "conflict_semantics": "b63899938319b6ec30aa340755942cab4ea2243cd9b56bcd3bf73355e35897a1",
+          "drafting_and_example_selection": "fe4ba5cee079736821ead381894e07e30243fd01ca7dc7c418018f0b75a64015",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "b6966cdbaf3898221d269522cd629b7d325ccf1faaec3a6ef8299d926aabcd12",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "e6396fde61481d07b388c23b49505829983ba83f04f8a3cbb4bfffa191415610",
+        "facts_hash": "d64433bf9083674e28d1c5eda73394eba0782531bea79a1983466e04a03392b6",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T03:21:47.456544+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "schema_version": 1,
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619"
       }
     ],
-    "facts_hash": "9cb5257f7948df454d85febb48e8a5651d551ed0cbd12ee34e68edc44be11b57",
+    "facts_hash": "d64433bf9083674e28d1c5eda73394eba0782531bea79a1983466e04a03392b6",
     "history": [
       {
         "evidence_refs": [
@@ -19253,6 +19274,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\2be25d979d1f3bf2875a1798aed62a16efab6619\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T03:21:45.993471+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "to_status": "FACTS_READY"
       }
     ],
     "intake_preflight_history": [
@@ -19273,19 +19307,19 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "28b339cb98acd08b79b5cb55344a7f8a5d1d2de4444014d427cad2aad8b01e8f",
+    "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "19b1dab2a545bdcc7398ed578cd8576788a730343fc71f8cb12a0c992693fb29",
-    "reviewer_standard_hash": "061da8b41dc663b8eef48ee71cf608f20adbe10bff186eca9e826263478b1fa6",
+    "repair_budget_origin_hash": null,
+    "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-03T03:21:40.354723+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-08-03T03:21:45.993471+00:00"
   },
   "schema_version": 2,
-  "state_version": 499,
+  "state_version": 500,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
