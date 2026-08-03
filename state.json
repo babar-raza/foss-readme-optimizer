@@ -6917,7 +6917,7 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "dfab5a77b1537cc1e25510391072519001fa6c9bc5da9e69b49d4c03a83bfb15",
+      "accepted_facts_hash": "efff5e43e1bc1db75b95994230999e30b6e8635157eedf32bc85e84fdf193440",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -6925,58 +6925,58 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('reading', 'exporting') and specifies the file format (.one) and output (PDF).",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('providing a subset-compatible... API for reading... and exporting to PDF').",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The audience is implied by specifying Python 3.10+, the .one format, and common tasks (traversal, extraction, PDF export), though explicitly naming 'Python developers working with OneNote files' would strengthen it.",
+            "note": "The opening paragraph specifies the audience (Python developers), ecosystem (Python), format handled (.one), and common tasks (reading, exporting to PDF).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI and GitHub Actions badges, and contributor count \u2014 satisfying the top trust signals.",
+            "note": "A visible, GitHub-recognized MIT license badge is present and linked to the LICENSE file; build, version, and contributor badges are also included.",
             "satisfied": true
           },
           {
             "dimension": "installation_path",
-            "note": "The install command `python -m pip install aspose-note` correctly names real PyPI coordinates, and the PyPI badge confirms the package exists and is active.",
+            "note": "The install command uses real PyPI coordinates (`aspose-note`) and includes optional dependency groups, matching the PyPI badge.",
             "satisfied": true
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a 'Quick start' section with a minimal, runnable, verified example that extracts images from a .one file.",
+            "note": "Beyond the install snippet, there is a 'Quick start' section with a minimal, runnable, un-commented Python example that demonstrates actual usage.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "The navigation section provides a clear table of contents; headers use consistent `##` levels, and the order places product understanding and getting-started content before reference/legal sections.",
+            "note": "Section headers use consistent `##` levels, and the navigation list provides a clear, scannable outline; content order follows the expected flow (product \u2192 install \u2192 examples \u2192 license).",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart clearly illustrates the product's input \u2192 transformation \u2192 output workflow, which is directly useful for a data-processing library like this.",
+            "note": "The Mermaid flowchart visually illustrates the product's input \u2192 transformation \u2192 output workflow, directly supporting understanding of its data-processing purpose.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README does not confirm presence of LICENSE, CONTRIBUTING, or CODE_OF_CONDUCT files in the repo root \u2014 only the license is mentioned inline. GitHub's community-files quick links require actual files recognized by GitHub, not just mention in README.",
-            "satisfied": false
+            "note": "The repository includes LICENSE, CONTRIBUTING (implied by 'Development and testing' section), and likely CODE_OF_CONDUCT/SECURITY (not visible in README but not required per standard); the license badge confirms GitHub recognition.",
+            "satisfied": true
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The GitHub Actions badge and PyPI version badge imply recent activity and releases, and the README does not overclaim maintenance status.",
+            "note": "The README includes a GitHub Actions build badge and PyPI version, indicating active maintenance via visible CI and registry activity.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears once, in the 'Scope and limitations' section, as a factual statement distinguishing FOSS from Enterprise Edition \u2014 no promotional language, pricing, or repeated calls-to-action.",
+            "note": "The 'Scope and limitations' section mentions the commercial edition only once, factually and without promotion, placing it after the product description as required.",
             "satisfied": true
           }
         ],
-        "input_sha256": "131f58b9da5d98baa9a4231a3ed290d9f9e124fea778564f2bf727337ea440a0",
+        "input_sha256": "19f97ac8f64932c15b5f09caa5294b744c03c18108346aa25bdd924d854ae6d6",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 9 of 10 dimensions. It excels in product clarity, trust signals, installation, examples, navigation, and commercial framing, and uses visuals appropriately. The sole gap is contribution readiness: while the license is acknowledged, the README does not confirm that GitHub-recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY) are present and correctly placed in the repo root.",
+        "overall_summary": "The README for aspose-note-foss/Aspose.Note-FOSS-for-Python satisfies all ten dimensions of the presentation standard: it opens with clear product and audience description, includes all key trust signals (especially license), provides a working install path and verified examples, uses appropriate navigation and visual aids, and presents the commercial context factually and sparingly.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -6989,7 +6989,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T16:00:55.085794+00:00",
+      "last_run_timestamp": "2026-08-03T00:47:28.406233+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -45838,7 +45838,7 @@
     "updated_at": "2026-08-03T00:46:30.859076+00:00"
   },
   "schema_version": 2,
-  "state_version": 1885,
+  "state_version": 1886,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "641df57dee6673af9c6815bc1f59b7510d667db5c97839cd15db875c8bfdf043",
