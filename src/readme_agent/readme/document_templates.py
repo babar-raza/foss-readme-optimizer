@@ -39,6 +39,8 @@ DOCUMENT_TEMPLATE_NAMES = (
 )
 DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/readme/document_renderer.py",
+    "src/readme_agent/readme/document_acquisition.py",
+    "src/readme_agent/readme/acquisition_contracts.py",
     "src/readme_agent/readme/document_opening.py",
     "src/readme_agent/readme/document_legal.py",
     "src/readme_agent/readme/document_links.py",

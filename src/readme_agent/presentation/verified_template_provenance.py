@@ -11,6 +11,7 @@ from readme_agent.presentation.template_schema import PresentationTemplateInputV
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.document_templates import installation_text
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_risk import (
@@ -118,6 +119,45 @@ def build_template_provenance(
             if start_character < 0:
                 raise ValueError(f"compiled template content is absent: template.section.{slot}")
             base_byte = len(candidate[:start_character].encode("utf-8"))
+            if slot == "installation":
+                verified_installation = installation_text(
+                    facts,
+                    template_input.org_repo,
+                    template_input.source_revision,
+                )
+                if verified_installation is not None:
+                    exact = verified_installation.strip()
+                    if text.count(exact) != 1:
+                        raise ValueError(
+                            "compiled installation does not contain exactly one verified "
+                            "acquisition block"
+                        )
+                    relative_start = text.index(exact)
+                    relative_end = relative_start + len(exact)
+                    accepted_fact_ids = [
+                        facts.selected_fact(field).fact_id
+                        for field in (
+                            "installation.coordinates",
+                            "installation.verified_acquisition",
+                        )
+                        if facts.selected_fact(field).verification_state
+                        in {"verified", "policy_approved"}
+                        and not facts.selected_fact(field).has_unresolved_conflict
+                    ]
+                    bindings.append(
+                        CandidateContentProvenanceV1(
+                            provenance_id=("template.section.installation.verified_acquisition"),
+                            candidate_byte_start=base_byte
+                            + len(text[:relative_start].encode("utf-8")),
+                            candidate_byte_end=base_byte + len(text[:relative_end].encode("utf-8")),
+                            fact_ids=accepted_fact_ids,
+                            configured_standard_ids=["readme.verified_acquisition"],
+                            rationale=(
+                                "Bind the exact deterministic acquisition block to its "
+                                "accepted coordinate and acquisition facts."
+                            ),
+                        )
+                    )
             for claim in assess_material_claims(text):
                 claim_text = text.encode("utf-8")[
                     claim.source_byte_start : claim.source_byte_end

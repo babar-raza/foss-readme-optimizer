@@ -162,14 +162,14 @@ def test_legacy_corpus_does_not_gain_verified_template_deferrals_without_provena
 
     assert parity.expected_disposition == "unjustified_loss"
     assert performance.expected_disposition == "unjustified_loss"
-    assert stale_install.expected_disposition == "authoritative_owner_validation"
+    assert stale_install.expected_disposition == "unjustified_loss"
     assert stale_example.expected_disposition == "unjustified_loss"
     assert all(
         not record.currently_accountable and record.survives_in_candidate is False
         for record in (parity, performance, stale_example)
     )
     assert stale_install.currently_accountable is False
-    assert stale_install.survives_in_candidate is True
+    assert stale_install.survives_in_candidate is False
     assert verified_example.expected_disposition == "accepted_fact"
     assert verified_example.currently_accountable is True
     assert format_claim.expected_disposition == "unjustified_loss"

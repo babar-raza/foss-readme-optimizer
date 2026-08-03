@@ -34,6 +34,8 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[str, tuple[str, ...]] = {
         "src/readme_agent/presentation/verified_template_draft.py",
         "src/readme_agent/presentation/verified_template_runtime.py",
         "src/readme_agent/presentation/verified_template_sections.py",
+        "src/readme_agent/readme/acquisition_contracts.py",
+        "src/readme_agent/readme/document_acquisition.py",
         "src/readme_agent/readme/document_renderer.py",
         "src/readme_agent/readme/document_templates.py",
     ),

@@ -12,7 +12,11 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.acquisition_contracts import stale_coordinate_version_replacements
+from readme_agent.readme.acquisition_contracts import (
+    contradicted_package_claim_spans,
+    coordinate_rows,
+    stale_coordinate_version_replacements,
+)
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
@@ -44,7 +48,6 @@ _PROMOTIONAL_CALLOUT = re.compile(
     r"(?i)products\.[^\s)]+\.org.*products\.[^\s)]+\.com|"
     r"products\.[^\s)]+\.com.*products\.[^\s)]+\.org",
 )
-_PACKAGE_INSTALL_MARKERS = ("<dependency>", "implementation 'org.", 'implementation "org.')
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _HEADING_FACT_FIELDS: tuple[tuple[tuple[str, ...], tuple[str, ...]], ...] = (
     (("feature boundar",), ("product.limitations",)),
@@ -149,15 +152,26 @@ def _section_disposition(
             ),
         )
         value = acquisition.value if isinstance(acquisition.value, dict) else {}
-        if value.get("method") == "source_build" and any(
-            marker in section_text for marker in _PACKAGE_INSTALL_MARKERS
+        coordinates = accepted_fact(facts, "installation.coordinates")
+        package_names = {
+            str(row.get("name") or "").strip()
+            for row in coordinate_rows(coordinates.value if coordinates is not None else None)
+            if str(row.get("name") or "").strip()
+        }
+        acquisition_coordinate = value.get("coordinate")
+        if isinstance(acquisition_coordinate, dict):
+            acquisition_name = str(acquisition_coordinate.get("name") or "").strip()
+            if acquisition_name:
+                package_names.add(acquisition_name)
+        if value.get("method") == "source_build" and contradicted_package_claim_spans(
+            section_text,
+            package_names=tuple(sorted(package_names)),
         ):
             return (
                 "repair",
                 fact_ids,
                 "A registry-install claim conflicts with the verified source-build acquisition.",
             )
-        coordinates = accepted_fact(facts, "installation.coordinates")
         if coordinates is not None and stale_coordinate_version_replacements(
             section_text,
             coordinates.value,

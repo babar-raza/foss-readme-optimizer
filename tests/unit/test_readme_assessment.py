@@ -654,6 +654,12 @@ Keep this limitation.
         base_revision=revision,
     )
     validation = validate_readme_document_candidate(source, candidate, plan, python_facts)
+    assessment = assess_readme_document(
+        python_facts.org_repo,
+        source,
+        python_facts,
+        base_revision=revision,
+    )
 
     assert "pip install aspose-page-foss" not in candidate
     assert "python -m pip install ." in candidate
@@ -671,6 +677,13 @@ Keep this limitation.
         in source.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
     )
     assert f"source:{false_command.claim_id}" not in " ".join(validation.errors)
+    installation = next(
+        section for section in assessment.sections if section.heading == "Installation"
+    )
+    assert installation.disposition == "repair"
+    assert {python_facts.fact_by_id(fact_id).field for fact_id in installation.fact_ids}.issuperset(
+        {"installation.coordinates", "installation.verified_acquisition"}
+    )
 
 
 def test_verified_example_names_required_input_fixture_and_repository_provenance():

@@ -39,6 +39,7 @@ from readme_agent.presentation.verified_template_sections import (
 )
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.document_templates import installation_text
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -220,6 +221,21 @@ def test_verified_template_omits_missing_compatibility_from_installation_binding
         template_input.sections["installation"].source_kind
         == "repository_fact_and_configured_standard"
     )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    binding = next(
+        item
+        for item in provenance
+        if item.provenance_id == "template.section.installation.verified_acquisition"
+    )
+    bound = candidate.encode("utf-8")[
+        binding.candidate_byte_start : binding.candidate_byte_end
+    ].decode("utf-8")
+    assert bound == installation_text(facts, facts.org_repo, "a" * 40)
+    assert {facts.fact_by_id(fact_id).field for fact_id in binding.fact_ids} == {
+        "installation.coordinates",
+        "installation.verified_acquisition",
+    }
 
 
 def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
