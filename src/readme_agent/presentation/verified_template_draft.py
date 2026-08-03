@@ -268,7 +268,7 @@ def build_verified_template_draft(
                 installation,
                 "installation.verified_acquisition",
                 "installation.coordinates",
-                "product.compatibility",
+                *_accepted_fields(facts, "product.compatibility"),
                 *(["installation.optional_extras"] if optional_extras else []),
                 *_accepted_fields(
                     facts,

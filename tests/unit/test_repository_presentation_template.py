@@ -26,6 +26,7 @@ from readme_agent.presentation.template_schema import (
     load_repository_presentation_template,
     repository_presentation_template_hash,
 )
+from readme_agent.presentation.verified_template_draft import build_verified_template_draft
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
     contributing_markdown,
@@ -37,6 +38,7 @@ from readme_agent.presentation.verified_template_sections import (
     security_markdown,
 )
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
+from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -158,6 +160,63 @@ def test_compact_page_profile_is_product_specific_and_valid() -> None:
     assert "Aspose.Note" not in candidate
     assert ".one" not in candidate
     assert validate_repository_presentation(candidate, template_input) == []
+
+
+def test_verified_template_omits_missing_compatibility_from_installation_binding() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    compatibility_id = facts.selected_fact_ids["product.compatibility"]
+    identity_id = facts.selected_fact_ids["product.identity"]
+    replacement_values = {
+        facts.selected_fact_ids["installation.coordinates"]: [
+            {"name": "acme-pdf", "version": "1.0.0"}
+        ],
+        facts.selected_fact_ids["installation.verified_acquisition"]: {
+            "method": "pypi",
+            "coordinate": {"name": "acme-pdf"},
+        },
+        facts.selected_fact_ids["example.minimal"]: {
+            "language": "python",
+            "code": "from acme.pdf import Document\n",
+            "input_fixture_bindings": [],
+        },
+    }
+    payload = facts.model_dump(mode="json")
+    for record in payload["facts"]:
+        if record["fact_id"] == compatibility_id:
+            record.update(verification_state="missing", value=None, confidence=0.0)
+        elif record["fact_id"] == identity_id:
+            record["value"] = {
+                "product_name": "Aspose.PDF",
+                "family": "pdf",
+                "ecosystem": "python",
+                "platform": "python",
+            }
+        elif record["fact_id"] in replacement_values:
+            record["value"] = replacement_values[record["fact_id"]]
+    facts = ProductFactsV2.model_validate(payload)
+    plan = ReadmeAgenticCompositionPlanV1(
+        org_repo=facts.org_repo,
+        source_sha256=HASH,
+        facts_hash=facts.canonical_hash(),
+        assessment_hash=HASH,
+        prompt_sha256=HASH,
+        tool_schema_sha256=HASH,
+        input_sha256=HASH,
+        model="fixture",
+        attempt_count=1,
+        repository_summary="Use only accepted repository facts.",
+        section_decisions=[],
+        overview_sentences=[],
+    )
+
+    draft = build_verified_template_draft(facts, "# Existing README\n", "a" * 40, plan)
+    template_input = bind_product_facts(facts, draft)
+
+    assert "product.compatibility" not in draft.sections["installation"].fact_fields
+    assert (
+        template_input.sections["installation"].source_kind
+        == "repository_fact_and_configured_standard"
+    )
 
 
 def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
