@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "verdict": "ACCEPT",
+  "implementation_commits": [
+    "55eb47198fc5bfd2774cd21ec439d09784b97041",
+    "0b1941d2d8e9aa7bde6e3e143a78b1eabeeb5364"
+  ],
+  "independent_verification": {
+    "path": "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json",
+    "sha256": "bb85597e87fee5da7212d68185026be66279bfb931b9c27b82cb235af524fc2c",
+    "verdict": "ACCEPT"
+  },
+  "candidates": [
+    {
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+      "candidate_sha256": "ce4b339678b1d905f4f09ca627cd4ba3b06d4363c96570155cca7bd89955724d",
+      "verdict": "NO_OP_PROVEN",
+      "unchanged_provider_calls": 0,
+      "product_effects": 0
+    },
+    {
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+      "candidate_sha256": "2c62095e3b3aaeb18754e79caf897f2f4fb30a91aaa2b6329106bf31bdac1fd7",
+      "verdict": "NO_OP_PROVEN",
+      "unchanged_provider_calls": 0,
+      "product_effects": 0
+    }
+  ],
+  "regression_receipt": "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/pytest-receipt.json",
+  "effects": {
+    "product_effects": 0,
+    "default_branch_writes": 0,
+    "pull_requests": 0
+  }
+}
