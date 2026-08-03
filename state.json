@@ -1905,7 +1905,7 @@
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "771280cc3b2be56932398a1e75de5a8bdc059bd088a73921cdb3a06a7d03602c",
+      "accepted_facts_hash": "70c95e8cee3d84b1a197c81e9487096f898876c95058c0aa19342e09ddfdcaf5",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -1913,17 +1913,17 @@
         "criteria_results": [
           {
             "dimension": "product_clarity",
-            "note": "The second paragraph clearly states what the product does using concrete verbs (create, load, modify, save) and specifies the platform (Java) and file format (XLSX).",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('is a Java 17 spreadsheet library for developers... to create, load, modify, and save Excel .xlsx workbooks').",
             "satisfied": true
           },
           {
             "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the target audience (Java developers), the ecosystem (Java), the file format (XLSX), and the core tasks (create, load, modify, save).",
+            "note": "The opening paragraph explicitly names the audience (Java developers), ecosystem (Java), format (Excel .xlsx), and common tasks (create, load, modify, save).",
             "satisfied": true
           },
           {
             "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, Maven Central badge, platform badge, and contributor badge \u2014 satisfying the top trust signals.",
+            "note": "A visible, GitHub-recognized MIT license is present and linked; build/version/package badges (Maven Central, Platform, Repository, License, Contributors) are included.",
             "satisfied": true
           },
           {
@@ -1933,38 +1933,38 @@
           },
           {
             "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there is a full, runnable 'Minimal verified example' Java code block with no comments or docstrings, and surrounding prose explains the operation.",
+            "note": "Beyond the install snippet, there is a fully runnable, self-contained Java example with no comments or docstrings, and it demonstrates core functionality.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "The navigation section uses consistent `##` headers, and the order follows the intended sequencing: product understanding \u2192 getting started \u2192 reference/contrib/legal content.",
+            "note": "Section headers use consistent `##` levels, and the order follows the intended sequencing: product understanding \u2192 getting started \u2192 reference/contributing/legal content.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow (XLSX in \u2192 processing \u2192 XLSX out), which is product-appropriate and improves understanding.",
+            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow of the product, which is appropriate for a data-processing library.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The README includes a LICENSE file reference and badge, and GitHub's community-files quick-link row would show LICENSE (the highest-priority file) \u2014 though CONTRIBUTING/CODE_OF_CONDUCT are not present, LICENSE recognition is prioritized per the standard.",
-            "satisfied": true
+            "note": "The README is present and GitHub-recognized, but the repository is missing LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT files in GitHub's community health check (only README is recognized).",
+            "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and the version `26.7.0` and recent commit hash imply active maintenance \u2014 consistent with structural signals rather than prose claims.",
+            "note": "The README includes a versioned Maven artifact (`26.7.0`) and the repository's recent commit history (implied by the pinned commit SHA in the Repository badge) supports active maintenance.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The 'Scope and limitations' section mentions the commercial edition exactly once, in factual, capability-extension language, placed *after* the product description \u2014 matching the acceptable SheetJS/iText patterns.",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under a dedicated 'Scope and limitations' section after the product description, with no promotional language or repeated links.",
             "satisfied": true
           }
         ],
-        "input_sha256": "23b7e538cc87c10e3c4b4d46bd0b514875382d53cc5d0b8a108241fbd99aec08",
+        "input_sha256": "edc32bc31a2a3042e4ba19b37c9f38e78e21b3e4839ae9ff7390466e1f2fa4f3",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it leads with clear product description and audience fit, includes strong trust signals (especially license visibility), provides a verified and working installation path with runnable examples, uses appropriate navigation and visuals, and presents the commercial context factually and sparingly \u2014 all aligned with evidence from leading FOSS repositories.",
+        "overall_summary": "The README satisfies 9 of 10 dimensions; the sole failure is in contribution readiness due to missing GitHub-recognized community files (LICENSE, CONTRIBUTING, CODE_OF_CONDUCT), despite having a well-structured, professional README.",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -1977,7 +1977,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T23:57:40.157786+00:00",
+      "last_run_timestamp": "2026-08-03T00:11:51.054589+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
@@ -18881,7 +18881,7 @@
     "updated_at": "2026-08-03T00:10:44.251012+00:00"
   },
   "schema_version": 2,
-  "state_version": 451,
+  "state_version": 452,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e59007ab3744343db69461226a8b5057509f51dcaf8c63082e70498e95066067",
