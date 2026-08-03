@@ -2419,78 +2419,19 @@
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "f91eb5808b7a15bf1cf96a15762fec8e6964c66200b69c275fe1874b3f1ae07b",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The second line after the header is a clear, one-sentence product description using a concrete verb ('is an open-source Python library for developers... who need PS/EPS and XPS document conversion to PDF and raster images').",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening sentence explicitly names the audience (Python developers), the ecosystem (Python), the formats handled (PS/EPS, XPS), and the core tasks (conversion to PDF and raster images).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license badge is present and links to LICENSE.txt, satisfying the highest-leverage trust signal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install section provides a local git-clone-and-install path but explicitly states there is no published PyPI package, and no real package-registry coordinate (e.g., on PyPI) is given or resolvable.",
-            "satisfied": false
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "There is one runnable, minimal example beyond the install snippet, with clear surrounding prose and no source comments or docstrings inside the code block.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "The navigation section uses consistent Markdown headers and follows the expected sequencing: product understanding and getting-started content precede reference/contribution/legal content.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input\u2192transformation\u2192output workflow of the product, which is appropriate for a document-processing library and improves understanding.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The repository lacks recognized community files beyond README (no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files), so GitHub's quick-link row is not triggered.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README does not include visible maintenance signals (e.g., recent releases, commit history, or `pushed_at`), and the pinned commit hash suggests a static snapshot rather than active development.",
-            "satisfied": false
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The 'Scope and limitations' section mentions the commercial edition exactly once, in factual, capability-extension language, placed after the product description and before legal content.",
-            "satisfied": true
-          }
-        ],
-        "input_sha256": "b77e638abd0278eed685aa541d3e4a175e0ca7c5d9a143e4bd4e474e2749eaf7",
-        "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 7 of 10 dimensions, with critical gaps in installation path (no real registry coordinate) and maintenance signals (static snapshot, no activity visibility), and a structural gap in contribution readiness (missing community files).",
-        "structural_consistency": {
-          "contradictions": [],
-          "valid": true
-        },
-        "structural_observations": {
-          "ci_badge_count": 0,
-          "has_mermaid": true
-        }
+        "status": "DEFERRED_UPSTREAM_FAILURE",
+        "upstream_domain": "readme_presentation",
+        "upstream_failure_reason": "agentic_composition",
+        "upstream_status": "FIRST_OBSERVATION"
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-03T04:04:38.205082+00:00",
+      "last_run_timestamp": "2026-08-03T04:37:13.884805+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -10389,7 +10330,7 @@
     "updated_at": "2026-08-03T04:33:39.129643+00:00"
   },
   "schema_version": 2,
-  "state_version": 560,
+  "state_version": 561,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
