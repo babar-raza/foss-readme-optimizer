@@ -10643,61 +10643,77 @@
     "updated_at": "2026-08-03T04:51:30.371233+00:00"
   },
   "schema_version": 2,
-  "state_version": 612,
+  "state_version": 613,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "fc3a8546de3b996ff110b473cf303ad87c2facaa865e29eaf27136f1d666f28b",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260803-045207-0185",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "last_run_id": "20260803-044733-c512",
-    "last_run_timestamp": "2026-08-03T04:47:33.517024+00:00",
-    "last_status": "BLOCKED",
+    "last_run_id": "20260803-045444-93b5",
+    "last_run_timestamp": "2026-08-03T04:54:44.773884+00:00",
+    "last_status": "PARTIAL_WITH_FINDINGS",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-08-03T04:47:33.516983+00:00",
+        "last_checked_at": "2026-08-03T04:54:44.773844+00:00",
         "observed_hash": "b9608d907f199e350c056a96a473313522c031b923a79b0a406a75483ac1dfab",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-08-03T04:47:33.516983+00:00",
+        "last_checked_at": "2026-08-03T04:54:44.773844+00:00",
         "observed_hash": "22af6a6c9ae9d8cbf17dfeadebfbe31ebeac886deca41d582f6c85ad624368ca",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-08-03T04:47:33.516983+00:00",
+        "last_checked_at": "2026-08-03T04:54:44.773844+00:00",
         "observed_hash": "0d3e6c3887c21d6c45f23b2eaacf67831289430c7eb6205247ae6289ba63f09b",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-08-03T04:47:33.516983+00:00",
+        "last_checked_at": "2026-08-03T04:54:44.773844+00:00",
         "observed_hash": "c9b0093a2f06fff8998e6c41d53f5366f76819c689e1d161830606f430829819",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
       }
     },
     "task_graph_snapshot": {
-      "tasks": []
+      "tasks": [
+        {
+          "arguments": {
+            "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python"
+          },
+          "blocked_category": null,
+          "blocked_reason": null,
+          "capability_id": "inspect_repository",
+          "created_at": "2026-08-03T04:54:28.395586+00:00",
+          "depends_on": [],
+          "gap": null,
+          "result": {
+            "has_license_file": true,
+            "has_readme": true,
+            "manifest_keys": [
+              "name",
+              "requires_python",
+              "version"
+            ],
+            "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+            "readme_length_chars": 3151
+          },
+          "state": "PASSED",
+          "supersedes": null,
+          "task_id": "66f224aab15547fb993ed0e8d7591cfd",
+          "terminal_at": "2026-08-03T04:54:33.910692+00:00"
+        }
+      ]
     }
   },
   "trigger_lifecycles": {
