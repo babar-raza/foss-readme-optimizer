@@ -16242,23 +16242,23 @@
   "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "64e2e6ab80ab806ff77f29e62d8faedca5742130357a34872133e04bdddd7540",
+    "assessment_hash": null,
     "assurance_history": [],
-    "candidate_hash": "b684b15fdc7bb77a4a09498cb674eef85877c57cd1796c7bb783daab37bffec9",
+    "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
       "acquisition_truth": "5d18be0901efa391fca5b6f168ad6597436ac094628fc2314880c92ebeef710c",
-      "classification_semantics": "a6a88f80a7b747a9dc12cfb816588da7eb45d41650b4aef7166b47d2d64cf633",
-      "conflict_semantics": "1e77c8e28cae357cb514d7a73c4f070a62c212fab6e96677e49ee04506cea7f7",
-      "drafting_and_example_selection": "3c2079066a43f92ef3fc7d4d7812ea82488837f28fcd01c42e8d6782ca716abe",
+      "classification_semantics": "0e28d651211ad51b76752310a3ae9cf63e8ba81ead54e982d871a5f8760a2d7d",
+      "conflict_semantics": "b63899938319b6ec30aa340755942cab4ea2243cd9b56bcd3bf73355e35897a1",
+      "drafting_and_example_selection": "fe4ba5cee079736821ead381894e07e30243fd01ca7dc7c418018f0b75a64015",
       "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
       "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
       "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
       "root_role_selection": "b6966cdbaf3898221d269522cd629b7d325ccf1faaec3a6ef8299d926aabcd12",
       "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
     },
-    "fact_acceptance_contract_hash": "f5abe736b33d65a8736ea6c5a3810703150f0f28975f10687de380382c247ae6",
+    "fact_acceptance_contract_hash": "0e5da4d3641fda5ae9e58523cfdb73b68905f22c3c2afe84a98d17032db20acc",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -16483,9 +16483,30 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "5d18be0901efa391fca5b6f168ad6597436ac094628fc2314880c92ebeef710c",
+          "classification_semantics": "0e28d651211ad51b76752310a3ae9cf63e8ba81ead54e982d871a5f8760a2d7d",
+          "conflict_semantics": "b63899938319b6ec30aa340755942cab4ea2243cd9b56bcd3bf73355e35897a1",
+          "drafting_and_example_selection": "fe4ba5cee079736821ead381894e07e30243fd01ca7dc7c418018f0b75a64015",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "b6966cdbaf3898221d269522cd629b7d325ccf1faaec3a6ef8299d926aabcd12",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "0e5da4d3641fda5ae9e58523cfdb73b68905f22c3c2afe84a98d17032db20acc",
+        "facts_hash": "161bed87284a3d41aefac41d4e8ac7893fa31d292e4e74c15ba825c22e8aa050",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T03:18:52.852555+00:00",
+        "outcome": "BLOCKED_MISSING_EVIDENCE",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "schema_version": 1,
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
       }
     ],
-    "facts_hash": "bccdaffc2d24c0192457129fdd7bbb2d77510261aef6782e9e4d9a7a9a74120c",
+    "facts_hash": "161bed87284a3d41aefac41d4e8ac7893fa31d292e4e74c15ba825c22e8aa050",
     "history": [
       {
         "evidence_refs": [
@@ -18014,6 +18035,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\6a209e8fc3dfc305df39a417037e32a4d4c7b2be\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-03T03:18:51.156365+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "intake_preflight_history": [
@@ -18034,19 +18068,19 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "c8d26736b9e3ddf8d0c88a87b1df32115c2fa24a2df70559565c7d03ce39569d",
+    "presentation_plan_hash": null,
     "prompt_hash": null,
     "protected_content_fingerprint": null,
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "646682b9a449744d95a7d4cebbb58226a7c2a3e9fc0a76f42dd565a2d10affa1",
-    "reviewer_standard_hash": "a13ebaf4fe901cfb88c0d7f66802ea71a0e3814c8feac6e86854e5e199aa8138",
+    "repair_budget_origin_hash": null,
+    "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-03T03:18:45.259409+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-08-03T03:18:51.156365+00:00"
   },
   "schema_version": 2,
-  "state_version": 803,
+  "state_version": 804,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
