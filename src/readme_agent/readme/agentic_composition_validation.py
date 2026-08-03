@@ -13,6 +13,10 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
 from readme_agent.llm.prompt_registry import prompt_hash
+from readme_agent.readme.agentic_composition_assessment import (
+    planning_assessment_payload,
+    planning_sections,
+)
 from readme_agent.readme.agentic_composition_grounding import (
     accepted_composition_fact_ids,
     overview_phrase_options,
@@ -20,6 +24,7 @@ from readme_agent.readme.agentic_composition_grounding import (
     required_overview_fact_ids,
 )
 from readme_agent.readme.agentic_composition_inputs import (
+    composition_fact_payloads,
     composition_input_payload,
     composition_input_sha256,
     independent_repair_hints,
@@ -29,18 +34,14 @@ from readme_agent.readme.agentic_composition_models import (
     ReadmeAgenticCompositionPlanV1,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
+from readme_agent.readme.diagram_role_semantics import validate_diagram_role_fact_semantics
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_MERMAID_MIN_CAPABILITIES,
+    PRESENTATION_MERMAID_MIN_INPUTS,
+    PRESENTATION_MERMAID_MIN_OUTPUTS,
+)
 
 _JOB = "plan_readme_composition"
-
-
-def planning_sections(assessment: ReadmeAssessmentV1):
-    """Bound agentic output to structural or materially actionable sections."""
-
-    return [
-        section
-        for section in assessment.sections
-        if section.level <= 2 or section.disposition != "preserve"
-    ]
 
 
 def bind_source_dispositions(
@@ -169,6 +170,9 @@ def validate_composition_draft(
         identity_id = facts.selected_fact_ids.get("product.identity")
         if identity_id not in draft.opening_summary.supporting_fact_ids:
             raise LLMError("composition opening summary does not cite the selected identity")
+        audience_id = facts.selected_fact_ids.get("product.audience")
+        if audience_id and audience_id not in draft.opening_summary.supporting_fact_ids:
+            raise LLMError("composition opening summary does not cite the selected audience")
         purpose_ids = {
             facts.selected_fact_ids.get(field)
             for field in (
@@ -184,16 +188,25 @@ def validate_composition_draft(
         if title not in draft.opening_summary.text:
             raise LLMError("composition opening summary omits the complete product identity")
         if re.search(
-            r"(?i)(?:https?://|official\b|100%\s+free|revision\s+`?[0-9a-f]{7,})",
+            r"(?i)(?:https?://|official\b|100%\s+free|revision\s+`?[0-9a-f]{7,}"
+            r"|\bcommercial\b|\benterprise\s+edition\b|\bon[- ]premise\b)",
             draft.opening_summary.text,
         ):
-            raise LLMError("composition opening summary contains promotional or internal text")
+            raise LLMError(
+                "composition opening summary contains promotional, edition-comparison, "
+                "or internal text"
+            )
     if draft.diagram.nodes:
+        validate_diagram_role_fact_semantics(draft.diagram.nodes, facts)
         role_counts = {
             role: sum(node.role == role for node in draft.diagram.nodes)
             for role in ("input", "capability", "output")
         }
-        required_counts = {"input": 1, "capability": 3, "output": 1}
+        required_counts = {
+            "input": PRESENTATION_MERMAID_MIN_INPUTS,
+            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+        }
         missing_roles = {
             role: minimum
             for role, minimum in required_counts.items()
@@ -201,9 +214,18 @@ def validate_composition_draft(
         }
         if missing_roles:
             raise LLMError(f"composition diagram does not meet role minimums: {missing_roles}")
-        labels = [" ".join(node.label.casefold().split()) for node in draft.diagram.nodes]
-        if len(labels) != len(set(labels)):
-            raise LLMError("composition diagram returned duplicate labels")
+        role_labels = [
+            (node.role, " ".join(node.label.casefold().split())) for node in draft.diagram.nodes
+        ]
+        duplicates = sorted(
+            f"{role}:{label}"
+            for role, label in set(role_labels)
+            if role_labels.count((role, label)) > 1
+        )
+        if duplicates:
+            raise LLMError(
+                f"composition diagram returned duplicate labels within one role: {duplicates}"
+            )
 
 
 def validate_readme_composition_plan(
@@ -222,9 +244,7 @@ def validate_readme_composition_plan(
         raise LLMError(f"README composition plan failed schema validation: {exc}") from exc
     accepted_ids = accepted_composition_fact_ids(facts)
     phrase_options = overview_phrase_options(facts)
-    assessment_payload = assessment.model_copy(
-        update={"sections": planning_sections(assessment)}
-    ).model_dump(mode="json")
+    assessment_payload = planning_assessment_payload(assessment)
     tool_schema = build_readme_composition_tool_schema(
         section_ids=[section["section_id"] for section in assessment_payload["sections"]],
         accepted_fact_ids=sorted(accepted_ids),
@@ -244,11 +264,7 @@ def validate_readme_composition_plan(
             composition_input_payload(
                 org_repo=org_repo,
                 source_text=source_text,
-                facts_payload=[
-                    fact.model_dump(mode="json")
-                    for fact in facts.facts
-                    if fact.fact_id in accepted_ids
-                ],
+                facts_payload=composition_fact_payloads(facts, accepted_ids),
                 assessment_payload=assessment_payload,
                 phrase_options=phrase_options,
                 authoring_hints=plan.authoring_hints,

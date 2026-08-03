@@ -173,6 +173,7 @@ def build_stage_work_item(
         "schema": "serial-stage-transaction-v1",
         "org_repo": fence.org_repo,
         "source_revision": fence.source_revision,
+        "fence": fence.model_dump(mode="json"),
         "dependency_hashes": dict(sorted(dependency_hashes.items())),
     }
     campaign_id = canonical_sha256(campaign_contract)
@@ -181,6 +182,7 @@ def build_stage_work_item(
         "org_repo": fence.org_repo,
         "source_revision": fence.source_revision,
         "target_stage": target_stage,
+        "fence_token": fence.fence_token,
         "dependency_hashes": dict(sorted(dependency_hashes.items())),
     }
     return PortfolioStageWorkItemV1(

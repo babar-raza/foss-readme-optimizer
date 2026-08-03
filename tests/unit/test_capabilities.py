@@ -49,6 +49,7 @@ from readme_agent.facts.migration import migrate_product_facts_v1
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.profile.schema import DetectedEcosystem, RepositoryProfile
+from readme_agent.readme import idea_candidate
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 
 
@@ -1023,6 +1024,85 @@ class TestRenderReadmeCandidateCapability:
         ]
         assert "llm_mode" not in schema_props
         assert "fixture_response_path" not in schema_props
+
+    def test_verified_candidate_uses_snapshot_readme_not_stale_work_clone(
+        self, monkeypatch, tmp_path
+    ):
+        revision = "a" * 40
+        snapshot_root = tmp_path / "snapshot"
+        snapshot_root.mkdir()
+        immutable_source = "# Immutable source\n"
+        (snapshot_root / "README.md").write_text(immutable_source, encoding="utf-8")
+        work_root = tmp_path / "work"
+        work_root.mkdir()
+        (work_root / "README.md").write_text("# Stale persistent work clone\n", encoding="utf-8")
+        snapshot = SimpleNamespace(
+            root_path=snapshot_root,
+            readme_path="README.md",
+            source_revision=revision,
+        )
+        entry = SimpleNamespace(org="acme", repo_name="widget")
+        facts = migrate_product_facts_v1(
+            ProductFactsV1(
+                org_repo="acme/widget",
+                family="widget",
+                platform="java",
+                ecosystem="java",
+            ),
+            source_revision=revision,
+        )
+        candidate = immutable_source + "\nVerified presentation.\n"
+
+        monkeypatch.setattr(idea_candidate, "require_listed", lambda org_repo: entry)
+        monkeypatch.setattr(
+            idea_candidate, "current_repository_snapshot", lambda org_repo: snapshot
+        )
+        monkeypatch.setattr(idea_candidate, "verify_repository_snapshot", lambda value: None)
+        monkeypatch.setattr(
+            idea_candidate, "compute_tracked_content_hash", lambda root: "fresh-fingerprint"
+        )
+        monkeypatch.setattr(idea_candidate.paths, "work_dir", lambda org, repo: work_root)
+        monkeypatch.setattr(
+            idea_candidate,
+            "ensure_work_clone",
+            lambda *args, **kwargs: work_root,
+        )
+        monkeypatch.setattr(idea_candidate, "neuter_push", lambda root: None)
+        monkeypatch.setattr(idea_candidate, "install_pre_push_hook", lambda root: None)
+        monkeypatch.setattr(
+            idea_candidate,
+            "verify_push_blocked",
+            lambda root: SimpleNamespace(ok=True, detail=""),
+        )
+        monkeypatch.setattr(
+            idea_candidate, "load_runtime_link_inputs", lambda org_repo: (None, None)
+        )
+        monkeypatch.setattr(
+            idea_candidate,
+            "build_readme_document_candidate",
+            lambda *args, **kwargs: (
+                candidate,
+                SimpleNamespace(model_dump=lambda mode: {"source_sha256": "snapshot-bound"}),
+            ),
+        )
+        monkeypatch.setattr(
+            idea_candidate,
+            "assess_readme_document",
+            lambda *args, **kwargs: SimpleNamespace(model_dump=lambda mode: {}),
+        )
+        monkeypatch.setattr(
+            idea_candidate,
+            "build_readme_claim_map",
+            lambda *args, **kwargs: SimpleNamespace(model_dump=lambda mode: {}),
+        )
+
+        result = idea_candidate.prepare_idea_fidelity_candidate("acme/widget", facts)
+
+        assert result["source_text"] == immutable_source
+        assert result["original_text"] == immutable_source
+        assert result["original_text"] != (work_root / "README.md").read_text(encoding="utf-8")
+        assert result["final_text"] == candidate
+        assert result["needs_write"] is True
 
 
 class TestVerifyReadmeCandidateCapability:

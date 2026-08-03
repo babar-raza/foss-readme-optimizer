@@ -10,6 +10,7 @@ from readme_agent.presentation.template_schema import (
     PresentationTemplateInputV1,
     ProductFactsTemplateDraftV1,
     RepositoryPresentationTemplateV1,
+    TemplateContentSource,
     TemplateSlot,
     load_repository_presentation_template,
 )
@@ -73,6 +74,8 @@ def _verified(
     markdown: str,
     fact_fields: list[str],
     facts: ProductFactsV2,
+    *,
+    standard_ids: list[str] | None = None,
 ) -> BoundTemplateContentV1:
     fact_ids: list[str] = []
     for field in fact_fields:
@@ -83,10 +86,19 @@ def _verified(
         ):
             raise ValueError(f"template field {field!r} is not an accepted selected fact")
         fact_ids.append(fact.fact_id)
+    standards = sorted(set(standard_ids or []))
+    source_kind: TemplateContentSource = (
+        "repository_fact_and_configured_standard"
+        if fact_ids and standards
+        else "repository_fact"
+        if fact_ids
+        else "configured_standard"
+    )
     return BoundTemplateContentV1(
         markdown=markdown,
-        source_kind="repository_fact",
+        source_kind=source_kind,
         fact_ids=sorted(set(fact_ids)),
+        standard_ids=standards,
     )
 
 
@@ -119,14 +131,34 @@ def bind_product_facts(
                 omission_reason=content.omission_reason,
             )
         else:
-            sections[slot] = _verified(content.markdown, content.fact_fields, facts)
+            sections[slot] = _verified(
+                content.markdown,
+                content.fact_fields,
+                facts,
+                standard_ids=content.standard_ids,
+            )
     return PresentationTemplateInputV1(
         org_repo=facts.org_repo,
         source_revision=draft.source_revision,
         source_line_count=draft.source_line_count,
         profile=draft.profile,
-        title=_verified(draft.title.markdown, draft.title.fact_fields, facts),
-        badges=_verified(draft.badges.markdown, draft.badges.fact_fields, facts),
-        summary=_verified(draft.summary.markdown, draft.summary.fact_fields, facts),
+        title=_verified(
+            draft.title.markdown,
+            draft.title.fact_fields,
+            facts,
+            standard_ids=draft.title.standard_ids,
+        ),
+        badges=_verified(
+            draft.badges.markdown,
+            draft.badges.fact_fields,
+            facts,
+            standard_ids=draft.badges.standard_ids,
+        ),
+        summary=_verified(
+            draft.summary.markdown,
+            draft.summary.fact_fields,
+            facts,
+            standard_ids=draft.summary.standard_ids,
+        ),
         sections=sections,
     )

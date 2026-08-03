@@ -35,6 +35,7 @@ class ReadmeBadgeV1(_StrictModel):
         "download",
         "platform",
         "build",
+        "source",
         "license",
         "contributors",
     ]

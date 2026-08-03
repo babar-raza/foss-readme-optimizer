@@ -153,6 +153,7 @@ def run_http_with_retry(
     retryable_statuses: set[int],
     honor_github_rate_limit: bool = False,
     sleep: Callable[[float], None] | None = None,
+    max_attempts: int | None = None,
 ) -> requests.Response:
     """Apply one typed policy to retryable transport and HTTP failures."""
 
@@ -181,4 +182,4 @@ def run_http_with_retry(
             )
         return response
 
-    return run_with_retry(operation_class, attempt, sleep=sleep)
+    return run_with_retry(operation_class, attempt, sleep=sleep, max_attempts=max_attempts)

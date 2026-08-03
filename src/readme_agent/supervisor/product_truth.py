@@ -8,17 +8,18 @@ from typing import Literal, cast
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent import paths
-from readme_agent.capabilities.dispatcher import dispatch_tool_call
-from readme_agent.capabilities.domains import README_PRESENTATION
 from readme_agent.facts.acceptance_contract import (
     classify_product_truth,
     current_fact_acceptance_contract,
     fact_contract_change_requires_recollection,
 )
+from readme_agent.facts.deterministic_truth_salvage import (
+    load_salvage_candidate,
+    salvage_product_truth_candidate,
+)
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import README_DRAFTABLE_PRODUCT_FIELDS, ProductFactsV2
-from readme_agent.llm import prompt_registry
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
@@ -43,10 +44,13 @@ from readme_agent.supervisor.product_truth_recovery import (
     recover_interrupted_product_truth_commit,
 )
 
-ResolutionSource = Literal["repository_and_policy", "agent_draft", "durable_revision_cache"]
+ResolutionSource = Literal[
+    "repository_and_policy",
+    "deterministic_salvage",
+    "durable_revision_cache",
+]
 BlockedCategory = Literal["agent_fixable", "infra_external"]
 
-_DRAFTABLE_ECOSYSTEMS = frozenset({"java", "net", "python", "typescript", "go", "cpp", "rust"})
 _CACHEABLE_LIFECYCLE_STATES = frozenset(
     {
         "FACTS_READY",
@@ -97,7 +101,7 @@ def product_truth_blocked_category(findings: list[dict]) -> BlockedCategory:
     return "agent_fixable"
 
 
-def _facts_need_drafting(facts: ProductFactsV2) -> bool:
+def _facts_need_resolution(facts: ProductFactsV2) -> bool:
     return any(
         facts.selected_fact(field).verification_state not in {"verified", "policy_approved"}
         or facts.selected_fact(field).has_unresolved_conflict
@@ -111,6 +115,17 @@ def _cached_outcome_matches_lifecycle(status: str, outcome: ReadmePocStatusV2) -
     return status == outcome
 
 
+def _recovered_non_intake_failure(lifecycle) -> bool:
+    """Identify the explicit safe-boundary recovery that permits fresh recollection."""
+
+    return bool(
+        lifecycle.history
+        and lifecycle.history[-1].reason
+        == "recovered checksum-bound safe boundary after non-intake system failure"
+        and lifecycle.history[-1].to_status == lifecycle.status
+    )
+
+
 def load_prepared_product_truth(
     org_repo: str,
     state_backend: StateBackend,
@@ -118,6 +133,7 @@ def load_prepared_product_truth(
 ) -> PreparedProductTruthV1 | None:
     """Load and reaccept the exact persisted graph under the current contract."""
 
+    entry = require_listed(org_repo)
     state = state_backend.load(org_repo)
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     if (
@@ -135,6 +151,8 @@ def load_prepared_product_truth(
         bundle_dir,
         state_backend,
         lifecycle,
+        ecosystem=entry.ecosystem,
+        family=getattr(entry, "family", None),
     )
     recovered_later_lifecycle = False
     if recovered is not None:
@@ -154,7 +172,13 @@ def load_prepared_product_truth(
     if not manifest_path.is_file():
         return None
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("local_verification_contract_hash") != local_verification_contract_hash():
+    if manifest.get("resolution_source") == "agent_draft":
+        # Historical broad product-truth drafting is candidate material only. It must pass
+        # deterministic current-revision salvage before the canonical verified path can reuse it.
+        return None
+    if manifest.get("local_verification_contract_hash") != local_verification_contract_hash(
+        entry.ecosystem
+    ):
         return None
     if not facts_path.is_file():
         raise RuntimeError(
@@ -168,6 +192,11 @@ def load_prepared_product_truth(
             f"expected {org_repo}, found {facts.org_repo}"
         )
     if facts.canonical_hash() != lifecycle.facts_hash:
+        if _recovered_non_intake_failure(lifecycle):
+            # A failed later stage can leave a newly sealed fact bundle ahead of the durable
+            # lifecycle. Recollect from repository evidence; never trust the mismatched bundle.
+            # The ordinary persistence path will reopen only fact-dependent stages.
+            return None
         raise RuntimeError(
             "durable product-facts evidence hash does not match lifecycle state for "
             f"{org_repo}@{source_revision}"
@@ -182,12 +211,9 @@ def load_prepared_product_truth(
         json.loads(findings_path.read_text(encoding="utf-8")) if findings_path.is_file() else []
     )
     proposed_product_truth = load_coherent_product_truth_proposal(bundle_dir, manifest)
-    if proposed_product_truth is not None and (
-        manifest.get("prompt_hash") != prompt_registry.prompt_hash("draft_product_truth")
-        or lifecycle.prompt_hash != manifest.get("prompt_hash")
-    ):
+    if proposed_product_truth is not None and lifecycle.prompt_hash is not None:
         return None
-    contract = current_fact_acceptance_contract()
+    contract = current_fact_acceptance_contract(entry.ecosystem, getattr(entry, "family", None))
     contract_hash = contract.canonical_hash()
     manifest_contract_current = (
         manifest.get("fact_acceptance_contract_hash") == contract_hash
@@ -275,20 +301,25 @@ def load_prepared_product_truth(
     )
 
 
-def _unsupported_drafting_finding(org_repo: str, ecosystem: str | None) -> dict:
+def _missing_repository_evidence_finding(
+    org_repo: str,
+    field: str,
+    state: str,
+) -> dict:
     return {
-        "finding_id": "product-truth-drafting-ecosystem-unsupported",
+        "finding_id": f"product-truth-repository-evidence-missing:{field}",
         "classification": "BLOCKED_MISSING_EVIDENCE",
         "blocked_category": "agent_fixable",
         "org_repo": org_repo,
-        "ecosystem": ecosystem,
+        "field": field,
+        "verification_state": state,
         "detail": (
-            "The typed minimal-example drafting contract does not yet support this ecosystem; "
-            "verified mechanical facts remain available, but dependent README claims stay blocked."
+            "The repository and structured-knowledge collectors did not establish this selected "
+            "README field, and no checksum-valid current-revision salvage candidate was available."
         ),
         "required_action": (
-            "Add a typed minimal-example contract and isolated verifier for this ecosystem, then "
-            "rerun product-truth preparation."
+            "Add or repair the deterministic repository/ecosystem knowledge adapter for this "
+            "field; broad product-truth drafting is prohibited on the canonical local path."
         ),
     }
 
@@ -300,7 +331,7 @@ def prepare_local_product_truth(
     *,
     client=None,
 ) -> PreparedProductTruthV1:
-    """Resolve, optionally draft, persist, and durably classify one fact graph."""
+    """Resolve or deterministically salvage, persist, and classify one fact graph."""
     state = state_backend.load(org_repo)
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     if (
@@ -332,39 +363,37 @@ def prepare_local_product_truth(
     resolution_source: ResolutionSource = "repository_and_policy"
     prompt_hash: str | None = None
 
-    if _facts_need_drafting(facts):
-        if entry.ecosystem not in _DRAFTABLE_ECOSYSTEMS:
-            findings.append(_unsupported_drafting_finding(org_repo, entry.ecosystem))
+    if _facts_need_resolution(facts):
+        org, repo = org_repo.split("/", maxsplit=1)
+        candidate = load_salvage_candidate(
+            paths.readme_poc_repository_dir(org, repo, snapshot.source_revision),
+            org_repo=org_repo,
+            source_revision=snapshot.source_revision,
+            current_readme_sha256=snapshot.readme_sha256,
+        )
+        if candidate is not None:
+            salvaged = salvage_product_truth_candidate(facts, snapshot, candidate)
+            facts = salvaged.facts
+            findings.extend(salvaged.findings)
+            proposed_product_truth = candidate
+            resolution_source = "deterministic_salvage"
         else:
-            dispatch = dispatch_tool_call(
-                {
-                    "id": f"product-truth:{org_repo}",
-                    "function": {
-                        "name": "draft_product_truth",
-                        "arguments": json.dumps({"org_repo": org_repo}),
-                    },
-                },
-                {"read_only_local", "read_only_network"},
-                caller_domain=README_PRESENTATION,
-                extra_kwargs={
-                    "client": client,
-                    "repository_snapshot": snapshot,
-                    "base_facts": facts,
-                },
-                state_backend=state_backend,
-            )
-            if dispatch.outcome != "executed" or dispatch.result is None:
-                raise RuntimeError(
-                    "draft_product_truth dispatch failed: "
-                    f"{dispatch.outcome}: {dispatch.error or dispatch.gap}"
+            findings.extend(
+                _missing_repository_evidence_finding(
+                    org_repo,
+                    field,
+                    facts.selected_fact(field).verification_state,
                 )
-            facts = ProductFactsV2.model_validate(dispatch.result["product_facts_v2"])
-            findings.extend(dispatch.result.get("findings", []))
-            proposed_product_truth = dispatch.result["proposed_product_truth"]
-            resolution_source = "agent_draft"
-            prompt_hash = prompt_registry.prompt_hash("draft_product_truth")
+                for field in README_DRAFTABLE_PRODUCT_FIELDS
+                if facts.selected_fact(field).verification_state
+                not in {"verified", "policy_approved"}
+                or facts.selected_fact(field).has_unresolved_conflict
+            )
 
-    fact_acceptance_contract = current_fact_acceptance_contract()
+    fact_acceptance_contract = current_fact_acceptance_contract(
+        entry.ecosystem,
+        getattr(entry, "family", None),
+    )
     fact_acceptance_contract_hash = fact_acceptance_contract.canonical_hash()
     lifecycle_status = classify_product_truth(facts, fact_acceptance_contract)
     bundle_dir = write_local_poc_product_facts(
@@ -375,7 +404,7 @@ def prepare_local_product_truth(
         proposed_product_truth=proposed_product_truth,
         lifecycle_status=lifecycle_status,
         prompt_hash=prompt_hash,
-        local_verification_contract_hash=local_verification_contract_hash(),
+        local_verification_contract_hash=local_verification_contract_hash(entry.ecosystem),
         fact_acceptance_contract_hash=fact_acceptance_contract_hash,
         fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
     )

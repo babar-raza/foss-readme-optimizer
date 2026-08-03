@@ -179,6 +179,7 @@ class TestRealRegistry:
             "draft_product_truth",
             "factual_readme_plan_review",
             "independent_readme_review",
+            "merged_readme_review",
             "plan_readme_composition",
             "trusted_readme_section_transform",
             "presentation_standard_compliance",

@@ -11,6 +11,7 @@ from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
+from readme_agent.readme.source_claim_risk import SourceClaimObligation
 from readme_agent.state.assurance import ContentAssuranceV1
 
 DocumentOperation = Literal[
@@ -27,6 +28,13 @@ ProtectedContentTreatment = Literal[
     "additive",
     "authoritative_fact_correction",
     "presentation_policy_correction",
+]
+SourceClaimResolution = Literal[
+    "deferred_verification",
+    "verified_omission",
+    "verified_equivalence",
+    "verified_obligation_replacement",
+    "authoritative_correction",
 ]
 _ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]*$")
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -108,6 +116,103 @@ class ReadmeDocumentOperationV1(_StrictModel):
         return self
 
 
+class CandidateContentProvenanceV1(_StrictModel):
+    """Exact candidate span owned by repository facts and/or governed standards."""
+
+    provenance_id: str
+    candidate_byte_start: int = Field(ge=0)
+    candidate_byte_end: int = Field(ge=0)
+    fact_ids: list[str] = Field(default_factory=list)
+    configured_standard_ids: list[str] = Field(default_factory=list)
+    rationale: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _complete_binding(self) -> CandidateContentProvenanceV1:
+        if self.candidate_byte_end <= self.candidate_byte_start:
+            raise ValueError("candidate provenance requires a nonempty span")
+        if not (self.fact_ids or self.configured_standard_ids):
+            raise ValueError("candidate provenance requires facts or governed standards")
+        return self
+
+
+class SourceClaimResolutionV1(_StrictModel):
+    """Explicit evidence-backed disposition for one source material-claim unit."""
+
+    claim_id: str
+    source_byte_start: int = Field(ge=0)
+    source_byte_end: int = Field(ge=0)
+    content_sha256: str
+    resolution: SourceClaimResolution
+    obligation_id: SourceClaimObligation | None = None
+    fact_ids: list[str] = Field(default_factory=list)
+    replacement_provenance_ids: list[str] = Field(default_factory=list)
+    candidate_claim_id: str | None = None
+    candidate_byte_start: int | None = Field(default=None, ge=0)
+    candidate_byte_end: int | None = Field(default=None, ge=0)
+    candidate_content_sha256: str | None = None
+    evidence: list[str] = Field(min_length=1)
+    rationale: str = Field(min_length=1)
+
+    @field_validator("content_sha256", "candidate_content_sha256")
+    @classmethod
+    def _valid_content_hash(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        if not _SHA256_PATTERN.fullmatch(value):
+            raise ValueError("source-claim hash must be lowercase SHA-256")
+        return value
+
+    @model_validator(mode="after")
+    def _complete_resolution(self) -> SourceClaimResolutionV1:
+        if self.source_byte_end <= self.source_byte_start:
+            raise ValueError("source-claim resolution requires a nonempty span")
+        if self.resolution == "authoritative_correction" and not self.fact_ids:
+            raise ValueError("authoritative correction requires accepted facts")
+        if self.resolution == "deferred_verification" and (
+            self.fact_ids or self.obligation_id or self.replacement_provenance_ids
+        ):
+            raise ValueError(
+                "deferred verification cannot cite facts or replacements as if verified"
+            )
+        if self.resolution == "verified_obligation_replacement" and (
+            not self.fact_ids or self.obligation_id is None or not self.replacement_provenance_ids
+        ):
+            raise ValueError(
+                "verified obligation replacement requires an obligation, facts, and provenance"
+            )
+        if self.resolution not in {
+            "verified_obligation_replacement",
+            "verified_omission",
+        } and (self.obligation_id is not None or self.replacement_provenance_ids):
+            raise ValueError(
+                "obligation replacement bindings are reserved for replacements and omissions"
+            )
+        if (
+            self.resolution == "verified_omission"
+            and self.replacement_provenance_ids
+            and (not self.fact_ids or self.obligation_id is None)
+        ):
+            raise ValueError(
+                "a governed omission replacement requires an obligation and accepted facts"
+            )
+        equivalence_fields = (
+            self.candidate_claim_id,
+            self.candidate_byte_start,
+            self.candidate_byte_end,
+            self.candidate_content_sha256,
+        )
+        if self.resolution == "verified_equivalence":
+            if not self.fact_ids or any(value is None for value in equivalence_fields):
+                raise ValueError(
+                    "verified equivalence requires facts and an exact candidate claim binding"
+                )
+            if self.candidate_byte_end <= self.candidate_byte_start:  # type: ignore[operator]
+                raise ValueError("verified equivalence requires a nonempty candidate span")
+        elif any(value is not None for value in equivalence_fields):
+            raise ValueError("candidate claim bindings are reserved for verified equivalence")
+        return self
+
+
 class ReadmeDocumentPlanV1(_StrictModel):
     """Complete, reproducible README plan below the repository-surface plan."""
 
@@ -125,6 +230,8 @@ class ReadmeDocumentPlanV1(_StrictModel):
         default_factory=list
     )
     claim_accountability: ReadmeClaimAccountabilityMapV1 | None = None
+    candidate_content_provenance: list[CandidateContentProvenanceV1] = Field(default_factory=list)
+    source_claim_resolutions: list[SourceClaimResolutionV1] = Field(default_factory=list)
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
 

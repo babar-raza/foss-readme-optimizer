@@ -1,27 +1,39 @@
 {
   "campaign_id": "CAMP-THREE-SLICES",
-  "durable_state_version": 707,
+  "durable_state_version": 728,
   "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-  "manifest_sha256": "b470a76ac60822c59087f40b021b96242257f2988e38fbd3d0b29a7387f096ee",
-  "replay_id": "1645b99757f08612f1b22c9ff6f2d1ed10cc7ec70ba39163599ad79e79c7658d",
+  "manifest_sha256": "1fb74f19f91cc81aafa13a995be83171c27883d9a9dbf6dd031d73e2c299596c",
+  "replay_id": "f338b3af0f7e6f6e4791b686a6348d4bb97c2d0ed0cd494e8d127ae2ff21a0a3",
   "replay_result": "ACCEPTED",
   "requirement_ids": [],
   "schema_version": "CampaignEvidenceManifestV1",
   "task_verdicts": [
     {
-      "durable_status": "REGRESSED",
-      "evidence": [],
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v1/mission-contribution.json",
+          "requirement_ids": [],
+          "sha256": "59bdf639189b939efe6d28d7e55c915bac3280c9978b250230ac4a9ed85577ba"
+        }
+      ],
       "requirement_ids": [],
       "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
-      "verdict": "PARTIAL"
+      "verdict": "CLOSED"
     },
     {
-      "durable_status": "REGRESSED",
-      "evidence": [],
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/coordinator-closeout/contribution-evidence.json",
+          "requirement_ids": [],
+          "sha256": "ff5c08b17f3ea41e5d39eaab19aa0f85233051e36c26e4ba37cf7f9f7c7ffea5"
+        }
+      ],
       "requirement_ids": [],
       "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
-      "verdict": "PARTIAL"
+      "verdict": "CLOSED"
     }
   ],
-  "transition_id": "a70b29bbc1dde8f35e8e8d2a3972fd0cdb89809400cd6dc4a7d205c4ec13d395"
+  "transition_id": "52365ac5805f262f93a886090c413e181217447db2a9681c82ca92c14de01e8c"
 }

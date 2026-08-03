@@ -17,7 +17,8 @@ from readme_agent.state.domain_state import (
     mark_specialist_tier_started,
     save_domain_with_failure_tracking,
 )
-from readme_agent.state.schema import DomainStateV1
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.schema import DomainStateV1, RunStateV1
 from readme_agent.supervisor import specialist_selection
 from readme_agent.supervisor.models import DecisionSummary
 from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1
@@ -38,6 +39,47 @@ def _is_retryable_execution_failure(result: DomainStateV1) -> bool:
     return (result.accepted_status or "").startswith("ERROR:execution_error:")
 
 
+_PRE_CANDIDATE_LIFECYCLE_STATUSES = frozenset(
+    {
+        "DISCOVERED",
+        "INTAKE_PREFLIGHTING",
+        "INTAKE_READY",
+        "SNAPSHOTTED",
+        "PROFILED",
+        "FACTS_COLLECTING",
+        "FACTS_READY",
+        "README_ASSESSED",
+        "PLAN_READY",
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+        "SYSTEM_FAILURE",
+    }
+)
+
+
+def _force_candidate_rebuild_after_lifecycle_invalidation(
+    skip_plan: specialist_selection.SkipPlan,
+    prior_full_state: RunStateV1 | None,
+) -> None:
+    """Prevent a same-revision domain baseline from hiding a reopened candidate stage."""
+
+    lifecycle = prior_full_state.readme_poc_lifecycle if prior_full_state is not None else None
+    if (
+        not isinstance(lifecycle, ReadmePocLifecycleStateV2)
+        or lifecycle.status not in _PRE_CANDIDATE_LIFECYCLE_STATUSES
+    ):
+        return
+    skip_plan.forced_run_domains[README_PRESENTATION] = (
+        "lifecycle_pre_candidate_requires_reexecution"
+    )
+    if README_PRESENTATION not in skip_plan.skip_domains:
+        return
+    skip_plan.skip_domains = frozenset(
+        domain for domain in skip_plan.skip_domains if domain != README_PRESENTATION
+    )
+    skip_plan.reasons.pop(README_PRESENTATION, None)
+
+
 def run_specialist_tier(
     *,
     org_repo: str,
@@ -53,6 +95,7 @@ def run_specialist_tier(
     """Run every registered domain while one domain's failure remains isolated."""
 
     skip_plan = specialist_selection.SkipPlan()
+    prior_full_state = None
     if enable_specialist_skip and state_backend is not None and current_revision is not None:
         try:
             prior_full_state = state_backend.load(org_repo)
@@ -69,6 +112,7 @@ def run_specialist_tier(
             current_revision=current_revision,
             specialist_selection_client=specialist_selection_client,
         )
+        _force_candidate_rebuild_after_lifecycle_invalidation(skip_plan, prior_full_state)
 
     domains = (
         [README_PRESENTATION]

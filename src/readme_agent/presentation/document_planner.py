@@ -36,10 +36,19 @@ def _claim_id(operation_id: str, field: str) -> str:
     return f"{operation_id}.{normalized}"
 
 
-def _claims(facts: ProductFactsV2, operations) -> list[TechnicalClaimV1]:
+def _claims(
+    facts: ProductFactsV2,
+    operations,
+    candidate_content_provenance,
+) -> list[TechnicalClaimV1]:
     claims = []
+    seen_bindings: set[tuple[str, str]] = set()
     for operation in operations:
         for fact_id in operation.fact_ids:
+            binding = (operation.operation_id, fact_id)
+            if binding in seen_bindings:
+                continue
+            seen_bindings.add(binding)
             fact = facts.fact_by_id(fact_id)
             surface = next(
                 (surface for surface in fact.affected_surfaces if surface.startswith("readme")),
@@ -50,6 +59,25 @@ def _claims(facts: ProductFactsV2, operations) -> list[TechnicalClaimV1]:
                     claim_id=_claim_id(operation.operation_id, fact.field),
                     surface_id=surface,
                     text=f"{operation.rationale} [{fact.field}]",
+                    fact_ids=[fact_id],
+                )
+            )
+    for provenance in candidate_content_provenance:
+        for fact_id in provenance.fact_ids:
+            binding = (provenance.provenance_id, fact_id)
+            if binding in seen_bindings:
+                continue
+            seen_bindings.add(binding)
+            fact = facts.fact_by_id(fact_id)
+            surface = next(
+                (surface for surface in fact.affected_surfaces if surface.startswith("readme")),
+                "readme",
+            )
+            claims.append(
+                TechnicalClaimV1(
+                    claim_id=_claim_id(provenance.provenance_id, fact.field),
+                    surface_id=surface,
+                    text=f"{provenance.rationale} [{fact.field}]",
                     fact_ids=[fact_id],
                 )
             )
@@ -70,6 +98,10 @@ def build_document_repository_presentation_plan(
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
 ) -> tuple[RepositoryPresentationPlanV1, dict, bool, dict]:
     """Rebuild the document plan independently and prove the resulting Git patch."""
+
+    patch_source_text = (
+        source_text if facts.content_assurance == "repository_verified" else current_work_text
+    )
 
     expected_candidate, document_plan = build_readme_document_candidate(
         org_repo,
@@ -111,8 +143,8 @@ def build_document_repository_presentation_plan(
     edit = SourceSpanEditV1(
         path="README.md",
         byte_start=0,
-        byte_end=len(current_work_text.encode("utf-8")),
-        expected_sha256=sha256_text(current_work_text),
+        byte_end=len(patch_source_text.encode("utf-8")),
+        expected_sha256=sha256_text(patch_source_text),
         replacement=candidate_text,
         purpose=(
             "apply the independently reconstructed presentation-span adoption and its bounded "
@@ -121,11 +153,15 @@ def build_document_repository_presentation_plan(
     )
     bounded = BoundedSourcePatchV1(
         path="README.md",
-        source_sha256=sha256_text(current_work_text),
+        source_sha256=sha256_text(patch_source_text),
         edits=[edit],
     )
-    proof = create_git_patch_proof(current_work_text, candidate_text, bounded)
-    claims = _claims(facts, document_plan.operations)
+    proof = create_git_patch_proof(patch_source_text, candidate_text, bounded)
+    claims = _claims(
+        facts,
+        document_plan.operations,
+        document_plan.candidate_content_provenance,
+    )
     citations = validate_claim_citations(facts, claims)
     executable = validation.valid and citations.valid
     action = PresentationActionV1(
@@ -141,8 +177,8 @@ def build_document_repository_presentation_plan(
             PlannedSourceSpanV1(
                 path="README.md",
                 byte_start=0,
-                byte_end=len(current_work_text.encode("utf-8")),
-                expected_sha256=sha256_text(current_work_text),
+                byte_end=len(patch_source_text.encode("utf-8")),
+                expected_sha256=sha256_text(patch_source_text),
                 replacement_sha256=sha256_text(candidate_text),
                 purpose=edit.purpose,
             )

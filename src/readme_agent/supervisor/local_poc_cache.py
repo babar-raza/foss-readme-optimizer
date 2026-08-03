@@ -19,9 +19,13 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.document_templates import document_template_hash
+from readme_agent.registry.loader import require_listed
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.stage_dependencies import (
+    current_candidate_stage_dependency_manifest,
+)
 
 _COMPLETE_STATUSES = {
     "NO_OP_PROVEN",
@@ -133,6 +137,9 @@ def _stored_dependencies(
         ),
         "template_hash": document_plan.get("template_sha256") if document_plan else None,
         "composition_prompt_hash": (agentic_plan.get("prompt_sha256") if agentic_plan else None),
+        "candidate_stage_dependency_key": (
+            manifest.get("candidate_stage_dependency_key") if manifest else None
+        ),
         "reviewer_standard_hash": (manifest.get("reviewer_standard_hash") if manifest else None),
         "control_plane_fingerprint": (
             supervisor.control_plane_fingerprint if supervisor is not None else None
@@ -147,18 +154,29 @@ def _current_dependencies(
     control_plane_fingerprint: str,
     inventory_sha256: str | None,
     content_assurance: ContentAssuranceV1,
+    org_repo: str,
+    ecosystem: str | None = None,
+    family: str | None = None,
 ) -> dict[str, Any]:
-    fact_contract = current_fact_acceptance_contract()
+    resolved_family = family
+    if ecosystem is not None and family is None:
+        resolved_family = require_listed(org_repo).family
+    fact_contract = current_fact_acceptance_contract(ecosystem, resolved_family)
     return {
         "source_revision": source_revision,
         "content_assurance": content_assurance,
         "fact_acceptance_contract_hash": fact_contract.canonical_hash(),
         "fact_acceptance_component_hashes": fact_contract.component_hashes,
-        "local_verification_contract_hash": local_verification_contract_hash(),
+        "local_verification_contract_hash": local_verification_contract_hash(ecosystem),
         "prompt_registry_content_hash": prompt_registry.content_hash(),
         "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
         "template_hash": document_template_hash(),
         "composition_prompt_hash": prompt_registry.prompt_hash("plan_readme_composition"),
+        "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
+            repository=org_repo,
+            source_revision=source_revision or "0" * 40,
+            ecosystem=ecosystem,
+        ).stage_key,
         "reviewer_standard_hash": separated_reviewer_standard_hash(),
         "control_plane_fingerprint": control_plane_fingerprint,
         "artifact_inventory_sha256": inventory_sha256,
@@ -172,6 +190,8 @@ def evaluate_completed_local_poc_cache(
     current_source_revision: str | None,
     current_control_plane_fingerprint: str,
     content_assurance: ContentAssuranceV1 = "repository_verified",
+    ecosystem: str | None = None,
+    family: str | None = None,
 ) -> LocalPocCacheDecisionV1:
     """Fail closed unless a no-op-proven bundle and every dependency still agree."""
 
@@ -181,6 +201,8 @@ def evaluate_completed_local_poc_cache(
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
         content_assurance=content_assurance,
+        ecosystem=ecosystem,
+        family=family,
         approved_only=False,
     )
 
@@ -192,6 +214,8 @@ def evaluate_approved_local_poc_cache(
     current_source_revision: str | None,
     current_control_plane_fingerprint: str,
     content_assurance: ContentAssuranceV1 = "repository_verified",
+    ecosystem: str | None = None,
+    family: str | None = None,
 ) -> LocalPocCacheDecisionV1:
     """Fail closed unless an approved bundle can prove its first unchanged rerun."""
 
@@ -201,6 +225,8 @@ def evaluate_approved_local_poc_cache(
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
         content_assurance=content_assurance,
+        ecosystem=ecosystem,
+        family=family,
         approved_only=True,
     )
 
@@ -213,6 +239,8 @@ def _evaluate_local_poc_cache(
     current_control_plane_fingerprint: str,
     content_assurance: ContentAssuranceV1,
     approved_only: bool,
+    ecosystem: str | None,
+    family: str | None,
 ) -> LocalPocCacheDecisionV1:
     """Bind approved or completed reuse to the same complete dependency set."""
 
@@ -235,6 +263,9 @@ def _evaluate_local_poc_cache(
         control_plane_fingerprint=current_control_plane_fingerprint,
         inventory_sha256=inventory_sha256,
         content_assurance=content_assurance,
+        org_repo=state.org_repo if state is not None else "unknown/unknown",
+        ecosystem=ecosystem,
+        family=family,
     )
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     reasons: list[str] = []
@@ -335,6 +366,7 @@ def _evaluate_local_poc_cache(
         "local_verification_contract_hash",
         "template_hash",
         "composition_prompt_hash",
+        "candidate_stage_dependency_key",
         "reviewer_standard_hash",
         "control_plane_fingerprint",
     ):
@@ -418,6 +450,7 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
         elif reason.startswith("manifest_presentation_plan_") or reason in {
             "template_hash_changed",
             "composition_prompt_hash_changed",
+            "candidate_stage_dependency_key_changed",
         }:
             affected.append("PLAN_READY")
         elif reason.startswith("manifest_candidate_") or reason in {

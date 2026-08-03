@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.facts.prompt_projection import prompt_fact_value
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
@@ -1309,7 +1310,16 @@ def grounding_retry_context(
                 "fact_id": fact.get("fact_id"),
                 "verification_state": fact.get("verification_state"),
                 "evidence_location": (fact.get("source") or {}).get("location"),
-                "evidence": sorted(_fact_evidence_strings(fact)),
+                "evidence": sorted(
+                    _fact_evidence_strings(
+                        {
+                            **fact,
+                            "value": prompt_fact_value(
+                                str(fact.get("field", "")), fact.get("value")
+                            ),
+                        }
+                    )
+                ),
                 "evidence_assessments": fact.get("evidence_assessments") or [],
             }
             for fact in (product_facts or {}).get("facts", [])

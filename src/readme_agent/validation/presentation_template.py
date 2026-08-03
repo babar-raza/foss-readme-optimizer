@@ -7,6 +7,7 @@ import unicodedata
 
 from markdown_it import MarkdownIt
 
+from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.presentation.template_schema import (
     PresentationTemplateInputV1,
     RepositoryPresentationTemplateV1,
@@ -120,6 +121,8 @@ def validate_repository_presentation(
     }
     if own_families and candidate_families - own_families:
         errors.append("candidate contains cross-product Aspose FOSS identity leakage")
+    if find_enterprise_terminology_findings(candidate):
+        errors.append("candidate contains noncanonical Aspose Enterprise Edition terminology")
 
     license_heading = next(
         (heading for heading in h2s if heading.title.casefold() == "license"),

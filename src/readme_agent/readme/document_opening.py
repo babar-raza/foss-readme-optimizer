@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import re
 
-from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_overview import overview_text
@@ -21,22 +20,10 @@ _PROMOTIONAL_CALLOUT = re.compile(
     r"(?m)^>[^\n]*(?:products\.aspose\.org)[^\n]*(?:products\.aspose\.com)[^\n]*\n(?:\n)?",
     re.IGNORECASE,
 )
-
-
-def _fallback_opening_summary(context: DocumentRenderContext) -> tuple[str, list[str]] | None:
-    identity = visitor_fact_render_view(context.facts, "product.identity")
-    purpose = visitor_fact_render_view(context.facts, "product.capabilities")
-    if identity is None or not identity.phrases or purpose is None or not purpose.phrases:
-        return None
-    identity_fact = context.facts.fact_by_id(identity.fact_id)
-    identity_value = identity_fact.value if isinstance(identity_fact.value, dict) else {}
-    platform = str(identity_value.get("platform") or identity_value.get("ecosystem") or "").strip()
-    kind = f"{platform} library" if platform else "library"
-    summary = (
-        f"{identity.phrases[0]} is a {kind} that provides "
-        f"{purpose.phrases[0].strip().rstrip('.').lower()}."
-    )
-    return summary, [identity.fact_id, purpose.fact_id]
+_BADGE_LINE = re.compile(
+    r"(?im)^(?![ \t]*<!--)[^\n]*(?:!\[[^\]]*\]\([^)]*(?:shields\.io|badge|actions/workflows)[^)]*\)"
+    r"[^\n]*)\n?"
+)
 
 
 def build_opening_operations(
@@ -64,22 +51,37 @@ def build_opening_operations(
     ]
     overview_fact_ids: list[str] = []
     authored_summary_fact_ids: list[str] = []
+    operations: list[ReadmeDocumentOperationV1] = []
     overview_insert = ""
-    if (
-        agentic_plan is not None
-        and agentic_plan.opening_summary is not None
-        and product_explanation_offset(context.inner_text) is None
-        and agentic_plan.opening_summary.text.strip() not in context.inner_text
-    ):
-        overview_insert = agentic_plan.opening_summary.text.strip() + "\n\n"
+    summary: str | None = None
+    if agentic_plan is not None and agentic_plan.opening_summary is not None:
+        summary = agentic_plan.opening_summary.text.strip()
         authored_summary_fact_ids.extend(agentic_plan.opening_summary.supporting_fact_ids)
-    elif product_explanation_offset(context.inner_text) is None:
-        fallback_summary = _fallback_opening_summary(context)
-        if fallback_summary is not None:
-            summary, fact_ids = fallback_summary
-            if summary not in context.inner_text:
-                overview_insert = summary + "\n\n"
-                authored_summary_fact_ids.extend(fact_ids)
+    h1 = next((heading for heading in context.headings if heading.level == 1), None)
+    if summary and h1 is not None:
+        opening_end = first_h2.start if first_h2 is not None else len(context.inner_text)
+        badges = list(_BADGE_LINE.finditer(context.inner_text, h1.heading_end, opening_end))
+        summary_start = badges[-1].end() if badges else h1.heading_end
+        replacement = f"\n{summary}\n\n"
+        if context.inner_text[summary_start:opening_end] != replacement:
+            operations.append(
+                build_operation(
+                    operation_id="readme.opening.fact-backed-summary",
+                    operation="replace",
+                    source=context.source,
+                    start=context.byte_offset(summary_start),
+                    end=context.byte_offset(opening_end),
+                    replacement=replacement,
+                    fact_ids=sorted(set(authored_summary_fact_ids)),
+                    treatment="authoritative_fact_correction",
+                    rationale=(
+                        "Replace competing opening calls-to-action and summaries with exactly "
+                        "one product-first statement bound to accepted repository facts."
+                    ),
+                )
+            )
+    elif summary and product_explanation_offset(context.inner_text) is None:
+        overview_insert = summary + "\n\n"
     if not has_overview:
         rendered_overview = overview_text(
             context.facts,
@@ -107,14 +109,14 @@ def build_opening_operations(
             fact_id for node in visual_plan.diagram_nodes for fact_id in node.fact_ids
         )
     if not overview_insert:
-        return []
+        return operations
     char_offset = first_h2.start if first_h2 is not None else len(context.inner_text)
     byte_offset = (
         insertion_byte_offset
         if insertion_byte_offset is not None
         else context.byte_offset(char_offset)
     )
-    return [
+    operations.append(
         build_operation(
             operation_id="readme.overview-navigation-and-acquisition",
             operation="insert_before",
@@ -135,7 +137,8 @@ def build_opening_operations(
                 "repository detail."
             ),
         )
-    ]
+    )
+    return operations
 
 
 def build_promotional_callout_operations(

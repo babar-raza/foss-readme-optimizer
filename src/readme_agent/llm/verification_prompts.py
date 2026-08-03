@@ -17,6 +17,7 @@ import json
 from string import Template
 
 from readme_agent.llm import prompt_registry
+from readme_agent.presentation.template_schema import repository_presentation_template_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists.review_candidate_anchors import (
     build_candidate_review_anchors,
@@ -352,9 +353,12 @@ def build_trusted_fidelity_review_tool_schema(
 def separated_reviewer_standard_hash() -> str:
     """Bind lifecycle reuse to prompts, visible standards, grounding, and reducer schema."""
 
+    from readme_agent.llm.merged_readme_review import MERGED_README_REVIEW_TOOL_SCHEMA
+
     components = [
-        "separated-readme-review-v4-visible-contract",
+        "merged-readme-review-v1-two-grounded-facets",
         BLIND_GROUNDING_CONTRACT_VERSION,
+        repository_presentation_template_hash(),
         hashlib.sha256(
             json.dumps(
                 build_presentation_visitor_contract(),
@@ -364,11 +368,13 @@ def separated_reviewer_standard_hash() -> str:
         ).hexdigest(),
         prompt_registry.prompt_hash("blind_readme_quality_review"),
         prompt_registry.prompt_hash("factual_readme_plan_review"),
+        prompt_registry.prompt_hash("merged_readme_review"),
         hashlib.sha256(
             json.dumps(
                 {
                     "blind": BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
                     "factual": FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
+                    "merged": MERGED_README_REVIEW_TOOL_SCHEMA,
                 },
                 sort_keys=True,
                 separators=(",", ":"),

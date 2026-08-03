@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-THREE-SLICES",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Prove three coherent, measured, product-specific cross-platform verified README candidates."
+  },
+  "acceptance_checks_passed": [
+    "Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are consistent",
+    "Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific",
+    "Aspose.org-generated prose is not used as factual or presentation acceptance evidence",
+    "Shared repairs invalidate only the responsible dependency and reuse unaffected Note receipts"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/level8-vpy-02-three-slices-v1/terminal-summary.json",
+    "plans/investigations/evidence/level8-vpy-02-three-slices-v1/validator-receipt.json",
+    "plans/investigations/evidence/level8-vpy-02-three-slices-v1/independent-verification-receipt.json",
+    "plans/investigations/evidence/level8-vpy-02-three-slices-v1/full-pytest-receipt.json"
+  ],
+  "scoreboard_before_sha256": "df009740d02965fd266e8e157eae6afec2c917f04a5437c1fb5e76cac14ed3ce",
+  "scoreboard_after_sha256": "df009740d02965fd266e8e157eae6afec2c917f04a5437c1fb5e76cac14ed3ce",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

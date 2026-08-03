@@ -5,9 +5,13 @@ from __future__ import annotations
 from pydantic import Field
 
 from readme_agent.specialists.independent_readme_review import IndependentReadmeReviewResultV1
+from readme_agent.specialists.merged_readme_review_contracts import (
+    CombinedReadmeReviewV1,
+    MergedReviewCallReceiptV1,
+    role_record_hash,
+)
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
-    CombinedReadmeReviewV1,
     CombinedReviewVerdict,
     FactualPlanReviewResultV1,
     FactualPlanVerdict,
@@ -64,14 +68,18 @@ def combine_review_verdicts(
     author: ReviewActorIdentityV1,
     blind_quality: RoleReviewRecordV1,
     factual_plan: RoleReviewRecordV1,
+    merged_call_receipt: MergedReviewCallReceiptV1 | None = None,
 ) -> CombinedReadmeReviewV1:
     """Combine role verdicts without allowing producer or reviewer identity overlap."""
 
-    identities_valid = (
+    base_roles_valid = (
         author.role == "author"
         and blind_quality.identity.role == "blind_quality_reviewer"
         and factual_plan.identity.role == "factual_plan_reviewer"
-        and len(
+        and blind_quality.candidate_sha256 == factual_plan.candidate_sha256
+    )
+    separated_identity_valid = (
+        len(
             {
                 author.actor_id,
                 blind_quality.identity.actor_id,
@@ -81,8 +89,21 @@ def combine_review_verdicts(
         == 3
         and blind_quality.identity.prompt_id != factual_plan.identity.prompt_id
         and blind_quality.identity.prompt_sha256 != factual_plan.identity.prompt_sha256
-        and blind_quality.candidate_sha256 == factual_plan.candidate_sha256
+        and merged_call_receipt is None
     )
+    merged_identity_valid = (
+        merged_call_receipt is not None
+        and author.actor_id != blind_quality.identity.actor_id
+        and blind_quality.identity.actor_id == factual_plan.identity.actor_id
+        and blind_quality.identity.prompt_id == factual_plan.identity.prompt_id
+        and blind_quality.identity.prompt_sha256 == factual_plan.identity.prompt_sha256
+        and merged_call_receipt.actor_id == blind_quality.identity.actor_id
+        and merged_call_receipt.prompt_id == blind_quality.identity.prompt_id
+        and merged_call_receipt.prompt_sha256 == blind_quality.identity.prompt_sha256
+        and merged_call_receipt.blind_record_sha256 == role_record_hash(blind_quality)
+        and merged_call_receipt.factual_record_sha256 == role_record_hash(factual_plan)
+    )
+    identities_valid = base_roles_valid and (separated_identity_valid or merged_identity_valid)
     reasons = [
         _authoritative_role_reason("blind_quality", blind_quality),
         _authoritative_role_reason("factual_plan", factual_plan),
@@ -93,6 +114,7 @@ def combine_review_verdicts(
             candidate_sha256=blind_quality.candidate_sha256,
             blind_quality=blind_quality,
             factual_plan=factual_plan,
+            merged_call_receipt=merged_call_receipt,
             identity_separation_valid=False,
             reasons=["review identity or candidate separation failed", *reasons],
         )
@@ -111,6 +133,7 @@ def combine_review_verdicts(
         candidate_sha256=blind_quality.candidate_sha256,
         blind_quality=blind_quality,
         factual_plan=factual_plan,
+        merged_call_receipt=merged_call_receipt,
         identity_separation_valid=True,
         reasons=reasons,
     )

@@ -62,9 +62,9 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.specialists import separated_readme_review
 from readme_agent.supervisor import planner_loop
-from tests.review_role_fixture_support import GroundedAcceptingRoleReviewClient
 
 ORG_REPO = "example-foss/Aspose.Widget-FOSS-for-Java"
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -125,25 +125,97 @@ class _FakeNonFlaggingAnalysisClient:
         )
 
 
-class _FakeAcceptingRoleReviewClient:
-    """RPOC-050/051: `readme_presentation`'s new `review` node calls
-    `independent_readme_review.run_independent_review_with_repair_loop()`
-    unconditionally on every real accept-path write -- faked here (always
-    `ACCEPT`) so this real-local-git-repo test stays network-free, and never
-    engages the repair loop's own regenerate-and-reverify path (a separate,
-    pre-existing bug in that module's own default `regenerate_context`,
-    found live while wiring this node -- see `specialists/readme_
-    presentation.py::_review_node`'s own docstring)."""
-
-    def __init__(self, *args, **kwargs):
-        pass
+class _FakeAcceptingMergedReviewClient:
+    """Return two grounded facets through the canonical one-call review seam."""
 
     def analyze(self, messages):
-        return GroundedAcceptingRoleReviewClient().analyze(messages)
+        user_content = str(messages[-1]["content"])
+        catalog_text = user_content.split(
+            "Complete candidate README block catalog, in source order:\n", 1
+        )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
+        facts_text = user_content.split("Selected accepted fact evidence packet:\n", 1)[1].split(
+            "\n\nCompact plan, source-preservation, and candidate-claim packet:", 1
+        )[0]
+        catalog = json.loads(catalog_text)
+        facts = json.loads(facts_text)
+        first = catalog[0]
+        candidate_text = "\n\n".join(str(item["text"]) for item in catalog)
+        selected_ids = set(facts.get("selected_fact_ids", {}).values())
+        supported = next(
+            (
+                (fact, phrase)
+                for fact in facts.get("selected_facts", [])
+                if fact.get("fact_id") in selected_ids
+                and fact.get("verification_state") in {"verified", "policy_approved"}
+                for phrase in fact_strings(fact.get("value"))
+                if len(phrase.strip()) >= 4 and phrase.casefold() in candidate_text.casefold()
+            ),
+            None,
+        )
+        if supported is None:
+            raise AssertionError("merged fixture reviewer found no literal selected fact")
+        fact, phrase = supported
+        start = candidate_text.casefold().index(phrase.casefold())
+        exact_span = candidate_text[start : start + len(phrase)]
+        quality = {
+            "verdict": "ACCEPT",
+            "reasoning": "The title supports visitor acceptance.",
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+            "findings": [
+                {
+                    "finding_id": "quality.fixture-title",
+                    "kind": "quality",
+                    "criterion": "clarity",
+                    "section": "title",
+                    "claim": "The candidate has a clear title.",
+                    "quoted_candidate_span": first["text"],
+                    "candidate_anchor_id": first["anchor_id"],
+                    "disposition": "supports_acceptance",
+                    "fact_id": None,
+                    "evidence_excerpt": None,
+                    "evidence_location": None,
+                    "expected_polarity": None,
+                    "observed_polarity": None,
+                    "polarity_result": "not_applicable",
+                    "required_repair": "",
+                }
+            ],
+        }
+        factual = {
+            "verdict": "ACCEPT",
+            "reasoning": "The selected fact supports the candidate.",
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+            "findings": [
+                {
+                    "finding_id": "factual.fixture-supported",
+                    "kind": "factual",
+                    "criterion": "factuality",
+                    "section": "candidate",
+                    "claim": "The candidate contains a selected fact.",
+                    "quoted_candidate_span": exact_span,
+                    "disposition": "supports_acceptance",
+                    "fact_id": fact["fact_id"],
+                    "evidence_excerpt": phrase,
+                    "evidence_location": fact["evidence_location"],
+                    "expected_polarity": "positive_implementation",
+                    "observed_polarity": "positive_implementation",
+                    "polarity_result": "supports",
+                    "required_repair": "",
+                }
+            ],
+        }
+        return AnalysisResult(
+            parsed={"quality": quality, "factual": factual},
+            meta=LLMResponseMeta(model="fixture-merged-reviewer"),
+        )
 
 
-def _fake_accepting_role_clients(*args, **kwargs):
-    return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
+def _fake_accepting_merged_client(*args, **kwargs):
+    return _FakeAcceptingMergedReviewClient()
 
 
 class _FakeDonePlannerClient:
@@ -347,14 +419,14 @@ def project(tmp_path, monkeypatch):
     monkeypatch.setattr(cached.env, "gh_token", lambda: None)
 
     # RPOC-050/051's own new dependency: the independent agentic reviewer's
-    # LLM call, and the general planner loop's own LLM call (real by default
+    # merged LLM call, and the general planner loop's own LLM call (real by default
     # whenever `cmd_supervise()` is called with no dynamic-planning override,
     # since `planner_client=None` resolves to a real `LivePlannerClient`
     # inside `supervisor/planner_loop.py::_default_planner_client()`).
     monkeypatch.setattr(
         separated_readme_review,
-        "build_live_role_review_clients",
-        _fake_accepting_role_clients,
+        "build_live_merged_review_client",
+        _fake_accepting_merged_client,
     )
     monkeypatch.setattr(planner_loop, "LivePlannerClient", _FakeDonePlannerClient)
     return tmp_path

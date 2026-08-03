@@ -10,7 +10,7 @@ from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.llm import prompt_registry
-from readme_agent.llm.reviewer_client import build_live_role_review_clients
+from readme_agent.llm.reviewer_client import build_live_merged_review_client
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
@@ -22,6 +22,7 @@ from readme_agent.specialists.factual_review_packet import build_factual_review_
 from readme_agent.specialists.independent_readme_review import (
     record_review_verdict,
 )
+from readme_agent.specialists.merged_readme_review import execute_merged_readme_review
 from readme_agent.specialists.readme_review_reducer import (
     SeparatedReadmeReviewResultV1,
     build_compatibility_result,
@@ -57,6 +58,21 @@ def _role_identity(actor_id: str, role: ReviewRole, prompt_id: str) -> ReviewAct
     )
 
 
+def _primary_example_language(product_facts: dict) -> str | None:
+    fact_id = (product_facts.get("selected_fact_ids") or {}).get("example.minimal")
+    fact = next(
+        (
+            item
+            for item in product_facts.get("facts") or []
+            if isinstance(item, dict) and item.get("fact_id") == fact_id
+        ),
+        None,
+    )
+    value = fact.get("value") if isinstance(fact, dict) else None
+    language = value.get("language") if isinstance(value, dict) else None
+    return str(language).strip().casefold() or None if language is not None else None
+
+
 def run_separated_readme_review(
     org_repo: str,
     original_readme_text: str,
@@ -66,19 +82,20 @@ def run_separated_readme_review(
     *,
     blind_client: AnalysisClientLike | None = None,
     factual_client: AnalysisClientLike | None = None,
+    merged_client: AnalysisClientLike | None = None,
     backend: StateBackend | None = None,
     repair_attempt: int = 0,
     author_identity: ReviewActorIdentityV1 | None = None,
 ) -> SeparatedReadmeReviewResultV1:
-    """Run both isolated roles against one candidate and record only the reduced verdict."""
+    """Run one merged review by default, retaining explicit separated compatibility."""
 
     if (blind_client is None) != (factual_client is None):
         raise ValueError("blind and factual review clients must be supplied together")
-    if blind_client is None or factual_client is None:
-        blind_client, factual_client = build_live_role_review_clients(
-            env.llm_base_url(),
-            env.llm_api_key(),
-        )
+    explicit_separated = blind_client is not None and factual_client is not None
+    if explicit_separated and merged_client is not None:
+        raise ValueError("merged and separated review clients are mutually exclusive")
+    if not explicit_separated and merged_client is None:
+        merged_client = build_live_merged_review_client(env.llm_base_url(), env.llm_api_key())
 
     if product_facts_v2 is None:
         facts_dispatch = dispatch_tool_call(
@@ -103,7 +120,8 @@ def run_separated_readme_review(
         heading.title for heading in parse_headings(candidate_readme_text) if heading.level == 2
     ]
     visitor_contract = build_presentation_visitor_contract(
-        applicable_h2_headings=applicable_h2_headings
+        applicable_h2_headings=applicable_h2_headings,
+        primary_example_language=_primary_example_language(product_facts_v2),
     )
     factual_packet = build_factual_review_packet(
         org_repo,
@@ -133,78 +151,102 @@ def run_separated_readme_review(
         rubric_version="1",
     )
 
-    blind_result, blind_retry_history, blind_grounding = run_grounded_role(
-        role="blind_quality",
-        prompt_id=_BLIND_PROMPT_ID,
-        client=blind_client,
-        messages=build_blind_quality_review_messages(
-            blind_input.org_repo,
-            blind_input.original_readme_text,
-            blind_input.candidate_readme_text,
-            _canonical_json(blind_input.visitor_contract),
-        ),
-        candidate_text=candidate_readme_text,
-        product_facts=None,
-        visitor_contract=blind_input.visitor_contract,
-    )
-    factual_result, factual_retry_history, factual_grounding = run_grounded_role(
-        role="factual_plan",
-        prompt_id=_FACTUAL_PROMPT_ID,
-        client=factual_client,
-        messages=build_factual_plan_review_messages(
-            factual_input.org_repo,
-            factual_input.candidate_readme_text,
-            _canonical_json(factual_packet.fact_context()),
-            _canonical_json(factual_packet.plan_context()),
-        ),
-        candidate_text=candidate_readme_text,
-        product_facts=product_facts_v2,
-    )
-    blind_result = cast(BlindQualityReviewResultV1, blind_result)
-    factual_result = cast(FactualPlanReviewResultV1, factual_result)
-    blind_identity = _role_identity(
-        "llm-route:blind-readme-quality",
-        "blind_quality_reviewer",
-        _BLIND_PROMPT_ID,
-    )
-    factual_identity = _role_identity(
-        "llm-route:factual-readme-plan",
-        "factual_plan_reviewer",
-        _FACTUAL_PROMPT_ID,
-    )
+    if explicit_separated:
+        assert blind_client is not None and factual_client is not None
+        blind_result, blind_retry_history, blind_grounding = run_grounded_role(
+            role="blind_quality",
+            prompt_id=_BLIND_PROMPT_ID,
+            client=blind_client,
+            messages=build_blind_quality_review_messages(
+                blind_input.org_repo,
+                blind_input.original_readme_text,
+                blind_input.candidate_readme_text,
+                _canonical_json(blind_input.visitor_contract),
+            ),
+            candidate_text=candidate_readme_text,
+            product_facts=None,
+            visitor_contract=blind_input.visitor_contract,
+        )
+        factual_result, factual_retry_history, factual_grounding = run_grounded_role(
+            role="factual_plan",
+            prompt_id=_FACTUAL_PROMPT_ID,
+            client=factual_client,
+            messages=build_factual_plan_review_messages(
+                factual_input.org_repo,
+                factual_input.candidate_readme_text,
+                _canonical_json(factual_packet.fact_context()),
+                _canonical_json(factual_packet.plan_context()),
+            ),
+            candidate_text=candidate_readme_text,
+            product_facts=product_facts_v2,
+        )
+        blind_result = cast(BlindQualityReviewResultV1, blind_result)
+        factual_result = cast(FactualPlanReviewResultV1, factual_result)
+        blind_identity = _role_identity(
+            "llm-route:blind-readme-quality",
+            "blind_quality_reviewer",
+            _BLIND_PROMPT_ID,
+        )
+        factual_identity = _role_identity(
+            "llm-route:factual-readme-plan",
+            "factual_plan_reviewer",
+            _FACTUAL_PROMPT_ID,
+        )
+        blind_record = build_role_review_record(
+            identity=blind_identity,
+            candidate_sha256=candidate_sha256,
+            input_sha256=input_hash(blind_input),
+            verdict=blind_result.verdict,
+            reasoning=blind_result.reasoning,
+            failed_criteria=blind_result.failed_criteria,
+            sections_affected=blind_result.sections_affected,
+            required_repair=blind_result.required_repair,
+            findings=blind_result.findings,
+            grounding_validation=blind_grounding,
+        )
+        factual_record = build_role_review_record(
+            identity=factual_identity,
+            candidate_sha256=candidate_sha256,
+            input_sha256=input_hash(factual_input),
+            verdict=factual_result.verdict,
+            reasoning=factual_result.reasoning,
+            failed_criteria=factual_result.failed_criteria,
+            sections_affected=factual_result.sections_affected,
+            required_repair=factual_result.required_repair,
+            findings=factual_result.findings,
+            grounding_validation=factual_grounding,
+        )
+        merged_call_receipt = None
+        grounding_history = [*blind_retry_history, *factual_retry_history]
+    else:
+        assert merged_client is not None
+        execution = execute_merged_readme_review(
+            org_repo=org_repo,
+            candidate_text=candidate_readme_text,
+            visitor_contract=blind_input.visitor_contract,
+            fact_context=factual_packet.fact_context(),
+            plan_context=factual_packet.plan_context(),
+            product_facts=product_facts_v2,
+            blind_input=blind_input,
+            factual_input=factual_input,
+            client=merged_client,
+        )
+        blind_result = execution.blind_result
+        factual_result = execution.factual_result
+        blind_record = execution.blind_record
+        factual_record = execution.factual_record
+        merged_call_receipt = execution.receipt
+        grounding_history = execution.grounding_history
     author = author_identity or _role_identity(
         "producer:readme-composition",
         "author",
         _AUTHOR_PROMPT_ID,
     )
-    blind_record = build_role_review_record(
-        identity=blind_identity,
-        candidate_sha256=candidate_sha256,
-        input_sha256=input_hash(blind_input),
-        verdict=blind_result.verdict,
-        reasoning=blind_result.reasoning,
-        failed_criteria=blind_result.failed_criteria,
-        sections_affected=blind_result.sections_affected,
-        required_repair=blind_result.required_repair,
-        findings=blind_result.findings,
-        grounding_validation=blind_grounding,
-    )
-    factual_record = build_role_review_record(
-        identity=factual_identity,
-        candidate_sha256=candidate_sha256,
-        input_sha256=input_hash(factual_input),
-        verdict=factual_result.verdict,
-        reasoning=factual_result.reasoning,
-        failed_criteria=factual_result.failed_criteria,
-        sections_affected=factual_result.sections_affected,
-        required_repair=factual_result.required_repair,
-        findings=factual_result.findings,
-        grounding_validation=factual_grounding,
-    )
     combined = combine_review_verdicts(
         author=author,
         blind_quality=blind_record,
         factual_plan=factual_record,
+        merged_call_receipt=merged_call_receipt,
     )
     review = build_compatibility_result(
         blind_result,
@@ -212,7 +254,7 @@ def run_separated_readme_review(
         blind_record,
         factual_record,
         combined,
-        [*blind_retry_history, *factual_retry_history],
+        grounding_history,
     )
     if backend is not None:
         record_review_verdict(

@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+  "audit_id": "three-slice-final",
+  "verifier_role": "independent_verification",
+  "verifier_authorship": {
+    "authored_any_candidate_or_implementation": false,
+    "provider_calls_made_by_verification": 0,
+    "effects_performed": 0,
+    "allowed_write_root": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/independent-verification/three-slice-final/",
+    "files_written": [
+      "receipt.json"
+    ]
+  },
+  "control_repository_snapshot": {
+    "branch": "main",
+    "head": "50ea7189e6ebdc554bd79a4b1c64cd76e2d3cd04",
+    "dirty_tree": true
+  },
+  "overall_verdict": "PASS",
+  "closure_authorized": true,
+  "manual_prose_repair_required": false,
+  "first_failure": null,
+  "reason": "All three source-current slices are checksum-valid, schema-valid, independently reconstructable, natively applicable from immutable source, sealed under the current fact, prompt, template, reviewer, and candidate-stage contracts, deterministically accepted, independently AGENT_APPROVED, and NO_OP_PROVEN with zero replay provider calls. Their visible presentation contracts pass and none requires manual prose repair.",
+  "current_shared_contracts": {
+    "document_template_sha256": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+    "prompt_registry_content_sha256": "4d7eb2101cb0894775017d105d793b1dae10b9aad18801438f70616ba971dbcc",
+    "composition_prompt_sha256": "5850ba60bb3ec66d6b61775aaa0311ed4e862b8a479a59c44c444b538c3e45e7",
+    "reviewer_standard_sha256": "7b100804198b75b0d6aa5511719b8996431a927bacf0e336c41c53ec76daff15"
+  },
+  "slices": [
+    {
+      "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "Python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "terminal_bundle": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "proposal_bundle": "runs/readme-proposal-bundles/aspose-note-foss__Aspose.Note-FOSS-for-Python/20260803-113500-707d",
+      "verdict": "PASS",
+      "source": {
+        "sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+        "baseline_head_matches": true,
+        "live_remote_head_matches": true,
+        "baseline_clean": true
+      },
+      "artifacts": {
+        "manifest_sha256": "7b188fab4fefe628421b5171a42e4b038d0dc695c7ccff12605f9d82b3852613",
+        "sha256sums_sha256": "a480514c52b5bbf7aabbd86f5d331f98ee56a6e5e778701027c48eb9288f5a77",
+        "checksum_entries": 268,
+        "checksum_failures": [],
+        "candidate_sha256": "bfdfcd7dbf57b1c21d0547031652ea28aff8934d6ba16ae936258d4b8e7e2ae0",
+        "proposal_artifact_inventory_sha256": "f7ffef4d21d38308e971658e222323c74d920b52de4995c40b3a8762180b3b53"
+      },
+      "current_bindings": {
+        "fact_acceptance_contract": {"stored": "71fe703804218ece6199f984e1a810dd5c46a9b4c823102c56b2ba6b33f501a9", "matches": true},
+        "local_verification_contract": {"stored": "0e02405d50615801c37355239cc39cb08f97028091782b69d46370b0ecc8569b", "matches": true},
+        "prompt_registry": {"matches": true},
+        "composition_prompt": {"matches": true},
+        "document_template": {"stored": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1", "matches": true},
+        "reviewer_standard": {"matches": true},
+        "candidate_stage_dependency": {"stored": "2a1893ad9c37b378945c5f5a11f3d1b5dc9826878d4ad5436083d1313321af78", "matches": true}
+      },
+      "independent_proposal_verification": {
+        "verified": true,
+        "failures": [],
+        "schemas_and_hash_bindings": true,
+        "repository_plan_bindings": true,
+        "candidate_reconstruction_byte_identical": true,
+        "plan_assessment_and_claim_map_reconstructed": true,
+        "native_patch_applies_to_immutable_source_and_yields_candidate": true,
+        "current_document_validation": true,
+        "live_acquisition_matches": true
+      },
+      "lifecycle": {
+        "terminal_status": "NO_OP_PROVEN",
+        "final_verdict": "AGENT_APPROVED",
+        "deterministic_validation_passed": true,
+        "replay_new_provider_calls": 0,
+        "replay_cache_reuses": 1,
+        "replay_patch_created": false,
+        "replay_duplicate_bundle_created": false
+      },
+      "review_separation": {
+        "author_model": "deterministic-verified-preservation-v1",
+        "author_prompt_sha256": "5850ba60bb3ec66d6b61775aaa0311ed4e862b8a479a59c44c444b538c3e45e7",
+        "reviewer_actor": "llm-route:merged-readme-review",
+        "reviewer_prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+        "author_reviewer_prompt_separated": true,
+        "candidate_hash_bindings": 5,
+        "all_candidate_hash_bindings_match": true
+      },
+      "presentation": {
+        "single_standard_h1": true,
+        "single_badge_row": true,
+        "badge_count": 5,
+        "navigation_is_list": true,
+        "license_prose_and_benefits": true,
+        "enterprise_terminology": true,
+        "html_comments": 0,
+        "emojis": 0,
+        "copyright_absent": true,
+        "mermaid_count": 1,
+        "mermaid_nondirectional": true,
+        "mermaid_full_product_name": true,
+        "mermaid_nodes": {"input": 1, "capability": 6, "output": 1},
+        "all_mermaid_nodes_fact_bound_and_accepted": true,
+        "repository_and_platform_specific": true,
+        "cross_product_leakage": []
+      },
+      "effects": {
+        "target_remote_effects_allowed": false,
+        "target_local_effects_allowed": false,
+        "selected_effect_capabilities": [],
+        "bundle_effect_artifacts": []
+      },
+      "scoreboard": {
+        "provider_calls": 2,
+        "cache_reuses": 1,
+        "prompt_tokens": 17062,
+        "completion_tokens": 1333,
+        "total_tokens": 18395,
+        "provider_latency_ms_sum": 31474,
+        "first_call_to_noop_ms": 197005
+      }
+    },
+    {
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "platform": ".NET",
+      "source_revision": "e78d87e1b33e22560c90acd73247695a1eec6a34",
+      "terminal_bundle": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34",
+      "proposal_bundle": "runs/readme-proposal-bundles/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/20260803-114515-03ba",
+      "verdict": "PASS",
+      "source": {
+        "sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+        "baseline_head_matches": true,
+        "live_remote_head_matches": true,
+        "baseline_clean": true
+      },
+      "artifacts": {
+        "manifest_sha256": "758f273433d49e3e17d0542d8624db3097b6dc5aaaea42e0d9de2d5b2591f26f",
+        "sha256sums_sha256": "a83ca341ed0832a08da3370e4cd583fca32740a3d70cff3de36e4fa0016a2b89",
+        "checksum_entries": 60,
+        "checksum_failures": [],
+        "candidate_sha256": "dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765",
+        "proposal_artifact_inventory_sha256": "5bc6f1597506cace48250b5c584312865fc726d4599c938ca665d598e8dcd21c"
+      },
+      "current_bindings": {
+        "fact_acceptance_contract": {"stored": "4320a080632e9a91b7f53647386a044319423374d8f52469255bb6dffac60b5a", "matches": true},
+        "local_verification_contract": {"stored": "cd40b36c0bb6a2d6cf0a0815437bacf78acfb033b33f8c4fbbcfe44d36793284", "matches": true},
+        "prompt_registry": {"matches": true},
+        "composition_prompt": {"matches": true},
+        "document_template": {"stored": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1", "matches": true},
+        "reviewer_standard": {"matches": true},
+        "candidate_stage_dependency": {"stored": "60cf04b6ef38719c6440f73f2c4730b3c9906e4cfe106e63d3f53b149c9b12bb", "matches": true}
+      },
+      "independent_proposal_verification": {
+        "verified": true,
+        "failures": [],
+        "schemas_and_hash_bindings": true,
+        "repository_plan_bindings": true,
+        "candidate_reconstruction_byte_identical": true,
+        "plan_assessment_and_claim_map_reconstructed": true,
+        "native_patch_applies_to_immutable_source_and_yields_candidate": true,
+        "current_document_validation": true,
+        "live_acquisition_matches": true
+      },
+      "lifecycle": {
+        "terminal_status": "NO_OP_PROVEN",
+        "final_verdict": "AGENT_APPROVED",
+        "deterministic_validation_passed": true,
+        "replay_new_provider_calls": 0,
+        "replay_cache_reuses": 1,
+        "replay_patch_created": false,
+        "replay_duplicate_bundle_created": false
+      },
+      "review_separation": {
+        "author_model": "deterministic-verified-preservation-v1",
+        "author_prompt_sha256": "5850ba60bb3ec66d6b61775aaa0311ed4e862b8a479a59c44c444b538c3e45e7",
+        "reviewer_actor": "llm-route:merged-readme-review",
+        "reviewer_prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+        "author_reviewer_prompt_separated": true,
+        "candidate_hash_bindings": 5,
+        "all_candidate_hash_bindings_match": true
+      },
+      "presentation": {
+        "single_standard_h1": true,
+        "single_badge_row": true,
+        "badge_count": 5,
+        "navigation_is_list": true,
+        "license_prose_and_benefits": true,
+        "enterprise_terminology": true,
+        "html_comments": 0,
+        "emojis": 0,
+        "copyright_absent": true,
+        "mermaid_count": 1,
+        "mermaid_nondirectional": true,
+        "mermaid_full_product_name": true,
+        "mermaid_nodes": {"input": 4, "capability": 6, "output": 4},
+        "all_mermaid_nodes_fact_bound_and_accepted": true,
+        "repository_and_platform_specific": true,
+        "cross_product_leakage": []
+      },
+      "effects": {
+        "target_remote_effects_allowed": false,
+        "target_local_effects_allowed": false,
+        "selected_effect_capabilities": [],
+        "bundle_effect_artifacts": []
+      },
+      "scoreboard": {
+        "provider_calls": 2,
+        "cache_reuses": 1,
+        "prompt_tokens": 9052,
+        "completion_tokens": 1412,
+        "total_tokens": 10464,
+        "provider_latency_ms_sum": 43081,
+        "first_call_to_noop_ms": 206684
+      }
+    },
+    {
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "platform": "Java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "terminal_bundle": "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "proposal_bundle": "runs/readme-proposal-bundles/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/20260803-115054-971a",
+      "verdict": "PASS",
+      "source": {
+        "sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+        "baseline_head_matches": true,
+        "live_remote_head_matches": true,
+        "baseline_clean": true
+      },
+      "artifacts": {
+        "manifest_sha256": "0d7baa40563acf1823d1dcc60d987be9e679bc8e03681d5c15a4855111c651ea",
+        "sha256sums_sha256": "ff13d896db5efa2aad9bbf2c345a3cd95e4899f7f61942c95ee0f1cb5f316ba3",
+        "checksum_entries": 135,
+        "checksum_failures": [],
+        "candidate_sha256": "adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f",
+        "proposal_artifact_inventory_sha256": "b9af508c2adcf70e17c94e4d8689eac832ffe42a270ccdc6a32b211407c5a966"
+      },
+      "current_bindings": {
+        "fact_acceptance_contract": {"stored": "b5cf9e1f5c0ad88f919f430c57447ca8979a8c5ba5642c28c87f4d53e47744b3", "matches": true},
+        "local_verification_contract": {"stored": "161a7a9a611d3345a2f6bd6bbc6be0f1aa1677c35e3af63ef4f5601b67328740", "matches": true},
+        "prompt_registry": {"matches": true},
+        "composition_prompt": {"matches": true},
+        "document_template": {"stored": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1", "matches": true},
+        "reviewer_standard": {"matches": true},
+        "candidate_stage_dependency": {"stored": "b86595d0f225fedd87ed77ca4f6c448c128a0050f14a9defd0a3fd849402c15d", "matches": true}
+      },
+      "independent_proposal_verification": {
+        "verified": true,
+        "failures": [],
+        "schemas_and_hash_bindings": true,
+        "repository_plan_bindings": true,
+        "candidate_reconstruction_byte_identical": true,
+        "plan_assessment_and_claim_map_reconstructed": true,
+        "native_patch_applies_to_immutable_source_and_yields_candidate": true,
+        "current_document_validation": true,
+        "live_acquisition_matches": true
+      },
+      "lifecycle": {
+        "terminal_status": "NO_OP_PROVEN",
+        "final_verdict": "AGENT_APPROVED",
+        "deterministic_validation_passed": true,
+        "replay_new_provider_calls": 0,
+        "replay_cache_reuses": 1,
+        "replay_patch_created": false,
+        "replay_duplicate_bundle_created": false
+      },
+      "review_separation": {
+        "author_model": "qwen3-next",
+        "author_prompt_sha256": "5850ba60bb3ec66d6b61775aaa0311ed4e862b8a479a59c44c444b538c3e45e7",
+        "reviewer_actor": "llm-route:merged-readme-review",
+        "reviewer_prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+        "author_reviewer_prompt_separated": true,
+        "candidate_hash_bindings": 5,
+        "all_candidate_hash_bindings_match": true
+      },
+      "presentation": {
+        "single_standard_h1": true,
+        "single_badge_row": true,
+        "badge_count": 5,
+        "navigation_is_list": true,
+        "license_prose_and_benefits": true,
+        "enterprise_terminology": true,
+        "html_comments": 0,
+        "emojis": 0,
+        "copyright_absent": true,
+        "mermaid_count": 1,
+        "mermaid_nondirectional": true,
+        "mermaid_full_product_name": true,
+        "mermaid_nodes": {"input": 1, "capability": 6, "output": 1},
+        "all_mermaid_nodes_fact_bound_and_accepted": true,
+        "repository_and_platform_specific": true,
+        "cross_product_leakage": []
+      },
+      "effects": {
+        "target_remote_effects_allowed": false,
+        "target_local_effects_allowed": false,
+        "selected_effect_capabilities": [],
+        "bundle_effect_artifacts": []
+      },
+      "scoreboard": {
+        "provider_calls": 3,
+        "cache_reuses": 1,
+        "prompt_tokens": 17746,
+        "completion_tokens": 3947,
+        "total_tokens": 21693,
+        "provider_latency_ms_sum": 97820,
+        "first_call_to_noop_ms": 302614
+      }
+    }
+  ],
+  "cohort_scoreboard": {
+    "slice_count": 3,
+    "strict_current_pass_count": 3,
+    "visible_presentation_pass_count": 3,
+    "manual_prose_repair_count": 0,
+    "mechanical_reseal_count": 0,
+    "provider_calls": 7,
+    "cache_reuses": 3,
+    "prompt_tokens": 43860,
+    "completion_tokens": 6692,
+    "total_tokens": 50552,
+    "provider_latency_ms_sum": 172375,
+    "replay_provider_calls": 0,
+    "product_effects": 0
+  },
+  "commands": [
+    ".venv/Scripts/python - [locate the latest proposal bundle matching terminal source revision, immutable README SHA-256, and candidate SHA-256]",
+    ".venv/Scripts/python - [verify every terminal sha256sums.txt entry and proposal artifact-sha256.json entry]",
+    ".venv/Scripts/python - [run verification.readme_proposal_bundle.verify_readme_proposal_bundle for each latest matching proposal bundle]",
+    ".venv/Scripts/python - [compare stored fact, local-verification, prompt-registry, composition-prompt, template, reviewer, and candidate-stage dependency identities to current functions]",
+    "git -C runs/baseline/<slice> rev-parse HEAD; git status --porcelain=v1; git ls-remote origin HEAD",
+    ".venv/Scripts/python - [inspect final/no-op/reviewer bindings, recursively compare all candidate_sha256 records, reconcile LLM ledger calls/tokens/timestamps, inspect effect authority, and independently check the visible README contract and fact-bound Mermaid nodes]"
+  ],
+  "next_action": "The coordinator may record this three-slice current-template proof and close only the exact graph contribution it satisfies. Preserve these checksum-bound bundles; continue with the next graph-selected verified Python task. Do not infer full Python, Gate A, Gate B, product-effect, or maturity closure from this three-slice result."
+}

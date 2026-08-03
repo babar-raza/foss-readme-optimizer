@@ -96,6 +96,9 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.verified_preservation_composition import (
+    build_verified_preservation_composition_plan,
+)
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.readme_factuality import evaluate_candidate_factuality
 from readme_agent.specialists.readme_presentation_review import review_candidate_node
@@ -125,6 +128,30 @@ _WRITE_PERMISSIONS: set[PermissionClass] = _READ_ONLY_PERMISSIONS | {"local_writ
 # BUDGET's own precedent. This earlier prose-quality gate remains bounded;
 # the later independent-review gate owns structured reviewer-hint repair.
 MAX_PROSE_REPAIR_ATTEMPTS = 2
+_TRANSIENT_CANDIDATE_DETAIL_KEYS = frozenset(
+    {
+        "agentic_composition_plan",
+        "agentic_composition_reused",
+        "bundle_verification",
+        "deterministic_validation",
+        "factuality",
+        "independent_review",
+        "presentation_plan",
+        "presentation_plan_patch",
+        "render_result",
+        "verification",
+    }
+)
+
+
+def _without_transient_candidate_details(state: DomainStateV1) -> dict:
+    """Prevent a failed new authoring turn from validating a prior candidate."""
+
+    return {
+        key: value
+        for key, value in state.details.items()
+        if key not in _TRANSIENT_CANDIDATE_DETAIL_KEYS
+    }
 
 
 def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
@@ -158,10 +185,14 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             wiring_arguments["prior_status"] = prior_status
 
     composition_plan_reused = False
+    deterministic_preservation_composed = False
+    snapshot = None
+    source_text = None
+    assessment = None
     if "product_facts_v2" in wiring_arguments or proposal_only_active():
         prior_plan = state.details.get("agentic_composition_plan")
         snapshot = current_repository_snapshot(org_repo)
-        if prepared is not None and prior_plan and snapshot is not None:
+        if prepared is not None and snapshot is not None:
             readme_path = snapshot.root_path / (snapshot.readme_path or "README.md")
             source_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
             assessment = assess_readme_document(
@@ -170,23 +201,45 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 prepared.facts,
                 base_revision=snapshot.source_revision,
             )
-            try:
-                reusable_plan = validate_readme_composition_plan(
-                    prior_plan,
-                    org_repo=org_repo,
-                    source_text=source_text,
-                    facts=prepared.facts,
-                    assessment=assessment,
-                )
-            except (LLMError, OSError, ValueError):
-                pass
-            else:
-                wiring_arguments["agentic_composition_plan"] = reusable_plan.model_dump(mode="json")
-                composition_plan_reused = True
+            if prior_plan:
+                try:
+                    reusable_plan = validate_readme_composition_plan(
+                        prior_plan,
+                        org_repo=org_repo,
+                        source_text=source_text,
+                        facts=prepared.facts,
+                        assessment=assessment,
+                    )
+                except (LLMError, OSError, ValueError):
+                    pass
+                else:
+                    wiring_arguments["agentic_composition_plan"] = reusable_plan.model_dump(
+                        mode="json"
+                    )
+                    composition_plan_reused = True
 
     if (
-        "product_facts_v2" in wiring_arguments or proposal_only_active()
-    ) and not composition_plan_reused:
+        not composition_plan_reused
+        and prepared is not None
+        and source_text is not None
+        and assessment is not None
+    ):
+        preservation_plan = build_verified_preservation_composition_plan(
+            org_repo,
+            source_text,
+            prepared.facts,
+            assessment,
+            lifecycle_status=prepared.lifecycle_status,
+        )
+        if preservation_plan is not None:
+            wiring_arguments["agentic_composition_plan"] = preservation_plan.model_dump(mode="json")
+            deterministic_preservation_composed = True
+
+    if (
+        ("product_facts_v2" in wiring_arguments or proposal_only_active())
+        and not composition_plan_reused
+        and not deterministic_preservation_composed
+    ):
         composition_call = {
             "function": {
                 "name": "plan_readme_composition",
@@ -207,7 +260,8 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 "accepted_status": (
                     f"ERROR:agentic_composition:{composition_dispatch.outcome}:"
                     f"{composition_dispatch.error}"
-                )
+                ),
+                "details": _without_transient_candidate_details(state),
             }
         assert composition_dispatch.result is not None
         wiring_arguments["agentic_composition_plan"] = composition_dispatch.result
@@ -222,14 +276,25 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         extra_kwargs=wiring_arguments,
     )
     if dispatch.outcome != "executed":
-        return {"accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}"}
+        return {
+            "accepted_status": f"ERROR:{dispatch.outcome}:{dispatch.error}",
+            "details": _without_transient_candidate_details(state),
+        }
 
     assert dispatch.result is not None
     render_result = dict(dispatch.result)
-    if composition_plan_reused:
+    supplied_plan = wiring_arguments.get("agentic_composition_plan") or {}
+    deterministic_preservation_plan = str(supplied_plan.get("model", "")).startswith(
+        "deterministic-verified-preservation-"
+    )
+    if composition_plan_reused or deterministic_preservation_composed:
         render_result["llm_called"] = False
         render_result["llm_calls"] = []
+    if composition_plan_reused:
         render_result["agentic_composition_reused"] = True
+    if deterministic_preservation_plan:
+        render_result["composition_strategy"] = "deterministic_verified_preservation"
+        render_result["composition_provider_calls"] = 0
     return {"details": merge_details(state, render_result=render_result)}
 
 

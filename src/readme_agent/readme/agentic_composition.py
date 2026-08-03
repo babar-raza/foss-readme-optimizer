@@ -16,12 +16,17 @@ from readme_agent.llm.generation_prompts import (
 )
 from readme_agent.llm.prompt_registry import prompt_hash
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
+from readme_agent.readme.agentic_composition_assessment import (
+    planning_assessment_payload,
+    planning_sections,
+)
 from readme_agent.readme.agentic_composition_grounding import (
     accepted_composition_fact_ids,
     materialize_tool_draft,
     overview_phrase_options,
 )
 from readme_agent.readme.agentic_composition_inputs import (
+    composition_fact_payloads,
     composition_input_payload,
     composition_input_sha256,
     independent_repair_hints,
@@ -34,11 +39,22 @@ from readme_agent.readme.agentic_composition_models import (
 )
 from readme_agent.readme.agentic_composition_validation import (
     bind_source_dispositions,
-    planning_sections,
     validate_composition_draft,
     validate_readme_composition_plan,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
+from readme_agent.readme.diagram_role_semantics import (
+    diagram_role_phrase_guidance,
+    normalize_diagram_role_nodes,
+)
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_MERMAID_MIN_CAPABILITIES,
+    PRESENTATION_MERMAID_MIN_INPUTS,
+    PRESENTATION_MERMAID_MIN_OUTPUTS,
+    PRESENTATION_MERMAID_TARGET_CAPABILITIES,
+    PRESENTATION_MERMAID_TARGET_INPUTS,
+    PRESENTATION_MERMAID_TARGET_OUTPUTS,
+)
 
 _JOB = "plan_readme_composition"
 
@@ -80,9 +96,16 @@ def _repair_hints(
         "will materialize literal phrases:\n"
         + json.dumps(overview_phrase_options(facts), ensure_ascii=False)
         + "\nFor opening_summary, use the complete product identity, cite that identity plus "
-        "at least one accepted purpose/capability/format fact, and omit promotion and hashes."
-        + "\nFor diagram.nodes, return at least one input, three capabilities, and one output; "
-        "cite only accepted fact IDs and keep every label repository-specific."
+        "the accepted audience fact and at least one accepted purpose/capability/format fact, "
+        "and omit promotion, Enterprise Edition comparisons, commercial terminology, and hashes."
+        + "\nFor diagram.nodes, return one to four distinct noun-phrase inputs, at least six "
+        "capabilities, and at least five outputs; "
+        "cite only accepted fact IDs and keep every label repository-specific. Every label must "
+        "retain at least one literal product term from the role-compatible vocabulary below; "
+        "do not use action phrases as inputs, and do not use runtime, source-code, package, "
+        "installation, API, license, or support nouns "
+        "unless they literally occur in this vocabulary:\n"
+        + json.dumps(diagram_role_phrase_guidance(facts), ensure_ascii=False, sort_keys=True)
     )
 
 
@@ -101,15 +124,11 @@ def plan_readme_composition(
     if max_attempts < 1:
         raise ValueError("max_attempts must be at least 1")
     accepted_ids = accepted_composition_fact_ids(facts)
-    facts_payload = [
-        fact.model_dump(mode="json") for fact in facts.facts if fact.fact_id in accepted_ids
-    ]
+    facts_payload = composition_fact_payloads(facts, accepted_ids)
     phrase_options = overview_phrase_options(facts)
     if not phrase_options:
         raise LLMError("README composition has no accepted fact phrase eligible for an overview")
-    assessment_payload = assessment.model_copy(
-        update={"sections": planning_sections(assessment)}
-    ).model_dump(mode="json")
+    assessment_payload = planning_assessment_payload(assessment)
     resolved_client = client or LiveForcedToolClient(
         base_url=env.llm_base_url(),
         api_key=env.llm_api_key(),
@@ -158,6 +177,23 @@ def plan_readme_composition(
             tool_draft = AgenticCompositionToolDraftV1.model_validate(result.arguments)
             draft = materialize_tool_draft(tool_draft, phrase_options, facts)
             draft = bind_source_dispositions(draft, assessment)
+            normalized_nodes = normalize_diagram_role_nodes(
+                draft.diagram.nodes,
+                facts,
+                {
+                    "input": PRESENTATION_MERMAID_MIN_INPUTS,
+                    "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+                    "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+                },
+                target_counts={
+                    "input": PRESENTATION_MERMAID_TARGET_INPUTS,
+                    "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,
+                    "output": PRESENTATION_MERMAID_TARGET_OUTPUTS,
+                },
+            )
+            draft = draft.model_copy(
+                update={"diagram": draft.diagram.model_copy(update={"nodes": normalized_nodes})}
+            )
             validate_composition_draft(draft, assessment, facts)
         except (LLMError, ValidationError) as exc:
             last_error = (

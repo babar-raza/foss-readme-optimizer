@@ -68,6 +68,22 @@ def _verified_repository_identifiers(facts: ProductFactsV2 | None) -> set[str]:
     for fact in facts.facts:
         if fact.verification_state != "verified":
             continue
+        if fact.field == "api.public_surface" and isinstance(fact.value, dict):
+            for module in fact.value.get("modules", []):
+                if not isinstance(module, dict):
+                    continue
+                for exported in module.get("exports", []):
+                    if isinstance(exported, str) and _SNAKE_IDENTIFIER.fullmatch(exported):
+                        identifiers.add(exported)
+            for public_class in fact.value.get("classes", []):
+                if not isinstance(public_class, dict):
+                    continue
+                for member in public_class.get("members", []):
+                    if not isinstance(member, dict):
+                        continue
+                    name = member.get("name")
+                    if isinstance(name, str) and _SNAKE_IDENTIFIER.fullmatch(name):
+                        identifiers.add(name)
         for assessment in fact.evidence_assessments or []:
             if not assessment.accepted or assessment.observed_polarity != "positive_implementation":
                 continue

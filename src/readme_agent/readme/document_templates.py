@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.acquisition_contracts import matching_coordinate_row
@@ -30,10 +31,50 @@ DOCUMENT_TEMPLATE_NAMES = (
     "verified-repository-constraints.md",
     "verified-minimal-example.md",
     "verified-maven-acquisition.md",
+    "verified-python-pypi-acquisition.md",
     "verified-dotnet-nuget-acquisition.md",
     "verified-cpp-nuget-acquisition.md",
     "verified-go-acquisition.md",
     "verified-source-acquisition.md",
+)
+DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
+    "src/readme_agent/readme/document_renderer.py",
+    "src/readme_agent/readme/document_opening.py",
+    "src/readme_agent/readme/document_legal.py",
+    "src/readme_agent/readme/document_links.py",
+    "src/readme_agent/readme/document_validation.py",
+    "src/readme_agent/readme/presentation_lint.py",
+    "src/readme_agent/readme/presentation_lint_semantics.py",
+    "src/readme_agent/readme/presentation_lint_structure.py",
+    "src/readme_agent/readme/presentation_lint_text.py",
+    "src/readme_agent/presentation/runtime_repairs.py",
+    "src/readme_agent/presentation/template_adapters.py",
+    "src/readme_agent/presentation/template_compiler.py",
+    "src/readme_agent/presentation/template_schema.py",
+    "src/readme_agent/presentation/verified_template_draft.py",
+    "src/readme_agent/presentation/verified_template_provenance.py",
+    "src/readme_agent/presentation/verified_template_runtime.py",
+    "src/readme_agent/presentation/verified_template_sections.py",
+    "src/readme_agent/readme/document_templates.py",
+    "src/readme_agent/readme/header_visual.py",
+    "src/readme_agent/readme/header_badges.py",
+    "src/readme_agent/readme/fact_grounding.py",
+    "src/readme_agent/readme/claim_accountability.py",
+    "src/readme_agent/readme/claim_accountability_helpers.py",
+    "src/readme_agent/readme/claim_accountability_models.py",
+    "src/readme_agent/readme/claim_accountability_validation.py",
+    "src/readme_agent/readme/claim_map.py",
+    "src/readme_agent/readme/assessment_claims.py",
+    "src/readme_agent/readme/document_plan.py",
+    "src/readme_agent/readme/document_plan_finalizer.py",
+    "src/readme_agent/validation/presentation_template.py",
+    "src/readme_agent/registry/loader.py",
+    "src/readme_agent/registry/models.py",
+)
+DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS = ("src/readme_agent/links/*.py",)
+DOCUMENT_CONTRACT_CATALOG_PATHS = (
+    "data/aspose_com_links.json",
+    "data/aspose_org_links.json",
 )
 _ACCEPTED_FACT_STATES = {"verified", "policy_approved"}
 
@@ -50,6 +91,18 @@ def document_template_hash() -> str:
         digest.update(name.encode("utf-8"))
         digest.update(b"\0")
         digest.update((TEMPLATE_ROOT / name).read_bytes())
+        digest.update(b"\0")
+    contract_paths = set(DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS)
+    contract_paths.update(DOCUMENT_CONTRACT_CATALOG_PATHS)
+    for pattern in DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS:
+        matches = [path for path in _PROJECT_ROOT.glob(pattern) if path.is_file()]
+        if not matches:
+            raise FileNotFoundError(f"document contract input pattern has no matches: {pattern}")
+        contract_paths.update(path.relative_to(_PROJECT_ROOT).as_posix() for path in matches)
+    for relative in sorted(contract_paths):
+        digest.update(relative.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update((_PROJECT_ROOT / relative).read_bytes())
         digest.update(b"\0")
     return digest.hexdigest()
 
@@ -137,6 +190,68 @@ def installation_text(
             )
             .strip()
         )
+    if method == "pypi" and ecosystem == "python":
+        package_name = str(coordinate.get("name") or "").strip()
+        if not package_name:
+            return None
+        compatibility = visitor_text(facts, "product.compatibility") or ""
+        return (
+            load_template("verified-python-pypi-acquisition.md")
+            .format(package_name=package_name, compatibility=compatibility)
+            .strip()
+        )
+    if method == "source_build" and ecosystem == "python":
+        try:
+            decision = AcquisitionDecisionV1.model_validate(acquisition_value)
+        except ValueError:
+            return None
+        receipt = decision.source_build_receipt
+        registry_receipt = decision.registry_receipt
+        repository_identity = str(identity_value.get("repository") or "").strip()
+        manifest_names = identity_value.get("manifest_names")
+        manifest_names = manifest_names if isinstance(manifest_names, list) else []
+        package_name = next(
+            (
+                str(name).strip()
+                for name in manifest_names
+                if str(name).strip()
+                and matching_coordinate_row(coordinates.value, {"name": str(name).strip()})
+            ),
+            "",
+        )
+        source_pin = f"source_revision={source_revision}"
+        if (
+            decision.outcome != "SOURCE_BUILD_VERIFIED"
+            or decision.org_repo != org_repo
+            or decision.source_revision != source_revision
+            or decision.ecosystem != "python"
+            or receipt is None
+            or registry_receipt is None
+            or registry_receipt.found
+            or registry_receipt.resolver_ecosystem != "python"
+            or registry_receipt.coordinate != coordinate
+            or repository_identity != org_repo
+            or not package_name
+            or source_pin not in receipt.dependency_pins
+            or not any(
+                pin.startswith("python_package_source_sha256=") for pin in receipt.dependency_pins
+            )
+        ):
+            return None
+        repository_name = org_repo.split("/", 1)[1]
+        return (
+            "Install the verified immutable repository revision from a local checkout:\n\n"
+            "```bash\n"
+            f"git clone https://github.com/{org_repo}.git\n"
+            f"cd {repository_name}\n"
+            f"git checkout --detach {source_revision}\n"
+            "python -m pip install .\n"
+            "```\n\n"
+            f"`{package_name}` was installed and exercised from this exact source revision in "
+            "an isolated, network-disabled verification environment. The matching PyPI receipt "
+            "did not find a published package, so this README does not present a PyPI package "
+            "installation command."
+        )
     if method == "nuget" and ecosystem in {"net", "dotnet", "cpp"}:
         package_name = str(coordinate.get("name") or "").strip()
         if not package_name:
@@ -195,12 +310,29 @@ def example_text(facts: ProductFactsV2, source_revision: str) -> str:
     if example is None:
         return ""
     value = example.value if isinstance(example.value, dict) else {}
+    bindings = value.get("input_fixture_bindings")
+    prerequisite_items = []
+    if isinstance(bindings, list):
+        prerequisite_items = [
+            (
+                f"- Before running the example, provide `{binding['target_path']}`; verification "
+                f"used the repository fixture `{binding['source_path']}`."
+            )
+            for binding in bindings
+            if isinstance(binding, dict)
+            and isinstance(binding.get("target_path"), str)
+            and binding["target_path"]
+            and isinstance(binding.get("source_path"), str)
+            and binding["source_path"]
+        ]
+    prerequisites = "\n".join(prerequisite_items) + "\n\n" if prerequisite_items else ""
     return (
         load_template("verified-minimal-example.md")
         .format(
             language=value.get("language", "text"),
             code=str(value.get("code", "")).rstrip(),
             source_revision=source_revision,
+            prerequisites=prerequisites,
         )
         .strip()
     )

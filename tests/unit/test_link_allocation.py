@@ -71,8 +71,8 @@ def test_generated_relationship_disclosure_cannot_expand_its_own_auto_budget() -
     relationship = (
         "[Aspose.Cells FOSS for Rust](https://products.aspose.org/cells/) and "
         "[Aspose.Cells for Rust Enterprise Edition](https://products.aspose.com/cells/) "
-        "are separate products. This README documents the FOSS implementation and the "
-        "limitations above; do not assume API or feature parity beyond verified behavior."
+        "are separate products. This README documents the FOSS implementation; do not "
+        "assume API or feature parity beyond verified behavior."
     )
 
     without_disclosure = resolve_link_budget(LinkAllocationPolicyV1(), content)

@@ -165,7 +165,10 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
     assert selected.active_trigger_key == "active"
 
 
-def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
+def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    import readme_agent.supervisor.local_poc_cache as cache_module
     from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
     from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
     from readme_agent.facts.local_verification import local_verification_contract_hash
@@ -175,14 +178,29 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.schema import RunStateV2, SupervisorStateV1
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+    from readme_agent.supervisor.stage_dependencies import (
+        current_candidate_stage_dependency_manifest,
+    )
 
     source_revision = "a" * 40
+    ecosystem = "python"
+    family = "note"
     facts_hash = "b" * 64
     assessment_hash = "c" * 64
     presentation_plan_hash = "d" * 64
     candidate_hash = "e" * 64
     prompt_hash = "f" * 64
-    fact_contract = current_fact_acceptance_contract()
+    monkeypatch.setattr(
+        cache_module,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(family=family),
+    )
+    fact_contract = current_fact_acceptance_contract(ecosystem, family)
+    candidate_dependency_key = current_candidate_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision=source_revision,
+        ecosystem=ecosystem,
+    ).stage_key
     reviewer_standard = separated_reviewer_standard_hash()
     control_plane = compute_control_plane_fingerprint(None)
     state = RunStateV2(
@@ -218,9 +236,10 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             "prompt_hash": prompt_hash,
             "fact_acceptance_contract_hash": fact_contract.canonical_hash(),
             "fact_acceptance_component_hashes": fact_contract.component_hashes,
-            "local_verification_contract_hash": local_verification_contract_hash(),
+            "local_verification_contract_hash": local_verification_contract_hash(ecosystem),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
+            "candidate_stage_dependency_key": candidate_dependency_key,
             "reviewer_standard_hash": reviewer_standard,
         },
     )
@@ -264,6 +283,7 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             bundle_dir,
             current_source_revision=source_revision,
             current_control_plane_fingerprint=control_plane,
+            ecosystem=ecosystem,
         )
         == "NO_OP_PROVEN"
     )
@@ -279,6 +299,17 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             bundle_dir,
             current_source_revision=source_revision,
             current_control_plane_fingerprint=control_plane,
+            ecosystem=ecosystem,
+        )
+        is None
+    )
+    assert (
+        completed_local_poc_status(
+            state,
+            bundle_dir,
+            current_source_revision="9" * 40,
+            current_control_plane_fingerprint=control_plane,
+            ecosystem=ecosystem,
         )
         is None
     )
@@ -290,6 +321,7 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path):
             bundle_dir,
             current_source_revision=source_revision,
             current_control_plane_fingerprint=control_plane,
+            ecosystem=ecosystem,
         )
         is None
     )

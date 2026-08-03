@@ -8,6 +8,10 @@ from pydantic import ValidationError
 from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.facts.acquisition import reconcile_acquisition, select_acquisition
+from readme_agent.facts.acquisition_facts import (
+    acquisition_fact_from_decision,
+    reconcile_acquisition_fact,
+)
 from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1, RegistryReceiptV1
 from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
@@ -244,6 +248,33 @@ def test_later_isolated_proof_reconciles_the_same_negative_registry_receipt():
     assert reconciled.outcome == "SOURCE_BUILD_VERIFIED"
     assert reconciled.registry_receipt == prior.registry_receipt
     assert reconciled.source_build_receipt is not None
+
+
+def test_later_isolated_proof_reconciles_the_selected_acquisition_fact():
+    prior = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=None,
+        unavailable_detail="no example yet",
+        resolution=_resolution(found=False),
+    )
+    prior_fact = acquisition_fact_from_decision(
+        prior,
+        observed_at="2026-08-03T00:00:00+00:00",
+    )
+
+    reconciled = reconcile_acquisition_fact(
+        _entry(),
+        prior_fact,
+        _isolated_verification(),
+        observed_at="2026-08-03T00:00:01+00:00",
+    )
+
+    assert reconciled.fact_id == "installation.verified_acquisition:disposable-source-build"
+    assert reconciled.verification_state == "verified"
+    assert reconciled.value["outcome"] == "SOURCE_BUILD_VERIFIED"
+    assert reconciled.value["registry_receipt"] == prior_fact.value["registry_receipt"]
+    assert reconciled.value["source_build_receipt"] is not None
 
 
 def test_network_uncertainty_blocks_even_when_a_source_build_is_available():

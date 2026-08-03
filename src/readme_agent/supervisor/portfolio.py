@@ -245,6 +245,7 @@ def completed_local_poc_status(
     *,
     current_source_revision: str | None,
     current_control_plane_fingerprint: str,
+    ecosystem: str | None = None,
 ) -> str | None:
     """Return a completed status only under the complete current cache contract."""
 
@@ -255,6 +256,7 @@ def completed_local_poc_status(
         bundle_dir,
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
+        ecosystem=ecosystem,
     )
     return decision.status if decision.reusable else None
 
@@ -295,6 +297,7 @@ def recover_completed_local_poc_status(
         bundle_dir,
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=compute_control_plane_fingerprint(entry.policy_profile),
+        ecosystem=entry.ecosystem,
     )
 
 

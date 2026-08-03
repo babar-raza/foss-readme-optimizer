@@ -156,6 +156,42 @@ class TestPythonParser:
 
         assert info["canonical_package"] == "aspose.cells_foss"
 
+    def test_statically_resolves_setuptools_dynamic_version_attribute(self, tmp_path):
+        (tmp_path / "src" / "aspose_pdf").mkdir(parents=True)
+        (tmp_path / "pyproject.toml").write_text(
+            '[project]\nname = "aspose-pdf-foss-for-python"\n'
+            'dynamic = ["version"]\n'
+            '[tool.setuptools]\npackage-dir = {"" = "src"}\n'
+            "[tool.setuptools.dynamic]\n"
+            'version = {attr = "aspose_pdf._version.__release_version__"}\n',
+            encoding="utf-8",
+        )
+        (tmp_path / "src" / "aspose_pdf" / "_version.py").write_text(
+            '__release_version__: str = "0.1.0a0"\n',
+            encoding="utf-8",
+        )
+
+        info = python.parse(tmp_path)
+
+        assert info["version"] == "0.1.0a0"
+
+    def test_does_not_execute_dynamic_version_module(self, tmp_path):
+        (tmp_path / "src" / "package").mkdir(parents=True)
+        (tmp_path / "pyproject.toml").write_text(
+            '[project]\nname = "package"\ndynamic = ["version"]\n'
+            '[tool.setuptools]\npackage-dir = {"" = "src"}\n'
+            '[tool.setuptools.dynamic]\nversion = {attr = "package._version.VERSION"}\n',
+            encoding="utf-8",
+        )
+        (tmp_path / "src" / "package" / "_version.py").write_text(
+            'raise RuntimeError("must not execute")\nVERSION = build_version()\n',
+            encoding="utf-8",
+        )
+
+        info = python.parse(tmp_path)
+
+        assert "version" not in info
+
     def test_falls_back_to_setup_py_when_no_pyproject_name(self, tmp_path):
         (tmp_path / "setup.py").write_text(
             'setup(name="aspose-3d-foss", version="1.2.3")\n', encoding="utf-8"

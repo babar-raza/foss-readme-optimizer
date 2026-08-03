@@ -11,7 +11,6 @@ from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.gitsafety.hooks import install_pre_push_hook
 from readme_agent.gitsafety.neuter import neuter_push
 from readme_agent.gitsafety.verify import verify_push_blocked
-from readme_agent.inspection.file_inventory import scan
 from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.candidate_workspace import ensure_work_clone
@@ -82,9 +81,12 @@ def prepare_idea_fidelity_candidate(
         proof = verify_push_blocked(work_path)
         if not proof.ok:
             raise RuntimeError(f"push-block verification failed, aborting: {proof.detail}")
-        inventory = scan(work_path)
-        work_readme = inventory.readme_path or (work_path / "README.md")
-        original_text = work_readme.read_text(encoding="utf-8") if work_readme.exists() else ""
+        # The persistent work clone exists only to preserve the local safety
+        # boundary. Repository-verified proposal identity must come entirely
+        # from the immutable snapshot consumed by facts and rendering; a stale
+        # work-clone README would otherwise produce a patch that cannot apply
+        # to the source README recorded in the evidence bundle.
+        original_text = source_text
         link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
 
         final_text, document_plan = build_readme_document_candidate(

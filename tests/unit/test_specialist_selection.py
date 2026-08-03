@@ -38,6 +38,33 @@ class TestCandidateDomainsInvariant:
 
 
 class TestDecideSkipsForcedRunBoundaries:
+    def test_prior_failure_is_forced_and_never_offered_to_skip_planner(self, tmp_path, monkeypatch):
+        def _must_not_be_called(*args, **kwargs):
+            raise AssertionError("diff should not decide whether a failed domain reruns")
+
+        monkeypatch.setattr(specialist_selection, "diff_changed_paths", _must_not_be_called)
+        prior = {
+            domains.README_PRESENTATION: DomainStateV1(
+                domain=domains.README_PRESENTATION,
+                upstream_revision_at_accept="sha-1",
+                consecutive_failure_count=1,
+                last_failure_reason="independent_review_exception",
+            )
+        }
+
+        plan = specialist_selection.decide_skips(
+            org_repo="acme/widget",
+            baseline_path=tmp_path,
+            prior_domain_states=prior,
+            current_revision="sha-1",
+            specialist_selection_client=None,
+        )
+
+        assert domains.README_PRESENTATION not in plan.skip_domains
+        assert plan.forced_run_domains[domains.README_PRESENTATION] == (
+            "prior_failure_requires_reexecution"
+        )
+
     def test_domain_at_max_consecutive_skips_is_forced_never_offered(self, tmp_path, monkeypatch):
         def _must_not_be_called(*args, **kwargs):
             raise AssertionError("diff_changed_paths should never be called for this domain")

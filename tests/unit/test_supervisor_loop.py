@@ -26,6 +26,7 @@ from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.errors import LLMError
 from readme_agent.facts import acquisition as facts_acquisition
 from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.analysis_client import AnalysisResult
@@ -35,6 +36,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta, Usage
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import agentic_composition, candidate_pipeline
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.specialists import readme_presentation, separated_readme_review
 from readme_agent.specialists import registry as specialists_registry
 from readme_agent.state.backend import Lock, SaveResult
@@ -77,6 +79,7 @@ class TestLocalPocNoOpGate:
     def test_no_op_and_later_lifecycle_states_require_complete_cache(self, monkeypatch, tmp_path):
         from readme_agent import paths
         from readme_agent.supervisor import local_poc_cache
+        from readme_agent.supervisor import loop as loop_module
 
         monkeypatch.setattr(
             paths,
@@ -87,6 +90,11 @@ class TestLocalPocNoOpGate:
             local_poc_cache,
             "evaluate_completed_local_poc_cache",
             lambda *args, **kwargs: SimpleNamespace(reusable=True),
+        )
+        monkeypatch.setattr(
+            loop_module,
+            "require_listed",
+            lambda org_repo: SimpleNamespace(ecosystem="java", family="thing"),
         )
         for status in ("NO_OP_PROVEN", "HUMAN_REVIEW_READY", "PR_PROOF_COMPLETE"):
             assert _readme_poc_noop_gate_holds(
@@ -256,6 +264,165 @@ def _fake_accepting_role_clients(*args, **kwargs):
     return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
 
 
+def _merged_accept_payload(messages) -> tuple[dict, dict]:
+    """Build two grounded acceptance facets from the merged prompt packet."""
+
+    user_content = str(messages[-1]["content"])
+    catalog_text = user_content.split(
+        "Complete candidate README block catalog, in source order:\n", 1
+    )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
+    facts_text = user_content.split("Selected accepted fact evidence packet:\n", 1)[1].split(
+        "\n\nCompact plan, source-preservation, and candidate-claim packet:", 1
+    )[0]
+    catalog = json.loads(catalog_text)
+    facts = json.loads(facts_text)
+    first = catalog[0]
+    candidate_text = "\n\n".join(str(item["text"]) for item in catalog)
+    selected_ids = set(facts.get("selected_fact_ids", {}).values())
+    supported = next(
+        (
+            (fact, phrase)
+            for fact in facts.get("selected_facts", [])
+            if fact.get("fact_id") in selected_ids
+            and fact.get("verification_state") in {"verified", "policy_approved"}
+            for phrase in fact_strings(fact.get("value"))
+            if len(phrase.strip()) >= 4 and phrase.casefold() in candidate_text.casefold()
+        ),
+        None,
+    )
+    if supported is None:
+        raise AssertionError("merged fixture reviewer found no literal selected fact")
+    fact, phrase = supported
+    start = candidate_text.casefold().index(phrase.casefold())
+    exact_span = candidate_text[start : start + len(phrase)]
+    quality = {
+        "verdict": "ACCEPT",
+        "reasoning": "The title supports visitor acceptance.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "quality.fixture-title",
+                "kind": "quality",
+                "criterion": "clarity",
+                "section": "title",
+                "claim": "The candidate has a clear title.",
+                "quoted_candidate_span": first["text"],
+                "candidate_anchor_id": first["anchor_id"],
+                "disposition": "supports_acceptance",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "required_repair": "",
+            }
+        ],
+    }
+    factual = {
+        "verdict": "ACCEPT",
+        "reasoning": "The selected fact supports the candidate.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+            {
+                "finding_id": "factual.fixture-supported",
+                "kind": "factual",
+                "criterion": "factuality",
+                "section": "candidate",
+                "claim": "The candidate contains a selected fact.",
+                "quoted_candidate_span": exact_span,
+                "disposition": "supports_acceptance",
+                "fact_id": fact["fact_id"],
+                "evidence_excerpt": phrase,
+                "evidence_location": fact["evidence_location"],
+                "expected_polarity": "positive_implementation",
+                "observed_polarity": "positive_implementation",
+                "polarity_result": "supports",
+                "required_repair": "",
+            }
+        ],
+    }
+    return quality, factual
+
+
+class _FakeAcceptingMergedReviewClient:
+    """Return both grounded review facets from one physical fixture call."""
+
+    calls = 0
+
+    def analyze(self, messages):
+        type(self).calls += 1
+        quality, factual = _merged_accept_payload(messages)
+        return AnalysisResult(
+            parsed={"quality": quality, "factual": factual},
+            meta=LLMResponseMeta(model="fixture-merged-reviewer"),
+        )
+
+
+def _fake_accepting_merged_client(*args, **kwargs):
+    return _FakeAcceptingMergedReviewClient()
+
+
+class _RejectThenAcceptMergedReviewClient:
+    """Return one grounded quality rejection, then merged acceptance after repair."""
+
+    calls = 0
+
+    def analyze(self, messages):
+        type(self).calls += 1
+        quality, factual = _merged_accept_payload(messages)
+        if type(self).calls == 1:
+            user_content = str(messages[-1]["content"])
+            catalog = json.loads(
+                user_content.split(
+                    "Complete candidate README block catalog, in source order:\n", 1
+                )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
+            )
+            diagram_anchor = next(
+                anchor
+                for anchor in catalog
+                if str(anchor.get("text", "")).lstrip().startswith("```mermaid")
+            )
+            quality = {
+                "verdict": "REJECT_REPAIRABLE",
+                "reasoning": "The overview diagram should use product-specific evidence.",
+                "failed_criteria": ["product_specificity"],
+                "sections_affected": ["At a glance"],
+                "required_repair": "Re-plan the diagram with product-specific facts.",
+                "findings": [
+                    {
+                        "finding_id": "quality.generic-overview",
+                        "kind": "quality",
+                        "criterion": "product_specificity",
+                        "section": "At a glance",
+                        "claim": "The overview diagram is generic.",
+                        "quoted_candidate_span": str(diagram_anchor["text"]),
+                        "candidate_anchor_id": str(diagram_anchor["anchor_id"]),
+                        "disposition": "requires_repair",
+                        "fact_id": None,
+                        "evidence_excerpt": None,
+                        "evidence_location": None,
+                        "expected_polarity": None,
+                        "observed_polarity": None,
+                        "polarity_result": "not_applicable",
+                        "required_repair": "Re-plan the diagram with product-specific facts.",
+                    }
+                ],
+            }
+        return AnalysisResult(
+            parsed={"quality": quality, "factual": factual},
+            meta=LLMResponseMeta(model="fixture-merged-reviewer"),
+        )
+
+
+def _fake_repair_merged_client(*args, **kwargs):
+    return _RejectThenAcceptMergedReviewClient()
+
+
 class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
     """Change the plan only when the independent review supplies repair instructions."""
 
@@ -287,6 +454,16 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
                     "supporting_fact_ids": [fact_id],
                 },
                 {
+                    "role": "input",
+                    "label": "Document streams",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "input",
+                    "label": "Document content",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
                     "role": "capability",
                     "label": "Create documents",
                     "supporting_fact_ids": [fact_id],
@@ -302,8 +479,43 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
                     "supporting_fact_ids": [fact_id],
                 },
                 {
+                    "role": "capability",
+                    "label": "Inspect document structure",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Extract document content",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Save document changes",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
                     "role": "output",
                     "label": "Updated document files",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Document text",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Document metadata",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Document structure",
+                    "supporting_fact_ids": [fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Processed documents",
                     "supporting_fact_ids": [fact_id],
                 },
             ]
@@ -322,22 +534,43 @@ class _RejectThenAcceptBlindReviewClient:
     def analyze(self, messages):
         type(self).calls += 1
         if type(self).calls == 1:
+            review_input = next(
+                str(message.get("content", ""))
+                for message in reversed(messages)
+                if "Complete candidate README block catalog, in source order:"
+                in str(message.get("content", ""))
+            )
+            anchor_catalog = json.loads(
+                review_input.split(
+                    "Complete candidate README block catalog, in source order:\n",
+                    1,
+                )[1].split(
+                    "\n\nAuthoritative parser-derived mechanical observations:",
+                    1,
+                )[0]
+            )
+            diagram_anchor = next(
+                anchor
+                for anchor in anchor_catalog
+                if str(anchor.get("text", "")).lstrip().startswith("```mermaid")
+            )
             parsed = {
                 "verdict": "REJECT_REPAIRABLE",
                 "reasoning": (
-                    "The overview ordering is generic and should lead with product evidence."
+                    "The overview diagram is generic and should use product-specific evidence."
                 ),
                 "failed_criteria": ["product_specificity"],
-                "sections_affected": ["Overview"],
-                "required_repair": "Re-plan the overview to lead with product-specific facts.",
+                "sections_affected": ["At a glance"],
+                "required_repair": "Re-plan the diagram with product-specific facts.",
                 "findings": [
                     {
                         "finding_id": "quality.generic-overview",
                         "kind": "quality",
                         "criterion": "product_specificity",
-                        "section": "Overview",
-                        "claim": "The overview ordering is generic.",
-                        "quoted_candidate_span": "Example FOSS",
+                        "section": "At a glance",
+                        "claim": "The overview diagram is generic.",
+                        "quoted_candidate_span": str(diagram_anchor["text"]),
+                        "candidate_anchor_id": str(diagram_anchor["anchor_id"]),
                         "disposition": "requires_repair",
                         "fact_id": None,
                         "evidence_excerpt": None,
@@ -345,9 +578,7 @@ class _RejectThenAcceptBlindReviewClient:
                         "expected_polarity": None,
                         "observed_polarity": None,
                         "polarity_result": "not_applicable",
-                        "required_repair": (
-                            "Re-plan the overview to lead with product-specific facts."
-                        ),
+                        "required_repair": ("Re-plan the diagram with product-specific facts."),
                     }
                 ],
             }
@@ -376,19 +607,17 @@ def _init_source_repo(path):
     run_git(["init", "-b", "main"], cwd=path)
     run_git(["config", "user.email", "test@example.com"], cwd=path)
     run_git(["config", "user.name", "Test"], cwd=path)
-    # Wave 8b: a title-only README (no body sentence at all) still has real
-    # gaps (no license/products-links/relationship-explained mention) but
-    # fails real validation once rendered (product_first_opening has nothing
-    # to anchor to) -- proven-valid two-line body, matching test_orchestrator.
-    # py's own BLANK_SLATE_README exactly, product name substituted, so the
-    # independent verifier (Wave 8b) accepts the resulting real GENERATED
-    # candidate instead of rejecting it.
     (path / "README.md").write_text(
-        "# Example FOSS for Java\n\n"
-        "Example FOSS for Java is a Java library for creating, reading, and "
-        "modifying document files.\n\n"
-        "## Quick Start\n\n"
-        "Existing local guidance.\n",
+        "# Aspose.Thing FOSS for Java\n\n"
+        '[license-token]: LICENSE "MIT License"\n'
+        "[foss-product]: https://products.example.org/thing/java/\n"
+        "[enterprise-product]: https://products.example.com/thing/java/ "
+        '"Enterprise Edition"\n',
+        encoding="utf-8",
+    )
+    (path / "pom.xml").write_text(
+        "<project><groupId>org.example</groupId>"
+        "<artifactId>example-foss</artifactId><version>1.0.0</version></project>\n",
         encoding="utf-8",
     )
     (path / "LICENSE").write_text("MIT License\n", encoding="utf-8")
@@ -568,6 +797,7 @@ def project(tmp_path, monkeypatch):
     _FakeAnalysisClient.calls = 0
     _FakeVisualAccuracyAnalysisClient.calls = 0
     _FakeAcceptingRoleReviewClient.calls = 0
+    _FakeAcceptingMergedReviewClient.calls = 0
     source = _init_source_repo(tmp_path / "source")
     _setup_project_root(tmp_path, str(source))
     monkeypatch.chdir(tmp_path)
@@ -635,27 +865,81 @@ def project(tmp_path, monkeypatch):
             "product.formats": ["document files"],
             "product.limitations": ["Fixture scope is intentionally minimal"],
             "installation.verified_acquisition": {
-                "method": "source_build",
-                "outcome": "SOURCE_BUILD_VERIFIED",
+                "method": "maven_central",
+                "outcome": "PUBLISHED_VERIFIED",
                 "detail": "verified by the synthetic local fixture",
+                "coordinate": {
+                    "group_id": "org.example",
+                    "artifact_id": "example-foss",
+                },
             },
+            "installation.coordinates": [
+                {
+                    "ecosystem": "java",
+                    "group_id": "org.example",
+                    "artifact_id": "example-foss",
+                    "version": "1.0.0",
+                }
+            ],
             "example.minimal": {
                 "language": "java",
                 "class_name": "Example",
                 "code": "public class Example {}",
                 "verification": {"status": "verified_fixture"},
             },
-            "product.compatibility": ["Java 11 or later"],
+            "product.compatibility": {"minimum_runtime": "Java 11"},
             "product.license": "MIT",
-            "relationship.commercial_foss": "Open-source scope with a separate commercial edition.",
+            "relationship.commercial_foss": (
+                "Aspose.Thing FOSS for Java provides the open-source scope. "
+                "Aspose.Thing Enterprise Edition for Java is a separate Enterprise Edition."
+            ),
         }
-        for fact in result["product_facts_v2"]["facts"]:
-            value = values.get(fact["field"])
-            if value is None:
-                continue
-            fact["value"] = value
-            fact["verification_state"] = "verified"
-            fact["confidence"] = 1.0
+        product_facts = result["product_facts_v2"]
+        facts_by_id = {fact["fact_id"]: fact for fact in product_facts["facts"]}
+        source_revision = next(
+            fact["source"]["source_revision"]
+            for fact in product_facts["facts"]
+            if fact["field"] == "product.identity"
+        )
+        replacements: dict[str, str] = {}
+        for field, value in values.items():
+            fact = facts_by_id[product_facts["selected_fact_ids"][field]]
+            old_fact_id = fact["fact_id"]
+            new_fact_id = f"{field}:supervisor-fixture"
+            replacements[old_fact_id] = new_fact_id
+            fact.update(
+                fact_id=new_fact_id,
+                value=value,
+                source={
+                    "source_type": "mechanical_test",
+                    "location": "tests/unit/test_supervisor_loop.py:project",
+                    "source_revision": source_revision,
+                },
+                verification_state="verified",
+                authoritative_owner="supervisor-loop-test-fixture",
+                confidence=1.0,
+                supporting_fact_ids=[],
+                conflicts=[],
+                evidence_assessments=None,
+            )
+            product_facts["selected_fact_ids"][field] = new_fact_id
+        for fact in product_facts["facts"]:
+            fact["supporting_fact_ids"] = [
+                replacements.get(fact_id, fact_id)
+                for fact_id in fact.get("supporting_fact_ids", [])
+            ]
+        validated = ProductFactsV2.model_validate(product_facts)
+        for required_field in (
+            "product.capabilities",
+            "product.formats",
+            "installation.verified_acquisition",
+            "installation.coordinates",
+            "example.minimal",
+        ):
+            selected = validated.selected_fact(required_field)
+            assert selected.fact_id == f"{required_field}:supervisor-fixture"
+            assert selected.verification_state == "verified"
+            assert selected.value is not None
         return result
 
     monkeypatch.setattr(
@@ -738,8 +1022,8 @@ def project(tmp_path, monkeypatch):
     # mock above.
     monkeypatch.setattr(
         separated_readme_review,
-        "build_live_role_review_clients",
-        _fake_accepting_role_clients,
+        "build_live_merged_review_client",
+        _fake_accepting_merged_client,
     )
     # The bundle verifier deliberately performs a fresh public-registry check
     # in production. This file's contract is an entirely offline synthetic
@@ -751,6 +1035,26 @@ def project(tmp_path, monkeypatch):
         lambda org_repo, facts: (True, "offline fixture: snapshot-bound acquisition accepted"),
     )
     return tmp_path
+
+
+@pytest.fixture
+def compliant_project(project):
+    """Give convergence-focused tests a source with no unresolved README finding."""
+
+    source = project / "source"
+    (source / "README.md").write_text(
+        "# Aspose.Thing FOSS for Java\n\n"
+        "Aspose.Thing FOSS for Java provides Java APIs to read and write document files.\n\n"
+        "This project uses the MIT License. It is the free, open-source edition. "
+        "Aspose.Thing Enterprise Edition for Java is a separate Enterprise Edition with a "
+        "broader feature set.\n\n"
+        "https://products.example.org/thing/java/\n"
+        "https://products.example.com/thing/java/\n",
+        encoding="utf-8",
+    )
+    run_git(["add", "README.md"], cwd=source)
+    run_git(["commit", "-m", "test: seed current compliant readme"], cwd=source)
+    return project
 
 
 class TestBasicLoop:
@@ -1022,8 +1326,8 @@ class TestBasicLoop:
 
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            lambda *args, **kwargs: (_ReviewerMustNotRun(), _ReviewerMustNotRun()),
+            "build_live_merged_review_client",
+            lambda *args, **kwargs: _ReviewerMustNotRun(),
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -1135,7 +1439,7 @@ class TestBasicLoop:
             "relationship": _FakeLiveLLMClient.calls,
             "composition": _FakeCompositionForcedToolClient.calls,
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
-            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+            "independent_review": _FakeAcceptingMergedReviewClient.calls,
         }
         proposal_root = (
             project
@@ -1225,13 +1529,13 @@ class TestBasicLoop:
             "relationship": 0,
             "composition": 1,
             "prose_quality": 0,
-            "independent_review": 2,
+            "independent_review": 1,
         }
         assert {
             "relationship": _FakeLiveLLMClient.calls,
             "composition": _FakeCompositionForcedToolClient.calls,
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
-            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+            "independent_review": _FakeAcceptingMergedReviewClient.calls,
         } == first_readme_llm_calls
         assert sorted(path.name for path in proposal_root.iterdir() if path.is_dir()) == (
             proposal_bundles_after_first
@@ -1304,7 +1608,7 @@ class TestBasicLoop:
             "relationship": _FakeLiveLLMClient.calls,
             "composition": _FakeCompositionForcedToolClient.calls,
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
-            "independent_review": _FakeAcceptingRoleReviewClient.calls,
+            "independent_review": _FakeAcceptingMergedReviewClient.calls,
         } == first_readme_llm_calls
 
         # Force a real specialist-tier rerun from the already-proven
@@ -1341,7 +1645,7 @@ class TestBasicLoop:
         backend = FakeStateBackend()
         _RepairAwareCompositionForcedToolClient.calls = 0
         _RepairAwareCompositionForcedToolClient.saw_repair_hint = False
-        _RejectThenAcceptBlindReviewClient.calls = 0
+        _RejectThenAcceptMergedReviewClient.calls = 0
         monkeypatch.setattr(
             agentic_composition,
             "LiveForcedToolClient",
@@ -1349,8 +1653,8 @@ class TestBasicLoop:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_repair_role_clients,
+            "build_live_merged_review_client",
+            _fake_repair_merged_client,
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -1386,7 +1690,7 @@ class TestBasicLoop:
         assert statuses[-1] == "AGENT_APPROVED"
         assert _RepairAwareCompositionForcedToolClient.calls == 2
         assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
-        assert _RejectThenAcceptBlindReviewClient.calls == 2
+        assert _RejectThenAcceptMergedReviewClient.calls == 2
 
         details = state.domain_states["readme_presentation"].details
         review = details["independent_review"]
@@ -1437,7 +1741,7 @@ class TestBasicLoop:
         )
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
-        assert _RejectThenAcceptBlindReviewClient.calls == 2
+        assert _RejectThenAcceptMergedReviewClient.calls == 2
         assert _RepairAwareCompositionForcedToolClient.calls == 2
 
     def test_local_poc_byte_identical_repair_reroutes_before_rereview(
@@ -1447,7 +1751,7 @@ class TestBasicLoop:
     ):
         backend = FakeStateBackend()
         _FakeCompositionForcedToolClient.calls = 0
-        _RejectThenAcceptBlindReviewClient.calls = 0
+        _RejectThenAcceptMergedReviewClient.calls = 0
         monkeypatch.setattr(
             agentic_composition,
             "LiveForcedToolClient",
@@ -1455,8 +1759,8 @@ class TestBasicLoop:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_repair_role_clients,
+            "build_live_merged_review_client",
+            _fake_repair_merged_client,
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -1480,7 +1784,7 @@ class TestBasicLoop:
         assert result.status == "BLOCKED"
         assert result.blocked_category == "agent_fixable"
         assert lifecycle.status == "README_ASSESSED"
-        assert _RejectThenAcceptBlindReviewClient.calls == 1
+        assert _RejectThenAcceptMergedReviewClient.calls == 1
         assert _FakeCompositionForcedToolClient.calls == 2
         lifecycle_bundle = (
             project
@@ -1599,17 +1903,26 @@ class TestBasicLoop:
                 tool_call=_tool_call("c1", "detect_readme_gaps", {"org_repo": ORG_REPO}),
                 meta=LLMResponseMeta(),
             ),
-            PlannerTurn(content="done", meta=LLMResponseMeta()),
+            *(PlannerTurn(content="done", meta=LLMResponseMeta()) for _ in range(3)),
         ]
         result = supervise_repo(
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status == "CONVERGED_PROPOSAL_READY"
+        assert result.status == "BLOCKED", (
+            result.blocked_reason,
+            result.blocked_category,
+            result.readme_lifecycle_status,
+            result.decisions,
+        )
+        assert result.blocked_reason is not None
+        assert result.blocked_reason.startswith("planner_stop_rejected_with_eligible_work:")
+        assert result.blocked_category == "agent_fixable"
         capability_ids = [t.capability_id for t in result.task_graph.tasks.values()]
         assert "inspect_repository" in capability_ids  # the deterministic bootstrap
         assert "detect_readme_gaps" in capability_ids  # the planner's own choice
         assert all(t.state == "PASSED" for t in result.task_graph.tasks.values())
+        assert [decision.kind for decision in result.decisions].count("stop_rejected") == 3
 
     def test_planner_calling_the_real_stop_capability_converges_without_dispatch(self, project):
         """TC-17 (decision #46, `AGT-006`): a planner calling the real,
@@ -1618,19 +1931,27 @@ class TestBasicLoop:
         graph as a dispatched task at all."""
         turns = [
             PlannerTurn(
-                tool_call=_tool_call("c1", "stop", {"reason": "nothing left to investigate"}),
+                tool_call=_tool_call(
+                    f"c{index}",
+                    "stop",
+                    {"reason": "nothing left to investigate"},
+                ),
                 meta=LLMResponseMeta(),
-            ),
+            )
+            for index in range(3)
         ]
         result = supervise_repo(
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status == "CONVERGED_PROPOSAL_READY"
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason is not None
+        assert result.blocked_reason.startswith("planner_stop_rejected_with_eligible_work:")
+        assert result.blocked_category == "agent_fixable"
         capability_ids = [t.capability_id for t in result.task_graph.tasks.values()]
         assert "stop" not in capability_ids  # never dispatched as an ordinary task
-        stop_decisions = [d for d in result.decisions if d.kind == "stop"]
-        assert any("stop capability called" in d.detail for d in stop_decisions)
+        assert [decision.kind for decision in result.decisions].count("stop_rejected") == 3
+        assert all(decision.kind != "stop" for decision in result.decisions)
 
     @pytest.mark.parametrize("stop_style", ["implicit", "capability"])
     def test_stop_is_rejected_while_deterministic_work_remains(
@@ -1684,7 +2005,7 @@ class TestBasicLoop:
             ORG_REPO, planner_client=FixturePlannerClient(turns), write_evidence_bundle=False
         )
 
-        assert result.status == "CONVERGED_PROPOSAL_READY"
+        assert result.status == "PARTIAL_WITH_FINDINGS"
         backstop_decisions = [
             d
             for d in result.decisions
@@ -1786,7 +2107,9 @@ class TestOrgRepoTrustBoundary:
 
 
 class TestCapabilityGap:
-    def test_unknown_capability_gap_alongside_independent_passed_branch(self, project):
+    def test_unknown_capability_gap_alongside_independent_passed_branch(
+        self, project, compliant_project
+    ):
         """GAP-001's 'continue independent supported work' + GAP-002's exact
         literal status string, proven together against the real dispatcher."""
         turns = [
@@ -1813,7 +2136,9 @@ class TestCapabilityGap:
 
 
 class TestRepair:
-    def test_execution_error_triggers_an_automatic_repair_that_recovers(self, project, monkeypatch):
+    def test_execution_error_triggers_an_automatic_repair_that_recovers(
+        self, project, compliant_project, monkeypatch
+    ):
         """ORC-002/VER-002: a repairable failure creates a repair task and
         the run still converges, without discarding the unrelated
         bootstrap's already-PASSED result."""
@@ -1851,7 +2176,9 @@ class TestRepair:
 
 
 class TestDurableConvergence:
-    def test_second_call_with_unchanged_upstream_converges_with_zero_planning_calls(self, project):
+    def test_second_call_with_unchanged_upstream_converges_with_zero_planning_calls(
+        self, compliant_project
+    ):
         """VER-003, proven against the real freshness check: a
         FixturePlannerClient seeded with zero turns would raise if `.plan()`
         were ever called -- the assertion is structural, not just
@@ -1893,7 +2220,7 @@ class TestSpecialistDrivenConvergence:
     nothing this tool tracks (README/LICENSE/community files)."""
 
     def test_upstream_commit_changes_but_tracked_content_unchanged_converges_without_planning(
-        self, project
+        self, project, compliant_project
     ):
         backend = FakeStateBackend()
         first = supervise_repo(
@@ -1925,7 +2252,9 @@ class TestSpecialistDrivenConvergence:
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert second.task_graph.tasks == {}  # no tasks even attempted
 
-    def test_tracked_content_change_is_reprocessed_without_false_convergence(self, project):
+    def test_tracked_content_change_is_reprocessed_without_false_convergence(
+        self, project, compliant_project
+    ):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -1974,7 +2303,9 @@ class TestSpecialistSkipIntegration:
     class proves that implicitly, by never passing them) -- these tests
     exercise the opt-in path directly."""
 
-    def test_a_skipped_domain_prevents_the_no_tracked_change_shortcut(self, project):
+    def test_a_skipped_domain_prevents_the_no_tracked_change_shortcut(
+        self, project, compliant_project
+    ):
         """The crux correctness guarantee: an upstream commit that touches
         nothing any domain's own fingerprint tracks would normally converge
         via CONVERGED_NO_TRACKED_CHANGE with zero planning calls (see
@@ -2034,7 +2365,7 @@ class TestSpecialistSkipIntegration:
         # not just a status-string coincidence.
         assert "inspect_repository" in [t.capability_id for t in second.task_graph.tasks.values()]
 
-    def test_default_off_never_invokes_the_skip_decision(self, project):
+    def test_default_off_never_invokes_the_skip_decision(self, project, compliant_project):
         """`enable_specialist_skip=False` (the default) must mean
         `specialist_selection.decide_skips()` is never even called --
         proven structurally, not just by absence of a skip in the result."""
@@ -2100,7 +2431,7 @@ class TestModelRouteDisablement:
         )
         assert result.blocked_category == "infra_external"
 
-    def test_no_recorded_status_proceeds_normally(self, project):
+    def test_no_recorded_status_proceeds_normally(self, project, compliant_project):
         backend = FakeStateBackend()
         result = supervise_repo(
             ORG_REPO,
@@ -2111,7 +2442,7 @@ class TestModelRouteDisablement:
         )
         assert result.status == "CONVERGED_PROPOSAL_READY"
 
-    def test_enabled_status_proceeds_normally(self, project):
+    def test_enabled_status_proceeds_normally(self, project, compliant_project):
         backend = FakeStateBackend()
         backend.save_model_route_status(
             ModelRouteStatusV1(job="supervisor_planning", status="enabled")
@@ -2229,7 +2560,7 @@ class TestNotOnboardedGate:
         assert result.blocked_category == "agent_fixable"
         assert result.decisions[0].kind == "capability_gap"
 
-    def test_fully_onboarded_entry_is_unaffected_by_the_new_gate(self, project):
+    def test_fully_onboarded_entry_is_unaffected_by_the_new_gate(self, project, compliant_project):
         """Control case: the project fixture's default entry (ecosystem=
         "java", policy_profile="test-profile", matching the 3 real onboarded
         pilots' shape) must pass straight through the new check unchanged."""
@@ -2314,7 +2645,7 @@ class TestMultiDomainCoexistence:
     run, must never collide or clobber each other -- previously only ever
     exercised with one real domain."""
 
-    def test_all_domains_land_in_the_same_run_without_collision(self, project):
+    def test_all_domains_land_in_the_same_run_without_collision(self, project, compliant_project):
         backend = FakeStateBackend()
         result = supervise_repo(
             ORG_REPO,
@@ -2355,9 +2686,9 @@ class TestMultiDomainCoexistence:
             state.domain_states["cross_surface_validation"].accepted_status == "FIRST_OBSERVATION"
         )
         assert state.domain_states["readme_presentation"].accepted_status == "FIRST_OBSERVATION"
-        # mode: "dry_run" in this fixture -- written locally (a real gap
-        # exists), never committed, regardless of render/validation outcome.
-        assert state.domain_states["readme_presentation"].details["written"] is True
+        # The convergence fixture is already compliant, so the specialist
+        # correctly performs no local write and never commits.
+        assert state.domain_states["readme_presentation"].details["written"] is False
         assert state.domain_states["readme_presentation"].details["committed"] is False
         assert state.domain_states["visual_preparation"].accepted_status == "FIRST_OBSERVATION"
         # No image asset exists in this fixture repo -- a real candidate is
@@ -2425,7 +2756,7 @@ class TestSpecialistResultsEvidence:
     CHANGE shortcut path (which didn't even generate an evidence_dir).
     `specialist_results.json` must exist and be populated on both paths."""
 
-    def test_specialist_results_json_written_on_the_shortcut_path(self, project):
+    def test_specialist_results_json_written_on_the_shortcut_path(self, project, compliant_project):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -2455,7 +2786,9 @@ class TestSpecialistResultsEvidence:
         assert payload["readme_reconciliation"]["accepted_status"] == "NO_CHANGE"
         assert "details" in payload["readme_reconciliation"]
 
-    def test_specialist_results_json_written_on_the_full_loop_path(self, project):
+    def test_specialist_results_json_written_on_the_full_loop_path(
+        self, project, compliant_project
+    ):
         backend = FakeStateBackend()
         result = supervise_repo(
             ORG_REPO,
@@ -2477,7 +2810,7 @@ class TestRunManifestV2Evidence:
     -- proven here with real, non-`None` values on the full-loop path,
     which has the richest context available."""
 
-    def test_manifest_json_carries_the_new_run_manifest_v2_fields(self, project):
+    def test_manifest_json_carries_the_new_run_manifest_v2_fields(self, project, compliant_project):
         backend = FakeStateBackend()
         result = supervise_repo(
             ORG_REPO,
@@ -2513,7 +2846,9 @@ class TestRunManifestV2Evidence:
         assert manifest["authorization_record_id"] is None
         assert manifest["trigger_dedup_key"] is None
 
-    def test_requirement_ids_exercised_reflects_independent_verifications_own_map(self, project):
+    def test_requirement_ids_exercised_reflects_independent_verifications_own_map(
+        self, project, compliant_project
+    ):
         backend = FakeStateBackend()
         result = supervise_repo(
             ORG_REPO,
@@ -2746,6 +3081,100 @@ class TestEscalationAlert:
         assert [d for d in result.decisions if d.kind == "escalation_alert"] == []
 
 
+class TestLifecycleInvalidatedSpecialistSkip:
+    def _backend_with_lifecycle(self, status: str) -> FakeStateBackend:
+        backend = FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV2(
+            org_repo=ORG_REPO,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status=status,
+                source_revision="a" * 40,
+                candidate_hash="b" * 64 if status == "CANDIDATE_GENERATED" else None,
+            ),
+            domain_states={
+                "readme_presentation": DomainStateV1(
+                    domain="readme_presentation",
+                    accepted_status="NO_CHANGE",
+                    upstream_revision_at_accept="a" * 40,
+                )
+            },
+        )
+        return backend
+
+    def test_reopened_pre_candidate_lifecycle_forces_readme_presentation(
+        self, tmp_path, monkeypatch
+    ):
+        from readme_agent.supervisor import specialist_selection
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        backend = self._backend_with_lifecycle("FACTS_READY")
+        calls = []
+        monkeypatch.setattr(
+            specialist_selection,
+            "decide_skips",
+            lambda **_kwargs: specialist_selection.SkipPlan(
+                skip_domains=frozenset({"readme_presentation"}),
+                reasons={"readme_presentation": "llm_selected"},
+            ),
+        )
+        monkeypatch.setattr(specialists_registry, "all_domains", lambda: ["readme_presentation"])
+
+        def run_domain(domain, org_repo, state_backend, **_kwargs):
+            calls.append(domain)
+            return DomainStateV1(domain=domain, accepted_status="NO_CHANGE")
+
+        monkeypatch.setattr(specialists_registry, "run_domain", run_domain)
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=backend,
+            current_revision="a" * 40,
+            enable_specialist_skip=True,
+            specialist_selection_client=object(),
+            escalation_alert_threshold=3,
+        )
+
+        assert calls == ["readme_presentation"]
+        assert result.results["readme_presentation"].skipped_this_run is False
+
+    def test_current_candidate_lifecycle_preserves_safe_skip(self, tmp_path, monkeypatch):
+        from readme_agent.supervisor import specialist_selection
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        backend = self._backend_with_lifecycle("CANDIDATE_GENERATED")
+        calls = []
+        monkeypatch.setattr(
+            specialist_selection,
+            "decide_skips",
+            lambda **_kwargs: specialist_selection.SkipPlan(
+                skip_domains=frozenset({"readme_presentation"}),
+                reasons={"readme_presentation": "llm_selected"},
+            ),
+        )
+        monkeypatch.setattr(specialists_registry, "all_domains", lambda: ["readme_presentation"])
+        monkeypatch.setattr(
+            specialists_registry,
+            "run_domain",
+            lambda *args, **kwargs: calls.append("unexpected"),
+        )
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=backend,
+            current_revision="a" * 40,
+            enable_specialist_skip=True,
+            specialist_selection_client=object(),
+            escalation_alert_threshold=3,
+        )
+
+        assert calls == []
+        skipped = result.results["readme_presentation"]
+        assert skipped.skipped_this_run is True
+        assert skipped.details["skip_reason"] == "llm_selected"
+
+
 class TestSpecialistFailureIsolation:
     """Wave 7 root-cause fix: an unhandled exception in one specialist must
     not abort the whole `supervise_repo()` call. Before this fix,
@@ -2915,7 +3344,7 @@ class TestDomainCoverageTracking:
         # accept instead -- confirm that did NOT happen.
         assert stored.accepted_status != "ERROR"
 
-    def test_domain_coverage_complete_gates_the_coarse_shortcut(self, project):
+    def test_domain_coverage_complete_gates_the_coarse_shortcut(self, project, compliant_project):
         """The exact gap this fix closes: a fully healthy run must record
         `domain_coverage_complete=True`, but a stale/incomplete record (the
         shape a record written before this field existed, or one left by a
@@ -3035,7 +3464,9 @@ class TestRunLockContention:
         assert result.blocked_reason == "run_lock_held"
         assert result.blocked_category == "infra_external"
 
-    def test_run_lock_is_released_after_converged_no_tracked_change(self, project):
+    def test_run_lock_is_released_after_converged_no_tracked_change(
+        self, project, compliant_project
+    ):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -3071,7 +3502,7 @@ class TestRunLockContention:
         reacquired = backend.acquire_run_lock(ORG_REPO)
         assert reacquired is not None
 
-    def test_first_freshness_shortcut_acquires_zero_locks(self, project):
+    def test_first_freshness_shortcut_acquires_zero_locks(self, project, compliant_project):
         backend = FakeStateBackend()
         first = supervise_repo(
             ORG_REPO,
@@ -3123,7 +3554,9 @@ class TestLockReleaseFailureDoesNotDiscardResult:
     These tests prove the fix: a release failure is caught and logged, and
     the run's actual result still comes back intact."""
 
-    def test_release_lock_failure_does_not_discard_a_successful_result(self, project, capsys):
+    def test_release_lock_failure_does_not_discard_a_successful_result(
+        self, project, compliant_project, capsys
+    ):
         backend = FakeStateBackend()
         real_release_lock = backend.release_lock
 
@@ -3151,7 +3584,9 @@ class TestLockReleaseFailureDoesNotDiscardResult:
         assert result.status == "CONVERGED_PROPOSAL_READY"
         assert "warning: releasing lock" in capsys.readouterr().err
 
-    def test_release_run_lock_failure_does_not_discard_a_successful_result(self, project, capsys):
+    def test_release_run_lock_failure_does_not_discard_a_successful_result(
+        self, project, compliant_project, capsys
+    ):
         backend = FakeStateBackend()
 
         def _raising_release_run_lock(lock):
@@ -3179,7 +3614,7 @@ class TestPreCloneShortcut:
     the clone cost for that case, not just the specialist-tier cost the
     existing post-clone shortcut already avoided."""
 
-    def test_matching_probe_skips_the_clone_entirely(self, project, monkeypatch):
+    def test_matching_probe_skips_the_clone_entirely(self, project, compliant_project, monkeypatch):
         import readme_agent.supervisor.loop as loop_module
 
         backend = FakeStateBackend()
@@ -3260,7 +3695,7 @@ class TestTokenBudget:
         assert result.blocked_reason.startswith("dossier_token_budget_exceeded")
         assert result.blocked_category == "agent_fixable"
 
-    def test_missing_usage_never_trips_the_breaker_or_crashes(self, project):
+    def test_missing_usage_never_trips_the_breaker_or_crashes(self, project, compliant_project):
         turns = [
             PlannerTurn(
                 tool_call=_tool_call("c1", "detect_readme_gaps", {"org_repo": ORG_REPO}),
@@ -3365,8 +3800,9 @@ class TestMaxTurns:
             max_turns=2,
         )
 
-        assert result.status != "BLOCKED"
-        assert result.blocked_reason != "repair_exhausted"
+        assert result.status == "BLOCKED"
+        assert result.blocked_reason == "repair_exhausted"
+        assert result.blocked_category == "agent_fixable"
 
     def test_a_planner_that_never_stops_is_blocked_as_repair_exhausted_not_silently_capped(
         self, project

@@ -6,9 +6,8 @@ from datetime import UTC, datetime
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
-from readme_agent.facts.acquisition import select_acquisition
+from readme_agent.facts.acquisition_facts import collect_acquisition_fact
 from readme_agent.facts.context import current_product_facts
-from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
@@ -16,12 +15,7 @@ from readme_agent.facts.repository_ingestion import ingest_repository_product_fa
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
-from readme_agent.facts.schema_v2 import (
-    FactRecordV2,
-    FactSourceType,
-    FactSourceV2,
-    descriptive_fact_id,
-)
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.registry.models import ProductEntry
@@ -29,78 +23,6 @@ from readme_agent.repository_snapshot import (
     current_repository_snapshot,
     local_fact_verification_allowed,
 )
-
-
-def _acquisition_fact(
-    entry: ProductEntry,
-    source_revision: str | None,
-    observed_at: str | None,
-    local_verification: LocalProductVerificationV1 | None,
-    unavailable_detail: str,
-    manifest_coordinate: dict[str, str] | None,
-) -> FactRecordV2:
-    """Select one receipt-backed registry or isolated source acquisition."""
-
-    if source_revision is None:
-        org_repo = getattr(entry, "org_repo", f"{entry.org}/{entry.repo_name}")
-        return FactRecordV2(
-            fact_id=descriptive_fact_id("installation.verified_acquisition", "missing-revision"),
-            field="installation.verified_acquisition",
-            value={
-                "method": "unresolved",
-                "outcome": "BLOCKED_LOCAL_VERIFICATION",
-                "detail": "immutable source revision is required for acquisition truth",
-                "truth_eligible": False,
-            },
-            source=FactSourceV2(
-                source_type="mechanical_repository",
-                location=f"repository://{org_repo}",
-                retrieved_at=observed_at,
-            ),
-            verification_state="blocked",
-            authoritative_owner="repository-owner",
-            confidence=0.0,
-            affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
-        )
-    decision = select_acquisition(
-        entry=entry,
-        source_revision=source_revision,
-        local_verification=local_verification,
-        unavailable_detail=unavailable_detail,
-        manifest_coordinate=manifest_coordinate,
-    )
-    receipt = decision.registry_receipt
-    source_type: FactSourceType = (
-        "external_registry" if decision.outcome == "REGISTRY_VERIFIED" else "mechanical_test"
-    )
-    location = (
-        receipt.request_url
-        if receipt is not None
-        else f"local-product-verification://{entry.org_repo}"
-    )
-    qualifiers = {
-        "REGISTRY_VERIFIED": f"registry-{decision.method}",
-        "SOURCE_BUILD_VERIFIED": "disposable-source-build",
-        "NOT_PUBLISHED": "source-build-required",
-        "BLOCKED_NETWORK": "blocked-registry",
-        "CAPABILITY_GAP": "capability-gap",
-    }
-    qualifier = qualifiers.get(decision.outcome, "blocked-source-build")
-    return FactRecordV2(
-        fact_id=descriptive_fact_id("installation.verified_acquisition", qualifier),
-        field="installation.verified_acquisition",
-        value=decision.model_dump(mode="json"),
-        source=FactSourceV2(
-            source_type=source_type,
-            location=location,
-            source_revision=source_revision,
-            retrieved_at=observed_at,
-        ),
-        verification_state="verified" if decision.truth_eligible else "blocked",
-        authoritative_owner="repository-owner",
-        confidence=1.0 if decision.truth_eligible else 0.0,
-        affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
-    )
 
 
 def _local_verification_facts(
@@ -202,7 +124,7 @@ def _local_verification_facts(
     # network-blocked registry check fails closed rather than masquerading as unpublished; see
     # foss_coordinate.py and the ground-truth evidence bundle. This
     # check runs regardless of whether product_truth exists -- see the function's own docstring.
-    acquisition = _acquisition_fact(
+    acquisition = collect_acquisition_fact(
         entry,
         source_revision,
         observed_at,

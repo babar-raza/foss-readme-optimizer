@@ -155,7 +155,7 @@ def test_snapshot_bound_v2_facts_do_not_reobserve_network(monkeypatch):
     facts = _complete_snapshot_facts()
     source = "# Widget\n"
     link_catalogs, link_allocation_policy = load_runtime_link_inputs(facts.org_repo)
-    candidate, _plan = build_readme_document_candidate(
+    candidate, plan = build_readme_document_candidate(
         facts.org_repo,
         source,
         facts,
@@ -177,5 +177,16 @@ def test_snapshot_bound_v2_facts_do_not_reobserve_network(monkeypatch):
         product_facts_v2=facts,
     )
 
-    assert decision.valid is True
+    assert decision.valid is False
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert decision.protected_content_losses == [{"category": "document_plan", "reason": expected}]
+    assert decision.product_facts_v2_hash == facts.canonical_hash()
     assert decision.claim_conflicts == []

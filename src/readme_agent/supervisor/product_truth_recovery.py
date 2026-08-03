@@ -14,7 +14,6 @@ from readme_agent.facts.acceptance_contract import (
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm import prompt_registry
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.cas import save_state_patch
 from readme_agent.state.lifecycle_schema import (
@@ -202,6 +201,9 @@ def recover_interrupted_product_truth_commit(
     bundle_dir: Path,
     state_backend: StateBackend,
     lifecycle: ReadmePocLifecycleStateV2,
+    *,
+    ecosystem: str | None = None,
+    family: str | None = None,
 ) -> ReadmePocLifecycleStateV2 | None:
     """Commit a current checksum-sealed fact bundle left ahead of durable state."""
 
@@ -225,11 +227,12 @@ def recover_interrupted_product_truth_commit(
         return None
     manifest = load_product_truth_json_object(manifest_path, "manifest")
 
-    current_contract = current_fact_acceptance_contract()
+    current_contract = current_fact_acceptance_contract(ecosystem, family)
     if (
         manifest.get("org_repo") != org_repo
         or manifest.get("source_revision") != source_revision
-        or manifest.get("local_verification_contract_hash") != local_verification_contract_hash()
+        or manifest.get("local_verification_contract_hash")
+        != local_verification_contract_hash(ecosystem)
         or manifest.get("fact_acceptance_contract_hash") != current_contract.canonical_hash()
         or manifest.get("fact_acceptance_component_hashes") != current_contract.component_hashes
     ):
@@ -240,9 +243,7 @@ def recover_interrupted_product_truth_commit(
             "interrupted product-truth recovery refused a bundle with an invalid checksum inventory"
         )
     proposed_product_truth = load_coherent_product_truth_proposal(bundle_dir, manifest)
-    if proposed_product_truth is not None and manifest.get(
-        "prompt_hash"
-    ) != prompt_registry.prompt_hash("draft_product_truth"):
+    if proposed_product_truth is not None and manifest.get("resolution_source") == "agent_draft":
         return None
 
     facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))

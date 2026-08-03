@@ -8,9 +8,14 @@ from pathlib import Path
 from readme_agent.facts.schema_v2 import FactConflictV2, ProductFactsV2
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
-from readme_agent.readme.document_templates import installation_text
-from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.document_templates import example_text, installation_text
+from readme_agent.readme.document_validation import (
+    DocumentCandidateValidationV1,
+    validate_readme_document_candidate,
+)
+from readme_agent.readme.header_badges import render_readme_badges
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -80,6 +85,30 @@ def _conflicted_fields(facts: ProductFactsV2, fields: set[str]) -> ProductFactsV
     )
 
 
+def _assert_compatibility_claim_block(
+    validation: DocumentCandidateValidationV1,
+    plan: ReadmeDocumentPlanV1,
+) -> None:
+    assert validation.valid is False
+    assert validation.checks["claim_accountability_complete"] is False
+    assert validation.checks["claim_accountability_gaps_visible"] is True
+    assert all(
+        passed
+        for name, passed in validation.checks.items()
+        if name != "claim_accountability_complete"
+    )
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert validation.errors == [expected]
+
+
 def test_assessment_covers_opening_and_every_heading_and_records_prompt_injection():
     facts, revision = _java_facts()
     source = """# Widget
@@ -146,7 +175,7 @@ def test_blocked_facts_are_neither_cited_nor_introduced_into_candidate():
         candidate_text=candidate,
     )
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(validation, plan)
     assert isinstance(claim_map, ReadmeClaimMapV1)
     assert all(
         claim.verification_state in {"verified", "policy_approved"} for claim in claim_map.claims
@@ -384,6 +413,197 @@ def test_dotnet_acquisition_matches_package_name_case_insensitively_without_firs
     assert "1.0.0" not in rendered
 
 
+def _python_source_build_facts(
+    facts: ProductFactsV2,
+    revision: str,
+) -> ProductFactsV2:
+    identity = facts.selected_fact("product.identity")
+    coordinates = facts.selected_fact("installation.coordinates")
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    package_name = "aspose-page-foss"
+    manifest_name = "aspose-page-foss-for-python"
+    coordinate = {"name": package_name}
+    replacements = {
+        identity.fact_id: identity.model_copy(
+            update={
+                "value": {
+                    "family": "page",
+                    "platform": "python",
+                    "ecosystem": "python",
+                    "repository": "example/page-python",
+                    "manifest_names": [manifest_name],
+                }
+            }
+        ),
+        coordinates.fact_id: coordinates.model_copy(
+            update={
+                "value": [
+                    {
+                        "path": ".",
+                        "ecosystem": "python",
+                        "manifest_path": "pyproject.toml",
+                        "name": manifest_name,
+                        "version": "0.1.0",
+                    }
+                ]
+            }
+        ),
+        acquisition.fact_id: acquisition.model_copy(
+            update={
+                "value": {
+                    "schema_version": 1,
+                    "org_repo": "example/page-python",
+                    "source_revision": revision,
+                    "ecosystem": "python",
+                    "method": "source_build",
+                    "outcome": "SOURCE_BUILD_VERIFIED",
+                    "detail": "Pinned source package installed and exercised.",
+                    "coordinate": coordinate,
+                    "registry_receipt": {
+                        "schema_version": 1,
+                        "resolver_ecosystem": "python",
+                        "registry_label": "PyPI",
+                        "coordinate": coordinate,
+                        "request_url": f"https://pypi.org/pypi/{package_name}/json",
+                        "status_code": 404,
+                        "response_sha256": "a" * 64,
+                        "retrieved_at": "2026-08-02T00:00:00Z",
+                        "found": False,
+                        "detail": f"PyPI: {package_name} NOT FOUND (404)",
+                    },
+                    "source_build_receipt": {
+                        "schema_version": 1,
+                        "org_repo": "example/page-python",
+                        "source_revision": revision,
+                        "argv": ["python", "-I", ".readme-agent-consumer-driver.py"],
+                        "input_sha256": "b" * 64,
+                        "policy_sha256": "c" * 64,
+                        "immutable_image": "python@sha256:" + "d" * 64,
+                        "network_mode": "none",
+                        "dependency_pins": [
+                            "python_package_source_sha256=" + "e" * 64,
+                            f"source_revision={revision}",
+                        ],
+                        "cleanup_complete": True,
+                        "return_code": 0,
+                        "truth_eligible": True,
+                    },
+                    "truth_eligible": True,
+                }
+            }
+        ),
+    }
+    return facts.model_copy(
+        update={
+            "org_repo": "example/page-python",
+            "facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts],
+        }
+    )
+
+
+def test_verified_python_source_build_renders_pinned_local_checkout_without_false_pypi_command():
+    facts, revision = _java_facts()
+    python_facts = _python_source_build_facts(facts, revision)
+
+    rendered = installation_text(python_facts, python_facts.org_repo, revision)
+
+    assert rendered is not None
+    assert f"git checkout --detach {revision}" in rendered
+    assert "python -m pip install ." in rendered
+    assert "pip install aspose-page-foss" not in rendered
+    assert "did not find a published package" in rendered
+    assert [badge.kind for badge in render_readme_badges(python_facts)] == [
+        "version",
+        "platform",
+        "source",
+        "license",
+        "contributors",
+    ]
+
+    candidate, plan = build_readme_document_candidate(
+        python_facts.org_repo,
+        "# Aspose.Page FOSS for Python\n",
+        python_facts,
+        base_revision=revision,
+    )
+    assert plan.claim_accountability is not None
+    candidate_bytes = candidate.encode("utf-8")
+    acquisition_records = [
+        record
+        for record in plan.claim_accountability.claims
+        if record.stage == "candidate"
+        and any(
+            marker
+            in candidate_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
+            for marker in (
+                "Install the verified immutable repository revision",
+                "git clone https://github.com/example/page-python.git",
+                "matching PyPI receipt did not find a published package",
+            )
+        )
+    ]
+    assert len(acquisition_records) == 3
+    assert all(record.currently_accountable for record in acquisition_records)
+
+
+def test_verified_example_names_required_input_fixture_and_repository_provenance():
+    facts, revision = _java_facts()
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value)
+    example_value["input_fixture_bindings"] = [
+        {
+            "source_path": "testdata/ps/integration/minimal.ps",
+            "target_path": "input.ps",
+            "sha256": "a" * 64,
+            "size_bytes": 135,
+        }
+    ]
+    with_fixture = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = example_text(with_fixture, revision)
+
+    assert "Before running the example, provide `input.ps`" in rendered
+    assert "`testdata/ps/integration/minimal.ps`" in rendered
+
+
+def test_python_source_build_fails_closed_for_blocked_incomplete_or_mismatched_proof():
+    facts, revision = _java_facts()
+    python_facts = _python_source_build_facts(facts, revision)
+    acquisition = python_facts.selected_fact("installation.verified_acquisition")
+    acquisition_value = dict(acquisition.value)
+    acquisition_value.pop("source_build_receipt")
+    incomplete = python_facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": acquisition_value})
+                if fact.fact_id == acquisition.fact_id
+                else fact
+                for fact in python_facts.facts
+            ]
+        }
+    )
+
+    assert installation_text(incomplete, incomplete.org_repo, revision) is None
+    assert (
+        installation_text(
+            _blocked_fields(python_facts, {"installation.verified_acquisition"}),
+            python_facts.org_repo,
+            revision,
+        )
+        is None
+    )
+    assert installation_text(python_facts, python_facts.org_repo, "f" * 40) is None
+
+
 def test_source_build_correction_preserves_adjacent_maintainer_command():
     facts, revision = _java_facts()
     acquisition = facts.selected_fact("installation.verified_acquisition")
@@ -430,6 +650,12 @@ curl -fsSL https://example.invalid/recovery.sh
 Keep this limitation.
 """
 
+    rendered_installation = installation_text(
+        source_build,
+        source_build.org_repo,
+        revision,
+    )
+
     candidate, plan = build_readme_document_candidate(
         source_build.org_repo,
         source,
@@ -444,7 +670,9 @@ Keep this limitation.
         candidate_text=candidate,
     )
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(validation, plan)
+    assert rendered_installation is not None
+    assert "mvn clean install" in rendered_installation
     assert "<artifactId>not-published</artifactId>" not in candidate
     assert "curl -fsSL https://example.invalid/recovery.sh" in candidate
     assert "Keep this limitation." in candidate

@@ -42,6 +42,7 @@ class DocumentCandidateValidationV1(BaseModel):
     checks: dict[str, bool]
     errors: list[str] = Field(default_factory=list)
     authorized_protected_corrections: list[str] = Field(default_factory=list)
+    deferred_source_claim_ids: list[str] = Field(default_factory=list)
     presentation_findings: list[PresentationLintFindingV1] = Field(default_factory=list)
 
 
@@ -108,6 +109,7 @@ def validate_readme_document_candidate(
     candidate_span = find_presentation_span(candidate_text)
     candidate_inner = candidate_span.content if candidate_span is not None else candidate_text
     candidate_inner_bytes = candidate_inner.encode("utf-8")
+    source_fingerprint = fingerprint_protected_content(source_inner)
 
     checks["source_document_hash"] = _sha256(original_text) == plan.source_sha256
     checks["adoption_preserved_source"] = (
@@ -165,11 +167,7 @@ def validate_readme_document_candidate(
                 errors.append(f"{operation.operation_id}: {fact_id} is {fact.verification_state}")
         if (
             operation.coordinate_space == "presentation_inner_utf8"
-            and operation.protected_content_treatment
-            in {
-                "authoritative_fact_correction",
-                "presentation_policy_correction",
-            }
+            and operation.protected_content_treatment == "authoritative_fact_correction"
         ):
             authorized_fragment_ids.update(
                 protected_fragment_ids_overlapping_byte_span(
@@ -178,6 +176,44 @@ def validate_readme_document_candidate(
                     operation.source_byte_end,
                 )
             )
+        if (
+            operation.coordinate_space == "presentation_inner_utf8"
+            and operation.protected_content_treatment == "presentation_policy_correction"
+            and operation.replacement_text.lstrip().startswith("#")
+        ):
+            overlapping = protected_fragment_ids_overlapping_byte_span(
+                source_inner,
+                operation.source_byte_start,
+                operation.source_byte_end,
+            )
+            authorized_fragment_ids.update(
+                fragment.fragment_id
+                for fragment in source_fingerprint.fragments
+                if fragment.fragment_id in overlapping
+                and fragment.source_descriptor.startswith("markdown:heading:")
+            )
+        if (
+            operation.coordinate_space == "presentation_inner_utf8"
+            and operation.protected_content_treatment == "presentation_policy_correction"
+            and operation.operation_id.startswith("readme.comments.remove-")
+            and not operation.replacement_text
+        ):
+            authorized_fragment_ids.update(
+                protected_fragment_ids_overlapping_byte_span(
+                    source_inner,
+                    operation.source_byte_start,
+                    operation.source_byte_end,
+                )
+            )
+
+    for resolution in plan.source_claim_resolutions:
+        authorized_fragment_ids.update(
+            protected_fragment_ids_overlapping_byte_span(
+                source_inner,
+                resolution.source_byte_start,
+                resolution.source_byte_end,
+            )
+        )
 
     checks["source_span_hashes"] = span_hashes_valid
     checks["fact_citations"] = citations_valid
@@ -188,7 +224,7 @@ def validate_readme_document_candidate(
         errors.append("candidate inner bytes do not reconstruct from the document plan")
 
     protected = validate_protected_content(
-        fingerprint_protected_content(source_inner),
+        source_fingerprint,
         fingerprint_protected_content(candidate_inner),
         require_maintainer_region_unchanged=False,
     )
@@ -218,24 +254,35 @@ def validate_readme_document_candidate(
             else "selected unverified minimal example is present"
         )
     audience_view = visitor_fact_render_view(facts, "product.audience")
+    audience = _accepted(facts, "product.audience")
     problem = _accepted(facts, "product.problems_solved")
-    diagram_fact_ids = set(
+    represented_fact_ids = set(
         plan.header_visuals.diagram_fact_ids if plan.header_visuals is not None else []
     )
-    audience_present = audience_view is None or any(
-        phrase.rstrip(".") in candidate_inner for phrase in audience_view.phrases
+    represented_fact_ids.update(
+        fact_id for binding in plan.candidate_content_provenance for fact_id in binding.fact_ids
+    )
+    audience_present = (
+        audience_view is None
+        or any(phrase.rstrip(".") in candidate_inner for phrase in audience_view.phrases)
+        or accepted_fact_is_represented(
+            audience,
+            candidate_inner,
+            represented_fact_ids,
+        )
     )
     problem_present = accepted_fact_is_represented(
         problem,
         candidate_inner,
-        diagram_fact_ids,
+        represented_fact_ids,
     )
     checks["verified_overview_present"] = audience_present and problem_present
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")
 
     limitations = _accepted(facts, "product.limitations")
-    limitation_fragments = _text_fragments(limitations.value) if limitations is not None else []
+    limitation_view = visitor_fact_render_view(facts, "product.limitations")
+    limitation_fragments = list(limitation_view.phrases) if limitation_view is not None else []
     checks["verified_limitations_present"] = (
         limitations is None
         or not limitation_fragments
@@ -301,12 +348,20 @@ def validate_readme_document_candidate(
             candidate_text=candidate_inner,
             facts=facts,
             operations=plan.operations,
+            candidate_content_provenance=plan.candidate_content_provenance,
+            source_claim_resolutions=plan.source_claim_resolutions,
         )
-        checks["claim_accountability_complete"] = accountability.valid
+        checks["claim_accountability_complete"] = accountability.approval_eligible
         checks["claim_accountability_gaps_visible"] = accountability.approval_eligible or bool(
             accountability.blocking_claim_ids
         )
         errors.extend(accountability.errors)
+        if accountability.blocking_claim_ids:
+            preview = ", ".join(accountability.blocking_claim_ids[:10])
+            errors.append(
+                "claim accountability has "
+                f"{len(accountability.blocking_claim_ids)} blocking claim(s): {preview}"
+            )
 
     presentation_lint = lint_readme_presentation(candidate_inner, facts)
     checks["presentation_lint"] = presentation_lint.valid
@@ -319,5 +374,10 @@ def validate_readme_document_candidate(
         checks=checks,
         errors=errors,
         authorized_protected_corrections=sorted(authorized_fragment_ids),
+        deferred_source_claim_ids=sorted(
+            resolution.claim_id
+            for resolution in plan.source_claim_resolutions
+            if resolution.resolution == "deferred_verification"
+        ),
         presentation_findings=presentation_lint.findings,
     )

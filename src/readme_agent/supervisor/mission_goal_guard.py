@@ -65,7 +65,10 @@ def derive_lifecycle_scoreboard(
         else {org_repo: backend.load(org_repo) for org_repo in org_repos}
     )
     fact_contracts = (
-        {entry.ecosystem: current_fact_acceptance_contract(entry.ecosystem) for entry in entries}
+        {
+            entry.org_repo: current_fact_acceptance_contract(entry.ecosystem, entry.family)
+            for entry in entries
+        }
         if verify_acceptance_freshness
         else {}
     )
@@ -104,9 +107,10 @@ def derive_lifecycle_scoreboard(
             fact_decision = evaluate_lifecycle_fact_freshness(
                 state,
                 bundle_dir,
-                current_contract=fact_contracts.get(entry.ecosystem),
+                current_contract=fact_contracts.get(entry.org_repo),
                 current_local_verification_hash=local_verification_contract_hash(entry.ecosystem),
                 ecosystem=entry.ecosystem,
+                family=entry.family,
             )
             facts_are_current = fact_decision.reusable
             if not facts_are_current:
@@ -147,6 +151,7 @@ def derive_lifecycle_scoreboard(
                     entry.policy_profile
                 ),
                 ecosystem=entry.ecosystem,
+                family=entry.family,
             )
             if not decision.reusable:
                 stale_acceptance[entry.org_repo] = decision.mismatch_reasons

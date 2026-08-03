@@ -51,6 +51,13 @@ _VISITOR_REQUIRED_FIELDS = {
 _INTERPRETIVE_FIELDS = {"product.audience", "product.problems_solved"}
 
 
+def ecosystem_display_label(ecosystem: str) -> str:
+    """Return the governed visitor-facing spelling for an ecosystem identifier."""
+
+    normalized = ecosystem.strip().casefold()
+    return _ECOSYSTEM_LABELS.get(normalized, normalized.replace("-", " ").title())
+
+
 class VisitorFactRenderViewV1(BaseModel):
     """Fact-bound prose fragments that are safe to offer to an author."""
 
@@ -77,6 +84,20 @@ def _text_phrases(value: object) -> list[str]:
     values = value if isinstance(value, list) else [value]
     return [
         str(item).strip() for item in values if isinstance(item, str) and _is_visitor_phrase(item)
+    ]
+
+
+def _limitation_phrases(value: object) -> list[str]:
+    rows = value if isinstance(value, list) else [value]
+    phrases = [
+        str(row.get("statement")).strip()
+        for row in rows
+        if isinstance(row, dict)
+        and isinstance(row.get("statement"), str)
+        and _is_visitor_phrase(str(row["statement"]))
+    ] or _text_phrases(value)
+    return [
+        re.sub(r"\breportlab\b", "ReportLab", phrase, flags=re.IGNORECASE) for phrase in phrases
     ]
 
 
@@ -160,7 +181,7 @@ def _identity_phrases(value: object) -> list[str]:
     if family is None and family_key:
         family = family_key.replace("-", " ").replace("_", " ").title()
     ecosystem = str(value.get("ecosystem") or value.get("platform") or "").strip().lower()
-    platform = _ECOSYSTEM_LABELS.get(ecosystem)
+    platform = ecosystem_display_label(ecosystem) if ecosystem else None
     return [f"{family} FOSS for {platform}"] if family and platform else []
 
 
@@ -261,7 +282,7 @@ _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
     "product.problems_solved": _sentence_phrases,
     "product.capabilities": _text_phrases,
     "product.formats": _format_phrases,
-    "product.limitations": _text_phrases,
+    "product.limitations": _limitation_phrases,
     "product.identity": _identity_phrases,
     "product.compatibility": _compatibility_phrases,
     "installation.verified_acquisition": _no_direct_prose,

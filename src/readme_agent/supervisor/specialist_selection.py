@@ -112,6 +112,11 @@ def decide_skips(
 
     for domain in CANDIDATE_DOMAINS:
         prior = prior_domain_states.get(domain)
+        if prior is not None and (
+            prior.consecutive_failure_count > 0 or prior.last_failure_reason is not None
+        ):
+            plan.forced_run_domains[domain] = "prior_failure_requires_reexecution"
+            continue
         if prior is not None and prior.consecutive_skip_count >= MAX_CONSECUTIVE_SKIPS:
             plan.forced_run_domains[domain] = "max_consecutive_skips_reached"
             continue

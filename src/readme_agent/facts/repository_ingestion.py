@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
 from readme_agent.facts.manifest_facts import manifest_fact_candidates
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.policy_evidence import evidence_fact_candidate
@@ -78,6 +79,7 @@ def ingest_repository_product_facts(
         observed_at,
         root_role_inventory,
     )
+    candidates.extend(curated_repository_fact_candidates(root, source_revision, observed_at))
     truth = policy.product_truth
     if truth is not None:
         policy_source = _source(
@@ -120,15 +122,18 @@ def ingest_repository_product_facts(
                     "product.formats",
                     truth.formats,
                 ),
+            ]
+        )
+        if truth.limitations:
+            candidates.append(
                 evidence_fact_candidate(
                     root,
                     source_revision,
                     observed_at,
                     "product.limitations",
                     truth.limitations,
-                ),
-            ]
-        )
+                )
+            )
 
     inventory = scan(root)
     license_state = detect_license(None, inventory.license_path)

@@ -68,6 +68,8 @@ class LiveForcedToolClient:
         *,
         job: str = "forced_tool_call",
         prompt_id: str | None = None,
+        transport_max_attempts: int | None = None,
+        response_max_attempts: int = _MAX_RESPONSE_ATTEMPTS,
     ):
         if max_tokens < 1:
             raise ValueError("max_tokens must be at least 1")
@@ -78,6 +80,10 @@ class LiveForcedToolClient:
         self.max_tokens = max_tokens
         self.job = job
         self.prompt_id = prompt_id or job
+        self.transport_max_attempts = transport_max_attempts
+        if response_max_attempts < 1:
+            raise ValueError("response_max_attempts must be at least 1")
+        self.response_max_attempts = response_max_attempts
 
     def _headers(self) -> dict[str, str]:
         headers = {"Content-Type": "application/json"}
@@ -117,7 +123,7 @@ class LiveForcedToolClient:
             provider="configured_gateway",
             model=self.model,
         )
-        for attempt in range(_MAX_RESPONSE_ATTEMPTS):
+        for attempt in range(self.response_max_attempts):
             response: requests.Response | None = None
             try:
                 response = self._request(messages, tool_schema, session)
@@ -128,7 +134,7 @@ class LiveForcedToolClient:
                 if not str(exc).startswith(_RETRYABLE_RESPONSE_ERRORS):
                     raise
                 last_error = exc
-                if attempt + 1 == _MAX_RESPONSE_ATTEMPTS:
+                if attempt + 1 == self.response_max_attempts:
                     break
             else:
                 session.finalize(response, "success")
@@ -136,7 +142,7 @@ class LiveForcedToolClient:
         assert last_error is not None
         raise LLMError(
             "forced tool call returned an invalid structured response "
-            f"after {_MAX_RESPONSE_ATTEMPTS} attempts: {last_error}"
+            f"after {self.response_max_attempts} attempts: {last_error}"
         ) from last_error
 
     def _request(
@@ -151,6 +157,7 @@ class LiveForcedToolClient:
                 lambda: self._post_once(messages, tool_schema, session),
                 retryable_statuses=_RETRYABLE_STATUS,
                 sleep=time.sleep,
+                max_attempts=self.transport_max_attempts,
             )
         except RetryableOperationError as exc:
             raise LLMInfrastructureError(f"forced tool call failed after retries: {exc}") from exc

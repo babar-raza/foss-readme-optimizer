@@ -28,6 +28,7 @@ from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
 from readme_agent.state.domain_state import merge_details, save_domain
 from readme_agent.state.schema import DomainStateV1
+from readme_agent.supervisor.execution_context import proposal_only_active
 
 DOMAIN = VISUAL_PREPARATION
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
@@ -76,10 +77,14 @@ def _classify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     classification = classify_surface(
         current_fingerprint=fingerprint, prior_fingerprint=state.accepted_facts_hash
     )
+    details = result
+    prior_review = state.details.get("visual_accuracy_review")
+    if classification.classification == "NO_CHANGE" and isinstance(prior_review, dict):
+        details = {**result, "visual_accuracy_review": prior_review}
     return {
         "accepted_facts_hash": fingerprint,
         "accepted_status": classification.classification,
-        "details": result,
+        "details": details,
     }
 
 
@@ -91,6 +96,22 @@ def _review_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     `VER-003`'s "no unnecessary work"."""
     if (state.accepted_status or "").startswith("ERROR:"):
         return {}
+    if isinstance(state.details.get("visual_accuracy_review"), dict):
+        return {}
+    if proposal_only_active() and not state.details.get("existing_asset_found"):
+        return {
+            "details": merge_details(
+                state,
+                visual_accuracy_review={
+                    "status": "DEFERRED_UNEMBEDDED_CANDIDATE",
+                    "provider_called": False,
+                    "reason": (
+                        "the prepared plain-text banner is not embedded in the README and "
+                        "contains no visual factual claim requiring model review"
+                    ),
+                },
+            )
+        }
 
     org_repo = config["configurable"]["org_repo"]
     backend: StateBackend | None = config["configurable"].get("backend")

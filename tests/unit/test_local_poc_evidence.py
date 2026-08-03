@@ -79,6 +79,44 @@ def test_snapshot_bundle_is_revision_addressed_idempotent_and_checksum_complete(
     assert verify_sha256sums(bundle)
 
 
+def test_snapshot_seals_checksum_valid_intake_bundle_created_for_new_revision(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = paths.readme_poc_repository_dir("acme", "product", snapshot.source_revision)
+    intake_receipt = bundle / "intake" / "preflight.json"
+    intake_receipt.parent.mkdir(parents=True)
+    intake_receipt.write_text('{"outcome":"READY_FAST_PATH"}\n', encoding="utf-8")
+    refresh_sha256sums(bundle)
+
+    result = write_local_poc_snapshot(snapshot)
+
+    assert result == bundle
+    assert json.loads(intake_receipt.read_text(encoding="utf-8")) == {"outcome": "READY_FAST_PATH"}
+    assert (bundle / "source" / "revision.json").is_file()
+    assert (bundle / "manifest.json").is_file()
+    assert verify_sha256sums(bundle)
+
+
+def test_snapshot_rejects_unsealed_revision_directory_outside_intake_namespace(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = paths.readme_poc_repository_dir("acme", "product", snapshot.source_revision)
+    unexpected = bundle / "candidate" / "README.md"
+    unexpected.parent.mkdir(parents=True)
+    unexpected.write_text("# Unsealed candidate\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
+
+    with pytest.raises(RepositorySnapshotError, match="intake-only"):
+        write_local_poc_snapshot(snapshot)
+
+    assert unexpected.read_text(encoding="utf-8") == "# Unsealed candidate\n"
+    assert not (bundle / "source").exists()
+
+
 def test_same_revision_recapture_preserves_every_bundle_byte_and_mtime(tmp_path, monkeypatch):
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     first_root = tmp_path / "first-capture"

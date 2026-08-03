@@ -9,7 +9,6 @@ from types import SimpleNamespace
 import pytest
 
 from readme_agent import paths
-from readme_agent.capabilities.dispatcher import DispatchResult
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     REQUIRED_PRODUCT_FIELDS,
@@ -18,9 +17,10 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.llm import prompt_registry
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.lifecycle_schema import FactAcceptanceBindingV1
+from readme_agent.state.lifecycle_schema import FactAcceptanceBindingV1, ReadmePocTransitionV2
 from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.readme_poc_lifecycle import (
     record_repository_profile,
@@ -33,6 +33,15 @@ from readme_agent.supervisor import product_truth
 
 ORG_REPO = "acme/widget"
 REVISION = "a" * 40
+
+
+@pytest.fixture(autouse=True)
+def _allow_fixture_repository(monkeypatch):
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
 
 
 def test_product_truth_block_category_is_external_only_when_every_finding_is_external():
@@ -250,7 +259,7 @@ def _write_interrupted_fact_commit(
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
-    contract = product_truth.current_fact_acceptance_contract()
+    contract = product_truth.current_fact_acceptance_contract("java")
     old_facts = _facts_with_missing("installation.verified_acquisition")
     bundle_dir = product_truth.write_local_poc_product_facts(
         snapshot,
@@ -258,7 +267,7 @@ def _write_interrupted_fact_commit(
         findings=[],
         resolution_source="repository_and_policy",
         lifecycle_status="BLOCKED_MISSING_EVIDENCE",
-        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
         fact_acceptance_contract_hash=contract.canonical_hash(),
         fact_acceptance_component_hashes=contract.component_hashes,
     )
@@ -287,7 +296,7 @@ def _write_interrupted_fact_commit(
         findings=[],
         resolution_source="repository_and_policy",
         lifecycle_status="BLOCKED_MISSING_EVIDENCE",
-        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
         fact_acceptance_contract_hash=contract.canonical_hash(),
         fact_acceptance_component_hashes=contract.component_hashes,
     )
@@ -304,10 +313,6 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     base = _facts(draftable_missing=True)
-    drafted = _facts()
-    observed = {}
-    dispatch_calls = []
-
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     monkeypatch.setattr(
         product_truth, "collect_product_facts", lambda org_repo: {"product_facts_v2": base}
@@ -315,22 +320,18 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
     monkeypatch.setattr(
         product_truth,
         "require_listed",
-        lambda org_repo: SimpleNamespace(ecosystem=ecosystem),
+        lambda org_repo: SimpleNamespace(
+            ecosystem=ecosystem,
+            family={"net": "3d", "python": "pdf"}.get(ecosystem),
+        ),
     )
 
-    def dispatch(tool_call, permissions, **kwargs):
-        dispatch_calls.append(tool_call)
-        observed.update(kwargs["extra_kwargs"])
-        return DispatchResult(
-            outcome="executed",
-            result={
-                "product_facts_v2": drafted.model_dump(mode="json"),
-                "proposed_product_truth": {"audience": ["Widget users"]},
-                "findings": [],
-            },
-        )
-
-    monkeypatch.setattr(product_truth, "dispatch_tool_call", dispatch)
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        product_truth,
+        "salvage_product_truth_candidate",
+        lambda *args, **kwargs: pytest.fail("salvage cannot run without a candidate"),
+    )
 
     result = product_truth.prepare_local_product_truth(
         ORG_REPO,
@@ -339,13 +340,13 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
         client=object(),
     )
 
-    assert result.lifecycle_status == "FACTS_READY"
-    assert result.facts == drafted
-    assert observed["repository_snapshot"] is snapshot
-    assert observed["base_facts"] == base
-    assert backend.load(ORG_REPO).readme_poc_lifecycle.facts_hash == drafted.canonical_hash()
+    assert result.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
+    assert result.facts == base
+    assert result.resolution_source == "repository_and_policy"
+    assert len(result.findings) == len(README_DRAFTABLE_PRODUCT_FIELDS)
+    assert backend.load(ORG_REPO).readme_poc_lifecycle.facts_hash == base.canonical_hash()
     assert (Path(result.bundle_dir) / "facts" / "product-facts.json").is_file()
-    assert (Path(result.bundle_dir) / "facts" / "proposed-product-truth.json").is_file()
+    assert not (Path(result.bundle_dir) / "facts" / "proposed-product-truth.json").is_file()
 
     cached = product_truth.prepare_local_product_truth(
         ORG_REPO,
@@ -354,14 +355,20 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
         client=object(),
     )
     assert cached.resolution_source == "durable_revision_cache"
-    assert len(dispatch_calls) == 1
 
 
-def test_same_revision_reuses_durable_fact_graph_without_collection_or_llm(tmp_path, monkeypatch):
+def test_dotnet_fact_acceptance_contract_fails_closed_without_family() -> None:
+    with pytest.raises(ValueError, match="family is required for the 'net' fact acceptance"):
+        product_truth.current_fact_acceptance_contract("net")
+
+
+def test_current_revision_candidate_is_salvaged_once_then_reused(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     base = _facts(draftable_missing=True)
-    drafted = _facts()
+    salvaged = _facts()
+    candidate = {"candidate": "current-revision"}
+    salvage_calls = []
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     monkeypatch.setattr(
         product_truth, "collect_product_facts", lambda org_repo: {"product_facts_v2": base}
@@ -371,18 +378,13 @@ def test_same_revision_reuses_durable_fact_graph_without_collection_or_llm(tmp_p
         "require_listed",
         lambda org_repo: SimpleNamespace(ecosystem="java"),
     )
-    monkeypatch.setattr(
-        product_truth,
-        "dispatch_tool_call",
-        lambda *args, **kwargs: DispatchResult(
-            outcome="executed",
-            result={
-                "product_facts_v2": drafted.model_dump(mode="json"),
-                "proposed_product_truth": {"audience": ["Widget users"]},
-                "findings": [],
-            },
-        ),
-    )
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: candidate)
+
+    def salvage(facts, observed_snapshot, observed_candidate):
+        salvage_calls.append((facts, observed_snapshot, observed_candidate))
+        return SimpleNamespace(facts=salvaged, findings=[])
+
+    monkeypatch.setattr(product_truth, "salvage_product_truth_candidate", salvage)
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     monkeypatch.setattr(
         product_truth,
@@ -391,16 +393,44 @@ def test_same_revision_reuses_durable_fact_graph_without_collection_or_llm(tmp_p
     )
     monkeypatch.setattr(
         product_truth,
-        "dispatch_tool_call",
-        lambda *args, **kwargs: pytest.fail("durable fact cache must avoid another LLM call"),
+        "salvage_product_truth_candidate",
+        lambda *args, **kwargs: pytest.fail("durable fact cache must avoid resalvage"),
     )
 
     second = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
     assert second.facts == first.facts
+    assert first.resolution_source == "deterministic_salvage"
     assert second.resolution_source == "durable_revision_cache"
     assert second.proposed_product_truth == first.proposed_product_truth
+    assert salvage_calls == [(base, snapshot, candidate)]
     assert len(backend.load(ORG_REPO).readme_poc_lifecycle.history) == 4
+
+
+def test_truth_resolution_passes_current_readme_identity_to_historical_hint_loader(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    base = _facts(draftable_missing=True)
+    observed: dict[str, object] = {}
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth, "collect_product_facts", lambda org_repo: {"product_facts_v2": base}
+    )
+
+    def load(*args, **kwargs):
+        observed.update(kwargs)
+        return None
+
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", load)
+
+    result = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    assert result.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
+    assert observed["org_repo"] == ORG_REPO
+    assert observed["source_revision"] == snapshot.source_revision
+    assert observed["current_readme_sha256"] == snapshot.readme_sha256
 
 
 def test_interrupted_sealed_fact_bundle_recovers_state_without_collection_or_llm(
@@ -414,12 +444,6 @@ def test_interrupted_sealed_fact_bundle_recovers_state_without_collection_or_llm
         "collect_product_facts",
         lambda org_repo: pytest.fail("sealed crash recovery must not recollect facts"),
     )
-    monkeypatch.setattr(
-        product_truth,
-        "dispatch_tool_call",
-        lambda *args, **kwargs: pytest.fail("sealed crash recovery must not call the LLM"),
-    )
-
     recovered = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
     lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
@@ -466,13 +490,13 @@ def test_first_collection_sealed_bundle_recovers_from_fact_boundary(
             source_revision=REVISION,
         )
     facts = _facts()
-    contract = product_truth.current_fact_acceptance_contract()
+    contract = product_truth.current_fact_acceptance_contract("java")
     product_truth.write_local_poc_product_facts(
         snapshot,
         facts,
         findings=[],
         resolution_source="repository_and_policy",
-        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
         fact_acceptance_contract_hash=contract.canonical_hash(),
         fact_acceptance_component_hashes=contract.component_hashes,
     )
@@ -532,7 +556,7 @@ def test_interrupted_fact_recovery_requires_exact_checksum_inventory(
         (
             "agent_draft",
             None,
-            product_truth.prompt_registry.prompt_hash("draft_product_truth"),
+            prompt_registry.prompt_hash("draft_product_truth"),
             "requires a proposal artifact",
         ),
         (
@@ -555,7 +579,7 @@ def test_interrupted_fact_recovery_rejects_incoherent_proposal_provenance(
     snapshot, backend, new_facts, _bundle_dir = _write_interrupted_fact_commit(
         tmp_path, monkeypatch
     )
-    contract = product_truth.current_fact_acceptance_contract()
+    contract = product_truth.current_fact_acceptance_contract("java")
     product_truth.write_local_poc_product_facts(
         snapshot,
         new_facts,
@@ -564,7 +588,7 @@ def test_interrupted_fact_recovery_rejects_incoherent_proposal_provenance(
         proposed_product_truth=proposal,
         lifecycle_status="BLOCKED_MISSING_EVIDENCE",
         prompt_hash=prompt_hash,
-        local_verification_contract_hash=product_truth.local_verification_contract_hash(),
+        local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
         fact_acceptance_contract_hash=contract.canonical_hash(),
         fact_acceptance_component_hashes=contract.component_hashes,
     )
@@ -593,6 +617,73 @@ def test_interrupted_fact_recovery_refuses_to_overwrite_downstream_state(tmp_pat
 
     with pytest.raises(RuntimeError, match="evidence hash does not match lifecycle state"):
         product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+
+def test_recovered_non_intake_failure_recollects_mismatched_fact_bundle(tmp_path, monkeypatch):
+    snapshot, backend, new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    state = backend.load(ORG_REPO)
+    lifecycle = state.readme_poc_lifecycle
+    old_hash = lifecycle.fact_acceptance_history[0].facts_hash
+    backend.states[ORG_REPO] = state.model_copy(
+        update={
+            "readme_poc_lifecycle": lifecycle.model_copy(
+                update={
+                    "status": "DETERMINISTIC_VALIDATED",
+                    "facts_hash": old_hash,
+                    "assessment_hash": "a" * 64,
+                    "presentation_plan_hash": "b" * 64,
+                    "candidate_hash": "c" * 64,
+                    "history": [
+                        *lifecycle.history,
+                        ReadmePocTransitionV2(
+                            from_status="AGENT_REVIEWING",
+                            to_status="SYSTEM_FAILURE",
+                            reason="review provider timed out",
+                            observed_by="independent_verification",
+                            source_revision=REVISION,
+                        ),
+                        ReadmePocTransitionV2(
+                            from_status="SYSTEM_FAILURE",
+                            to_status="DETERMINISTIC_VALIDATED",
+                            reason=(
+                                "recovered checksum-bound safe boundary after non-intake "
+                                "system failure"
+                            ),
+                            observed_by="registry_intake",
+                            source_revision=REVISION,
+                        ),
+                    ],
+                }
+            )
+        }
+    )
+    collection_calls = []
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: collection_calls.append(org_repo) or {"product_facts_v2": new_facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
+
+    refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    recovered = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert collection_calls == [ORG_REPO]
+    assert refreshed.facts == new_facts
+    assert recovered.facts_hash == new_facts.canonical_hash()
+    assert recovered.assessment_hash is None
+    assert recovered.presentation_plan_hash is None
+    assert recovered.candidate_hash is None
+    assert [item.to_status for item in recovered.history[-2:]] == [
+        "FACTS_COLLECTING",
+        "BLOCKED_MISSING_EVIDENCE",
+    ]
 
 
 def test_interrupted_fact_recovery_rechecks_fresh_state_inside_cas(tmp_path, monkeypatch):
@@ -630,7 +721,7 @@ def test_interrupted_fact_recovery_preserves_fresh_downstream_same_binding(tmp_p
     racing.states = dict(seeded_backend.states)
     initial = racing.states[ORG_REPO]
     lifecycle = initial.readme_poc_lifecycle
-    contract = product_truth.current_fact_acceptance_contract()
+    contract = product_truth.current_fact_acceptance_contract("java")
     new_binding = FactAcceptanceBindingV1(
         source_revision=REVISION,
         facts_hash=new_facts.canonical_hash(),
@@ -678,12 +769,12 @@ def test_changed_facts_under_same_contract_append_one_exact_acceptance_binding(
     monkeypatch.setattr(
         product_truth,
         "require_listed",
-        lambda org_repo: SimpleNamespace(ecosystem="python"),
+        lambda org_repo: SimpleNamespace(ecosystem="python", family="pdf"),
     )
     monkeypatch.setattr(
         product_truth,
         "local_verification_contract_hash",
-        lambda: verification_hash["value"],
+        lambda ecosystem=None: verification_hash["value"],
     )
 
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
@@ -750,7 +841,7 @@ def test_verified_truth_reopens_a_trusted_lifecycle_without_promoting_trusted_fa
     monkeypatch.setattr(
         product_truth,
         "require_listed",
-        lambda org_repo: SimpleNamespace(ecosystem="python"),
+        lambda org_repo: SimpleNamespace(ecosystem="python", family="pdf"),
     )
 
     prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
@@ -767,13 +858,10 @@ def test_verified_truth_reopens_a_trusted_lifecycle_without_promoting_trusted_fa
     assert prepared.resolution_source == "repository_and_policy"
 
 
-def test_same_inputs_reuse_a_narrowly_blocked_draft_without_repeating_the_llm(
-    tmp_path, monkeypatch
-):
+def test_same_inputs_reuse_a_narrow_repository_evidence_block(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     base = _facts(draftable_missing=True)
-    calls = []
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     monkeypatch.setattr(
         product_truth, "collect_product_facts", lambda org_repo: {"product_facts_v2": base}
@@ -784,25 +872,14 @@ def test_same_inputs_reuse_a_narrowly_blocked_draft_without_repeating_the_llm(
         lambda org_repo: SimpleNamespace(ecosystem="rust"),
     )
 
-    def dispatch(*args, **kwargs):
-        calls.append(kwargs)
-        return DispatchResult(
-            outcome="executed",
-            result={
-                "product_facts_v2": base.model_dump(mode="json"),
-                "proposed_product_truth": {"audience": ["Widget users"]},
-                "findings": [{"field": "example.minimal", "status": "BLOCKED"}],
-            },
-        )
-
-    monkeypatch.setattr(product_truth, "dispatch_tool_call", dispatch)
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: None)
 
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     second = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
     assert first.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
     assert second.resolution_source == "durable_revision_cache"
-    assert len(calls) == 1
+    assert len(first.findings) == len(README_DRAFTABLE_PRODUCT_FIELDS)
 
 
 def test_later_lifecycle_stage_reuses_the_same_durable_fact_graph(tmp_path, monkeypatch):
@@ -897,7 +974,7 @@ def test_legacy_false_terminal_graph_reopens_at_current_blocked_fact_boundary(
     monkeypatch.setattr(
         product_truth,
         "require_listed",
-        lambda org_repo: SimpleNamespace(ecosystem="python"),
+        lambda org_repo: SimpleNamespace(ecosystem="python", family="pdf"),
     )
     prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     _advance_to_no_op(backend)
@@ -942,7 +1019,7 @@ def test_current_contract_false_terminal_graph_reopens_at_blocked_fact_boundary(
     monkeypatch.setattr(
         product_truth,
         "require_listed",
-        lambda org_repo: SimpleNamespace(ecosystem="python"),
+        lambda org_repo: SimpleNamespace(ecosystem="python", family="pdf"),
     )
     prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     _advance_to_no_op(backend)
@@ -988,14 +1065,14 @@ def test_missing_durable_fact_evidence_fails_closed(tmp_path, monkeypatch):
         product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
 
 
-def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp_path, monkeypatch):
+def test_changed_verification_contract_revalidates_deterministic_salvage(tmp_path, monkeypatch):
     snapshot = _snapshot(tmp_path)
     backend = _ready_backend(snapshot)
     base = _facts(draftable_missing=True)
-    drafted = _facts()
-    prompt_hash = {"value": "1" * 64}
+    salvaged = _facts()
     verification_hash = {"value": "a" * 64}
     calls = []
+    candidate = {"candidate": "current-revision"}
 
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     monkeypatch.setattr(
@@ -1007,42 +1084,28 @@ def test_changed_fact_input_contract_invalidates_only_the_cached_agent_draft(tmp
         lambda org_repo: SimpleNamespace(ecosystem="java"),
     )
     monkeypatch.setattr(
-        product_truth.prompt_registry,
-        "prompt_hash",
-        lambda prompt_id: prompt_hash["value"],
-    )
-    monkeypatch.setattr(
         product_truth,
         "local_verification_contract_hash",
-        lambda: verification_hash["value"],
+        lambda ecosystem=None: verification_hash["value"],
     )
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: candidate)
 
-    def dispatch(*args, **kwargs):
-        calls.append(kwargs)
-        return DispatchResult(
-            outcome="executed",
-            result={
-                "product_facts_v2": drafted.model_dump(mode="json"),
-                "proposed_product_truth": {"audience": ["Widget users"]},
-                "findings": [],
-            },
-        )
+    def salvage(*args, **kwargs):
+        calls.append((args, kwargs))
+        return SimpleNamespace(facts=salvaged, findings=[])
 
-    monkeypatch.setattr(product_truth, "dispatch_tool_call", dispatch)
+    monkeypatch.setattr(product_truth, "salvage_product_truth_candidate", salvage)
 
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     cached = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     verification_hash["value"] = "b" * 64
     verifier_refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
-    prompt_hash["value"] = "2" * 64
-    prompt_refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
-    assert first.resolution_source == "agent_draft"
+    assert first.resolution_source == "deterministic_salvage"
     assert cached.resolution_source == "durable_revision_cache"
-    assert verifier_refreshed.resolution_source == "agent_draft"
-    assert prompt_refreshed.resolution_source == "agent_draft"
-    assert len(calls) == 3
-    assert backend.load(ORG_REPO).readme_poc_lifecycle.prompt_hash == "2" * 64
+    assert verifier_refreshed.resolution_source == "deterministic_salvage"
+    assert len(calls) == 2
+    assert backend.load(ORG_REPO).readme_poc_lifecycle.prompt_hash is None
 
 
 @pytest.mark.parametrize(
@@ -1073,7 +1136,7 @@ def test_changed_fact_graph_contract_recollects_before_reaccepting(
         "require_listed",
         lambda org_repo: SimpleNamespace(ecosystem="java"),
     )
-    original_contract = product_truth.current_fact_acceptance_contract()
+    original_contract = product_truth.current_fact_acceptance_contract("java")
     product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     changed_contract = original_contract.model_copy(
         update={
@@ -1086,7 +1149,7 @@ def test_changed_fact_graph_contract_recollects_before_reaccepting(
     monkeypatch.setattr(
         product_truth,
         "current_fact_acceptance_contract",
-        lambda: changed_contract,
+        lambda ecosystem=None, family=None: changed_contract,
     )
 
     refreshed = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)

@@ -462,6 +462,32 @@ def test_dynamic_scoreboard_counts_durable_lifecycle_progress(tmp_path):
     assert scoreboard.first_failing_boundary == "CANDIDATE_GENERATED"
 
 
+def test_dynamic_scoreboard_builds_fact_contract_per_registry_entry(tmp_path, monkeypatch):
+    source_products = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+    selected = [
+        item
+        for item in source_products
+        if item["ecosystem"] == "python" and item["family"] in {"3d", "barcode"}
+    ]
+    products_path = tmp_path / "products.json"
+    products_path.write_text(json.dumps(selected), encoding="utf-8")
+    observed: list[tuple[str | None, str | None]] = []
+
+    def contract(ecosystem=None, family=None):
+        observed.append((ecosystem, family))
+        return object()
+
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_goal_guard.current_fact_acceptance_contract",
+        contract,
+    )
+
+    scoreboard = derive_lifecycle_scoreboard(_MemoryStateBackend(), products_path=products_path)
+
+    assert scoreboard.denominator == 2
+    assert observed == [("python", "3d"), ("python", "barcode")]
+
+
 def test_dynamic_scoreboard_reports_raw_but_excludes_stale_acceptance(
     tmp_path,
     monkeypatch,

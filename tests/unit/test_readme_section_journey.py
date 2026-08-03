@@ -6,9 +6,13 @@ import json
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_structure import parse_headings
-from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.document_validation import (
+    DocumentCandidateValidationV1,
+    validate_readme_document_candidate,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -28,6 +32,30 @@ def _facts() -> tuple[ProductFactsV2, str]:
         ProductFactsV2.model_validate(pilot["product_facts_v2"]),
         pilot["snapshot"]["source_revision"],
     )
+
+
+def _assert_compatibility_claim_block(
+    validation: DocumentCandidateValidationV1,
+    plan: ReadmeDocumentPlanV1,
+) -> None:
+    assert validation.valid is False
+    assert validation.checks["claim_accountability_complete"] is False
+    assert validation.checks["claim_accountability_gaps_visible"] is True
+    assert all(
+        passed
+        for name, passed in validation.checks.items()
+        if name != "claim_accountability_complete"
+    )
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert validation.errors == [expected]
 
 
 def test_why_and_feature_sections_become_one_open_fact_backed_section():
@@ -64,7 +92,7 @@ Existing quick start.
     validation = validate_readme_document_candidate(source, candidate, plan, facts)
     h2s = [heading.title for heading in parse_headings(candidate) if heading.level == 2]
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(validation, plan)
     assert h2s[:5] == [
         "Navigation",
         "At a glance",
@@ -163,7 +191,7 @@ Existing installation guidance.
     )
     validation = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(validation, plan)
     assert candidate.count("## Key capabilities") == 1
     assert "<details>" not in candidate
     assert "Unverified inherited capability wording" not in candidate

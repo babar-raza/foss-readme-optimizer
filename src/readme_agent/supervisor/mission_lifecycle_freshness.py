@@ -171,6 +171,8 @@ def evaluate_lifecycle_fact_freshness(
     *,
     current_contract: FactAcceptanceContractV1 | None = None,
     current_local_verification_hash: str | None = None,
+    ecosystem: str | None = None,
+    family: str | None = None,
 ) -> LifecycleFactFreshnessDecisionV1:
     """Fail closed unless persisted facts still satisfy the public truth contract."""
 
@@ -189,9 +191,11 @@ def evaluate_lifecycle_fact_freshness(
     if lifecycle.facts_hash is None:
         reasons.append("facts_hash_missing")
 
-    contract = current_contract or current_fact_acceptance_contract()
+    contract = current_contract or current_fact_acceptance_contract(ecosystem, family)
     contract_hash = contract.canonical_hash()
-    verification_hash = current_local_verification_hash or local_verification_contract_hash()
+    verification_hash = current_local_verification_hash or local_verification_contract_hash(
+        ecosystem
+    )
     contract_is_current = (
         lifecycle.fact_acceptance_contract_hash == contract_hash
         and lifecycle.fact_acceptance_component_hashes == contract.component_hashes

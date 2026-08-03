@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Literal
 from urllib.parse import quote
 
+from readme_agent.facts.render_views import ecosystem_display_label
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.header_visual_models import ReadmeBadgeV1, safe_mermaid_label
 from readme_agent.readme.license_location import repository_license_path
@@ -13,7 +14,10 @@ _ACCEPTED_STATES = {"verified", "policy_approved"}
 
 
 def _accepted(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
-    fact = facts.selected_fact(field)
+    try:
+        fact = facts.selected_fact(field)
+    except KeyError:
+        return None
     if fact.verification_state not in _ACCEPTED_STATES or fact.has_unresolved_conflict:
         return None
     return fact
@@ -33,6 +37,7 @@ def _badge(
         "download",
         "platform",
         "build",
+        "source",
         "license",
         "contributors",
     ],
@@ -43,11 +48,12 @@ def _badge(
     *,
     target_url: str | None = None,
     image_url: str | None = None,
+    alt_text: str | None = None,
 ) -> ReadmeBadgeV1:
     return ReadmeBadgeV1(
         badge_id=badge_id,
         kind=kind,
-        alt_text=f"{label}: {value}",
+        alt_text=alt_text or f"{label}: {value}",
         image_url=image_url or _shield(label, value, color),
         target_url=target_url,
         fact_ids=fact_ids,
@@ -173,6 +179,24 @@ def _package_label(method: str, coordinate: dict) -> str | None:
     return name or None
 
 
+def _source_build_manifest_coordinate(
+    identity_value: dict,
+    coordinate_rows: list[dict],
+) -> dict | None:
+    manifest_names = identity_value.get("manifest_names")
+    if not isinstance(manifest_names, list):
+        return None
+    return next(
+        (
+            row
+            for name in manifest_names
+            for row in coordinate_rows
+            if str(name).strip() and _coordinate_matches({"name": str(name).strip()}, row)
+        ),
+        None,
+    )
+
+
 def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
     """Return one consistent row of applicable, fact-backed trust badges."""
 
@@ -206,7 +230,40 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
 
     identity = _accepted(facts, "product.identity")
     identity_value = identity.value if identity and isinstance(identity.value, dict) else {}
+    coordinate_fact, coordinate_rows = _coordinate_rows(facts)
+    if (
+        acquisition is not None
+        and method == "source_build"
+        and value.get("outcome") == "SOURCE_BUILD_VERIFIED"
+        and value.get("truth_eligible") is True
+    ):
+        manifest_coordinate = _source_build_manifest_coordinate(identity_value, coordinate_rows)
+        version, version_fact_ids = (
+            _verified_version(facts, manifest_coordinate)
+            if manifest_coordinate is not None
+            else (None, [])
+        )
+        if version and coordinate_fact is not None:
+            repository = str(identity_value.get("repository") or facts.org_repo).strip()
+            revision = str(value.get("source_revision") or acquisition.source.source_revision or "")
+            target = (
+                f"https://github.com/{repository}/tree/{quote(revision, safe='')}"
+                if len(repository.split("/")) == 2 and revision
+                else None
+            )
+            badges.append(
+                _badge(
+                    "version",
+                    "version",
+                    "Version",
+                    version,
+                    "blue",
+                    [acquisition.fact_id, *version_fact_ids],
+                    target_url=target,
+                )
+            )
     ecosystem = str(identity_value.get("ecosystem") or identity_value.get("platform") or "").strip()
+    ecosystem_label = ecosystem_display_label(ecosystem)
     if identity is not None and ecosystem:
         if method == "pypi" and coordinate.get("name"):
             package = quote(str(coordinate["name"]), safe="")
@@ -215,11 +272,12 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                     "platform",
                     "platform",
                     "Python versions",
-                    ecosystem,
+                    ecosystem_label,
                     "blue",
                     [identity.fact_id, acquisition.fact_id] if acquisition else [identity.fact_id],
                     target_url=f"https://pypi.org/project/{package}/",
                     image_url=f"https://img.shields.io/pypi/pyversions/{package}.svg",
+                    alt_text="Python versions",
                 )
             )
         else:
@@ -228,9 +286,53 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                     "platform",
                     "platform",
                     "Platform",
-                    ecosystem,
+                    ecosystem_label,
                     "blue",
                     [identity.fact_id],
+                )
+            )
+
+    ci = _accepted(facts, "repository.ci")
+    ci_value = ci.value if ci is not None and isinstance(ci.value, dict) else {}
+    workflow_path = str(ci_value.get("path") or "").strip()
+    repository = str(identity_value.get("repository") or facts.org_repo).strip()
+    if (
+        ci is not None
+        and identity is not None
+        and workflow_path
+        and len(repository.split("/")) == 2
+    ):
+        workflow_name = workflow_path.rsplit("/", 1)[-1]
+        workflow_url = f"https://github.com/{repository}/actions/workflows/{quote(workflow_name)}"
+        badges.append(
+            _badge(
+                "build",
+                "build",
+                "Build",
+                "GitHub Actions",
+                "blue",
+                [identity.fact_id, ci.fact_id],
+                target_url=workflow_url,
+                image_url=workflow_url + "/badge.svg",
+            )
+        )
+    elif (
+        acquisition is not None
+        and identity is not None
+        and value.get("outcome") in {"REGISTRY_VERIFIED", "SOURCE_BUILD_VERIFIED"}
+        and len(repository.split("/")) == 2
+    ):
+        revision = str(value.get("source_revision") or acquisition.source.source_revision or "")
+        if revision:
+            badges.append(
+                _badge(
+                    "source",
+                    "source",
+                    "Repository",
+                    "Source",
+                    "blue",
+                    [identity.fact_id],
+                    target_url=f"https://github.com/{repository}/tree/{quote(revision, safe='')}",
                 )
             )
 
@@ -248,7 +350,6 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 target_url=repository_license_path(license_fact),
             )
         )
-    repository = str(identity_value.get("repository") or facts.org_repo).strip()
     if identity is not None and len(repository.split("/")) == 2:
         badges.append(
             _badge(

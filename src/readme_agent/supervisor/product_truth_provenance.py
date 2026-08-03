@@ -36,4 +36,10 @@ def load_coherent_product_truth_proposal(bundle_dir: Path, manifest: dict) -> di
         if not isinstance(prompt_hash, str) or not prompt_hash:
             raise RuntimeError("agent-drafted product truth requires drafting prompt provenance")
         return load_product_truth_json_object(proposal_path, "proposed product truth")
+    if resolution_source == "deterministic_salvage":
+        if not proposal_path.is_file():
+            raise RuntimeError("deterministic salvage requires its source candidate artifact")
+        if prompt_hash is not None:
+            raise RuntimeError("deterministic salvage cannot retain provider prompt authority")
+        return load_product_truth_json_object(proposal_path, "salvage source candidate")
     raise RuntimeError(f"unknown product-truth resolution source {resolution_source!r}")

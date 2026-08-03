@@ -1,9 +1,12 @@
 """Tests for the versioned cached-product-truth acceptance boundary."""
 
+import pytest
+
 from readme_agent.facts.acceptance_contract import (
     _COMPONENT_FILES,
     README_TRUTH_FIELDS,
     _component_hash,
+    _scoped_component_files,
     classify_product_truth,
     current_fact_acceptance_contract,
 )
@@ -79,6 +82,17 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert "../ecosystems/registry_request.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "acquisition_pins.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert {
+        "aspose_org_dependency_snapshot.py",
+        "aspose_org_format_adapter.py",
+        "aspose_org_format_contract.py",
+    }.issubset(_COMPONENT_FILES["drafting_and_example_selection"])
+    assert {
+        "curated_readme_evidence.py",
+        "curated_constraint_evidence.py",
+        "curated_python_evidence.py",
+        "curated_repository_assets.py",
+    }.issubset(_COMPONENT_FILES["root_role_selection"])
 
 
 def test_component_or_rule_change_changes_the_contract_hash():
@@ -98,6 +112,68 @@ def test_component_or_rule_change_changes_the_contract_hash():
 
     assert component_changed.canonical_hash() != contract.canonical_hash()
     assert membership_changed.canonical_hash() != contract.canonical_hash()
+
+
+def test_ecosystem_contract_excludes_unrelated_fact_adapters():
+    python_acquisition = _scoped_component_files("acquisition_truth", "python", "page")
+    net_acquisition = _scoped_component_files("acquisition_truth", "net", "3d")
+    python_roots = _scoped_component_files("root_role_selection", "python", "page")
+    net_roots = _scoped_component_files("root_role_selection", "net", "3d")
+
+    assert "python_example_verifier.py" in python_acquisition
+    assert "dotnet_example_verifier.py" not in python_acquisition
+    assert "dotnet_example_verifier.py" in net_acquisition
+    assert "python_example_verifier.py" not in net_acquisition
+    assert "curated_python_evidence.py" in python_roots
+    assert "curated_python_evidence.py" not in net_roots
+
+
+@pytest.mark.parametrize("ecosystem", ["python", "net"])
+def test_family_owned_contract_requires_family_context(ecosystem):
+    with pytest.raises(ValueError, match="family is required"):
+        current_fact_acceptance_contract(ecosystem)
+
+
+def test_dotnet_family_adapter_hash_is_scoped_to_3d():
+    three_d = _scoped_component_files("drafting_and_example_selection", "net", "3d")
+    pdf = _scoped_component_files("drafting_and_example_selection", "net", "pdf")
+
+    assert "dotnet_3d_format_functionality.py" in three_d
+    assert "dotnet_3d_format_functionality.py" not in pdf
+
+
+def test_python_family_adapter_hashes_invalidate_only_their_owner(tmp_path):
+    component = "drafting_and_example_selection"
+    family_files = {
+        family: _scoped_component_files(component, "python", family)
+        for family in ("3d", "page", "pdf", "barcode")
+    }
+    for relative_path in set().union(*map(set, family_files.values())):
+        target = tmp_path / relative_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(f"baseline:{relative_path}\n", encoding="utf-8")
+
+    def hashes() -> dict[str, str]:
+        return {
+            family: _component_hash(tmp_path, relative_paths)
+            for family, relative_paths in family_files.items()
+        }
+
+    baseline = hashes()
+    three_d_adapter = tmp_path / "python_3d_format_functionality.py"
+    three_d_adapter.write_text("changed 3d corroborator\n", encoding="utf-8")
+    after_three_d = hashes()
+
+    assert after_three_d["3d"] != baseline["3d"]
+    assert after_three_d["page"] == baseline["page"]
+    assert after_three_d["pdf"] == baseline["pdf"]
+    assert after_three_d["barcode"] == baseline["barcode"]
+
+    common_adapter = tmp_path / "python_family_format_functionality.py"
+    common_adapter.write_text("changed common Python corroborator\n", encoding="utf-8")
+    after_common = hashes()
+
+    assert all(after_common[family] != after_three_d[family] for family in family_files)
 
 
 def test_classification_honors_the_contract_verification_states():
@@ -122,6 +198,19 @@ def test_component_hash_is_checkout_line_ending_invariant(tmp_path):
     assert _component_hash(lf_root, ("component.py",)) == _component_hash(
         crlf_root, ("component.py",)
     )
+
+
+def test_curated_fact_owner_change_invalidates_root_role_component(tmp_path):
+    component_files = _COMPONENT_FILES["root_role_selection"]
+    for relative_path in component_files:
+        path = tmp_path / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"owner = {relative_path!r}\n", encoding="utf-8")
+    baseline = _component_hash(tmp_path, component_files)
+    owner = tmp_path / "curated_python_evidence.py"
+    owner.write_text(owner.read_text(encoding="utf-8") + "contract = 2\n", encoding="utf-8")
+
+    assert _component_hash(tmp_path, component_files) != baseline
 
 
 def test_classification_uses_the_versioned_required_field_membership():

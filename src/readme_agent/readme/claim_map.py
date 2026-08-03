@@ -152,6 +152,55 @@ def build_readme_claim_map(
             raise ValueError(
                 f"document operation cites no literal rendered fact: {operation.operation_id!r}"
             )
+    candidate_bytes = candidate_text.encode("utf-8")
+    for provenance in plan.candidate_content_provenance:
+        if not provenance.fact_ids:
+            continue
+        bound_bytes = candidate_bytes[
+            provenance.candidate_byte_start : provenance.candidate_byte_end
+        ]
+        bound_text = bound_bytes.decode("utf-8")
+        for fact_id in provenance.fact_ids:
+            selected = facts.fact_by_id(fact_id)
+            if facts.selected_fact_ids.get(selected.field) != fact_id:
+                raise ValueError(f"candidate provenance cites non-selected fact {fact_id!r}")
+            if (
+                selected.verification_state not in {"verified", "policy_approved"}
+                or selected.has_unresolved_conflict
+            ):
+                raise ValueError(
+                    f"candidate provenance cites ineligible fact "
+                    f"{fact_id!r}:{selected.verification_state}"
+                )
+            literal_match = find_literal_fact_match(bound_text, selected.value)
+            if literal_match is None:
+                continue
+            fact_value = json.dumps(
+                selected.value,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+                default=str,
+            )
+            claim_text = bound_text[literal_match.line_start : literal_match.line_end]
+            relative_byte_start = len(bound_text[: literal_match.line_start].encode("utf-8"))
+            byte_start = provenance.candidate_byte_start + relative_byte_start
+            claims.append(
+                ReadmeClaimBindingV1(
+                    claim_id=f"{provenance.provenance_id}:{selected.field}",
+                    operation_id=provenance.provenance_id,
+                    fact_id=fact_id,
+                    field=selected.field,
+                    verification_state=selected.verification_state,
+                    fact_value_sha256=hashlib.sha256(fact_value.encode("utf-8")).hexdigest(),
+                    introduced_text_sha256=sha256_hex(bound_bytes),
+                    coordinate_space="candidate_utf8",
+                    byte_start=byte_start,
+                    byte_end=byte_start + len(claim_text.encode("utf-8")),
+                    claim_text_sha256=sha256_hex(claim_text),
+                    rationale=provenance.rationale,
+                )
+            )
     return ReadmeClaimMapV1(
         org_repo=plan.org_repo,
         facts_hash=plan.facts_hash,

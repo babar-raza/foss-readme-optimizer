@@ -14,6 +14,11 @@ ClaimStage = Literal["source", "candidate"]
 ClaimOrigin = Literal["inherited", "generated"]
 ExpectedClaimDisposition = Literal[
     "accepted_fact",
+    "configured_standard",
+    "deferred_verification",
+    "verified_omission",
+    "verified_equivalence",
+    "verified_obligation_replacement",
     "authoritative_owner_validation",
     "explicit_uncertainty",
     "required_correction",
@@ -24,6 +29,28 @@ ExpectedClaimDisposition = Literal[
 
 class _StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
+
+
+class StructuredFactCoordinateV1(_StrictModel):
+    """One exact visitor-meaningful coordinate inside a selected typed fact."""
+
+    fact_id: str
+    field: str
+    path: str
+    value_sha256: str
+    normalization_version: Literal["structured-fact-coordinate-v1"] = (
+        "structured-fact-coordinate-v1"
+    )
+
+
+class EquivalentCandidateClaimV1(_StrictModel):
+    """Exact candidate claim contributing to a structured source equivalence."""
+
+    claim_id: str
+    candidate_byte_start: int = Field(ge=0)
+    candidate_byte_end: int = Field(ge=0)
+    content_sha256: str
+    fact_coordinates: list[StructuredFactCoordinateV1] = Field(min_length=1)
 
 
 class ReadmeClaimAccountabilityV1(_StrictModel):
@@ -37,7 +64,13 @@ class ReadmeClaimAccountabilityV1(_StrictModel):
     content_sha256: str
     current_disposition: ClaimDisposition
     accepted_fact_ids: list[str] = Field(default_factory=list)
+    accepted_fact_coordinates: list[StructuredFactCoordinateV1] = Field(default_factory=list)
+    configured_standard_ids: list[str] = Field(default_factory=list)
     authoritative_owners: list[str] = Field(default_factory=list)
+    equivalence_group_id: str | None = None
+    equivalent_source_claim_ids: list[str] = Field(default_factory=list)
+    equivalent_candidate_claims: list[EquivalentCandidateClaimV1] = Field(default_factory=list)
+    equivalence_normalization_version: Literal["structured-fact-coordinate-v1"] | None = None
     survives_in_candidate: bool | None = None
     expected_disposition: ExpectedClaimDisposition
     currently_accountable: bool

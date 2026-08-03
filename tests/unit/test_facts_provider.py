@@ -63,7 +63,9 @@ class TestLocalVerificationFactsWithoutProductTruth:
     profile in this repo today (only the 3 Java pilots have product_truth authored)."""
 
     def test_a_published_package_still_gets_a_registry_verified_acquisition_fact(self, monkeypatch):
-        monkeypatch.setattr(provider, "_acquisition_fact", lambda *a, **k: _fake_registry_fact())
+        monkeypatch.setattr(
+            provider, "collect_acquisition_fact", lambda *a, **k: _fake_registry_fact()
+        )
         policy = SimpleNamespace(product_truth=None)
 
         facts, local_verification = provider._local_verification_facts(
@@ -89,7 +91,7 @@ class TestLocalVerificationFactsWithoutProductTruth:
         verified' instead of the honest, complete source_build record this restores."""
         monkeypatch.setattr(
             provider,
-            "_acquisition_fact",
+            "collect_acquisition_fact",
             lambda *a, **k: _fake_blocked_source_fact(
                 "no product_truth.minimal_example configured for this policy profile"
             ),
@@ -119,7 +121,7 @@ class TestLocalVerificationFactsWithoutProductTruth:
         mark it 'missing', an honest reflection of reality)."""
         monkeypatch.setattr(
             provider,
-            "_acquisition_fact",
+            "collect_acquisition_fact",
             lambda *a, **k: _fake_blocked_source_fact(
                 "no product_truth.minimal_example configured for this policy profile"
             ),
@@ -172,7 +174,9 @@ def test_verified_rust_surface_is_preserved_in_example_product_fact(monkeypatch)
         lambda _snapshot, _example: _VerifiedRustResult(),
     )
     monkeypatch.setattr(
-        provider, "_acquisition_fact", lambda *_args, **_kwargs: _fake_registry_fact("crates_io")
+        provider,
+        "collect_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_registry_fact("crates_io"),
     )
 
     facts, verification = provider._local_verification_facts(

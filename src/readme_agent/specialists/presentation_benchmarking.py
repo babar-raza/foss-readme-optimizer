@@ -80,27 +80,63 @@ def _classify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     org_repo = config["configurable"]["org_repo"]
     backend: StateBackend | None = config["configurable"].get("backend")
     current_revision = config["configurable"].get("current_revision")
+    current = backend.load(org_repo) if backend is not None and proposal_only_active() else None
+    upstream = current.domain_states.get(README_PRESENTATION) if current is not None else None
+    upstream_status = upstream.accepted_status if upstream is not None else None
+    upstream_failure_reason = upstream.last_failure_reason if upstream is not None else None
+    upstream_failed = upstream is not None and (
+        upstream_failure_reason is not None
+        or (upstream_status is not None and upstream_status.startswith("ERROR:"))
+    )
+    if upstream_failed:
+        return {
+            "accepted_status": "NO_CHANGE",
+            "details": {
+                "status": "DEFERRED_UPSTREAM_FAILURE",
+                "upstream_domain": README_PRESENTATION,
+                "upstream_status": upstream_status,
+                "upstream_failure_reason": upstream_failure_reason,
+            },
+        }
     candidate_text = _bound_candidate_text(org_repo, backend, current_revision)
     if candidate_text is None and proposal_only_active():
-        current = backend.load(org_repo) if backend is not None else None
-        upstream = current.domain_states.get(README_PRESENTATION) if current is not None else None
-        upstream_status = upstream.accepted_status if upstream is not None else None
-        upstream_failure_reason = upstream.last_failure_reason if upstream is not None else None
-        upstream_failed = upstream is not None and (
-            upstream_failure_reason is not None
-            or (upstream_status is not None and upstream_status.startswith("ERROR:"))
-        )
-        if upstream_failed:
-            return {
-                "accepted_status": "NO_CHANGE",
-                "details": {
-                    "status": "DEFERRED_UPSTREAM_FAILURE",
-                    "upstream_domain": README_PRESENTATION,
-                    "upstream_status": upstream_status,
-                    "upstream_failure_reason": upstream_failure_reason,
-                },
-            }
         raise RuntimeError("local-POC presentation benchmark requires a lifecycle-bound candidate")
+    if candidate_text is not None and proposal_only_active() and upstream is not None:
+        plan = upstream.details.get("presentation_plan") or {}
+        review = upstream.details.get("independent_review") or {}
+        if review.get("outcome_kind") == "accepted" and isinstance(plan, dict):
+            findings = plan.get("findings") or []
+            criteria = [
+                {
+                    "dimension": finding.get("dimension"),
+                    "satisfied": finding.get("disposition") == "satisfied",
+                    "note": finding.get("summary", ""),
+                }
+                for finding in findings
+                if isinstance(finding, dict) and finding.get("dimension")
+            ]
+            result = {
+                "criteria_results": criteria,
+                "overall_summary": (
+                    "Reused the verified presentation plan after merged independent approval."
+                ),
+                "input_source": "verified_candidate_plan_and_merged_review",
+                "input_sha256": hashlib.sha256(candidate_text.encode("utf-8")).hexdigest(),
+                "structural_observations": {
+                    "has_mermaid": "```mermaid" in candidate_text,
+                    "ci_badge_count": candidate_text.count("actions/workflows"),
+                },
+                "review_reused": True,
+            }
+            fingerprint = _fingerprint(result)
+            classification = classify_surface(
+                current_fingerprint=fingerprint, prior_fingerprint=state.accepted_facts_hash
+            )
+            return {
+                "accepted_facts_hash": fingerprint,
+                "accepted_status": classification.classification,
+                "details": result,
+            }
     arguments = {"org_repo": org_repo}
     if candidate_text is not None:
         arguments["candidate_text"] = candidate_text

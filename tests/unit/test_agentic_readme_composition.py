@@ -17,11 +17,19 @@ from readme_agent.readme.agentic_composition import (
     plan_readme_composition,
     validate_readme_composition_plan,
 )
+from readme_agent.readme.agentic_composition_assessment import planning_assessment_payload
+from readme_agent.readme.agentic_composition_grounding import accepted_composition_fact_ids
+from readme_agent.readme.agentic_composition_inputs import (
+    compact_prompt_fact_value,
+    composition_fact_payloads,
+)
+from readme_agent.readme.agentic_composition_models import MAX_AUTHORING_ATTEMPTS
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
+from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 
@@ -40,13 +48,13 @@ CHARACTERIZATION_ASSESSMENT_SHA256 = (
     "de41ffd93770106e7f6d6b6491cf776da8043a5c6a51b24186f20f7d21324546"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "265a37eb2634b2ab2f648a075eba0da9bc660cbb597ece9ea6066692268b1a28"
+    "9e97c91d2c147f6ead6fd9da33eccef8ecf9d9d2c36ed4e9faa89b99ee2d3175"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "ae08ddab6f95be765a7a0815f71265acc009400768b5d20abf3fff0a5e6d1c3f"
+    "926ab26ad2ab85fe128755e8903fda31c7d52d8a556216db90b9332558059023"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "e1025e0653918cd330fcbebb681de6f7313be6631609614d0f9d4d5e2593c9eb"
+    "d407b8b10b43176aeca6520936f0798b4cf35332ebec4544b1f5ec5e70925508"
 )
 
 
@@ -71,6 +79,89 @@ def _first_text(value: object) -> str:
 def _canonical_hash(value: object) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def test_authoring_packet_excludes_native_verifier_receipts_and_caps_equivalent_attempts():
+    facts, _revision = _facts()
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value) if isinstance(example.value, dict) else {}
+    example_value["compiled_consumer"] = {"stdout": "native-proof" * 100_000}
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    payloads = composition_fact_payloads(facts, accepted_composition_fact_ids(facts))
+    projected_example = next(row for row in payloads if row["field"] == "example.minimal")
+
+    assert "compiled_consumer" not in projected_example["value"]
+    assert len(json.dumps(payloads)) < 50_000
+    assert MAX_AUTHORING_ATTEMPTS == 2
+
+
+def test_authoring_packet_flattens_public_api_and_asset_trees_with_explicit_counts():
+    api_value = {
+        "modules": [
+            {
+                "module": "aspose.note",
+                "exports": [f"Export{index}" for index in range(100)],
+                "source_path": "src/aspose/note/__init__.py",
+                "source_sha256": "a" * 64,
+            }
+        ],
+        "classes": [
+            {
+                "name": f"Class{index}",
+                "members": [
+                    {
+                        "name": "load",
+                        "surface": f"Class{index}.load(path)",
+                        "native_verifier_transcript": "verifier-tree" * 100,
+                    }
+                ],
+                "source_path": f"src/class_{index}.py",
+                "source_sha256": "b" * 64,
+            }
+            for index in range(100)
+        ],
+    }
+    assets_value = {
+        "tests": {
+            "count": 100,
+            "inventory_sha256": "c" * 64,
+            "representative_paths": [
+                {"path": f"tests/test_{index}.py", "sha256": "d" * 64} for index in range(20)
+            ],
+        }
+    }
+
+    api = compact_prompt_fact_value("api.public_surface", api_value)
+    assets = compact_prompt_fact_value("development.assets", assets_value)
+    serialized = json.dumps({"api": api, "assets": assets}, sort_keys=True)
+
+    assert api["inventory_counts"] == {
+        "modules": 1,
+        "exports": 100,
+        "classes": 100,
+        "member_surfaces": 100,
+    }
+    assert len(api["representative_exports"]) == 16
+    assert len(api["representative_classes"]) == 16
+    assert len(api["representative_member_surfaces"]) == 16
+    assert api["projection_bounded"] is True
+    assert assets["tests"]["representative_paths"] == [
+        f"tests/test_{index}.py" for index in range(5)
+    ]
+    assert "source_path" not in serialized
+    assert "source_sha256" not in serialized
+    assert "native_verifier_transcript" not in serialized
+    assert len(serialized) < len(json.dumps({"api": api_value, "assets": assets_value})) // 3
 
 
 def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
@@ -113,6 +204,16 @@ def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
                     "supporting_fact_ids": [formats.fact_id],
                 },
                 {
+                    "role": "input",
+                    "label": "XLSX data",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "input",
+                    "label": "Workbook streams",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
                     "role": "capability",
                     "label": str(capability_values[0]),
                     "supporting_fact_ids": [capabilities.fact_id],
@@ -132,18 +233,54 @@ def _draft(facts: ProductFactsV2, *, fact_id: str | None = None) -> dict:
                     "supporting_fact_ids": [problem.fact_id],
                 },
                 {
+                    "role": "capability",
+                    "label": "Read worksheet data",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Write workbook data",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Inspect workbook formulas",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
                     "role": "output",
                     "label": "Updated XLSX workbooks",
                     "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Worksheet values",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Workbook metadata",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Cell values",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Spreadsheet styles",
+                    "supporting_fact_ids": [capabilities.fact_id],
                 },
             ]
         },
         "opening_summary": {
             "text": (
                 "Aspose.Cells FOSS for Java is an open-source Java library for processing "
-                "spreadsheet workbooks without Microsoft Excel."
+                "spreadsheet workbooks without Microsoft Excel. It is designed for Java "
+                "developers creating, loading, modifying, and saving spreadsheet workbooks."
             ),
-            "supporting_fact_ids": [identity.fact_id, problem.fact_id],
+            "supporting_fact_ids": [identity.fact_id, audience.fact_id, problem.fact_id],
         },
     }
 
@@ -184,7 +321,7 @@ def test_composition_tool_schema_avoids_gateway_unsupported_unique_items():
     assert "opening_summary" in schema["function"]["parameters"]["required"]
     assert (
         schema["function"]["parameters"]["properties"]["diagram"]["properties"]["nodes"]["minItems"]
-        == 5
+        == 14
     )
 
 
@@ -214,6 +351,31 @@ def _cover_assessment(draft: dict, assessment) -> dict:
         if section.section_id not in existing
     )
     return draft
+
+
+def test_composition_assessment_projection_binds_full_claims_without_copying_them():
+    facts, revision = _facts()
+    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    payload = planning_assessment_payload(assessment)
+    serialized = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+
+    assert payload["full_assessment_sha256"] == assessment.canonical_hash()
+    assert payload["material_claim_count"] == len(assessment.material_claims)
+    assert "material_claims" not in payload
+    assert "untrusted_repository_instructions" not in payload
+    assert all("protected_fragment_ids" not in section for section in payload["sections"])
+    assert all(
+        "rationale" not in section
+        for section in payload["sections"]
+        if section["disposition"] == "preserve"
+    )
+    assert len(serialized) < len(assessment.model_dump_json())
 
 
 def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
@@ -255,14 +417,15 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     )
     assert document_plan.candidate_sha256 == CHARACTERIZATION_CANDIDATE_SHA256
     assert [operation.operation_id for operation in document_plan.operations] == [
-        "readme.journey.key-capabilities",
-        "readme.overview-navigation-and-acquisition",
-        "readme.installation.add-verified",
-        "readme.example.add-verified-minimal",
-        "readme.limitations.add-verified",
-        "readme.license.add-section",
-        "readme.header.badges",
+        "readme.verified-template.compile"
     ]
+    assert document_plan.claim_accountability is not None
+    blocking_claims = [
+        claim
+        for claim in document_plan.claim_accountability.claims
+        if not claim.currently_accountable
+    ]
+    assert blocking_claims == []
     assert plan.model == "fixture-author"
     assert plan.attempt_count == 1
     assert plan.input_sha256
@@ -274,7 +437,9 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert _first_text(facts.selected_fact("product.capabilities").value) in candidate
     assert "Lead with the verified spreadsheet audience" not in candidate
     cited_ids = {
-        fact_id for operation in document_plan.operations for fact_id in operation.fact_ids
+        fact_id
+        for binding in document_plan.candidate_content_provenance
+        for fact_id in binding.fact_ids
     }
     assert {
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
@@ -296,7 +461,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert _first_text(facts.selected_fact("product.audience").value) in claim_bytes.decode("utf-8")
 
 
-def test_concise_diagram_labels_do_not_replace_literal_capability_prose():
+def test_fact_grounded_diagram_labels_do_not_replace_literal_capability_prose():
     facts, revision = _facts()
     source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
     assessment = assess_readme_document(
@@ -306,9 +471,6 @@ def test_concise_diagram_labels_do_not_replace_literal_capability_prose():
         base_revision=revision,
     )
     draft = _draft(facts)
-    for index, node in enumerate(draft["diagram"]["nodes"]):
-        if node["role"] == "capability":
-            node["label"] = f"Concise capability {index}"
     plan = plan_readme_composition(
         facts.org_repo,
         source,
@@ -333,8 +495,145 @@ def test_concise_diagram_labels_do_not_replace_literal_capability_prose():
 
     capability = facts.selected_fact("product.capabilities")
     assert _first_text(capability.value) in candidate
-    assert "Concise capability" in candidate  # Diagram vocabulary remains visible.
+    assert any(node.role == "capability" for node in plan.diagram.nodes)
     assert any(claim.fact_id == capability.fact_id for claim in claim_map.claims)
+
+
+def test_bidirectional_format_label_may_appear_once_in_input_and_output_roles():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    draft["diagram"]["nodes"][-1]["label"] = draft["diagram"]["nodes"][0]["label"]
+    draft["diagram"]["nodes"][-1]["supporting_fact_ids"] = [
+        facts.selected_fact("product.formats").fact_id
+    ]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    input_label = next(node.label for node in plan.diagram.nodes if node.role == "input")
+    assert any(node.role == "output" and node.label == input_label for node in plan.diagram.nodes)
+
+
+def test_duplicate_diagram_label_within_one_role_is_deduplicated():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    draft["diagram"]["nodes"][1]["label"] = draft["diagram"]["nodes"][0]["label"]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    role_labels = [
+        (node.role, " ".join(node.label.casefold().split())) for node in plan.diagram.nodes
+    ]
+    assert len(role_labels) == len(set(role_labels))
+
+
+def test_conversion_capabilities_complete_mermaid_input_and_output_roles():
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": ["Input format: PS/EPS input"],
+        "product.capabilities": [
+            "PS/EPS to PDF conversion",
+            "PS/EPS to image conversion",
+            "XPS to PDF conversion",
+            "XPS to image conversion",
+            "EPS metadata extraction",
+        ],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    nodes = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+        target_counts={"input": 4, "capability": 6, "output": 5},
+    )
+    inputs = {node.label for node in nodes if node.role == "input"}
+    outputs = {node.label for node in nodes if node.role == "output"}
+
+    assert any("PS/EPS" in label for label in inputs)
+    assert "XPS files" in inputs
+    assert "PDF files" in outputs
+    assert "image files" in outputs
+    assert "EPS metadata" in outputs
+    output_labels = [
+        " ".join(node.label.casefold().split()) for node in nodes if node.role == "output"
+    ]
+    assert len(output_labels) == len(set(output_labels))
+
+
+def test_generation_capabilities_supply_literal_content_inputs_for_output_only_products():
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": ["Output format: SVG", "Output format: PNG"],
+        "product.capabilities": [
+            "Code 128 generation with automatic Code Set switching",
+            "Code 39 generation with full ASCII support",
+            "QR Code generation with configurable parameters",
+        ],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    nodes = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+        target_counts={"input": 3, "capability": 3, "output": 2},
+    )
+
+    assert {node.label for node in nodes if node.role == "input"} == {
+        "Code 128 content",
+        "Code 39 content",
+        "QR Code content",
+    }
+    assert {node.label for node in nodes if node.role == "output"} == {
+        "SVG files",
+        "PNG files",
+    }
 
 
 def test_agentic_plan_rejects_unaccepted_or_invented_fact_ids():
@@ -623,7 +922,40 @@ def test_document_validation_accepts_one_representative_phrase_per_overview_fact
     assert result.valid, result.errors
     assert document_plan.header_visuals is not None
     assert problem.fact_id in document_plan.header_visuals.diagram_fact_ids
-    assert "Secondary verified task" not in candidate
+    assert candidate.count("Secondary verified task") == 1
+    assert '["Secondary verified task"]' in candidate
+
+
+def test_presentation_replacement_does_not_blanket_authorize_protected_source_loss():
+    facts, revision = _facts()
+    source = "# Product\n\n## API reference\n\n```text\nmaintainer_api_contract()\n```\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(_cover_assessment(_draft(facts), assessment)),
+        max_attempts=1,
+    )
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+    unresolved = document_plan.model_copy(update={"source_claim_resolutions": []})
+
+    result = validate_readme_document_candidate(source, candidate, unresolved, facts)
+
+    assert result.checks["protected_content"] is False
+    assert any("unauthorized protected-content loss" in error for error in result.errors)
 
 
 def test_renderer_rejects_a_composition_plan_rebound_to_another_source():
@@ -787,6 +1119,314 @@ def test_agentic_plan_repairs_a_rejected_first_response():
     assert plan.attempt_count == 2
 
 
+def test_agentic_plan_repairs_opening_that_omits_audience_citation():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    audience_id = facts.selected_fact("product.audience").fact_id
+    invalid["opening_summary"]["supporting_fact_ids"].remove(audience_id)
+    valid = _cover_assessment(_draft(facts), assessment)
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, valid),
+    )
+
+    assert audience_id in plan.opening_summary.supporting_fact_ids
+    assert plan.attempt_count == 2
+
+
+def test_agentic_plan_repairs_opening_with_enterprise_comparison():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["opening_summary"]["text"] += " Compare the commercial Aspose.Cells product."
+    valid = _cover_assessment(_draft(facts), assessment)
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, valid),
+    )
+
+    assert "commercial" not in plan.opening_summary.text.casefold()
+    assert plan.attempt_count == 2
+
+
+@pytest.mark.parametrize(
+    ("role", "field", "label"),
+    [
+        ("input", "product.compatibility", "Java 17+ runtime"),
+        ("input", "example.minimal", "Java source code"),
+        ("input", "product.formats", "Java source code"),
+        ("input", "product.formats", "Reads XLSX files"),
+        ("input", "product.formats", "Import XLSX files"),
+        ("input", "product.formats", "Open XLSX files"),
+        ("input", "product.formats", "Parse XLSX files"),
+        ("input", "product.formats", "XLSX files and Java runtime"),
+        ("output", "product.formats", "XLSX Java API surface"),
+        ("output", "product.formats", "XLSX package artifact"),
+        ("capability", "product.formats", "Process XLSX through source code"),
+        ("capability", "product.capabilities", "source"),
+        ("output", "product.formats", "XLSX source"),
+        ("output", "product.problems_solved", "XLSX source"),
+        ("output", "installation.verified_acquisition", "Maven artifact"),
+        ("output", "support.routes", "Java API surface"),
+        ("output", "product.problems_solved", "open-source Java API"),
+    ],
+)
+def test_agentic_plan_repairs_infrastructure_facts_used_as_product_diagram_roles(
+    role: str,
+    field: str,
+    label: str,
+):
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    selected = facts.selected_fact(field)
+    target = next(node for node in invalid["diagram"]["nodes"] if node["role"] == role)
+    target["label"] = label
+    target["supporting_fact_ids"] = [selected.fact_id]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid),
+    )
+
+    assert plan.attempt_count == 1
+    assert all(node.label != label for node in plan.diagram.nodes)
+
+
+def test_agentic_plan_does_not_invent_diagram_detail_to_reach_a_visual_target():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    removed_one = False
+    remaining_nodes = []
+    for node in draft["diagram"]["nodes"]:
+        if node["role"] == "capability" and not removed_one:
+            removed_one = True
+            continue
+        remaining_nodes.append(node)
+    draft["diagram"]["nodes"] = remaining_nodes
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+    )
+
+    assert sum(node.role == "capability" for node in plan.diagram.nodes) >= 1
+    assert all(node.label != "Inspect workbook formulas" for node in plan.diagram.nodes)
+    assert plan.attempt_count == 1
+
+
+def test_agentic_plan_accepts_literal_format_fact_for_load_capability():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    formats = facts.selected_fact("product.formats")
+    capability = next(node for node in draft["diagram"]["nodes"] if node["role"] == "capability")
+    capability["label"] = "Load XLSX workbooks"
+    capability["supporting_fact_ids"] = [formats.fact_id]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+    )
+
+    assert any(node.label == "Load XLSX workbooks" for node in plan.diagram.nodes)
+    assert plan.attempt_count == 1
+
+
+def test_structured_load_save_format_facts_render_as_input_and_output_nouns():
+    facts, revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Save format: XLSX", "Load formats: AUTO, XLSX"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    for node in draft["diagram"]["nodes"]:
+        if node["role"] == "input":
+            node["label"] = "Reads XLSX files"
+            node["supporting_fact_ids"] = [formats.fact_id]
+        elif node["role"] == "output":
+            node["label"] = "Writes XLSX files"
+            node["supporting_fact_ids"] = [formats.fact_id]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    input_labels = {node.label for node in plan.diagram.nodes if node.role == "input"}
+    output_labels = {node.label for node in plan.diagram.nodes if node.role == "output"}
+    assert input_labels == {"XLSX files"}
+    assert "XLSX files" in output_labels
+    assert not any(
+        label.startswith(("Reads ", "Writes ")) for label in input_labels | output_labels
+    )
+
+
+def test_diagram_includes_each_safe_verified_capability_until_the_detail_target():
+    facts, revision = _facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Create workbooks",
+                            "Load workbooks",
+                            "Modify workbooks",
+                            "Save workbooks",
+                            "Read cell values",
+                            "Load diagnostics and repair reporting",
+                        ]
+                    }
+                )
+                if fact.fact_id == capabilities.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    draft["diagram"]["nodes"] = [
+        node
+        for node in draft["diagram"]["nodes"]
+        if node["label"] != "Load diagnostics and repair reporting"
+    ]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    capability_labels = {node.label for node in plan.diagram.nodes if node.role == "capability"}
+    assert "Load diagnostics and repair reporting" in capability_labels
+    assert len(capability_labels) >= 6
+
+
+def test_domain_package_parts_capability_is_not_misclassified_as_package_infrastructure():
+    facts, revision = _facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    domain_capability = (
+        "Load diagnostics, repair reporting, and preservation of unsupported package parts"
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [domain_capability]})
+                if fact.fact_id == capabilities.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    first_capability = next(
+        node for node in draft["diagram"]["nodes"] if node["role"] == "capability"
+    )
+    first_capability["label"] = "Load diagnostics"
+    first_capability["supporting_fact_ids"] = [capabilities.fact_id]
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    assert any(
+        node.role == "capability"
+        and node.label
+        == "Load diagnostics, repair reporting, preservation of unsupported package parts"
+        for node in plan.diagram.nodes
+    )
+
+
 def test_semantic_retry_preserves_independent_repair_and_exact_source_dispositions():
     facts, revision = _facts()
     source = "# Product\n"
@@ -851,6 +1491,8 @@ def test_semantic_retry_preserves_independent_repair_and_exact_source_dispositio
     assert "copy its paired disposition exactly" in retry_prompt
     assert '"section_id": "missing:at-a-glance"' in retry_prompt
     assert '"disposition": "add"' in retry_prompt
+    assert "role-compatible vocabulary" in retry_prompt
+    assert "Load and save XLSX workbooks." in retry_prompt
     assert (
         validate_readme_composition_plan(
             plan.model_dump(mode="json"),

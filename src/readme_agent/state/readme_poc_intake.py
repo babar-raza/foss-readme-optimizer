@@ -5,12 +5,14 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from typing import Literal
 
 from readme_agent.errors import StateBackendError
 from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.cas import save_state_patch
 from readme_agent.state.lifecycle import acquire_lifecycle_lock
 from readme_agent.state.lifecycle_schema import (
+    AssuranceReadmePocStatusV1,
     IntakePreflightBindingV1,
     IntakePreflightOutcomeV1,
     IntakePreflightReservationV1,
@@ -30,6 +32,81 @@ class IntakePreflightAcceptance:
     completed: IntakePreflightBindingV1 | None
     should_execute: bool
     resumed: bool = False
+
+
+_NON_INTAKE_FAILURE_RESUME_STAGES: dict[AssuranceReadmePocStatusV1, tuple[str, ...]] = {
+    "SNAPSHOTTED": ("source_revision",),
+    "PROFILED": ("source_revision",),
+    "FACTS_COLLECTING": ("source_revision",),
+    "FACTS_READY": ("facts_hash",),
+    "README_ASSESSED": ("facts_hash", "assessment_hash"),
+    "PLAN_READY": ("facts_hash", "assessment_hash", "presentation_plan_hash"),
+    "CANDIDATE_GENERATED": (
+        "facts_hash",
+        "assessment_hash",
+        "presentation_plan_hash",
+        "candidate_hash",
+    ),
+    "DETERMINISTIC_VALIDATED": (
+        "facts_hash",
+        "assessment_hash",
+        "presentation_plan_hash",
+        "candidate_hash",
+    ),
+    "AGENT_REVIEWING": (
+        "facts_hash",
+        "assessment_hash",
+        "presentation_plan_hash",
+        "candidate_hash",
+    ),
+}
+
+
+FailureOwner = Literal["intake", "non_intake", "unknown"]
+
+
+def _failure_recovery(
+    lifecycle: ReadmePocLifecycleStateV2,
+) -> tuple[FailureOwner, AssuranceReadmePocStatusV1 | None]:
+    """Classify failure ownership and the last checksum-bound safe stage."""
+
+    failure = None
+    if lifecycle.status == "SYSTEM_FAILURE":
+        failure = next(
+            (item for item in reversed(lifecycle.history) if item.to_status == "SYSTEM_FAILURE"),
+            None,
+        )
+    elif (
+        lifecycle.status == "INTAKE_READY"
+        and lifecycle.history
+        and lifecycle.history[-1].reason == "reconciled successful read-only intake retry"
+    ):
+        failure = next(
+            (
+                item
+                for item in reversed(lifecycle.history[:-1])
+                if item.to_status == "SYSTEM_FAILURE"
+            ),
+            None,
+        )
+    if failure is None:
+        if lifecycle.status == "SYSTEM_FAILURE" and any(
+            item.outcome == "SYSTEM_FAILURE" and item.observed_by == "registry_intake"
+            for item in lifecycle.intake_preflight_history
+        ):
+            return "intake", None
+        return "unknown", None
+    if failure.from_status == "INTAKE_PREFLIGHTING" and failure.observed_by == "registry_intake":
+        return "intake", None
+
+    failed_stage = failure.from_status
+    if failed_stage is None:
+        return "non_intake", None
+    resume_stage = "DETERMINISTIC_VALIDATED" if failed_stage == "AGENT_REVIEWING" else failed_stage
+    required = _NON_INTAKE_FAILURE_RESUME_STAGES.get(resume_stage)
+    if required is None or any(getattr(lifecycle, field) is None for field in required):
+        return "non_intake", None
+    return "non_intake", resume_stage
 
 
 def intake_preflight_dedup_key(
@@ -63,28 +140,59 @@ def begin_readonly_intake_preflight(
         lifecycle = _current_lifecycle(current)
         completed = _latest_completed(lifecycle, dedup_key)
         if completed is not None and completed.outcome != "SYSTEM_FAILURE":
-            if lifecycle.status == "SYSTEM_FAILURE":
+            if (
+                completed.source_revision != source_revision
+                or completed.source_revision_resolved != source_revision_resolved
+            ):
+                raise StateBackendError(f"{org_repo!r} completed intake identity is inconsistent")
+            failure_owner, resume_stage = _failure_recovery(lifecycle)
+            revisions_match = lifecycle.source_revision in {None, completed.source_revision}
+            needs_repair = (lifecycle.status == "SYSTEM_FAILURE" and failure_owner == "intake") or (
+                failure_owner == "non_intake"
+                and (resume_stage is not None or lifecycle.status == "INTAKE_READY")
+                and lifecycle.source_revision == completed.source_revision == source_revision
+            )
+            if needs_repair and revisions_match:
                 now = datetime.now(UTC).isoformat()
 
                 def repair_terminal_status(state: RunStateV2) -> RunStateV2:
                     prior = _current_lifecycle(state)
                     latest = _latest_completed(prior, dedup_key)
-                    if (
-                        prior.status != "SYSTEM_FAILURE"
-                        or latest is None
-                        or latest.outcome == "SYSTEM_FAILURE"
+                    owner, recovered_stage = _failure_recovery(prior)
+                    if latest is None or latest.outcome == "SYSTEM_FAILURE":
+                        return state
+                    if owner == "intake" and prior.status == "SYSTEM_FAILURE":
+                        next_status: AssuranceReadmePocStatusV1 = "INTAKE_READY"
+                    elif (
+                        owner == "non_intake"
+                        and prior.status in {"SYSTEM_FAILURE", "INTAKE_READY"}
+                        and prior.source_revision == latest.source_revision == source_revision
                     ):
+                        next_status = recovered_stage or "SYSTEM_FAILURE"
+                    else:
+                        return state
+                    if prior.status == next_status:
                         return state
                     updated = prior.model_copy(
                         update={
-                            "status": "INTAKE_READY",
+                            "status": next_status,
                             "updated_at": now,
                             "history": [
                                 *prior.history,
                                 ReadmePocTransitionV2(
-                                    from_status="SYSTEM_FAILURE",
-                                    to_status="INTAKE_READY",
-                                    reason="reconciled successful read-only intake retry",
+                                    from_status=prior.status,
+                                    to_status=next_status,
+                                    reason=(
+                                        "recovered checksum-bound safe boundary after "
+                                        "non-intake system failure"
+                                        if owner == "non_intake" and recovered_stage is not None
+                                        else (
+                                            "undid unsafe intake rewind after non-intake "
+                                            "system failure"
+                                            if owner == "non_intake"
+                                            else "reconciled successful read-only intake retry"
+                                        )
+                                    ),
                                     evidence_refs=latest.evidence_refs,
                                     observed_by="registry_intake",
                                     occurred_at=now,

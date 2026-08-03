@@ -72,11 +72,19 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "classification_semantics": ("acceptance_contract.py",),
     "conflict_semantics": ("acceptance_contract.py", "resolution.py", "schema_v2.py"),
     "drafting_and_example_selection": (
-        "../capabilities/draft_product_truth.py",
-        "agentic_drafting.py",
+        "aspose_org_dependency_snapshot.py",
+        "aspose_org_format_adapter.py",
+        "aspose_org_format_contract.py",
+        "deterministic_truth_salvage.py",
+        "format_direction.py",
         "example_quality.py",
         "problem_grounding.py",
         "python_repository_examples.py",
+        "python_format_functionality.py",
+        "python_family_format_functionality.py",
+        "python_3d_format_functionality.py",
+        "python_barcode_format_functionality.py",
+        "dotnet_3d_format_functionality.py",
         "repository_examples.py",
     ),
     "fact_schema": ("schema_v2.py",),
@@ -91,10 +99,77 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "root_role_evidence.py",
         "root_roles.py",
         "manifest_facts.py",
+        "migration.py",
+        "provider.py",
         "repository_ingestion.py",
+        "curated_readme_evidence.py",
+        "curated_constraint_evidence.py",
+        "curated_python_evidence.py",
+        "curated_python_mcp.py",
+        "curated_python_readme.py",
+        "curated_repository_assets.py",
     ),
     "visitor_render_eligibility": ("render_views.py",),
 }
+
+_ECOSYSTEM_FILE_OWNERS = {
+    "java_example_verifier.py": "java",
+    "dotnet_example_verifier.py": "net",
+    "cpp_example_verifier.py": "cpp",
+    "go_example_verifier.py": "go",
+    "python_example_verifier.py": "python",
+    "python_dependency_acquisition.py": "python",
+    "python_dependency_schema.py": "python",
+    "python_consumer.py": "python",
+    "python_consumer_schema.py": "python",
+    "python_repository_examples.py": "python",
+    "python_format_functionality.py": "python",
+    "python_family_format_functionality.py": "python",
+    "typescript_example_verifier.py": "typescript",
+    "rust_example_verifier.py": "rust",
+    "curated_python_evidence.py": "python",
+    "curated_python_mcp.py": "python",
+    "curated_python_readme.py": "python",
+}
+
+_FAMILY_FILE_OWNERS = {
+    "python_3d_format_functionality.py": ("python", "3d"),
+    "python_barcode_format_functionality.py": ("python", "barcode"),
+    "dotnet_3d_format_functionality.py": ("net", "3d"),
+}
+
+
+def _scoped_component_files(
+    name: str,
+    ecosystem: str | None,
+    family: str | None = None,
+) -> tuple[str, ...]:
+    files = _COMPONENT_FILES[name]
+    if ecosystem is None:
+        if family is not None:
+            raise ValueError("family-scoped fact contracts require an ecosystem")
+        return files
+    normalized_ecosystem = ecosystem.strip().casefold()
+    normalized_family = family.strip().casefold() if family is not None else None
+    family_context_required = any(
+        owner_ecosystem == normalized_ecosystem
+        for owner_ecosystem, _owner_family in _FAMILY_FILE_OWNERS.values()
+    )
+    if normalized_family is None and family_context_required:
+        raise ValueError(
+            f"family is required for the {normalized_ecosystem!r} fact acceptance contract"
+        )
+    return tuple(
+        path
+        for path in files
+        if (
+            ((owner := _ECOSYSTEM_FILE_OWNERS.get(path)) is None or owner == normalized_ecosystem)
+            and (
+                (family_owner := _FAMILY_FILE_OWNERS.get(path)) is None
+                or family_owner == (normalized_ecosystem, normalized_family)
+            )
+        )
+    )
 
 
 class FactAcceptanceContractV1(BaseModel):
@@ -134,8 +209,11 @@ def _component_hash(root: Path, relative_paths: tuple[str, ...]) -> str:
     return digest.hexdigest()
 
 
-def current_fact_acceptance_contract() -> FactAcceptanceContractV1:
-    """Build the current contract from explicit rules and their implementation files."""
+def current_fact_acceptance_contract(
+    ecosystem: str | None = None,
+    family: str | None = None,
+) -> FactAcceptanceContractV1:
+    """Build the contract from common, ecosystem, and exact-family implementation files."""
 
     root = Path(__file__).parent
     return FactAcceptanceContractV1(
@@ -145,8 +223,8 @@ def current_fact_acceptance_contract() -> FactAcceptanceContractV1:
         recollect_on_component_change=RECOLLECT_ON_COMPONENT_CHANGE,
         visitor_render_fields=VISITOR_RENDER_FIELDS,
         component_hashes={
-            name: _component_hash(root, relative_paths)
-            for name, relative_paths in sorted(_COMPONENT_FILES.items())
+            name: _component_hash(root, _scoped_component_files(name, ecosystem, family))
+            for name in sorted(_COMPONENT_FILES)
         },
     )
 

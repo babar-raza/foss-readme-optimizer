@@ -22,10 +22,77 @@ list there, not a dict, and `.get("find", {})` on a list raised
 `AttributeError`. Both real shapes are now checked.
 """
 
+import ast
 import re
 import tomllib
 from configparser import ConfigParser
 from pathlib import Path
+
+
+def _literal_assignment(path: Path, name: str) -> str | None:
+    """Read one module-level string assignment without importing repository code."""
+
+    try:
+        tree = ast.parse(
+            path.read_text(encoding="utf-8-sig", errors="replace"),
+            filename=str(path),
+        )
+    except (OSError, SyntaxError):
+        return None
+    for node in tree.body:
+        value = None
+        if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == name for target in node.targets
+        ):
+            value = node.value
+        elif (
+            isinstance(node, ast.AnnAssign)
+            and isinstance(node.target, ast.Name)
+            and node.target.id == name
+        ):
+            value = node.value
+        if value is None:
+            continue
+        try:
+            literal = ast.literal_eval(value)
+        except (TypeError, ValueError):
+            return None
+        return literal if isinstance(literal, str) and literal.strip() else None
+    return None
+
+
+def _dynamic_setuptools_version(pyproject_path: Path, data: dict) -> str | None:
+    """Resolve a PEP 621 setuptools ``version.attr`` from static source only."""
+
+    project = data.get("project", {})
+    if "version" not in project.get("dynamic", []):
+        return None
+    setuptools_cfg = data.get("tool", {}).get("setuptools", {})
+    version_cfg = setuptools_cfg.get("dynamic", {}).get("version", {})
+    attr = version_cfg.get("attr") if isinstance(version_cfg, dict) else None
+    if not isinstance(attr, str) or "." not in attr:
+        return None
+    module_name, attribute_name = attr.rsplit(".", 1)
+    if not module_name or not attribute_name.isidentifier():
+        return None
+
+    package_dirs = setuptools_cfg.get("package-dir", {})
+    source_root = ""
+    if isinstance(package_dirs, dict):
+        configured = package_dirs.get("")
+        if isinstance(configured, str):
+            source_root = configured
+    module_root = pyproject_path.parent / source_root
+    module_path = module_root.joinpath(*module_name.split("."))
+    candidates = [module_path.with_suffix(".py"), module_path / "__init__.py"]
+    return next(
+        (
+            version
+            for candidate in candidates
+            if (version := _literal_assignment(candidate, attribute_name)) is not None
+        ),
+        None,
+    )
 
 
 def parse_pyproject(pyproject_path: Path) -> dict[str, str]:
@@ -36,6 +103,8 @@ def parse_pyproject(pyproject_path: Path) -> dict[str, str]:
         info["name"] = project["name"]
     if project.get("version"):
         info["version"] = project["version"]
+    elif dynamic_version := _dynamic_setuptools_version(pyproject_path, data):
+        info["version"] = dynamic_version
 
     license_value = project.get("license", "")
     if isinstance(license_value, dict):

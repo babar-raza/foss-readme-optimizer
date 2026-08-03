@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "record_type": "ThreeSliceCurrentValidationReceiptV1",
+  "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+  "captured_at": "2026-08-03T11:56:58.5559287+00:00",
+  "validator_identity": "codex-validator-evidence",
+  "branch": "main",
+  "head": "50ea7189e6ebdc554bd79a4b1c64cd76e2d3cd04",
+  "scoreboard_path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/validator-evidence/three-slice-current/scoreboard.json",
+  "scoreboard_sha256": "af9ae91f647891bc1755291036be59f196c1e2cb8135d8f7215e1abbed2432b0",
+  "verdict": "CURRENT_CONTRACT_TERMINAL",
+  "counts": {
+    "slices": 3,
+    "stored_no_op_proven": 3,
+    "current_contract_valid": 3,
+    "native_patch_valid": 3,
+    "proposal_current_structural_verifier_passed": 3,
+    "zero_call_replay_valid": 3,
+    "effect_artifacts": 0,
+    "logical_calls": 7,
+    "physical_provider_calls": 7,
+    "prompt_tokens": 43860,
+    "completion_tokens": 6692,
+    "total_tokens": 50552,
+    "provider_latency_ms_sum": 172375,
+    "repair_count": 0,
+    "cache_reuse_count": 3
+  },
+  "current_failures": [],
+  "validation": {
+    "local_sha256_inventories": "3/3 valid",
+    "proposal_sha256_inventories": "3/3 valid",
+    "source_candidate_manifest_bindings": "3/3 valid",
+    "facts_assessment_plan_candidate_deterministic_review_noop_bindings": "3/3 valid for current contracts",
+    "local_native_patch_reconstruction": "3/3 pass",
+    "proposal_native_patch_reconstruction": "3/3 pass",
+    "current_contract_manifest_comparison": "3/3 pass",
+    "offline_current_proposal_verifier": "3/3 pass",
+    "llm_ledger_manifest_reconciliation": "3/3 exact",
+    "zero_call_replay": "3/3 pass",
+    "live_acquisition_rechecked": false,
+    "providers_called_by_validator": 0,
+    "effects_created_by_validator": 0
+  },
+  "unknowns": {
+    "external_effect_absence": null,
+    "external_effect_absence_reason": "local and proposal artifacts do not prove systems outside those artifacts",
+    "provider_cost": null,
+    "provider_cost_reason": "pricing_not_configured"
+  },
+  "candidate_paths": [
+    "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.md",
+    "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/candidate/README.md",
+    "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/candidate/README.md"
+  ],
+  "cohort_closure_claimed": true,
+  "closure_scope": "Current local three-slice contract only; not full Python, Gate A, Gate B, product publication, hosted runtime, or portfolio closure."
+}

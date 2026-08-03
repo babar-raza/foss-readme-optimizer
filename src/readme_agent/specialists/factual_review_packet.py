@@ -8,8 +8,14 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.readme.agentic_composition_inputs import compact_prompt_fact_value
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.fact_grounding import fact_strings
+from readme_agent.specialists.factual_review_projection import (
+    claim_polarity,
+    compact_evidence_assessments,
+    compact_plan_context,
+)
 from readme_agent.specialists.readme_review_roles import json_hash
 
 
@@ -44,6 +50,10 @@ class FactualReviewClaimV1(_StrictModel):
     verification_state: str
     evidence_location: str
     evidence_excerpt: str
+    expected_polarity: str
+    observed_polarity: str
+    polarity_result: str
+    accountability_disposition: str
     unresolved_conflicts: list[dict[str, Any]] = Field(default_factory=list)
     rationale: str
 
@@ -80,20 +90,53 @@ class FactualReviewPacketV1(_StrictModel):
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
     def fact_context(self) -> dict[str, Any]:
+        referenced_fact_ids = {
+            fact_id for operation in self.operations for fact_id in operation.fact_ids
+        }
+        referenced_fact_ids.update(
+            fact_id for section in self.source_sections for fact_id in section.fact_ids
+        )
+        referenced_fact_ids.update(claim.fact_id for claim in self.candidate_claims)
+        referenced_fact_ids.update(
+            str(fact_id)
+            for action in self.surface_plan.get("actions") or []
+            if isinstance(action, dict)
+            for fact_id in action.get("fact_ids") or []
+        )
+        if not referenced_fact_ids:
+            referenced_fact_ids = {fact.fact_id for fact in self.selected_facts}
+        selected = [
+            fact.model_dump(mode="json")
+            for fact in self.selected_facts
+            if fact.fact_id in referenced_fact_ids
+        ]
         return {
-            "selected_fact_ids": self.selected_fact_ids,
-            "selected_facts": [fact.model_dump(mode="json") for fact in self.selected_facts],
+            "selected_fact_ids": {
+                field: fact_id
+                for field, fact_id in self.selected_fact_ids.items()
+                if fact_id in referenced_fact_ids
+            },
+            "selected_facts": selected,
+            "selected_fact_inventory": {
+                "full_artifact_sha256": json_hash(
+                    {
+                        "selected_facts": [
+                            fact.model_dump(mode="json") for fact in self.selected_facts
+                        ]
+                    }
+                ),
+                "total_count": len(self.selected_facts),
+                "included_count": len(selected),
+            },
         }
 
     def plan_context(self) -> dict[str, Any]:
-        return {
-            "surface_plan": self.surface_plan,
-            "source_sections": [
-                section.model_dump(mode="json") for section in self.source_sections
-            ],
-            "operations": [operation.model_dump(mode="json") for operation in self.operations],
-            "candidate_claims": [claim.model_dump(mode="json") for claim in self.candidate_claims],
-        }
+        return compact_plan_context(
+            surface_plan=self.surface_plan,
+            source_sections=[item.model_dump(mode="json") for item in self.source_sections],
+            operations=[item.model_dump(mode="json") for item in self.operations],
+            candidate_claims=[item.model_dump(mode="json") for item in self.candidate_claims],
+        )
 
 
 def _candidate_claim_text(candidate_text: str, binding: dict[str, Any]) -> str | None:
@@ -146,10 +189,10 @@ def build_factual_review_packet(
             FactualReviewFactV1(
                 fact_id=str(fact["fact_id"]),
                 field=str(fact["field"]),
-                value=fact.get("value"),
+                value=compact_prompt_fact_value(str(fact["field"]), fact.get("value")),
                 verification_state=str(fact.get("verification_state", "")),
                 evidence_location=str((fact.get("source") or {}).get("location", "")),
-                evidence_assessments=list(fact.get("evidence_assessments") or []),
+                evidence_assessments=compact_evidence_assessments(fact.get("evidence_assessments")),
                 unresolved_conflicts=[
                     conflict
                     for conflict in fact.get("conflicts") or []
@@ -203,6 +246,13 @@ def build_factual_review_packet(
         fact = selected_facts_by_id.get(fact_id)
         if fact is None:
             raise ValueError(f"candidate claim cites a non-selected fact: {fact_id!r}")
+        unresolved_conflicts = [
+            conflict
+            for conflict in fact.get("conflicts") or []
+            if isinstance(conflict, dict) and conflict.get("status") == "unresolved"
+        ]
+        expected_polarity, observed_polarity, polarity_result = claim_polarity(fact)
+        verification_state = str(fact.get("verification_state", ""))
         candidate_claims.append(
             FactualReviewClaimV1(
                 claim_id=str(binding.get("claim_id", "")),
@@ -210,14 +260,22 @@ def build_factual_review_packet(
                 fact_id=fact_id,
                 field=str(binding.get("field", "")),
                 claim_text=claim_text,
-                verification_state=str(fact.get("verification_state", "")),
+                verification_state=verification_state,
                 evidence_location=str((fact.get("source") or {}).get("location", "")),
                 evidence_excerpt=_claim_evidence_excerpt(claim_text, fact),
-                unresolved_conflicts=[
-                    conflict
-                    for conflict in fact.get("conflicts") or []
-                    if isinstance(conflict, dict) and conflict.get("status") == "unresolved"
-                ],
+                expected_polarity=expected_polarity,
+                observed_polarity=observed_polarity,
+                polarity_result=polarity_result,
+                accountability_disposition=(
+                    "blocked_unresolved_conflict"
+                    if unresolved_conflicts
+                    else (
+                        "accepted_fact"
+                        if verification_state in {"verified", "policy_approved"}
+                        else "blocked_unverified_fact"
+                    )
+                ),
+                unresolved_conflicts=unresolved_conflicts,
                 rationale=str(binding.get("rationale", "")),
             )
         )

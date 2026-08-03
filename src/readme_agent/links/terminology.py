@@ -179,7 +179,15 @@ def find_enterprise_terminology_findings(
 
     findings: list[EnterpriseTerminologyFindingV1] = []
     for chunk_start, _, chunk in _scoped_chunks(markdown):
-        for match in _PROHIBITED.finditer(chunk):
+        descriptor_matches = [*_COMMERCIAL_ASPOSE.finditer(chunk), *_PROHIBITED.finditer(chunk)]
+        occupied: list[tuple[int, int]] = []
+        for match in sorted(
+            descriptor_matches,
+            key=lambda item: (item.start(), -(item.end() - item.start())),
+        ):
+            if any(start < match.end() and match.start() < end for start, end in occupied):
+                continue
+            occupied.append((match.start(), match.end()))
             findings.append(
                 EnterpriseTerminologyFindingV1(
                     kind="prohibited_descriptor",

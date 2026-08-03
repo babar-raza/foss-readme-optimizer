@@ -147,6 +147,24 @@ def test_package_layout_detects_pep420_leaf_without_initializer(tmp_path):
     assert layout.namespace_packages == ["acme"]
 
 
+def test_package_layout_uses_static_setuptools_dynamic_version(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nname = "widget-foss"\ndynamic = ["version"]\n'
+        '[tool.setuptools]\npackage-dir = {"" = "src"}\n'
+        '[tool.setuptools.packages.find]\nwhere = ["src"]\ninclude = ["widget"]\n'
+        '[tool.setuptools.dynamic]\nversion = {attr = "widget._version.VERSION"}\n',
+        encoding="utf-8",
+    )
+    package = tmp_path / "src" / "widget"
+    package.mkdir(parents=True)
+    (package / "__init__.py").write_text("", encoding="utf-8")
+    (package / "_version.py").write_text('VERSION = "2.0.0rc1"\n', encoding="utf-8")
+
+    layout = inspect_python_package_layout(tmp_path)
+
+    assert layout.version == "2.0.0rc1"
+
+
 def test_package_layout_expands_setuptools_trailing_wildcard_include(tmp_path):
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname = "cssforge"\nrequires-python = ">=3.13"\n'
@@ -434,7 +452,7 @@ def test_consumer_binds_fixture_already_copied_at_exact_repository_path(tmp_path
         source_revision=snapshot.source_revision,
     )
     example = ConsumerExampleV1(
-        code=("from aspose.widget import Widget\nWidget.from_file('testfiles/TagSizes.one')\n"),
+        code=("from aspose.widget import Widget\nWidget('testfiles/TagSizes.one')\n"),
         required_symbols=["aspose.widget.Widget"],
     )
 
@@ -454,6 +472,31 @@ def test_consumer_binds_fixture_already_copied_at_exact_repository_path(tmp_path
             "size_bytes": fixture.stat().st_size,
         }
     ]
+
+
+def test_consumer_does_not_substitute_an_unrelated_fixture_for_constructor_input(tmp_path):
+    _write_package(tmp_path)
+    fixture = tmp_path / "testfiles" / "Different.one"
+    fixture.parent.mkdir()
+    fixture.write_bytes(b"unrelated repository fixture\n")
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code=("from aspose.widget import Widget\nWidget('testfiles/Missing.one')\n"),
+        required_symbols=["aspose.widget.Widget"],
+    )
+
+    def asserting_executor(request):
+        assert not (request.source_root / "testfiles" / "Missing.one").exists()
+        return _successful_executor(request)
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=asserting_executor)
+
+    assert proof.fixture_bindings == []
 
 
 def test_consumer_rejects_missing_reexport_private_and_detached_compile(tmp_path):

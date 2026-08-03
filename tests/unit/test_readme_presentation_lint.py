@@ -247,6 +247,39 @@ def test_repository_verified_public_tool_name_is_allowed_as_code_only_bullet() -
     assert not [finding for finding in result.findings if finding.rule_id == "raw_internal_token"]
 
 
+def test_mechanically_verified_public_export_is_allowed_as_code_only_bullet() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    identity = facts.selected_fact("product.identity")
+    public_surface = identity.model_copy(
+        update={
+            "fact_id": "api.public_surface:python-exports",
+            "field": "api.public_surface",
+            "value": {
+                "modules": [
+                    {
+                        "module": "aspose.page.ps",
+                        "exports": ["convert_image_to_eps"],
+                    }
+                ],
+                "classes": [],
+            },
+            "verification_state": "verified",
+        }
+    )
+    facts = facts.model_copy(update={"facts": [*facts.facts, public_surface]})
+    candidate = """# Conversion toolkit
+
+## Public API
+
+- `convert_image_to_eps`
+"""
+
+    result = lint_readme_presentation(candidate, facts)
+
+    assert result.valid
+    assert not [finding for finding in result.findings if finding.rule_id == "raw_internal_token"]
+
+
 def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
     candidate = PROJECT_ROOT / "tests/fixtures/presentation_defects/strong-existing-content.md"
     result = lint_readme_presentation(candidate.read_text(encoding="utf-8"), None)
@@ -255,10 +288,69 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
         "competing_primary_examples",
         "cross_product_leakage",
         "emoji_decoration",
+        "invalid_third_party_notices",
         "malformed_navigation",
         "promotional_imbalance",
+        "promotional_opening",
         "prompt_injection_residue",
         "raw_internal_token",
+        "redundant_quick_links",
         "semantic_duplicate",
+        "uncollapsed_secondary_detail",
         "visitor_fragment",
     ]
+
+
+def test_real_note_failure_pattern_is_rejected_by_shared_contract() -> None:
+    candidate = (
+        PROJECT_ROOT / "tests/fixtures/readmes/real_audit_2026-07-17/note-python.md"
+    ).read_text(encoding="utf-8")
+
+    result = lint_readme_presentation(candidate, None)
+    rule_ids = {finding.rule_id for finding in result.findings}
+
+    assert result.valid is False
+    assert {
+        "promotional_opening",
+        "redundant_quick_links",
+        "uncollapsed_secondary_detail",
+        "invalid_third_party_notices",
+    } <= rule_ids
+
+
+def test_product_neutral_contract_shape_passes_new_presentation_rules() -> None:
+    detail = "\n".join(f"- Verified method {index}" for index in range(1, 14))
+    candidate = f"""# Acme Document Toolkit for Python
+
+[![Package](https://img.shields.io/badge/package-current-blue)](https://example.test/package)
+
+Acme Document Toolkit for Python reads document files and exposes their verified structure.
+
+## Navigation
+
+- [API reference](#api-reference)
+- [Third-party notices](#third-party-notices)
+- [License](#license)
+
+## API reference
+
+<details>
+<summary>Show API reference</summary>
+
+{detail}
+
+</details>
+
+## Third-party notices
+
+Dependency terms are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## License
+
+This project uses the [MIT License](LICENSE), which permits use and modification.
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert result.valid is True
+    assert result.findings == []

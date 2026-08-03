@@ -28,6 +28,7 @@ TemplateSlot = Literal[
 ]
 TemplateContentSource = Literal[
     "repository_fact",
+    "repository_fact_and_configured_standard",
     "configured_standard",
     "readme_inherited",
     "omitted",
@@ -53,10 +54,35 @@ class TemplateInvariantsV1(_StrictModel):
     minimum_mermaid_inputs: int = Field(ge=1)
     minimum_mermaid_capabilities: int = Field(ge=1)
     minimum_mermaid_outputs: int = Field(ge=1)
+    target_mermaid_inputs: int = Field(ge=1)
+    target_mermaid_capabilities: int = Field(ge=1)
+    target_mermaid_outputs: int = Field(ge=1)
     comments: Literal["forbidden"]
     emoji: Literal["forbidden"]
     copyright: Literal["omitted_by_default"]
     commercial_term: Literal["Enterprise Edition"]
+    primary_example_max_nonblank_lines: dict[str, int]
+
+    @model_validator(mode="after")
+    def _diagram_targets_exceed_hard_minimums(self) -> TemplateInvariantsV1:
+        pairs = (
+            (self.minimum_mermaid_inputs, self.target_mermaid_inputs),
+            (self.minimum_mermaid_capabilities, self.target_mermaid_capabilities),
+            (self.minimum_mermaid_outputs, self.target_mermaid_outputs),
+        )
+        if any(target < minimum for minimum, target in pairs):
+            raise ValueError("Mermaid detail targets cannot be below hard evidence minimums")
+        return self
+
+    @field_validator("primary_example_max_nonblank_lines")
+    @classmethod
+    def _complete_example_limits(cls, value: dict[str, int]) -> dict[str, int]:
+        required = {"default", "cpp", "dotnet", "go", "java", "python", "rust", "typescript"}
+        if set(value) != required or any(limit < 1 for limit in value.values()):
+            raise ValueError(
+                "primary example limits must define positive bounds for every supported language"
+            )
+        return value
 
 
 class RepositoryPresentationTemplateV1(_StrictModel):
@@ -120,6 +146,10 @@ class BoundTemplateContentV1(_StrictModel):
     def _provenance_matches_source(self) -> BoundTemplateContentV1:
         if self.source_kind == "repository_fact" and not self.fact_ids:
             raise ValueError("repository-fact template content requires fact_ids")
+        if self.source_kind == "repository_fact_and_configured_standard" and (
+            not self.fact_ids or not self.standard_ids
+        ):
+            raise ValueError("mixed template content requires fact_ids and standard_ids")
         if self.source_kind == "configured_standard" and not self.standard_ids:
             raise ValueError("configured-standard template content requires standard_ids")
         if self.source_kind == "readme_inherited" and self.source_sha256 is None:
@@ -155,16 +185,22 @@ class FactFieldTemplateContentV1(_StrictModel):
     disposition: Literal["include", "omit"]
     markdown: str = ""
     fact_fields: list[str] = Field(default_factory=list)
+    standard_ids: list[str] = Field(default_factory=list)
     omission_reason: str | None = None
 
     @model_validator(mode="after")
     def _complete_disposition(self) -> FactFieldTemplateContentV1:
         if self.disposition == "include":
-            if not self.markdown.strip() or not self.fact_fields:
-                raise ValueError("included fact-field content requires markdown and fact_fields")
+            if not self.markdown.strip() or not (self.fact_fields or self.standard_ids):
+                raise ValueError("included fact-field content requires markdown and provenance")
             if self.omission_reason is not None:
                 raise ValueError("included fact-field content cannot carry an omission_reason")
-        elif self.markdown.strip() or self.fact_fields or not self.omission_reason:
+        elif (
+            self.markdown.strip()
+            or self.fact_fields
+            or self.standard_ids
+            or not self.omission_reason
+        ):
             raise ValueError("omitted fact-field content requires only an omission_reason")
         return self
 

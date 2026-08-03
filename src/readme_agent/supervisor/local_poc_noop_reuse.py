@@ -16,7 +16,7 @@ from readme_agent.llm.call_ledger import (
 )
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.domain_state import save_domain
-from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2, ReadmePocStatusV2
 from readme_agent.state.readme_poc_lifecycle import transition_readme_poc_status
 from readme_agent.state.schema import RunStateV2, SupervisorStateV1
 from readme_agent.supervisor.evidence import (
@@ -57,6 +57,46 @@ class LocalPocCompletedReuseV1(BaseModel):
     decision: LocalPocCacheDecisionV1
 
 
+def reopen_invalidated_local_poc(
+    *,
+    backend: StateBackend,
+    state: RunStateV2,
+    bundle_dir: Path,
+    decision: LocalPocCacheDecisionV1,
+) -> bool:
+    """Apply a denied cache decision to the durable lifecycle before execution.
+
+    Cache evaluation is not itself an invalidation. Without this transition a
+    completed lifecycle can keep dispatching only its old review boundary while
+    recompiling stale plan bytes. A new source revision is deliberately left to
+    ``record_repository_snapshot()``, which owns that immutable transition.
+    """
+
+    affected = decision.earliest_affected_stage
+    if decision.reusable or affected is None or affected == "SNAPSHOTTED":
+        return False
+    target: ReadmePocStatusV2 = (
+        "FACTS_COLLECTING" if affected == "FACTS_COLLECTING" else "README_ASSESSED"
+    )
+    transition_readme_poc_status(
+        backend,
+        state.org_repo,
+        target,
+        observed_by="local-poc-cache",
+        reason=(
+            f"completed bundle cache invalidated at {affected}: "
+            + ", ".join(decision.mismatch_reasons)
+        ),
+        evidence_refs=[str(bundle_dir)],
+        source_revision=(
+            state.readme_poc_lifecycle.source_revision
+            if isinstance(state.readme_poc_lifecycle, ReadmePocLifecycleStateV2)
+            else None
+        ),
+    )
+    return True
+
+
 def promote_approved_local_poc_noop(
     *,
     backend: StateBackend,
@@ -64,6 +104,7 @@ def promote_approved_local_poc_noop(
     bundle_dir: Path,
     current_source_revision: str,
     current_control_plane_fingerprint: str,
+    ecosystem: str | None = None,
 ) -> LocalPocNoOpReuseV1:
     """Reuse a fully bound approved candidate and persist exact zero-call proof."""
 
@@ -73,6 +114,7 @@ def promote_approved_local_poc_noop(
         bundle_dir,
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
+        ecosystem=ecosystem,
     )
     if not decision.reusable:
         return LocalPocNoOpReuseV1(promoted=False, decision=decision)
@@ -133,6 +175,7 @@ def reuse_completed_local_poc_noop(
     bundle_dir: Path,
     current_source_revision: str,
     current_control_plane_fingerprint: str,
+    ecosystem: str | None = None,
 ) -> LocalPocCompletedReuseV1:
     """Reuse a completed bundle when generic repository freshness is unavailable."""
 
@@ -141,6 +184,7 @@ def reuse_completed_local_poc_noop(
         bundle_dir,
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
+        ecosystem=ecosystem,
     )
     if not decision.reusable:
         return LocalPocCompletedReuseV1(reused=False, decision=decision)

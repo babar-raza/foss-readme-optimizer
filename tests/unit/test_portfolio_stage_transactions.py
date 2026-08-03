@@ -77,6 +77,56 @@ def _candidate_work(candidate_hash: str = CANDIDATE_HASH):
     )
 
 
+def test_stage_work_identity_is_idempotent_and_fence_complete():
+    dependencies = {
+        "assessment": ASSESSMENT_HASH,
+        "candidate": CANDIDATE_HASH,
+        "facts": FACTS_HASH,
+        "presentation_plan": PLAN_HASH,
+        "reviewer_standard": REVIEWER_HASH,
+    }
+
+    def work(**fence_changes):
+        fence_inputs = {
+            "org_repo": ORG_REPO,
+            "source_revision": SOURCE_REVISION,
+            "lifecycle_status": "FACTS_READY",
+            "facts_hash": FACTS_HASH,
+            "fact_acceptance_contract_hash": CONTRACT_HASH,
+            "prompt_hash": PROMPT_HASH,
+            "candidate_hash": None,
+        }
+        fence_inputs.update(fence_changes)
+        return build_stage_work_item(
+            target_stage="CANDIDATE_GENERATED",
+            fence=build_stage_fence(**fence_inputs),
+            dependency_hashes=dependencies,
+        )
+
+    original = work()
+    identical = work()
+    changed_contract = work(fact_acceptance_contract_hash="9" * 64)
+    changed_prompt = work(prompt_hash="8" * 64)
+    changed_status = work(lifecycle_status="README_ASSESSED")
+    changed_facts = work(facts_hash="7" * 64)
+    changed_candidate = work(candidate_hash="6" * 64)
+    changed_generation = work(generation=2)
+
+    assert identical.campaign_id == original.campaign_id
+    assert identical.work_id == original.work_id
+    for changed in (
+        changed_contract,
+        changed_prompt,
+        changed_status,
+        changed_facts,
+        changed_candidate,
+        changed_generation,
+    ):
+        assert changed.fence.fence_token != original.fence.fence_token
+        assert changed.campaign_id != original.campaign_id
+        assert changed.work_id != original.work_id
+
+
 def _sealed_candidate_attempt(
     tmp_path,
     monkeypatch,

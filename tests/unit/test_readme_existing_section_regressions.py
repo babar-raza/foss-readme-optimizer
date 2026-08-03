@@ -6,8 +6,12 @@ from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
-from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.document_validation import (
+    DocumentCandidateValidationV1,
+    validate_readme_document_candidate,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 NET_EVIDENCE = (
@@ -40,6 +44,30 @@ def _block_fields(facts: ProductFactsV2, fields: set[str]) -> ProductFactsV2:
     )
 
 
+def _assert_compatibility_claim_block(
+    decision: DocumentCandidateValidationV1,
+    plan: ReadmeDocumentPlanV1,
+) -> None:
+    assert decision.valid is False
+    assert decision.checks["claim_accountability_complete"] is False
+    assert decision.checks["claim_accountability_gaps_visible"] is True
+    assert all(
+        passed
+        for name, passed in decision.checks.items()
+        if name != "claim_accountability_complete"
+    )
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert decision.errors == [expected]
+
+
 def test_real_net_partial_sections_preserve_maintainer_content_without_fact_duplication():
     facts = _net_facts()
     source = (NET_EVIDENCE / "original-readme.md").read_text(encoding="utf-8")
@@ -54,7 +82,7 @@ def test_real_net_partial_sections_preserve_maintainer_content_without_fact_dupl
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert candidate.count("## At a glance") == 1
     assert candidate.count("## Scope and limitations") == 1
     assert candidate.count(limitation.value[0]) == 1
@@ -104,7 +132,7 @@ dotnet add package Aspose.3D.FOSS
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert candidate.count(limitation.value[0]) == 1
     assert candidate.count(example.value["code"]) == 1
     assert "Maintainer-authored product explanation." in candidate
@@ -154,7 +182,17 @@ Open an issue with a reproducible case.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    assert decision.valid is False
+    assert {name for name, passed in decision.checks.items() if not passed} == {
+        "protected_content",
+        "claim_accountability_complete",
+    }
+    assert (
+        sum(error.startswith("unauthorized protected-content loss:") for error in decision.errors)
+        == 3
+    )
+    assert decision.errors[-1].startswith("claim accountability has 12 blocking claim(s):")
+    assert plan.source_claim_resolutions == []
     assert "Unverified.Package" not in candidate
     assert "Product.Create()" not in candidate
     assert "Open an issue with a reproducible case." in candidate

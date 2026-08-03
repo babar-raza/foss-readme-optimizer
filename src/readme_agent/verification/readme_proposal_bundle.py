@@ -5,7 +5,7 @@ This is the separate-verifier seam for ``L8-LOCAL-README-PROPOSAL-PROOF`` and
 wrote to a bundle directory -- original, candidate, patch, facts, plan,
 validation, and per-file checksums -- and re-derives every claim from scratch.
 It never trusts the producer's own ``independent-review.json``, manifest, or
-stored candidate: the candidate is rebuilt from the original README and facts,
+stored candidate: the candidate is rebuilt from the immutable README and facts,
 the patch is re-applied with native Git, validation is recomputed, and facts
 are re-checked. A copied or byte-tampered candidate cannot survive the
 reconstruction check; a lazy cross-pilot clone cannot survive the specificity
@@ -25,6 +25,7 @@ from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.links.runtime_context import load_runtime_link_inputs
+from readme_agent.presentation.schema import RepositoryPresentationPlanV1
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
@@ -138,7 +139,6 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
             org_repo="", verified=False, checks=checks, failures=failures
         )
 
-    original = (bundle_dir / "original-readme.md").read_text(encoding="utf-8")
     immutable_source = (bundle_dir / "immutable-source-readme.md").read_text(encoding="utf-8")
     candidate = (bundle_dir / "candidate-readme.md").read_text(encoding="utf-8")
     patch_text = (bundle_dir / "proposal.patch").read_text(encoding="utf-8")
@@ -171,6 +171,11 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         claim_map = ReadmeClaimMapV1.model_validate(
             json.loads((bundle_dir / "claim-map-v1.json").read_text(encoding="utf-8"))
         )
+        repository_plan = RepositoryPresentationPlanV1.model_validate(
+            json.loads(
+                (bundle_dir / "repository-presentation-plan-v1.json").read_text(encoding="utf-8")
+            )
+        )
     except Exception as exc:  # noqa: BLE001 -- any schema failure is a verification failure
         record("schemas_valid", False, f"schema load failed: {exc}")
         return ReadmeProposalBundleVerdictV1(
@@ -193,6 +198,31 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         "candidate_hash_matches_plan",
         sha256_hex(candidate) == plan.candidate_sha256,
         "sha256(candidate-readme.md) != plan candidate_sha256",
+    )
+    record(
+        "repository_plan_repository_matches",
+        repository_plan.org_repo == plan.org_repo,
+        "repository presentation plan belongs to another repository",
+    )
+    record(
+        "repository_plan_revision_matches",
+        repository_plan.immutable_base_revision == plan.immutable_base_revision,
+        "repository presentation plan revision differs from document plan",
+    )
+    record(
+        "repository_plan_facts_hash_matches",
+        repository_plan.facts_hash == facts.canonical_hash() == plan.facts_hash,
+        "repository presentation plan facts hash differs from facts or document plan",
+    )
+    record(
+        "repository_plan_source_hash_matches",
+        repository_plan.source_sha256 == sha256_hex(immutable_source) == plan.source_sha256,
+        "repository presentation plan source hash differs from immutable source or document plan",
+    )
+    record(
+        "repository_plan_candidate_hash_matches",
+        repository_plan.candidate_sha256 == sha256_hex(candidate) == plan.candidate_sha256,
+        "repository presentation plan candidate hash differs from candidate or document plan",
     )
     if agentic_plan is not None:
         record(
@@ -302,7 +332,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         "recomputed validation disagrees with stored document-validation.json",
     )
 
-    applied = _apply_patch_natively(original, patch_text, _patch_target_path(patch_text))
+    applied = _apply_patch_natively(immutable_source, patch_text, _patch_target_path(patch_text))
     record(
         "native_git_apply_produces_candidate",
         applied is not None and applied == candidate,

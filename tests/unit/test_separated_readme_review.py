@@ -10,7 +10,10 @@ from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.document_structure import parse_headings
-from readme_agent.specialists.readme_review_roles import FactualPlanReviewResultV1
+from readme_agent.specialists.readme_review_roles import (
+    FactualPlanReviewResultV1,
+    ReviewActorIdentityV1,
+)
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
@@ -1316,6 +1319,91 @@ def test_two_accepts_produce_hash_bound_separate_records():
     assert ORIGINAL not in factual_context
     assert "fact-1" in factual_context
     assert "readme.overview" in factual_context
+
+
+def test_default_merged_client_makes_one_call_and_binds_two_grounded_facets():
+    merged = SequenceClient(
+        [{"quality": _blind_accept("visitor-ready"), "factual": _factual_accept("grounded")}]
+    )
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(merged.messages_seen) == 1
+    assert result.combined_review.identity_separation_valid
+    receipt = result.combined_review.merged_call_receipt
+    assert receipt is not None
+    assert receipt.actor_id == "llm-route:merged-readme-review"
+    assert result.blind_quality_review.identity.actor_id == receipt.actor_id
+    assert result.factual_plan_review.identity.actor_id == receipt.actor_id
+    assert result.blind_quality_review.identity.prompt_id == "merged_readme_review"
+    assert result.factual_plan_review.identity.prompt_id == "merged_readme_review"
+    serialized = "\n".join(message["content"] for message in merged.messages_seen[0])
+    assert "Complete candidate README block catalog" in serialized
+    assert "fact-1" in serialized
+    assert ORIGINAL not in serialized
+
+
+def test_merged_false_missing_premise_fails_closed_without_repeating_call():
+    false_missing = _factual_accept("The accepted identity is missing evidence.")
+    false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
+    false_missing["findings"][0].update(
+        {
+            "finding_id": "factual.false-missing",
+            "disposition": "blocks",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "missing",
+        }
+    )
+    merged = SequenceClient([{"quality": _blind_accept("visitor-ready"), "factual": false_missing}])
+
+    with pytest.raises(LLMError, match="repeatedly returned ungrounded findings"):
+        run_separated_readme_review(
+            ORG_REPO,
+            ORIGINAL,
+            CANDIDATE,
+            PLAN,
+            FACTS,
+            merged_client=merged,
+        )
+
+    assert len(merged.messages_seen) == 1
+
+
+def test_merged_reviewer_cannot_self_approve_author_output():
+    merged = SequenceClient(
+        [{"quality": _blind_accept("visitor-ready"), "factual": _factual_accept("grounded")}]
+    )
+    author = ReviewActorIdentityV1(
+        actor_id="llm-route:merged-readme-review",
+        role="author",
+        prompt_id="plan_readme_composition",
+        prompt_sha256="0" * 64,
+    )
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        author_identity=author,
+    )
+
+    assert result.verdict == "SYSTEM_FAILURE"
+    assert not result.combined_review.identity_separation_valid
 
 
 def test_factual_finding_identifier_is_canonicalized_without_changing_evidence():

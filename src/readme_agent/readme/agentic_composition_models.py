@@ -10,7 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.readme.assessment import AssessmentDisposition
 
-MAX_AUTHORING_ATTEMPTS = 3
+MAX_AUTHORING_ATTEMPTS = 2
 OVERVIEW_FIELD_PREFERENCE = (
     "product.audience",
     "product.problems_solved",

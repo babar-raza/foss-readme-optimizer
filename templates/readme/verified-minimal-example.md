@@ -1,5 +1,5 @@
 ### Minimal verified example
 
-```{language}
+{prerequisites}```{language}
 {code}
 ```

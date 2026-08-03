@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "manifest_type": "FinalizedVerifiedReadmeCohortManifestV1",
+  "scope": "CAMP-THREE-SLICES",
+  "registry_path": "data/products.json",
+  "registry_sha256": "f72c0278616d043aaeedd192e554f19817029a53fb00854f9c771de9cb2f3ecb",
+  "registry_denominator": 31,
+  "promoted_verified_readmes": 3,
+  "python_denominator": 12,
+  "promoted_python_readmes": 1,
+  "template_sha256": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+  "reviewer_standard_sha256": "7b100804198b75b0d6aa5511719b8996431a927bacf0e336c41c53ec76daff15",
+  "independent_campaign_receipt": {
+    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/independent-verification/three-slice-final/receipt.json",
+    "sha256": "ca19503ce94dac3e7bc4eb3999dfa36d2581af034762af77e291a6e0dcd879fc"
+  },
+  "campaign_scoreboard": {
+    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/validator-evidence/three-slice-current/scoreboard.json",
+    "sha256": "af9ae91f647891bc1755291036be59f196c1e2cb8135d8f7215e1abbed2432b0"
+  },
+  "campaign_contribution_evidence": {
+    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/coordinator-closeout/contribution-evidence.json",
+    "sha256": "ff5c08b17f3ea41e5d39eaab19aa0f85233051e36c26e4ba37cf7f9f7c7ffea5"
+  },
+  "effects": {
+    "product_effects": 0,
+    "default_branch_writes": 0,
+    "pull_requests": 0
+  },
+  "repositories": [
+    {
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "candidate_sha256": "bfdfcd7dbf57b1c21d0547031652ea28aff8934d6ba16ae936258d4b8e7e2ae0",
+      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/bfdfcd7dbf57b1c21d0547031652ea28aff8934d6ba16ae936258d4b8e7e2ae0/README.md",
+      "verdict": "NO_OP_PROVEN",
+      "replay_provider_calls": 0,
+      "runtime_artifacts": {
+        "source_revision": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/source/revision.json", "ff9c8d857a2996d10b0f68cd7e36f36ee0708e92466f5362eb0cceda0741e6ce"],
+        "source_readme": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/source/README.md", "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4"],
+        "product_facts": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/facts/product-facts.json", "bb891e1245c9ab752f6401137e270dcafb59ba7c3e693cadd28350be94c00c50"],
+        "document_plan": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/planning/readme-document-plan.json", "02710e0d78a8108a6159f1539fa0676ed188792ff10855a0b7421ba2cebf4a25"],
+        "patch": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.patch", "d30c8cd34124d2c62a88dd1e9f33276d82a86eec9fe13d261465ef6a4f29f378"],
+        "deterministic_validation": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/deterministic-validation.json", "8c06205c656c60562cc95d12bc43ff047836796644b09a9fc287bcca15a0a17b"],
+        "independent_review": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/independent-agent-review.json", "e7df4b3698605a6c1cc523f5c655caf3c62b7640a6001a9aa0847671b5a8ec60"],
+        "no_op_proof": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/no-op-proof.json", "0bbc5a08cf1a95a70a55d93aab81847c9ff78d03a24fdac021e7eb2c1bdc778e"],
+        "llm_ledger": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/llm-call-ledger.jsonl", "1b88cac0406fc19cff213baf0c16bf9b76797627972cd4d2e2dbf355977dcd08"],
+        "manifest": ["runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json", "7b188fab4fefe628421b5171a42e4b038d0dc695c7ccff12605f9d82b3852613"]
+      }
+    },
+    {
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "platform": "net",
+      "source_revision": "e78d87e1b33e22560c90acd73247695a1eec6a34",
+      "candidate_sha256": "dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765",
+      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/net/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765/README.md",
+      "verdict": "NO_OP_PROVEN",
+      "replay_provider_calls": 0,
+      "runtime_artifacts": {
+        "source_revision": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/source/revision.json", "f21770e608c6fc42c2af08478666f25ece7ebc47f96a9798291933ea9e43703b"],
+        "source_readme": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/source/README.md", "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811"],
+        "product_facts": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/facts/product-facts.json", "6f35c93e2894f01e4a100305734cdb48be99b7306efc9007d35961321e8f8009"],
+        "document_plan": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/planning/readme-document-plan.json", "a7b68b79324c0703144e5b3fe8a50128deac7193fee27e8f7149462e1f3e9937"],
+        "patch": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/candidate/README.patch", "f2e11be75e0a566c185214f8c343a165801557a4b58706f0dc37a0a5f64706e5"],
+        "deterministic_validation": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/deterministic-validation.json", "23ec4de668006922728687fc661dd00a6366ae8e0af4a9c01e025160dfcef60b"],
+        "independent_review": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/independent-agent-review.json", "339f8007f44c8f0f9b8e83c5d61c39c4dfd85832bcd7151e1c985971d2e3c142"],
+        "no_op_proof": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/no-op-proof.json", "9b4cd09fb80019c1aa783e0dade8bede12f16ee9881f55ad5dfc8a18ecea3371"],
+        "llm_ledger": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/llm-call-ledger.jsonl", "d36d1127f587e6b89021077aab999f353c231c077426b7eebdbf876f5a1819bf"],
+        "manifest": ["runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/manifest.json", "758f273433d49e3e17d0542d8624db3097b6dc5aaaea42e0d9de2d5b2591f26f"]
+      }
+    },
+    {
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "platform": "java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "candidate_sha256": "adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f",
+      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/java/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f/README.md",
+      "verdict": "NO_OP_PROVEN",
+      "replay_provider_calls": 0,
+      "runtime_artifacts": {
+        "source_revision": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/source/revision.json", "fc72194dacf676d5c58347b21e01cc055bf25d9b2ee31550a4b3d644d8ca5405"],
+        "source_readme": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/source/README.md", "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf"],
+        "product_facts": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/facts/product-facts.json", "3ef1a33b2f3b0aa9f9b833989d95b87937b42d52caa4604dfa070398fefcc07d"],
+        "document_plan": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/planning/readme-document-plan.json", "ea763d7e2b7fbcacf80f0364dd7a5e1dcf38ed6d33af5ac70dc0b4141175ed0c"],
+        "patch": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/candidate/README.patch", "93c506b31701b84ef3f7d2c4088b53ea7fe95244eb534b53ccb9cdf9c16fce0c"],
+        "deterministic_validation": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/deterministic-validation.json", "b3bfc389c3e06489a28ba77c07a35639c781c48cc2afba5fd98c4cc3d0223389"],
+        "independent_review": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/independent-agent-review.json", "f28482e5c71bdcb1c9635bea68d80f39e004364fb20f4d54372d31778a569378"],
+        "no_op_proof": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/no-op-proof.json", "2c9f7abdba23bb2e5b7ced493fd7d01d1110e1f4f305d27900bba258f7b8debc"],
+        "llm_ledger": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/llm-call-ledger.jsonl", "a6417f85d27c96a0747dbcae0c3e4bec19663eab4ce107adfa3cf4a7bf57e415"],
+        "manifest": ["runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/manifest.json", "0d7baa40563acf1823d1dcc60d987be9e679bc8e03681d5c15a4855111c651ea"]
+      }
+    }
+  ]
+}

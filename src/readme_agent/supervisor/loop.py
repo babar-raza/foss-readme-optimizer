@@ -123,6 +123,7 @@ def _readme_poc_noop_gate_holds(
         paths.readme_poc_repository_dir(org, repo, lifecycle.source_revision),
         current_source_revision=current_source_revision,
         current_control_plane_fingerprint=current_control_plane_fingerprint,
+        ecosystem=require_listed(prior.org_repo).ecosystem,
     )
     return decision.reusable
 
@@ -329,6 +330,7 @@ def supervise_repo(
         from readme_agent.supervisor.local_poc_noop_reuse import (
             finish_local_poc_preclone_reuse,
             promote_approved_local_poc_noop,
+            reopen_invalidated_local_poc,
         )
 
         approved_bundle_dir = paths.readme_poc_repository_dir(
@@ -342,6 +344,7 @@ def supervise_repo(
             bundle_dir=approved_bundle_dir,
             current_source_revision=probed_revision,
             current_control_plane_fingerprint=current_control_plane_fingerprint,
+            ecosystem=entry.ecosystem,
         )
         if promotion.promoted:
             return finish_local_poc_preclone_reuse(
@@ -358,6 +361,12 @@ def supervise_repo(
                 write_evidence_bundle=write_evidence_bundle,
                 fail_closed_on_state_failure=fail_closed_on_state_failure,
             )
+        reopen_invalidated_local_poc(
+            backend=state_backend,
+            state=prior_full_state,
+            bundle_dir=approved_bundle_dir,
+            decision=promotion.decision,
+        )
     if (
         probed_revision is not None
         and no_change_gate_holds(
@@ -460,6 +469,7 @@ def supervise_repo(
     ):
         from readme_agent.supervisor.local_poc_noop_reuse import (
             finish_local_poc_preclone_reuse,
+            reopen_invalidated_local_poc,
             reuse_completed_local_poc_noop,
         )
 
@@ -473,6 +483,7 @@ def supervise_repo(
             bundle_dir=completed_bundle_dir,
             current_source_revision=probed_revision,
             current_control_plane_fingerprint=current_control_plane_fingerprint,
+            ecosystem=entry.ecosystem,
         )
         if completed_reuse.reused:
             return finish_local_poc_preclone_reuse(
@@ -489,6 +500,12 @@ def supervise_repo(
                 write_evidence_bundle=write_evidence_bundle,
                 fail_closed_on_state_failure=fail_closed_on_state_failure,
             )
+        reopen_invalidated_local_poc(
+            backend=state_backend,
+            state=prior_full_state,
+            bundle_dir=completed_bundle_dir,
+            decision=completed_reuse.decision,
+        )
 
     # The source probe above is already the immutable revision authority for
     # this run. Reuse a clean baseline at exactly that revision across CLI

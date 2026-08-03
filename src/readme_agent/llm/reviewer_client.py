@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from readme_agent import env
 from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.merged_readme_review import MERGED_README_REVIEW_TOOL_SCHEMA
 from readme_agent.llm.verification_prompts import (
     BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
     FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
@@ -16,6 +17,7 @@ from readme_agent.llm.verifier_client import LiveForcedToolClient
 DEFAULT_MAX_TOKENS = 2400
 BLIND_REVIEW_MAX_TOKENS = 3_000
 FACTUAL_REVIEW_MAX_TOKENS = 6_000
+MERGED_REVIEW_MAX_TOKENS = 4_000
 TRUSTED_REVIEW_MAX_TOKENS = 12_000
 
 
@@ -97,6 +99,34 @@ class LiveFactualPlanReviewClient:
         return AnalysisResult(parsed=result.arguments, meta=result.meta)
 
 
+class LiveMergedReadmeReviewClient:
+    """One physical call returning independently grounded quality and factual facets."""
+
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str | None,
+        model: str,
+        timeout: float = 90,
+        max_tokens: int = MERGED_REVIEW_MAX_TOKENS,
+    ):
+        self._client = LiveForcedToolClient(
+            base_url,
+            api_key,
+            model,
+            timeout=timeout,
+            max_tokens=max_tokens,
+            job="merged_readme_review",
+            prompt_id="merged_readme_review",
+            transport_max_attempts=1,
+            response_max_attempts=1,
+        )
+
+    def analyze(self, messages: list[dict]) -> AnalysisResult:
+        result = self._client.call(messages, MERGED_README_REVIEW_TOOL_SCHEMA)
+        return AnalysisResult(parsed=result.arguments, meta=result.meta)
+
+
 class LiveTrustedFidelityReviewClient:
     """Forced-schema client for README-inheritance fidelity only."""
 
@@ -160,6 +190,24 @@ def build_live_role_review_clients(
             timeout=timeout,
             max_tokens=max_tokens,
         ),
+    )
+
+
+def build_live_merged_review_client(
+    base_url: str,
+    api_key: str | None,
+    *,
+    timeout: float = 90,
+    max_tokens: int = MERGED_REVIEW_MAX_TOKENS,
+) -> LiveMergedReadmeReviewClient:
+    """Construct the canonical one-call reviewer from its governed route."""
+
+    return LiveMergedReadmeReviewClient(
+        base_url,
+        api_key,
+        env.llm_model_for_job("merged_readme_review"),
+        timeout=timeout,
+        max_tokens=max_tokens,
     )
 
 

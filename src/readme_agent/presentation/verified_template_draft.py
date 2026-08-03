@@ -1,0 +1,240 @@
+"""Draft fact-bound content for the governed repository-presentation template."""
+
+from __future__ import annotations
+
+from readme_agent.facts.render_views import visitor_fact_render_view
+from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.contextual_models import ContextualLinkPlanV1
+from readme_agent.presentation.template_schema import (
+    FactFieldTemplateContentV1,
+    ProductFactsTemplateDraftV1,
+    load_repository_presentation_template,
+)
+from readme_agent.presentation.verified_template_sections import (
+    additional_examples_markdown,
+    api_reference_markdown,
+    development_markdown,
+    optional_extras_markdown,
+    third_party_notices_markdown,
+)
+from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.document_links import (
+    render_contextual_example_markdown,
+    render_contextual_relationship_markdown,
+)
+from readme_agent.readme.document_templates import example_text, installation_text
+from readme_agent.readme.header_visual import render_readme_header_visual
+from readme_agent.readme.license_location import repository_license_path
+
+
+def _included(
+    markdown: str,
+    *fields: str,
+    standards: tuple[str, ...] = (),
+) -> FactFieldTemplateContentV1:
+    return FactFieldTemplateContentV1(
+        disposition="include",
+        markdown=markdown,
+        fact_fields=list(fields),
+        standard_ids=list(standards),
+    )
+
+
+def _omitted(reason: str) -> FactFieldTemplateContentV1:
+    return FactFieldTemplateContentV1(disposition="omit", omission_reason=reason)
+
+
+def _phrases(facts: ProductFactsV2, field: str) -> list[str]:
+    view = visitor_fact_render_view(facts, field)
+    return list(view.phrases) if view is not None else []
+
+
+def _fields_for_fact_ids(facts: ProductFactsV2, fact_ids: list[str]) -> list[str]:
+    return sorted({facts.fact_by_id(fact_id).field for fact_id in fact_ids})
+
+
+def _scope_text(
+    facts: ProductFactsV2,
+    contextual_links: ContextualLinkPlanV1 | None,
+) -> tuple[str, list[str], tuple[str, ...]]:
+    limitations = _phrases(facts, "product.limitations")
+    paragraphs = ["\n".join(f"- {item}" for item in limitations)] if limitations else []
+    fields = ["product.limitations"] if limitations else []
+    standards = ["readme.enterprise_edition_terminology"]
+    if contextual_links is not None:
+        relationship_markdown, relationship_fact_ids = render_contextual_relationship_markdown(
+            contextual_links
+        )
+        if relationship_markdown:
+            paragraphs.append(relationship_markdown)
+            fields.extend(_fields_for_fact_ids(facts, relationship_fact_ids))
+            standards.append("readme.contextual_links")
+    if not paragraphs:
+        scope_items = [
+            *_phrases(facts, "product.capabilities")[:3],
+            *_phrases(facts, "product.formats")[:3],
+            *_phrases(facts, "product.compatibility")[:1],
+        ]
+        paragraphs.append("Verified scope: " + "; ".join(scope_items) + ".")
+        fields.extend(["product.capabilities", "product.formats", "product.compatibility"])
+    return "\n\n".join(paragraphs), fields, tuple(standards)
+
+
+def _license_text(facts: ProductFactsV2) -> str:
+    license_fact = facts.selected_fact("product.license")
+    name = str(license_fact.value).strip()
+    path = repository_license_path(license_fact)
+    normalized = name.casefold().replace("license", "").strip(" -")
+    if normalized == "mit":
+        return (
+            f"This project is available under the [MIT License]({path}). It permits use, "
+            "modification, distribution, and commercial use when the license and copyright "
+            "notice are retained."
+        )
+    return (
+        f"This project is available under the [{name}]({path}). The license describes the "
+        "permissions and conditions for use, modification, and distribution."
+    )
+
+
+def build_verified_template_draft(
+    facts: ProductFactsV2,
+    source_text: str,
+    source_revision: str,
+    agentic_plan: ReadmeAgenticCompositionPlanV1,
+    contextual_links: ContextualLinkPlanV1 | None = None,
+) -> ProductFactsTemplateDraftV1:
+    """Bind verified facts and the validated agentic plan to reusable slots."""
+
+    visual = render_readme_header_visual(facts, agentic_plan)
+    title = visual.title
+    capabilities = _phrases(facts, "product.capabilities")
+    problems = _phrases(facts, "product.problems_solved")
+    if agentic_plan.opening_summary is not None:
+        summary = agentic_plan.opening_summary.text.strip().rstrip(".") + "."
+        summary_fact_ids = set(agentic_plan.opening_summary.supporting_fact_ids)
+        summary_fields = sorted({facts.fact_by_id(fact_id).field for fact_id in summary_fact_ids})
+    else:
+        overview = []
+        summary_fact_ids = set()
+        for sentence in agentic_plan.overview_sentences:
+            sentence_fields = {
+                facts.fact_by_id(fact_id).field for fact_id in sentence.supporting_fact_ids
+            }
+            text = sentence.text.strip().rstrip(".")
+            if sentence_fields & {"product.audience", "product.problems_solved"} and text:
+                overview.append(text + ".")
+                summary_fact_ids.update(sentence.supporting_fact_ids)
+        if overview:
+            summary = " ".join(overview)
+            summary_fields = sorted(
+                {facts.fact_by_id(fact_id).field for fact_id in summary_fact_ids}
+            )
+        else:
+            summary = f"{title} provides " + ", ".join(capabilities[:3] or problems[:3]) + "."
+            summary_fields = ["product.identity", "product.capabilities"]
+    capability_text = "\n".join(f"- {item.rstrip('.').strip()}." for item in capabilities)
+    at_a_glance = visual.mermaid_markdown
+    installation = installation_text(facts, facts.org_repo, source_revision)
+    optional_extras = optional_extras_markdown(facts)
+    if installation is not None and optional_extras:
+        installation += "\n\n" + optional_extras
+    example = example_text(facts, source_revision)
+    example_standards = ["readme.primary_example"]
+    example_fields = ["example.minimal"]
+    if contextual_links is not None:
+        contextual_example, contextual_fact_ids = render_contextual_example_markdown(
+            contextual_links
+        )
+        if contextual_example:
+            example += "\n\n" + contextual_example
+            example_fields.extend(_fields_for_fact_ids(facts, contextual_fact_ids))
+            example_standards.append("readme.contextual_links")
+    if not capability_text or not installation or not example:
+        raise ValueError(
+            "verified template lacks required capability, acquisition, or example facts"
+        )
+    scope, scope_fields, scope_standards = _scope_text(facts, contextual_links)
+    badge_fields = sorted(
+        {facts.fact_by_id(fact_id).field for badge in visual.badges for fact_id in badge.fact_ids}
+    )
+    visual_fields = sorted(
+        {
+            facts.fact_by_id(fact_id).field
+            for node in visual.diagram_nodes
+            for fact_id in node.fact_ids
+        }
+    )
+    contract = load_repository_presentation_template()
+    optional: dict = {
+        slot: _omitted("No separately verified repository content is bound to this slot.")
+        for slot in contract.section_order
+        if slot
+        not in {
+            "navigation",
+            "at_a_glance",
+            "key_capabilities",
+            "installation",
+            "quick_start",
+            "scope_and_limitations",
+            "license",
+        }
+    }
+    optional_sections = {
+        "additional_examples": (
+            additional_examples_markdown(facts),
+            ("repository.examples",),
+            ("readme.additional_examples",),
+        ),
+        "api_reference": (
+            api_reference_markdown(facts),
+            ("api.public_surface",),
+            ("readme.api_reference",),
+        ),
+        "development_and_testing": (
+            development_markdown(facts),
+            ("development.assets",),
+            ("readme.development_and_testing",),
+        ),
+        "third_party_notices": (
+            third_party_notices_markdown(facts),
+            ("repository.third_party_notices",),
+            ("readme.third_party_notices",),
+        ),
+    }
+    for slot, (markdown, fields, standards) in optional_sections.items():
+        if markdown:
+            optional[slot] = _included(markdown, *fields, standards=standards)
+    return ProductFactsTemplateDraftV1(
+        source_revision=source_revision,
+        source_line_count=len(source_text.splitlines()),
+        title=_included(title, "product.identity", standards=("readme.header",)),
+        badges=_included(visual.badge_markdown, *badge_fields, standards=("readme.badges",)),
+        summary=_included(summary, *summary_fields),
+        sections={
+            "at_a_glance": _included(
+                at_a_glance,
+                *visual_fields,
+                standards=("readme.at_a_glance_mermaid",),
+            ),
+            "key_capabilities": _included(capability_text, "product.capabilities"),
+            "installation": _included(
+                installation,
+                "installation.verified_acquisition",
+                "installation.coordinates",
+                "product.compatibility",
+                *(["installation.optional_extras"] if optional_extras else []),
+                standards=("readme.verified_acquisition",),
+            ),
+            "quick_start": _included(
+                example,
+                *example_fields,
+                standards=tuple(example_standards),
+            ),
+            "scope_and_limitations": _included(scope, *scope_fields, standards=scope_standards),
+            "license": _included(
+                _license_text(facts), "product.license", standards=("readme.license",)
+            ),
+            **optional,
+        },
+    )

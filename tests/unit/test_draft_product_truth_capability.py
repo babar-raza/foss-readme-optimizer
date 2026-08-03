@@ -146,7 +146,7 @@ def _good_draft() -> DraftProductTruthV1:
         ],
         formats=[
             EvidenceBackedProductFact(
-                value="Read and write XLSX files.",
+                value="Input format: XLSX files.",
                 evidence_paths=["src/Format.java"],
                 required_symbols=["XLSX"],
             )
@@ -740,6 +740,11 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
             evidence_paths=["src/Widget.java"],
             required_symbols=["public class Widget"],
         )
+        format_fact = EvidenceBackedProductFact(
+            value="Input format: XLSX files.",
+            evidence_paths=["src/Format.java"],
+            required_symbols=["XLSX"],
+        )
 
         def draft_fn(hints, current_facts):
             if hints is None:
@@ -763,7 +768,7 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
                         )
                     ],
                     capabilities=[capabilities_fact],
-                    formats=[capabilities_fact],
+                    formats=[format_fact],
                     limitations=[],
                     minimal_example=MinimalExamplePolicy(
                         language="java",
@@ -795,7 +800,7 @@ class TestEvidenceBackedFactsFeedForwardIntoRepairGrounding:
                     )
                 ],
                 capabilities=[capabilities_fact],
-                formats=[capabilities_fact],
+                formats=[format_fact],
                 limitations=[],
                 minimal_example=MinimalExamplePolicy(
                     language="java",

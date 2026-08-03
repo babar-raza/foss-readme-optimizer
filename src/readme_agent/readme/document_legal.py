@@ -22,6 +22,11 @@ _COPYRIGHT_LINE = re.compile(
     r"(?im)^\s*(?:copyright(?:\s+(?:©|Â©|\(c\)))?|©|Â©|\(c\))\s+"
     r"\d{4}(?:\s*[-–]\s*\d{4})?[^\n]*(?:\n|$)"
 )
+_THIRD_PARTY_NOTICE_LINK = re.compile(
+    r"\[(?P<label>[^\]]*(?:third[- ]party|THIRD_PARTY_NOTICES)[^\]]*)\]"
+    r"\((?P<target>[^)]+)\)",
+    re.IGNORECASE,
+)
 
 
 def _license_paragraph(name: str, path: str) -> str:
@@ -164,6 +169,67 @@ def build_license_operations(
             treatment="additive",
             rationale=(
                 "Add the selected repository license as readable prose with practical benefits."
+            ),
+        )
+    ]
+
+
+def build_third_party_notice_operations(
+    context: DocumentRenderContext,
+) -> list[ReadmeDocumentOperationV1]:
+    """Promote inherited notice evidence into a dedicated relative-link section."""
+
+    if "distribution.license_expression" not in context.facts.selected_fact_ids:
+        return []
+    license_expression = accepted_fact(context.facts, "distribution.license_expression")
+    if license_expression is None:
+        return []
+    match = _THIRD_PARTY_NOTICE_LINK.search(context.inner_text)
+    if match is None or not match.group("target").rstrip("/").casefold().endswith(
+        "third_party_notices.md"
+    ):
+        return []
+    target_start, target_end = match.span("target")
+    notices = context.h2("third-party notices")
+    if notices is not None:
+        if not match.group("target").casefold().startswith(("http://", "https://")):
+            return []
+        return [
+            build_operation(
+                operation_id="readme.notices.use-relative-link",
+                operation="replace",
+                source=context.source,
+                start=context.byte_offset(target_start),
+                end=context.byte_offset(target_end),
+                replacement="THIRD_PARTY_NOTICES.md",
+                fact_ids=[],
+                treatment="presentation_policy_correction",
+                rationale="Use the inherited root notice filename as a repository-relative link.",
+            )
+        ]
+
+    line_start = context.inner_text.rfind("\n", 0, match.start()) + 1
+    line_end = context.inner_text.find("\n", match.end())
+    line_end = len(context.inner_text) if line_end < 0 else line_end + 1
+    inherited_line = context.inner_text[line_start:line_end].strip()
+    inherited_line = _THIRD_PARTY_NOTICE_LINK.sub(
+        lambda found: f"[{found.group('label')}](THIRD_PARTY_NOTICES.md)",
+        inherited_line,
+        count=1,
+    )
+    return [
+        build_operation(
+            operation_id="readme.notices.add-dedicated-section",
+            operation="replace",
+            source=context.source,
+            start=context.byte_offset(line_start),
+            end=context.byte_offset(line_end),
+            replacement=f"## Third-party notices\n\n{inherited_line}\n",
+            fact_ids=[],
+            treatment="presentation_policy_correction",
+            rationale=(
+                "Preserve inherited third-party context under the dedicated legal heading and "
+                "use its repository-relative root notice path."
             ),
         )
     ]

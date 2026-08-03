@@ -12,6 +12,7 @@ results -- keeping the tampering tests offline/deterministic and focused on
 what they actually test.
 """
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -22,11 +23,18 @@ from readme_agent.capabilities import registry as capability_registry
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.ecosystems.resolver import ResolutionResult
+from readme_agent.errors import LLMError
 from readme_agent.evidence.writer import write_readme_proposal_bundle
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm.schema import LLMResponseMeta
+from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.presentation.document_planner import (
     build_document_repository_presentation_plan,
 )
+from readme_agent.readme.agentic_composition import plan_readme_composition
+from readme_agent.readme.agentic_composition_validation import planning_sections
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.registry.loader import load_policy, require_listed
@@ -74,23 +82,166 @@ def _refresh_artifact_checksums(bundle: Path) -> None:
     )
 
 
+def _fixture_agentic_composition_plan(
+    original: str,
+    facts: ProductFactsV2,
+    *,
+    revision: str,
+) -> dict:
+    """Build the same fact- and source-bound plan required by verified rendering."""
+
+    assessment = assess_readme_document(
+        facts.org_repo,
+        original,
+        facts,
+        base_revision=revision,
+    )
+    identity = visitor_fact_render_view(facts, "product.identity")
+    audience_view = visitor_fact_render_view(facts, "product.audience")
+    problem_view = visitor_fact_render_view(facts, "product.problems_solved")
+    audience = facts.selected_fact("product.audience")
+    problem = facts.selected_fact("product.problems_solved")
+    formats = facts.selected_fact("product.formats")
+    capabilities = facts.selected_fact("product.capabilities")
+    assert identity is not None and identity.phrases
+    assert audience_view is not None and audience_view.phrases
+    assert problem_view is not None and problem_view.phrases
+    tool_arguments = {
+        "repository_summary": "Lead with the verified spreadsheet audience and task.",
+        "section_decisions": [
+            {
+                "section_id": section.section_id,
+                "disposition": section.disposition,
+                "priority": 50,
+                "supporting_fact_ids": [],
+                "rationale": "Retain the deterministic source-bound disposition.",
+            }
+            for section in planning_sections(assessment)
+        ],
+        "overview_fact_ids": [audience.fact_id, problem.fact_id],
+        "opening_summary": {
+            "text": (
+                f"{identity.phrases[0]} serves {audience_view.phrases[0].rstrip('.').lower()} "
+                f"It lets them {problem_view.phrases[0].rstrip('.').lower()}."
+            ),
+            "supporting_fact_ids": [
+                identity.fact_id,
+                audience.fact_id,
+                problem.fact_id,
+            ],
+        },
+        "diagram": {
+            "nodes": [
+                {
+                    "role": "input",
+                    "label": "XLSX workbooks",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "input",
+                    "label": "Spreadsheet files",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "input",
+                    "label": "Workbook streams",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Create spreadsheet files",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Read spreadsheet content",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Process workbooks without Excel",
+                    "supporting_fact_ids": [problem.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Inspect worksheet data",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Update workbook content",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "capability",
+                    "label": "Access spreadsheet structure",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Updated XLSX workbooks",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Worksheet values",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Workbook metadata",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Formula information",
+                    "supporting_fact_ids": [capabilities.fact_id],
+                },
+                {
+                    "role": "output",
+                    "label": "Spreadsheet documents",
+                    "supporting_fact_ids": [formats.fact_id],
+                },
+            ]
+        },
+    }
+    client = FixtureForcedToolClient(
+        [
+            ForcedToolResult(
+                arguments=tool_arguments,
+                meta=LLMResponseMeta(model="fixture-author"),
+            )
+        ]
+    )
+    return plan_readme_composition(
+        facts.org_repo,
+        original,
+        facts,
+        assessment,
+        client=client,
+    ).model_dump(mode="json")
+
+
 @pytest.fixture
 def bundle(tmp_path) -> Path:
     dst = tmp_path / "cells-java"
     shutil.copytree(EVIDENCE / "cells-java", dst)
-    original = "# Aspose.Cells FOSS for Java\n\nOpen-source spreadsheet processing for Java.\n"
+    original = "# Aspose.Cells FOSS for Java\n"
     (dst / "original-readme.md").write_text(original, encoding="utf-8", newline="\n")
     facts = ProductFactsV2.model_validate(
         json.loads((dst / "product-facts-v2.json").read_text(encoding="utf-8"))
     )
     archived_plan = json.loads((dst / "readme-document-plan-v1.json").read_text(encoding="utf-8"))
     revision = archived_plan["immutable_base_revision"]
+    agentic_plan = _fixture_agentic_composition_plan(original, facts, revision=revision)
     candidate, _document_plan = build_readme_document_candidate(
         facts.org_repo,
         original,
         facts,
         base_revision=revision,
+        agentic_composition_plan=agentic_plan,
     )
+    assert _document_plan.operations, _document_plan
     entry = require_listed(facts.org_repo)
     assert entry.policy_profile is not None
     presentation_plan, patch, executable, records = build_document_repository_presentation_plan(
@@ -101,8 +252,9 @@ def bundle(tmp_path) -> Path:
         facts,
         load_policy(entry.policy_profile).surface_ownership,
         base_revision=revision,
+        agentic_composition_plan=agentic_plan,
     )
-    assert executable
+    assert executable, records["document_validation"]["errors"]
     write_readme_proposal_bundle(
         dst,
         original_readme=original,
@@ -115,6 +267,7 @@ def bundle(tmp_path) -> Path:
         claim_map_v1=records["claim_map"],
         repository_presentation_plan_v1=presentation_plan.model_dump(mode="json"),
         document_validation=records["document_validation"],
+        agentic_composition_plan_v1=records["agentic_composition_plan"],
     )
     return dst
 
@@ -134,6 +287,9 @@ class TestAcceptsUntampered:
         revision = json.loads(
             (bundle / "readme-document-plan-v1.json").read_text(encoding="utf-8")
         )["immutable_base_revision"]
+        agentic_plan = json.loads(
+            (bundle / "agentic-composition-plan-v1.json").read_text(encoding="utf-8")
+        )
         current_work = immutable_source + "\n<!-- stale work-clone-only state -->\n"
         entry = require_listed(facts.org_repo)
         assert entry.policy_profile is not None
@@ -145,8 +301,22 @@ class TestAcceptsUntampered:
             facts,
             load_policy(entry.policy_profile).surface_ownership,
             base_revision=revision,
+            agentic_composition_plan=agentic_plan,
         )
         assert executable
+        source_bytes = immutable_source.encode("utf-8")
+        source_blob = hashlib.sha1(  # noqa: S324 -- Git object identity, not security
+            f"blob {len(source_bytes)}\0".encode() + source_bytes
+        ).hexdigest()
+        work_bytes = current_work.encode("utf-8")
+        work_blob = hashlib.sha1(  # noqa: S324 -- Git object identity, not security
+            f"blob {len(work_bytes)}\0".encode() + work_bytes
+        ).hexdigest()
+        patch_old_blob = patch["patch"].splitlines()[1].split()[1].split("..", 1)[0]
+
+        assert patch["source_sha256"] == sha256_hex(immutable_source)
+        assert source_blob.startswith(patch_old_blob)
+        assert not work_blob.startswith(patch_old_blob)
         write_readme_proposal_bundle(
             bundle,
             original_readme=current_work,
@@ -159,6 +329,7 @@ class TestAcceptsUntampered:
             claim_map_v1=records["claim_map"],
             repository_presentation_plan_v1=presentation_plan.model_dump(mode="json"),
             document_validation=records["document_validation"],
+            agentic_composition_plan_v1=records["agentic_composition_plan"],
         )
 
         verdict = verify_readme_proposal_bundle(bundle)
@@ -210,6 +381,18 @@ class TestRejectsTampering:
         assert not verdict.verified
         assert verdict.checks["reconstructed_plan_matches"] is False
 
+    def test_contradictory_repository_plan_revision_rejected(self, bundle):
+        path = bundle / "repository-presentation-plan-v1.json"
+        plan = json.loads(path.read_text(encoding="utf-8"))
+        plan["immutable_base_revision"] = "f" * 40
+        path.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8", newline="\n")
+        _refresh_artifact_checksums(bundle)
+
+        verdict = verify_readme_proposal_bundle(bundle)
+
+        assert not verdict.verified
+        assert verdict.checks["repository_plan_revision_matches"] is False
+
     def test_tampered_agentic_plan_is_schema_checked(self, bundle):
         plan_path = bundle / "agentic-composition-plan-v1.json"
         plan_path.write_text('{"schema_version": 1, "unexpected": true}\n', encoding="utf-8")
@@ -228,9 +411,8 @@ class TestRejectsTampering:
             json.dumps(facts, indent=2) + "\n", encoding="utf-8", newline="\n"
         )
         _refresh_artifact_checksums(bundle)
-        verdict = verify_readme_proposal_bundle(bundle)
-        assert not verdict.verified
-        assert verdict.checks["facts_hash_matches_plan"] is False
+        with pytest.raises(LLMError, match="README composition plan binding mismatch"):
+            verify_readme_proposal_bundle(bundle)
 
     def test_copied_foreign_candidate_rejected(self, bundle):
         # Pass off the PDF pilot's candidate as this (cells) bundle's candidate.

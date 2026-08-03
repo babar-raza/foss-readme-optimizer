@@ -1,6 +1,7 @@
 """Complete-input cache decisions for accepted local README bundles."""
 
 import json
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -17,10 +18,14 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.readme import document_templates
 from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2, SupervisorStateV1
 from readme_agent.supervisor import local_poc_cache, local_poc_noop_reuse
+from readme_agent.supervisor.stage_dependencies import (
+    current_candidate_stage_dependency_manifest,
+)
 
 ORG_REPO = "org/repo"
 SOURCE_REVISION = "a" * 40
@@ -101,6 +106,11 @@ def _valid_cache(tmp_path):
             "local_verification_contract_hash": local_verification_contract_hash(),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
+            "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
+                repository=ORG_REPO,
+                source_revision=SOURCE_REVISION,
+                ecosystem=None,
+            ).stage_key,
             "reviewer_standard_hash": reviewer_standard,
             "repair_budget_origin_hash": lifecycle.repair_budget_origin_hash,
         },
@@ -148,6 +158,41 @@ def _decision(state, bundle, *, source_revision=SOURCE_REVISION, control=CONTROL
         current_source_revision=source_revision,
         current_control_plane_fingerprint=control,
     )
+
+
+@pytest.mark.parametrize(
+    ("ecosystem", "org_repo", "family"),
+    [
+        ("python", "aspose-3d-foss/Aspose.3D-FOSS-for-Python", "3d"),
+        ("net", "aspose-3d-foss/Aspose.3D-FOSS-for-.NET", "3d"),
+        ("java", "aspose-3d-foss/Aspose.3D-FOSS-for-Java", "3d"),
+    ],
+)
+def test_cache_resolves_registry_family_before_hashing(monkeypatch, ecosystem, org_repo, family):
+    contract = current_fact_acceptance_contract()
+    observed: list[tuple[str | None, str | None]] = []
+    monkeypatch.setattr(
+        local_poc_cache,
+        "require_listed",
+        lambda observed_org_repo: SimpleNamespace(family=family),
+    )
+
+    def current(ecosystem=None, family=None):
+        observed.append((ecosystem, family))
+        return contract
+
+    monkeypatch.setattr(local_poc_cache, "current_fact_acceptance_contract", current)
+
+    local_poc_cache._current_dependencies(
+        source_revision=SOURCE_REVISION,
+        control_plane_fingerprint=CONTROL_FINGERPRINT,
+        inventory_sha256=None,
+        content_assurance="repository_verified",
+        org_repo=org_repo,
+        ecosystem=ecosystem,
+    )
+
+    assert observed == [(ecosystem, family)]
 
 
 def _approved_cache(tmp_path):
@@ -219,6 +264,103 @@ def test_approved_bundle_dependency_change_denies_first_no_op_promotion(
     assert decision.earliest_affected_stage == "PLAN_READY"
 
 
+def test_single_verified_template_owner_change_invalidates_completed_cache(
+    monkeypatch,
+    tmp_path,
+):
+    state, bundle = _valid_cache(tmp_path)
+    project_root = Path(__file__).resolve().parents[2]
+    owner = (
+        project_root / "src" / "readme_agent" / "presentation" / "verified_template_sections.py"
+    ).resolve()
+    assert str(owner.relative_to(project_root)).replace("\\", "/") in (
+        document_templates.DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS
+    )
+    original_read_bytes = Path.read_bytes
+
+    def changed_owner_bytes(path: Path) -> bytes:
+        content = original_read_bytes(path)
+        return content + b"\ncache-invalidation-control" if path.resolve() == owner else content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_owner_bytes)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "template_hash_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"
+
+
+@pytest.mark.parametrize(
+    ("cache_factory", "evaluate"),
+    [
+        (
+            _approved_cache,
+            local_poc_cache.evaluate_approved_local_poc_cache,
+        ),
+        (_valid_cache, local_poc_cache.evaluate_completed_local_poc_cache),
+    ],
+    ids=("approved", "no-op-proven"),
+)
+@pytest.mark.parametrize(
+    "relative_input",
+    (
+        "src/readme_agent/links/contextual_selection.py",
+        "data/aspose_org_links.json",
+    ),
+    ids=("link-algorithm-owner", "link-catalog"),
+)
+def test_link_contract_change_invalidates_accepted_cache_at_planning(
+    monkeypatch,
+    tmp_path,
+    cache_factory,
+    evaluate,
+    relative_input,
+):
+    state, bundle = cache_factory(tmp_path)
+    project_root = Path(__file__).resolve().parents[2]
+    contract_input = (project_root / relative_input).resolve()
+    original_read_bytes = Path.read_bytes
+
+    def changed_contract_bytes(path: Path) -> bytes:
+        content = original_read_bytes(path)
+        if path.resolve() == contract_input:
+            return content + b"\ncache-invalidation-control"
+        return content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_contract_bytes)
+
+    decision = evaluate(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+
+    assert decision.reusable is False
+    assert "template_hash_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"
+
+
+def test_unrelated_registry_change_does_not_invalidate_global_document_contract(
+    monkeypatch,
+):
+    baseline = document_template_hash()
+    project_root = Path(__file__).resolve().parents[2]
+    registry = (project_root / "data" / "products.json").resolve()
+    original_read_bytes = Path.read_bytes
+
+    def changed_registry_bytes(path: Path) -> bytes:
+        content = original_read_bytes(path)
+        if path.resolve() == registry:
+            return content + b"\ncache-scope-negative-control"
+        return content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_registry_bytes)
+
+    assert document_template_hash() == baseline
+
+
 def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
     monkeypatch,
     tmp_path,
@@ -273,6 +415,71 @@ def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
 
     assert result.promoted is True
     assert events == ["bind", "cache", "transition", "evidence"]
+
+
+@pytest.mark.parametrize(
+    ("affected_stage", "expected_target"),
+    [
+        ("FACTS_COLLECTING", "FACTS_COLLECTING"),
+        ("PLAN_READY", "README_ASSESSED"),
+        ("CANDIDATE_GENERATED", "README_ASSESSED"),
+        ("AGENT_REVIEWING", "README_ASSESSED"),
+    ],
+)
+def test_denied_completed_cache_reopens_the_durable_execution_boundary(
+    affected_stage,
+    expected_target,
+    monkeypatch,
+    tmp_path,
+):
+    state, bundle = _valid_cache(tmp_path)
+    decision = _decision(state, bundle).model_copy(
+        update={
+            "reusable": False,
+            "earliest_affected_stage": affected_stage,
+            "mismatch_reasons": ["candidate_stage_dependency_key_changed"],
+        }
+    )
+    calls: list[tuple] = []
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+
+    reopened = local_poc_noop_reuse.reopen_invalidated_local_poc(
+        backend=SimpleNamespace(),
+        state=state,
+        bundle_dir=bundle,
+        decision=decision,
+    )
+
+    assert reopened is True
+    assert calls[0][0][2] == expected_target
+    assert "candidate_stage_dependency_key_changed" in calls[0][1]["reason"]
+
+
+def test_source_revision_invalidation_is_left_to_snapshot_owner(monkeypatch, tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    decision = _decision(state, bundle).model_copy(
+        update={
+            "reusable": False,
+            "earliest_affected_stage": "SNAPSHOTTED",
+            "mismatch_reasons": ["source_revision_changed"],
+        }
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: pytest.fail("snapshot invalidation must own this transition"),
+    )
+
+    assert not local_poc_noop_reuse.reopen_invalidated_local_poc(
+        backend=SimpleNamespace(),
+        state=state,
+        bundle_dir=bundle,
+        decision=decision,
+    )
 
 
 def test_assurance_change_cannot_collide_with_verified_cache(tmp_path):
@@ -331,7 +538,7 @@ def test_any_dependent_input_change_denies_reuse(
         monkeypatch.setattr(
             local_poc_cache,
             "local_verification_contract_hash",
-            lambda: "9" * 64,
+            lambda _ecosystem=None: "9" * 64,
         )
     elif change == "reviewer":
         monkeypatch.setattr(
@@ -372,7 +579,7 @@ def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatc
     monkeypatch.setattr(
         local_poc_cache,
         "current_fact_acceptance_contract",
-        lambda: SimpleNamespace(
+        lambda _ecosystem=None, _family=None: SimpleNamespace(
             canonical_hash=lambda: "9" * 64,
             component_hashes=current.component_hashes,
         ),
@@ -386,7 +593,7 @@ def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatc
     monkeypatch.setattr(
         local_poc_cache,
         "current_fact_acceptance_contract",
-        lambda: current,
+        lambda _ecosystem=None, _family=None: current,
     )
     (bundle / "review" / "final-verdict.json").write_text(
         '{"agent_approved": false}\n',
@@ -457,3 +664,41 @@ def test_prompt_dependency_change_identifies_earliest_affected_stage(
     assert decision.reusable is False
     assert f"prompt_scope_{scope}_changed" in decision.mismatch_reasons
     assert decision.earliest_affected_stage == expected_stage
+
+
+def test_candidate_stage_dependency_change_reopens_plan_without_recollecting_facts(
+    monkeypatch, tmp_path
+):
+    state, bundle = _valid_cache(tmp_path)
+    current = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
+    changed = current.model_copy(update={"stage_key": "9" * 64})
+    monkeypatch.setattr(
+        local_poc_cache,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed,
+    )
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "candidate_stage_dependency_key_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"
+
+
+def test_missing_candidate_stage_dependency_key_fails_closed_at_plan_boundary(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.pop("candidate_stage_dependency_key")
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "candidate_stage_dependency_key_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"

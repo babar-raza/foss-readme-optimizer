@@ -14,15 +14,15 @@ from readme_agent.links.terminology import (
     EnterpriseTerminologyCorrectionV1,
     find_enterprise_terminology_findings,
 )
+from readme_agent.presentation.runtime_repairs import build_density_collapse_operations
+from readme_agent.presentation.verified_template_runtime import (
+    build_verified_template_document_candidate,
+)
 from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
 from readme_agent.readme.assessment import assess_readme_document
-from readme_agent.readme.claim_accountability import (
-    build_readme_claim_accountability_map,
-)
-from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_acquisition import (
     build_acquisition_correction_operations,
     build_registry_badge_operations,
@@ -32,13 +32,15 @@ from readme_agent.readme.document_examples import (
     build_additional_examples_collapse_operations,
     build_example_operations,
 )
-from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_header_visual import (
     build_badge_header_operations,
     build_comment_removal_operations,
     build_existing_overview_diagram_operations,
 )
-from readme_agent.readme.document_legal import build_license_operations
+from readme_agent.readme.document_legal import (
+    build_license_operations,
+    build_third_party_notice_operations,
+)
 from readme_agent.readme.document_limitations import build_limitation_operations
 from readme_agent.readme.document_link_hygiene import build_source_link_hygiene_operations
 from readme_agent.readme.document_links import apply_contextual_link_bindings
@@ -50,10 +52,8 @@ from readme_agent.readme.document_operations import (
     apply_document_operations,
     prune_noop_operations,
 )
-from readme_agent.readme.document_plan import (
-    PresentationSpanAdoptionV1,
-    ReadmeDocumentPlanV1,
-)
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
+from readme_agent.readme.document_plan_finalizer import finalize_legacy_document_candidate
 from readme_agent.readme.document_presentation_repairs import (
     build_presentation_policy_operations,
     canonicalize_operation_decorations,
@@ -75,10 +75,7 @@ from readme_agent.readme.document_terminology import (
     canonicalize_operation_terminology,
     enterprise_product_name,
 )
-from readme_agent.readme.header_visual import (
-    has_marker_free_presentation_contract,
-    render_readme_header_visual,
-)
+from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.registry.models import LinkAllocationPolicyV1
@@ -124,6 +121,8 @@ def build_readme_document_candidate(
         facts,
         base_revision=base_revision,
     )
+    if (link_catalogs is None) != (link_allocation_policy is None):
+        raise ValueError("README link catalogs and allocation policy must be supplied together")
     validated_agentic_plan = (
         validate_readme_composition_plan(
             agentic_composition_plan,
@@ -135,6 +134,15 @@ def build_readme_document_candidate(
         if agentic_composition_plan
         else None
     )
+    if facts.content_assurance == "repository_verified" and validated_agentic_plan is not None:
+        return build_verified_template_document_candidate(
+            facts,
+            source_text,
+            base_revision,
+            validated_agentic_plan,
+            link_catalogs=link_catalogs,
+            link_allocation_policy=link_allocation_policy,
+        )
     header_visuals = render_readme_header_visual(facts, validated_agentic_plan)
     withheld = build_unresolved_section_operations(context, assessment)
     withheld_spans = [
@@ -155,15 +163,23 @@ def build_readme_document_candidate(
     operations.extend(build_acquisition_correction_operations(context))
     operations.extend(build_example_operations(context))
     operations.extend(build_additional_examples_collapse_operations(context, operations))
-    operations.extend(build_promotional_callout_operations(context))
+    for promotional_operation in build_promotional_callout_operations(context):
+        if not any(
+            operation.source_byte_start < promotional_operation.source_byte_end
+            and promotional_operation.source_byte_start < operation.source_byte_end
+            for operation in operations
+        ):
+            operations.append(promotional_operation)
     operations.extend(build_registry_badge_operations(context))
     operations.extend(build_release_operations(context))
     operations.extend(build_license_operations(context))
+    operations.extend(build_third_party_notice_operations(context))
     # Equal-offset insertions appear in reverse plan order in the candidate.
     # Append the header operation last so badges remain immediately below H1.
     operations.extend(build_badge_header_operations(context, header_visuals))
     operations = remove_operations_overlapping_withheld_sections(operations, withheld)
     operations.extend(withheld)
+    operations.extend(build_density_collapse_operations(context, operations))
     for comment_operation in build_comment_removal_operations(context):
         if not any(
             operation.source_byte_start < comment_operation.source_byte_end
@@ -180,8 +196,6 @@ def build_readme_document_candidate(
     operations.extend(build_presentation_policy_operations(context, operations))
     operations.extend(build_review_repair_operations(context, validated_agentic_plan, operations))
     product_name = enterprise_product_name(facts)
-    if (link_catalogs is None) != (link_allocation_policy is None):
-        raise ValueError("README link catalogs and allocation policy must be supplied together")
     if link_catalogs is not None and link_allocation_policy is not None:
         operations.extend(
             build_source_link_hygiene_operations(
@@ -249,42 +263,11 @@ def build_readme_document_candidate(
             raise ValueError(
                 "invalid contextual README links: " + "; ".join(link_validation.errors)
             )
-    facts_hash = facts.canonical_hash()
-    candidate = rendered_inner
-    plan = ReadmeDocumentPlanV1(
-        org_repo=org_repo,
-        immutable_base_revision=base_revision,
-        facts_hash=facts_hash,
-        template_sha256=document_template_hash(),
-        source_sha256=sha256_hex(source_text),
-        adoption=PresentationSpanAdoptionV1(
-            already_adopted=(
-                existing is not None or has_marker_free_presentation_contract(source_text)
-            ),
-            marker_schema_version=3 if existing is not None and existing.facts_hash else None,
-            source_document_sha256=sha256_hex(source_text),
-            source_inner_sha256=sha256_hex(source),
-            source_inner_bytes=len(source),
-            preservation_check="byte_identical",
-        ),
-        header_visuals=header_visuals,
-        contextual_links=contextual_links,
-        enterprise_terminology_corrections=terminology_corrections,
-        operations=operations,
-        candidate_sha256=sha256_hex(candidate),
+    return finalize_legacy_document_candidate(
+        context,
+        rendered_inner,
+        operations,
+        header_visuals,
+        contextual_links,
+        terminology_corrections,
     )
-    generated_claim_map = build_readme_claim_map(
-        plan,
-        facts,
-        source_text=source_text,
-        candidate_text=candidate,
-    )
-    claim_accountability = build_readme_claim_accountability_map(
-        org_repo=org_repo,
-        source_text=inner_text,
-        candidate_text=rendered_inner,
-        facts=facts,
-        generated_claim_map=generated_claim_map,
-    )
-    plan = plan.model_copy(update={"claim_accountability": claim_accountability})
-    return candidate, plan

@@ -745,6 +745,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         current_control_plane_fingerprint=compute_control_plane_fingerprint(
                             entry.policy_profile
                         ),
+                        ecosystem=entry.ecosystem,
                     )
                     complete_status = cache_decision.status if cache_decision.reusable else None
                     complete_cache_key = cache_decision.cache_key

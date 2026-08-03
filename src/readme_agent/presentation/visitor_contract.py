@@ -12,6 +12,7 @@ def build_presentation_visitor_contract(
     template: RepositoryPresentationTemplateV1 | None = None,
     *,
     applicable_h2_headings: list[str] | None = None,
+    primary_example_language: str | None = None,
 ) -> dict:
     """Return visible standards only, without producer reasoning or factual conclusions."""
 
@@ -44,6 +45,11 @@ def build_presentation_visitor_contract(
             if heading and heading.casefold() != navigation_heading
         ]
         applicability_basis = "validated_candidate_h2_headings"
+    language = (primary_example_language or "default").strip().casefold()
+    maximum_example_lines = contract.invariants.primary_example_max_nonblank_lines.get(
+        language,
+        contract.invariants.primary_example_max_nonblank_lines["default"],
+    )
     return {
         "template_id": contract.template_id,
         "template_version": contract.template_version,
@@ -92,6 +98,9 @@ def build_presentation_visitor_contract(
                     "minimum_inputs": contract.invariants.minimum_mermaid_inputs,
                     "minimum_capabilities": contract.invariants.minimum_mermaid_capabilities,
                     "minimum_outputs": contract.invariants.minimum_mermaid_outputs,
+                    "target_inputs": contract.invariants.target_mermaid_inputs,
+                    "target_capabilities": contract.invariants.target_mermaid_capabilities,
+                    "target_outputs": contract.invariants.target_mermaid_outputs,
                     "directional_workflow": False,
                 },
             },
@@ -100,7 +109,7 @@ def build_presentation_visitor_contract(
                 "parameters": {
                     "heading": contract.headings["quick_start"],
                     "maximum_fenced_blocks": 1,
-                    "maximum_nonblank_code_lines": 12,
+                    "maximum_nonblank_code_lines": maximum_example_lines,
                     "secondary_examples": "collapsed_below_primary",
                 },
             },

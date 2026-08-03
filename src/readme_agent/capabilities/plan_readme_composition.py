@@ -51,6 +51,7 @@ def execute(
         facts,
         assessment,
         client=client,
+        max_attempts=1,
         review_repair=review_repair,
     )
     return plan.model_dump(mode="json")

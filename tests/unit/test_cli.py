@@ -78,12 +78,20 @@ def _stub_registry_heal(monkeypatch):
 def _stub_supervise_allowlist(monkeypatch):
     """Most CLI tests exercise later seams with a synthetic listed repository."""
     import readme_agent.registry.loader as loader_module
+    import readme_agent.supervisor.loop as loop_module
 
-    monkeypatch.setattr(
-        loader_module,
-        "require_listed",
-        lambda org_repo: argparse.Namespace(org_repo=org_repo, mode="disabled"),
-    )
+    def _listed_entry(org_repo):
+        return argparse.Namespace(
+            org_repo=org_repo,
+            mode="disabled",
+            ecosystem="python",
+            family="note",
+            platform="python",
+            policy_profile=None,
+        )
+
+    monkeypatch.setattr(loader_module, "require_listed", _listed_entry)
+    monkeypatch.setattr(loop_module, "require_listed", _listed_entry)
 
 
 @pytest.fixture(autouse=True)
@@ -587,6 +595,7 @@ class TestExecutionProfileFlag:
         from readme_agent.supervisor.execution_profile import get_profile
 
         source_revision = "a" * 40
+        facts_hash = "b" * 64
         snapshot = _facts_stage_snapshot("org/repo", source_revision, str(tmp_path.resolve()))
         monkeypatch.setattr(paths_module, "readme_poc_root", lambda: tmp_path / "readme-poc")
         monkeypatch.setattr(paths_module, "evidence_dir", lambda run_id: tmp_path / "evidence")
@@ -603,6 +612,7 @@ class TestExecutionProfileFlag:
             readme_poc_lifecycle=ReadmePocLifecycleStateV2(
                 status="FACTS_READY",
                 source_revision=source_revision,
+                facts_hash=facts_hash,
             ),
         )
         result = _terminal_supervise_result("STAGE_COMPLETE")
@@ -621,6 +631,7 @@ class TestExecutionProfileFlag:
         assert result.evidence_dir is not None
         manifest = json.loads((result.evidence_dir / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["upstream_revision"] == source_revision
+        assert manifest["facts_hash"] == facts_hash
         assert manifest["facts"]["repository_snapshot_v1"] == snapshot.model_dump(mode="json")
 
     def test_facts_stage_fallback_fails_closed_without_snapshot_evidence(
@@ -1525,6 +1536,8 @@ class TestLocalPocPortfolioCommand:
         entry = argparse.Namespace(
             org_repo="org/repo",
             clone_url="https://example.invalid/org/repo.git",
+            ecosystem="python",
+            family="note",
             policy_profile=None,
         )
         monkeypatch.setattr(loader_module, "load_products", lambda path: (entry,))
@@ -1562,6 +1575,7 @@ class TestLocalPocPortfolioCommand:
 
         assert supervision_module._cmd_supervise_registry(args) == 0
         assert observed["current_source_revision"] == source_revision
+        assert observed["ecosystem"] == "python"
         rendered = (tmp_path / "summary.json").read_text(encoding="utf-8")
         assert '"llm_accounting_status": "EXACT"' in rendered
         assert '"llm_call_count": 0' in rendered

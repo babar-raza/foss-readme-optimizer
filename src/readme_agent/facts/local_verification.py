@@ -27,6 +27,7 @@ from readme_agent.facts.example_execution import ExampleExecutionResultV1, execu
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.example_verifiers import cpp as cpp_verifier
 from readme_agent.facts.example_verifiers import rust as rust_verifier
+from readme_agent.facts.verification_contract import verification_contract_hash
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 
@@ -42,75 +43,12 @@ _COPY_IGNORE = shutil.ignore_patterns(
     "node_modules",
     "target",
 )
-_VERIFICATION_CONTRACT_FILES = (
-    "local_verification.py",
-    "example_execution.py",
-    "isolated_execution.py",
-    "isolated_execution_inputs.py",
-    "isolated_execution_schema.py",
-    "python_consumer.py",
-    "python_consumer_fixtures.py",
-    "python_consumer_schema.py",
-    "python_dependency_acquisition.py",
-    "python_dependency_schema.py",
-    "python_example_normalization.py",
-    "python_example_verifier.py",
-    "python_repository_examples.py",
-    "typescript_consumer.py",
-    "typescript_consumer_driver.js",
-    "typescript_consumer_schema.py",
-    "typescript_example_normalization.py",
-    "typescript_example_verifier.py",
-    "typescript_toolchain.py",
-    "rust_consumer.py",
-    "rust_consumer_schema.py",
-    "rust_dependency_acquisition.py",
-    "rust_dependency_schema.py",
-    "rust_example_normalization.py",
-    "rust_example_verifier.py",
-    "../ecosystems/python_api_schema.py",
-    "../ecosystems/python_package_layout.py",
-    "../ecosystems/python_public_api.py",
-    "../ecosystems/python_symbol_members.py",
-    "../ecosystems/typescript_api_schema.py",
-    "../ecosystems/typescript_package_layout.py",
-    "../ecosystems/rust_api_schema.py",
-    "../ecosystems/rust_format_truth.py",
-    "../ecosystems/rust_package_layout.py",
-    "../ecosystems/rust_public_api.py",
-    "../ecosystems/rust_snippets.py",
-    "../ecosystems/rust_symbol_extraction.py",
-    "../ecosystems/rust_syntax.py",
-    "../ecosystems/rust_use_resolution.py",
-    "example_quality.py",
-    "repository_examples.py",
-    "example_verification_schema.py",
-    "compiled_consumer.py",
-    "compiled_consumer_schema.py",
-    "java_example_verifier.py",
-    "dotnet_example_verifier.py",
-    "cpp_example_verifier.py",
-    "go_example_verifier.py",
-    "example_verifiers/cpp.py",
-    "example_verifiers/rust.py",
-    # This gate converts compiler output into repair feedback and decides
-    # whether the drafted example becomes a verified fact. A change there
-    # must invalidate same-revision blocked/accepted fact evidence too.
-    "../capabilities/draft_product_truth.py",
-)
 
 
-def local_verification_contract_hash() -> str:
-    """Fingerprint every implementation file that determines example acceptance."""
+def local_verification_contract_hash(ecosystem: str | None = None) -> str:
+    """Fingerprint only verifier code that can affect the selected ecosystem."""
 
-    root = Path(__file__).parent
-    digest = hashlib.sha256()
-    for relative_path in _VERIFICATION_CONTRACT_FILES:
-        digest.update(relative_path.encode("utf-8"))
-        digest.update(b"\0")
-        digest.update((root / relative_path).read_bytes())
-        digest.update(b"\0")
-    return digest.hexdigest()
+    return verification_contract_hash(Path(__file__).parent, ecosystem)
 
 
 def _cache_key(snapshot: RepositorySnapshotV1, example: MinimalExamplePolicy) -> str:
@@ -123,7 +61,7 @@ def _cache_key(snapshot: RepositorySnapshotV1, example: MinimalExamplePolicy) ->
             example.class_name,
             example.code,
             env.java_home() or "",
-            local_verification_contract_hash(),
+            local_verification_contract_hash(example.language),
         ]
     )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()

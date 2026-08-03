@@ -7,9 +7,15 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
-from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.document_validation import (
+    DocumentCandidateValidationV1,
+    validate_readme_document_candidate,
+)
+from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 
@@ -34,6 +40,29 @@ def _facts() -> tuple[ProductFactsV2, str]:
     )
 
 
+def _assert_compatibility_claim_block(
+    validation: DocumentCandidateValidationV1,
+    plan: ReadmeDocumentPlanV1,
+    *required_checks: str,
+) -> None:
+    """Prove compatibility behavior without treating it as verified approval."""
+
+    assert validation.valid is False
+    assert validation.checks["claim_accountability_complete"] is False
+    assert validation.checks["claim_accountability_gaps_visible"] is True
+    assert all(validation.checks[name] for name in required_checks)
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert expected in validation.errors
+
+
 def test_header_and_mermaid_are_fact_backed_and_marker_free():
     facts, revision = _facts()
     source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
@@ -46,7 +75,14 @@ def test_header_and_mermaid_are_fact_backed_and_marker_free():
     )
     validation = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(
+        validation,
+        plan,
+        "document_reconstruction",
+        "candidate_is_marker_free",
+        "candidate_has_no_comments",
+        "header_visuals",
+    )
     assert plan.header_visuals is not None
     assert validate_readme_header_visual(plan.header_visuals, facts).valid
     assert candidate.count("```mermaid") == 1
@@ -72,6 +108,74 @@ def test_mermaid_uses_a_non_directional_product_hub_without_invented_pairings():
         line.strip().startswith("capability_") and " --- output_" in line
         for line in visual.mermaid_source.splitlines()
     )
+
+
+def test_cached_agentic_plan_is_normalized_again_at_render_time():
+    facts, _revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    capabilities = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "PS/EPS to PDF conversion",
+                            "PS/EPS to image conversion",
+                            "XPS to PDF conversion",
+                            "XPS to image conversion",
+                            "EPS metadata extraction",
+                        ]
+                    }
+                )
+                if fact.fact_id == capabilities.fact_id
+                else fact.model_copy(update={"value": ["PS/EPS input files"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    stale_plan = ReadmeAgenticCompositionPlanV1.model_validate(
+        {
+            "schema_version": 1,
+            "org_repo": facts.org_repo,
+            "source_sha256": "0" * 64,
+            "facts_hash": facts.canonical_hash(),
+            "assessment_hash": "1" * 64,
+            "prompt_sha256": "2" * 64,
+            "tool_schema_sha256": "3" * 64,
+            "input_sha256": "4" * 64,
+            "model": "cached-test",
+            "attempt_count": 1,
+            "repository_summary": "Cached plan",
+            "section_decisions": [],
+            "overview_sentences": [],
+            "diagram": {
+                "nodes": [
+                    {
+                        "role": "input",
+                        "label": "PS/EPS input files",
+                        "supporting_fact_ids": [formats.fact_id],
+                    },
+                    {
+                        "role": "output",
+                        "label": "EPS metadata",
+                        "supporting_fact_ids": [capabilities.fact_id],
+                    },
+                ]
+            },
+        }
+    )
+
+    visual = render_readme_header_visual(facts, stale_plan)
+    labels = {node.label for node in visual.diagram_nodes}
+
+    assert "XPS files" in labels
+    assert "PDF files" in labels
+    assert "image files" in labels
+    assert "EPS metadata" in labels
+    assert "EPS metadata files" not in labels
 
 
 def test_unverified_header_badges_are_replaced_by_exact_supported_set():
@@ -191,11 +295,38 @@ System.out.println(url);
     )
     validation = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert validation.valid, validation.errors
+    _assert_compatibility_claim_block(
+        validation,
+        plan,
+        "document_reconstruction",
+        "candidate_has_no_comments",
+        "protected_content",
+    )
     assert "<!--" not in candidate
     assert "// Explain this in prose instead." not in candidate
     assert '"https://example.test/value//literal"' in candidate
     assert validation.checks["candidate_has_no_comments"] is True
+
+
+def test_no_agentic_repository_verified_render_cannot_be_mistaken_for_approval() -> None:
+    facts, revision = _facts()
+    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+
+    candidate, plan = build_readme_document_candidate(
+        ORG_REPO,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    validation = validate_readme_document_candidate(source, candidate, plan, facts)
+
+    assert facts.content_assurance == "repository_verified"
+    _assert_compatibility_claim_block(
+        validation,
+        plan,
+        "document_reconstruction",
+        "header_visuals",
+    )
 
 
 def test_header_contains_only_supported_fact_backed_badge_kinds():
@@ -215,6 +346,7 @@ def test_header_contains_only_supported_fact_backed_badge_kinds():
         "download",
         "platform",
         "build",
+        "source",
         "license",
         "contributors",
     }
@@ -222,3 +354,71 @@ def test_header_contains_only_supported_fact_backed_badge_kinds():
         token in plan.header_visuals.badge_markdown.casefold()
         for token in ("build", "status", "documentation")
     )
+
+
+def test_header_adds_build_badge_only_for_fact_bound_canonical_workflow() -> None:
+    facts, _revision = _facts()
+    ci = FactRecordV2(
+        fact_id="repository.ci:canonical-workflow",
+        field="repository.ci",
+        value={"path": ".github/workflows/ci.yml", "sha256": "a" * 64},
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://.github/workflows/ci.yml",
+            source_revision="abc123",
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.header"],
+    )
+    facts_with_ci = facts.model_copy(
+        update={
+            "facts": [*facts.facts, ci],
+            "selected_fact_ids": {**facts.selected_fact_ids, "repository.ci": ci.fact_id},
+        }
+    )
+
+    badges = render_readme_badges(facts_with_ci)
+    build = next(badge for badge in badges if badge.kind == "build")
+
+    assert [badge.kind for badge in badges] == [
+        "package",
+        "platform",
+        "build",
+        "license",
+        "contributors",
+    ]
+    assert build.image_url.endswith("/actions/workflows/ci.yml/badge.svg")
+    assert build.target_url is not None
+    assert build.target_url.endswith("/actions/workflows/ci.yml")
+    assert ci.fact_id in build.fact_ids
+
+
+def test_header_omits_build_badge_when_no_ci_fact_exists() -> None:
+    facts, _revision = _facts()
+
+    assert all(badge.kind != "build" for badge in render_readme_badges(facts))
+
+
+def test_header_uses_visitor_facing_dotnet_platform_label() -> None:
+    facts, _revision = _facts()
+    identity = facts.selected_fact("product.identity")
+    dotnet_identity = identity.model_copy(
+        update={"value": {**identity.value, "platform": "net", "ecosystem": "net"}}
+    )
+    dotnet_facts = facts.model_copy(
+        update={
+            "facts": [
+                dotnet_identity if fact.fact_id == identity.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    platform_badge = next(
+        badge for badge in render_readme_badges(dotnet_facts) if badge.kind == "platform"
+    )
+
+    assert platform_badge.alt_text == "Platform: .NET"
+    assert "Platform-.NET-" in platform_badge.image_url

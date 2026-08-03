@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
 
 from readme_agent.facts.python_consumer_schema import PythonFixtureBindingV1
@@ -28,9 +29,22 @@ _FIXTURE_DIRECTORY_TOKENS = frozenset(
 _PREFERRED_FIXTURE_STEMS = ("minimal", "sample", "example", "input", "simple")
 
 
-def _input_paths_from_example(code: str) -> list[Path]:
+@dataclass(frozen=True)
+class _InputPathCandidate:
+    target: Path
+    allow_substitution: bool
+
+
+def _input_paths_from_example(code: str) -> list[_InputPathCandidate]:
     tree = ast.parse(code, filename=".readme-agent-consumer.py")
-    paths: set[Path] = set()
+    imported_constructors = {
+        alias.asname or alias.name
+        for node in ast.walk(tree)
+        if isinstance(node, ast.ImportFrom)
+        for alias in node.names
+        if (alias.asname or alias.name)[:1].isupper()
+    }
+    paths: dict[Path, bool] = {}
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call) or not node.args:
             continue
@@ -41,7 +55,8 @@ def _input_paths_from_example(code: str) -> list[Path]:
             if isinstance(node.func, ast.Name)
             else ""
         )
-        if call_name not in _INPUT_CALL_NAMES:
+        allow_substitution = call_name in _INPUT_CALL_NAMES
+        if not allow_substitution and call_name not in imported_constructors:
             continue
         first = node.args[0]
         if not isinstance(first, ast.Constant) or not isinstance(first.value, str):
@@ -55,8 +70,11 @@ def _input_paths_from_example(code: str) -> list[Path]:
         path = Path(value)
         if not value or path.is_absolute() or ".." in path.parts or not path.suffix:
             continue
-        paths.add(path)
-    return sorted(paths, key=lambda path: path.as_posix().casefold())
+        paths[path] = paths.get(path, False) or allow_substitution
+    return [
+        _InputPathCandidate(target=path, allow_substitution=paths[path])
+        for path in sorted(paths, key=lambda item: item.as_posix().casefold())
+    ]
 
 
 def _fixture_rank(snapshot_root: Path, path: Path, target: Path) -> tuple:
@@ -93,6 +111,17 @@ def _select_repository_fixture(snapshot_root: Path, target: Path) -> Path | None
     )
 
 
+def _exact_repository_fixture(snapshot_root: Path, target: Path) -> Path | None:
+    source = (snapshot_root / target).resolve()
+    try:
+        source.relative_to(snapshot_root)
+    except ValueError:
+        return None
+    if not source.is_file() or not 0 < source.stat().st_size <= _MAX_FIXTURE_BYTES:
+        return None
+    return source
+
+
 def stage_repository_input_fixtures(
     snapshot: RepositorySnapshotV1,
     workspace: Path,
@@ -103,19 +132,16 @@ def stage_repository_input_fixtures(
     bindings: list[PythonFixtureBindingV1] = []
     workspace_root = workspace.resolve()
     snapshot_root = snapshot.root_path.resolve()
-    for target in _input_paths_from_example(code):
+    for candidate in _input_paths_from_example(code):
+        target = candidate.target
         destination = (workspace_root / target).resolve()
         try:
             destination.relative_to(workspace_root)
         except ValueError:
             continue
         if destination.exists():
-            exact_source = (snapshot_root / target).resolve()
-            try:
-                exact_source.relative_to(snapshot_root)
-            except ValueError:
-                continue
-            if not exact_source.is_file() or not destination.is_file():
+            exact_source = _exact_repository_fixture(snapshot_root, target)
+            if exact_source is None or not destination.is_file():
                 continue
             source_bytes = exact_source.read_bytes()
             if not 0 < len(source_bytes) <= _MAX_FIXTURE_BYTES:
@@ -133,7 +159,9 @@ def stage_repository_input_fixtures(
                 )
             )
             continue
-        source = _select_repository_fixture(snapshot_root, target)
+        source = _exact_repository_fixture(snapshot_root, target)
+        if source is None and candidate.allow_substitution:
+            source = _select_repository_fixture(snapshot_root, target)
         if source is None:
             continue
         destination.parent.mkdir(parents=True, exist_ok=True)

@@ -1,9 +1,9 @@
 {
   "campaign_id": "CAMP-SHARED-ACCELERATION",
-  "durable_state_version": 707,
+  "durable_state_version": 728,
   "graph_sha256": "033ef111ab2c4810f3747ecc8b482c6cbb0dfdfdbe71b3a0d414997ebe67f456",
-  "manifest_sha256": "0871c86a00dfb1ab2d914a4bf787feda95147734fd458a1c73ecb12e424ae791",
-  "replay_id": "a96da9bbc725ce3ebe9e0bc89f80dc5710fe2e7ea56f832510933920d84983d3",
+  "manifest_sha256": "5b3b20f48116f11f847b4db8e06e7833bb3da2d0844c7038e994ef4e5f80701d",
+  "replay_id": "b1543718cfdbdaa02187e264bf0074c67d9b875e8c8412a46fdeae71787aed24",
   "replay_result": "ACCEPTED",
   "requirement_ids": [
     "AGT-001",
@@ -95,13 +95,21 @@
   "schema_version": "CampaignEvidenceManifestV1",
   "task_verdicts": [
     {
-      "durable_status": "TODO",
-      "evidence": [],
+      "durable_status": "CLOSED",
+      "evidence": [
+        {
+          "path": "plans/investigations/evidence/level8-accel-00-python-readiness-v1/mission-contribution.json",
+          "requirement_ids": [
+            "L8-043"
+          ],
+          "sha256": "e958f48789ff50d7149f2ef402a4d49d3446a1a5fa07a8ce0a5f62dc3103089c"
+        }
+      ],
       "requirement_ids": [
         "L8-043"
       ],
       "task_id": "L8-ACCEL-00-PYTHON-READINESS",
-      "verdict": "OPEN"
+      "verdict": "CLOSED"
     },
     {
       "durable_status": "CLOSED",
@@ -325,5 +333,5 @@
       "verdict": "PARTIAL"
     }
   ],
-  "transition_id": "a70b29bbc1dde8f35e8e8d2a3972fd0cdb89809400cd6dc4a7d205c4ec13d395"
+  "transition_id": "52365ac5805f262f93a886090c413e181217447db2a9681c82ca92c14de01e8c"
 }

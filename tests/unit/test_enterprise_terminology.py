@@ -85,6 +85,16 @@ def test_commercial_aspose_on_premise_library_is_canonicalized() -> None:
     assert rendered == "Aspose.3D FOSS shares API design with the Aspose.3D Enterprise Edition.\n"
 
 
+def test_commercial_aspose_product_is_reported_as_noncanonical() -> None:
+    source = "Compare the FOSS library with the commercial Aspose.3D for .NET product.\n"
+
+    findings = find_enterprise_terminology_findings(source)
+
+    assert [(item.kind, item.excerpt) for item in findings] == [
+        ("prohibited_descriptor", "the commercial Aspose.3D for .NET product")
+    ]
+
+
 def test_implicit_foss_relationship_paragraph_is_canonicalized() -> None:
     source = "The FOSS edition shares APIs with the commercial edition.\n"
 

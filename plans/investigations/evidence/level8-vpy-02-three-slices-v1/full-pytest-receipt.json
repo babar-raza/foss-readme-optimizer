@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "command": [
+    "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-n",
+    "4",
+    "--dist",
+    "worksteal",
+    "--max-worker-restart",
+    "0",
+    "--basetemp=C:\\Users\\prora\\AppData\\Local\\Temp\\ra-p"
+  ],
+  "branch": "main",
+  "head": "50ea7189e6ebdc554bd79a4b1c64cd76e2d3cd04",
+  "dirty_tree": true,
+  "python": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]",
+  "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c",
+  "test_inventory_count": 2909,
+  "test_inventory_sha256": "9ef56331da7f530c641620dd3feb98ccbf393f06915a95db1d5b4282a1b87519",
+  "started_at": "2026-08-03T12:39:19.249502+00:00",
+  "finished_at": "2026-08-03T12:45:34.415483+00:00",
+  "duration_seconds": 373.309,
+  "exit_code": 0,
+  "worker_count": 4,
+  "distribution": "worksteal",
+  "max_worker_restart": 0,
+  "leaked_process_ids": []
+}

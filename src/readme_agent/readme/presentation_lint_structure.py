@@ -4,12 +4,17 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.presentation.template_compiler import select_density_profile
+from readme_agent.presentation.template_schema import load_repository_presentation_template
 from readme_agent.readme.document_structure import (
     code_blocks_in_span,
     github_anchor,
     parse_headings,
 )
-from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
+from readme_agent.readme.presentation_lint_models import (
+    PresentationLintFindingV1,
+    PresentationLintSpanV1,
+)
 from readme_agent.readme.presentation_lint_text import (
     exact_span,
     line_span,
@@ -20,8 +25,12 @@ from readme_agent.readme.presentation_report import product_explanation_offset
 
 RULE_IDS = (
     "competing_primary_examples",
+    "invalid_third_party_notices",
     "malformed_navigation",
     "promotional_imbalance",
+    "promotional_opening",
+    "redundant_quick_links",
+    "uncollapsed_secondary_detail",
 )
 
 _PRIMARY_EXAMPLE = re.compile(r"(?i)^(?:quick start|usage|getting started|example)$")
@@ -29,6 +38,14 @@ _LOCAL_LINK = re.compile(r"\[[^\]]+\]\(#([^)]+)\)")
 _COMMERCIAL_LINK = re.compile(r"https?://[^)\s]*aspose\.com(?:/[^)\s]*)?", re.IGNORECASE)
 _PROMO_HEADING = re.compile(r"(?i)(?:enterprise edition|aspose\.com)")
 _PROMO_CTA = re.compile(r"(?i)\b(?:buy|upgrade now|free trial|download)\b")
+_PROMOTIONAL_OPENING = re.compile(
+    r"(?i)\b(?:official\s+Aspose\s+project|100\s*%\s+free(?:\s*&\s*open[- ]source)?)\b"
+)
+_QUICK_LINKS = re.compile(r"(?i)^\s*Quick links\s*:")
+_THIRD_PARTY_LINK = re.compile(
+    r"\[[^\]]*(?:third[- ]party|THIRD_PARTY_NOTICES)[^\]]*\]\((?P<target>[^)]+)\)",
+    re.IGNORECASE,
+)
 
 
 def _heading_span(text: str, start: int, heading_end: int):
@@ -39,6 +56,35 @@ def _heading_span(text: str, start: int, heading_end: int):
 def lint_structure(text: str) -> list[PresentationLintFindingV1]:
     findings: list[PresentationLintFindingV1] = []
     headings = parse_headings(text)
+    h1 = next((heading for heading in headings if heading.level == 1), None)
+    first_h2 = next((heading for heading in headings if heading.level == 2), None)
+    opening_start = h1.heading_end if h1 is not None else 0
+    opening_end = first_h2.start if first_h2 is not None else len(text)
+    opening_lines = [
+        line for line in visible_lines(text) if opening_start <= line.start < opening_end
+    ]
+    promotional_opening = [
+        line_span(text, line) for line in opening_lines if _PROMOTIONAL_OPENING.search(line.text)
+    ]
+    if promotional_opening:
+        findings.append(
+            make_finding(
+                "promotional_opening",
+                "The opening must be one factual product summary without promotional claims.",
+                promotional_opening,
+            )
+        )
+    quick_links = [
+        line_span(text, line) for line in opening_lines if _QUICK_LINKS.search(line.text)
+    ]
+    if quick_links:
+        findings.append(
+            make_finding(
+                "redundant_quick_links",
+                "Opening quick-link shells duplicate the complete Navigation section.",
+                quick_links,
+            )
+        )
 
     for heading in headings:
         if _PRIMARY_EXAMPLE.fullmatch(heading.title.strip()):
@@ -65,6 +111,66 @@ def lint_structure(text: str) -> list[PresentationLintFindingV1]:
                         [_heading_span(text, heading.start, heading.heading_end), *labels],
                     )
                 )
+
+    contract = load_repository_presentation_template()
+    profile = select_density_profile(len(text.splitlines()), template=contract)
+    collapsed_slots = set(contract.profiles[profile].collapse_slots)
+    for heading in headings:
+        if heading.level != 2:
+            continue
+        normalized = heading.title.strip().casefold()
+        slot = (
+            "additional_examples"
+            if "example" in normalized and "quick" not in normalized
+            else "api_reference"
+            if "api" in normalized
+            else "development_and_testing"
+            if any(token in normalized for token in ("development", "testing", "workflow"))
+            else None
+        )
+        body = text[heading.heading_end : heading.section_end]
+        if (
+            slot in collapsed_slots
+            and sum(bool(line.strip()) for line in body.splitlines()) >= 12
+            and "<details>" not in body.casefold()
+        ):
+            findings.append(
+                make_finding(
+                    "uncollapsed_secondary_detail",
+                    "Long secondary examples, API detail, and development workflows must collapse.",
+                    [_heading_span(text, heading.start, heading.heading_end)],
+                )
+            )
+
+    notice_links = list(_THIRD_PARTY_LINK.finditer(text))
+    notices_heading = next(
+        (
+            heading
+            for heading in headings
+            if heading.level == 2 and heading.title.strip().casefold() == "third-party notices"
+        ),
+        None,
+    )
+    invalid_notice_spans: list[PresentationLintSpanV1] = []
+    if notice_links and notices_heading is None:
+        invalid_notice_spans.extend(
+            exact_span(text, match.start(), match.end()) for match in notice_links
+        )
+    elif notices_heading is not None:
+        for match in notice_links:
+            if (
+                notices_heading.heading_end <= match.start() < notices_heading.section_end
+                and match.group("target").casefold().startswith(("http://", "https://"))
+            ):
+                invalid_notice_spans.append(exact_span(text, match.start(), match.end()))
+    if invalid_notice_spans:
+        findings.append(
+            make_finding(
+                "invalid_third_party_notices",
+                "Third-party notices require a dedicated H2 and repository-relative link.",
+                invalid_notice_spans,
+            )
+        )
 
     anchors = {github_anchor(heading.title) for heading in headings}
     broken = []

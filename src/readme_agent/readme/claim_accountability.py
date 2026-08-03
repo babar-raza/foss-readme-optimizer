@@ -3,142 +3,135 @@
 from __future__ import annotations
 
 import hashlib
-import re
 from collections import Counter
 
-from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.assessment_claims import (
-    ClaimDisposition,
-    ReadmeMaterialClaimAssessmentV1,
-    assess_material_claims,
+from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
+from readme_agent.readme.claim_accountability_helpers import (
+    accepted_literal_facts,
+    accountability_record,
+    candidate_provenance_for_claim,
+    claim_text,
+    expected_disposition,
+    overlapping_candidate_fact_ids,
 )
 from readme_agent.readme.claim_accountability_models import (
     ClaimOrigin,
-    ClaimStage,
-    ExpectedClaimDisposition,
+    EquivalentCandidateClaimV1,
     ReadmeClaimAccountabilityMapV1,
     ReadmeClaimAccountabilityV1,
+    StructuredFactCoordinateV1,
 )
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
-
-_CORRECTION_DISPOSITIONS = {"rewrite", "repair", "remove_update", "replace_generic"}
-_MARKDOWN_MARKS = re.compile(r"[`*_>#\[\]()]")
-
-
-def _normalized_unit(value: str) -> str:
-    lines = [line for line in value.strip().splitlines() if not line.strip().startswith("```")]
-    collapsed = " ".join(line.strip().lstrip("-+* ") for line in lines)
-    return " ".join(_MARKDOWN_MARKS.sub("", collapsed).casefold().split())
+from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
+from readme_agent.readme.fact_grounding import literal_fact_ids
 
 
-def _accepted_literal_facts(claim_text: str, facts: ProductFactsV2) -> set[str]:
-    normalized_claim = _normalized_unit(claim_text)
-    accepted = set()
-    for fact_id in facts.selected_fact_ids.values():
-        fact = facts.fact_by_id(fact_id)
-        if (
-            fact.verification_state
-            not in {
-                "verified",
-                "policy_approved",
-            }
-            or fact.has_unresolved_conflict
-        ):
-            continue
-        values = []
-        view = visitor_fact_render_view(facts, fact.field)
-        if view is not None:
-            values.extend(view.phrases)
-        if fact.field == "example.minimal" and isinstance(fact.value, dict):
-            code = fact.value.get("code")
-            if isinstance(code, str):
-                values.append(code)
-        if normalized_claim and any(
-            normalized_claim == _normalized_unit(value)
-            for value in values
-            if isinstance(value, str)
-        ):
-            accepted.add(fact_id)
-    return accepted
+def _validated_source_resolutions(
+    source_claims,
+    resolutions: list[SourceClaimResolutionV1],
+) -> dict[str, SourceClaimResolutionV1]:
+    by_id = {resolution.claim_id: resolution for resolution in resolutions}
+    if len(by_id) != len(resolutions):
+        raise ValueError("source claim resolutions contain duplicate claim IDs")
+    unknown = sorted(set(by_id) - {claim.claim_id for claim in source_claims})
+    if unknown:
+        raise ValueError(f"source claim resolutions reference unknown claims: {unknown}")
+    return by_id
 
 
-def _overlapping_candidate_fact_ids(
-    claim: ReadmeMaterialClaimAssessmentV1,
-    candidate_text: str,
-    claim_map: ReadmeClaimMapV1,
-) -> set[str]:
-    bindings = [
-        binding
-        for binding in claim_map.claims
-        if binding.coordinate_space == "candidate_utf8"
-        and binding.byte_start < claim.source_byte_end
-        and claim.source_byte_start < binding.byte_end
-    ]
-    if not bindings:
-        return set()
-    claim_bytes = candidate_text.encode("utf-8")[claim.source_byte_start : claim.source_byte_end]
-    covered = bytearray(len(claim_bytes))
-    for binding in bindings:
-        start = max(binding.byte_start, claim.source_byte_start) - claim.source_byte_start
-        end = min(binding.byte_end, claim.source_byte_end) - claim.source_byte_start
-        covered[start:end] = b"\x01" * (end - start)
-    uncovered = bytes(byte for index, byte in enumerate(claim_bytes) if not covered[index]).decode(
-        "utf-8", errors="ignore"
-    )
-    if any(character.isalnum() for character in _MARKDOWN_MARKS.sub("", uncovered)):
-        return set()
-    return {binding.fact_id for binding in bindings}
+def _coordinate_key(coordinate: StructuredFactCoordinateV1) -> tuple[str, str, str, str]:
+    return (coordinate.fact_id, coordinate.field, coordinate.path, coordinate.value_sha256)
 
 
-def _expected_disposition(
+def _structured_equivalence_groups(
+    source_records: list[ReadmeClaimAccountabilityV1],
+    candidate_records: list[ReadmeClaimAccountabilityV1],
     *,
-    stage: ClaimStage,
-    origin: ClaimOrigin,
-    current: ClaimDisposition,
-    accepted_fact_ids: set[str],
-    survives_in_candidate: bool | None,
-) -> tuple[ExpectedClaimDisposition, bool, str]:
-    if current == "investigate":
-        return (
-            "explicit_uncertainty",
-            True,
-            "Instruction-like or unresolved source content remains explicitly untrusted.",
-        )
-    if current in _CORRECTION_DISPOSITIONS:
-        return (
-            "required_correction",
-            True,
-            "The assessment requires a bounded correction before factual approval.",
-        )
-    if accepted_fact_ids:
-        return (
-            "accepted_fact",
-            True,
-            "Exact content is bound to at least one selected accepted fact.",
-        )
-    if stage == "source" and survives_in_candidate is False:
-        return (
-            "unjustified_loss",
-            False,
-            "Preserved source knowledge disappeared without a correction or omission authority.",
-        )
-    if stage == "candidate" and origin == "generated":
-        return (
-            "unbound_generated",
-            False,
-            "Generated material has no accepted fact binding and requires correction or omission.",
-        )
-    return (
-        "authoritative_owner_validation",
-        False,
-        "Byte preservation is not factual approval; "
-        "an authoritative owner or fact is still required.",
-    )
+    excluded_source_claim_ids: set[str],
+) -> dict[str, tuple[str, list[str], list[EquivalentCandidateClaimV1]]]:
+    eligible_sources = {
+        record.claim_id: record
+        for record in source_records
+        if record.claim_id.removeprefix("source:") not in excluded_source_claim_ids
+        and record.current_disposition == "preserve"
+        and record.survives_in_candidate is False
+        and record.accepted_fact_coordinates
+    }
+    eligible_candidates = {
+        record.claim_id: record
+        for record in candidate_records
+        if record.currently_accountable and record.accepted_fact_coordinates
+    }
+    coordinate_nodes: dict[tuple[str, str, str, str], set[str]] = {}
+    records = {**eligible_sources, **eligible_candidates}
+    for record in records.values():
+        for coordinate in record.accepted_fact_coordinates:
+            coordinate_nodes.setdefault(_coordinate_key(coordinate), set()).add(record.claim_id)
 
+    adjacency: dict[str, set[str]] = {claim_id: set() for claim_id in records}
+    for nodes in coordinate_nodes.values():
+        sources = {node for node in nodes if node.startswith("source:")}
+        candidates = {node for node in nodes if node.startswith("candidate:")}
+        if not sources or not candidates:
+            continue
+        for source_id in sources:
+            adjacency[source_id].update(candidates)
+        for candidate_id in candidates:
+            adjacency[candidate_id].update(sources)
 
-def _claim_text(document: str, claim: ReadmeMaterialClaimAssessmentV1) -> str:
-    return document.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    result: dict[str, tuple[str, list[str], list[EquivalentCandidateClaimV1]]] = {}
+    visited: set[str] = set()
+    for starting_id in sorted(eligible_sources):
+        if starting_id in visited or not adjacency[starting_id]:
+            continue
+        pending = [starting_id]
+        component: set[str] = set()
+        while pending:
+            claim_id = pending.pop()
+            if claim_id in component:
+                continue
+            component.add(claim_id)
+            pending.extend(adjacency[claim_id] - component)
+        visited.update(component)
+        source_ids = sorted(item for item in component if item.startswith("source:"))
+        candidate_ids = sorted(item for item in component if item.startswith("candidate:"))
+        source_coordinates = {
+            _coordinate_key(coordinate)
+            for claim_id in source_ids
+            for coordinate in records[claim_id].accepted_fact_coordinates
+        }
+        candidate_coordinates = {
+            _coordinate_key(coordinate)
+            for claim_id in candidate_ids
+            for coordinate in records[claim_id].accepted_fact_coordinates
+        }
+        if not candidate_ids or source_coordinates != candidate_coordinates:
+            continue
+        group_payload = "\n".join(
+            [*source_ids, *candidate_ids, *map(repr, sorted(source_coordinates))]
+        )
+        group_hash = hashlib.sha256(group_payload.encode("utf-8")).hexdigest()
+        group_id = f"fact-equivalence:{group_hash[:16]}"
+        candidate_bindings = [
+            EquivalentCandidateClaimV1(
+                claim_id=claim_id.removeprefix("candidate:"),
+                candidate_byte_start=records[claim_id].source_byte_start,
+                candidate_byte_end=records[claim_id].source_byte_end,
+                content_sha256=records[claim_id].content_sha256,
+                fact_coordinates=records[claim_id].accepted_fact_coordinates,
+            )
+            for claim_id in candidate_ids
+        ]
+        raw_source_ids = [claim_id.removeprefix("source:") for claim_id in source_ids]
+        for claim_id in source_ids:
+            result[claim_id.removeprefix("source:")] = (
+                group_id,
+                raw_source_ids,
+                candidate_bindings,
+            )
+    return result
 
 
 def build_readme_claim_accountability_map(
@@ -148,6 +141,8 @@ def build_readme_claim_accountability_map(
     candidate_text: str,
     facts: ProductFactsV2,
     generated_claim_map: ReadmeClaimMapV1,
+    candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
+    source_claim_resolutions: list[SourceClaimResolutionV1] | None = None,
 ) -> ReadmeClaimAccountabilityMapV1:
     """Return one explicit expected disposition for every material claim."""
 
@@ -162,60 +157,144 @@ def build_readme_claim_accountability_map(
         else:
             candidate_origins[claim.claim_id] = "generated"
     candidate_hashes = Counter(claim.content_sha256 for claim in candidate_claims)
-
-    records = []
+    provenance = candidate_content_provenance or []
+    resolutions = _validated_source_resolutions(source_claims, source_claim_resolutions or [])
+    candidate_records = []
+    for claim in candidate_claims:
+        text = claim_text(candidate_text, claim)
+        bindings = candidate_provenance_for_claim(claim, candidate_text, provenance)
+        provenance_fact_ids = sorted(
+            {fact_id for binding in bindings for fact_id in binding.fact_ids}
+        )
+        fact_ids = (
+            accepted_literal_facts(text, facts)
+            | overlapping_candidate_fact_ids(claim, candidate_text, generated_claim_map)
+            | set(literal_fact_ids(text, facts, provenance_fact_ids))
+        )
+        fact_coordinates = structured_fact_coordinates(
+            candidate_text,
+            claim,
+            facts,
+            fact_ids,
+        )
+        fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
+        candidate_standard_ids = {
+            standard_id for binding in bindings for standard_id in binding.configured_standard_ids
+        }
+        origin = candidate_origins[claim.claim_id]
+        expected, accountable, rationale = expected_disposition(
+            stage="candidate",
+            origin=origin,
+            current=claim.disposition,
+            accepted_fact_ids=fact_ids,
+            configured_standard_ids=candidate_standard_ids,
+            survives_in_candidate=None,
+            variable_fact_binding_required=bool(provenance_fact_ids),
+        )
+        candidate_records.append(
+            accountability_record(
+                claim,
+                facts,
+                stage="candidate",
+                origin=origin,
+                fact_ids=fact_ids,
+                fact_coordinates=fact_coordinates,
+                configured_standard_ids=candidate_standard_ids,
+                survives=None,
+                expected=expected,
+                accountable=accountable,
+                rationale=rationale,
+            )
+        )
+    source_records = []
     for claim in source_claims:
-        text = _claim_text(source_text, claim)
-        fact_ids = _accepted_literal_facts(text, facts)
+        text = claim_text(source_text, claim)
+        fact_ids = accepted_literal_facts(text, facts)
+        source_standard_ids: set[str] = set()
+        if source_text == candidate_text:
+            exact_bindings = candidate_provenance_for_claim(claim, candidate_text, provenance)
+            provenance_fact_ids = sorted(
+                {fact_id for binding in exact_bindings for fact_id in binding.fact_ids}
+            )
+            fact_ids.update(literal_fact_ids(text, facts, provenance_fact_ids))
+            source_standard_ids.update(
+                standard_id
+                for binding in exact_bindings
+                for standard_id in binding.configured_standard_ids
+            )
+        resolution = resolutions.get(claim.claim_id)
+        if resolution is not None:
+            if (
+                resolution.source_byte_start != claim.source_byte_start
+                or resolution.source_byte_end != claim.source_byte_end
+                or resolution.content_sha256 != claim.content_sha256
+            ):
+                raise ValueError(f"source claim resolution is stale: {claim.claim_id}")
+            for fact_id in resolution.fact_ids:
+                fact = facts.fact_by_id(fact_id)
+                if (
+                    facts.selected_fact_ids.get(fact.field) != fact_id
+                    or fact.verification_state not in {"verified", "policy_approved"}
+                    or fact.has_unresolved_conflict
+                ):
+                    raise ValueError(f"source claim resolution cites ineligible fact {fact_id!r}")
+                fact_ids.add(fact_id)
+        fact_coordinates = structured_fact_coordinates(source_text, claim, facts)
+        fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
         survives = candidate_hashes[claim.content_sha256] > 0
         if survives:
             candidate_hashes[claim.content_sha256] -= 1
-        expected, accountable, rationale = _expected_disposition(
+        expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",
             current=claim.disposition,
             accepted_fact_ids=fact_ids,
+            configured_standard_ids=source_standard_ids,
             survives_in_candidate=survives,
+            source_resolution=resolution,
         )
-        records.append(
-            _record(
+        source_records.append(
+            accountability_record(
                 claim,
                 facts,
                 stage="source",
                 origin="inherited",
                 fact_ids=fact_ids,
+                fact_coordinates=fact_coordinates,
+                configured_standard_ids=source_standard_ids,
                 survives=survives,
                 expected=expected,
                 accountable=accountable,
                 rationale=rationale,
             )
         )
-    for claim in candidate_claims:
-        text = _claim_text(candidate_text, claim)
-        fact_ids = _accepted_literal_facts(text, facts) | _overlapping_candidate_fact_ids(
-            claim,
-            candidate_text,
-            generated_claim_map,
-        )
-        origin = candidate_origins[claim.claim_id]
-        expected, accountable, rationale = _expected_disposition(
-            stage="candidate",
-            origin=origin,
-            current=claim.disposition,
-            accepted_fact_ids=fact_ids,
-            survives_in_candidate=None,
-        )
-        records.append(
-            _record(
-                claim,
-                facts,
-                stage="candidate",
-                origin=origin,
-                fact_ids=fact_ids,
-                survives=None,
-                expected=expected,
-                accountable=accountable,
-                rationale=rationale,
+    equivalence_groups = _structured_equivalence_groups(
+        source_records,
+        candidate_records,
+        excluded_source_claim_ids=set(resolutions),
+    )
+    reconciled_sources = []
+    for record in source_records:
+        claim_id = record.claim_id.removeprefix("source:")
+        equivalence = equivalence_groups.get(claim_id)
+        if equivalence is None:
+            reconciled_sources.append(record)
+            continue
+        group_id, source_claim_ids, candidate_bindings = equivalence
+        reconciled_sources.append(
+            record.model_copy(
+                update={
+                    "expected_disposition": "verified_equivalence",
+                    "currently_accountable": True,
+                    "rationale": (
+                        "The exact source claim belongs to a complete structured-fact coordinate "
+                        "group represented by exact independently accountable candidate claims."
+                    ),
+                    "equivalence_group_id": group_id,
+                    "equivalent_source_claim_ids": source_claim_ids,
+                    "equivalent_candidate_claims": candidate_bindings,
+                    "equivalence_normalization_version": "structured-fact-coordinate-v1",
+                }
             )
         )
     return ReadmeClaimAccountabilityMapV1(
@@ -223,36 +302,5 @@ def build_readme_claim_accountability_map(
         facts_hash=facts.canonical_hash(),
         source_sha256=hashlib.sha256(source_text.encode("utf-8")).hexdigest(),
         candidate_sha256=hashlib.sha256(candidate_text.encode("utf-8")).hexdigest(),
-        claims=records,
-    )
-
-
-def _record(
-    claim: ReadmeMaterialClaimAssessmentV1,
-    facts: ProductFactsV2,
-    *,
-    stage: ClaimStage,
-    origin: ClaimOrigin,
-    fact_ids: set[str],
-    survives: bool | None,
-    expected: ExpectedClaimDisposition,
-    accountable: bool,
-    rationale: str,
-) -> ReadmeClaimAccountabilityV1:
-    return ReadmeClaimAccountabilityV1(
-        claim_id=f"{stage}:{claim.claim_id}",
-        stage=stage,
-        origin=origin,
-        source_byte_start=claim.source_byte_start,
-        source_byte_end=claim.source_byte_end,
-        content_sha256=claim.content_sha256,
-        current_disposition=claim.disposition,
-        accepted_fact_ids=sorted(fact_ids),
-        authoritative_owners=sorted(
-            {facts.fact_by_id(fact_id).authoritative_owner for fact_id in fact_ids}
-        ),
-        survives_in_candidate=survives,
-        expected_disposition=expected,
-        currently_accountable=accountable,
-        rationale=rationale,
+        claims=[*reconciled_sources, *candidate_records],
     )

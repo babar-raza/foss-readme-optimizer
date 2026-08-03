@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import (
+    DocumentCandidateValidationV1,
     accepted_fact_is_represented,
     validate_readme_document_candidate,
 )
@@ -35,6 +37,32 @@ def _facts(org_repo: str) -> tuple[ProductFactsV2, str]:
         ProductFactsV2.model_validate(pilot["product_facts_v2"]),
         pilot["snapshot"]["source_revision"],
     )
+
+
+def _assert_compatibility_claim_block(
+    decision: DocumentCandidateValidationV1,
+    plan: ReadmeDocumentPlanV1,
+) -> None:
+    """Require sound compatibility mechanics while verified approval remains closed."""
+
+    assert decision.valid is False
+    assert decision.checks["claim_accountability_complete"] is False
+    assert decision.checks["claim_accountability_gaps_visible"] is True
+    assert all(
+        passed
+        for name, passed in decision.checks.items()
+        if name != "claim_accountability_complete"
+    )
+    assert plan.claim_accountability is not None
+    blockers = sorted(
+        record.claim_id
+        for record in plan.claim_accountability.claims
+        if not record.currently_accountable
+    )
+    expected = f"claim accountability has {len(blockers)} blocking claim(s): " + ", ".join(
+        blockers[:10]
+    )
+    assert decision.errors == [expected]
 
 
 def _force_source_build_acquisition(facts: ProductFactsV2) -> ProductFactsV2:
@@ -82,7 +110,7 @@ def test_missing_usage_section_gets_the_verified_minimal_example():
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert "## Quick start" in candidate
     assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert any(
@@ -120,7 +148,7 @@ def test_overview_validation_uses_visitor_facing_audience_render_view():
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     assert "Developers using .NET for spreadsheet processing" in candidate
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert decision.checks["verified_overview_present"] is True
 
 
@@ -161,7 +189,7 @@ def test_missing_limitations_section_gets_every_verified_limitation():
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert "## Scope and limitations" in candidate
     for limitation in limitations.value:
         assert limitation in candidate
@@ -189,7 +217,7 @@ Copyright © 2026 Aspose Pty Ltd.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert candidate.count("[MIT License](License/LICENSE.txt)") == 1
     assert "It permits use, modification, distribution, and commercial use" in candidate
     assert "Copyright © 2026 Aspose Pty Ltd." not in candidate
@@ -215,7 +243,7 @@ def test_existing_limitations_section_is_not_duplicated():
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert candidate.count("## Scope and limitations") == 1
     assert "## Known limitations" not in candidate
     assert all(
@@ -241,7 +269,7 @@ def test_existing_partial_limitations_section_is_completed_without_replacement()
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert candidate.count("## Scope and limitations") == 1
     assert candidate.count("## Repository-verified constraints") == 1
     assert "Existing maintainer-authored limitation that must remain." in candidate
@@ -358,7 +386,7 @@ Follow-on guidance remains.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert 'new Scene("testdata/input/cube.obj")' not in candidate
     assert facts.selected_fact("example.minimal").value["code"].rstrip() in candidate
     assert candidate.count("```java") == 1
@@ -412,7 +440,7 @@ Only XLSX is supported.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert "<artifactId>aspose-cells-foss</artifactId>" in candidate
     assert "<version>26.7.0</version>" in candidate
     assert "<version>1.0.0</version>" not in candidate
@@ -459,7 +487,7 @@ Existing guidance.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert "<artifactId>aspose-cells-foss</artifactId>" not in candidate
     assert "mvn clean install" in candidate
     assert any(
@@ -509,7 +537,7 @@ Existing guidance.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert "central.sonatype.com/artifact/org.aspose/aspose-pdf-foss" in candidate
     assert "Maven Central: org.aspose:aspose-pdf-foss" in candidate
     assert "**Version 26.6.0**" in candidate
@@ -543,9 +571,9 @@ Existing guidance.
     )
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
-    assert decision.valid, decision.errors
+    _assert_compatibility_claim_block(decision, plan)
     assert not any(line.startswith(">") for line in candidate.splitlines())
-    assert "Aspose.Cells for Java Enterprise Edition has broader format support" in candidate
+    assert "Aspose.Cells Enterprise Edition has broader format support" in candidate
     assert "commercial edition" not in candidate
 
 

@@ -32,6 +32,9 @@ from readme_agent.supervisor.local_poc_snapshot_evidence import (
     write_local_poc_snapshot as write_local_poc_snapshot,
 )
 from readme_agent.supervisor.local_poc_superseded import preserve_superseded_candidate
+from readme_agent.supervisor.stage_dependencies import (
+    current_candidate_stage_dependency_manifest,
+)
 
 
 def write_local_poc_product_facts(
@@ -433,6 +436,13 @@ def write_local_poc_readme_candidate(
                 agentic_plan.canonical_hash() if agentic_plan is not None else None
             ),
             "candidate_hash": candidate_hash,
+            "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
+                repository=snapshot.org_repo,
+                source_revision=snapshot.source_revision,
+                ecosystem=(
+                    snapshot.package_roots[0].ecosystem if snapshot.package_roots else "unknown"
+                ),
+            ).stage_key,
             "repair_budget_origin_hash": repair_budget_origin_hash,
             "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
             "completed_stages": completed_stages,

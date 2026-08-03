@@ -6,6 +6,7 @@ import pytest
 from pydantic import ValidationError
 
 from readme_agent.llm import prompt_registry
+from readme_agent.llm.merged_readme_review import build_merged_readme_review_messages
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
@@ -145,6 +146,24 @@ def test_factual_plan_context_has_no_deterministic_or_producer_verdict() -> None
     assert "deterministic validation result" not in serialized.casefold()
     assert "producer verdict" not in serialized.casefold()
     assert '"verdict": "accept"' not in serialized.casefold()
+
+
+def test_merged_context_contains_one_candidate_catalog_and_both_evidence_facets() -> None:
+    messages = build_merged_readme_review_messages(
+        ORG_REPO,
+        CANDIDATE,
+        "{}",
+        '{"selected_fact_ids":{"product.identity":"fact-1"}}',
+        '{"operations":[{"operation_id":"readme.overview"}]}',
+    )
+    serialized = "\n".join(str(message["content"]) for message in messages)
+
+    assert serialized.count("Complete candidate README block catalog") == 1
+    assert serialized.count("candidate.anchor.") >= 1
+    assert "fact-1" in serialized
+    assert "readme.overview" in serialized
+    assert ORIGINAL not in serialized
+    assert "Candidate README:" not in serialized
 
 
 def test_role_inputs_are_hash_bound_and_have_disjoint_fields() -> None:

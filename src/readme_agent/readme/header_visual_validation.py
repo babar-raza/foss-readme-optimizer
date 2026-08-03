@@ -52,6 +52,10 @@ def validate_readme_header_visual(
     checks["diagram_specific"] = visual.diagram_nodes[0].role == "product" and any(
         node.role != "product" for node in visual.diagram_nodes
     )
+    role_labels = [
+        (node.role, " ".join(node.label.casefold().split())) for node in visual.diagram_nodes
+    ]
+    checks["diagram_role_labels_unique"] = len(role_labels) == len(set(role_labels))
     checks["maps_match_markdown"] = all(
         f'  {node.node_id}["{node.label}"]' in visual.mermaid_source
         for node in visual.diagram_nodes
@@ -73,6 +77,7 @@ def validate_readme_header_visual(
             "download",
             "platform",
             "build",
+            "source",
             "license",
             "contributors",
         }
@@ -84,11 +89,33 @@ def validate_readme_header_visual(
     acquisition = facts.selected_fact("installation.verified_acquisition")
     acquisition_value = acquisition.value if isinstance(acquisition.value, dict) else {}
     coordinate = acquisition_value.get("coordinate")
-    checks["registry_badges_verified"] = not registry_badges or (
+    registry_only_badges = [
+        badge for badge in registry_badges if badge.kind in {"package", "download"}
+    ]
+    version_badges = [badge for badge in registry_badges if badge.kind == "version"]
+    registry_verified = (
         acquisition.verification_state in _ACCEPTED_STATES
         and acquisition_value.get("outcome") == "REGISTRY_VERIFIED"
         and isinstance(coordinate, dict)
         and bool(coordinate)
+    )
+    source_version_verified = (
+        acquisition.verification_state in _ACCEPTED_STATES
+        and acquisition_value.get("outcome") == "SOURCE_BUILD_VERIFIED"
+        and acquisition_value.get("truth_eligible") is True
+        and isinstance(acquisition_value.get("source_build_receipt"), dict)
+    )
+    checks["registry_badges_verified"] = (not registry_only_badges or registry_verified) and (
+        not version_badges or registry_verified or source_version_verified
+    )
+    source_badges = [badge for badge in visual.badges if badge.kind == "source"]
+    identity = facts.selected_fact("product.identity")
+    identity_value = identity.value if isinstance(identity.value, dict) else {}
+    repository = str(identity_value.get("repository") or facts.org_repo).strip()
+    checks["source_badges_verified"] = not source_badges or (
+        identity.verification_state in _ACCEPTED_STATES
+        and not identity.has_unresolved_conflict
+        and len(repository.split("/")) == 2
     )
     license_badges = [badge for badge in visual.badges if badge.kind == "license"]
     license_fact = facts.selected_fact("product.license")

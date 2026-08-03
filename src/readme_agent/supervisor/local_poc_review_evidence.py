@@ -10,6 +10,7 @@ from readme_agent.evidence.writer import (
     write_redacted_json,
 )
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_manifest
+from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 
 
 def _load_manifest(bundle_dir: Path) -> dict:
@@ -68,10 +69,9 @@ def write_local_poc_review_evidence(
         raise ValueError(f"unsupported local README review lifecycle status: {lifecycle_status}")
     agent_approved = lifecycle_status == "AGENT_APPROVED"
     review_dir = bundle_dir / "review"
-    write_redacted_json(
-        review_dir / "deterministic-validation.json",
-        deterministic_validation,
-    )
+    deterministic_validation_path = review_dir / "deterministic-validation.json"
+    write_redacted_json(deterministic_validation_path, deterministic_validation)
+    persisted_validation = json.loads(deterministic_validation_path.read_text(encoding="utf-8"))
     write_redacted_json(
         review_dir / "independent-agent-review.json",
         independent_review,
@@ -117,6 +117,7 @@ def write_local_poc_review_evidence(
         {
             "lifecycle_status": lifecycle_status,
             "reviewer_standard_hash": reviewer_standard_hash,
+            "deterministic_validation_hash": canonical_sha256(persisted_validation),
             "complete": False,
             "completed_stages": completed,
         }

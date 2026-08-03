@@ -7,7 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.resolution import resolve_product_facts
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability import (
     build_readme_claim_accountability_map,
@@ -17,7 +19,12 @@ from readme_agent.readme.claim_accountability_validation import (
     validate_claim_accountability_map,
 )
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
+from readme_agent.readme.document_plan import (
+    CandidateContentProvenanceV1,
+    SourceClaimResolutionV1,
+)
 from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_structure import parse_headings
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REPRESENTATIVES = (
@@ -27,6 +34,9 @@ REPRESENTATIVES = (
     / "evidence"
     / "level8-contextual-linking"
     / "representatives"
+)
+NOTE_SOURCE = (
+    PROJECT_ROOT / "tests" / "fixtures" / "readmes" / "real_audit_2026-07-17" / "note-python.md"
 )
 
 
@@ -59,6 +69,8 @@ def _case(platform: str):
         candidate_text=candidate,
         facts=facts,
         generated_claim_map=claim_map,
+        candidate_content_provenance=plan.candidate_content_provenance,
+        source_claim_resolutions=plan.source_claim_resolutions,
     )
     assert plan.claim_accountability == accountability
     return source, candidate, facts, plan, accountability
@@ -100,7 +112,7 @@ def test_real_source_and_candidate_claim_inventories_are_complete(platform: str)
             assert record.rationale
 
 
-def test_real_corpus_freezes_parity_performance_format_installation_and_example_controls():
+def test_legacy_corpus_does_not_gain_verified_template_deferrals_without_provenance():
     python_source, python_candidate, _python_facts, _python_plan, python_map = _case("python")
     (
         typescript_source,
@@ -152,12 +164,120 @@ def test_real_corpus_freezes_parity_performance_format_installation_and_example_
     assert stale_install.expected_disposition == "authoritative_owner_validation"
     assert stale_example.expected_disposition == "unjustified_loss"
     assert all(
-        not record.currently_accountable
-        for record in (parity, performance, stale_install, stale_example)
+        not record.currently_accountable and record.survives_in_candidate is False
+        for record in (parity, performance, stale_example)
     )
+    assert stale_install.currently_accountable is False
+    assert stale_install.survives_in_candidate is True
     assert verified_example.expected_disposition == "accepted_fact"
     assert verified_example.currently_accountable is True
-    assert format_claim.expected_disposition == "accepted_fact"
+    assert format_claim.expected_disposition == "unjustified_loss"
+    assert format_claim.currently_accountable is False
+    assert format_claim.survives_in_candidate is False
+
+
+def _verified_equivalence_case():
+    source = "# Formats\n\n- FBX - Autodesk FBX format support\n"
+    candidate = "# Formats\n\n- **FBX** - Autodesk FBX format support\n"
+    fact_source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://format-registry.json",
+        source_revision="equivalence-fixture",
+    )
+    facts = resolve_product_facts(
+        "acme/widget",
+        [
+            FactRecordV2(
+                fact_id="product.formats:fbx",
+                field="product.formats",
+                value=["FBX"],
+                source=fact_source,
+                verification_state="verified",
+                authoritative_owner="repository-owner",
+                confidence=1.0,
+                affected_surfaces=["readme.formats"],
+            ),
+            FactRecordV2(
+                fact_id="product.capabilities:fbx",
+                field="product.capabilities",
+                value=["Autodesk FBX format support"],
+                source=fact_source,
+                verification_state="verified",
+                authoritative_owner="repository-owner",
+                confidence=1.0,
+                affected_surfaces=["readme.capabilities"],
+            ),
+        ],
+        missing_source=fact_source,
+    )
+    resolutions = build_source_claim_resolutions(source, candidate, facts)
+    equivalence = next(
+        resolution for resolution in resolutions if resolution.resolution == "verified_equivalence"
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=resolutions,
+    )
+    return source, candidate, facts, accountability, resolutions, equivalence
+
+
+def test_verified_equivalence_binds_two_exact_claims_and_complete_fact_set():
+    source, candidate, facts, accountability, resolutions, equivalence = (
+        _verified_equivalence_case()
+    )
+
+    verdict = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=[],
+        source_claim_resolutions=resolutions,
+    )
+
+    assert set(equivalence.fact_ids) == {
+        "product.capabilities:fbx",
+        "product.formats:fbx",
+    }
+    assert verdict.checks["verified_equivalences_have_exact_candidate_claims"] is True
+
+
+@pytest.mark.parametrize("tamper", ["span", "hash", "partial_facts"])
+def test_verified_equivalence_rejects_stale_or_partial_candidate_binding(tamper: str):
+    source, candidate, facts, accountability, resolutions, equivalence = (
+        _verified_equivalence_case()
+    )
+    if tamper == "span":
+        changed = equivalence.model_copy(
+            update={"candidate_byte_start": equivalence.candidate_byte_start + 1}
+        )
+    elif tamper == "hash":
+        changed = equivalence.model_copy(update={"candidate_content_sha256": "0" * 64})
+    else:
+        changed = equivalence.model_copy(update={"fact_ids": equivalence.fact_ids[:1]})
+    tampered = [changed if item.claim_id == equivalence.claim_id else item for item in resolutions]
+
+    verdict = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=[],
+        source_claim_resolutions=tampered,
+    )
+
+    assert verdict.checks["verified_equivalences_have_exact_candidate_claims"] is False
+    assert verdict.valid is False
 
 
 def test_preservation_and_regeneration_do_not_hide_missing_accountability():
@@ -197,6 +317,64 @@ def test_preservation_and_regeneration_do_not_hide_missing_accountability():
     assert candidate_record.currently_accountable is False
 
 
+def test_real_note_removed_claims_require_exact_resolutions_even_when_fact_tokens_match():
+    source = NOTE_SOURCE.read_text(encoding="utf-8")
+    source_claims = assess_material_claims(source)
+    title = source_claims[0]
+    title_text = source.encode("utf-8")[title.source_byte_start : title.source_byte_end].decode(
+        "utf-8"
+    )
+    candidate = title_text.rstrip() + "\n"
+    fact_source = FactSourceV2(
+        source_type="mechanical_manifest",
+        location="repository://pyproject.toml",
+        source_revision="real-note-fixture",
+    )
+    facts = resolve_product_facts(
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        [
+            FactRecordV2(
+                fact_id="product.identity:real-note-fixture",
+                field="product.identity",
+                value={
+                    "product_name": "Aspose.Note",
+                    "platform": "Python",
+                    "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+                },
+                source=fact_source,
+                verification_state="verified",
+                authoritative_owner="repository-owner",
+                confidence=1.0,
+                affected_surfaces=["readme.opening"],
+            )
+        ],
+        missing_source=fact_source,
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+    )
+    removed = [
+        record
+        for record in accountability.claims
+        if record.stage == "source" and record.survives_in_candidate is False
+    ]
+
+    assert removed
+    assert not [record for record in removed if record.currently_accountable]
+    assert {record.expected_disposition for record in removed} == {"unjustified_loss"}
+
+
 def test_renderer_embeds_a_structurally_verified_map_and_exposes_approval_blockers():
     source, candidate, facts, plan, accountability = _case("python")
 
@@ -229,3 +407,408 @@ def test_stale_accountability_span_fails_closed():
 
     assert verdict.valid is False
     assert verdict.checks["claim_spans_exact"] is False
+
+
+def test_configured_standard_cannot_blanket_hallucinated_product_prose():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n"
+    candidate = "# Product\n\nInvented unlimited conversion support.\n"
+    claim = assess_material_claims(candidate)[0]
+    identity = facts.selected_fact("product.identity")
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="mixed-hallucination",
+        candidate_byte_start=claim.source_byte_start,
+        candidate_byte_end=claim.source_byte_end,
+        fact_ids=[identity.fact_id],
+        configured_standard_ids=["readme.header"],
+        rationale="Negative control for mixed variable and structural provenance.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        candidate_content_provenance=[provenance],
+    )
+    record = _record_containing(
+        accountability,
+        candidate,
+        "candidate",
+        "Invented unlimited conversion support",
+    )
+
+    assert record.currently_accountable is False
+    assert record.expected_disposition == "unbound_generated"
+
+
+@pytest.mark.parametrize("target", ["input.ps", "different.ps"])
+def test_verified_input_prerequisite_requires_the_exact_fixture_pair(target: str):
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    example = facts.selected_fact("example.minimal")
+    example_value = dict(example.value)
+    example_value["input_fixture_bindings"] = [
+        {
+            "source_path": "testdata/ps/minimal.ps",
+            "target_path": "input.ps",
+            "sha256": "a" * 64,
+            "size_bytes": 135,
+        }
+    ]
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": example_value})
+                if fact.fact_id == example.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    candidate = (
+        "# Product\n\n"
+        f"- Before running the example, provide `{target}`; verification used the repository "
+        "fixture "
+        "`testdata/ps/minimal.ps`.\n"
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+    )
+    record = _record_containing(accountability, candidate, "candidate", "provide")
+
+    assert record.currently_accountable is (target == "input.ps")
+    assert bool(record.accepted_fact_coordinates) is (target == "input.ps")
+
+
+def test_acquisition_standard_cannot_approve_altered_registry_or_method_text():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n"
+    candidate = "# Product\n\nInstall the package from an unverified Mirror Registry:\n"
+    claim = next(
+        item
+        for item in assess_material_claims(candidate)
+        if "Mirror Registry"
+        in candidate.encode("utf-8")[item.source_byte_start : item.source_byte_end].decode("utf-8")
+    )
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="altered-acquisition-method",
+        candidate_byte_start=claim.source_byte_start,
+        candidate_byte_end=claim.source_byte_end,
+        fact_ids=[acquisition.fact_id],
+        configured_standard_ids=["readme.verified_acquisition"],
+        rationale="Negative control for altered acquisition method prose.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        candidate_content_provenance=[provenance],
+    )
+    record = _record_containing(
+        accountability,
+        candidate,
+        "candidate",
+        "unverified Mirror Registry",
+    )
+
+    assert record.expected_disposition == "unbound_generated"
+    assert record.currently_accountable is False
+
+
+def test_verified_omission_cannot_approve_a_surviving_source_claim():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\nMaintainer-authored capability statement.\n"
+    claim = assess_material_claims(source)[0]
+    resolution = SourceClaimResolutionV1(
+        claim_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+        content_sha256=claim.content_sha256,
+        resolution="verified_omission",
+        evidence=["assessment:explicit-omission"],
+        rationale="Negative control deliberately labels surviving prose as omitted.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(source.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=source,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=[resolution],
+    )
+    record = _record_containing(
+        accountability,
+        source,
+        "source",
+        "Maintainer-authored capability statement",
+    )
+
+    assert record.currently_accountable is False
+    assert record.expected_disposition == "unjustified_loss"
+
+
+def test_deferred_source_claim_is_retained_in_evidence_but_excluded_from_candidate():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = (
+        "# Product\n\n## API reference\n\n"
+        "Maintainer-authored advanced workflow pending verification.\n"
+    )
+    candidate = "# Product\n"
+    resolutions = build_source_claim_resolutions(source, candidate, facts, [])
+
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "deferred_verification"
+    assert resolutions[0].fact_ids == []
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=resolutions,
+    )
+    record = _record_containing(
+        accountability,
+        source,
+        "source",
+        "advanced workflow",
+    )
+    verdict = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=[],
+        source_claim_resolutions=resolutions,
+    )
+
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "deferred_verification"
+    assert verdict.approval_eligible is True
+    assert verdict.checks["deferred_claims_are_excluded_and_unverified"] is True
+
+
+def test_mandatory_source_claim_requires_exact_fact_bound_slot_replacement():
+    _source, candidate, facts, plan, _accountability = _case("python")
+    source = "# Product\n\n## Installation\n\nUse the published package.\n"
+    installation_heading = next(
+        heading
+        for heading in parse_headings(candidate)
+        if heading.title.casefold() == "installation"
+    )
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.installation",
+            candidate_byte_start=len(candidate[: installation_heading.heading_end].encode("utf-8")),
+            candidate_byte_end=len(candidate[: installation_heading.section_end].encode("utf-8")),
+            fact_ids=[
+                facts.selected_fact("installation.verified_acquisition").fact_id,
+                facts.selected_fact("installation.coordinates").fact_id,
+            ],
+            rationale="Bind the exact installation section to accepted test facts.",
+        )
+    ]
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+    )
+    assert len(resolutions) == 1
+    resolution = resolutions[0]
+    assert resolution.resolution == "verified_obligation_replacement"
+    assert resolution.obligation_id == "verified_installation"
+    assert resolution.replacement_provenance_ids
+    assert {facts.fact_by_id(fact_id).field for fact_id in resolution.fact_ids}.issuperset(
+        {"installation.verified_acquisition", "installation.coordinates"}
+    )
+
+    claim_map = build_readme_claim_map(
+        plan,
+        facts,
+        source_text=source,
+        candidate_text=candidate,
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        candidate_content_provenance=provenance,
+        source_claim_resolutions=resolutions,
+    )
+    verdict = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=plan.operations,
+        candidate_content_provenance=provenance,
+        source_claim_resolutions=resolutions,
+    )
+
+    source_record = _record_containing(
+        accountability,
+        source,
+        "source",
+        "Use the published package",
+    )
+    assert source_record.currently_accountable is True
+    assert source_record.expected_disposition == "verified_obligation_replacement"
+    assert verdict.valid is True
+    assert verdict.checks["mandatory_claim_replacements_have_exact_provenance"] is True
+
+    tampered = resolution.model_copy(
+        update={"replacement_provenance_ids": ["template.section.missing"]}
+    )
+    tampered_accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        candidate_content_provenance=provenance,
+        source_claim_resolutions=[tampered],
+    )
+    tampered_verdict = validate_claim_accountability_map(
+        tampered_accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=plan.operations,
+        candidate_content_provenance=provenance,
+        source_claim_resolutions=[tampered],
+    )
+    assert tampered_verdict.valid is False
+    assert tampered_verdict.checks["mandatory_claim_replacements_have_exact_provenance"] is False
+
+
+def test_deferred_source_claim_cannot_approve_a_surviving_claim_or_cite_facts():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\nMaintainer-authored advanced workflow pending verification.\n"
+    claim = assess_material_claims(source)[0]
+    resolution = SourceClaimResolutionV1(
+        claim_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+        content_sha256=claim.content_sha256,
+        resolution="deferred_verification",
+        evidence=["risk-policy:unverified-inherited-claim-excluded-v1"],
+        rationale="Negative control for a surviving deferred claim.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(source.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=source,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=[resolution],
+    )
+    record = _record_containing(accountability, source, "source", "advanced workflow")
+
+    assert record.currently_accountable is False
+    assert record.expected_disposition == "unjustified_loss"
+    with pytest.raises(ValueError, match="cannot cite facts"):
+        SourceClaimResolutionV1(
+            claim_id=claim.claim_id,
+            source_byte_start=claim.source_byte_start,
+            source_byte_end=claim.source_byte_end,
+            content_sha256=claim.content_sha256,
+            resolution="deferred_verification",
+            fact_ids=[facts.selected_fact("product.identity").fact_id],
+            evidence=["risk-policy:unverified-inherited-claim-excluded-v1"],
+            rationale="Negative control for false verification through a deferral.",
+        )
+
+
+def test_authoritative_correction_requires_an_overlapping_operation():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\nIncorrect product identity.\n"
+    candidate = "# Product\n"
+    claim = assess_material_claims(source)[0]
+    identity = facts.selected_fact("product.identity")
+    resolution = SourceClaimResolutionV1(
+        claim_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+        content_sha256=claim.content_sha256,
+        resolution="authoritative_correction",
+        fact_ids=[identity.fact_id],
+        evidence=["product.identity:selected"],
+        rationale="Replace the exact incorrect identity with the accepted selected identity.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        source_claim_resolutions=[resolution],
+    )
+
+    verdict = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=[],
+        source_claim_resolutions=[resolution],
+    )
+
+    assert verdict.valid is False
+    assert verdict.checks["authoritative_resolutions_have_correction_operations"] is False

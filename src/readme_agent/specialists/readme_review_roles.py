@@ -248,29 +248,6 @@ class RoleReviewRecordV1(BaseModel):
         return self
 
 
-class CombinedReadmeReviewV1(BaseModel):
-    """Deterministic fail-closed combination of both independent role records."""
-
-    model_config = ConfigDict(extra="forbid", frozen=True)
-
-    content_assurance: ContentAssuranceV1 = "repository_verified"
-    verdict: CombinedReviewVerdict
-    candidate_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
-    blind_quality: RoleReviewRecordV1
-    factual_plan: RoleReviewRecordV1
-    identity_separation_valid: bool
-    reasons: list[str]
-
-    @model_validator(mode="after")
-    def _review_assurance_is_consistent(self) -> CombinedReadmeReviewV1:
-        if {
-            self.blind_quality.content_assurance,
-            self.factual_plan.content_assurance,
-        } != {self.content_assurance}:
-            raise ValueError("combined review roles must use the same content assurance")
-        return self
-
-
 def _json_hash(value: dict) -> str:
     canonical = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()

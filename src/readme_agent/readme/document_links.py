@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.facts.render_views import ecosystem_display_label
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import build_operation
@@ -12,6 +13,12 @@ from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.readme.document_structure import code_blocks_in_span
 from readme_agent.readme.document_templates import accepted_fact, load_template
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
+
+__all__ = [
+    "apply_contextual_link_bindings",
+    "render_contextual_example_markdown",
+    "render_contextual_relationship_markdown",
+]
 
 
 def _context_paragraph(title: str, url: str) -> str:
@@ -23,14 +30,18 @@ def _context_paragraph(title: str, url: str) -> str:
     )
 
 
-def _foss_product_name(enterprise_product_name: str) -> str:
+def _foss_product_name(enterprise_product_name: str, platform: str) -> str:
     if " for " in enterprise_product_name:
-        family, platform = enterprise_product_name.rsplit(" for ", maxsplit=1)
-        return f"{family} FOSS for {platform}"
-    return f"{enterprise_product_name} FOSS"
+        family, embedded_platform = enterprise_product_name.rsplit(" for ", maxsplit=1)
+        return f"{family} FOSS for {embedded_platform}"
+    return f"{enterprise_product_name} FOSS for {ecosystem_display_label(platform)}"
 
 
-def _relationship_paragraph(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]:
+def render_contextual_relationship_markdown(
+    plan: ContextualLinkPlanV1,
+) -> tuple[str, list[str]]:
+    """Render the one governed below-fold product-relationship paragraph."""
+
     relationship = [binding for binding in plan.bindings if binding.context_kind == "relationship"]
     enterprise = next(
         (binding for binding in relationship if binding.parent_domain == "aspose.com"),
@@ -44,7 +55,7 @@ def _relationship_paragraph(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]
         dict.fromkeys(fact_id for binding in relationship for fact_id in binding.accepted_fact_ids)
     )
     if enterprise is not None and foss is not None:
-        foss_product_name = _foss_product_name(plan.enterprise_product_name)
+        foss_product_name = _foss_product_name(plan.enterprise_product_name, plan.platform)
         return (
             load_template("contextual-product-relationship.md")
             .format(
@@ -67,7 +78,7 @@ def _relationship_paragraph(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]
             fact_ids,
         )
     if foss is not None:
-        foss_product_name = _foss_product_name(plan.enterprise_product_name)
+        foss_product_name = _foss_product_name(plan.enterprise_product_name, plan.platform)
         return (
             load_template("contextual-foss-product.md")
             .format(foss_product_name=foss_product_name, foss_url=foss.target_url)
@@ -77,12 +88,26 @@ def _relationship_paragraph(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]
     return "", []
 
 
+def render_contextual_example_markdown(plan: ContextualLinkPlanV1) -> tuple[str, list[str]]:
+    """Render the selected article link beside its exact verified example."""
+
+    bindings = [binding for binding in plan.bindings if binding.context_kind == "code_example"]
+    if not bindings:
+        return "", []
+    if len(bindings) != 1:
+        raise ValueError("verified README supports one contextual article per primary example")
+    binding = bindings[0]
+    return _context_paragraph(binding.target_title, binding.target_url), list(
+        binding.accepted_fact_ids
+    )
+
+
 def _apply_relationship_bindings(
     context: DocumentRenderContext,
     operations: list[ReadmeDocumentOperationV1],
     plan: ContextualLinkPlanV1,
 ) -> list[ReadmeDocumentOperationV1]:
-    paragraph, fact_ids = _relationship_paragraph(plan)
+    paragraph, fact_ids = render_contextual_relationship_markdown(plan)
     if not paragraph:
         return operations
     updated = list(operations)

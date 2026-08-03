@@ -19,6 +19,7 @@ from readme_agent.llm.schema import LLMBlockResponse, LLMResponseMeta
 from readme_agent.llm.verifier_client import ForcedToolResult
 from readme_agent.profile import cached
 from readme_agent.readme import candidate_pipeline
+from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.specialists import (
     presentation_benchmarking,
     readme_reconciliation,
@@ -145,6 +146,102 @@ class _FakeAcceptingRoleReviewClient:
 
 def _fake_accepting_role_clients(*args, **kwargs):
     return _FakeAcceptingRoleReviewClient(), _FakeAcceptingRoleReviewClient()
+
+
+class _FakeAcceptingMergedReviewClient:
+    """Return two grounded facets from the merged prompt's single catalog."""
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def analyze(self, messages):
+        user_content = str(messages[-1]["content"])
+        catalog_text = user_content.split(
+            "Complete candidate README block catalog, in source order:\n", 1
+        )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
+        facts_text = user_content.split("Selected accepted fact evidence packet:\n", 1)[1].split(
+            "\n\nCompact plan, source-preservation, and candidate-claim packet:", 1
+        )[0]
+        catalog = json.loads(catalog_text)
+        facts = json.loads(facts_text)
+        first = catalog[0]
+        candidate_text = "\n\n".join(str(item["text"]) for item in catalog)
+        selected_ids = set(facts.get("selected_fact_ids", {}).values())
+        supported = next(
+            (
+                (fact, phrase)
+                for fact in facts.get("selected_facts", [])
+                if fact.get("fact_id") in selected_ids
+                and fact.get("verification_state") in {"verified", "policy_approved"}
+                for phrase in fact_strings(fact.get("value"))
+                if len(phrase.strip()) >= 4 and phrase.casefold() in candidate_text.casefold()
+            ),
+            None,
+        )
+        if supported is None:
+            raise AssertionError("merged fixture reviewer found no literal selected fact")
+        fact, phrase = supported
+        start = candidate_text.casefold().index(phrase.casefold())
+        exact_span = candidate_text[start : start + len(phrase)]
+        quality = {
+            "verdict": "ACCEPT",
+            "reasoning": "The title supports visitor acceptance.",
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+            "findings": [
+                {
+                    "finding_id": "quality.fixture-title",
+                    "kind": "quality",
+                    "criterion": "clarity",
+                    "section": "title",
+                    "claim": "The candidate has a clear title.",
+                    "quoted_candidate_span": first["text"],
+                    "candidate_anchor_id": first["anchor_id"],
+                    "disposition": "supports_acceptance",
+                    "fact_id": None,
+                    "evidence_excerpt": None,
+                    "evidence_location": None,
+                    "expected_polarity": None,
+                    "observed_polarity": None,
+                    "polarity_result": "not_applicable",
+                    "required_repair": "",
+                }
+            ],
+        }
+        factual = {
+            "verdict": "ACCEPT",
+            "reasoning": "The selected fact supports the candidate.",
+            "failed_criteria": [],
+            "sections_affected": [],
+            "required_repair": "",
+            "findings": [
+                {
+                    "finding_id": "factual.fixture-supported",
+                    "kind": "factual",
+                    "criterion": "factuality",
+                    "section": "candidate",
+                    "claim": "The candidate contains a selected fact.",
+                    "quoted_candidate_span": exact_span,
+                    "disposition": "supports_acceptance",
+                    "fact_id": fact["fact_id"],
+                    "evidence_excerpt": phrase,
+                    "evidence_location": fact["evidence_location"],
+                    "expected_polarity": "positive_implementation",
+                    "observed_polarity": "positive_implementation",
+                    "polarity_result": "supports",
+                    "required_repair": "",
+                }
+            ],
+        }
+        return AnalysisResult(
+            parsed={"quality": quality, "factual": factual},
+            meta=LLMResponseMeta(model="fixture-merged-reviewer"),
+        )
+
+
+def _fake_accepting_merged_client(*args, **kwargs):
+    return _FakeAcceptingMergedReviewClient()
 
 
 def _init_source_repo(path, readme_text: str, *, include_license: bool = False):
@@ -473,6 +570,64 @@ class TestPresentationBenchmarkingCandidateBinding:
                 "upstream_failure_reason": "presentation_plan",
             },
         }
+
+    def test_local_poc_reuses_accepted_merged_review_instead_of_another_provider_call(
+        self, tmp_path, monkeypatch
+    ):
+        from readme_agent.supervisor.execution_context import proposal_only_scope
+
+        monkeypatch.chdir(tmp_path)
+        candidate = "# Candidate\n\n```mermaid\nflowchart LR\n  input --> output\n```\n"
+        backend = self._seed_bound_candidate(tmp_path, candidate)
+        state = backend._states[ORG_REPO]
+        backend._states[ORG_REPO] = state.model_copy(
+            update={
+                "domain_states": {
+                    "readme_presentation": DomainStateV1(
+                        domain="readme_presentation",
+                        accepted_status="CHANGED",
+                        details={
+                            "independent_review": {"outcome_kind": "accepted"},
+                            "presentation_plan": {
+                                "findings": [
+                                    {
+                                        "dimension": "product_clarity",
+                                        "disposition": "satisfied",
+                                        "summary": "product is clear",
+                                    }
+                                ]
+                            },
+                        },
+                    )
+                }
+            }
+        )
+        monkeypatch.setattr(
+            presentation_benchmarking,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: pytest.fail("merged review reuse must avoid another call"),
+        )
+
+        with proposal_only_scope():
+            result = presentation_benchmarking._classify_node(
+                DomainStateV1(domain="presentation_benchmarking"),
+                {
+                    "configurable": {
+                        "org_repo": ORG_REPO,
+                        "backend": backend,
+                        "current_revision": self._REVISION,
+                    }
+                },
+            )
+
+        assert result["details"]["review_reused"] is True
+        assert result["details"]["criteria_results"] == [
+            {
+                "dimension": "product_clarity",
+                "satisfied": True,
+                "note": "product is clear",
+            }
+        ]
 
     def test_non_local_without_candidate_preserves_labeled_baseline_fallback(self, monkeypatch):
         dispatched: list[dict] = []
@@ -1080,6 +1235,38 @@ class TestReadmePresentationSpecialist:
     thing faked is the one LLM call `render_readme_candidate`'s underlying
     pipeline needs for this fixture's real gap (relationship_explained)."""
 
+    def test_failed_composition_clears_prior_candidate_details(self, monkeypatch):
+        from readme_agent.specialists import readme_presentation
+
+        state = DomainStateV1(
+            domain="readme_presentation",
+            details={
+                "agentic_composition_plan": {"facts_hash": "stale"},
+                "render_result": {"final_text": "stale candidate"},
+                "presentation_plan": {"executable": True},
+                "verification": {"verdict": "accept"},
+                "durable_non_candidate_note": "preserve",
+            },
+        )
+        monkeypatch.setattr(readme_presentation, "proposal_only_active", lambda: True)
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: SimpleNamespace(
+                outcome="blocked",
+                error="controlled invalid authoring response",
+                result=None,
+            ),
+        )
+
+        result = readme_presentation._render_node(
+            state,
+            {"configurable": {"org_repo": ORG_REPO, "backend": None}},
+        )
+
+        assert result["accepted_status"].startswith("ERROR:agentic_composition:blocked:")
+        assert result["details"] == {"durable_non_candidate_note": "preserve"}
+
     def test_a_genuinely_invalid_render_is_rejected_and_never_committed(
         self, tmp_path, monkeypatch
     ):
@@ -1106,8 +1293,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
         before_log = run_git(["log", "--oneline"], cwd=source).stdout
@@ -1160,8 +1347,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1192,8 +1379,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1233,8 +1420,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1311,8 +1498,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1364,8 +1551,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1394,8 +1581,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
 
         result = readme_presentation.run(ORG_REPO, None)
@@ -1420,8 +1607,8 @@ class TestReadmePresentationSpecialist:
         )
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_role_review_clients",
-            _fake_accepting_role_clients,
+            "build_live_merged_review_client",
+            _fake_accepting_merged_client,
         )
         backend = _FakeStateBackend()
 
@@ -1486,6 +1673,33 @@ class TestVisualPreparationSpecialist:
 
         second = visual_preparation.run(ORG_REPO, backend)
         assert second.accepted_status == "NO_CHANGE"
+
+    def test_local_poc_defers_review_for_an_unembedded_generated_banner(self, monkeypatch):
+        from readme_agent.specialists import visual_preparation
+        from readme_agent.supervisor.execution_context import proposal_only_scope
+
+        monkeypatch.setattr(
+            visual_preparation,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: pytest.fail("unembedded banner must not call a model"),
+        )
+        state = DomainStateV1(
+            domain="visual_preparation",
+            accepted_status="FIRST_OBSERVATION",
+            details={"existing_asset_found": False, "prepared_candidate": {"filename": "x.png"}},
+        )
+
+        with proposal_only_scope():
+            result = visual_preparation._review_node(state, {"configurable": {}})
+
+        assert result["details"]["visual_accuracy_review"] == {
+            "status": "DEFERRED_UNEMBEDDED_CANDIDATE",
+            "provider_called": False,
+            "reason": (
+                "the prepared plain-text banner is not embedded in the README and contains no "
+                "visual factual claim requiring model review"
+            ),
+        }
 
 
 class TestIndependentVerificationSpecialist:

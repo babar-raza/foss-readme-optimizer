@@ -74,6 +74,7 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # and cache identities. Live qualification remains a later governed gate.
     "blind_readme_quality_review": "qwen3-next",
     "factual_readme_plan_review": "qwen3-next",
+    "merged_readme_review": "qwen3-next",
     "trusted_readme_fidelity_review": "qwen3-next",
     # RPOC-030-033 (`executive-verdict-the-swirling-adleman.md` Part B.2
     # Phase 2 Lane F, design Part C.5): agentic product_truth drafting --

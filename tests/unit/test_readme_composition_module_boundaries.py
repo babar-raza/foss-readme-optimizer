@@ -24,6 +24,7 @@ RESPONSIBILITY_MODULES = (
     "agentic_composition_grounding.py",
     "agentic_composition_validation.py",
     "document_renderer.py",
+    "document_plan_finalizer.py",
     "document_render_context.py",
     "document_opening.py",
     "document_limitations.py",

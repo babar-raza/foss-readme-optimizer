@@ -55,6 +55,7 @@ from readme_agent.facts.agentic_drafting import DraftProductTruthV1
 from readme_agent.facts.code_normalization import normalize_generated_code
 from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.example_value import assess_minimal_example_value
+from readme_agent.facts.format_direction import block_directionless_format_fact
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
 from readme_agent.facts.interpretive_resolution import (
     reconcile_final_interpretive_grounding,
@@ -455,6 +456,15 @@ def _gate_draft(
     limitation.
     `audience`/`problems_solved` -> `groundedness_fact_candidate()`.
     `minimal_example` -> `_gate_minimal_example()` above."""
+    format_fact = evidence_fact_candidate(
+        root,
+        source_revision,
+        observed_at,
+        "product.formats",
+        draft.formats,
+        allow_partial=True,
+    )
+    format_fact = block_directionless_format_fact(format_fact, draft.formats)
     return {
         "product.capabilities": evidence_fact_candidate(
             root,
@@ -464,14 +474,7 @@ def _gate_draft(
             draft.capabilities,
             allow_partial=True,
         ),
-        "product.formats": evidence_fact_candidate(
-            root,
-            source_revision,
-            observed_at,
-            "product.formats",
-            draft.formats,
-            allow_partial=True,
-        ),
+        "product.formats": format_fact,
         "product.limitations": limitation_fact_candidate(
             root,
             source_revision,

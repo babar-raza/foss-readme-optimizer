@@ -2,8 +2,15 @@
 
 from __future__ import annotations
 
+import pytest
+
+from readme_agent.errors import StateBackendError
 from readme_agent.state.backend import Lock, SaveResult
-from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1, ReadmePocLifecycleStateV2
+from readme_agent.state.lifecycle_schema import (
+    IntakePreflightBindingV1,
+    ReadmePocLifecycleStateV2,
+    ReadmePocTransitionV2,
+)
 from readme_agent.state.migrations import ensure_run_state_v2
 from readme_agent.state.readme_poc_intake import (
     begin_readonly_intake_preflight,
@@ -304,3 +311,272 @@ def test_successful_historical_retry_repairs_stale_system_failure_status():
     assert lifecycle.status == "INTAKE_READY"
     assert lifecycle.history[-1].from_status == "SYSTEM_FAILURE"
     assert lifecycle.history[-1].to_status == "INTAKE_READY"
+
+
+def test_successful_intake_does_not_rewind_later_review_failure():
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="SYSTEM_FAILURE",
+        source_revision="a" * 40,
+        facts_hash="1" * 64,
+        assessment_hash="2" * 64,
+        presentation_plan_hash="3" * 64,
+        candidate_hash="4" * 64,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="AGENT_REVIEWING",
+                to_status="SYSTEM_FAILURE",
+                reason="review provider timed out",
+                observed_by="independent_verification",
+                source_revision="a" * 40,
+            )
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    accepted = begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+    recovered = backend.load("org/repo").readme_poc_lifecycle
+
+    assert accepted.should_execute is False
+    assert isinstance(recovered, ReadmePocLifecycleStateV2)
+    assert recovered.status == "DETERMINISTIC_VALIDATED"
+    assert recovered.history[-1].reason == (
+        "recovered checksum-bound safe boundary after non-intake system failure"
+    )
+
+
+def test_already_rewound_review_failure_is_repaired_to_safe_stage():
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="INTAKE_READY",
+        source_revision="a" * 40,
+        facts_hash="1" * 64,
+        assessment_hash="2" * 64,
+        presentation_plan_hash="3" * 64,
+        candidate_hash="4" * 64,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="AGENT_REVIEWING",
+                to_status="SYSTEM_FAILURE",
+                reason="review provider timed out",
+                observed_by="independent_verification",
+                source_revision="a" * 40,
+            ),
+            ReadmePocTransitionV2(
+                from_status="SYSTEM_FAILURE",
+                to_status="INTAKE_READY",
+                reason="reconciled successful read-only intake retry",
+                observed_by="registry_intake",
+                source_revision="a" * 40,
+            ),
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+    recovered = backend.load("org/repo").readme_poc_lifecycle
+
+    assert isinstance(recovered, ReadmePocLifecycleStateV2)
+    assert recovered.status == "DETERMINISTIC_VALIDATED"
+    assert recovered.history[-1].from_status == "INTAKE_READY"
+    assert recovered.history[-1].to_status == "DETERMINISTIC_VALIDATED"
+
+
+def test_non_intake_failure_without_complete_stage_bindings_remains_failed():
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="SYSTEM_FAILURE",
+        source_revision="a" * 40,
+        facts_hash="1" * 64,
+        assessment_hash="2" * 64,
+        presentation_plan_hash="3" * 64,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="AGENT_REVIEWING",
+                to_status="SYSTEM_FAILURE",
+                reason="review failed before candidate binding",
+                observed_by="independent_verification",
+                source_revision="a" * 40,
+            )
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+
+    assert backend.load("org/repo").readme_poc_lifecycle.status == "SYSTEM_FAILURE"
+
+
+def test_unsupported_later_failure_never_rewinds_to_intake():
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="SYSTEM_FAILURE",
+        source_revision="a" * 40,
+        facts_hash="1" * 64,
+        assessment_hash="2" * 64,
+        presentation_plan_hash="3" * 64,
+        candidate_hash="4" * 64,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="AGENT_APPROVED",
+                to_status="SYSTEM_FAILURE",
+                reason="downstream proof failed",
+                observed_by="supervisor",
+                source_revision="a" * 40,
+            )
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+
+    assert backend.load("org/repo").readme_poc_lifecycle.status == "SYSTEM_FAILURE"
+
+
+def test_non_intake_recovery_requires_matching_source_revision():
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="SYSTEM_FAILURE",
+        source_revision="b" * 40,
+        facts_hash="1" * 64,
+        assessment_hash="2" * 64,
+        presentation_plan_hash="3" * 64,
+        candidate_hash="4" * 64,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="old intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="AGENT_REVIEWING",
+                to_status="SYSTEM_FAILURE",
+                reason="review failed on another revision",
+                observed_by="independent_verification",
+                source_revision="b" * 40,
+            )
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    begin_readonly_intake_preflight(
+        backend,
+        "org/repo",
+        dedup_key=key,
+        source_revision="a" * 40,
+    )
+
+    recovered = backend.load("org/repo").readme_poc_lifecycle
+    assert recovered.status == "SYSTEM_FAILURE"
+    assert recovered.source_revision == "b" * 40
+
+
+@pytest.mark.parametrize(
+    ("requested_revision", "source_revision_resolved"),
+    [("b" * 40, True), ("a" * 40, False)],
+)
+def test_completed_intake_reuse_requires_matching_identity(
+    requested_revision, source_revision_resolved
+):
+    key = _key()
+    lifecycle = ReadmePocLifecycleStateV2(
+        status="SYSTEM_FAILURE",
+        source_revision="a" * 40,
+        intake_preflight_history=[
+            IntakePreflightBindingV1(
+                dedup_key=key,
+                source_revision="a" * 40,
+                source_revision_resolved=True,
+                outcome="READY_FULL_PIPELINE",
+                result_hash="f" * 64,
+                reason="intake succeeded",
+                observed_by="registry_intake",
+            )
+        ],
+        history=[
+            ReadmePocTransitionV2(
+                from_status="INTAKE_PREFLIGHTING",
+                to_status="SYSTEM_FAILURE",
+                reason="intake failed after an older success",
+                observed_by="registry_intake",
+                source_revision="a" * 40,
+            )
+        ],
+    )
+    backend = IntakeBackend(lifecycle)
+
+    with pytest.raises(StateBackendError, match="completed intake identity is inconsistent"):
+        begin_readonly_intake_preflight(
+            backend,
+            "org/repo",
+            dedup_key=key,
+            source_revision=requested_revision,
+            source_revision_resolved=source_revision_resolved,
+        )
+
+    assert backend.load("org/repo").readme_poc_lifecycle.status == "SYSTEM_FAILURE"

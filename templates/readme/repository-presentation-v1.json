@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template_id": "repository-presentation",
-  "template_version": "1.2.0",
+  "template_version": "1.6.1",
   "accepted_reference_sha256": "0395c7c2ccc557b4e275484d48a87fe77f73e6f16acd63550c7fd396356d8864",
   "section_order": [
     "navigation",
@@ -50,7 +50,8 @@
       "maximum_source_lines": 420,
       "collapse_slots": [
         "additional_examples",
-        "api_reference"
+        "api_reference",
+        "development_and_testing"
       ]
     },
     "extended": {
@@ -66,11 +67,24 @@
     "badge_rows": 1,
     "minimum_badges": 1,
     "minimum_mermaid_inputs": 1,
-    "minimum_mermaid_capabilities": 3,
+    "minimum_mermaid_capabilities": 1,
     "minimum_mermaid_outputs": 1,
+    "target_mermaid_inputs": 4,
+    "target_mermaid_capabilities": 6,
+    "target_mermaid_outputs": 5,
     "comments": "forbidden",
     "emoji": "forbidden",
     "copyright": "omitted_by_default",
-    "commercial_term": "Enterprise Edition"
+    "commercial_term": "Enterprise Edition",
+    "primary_example_max_nonblank_lines": {
+      "default": 12,
+      "cpp": 24,
+      "dotnet": 18,
+      "go": 18,
+      "java": 24,
+      "python": 12,
+      "rust": 18,
+      "typescript": 12
+    }
   }
 }

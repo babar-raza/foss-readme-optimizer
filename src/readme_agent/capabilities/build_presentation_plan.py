@@ -103,6 +103,13 @@ def execute(
     if candidate_text is None:
         candidate_text = original_text
 
+    proposal_source_text = original_text
+    if facts.content_assurance == "repository_verified" and source_text is not None:
+        # Repository-verified proposals have one immutable README preimage.
+        # Ignore a caller's persistent-work-clone bytes for patch identity;
+        # those bytes can legitimately lag the active RepositorySnapshotV1.
+        proposal_source_text = source_text
+
     if (
         product_facts_v2 is not None
         or agentic_composition_plan is not None
@@ -112,7 +119,7 @@ def execute(
             build_document_repository_presentation_plan(
                 org_repo,
                 source_text if source_text is not None else original_text,
-                original_text,
+                proposal_source_text,
                 candidate_text,
                 facts,
                 ownership,

@@ -68,6 +68,7 @@ the manifest metadata exactly.
 | `trusted_readme_fidelity_review` | `verification` | `trusted_readme_fidelity_review` | `readme_agent.specialists.trusted_transform_review` | `readme_agent.llm.verification_prompts` | `TrustedFidelityReviewResultV1` | `TRUSTED_REVIEWING` |
 | `factual_readme_plan_review` | `verification` | `factual_readme_plan_review` | `readme_agent.specialists.readme_review_roles` | `readme_agent.llm.verification_prompts` | `FactualPlanReviewResultV1` | `AGENT_REVIEWING` |
 | `independent_readme_review` | `verification` | `independent_readme_review` | `readme_agent.specialists.independent_readme_review` | `readme_agent.llm.verification_prompts` | `IndependentReadmeReviewResultV1` | `AGENT_REVIEWING` |
+| `merged_readme_review` | `verification` | `merged_readme_review` | `readme_agent.specialists.merged_readme_review_contracts` | `readme_agent.llm.merged_readme_review` | `MergedReadmeReviewResultV1` | `AGENT_REVIEWING` |
 | `prose_quality_check` | `verification` | `prose_quality_check` | `readme_agent.capabilities.verify_prose_quality` | `readme_agent.llm.verification_prompts` | `prose-quality-finding-v1` | `DETERMINISTIC_VALIDATED` |
 | `visual_asset_accuracy` | `verification` | `visual_asset_accuracy` | `readme_agent.capabilities.review_visual_asset_accuracy` | `readme_agent.llm.analysis_prompts` | `visual-asset-accuracy-v1` | `AGENT_REVIEWING` |
 

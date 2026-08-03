@@ -115,6 +115,18 @@ def _read_current_readme(snapshot: RepositorySnapshotV1) -> str | None:
     return redact(text, env.secret_values())
 
 
+def _is_checksum_valid_intake_only_bundle(bundle_dir: Path) -> bool:
+    """Allow snapshot sealing after durable intake created the revision directory first."""
+
+    files = [path for path in bundle_dir.rglob("*") if path.is_file()]
+    if not files or not verify_sha256sums(bundle_dir):
+        return False
+    relative_paths = {path.relative_to(bundle_dir).as_posix() for path in files}
+    return "sha256sums.txt" in relative_paths and all(
+        path == "sha256sums.txt" or path.startswith("intake/") for path in relative_paths
+    )
+
+
 def _validate_sealed_snapshot(
     bundle_dir: Path,
     snapshot: RepositorySnapshotV1,
@@ -173,8 +185,19 @@ def write_local_poc_snapshot(snapshot: RepositorySnapshotV1) -> Path:
     bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
     expected_readme = _read_current_readme(snapshot)
     if bundle_dir.exists():
-        _validate_sealed_snapshot(bundle_dir, snapshot, expected_readme)
-        return bundle_dir
+        revision_path = bundle_dir / "source" / "revision.json"
+        if (
+            revision_path.is_file()
+            or (bundle_dir / "source").exists()
+            or (bundle_dir / "manifest.json").exists()
+        ):
+            _validate_sealed_snapshot(bundle_dir, snapshot, expected_readme)
+            return bundle_dir
+        if not _is_checksum_valid_intake_only_bundle(bundle_dir):
+            raise _fail(
+                "existing revision directory is neither a sealed snapshot nor a "
+                "checksum-valid intake-only bundle"
+            )
 
     source_dir = bundle_dir / "source"
     write_redacted_json(source_dir / "revision.json", snapshot)

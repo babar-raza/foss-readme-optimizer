@@ -193,12 +193,23 @@ class GroundedAcceptingRoleReviewClient:
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
         system_content = str(messages[0]["content"])
-        user_content = str(messages[-1]["content"])
-        parsed = (
-            _blind_accept(user_content)
-            if "blind visitor-quality reviewer" in system_content
-            else _factual_accept(user_content)
+        blind = "blind visitor-quality reviewer" in system_content
+        expected_sections = (
+            ("Complete candidate README block catalog", "Candidate README:")
+            if blind
+            else ("Selected accepted fact evidence packet", "Accepted ProductFactsV2:")
         )
+        user_content = next(
+            (
+                str(message.get("content", ""))
+                for message in reversed(messages[1:])
+                if any(section in str(message.get("content", "")) for section in expected_sections)
+            ),
+            "",
+        )
+        if not user_content:
+            raise AssertionError("fixture reviewer could not find its typed review input")
+        parsed = _blind_accept(user_content) if blind else _factual_accept(user_content)
         return AnalysisResult(parsed=parsed, meta=LLMResponseMeta(model="fixture-reviewer"))
 
 

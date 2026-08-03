@@ -371,6 +371,7 @@ def run_grounded_role(
     candidate_text: str,
     product_facts: dict | None,
     visitor_contract: dict | None = None,
+    max_attempts_override: int | None = None,
 ) -> tuple[
     BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
     list[dict],
@@ -381,7 +382,9 @@ def run_grounded_role(
     history: list[dict] = []
     current_messages = list(messages)
     candidate_anchors = build_candidate_review_anchors(candidate_text)
-    max_attempts = (
+    if max_attempts_override is not None and max_attempts_override < 1:
+        raise ValueError("max_attempts_override must be at least 1")
+    max_attempts = max_attempts_override or (
         _MAX_BLIND_GROUNDING_ATTEMPTS if role == "blind_quality" else _MAX_GROUNDING_ATTEMPTS
     )
     for attempt in range(1, max_attempts + 1):

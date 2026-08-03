@@ -9,6 +9,7 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
+from readme_agent.ecosystems.python import parse_pyproject
 from readme_agent.ecosystems.python_api_schema import PythonPackageLayoutV1
 
 _EXCLUDED_ROOTS = {
@@ -69,6 +70,7 @@ def _setup_cfg_metadata(path: Path) -> dict[str, Any]:
 
 def _pyproject_metadata(path: Path) -> dict[str, Any]:
     data = tomllib.loads(path.read_text(encoding="utf-8-sig", errors="replace"))
+    manifest_metadata = parse_pyproject(path)
     project = data.get("project", {})
     tools = data.get("tool", {})
     setuptools = tools.get("setuptools", {})
@@ -93,7 +95,7 @@ def _pyproject_metadata(path: Path) -> dict[str, Any]:
         includes = hatch_packages
     return {
         "name": project.get("name"),
-        "version": project.get("version"),
+        "version": manifest_metadata.get("version"),
         "requires_python": project.get("requires-python"),
         "source_root": source_root,
         "declared_packages": includes,

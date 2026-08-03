@@ -7,6 +7,7 @@ import pytest
 from readme_agent.supervisor.local_poc_review_evidence import (
     write_local_poc_review_evidence,
 )
+from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 
 
 def _seed_manifest(bundle_dir):
@@ -122,7 +123,10 @@ def test_separated_role_records_are_materialized_individually(tmp_path):
 
     write_local_poc_review_evidence(
         bundle_dir,
-        deterministic_validation={"verdict": "accept"},
+        deterministic_validation={
+            "verdict": "accept",
+            "diagnostic": "ghp_thisIsASyntheticFakeTokenForTesting1234",
+        },
         independent_review={"verdict": "ACCEPT"},
         blind_quality_review={"verdict": "ACCEPT", "input_sha256": "a" * 64},
         factual_plan_review={"verdict": "ACCEPT", "input_sha256": "b" * 64},
@@ -142,3 +146,7 @@ def test_separated_role_records_are_materialized_individually(tmp_path):
     assert json.loads((review_dir / "combined-review.json").read_text())[
         "identity_separation_valid"
     ]
+    manifest = json.loads((bundle_dir / "manifest.json").read_text())
+    validation = json.loads((review_dir / "deterministic-validation.json").read_text())
+    assert manifest["deterministic_validation_hash"] == canonical_sha256(validation)
+    assert "ghp_thisIsASyntheticFakeTokenForTesting1234" not in json.dumps(validation)

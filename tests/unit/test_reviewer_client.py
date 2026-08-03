@@ -2,12 +2,18 @@
 
 import json as json_module
 
+import pytest
+import requests
+
+from readme_agent.errors import LLMInfrastructureError
 from readme_agent.llm import verifier_client
+from readme_agent.llm.merged_readme_review import MERGED_README_REVIEW_TOOL_SCHEMA
 from readme_agent.llm.reviewer_client import (
     FACTUAL_REVIEW_MAX_TOKENS,
     LiveBlindQualityReviewClient,
     LiveFactualPlanReviewClient,
     LiveIndependentReviewClient,
+    LiveMergedReadmeReviewClient,
     LiveTrustedFidelityReviewClient,
 )
 from readme_agent.llm.verification_prompts import (
@@ -128,6 +134,75 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
         ("report_blind_readme_quality_review", 2400),
         ("report_factual_readme_plan_review", FACTUAL_REVIEW_MAX_TOKENS),
     ]
+
+
+def test_merged_reviewer_forces_one_tool_with_two_required_facets(monkeypatch):
+    captured = {}
+
+    def fake_post(url, json, headers, timeout):
+        captured.update(json)
+        tool_name = json["tool_choice"]["function"]["name"]
+
+        class MergedResponse(FakeResponse):
+            def json(self):
+                facet = {
+                    "verdict": "ACCEPT",
+                    "reasoning": "Grounded acceptance.",
+                    "failed_criteria": [],
+                    "sections_affected": [],
+                    "required_repair": "",
+                    "findings": [],
+                }
+                return {
+                    "id": "merged-review-1",
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "function": {
+                                            "name": tool_name,
+                                            "arguments": json_module.dumps(
+                                                {"quality": facet, "factual": facet}
+                                            ),
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                }
+
+        return MergedResponse()
+
+    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+
+    result = LiveMergedReadmeReviewClient("https://example/v1", "key", "model").analyze([])
+
+    assert set(result.parsed) == {"quality", "factual"}
+    assert captured["tool_choice"]["function"]["name"] == "report_merged_readme_review"
+    parameters = MERGED_README_REVIEW_TOOL_SCHEMA["function"]["parameters"]
+    assert parameters["required"] == ["quality", "factual"]
+    assert parameters["additionalProperties"] is False
+    assert parameters["properties"]["quality"]["properties"]["findings"]["maxItems"] == 4
+    assert parameters["properties"]["factual"]["properties"]["findings"]["maxItems"] == 4
+
+
+def test_merged_reviewer_does_not_repeat_an_identical_timed_out_request(monkeypatch):
+    calls = 0
+
+    def timeout_once(url, json, headers, timeout):
+        nonlocal calls
+        calls += 1
+        raise requests.Timeout("slow gateway")
+
+    monkeypatch.setattr(verifier_client.requests, "post", timeout_once)
+    monkeypatch.setattr(verifier_client.time, "sleep", lambda _: None)
+
+    with pytest.raises(LLMInfrastructureError, match="slow gateway"):
+        LiveMergedReadmeReviewClient("https://example/v1", "key", "model").analyze([])
+
+    assert calls == 1
 
 
 def test_role_tool_schemas_require_grounded_acceptance_fields():

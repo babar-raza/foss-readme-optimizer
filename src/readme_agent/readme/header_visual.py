@@ -8,6 +8,7 @@ from typing import Literal
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
 from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual_models import (
     MermaidNodeV1,
@@ -15,6 +16,14 @@ from readme_agent.readme.header_visual_models import (
     safe_mermaid_label,
 )
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_MERMAID_MIN_CAPABILITIES,
+    PRESENTATION_MERMAID_MIN_INPUTS,
+    PRESENTATION_MERMAID_MIN_OUTPUTS,
+    PRESENTATION_MERMAID_TARGET_CAPABILITIES,
+    PRESENTATION_MERMAID_TARGET_INPUTS,
+    PRESENTATION_MERMAID_TARGET_OUTPUTS,
+)
 
 
 def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:
@@ -106,8 +115,22 @@ def _agentic_nodes(
             fact_ids=identity.citation_fact_ids,
         )
     ]
+    normalized = normalize_diagram_role_nodes(
+        plan.diagram.nodes,
+        facts,
+        {
+            "input": PRESENTATION_MERMAID_MIN_INPUTS,
+            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+        },
+        target_counts={
+            "input": PRESENTATION_MERMAID_TARGET_INPUTS,
+            "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,
+            "output": PRESENTATION_MERMAID_TARGET_OUTPUTS,
+        },
+    )
     counters = {"input": 0, "capability": 0, "output": 0}
-    for proposed in plan.diagram.nodes:
+    for proposed in normalized:
         counters[proposed.role] += 1
         label = safe_mermaid_label(proposed.label)
         if label is None:
@@ -167,7 +190,11 @@ def render_readme_header_visual(
     if (
         agentic_plan is not None
         and agentic_plan.diagram.nodes
-        and (role_counts["input"] < 1 or role_counts["capability"] < 3 or role_counts["output"] < 1)
+        and (
+            role_counts["input"] < PRESENTATION_MERMAID_MIN_INPUTS
+            or role_counts["capability"] < PRESENTATION_MERMAID_MIN_CAPABILITIES
+            or role_counts["output"] < PRESENTATION_MERMAID_MIN_OUTPUTS
+        )
     ):
         raise ValueError("README diagram lacks accepted input, capability, or output detail")
     if len(nodes) < 2:

@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "record_type": "ThreeSliceCurrentScoreboardV1",
+  "task_id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+  "captured_at": "2026-08-03T11:56:58.5559287+00:00",
+  "repository_snapshot": {
+    "branch": "main",
+    "head": "50ea7189e6ebdc554bd79a4b1c64cd76e2d3cd04"
+  },
+  "verdict": "CURRENT_CONTRACT_TERMINAL",
+  "verdict_reason": "All three selected slices are NO_OP_PROVEN, AGENT_APPROVED, current-contract valid, checksum-complete, and native-patch reconstructable. The offline current proposal verifier passes for each slice; live acquisition and external effect absence were not rechecked by this validator.",
+  "metric_definitions": {
+    "logical_call_count": "Count of distinct logical_call_id values among provider_call ledger records.",
+    "physical_provider_calls": "Count of ledger records whose disposition is provider_call.",
+    "first_pass_yield": "Stored final verdict is AGENT_APPROVED with repair_attempts equal to zero and the bundle matches current contracts.",
+    "ledger_span_ms": "Elapsed time from the earliest ledger started_at through the latest ledger finished_at, including the unchanged replay cache record.",
+    "provider_span_ms": "Elapsed time from the first provider-call start through the last provider-call finish; gaps between calls are included.",
+    "zero_effect_artifacts": "No effect, pull-request, or effect-ledger artifact exists in either selected local or proposal bundle. It is not proof about systems outside those artifacts."
+  },
+  "current_shared_contracts": {
+    "document_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+    "composition_prompt_hash": "5850ba60bb3ec66d6b61775aaa0311ed4e862b8a479a59c44c444b538c3e45e7",
+    "prompt_registry_content_hash": "4d7eb2101cb0894775017d105d793b1dae10b9aad18801438f70616ba971dbcc",
+    "reviewer_standard_hash": "7b100804198b75b0d6aa5511719b8996431a927bacf0e336c41c53ec76daff15"
+  },
+  "aggregate": {
+    "slice_count": 3,
+    "stored_no_op_proven": 3,
+    "stored_agent_approved": 3,
+    "stored_first_pass_yield_count": 3,
+    "current_contract_valid": 3,
+    "current_contract_invalid": 0,
+    "local_inventory_valid": 3,
+    "proposal_inventory_valid": 3,
+    "local_native_patch_reconstruction_passed": 3,
+    "proposal_native_patch_reconstruction_passed": 3,
+    "proposal_current_structural_verifier_passed": 3,
+    "zero_call_replay_passed": 3,
+    "repair_count": 0,
+    "logical_call_count": 7,
+    "physical_provider_calls": 7,
+    "fixture_calls": 0,
+    "prompt_tokens": 43860,
+    "completion_tokens": 6692,
+    "total_tokens": 50552,
+    "provider_latency_ms_sum": 172375,
+    "cache_reuse_count": 3,
+    "cohort_ledger_first_start": "2026-08-03T11:34:14.642023+00:00",
+    "cohort_ledger_last_finish": "2026-08-03T11:53:54.092389+00:00",
+    "cohort_observed_span_ms": 1179450,
+    "effect_artifact_count": 0,
+    "external_effect_absence": null,
+    "external_effect_absence_status": "unknown_from_local_artifacts",
+    "provider_cost": null,
+    "provider_cost_status": "pricing_not_configured"
+  },
+  "slices": [
+    {
+      "slice_id": "note-python",
+      "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "ecosystem": "python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "paths": {
+        "local_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "proposal_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-note-foss__Aspose.Note-FOSS-for-Python/20260803-113500-707d",
+        "candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.md",
+        "proposal_candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-note-foss__Aspose.Note-FOSS-for-Python/20260803-113500-707d/candidate-readme.md"
+      },
+      "hashes": {
+        "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+        "candidate_sha256": "bfdfcd7dbf57b1c21d0547031652ea28aff8934d6ba16ae936258d4b8e7e2ae0",
+        "proposal_source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
+        "proposal_candidate_sha256": "bfdfcd7dbf57b1c21d0547031652ea28aff8934d6ba16ae936258d4b8e7e2ae0"
+      },
+      "states": {
+        "manifest": "NO_OP_PROVEN",
+        "manifest_complete": true,
+        "facts": "FACTS_READY",
+        "facts_hash_bound": true,
+        "assessment": "READY",
+        "plan": "READY",
+        "candidate": "GENERATED",
+        "deterministic": "ACCEPT",
+        "reviewer": "AGENT_APPROVED",
+        "no_op": "NO_OP_PROVEN"
+      },
+      "contract_check": {
+        "matches_current": true,
+        "mismatches": [],
+        "fact_acceptance_contract_hash": "71fe703804218ece6199f984e1a810dd5c46a9b4c823102c56b2ba6b33f501a9",
+        "local_verification_contract_hash": "0e02405d50615801c37355239cc39cb08f97028091782b69d46370b0ecc8569b",
+        "stored_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "current_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "candidate_stage_dependency_key": "2a1893ad9c37b378945c5f5a11f3d1b5dc9826878d4ad5436083d1313321af78"
+      },
+      "integrity": {
+        "local_inventory_valid": true,
+        "local_inventory_entries": 268,
+        "local_inventory_sha256": "a480514c52b5bbf7aabbd86f5d331f98ee56a6e5e778701027c48eb9288f5a77",
+        "proposal_inventory_valid": true,
+        "proposal_inventory_entries": 11,
+        "proposal_inventory_sha256": "f7ffef4d21d38308e971658e222323c74d920b52de4995c40b3a8762180b3b53",
+        "local_patch_old_blob_matches_source": true,
+        "local_patch_reconstructs_candidate": true,
+        "proposal_patch_reconstructs_candidate": true,
+        "proposal_current_structural_verifier": "PASS",
+        "proposal_current_failed_checks": [],
+        "live_acquisition_rechecked": false
+      },
+      "accounting": {
+        "status": "EXACT",
+        "logical_call_count": 2,
+        "physical_provider_calls": 2,
+        "fixture_calls": 0,
+        "provider_calls": [
+          {"job": "specialist_selection", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 516, "completion_tokens": 42, "total_tokens": 558, "latency_ms": 1946},
+          {"job": "merged_readme_review", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 16546, "completion_tokens": 1291, "total_tokens": 17837, "latency_ms": 29528}
+        ],
+        "prompt_tokens": 17062,
+        "completion_tokens": 1333,
+        "total_tokens": 18395,
+        "provider_latency_ms_sum": 31474,
+        "provider_latency_ms_min": 1946,
+        "provider_latency_ms_median": 15737,
+        "provider_latency_ms_max": 29528,
+        "ledger_sha256": "1b88cac0406fc19cff213baf0c16bf9b76797627972cd4d2e2dbf355977dcd08",
+        "manifest_matches_ledger": true,
+        "zero_call_replay": true,
+        "cache_reuse_count": 1,
+        "repair_count": 0,
+        "first_pass_yield": true,
+        "wall_timing": {
+          "ledger_first_start": "2026-08-03T11:34:14.642023+00:00",
+          "ledger_last_finish": "2026-08-03T11:37:31.646757+00:00",
+          "ledger_span_ms": 197005,
+          "provider_span_ms": 114210,
+          "candidate_promoted_at": "2026-08-03T11:35:05.942852+00:00",
+          "deterministic_promoted_at": "2026-08-03T11:35:32.790569+00:00",
+          "candidate_to_deterministic_ms": 26848
+        }
+      },
+      "effects": {"effect_artifacts": [], "zero_effect_artifacts": true, "external_effect_absence": null}
+    },
+    {
+      "slice_id": "3d-dotnet",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "platform": "net",
+      "ecosystem": "net",
+      "source_revision": "e78d87e1b33e22560c90acd73247695a1eec6a34",
+      "paths": {
+        "local_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34",
+        "proposal_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/20260803-114515-03ba",
+        "candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/candidate/README.md",
+        "proposal_candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/20260803-114515-03ba/candidate-readme.md"
+      },
+      "hashes": {
+        "source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+        "candidate_sha256": "dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765",
+        "proposal_source_sha256": "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811",
+        "proposal_candidate_sha256": "dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765"
+      },
+      "states": {
+        "manifest": "NO_OP_PROVEN",
+        "manifest_complete": true,
+        "facts": "FACTS_READY",
+        "facts_hash_bound": true,
+        "assessment": "READY",
+        "plan": "READY",
+        "candidate": "GENERATED",
+        "deterministic": "ACCEPT",
+        "reviewer": "AGENT_APPROVED",
+        "no_op": "NO_OP_PROVEN"
+      },
+      "contract_check": {
+        "matches_current": true,
+        "mismatches": [],
+        "fact_acceptance_contract_hash": "4320a080632e9a91b7f53647386a044319423374d8f52469255bb6dffac60b5a",
+        "local_verification_contract_hash": "cd40b36c0bb6a2d6cf0a0815437bacf78acfb033b33f8c4fbbcfe44d36793284",
+        "stored_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "current_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "candidate_stage_dependency_key": "60cf04b6ef38719c6440f73f2c4730b3c9906e4cfe106e63d3f53b149c9b12bb"
+      },
+      "integrity": {
+        "local_inventory_valid": true,
+        "local_inventory_entries": 60,
+        "local_inventory_sha256": "a83ca341ed0832a08da3370e4cd583fca32740a3d70cff3de36e4fa0016a2b89",
+        "proposal_inventory_valid": true,
+        "proposal_inventory_entries": 11,
+        "proposal_inventory_sha256": "5bc6f1597506cace48250b5c584312865fc726d4599c938ca665d598e8dcd21c",
+        "local_patch_old_blob_matches_source": true,
+        "local_patch_reconstructs_candidate": true,
+        "proposal_patch_reconstructs_candidate": true,
+        "proposal_current_structural_verifier": "PASS",
+        "proposal_current_failed_checks": [],
+        "live_acquisition_rechecked": false
+      },
+      "accounting": {
+        "status": "EXACT",
+        "logical_call_count": 2,
+        "physical_provider_calls": 2,
+        "fixture_calls": 0,
+        "provider_calls": [
+          {"job": "specialist_selection", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 530, "completion_tokens": 26, "total_tokens": 556, "latency_ms": 1916},
+          {"job": "merged_readme_review", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 8522, "completion_tokens": 1386, "total_tokens": 9908, "latency_ms": 41165}
+        ],
+        "prompt_tokens": 9052,
+        "completion_tokens": 1412,
+        "total_tokens": 10464,
+        "provider_latency_ms_sum": 43081,
+        "provider_latency_ms_min": 1916,
+        "provider_latency_ms_median": 21540.5,
+        "provider_latency_ms_max": 41165,
+        "ledger_sha256": "d36d1127f587e6b89021077aab999f353c231c077426b7eebdbf876f5a1819bf",
+        "manifest_matches_ledger": true,
+        "zero_call_replay": true,
+        "cache_reuse_count": 1,
+        "repair_count": 0,
+        "first_pass_yield": true,
+        "wall_timing": {
+          "ledger_first_start": "2026-08-03T11:44:31.059928+00:00",
+          "ledger_last_finish": "2026-08-03T11:47:46.193837+00:00",
+          "ledger_span_ms": 195134,
+          "provider_span_ms": 112775,
+          "candidate_promoted_at": "2026-08-03T11:45:19.096134+00:00",
+          "deterministic_promoted_at": "2026-08-03T11:45:35.372193+00:00",
+          "candidate_to_deterministic_ms": 16276
+        }
+      },
+      "effects": {"effect_artifacts": [], "zero_effect_artifacts": true, "external_effect_absence": null}
+    },
+    {
+      "slice_id": "cells-java",
+      "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "platform": "java",
+      "ecosystem": "java",
+      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+      "paths": {
+        "local_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619",
+        "proposal_bundle": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/20260803-115054-971a",
+        "candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/candidate/README.md",
+        "proposal_candidate": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/runs/readme-proposal-bundles/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/20260803-115054-971a/candidate-readme.md"
+      },
+      "hashes": {
+        "source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+        "candidate_sha256": "adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f",
+        "proposal_source_sha256": "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf",
+        "proposal_candidate_sha256": "adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f"
+      },
+      "states": {
+        "manifest": "NO_OP_PROVEN",
+        "manifest_complete": true,
+        "facts": "FACTS_READY",
+        "facts_hash_bound": true,
+        "assessment": "READY",
+        "plan": "READY",
+        "candidate": "GENERATED",
+        "deterministic": "ACCEPT",
+        "reviewer": "AGENT_APPROVED",
+        "no_op": "NO_OP_PROVEN"
+      },
+      "contract_check": {
+        "matches_current": true,
+        "mismatches": [],
+        "fact_acceptance_contract_hash": "b5cf9e1f5c0ad88f919f430c57447ca8979a8c5ba5642c28c87f4d53e47744b3",
+        "local_verification_contract_hash": "161a7a9a611d3345a2f6bd6bbc6be0f1aa1677c35e3af63ef4f5601b67328740",
+        "stored_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "current_template_hash": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
+        "candidate_stage_dependency_key": "b86595d0f225fedd87ed77ca4f6c448c128a0050f14a9defd0a3fd849402c15d"
+      },
+      "integrity": {
+        "local_inventory_valid": true,
+        "local_inventory_entries": 135,
+        "local_inventory_sha256": "ff13d896db5efa2aad9bbf2c345a3cd95e4899f7f61942c95ee0f1cb5f316ba3",
+        "proposal_inventory_valid": true,
+        "proposal_inventory_entries": 11,
+        "proposal_inventory_sha256": "b9af508c2adcf70e17c94e4d8689eac832ffe42a270ccdc6a32b211407c5a966",
+        "local_patch_old_blob_matches_source": true,
+        "local_patch_reconstructs_candidate": true,
+        "proposal_patch_reconstructs_candidate": true,
+        "proposal_current_structural_verifier": "PASS",
+        "proposal_current_failed_checks": [],
+        "live_acquisition_rechecked": false
+      },
+      "accounting": {
+        "status": "EXACT",
+        "logical_call_count": 3,
+        "physical_provider_calls": 3,
+        "fixture_calls": 0,
+        "provider_calls": [
+          {"job": "specialist_selection", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 527, "completion_tokens": 26, "total_tokens": 553, "latency_ms": 2094},
+          {"job": "plan_readme_composition", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 8782, "completion_tokens": 1903, "total_tokens": 10685, "latency_ms": 46422},
+          {"job": "merged_readme_review", "logical_calls": 1, "physical_calls": 1, "prompt_tokens": 8437, "completion_tokens": 2018, "total_tokens": 10455, "latency_ms": 49304}
+        ],
+        "prompt_tokens": 17746,
+        "completion_tokens": 3947,
+        "total_tokens": 21693,
+        "provider_latency_ms_sum": 97820,
+        "provider_latency_ms_min": 2094,
+        "provider_latency_ms_median": 46422,
+        "provider_latency_ms_max": 49304,
+        "ledger_sha256": "a6417f85d27c96a0747dbcae0c3e4bec19663eab4ce107adfa3cf4a7bf57e415",
+        "manifest_matches_ledger": true,
+        "zero_call_replay": true,
+        "cache_reuse_count": 1,
+        "repair_count": 0,
+        "first_pass_yield": true,
+        "wall_timing": {
+          "ledger_first_start": "2026-08-03T11:49:02.054912+00:00",
+          "ledger_last_finish": "2026-08-03T11:53:54.092389+00:00",
+          "ledger_span_ms": 292037,
+          "provider_span_ms": 209002,
+          "candidate_promoted_at": "2026-08-03T11:50:59.320775+00:00",
+          "deterministic_promoted_at": "2026-08-03T11:51:33.726659+00:00",
+          "candidate_to_deterministic_ms": 34406
+        }
+      },
+      "effects": {"effect_artifacts": [], "zero_effect_artifacts": true, "external_effect_absence": null}
+    }
+  ]
+}
