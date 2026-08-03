@@ -4304,6 +4304,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-104340-8d92:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "9ecdcf05b66940d5aa0db5a191c8ff86026e8056e6121ff3ea93e0e6e3082557": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "9ecdcf05b66940d5aa0db5a191c8ff86026e8056e6121ff3ea93e0e6e3082557",
+      "completed_at": "2026-08-03T00:55:12.508898+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "1cb615347a8ac6418c9b1cf5cb9016caccdebe0b40bf2223ac37aa44bcd0a825",
+      "output_hash": null,
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260803-005500-eede",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-03T00:55:12.508881+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260803-005500-eede:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "9ef44f9d9c7aa9c96e9abbde3bb3197bf21bd096c605e7f50bd7c06a7484376a": {
       "action": null,
       "attempt": 1,
@@ -45872,7 +45889,7 @@
     "updated_at": "2026-08-03T00:46:30.859076+00:00"
   },
   "schema_version": 2,
-  "state_version": 1892,
+  "state_version": 1893,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5df69159621cc005a9f7d9d50b655b75600a242c56d3a67222f6138c7ee7b278",
@@ -48377,11 +48394,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": null,
+      "last_checkpoint_id": "9ecdcf05b66940d5aa0db5a191c8ff86026e8056e6121ff3ea93e0e6e3082557",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "accepted",
-      "updated_at": "2026-08-03T00:55:05.488729+00:00"
+      "updated_at": "2026-08-03T00:55:12.508898+00:00"
     }
   },
   "trigger_records": {},
