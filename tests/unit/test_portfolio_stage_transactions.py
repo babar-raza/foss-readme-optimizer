@@ -226,6 +226,79 @@ def test_candidate_reducer_promotes_once_and_materializes_receipt_view(
     assert manifest["stage_receipts"]["CANDIDATE_GENERATED"]["work_id"] == work.work_id
 
 
+def test_candidate_reducer_rejects_changed_stage_owned_artifact_for_same_work(
+    tmp_path,
+    monkeypatch,
+):
+    work, first_root, first_attempt = _sealed_candidate_attempt(tmp_path, monkeypatch)
+    seal_stage_attempt(
+        work,
+        first_root,
+        attempt=first_attempt,
+        worker_identity="test-worker",
+    )
+    backend = _backend()
+    compatibility = tmp_path / "compatibility"
+    first = promote_candidate_stage(
+        work,
+        first_root,
+        compatibility,
+        backend,
+        assessment_hash=ASSESSMENT_HASH,
+        presentation_plan_hash=PLAN_HASH,
+        candidate_hash=CANDIDATE_HASH,
+        reviewer_standard_hash=REVIEWER_HASH,
+    )
+
+    retry_root, retry_attempt, retry_artifacts = prepare_stage_attempt(
+        work,
+        worker_identity="retry-worker",
+    )
+    write_redacted_json(
+        retry_artifacts / "manifest.json",
+        {
+            "org_repo": ORG_REPO,
+            "source_revision": SOURCE_REVISION,
+            "lifecycle_status": "CANDIDATE_GENERATED",
+            "facts_hash": FACTS_HASH,
+            "candidate_hash": CANDIDATE_HASH,
+            "completed_stages": ["FACTS_READY", "CANDIDATE_GENERATED"],
+        },
+    )
+    write_redacted_text(
+        retry_artifacts / "candidate" / "README.md",
+        f"# Candidate {CANDIDATE_HASH[:8]}\n",
+    )
+    write_redacted_text(retry_artifacts / "retry-observation.txt", "new call id\n")
+    seal_stage_attempt(
+        work,
+        retry_root,
+        attempt=retry_attempt,
+        worker_identity="retry-worker",
+    )
+
+    with pytest.raises(ValueError, match="different result already owns"):
+        promote_candidate_stage(
+            work,
+            retry_root,
+            compatibility,
+            backend,
+            assessment_hash=ASSESSMENT_HASH,
+            presentation_plan_hash=PLAN_HASH,
+            candidate_hash=CANDIDATE_HASH,
+            reviewer_standard_hash=REVIEWER_HASH,
+        )
+
+    assert not (compatibility / "retry-observation.txt").exists()
+    assert (compatibility / "candidate" / "README.md").read_text(
+        encoding="utf-8"
+    ) == f"# Candidate {CANDIDATE_HASH[:8]}\n"
+    receipt = json.loads(
+        (compatibility / "receipts" / "CANDIDATE_GENERATED.json").read_text(encoding="utf-8")
+    )
+    assert receipt["output_hash"] == first.output_hash
+
+
 def test_new_candidate_receipt_replaces_stale_completed_manifest(
     tmp_path,
     monkeypatch,

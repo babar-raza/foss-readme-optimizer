@@ -40,6 +40,7 @@ def write_local_poc_manifest(
     manifest: dict,
     *,
     content_assurance: ContentAssuranceV1 | None = None,
+    include_runtime_accounting: bool = True,
 ) -> None:
     """Write one bundle manifest with cumulative, fail-closed LLM accounting."""
 
@@ -49,6 +50,9 @@ def write_local_poc_manifest(
         loaded = json.loads(path.read_text(encoding="utf-8"))
         if isinstance(loaded, dict):
             prior = loaded
+    accounting = (
+        local_bundle_llm_accounting_fields(bundle_dir, prior) if include_runtime_accounting else {}
+    )
     write_redacted_json(
         path,
         {
@@ -62,7 +66,7 @@ def write_local_poc_manifest(
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_hashes_by_id": prompt_registry.prompt_hashes(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
-            **local_bundle_llm_accounting_fields(bundle_dir, prior),
+            **accounting,
         },
     )
 

@@ -10,6 +10,7 @@ from readme_agent import paths
 from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.readme.assessment import ReadmeAssessmentV1
+from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -30,6 +31,9 @@ from readme_agent.supervisor.portfolio_scheduler.reducer import (
     promote_candidate_stage,
     promote_deterministic_validation_stage,
 )
+from readme_agent.supervisor.stage_dependencies import (
+    current_candidate_stage_dependency_manifest,
+)
 
 _WORKER_IDENTITY = "serial-supervisor"
 _CANDIDATE_INPUT_MANIFEST_FIELDS = frozenset(
@@ -46,16 +50,6 @@ _CANDIDATE_INPUT_MANIFEST_FIELDS = frozenset(
         "prompt_registry_content_hash",
         "prompt_hashes_by_id",
         "prompt_dependency_hashes",
-        "llm_accounting_status",
-        "llm_call_count",
-        "llm_call_ids",
-        "llm_calls_by_job",
-        "llm_fixture_call_count",
-        "llm_cache_reuse_count",
-        "llm_prompt_tokens",
-        "llm_completion_tokens",
-        "llm_total_tokens",
-        "llm_ledger_sha256",
     }
 )
 
@@ -111,12 +105,21 @@ def prepare_and_promote_candidate_stage(
     candidate_text = str(render_result["final_text"])
     candidate_hash = hashlib.sha256(candidate_text.encode("utf-8")).hexdigest()
     assessment = ReadmeAssessmentV1.model_validate(presentation_plan["readme_assessment"])
+    document_plan = ReadmeDocumentPlanV1.model_validate(presentation_plan["readme_document_plan"])
     assessment_hash = assessment.canonical_hash()
     presentation_plan_hash = canonical_sha256(presentation_plan.get("presentation_plan") or {})
+    document_plan_hash = canonical_sha256(document_plan.model_dump(mode="json"))
+    candidate_stage_contract = current_candidate_stage_dependency_manifest(
+        repository=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        ecosystem=(snapshot.package_roots[0].ecosystem if snapshot.package_roots else "unknown"),
+    ).stage_key
     reviewer_standard_hash = separated_reviewer_standard_hash()
     dependency_hashes = {
         "assessment": assessment_hash,
         "candidate": candidate_hash,
+        "candidate_stage_contract": candidate_stage_contract,
+        "document_plan": document_plan_hash,
         "facts": facts_hash,
         "presentation_plan": presentation_plan_hash,
         "reviewer_standard": reviewer_standard_hash,
@@ -153,6 +156,7 @@ def prepare_and_promote_candidate_stage(
         render_result,
         presentation_plan,
         bundle_dir_override=artifacts_root,
+        include_runtime_accounting=False,
     )
     if (
         written_assessment_hash != assessment_hash

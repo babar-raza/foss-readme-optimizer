@@ -13,6 +13,9 @@ _GRADLE_COORDINATE = re.compile(
     r"""(?im)^[^\S\r\n]*implementation\s*(?:\(\s*)?["']"""
     r"(?P<group>[^:'\"\r\n]+):(?P<artifact>[^:'\"\r\n]+):(?P<version>[^'\"\r\n)]+)"
 )
+_PIP_INSTALL_LINE = re.compile(
+    r"(?im)^[^\S\r\n]*(?:python\s+-m\s+)?pip\s+install\b[^\r\n]*(?:\r?\n)?"
+)
 
 
 def coordinate_rows(value: object) -> list[dict]:
@@ -48,15 +51,33 @@ def matching_coordinate_row(value: object, coordinate: dict) -> dict:
     return {}
 
 
-def contradicted_package_claim_spans(text: str) -> list[tuple[int, int]]:
-    """Return only the Maven/Gradle claim spans contradicted by source-build truth."""
+def contradicted_package_claim_spans(
+    text: str,
+    *,
+    package_names: tuple[str, ...] = (),
+) -> list[tuple[int, int]]:
+    """Return exact registry-package spans contradicted by source-build truth."""
 
     spans: list[tuple[int, int]] = []
     covered: list[tuple[int, int]] = []
+    normalized_names = tuple(name.casefold() for name in package_names if name.strip())
+
+    def contradicted_pip_lines(value: str) -> list[re.Match[str]]:
+        return [
+            match
+            for match in _PIP_INSTALL_LINE.finditer(value)
+            if any(name in match.group(0).casefold() for name in normalized_names)
+        ]
+
     for fence in _FENCED_BLOCK.finditer(text):
         body = fence.group("body")
         without_maven = _MAVEN_DEPENDENCY.sub("", body)
         without_package_claims = _GRADLE_DEPENDENCY_LINE.sub("", without_maven)
+        pip_claims = contradicted_pip_lines(without_package_claims)
+        for claim in reversed(pip_claims):
+            without_package_claims = (
+                without_package_claims[: claim.start()] + without_package_claims[claim.end() :]
+            )
         if without_package_claims.strip() or without_package_claims == body:
             continue
         spans.append(fence.span())
@@ -73,6 +94,11 @@ def contradicted_package_claim_spans(text: str) -> list[tuple[int, int]]:
     spans.extend(
         match.span()
         for match in _GRADLE_DEPENDENCY_LINE.finditer(text)
+        if outside_dedicated_fence(match.span())
+    )
+    spans.extend(
+        match.span()
+        for match in contradicted_pip_lines(text)
         if outside_dedicated_fence(match.span())
     )
     return sorted(spans)

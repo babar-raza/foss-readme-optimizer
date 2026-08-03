@@ -25,12 +25,48 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
+from readme_agent.supervisor import local_poc_snapshot_evidence
 from readme_agent.supervisor.local_poc_evidence import (
     mark_local_poc_profiled,
     write_local_poc_product_facts,
     write_local_poc_readme_candidate,
     write_local_poc_snapshot,
 )
+
+
+def test_private_stage_manifest_omits_retry_local_runtime_accounting(
+    tmp_path: Path,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        local_poc_snapshot_evidence,
+        "local_bundle_llm_accounting_fields",
+        lambda _bundle, _prior: {
+            "llm_accounting_status": "EXACT",
+            "llm_call_count": 1,
+            "llm_call_ids": ["retry-local-call"],
+        },
+    )
+    private = tmp_path / "private"
+    local_poc_snapshot_evidence.write_local_poc_manifest(
+        private,
+        {"schema_version": 1, "source_revision": "a" * 40},
+        include_runtime_accounting=False,
+    )
+    private_manifest = json.loads((private / "manifest.json").read_text(encoding="utf-8"))
+    assert "llm_accounting_status" not in private_manifest
+    assert "llm_call_count" not in private_manifest
+    assert "llm_call_ids" not in private_manifest
+
+    compatibility = tmp_path / "compatibility"
+    local_poc_snapshot_evidence.write_local_poc_manifest(
+        compatibility,
+        {"schema_version": 1, "source_revision": "a" * 40},
+    )
+    compatibility_manifest = json.loads(
+        (compatibility / "manifest.json").read_text(encoding="utf-8")
+    )
+    assert compatibility_manifest["llm_call_ids"] == ["retry-local-call"]
 
 
 def _snapshot(

@@ -85,7 +85,7 @@ def build_acquisition_correction_operations(
     installation = context.h2("installation")
     if installation is None:
         return []
-    source_build_only, _ = _source_build_only(context)
+    source_build_only, acquisition = _source_build_only(context)
     verified_installation = installation_text(
         context.facts,
         context.org_repo,
@@ -93,7 +93,17 @@ def build_acquisition_correction_operations(
     )
     body = context.inner_text[installation.heading_end : installation.section_end]
     operations: list[ReadmeDocumentOperationV1] = []
-    contradicted_spans = contradicted_package_claim_spans(body) if source_build_only else []
+    acquisition_value = mapping_value(acquisition.value) if acquisition is not None else {}
+    coordinate = mapping_value(acquisition_value.get("coordinate"))
+    package_name = str(coordinate.get("name") or "").strip()
+    contradicted_spans = (
+        contradicted_package_claim_spans(
+            body,
+            package_names=(package_name,) if package_name else (),
+        )
+        if source_build_only
+        else []
+    )
     if contradicted_spans:
         if not verified_installation:
             raise ValueError(

@@ -281,6 +281,7 @@ def write_local_poc_readme_candidate(
     *,
     bundle_dir_override: Path | None = None,
     candidate_role: Literal["initial", "repair"] = "initial",
+    include_runtime_accounting: bool = True,
 ) -> tuple[Path, str, str, str]:
     """Materialize candidate artifacts in a compatibility or private attempt root."""
 
@@ -447,6 +448,7 @@ def write_local_poc_readme_candidate(
             "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
             "completed_stages": completed_stages,
         },
+        include_runtime_accounting=include_runtime_accounting,
     )
     refresh_sha256sums(bundle_dir)
     return bundle_dir, assessment_hash, presentation_plan_hash, candidate_hash

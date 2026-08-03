@@ -7,6 +7,7 @@ from pathlib import Path
 
 from readme_agent.facts.schema_v2 import FactConflictV2, ProductFactsV2
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
+from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_map import ReadmeClaimMapV1, build_readme_claim_map
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
@@ -622,6 +623,54 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
     ]
     assert len(acquisition_records) == 3
     assert all(record.currently_accountable for record in acquisition_records)
+
+
+def test_python_source_build_correction_replaces_only_false_registry_command():
+    facts, revision = _java_facts()
+    python_facts = _python_source_build_facts(facts, revision)
+    source = """# Aspose.Page FOSS for Python
+
+## Installation
+
+```bash
+pip install aspose-page-foss
+```
+
+Keep this maintainer validation command:
+
+```bash
+python tools/check_release.py
+```
+
+## Limitations
+
+Keep this limitation.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        python_facts.org_repo,
+        source,
+        python_facts,
+        base_revision=revision,
+    )
+    validation = validate_readme_document_candidate(source, candidate, plan, python_facts)
+
+    assert "pip install aspose-page-foss" not in candidate
+    assert "python -m pip install ." in candidate
+    assert "python tools/check_release.py" in candidate
+    assert "Keep this limitation." in candidate
+    assert not [
+        error
+        for error in validation.errors
+        if error.startswith("unauthorized protected-content loss:")
+    ]
+    false_command = next(
+        claim
+        for claim in assess_material_claims(source)
+        if "pip install aspose-page-foss"
+        in source.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    )
+    assert f"source:{false_command.claim_id}" not in " ".join(validation.errors)
 
 
 def test_verified_example_names_required_input_fixture_and_repository_provenance():
