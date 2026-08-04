@@ -26356,7 +26356,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": null,
+    "candidate_hash": "5a7e4e80f3caf30ec3b7b759dbc9d2589462e0d2c9a43a0afe78b262fe197180",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -30176,6 +30176,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\5357c46628fbafc0a1c4\\r\\fcc4d08dc8909ad0\\s\\ab1a2267a0ba\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ab1a2267a0ba6302311d0c7c4ad01494974c7d76\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-04T14:56:37.890493+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -30204,11 +30216,11 @@
     "reviewer_standard_hash": "2a9de12cb208488ee67b6c234e6f59b55a9803fb7084eeb91c926154ac79fcf9",
     "schema_version": 2,
     "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-04T14:56:32.632764+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-04T14:56:37.890493+00:00"
   },
   "schema_version": 2,
-  "state_version": 1103,
+  "state_version": 1104,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
