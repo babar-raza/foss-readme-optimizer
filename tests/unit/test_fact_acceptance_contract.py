@@ -82,6 +82,12 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert "../ecosystems/registry_request.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "acquisition_pins.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert "verified_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert "deterministic_truth_salvage.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert (
+        "../capabilities/draft_product_truth.py"
+        in _COMPONENT_FILES["drafting_and_example_selection"]
+    )
     assert {
         "aspose_org_dependency_snapshot.py",
         "aspose_org_format_adapter.py",

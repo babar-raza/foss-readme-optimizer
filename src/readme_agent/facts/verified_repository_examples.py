@@ -6,7 +6,9 @@ import re
 import subprocess
 from collections.abc import Callable
 from pathlib import Path
-from typing import NamedTuple
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.example_value import assess_minimal_example_value
@@ -23,13 +25,56 @@ MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS = 8
 VerifyExampleFn = Callable[[MinimalExamplePolicy], LocalProductVerificationV1 | None]
 
 
-class VerifiedRepositoryExampleSelectionV1(NamedTuple):
-    """One repository-authored candidate accepted by isolated verification."""
+class RepositoryExampleSelectionV2(BaseModel):
+    """Typed terminal result from bounded repository-example selection."""
 
-    example: MinimalExamplePolicy
-    verification: LocalProductVerificationV1
-    candidate_count: int
-    attempted_count: int
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    schema_version: Literal[2] = 2
+    outcome: Literal[
+        "VERIFIED",
+        "TERMINAL_PRODUCT_FAILURE",
+        "NO_VERIFIED_CANDIDATE",
+        "REVISION_MISMATCH",
+    ]
+    example: MinimalExamplePolicy | None = None
+    verification: LocalProductVerificationV1 | None = None
+    candidate_count: int = Field(ge=0)
+    attempted_count: int = Field(ge=0)
+    selected_rank: int | None = Field(default=None, ge=1)
+
+    @model_validator(mode="after")
+    def selected_outcomes_require_consistent_verification(self) -> RepositoryExampleSelectionV2:
+        if self.attempted_count > self.candidate_count:
+            raise ValueError("attempted_count cannot exceed candidate_count")
+        selected = self.outcome in {"VERIFIED", "TERMINAL_PRODUCT_FAILURE"}
+        selection_complete = (
+            self.example is not None
+            and self.verification is not None
+            and self.selected_rank is not None
+        )
+        if selected and not selection_complete:
+            raise ValueError("selected outcomes require example, verification, and selected_rank")
+        if not selected and any(
+            value is not None for value in (self.example, self.verification, self.selected_rank)
+        ):
+            raise ValueError("non-selected outcomes cannot carry a partial selection")
+        if self.selected_rank is not None and self.selected_rank > self.candidate_count:
+            raise ValueError("selected_rank cannot exceed candidate_count")
+        if self.outcome == "VERIFIED" and not (
+            self.verification is not None
+            and self.verification.outcome == "SOURCE_BUILD_VERIFIED"
+            and self.verification.truth_eligible
+            and self.verification.isolated_execution is not None
+            and self.verification.isolated_execution.truth_eligible
+            and self.verification.isolated_execution.return_code == 0
+        ):
+            raise ValueError("VERIFIED requires a truth-eligible isolated verification")
+        if self.outcome == "TERMINAL_PRODUCT_FAILURE" and not _product_owned_install_failure(
+            self.verification
+        ):
+            raise ValueError("TERMINAL_PRODUCT_FAILURE requires Python isolated return code 20/21")
+        return self
 
 
 def select_verified_repository_example(
@@ -38,8 +83,8 @@ def select_verified_repository_example(
     source_revision: str | None,
     requested: MinimalExamplePolicy,
     verify_example_fn: VerifyExampleFn,
-) -> VerifiedRepositoryExampleSelectionV1 | None:
-    """Rank bounded repository candidates and return the first truth-eligible result."""
+) -> RepositoryExampleSelectionV2:
+    """Return the first verified candidate or terminal product-source failure."""
 
     repository_root = root.resolve()
     expected_revision = (
@@ -48,7 +93,11 @@ def select_verified_repository_example(
         else None
     )
     if expected_revision is not None and not _revision_matches(repository_root, expected_revision):
-        return None
+        return RepositoryExampleSelectionV2(
+            outcome="REVISION_MISMATCH",
+            candidate_count=0,
+            attempted_count=0,
+        )
     readme_examples = repository_readme_example_candidates(
         repository_root,
         requested.language,
@@ -58,11 +107,23 @@ def select_verified_repository_example(
     indexed = list(enumerate([*readme_examples, *source_examples]))
     indexed.sort(key=lambda item: _preference(item[1], requested, item[0]))
     attempted = 0
-    for _position, candidate in indexed[:MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS]:
+    for selected_rank, (_position, candidate) in enumerate(
+        indexed[:MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS], start=1
+    ):
         if _precheck_failures(repository_root, candidate):
             continue
         attempted += 1
         verification = verify_example_fn(candidate)
+        if (
+            verification is not None
+            and expected_revision is not None
+            and verification.source_revision.casefold() != expected_revision.casefold()
+        ):
+            return RepositoryExampleSelectionV2(
+                outcome="REVISION_MISMATCH",
+                candidate_count=len(indexed),
+                attempted_count=attempted,
+            )
         if (
             verification is not None
             and verification.truth_eligible
@@ -71,16 +132,48 @@ def select_verified_repository_example(
             if expected_revision is not None and not _revision_matches(
                 repository_root, expected_revision
             ):
-                return None
-            return VerifiedRepositoryExampleSelectionV1(
+                return RepositoryExampleSelectionV2(
+                    outcome="REVISION_MISMATCH",
+                    candidate_count=len(indexed),
+                    attempted_count=attempted,
+                )
+            return RepositoryExampleSelectionV2(
+                outcome="VERIFIED",
                 example=candidate,
                 verification=verification,
                 candidate_count=len(indexed),
                 attempted_count=attempted,
+                selected_rank=selected_rank,
             )
         if _product_owned_install_failure(verification):
-            break
-    return None
+            assert verification is not None
+            return RepositoryExampleSelectionV2(
+                outcome="TERMINAL_PRODUCT_FAILURE",
+                example=candidate,
+                verification=verification,
+                candidate_count=len(indexed),
+                attempted_count=attempted,
+                selected_rank=selected_rank,
+            )
+    return RepositoryExampleSelectionV2(
+        outcome="NO_VERIFIED_CANDIDATE",
+        candidate_count=len(indexed),
+        attempted_count=attempted,
+    )
+
+
+def bounded_local_verification_detail(result: LocalProductVerificationV1 | None) -> str:
+    """Return bounded redacted compiler feedback suitable for fact evidence."""
+
+    if result is None:
+        return "local build/example verification was not executed for this draft"
+    execution = getattr(result, "example_compile", None) or getattr(result, "build", None)
+    if execution is None or execution.return_code == 0:
+        return result.detail
+    diagnostic = "\n".join(part.strip() for part in (execution.stderr, execution.stdout) if part)
+    if not diagnostic:
+        return result.detail
+    return f"{result.detail}; compiler diagnostic:\n{diagnostic[:2000]}"
 
 
 def _preference(
@@ -123,6 +216,8 @@ def _precheck_failures(root: Path, example: MinimalExamplePolicy) -> list[str]:
 def _product_owned_install_failure(result: LocalProductVerificationV1 | None) -> bool:
     return bool(
         result is not None
+        and not result.truth_eligible
+        and result.outcome == "BUILD_FAILED"
         and result.ecosystem == "python"
         and result.isolated_execution is not None
         and result.isolated_execution.return_code in {20, 21}

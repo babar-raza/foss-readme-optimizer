@@ -89,6 +89,7 @@ from readme_agent.facts.typescript_example_normalization import (
     normalize_typescript_package_consumer,
 )
 from readme_agent.facts.verified_repository_examples import (
+    bounded_local_verification_detail,
     select_verified_repository_example,
 )
 from readme_agent.gitsafety.clone import clone_baseline
@@ -251,24 +252,6 @@ def _extract_failure_reasons(fact: FactRecordV2) -> list[str]:
     return [detail] if detail else [f"{fact.field}: blocked with no structured failure detail"]
 
 
-def _local_verification_detail(result: LocalProductVerificationV1 | None) -> str:
-    """Return bounded compiler feedback that a repair attempt can act on."""
-
-    if result is None:
-        return "local build/example verification was not executed for this draft"
-    execution = result.example_compile or result.build
-    if execution is None or execution.return_code == 0:
-        return result.detail
-    diagnostic = "\n".join(part.strip() for part in (execution.stderr, execution.stdout) if part)
-    if not diagnostic:
-        return result.detail
-    # The process runs under example_execution.secret_free_environment().
-    # Keep the first compiler diagnostics (where syntax/type errors appear),
-    # bounded so repair prompts and evidence cannot grow with build logs.
-    diagnostic = diagnostic[:2000]
-    return f"{result.detail}; compiler diagnostic:\n{diagnostic}"
-
-
 def _repairable_by_example_change(result: LocalProductVerificationV1 | None) -> bool:
     """Return whether different example text can cross the failed verifier boundary."""
 
@@ -365,7 +348,7 @@ def _gate_minimal_example(
 
     local_result = preverified_result or verify_example_fn(example)
     outcome = local_result.outcome if local_result is not None else "BLOCKED_LOCAL_VERIFICATION"
-    detail = _local_verification_detail(local_result)
+    detail = bounded_local_verification_detail(local_result)
     verified = (
         local_result is not None
         and local_result.truth_eligible
@@ -556,7 +539,9 @@ def orchestrate_product_truth_draft(
                     requested=draft.minimal_example,
                     verify_example_fn=verify_example_fn,
                 )
-                if selection is not None:
+                if selection.outcome in {"VERIFIED", "TERMINAL_PRODUCT_FAILURE"}:
+                    assert selection.example is not None
+                    assert selection.verification is not None
                     verified_repository_example = selection.example
                     verified_repository_fact = _gate_minimal_example(
                         selection.example,

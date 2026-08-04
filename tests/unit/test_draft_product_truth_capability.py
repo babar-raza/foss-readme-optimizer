@@ -45,6 +45,7 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
+from readme_agent.facts.verified_repository_examples import RepositoryExampleSelectionV2
 from readme_agent.registry.models import (
     EvidenceBackedProductFact,
     MinimalExamplePolicy,
@@ -501,6 +502,103 @@ class TestMinimalExampleGating:
         finding = next(
             finding for finding in result.findings if finding["field"] == "example.minimal"
         )
+        assert finding["blocked_category"] == "infra_external"
+
+    def test_terminal_repository_example_failure_replaces_draft_without_llm_repair(
+        self, tmp_path, monkeypatch
+    ):
+        root = _make_repo(tmp_path)
+        draft = _good_draft()
+        repository_example = draft.minimal_example.model_copy(
+            update={
+                "class_name": "RepositoryExample",
+                "code": "from widget import Widget\nprint(Widget())",
+            }
+        )
+        draft_process = ExampleExecutionResultV1(
+            argv=["python"],
+            return_code=22,
+            stdout="",
+            stderr="draft example failed",
+            timed_out=False,
+            environment_names=[],
+            isolation_kind="isolated_result_projection",
+        )
+        terminal_process = draft_process.model_copy(
+            update={
+                "return_code": 21,
+                "stderr": "IndentationError in src/widget.py, line 66",
+            }
+        )
+        base_isolation = _verified_local_result().isolated_execution
+        assert base_isolation is not None
+        draft_failure = LocalProductVerificationV1(
+            org_repo=ORG_REPO,
+            source_revision="abc1234",
+            ecosystem="python",
+            outcome="BUILD_FAILED",
+            detail="draft example failed",
+            build=draft_process,
+            example_compile=draft_process,
+            isolated_execution=base_isolation.model_copy(
+                update={"truth_eligible": False, "return_code": 22, "stderr": draft_process.stderr}
+            ),
+        )
+        terminal_failure = LocalProductVerificationV1(
+            org_repo=ORG_REPO,
+            source_revision="abc1234",
+            ecosystem="python",
+            outcome="BUILD_FAILED",
+            detail="product import failed",
+            build=terminal_process,
+            example_compile=terminal_process,
+            isolated_execution=base_isolation.model_copy(
+                update={
+                    "truth_eligible": False,
+                    "return_code": 21,
+                    "stderr": terminal_process.stderr,
+                }
+            ),
+        )
+        monkeypatch.setattr(
+            capability,
+            "select_verified_repository_example",
+            lambda *_args, **_kwargs: RepositoryExampleSelectionV2(
+                outcome="TERMINAL_PRODUCT_FAILURE",
+                example=repository_example,
+                verification=terminal_failure,
+                candidate_count=2,
+                attempted_count=1,
+                selected_rank=1,
+            ),
+        )
+        draft_calls = 0
+
+        def draft_fn(hints, current_facts):
+            nonlocal draft_calls
+            draft_calls += 1
+            return draft
+
+        result = capability.orchestrate_product_truth_draft(
+            ORG_REPO,
+            _facts_so_far(),
+            root,
+            "abc1234",
+            "2026-07-25T00:00:00+00:00",
+            draft_fn=draft_fn,
+            verify_example_fn=lambda _example: draft_failure,
+        )
+
+        fact = result.gated_facts["example.minimal"]
+        assert draft_calls == 1
+        assert result.repair_attempts == 0
+        assert fact.verification_state == "blocked"
+        assert fact.source.source_type == "mechanical_repository"
+        assert fact.value["code"] == repository_example.code
+        assert "IndentationError" in fact.value["verification_detail"]
+        assert fact.value["repairable_by_example_change"] is False
+        assert fact.value["blocked_category"] == "infra_external"
+        finding = next(item for item in result.findings if item["field"] == "example.minimal")
         assert finding["blocked_category"] == "infra_external"
 
     def test_compiler_diagnostic_is_passed_to_the_repair_attempt(self, tmp_path):

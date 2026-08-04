@@ -41,3 +41,5 @@ def test_format_adapter_split_files_are_all_verification_inputs():
         "aspose_org_format_contract.py",
     }.issubset(files)
     assert "python_html_format_functionality.py" in files
+    assert "verified_repository_examples.py" in files
+    assert "deterministic_truth_salvage.py" in files

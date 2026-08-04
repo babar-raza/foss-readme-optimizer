@@ -35,6 +35,7 @@ from readme_agent.facts.schema_v2 import (
     descriptive_fact_id,
 )
 from readme_agent.facts.verified_repository_examples import (
+    bounded_local_verification_detail,
     select_verified_repository_example,
 )
 from readme_agent.registry.loader import require_listed
@@ -276,13 +277,16 @@ def _verified_example_fact(
         requested=example,
         verify_example_fn=lambda candidate: verify_local_product_example(snapshot, candidate),
     )
-    if selection is None:
+    if selection.outcome not in {"VERIFIED", "TERMINAL_PRODUCT_FAILURE"}:
         return fact, verification
+    assert selection.example is not None
+    assert selection.verification is not None
     return _example_fact_for_candidate(
         snapshot,
         selection.example,
         base_facts,
         observed_at,
+        repository_authored=True,
         preverified_result=selection.verification,
     )
 
@@ -293,6 +297,7 @@ def _example_fact_for_candidate(
     base_facts: ProductFactsV2,
     observed_at: str,
     *,
+    repository_authored: bool = False,
     preverified_result: LocalProductVerificationV1 | None = None,
 ) -> tuple[FactRecordV2, LocalProductVerificationV1 | None]:
     identity = base_facts.selected_fact("product.identity")
@@ -320,11 +325,34 @@ def _example_fact_for_candidate(
     elif verification is None:
         detail = "local example verification is disabled for this execution profile"
     else:
-        detail = verification.detail
+        detail = bounded_local_verification_detail(verification)
     verified = bool(
         verification is not None
         and verification.truth_eligible
         and verification.outcome == "SOURCE_BUILD_VERIFIED"
+    )
+    isolated_execution = (
+        getattr(verification, "isolated_execution", None) if verification is not None else None
+    )
+    product_source_failure = bool(
+        verification is not None
+        and getattr(verification, "ecosystem", None) == "python"
+        and isolated_execution is not None
+        and isolated_execution.return_code in {20, 21}
+    )
+    repairable_by_example_change = bool(
+        verification is not None
+        and verification.outcome == "BUILD_FAILED"
+        and (
+            getattr(verification, "ecosystem", None) != "python"
+            or isolated_execution is None
+            or isolated_execution.return_code == 22
+        )
+    )
+    fact_variant = (
+        ("repository-example" if verified else "repository-example-blocked")
+        if repository_authored
+        else ("compiled-salvaged-example" if verified else "salvaged-example-blocked")
     )
     value = {
         "language": example.language,
@@ -334,6 +362,8 @@ def _example_fact_for_candidate(
             verification.outcome if verification is not None else "BLOCKED_LOCAL_VERIFICATION"
         ),
         "verification_detail": detail,
+        "repairable_by_example_change": repairable_by_example_change,
+        "blocked_category": "infra_external" if product_source_failure else "agent_fixable",
         **(
             verification.fact_projection()
             if verification is not None
@@ -352,13 +382,17 @@ def _example_fact_for_candidate(
     fact = FactRecordV2(
         fact_id=descriptive_fact_id(
             "example.minimal",
-            "compiled-salvaged-example" if verified else "salvaged-example-blocked",
+            fact_variant,
         ),
         field="example.minimal",
         value=value,
         source=FactSourceV2(
-            source_type="mechanical_test",
-            location="local-verifier://example.minimal",
+            source_type="mechanical_repository" if repository_authored else "mechanical_test",
+            location=(
+                "repository://" + ",".join(example.evidence_paths)
+                if repository_authored
+                else "local-verifier://example.minimal"
+            ),
             source_revision=snapshot.source_revision,
         ),
         verification_state="verified" if verified else "blocked",
@@ -370,14 +404,18 @@ def _example_fact_for_candidate(
 
 
 def _finding(fact: FactRecordV2) -> dict:
+    value = fact.value if isinstance(fact.value, dict) else {}
+    blocked_category = str(value.get("blocked_category") or "agent_fixable")
     return {
         "finding_id": f"deterministic-salvage:{fact.field}",
         "classification": "BLOCKED_MISSING_EVIDENCE",
-        "blocked_category": "agent_fixable",
+        "blocked_category": blocked_category,
         "field": fact.field,
         "detail": fact.value,
         "required_action": (
-            "supply a current-revision repository or structured-knowledge candidate and "
+            "repair the product-owned source/import defect and publish a new source revision"
+            if blocked_category == "infra_external"
+            else "supply a current-revision repository or structured-knowledge candidate and "
             "rerun deterministic revalidation"
         ),
     }

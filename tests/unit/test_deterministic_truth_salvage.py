@@ -8,11 +8,14 @@ from types import SimpleNamespace
 
 from readme_agent.evidence.writer import refresh_sha256sums
 from readme_agent.facts.deterministic_truth_salvage import (
+    _finding,
     _repository_enriched_technical_facts,
     _verified_example_fact,
     load_salvage_candidate,
 )
+from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.facts.verified_repository_examples import RepositoryExampleSelectionV2
 from readme_agent.registry.models import ProductTruthPolicy
 
 ORG_REPO = "acme/widget"
@@ -155,6 +158,115 @@ def test_normalized_display_literal_is_the_exact_code_sent_to_local_verification
     expected = 'from aspose_pdf import Document\nprint("Hello from Aspose.PDF FOSS for Python!")'
     assert captured["code"] == expected
     assert fact.value["code"] == expected
+
+
+def test_terminal_repository_source_failure_replaces_malformed_draft_without_approval(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    candidate = _candidate()
+    candidate["minimal_example"] = {
+        "language": "python",
+        "class_name": "Draft",
+        "code": "for broken in",
+        "evidence_paths": ["README.md"],
+    }
+    repository_example = ProductTruthPolicy.model_validate(
+        {
+            **candidate,
+            "minimal_example": {
+                "language": "python",
+                "class_name": "RepositoryExample",
+                "code": "from aspose_tex import Engine\nprint(Engine)",
+                "evidence_paths": ["README.md"],
+            },
+        }
+    ).minimal_example
+    terminal = LocalProductVerificationV1.model_construct(
+        schema_version=1,
+        org_repo=ORG_REPO,
+        source_revision=CURRENT_REVISION,
+        detail="product import failed: IndentationError in src/aspose_tex/_input/catcode.py",
+        truth_eligible=False,
+        outcome="BUILD_FAILED",
+        ecosystem="python",
+        build=SimpleNamespace(return_code=21, stdout="", stderr=""),
+        example_compile=None,
+        isolated_execution=SimpleNamespace(return_code=21, truth_eligible=False),
+    )
+    identity = FactRecordV2(
+        fact_id="product.identity:verified",
+        field="product.identity",
+        value={"product_name": "Aspose.TeX", "platform": "python"},
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="pyproject.toml",
+            source_revision=CURRENT_REVISION,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[identity],
+        selected_fact_ids={"product.identity": identity.fact_id},
+        package_root_roles=None,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.evidence_failures",
+        lambda *_args, **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.generated_example_quality_failures",
+        lambda *_args, **_kwargs: [],
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.local_fact_verification_allowed",
+        lambda: True,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.verify_local_product_example",
+        lambda *_args: SimpleNamespace(
+            detail="malformed draft",
+            truth_eligible=False,
+            outcome="BUILD_FAILED",
+            ecosystem="python",
+            isolated_execution=SimpleNamespace(return_code=22),
+            fact_projection=lambda: {},
+        ),
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.deterministic_truth_salvage.select_verified_repository_example",
+        lambda *_args, **_kwargs: RepositoryExampleSelectionV2(
+            outcome="TERMINAL_PRODUCT_FAILURE",
+            example=repository_example,
+            verification=terminal,
+            candidate_count=2,
+            attempted_count=1,
+            selected_rank=1,
+        ),
+    )
+
+    fact, verification = _verified_example_fact(
+        SimpleNamespace(root_path=tmp_path, source_revision=CURRENT_REVISION),
+        ProductTruthPolicy.model_validate(candidate),
+        facts,
+        "2026-08-03T00:00:00+00:00",
+    )
+    finding = _finding(fact)
+
+    assert verification is terminal
+    assert fact.verification_state == "blocked"
+    assert fact.value["code"] == repository_example.code
+    assert fact.value["verification_detail"] == terminal.detail
+    assert fact.value["blocked_category"] == "infra_external"
+    assert fact.value["repairable_by_example_change"] is False
+    assert finding["blocked_category"] == "infra_external"
+    assert "product-owned source/import defect" in finding["required_action"]
 
 
 def test_repository_extensions_enrich_only_selected_verified_technical_facts() -> None:
