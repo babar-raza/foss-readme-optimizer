@@ -105,6 +105,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-080352-2b15:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
     },
+    "59fe385c9264865f29033eb98a6e6bd22bb3f2008da2d8d33220a90a7be86d52": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "59fe385c9264865f29033eb98a6e6bd22bb3f2008da2d8d33220a90a7be86d52",
+      "completed_at": "2026-08-04T11:20:51.322174+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "be7f5275059b50e347198481e00b4289688d25659377cc013c6df5d153c1c655",
+      "output_hash": null,
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+      "run_id": "20260804-112033-bb61",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-04T11:20:51.322157+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-080352-2b15:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+    },
     "7299c4e63b28e35332b71fa28f1e1662d6e21375462226ad0d20362ff56972a2": {
       "action": null,
       "attempt": 1,
@@ -817,7 +834,7 @@
     "updated_at": "2026-08-04T08:52:33.196298+00:00"
   },
   "schema_version": 2,
-  "state_version": 60,
+  "state_version": 61,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
@@ -1033,11 +1050,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "3de3f9276c03afc6af521ac7565b3171b8a2659a71deff1187def4243303e6d0",
+      "last_checkpoint_id": "59fe385c9264865f29033eb98a6e6bd22bb3f2008da2d8d33220a90a7be86d52",
       "lease_expires_at": "2026-08-04T11:35:46.112457+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-04T11:20:46.112457+00:00"
+      "updated_at": "2026-08-04T11:20:51.322174+00:00"
     },
     "operator:20260804-084509-fdd9:aspose-email-foss/Aspose.Email-FOSS-for-.Net": {
       "accepted_at": "2026-08-04T08:45:15.184232+00:00",
