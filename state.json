@@ -4920,81 +4920,22 @@
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "5026d0c2a88d3708a3f45582b82181548b45ced8c561c367666382cdf7da8be9",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The second line is a plain-language sentence stating what the product does, using concrete verbs (manage, convert), though it follows badges instead of preceding them; however, the standard allows flexibility in badge placement as long as the product description is present early.",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening sentence explicitly names the audience (developers), platform (.NET), formats (OBJ, STL, FBX, glTF), and core tasks (manage 3D scene graphs, convert formats).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present and linked; NuGet, platform, and contributor badges further support trust.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install command uses real NuGet coordinates (`Aspose.3D.FOSS`) and includes a version; the badge confirms it's on NuGet, and the note says it was verified.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "A minimal runnable example (`var scene = new Scene(); scene.Save(...)`) is provided beyond the install snippet, and it is syntactically valid and executable.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Section headers use consistent `##` levels, and the TOC links to logical sections; product understanding and getting-started content (capabilities, installation, quick start) precede legal/content sections (scope, license).",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input\u2192transformation\u2192output workflow of the product, which is appropriate for a 3D processing library and improves understanding.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "LICENSE is present and GitHub-recognized (MIT badge + link); while CONTRIBUTING and CODE_OF_CONDUCT are missing, the standard prioritizes LICENSE recognition as the highest-value gate.",
-            "satisfied": true
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README includes a versioned install (`26.1.0`) and a NuGet badge, implying active maintenance; though commit history isn't shown in the README, the standard allows GitHub-generated signals like this.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under 'Scope and limitations' \u2014 clearly distinguishing FOSS from Enterprise Edition without promotional language or pricing.",
-            "satisfied": true
-          }
-        ],
-        "input_sha256": "b684b15fdc7bb77a4a09498cb674eef85877c57cd1796c7bb783daab37bffec9",
-        "input_source": "candidate_text",
-        "overall_summary": "The README satisfies all ten dimensions of the presentation standard: it clearly explains the product with concrete verbs, targets the right audience, includes strong trust signals (especially license visibility), provides a working installation path and verified example, uses appropriate navigation and visual aids, and presents the commercial context factually and sparingly.",
-        "structural_consistency": {
-          "contradictions": [],
-          "valid": true
-        },
-        "structural_observations": {
-          "ci_badge_count": 0,
-          "has_mermaid": true
-        }
+        "status": "DEFERRED_UPSTREAM_FAILURE",
+        "upstream_domain": "readme_presentation",
+        "upstream_failure_reason": "presentation_plan",
+        "upstream_status": "CHANGED"
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:47:06.299140+00:00",
+      "last_run_timestamp": "2026-08-04T14:23:55.165772+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
+      "upstream_revision_at_accept": "d3c2e3cff94de4695b841cb9878dae219a901c5a"
     },
     "readme_presentation": {
       "accepted_facts_hash": "67e8ba5071bb3166ee81382a78b715e5a77bcd605f58e075d223421e9dc0b722",
@@ -18731,7 +18672,7 @@
     "updated_at": "2026-08-04T14:19:46.849840+00:00"
   },
   "schema_version": 2,
-  "state_version": 878,
+  "state_version": 879,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
