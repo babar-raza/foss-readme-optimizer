@@ -4999,7 +4999,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "67e8ba5071bb3166ee81382a78b715e5a77bcd605f58e075d223421e9dc0b722",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -6926,10 +6926,10 @@
           "domain": "readme_presentation",
           "error_type": "blocked",
           "failure_reason": "presentation_plan",
-          "message": "['fact-backed audience/problem overview is absent']",
-          "occurred_at": "2026-08-02T21:22:42.386635+00:00",
+          "message": "['claim accountability has 6 blocking claim(s): source:claim:1746:3d58a15c846dc727, source:claim:1809:3e9b404a56b4c47d, source:claim:1884:a0c618855c52a150, source:claim:1910:68a0834021a9efcb, source:claim:1937:c2b28a3b00ba7d2a, source:claim:1981:32ac39c0609eabea']",
+          "occurred_at": "2026-08-04T14:23:04.063049+00:00",
           "schema_version": 1,
-          "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
+          "source_revision": "d3c2e3cff94de4695b841cb9878dae219a901c5a",
           "stage": null
         },
         "llm_called": false,
@@ -16615,9 +16615,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:46:15.253001+00:00",
+      "last_run_timestamp": "2026-08-04T14:23:04.063049+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
@@ -18731,7 +18731,7 @@
     "updated_at": "2026-08-04T14:19:46.849840+00:00"
   },
   "schema_version": 2,
-  "state_version": 876,
+  "state_version": 877,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
