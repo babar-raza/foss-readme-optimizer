@@ -868,7 +868,7 @@
     "updated_at": "2026-08-04T08:52:33.196298+00:00"
   },
   "schema_version": 2,
-  "state_version": 63,
+  "state_version": 64,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
@@ -1082,13 +1082,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
       "last_checkpoint_id": "9243d11ccb792bd20ce9ef8cc504eb5254ed2fafb9749b65e27d38ed47cb53b8",
-      "lease_expires_at": "2026-08-04T11:35:46.112457+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-04T11:21:33.423425+00:00"
+      "status": "blocked",
+      "updated_at": "2026-08-04T11:21:39.737983+00:00"
     },
     "operator:20260804-084509-fdd9:aspose-email-foss/Aspose.Email-FOSS-for-.Net": {
       "accepted_at": "2026-08-04T08:45:15.184232+00:00",
