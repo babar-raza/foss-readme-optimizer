@@ -9802,6 +9802,27 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "f7c26a14474cfc601e845f5febb3c73ffb2e0471d7879e648da70d5325fe9491",
+          "classification_semantics": "898c11ba271fdee6c2550941c0c158af16f4a55439925b6d3cc7e3f04c738fbb",
+          "conflict_semantics": "d4ed454d9864dc24974f78a1f0f4c6b0567a1758ec7bd8a729c1a62489ea9913",
+          "drafting_and_example_selection": "9b4825b0e77cf8da1f3dc6df22296ffb3e3eb09f34821fa747e06d40220536ac",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "de38b9b855466e1c558983bcd31bde0347dbbb4a26fe8f4b895c1d82401f44a5",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "72e891ac80d858133ffd7c38d930d81f29e85038c487a4af599301cac0308a43",
+        "facts_hash": "e35c9bf3c0c3a629ca6b8c03cc96e6e35e7e63d0af25972c53b0a9a9303a86c1",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T15:41:20.529311+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "exact ProductFactsV2 graph accepted under the current contract",
+        "schema_version": 1,
+        "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
       }
     ],
     "facts_hash": "e35c9bf3c0c3a629ca6b8c03cc96e6e35e7e63d0af25972c53b0a9a9303a86c1",
@@ -10557,10 +10578,10 @@
     "schema_version": 2,
     "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-04T15:41:15.469934+00:00"
+    "updated_at": "2026-08-04T15:41:20.529311+00:00"
   },
   "schema_version": 2,
-  "state_version": 291,
+  "state_version": 292,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c6cd0efeb211ae6c4c598d1d63a763aee223e0d3da9a3f0c32a79b3027f0e3fc",
