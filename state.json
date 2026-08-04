@@ -49200,7 +49200,7 @@
     "updated_at": "2026-08-04T10:35:21.510262+00:00"
   },
   "schema_version": 2,
-  "state_version": 445,
+  "state_version": 446,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "eb5125c7ef4a0b9f08061c7c433d9653b0d62260638c041ab386992bb4c2e38f",
@@ -49306,12 +49306,12 @@
         "workflow_run_id": null
       },
       "failure_classification": null,
-      "failure_detail": null,
+      "failure_detail": "CONVERGED_PROPOSAL_READY",
       "last_checkpoint_id": "08d0c64e136f80e592e25e2c4316dd8fd0ba2db62d4d58c3371b879a11511bb7",
-      "lease_expires_at": "2026-08-04T10:44:43.759018+00:00",
+      "lease_expires_at": null,
       "recovery_count": 2,
-      "status": "processing",
-      "updated_at": "2026-08-04T10:36:50.970876+00:00"
+      "status": "completed",
+      "updated_at": "2026-08-04T10:36:58.058939+00:00"
     },
     "operator:20260801-021252-660b:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
       "accepted_at": "2026-08-01T02:12:58.001409+00:00",
