@@ -31,6 +31,22 @@ _DOWNSTREAM_RECEIPT_STAGES = frozenset(
 _DIRECTORY_HASH_LENGTH = 16
 
 
+def has_active_downstream_artifacts(bundle_dir: Path, manifest: dict) -> bool:
+    """Return whether a fact-boundary bundle still exposes later-stage evidence."""
+
+    if any((bundle_dir / name).is_dir() for name in _DOWNSTREAM_DIRECTORIES):
+        return True
+    receipts_dir = bundle_dir / "receipts"
+    if receipts_dir.is_dir() and any(
+        (receipts_dir / f"{stage}.json").is_file() for stage in _DOWNSTREAM_RECEIPT_STAGES
+    ):
+        return True
+    stage_receipts = manifest.get("stage_receipts")
+    return isinstance(stage_receipts, dict) and any(
+        stage in _DOWNSTREAM_RECEIPT_STAGES for stage in stage_receipts
+    )
+
+
 def preserve_superseded_candidate(
     bundle_dir: Path,
     prior_manifest: dict,

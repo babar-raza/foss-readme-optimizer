@@ -34,6 +34,7 @@ from readme_agent.supervisor.local_poc_evidence import (
     reclassify_local_poc_fact_acceptance,
     write_local_poc_product_facts,
 )
+from readme_agent.supervisor.local_poc_superseded import has_active_downstream_artifacts
 from readme_agent.supervisor.product_truth_acceptance import (
     ensure_product_truth_acceptance_binding,
 )
@@ -226,6 +227,20 @@ def load_prepared_product_truth(
     outcome = classify_product_truth(facts, contract)
     returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
     outcome_matches_lifecycle = _cached_outcome_matches_lifecycle(lifecycle.status, outcome)
+    artifacts_reclassified = False
+    cached_fact_boundary_needs_cleanup = outcome in {
+        "BLOCKED_FACT_CONFLICT",
+        "BLOCKED_MISSING_EVIDENCE",
+    } or (outcome == "FACTS_READY" and lifecycle.status == "FACTS_READY")
+    if cached_fact_boundary_needs_cleanup and has_active_downstream_artifacts(bundle_dir, manifest):
+        reclassify_local_poc_fact_acceptance(
+            bundle_dir,
+            source_revision=source_revision,
+            lifecycle_status=outcome,
+            contract_hash=contract_hash,
+            component_hashes=contract.component_hashes,
+        )
+        artifacts_reclassified = True
     if recovered_later_lifecycle and lifecycle.fact_acceptance_history:
         latest_binding = lifecycle.fact_acceptance_history[-1]
         outcome_matches_lifecycle = (
@@ -259,13 +274,14 @@ def load_prepared_product_truth(
                 component_hashes=contract.component_hashes,
             )
     if not outcome_matches_lifecycle:
-        reclassify_local_poc_fact_acceptance(
-            bundle_dir,
-            source_revision=source_revision,
-            lifecycle_status=outcome,
-            contract_hash=contract_hash,
-            component_hashes=contract.component_hashes,
-        )
+        if not artifacts_reclassified:
+            reclassify_local_poc_fact_acceptance(
+                bundle_dir,
+                source_revision=source_revision,
+                lifecycle_status=outcome,
+                contract_hash=contract_hash,
+                component_hashes=contract.component_hashes,
+            )
         record_product_facts_outcome(
             state_backend,
             org_repo,

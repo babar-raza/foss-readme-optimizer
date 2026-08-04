@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from readme_agent import paths
-from readme_agent.evidence.writer import verify_sha256sums
+from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     REQUIRED_PRODUCT_FIELDS,
@@ -876,11 +876,76 @@ def test_same_inputs_reuse_a_narrow_repository_evidence_block(tmp_path, monkeypa
     monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: None)
 
     first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    bundle_dir = Path(first.bundle_dir)
+    (bundle_dir / "candidate").mkdir()
+    (bundle_dir / "candidate" / "README.md").write_text(
+        "# Stale cached candidate\n", encoding="utf-8"
+    )
+    (bundle_dir / "review").mkdir()
+    (bundle_dir / "review" / "final-verdict.json").write_text(
+        '{"verdict": "AGENT_APPROVED", "agent_approved": true}\n', encoding="utf-8"
+    )
+    (bundle_dir / "receipts").mkdir()
+    (bundle_dir / "receipts" / "AGENT_APPROVED.json").write_text(
+        '{"target_stage": "AGENT_APPROVED"}\n', encoding="utf-8"
+    )
+    refresh_sha256sums(bundle_dir)
     second = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
     assert first.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
     assert second.resolution_source == "durable_revision_cache"
     assert len(first.findings) == len(README_DRAFTABLE_PRODUCT_FIELDS)
+    assert not (bundle_dir / "candidate").exists()
+    assert not (bundle_dir / "review").exists()
+    assert not (bundle_dir / "receipts").exists()
+    superseded_records = list((bundle_dir / "superseded").glob("*/superseded.json"))
+    assert len(superseded_records) == 1
+    assert (superseded_records[0].parent / "review" / "final-verdict.json").is_file()
+    assert verify_sha256sums(bundle_dir)
+
+
+def test_same_ready_facts_prune_checksum_valid_downstream_residue(tmp_path, monkeypatch):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts()
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
+
+    first = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    bundle_dir = Path(first.bundle_dir)
+    (bundle_dir / "candidate").mkdir()
+    (bundle_dir / "candidate" / "README.md").write_text(
+        "# Stale ready-facts candidate\n", encoding="utf-8"
+    )
+    (bundle_dir / "review").mkdir()
+    (bundle_dir / "review" / "final-verdict.json").write_text(
+        '{"verdict": "AGENT_APPROVED", "agent_approved": true}\n', encoding="utf-8"
+    )
+    (bundle_dir / "receipts").mkdir()
+    (bundle_dir / "receipts" / "AGENT_APPROVED.json").write_text(
+        '{"target_stage": "AGENT_APPROVED"}\n', encoding="utf-8"
+    )
+    refresh_sha256sums(bundle_dir)
+
+    second = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    assert second.resolution_source == "durable_revision_cache"
+    assert second.lifecycle_status == "FACTS_READY"
+    assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "FACTS_READY"
+    for name in ("candidate", "review", "receipts"):
+        assert not (bundle_dir / name).exists()
+    superseded_records = list((bundle_dir / "superseded").glob("*/superseded.json"))
+    assert len(superseded_records) == 1
+    assert verify_sha256sums(bundle_dir)
 
 
 def test_later_lifecycle_stage_reuses_the_same_durable_fact_graph(tmp_path, monkeypatch):
