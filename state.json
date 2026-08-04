@@ -457,6 +457,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-.NET\\c0176f510f1370dd51472b6d147daaaf1a2e0787\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-04T11:12:32.993657+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+        "to_status": "PROFILED"
       }
     ],
     "intake_preflight_history": [
@@ -485,11 +496,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-04T11:12:26.383497+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-04T11:12:32.993657+00:00"
   },
   "schema_version": 2,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "df7f1f92fc60332bd56c5a37be6ad2a116e7dbb075e12db5b29b4fdd7ad5cb63",
