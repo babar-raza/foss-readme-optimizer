@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.presentation.template_schema import load_repository_presentation_template
+from readme_agent.readme.document_structure import heading_identity
 
 _ACCEPTED = {"verified", "policy_approved"}
 
@@ -123,7 +125,11 @@ def repository_documents_markdown(facts: ProductFactsV2) -> str | None:
     )
 
 
-def additional_examples_markdown(facts: ProductFactsV2) -> str | None:
+def additional_examples_markdown(
+    facts: ProductFactsV2,
+    *,
+    reserved_heading_titles: tuple[str, ...] = (),
+) -> str | None:
     """Render repository examples without overstating their execution assurance."""
 
     fact = _accepted(facts, "repository.examples")
@@ -156,8 +162,22 @@ def additional_examples_markdown(facts: ProductFactsV2) -> str | None:
     if not paths and not verified_inline and not assets:
         return None
     body: list[str] = []
+    contract = load_repository_presentation_template()
+    used_headings = {
+        heading_identity(title) for title in (*contract.headings.values(), *reserved_heading_titles)
+    }
+    if paths:
+        used_headings.add(heading_identity("Repository example files"))
+    if assets:
+        used_headings.add(heading_identity("Example results"))
     for item in verified_inline:
-        title = str(item.get("title") or "Additional workflow").strip()
+        base_title = str(item.get("title") or "Additional workflow").strip()
+        title = base_title
+        suffix = 1
+        while heading_identity(title) in used_headings:
+            suffix += 1
+            title = f"{base_title} ({suffix})"
+        used_headings.add(heading_identity(title))
         language = str(item.get("language") or "text").strip()
         code = strip_source_comments(language, str(item["code"])).strip()
         if not code:
@@ -179,11 +199,22 @@ def additional_examples_markdown(facts: ProductFactsV2) -> str | None:
             for item in assets
             if isinstance(item, dict) and item.get("path")
         )
-    return (
-        "These additional workflows were syntax-checked and matched to the repository's static "
-        "public API. They were not executed by the evidence collector.\n\n"
-        + _details("View additional examples and results", body)
-    )
+    disclosures: list[str] = []
+    if verified_inline:
+        disclosures.append(
+            "The inline workflows below were syntax-checked and matched to the repository's "
+            "static public API. They were not executed by the evidence collector."
+        )
+    if paths:
+        disclosures.append(
+            "The repository example files below were inventoried at the verified source "
+            "revision. They were not executed or syntax-checked by the evidence collector."
+        )
+    if assets:
+        disclosures.append(
+            "The example result assets below were inventoried at the verified source revision."
+        )
+    return "\n\n".join([*disclosures, _details("View additional examples and results", body)])
 
 
 def api_reference_markdown(facts: ProductFactsV2) -> str | None:

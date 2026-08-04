@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-from collections import Counter
 from difflib import SequenceMatcher
 from urllib.parse import urlsplit
 
@@ -14,7 +13,9 @@ from readme_agent.facts.example_quality import source_contains_comments, strip_s
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.readme.document_structure import (
     github_anchor,
+    introduced_duplicate_headings,
     normalize_navigation_targets,
+    normalized_heading_counts,
     remove_excess_headings,
     remove_redundant_nested_headings,
 )
@@ -635,26 +636,15 @@ def _validate_markdown(candidate: str) -> None:
     MarkdownIt("commonmark", {"html": True}).parse(candidate)
 
 
-def _heading_counts(markdown: str) -> Counter[tuple[str, str]]:
-    tokens = MarkdownIt("commonmark", {"html": True}).parse(markdown)
-    headings: Counter[tuple[str, str]] = Counter()
-    for index, token in enumerate(tokens[:-1]):
-        if token.type != "heading_open":
-            continue
-        inline = tokens[index + 1]
-        if inline.type == "inline":
-            headings[(token.tag, inline.content.strip().casefold())] += 1
-    return headings
+def _heading_counts(markdown: str) -> dict[tuple[str, str], int]:
+    return {
+        (f"h{level}", title): count
+        for (level, title), count in normalized_heading_counts(markdown).items()
+    }
 
 
 def _validate_no_introduced_duplicate_headings(source_text: str, candidate: str) -> None:
-    source = _heading_counts(source_text)
-    candidate_counts = _heading_counts(candidate)
-    introduced = sorted(
-        f"{tag} {heading}"
-        for (tag, heading), count in candidate_counts.items()
-        if count > max(source.get((tag, heading), 0), 1)
-    )
+    introduced = introduced_duplicate_headings(source_text, candidate)
     if introduced:
         raise LLMError(f"trusted candidate introduced duplicate headings: {introduced}")
 

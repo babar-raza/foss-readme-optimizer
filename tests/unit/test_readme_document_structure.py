@@ -2,6 +2,7 @@
 
 from readme_agent.readme.document_structure import (
     github_anchor,
+    introduced_duplicate_headings,
     line_offsets,
     normalize_navigation_targets,
     parse_headings,
@@ -101,3 +102,32 @@ def test_redundant_nested_heading_is_removed_and_children_are_promoted() -> None
     assert "### Parse a file" in normalized
     assert "#### Parse a file" not in normalized
     assert "## License" in normalized
+
+
+def test_duplicate_heading_control_ignores_fences_and_existing_source_multiplicity() -> None:
+    source = "# Widget\n\n## Examples\n\n### Quick Start\n"
+    candidate = source + "\n```markdown\n### Quick Start\n```\n"
+
+    assert introduced_duplicate_headings(source, candidate) == []
+    assert introduced_duplicate_headings(
+        source,
+        candidate + "\n### Quick Start\n",
+    ) == ["h3 quick-start"]
+
+
+def test_duplicate_heading_identity_is_global_across_heading_levels() -> None:
+    assert introduced_duplicate_headings("", "## Quick start\n\n### Quick Start\n") == [
+        "h2/h3 quick-start"
+    ]
+    assert introduced_duplicate_headings(
+        "## Quick start\n",
+        "## Quick start\n\n### Quick Start\n",
+    ) == ["h2/h3 quick-start"]
+    assert introduced_duplicate_headings("", "# A\n\n## API\n\n### API\n") == ["h2/h3 api"]
+
+
+def test_duplicate_heading_identity_preserves_source_multiplicity_and_distinct_titles() -> None:
+    existing_collision = "## Quick start\n\n### Quick Start\n"
+
+    assert introduced_duplicate_headings(existing_collision, existing_collision) == []
+    assert introduced_duplicate_headings("", "## API\n\n### Reference\n") == []

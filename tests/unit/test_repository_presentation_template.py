@@ -584,7 +584,7 @@ def _additional_examples_provenance(markdown: str):
     ]
 
 
-def test_additional_examples_execution_disclosure_has_exact_standard_provenance() -> None:
+def test_additional_examples_assurance_is_not_a_standards_only_shell() -> None:
     disclosure = (
         "These additional workflows were syntax-checked and matched to the repository's static "
         "public API. They were not executed by the evidence collector."
@@ -592,14 +592,8 @@ def test_additional_examples_execution_disclosure_has_exact_standard_provenance(
 
     candidate, bindings = _additional_examples_provenance(disclosure)
 
-    assert len(bindings) == 1
-    binding = bindings[0]
-    bound_text = candidate.encode("utf-8")[
-        binding.candidate_byte_start : binding.candidate_byte_end
-    ].decode("utf-8")
-    assert bound_text == disclosure
-    assert binding.fact_ids == []
-    assert binding.configured_standard_ids == ["readme.additional_examples"]
+    assert disclosure in candidate
+    assert bindings == []
 
 
 def test_additional_examples_remove_source_comments_but_preserve_string_literals() -> None:

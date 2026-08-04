@@ -794,7 +794,7 @@ def test_positive_capability_slot_cannot_replace_unbound_negative_boundary_claim
 
 def test_mandatory_source_claim_requires_exact_fact_bound_slot_replacement():
     _source, candidate, facts, plan, _accountability = _case("python")
-    source = "# Product\n\n## Installation\n\nUse the published package.\n"
+    source = "# Product\n\n## Installation\n\nInstall `aspose-3d-foss`.\n"
     installation_heading = next(
         heading
         for heading in parse_headings(candidate)
@@ -823,9 +823,9 @@ def test_mandatory_source_claim_requires_exact_fact_bound_slot_replacement():
     assert resolution.resolution == "verified_obligation_replacement"
     assert resolution.obligation_id == "verified_installation"
     assert resolution.replacement_provenance_ids
-    assert {facts.fact_by_id(fact_id).field for fact_id in resolution.fact_ids}.issuperset(
-        {"installation.verified_acquisition", "installation.coordinates"}
-    )
+    assert {facts.fact_by_id(fact_id).field for fact_id in resolution.fact_ids} == {
+        "installation.verified_acquisition"
+    }
 
     claim_map = build_readme_claim_map(
         plan,
@@ -856,7 +856,7 @@ def test_mandatory_source_claim_requires_exact_fact_bound_slot_replacement():
         accountability,
         source,
         "source",
-        "Use the published package",
+        "aspose-3d-foss",
     )
     assert source_record.currently_accountable is True
     assert source_record.expected_disposition == "verified_obligation_replacement"

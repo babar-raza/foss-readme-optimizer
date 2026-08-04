@@ -8,6 +8,7 @@ heading anchors. Extracted verbatim from the former single-file
 from __future__ import annotations
 
 import re
+from collections import Counter
 from collections.abc import Mapping
 from dataclasses import dataclass
 
@@ -59,6 +60,53 @@ def parse_headings(text: str) -> list[Heading]:
     return headings
 
 
+def github_anchor(title: str) -> str:
+    lowered = title.strip().lower()
+    lowered = re.sub(r"[^\w\s-]", "", lowered)
+    return re.sub(r"[\s-]+", "-", lowered).strip("-")
+
+
+def heading_identity(title: str) -> str:
+    """Return the level-independent visible-title identity used by GitHub anchors."""
+
+    return github_anchor(title) or title.strip().casefold()
+
+
+def normalized_heading_counts(markdown: str) -> Counter[tuple[int, str]]:
+    """Count CommonMark headings by level and normalized visible title."""
+
+    return Counter(
+        (heading.level, heading.title.strip().casefold()) for heading in parse_headings(markdown)
+    )
+
+
+def normalized_heading_identity_counts(markdown: str) -> Counter[str]:
+    """Count CommonMark headings by level-independent canonical anchor identity."""
+
+    return Counter(heading_identity(heading.title) for heading in parse_headings(markdown))
+
+
+def introduced_duplicate_headings(source_text: str, candidate_text: str) -> list[str]:
+    """Return normalized headings whose multiplicity was increased past one."""
+
+    source = normalized_heading_identity_counts(source_text)
+    candidate = normalized_heading_identity_counts(candidate_text)
+    candidate_headings = parse_headings(candidate_text)
+    duplicates: list[str] = []
+    for identity, count in candidate.items():
+        if count <= max(source.get(identity, 0), 1):
+            continue
+        levels = sorted(
+            {
+                heading.level
+                for heading in candidate_headings
+                if heading_identity(heading.title) == identity
+            }
+        )
+        duplicates.append(f"{'/'.join(f'h{level}' for level in levels)} {identity}")
+    return sorted(duplicates)
+
+
 def code_blocks_in_span(text: str, start: int, end: int) -> list[CodeBlock]:
     """Return Markdown code blocks wholly contained in one character span."""
 
@@ -73,12 +121,6 @@ def code_blocks_in_span(text: str, start: int, end: int) -> list[CodeBlock]:
         if start <= block_start and block_end <= end:
             blocks.append(CodeBlock(start=block_start, end=block_end, content=token.content))
     return blocks
-
-
-def github_anchor(title: str) -> str:
-    lowered = title.strip().lower()
-    lowered = re.sub(r"[^\w\s-]", "", lowered)
-    return re.sub(r"[\s-]+", "-", lowered).strip("-")
 
 
 def normalize_navigation_targets(

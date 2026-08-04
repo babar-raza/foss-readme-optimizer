@@ -342,7 +342,7 @@ def literal_fact_ids(
         view = visitor_fact_render_view(facts, fact.field)
         value = (
             view.phrases
-            if view is not None and view.fact_id == fact_id
+            if view is not None and view.fact_id == fact_id and view.phrases
             else [
                 *_typed_fact_strings(fact.field, fact.value),
                 *_structured_rows(fact.field, fact.value),

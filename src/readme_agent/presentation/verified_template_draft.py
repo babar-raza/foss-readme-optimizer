@@ -219,7 +219,7 @@ def build_verified_template_draft(
     security = security_markdown(facts)
     optional_sections = {
         "additional_examples": (
-            additional_examples_markdown(facts),
+            additional_examples_markdown(facts, reserved_heading_titles=(title,)),
             ("repository.examples",),
             ("readme.additional_examples",),
         ),

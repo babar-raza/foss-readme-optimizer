@@ -125,7 +125,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "curated_python_readme.py",
         "curated_repository_assets.py",
     ),
-    "visitor_render_eligibility": ("render_views.py",),
+    "visitor_render_eligibility": ("limitation_rendering.py", "render_views.py"),
 }
 
 _ECOSYSTEM_FILE_OWNERS = {

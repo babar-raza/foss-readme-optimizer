@@ -27,8 +27,13 @@ from readme_agent.readme.document_renderer import (
     apply_document_operations,
     document_template_hash,
 )
+from readme_agent.readme.document_structure import introduced_duplicate_headings
 from readme_agent.readme.document_terminology import enterprise_product_name
+from readme_agent.readme.example_assurance_validation import (
+    unsupported_example_assurance_claims,
+)
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
+from readme_agent.readme.limitation_validation import verified_limitations_are_represented
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
@@ -296,16 +301,27 @@ def validate_readme_document_candidate(
     if not checks["verified_overview_present"]:
         errors.append("fact-backed audience/problem overview is absent")
 
-    limitations = _accepted(facts, "product.limitations")
-    limitation_view = visitor_fact_render_view(facts, "product.limitations")
-    limitation_fragments = list(limitation_view.phrases) if limitation_view is not None else []
-    checks["verified_limitations_present"] = (
-        limitations is None
-        or not limitation_fragments
-        or all(fragment in candidate_inner for fragment in limitation_fragments)
+    checks["verified_limitations_present"] = verified_limitations_are_represented(
+        facts,
+        candidate_inner,
     )
     if not checks["verified_limitations_present"]:
         errors.append("selected verified limitations are absent")
+
+    unsupported_assurances = unsupported_example_assurance_claims(
+        candidate_inner,
+        facts,
+        plan.candidate_content_provenance,
+    )
+    checks["example_assurance_claims_supported"] = not unsupported_assurances
+    errors.extend(
+        f"unsupported example assurance claim: {claim_id}" for claim_id in unsupported_assurances
+    )
+
+    duplicate_headings = introduced_duplicate_headings(source_inner, candidate_inner)
+    checks["no_introduced_duplicate_headings"] = not duplicate_headings
+    if duplicate_headings:
+        errors.append(f"candidate introduced duplicate headings: {duplicate_headings}")
 
     if plan.header_visuals is not None:
         header_visuals = validate_readme_header_visual(

@@ -42,16 +42,16 @@ PROOF_PATH = (
     / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
     / "immutable-snapshot-and-product-facts-proof.json"
 )
-CHARACTERIZATION_SOURCE_SHA256 = "8b1084b2cf56cdea7673f8d3b7dea48e1e5205ae7c4b94e4831e6d07ca1b97e4"
+CHARACTERIZATION_SOURCE_SHA256 = "6eedb080ad3204b2feafcdd74aaa8468a19c69a8f55abc6f08b6110609fffe76"
 CHARACTERIZATION_FACTS_SHA256 = "8592865d5c3b8e9f161ffc20ec9b3743c09a2e747a9dea8afacb671682800b4f"
 CHARACTERIZATION_ASSESSMENT_SHA256 = (
-    "2810a51a3d76a75cee87564f3b054bcafa0b98f0ecfa0f907458aa3e75f57751"
+    "9b3eee151d3e49cdbf3259d2646050d6c6af67d94f330a39fcd2453c98a75c4b"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "b5abcade8a5ce3073a85d4b7d5b6b96ad50f55162557d4f18a6bfbe69a4e712c"
+    "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "6d701c8faf46e9206bca9c436752599309d5508e7a3c6e1eb3ffa716109ea796"
+    "cb250413d70e7fd46138dbe970b33309d03e5cda5504ae22ba369ff0c4fb7ef3"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -380,14 +380,15 @@ def test_composition_assessment_projection_binds_full_claims_without_copying_the
 
 def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     facts, revision = _facts()
-    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+    draft = _draft(facts)
+    source = f"# Aspose.Cells FOSS for Java\n\n{draft['opening_summary']['text']}\n"
     assessment = assess_readme_document(
         facts.org_repo,
         source,
         facts,
         base_revision=revision,
     )
-    client = _client(_cover_assessment(_draft(facts), assessment))
+    client = _client(_cover_assessment(draft, assessment))
 
     plan = plan_readme_composition(
         facts.org_repo,
@@ -463,14 +464,14 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
 
 def test_fact_grounded_diagram_labels_do_not_replace_literal_capability_prose():
     facts, revision = _facts()
-    source = "# Aspose.Cells FOSS for Java\n\nMaintainer introduction.\n"
+    draft = _draft(facts)
+    source = f"# Aspose.Cells FOSS for Java\n\n{draft['opening_summary']['text']}\n"
     assessment = assess_readme_document(
         facts.org_repo,
         source,
         facts,
         base_revision=revision,
     )
-    draft = _draft(facts)
     plan = plan_readme_composition(
         facts.org_repo,
         source,
@@ -1007,19 +1008,14 @@ def test_presentation_replacement_does_not_blanket_authorize_protected_source_lo
         client=_client(_cover_assessment(_draft(facts), assessment)),
         max_attempts=1,
     )
-    candidate, document_plan = build_readme_document_candidate(
-        facts.org_repo,
-        source,
-        facts,
-        base_revision=revision,
-        agentic_composition_plan=plan.model_dump(mode="json"),
-    )
-    unresolved = document_plan.model_copy(update={"source_claim_resolutions": []})
-
-    result = validate_readme_document_candidate(source, candidate, unresolved, facts)
-
-    assert result.checks["protected_content"] is False
-    assert any("unauthorized protected-content loss" in error for error in result.errors)
+    with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
+        build_readme_document_candidate(
+            facts.org_repo,
+            source,
+            facts,
+            base_revision=revision,
+            agentic_composition_plan=plan.model_dump(mode="json"),
+        )
 
 
 def test_renderer_rejects_a_composition_plan_rebound_to_another_source():

@@ -7,6 +7,7 @@ from collections.abc import Callable
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.limitation_rendering import limitation_phrases
 from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 
@@ -84,20 +85,6 @@ def _text_phrases(value: object) -> list[str]:
     values = value if isinstance(value, list) else [value]
     return [
         str(item).strip() for item in values if isinstance(item, str) and _is_visitor_phrase(item)
-    ]
-
-
-def _limitation_phrases(value: object) -> list[str]:
-    rows = value if isinstance(value, list) else [value]
-    phrases = [
-        str(row.get("statement")).strip()
-        for row in rows
-        if isinstance(row, dict)
-        and isinstance(row.get("statement"), str)
-        and _is_visitor_phrase(str(row["statement"]))
-    ] or _text_phrases(value)
-    return [
-        re.sub(r"\breportlab\b", "ReportLab", phrase, flags=re.IGNORECASE) for phrase in phrases
     ]
 
 
@@ -282,7 +269,7 @@ _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
     "product.problems_solved": _sentence_phrases,
     "product.capabilities": _text_phrases,
     "product.formats": _format_phrases,
-    "product.limitations": _limitation_phrases,
+    "product.limitations": limitation_phrases,
     "product.identity": _identity_phrases,
     "product.compatibility": _compatibility_phrases,
     "installation.verified_acquisition": _no_direct_prose,

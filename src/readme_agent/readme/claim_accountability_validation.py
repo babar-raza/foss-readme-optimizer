@@ -12,15 +12,14 @@ from readme_agent.readme.claim_accountability_models import (
     ReadmeClaimAccountabilityMapV1,
     ReadmeClaimAccountabilityV1,
 )
+from readme_agent.readme.claim_replacement_validation import (
+    replacement_candidate_claims_are_exact,
+    replacement_provenance_is_exact,
+)
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     ReadmeDocumentOperationV1,
     SourceClaimResolutionV1,
-)
-from readme_agent.readme.source_claim_risk import (
-    obligation_any_fact_fields,
-    obligation_provenance_prefixes,
-    obligation_required_fact_fields,
 )
 
 
@@ -68,59 +67,6 @@ def _provenance_covers_record(
 
 def _coordinate_key(coordinate) -> tuple[str, str, str, str]:
     return (coordinate.fact_id, coordinate.field, coordinate.path, coordinate.value_sha256)
-
-
-def _replacement_provenance_is_exact(
-    resolution: SourceClaimResolutionV1,
-    facts: ProductFactsV2,
-    provenance_by_id: dict[str, CandidateContentProvenanceV1],
-) -> bool:
-    if (
-        resolution.obligation_id is None
-        or not resolution.fact_ids
-        or not resolution.replacement_provenance_ids
-        or len(resolution.replacement_provenance_ids)
-        != len(set(resolution.replacement_provenance_ids))
-    ):
-        return False
-    try:
-        bindings = [
-            provenance_by_id[provenance_id]
-            for provenance_id in resolution.replacement_provenance_ids
-        ]
-        cited_facts = [facts.fact_by_id(fact_id) for fact_id in resolution.fact_ids]
-    except KeyError:
-        return False
-    bound_fact_ids = {fact_id for binding in bindings for fact_id in binding.fact_ids}
-    if not bound_fact_ids.issubset(resolution.fact_ids):
-        return False
-    fields = {fact.field for fact in cited_facts}
-    required_fields = obligation_required_fact_fields(resolution.obligation_id)
-    any_fields = obligation_any_fact_fields(resolution.obligation_id)
-    prefixes = obligation_provenance_prefixes(resolution.obligation_id)
-    if not required_fields.issubset(fields) or (any_fields and not any_fields.intersection(fields)):
-        return False
-    if not all(
-        any(
-            provenance_id == prefix or provenance_id.startswith(f"{prefix}.") for prefix in prefixes
-        )
-        for provenance_id in resolution.replacement_provenance_ids
-    ):
-        return False
-    if resolution.obligation_id == "product_overview" and not all(
-        any(
-            provenance_id == prefix or provenance_id.startswith(f"{prefix}.")
-            for provenance_id in resolution.replacement_provenance_ids
-        )
-        for prefix in prefixes
-    ):
-        return False
-    return all(
-        facts.selected_fact_ids.get(fact.field) == fact.fact_id
-        and fact.verification_state in {"verified", "policy_approved"}
-        and not fact.has_unresolved_conflict
-        for fact in cited_facts
-    )
 
 
 def _structured_equivalence_groups_are_exact(
@@ -301,7 +247,7 @@ def validate_claim_accountability_map(
             and source_by_id[resolution.claim_id].expected_disposition == "verified_omission"
             and (
                 not resolution.replacement_provenance_ids
-                or _replacement_provenance_is_exact(resolution, facts, provenance_by_id)
+                or replacement_provenance_is_exact(resolution, facts, provenance_by_id)
             )
         )
         for resolution in resolutions.values()
@@ -327,7 +273,17 @@ def validate_claim_accountability_map(
             and source_by_id[resolution.claim_id].survives_in_candidate is False
             and source_by_id[resolution.claim_id].expected_disposition
             == "verified_obligation_replacement"
-            and _replacement_provenance_is_exact(resolution, facts, provenance_by_id)
+            and replacement_provenance_is_exact(
+                resolution,
+                facts,
+                provenance_by_id,
+                exact_source_fact_ids=source_by_id[resolution.claim_id].accepted_fact_ids,
+            )
+            and replacement_candidate_claims_are_exact(
+                resolution,
+                candidate_records,
+                provenance_by_id,
+            )
         )
         for resolution in resolutions.values()
     )

@@ -12,6 +12,9 @@ from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import installation_text
+from readme_agent.readme.example_assurance_validation import (
+    additional_examples_disclosure_fact_ids,
+)
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_risk import (
@@ -40,11 +43,7 @@ _STRUCTURAL_SHELL = re.compile(
     r"add the module published for this repository:|"
     r"the module was verified through the go module proxy\.|"
     r"build the verified repository revision from source:|"
-    r"these additional workflows were syntax-checked and matched to the repository's static "
-    r"public api\. they were not executed by the evidence collector\.|"
     r"explore additional examples for common product workflows\.|"
-    r"these additional workflows were syntax-checked and matched to the repository's static "
-    r"public api\. they were not executed by the evidence collector\.|"
     r"the repository registers these mcp tools:|"
     r"validate a proposed change with the checked-in repository scripts:|"
     r"<details>\s*<summary>[^<]+</summary>|</details>|"
@@ -163,6 +162,8 @@ def build_template_provenance(
                     claim.source_byte_start : claim.source_byte_end
                 ].decode("utf-8")
                 fact_ids = literal_fact_ids(claim_text, facts, content.fact_ids)
+                if slot == "additional_examples" and not fact_ids:
+                    fact_ids = additional_examples_disclosure_fact_ids(claim_text, facts)
                 standard_ids = (
                     content.standard_ids
                     if fact_ids or _STRUCTURAL_SHELL.fullmatch(claim_text.strip())
@@ -190,6 +191,8 @@ def _accepted_obligation_bindings(
     obligation: SourceClaimObligation,
     facts: ProductFactsV2,
     provenance: list[CandidateContentProvenanceV1],
+    *,
+    exact_source_fact_ids: list[str] | None = None,
 ) -> tuple[list[CandidateContentProvenanceV1], list[str]] | None:
     prefixes = obligation_provenance_prefixes(obligation)
     required_fields = obligation_required_fact_fields(obligation)
@@ -212,26 +215,15 @@ def _accepted_obligation_bindings(
         for prefix in prefixes
     ):
         return None
-    fact_ids = {fact_id for binding in bindings for fact_id in binding.fact_ids} | {
-        facts.selected_fact_ids[field]
-        for field in required_fields
-        if field in facts.selected_fact_ids
-    }
-    if any_fields:
-        selected_any = next(
-            (
-                facts.selected_fact_ids[field]
-                for field in sorted(any_fields)
-                if field in facts.selected_fact_ids
-            ),
-            None,
-        )
-        if selected_any is None:
+    bound_fact_ids = {fact_id for binding in bindings for fact_id in binding.fact_ids}
+    if exact_source_fact_ids is not None:
+        if not exact_source_fact_ids or not set(exact_source_fact_ids).issubset(bound_fact_ids):
             return None
-        fact_ids.add(selected_any)
-    sorted_fact_ids = sorted(fact_ids)
+        resolution_fact_ids = sorted(set(exact_source_fact_ids))
+    else:
+        resolution_fact_ids = sorted(bound_fact_ids)
     accepted_fields: set[str] = set()
-    for fact_id in sorted_fact_ids:
+    for fact_id in sorted(bound_fact_ids):
         fact = facts.fact_by_id(fact_id)
         if (
             facts.selected_fact_ids.get(fact.field) != fact_id
@@ -244,7 +236,7 @@ def _accepted_obligation_bindings(
         any_fields and not any_fields.intersection(accepted_fields)
     ):
         return None
-    return bindings, sorted_fact_ids
+    return bindings, resolution_fact_ids
 
 
 def build_source_claim_resolutions(
@@ -424,6 +416,7 @@ def build_source_claim_resolutions(
                 risk.obligation_id,
                 facts,
                 candidate_content_provenance,
+                exact_source_fact_ids=fact_ids,
             )
             if accepted is None:
                 continue
