@@ -412,10 +412,42 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {},
-    "fact_acceptance_contract_hash": null,
-    "fact_acceptance_history": [],
-    "facts_hash": null,
+    "fact_acceptance_component_hashes": {
+      "acquisition_truth": "c55ffb7b79ee6e327885c22c51c734edd32b62bf1c303dba4224a852737b830f",
+      "classification_semantics": "b7dc8e370eeae54ad93222c4f385e9731c427cd6165a4f71cd5bd330eb8d6af5",
+      "conflict_semantics": "2f3cea62d1a99d01efa9c54152de50ff039683aa6f21ad874335c59a09f1f852",
+      "drafting_and_example_selection": "4aad8f06d8727e0b6407d826025eca1bdd54bbb0a11aa2f26b580d8d49d2fcb7",
+      "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+      "root_role_selection": "05f7091d09c93bc3fc6c7ea5c4b69c500a6c30bef92bebd9ed2c50e4bb0ec5fd",
+      "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+    },
+    "fact_acceptance_contract_hash": "8858a76e92510fcd66350941194bce79bb07c13f18c065c7f67022ff3e0c7f99",
+    "fact_acceptance_history": [
+      {
+        "component_hashes": {
+          "acquisition_truth": "c55ffb7b79ee6e327885c22c51c734edd32b62bf1c303dba4224a852737b830f",
+          "classification_semantics": "b7dc8e370eeae54ad93222c4f385e9731c427cd6165a4f71cd5bd330eb8d6af5",
+          "conflict_semantics": "2f3cea62d1a99d01efa9c54152de50ff039683aa6f21ad874335c59a09f1f852",
+          "drafting_and_example_selection": "4aad8f06d8727e0b6407d826025eca1bdd54bbb0a11aa2f26b580d8d49d2fcb7",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "05f7091d09c93bc3fc6c7ea5c4b69c500a6c30bef92bebd9ed2c50e4bb0ec5fd",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "8858a76e92510fcd66350941194bce79bb07c13f18c065c7f67022ff3e0c7f99",
+        "facts_hash": "6ac2b92746dcb9943ce9bc469294804d593429aad55be7a628ee789300e5bff4",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T08:05:52.116260+00:00",
+        "outcome": "BLOCKED_MISSING_EVIDENCE",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "schema_version": 1,
+        "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5"
+      }
+    ],
+    "facts_hash": "6ac2b92746dcb9943ce9bc469294804d593429aad55be7a628ee789300e5bff4",
     "history": [
       {
         "evidence_refs": [],
@@ -467,6 +499,19 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-.Net\\a8999e259143a9ffc660086b34a7f39516da29f5\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-.Net\\a8999e259143a9ffc660086b34a7f39516da29f5\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-.Net\\a8999e259143a9ffc660086b34a7f39516da29f5\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T08:05:50.470116+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "intake_preflight_history": [
@@ -495,11 +540,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-04T08:05:45.201661+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-08-04T08:05:50.470116+00:00"
   },
   "schema_version": 2,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
