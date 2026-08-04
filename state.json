@@ -5972,7 +5972,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260804-094124-e443",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260804-145618-6be8",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -6045,7 +6045,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+          "product_facts_v2_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
           "protected_content_losses": [],
           "valid": true
         },
@@ -6061,14 +6061,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.ded23288fda0f2884b9b.1",
-                  "claim": "Navigation section lists all required H2 headings in markdown bullet format.",
+                  "claim": "Navigation list includes all required H2 headings.",
                   "criterion": "navigation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.nav.complete",
+                  "finding_id": "quality.nav-list-complete",
                   "kind": "quality",
                   "mechanical_check_id": null,
                   "observed_polarity": null,
@@ -6079,29 +6079,29 @@
                   "section": "Navigation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
-                  "claim": "Quick start section contains a minimal verified example with \u226412 non-blank code lines and a single fenced block.",
+                  "candidate_anchor_id": "candidate.anchor.e63179d9d388680d2419.1",
+                  "claim": "Mermaid diagram follows required visual grammar (inputs-product-capabilities-outputs).",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example.minimal",
+                  "finding_id": "quality.mermaid-visual-grammar",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
-                  "reported_observed_value": 2,
+                  "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    input_2[\"OBJ - Wavefront OBJ with full material support files\"]\n    input_3[\"STL - Stereo Lithography format files\"]\n    input_4[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  product[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,\"]\n    capability_2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    capability_3[\"Animation system with keyframe support\"]\n    capability_4[\"Writes GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_5[\"Reads GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_6[\"Reads OBJ - Wavefront OBJ with full material support files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    output_2[\"STL - Stereo Lithography format files\"]\n    output_3[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  input_4 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n```",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Quick start"
+                  "section": "At a glance"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.example.minimal",
-                  "quality.nav.complete"
+                  "quality.mermaid-visual-grammar",
+                  "quality.nav-list-complete"
                 ],
                 "errors": [],
                 "valid": true
@@ -6113,7 +6113,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "ef9b242eb2538b3fdc38ff029561ed92c1fc7fa352233cb79d736d161c6c5935",
-              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), a single badge row with allowed badge types, a minimal verified example within code line limits, and no comments. The Mermaid diagram in 'At a glance' clearly maps inputs, product, capabilities, and outputs. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). The navigation list is complete and matches required H2 headings. The enterprise terminology distinction between FOSS and Enterprise Edition is present in 'Scope and limitations'. Markdown integrity is preserved with correct fenced blocks and bullet lists.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), and a navigation list that matches required labels. The badge row is compliant (1 row, 4 badges, correct kinds). The quick start section has only 1 fenced block with 2 non-blank lines, well under the 12-line limit. The Mermaid diagram in 'At a glance' follows the required visual grammar (inputs-product-capabilities-outputs). There are no HTML or code comments. The license section includes all required benefit terms (use, modification, distribution, commercial use). The enterprise terminology is correctly placed in 'Scope and limitations'. Markdown integrity is preserved, and internal terminology is consistent.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -6126,14 +6126,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.ded23288fda0f2884b9b.1",
-                    "claim": "Navigation section lists all required H2 headings in markdown bullet format.",
+                    "claim": "Navigation list includes all required H2 headings.",
                     "criterion": "navigation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.nav.complete",
+                    "finding_id": "quality.nav-list-complete",
                     "kind": "quality",
                     "mechanical_check_id": null,
                     "observed_polarity": null,
@@ -6144,29 +6144,29 @@
                     "section": "Navigation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
-                    "claim": "Quick start section contains a minimal verified example with \u226412 non-blank code lines and a single fenced block.",
+                    "candidate_anchor_id": "candidate.anchor.e63179d9d388680d2419.1",
+                    "claim": "Mermaid diagram follows required visual grammar (inputs-product-capabilities-outputs).",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example.minimal",
+                    "finding_id": "quality.mermaid-visual-grammar",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
-                    "reported_observed_value": 2,
+                    "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    input_2[\"OBJ - Wavefront OBJ with full material support files\"]\n    input_3[\"STL - Stereo Lithography format files\"]\n    input_4[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  product[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,\"]\n    capability_2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    capability_3[\"Animation system with keyframe support\"]\n    capability_4[\"Writes GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_5[\"Reads GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_6[\"Reads OBJ - Wavefront OBJ with full material support files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    output_2[\"STL - Stereo Lithography format files\"]\n    output_3[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  input_4 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n```",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Quick start"
+                    "section": "At a glance"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.example.minimal",
-                    "quality.nav.complete"
+                    "quality.mermaid-visual-grammar",
+                    "quality.nav-list-complete"
                   ],
                   "errors": [],
                   "valid": true
@@ -6178,7 +6178,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "ef9b242eb2538b3fdc38ff029561ed92c1fc7fa352233cb79d736d161c6c5935",
-                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), a single badge row with allowed badge types, a minimal verified example within code line limits, and no comments. The Mermaid diagram in 'At a glance' clearly maps inputs, product, capabilities, and outputs. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). The navigation list is complete and matches required H2 headings. The enterprise terminology distinction between FOSS and Enterprise Edition is present in 'Scope and limitations'. Markdown integrity is preserved with correct fenced blocks and bullet lists.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), and a navigation list that matches required labels. The badge row is compliant (1 row, 4 badges, correct kinds). The quick start section has only 1 fenced block with 2 non-blank lines, well under the 12-line limit. The Mermaid diagram in 'At a glance' follows the required visual grammar (inputs-product-capabilities-outputs). There are no HTML or code comments. The license section includes all required benefit terms (use, modification, distribution, commercial use). The enterprise terminology is correctly placed in 'Scope and limitations'. Markdown integrity is preserved, and internal terminology is consistent.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -6191,39 +6191,39 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                    "claim": "Installation instructions describe source-based installation from pinned revision and confirm no PyPI package.",
+                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                    "claim": "Installation instructions reflect disposable-source-build verification using pinned revision ab1a2267a0ba6302311d0c7c4ad01494974c7d76.",
                     "criterion": "installation.verified_acquisition",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
                     "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.verified_acquisition:disposable-source-build",
-                    "finding_id": "factual.installation.verified",
+                    "finding_id": "factual.installation-verified",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                    "quoted_candidate_span": "## Installation",
                     "reported_observed_value": null,
                     "required_repair": "",
                     "section": "Installation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.10cf9e2dacbfc10c1dc8.1",
-                    "claim": "Key capabilities list matches repository-evidence capabilities.",
+                    "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
+                    "claim": "Key capabilities list (3D primitives, file format import/export, animation system) is supported by repository evidence.",
                     "criterion": "product.capabilities",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "class Box(Primitive):",
                     "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities.match",
+                    "finding_id": "factual.capabilities-supported",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.\n- File format import and export for OBJ, GLTF, STL, and 3MF.\n- Animation system with keyframe support.",
+                    "quoted_candidate_span": "## Key capabilities",
                     "reported_observed_value": null,
                     "required_repair": "",
                     "section": "Key capabilities"
@@ -6231,8 +6231,8 @@
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities.match",
-                    "factual.installation.verified"
+                    "factual.capabilities-supported",
+                    "factual.installation-verified"
                   ],
                   "errors": [],
                   "valid": true
@@ -6243,8 +6243,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "868cb888ee792a679d0fe0e3eb00265a41419b2cf49f566e822961eb341cca91",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The version, platform, license, and contributor badges align with manifest and registry data. The installation instructions match the disposable-source-build verification. The 'At a glance' Mermaid diagram and 'Key capabilities' list reflect repository-evidence capabilities. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition per commercial_foss relationship. The license section explicitly mentions required benefit terms supported by the LICENSE file. The test count (34 files) matches the development.assets fact. The minimal example code is compiled-salvaged and verified. No unsupported or contradictory claims exist.",
+                "input_sha256": "0be461f614e61a557e73a63063850dfccc1ef2b9587ff4101e9cf81c8c2c5c3a",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The version (26.1.0), package name (aspose-3d-foss), and source revision (ab1a2267a0ba6302311d0c7c4ad01494974c7d76) match the installation.coordinates, product.identity, and release.state facts. The installation instructions correctly reflect the disposable-source-build verification. The quick start example matches the compiled-salvaged-example fact. The capabilities listed in 'At a glance' and 'Key capabilities' are fully supported by product.capabilities and product.problems_solved facts. The license (MIT) is confirmed by product.license. The enterprise terminology distinction between FOSS and Enterprise Edition is correctly stated in 'Scope and limitations'. The test count (34 files) matches development.assets. No contradictions or missing evidence were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -6252,14 +6252,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "1c4fd5bca671b4944c6c402fefb41511923b673871f0f1a982b360fc2cd99e95",
-                "factual_record_sha256": "952d63ef2833dee316f92a079d5c20a7e14ca1fa25390843f3f4d77c465af57f",
-                "input_sha256": "d396f19947234c321c1c28f84d6d71ab4e010ce695139a59d4e6a8f311b0ca6b",
+                "blind_record_sha256": "5270ce4534c6e4f66edf4b58e27c86d0d16b8495e5f449a829c9319d349ac987",
+                "factual_record_sha256": "741fcd522a8c30b1face760409067b1234b10ea9e4c767557b91a87d84399fb5",
+                "input_sha256": "bf8f821faf6b231f45c9d8763e3583e47747219b82508bd714221b5139ba7777",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-a9e86360be243e40",
-                "raw_output_sha256": "35e5030386c97c84ed6d287361343a245588439b45cfe96f3d18bcea50b8754e"
+                "provider_request_id": "chatcmpl-9c44e3db8b9e1a87",
+                "raw_output_sha256": "0b54bf4adbcf7dff306ff8b5eed3af735d7ad510560dea9d5e707c42a3731f3f"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -6274,39 +6274,39 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                  "claim": "Installation instructions describe source-based installation from pinned revision and confirm no PyPI package.",
+                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                  "claim": "Installation instructions reflect disposable-source-build verification using pinned revision ab1a2267a0ba6302311d0c7c4ad01494974c7d76.",
                   "criterion": "installation.verified_acquisition",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
                   "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.verified_acquisition:disposable-source-build",
-                  "finding_id": "factual.installation.verified",
+                  "finding_id": "factual.installation-verified",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                  "quoted_candidate_span": "## Installation",
                   "reported_observed_value": null,
                   "required_repair": "",
                   "section": "Installation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.10cf9e2dacbfc10c1dc8.1",
-                  "claim": "Key capabilities list matches repository-evidence capabilities.",
+                  "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
+                  "claim": "Key capabilities list (3D primitives, file format import/export, animation system) is supported by repository evidence.",
                   "criterion": "product.capabilities",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "class Box(Primitive):",
                   "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities.match",
+                  "finding_id": "factual.capabilities-supported",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.\n- File format import and export for OBJ, GLTF, STL, and 3MF.\n- Animation system with keyframe support.",
+                  "quoted_candidate_span": "## Key capabilities",
                   "reported_observed_value": null,
                   "required_repair": "",
                   "section": "Key capabilities"
@@ -6314,8 +6314,8 @@
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities.match",
-                  "factual.installation.verified"
+                  "factual.capabilities-supported",
+                  "factual.installation-verified"
                 ],
                 "errors": [],
                 "valid": true
@@ -6326,8 +6326,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "868cb888ee792a679d0fe0e3eb00265a41419b2cf49f566e822961eb341cca91",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The version, platform, license, and contributor badges align with manifest and registry data. The installation instructions match the disposable-source-build verification. The 'At a glance' Mermaid diagram and 'Key capabilities' list reflect repository-evidence capabilities. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition per commercial_foss relationship. The license section explicitly mentions required benefit terms supported by the LICENSE file. The test count (34 files) matches the development.assets fact. The minimal example code is compiled-salvaged and verified. No unsupported or contradictory claims exist.",
+              "input_sha256": "0be461f614e61a557e73a63063850dfccc1ef2b9587ff4101e9cf81c8c2c5c3a",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The version (26.1.0), package name (aspose-3d-foss), and source revision (ab1a2267a0ba6302311d0c7c4ad01494974c7d76) match the installation.coordinates, product.identity, and release.state facts. The installation instructions correctly reflect the disposable-source-build verification. The quick start example matches the compiled-salvaged-example fact. The capabilities listed in 'At a glance' and 'Key capabilities' are fully supported by product.capabilities and product.problems_solved facts. The license (MIT) is confirmed by product.license. The enterprise terminology distinction between FOSS and Enterprise Edition is correctly stated in 'Scope and limitations'. The test count (34 files) matches development.assets. No contradictions or missing evidence were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -6348,8 +6348,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.example.minimal",
-                    "quality.nav.complete"
+                    "quality.mermaid-visual-grammar",
+                    "quality.nav-list-complete"
                   ],
                   "errors": [],
                   "valid": true
@@ -6365,15 +6365,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation.verified",
-                  "factual.capabilities.match"
+                  "factual.installation-verified",
+                  "factual.capabilities-supported"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities.match",
-                    "factual.installation.verified"
+                    "factual.capabilities-supported",
+                    "factual.installation-verified"
                   ],
                   "errors": [],
                   "valid": true
@@ -6416,7 +6416,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260804-094124-e443",
+                "nonce": "20260804-145618-6be8",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -6424,11 +6424,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "85208f4b89c714db76f62320d3c0e2e6579075cc69c4eea7ffd84ffead69c5ce",
+                "token": "fad1d445f9d9055334db5499ea209b445e254d63a76883a9f5e12bd9912625ca",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260804-094124-e443"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260804-145618-6be8"
               ],
               "repair_attempt": 0,
               "review": {
@@ -6439,14 +6439,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.ded23288fda0f2884b9b.1",
-                      "claim": "Navigation section lists all required H2 headings in markdown bullet format.",
+                      "claim": "Navigation list includes all required H2 headings.",
                       "criterion": "navigation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.nav.complete",
+                      "finding_id": "quality.nav-list-complete",
                       "kind": "quality",
                       "mechanical_check_id": null,
                       "observed_polarity": null,
@@ -6457,29 +6457,29 @@
                       "section": "Navigation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
-                      "claim": "Quick start section contains a minimal verified example with \u226412 non-blank code lines and a single fenced block.",
+                      "candidate_anchor_id": "candidate.anchor.e63179d9d388680d2419.1",
+                      "claim": "Mermaid diagram follows required visual grammar (inputs-product-capabilities-outputs).",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example.minimal",
+                      "finding_id": "quality.mermaid-visual-grammar",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
-                      "reported_observed_value": 2,
+                      "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    input_2[\"OBJ - Wavefront OBJ with full material support files\"]\n    input_3[\"STL - Stereo Lithography format files\"]\n    input_4[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  product[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,\"]\n    capability_2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    capability_3[\"Animation system with keyframe support\"]\n    capability_4[\"Writes GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_5[\"Reads GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_6[\"Reads OBJ - Wavefront OBJ with full material support files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    output_2[\"STL - Stereo Lithography format files\"]\n    output_3[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  input_4 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n```",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Quick start"
+                      "section": "At a glance"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.example.minimal",
-                      "quality.nav.complete"
+                      "quality.mermaid-visual-grammar",
+                      "quality.nav-list-complete"
                     ],
                     "errors": [],
                     "valid": true
@@ -6491,7 +6491,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "ef9b242eb2538b3fdc38ff029561ed92c1fc7fa352233cb79d736d161c6c5935",
-                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), a single badge row with allowed badge types, a minimal verified example within code line limits, and no comments. The Mermaid diagram in 'At a glance' clearly maps inputs, product, capabilities, and outputs. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). The navigation list is complete and matches required H2 headings. The enterprise terminology distinction between FOSS and Enterprise Edition is present in 'Scope and limitations'. Markdown integrity is preserved with correct fenced blocks and bullet lists.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), and a navigation list that matches required labels. The badge row is compliant (1 row, 4 badges, correct kinds). The quick start section has only 1 fenced block with 2 non-blank lines, well under the 12-line limit. The Mermaid diagram in 'At a glance' follows the required visual grammar (inputs-product-capabilities-outputs). There are no HTML or code comments. The license section includes all required benefit terms (use, modification, distribution, commercial use). The enterprise terminology is correctly placed in 'Scope and limitations'. Markdown integrity is preserved, and internal terminology is consistent.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -6504,14 +6504,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.ded23288fda0f2884b9b.1",
-                        "claim": "Navigation section lists all required H2 headings in markdown bullet format.",
+                        "claim": "Navigation list includes all required H2 headings.",
                         "criterion": "navigation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.nav.complete",
+                        "finding_id": "quality.nav-list-complete",
                         "kind": "quality",
                         "mechanical_check_id": null,
                         "observed_polarity": null,
@@ -6522,29 +6522,29 @@
                         "section": "Navigation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
-                        "claim": "Quick start section contains a minimal verified example with \u226412 non-blank code lines and a single fenced block.",
+                        "candidate_anchor_id": "candidate.anchor.e63179d9d388680d2419.1",
+                        "claim": "Mermaid diagram follows required visual grammar (inputs-product-capabilities-outputs).",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example.minimal",
+                        "finding_id": "quality.mermaid-visual-grammar",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
-                        "reported_observed_value": 2,
+                        "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    input_2[\"OBJ - Wavefront OBJ with full material support files\"]\n    input_3[\"STL - Stereo Lithography format files\"]\n    input_4[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  product[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,\"]\n    capability_2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    capability_3[\"Animation system with keyframe support\"]\n    capability_4[\"Writes GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_5[\"Reads GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_6[\"Reads OBJ - Wavefront OBJ with full material support files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    output_2[\"STL - Stereo Lithography format files\"]\n    output_3[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  input_4 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n```",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Quick start"
+                        "section": "At a glance"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.example.minimal",
-                        "quality.nav.complete"
+                        "quality.mermaid-visual-grammar",
+                        "quality.nav-list-complete"
                       ],
                       "errors": [],
                       "valid": true
@@ -6556,7 +6556,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "ef9b242eb2538b3fdc38ff029561ed92c1fc7fa352233cb79d736d161c6c5935",
-                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), a single badge row with allowed badge types, a minimal verified example within code line limits, and no comments. The Mermaid diagram in 'At a glance' clearly maps inputs, product, capabilities, and outputs. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). The navigation list is complete and matches required H2 headings. The enterprise terminology distinction between FOSS and Enterprise Edition is present in 'Scope and limitations'. Markdown integrity is preserved with correct fenced blocks and bullet lists.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, properly prefixed H2 headings (Navigation, At a glance, Key capabilities, Installation, Quick start, Scope and limitations, Development and testing, License), and a navigation list that matches required labels. The badge row is compliant (1 row, 4 badges, correct kinds). The quick start section has only 1 fenced block with 2 non-blank lines, well under the 12-line limit. The Mermaid diagram in 'At a glance' follows the required visual grammar (inputs-product-capabilities-outputs). There are no HTML or code comments. The license section includes all required benefit terms (use, modification, distribution, commercial use). The enterprise terminology is correctly placed in 'Scope and limitations'. Markdown integrity is preserved, and internal terminology is consistent.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -6569,39 +6569,39 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                        "claim": "Installation instructions describe source-based installation from pinned revision and confirm no PyPI package.",
+                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                        "claim": "Installation instructions reflect disposable-source-build verification using pinned revision ab1a2267a0ba6302311d0c7c4ad01494974c7d76.",
                         "criterion": "installation.verified_acquisition",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
                         "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.verified_acquisition:disposable-source-build",
-                        "finding_id": "factual.installation.verified",
+                        "finding_id": "factual.installation-verified",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                        "quoted_candidate_span": "## Installation",
                         "reported_observed_value": null,
                         "required_repair": "",
                         "section": "Installation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.10cf9e2dacbfc10c1dc8.1",
-                        "claim": "Key capabilities list matches repository-evidence capabilities.",
+                        "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
+                        "claim": "Key capabilities list (3D primitives, file format import/export, animation system) is supported by repository evidence.",
                         "criterion": "product.capabilities",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "class Box(Primitive):",
                         "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities.match",
+                        "finding_id": "factual.capabilities-supported",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.\n- File format import and export for OBJ, GLTF, STL, and 3MF.\n- Animation system with keyframe support.",
+                        "quoted_candidate_span": "## Key capabilities",
                         "reported_observed_value": null,
                         "required_repair": "",
                         "section": "Key capabilities"
@@ -6609,8 +6609,8 @@
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities.match",
-                        "factual.installation.verified"
+                        "factual.capabilities-supported",
+                        "factual.installation-verified"
                       ],
                       "errors": [],
                       "valid": true
@@ -6621,8 +6621,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "868cb888ee792a679d0fe0e3eb00265a41419b2cf49f566e822961eb341cca91",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The version, platform, license, and contributor badges align with manifest and registry data. The installation instructions match the disposable-source-build verification. The 'At a glance' Mermaid diagram and 'Key capabilities' list reflect repository-evidence capabilities. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition per commercial_foss relationship. The license section explicitly mentions required benefit terms supported by the LICENSE file. The test count (34 files) matches the development.assets fact. The minimal example code is compiled-salvaged and verified. No unsupported or contradictory claims exist.",
+                    "input_sha256": "0be461f614e61a557e73a63063850dfccc1ef2b9587ff4101e9cf81c8c2c5c3a",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The version (26.1.0), package name (aspose-3d-foss), and source revision (ab1a2267a0ba6302311d0c7c4ad01494974c7d76) match the installation.coordinates, product.identity, and release.state facts. The installation instructions correctly reflect the disposable-source-build verification. The quick start example matches the compiled-salvaged-example fact. The capabilities listed in 'At a glance' and 'Key capabilities' are fully supported by product.capabilities and product.problems_solved facts. The license (MIT) is confirmed by product.license. The enterprise terminology distinction between FOSS and Enterprise Edition is correctly stated in 'Scope and limitations'. The test count (34 files) matches development.assets. No contradictions or missing evidence were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -6630,14 +6630,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "1c4fd5bca671b4944c6c402fefb41511923b673871f0f1a982b360fc2cd99e95",
-                    "factual_record_sha256": "952d63ef2833dee316f92a079d5c20a7e14ca1fa25390843f3f4d77c465af57f",
-                    "input_sha256": "d396f19947234c321c1c28f84d6d71ab4e010ce695139a59d4e6a8f311b0ca6b",
+                    "blind_record_sha256": "5270ce4534c6e4f66edf4b58e27c86d0d16b8495e5f449a829c9319d349ac987",
+                    "factual_record_sha256": "741fcd522a8c30b1face760409067b1234b10ea9e4c767557b91a87d84399fb5",
+                    "input_sha256": "bf8f821faf6b231f45c9d8763e3583e47747219b82508bd714221b5139ba7777",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-a9e86360be243e40",
-                    "raw_output_sha256": "35e5030386c97c84ed6d287361343a245588439b45cfe96f3d18bcea50b8754e"
+                    "provider_request_id": "chatcmpl-9c44e3db8b9e1a87",
+                    "raw_output_sha256": "0b54bf4adbcf7dff306ff8b5eed3af735d7ad510560dea9d5e707c42a3731f3f"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -6652,39 +6652,39 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                      "claim": "Installation instructions describe source-based installation from pinned revision and confirm no PyPI package.",
+                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                      "claim": "Installation instructions reflect disposable-source-build verification using pinned revision ab1a2267a0ba6302311d0c7c4ad01494974c7d76.",
                       "criterion": "installation.verified_acquisition",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
                       "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.verified_acquisition:disposable-source-build",
-                      "finding_id": "factual.installation.verified",
+                      "finding_id": "factual.installation-verified",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                      "quoted_candidate_span": "## Installation",
                       "reported_observed_value": null,
                       "required_repair": "",
                       "section": "Installation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.10cf9e2dacbfc10c1dc8.1",
-                      "claim": "Key capabilities list matches repository-evidence capabilities.",
+                      "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
+                      "claim": "Key capabilities list (3D primitives, file format import/export, animation system) is supported by repository evidence.",
                       "criterion": "product.capabilities",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "class Box(Primitive):",
                       "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities.match",
+                      "finding_id": "factual.capabilities-supported",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.\n- File format import and export for OBJ, GLTF, STL, and 3MF.\n- Animation system with keyframe support.",
+                      "quoted_candidate_span": "## Key capabilities",
                       "reported_observed_value": null,
                       "required_repair": "",
                       "section": "Key capabilities"
@@ -6692,8 +6692,8 @@
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities.match",
-                      "factual.installation.verified"
+                      "factual.capabilities-supported",
+                      "factual.installation-verified"
                     ],
                     "errors": [],
                     "valid": true
@@ -6704,8 +6704,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "868cb888ee792a679d0fe0e3eb00265a41419b2cf49f566e822961eb341cca91",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The version, platform, license, and contributor badges align with manifest and registry data. The installation instructions match the disposable-source-build verification. The 'At a glance' Mermaid diagram and 'Key capabilities' list reflect repository-evidence capabilities. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition per commercial_foss relationship. The license section explicitly mentions required benefit terms supported by the LICENSE file. The test count (34 files) matches the development.assets fact. The minimal example code is compiled-salvaged and verified. No unsupported or contradictory claims exist.",
+                  "input_sha256": "0be461f614e61a557e73a63063850dfccc1ef2b9587ff4101e9cf81c8c2c5c3a",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The version (26.1.0), package name (aspose-3d-foss), and source revision (ab1a2267a0ba6302311d0c7c4ad01494974c7d76) match the installation.coordinates, product.identity, and release.state facts. The installation instructions correctly reflect the disposable-source-build verification. The quick start example matches the compiled-salvaged-example fact. The capabilities listed in 'At a glance' and 'Key capabilities' are fully supported by product.capabilities and product.problems_solved facts. The license (MIT) is confirmed by product.license. The enterprise terminology distinction between FOSS and Enterprise Edition is correctly stated in 'Scope and limitations'. The test count (34 files) matches development.assets. No contradictions or missing evidence were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -6726,8 +6726,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.example.minimal",
-                        "quality.nav.complete"
+                        "quality.mermaid-visual-grammar",
+                        "quality.nav-list-complete"
                       ],
                       "errors": [],
                       "valid": true
@@ -6743,15 +6743,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation.verified",
-                      "factual.capabilities.match"
+                      "factual.installation-verified",
+                      "factual.capabilities-supported"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities.match",
-                        "factual.installation.verified"
+                        "factual.capabilities-supported",
+                        "factual.installation-verified"
                       ],
                       "errors": [],
                       "valid": true
@@ -6789,7 +6789,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "6b927b7bcd2ab1d42fb9cc63717e2af8a0df145dca97114282cc09f7d64dd27b",
+            "assessment_hash": "e403cb0619cfa0dd98fcc7a269fccf0fb7ab2b132c52c544b0c60916ac14be4d",
             "attempt_count": 1,
             "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
             "diagram": {
@@ -6887,8 +6887,8 @@
                 }
               ]
             },
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
-            "input_sha256": "430d14db5dbb9e858c3c521200b6a4cc03b0052f687d4171e7ec3a5b9129a1a8",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
+            "input_sha256": "33d4f5e11d5e6c2fb3893d3e3f167405898616e1b293ec83be86350414af053b",
             "model": "deterministic-verified-preservation-v1",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -7083,7 +7083,7 @@
                 "claim_text_sha256": "28ff48fd1067579ef5d2f7f0f05a93fbfefcea946d19153b52f3b4bc3fc69a52",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974",
+                "fact_value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "28ff48fd1067579ef5d2f7f0f05a93fbfefcea946d19153b52f3b4bc3fc69a52",
                 "operation_id": "template.badges",
@@ -7237,7 +7237,7 @@
                 "claim_text_sha256": "9fb3c31ad13f63ce93398e3cee86681b632bf526e7fd3dc9e24978b7351d0220",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974",
+                "fact_value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "37ca7a4499b2c43e70d41f2f56fc7cc7213aa33ea4c55d7a869d20328cbeeed5",
                 "operation_id": "template.section.installation.verified_acquisition",
@@ -7399,7 +7399,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
             "schema_version": 1
           },
@@ -7736,7 +7736,7 @@
             "archetype": "python-library",
             "candidate_sha256": "5a7e4e80f3caf30ec3b7b759dbc9d2589462e0d2c9a43a0afe78b262fe197180",
             "content_assurance": "repository_verified",
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -7845,7 +7845,7 @@
             "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
           },
           "readme_assessment": {
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
             "material_claims": [
               {
@@ -12703,7 +12703,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -12738,7 +12738,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -12773,7 +12773,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -13196,7 +13196,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+              "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
               "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
@@ -13305,7 +13305,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "header_visuals": {
               "badge_markdown": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/ab1a2267a0ba6302311d0c7c4ad01494974c7d76) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -16378,7 +16378,7 @@
         "prose_quality_repair_attempts": 0,
         "render_result": {
           "agentic_composition_plan": {
-            "assessment_hash": "6b927b7bcd2ab1d42fb9cc63717e2af8a0df145dca97114282cc09f7d64dd27b",
+            "assessment_hash": "e403cb0619cfa0dd98fcc7a269fccf0fb7ab2b132c52c544b0c60916ac14be4d",
             "attempt_count": 1,
             "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
             "diagram": {
@@ -16476,8 +16476,8 @@
                 }
               ]
             },
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
-            "input_sha256": "430d14db5dbb9e858c3c521200b6a4cc03b0052f687d4171e7ec3a5b9129a1a8",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
+            "input_sha256": "33d4f5e11d5e6c2fb3893d3e3f167405898616e1b293ec83be86350414af053b",
             "model": "deterministic-verified-preservation-v1",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -16672,7 +16672,7 @@
                 "claim_text_sha256": "28ff48fd1067579ef5d2f7f0f05a93fbfefcea946d19153b52f3b4bc3fc69a52",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974",
+                "fact_value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "28ff48fd1067579ef5d2f7f0f05a93fbfefcea946d19153b52f3b4bc3fc69a52",
                 "operation_id": "template.badges",
@@ -16826,7 +16826,7 @@
                 "claim_text_sha256": "9fb3c31ad13f63ce93398e3cee86681b632bf526e7fd3dc9e24978b7351d0220",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974",
+                "fact_value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "37ca7a4499b2c43e70d41f2f56fc7cc7213aa33ea4c55d7a869d20328cbeeed5",
                 "operation_id": "template.section.installation.verified_acquisition",
@@ -16988,13 +16988,13 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
             "schema_version": 1
           },
           "composition_provider_calls": 0,
           "composition_strategy": "deterministic_verified_preservation",
-          "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+          "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
           "final_text": "# Aspose.3D FOSS for Python\n\n[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/ab1a2267a0ba6302311d0c7c4ad01494974c7d76) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)\n\nAspose.3D FOSS for Python provides 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum for developers using Python.\n\n## Navigation\n\n- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Scope and limitations](#scope-and-limitations)\n- [Development and testing](#development-and-testing)\n- [License](#license)\n\n## At a glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    input_2[\"OBJ - Wavefront OBJ with full material support files\"]\n    input_3[\"STL - Stereo Lithography format files\"]\n    input_4[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  product[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,\"]\n    capability_2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    capability_3[\"Animation system with keyframe support\"]\n    capability_4[\"Writes GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_5[\"Reads GLTF - GL Transmission Format (glTF 2.0) files\"]\n    capability_6[\"Reads OBJ - Wavefront OBJ with full material support files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"GLTF - GL Transmission Format (glTF 2.0) files\"]\n    output_2[\"STL - Stereo Lithography format files\"]\n    output_3[\"3MF - 3D Manufacturing Format files\"]\n  end\n\n  input_1 --- product\n  input_2 --- product\n  input_3 --- product\n  input_4 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n```\n\n## Key capabilities\n\n- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.\n- File format import and export for OBJ, GLTF, STL, and 3MF.\n- Animation system with keyframe support.\n\n## Installation\n\nInstall the verified immutable repository revision from a local checkout:\n\n```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach ab1a2267a0ba6302311d0c7c4ad01494974c7d76\npython -m pip install .\n```\n\n`aspose-3d-foss` was installed and exercised from this exact source revision in an isolated, network-disabled verification environment. The matching PyPI receipt did not find a published package, so this README does not present a PyPI package installation command.\n\n## Quick start\n\n### Minimal verified example\n\n```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```\n\n## Scope and limitations\n\n[Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/) and [Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.\n\n## Development and testing\n\nThe repository includes 34 test files.\n\n<details>\n<summary>View development and testing resources</summary>\n\n### Tests\n\n- [`tests/test_3mf_exporter.py`](tests/test_3mf_exporter.py)\n- [`tests/test_3mf_importer.py`](tests/test_3mf_importer.py)\n- [`tests/test_3mf_material_export.py`](tests/test_3mf_material_export.py)\n- [`tests/test_3mf_materials.py`](tests/test_3mf_materials.py)\n- [`tests/test_3mf_roundtrip.py`](tests/test_3mf_roundtrip.py)\n- [`tests/test_array_list_adapter.py`](tests/test_array_list_adapter.py)\n- [`tests/test_collada_exporter.py`](tests/test_collada_exporter.py)\n- [`tests/test_collada_importer.py`](tests/test_collada_importer.py)\n- [Browse all test files](tests)\n\n\n</details>\n\n## License\n\nThis project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
           "fresh_fingerprint": "fb9af9a77cdb9f3b786dab680fd183cbd6dd3d1ae830f6b45b632a1db027b80a",
           "llm_called": false,
@@ -17331,7 +17331,7 @@
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
                     "line_number": 10,
-                    "observed_at": "2026-08-04T09:39:06.534398+00:00",
+                    "observed_at": "2026-08-04T14:53:54.729290+00:00",
                     "observed_polarity": "positive_implementation",
                     "reason": "observed positive_implementation matches expected positive_implementation",
                     "schema_version": 1,
@@ -17347,7 +17347,7 @@
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
                     "line_number": 8,
-                    "observed_at": "2026-08-04T09:39:06.534398+00:00",
+                    "observed_at": "2026-08-04T14:53:54.729290+00:00",
                     "observed_polarity": "positive_implementation",
                     "reason": "observed positive_implementation matches expected positive_implementation",
                     "schema_version": 1,
@@ -17363,7 +17363,7 @@
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
                     "line_number": 12,
-                    "observed_at": "2026-08-04T09:39:06.534398+00:00",
+                    "observed_at": "2026-08-04T14:53:54.729290+00:00",
                     "observed_polarity": "positive_implementation",
                     "reason": "observed positive_implementation matches expected positive_implementation",
                     "schema_version": 1,
@@ -17375,7 +17375,7 @@
                 "field": "product.capabilities",
                 "source": {
                   "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
-                  "retrieved_at": "2026-08-04T09:39:06.534398+00:00",
+                  "retrieved_at": "2026-08-04T14:53:54.729290+00:00",
                   "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
                   "source_type": "mechanical_repository"
                 },
@@ -17428,7 +17428,7 @@
                 "field": "product.limitations",
                 "source": {
                   "location": "repository://verified-empty",
-                  "retrieved_at": "2026-08-04T09:39:06.534398+00:00",
+                  "retrieved_at": "2026-08-04T14:53:54.729290+00:00",
                   "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
                   "source_type": "mechanical_repository"
                 },
@@ -17474,7 +17474,7 @@
                 "field": "product.problems_solved",
                 "source": {
                   "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
-                  "retrieved_at": "2026-08-04T09:39:06.534398+00:00",
+                  "retrieved_at": "2026-08-04T14:53:54.729290+00:00",
                   "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
                   "source_type": "mechanical_repository"
                 },
@@ -17577,7 +17577,7 @@
                 "field": "installation.verified_acquisition",
                 "source": {
                   "location": "https://pypi.org/pypi/aspose-3d-foss/json",
-                  "retrieved_at": "2026-08-04T09:39:06.534398+00:00",
+                  "retrieved_at": "2026-08-04T14:53:54.729290+00:00",
                   "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
                   "source_type": "mechanical_test"
                 },
@@ -17601,7 +17601,7 @@
                     "request_url": "https://pypi.org/pypi/aspose-3d-foss/json",
                     "resolver_ecosystem": "python",
                     "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
-                    "retrieved_at": "2026-08-04T09:39:06.510060Z",
+                    "retrieved_at": "2026-08-04T14:53:54.683597Z",
                     "schema_version": 1,
                     "status_code": 404
                   },
@@ -17695,7 +17695,7 @@
             }
           },
           "readme_assessment": {
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "immutable_base_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
             "material_claims": [
               {
@@ -22553,7 +22553,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -22588,7 +22588,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -22623,7 +22623,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "362815d3cc884b2ebb89ea8219e3910eddf76d43f361e739a3e6cdb322403974"
+                      "value_sha256": "1915dd5b254c13df1f27c760eece3ed9195acea4a83355615c0e77e4323caf4b"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -23046,7 +23046,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+              "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
               "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
@@ -23155,7 +23155,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "b30c08e2abe0e211d25b81e8ea188413c6e9407689637a9e39659a40d5d1686e",
+            "facts_hash": "c989a78322d1df951d634d801668e4fa098491b46c83095be430ffc236da3221",
             "header_visuals": {
               "badge_markdown": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/ab1a2267a0ba6302311d0c7c4ad01494974c7d76) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -26250,7 +26250,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260804-094124-e443",
+          "nonce": "20260804-145618-6be8",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -26258,7 +26258,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "85208f4b89c714db76f62320d3c0e2e6579075cc69c4eea7ffd84ffead69c5ce",
+          "token": "fad1d445f9d9055334db5499ea209b445e254d63a76883a9f5e12bd9912625ca",
           "verdict": "accept"
         },
         "written": false
@@ -26266,7 +26266,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T09:43:14.693115+00:00",
+      "last_run_timestamp": "2026-08-04T14:58:00.299538+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -30252,7 +30252,7 @@
     "updated_at": "2026-08-04T14:57:54.721199+00:00"
   },
   "schema_version": 2,
-  "state_version": 1107,
+  "state_version": 1108,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
