@@ -1513,13 +1513,13 @@
       "upstream_revision_at_accept": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+      "accepted_facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "727a16c44b727c259adb435256075adcbd56f24398a153211c6a17bd9c5b97a8",
+          "assessment_hash": "b575b6f6bc59d473c7cb30471abdbece82565795db9c3589b970c131ee365056",
           "attempt_count": 1,
           "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
           "diagram": {
@@ -1603,8 +1603,8 @@
               }
             ]
           },
-          "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
-          "input_sha256": "a93133f281de013521a61440033050ec54ebf8aa81c51d29d4b26a3b1d2715b8",
+          "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
+          "input_sha256": "2f5b4c8e8fc4754d73a0352a6bf103bbec57b25fb61e87233085954ca684db77",
           "model": "deterministic-verified-preservation-v1",
           "opening_summary": {
             "supporting_fact_ids": [
@@ -1735,9 +1735,9 @@
           "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
           "tool_schema_sha256": "b9e93a03b09fc1f25f4e63bf4c3efc6a140171e66b6b8f3099ce5553a25ea1d1"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260804-095445-d28d",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260804-150935-beb9",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -1774,7 +1774,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+          "product_facts_v2_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
           "protected_content_losses": [],
           "valid": true
         },
@@ -1789,34 +1789,34 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                  "claim": "All required H2 headings are present and correctly prefixed.",
+                  "candidate_anchor_id": "candidate.anchor.d323bba9d9ecbbd5dc33.1",
+                  "claim": "All required H2 sections are present and linked in the navigation list.",
                   "criterion": "navigation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.h2_navigation_compliant",
+                  "finding_id": "quality.h2_navigation_complete",
                   "kind": "quality",
                   "mechanical_check_id": "document.required_h2_prefix",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Navigation",
+                  "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [License](#license)",
                   "reported_observed_value": true,
                   "required_repair": "",
                   "section": "Navigation"
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.472baccf1f1faa20cda7.1",
-                  "claim": "The minimal verified example is concise, fenced, and within line limits.",
+                  "claim": "The minimal example is concise, fenced, and within line limits.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_minimal_compliant",
+                  "finding_id": "quality.example_minimal_verified",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
@@ -1829,8 +1829,8 @@
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.example_minimal_compliant",
-                  "quality.h2_navigation_compliant"
+                  "quality.example_minimal_verified",
+                  "quality.h2_navigation_complete"
                 ],
                 "errors": [],
                 "valid": true
@@ -1842,7 +1842,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "43e6c438e653b7c5655a2d9d056d1c1c084c55dbd6f93da5977c7fe81a4f812c",
-              "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header, badge, navigation, and example constraints. The H1 is singular and appropriate; H2s follow required prefixes and sentence case without emoji. The Mermaid diagram in 'At a glance' is concise and correctly formatted. The installation and quick start sections are minimal, accurate, and within line limits. The license and scope sections clearly distinguish FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown corruption is observed.",
+              "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header requirements (single H1, required H2 prefixes, no duplicates), includes exactly one badge row with valid badges, provides a minimal verified example within the Quick Start section (2 non-blank lines, 1 fenced block), and contains all required H2 sections per the navigation list. The Mermaid diagram in 'At a glance' is complete and correctly formatted. License and commercial context are clearly stated, and the 'Scope and limitations' section appropriately distinguishes FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown issues are present.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -1854,34 +1854,34 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                    "claim": "All required H2 headings are present and correctly prefixed.",
+                    "candidate_anchor_id": "candidate.anchor.d323bba9d9ecbbd5dc33.1",
+                    "claim": "All required H2 sections are present and linked in the navigation list.",
                     "criterion": "navigation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.h2_navigation_compliant",
+                    "finding_id": "quality.h2_navigation_complete",
                     "kind": "quality",
                     "mechanical_check_id": "document.required_h2_prefix",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Navigation",
+                    "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [License](#license)",
                     "reported_observed_value": true,
                     "required_repair": "",
                     "section": "Navigation"
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.472baccf1f1faa20cda7.1",
-                    "claim": "The minimal verified example is concise, fenced, and within line limits.",
+                    "claim": "The minimal example is concise, fenced, and within line limits.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_minimal_compliant",
+                    "finding_id": "quality.example_minimal_verified",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
@@ -1894,8 +1894,8 @@
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.example_minimal_compliant",
-                    "quality.h2_navigation_compliant"
+                    "quality.example_minimal_verified",
+                    "quality.h2_navigation_complete"
                   ],
                   "errors": [],
                   "valid": true
@@ -1907,7 +1907,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "43e6c438e653b7c5655a2d9d056d1c1c084c55dbd6f93da5977c7fe81a4f812c",
-                "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header, badge, navigation, and example constraints. The H1 is singular and appropriate; H2s follow required prefixes and sentence case without emoji. The Mermaid diagram in 'At a glance' is concise and correctly formatted. The installation and quick start sections are minimal, accurate, and within line limits. The license and scope sections clearly distinguish FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown corruption is observed.",
+                "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header requirements (single H1, required H2 prefixes, no duplicates), includes exactly one badge row with valid badges, provides a minimal verified example within the Quick Start section (2 non-blank lines, 1 fenced block), and contains all required H2 sections per the navigation list. The Mermaid diagram in 'At a glance' is complete and correctly formatted. License and commercial context are clearly stated, and the 'Scope and limitations' section appropriately distinguishes FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown issues are present.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -1920,48 +1920,48 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The package is installable via `python -m pip install aspose-cells-foss`.",
-                    "criterion": "installation.coordinates",
+                    "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
+                    "claim": "The package can be installed via `python -m pip install aspose-cells-foss`.",
+                    "criterion": "installation.verified_acquisition",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
                     "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.verified_acquisition:registry-pypi",
-                    "finding_id": "factual.installation_coordinates",
+                    "finding_id": "factual.installation_pypi",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Installation",
+                    "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
                     "section": "Installation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
-                    "claim": "The listed capabilities (e.g., read/write cell values, manage worksheets, create charts) are verified by repository evidence.",
-                    "criterion": "product.capabilities",
+                    "candidate_anchor_id": "candidate.anchor.2500f453bfc4494caa9f.1",
+                    "claim": "The project is licensed under the MIT License and permits use, modification, distribution, and commercial use.",
+                    "criterion": "product.license",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "class TestCellValues(unittest.TestCase):",
-                    "evidence_location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py",
+                    "evidence_excerpt": "MIT",
+                    "evidence_location": "repository://License/LICENSE.txt",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities_match",
+                    "fact_id": "product.license:license-file",
+                    "finding_id": "factual.license_mit",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Key capabilities",
+                    "quoted_candidate_span": "This project is available under the [MIT License](License/LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Key capabilities"
+                    "section": "License"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities_match",
-                    "factual.installation_coordinates"
+                    "factual.installation_pypi",
+                    "factual.license_mit"
                   ],
                   "errors": [],
                   "valid": true
@@ -1972,8 +1972,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9d9395ff7625c572e97614d7d959206e9c90350f73db01fa9c6c93a691afe1c8",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (`>=3.7`), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent. The 'Beta' status and repository example inventory are also correctly represented. No unsupported or contradictory claims are present.",
+                "input_sha256": "f3de58d8b2a3b238a4b8e82e460f6c1bf546786e51ec585faa13668c25e5f863",
+                "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (Python >=3.7), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent with the evidence. The 'Beta' status is correctly attributed to the manifest. No unsupported or contradictory claims exist.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -1981,14 +1981,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "613c75c52a65be23bb065d4cf5307cfba2346c1156a4654c59a2da98b2bcfaf7",
-                "factual_record_sha256": "b8fa0ce88dc08b03e13a0d7880b92008001ea45e78e2cc74f7e2683721457076",
-                "input_sha256": "3aad104c81efa6b5887a8e22489d118bdcf31c7c2e84c60057690cd7bf311a2b",
+                "blind_record_sha256": "512670e73472ccc0ea6c831945e4e1361e91d103782133ef860b8223d7ace929",
+                "factual_record_sha256": "da683a513825683a1316596be771cf95945720b284ce1f00ca49b7646655de56",
+                "input_sha256": "e1773e3d3d79e9e7699ec4f42ef4fa252f71250d9f2b75535e22b328eef81473",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-8aaf291f455a077d",
-                "raw_output_sha256": "f678d8b7b12dda0a8d10ac9ef7dcec6f6f142fcae8736b952f9b6f907f98b01c"
+                "provider_request_id": "chatcmpl-80e678b9486e30e4",
+                "raw_output_sha256": "e4a2e593f0870036a156c708180d0ada2f9fca39dcbd03a21f13074a5ca29529"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -2003,48 +2003,48 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The package is installable via `python -m pip install aspose-cells-foss`.",
-                  "criterion": "installation.coordinates",
+                  "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
+                  "claim": "The package can be installed via `python -m pip install aspose-cells-foss`.",
+                  "criterion": "installation.verified_acquisition",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
                   "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.verified_acquisition:registry-pypi",
-                  "finding_id": "factual.installation_coordinates",
+                  "finding_id": "factual.installation_pypi",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Installation",
+                  "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
                   "section": "Installation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
-                  "claim": "The listed capabilities (e.g., read/write cell values, manage worksheets, create charts) are verified by repository evidence.",
-                  "criterion": "product.capabilities",
+                  "candidate_anchor_id": "candidate.anchor.2500f453bfc4494caa9f.1",
+                  "claim": "The project is licensed under the MIT License and permits use, modification, distribution, and commercial use.",
+                  "criterion": "product.license",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "class TestCellValues(unittest.TestCase):",
-                  "evidence_location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py",
+                  "evidence_excerpt": "MIT",
+                  "evidence_location": "repository://License/LICENSE.txt",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities_match",
+                  "fact_id": "product.license:license-file",
+                  "finding_id": "factual.license_mit",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Key capabilities",
+                  "quoted_candidate_span": "This project is available under the [MIT License](License/LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Key capabilities"
+                  "section": "License"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities_match",
-                  "factual.installation_coordinates"
+                  "factual.installation_pypi",
+                  "factual.license_mit"
                 ],
                 "errors": [],
                 "valid": true
@@ -2055,8 +2055,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9d9395ff7625c572e97614d7d959206e9c90350f73db01fa9c6c93a691afe1c8",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (`>=3.7`), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent. The 'Beta' status and repository example inventory are also correctly represented. No unsupported or contradictory claims are present.",
+              "input_sha256": "f3de58d8b2a3b238a4b8e82e460f6c1bf546786e51ec585faa13668c25e5f863",
+              "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (Python >=3.7), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent with the evidence. The 'Beta' status is correctly attributed to the manifest. No unsupported or contradictory claims exist.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -2077,8 +2077,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.example_minimal_compliant",
-                    "quality.h2_navigation_compliant"
+                    "quality.example_minimal_verified",
+                    "quality.h2_navigation_complete"
                   ],
                   "errors": [],
                   "valid": true
@@ -2094,15 +2094,14 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation_coordinates",
-                  "factual.capabilities_match"
+                  "factual.installation_pypi"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities_match",
-                    "factual.installation_coordinates"
+                    "factual.installation_pypi",
+                    "factual.license_mit"
                   ],
                   "errors": [],
                   "valid": true
@@ -2145,7 +2144,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260804-095445-d28d",
+                "nonce": "20260804-150935-beb9",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -2153,11 +2152,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "a1925b20abdb0fa85203a7199cfe09a68d55bccde92b261aa9be5ba80f8a6249",
+                "token": "a9cd64ed7df32d774970cd859f90cf83dcfc7c9a5769a36cfa57d6b72b31bced",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260804-095445-d28d"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260804-150935-beb9"
               ],
               "repair_attempt": 0,
               "review": {
@@ -2167,34 +2166,34 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                      "claim": "All required H2 headings are present and correctly prefixed.",
+                      "candidate_anchor_id": "candidate.anchor.d323bba9d9ecbbd5dc33.1",
+                      "claim": "All required H2 sections are present and linked in the navigation list.",
                       "criterion": "navigation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.h2_navigation_compliant",
+                      "finding_id": "quality.h2_navigation_complete",
                       "kind": "quality",
                       "mechanical_check_id": "document.required_h2_prefix",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Navigation",
+                      "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [License](#license)",
                       "reported_observed_value": true,
                       "required_repair": "",
                       "section": "Navigation"
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.472baccf1f1faa20cda7.1",
-                      "claim": "The minimal verified example is concise, fenced, and within line limits.",
+                      "claim": "The minimal example is concise, fenced, and within line limits.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_minimal_compliant",
+                      "finding_id": "quality.example_minimal_verified",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
@@ -2207,8 +2206,8 @@
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.example_minimal_compliant",
-                      "quality.h2_navigation_compliant"
+                      "quality.example_minimal_verified",
+                      "quality.h2_navigation_complete"
                     ],
                     "errors": [],
                     "valid": true
@@ -2220,7 +2219,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "43e6c438e653b7c5655a2d9d056d1c1c084c55dbd6f93da5977c7fe81a4f812c",
-                  "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header, badge, navigation, and example constraints. The H1 is singular and appropriate; H2s follow required prefixes and sentence case without emoji. The Mermaid diagram in 'At a glance' is concise and correctly formatted. The installation and quick start sections are minimal, accurate, and within line limits. The license and scope sections clearly distinguish FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown corruption is observed.",
+                  "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header requirements (single H1, required H2 prefixes, no duplicates), includes exactly one badge row with valid badges, provides a minimal verified example within the Quick Start section (2 non-blank lines, 1 fenced block), and contains all required H2 sections per the navigation list. The Mermaid diagram in 'At a glance' is complete and correctly formatted. License and commercial context are clearly stated, and the 'Scope and limitations' section appropriately distinguishes FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown issues are present.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -2232,34 +2231,34 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                        "claim": "All required H2 headings are present and correctly prefixed.",
+                        "candidate_anchor_id": "candidate.anchor.d323bba9d9ecbbd5dc33.1",
+                        "claim": "All required H2 sections are present and linked in the navigation list.",
                         "criterion": "navigation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.h2_navigation_compliant",
+                        "finding_id": "quality.h2_navigation_complete",
                         "kind": "quality",
                         "mechanical_check_id": "document.required_h2_prefix",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Navigation",
+                        "quoted_candidate_span": "- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [License](#license)",
                         "reported_observed_value": true,
                         "required_repair": "",
                         "section": "Navigation"
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.472baccf1f1faa20cda7.1",
-                        "claim": "The minimal verified example is concise, fenced, and within line limits.",
+                        "claim": "The minimal example is concise, fenced, and within line limits.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_minimal_compliant",
+                        "finding_id": "quality.example_minimal_verified",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
@@ -2272,8 +2271,8 @@
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.example_minimal_compliant",
-                        "quality.h2_navigation_compliant"
+                        "quality.example_minimal_verified",
+                        "quality.h2_navigation_complete"
                       ],
                       "errors": [],
                       "valid": true
@@ -2285,7 +2284,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "43e6c438e653b7c5655a2d9d056d1c1c084c55dbd6f93da5977c7fe81a4f812c",
-                    "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header, badge, navigation, and example constraints. The H1 is singular and appropriate; H2s follow required prefixes and sentence case without emoji. The Mermaid diagram in 'At a glance' is concise and correctly formatted. The installation and quick start sections are minimal, accurate, and within line limits. The license and scope sections clearly distinguish FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown corruption is observed.",
+                    "reasoning": "The README presents a clear, well-structured, and compliant presentation for a Python FOSS library. It meets all header requirements (single H1, required H2 prefixes, no duplicates), includes exactly one badge row with valid badges, provides a minimal verified example within the Quick Start section (2 non-blank lines, 1 fenced block), and contains all required H2 sections per the navigation list. The Mermaid diagram in 'At a glance' is complete and correctly formatted. License and commercial context are clearly stated, and the 'Scope and limitations' section appropriately distinguishes FOSS from Enterprise Edition. No visible duplication, promotional overreach, or markdown issues are present.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -2298,48 +2297,48 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The package is installable via `python -m pip install aspose-cells-foss`.",
-                        "criterion": "installation.coordinates",
+                        "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
+                        "claim": "The package can be installed via `python -m pip install aspose-cells-foss`.",
+                        "criterion": "installation.verified_acquisition",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
                         "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.verified_acquisition:registry-pypi",
-                        "finding_id": "factual.installation_coordinates",
+                        "finding_id": "factual.installation_pypi",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Installation",
+                        "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
                         "section": "Installation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
-                        "claim": "The listed capabilities (e.g., read/write cell values, manage worksheets, create charts) are verified by repository evidence.",
-                        "criterion": "product.capabilities",
+                        "candidate_anchor_id": "candidate.anchor.2500f453bfc4494caa9f.1",
+                        "claim": "The project is licensed under the MIT License and permits use, modification, distribution, and commercial use.",
+                        "criterion": "product.license",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "class TestCellValues(unittest.TestCase):",
-                        "evidence_location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py",
+                        "evidence_excerpt": "MIT",
+                        "evidence_location": "repository://License/LICENSE.txt",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities_match",
+                        "fact_id": "product.license:license-file",
+                        "finding_id": "factual.license_mit",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Key capabilities",
+                        "quoted_candidate_span": "This project is available under the [MIT License](License/LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Key capabilities"
+                        "section": "License"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities_match",
-                        "factual.installation_coordinates"
+                        "factual.installation_pypi",
+                        "factual.license_mit"
                       ],
                       "errors": [],
                       "valid": true
@@ -2350,8 +2349,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9d9395ff7625c572e97614d7d959206e9c90350f73db01fa9c6c93a691afe1c8",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (`>=3.7`), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent. The 'Beta' status and repository example inventory are also correctly represented. No unsupported or contradictory claims are present.",
+                    "input_sha256": "f3de58d8b2a3b238a4b8e82e460f6c1bf546786e51ec585faa13668c25e5f863",
+                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (Python >=3.7), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent with the evidence. The 'Beta' status is correctly attributed to the manifest. No unsupported or contradictory claims exist.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -2359,14 +2358,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "613c75c52a65be23bb065d4cf5307cfba2346c1156a4654c59a2da98b2bcfaf7",
-                    "factual_record_sha256": "b8fa0ce88dc08b03e13a0d7880b92008001ea45e78e2cc74f7e2683721457076",
-                    "input_sha256": "3aad104c81efa6b5887a8e22489d118bdcf31c7c2e84c60057690cd7bf311a2b",
+                    "blind_record_sha256": "512670e73472ccc0ea6c831945e4e1361e91d103782133ef860b8223d7ace929",
+                    "factual_record_sha256": "da683a513825683a1316596be771cf95945720b284ce1f00ca49b7646655de56",
+                    "input_sha256": "e1773e3d3d79e9e7699ec4f42ef4fa252f71250d9f2b75535e22b328eef81473",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-8aaf291f455a077d",
-                    "raw_output_sha256": "f678d8b7b12dda0a8d10ac9ef7dcec6f6f142fcae8736b952f9b6f907f98b01c"
+                    "provider_request_id": "chatcmpl-80e678b9486e30e4",
+                    "raw_output_sha256": "e4a2e593f0870036a156c708180d0ada2f9fca39dcbd03a21f13074a5ca29529"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -2381,48 +2380,48 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The package is installable via `python -m pip install aspose-cells-foss`.",
-                      "criterion": "installation.coordinates",
+                      "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
+                      "claim": "The package can be installed via `python -m pip install aspose-cells-foss`.",
+                      "criterion": "installation.verified_acquisition",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
                       "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.verified_acquisition:registry-pypi",
-                      "finding_id": "factual.installation_coordinates",
+                      "finding_id": "factual.installation_pypi",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Installation",
+                      "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
                       "section": "Installation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.82b08ec7b6cd98b3ca7f.1",
-                      "claim": "The listed capabilities (e.g., read/write cell values, manage worksheets, create charts) are verified by repository evidence.",
-                      "criterion": "product.capabilities",
+                      "candidate_anchor_id": "candidate.anchor.2500f453bfc4494caa9f.1",
+                      "claim": "The project is licensed under the MIT License and permits use, modification, distribution, and commercial use.",
+                      "criterion": "product.license",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "class TestCellValues(unittest.TestCase):",
-                      "evidence_location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py",
+                      "evidence_excerpt": "MIT",
+                      "evidence_location": "repository://License/LICENSE.txt",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities_match",
+                      "fact_id": "product.license:license-file",
+                      "finding_id": "factual.license_mit",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Key capabilities",
+                      "quoted_candidate_span": "This project is available under the [MIT License](License/LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Key capabilities"
+                      "section": "License"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities_match",
-                      "factual.installation_coordinates"
+                      "factual.installation_pypi",
+                      "factual.license_mit"
                     ],
                     "errors": [],
                     "valid": true
@@ -2433,8 +2432,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9d9395ff7625c572e97614d7d959206e9c90350f73db01fa9c6c93a691afe1c8",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (`>=3.7`), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent. The 'Beta' status and repository example inventory are also correctly represented. No unsupported or contradictory claims are present.",
+                  "input_sha256": "f3de58d8b2a3b238a4b8e82e460f6c1bf546786e51ec585faa13668c25e5f863",
+                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, installation method (PyPI), optional extras (`dev`), runtime dependencies (`pycryptodome`, `olefile`), compatibility (Python >=3.7), license (MIT), capabilities (verified via repository tests), and FOSS/Enterprise distinction are all factually consistent with the evidence. The 'Beta' status is correctly attributed to the manifest. No unsupported or contradictory claims exist.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -2455,8 +2454,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.example_minimal_compliant",
-                        "quality.h2_navigation_compliant"
+                        "quality.example_minimal_verified",
+                        "quality.h2_navigation_complete"
                       ],
                       "errors": [],
                       "valid": true
@@ -2472,15 +2471,14 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation_coordinates",
-                      "factual.capabilities_match"
+                      "factual.installation_pypi"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities_match",
-                        "factual.installation_coordinates"
+                        "factual.installation_pypi",
+                        "factual.license_mit"
                       ],
                       "errors": [],
                       "valid": true
@@ -2506,7 +2504,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "727a16c44b727c259adb435256075adcbd56f24398a153211c6a17bd9c5b97a8",
+            "assessment_hash": "b575b6f6bc59d473c7cb30471abdbece82565795db9c3589b970c131ee365056",
             "attempt_count": 1,
             "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
             "diagram": {
@@ -2590,8 +2588,8 @@
                 }
               ]
             },
-            "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
-            "input_sha256": "a93133f281de013521a61440033050ec54ebf8aa81c51d29d4b26a3b1d2715b8",
+            "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
+            "input_sha256": "2f5b4c8e8fc4754d73a0352a6bf103bbec57b25fb61e87233085954ca684db77",
             "model": "deterministic-verified-preservation-v1",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -2746,7 +2744,7 @@
                 "claim_text_sha256": "6e35962be768e52c6ac58bb55d3b6a127b76ed11891132191d64485137fd34cc",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:registry-pypi",
-                "fact_value_sha256": "6a62536c092ab8c4a8c0474cbfe221e2fcf5e2929a4135662999b534ce5ff787",
+                "fact_value_sha256": "7e2aaa41e01f99ec05b4ed4d41d6b170692081ec98a44ebbecfafd5351ebd687",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "6e35962be768e52c6ac58bb55d3b6a127b76ed11891132191d64485137fd34cc",
                 "operation_id": "template.badges",
@@ -2900,7 +2898,7 @@
                 "claim_text_sha256": "1cc9fdbea296ba460e2efc7d67e6deee9eb7b5c97d7c4643c28378b9325b0b8b",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:registry-pypi",
-                "fact_value_sha256": "6a62536c092ab8c4a8c0474cbfe221e2fcf5e2929a4135662999b534ce5ff787",
+                "fact_value_sha256": "7e2aaa41e01f99ec05b4ed4d41d6b170692081ec98a44ebbecfafd5351ebd687",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "62899f917fcd97c53567d9317caa2a7762c47d8f1818db6200d0958a73400759",
                 "operation_id": "template.section.installation.verified_acquisition",
@@ -3482,7 +3480,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+            "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
             "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
             "schema_version": 1
           },
@@ -4069,7 +4067,7 @@
             "archetype": "python-library",
             "candidate_sha256": "d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
             "content_assurance": "repository_verified",
-            "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+            "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -4178,7 +4176,7 @@
             "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870"
           },
           "readme_assessment": {
-            "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+            "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
             "immutable_base_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
             "material_claims": [
               {
@@ -6935,7 +6933,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "6a62536c092ab8c4a8c0474cbfe221e2fcf5e2929a4135662999b534ce5ff787"
+                      "value_sha256": "7e2aaa41e01f99ec05b4ed4d41d6b170692081ec98a44ebbecfafd5351ebd687"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -8125,7 +8123,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+              "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
               "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870"
@@ -8234,7 +8232,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "1f5bdfc52be1c0cec3d2c53b1e96fd8c9814a8de69617c444ef216cc4a821bea",
+            "facts_hash": "a5e3b83543a8c13420d5bb9406473b3cfd053b05bf9239cd22f7cf5419d1a9fa",
             "header_visuals": {
               "badge_markdown": "[![PyPI: aspose-cells-foss](https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI)](https://pypi.org/project/aspose-cells-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -9417,7 +9415,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260804-095445-d28d",
+          "nonce": "20260804-150935-beb9",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -9425,7 +9423,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "a1925b20abdb0fa85203a7199cfe09a68d55bccde92b261aa9be5ba80f8a6249",
+          "token": "a9cd64ed7df32d774970cd859f90cf83dcfc7c9a5769a36cfa57d6b72b31bced",
           "verdict": "accept"
         },
         "written": false
@@ -9433,7 +9431,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T09:56:06.536556+00:00",
+      "last_run_timestamp": "2026-08-04T15:11:02.990375+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
@@ -10408,7 +10406,7 @@
     "updated_at": "2026-08-04T15:10:57.705719+00:00"
   },
   "schema_version": 2,
-  "state_version": 269,
+  "state_version": 270,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c6cd0efeb211ae6c4c598d1d63a763aee223e0d3da9a3f0c32a79b3027f0e3fc",
