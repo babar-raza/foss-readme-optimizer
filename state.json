@@ -652,69 +652,25 @@
       "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "780b42a6c5fee0da8007972d9365d15aa1f5c2d17b28ead640107b109fdfbae7",
+      "accepted_facts_hash": "2bfbe43006781851e6cc7e1d0fa45a54e10deabbc76852716d15af71f7b61cc5",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs ('converting DOCX, DOC, RTF, TXT, and MD files to DOCX, Markdown, plain text, and PDF') before any other content.",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The second sentence specifies the audience (users of Aspose.Words for Python via .NET seeking a free/lightweight alternative) and context (compatible API), while the first sentence implies the ecosystem (Python) and common tasks (document conversion).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, PyPI and Python version badges, and a working install path against PyPI \u2014 satisfying all top trust signals.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install section names real package coordinates (`aspose-words-foss` on PyPI) and provides a working `pip install` command, verified via the PyPI badge and link.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are six runnable code blocks (convert to Markdown, PDF, DOCX, extract text, stream loading, save with options), plus a full 'API Examples' section with runnable scripts and execution instructions.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the section order follows the expected intent: product description \u2192 features \u2192 installation \u2192 examples \u2192 requirements \u2192 license \u2192 support.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for a pure API library like this; the standard allows absence when visuals do not improve understanding of the product or workflow.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README lacks a LICENSE file reference in the repository root (only a relative link `License/license.txt` is provided), and there is no visible CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file \u2014 GitHub will not show the community quick-link row.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes recent PyPI and Python version badges and references to a live GitHub repo, implying structural maintenance signals (though full verification requires external GitHub checks).",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The second sentence mentions the commercial counterpart (`Aspose.Words for Python via .NET`) factually and only once, as a point of API compatibility \u2014 no promotional language, pricing, or repeated mentions.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing GitHub-recognized community files like LICENSE in root, CODE_OF_CONDUCT, and CONTRIBUTING). All other dimensions \u2014 especially product clarity, installation path, and verified examples \u2014 are well-executed and align with leading FOSS practices."
+        "criteria_results": [],
+        "input_sha256": "0eb586b4f29188a204999cd407d654cb19f900b1f2d12304615d665050fea4df",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T11:17:44.548883+00:00",
+      "last_run_timestamp": "2026-08-04T11:08:18.045144+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
@@ -7252,7 +7208,7 @@
     "updated_at": "2026-08-04T11:07:42.827392+00:00"
   },
   "schema_version": 2,
-  "state_version": 123,
+  "state_version": 124,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
