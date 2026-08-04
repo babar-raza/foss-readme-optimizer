@@ -18112,7 +18112,7 @@
     "updated_at": "2026-08-04T09:24:22.683877+00:00"
   },
   "schema_version": 2,
-  "state_version": 814,
+  "state_version": 815,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
@@ -18743,13 +18743,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "75d33a462fff989ffa143b321da89a3b190761ffc57c89935a474a8186278964",
-      "lease_expires_at": "2026-08-02T20:24:32.097553+00:00",
-      "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T20:10:08.548767+00:00"
+      "lease_expires_at": null,
+      "recovery_count": 1,
+      "status": "retryable",
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
@@ -18809,13 +18809,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "d0ec94980e94362e6c51f1665051a46d529d9e6bb2476ffe0612e5fb7e02be07",
-      "lease_expires_at": "2026-08-02T20:50:29.718233+00:00",
-      "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T20:37:08.004825+00:00"
+      "lease_expires_at": null,
+      "recovery_count": 1,
+      "status": "retryable",
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     },
     "operator:20260802-204646-ba03:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:46:51.513695+00:00",
@@ -18831,13 +18831,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['fact-backed audience/problem overview is absent']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "1b4408bb194590b2d4b9d4d7b49c8b3bf79b62221f5d147200d7d87dddc03561",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-02T20:51:59.196035+00:00"
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     },
     "operator:20260802-205445-6dbc:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:54:49.874761+00:00",
@@ -18853,13 +18853,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:agentic_composition:execution_error:LLMError: composition diagram returned duplicate labels",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "310e9b2b5b4b95e01cd3fd7486db27b6d34e6a03d90fc8e94373ad94062ae247",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-02T20:59:43.079085+00:00"
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     },
     "operator:20260802-210101-5b6f:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:01:05.661409+00:00",
@@ -18919,13 +18919,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['fact-backed audience/problem overview is absent']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "406345ceaefbb737af47e975d6c17e89e203bf723073a9ca2e4ee195be68db47",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-02T21:24:16.392644+00:00"
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     },
     "operator:20260802-212649-6815:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:26:54.896477+00:00",
@@ -19029,13 +19029,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "c49d134f0d49670e44587e7071b00d4f55fa06071f5bd6a496c9158555007cdd",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-03T03:19:09.309083+00:00"
+      "updated_at": "2026-08-04T11:09:11.325656+00:00"
     }
   },
   "trigger_records": {},
