@@ -1057,6 +1057,17 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET\\20260804-112636-6dcb"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-04T11:28:36.083110+00:00",
+        "reason": "independent README review started after deterministic validation",
+        "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "intake_preflight_history": [
@@ -1085,11 +1096,11 @@
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-04T11:28:29.158824+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-08-04T11:28:36.083110+00:00"
   },
   "schema_version": 2,
-  "state_version": 85,
+  "state_version": 86,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
