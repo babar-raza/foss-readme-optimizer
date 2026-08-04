@@ -2293,69 +2293,25 @@
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "b2dab757b88b07737b55a0c3553497bbd4c412e451732b7f0719270e881887c8",
+      "accepted_facts_hash": "46b02fdfc9d15763da90d7e93e3348977f70d0e5ba3f9563df3aa3f707b587d1",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('produces') and specifies key attributes (deterministic, standards-compliant, SVG/PNG output).",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The README specifies the target audience (Python developers), ecosystem (Python), format handled (barcodes), and common tasks (generation, rendering to SVG/PNG) in the opening block.",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license is present at the end, and badges for PyPI (though not yet published), Python version, and license are implied or could be added; the license is the highest-priority signal and is present.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install instruction says the package is not yet on PyPI and instructs `pip install .`, which is valid for source installs but fails the dimension because it does not resolve against a real public registry (PyPI) \u2014 the standard explicitly requires external registry publication.",
-            "satisfied": false
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are multiple runnable code blocks (Quick Start, encoding options, error handling) with no comments or docstrings inside the code, and surrounding prose explains operations.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Section headers use consistent `##` levels, and the order follows intent: product description \u2192 install \u2192 examples \u2192 features \u2192 advanced usage \u2192 license \u2014 reference/contribution/legal content comes after getting-started content.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable for a pure-API library whose value is not visual; the standard allows absence of imagery when it does not improve understanding.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README is present and recognized, but there is no visible LICENSE file in the repo root (only a link), and no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files \u2014 GitHub's quick-link row will show only README and possibly License if the file exists but is not named 'LICENSE'.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README implies active development through detailed, up-to-date examples and options \u2014 GitHub's `pushed_at` and release history (not visible here but assumed from context) would support this.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable for a FOSS-first repo; the standard allows absence of commercial content if no commercial edition is being promoted.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies most dimensions, but fails on installation path (not resolving against a real registry) and contribution readiness (missing recognized community files beyond README). It meets product clarity, audience fit, trust signals (license present), verified examples, navigation, visual usefulness (absence is acceptable), maintenance signals (implied), and natural commercial context (no commercial mention needed)."
+        "criteria_results": [],
+        "input_sha256": "8854d4cfcda7b124dff3f631cce6e2a8938695289f23aed08fa764557d7144c9",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T06:49:49.636460+00:00",
+      "last_run_timestamp": "2026-08-04T09:50:16.578780+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -14237,7 +14193,7 @@
     "updated_at": "2026-08-04T09:49:41.446033+00:00"
   },
   "schema_version": 2,
-  "state_version": 391,
+  "state_version": 392,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "95265de0c5fbc571e4d787c014da96d40194986e644c7ef5c9a995e309adc3d5",
