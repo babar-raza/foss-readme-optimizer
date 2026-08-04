@@ -76,6 +76,17 @@
         "reason": "read-only intake classified READY_FAST_PATH",
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-04T07:45:27.758753+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -103,12 +114,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T15:13:07.113378+00:00"
+    "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-04T07:45:27.758753+00:00"
   },
   "schema_version": 2,
-  "state_version": 10,
+  "state_version": 11,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:4fa30ee7350677cd47fa73d23a7f2100e4ae39518e642a55bf8f7ad34dcfbf98": {
