@@ -393,6 +393,23 @@
       "started_at": "2026-08-04T08:02:06.191550+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-075937-8fe5:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+    },
+    "e165127ffa9f6f2304379356375eb6d9b9da85321b8dd4f83ab7721539ce8e9c": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "e165127ffa9f6f2304379356375eb6d9b9da85321b8dd4f83ab7721539ce8e9c",
+      "completed_at": "2026-08-04T11:31:27.022469+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "067c51f8777a84f1523942254e077251b922f52d8f7a2ecf222970dfbaea8ec6",
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+      "run_id": "20260804-112159-7f3f",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-04T11:31:27.022457+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-075002-7985:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
     }
   },
   "domain_states": {
@@ -10834,7 +10851,7 @@
     "updated_at": "2026-08-04T11:29:12.059404+00:00"
   },
   "schema_version": 2,
-  "state_version": 91,
+  "state_version": 92,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
@@ -11063,11 +11080,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "9f055b4d1531cad9e3d992d80179f0d3008f2ad328999b78e2e90e66c01b9739",
+      "last_checkpoint_id": "e165127ffa9f6f2304379356375eb6d9b9da85321b8dd4f83ab7721539ce8e9c",
       "lease_expires_at": "2026-08-04T11:37:11.534293+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-04T11:23:52.009381+00:00"
+      "updated_at": "2026-08-04T11:31:27.022469+00:00"
     },
     "operator:20260804-075937-8fe5:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T07:59:43.818887+00:00",
