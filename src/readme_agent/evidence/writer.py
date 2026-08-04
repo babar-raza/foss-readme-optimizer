@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from readme_agent import env
+from readme_agent.evidence.file_inventory import enumerate_files
 from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.redaction import redact
@@ -192,14 +193,13 @@ def verify_sha256sums(evidence_dir: Path) -> bool:
             expected[relative] = digest
     except (OSError, UnicodeError, ValueError):
         return False
-    actual = {
-        path.relative_to(evidence_dir).as_posix(): path
-        for path in evidence_dir.rglob("*")
-        if path.is_file() and path.name != "sha256sums.txt"
-    }
-    return set(expected) == set(actual) and all(
-        sha256_file(actual[relative])[0] == digest for relative, digest in expected.items()
-    )
+    try:
+        actual = {relative.as_posix(): path for relative, path in _artifact_paths(evidence_dir)}
+        return set(expected) == set(actual) and all(
+            sha256_file(actual[relative])[0] == digest for relative, digest in expected.items()
+        )
+    except OSError:
+        return False
 
 
 def write_readme_proposal_bundle(
@@ -256,11 +256,20 @@ def write_readme_proposal_bundle(
     _atomic_write_json(bundle_dir / "artifact-sha256.json", artifacts)
 
 
+def _artifact_paths(evidence_dir: Path) -> list[tuple[Path, Path]]:
+    """Enumerate evidence files deterministically and fail on an unreadable subtree."""
+
+    return [
+        (relative, path)
+        for relative, path in enumerate_files(evidence_dir)
+        if path.name != "sha256sums.txt"
+    ]
+
+
 def _write_sha256sums(evidence_dir: Path) -> None:
     lines = []
-    for path in sorted(evidence_dir.rglob("*")):
-        if path.is_file() and path.name != "sha256sums.txt":
-            digest, _size = sha256_file(path)
-            relative = path.relative_to(evidence_dir).as_posix()
-            lines.append(f"{digest}  {relative}")
+    for relative_path, path in _artifact_paths(evidence_dir):
+        digest, _size = sha256_file(path)
+        relative = relative_path.as_posix()
+        lines.append(f"{digest}  {relative}")
     _atomic_write_text(evidence_dir / "sha256sums.txt", "\n".join(lines) + "\n")

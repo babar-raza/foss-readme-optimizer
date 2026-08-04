@@ -68,6 +68,56 @@ class TestChecksumInventory:
         artifact.write_text('{"status":"corrupted"}\n', encoding="utf-8")
         assert verify_sha256sums(evidence_dir) is False
 
+    def test_refresh_propagates_directory_enumeration_failure(self, tmp_path, monkeypatch):
+        evidence_dir = tmp_path / "evidence"
+        evidence_dir.mkdir()
+
+        def failing_walk(*_args, **_kwargs):
+            onerror = _kwargs["onerror"]
+            onerror(OSError("unreadable evidence subtree"))
+            return iter(())
+
+        monkeypatch.setattr("readme_agent.evidence.file_inventory.os.walk", failing_walk)
+
+        with pytest.raises(OSError, match="unreadable evidence subtree"):
+            refresh_sha256sums(evidence_dir)
+
+    def test_verification_fails_closed_on_directory_enumeration_failure(
+        self, tmp_path, monkeypatch
+    ):
+        evidence_dir = tmp_path / "evidence"
+        evidence_dir.mkdir()
+        (evidence_dir / "artifact.json").write_text("{}\n", encoding="utf-8")
+        refresh_sha256sums(evidence_dir)
+
+        def failing_walk(*_args, **_kwargs):
+            onerror = _kwargs["onerror"]
+            onerror(OSError("unreadable evidence subtree"))
+            return iter(())
+
+        monkeypatch.setattr("readme_agent.evidence.file_inventory.os.walk", failing_walk)
+
+        assert verify_sha256sums(evidence_dir) is False
+
+    def test_refresh_propagates_artifact_stat_failure(self, tmp_path, monkeypatch):
+        evidence_dir = tmp_path / "evidence"
+        evidence_dir.mkdir()
+        artifact = evidence_dir / "artifact.json"
+        artifact.write_text("{}\n", encoding="utf-8")
+        refresh_sha256sums(evidence_dir)
+        original_stat = type(artifact).stat
+
+        def failing_stat(path, *args, **kwargs):
+            if path.name == "artifact.json":
+                raise OSError("artifact stat failed")
+            return original_stat(path, *args, **kwargs)
+
+        monkeypatch.setattr(type(artifact), "stat", failing_stat)
+
+        with pytest.raises(OSError, match="artifact stat failed"):
+            refresh_sha256sums(evidence_dir)
+        assert verify_sha256sums(evidence_dir) is False
+
 
 class TestUnifiedDiff:
     def test_no_changes_produces_empty_diff(self):

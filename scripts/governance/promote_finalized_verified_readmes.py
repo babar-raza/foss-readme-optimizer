@@ -9,6 +9,12 @@ import os
 import subprocess
 from pathlib import Path
 
+from readme_agent.evidence.promotion_paths import (
+    compact_readme_path,
+    enumerate_readmes,
+    migrate_preserved_entry,
+    remove_preserved_entry,
+)
 from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -92,7 +98,18 @@ def _org_repo(entry: dict) -> str:
     return url.split("github.com/", 1)[1].strip("/")
 
 
-def _validated_entry(repository: str, state: dict, output_root: Path) -> dict:
+def _git_file_at_head(relative: Path) -> bytes:
+    result = subprocess.run(
+        ["git", "show", f"HEAD:{relative.as_posix()}"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        timeout=30,
+    )
+    return result.stdout
+
+
+def _validated_entry(repository: str, state: dict, output_root: Path, platform: str) -> dict:
     lifecycle = state.get("readme_poc_lifecycle")
     if not isinstance(lifecycle, dict) or lifecycle.get("status") != "NO_OP_PROVEN":
         raise ValueError(f"repository is not NO_OP_PROVEN: {repository}")
@@ -141,11 +158,11 @@ def _validated_entry(repository: str, state: dict, output_root: Path) -> dict:
     ):
         raise ValueError(f"unchanged no-op proof failed for {repository}")
 
-    family = repository.split("/", 1)[0].removeprefix("aspose-").removesuffix("-foss")
-    relative = (
-        Path("repositories/python")
-        / f"{family}--{revision[:12]}--{candidate_hash[:12]}"
-        / "README.md"
+    relative = compact_readme_path(
+        repository,
+        platform,
+        revision,
+        candidate_hash,
     )
     destination = output_root / relative
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -163,7 +180,7 @@ def _validated_entry(repository: str, state: dict, output_root: Path) -> dict:
         raise ValueError(f"runtime evidence is incomplete for {repository}")
     return {
         "repository": repository,
-        "platform": "python",
+        "platform": platform,
         "source_revision": revision,
         "candidate_sha256": candidate_hash,
         "committed_readme": destination.relative_to(REPO_ROOT).as_posix(),
@@ -224,21 +241,44 @@ def promote(state_git: Path, output_root: Path, independent_receipt: Path | None
     )
     states = _current_states(state_git)
     promoted = [
-        _validated_entry(repository, states[repository], output_root)
+        _validated_entry(repository, states[repository], output_root, "python")
         for repository in python_repositories
         if repository in states
         and states[repository].get("readme_poc_lifecycle", {}).get("status") == "NO_OP_PROVEN"
     ]
-    preserved = [
-        item for item in manifest.get("repositories", []) if item.get("platform") != "python"
-    ]
+    preserved = []
+    for item in manifest.get("repositories", []):
+        if item.get("platform") == "python":
+            continue
+        repository = item.get("repository")
+        platform = item.get("platform")
+        if not isinstance(repository, str) or not isinstance(platform, str):
+            raise ValueError(f"preserved manifest row lacks identity: {item!r}")
+        if repository not in states:
+            raise ValueError(f"preserved repository lacks current durable state: {repository}")
+        current = _validated_entry(repository, states[repository], output_root, platform)
+        if current["source_revision"] != item.get("source_revision") or current[
+            "candidate_sha256"
+        ] != item.get("candidate_sha256"):
+            remove_preserved_entry(
+                item,
+                repo_root=REPO_ROOT,
+                output_root=output_root,
+                read_committed_file=_git_file_at_head,
+            )
+        else:
+            migrate_preserved_entry(
+                item,
+                repo_root=REPO_ROOT,
+                output_root=output_root,
+                read_committed_file=_git_file_at_head,
+            )
+        preserved.append(current)
     repositories = sorted(promoted, key=lambda item: item["repository"].casefold()) + sorted(
         preserved, key=lambda item: (item["platform"], item["repository"].casefold())
     )
-    expected_readmes = {(REPO_ROOT / item["committed_readme"]).resolve() for item in promoted}
-    actual_readmes = {
-        path.resolve() for path in (output_root / "repositories/python").rglob("README.md")
-    }
+    expected_readmes = {(REPO_ROOT / item["committed_readme"]).resolve() for item in repositories}
+    actual_readmes = enumerate_readmes(output_root / "repositories")
     if actual_readmes != expected_readmes:
         unexpected = sorted(path.as_posix() for path in actual_readmes - expected_readmes)
         missing = sorted(path.as_posix() for path in expected_readmes - actual_readmes)
