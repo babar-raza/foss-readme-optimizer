@@ -16298,18 +16298,8 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "acquisition_truth": "5d18be0901efa391fca5b6f168ad6597436ac094628fc2314880c92ebeef710c",
-      "classification_semantics": "0e28d651211ad51b76752310a3ae9cf63e8ba81ead54e982d871a5f8760a2d7d",
-      "conflict_semantics": "b63899938319b6ec30aa340755942cab4ea2243cd9b56bcd3bf73355e35897a1",
-      "drafting_and_example_selection": "fe4ba5cee079736821ead381894e07e30243fd01ca7dc7c418018f0b75a64015",
-      "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
-      "root_role_selection": "b6966cdbaf3898221d269522cd629b7d325ccf1faaec3a6ef8299d926aabcd12",
-      "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
-    },
-    "fact_acceptance_contract_hash": "0e5da4d3641fda5ae9e58523cfdb73b68905f22c3c2afe84a98d17032db20acc",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -16557,7 +16547,7 @@
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
       }
     ],
-    "facts_hash": "161bed87284a3d41aefac41d4e8ac7893fa31d292e4e74c15ba825c22e8aa050",
+    "facts_hash": null,
     "history": [
       {
         "evidence_refs": [
@@ -18099,6 +18089,17 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\d3c2e3cff94de4695b841cb9878dae219a901c5a\\source\\revision.json"
+        ],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-04T11:10:04.476282+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "d3c2e3cff94de4695b841cb9878dae219a901c5a",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -18141,12 +18142,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-04T09:24:22.683877+00:00"
+    "source_revision": "d3c2e3cff94de4695b841cb9878dae219a901c5a",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-04T11:10:04.476282+00:00"
   },
   "schema_version": 2,
-  "state_version": 818,
+  "state_version": 819,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
