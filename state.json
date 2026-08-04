@@ -295,7 +295,7 @@
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe"
       }
     ],
-    "facts_hash": "7373f47bcd51da02bd2391828856cd0f6f064308412b8cb70824c094cac6168a",
+    "facts_hash": "aa11934eebd93f8bccd8c3a2d83487d60c4164ee9ef7a1be3f7d45133662f015",
     "history": [
       {
         "evidence_refs": [],
@@ -391,6 +391,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\572fc748b45fe5efce5d93d0684c5ac78fc8affe\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T09:05:11.753972+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "to_status": "FACTS_READY"
       }
     ],
     "intake_preflight_history": [
@@ -419,11 +432,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-04T09:05:06.801720+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-08-04T09:05:11.753972+00:00"
   },
   "schema_version": 2,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:4fa30ee7350677cd47fa73d23a7f2100e4ae39518e642a55bf8f7ad34dcfbf98": {
