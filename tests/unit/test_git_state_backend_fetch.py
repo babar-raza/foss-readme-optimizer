@@ -88,8 +88,12 @@ def test_default_backend_reads_only_dedicated_state_remote(monkeypatch):
     monkeypatch.setenv("README_AGENT_STATE_REMOTE", "file:///isolated/state.git")
 
     backend = git_backend.default_state_backend()
+    workspace_root = backend._git_cwd.parent
 
     assert backend._remote == "file:///isolated/state.git"
+    assert workspace_root.is_dir()
+    backend.close()
+    assert not workspace_root.exists()
 
 
 def test_fetch_remote_sha_preserves_missing_remote_semantics(monkeypatch):
@@ -210,10 +214,13 @@ def test_load_many_uses_one_bulk_fetch_and_cleans_all_isolated_refs(monkeypatch)
     monkeypatch.setattr(
         git_backend,
         "_read_blob",
-        lambda sha, _path: payloads[sha],
+        lambda sha, _path, **_kwargs: payloads[sha],
     )
 
-    loaded = git_backend.GitStateBackend().load_many(["org/first", "org/second", "org/missing"])
+    backend = git_backend.GitStateBackend(remote="file:///fixture-state.git")
+    calls.clear()
+    loaded = backend.load_many(["org/first", "org/second", "org/missing"])
+    backend.close()
 
     assert loaded["org/first"] is not None
     assert loaded["org/first"].state_version == 1
@@ -258,9 +265,12 @@ def test_load_many_preserves_exact_remote_case_on_case_insensitive_filesystems(m
         legacy_sha: ('{"schema_version": 2, "org_repo": "org/product-for-go", "state_version": 2}'),
     }
     monkeypatch.setattr(git_backend, "run_git", fake_run_git)
-    monkeypatch.setattr(git_backend, "_read_blob", lambda sha, _path: payloads[sha])
+    monkeypatch.setattr(git_backend, "_read_blob", lambda sha, _path, **_kwargs: payloads[sha])
 
-    loaded = git_backend.GitStateBackend().load_many(["org/Product-for-Go"])
+    backend = git_backend.GitStateBackend(remote="file:///fixture-state.git")
+    calls.clear()
+    loaded = backend.load_many(["org/Product-for-Go"])
+    backend.close()
 
     assert loaded["org/Product-for-Go"] is not None
     assert loaded["org/Product-for-Go"].state_version == 7

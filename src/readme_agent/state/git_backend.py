@@ -12,13 +12,12 @@ changed) -- a false positive on exactly the safety signal `MEM-002` exists to
 produce. A per-repo ref makes that impossible by construction: unrelated
 repos literally cannot collide, because they are different refs.
 
-Deliberately no working-tree checkout per write -- git plumbing
-(`hash-object`/`mktree`/`commit-tree`/`push <sha>:<ref>`) writes objects
-directly into this repo's own already-checked-out `.git`. Remote reads use a
-unique, short-lived local ref rather than process-global ``FETCH_HEAD`` so
-concurrent repository lanes cannot erase one another's fetched tip. A
-per-write checkout would reintroduce exactly the "local clone as durable-state
-dependency" antipattern this module exists to remove, just renamed.
+Deliberately no working-tree checkout per write -- each backend instance owns a
+disposable bare Git plumbing workspace for `hash-object`/`mktree`/`commit-tree`
+and short-lived fetch refs. Durable state remains only on the configured remote.
+Separate process-local object/ref databases prevent unrelated lanes from
+contending on the control checkout's physical `packed-refs.lock`, while remote
+per-ref push semantics continue to provide the actual CAS boundary.
 """
 
 import json
@@ -26,6 +25,8 @@ import os
 import socket
 import sys
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
+from typing import Any
 from uuid import uuid4
 
 from readme_agent import env
@@ -33,6 +34,10 @@ from readme_agent.errors import StateBackendError
 from readme_agent.gitsafety._git import github_https_auth_env, run_git
 from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import Lock, SaveResult
+from readme_agent.state.git_workspace import (
+    StateGitWorkspace,
+    resolve_state_remote,
+)
 from readme_agent.state.migrations import ensure_run_state_v2, load_run_state_json
 from readme_agent.state.schema import (
     ModelRouteRegistryV1,
@@ -91,11 +96,30 @@ _COMMIT_IDENTITY_ENV = {
 }
 
 
-def _run_remote_git(args: list[str]):
+def _run_plumbing_git(
+    args: list[str],
+    *,
+    cwd: Path | None = None,
+    input_text: str | None = None,
+    env_override: dict[str, str] | None = None,
+):
+    """Preserve legacy call signatures while allowing an explicit bare workspace."""
+
+    kwargs: dict[str, Any] = {}
+    if cwd is not None:
+        kwargs["cwd"] = cwd
+    if input_text is not None:
+        kwargs["input_text"] = input_text
+    if env_override is not None:
+        kwargs["env"] = env_override
+    return run_git(args, **kwargs)
+
+
+def _run_remote_git(args: list[str], *, cwd: Path | None = None):
     """Run state-remote Git with ephemeral GitHub auth when a token is available."""
 
     auth_env = github_https_auth_env(env.gh_token())
-    return run_git(args, env=auth_env) if auth_env else run_git(args)
+    return _run_plumbing_git(args, cwd=cwd, env_override=auth_env or None)
 
 
 def _ref_key(org_repo: str) -> str:
@@ -120,7 +144,12 @@ def _is_non_fast_forward(stderr: str) -> bool:
     return known_marker or stale_expected_value
 
 
-def _fetch_remote_sha(remote_ref: str, *, remote: str = "origin") -> str | None:
+def _fetch_remote_sha(
+    remote_ref: str,
+    *,
+    remote: str = "origin",
+    cwd: Path | None = None,
+) -> str | None:
     """Returns the remote ref's current commit SHA, or `None` if the ref
     doesn't exist yet (first run for this repo) -- distinguished from any
     other fetch failure (network/auth), which raises rather than being
@@ -135,7 +164,8 @@ def _fetch_remote_sha(remote_ref: str, *, remote: str = "origin") -> str | None:
                 "--no-write-fetch-head",
                 remote,
                 f"+{remote_ref}:{local_ref}",
-            ]
+            ],
+            cwd=cwd,
         )
         if result.returncode == 0:
             return result
@@ -153,36 +183,45 @@ def _fetch_remote_sha(remote_ref: str, *, remote: str = "origin") -> str | None:
     if result.returncode != 0:
         return None
     try:
-        rev = run_git(["rev-parse", "--verify", local_ref])
+        rev = _run_plumbing_git(["rev-parse", "--verify", local_ref], cwd=cwd)
         if rev.returncode != 0:
             raise StateBackendError(
                 f"rev-parse of isolated fetch ref failed after fetching {remote_ref}: {rev.stderr}"
             )
         return rev.stdout.strip()
     finally:
-        cleanup = run_git(["update-ref", "-d", local_ref])
+        cleanup = _run_plumbing_git(["update-ref", "-d", local_ref], cwd=cwd)
         if cleanup.returncode != 0:
             raise StateBackendError(
                 f"cleanup of isolated fetch ref {local_ref} failed: {cleanup.stderr}"
             )
 
 
-def _read_blob(commit_sha: str, path: str) -> str:
-    result = run_git(["cat-file", "-p", f"{commit_sha}:{path}"])
+def _read_blob(commit_sha: str, path: str, *, cwd: Path | None = None) -> str:
+    result = _run_plumbing_git(["cat-file", "-p", f"{commit_sha}:{path}"], cwd=cwd)
     if result.returncode != 0:
         raise StateBackendError(f"reading {path} from {commit_sha} failed: {result.stderr}")
     return result.stdout
 
 
-def _write_commit(*, tree_path: str, payload: str, parent_sha: str | None, message: str) -> str:
+def _write_commit(
+    *,
+    tree_path: str,
+    payload: str,
+    parent_sha: str | None,
+    message: str,
+    cwd: Path | None = None,
+) -> str:
     """`hash-object` -> `mktree` -> `commit-tree`, all via stdin, no working
     tree touched. Returns the new commit SHA."""
-    blob = run_git(["hash-object", "-w", "--stdin"], input_text=payload)
+    blob = _run_plumbing_git(["hash-object", "-w", "--stdin"], cwd=cwd, input_text=payload)
     if blob.returncode != 0:
         raise StateBackendError(f"hash-object failed: {blob.stderr}")
     blob_sha = blob.stdout.strip()
 
-    tree = run_git(["mktree"], input_text=f"100644 blob {blob_sha}\t{tree_path}\n")
+    tree = _run_plumbing_git(
+        ["mktree"], cwd=cwd, input_text=f"100644 blob {blob_sha}\t{tree_path}\n"
+    )
     if tree.returncode != 0:
         raise StateBackendError(f"mktree failed: {tree.stderr}")
     tree_sha = tree.stdout.strip()
@@ -190,7 +229,7 @@ def _write_commit(*, tree_path: str, payload: str, parent_sha: str | None, messa
     commit_args = ["commit-tree", tree_sha, "-m", message]
     if parent_sha is not None:
         commit_args += ["-p", parent_sha]
-    commit = run_git(commit_args, env=_COMMIT_IDENTITY_ENV)
+    commit = _run_plumbing_git(commit_args, cwd=cwd, env_override=_COMMIT_IDENTITY_ENV)
     if commit.returncode != 0:
         raise StateBackendError(f"commit-tree failed: {commit.stderr}")
     return commit.stdout.strip()
@@ -202,6 +241,7 @@ def _acquire_lock_generic(
     org_repo: str,
     tracking: dict[str, str],
     lease_seconds: int,
+    cwd: Path | None = None,
 ) -> Lock | None:
     """Shared body for both lock families (Wave 8.5) -- parameterized on
     ref prefix, the instance's own tracking dict, and lease duration, read
@@ -209,10 +249,10 @@ def _acquire_lock_generic(
     `monkeypatch.setattr(git_backend, "LOCK_LEASE_SECONDS", ...)`/
     `"RUN_LOCK_LEASE_SECONDS"` keep working exactly as before this refactor."""
     remote_ref = f"{ref_prefix}/{_ref_key(org_repo)}"
-    parent_sha = _fetch_remote_sha(remote_ref, remote=remote)
+    parent_sha = _fetch_remote_sha(remote_ref, remote=remote, cwd=cwd)
 
     if parent_sha is not None:
-        existing = json.loads(_read_blob(parent_sha, "lock.json"))
+        existing = json.loads(_read_blob(parent_sha, "lock.json", cwd=cwd))
         if datetime.fromisoformat(existing["leased_until"]) > datetime.now(UTC):
             return None  # held by someone else, not expired
 
@@ -225,9 +265,10 @@ def _acquire_lock_generic(
         payload=payload,
         parent_sha=parent_sha,
         message=f"lock: {org_repo}",
+        cwd=cwd,
     )
 
-    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"])
+    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"], cwd=cwd)
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None  # lost the race to acquire/reclaim
@@ -242,6 +283,7 @@ def _release_lock_generic(
     ref_prefix: str,
     lock: Lock,
     tracking: dict[str, str],
+    cwd: Path | None = None,
 ) -> None:
     """Shared body for both lock families (Wave 8.5) -- see each public
     `release_lock`/`release_run_lock` method's own docstring for the
@@ -257,7 +299,8 @@ def _release_lock_generic(
         return
 
     push = _run_remote_git(
-        ["push", remote, f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"]
+        ["push", remote, f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"],
+        cwd=cwd,
     )
     if push.returncode != 0 and not _is_non_fast_forward(push.stderr):
         raise StateBackendError(f"releasing lock {remote_ref} failed: {push.stderr}")
@@ -269,15 +312,16 @@ def _renew_lock_generic(
     lock: Lock,
     tracking: dict[str, str],
     lease_seconds: int,
+    cwd: Path | None = None,
 ) -> Lock | None:
     """CAS-renew one locally held lease without replacing its holder identity."""
 
     remote_ref = f"{ref_prefix}/{_ref_key(lock.org_repo)}"
     expected_sha = tracking.get(lock.org_repo)
-    current_sha = _fetch_remote_sha(remote_ref, remote=remote)
+    current_sha = _fetch_remote_sha(remote_ref, remote=remote, cwd=cwd)
     if expected_sha is None or current_sha != expected_sha:
         return None
-    current = json.loads(_read_blob(current_sha, "lock.json"))
+    current = json.loads(_read_blob(current_sha, "lock.json", cwd=cwd))
     if current.get("holder_id") != lock.holder_id:
         return None
     leased_until = (datetime.now(UTC) + timedelta(seconds=lease_seconds)).isoformat()
@@ -293,8 +337,9 @@ def _renew_lock_generic(
         payload=payload,
         parent_sha=current_sha,
         message=f"renew lock: {lock.org_repo}",
+        cwd=cwd,
     )
-    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"])
+    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"], cwd=cwd)
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None
@@ -307,12 +352,18 @@ def _renew_lock_generic(
     )
 
 
-def _lock_still_held_generic(remote: str, ref_prefix: str, lock: Lock) -> bool:
+def _lock_still_held_generic(
+    remote: str,
+    ref_prefix: str,
+    lock: Lock,
+    *,
+    cwd: Path | None = None,
+) -> bool:
     remote_ref = f"{ref_prefix}/{_ref_key(lock.org_repo)}"
-    sha = _fetch_remote_sha(remote_ref, remote=remote)
+    sha = _fetch_remote_sha(remote_ref, remote=remote, cwd=cwd)
     if sha is None:
         return False
-    current = json.loads(_read_blob(sha, "lock.json"))
+    current = json.loads(_read_blob(sha, "lock.json", cwd=cwd))
     return bool(current.get("holder_id") == lock.holder_id)
 
 
@@ -325,7 +376,10 @@ class GitStateBackend:
     origin or weakening the backend's real CAS/lease behavior."""
 
     def __init__(self, *, remote: str = "origin") -> None:
-        self._remote = remote
+        self._remote = resolve_state_remote(remote)
+        self._owned_workspace = StateGitWorkspace()
+        self._git_cwd = self._owned_workspace.git_dir
+        self._workspace_lock = self._owned_workspace.lock
         # Wave 7 production-reliability fix (found by independent review,
         # 2026-07-20): `release_lock()` used to unconditionally delete
         # whatever the lock ref currently pointed to. If this instance's own
@@ -347,12 +401,24 @@ class GitStateBackend:
         # families' state simultaneously for the same repo.
         self._held_run_lock_commit_shas: dict[str, str] = {}
 
+    def close(self) -> None:
+        """Deterministically remove this backend's disposable plumbing workspace."""
+
+        self._owned_workspace.cleanup()
+
+    def __enter__(self) -> "GitStateBackend":
+        return self
+
+    def __exit__(self, *_exc_info: object) -> None:
+        self.close()
+
     def load(self, org_repo: str) -> RunStateV2 | None:
-        remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
-        sha = _fetch_remote_sha(remote_ref, remote=self._remote)
-        if sha is None:
-            return None
-        return load_run_state_json(_read_blob(sha, "state.json"))
+        with self._workspace_lock:
+            remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
+            sha = _fetch_remote_sha(remote_ref, remote=self._remote, cwd=self._git_cwd)
+            if sha is None:
+                return None
+            return load_run_state_json(_read_blob(sha, "state.json", cwd=self._git_cwd))
 
     def load_many(self, org_repos: list[str]) -> dict[str, RunStateV2 | None]:
         """Resolve requested records with two network calls and isolated local refs.
@@ -367,65 +433,78 @@ class GitStateBackend:
 
         if not org_repos:
             return {}
-        remote = _run_remote_git(["ls-remote", self._remote, f"{STATE_REF_PREFIX}/*"])
-        if remote.returncode != 0:
-            raise StateBackendError(f"listing {STATE_REF_PREFIX} failed: {remote.stderr}")
-        available_refs = {
-            ref_name
-            for line in remote.stdout.splitlines()
-            if len(parts := line.split(maxsplit=1)) == 2
-            and (ref_name := parts[1]).startswith(f"{STATE_REF_PREFIX}/")
-        }
-
-        local_prefix = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
-        requested_local_refs: dict[str, str | None] = {}
-        refspecs: list[str] = []
-        for index, org_repo in enumerate(org_repos):
-            remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
-            if remote_ref not in available_refs:
-                requested_local_refs[org_repo] = None
-                continue
-            local_ref = f"{local_prefix}/{index}"
-            requested_local_refs[org_repo] = local_ref
-            refspecs.append(f"+{remote_ref}:{local_ref}")
-        if not refspecs:
-            return dict.fromkeys(org_repos)
-
-        fetched = _run_remote_git(["fetch", "--no-write-fetch-head", self._remote, *refspecs])
-        if fetched.returncode != 0:
-            raise StateBackendError(f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}")
-
-        listed = run_git(["for-each-ref", "--format=%(refname) %(objectname)", local_prefix])
-        if listed.returncode != 0:
-            raise StateBackendError(
-                f"listing isolated bulk state refs under {local_prefix} failed: {listed.stderr}"
+        with self._workspace_lock:
+            remote = _run_remote_git(
+                ["ls-remote", self._remote, f"{STATE_REF_PREFIX}/*"], cwd=self._git_cwd
             )
-        refs: dict[str, str] = {}
-        local_refs: list[str] = []
-        for line in listed.stdout.splitlines():
-            ref_name, sha = line.split(" ", maxsplit=1)
-            local_refs.append(ref_name)
-            refs[ref_name] = sha
-        try:
-            result: dict[str, RunStateV2 | None] = {}
-            for org_repo in org_repos:
-                selected_local_ref = requested_local_refs[org_repo]
-                sha = refs.get(selected_local_ref) if selected_local_ref is not None else None
-                result[org_repo] = (
-                    load_run_state_json(_read_blob(sha, "state.json")) if sha is not None else None
+            if remote.returncode != 0:
+                raise StateBackendError(f"listing {STATE_REF_PREFIX} failed: {remote.stderr}")
+            available_refs = {
+                ref_name
+                for line in remote.stdout.splitlines()
+                if len(parts := line.split(maxsplit=1)) == 2
+                and (ref_name := parts[1]).startswith(f"{STATE_REF_PREFIX}/")
+            }
+
+            local_prefix = f"refs/readme-agent-fetch/{os.getpid()}-{uuid4().hex}"
+            requested_local_refs: dict[str, str | None] = {}
+            refspecs: list[str] = []
+            for index, org_repo in enumerate(org_repos):
+                remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
+                if remote_ref not in available_refs:
+                    requested_local_refs[org_repo] = None
+                    continue
+                local_ref = f"{local_prefix}/{index}"
+                requested_local_refs[org_repo] = local_ref
+                refspecs.append(f"+{remote_ref}:{local_ref}")
+            if not refspecs:
+                return dict.fromkeys(org_repos)
+
+            fetched = _run_remote_git(
+                ["fetch", "--no-write-fetch-head", self._remote, *refspecs], cwd=self._git_cwd
+            )
+            if fetched.returncode != 0:
+                raise StateBackendError(
+                    f"bulk fetch of {STATE_REF_PREFIX} failed: {fetched.stderr}"
                 )
-            return result
-        finally:
-            if local_refs:
-                cleanup = run_git(
-                    ["update-ref", "--stdin"],
-                    input_text="".join(f"delete {ref_name}\n" for ref_name in local_refs),
+
+            listed = run_git(
+                ["for-each-ref", "--format=%(refname) %(objectname)", local_prefix],
+                cwd=self._git_cwd,
+            )
+            if listed.returncode != 0:
+                raise StateBackendError(
+                    f"listing isolated bulk state refs under {local_prefix} failed: {listed.stderr}"
                 )
-                if cleanup.returncode != 0:
-                    raise StateBackendError(
-                        f"cleanup of isolated bulk refs under {local_prefix} failed: "
-                        f"{cleanup.stderr}"
+            refs: dict[str, str] = {}
+            local_refs: list[str] = []
+            for line in listed.stdout.splitlines():
+                ref_name, sha = line.split(" ", maxsplit=1)
+                local_refs.append(ref_name)
+                refs[ref_name] = sha
+            try:
+                result: dict[str, RunStateV2 | None] = {}
+                for org_repo in org_repos:
+                    selected_local_ref = requested_local_refs[org_repo]
+                    sha = refs.get(selected_local_ref) if selected_local_ref is not None else None
+                    result[org_repo] = (
+                        load_run_state_json(_read_blob(sha, "state.json", cwd=self._git_cwd))
+                        if sha is not None
+                        else None
                     )
+                return result
+            finally:
+                if local_refs:
+                    cleanup = run_git(
+                        ["update-ref", "--stdin"],
+                        cwd=self._git_cwd,
+                        input_text="".join(f"delete {ref_name}\n" for ref_name in local_refs),
+                    )
+                    if cleanup.returncode != 0:
+                        raise StateBackendError(
+                            f"cleanup of isolated bulk refs under {local_prefix} failed: "
+                            f"{cleanup.stderr}"
+                        )
 
     def save(
         self,
@@ -433,49 +512,55 @@ class GitStateBackend:
         state: RunStateV1 | RunStateV2,
         expected_version: int | None,
     ) -> SaveResult:
-        remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
-        parent_sha = _fetch_remote_sha(remote_ref, remote=self._remote)
+        with self._workspace_lock:
+            remote_ref = f"{STATE_REF_PREFIX}/{_ref_key(org_repo)}"
+            parent_sha = _fetch_remote_sha(remote_ref, remote=self._remote, cwd=self._git_cwd)
 
-        if parent_sha is None:
-            if expected_version is not None:
-                # Caller believed prior state existed; it doesn't (or no
-                # longer does) -- its expectation no longer describes reality.
-                return SaveResult(outcome="stale", new_version=None)
-            current_version = None
-        else:
-            current = load_run_state_json(_read_blob(parent_sha, "state.json"))
-            if expected_version != current.state_version:
-                return SaveResult(outcome="stale", new_version=current.state_version)
-            current_version = current.state_version
+            if parent_sha is None:
+                if expected_version is not None:
+                    return SaveResult(outcome="stale", new_version=None)
+                current_version = None
+            else:
+                current = load_run_state_json(
+                    _read_blob(parent_sha, "state.json", cwd=self._git_cwd)
+                )
+                if expected_version != current.state_version:
+                    return SaveResult(outcome="stale", new_version=current.state_version)
+                current_version = current.state_version
 
-        new_version = (current_version or 0) + 1
-        new_state = ensure_run_state_v2(state).model_copy(
-            update={"org_repo": org_repo, "state_version": new_version}
-        )
-        payload = json.dumps(new_state.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
-        commit_sha = _write_commit(
-            tree_path="state.json",
-            payload=payload,
-            parent_sha=parent_sha,
-            message=f"state: {org_repo} v{new_version}",
-        )
+            new_version = (current_version or 0) + 1
+            new_state = ensure_run_state_v2(state).model_copy(
+                update={"org_repo": org_repo, "state_version": new_version}
+            )
+            payload = json.dumps(new_state.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
+            commit_sha = _write_commit(
+                tree_path="state.json",
+                payload=payload,
+                parent_sha=parent_sha,
+                message=f"state: {org_repo} v{new_version}",
+                cwd=self._git_cwd,
+            )
 
-        push = _run_remote_git(["push", self._remote, f"{commit_sha}:{remote_ref}"])
-        if push.returncode != 0:
-            if _is_non_fast_forward(push.stderr):
-                return SaveResult(outcome="stale", new_version=None)
-            raise StateBackendError(f"push of {remote_ref} failed: {push.stderr}")
+            push = _run_remote_git(
+                ["push", self._remote, f"{commit_sha}:{remote_ref}"], cwd=self._git_cwd
+            )
+            if push.returncode != 0:
+                if _is_non_fast_forward(push.stderr):
+                    return SaveResult(outcome="stale", new_version=None)
+                raise StateBackendError(f"push of {remote_ref} failed: {push.stderr}")
 
-        return SaveResult(outcome="saved", new_version=new_version)
+            return SaveResult(outcome="saved", new_version=new_version)
 
     def acquire_lock(self, org_repo: str) -> Lock | None:
-        return _acquire_lock_generic(
-            self._remote,
-            LOCK_REF_PREFIX,
-            org_repo,
-            self._held_lock_commit_shas,
-            LOCK_LEASE_SECONDS,
-        )
+        with self._workspace_lock:
+            return _acquire_lock_generic(
+                self._remote,
+                LOCK_REF_PREFIX,
+                org_repo,
+                self._held_lock_commit_shas,
+                LOCK_LEASE_SECONDS,
+                cwd=self._git_cwd,
+            )
 
     def release_lock(self, lock: Lock) -> None:
         """Compare-and-swap delete (`--force-with-lease`), not a plain
@@ -487,12 +572,14 @@ class GitStateBackend:
         someone else has since reclaimed it (this instance's own lease
         genuinely expired), that rejection is the correct, safe outcome --
         not an error to raise."""
-        _release_lock_generic(
-            self._remote,
-            LOCK_REF_PREFIX,
-            lock,
-            self._held_lock_commit_shas,
-        )
+        with self._workspace_lock:
+            _release_lock_generic(
+                self._remote,
+                LOCK_REF_PREFIX,
+                lock,
+                self._held_lock_commit_shas,
+                cwd=self._git_cwd,
+            )
 
     def lock_still_held(self, lock: Lock) -> bool:
         """Decision #46/#48 (`EFF-005`): re-fetch the lock ref fresh and
@@ -506,7 +593,8 @@ class GitStateBackend:
         its nominal duration but was never actually reclaimed is still
         genuinely exclusive -- treating it as lost here would be a false
         negative, not a safety improvement."""
-        return _lock_still_held_generic(self._remote, LOCK_REF_PREFIX, lock)
+        with self._workspace_lock:
+            return _lock_still_held_generic(self._remote, LOCK_REF_PREFIX, lock, cwd=self._git_cwd)
 
     def acquire_run_lock(self, org_repo: str) -> Lock | None:
         """SCL-005 extension (Wave 8.5): a second, coarser, run-scoped lock,
@@ -524,85 +612,107 @@ class GitStateBackend:
         optimistic CAS (never a wait), so this cannot self-deadlock against
         `save_domain()`'s own internal use of the narrow lock, confirmed by
         direct reading of both call paths."""
-        return _acquire_lock_generic(
-            self._remote,
-            RUN_LOCK_REF_PREFIX,
-            org_repo,
-            self._held_run_lock_commit_shas,
-            RUN_LOCK_LEASE_SECONDS,
-        )
+        with self._workspace_lock:
+            return _acquire_lock_generic(
+                self._remote,
+                RUN_LOCK_REF_PREFIX,
+                org_repo,
+                self._held_run_lock_commit_shas,
+                RUN_LOCK_LEASE_SECONDS,
+                cwd=self._git_cwd,
+            )
 
     def release_run_lock(self, lock: Lock) -> None:
-        _release_lock_generic(
-            self._remote,
-            RUN_LOCK_REF_PREFIX,
-            lock,
-            self._held_run_lock_commit_shas,
-        )
+        with self._workspace_lock:
+            _release_lock_generic(
+                self._remote,
+                RUN_LOCK_REF_PREFIX,
+                lock,
+                self._held_run_lock_commit_shas,
+                cwd=self._git_cwd,
+            )
 
     def renew_run_lock(self, lock: Lock) -> Lock | None:
-        return _renew_lock_generic(
-            self._remote,
-            RUN_LOCK_REF_PREFIX,
-            lock,
-            self._held_run_lock_commit_shas,
-            RUN_LOCK_LEASE_SECONDS,
-        )
+        with self._workspace_lock:
+            return _renew_lock_generic(
+                self._remote,
+                RUN_LOCK_REF_PREFIX,
+                lock,
+                self._held_run_lock_commit_shas,
+                RUN_LOCK_LEASE_SECONDS,
+                cwd=self._git_cwd,
+            )
 
     def run_lock_still_held(self, lock: Lock) -> bool:
-        return _lock_still_held_generic(self._remote, RUN_LOCK_REF_PREFIX, lock)
+        with self._workspace_lock:
+            return _lock_still_held_generic(
+                self._remote, RUN_LOCK_REF_PREFIX, lock, cwd=self._git_cwd
+            )
 
     def _load_model_route_registry(self) -> ModelRouteRegistryV1 | None:
-        sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote)
+        sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote, cwd=self._git_cwd)
         if sha is None:
             return None
-        return ModelRouteRegistryV1.model_validate_json(_read_blob(sha, "model_routes.json"))
+        return ModelRouteRegistryV1.model_validate_json(
+            _read_blob(sha, "model_routes.json", cwd=self._git_cwd)
+        )
 
     def load_model_route_status(self, job: str) -> ModelRouteStatusV1 | None:
-        registry = self._load_model_route_registry()
-        if registry is None:
-            return None
-        return registry.routes.get(job)
+        with self._workspace_lock:
+            registry = self._load_model_route_registry()
+            if registry is None:
+                return None
+            return registry.routes.get(job)
 
     def save_model_route_status(self, status: ModelRouteStatusV1) -> None:
-        def attempt() -> None:
-            sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote)
-            current = (
-                ModelRouteRegistryV1.model_validate_json(_read_blob(sha, "model_routes.json"))
-                if sha is not None
-                else ModelRouteRegistryV1()
-            )
-            updated = current.model_copy(
-                update={
-                    "routes": {**current.routes, status.job: status},
-                    "state_version": current.state_version + 1,
-                }
-            )
-            payload = json.dumps(updated.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
-            commit_sha = _write_commit(
-                tree_path="model_routes.json",
-                payload=payload,
-                parent_sha=sha,
-                message=f"model-route: {status.job} -> {status.status}",
-            )
-            push = _run_remote_git(["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"])
-            if push.returncode == 0:
-                return
-            if _is_non_fast_forward(push.stderr):
-                raise RetryableOperationError("model-route CAS push was stale")
-            raise StateBackendError(f"push of {MODEL_ROUTE_REF} failed: {push.stderr}")
+        with self._workspace_lock:
 
-        try:
-            run_with_retry(
-                "state_cas",
-                attempt,
-                max_attempts=_MODEL_ROUTE_SAVE_MAX_RETRIES,
-            )
-        except RetryableOperationError as exc:
-            raise StateBackendError(
-                f"save_model_route_status for {status.job!r} did not converge after "
-                f"{_MODEL_ROUTE_SAVE_MAX_RETRIES} retries"
-            ) from exc
+            def attempt() -> None:
+                sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote, cwd=self._git_cwd)
+                current = (
+                    ModelRouteRegistryV1.model_validate_json(
+                        _read_blob(sha, "model_routes.json", cwd=self._git_cwd)
+                    )
+                    if sha is not None
+                    else ModelRouteRegistryV1()
+                )
+                updated = current.model_copy(
+                    update={
+                        "routes": {**current.routes, status.job: status},
+                        "state_version": current.state_version + 1,
+                    }
+                )
+                payload = (
+                    json.dumps(updated.model_dump(mode="json"), indent=2, sort_keys=True) + "\n"
+                )
+                commit_sha = _write_commit(
+                    tree_path="model_routes.json",
+                    payload=payload,
+                    parent_sha=sha,
+                    message=f"model-route: {status.job} -> {status.status}",
+                    cwd=self._git_cwd,
+                )
+                push = _run_remote_git(
+                    ["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"],
+                    cwd=self._git_cwd,
+                )
+                if push.returncode == 0:
+                    return
+                if _is_non_fast_forward(push.stderr):
+                    raise RetryableOperationError("model-route CAS push was stale")
+                raise StateBackendError(f"push of {MODEL_ROUTE_REF} failed: {push.stderr}")
+
+            try:
+                run_with_retry(
+                    "state_cas",
+                    attempt,
+                    max_attempts=_MODEL_ROUTE_SAVE_MAX_RETRIES,
+                )
+            except RetryableOperationError as exc:
+                raise StateBackendError(
+                    f"save_model_route_status for {status.job!r} did not converge after "
+                    f"{_MODEL_ROUTE_SAVE_MAX_RETRIES} retries"
+                ) from exc
 
 
 def default_state_backend() -> GitStateBackend:
