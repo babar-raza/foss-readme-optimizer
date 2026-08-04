@@ -122,6 +122,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-062427-68c4:aspose-font-foss/Aspose.Font-FOSS-for-Python"
     },
+    "1b5672f793a844417ecf065668317b29b19fa588975cfe8b524f114fcb5fcc5c": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "1b5672f793a844417ecf065668317b29b19fa588975cfe8b524f114fcb5fcc5c",
+      "completed_at": "2026-08-04T10:04:13.487743+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8048bb0cc8ff3b8662d55c20772f160f8b96c0a1688a05e9a7122979e4d7ba69",
+      "output_hash": null,
+      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "run_id": "20260804-100354-7b1a",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-04T10:04:13.487730+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-082320-2137:aspose-font-foss/Aspose.Font-FOSS-for-Python"
+    },
     "1c5cfe9c8e43091cc85283a511ef50b5cb8a33b61364b6635528793291fa41fc": {
       "action": null,
       "attempt": 1,
@@ -9359,7 +9376,7 @@
     "updated_at": "2026-08-02T05:50:42.891228+00:00"
   },
   "schema_version": 2,
-  "state_version": 236,
+  "state_version": 237,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86748b3bbaa0ef1d8385661881ba5db5d93591b9db0a00ea85949ce59197d101",
@@ -9574,11 +9591,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ba838cb542112b259ccbf06607292ab229dc5b0dfee163a827db06b420448526",
+      "last_checkpoint_id": "1b5672f793a844417ecf065668317b29b19fa588975cfe8b524f114fcb5fcc5c",
       "lease_expires_at": "2026-08-04T10:19:08.176037+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-04T10:04:08.176037+00:00"
+      "updated_at": "2026-08-04T10:04:13.487743+00:00"
     },
     "operator:20260801-083747-cbcc:aspose-font-foss/Aspose.Font-FOSS-for-Python": {
       "accepted_at": "2026-08-01T08:37:53.523582+00:00",
