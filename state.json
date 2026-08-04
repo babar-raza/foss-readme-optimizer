@@ -631,6 +631,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-04T11:18:38.035628+00:00",
+        "reason": "independent review wiring failed: GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings: ['f1:mechanical premise cites quick_start.max_nonblank_code_lines instead of quick_start.fenced_blocks']",
+        "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "intake_preflight_history": [
@@ -659,11 +668,11 @@
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-08-04T11:17:26.184154+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-08-04T11:18:38.035628+00:00"
   },
   "schema_version": 2,
-  "state_version": 75,
+  "state_version": 76,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "df7f1f92fc60332bd56c5a37be6ad2a116e7dbb075e12db5b29b4fdd7ad5cb63",
