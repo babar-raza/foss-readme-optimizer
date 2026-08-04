@@ -293,6 +293,27 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "bc5a13c0c5048a4cefd456a0195ae25d71b863686b548b5b41e6d994601182b5",
+          "classification_semantics": "b7dc8e370eeae54ad93222c4f385e9731c427cd6165a4f71cd5bd330eb8d6af5",
+          "conflict_semantics": "2f3cea62d1a99d01efa9c54152de50ff039683aa6f21ad874335c59a09f1f852",
+          "drafting_and_example_selection": "99a312e66f2b312eb83d493cdad0be34ddeb00646d114eb33421cdf8f76d899b",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "5aef22ec12131eb51d2d1b52b80481344406d5c48435458032226944b2e54c0f",
+          "visitor_render_eligibility": "e10a31e7ffd064e52880b2e84eaadabf339e18fc9aa5568c8316d324122d9425"
+        },
+        "contract_hash": "f0405ede267d74ecdb9d7eaeb9e7b503c24f5123a998fdfa200a825c80f5b76d",
+        "facts_hash": "aa11934eebd93f8bccd8c3a2d83487d60c4164ee9ef7a1be3f7d45133662f015",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T09:05:16.570632+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "exact ProductFactsV2 graph accepted under the current contract",
+        "schema_version": 1,
+        "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe"
       }
     ],
     "facts_hash": "aa11934eebd93f8bccd8c3a2d83487d60c4164ee9ef7a1be3f7d45133662f015",
@@ -433,10 +454,10 @@
     "schema_version": 2,
     "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-04T09:05:11.753972+00:00"
+    "updated_at": "2026-08-04T09:05:16.570632+00:00"
   },
   "schema_version": 2,
-  "state_version": 35,
+  "state_version": 36,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:4fa30ee7350677cd47fa73d23a7f2100e4ae39518e642a55bf8f7ad34dcfbf98": {
