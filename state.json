@@ -4870,15 +4870,15 @@
         "fact_citations": {
           "metadata.description": [
             "product.identity:manifest-and-registry",
-            "product.audience:platform-derived",
-            "product.problems_solved:capability-derived"
+            "product.audience:dotnet-product-root",
+            "product.problems_solved:agent-drafted-grounded"
           ],
           "metadata.homepage": [
             "documentation.links:primary"
           ],
           "metadata.topics": [
-            "product.capabilities:repository-evidence",
-            "product.formats:repository-evidence",
+            "product.capabilities:dotnet-public-api",
+            "product.formats:dotnet-functional-formats",
             "product.platforms:manifest"
           ]
         },
@@ -4892,10 +4892,10 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-02T21:42:01.818532+00:00",
+      "last_run_timestamp": "2026-08-04T14:21:34.989066+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "6a209e8fc3dfc305df39a417037e32a4d4c7b2be"
+      "upstream_revision_at_accept": "d3c2e3cff94de4695b841cb9878dae219a901c5a"
     },
     "package_release_audit": {
       "accepted_facts_hash": "e299d8b5ca4e330e6d755298b135d91b92bc81d0d525fcb886671d04e5118b2a",
@@ -18731,7 +18731,7 @@
     "updated_at": "2026-08-04T14:19:46.849840+00:00"
   },
   "schema_version": 2,
-  "state_version": 873,
+  "state_version": 874,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
