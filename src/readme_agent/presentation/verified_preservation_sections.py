@@ -14,6 +14,18 @@ from readme_agent.readme.document_structure import heading_identity, parse_headi
 class PreservedSection:
     title: str
     markdown: str
+    source_byte_start: int
+    source_byte_end: int
+
+
+@dataclass(frozen=True)
+class PreservedBlock:
+    """One exact source-owned block with immutable byte coordinates."""
+
+    markdown: str
+    source_owner_id: str
+    source_byte_start: int
+    source_byte_end: int
 
 
 def effective_disposition_ranges(
@@ -116,7 +128,14 @@ def preserved_h2_sections(
                 "preserve H2 contains correction-owned child sections and cannot be copied "
                 f"whole: {section.heading}"
             )
-        sections.append(PreservedSection(title=section.heading, markdown=markdown))
+        sections.append(
+            PreservedSection(
+                title=section.heading,
+                markdown=markdown,
+                source_byte_start=section.source_byte_start,
+                source_byte_end=section.source_byte_end,
+            )
+        )
     identities = Counter(declared_identities)
     duplicates = sorted(identity for identity, count in identities.items() if count > 1)
     if duplicates:
@@ -129,7 +148,7 @@ def preserved_opening_claims(
     assessment: ReadmeAssessmentV1,
     replaceable_claim_ids: set[str],
     candidate: str,
-) -> list[str]:
+) -> list[PreservedBlock]:
     """Return exact leaf-preserve claims before the first source H2."""
 
     source = source_text.encode("utf-8")
@@ -140,7 +159,7 @@ def preserved_opening_claims(
     ]
     opening_end = min(h2_starts, default=len(source))
     preserve_ranges = effective_preserve_ranges(assessment)
-    preserved: list[str] = []
+    preserved: list[PreservedBlock] = []
     for claim in assessment.material_claims:
         if claim.source_byte_end > opening_end or not any(
             start <= claim.source_byte_start and claim.source_byte_end <= end
@@ -149,5 +168,12 @@ def preserved_opening_claims(
             continue
         text = _source_slice(source, claim.source_byte_start, claim.source_byte_end)
         if claim.claim_id not in replaceable_claim_ids and text not in candidate:
-            preserved.append(text)
+            preserved.append(
+                PreservedBlock(
+                    markdown=text,
+                    source_owner_id=claim.claim_id,
+                    source_byte_start=claim.source_byte_start,
+                    source_byte_end=claim.source_byte_end,
+                )
+            )
     return preserved

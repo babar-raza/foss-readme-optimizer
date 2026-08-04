@@ -386,6 +386,7 @@ def test_renderer_embeds_a_structurally_verified_map_and_exposes_approval_blocke
         candidate_text=candidate,
         facts=facts,
         operations=plan.operations,
+        candidate_content_provenance=plan.candidate_content_provenance,
     )
 
     assert verdict.valid is True

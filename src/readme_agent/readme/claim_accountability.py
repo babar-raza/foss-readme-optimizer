@@ -166,7 +166,11 @@ def build_readme_claim_accountability_map(
         else:
             candidate_origins[claim.claim_id] = "generated"
     candidate_hashes = Counter(claim.content_sha256 for claim in candidate_claims)
-    provenance = candidate_content_provenance or []
+    provenance = [
+        binding
+        for binding in candidate_content_provenance or []
+        if binding.authority_scope != "lineage_only"
+    ]
     resolutions = _validated_source_resolutions(source_claims, source_claim_resolutions or [])
     candidate_records = []
     for claim in candidate_claims:

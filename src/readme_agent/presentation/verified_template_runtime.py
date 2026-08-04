@@ -30,6 +30,12 @@ from readme_agent.readme.agentic_composition_models import ReadmeAgenticComposit
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.claim_accountability import build_readme_claim_accountability_map
 from readme_agent.readme.claim_map import build_readme_claim_map
+from readme_agent.readme.composition_lineage import build_composition_ledger
+from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
+from readme_agent.readme.composition_operation_origins import (
+    legacy_operation_provenance,
+    replay_operation_origins,
+)
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import (
@@ -55,6 +61,7 @@ class VerifiedTemplateCompilationV1(BaseModel):
     candidate: str
     template_input: PresentationTemplateInputV1
     provenance: list[CandidateContentProvenanceV1]
+    source_placements: list[ExactSourcePlacementV1]
 
 
 def declared_preserve_ranges(
@@ -122,6 +129,7 @@ def build_verified_template_compilation(
         candidate=candidate,
         template_input=template_input,
         provenance=composition.provenance,
+        source_placements=composition.source_placements,
     )
 
 
@@ -174,6 +182,7 @@ def build_verified_template_document_candidate(
     inner_text = existing.content if existing is not None else source_text
     source = inner_text.encode("utf-8")
     candidate = compiled.candidate
+    persisted_provenance = compiled.provenance if inner_text != candidate else []
     assessment = assess_readme_document(
         facts.org_repo,
         inner_text,
@@ -187,7 +196,7 @@ def build_verified_template_document_candidate(
         inner_text,
         candidate,
         facts,
-        compiled.provenance,
+        persisted_provenance,
         preserved_source_ranges=preserved_source_ranges,
         authoritative_correction_ranges=effective_correction_ranges(assessment),
     )
@@ -209,6 +218,8 @@ def build_verified_template_document_candidate(
                 ),
             )
         )
+    operation_provenance = legacy_operation_provenance(replay_operation_origins(source, operations))
+    complete_provenance = [*persisted_provenance, *operation_provenance]
     plan = ReadmeDocumentPlanV1(
         org_repo=facts.org_repo,
         immutable_base_revision=source_revision,
@@ -227,8 +238,15 @@ def build_verified_template_document_candidate(
         ),
         header_visuals=render_readme_header_visual(facts, agentic_plan),
         contextual_links=contextual_links,
-        candidate_content_provenance=compiled.provenance,
+        candidate_content_provenance=complete_provenance,
         source_claim_resolutions=source_claim_resolutions,
+        composition_ledger=build_composition_ledger(
+            inner_text,
+            candidate,
+            operations,
+            complete_provenance,
+            compiled.source_placements,
+        ),
         operations=operations,
         candidate_sha256=sha256_hex(candidate),
     )
@@ -244,7 +262,7 @@ def build_verified_template_document_candidate(
         candidate_text=candidate,
         facts=facts,
         generated_claim_map=claim_map,
-        candidate_content_provenance=compiled.provenance,
+        candidate_content_provenance=complete_provenance,
         source_claim_resolutions=plan.source_claim_resolutions,
     )
     return candidate, plan.model_copy(update={"claim_accountability": accountability})

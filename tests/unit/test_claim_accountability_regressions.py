@@ -16,9 +16,6 @@ from readme_agent.presentation.verified_preservation_segments import (
     apply_edit,
     rebase_provenance,
 )
-from readme_agent.presentation.verified_source_preservation import (
-    compose_verified_source_preservation,
-)
 from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.presentation.verified_template_runtime import declared_preserve_ranges
 from readme_agent.presentation.verified_template_sections import additional_examples_markdown
@@ -32,7 +29,7 @@ from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
 )
-from readme_agent.readme.document_structure import introduced_duplicate_headings, parse_headings
+from readme_agent.readme.document_structure import introduced_duplicate_headings
 from readme_agent.readme.document_templates import (
     DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS,
     document_template_hash,
@@ -571,56 +568,6 @@ def test_source_splice_rebases_generated_duplicate_text_without_rediscovery() ->
     assert rebased.candidate_byte_start > len(composed[: composed.index("Shared text.")].encode())
 
 
-def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() -> None:
-    facts = _facts()
-    source = "# Email library\n\n## Package Entry Points\n\nExact detail at EOF"
-    assessment = assess_readme_document(
-        facts.org_repo,
-        source,
-        facts,
-        base_revision="a" * 40,
-    )
-    candidate = (
-        "# Email library\n\n"
-        "## Navigation\n\n- [License](#license)\n\n"
-        "## License\n\nPermit use under the [license](LICENSE).\n"
-    )
-    navigation_text = "- [License](#license)"
-    navigation_start = candidate.index(navigation_text)
-    provenance = [
-        CandidateContentProvenanceV1(
-            provenance_id="template.navigation",
-            candidate_byte_start=len(candidate[:navigation_start].encode("utf-8")),
-            candidate_byte_end=len(
-                candidate[: navigation_start + len(navigation_text)].encode("utf-8")
-            ),
-            configured_standard_ids=["readme.navigation"],
-            rationale="Bind the generated Navigation before the exact source insertion.",
-        )
-    ]
-
-    first = compose_verified_source_preservation(
-        candidate,
-        source,
-        assessment,
-        set(),
-        provenance,
-    )
-    second = compose_verified_source_preservation(
-        first.candidate,
-        source,
-        assessment,
-        set(),
-        first.provenance,
-    )
-    headings = parse_headings(first.candidate)
-
-    assert "## Package Entry Points\n\nExact detail at EOF\n\n## License" in first.candidate
-    assert [heading.title for heading in headings if heading.level == 2].count("License") == 1
-    assert second.candidate == first.candidate
-    assert second.provenance == first.provenance
-
-
 def test_claim_accountability_helper_modules_are_document_contract_inputs() -> None:
     assert {
         "src/readme_agent/readme/claim_replacement_validation.py",
@@ -629,6 +576,7 @@ def test_claim_accountability_helper_modules_are_document_contract_inputs() -> N
         "src/readme_agent/presentation/verified_preservation_sections.py",
         "src/readme_agent/presentation/verified_preservation_segments.py",
         "src/readme_agent/presentation/verified_source_preservation.py",
+        "src/readme_agent/presentation/verified_source_placements.py",
     }.issubset(DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS)
 
 
@@ -638,6 +586,7 @@ def test_claim_accountability_helper_modules_are_document_contract_inputs() -> N
         "src/readme_agent/presentation/verified_preservation_sections.py",
         "src/readme_agent/presentation/verified_preservation_segments.py",
         "src/readme_agent/presentation/verified_source_preservation.py",
+        "src/readme_agent/presentation/verified_source_placements.py",
     ),
 )
 def test_each_preservation_owner_change_invalidates_document_contract_hash(

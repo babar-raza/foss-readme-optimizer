@@ -22,6 +22,7 @@ from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.readme.claim_accountability_validation import (
     validate_claim_accountability_map,
 )
+from readme_agent.readme.composition_lineage_validation import composition_ledger_errors
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
     apply_document_operations,
@@ -243,6 +244,19 @@ def validate_readme_document_candidate(
     checks["document_reconstruction"] = reconstructed == candidate_inner_bytes
     if not checks["document_reconstruction"]:
         errors.append("candidate inner bytes do not reconstruct from the document plan")
+    lineage_errors = (
+        ["current document plan is missing its composition ledger"]
+        if plan.composition_ledger is None
+        else composition_ledger_errors(
+            plan.composition_ledger,
+            source_inner,
+            candidate_inner,
+            plan.operations,
+            plan.candidate_content_provenance,
+        )
+    )
+    checks["composition_lineage"] = not lineage_errors
+    errors.extend(lineage_errors)
 
     protected = validate_protected_content(
         source_fingerprint,

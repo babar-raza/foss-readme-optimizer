@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
+from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 from readme_agent.readme.source_claim_risk import SourceClaimObligation
 from readme_agent.state.assurance import ContentAssuranceV1
@@ -120,6 +121,8 @@ class CandidateContentProvenanceV1(_StrictModel):
     """Exact candidate span owned by repository facts and/or governed standards."""
 
     provenance_id: str
+    authority_scope: Literal["factual_or_configured", "lineage_only"] = "factual_or_configured"
+    lineage_operation_id: str | None = None
     candidate_byte_start: int = Field(ge=0)
     candidate_byte_end: int = Field(ge=0)
     fact_ids: list[str] = Field(default_factory=list)
@@ -132,6 +135,12 @@ class CandidateContentProvenanceV1(_StrictModel):
             raise ValueError("candidate provenance requires a nonempty span")
         if not (self.fact_ids or self.configured_standard_ids):
             raise ValueError("candidate provenance requires facts or governed standards")
+        if self.authority_scope == "lineage_only" and self.fact_ids:
+            raise ValueError("lineage-only provenance cannot claim factual authority")
+        if self.authority_scope == "lineage_only" and not self.lineage_operation_id:
+            raise ValueError("lineage-only provenance requires an exact operation owner")
+        if self.authority_scope != "lineage_only" and self.lineage_operation_id is not None:
+            raise ValueError("operation ownership is reserved for lineage-only provenance")
         return self
 
 
@@ -232,6 +241,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     claim_accountability: ReadmeClaimAccountabilityMapV1 | None = None
     candidate_content_provenance: list[CandidateContentProvenanceV1] = Field(default_factory=list)
     source_claim_resolutions: list[SourceClaimResolutionV1] = Field(default_factory=list)
+    composition_ledger: ReadmeCompositionLedgerV1 | None = None
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
 

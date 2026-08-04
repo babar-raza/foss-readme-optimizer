@@ -225,7 +225,11 @@ def validate_claim_accountability_map(
         if record.expected_disposition == "required_correction"
     )
     checks["corrections_have_operations"] = correction_operations
-    provenance = candidate_content_provenance or []
+    provenance = [
+        binding
+        for binding in candidate_content_provenance or []
+        if binding.authority_scope != "lineage_only"
+    ]
     provenance_by_id = {binding.provenance_id: binding for binding in provenance}
     checks["candidate_provenance_ids_unique"] = len(provenance_by_id) == len(provenance)
     standard_provenance_exact = all(

@@ -82,29 +82,42 @@ def build_operation(
 
 def apply_document_operations(source: bytes, operations: list[ReadmeDocumentOperationV1]) -> bytes:
     rendered = source
-    for coordinate_space in ("presentation_inner_utf8", "candidate_utf8"):
-        coordinate_operations = [
-            operation for operation in operations if operation.coordinate_space == coordinate_space
-        ]
-        for operation in sorted(
-            coordinate_operations,
-            key=lambda item: (
-                item.source_byte_start,
-                item.source_byte_end,
-                _same_boundary_rank(item),
-                item.operation_id,
-            ),
-            reverse=True,
-        ):
-            current = rendered[operation.source_byte_start : operation.source_byte_end]
-            if sha256_hex(current) != operation.expected_sha256:
-                raise ValueError(f"source span changed for {operation.operation_id}")
-            rendered = (
-                rendered[: operation.source_byte_start]
-                + operation.replacement_text.encode("utf-8")
-                + rendered[operation.source_byte_end :]
-            )
+    for operation in ordered_document_operations(operations):
+        current = rendered[operation.source_byte_start : operation.source_byte_end]
+        if sha256_hex(current) != operation.expected_sha256:
+            raise ValueError(f"source span changed for {operation.operation_id}")
+        rendered = (
+            rendered[: operation.source_byte_start]
+            + operation.replacement_text.encode("utf-8")
+            + rendered[operation.source_byte_end :]
+        )
     return rendered
+
+
+def ordered_document_operations(
+    operations: list[ReadmeDocumentOperationV1],
+) -> list[ReadmeDocumentOperationV1]:
+    """Return document operations in their canonical application order."""
+
+    ordered: list[ReadmeDocumentOperationV1] = []
+    for coordinate_space in ("presentation_inner_utf8", "candidate_utf8"):
+        ordered.extend(
+            sorted(
+                (
+                    operation
+                    for operation in operations
+                    if operation.coordinate_space == coordinate_space
+                ),
+                key=lambda item: (
+                    item.source_byte_start,
+                    item.source_byte_end,
+                    _same_boundary_rank(item),
+                    item.operation_id,
+                ),
+                reverse=True,
+            )
+        )
+    return ordered
 
 
 def prune_noop_operations(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import github_anchor, heading_identity, parse_headings
 
@@ -82,4 +83,31 @@ def rebase_provenance(
                 }
             )
         )
+    return rebased
+
+
+def rebase_source_placements(
+    placements: list[ExactSourcePlacementV1],
+    edit: CandidateEdit,
+) -> list[ExactSourcePlacementV1]:
+    """Rebase exact source placements through one non-overlapping candidate edit."""
+
+    delta = len(edit.replacement.encode("utf-8")) - (edit.byte_end - edit.byte_start)
+    rebased: list[ExactSourcePlacementV1] = []
+    for placement in placements:
+        if placement.final_byte_end <= edit.byte_start:
+            rebased.append(placement)
+        elif edit.byte_end <= placement.final_byte_start:
+            rebased.append(
+                placement.model_copy(
+                    update={
+                        "final_byte_start": placement.final_byte_start + delta,
+                        "final_byte_end": placement.final_byte_end + delta,
+                    }
+                )
+            )
+        else:
+            raise ValueError(
+                f"candidate edit overlaps exact source placement: {placement.placement_id}"
+            )
     return rebased

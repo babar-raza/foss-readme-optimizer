@@ -55,7 +55,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "f8d1f0d81104759a3c94e02c2babe11ff3cec157a59160c35369997303156209"
+    "2cff9ee124eb251c1dea1319a8494870265345f64ce612147927b35324a79973"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -446,9 +446,15 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         for binding in document_plan.candidate_content_provenance
         for fact_id in binding.fact_ids
     }
-    assert {
+    planned_fact_ids = {
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
-    } <= cited_ids
+    }
+    assert planned_fact_ids - cited_ids == {"product.audience:approved-policy"}
+    assert any(
+        segment.origin == "source_preserved"
+        and draft["opening_summary"]["text"] in segment.content_text
+        for segment in document_plan.composition_ledger.segments
+    )
     assert facts.selected_fact("product.formats").fact_id in cited_ids
     claim_map = build_readme_claim_map(
         document_plan,
@@ -456,14 +462,10 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         source_text=source,
         candidate_text=candidate,
     )
-    audience_claim = next(
-        claim
+    assert not any(
+        claim.fact_id == facts.selected_fact("product.audience").fact_id
         for claim in claim_map.claims
-        if claim.fact_id == facts.selected_fact("product.audience").fact_id
     )
-    assert audience_claim.coordinate_space == "candidate_utf8"
-    claim_bytes = candidate.encode("utf-8")[audience_claim.byte_start : audience_claim.byte_end]
-    assert _first_text(facts.selected_fact("product.audience").value) in claim_bytes.decode("utf-8")
 
 
 def test_fact_grounded_diagram_labels_do_not_replace_literal_capability_prose():
@@ -1095,6 +1097,38 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert candidate.count("## Navigation") == 1
     assert candidate.count("## License") == 1
     assert "```mermaid" in candidate
+    ledger = document_plan.composition_ledger
+    assert ledger.candidate_sha256 == document_plan.candidate_sha256
+    assert ledger.operation_reconstruction_sha256 == document_plan.candidate_sha256
+    assert b"".join(segment.content_text.encode("utf-8") for segment in ledger.segments) == (
+        candidate.encode("utf-8")
+    )
+    trigger_segments = [
+        segment
+        for segment in ledger.segments
+        if segment.origin == "source_preserved"
+        and segment.source_byte_start is not None
+        and segment.source_byte_start <= preserved.source_byte_start
+        and segment.source_byte_end is not None
+        and preserved.source_byte_end <= segment.source_byte_end
+    ]
+    assert len(trigger_segments) == 1
+    assert preserved_text in trigger_segments[0].content_text
+    trigger_placement = next(
+        placement
+        for placement in ledger.source_placements
+        if placement.final_byte_start <= trigger_segments[0].final_byte_start
+        and trigger_segments[0].final_byte_end <= placement.final_byte_end
+    )
+    assert trigger_placement.placement_basis in {
+        "composer_inserted_exact",
+        "structural_exact_equivalence",
+    }
+    assert all(
+        segment.fact_ids or segment.configured_standard_ids
+        for segment in ledger.segments
+        if segment.origin != "source_preserved"
+    )
 
     rerun_assessment = assess_readme_document(
         facts.org_repo,
@@ -1110,7 +1144,7 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
         lifecycle_status="FACTS_READY",
     )
     assert rerun_composition is not None
-    rerun_candidate, _rerun_document_plan = build_readme_document_candidate(
+    rerun_candidate, rerun_document_plan = build_readme_document_candidate(
         facts.org_repo,
         candidate,
         facts,
@@ -1119,6 +1153,24 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     )
     assert rerun_candidate == candidate
     assert rerun_candidate.count("## Preserved repository details") == 1
+    assert rerun_document_plan.operations == []
+    assert rerun_document_plan.candidate_content_provenance == []
+    assert len(rerun_document_plan.composition_ledger.source_placements) == 1
+    assert (
+        rerun_document_plan.composition_ledger.source_placements[0].placement_basis
+        == "no_op_whole_source"
+    )
+    assert rerun_document_plan.composition_ledger.source_placements[0].source_byte_start == 0
+    assert rerun_document_plan.composition_ledger.source_placements[0].source_byte_end == len(
+        candidate.encode("utf-8")
+    )
+    assert all(
+        segment.origin == "source_preserved"
+        for segment in rerun_document_plan.composition_ledger.segments
+    )
+    assert rerun_document_plan.composition_ledger.operation_reconstruction_sha256 == (
+        document_plan.candidate_sha256
+    )
 
     mixed_source = (
         "# Aspose.3D FOSS for Python\n\n"
