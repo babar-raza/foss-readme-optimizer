@@ -5766,6 +5766,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260803-005923-7385:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "c2faef7605c7aea1ba0cb364b37a52fe9259a541d87481a15ef70e3c1b149375": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "c2faef7605c7aea1ba0cb364b37a52fe9259a541d87481a15ef70e3c1b149375",
+      "completed_at": "2026-08-04T10:21:17.229853+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "861883be594d8e4a3cea5c72f17ef6f0a26c70d12f35d572abc5355b74f448b7",
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260804-101444-5b7d",
+      "schema_version": 1,
+      "stage": "final_acceptance",
+      "started_at": "2026-08-04T10:21:17.229841+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-145519-86e9:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "c318a578b3ba1eb8657680c245cc3c60ed41b90c68ab51de99c6c94987839ac8": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -46672,7 +46689,7 @@
     "updated_at": "2026-08-04T10:19:54.199140+00:00"
   },
   "schema_version": 2,
-  "state_version": 2096,
+  "state_version": 2097,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "03581f1e6d79359ca64cda0c14cf8538314b5775207b0ff1826fee90eba1d6fe",
@@ -46801,11 +46818,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "926f0cc57d8e73fe50e9fc4d5e1b054c1db8c87ee1b1698e350f97e25cbd45f6",
+      "last_checkpoint_id": "c2faef7605c7aea1ba0cb364b37a52fe9259a541d87481a15ef70e3c1b149375",
       "lease_expires_at": "2026-08-04T10:29:58.173526+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-04T10:20:54.723255+00:00"
+      "updated_at": "2026-08-04T10:21:17.229853+00:00"
     },
     "operator:20260730-145536-6874:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T14:55:40.634437+00:00",
