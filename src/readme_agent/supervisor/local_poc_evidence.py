@@ -31,7 +31,7 @@ from readme_agent.supervisor.local_poc_snapshot_evidence import (
 from readme_agent.supervisor.local_poc_snapshot_evidence import (
     write_local_poc_snapshot as write_local_poc_snapshot,
 )
-from readme_agent.supervisor.local_poc_superseded import preserve_superseded_candidate
+from readme_agent.supervisor.local_poc_superseded import archive_and_prune_downstream_artifacts
 from readme_agent.supervisor.stage_dependencies import (
     current_candidate_stage_dependency_manifest,
 )
@@ -54,6 +54,25 @@ def write_local_poc_product_facts(
     org, repo = snapshot.org_repo.split("/", maxsplit=1)
     bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
     facts_dir = bundle_dir / "facts"
+    facts_hash = facts.canonical_hash()
+    prior_manifest = load_existing_local_poc_manifest(bundle_dir, snapshot.source_revision)
+    downstream_reusable = bool(
+        prior_manifest.get("candidate_hash")
+        and prior_manifest.get("facts_hash") == facts_hash
+        and prior_manifest.get("prompt_hash") == prompt_hash
+        and prior_manifest.get("local_verification_contract_hash")
+        == local_verification_contract_hash
+        and prior_manifest.get("fact_acceptance_contract_hash") == fact_acceptance_contract_hash
+        and prior_manifest.get("fact_acceptance_component_hashes")
+        == fact_acceptance_component_hashes
+    )
+    if not downstream_reusable:
+        archive_and_prune_downstream_artifacts(
+            bundle_dir,
+            prior_manifest,
+            reason="product fact or fact-acceptance dependency changed",
+        )
+
     proposal_path = facts_dir / "proposed-product-truth.json"
     if proposed_product_truth is None:
         proposal_path.unlink(missing_ok=True)
@@ -93,26 +112,9 @@ def write_local_poc_product_facts(
     write_redacted_json(facts_dir / "findings.json", findings)
     if proposed_product_truth is not None:
         write_redacted_json(proposal_path, proposed_product_truth)
-    facts_hash = facts.canonical_hash()
-    prior_manifest = load_existing_local_poc_manifest(bundle_dir, snapshot.source_revision)
-    if (
-        prior_manifest.get("candidate_hash")
-        and prior_manifest.get("facts_hash") == facts_hash
-        and prior_manifest.get("prompt_hash") == prompt_hash
-        and prior_manifest.get("local_verification_contract_hash")
-        == local_verification_contract_hash
-        and prior_manifest.get("fact_acceptance_contract_hash") == fact_acceptance_contract_hash
-        and prior_manifest.get("fact_acceptance_component_hashes")
-        == fact_acceptance_component_hashes
-    ):
+    if downstream_reusable:
         refresh_sha256sums(bundle_dir)
         return bundle_dir
-    if prior_manifest.get("candidate_hash"):
-        preserve_superseded_candidate(
-            bundle_dir,
-            prior_manifest,
-            reason="product fact or fact-acceptance dependency changed",
-        )
     write_local_poc_manifest(
         bundle_dir,
         {
@@ -246,6 +248,11 @@ def reclassify_local_poc_fact_acceptance(
         raise RuntimeError(
             f"cannot reclassify fact acceptance without a matching manifest at {bundle_dir}"
         )
+    manifest = archive_and_prune_downstream_artifacts(
+        bundle_dir,
+        manifest,
+        reason="fact acceptance reclassified below README assessment",
+    )
     invalidated_keys = {
         "assessment_hash",
         "presentation_plan_hash",

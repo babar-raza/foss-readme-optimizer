@@ -509,10 +509,35 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     checksum_inventory = (bundle / "sha256sums.txt").read_text(encoding="utf-8")
     assert "assessment/current-readme-assessment.json" in checksum_inventory
     assert "candidate/README.md" in checksum_inventory
+    prior_facts_text = (bundle / "facts" / "product-facts.json").read_text(encoding="utf-8")
+    changed_records = [
+        (
+            fact.model_copy(update={"value": ["Read and convert product files"]})
+            if fact.field == "product.capabilities"
+            else fact
+        )
+        for fact in facts.facts
+    ]
+    changed_facts = facts.model_copy(update={"facts": changed_records})
+    receipts = bundle / "receipts"
+    receipts.mkdir()
+    (receipts / "CANDIDATE_GENERATED.json").write_text(
+        '{"target_stage": "CANDIDATE_GENERATED"}\n', encoding="utf-8"
+    )
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["acceptance_authority"] = "sealed_stage_receipts"
+    manifest["stage_receipts"] = {
+        "CANDIDATE_GENERATED": {
+            "receipt_path": "receipts/CANDIDATE_GENERATED.json",
+        }
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
 
     write_local_poc_product_facts(
         snapshot,
-        facts,
+        changed_facts,
         findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="w" * 64,
@@ -523,6 +548,8 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert invalidated_manifest["lifecycle_status"] == "FACTS_READY"
     assert invalidated_manifest["local_verification_contract_hash"] == "w" * 64
     assert "candidate_hash" not in invalidated_manifest
+    assert "acceptance_authority" not in invalidated_manifest
+    assert "stage_receipts" not in invalidated_manifest
     superseded = bundle / "superseded" / candidate_hash[:16]
     assert (superseded / "candidate" / "README.md").read_text(encoding="utf-8") == candidate
     superseded_record = json.loads((superseded / "superseded.json").read_text(encoding="utf-8"))
@@ -530,14 +557,44 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert superseded_record["candidate_binding"] == "manifest_bound"
     assert "product fact or fact-acceptance dependency changed" in superseded_record["reason"]
     assert "candidate/README.md" in (superseded / "sha256sums.txt").read_text(encoding="utf-8")
+    assert (superseded / "facts" / "product-facts.json").read_text(
+        encoding="utf-8"
+    ) == prior_facts_text
+    assert (superseded / "receipts" / "CANDIDATE_GENERATED.json").is_file()
+    for name in ("assessment", "planning", "candidate", "review", "receipts"):
+        assert not (bundle / name).exists()
+    assert (
+        ProductFactsV2.model_validate_json(
+            (bundle / "facts" / "product-facts.json").read_text(encoding="utf-8")
+        )
+        == changed_facts
+    )
+    assert verify_sha256sums(bundle)
+
+    receipts.mkdir()
+    (receipts / "AGENT_APPROVED.json").write_text(
+        '{"target_stage": "AGENT_APPROVED"}\n', encoding="utf-8"
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["acceptance_authority"] = "sealed_stage_receipts"
+    manifest["stage_receipts"] = {
+        "AGENT_APPROVED": {"receipt_path": "receipts/AGENT_APPROVED.json"}
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
 
     write_local_poc_product_facts(
         snapshot,
-        facts,
+        changed_facts,
         findings=[],
         resolution_source="repository_and_policy",
         local_verification_contract_hash="w" * 64,
         fact_acceptance_contract_hash="a" * 64,
         fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
     )
+    assert not receipts.exists()
+    receipt_only_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert "acceptance_authority" not in receipt_only_manifest
+    assert "stage_receipts" not in receipt_only_manifest
+    assert verify_sha256sums(bundle)
     assert [path.name for path in (bundle / "superseded").iterdir()] == [candidate_hash[:16]]

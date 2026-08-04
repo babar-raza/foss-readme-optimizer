@@ -8,7 +8,26 @@ from pathlib import Path
 
 from readme_agent.evidence.writer import refresh_sha256sums, sha256_file, write_redacted_json
 
-_EVIDENCE_DIRECTORIES = ("facts", "assessment", "planning", "candidate", "review")
+_EVIDENCE_DIRECTORIES = ("facts", "assessment", "planning", "candidate", "review", "receipts")
+_DOWNSTREAM_DIRECTORIES = ("assessment", "planning", "candidate", "review")
+_DOWNSTREAM_RECEIPT_STAGES = frozenset(
+    {
+        "README_ASSESSED",
+        "PLAN_READY",
+        "CANDIDATE_GENERATED",
+        "DETERMINISTIC_VALIDATION_FAILED",
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_REVIEW_REJECTED",
+        "REPAIRING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    }
+)
 _DIRECTORY_HASH_LENGTH = 16
 
 
@@ -65,6 +84,43 @@ def preserve_superseded_candidate(
     )
     refresh_sha256sums(destination)
     return candidate_hash
+
+
+def archive_and_prune_downstream_artifacts(
+    bundle_dir: Path,
+    prior_manifest: dict,
+    *,
+    reason: str,
+) -> dict:
+    """Archive a physical candidate, then remove artifacts invalid below product truth."""
+
+    preserve_superseded_candidate(bundle_dir, prior_manifest, reason=reason)
+    for name in _DOWNSTREAM_DIRECTORIES:
+        path = bundle_dir / name
+        if path.is_dir():
+            shutil.rmtree(path)
+
+    receipts_dir = bundle_dir / "receipts"
+    if receipts_dir.is_dir():
+        for stage in _DOWNSTREAM_RECEIPT_STAGES:
+            (receipts_dir / f"{stage}.json").unlink(missing_ok=True)
+        if not any(receipts_dir.iterdir()):
+            receipts_dir.rmdir()
+
+    retained = dict(prior_manifest)
+    stage_receipts = retained.get("stage_receipts")
+    if isinstance(stage_receipts, dict):
+        retained_receipts = {
+            stage: receipt
+            for stage, receipt in stage_receipts.items()
+            if stage not in _DOWNSTREAM_RECEIPT_STAGES
+        }
+        if retained_receipts:
+            retained["stage_receipts"] = retained_receipts
+        else:
+            retained.pop("stage_receipts", None)
+            retained.pop("acceptance_authority", None)
+    return retained
 
 
 def superseded_candidate_hashes(bundle_dir: Path) -> list[str]:

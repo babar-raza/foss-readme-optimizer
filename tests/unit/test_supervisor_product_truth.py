@@ -9,6 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from readme_agent import paths
+from readme_agent.evidence.writer import verify_sha256sums
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     REQUIRED_PRODUCT_FIELDS,
@@ -1023,6 +1024,26 @@ def test_current_contract_false_terminal_graph_reopens_at_blocked_fact_boundary(
     )
     prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
     _advance_to_no_op(backend)
+    bundle_dir = Path(prepared.bundle_dir)
+    (bundle_dir / "assessment").mkdir()
+    (bundle_dir / "assessment" / "current-readme-assessment.json").write_text(
+        "{}\n", encoding="utf-8"
+    )
+    (bundle_dir / "candidate").mkdir()
+    (bundle_dir / "candidate" / "README.md").write_text(
+        "# Stale approved candidate\n", encoding="utf-8"
+    )
+    (bundle_dir / "review").mkdir()
+    (bundle_dir / "review" / "final-verdict.json").write_text(
+        '{"verdict": "AGENT_APPROVED", "agent_approved": true}\n', encoding="utf-8"
+    )
+    (bundle_dir / "receipts").mkdir()
+    (bundle_dir / "receipts" / "CANDIDATE_GENERATED.json").write_text(
+        '{"target_stage": "CANDIDATE_GENERATED"}\n', encoding="utf-8"
+    )
+    (bundle_dir / "receipts" / "DETERMINISTIC_VALIDATED.json").write_text(
+        '{"target_stage": "DETERMINISTIC_VALIDATED"}\n', encoding="utf-8"
+    )
     monkeypatch.setattr(
         product_truth,
         "collect_product_facts",
@@ -1036,10 +1057,22 @@ def test_current_contract_false_terminal_graph_reopens_at_blocked_fact_boundary(
     lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
     assert lifecycle.status == "BLOCKED_MISSING_EVIDENCE"
     assert lifecycle.fact_acceptance_contract_hash is not None
-    manifest = json.loads((Path(prepared.bundle_dir) / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((bundle_dir / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["lifecycle_status"] == "BLOCKED_MISSING_EVIDENCE"
     assert manifest["complete"] is False
     assert "candidate_hash" not in manifest
+    for name in ("assessment", "planning", "candidate", "review", "receipts"):
+        assert not (bundle_dir / name).exists()
+    superseded_records = list((bundle_dir / "superseded").glob("*/superseded.json"))
+    assert len(superseded_records) == 1
+    superseded = json.loads(superseded_records[0].read_text(encoding="utf-8"))
+    assert superseded["candidate_binding"] == "retained_artifact_without_current_manifest_binding"
+    assert (superseded_records[0].parent / "review" / "final-verdict.json").is_file()
+    checksums = (bundle_dir / "sha256sums.txt").read_text(encoding="utf-8")
+    inventoried_paths = {line.split("  ", maxsplit=1)[1] for line in checksums.splitlines()}
+    assert "review/final-verdict.json" not in inventoried_paths
+    assert "receipts/CANDIDATE_GENERATED.json" not in inventoried_paths
+    assert verify_sha256sums(bundle_dir)
 
 
 def test_missing_durable_fact_evidence_fails_closed(tmp_path, monkeypatch):
