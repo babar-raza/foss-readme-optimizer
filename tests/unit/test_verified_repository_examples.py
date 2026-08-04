@@ -110,6 +110,33 @@ def test_ordinary_candidate_failure_does_not_hide_later_verified_candidate(
     assert selection.attempted_count == 2
 
 
+def test_all_failed_candidates_retain_the_last_bounded_verification(tmp_path, monkeypatch) -> None:
+    first = _example("First", "README.md")
+    second = _example("Second", "examples/use.py")
+    monkeypatch.setattr(subject, "_revision_matches", lambda *_args: True)
+    monkeypatch.setattr(
+        subject, "repository_readme_example_candidates", lambda *_args, **_kwargs: [first, second]
+    )
+    monkeypatch.setattr(subject, "repository_source_example_candidates", lambda *_args: [])
+    monkeypatch.setattr(subject, "_precheck_failures", lambda *_args: [])
+
+    selection = subject.select_verified_repository_example(
+        tmp_path,
+        source_revision="a" * 40,
+        requested=first,
+        verify_example_fn=lambda _example: _verification(
+            return_code=1, stderr="CS1929 product source does not compile"
+        ),
+    )
+
+    assert selection.outcome == "NO_VERIFIED_CANDIDATE"
+    assert selection.last_attempted_example == second
+    assert selection.last_attempted_verification is not None
+    assert "CS1929" in subject.bounded_local_verification_detail(
+        selection.last_attempted_verification
+    )
+
+
 def test_revision_mismatch_and_no_candidate_are_distinct_results(tmp_path, monkeypatch) -> None:
     requested = _example("Draft", "README.md")
     monkeypatch.setattr(subject, "_revision_matches", lambda *_args: False)

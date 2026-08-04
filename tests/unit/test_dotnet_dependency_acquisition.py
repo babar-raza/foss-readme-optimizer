@@ -309,3 +309,43 @@ def test_mutable_sdk_image_is_rejected_before_docker(
         )
 
     assert runner.commands == []
+
+
+def test_cache_key_binds_every_provisioning_helper(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    _source(source)
+    snapshot = _snapshot(source)
+    first = tmp_path / "first.py"
+    second = tmp_path / "second.py"
+    first.write_text("version = 1\n", encoding="utf-8")
+    second.write_text("version = 1\n", encoding="utf-8")
+
+    before = dotnet_dependency_acquisition._cache_key(
+        snapshot,
+        "src/Product/Product.csproj",
+        "1" * 64,
+        "net8.0",
+        DOTNET_8_SDK_IMAGE,
+        implementation_files=(first, second),
+    )
+    second.write_text("version = 2\n", encoding="utf-8")
+    after = dotnet_dependency_acquisition._cache_key(
+        snapshot,
+        "src/Product/Product.csproj",
+        "1" * 64,
+        "net8.0",
+        DOTNET_8_SDK_IMAGE,
+        implementation_files=(first, second),
+    )
+
+    assert before != after
+    assert set(dotnet_dependency_acquisition._CACHE_IMPLEMENTATION_FILES) == {
+        "compiled_consumer.py",
+        "dotnet_dependency_acquisition.py",
+        "dotnet_dependency_schema.py",
+        "dotnet_legacy_reference_fallback.py",
+        "dotnet_lfs_acquisition.py",
+        "dotnet_project_closure.py",
+        "dotnet_source_generator_fallback.py",
+        "isolated_docker_control.py",
+    }

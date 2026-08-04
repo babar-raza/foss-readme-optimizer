@@ -23,7 +23,10 @@ from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
-from readme_agent.facts.verified_repository_examples import select_verified_repository_example
+from readme_agent.facts.verified_repository_examples import (
+    bounded_local_verification_detail,
+    select_verified_repository_example,
+)
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.registry.models import ProductEntry
@@ -120,6 +123,15 @@ def _local_verification_facts(
                 example_origin = "repository"
                 local_result = selection.verification
                 failures = []
+            elif (
+                selection.outcome == "NO_VERIFIED_CANDIDATE"
+                and selection.last_attempted_example is not None
+                and selection.last_attempted_verification is not None
+            ):
+                example = selection.last_attempted_example
+                example_origin = "repository"
+                local_result = selection.last_attempted_verification
+                failures = []
     if example is not None:
         if local_result is None:
             example_outcome = "BLOCKED_LOCAL_VERIFICATION"
@@ -130,7 +142,7 @@ def _local_verification_facts(
             )
         else:
             example_outcome = local_result.outcome
-            example_detail = local_result.detail
+            example_detail = bounded_local_verification_detail(local_result)
         example_verified = (
             local_result is not None
             and local_result.truth_eligible

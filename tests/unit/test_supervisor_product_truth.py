@@ -55,6 +55,34 @@ def test_product_truth_block_category_is_external_only_when_every_finding_is_ext
     assert product_truth.product_truth_blocked_category([]) == "agent_fixable"
 
 
+def test_failed_product_compile_finding_is_not_mislabeled_as_dependency_absence():
+    fact = FactRecordV2(
+        fact_id="example.minimal:compiled-repository-example",
+        field="example.minimal",
+        value={
+            "verification_outcome": "BUILD_FAILED",
+            "verification_detail": "compiler diagnostic: error CS1929 in MultipartParser.cs",
+        },
+        source=FactSourceV2(
+            source_type="mechanical_test",
+            location="local-product-verification://acme/widget",
+            source_revision=REVISION,
+        ),
+        verification_state="blocked",
+        authoritative_owner="repository-owner",
+        confidence=0.0,
+        affected_surfaces=["readme"],
+    )
+
+    finding = product_truth._missing_repository_evidence_finding(ORG_REPO, fact)
+
+    assert finding["blocked_category"] == "infra_external"
+    assert finding["failure_boundary"] == "immutable_product_source_compile"
+    assert finding["evidence_fact_id"] == fact.fact_id
+    assert "CS1929" in finding["detail"]
+    assert "dependency or SDK installation is not" in finding["required_action"]
+
+
 class _Backend:
     def __init__(self):
         self.states: dict[str, RunStateV2] = {}

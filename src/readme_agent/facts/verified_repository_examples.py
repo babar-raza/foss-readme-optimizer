@@ -42,6 +42,8 @@ class RepositoryExampleSelectionV2(BaseModel):
     candidate_count: int = Field(ge=0)
     attempted_count: int = Field(ge=0)
     selected_rank: int | None = Field(default=None, ge=1)
+    last_attempted_example: MinimalExamplePolicy | None = None
+    last_attempted_verification: LocalProductVerificationV1 | None = None
 
     @model_validator(mode="after")
     def selected_outcomes_require_consistent_verification(self) -> RepositoryExampleSelectionV2:
@@ -59,6 +61,13 @@ class RepositoryExampleSelectionV2(BaseModel):
             value is not None for value in (self.example, self.verification, self.selected_rank)
         ):
             raise ValueError("non-selected outcomes cannot carry a partial selection")
+        retained_failure = (
+            self.last_attempted_example is not None and self.last_attempted_verification is not None
+        )
+        if (self.last_attempted_example is None) != (self.last_attempted_verification is None):
+            raise ValueError("retained failed example and verification must be paired")
+        if retained_failure and self.outcome != "NO_VERIFIED_CANDIDATE":
+            raise ValueError("only NO_VERIFIED_CANDIDATE may retain its last failed attempt")
         if self.selected_rank is not None and self.selected_rank > self.candidate_count:
             raise ValueError("selected_rank cannot exceed candidate_count")
         if self.outcome == "VERIFIED" and not (
@@ -107,6 +116,8 @@ def select_verified_repository_example(
     indexed = list(enumerate([*readme_examples, *source_examples]))
     indexed.sort(key=lambda item: _preference(item[1], requested, item[0]))
     attempted = 0
+    last_attempted_example: MinimalExamplePolicy | None = None
+    last_attempted_verification: LocalProductVerificationV1 | None = None
     for selected_rank, (_position, candidate) in enumerate(
         indexed[:MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS], start=1
     ):
@@ -114,6 +125,9 @@ def select_verified_repository_example(
             continue
         attempted += 1
         verification = verify_example_fn(candidate)
+        if verification is not None:
+            last_attempted_example = candidate
+            last_attempted_verification = verification
         if (
             verification is not None
             and expected_revision is not None
@@ -159,6 +173,8 @@ def select_verified_repository_example(
         outcome="NO_VERIFIED_CANDIDATE",
         candidate_count=len(indexed),
         attempted_count=attempted,
+        last_attempted_example=last_attempted_example,
+        last_attempted_verification=last_attempted_verification,
     )
 
 

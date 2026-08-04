@@ -20,6 +20,8 @@ _COMMON_FILES = (
     "aspose_org_format_contract.py",
     "deterministic_truth_salvage.py",
     "format_direction.py",
+    "provider.py",
+    "../supervisor/product_truth.py",
 )
 
 _COMPILED_COMMON_FILES = (

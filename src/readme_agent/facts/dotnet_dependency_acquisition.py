@@ -84,6 +84,16 @@ _TRANSIENT_RESTORE_MARKERS = (
     "http 503",
     "http 504",
 )
+_CACHE_IMPLEMENTATION_FILES = (
+    "compiled_consumer.py",
+    "dotnet_dependency_acquisition.py",
+    "dotnet_dependency_schema.py",
+    "dotnet_legacy_reference_fallback.py",
+    "dotnet_lfs_acquisition.py",
+    "dotnet_project_closure.py",
+    "dotnet_source_generator_fallback.py",
+    "isolated_docker_control.py",
+)
 
 
 @dataclass(frozen=True)
@@ -198,6 +208,8 @@ def _cache_key(
     manifest_sha256: str,
     target_framework: str,
     immutable_image: str,
+    *,
+    implementation_files: tuple[Path, ...] | None = None,
 ) -> str:
     digest = hashlib.sha256()
     for value in (
@@ -212,7 +224,10 @@ def _cache_key(
     ):
         digest.update(value.encode("utf-8"))
         digest.update(b"\0")
-    for path in (Path(__file__), Path(__file__).with_name("dotnet_dependency_schema.py")):
+    bound_files = implementation_files or tuple(
+        Path(__file__).with_name(name) for name in _CACHE_IMPLEMENTATION_FILES
+    )
+    for path in bound_files:
         digest.update(path.name.encode("utf-8"))
         digest.update(b"\0")
         digest.update(path.read_bytes())

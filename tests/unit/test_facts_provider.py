@@ -197,6 +197,78 @@ def test_dotnet_repository_example_uses_selected_product_manifest(monkeypatch):
     assert local_verification["outcome"] == "SOURCE_BUILD_VERIFIED"
 
 
+def test_dotnet_failed_repository_example_preserves_bounded_compiler_diagnostic(monkeypatch):
+    example = SimpleNamespace(
+        language="dotnet",
+        class_name="ReadmeExample",
+        code="using Aspose.Email;\n",
+        evidence_paths=["examples/Program.cs"],
+        required_symbols=["MailMessage"],
+    )
+
+    class FailedResult:
+        outcome = "BUILD_FAILED"
+        detail = "the immutable product source did not compile"
+        truth_eligible = False
+        build = SimpleNamespace(return_code=1, stderr="error CS1929", stdout="")
+        example_compile = None
+
+        def fact_projection(self):
+            return {
+                "verified_public_symbols": [],
+                "input_fixture_bindings": [],
+                "public_api_sha256": None,
+                "python_package": None,
+                "typescript_package": None,
+                "rust_package": None,
+                "rust_formats": [],
+                "rust_source_dependency": None,
+                "acquisition_dependency_pins": [],
+                "compiled_consumer": None,
+            }
+
+        def model_dump(self, *, mode):
+            assert mode == "json"
+            return {"outcome": self.outcome, "detail": self.detail}
+
+    failed = FailedResult()
+    monkeypatch.setattr(provider, "current_repository_snapshot", lambda _org_repo: object())
+    monkeypatch.setattr(provider, "local_fact_verification_allowed", lambda: True)
+    monkeypatch.setattr(provider, "repository_source_example_candidates", lambda *_args: [example])
+    monkeypatch.setattr(provider, "repository_readme_example_candidates", lambda *_args: [])
+    monkeypatch.setattr(
+        provider,
+        "select_verified_repository_example",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            outcome="NO_VERIFIED_CANDIDATE",
+            example=None,
+            verification=None,
+            last_attempted_example=example,
+            last_attempted_verification=failed,
+        ),
+    )
+    monkeypatch.setattr(
+        provider,
+        "collect_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_blocked_source_fact("product source does not compile"),
+    )
+
+    facts, verification = provider._local_verification_facts(
+        "aspose-email-foss/Aspose.Email-FOSS-for-.NET",
+        "a" * 40,
+        None,
+        root=object(),
+        policy=SimpleNamespace(product_truth=None),
+        entry=SimpleNamespace(ecosystem="net"),
+    )
+
+    example_fact = next(fact for fact in facts if fact.field == "example.minimal")
+    assert example_fact.verification_state == "blocked"
+    assert "error CS1929" in example_fact.value["verification_detail"]
+    assert verification is not None
+    assert verification["outcome"] == "BUILD_FAILED"
+
+
 class _VerifiedRustResult:
     outcome = "SOURCE_BUILD_VERIFIED"
     detail = "locked offline Rust consumer passed"

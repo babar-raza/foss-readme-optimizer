@@ -20,7 +20,7 @@ from readme_agent.facts.deterministic_truth_salvage import (
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
@@ -320,16 +320,17 @@ def load_prepared_product_truth(
 
 def _missing_repository_evidence_finding(
     org_repo: str,
-    field: str,
-    state: str,
+    fact: FactRecordV2,
 ) -> dict:
-    return {
+    field = fact.field
+    finding = {
         "finding_id": f"product-truth-repository-evidence-missing:{field}",
         "classification": "BLOCKED_MISSING_EVIDENCE",
         "blocked_category": "agent_fixable",
         "org_repo": org_repo,
         "field": field,
-        "verification_state": state,
+        "verification_state": fact.verification_state,
+        "evidence_fact_id": fact.fact_id,
         "detail": (
             "The repository and structured-knowledge collectors did not establish this selected "
             "README field, and no checksum-valid current-revision salvage candidate was available."
@@ -339,6 +340,24 @@ def _missing_repository_evidence_finding(
             "field; broad product-truth drafting is prohibited on the canonical local path."
         ),
     }
+    value = fact.value if isinstance(fact.value, dict) else {}
+    verification_outcome = value.get("verification_outcome")
+    verification_detail = value.get("verification_detail")
+    if verification_outcome == "BUILD_FAILED" and isinstance(verification_detail, str):
+        finding.update(
+            {
+                "blocked_category": "infra_external",
+                "failure_boundary": "immutable_product_source_compile",
+                "verification_outcome": verification_outcome,
+                "detail": verification_detail[:2500],
+                "required_action": (
+                    "Repair the cited product-source compiler defect at this immutable revision, "
+                    "then rerun repository verification; dependency or SDK installation is not "
+                    "the failing boundary."
+                ),
+            }
+        )
+    return finding
 
 
 def prepare_local_product_truth(
@@ -398,8 +417,7 @@ def prepare_local_product_truth(
             findings.extend(
                 _missing_repository_evidence_finding(
                     org_repo,
-                    field,
-                    facts.selected_fact(field).verification_state,
+                    facts.selected_fact(field),
                 )
                 for field in README_TRUTH_FIELDS
                 if facts.selected_fact(field).verification_state
