@@ -18175,7 +18175,7 @@
     "updated_at": "2026-08-04T11:10:11.819444+00:00"
   },
   "schema_version": 2,
-  "state_version": 821,
+  "state_version": 822,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
@@ -18806,13 +18806,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:ValidationError:1 validation error for ProductFactsV2   Value error, fact 'product.problems_solved:agent-drafted-grounded' cites missing supporting fact 'product.capabilities:dotnet-public-api' [type=value_error, input_value={'org_repo': 'aspose-3d-f...IsTestProject=true'])])}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
       "last_checkpoint_id": "68b762a85d96d7b04e30d9cf149ce222b12e1a10ad05be6766f1c429c01ea30b",
-      "lease_expires_at": "2026-08-04T11:24:35.322770+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-04T11:10:21.078866+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-04T11:11:22.489857+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
