@@ -173,6 +173,15 @@ def build_registry_revision(
             )
             unexplained.append(record.observation_full_name)
             continue
+        if record.action == "excluded_nonconforming":
+            exclusions.append(
+                {
+                    "org_repo": record.observation_full_name,
+                    "classification": "nonconforming_name",
+                    "reason": record.reason,
+                }
+            )
+            continue
         assert record.resulting_full_name is not None
         previous = prior_by_id.get(record.provider_repository_id)
         current = resulting_by_id.get(record.provider_repository_id)

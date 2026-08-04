@@ -186,7 +186,7 @@ def test_new_variant_inherits_one_unambiguous_local_profile_but_remains_disabled
 
 @pytest.mark.parametrize(
     ("classification", "expected_action"),
-    [("unmatched", "held_unmatched"), ("ambiguous", "held_ambiguous")],
+    [("unmatched", "excluded_nonconforming"), ("ambiguous", "held_ambiguous")],
 )
 def test_nonmatching_observations_remain_discovery_only(classification, expected_action):
     observation = _observation(
@@ -202,6 +202,21 @@ def test_nonmatching_observations_remain_discovery_only(classification, expected
     assert result.entries == []
     assert result.records[0].action == expected_action
     assert result.records[0].resulting_full_name is None
+
+
+def test_conforming_but_unmatched_observation_remains_unexplained():
+    observation = _observation(
+        12,
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        family=None,
+        platform=None,
+        classification="unmatched",
+    )
+
+    result = reconcile_registry([], _inventory(observation))
+
+    assert result.entries == []
+    assert result.records[0].action == "held_unmatched"
 
 
 def test_nonconforming_rename_removes_existing_identity_from_execution_registry():

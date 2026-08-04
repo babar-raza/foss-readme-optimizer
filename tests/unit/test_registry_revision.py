@@ -165,6 +165,47 @@ def test_disabled_source_is_revision_bound_without_blocking_completeness():
     )
 
 
+def test_nonconforming_observation_is_an_explained_visible_exclusion():
+    existing = [_entry()]
+    nonconforming = _observation(20).model_copy(
+        update={
+            "full_name": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+            "name": "Aspose-PDF-FOSS-for-Go-MCP",
+            "html_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+            "clone_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP.git",
+            "classification": "unmatched",
+            "classification_reason": "name has a trailing variant suffix",
+            "disposition": "review_required",
+            "family": None,
+            "platform": None,
+        }
+    )
+    inventory = _inventory(nonconforming)
+    revision = build_registry_revision(
+        inventory,
+        reconcile_registry(existing, inventory),
+        previous_entries=existing,
+    )
+
+    assert revision.admitted_repositories == ["aspose-cells-foss/Aspose.Cells-FOSS-for-Python"]
+    assert revision.unexplained_observations == []
+    assert revision.exclusions == [
+        {
+            "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+            "classification": "nonconforming_name",
+            "reason": "repository name does not satisfy the governed execution naming contract",
+        }
+    ]
+    assert (
+        evaluate_registry_revision(
+            revision,
+            existing,
+            now=FIXTURE_EVALUATION_TIME,
+        ).eligible
+        is True
+    )
+
+
 def test_changed_observation_creates_one_pending_intake_and_deduplicates_next_scan():
     first = _revision()
     changed = _revision(

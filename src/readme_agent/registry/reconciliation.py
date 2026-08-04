@@ -150,15 +150,22 @@ def reconcile_registry(
             )
             continue
 
+        syntactically_nonconforming = classify_managed_repository_name(observation.name) is None
         action: ReconciliationAction = (
-            "held_ambiguous" if observation.classification == "ambiguous" else "held_unmatched"
+            "excluded_nonconforming"
+            if observation.classification == "unmatched" and syntactically_nonconforming
+            else "held_ambiguous"
+            if observation.classification == "ambiguous"
+            else "held_unmatched"
         )
         records.append(
             _record(
                 observation,
                 action=action,
                 reason=(
-                    "non-matching observation remains discovery-only pending explicit disposition"
+                    "repository name does not satisfy the governed execution naming contract"
+                    if action == "excluded_nonconforming"
+                    else "observation remains discovery-only pending explicit disposition"
                 ),
             )
         )
