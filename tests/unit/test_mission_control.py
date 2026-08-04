@@ -654,6 +654,7 @@ def test_fact_freshness_reuses_public_truth_contract_without_state_mutation(tmp_
                 "source_revision": source_revision,
                 "facts_hash": facts.canonical_hash(),
                 "content_assurance": "repository_verified",
+                "resolution_source": "repository_and_policy",
                 "fact_acceptance_contract_hash": contract.canonical_hash(),
                 "fact_acceptance_component_hashes": contract.component_hashes,
                 "local_verification_contract_hash": verification_hash,
@@ -714,9 +715,23 @@ def test_fact_freshness_reuses_public_truth_contract_without_state_mutation(tmp_
     assert missing_assurance.mismatch_reasons == ["manifest_content_assurance_mismatch"]
 
     manifest["content_assurance"] = "repository_verified"
+    manifest["resolution_source"] = "deterministic_salvage"
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     (bundle_dir / "facts" / "proposed-product-truth.json").write_text("{}", encoding="utf-8")
-    lifecycle.prompt_hash = "0" * 64
+    lifecycle.prompt_hash = None
+    deterministic_salvage = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=contract,
+        current_local_verification_hash=verification_hash,
+    )
+    assert deterministic_salvage.reusable is True
+
+    draft_prompt_hash = "0" * 64
+    manifest["resolution_source"] = "agent_draft"
+    manifest["prompt_hash"] = draft_prompt_hash
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    lifecycle.prompt_hash = draft_prompt_hash
     stale_prompt = evaluate_lifecycle_fact_freshness(
         state,
         bundle_dir,
@@ -724,7 +739,10 @@ def test_fact_freshness_reuses_public_truth_contract_without_state_mutation(tmp_
         current_local_verification_hash=verification_hash,
     )
     assert stale_prompt.reusable is False
-    assert stale_prompt.mismatch_reasons == ["draft_product_truth_prompt_hash_changed"]
+    assert stale_prompt.mismatch_reasons == [
+        "agent_draft_resolution_not_cacheable",
+        "draft_product_truth_prompt_hash_changed",
+    ]
 
 
 def test_lifecycle_scoreboard_registry_hash_is_line_ending_independent(tmp_path: Path):

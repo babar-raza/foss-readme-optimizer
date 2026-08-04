@@ -67,16 +67,17 @@ def _ready_product_facts() -> ProductFactsV2:
 def _valid_cache(tmp_path):
     fact_contract = current_fact_acceptance_contract()
     reviewer_standard = separated_reviewer_standard_hash()
+    product_facts = _ready_product_facts()
     state = RunStateV2(
         org_repo=ORG_REPO,
         readme_poc_lifecycle=ReadmePocLifecycleStateV2(
             status="NO_OP_PROVEN",
             source_revision=SOURCE_REVISION,
-            facts_hash="c" * 64,
+            facts_hash=product_facts.canonical_hash(),
             assessment_hash="d" * 64,
             presentation_plan_hash="e" * 64,
             candidate_hash="f" * 64,
-            prompt_hash="1" * 64,
+            prompt_hash=None,
             fact_acceptance_contract_hash=fact_contract.canonical_hash(),
             fact_acceptance_component_hashes=fact_contract.component_hashes,
             reviewer_standard_hash=reviewer_standard,
@@ -93,6 +94,8 @@ def _valid_cache(tmp_path):
         {
             "org_repo": ORG_REPO,
             "source_revision": SOURCE_REVISION,
+            "content_assurance": "repository_verified",
+            "resolution_source": "repository_and_policy",
             "lifecycle_status": "NO_OP_PROVEN",
             "complete": True,
             "completed_stages": ["NO_OP_PROVEN"],
@@ -145,7 +148,7 @@ def _valid_cache(tmp_path):
     )
     write_redacted_json(
         bundle / "facts" / "product-facts.json",
-        _ready_product_facts().model_dump(mode="json"),
+        product_facts.model_dump(mode="json"),
     )
     refresh_sha256sums(bundle)
     return state, bundle
@@ -576,13 +579,15 @@ def test_any_dependent_input_change_denies_reuse(
 def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatch, tmp_path):
     state, bundle = _valid_cache(tmp_path)
     current = current_fact_acceptance_contract()
+    changed = current.model_copy(
+        update={
+            "accepted_verification_states": current.accepted_verification_states + ("test-only",)
+        }
+    )
     monkeypatch.setattr(
         local_poc_cache,
         "current_fact_acceptance_contract",
-        lambda _ecosystem=None, _family=None: SimpleNamespace(
-            canonical_hash=lambda: "9" * 64,
-            component_hashes=current.component_hashes,
-        ),
+        lambda _ecosystem=None, _family=None: changed,
     )
 
     contract_change = _decision(state, bundle)
@@ -603,6 +608,63 @@ def test_fact_contract_change_and_artifact_corruption_both_deny_reuse(monkeypatc
     assert corruption.reusable is False
     assert "artifact_inventory_invalid" in corruption.mismatch_reasons
     assert corruption.earliest_affected_stage == "CANDIDATE_GENERATED"
+
+
+def test_stale_drafted_truth_prompt_denies_completed_reuse(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    stale_prompt_hash = "1" * 64
+    lifecycle = state.readme_poc_lifecycle.model_copy(update={"prompt_hash": stale_prompt_hash})
+    state = state.model_copy(update={"readme_poc_lifecycle": lifecycle})
+    write_redacted_json(bundle / "facts" / "proposed-product-truth.json", {})
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["resolution_source"] = "agent_draft"
+    manifest["prompt_hash"] = stale_prompt_hash
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert decision.status is None
+    assert decision.mismatch_reasons == [
+        "agent_draft_resolution_not_cacheable",
+        "draft_product_truth_prompt_hash_changed",
+    ]
+    assert decision.earliest_affected_stage == "FACTS_COLLECTING"
+
+
+def test_deterministic_salvage_proposal_is_not_prompt_bound(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    lifecycle = state.readme_poc_lifecycle.model_copy(update={"prompt_hash": None})
+    state = state.model_copy(update={"readme_poc_lifecycle": lifecycle})
+    write_redacted_json(bundle / "facts" / "proposed-product-truth.json", {})
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["prompt_hash"] = None
+    manifest["resolution_source"] = "deterministic_salvage"
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert decision.mismatch_reasons == []
+
+
+def test_unknown_product_truth_resolution_source_denies_reuse(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["resolution_source"] = "unknown"
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "product_truth_provenance_incoherent" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "FACTS_COLLECTING"
 
 
 def test_checksum_valid_but_semantically_invalid_acceptance_evidence_denies_reuse(tmp_path):

@@ -19,6 +19,9 @@ from readme_agent.llm import prompt_registry
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.mission_goal_schema import MissionLifecycleBoundary
 from readme_agent.state.schema import RunStateV1
+from readme_agent.supervisor.product_truth_provenance import (
+    load_coherent_product_truth_proposal,
+)
 
 REACHED_STATUSES: dict[MissionLifecycleBoundary, frozenset[str]] = {
     "FACTS_READY": frozenset(
@@ -226,10 +229,16 @@ def evaluate_lifecycle_fact_freshness(
             if actual != expected:
                 reasons.append(f"manifest_{field}_mismatch")
 
-    if (bundle_dir / "facts" / "proposed-product-truth.json").is_file() and (
-        lifecycle.prompt_hash != prompt_registry.prompt_hash("draft_product_truth")
-    ):
-        reasons.append("draft_product_truth_prompt_hash_changed")
+    if manifest is not None:
+        try:
+            load_coherent_product_truth_proposal(bundle_dir, manifest)
+        except RuntimeError:
+            reasons.append("product_truth_provenance_incoherent")
+        else:
+            if manifest.get("resolution_source") == "agent_draft":
+                reasons.append("agent_draft_resolution_not_cacheable")
+                if lifecycle.prompt_hash != prompt_registry.prompt_hash("draft_product_truth"):
+                    reasons.append("draft_product_truth_prompt_hash_changed")
 
     facts_payload = _load_json(bundle_dir / "facts" / "product-facts.json")
     if facts_payload is None:

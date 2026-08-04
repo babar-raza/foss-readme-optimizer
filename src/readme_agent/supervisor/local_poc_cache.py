@@ -23,6 +23,9 @@ from readme_agent.registry.loader import require_listed
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.mission_lifecycle_freshness import (
+    evaluate_lifecycle_fact_freshness,
+)
 from readme_agent.supervisor.stage_dependencies import (
     current_candidate_stage_dependency_manifest,
 )
@@ -270,6 +273,20 @@ def _evaluate_local_poc_cache(
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     reasons: list[str] = []
 
+    resolved_family = family
+    if ecosystem is not None and resolved_family is None:
+        resolved_org_repo = state.org_repo if state is not None else "unknown/unknown"
+        resolved_family = require_listed(resolved_org_repo).family
+    fact_freshness = evaluate_lifecycle_fact_freshness(
+        state,
+        bundle_dir,
+        current_contract=current_fact_acceptance_contract(ecosystem, resolved_family),
+        current_local_verification_hash=current["local_verification_contract_hash"],
+        ecosystem=ecosystem,
+        family=resolved_family,
+    )
+    reasons.extend(fact_freshness.mismatch_reasons)
+
     allowed_statuses = {"AGENT_APPROVED"} if approved_only else _COMPLETE_STATUSES
     if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
         reasons.append("missing_v2_lifecycle")
@@ -437,9 +454,12 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
                 affected.append(scope if scope in _STAGE_ORDER else "FACTS_COLLECTING")
         elif (
             reason.startswith("fact_")
+            or reason.startswith("agent_draft_")
             or reason.startswith("product_truth_")
             or reason.startswith("manifest_facts_")
+            or reason.startswith("manifest_local_verification_")
             or reason == "local_verification_contract_hash_changed"
+            or reason == "draft_product_truth_prompt_hash_changed"
             or reason == "prompt_registry_content_hash_changed"
             or reason == "prompt_dependency_hashes_missing"
             or reason == "control_plane_fingerprint_changed"

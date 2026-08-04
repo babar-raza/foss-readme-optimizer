@@ -206,11 +206,12 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
     source_revision = "a" * 40
     ecosystem = "python"
     family = "note"
-    facts_hash = "b" * 64
+    product_facts = _ready_product_facts(source_revision)
+    facts_hash = product_facts.canonical_hash()
     assessment_hash = "c" * 64
     presentation_plan_hash = "d" * 64
     candidate_hash = "e" * 64
-    prompt_hash = "f" * 64
+    prompt_hash = None
     monkeypatch.setattr(
         cache_module,
         "require_listed",
@@ -247,6 +248,8 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
         {
             "org_repo": "org/repo",
             "source_revision": source_revision,
+            "content_assurance": "repository_verified",
+            "resolution_source": "repository_and_policy",
             "lifecycle_status": "NO_OP_PROVEN",
             "complete": True,
             "completed_stages": ["NO_OP_PROVEN"],
@@ -270,7 +273,7 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
     )
     write_redacted_json(
         bundle_dir / "facts" / "product-facts.json",
-        _ready_product_facts(source_revision).model_dump(mode="json"),
+        product_facts.model_dump(mode="json"),
     )
     write_redacted_json(
         bundle_dir / "planning" / "agentic-composition-plan.json",
