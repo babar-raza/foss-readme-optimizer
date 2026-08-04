@@ -6756,6 +6756,15 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T11:04:14.397159+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "intake_preflight_history": [
@@ -6784,11 +6793,11 @@
     "reviewer_standard_hash": "241304fea3e7a82db8fe83eb534b69e97b5b93ab3c72c2f7e21dfab8c22cdb01",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-01T11:19:48.593392+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-04T11:04:14.397159+00:00"
   },
   "schema_version": 2,
-  "state_version": 104,
+  "state_version": 105,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
