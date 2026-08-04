@@ -2470,13 +2470,13 @@
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+      "accepted_facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "6b8c5ccafa2a7434b48e6bb5d514fe6df5c5bd0bcd922446d9c420f43515e8dd",
+          "assessment_hash": "f2ef3eebb6cfb615ad22dc62358e29ca801f4d61d6a9fb35b386e9b216ea50c0",
           "attempt_count": 1,
           "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
           "diagram": {
@@ -2581,8 +2581,8 @@
               }
             ]
           },
-          "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
-          "input_sha256": "10f2c17d101ff060fe848480bc0e4a065f1bdacc7eed9287dc16eab82204b279",
+          "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
+          "input_sha256": "3426f443dc14bb8999a8c36a4ac8dfe7d0f2268a64fd80496edec7ad9e2f885e",
           "model": "deterministic-verified-preservation-v1",
           "opening_summary": {
             "supporting_fact_ids": [
@@ -2723,9 +2723,9 @@
           "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
           "tool_schema_sha256": "64a74c91e4cac7203a86a24131ddb8dfc92f9112c614c42021c838e2d53af5a5"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260804-094822-5387",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260804-150301-bab6",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -2762,7 +2762,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+          "product_facts_v2_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
           "protected_content_losses": [],
           "valid": true
         },
@@ -2778,14 +2778,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                  "claim": "The title clearly identifies the product and its FOSS nature.",
-                  "criterion": "clarity",
+                  "claim": "The README uses a single H1 heading and multiple H2 headings with required prefixes, following sentence case without emoji.",
+                  "criterion": "hierarchy",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.1",
+                  "finding_id": "quality.finding.1",
                   "kind": "quality",
                   "mechanical_check_id": "document.h1_blocks",
                   "observed_polarity": null,
@@ -2793,32 +2793,32 @@
                   "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
                   "reported_observed_value": 1,
                   "required_repair": "",
-                  "section": "candidate.anchor.62046b9f1de5bdd9525f.1"
+                  "section": "document structure"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                  "claim": "The 'Quick start' section presents a minimal, verified example in a single fenced block with only two non-blank code lines.",
+                  "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                  "claim": "The 'Quick start' section contains only one fenced code block with two non-blank lines, satisfying the primary example standard.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_presentation.1",
+                  "finding_id": "quality.finding.2",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Quick start",
+                  "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
                   "reported_observed_value": 2,
                   "required_repair": "",
-                  "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                  "section": "Quick start"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.1",
-                  "quality.example_presentation.1"
+                  "quality.finding.1",
+                  "quality.finding.2"
                 ],
                 "errors": [],
                 "valid": true
@@ -2830,7 +2830,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "325f51ae72ae4522cd0c8f81788281a22eeec006c9c2689bad5a88968d41efd4",
-              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. License and enterprise terminology sections are present and correctly worded. No duplicate H2s, comments, or markdown integrity issues were detected.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1 block, compliant badge row count, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. All required sections are present, including 'Scope and limitations' with Enterprise Edition terminology, and 'License' with required benefit terms. There is no visible duplication, and internal terminology is consistent.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -2843,14 +2843,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                    "claim": "The title clearly identifies the product and its FOSS nature.",
-                    "criterion": "clarity",
+                    "claim": "The README uses a single H1 heading and multiple H2 headings with required prefixes, following sentence case without emoji.",
+                    "criterion": "hierarchy",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.1",
+                    "finding_id": "quality.finding.1",
                     "kind": "quality",
                     "mechanical_check_id": "document.h1_blocks",
                     "observed_polarity": null,
@@ -2858,32 +2858,32 @@
                     "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
                     "reported_observed_value": 1,
                     "required_repair": "",
-                    "section": "candidate.anchor.62046b9f1de5bdd9525f.1"
+                    "section": "document structure"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                    "claim": "The 'Quick start' section presents a minimal, verified example in a single fenced block with only two non-blank code lines.",
+                    "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                    "claim": "The 'Quick start' section contains only one fenced code block with two non-blank lines, satisfying the primary example standard.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_presentation.1",
+                    "finding_id": "quality.finding.2",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Quick start",
+                    "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
                     "reported_observed_value": 2,
                     "required_repair": "",
-                    "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                    "section": "Quick start"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.example_presentation.1"
+                    "quality.finding.1",
+                    "quality.finding.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -2895,7 +2895,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "325f51ae72ae4522cd0c8f81788281a22eeec006c9c2689bad5a88968d41efd4",
-                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. License and enterprise terminology sections are present and correctly worded. No duplicate H2s, comments, or markdown integrity issues were detected.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1 block, compliant badge row count, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. All required sections are present, including 'Scope and limitations' with Enterprise Edition terminology, and 'License' with required benefit terms. There is no visible duplication, and internal terminology is consistent.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2909,14 +2909,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.cadccdb144a78ca0e5b9.1",
-                    "claim": "The package declares 35 public exports in its static __all__ surface.",
+                    "claim": "The package declares 35 public exports in its static `__all__` surface.",
                     "criterion": "api.public_surface",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose_barcode_foss",
                     "evidence_location": "repository://src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/result.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "api.public_surface:python-exports",
-                    "finding_id": "factual.api.1",
+                    "finding_id": "factual.finding.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -2924,10 +2924,10 @@
                     "quoted_candidate_span": "## API reference",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.cadccdb144a78ca0e5b9.1"
+                    "section": "API reference"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.30f73aa35c3dd241193c.1",
+                    "candidate_anchor_id": "candidate.anchor.8c65a06fd01876a16838.1",
                     "claim": "The repository includes 48 test files.",
                     "criterion": "development.assets",
                     "disposition": "supports_acceptance",
@@ -2935,21 +2935,21 @@
                     "evidence_location": "repository://tests/__init__.py,tests/api/test_api_entrypoints.py,tests/api/test_barcode_service.py,tests/api/test_code128_api_success.py,tests/api/test_symbology_registry.py,tests/conftest.py,tests/encoding/__init__.py,tests/encoding/test_code128_golden_vectors.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "development.assets:repository-inventory",
-                    "finding_id": "factual.development.1",
+                    "finding_id": "factual.finding.2",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Development and testing",
+                    "quoted_candidate_span": "The repository includes 48 test files.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.30f73aa35c3dd241193c.1"
+                    "section": "Development and testing"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.api.1",
-                    "factual.development.1"
+                    "factual.finding.1",
+                    "factual.finding.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -2960,8 +2960,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "a072aaa85ef1d5e833547074e86bbaa92a9232f7266267e793fa72c96c038d80",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal example (SvgRenderer), installation coordinates (pyproject.toml), verified acquisition (source build), product audience (Python developers), capabilities (6 listed), compatibility (>=3.12), formats (SVG, PNG), identity (aspose-barcode-foss), license (MIT), limitations (PDF not implemented, UPC-E constraint), distribution (Beta, typed), release state (0.1.0), repository examples (5 files), and commercial/FOSS relationship are all accurately reflected and verified. No unsupported or contradictory claims were found.",
+                "input_sha256": "d7914ebfb9b1c9f0c27079c09ef495f3109264eefbe852c93f5caf3f23db086b",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal verified example, installation coordinates, verified acquisition, product audience, capabilities, compatibility, formats, identity, license, limitations, release state, and repository examples are all factually consistent with the candidate content. The 'Enterprise Edition' terminology and license benefit terms are correctly aligned with the accepted facts. No unsupported or contradictory claims were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2969,14 +2969,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "c4a18ce5dae882e803ede929e3952a2dd02097c3f1228eadbccd01f5a9f0c97e",
-                "factual_record_sha256": "0b29de1edcf622b611228b83dda4d7707d48b2b75c0cd1672c68b01bbc76652c",
-                "input_sha256": "2436b4b322a0a2237a553da53469ec7233820a8d740d82cb208fcb63efb1eb23",
+                "blind_record_sha256": "230c2f02c48d66233010214e080749f31dc4595903a274084e6161bf59db579a",
+                "factual_record_sha256": "774aeca8d3bbd17300a38123931307b1bc9669a6f86441a9c6c779f97a7fcc11",
+                "input_sha256": "86bf4f6d7055b1619303851f9a35aecc5baf6a027da90c6e22c2cc5507da38c9",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-96d8ba0e6461bd44",
-                "raw_output_sha256": "a859e37139890cf242f14fd4a6ed3ced07688e44ea18f9542adeb1d2d4aa8d73"
+                "provider_request_id": "chatcmpl-b7db06ab171eed13",
+                "raw_output_sha256": "12a37fd77796f81710f49a6c1155fce7cfbd357d287f1e8126cdc608bf1ba7db"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -2992,14 +2992,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.cadccdb144a78ca0e5b9.1",
-                  "claim": "The package declares 35 public exports in its static __all__ surface.",
+                  "claim": "The package declares 35 public exports in its static `__all__` surface.",
                   "criterion": "api.public_surface",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose_barcode_foss",
                   "evidence_location": "repository://src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/result.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "api.public_surface:python-exports",
-                  "finding_id": "factual.api.1",
+                  "finding_id": "factual.finding.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -3007,10 +3007,10 @@
                   "quoted_candidate_span": "## API reference",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.cadccdb144a78ca0e5b9.1"
+                  "section": "API reference"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.30f73aa35c3dd241193c.1",
+                  "candidate_anchor_id": "candidate.anchor.8c65a06fd01876a16838.1",
                   "claim": "The repository includes 48 test files.",
                   "criterion": "development.assets",
                   "disposition": "supports_acceptance",
@@ -3018,21 +3018,21 @@
                   "evidence_location": "repository://tests/__init__.py,tests/api/test_api_entrypoints.py,tests/api/test_barcode_service.py,tests/api/test_code128_api_success.py,tests/api/test_symbology_registry.py,tests/conftest.py,tests/encoding/__init__.py,tests/encoding/test_code128_golden_vectors.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "development.assets:repository-inventory",
-                  "finding_id": "factual.development.1",
+                  "finding_id": "factual.finding.2",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Development and testing",
+                  "quoted_candidate_span": "The repository includes 48 test files.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.30f73aa35c3dd241193c.1"
+                  "section": "Development and testing"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.api.1",
-                  "factual.development.1"
+                  "factual.finding.1",
+                  "factual.finding.2"
                 ],
                 "errors": [],
                 "valid": true
@@ -3043,8 +3043,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "a072aaa85ef1d5e833547074e86bbaa92a9232f7266267e793fa72c96c038d80",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal example (SvgRenderer), installation coordinates (pyproject.toml), verified acquisition (source build), product audience (Python developers), capabilities (6 listed), compatibility (>=3.12), formats (SVG, PNG), identity (aspose-barcode-foss), license (MIT), limitations (PDF not implemented, UPC-E constraint), distribution (Beta, typed), release state (0.1.0), repository examples (5 files), and commercial/FOSS relationship are all accurately reflected and verified. No unsupported or contradictory claims were found.",
+              "input_sha256": "d7914ebfb9b1c9f0c27079c09ef495f3109264eefbe852c93f5caf3f23db086b",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal verified example, installation coordinates, verified acquisition, product audience, capabilities, compatibility, formats, identity, license, limitations, release state, and repository examples are all factually consistent with the candidate content. The 'Enterprise Edition' terminology and license benefit terms are correctly aligned with the accepted facts. No unsupported or contradictory claims were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3065,8 +3065,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.example_presentation.1"
+                    "quality.finding.1",
+                    "quality.finding.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -3082,15 +3082,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.api.1",
-                  "factual.development.1"
+                  "factual.finding.1",
+                  "factual.finding.2"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.api.1",
-                    "factual.development.1"
+                    "factual.finding.1",
+                    "factual.finding.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -3133,7 +3133,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260804-094822-5387",
+                "nonce": "20260804-150301-bab6",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -3141,11 +3141,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "78da383ae17843ab7f4ac62d460526a7a64071a7977a0aba71d889375922bded",
+                "token": "1e94cd1f49978c533f7ef090aada82d8f99f27a8f2a5ef954ef23da6dcfaa335",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260804-094822-5387"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260804-150301-bab6"
               ],
               "repair_attempt": 0,
               "review": {
@@ -3156,14 +3156,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                      "claim": "The title clearly identifies the product and its FOSS nature.",
-                      "criterion": "clarity",
+                      "claim": "The README uses a single H1 heading and multiple H2 headings with required prefixes, following sentence case without emoji.",
+                      "criterion": "hierarchy",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.1",
+                      "finding_id": "quality.finding.1",
                       "kind": "quality",
                       "mechanical_check_id": "document.h1_blocks",
                       "observed_polarity": null,
@@ -3171,32 +3171,32 @@
                       "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
                       "reported_observed_value": 1,
                       "required_repair": "",
-                      "section": "candidate.anchor.62046b9f1de5bdd9525f.1"
+                      "section": "document structure"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                      "claim": "The 'Quick start' section presents a minimal, verified example in a single fenced block with only two non-blank code lines.",
+                      "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                      "claim": "The 'Quick start' section contains only one fenced code block with two non-blank lines, satisfying the primary example standard.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_presentation.1",
+                      "finding_id": "quality.finding.2",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Quick start",
+                      "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
                       "reported_observed_value": 2,
                       "required_repair": "",
-                      "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                      "section": "Quick start"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.1",
-                      "quality.example_presentation.1"
+                      "quality.finding.1",
+                      "quality.finding.2"
                     ],
                     "errors": [],
                     "valid": true
@@ -3208,7 +3208,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "325f51ae72ae4522cd0c8f81788281a22eeec006c9c2689bad5a88968d41efd4",
-                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. License and enterprise terminology sections are present and correctly worded. No duplicate H2s, comments, or markdown integrity issues were detected.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1 block, compliant badge row count, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. All required sections are present, including 'Scope and limitations' with Enterprise Edition terminology, and 'License' with required benefit terms. There is no visible duplication, and internal terminology is consistent.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3221,14 +3221,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                        "claim": "The title clearly identifies the product and its FOSS nature.",
-                        "criterion": "clarity",
+                        "claim": "The README uses a single H1 heading and multiple H2 headings with required prefixes, following sentence case without emoji.",
+                        "criterion": "hierarchy",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.1",
+                        "finding_id": "quality.finding.1",
                         "kind": "quality",
                         "mechanical_check_id": "document.h1_blocks",
                         "observed_polarity": null,
@@ -3236,32 +3236,32 @@
                         "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
                         "reported_observed_value": 1,
                         "required_repair": "",
-                        "section": "candidate.anchor.62046b9f1de5bdd9525f.1"
+                        "section": "document structure"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                        "claim": "The 'Quick start' section presents a minimal, verified example in a single fenced block with only two non-blank code lines.",
+                        "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                        "claim": "The 'Quick start' section contains only one fenced code block with two non-blank lines, satisfying the primary example standard.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_presentation.1",
+                        "finding_id": "quality.finding.2",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Quick start",
+                        "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
                         "reported_observed_value": 2,
                         "required_repair": "",
-                        "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                        "section": "Quick start"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.example_presentation.1"
+                        "quality.finding.1",
+                        "quality.finding.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -3273,7 +3273,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "325f51ae72ae4522cd0c8f81788281a22eeec006c9c2689bad5a88968d41efd4",
-                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. License and enterprise terminology sections are present and correctly worded. No duplicate H2s, comments, or markdown integrity issues were detected.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1 block, compliant badge row count, required H2 prefixes, and a well-structured navigation section. The 'At a glance' Mermaid diagram clearly maps inputs, capabilities, and outputs. The 'Quick start' section contains only one fenced block with two non-blank code lines, satisfying the primary example standard. All required sections are present, including 'Scope and limitations' with Enterprise Edition terminology, and 'License' with required benefit terms. There is no visible duplication, and internal terminology is consistent.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3287,14 +3287,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.cadccdb144a78ca0e5b9.1",
-                        "claim": "The package declares 35 public exports in its static __all__ surface.",
+                        "claim": "The package declares 35 public exports in its static `__all__` surface.",
                         "criterion": "api.public_surface",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose_barcode_foss",
                         "evidence_location": "repository://src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/result.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "api.public_surface:python-exports",
-                        "finding_id": "factual.api.1",
+                        "finding_id": "factual.finding.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -3302,10 +3302,10 @@
                         "quoted_candidate_span": "## API reference",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.cadccdb144a78ca0e5b9.1"
+                        "section": "API reference"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.30f73aa35c3dd241193c.1",
+                        "candidate_anchor_id": "candidate.anchor.8c65a06fd01876a16838.1",
                         "claim": "The repository includes 48 test files.",
                         "criterion": "development.assets",
                         "disposition": "supports_acceptance",
@@ -3313,21 +3313,21 @@
                         "evidence_location": "repository://tests/__init__.py,tests/api/test_api_entrypoints.py,tests/api/test_barcode_service.py,tests/api/test_code128_api_success.py,tests/api/test_symbology_registry.py,tests/conftest.py,tests/encoding/__init__.py,tests/encoding/test_code128_golden_vectors.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "development.assets:repository-inventory",
-                        "finding_id": "factual.development.1",
+                        "finding_id": "factual.finding.2",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Development and testing",
+                        "quoted_candidate_span": "The repository includes 48 test files.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.30f73aa35c3dd241193c.1"
+                        "section": "Development and testing"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.api.1",
-                        "factual.development.1"
+                        "factual.finding.1",
+                        "factual.finding.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -3338,8 +3338,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "a072aaa85ef1d5e833547074e86bbaa92a9232f7266267e793fa72c96c038d80",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal example (SvgRenderer), installation coordinates (pyproject.toml), verified acquisition (source build), product audience (Python developers), capabilities (6 listed), compatibility (>=3.12), formats (SVG, PNG), identity (aspose-barcode-foss), license (MIT), limitations (PDF not implemented, UPC-E constraint), distribution (Beta, typed), release state (0.1.0), repository examples (5 files), and commercial/FOSS relationship are all accurately reflected and verified. No unsupported or contradictory claims were found.",
+                    "input_sha256": "d7914ebfb9b1c9f0c27079c09ef495f3109264eefbe852c93f5caf3f23db086b",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal verified example, installation coordinates, verified acquisition, product audience, capabilities, compatibility, formats, identity, license, limitations, release state, and repository examples are all factually consistent with the candidate content. The 'Enterprise Edition' terminology and license benefit terms are correctly aligned with the accepted facts. No unsupported or contradictory claims were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3347,14 +3347,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "c4a18ce5dae882e803ede929e3952a2dd02097c3f1228eadbccd01f5a9f0c97e",
-                    "factual_record_sha256": "0b29de1edcf622b611228b83dda4d7707d48b2b75c0cd1672c68b01bbc76652c",
-                    "input_sha256": "2436b4b322a0a2237a553da53469ec7233820a8d740d82cb208fcb63efb1eb23",
+                    "blind_record_sha256": "230c2f02c48d66233010214e080749f31dc4595903a274084e6161bf59db579a",
+                    "factual_record_sha256": "774aeca8d3bbd17300a38123931307b1bc9669a6f86441a9c6c779f97a7fcc11",
+                    "input_sha256": "86bf4f6d7055b1619303851f9a35aecc5baf6a027da90c6e22c2cc5507da38c9",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-96d8ba0e6461bd44",
-                    "raw_output_sha256": "a859e37139890cf242f14fd4a6ed3ced07688e44ea18f9542adeb1d2d4aa8d73"
+                    "provider_request_id": "chatcmpl-b7db06ab171eed13",
+                    "raw_output_sha256": "12a37fd77796f81710f49a6c1155fce7cfbd357d287f1e8126cdc608bf1ba7db"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -3370,14 +3370,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.cadccdb144a78ca0e5b9.1",
-                      "claim": "The package declares 35 public exports in its static __all__ surface.",
+                      "claim": "The package declares 35 public exports in its static `__all__` surface.",
                       "criterion": "api.public_surface",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose_barcode_foss",
                       "evidence_location": "repository://src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/result.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "api.public_surface:python-exports",
-                      "finding_id": "factual.api.1",
+                      "finding_id": "factual.finding.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -3385,10 +3385,10 @@
                       "quoted_candidate_span": "## API reference",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.cadccdb144a78ca0e5b9.1"
+                      "section": "API reference"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.30f73aa35c3dd241193c.1",
+                      "candidate_anchor_id": "candidate.anchor.8c65a06fd01876a16838.1",
                       "claim": "The repository includes 48 test files.",
                       "criterion": "development.assets",
                       "disposition": "supports_acceptance",
@@ -3396,21 +3396,21 @@
                       "evidence_location": "repository://tests/__init__.py,tests/api/test_api_entrypoints.py,tests/api/test_barcode_service.py,tests/api/test_code128_api_success.py,tests/api/test_symbology_registry.py,tests/conftest.py,tests/encoding/__init__.py,tests/encoding/test_code128_golden_vectors.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "development.assets:repository-inventory",
-                      "finding_id": "factual.development.1",
+                      "finding_id": "factual.finding.2",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Development and testing",
+                      "quoted_candidate_span": "The repository includes 48 test files.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.30f73aa35c3dd241193c.1"
+                      "section": "Development and testing"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.api.1",
-                      "factual.development.1"
+                      "factual.finding.1",
+                      "factual.finding.2"
                     ],
                     "errors": [],
                     "valid": true
@@ -3421,8 +3421,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "a072aaa85ef1d5e833547074e86bbaa92a9232f7266267e793fa72c96c038d80",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal example (SvgRenderer), installation coordinates (pyproject.toml), verified acquisition (source build), product audience (Python developers), capabilities (6 listed), compatibility (>=3.12), formats (SVG, PNG), identity (aspose-barcode-foss), license (MIT), limitations (PDF not implemented, UPC-E constraint), distribution (Beta, typed), release state (0.1.0), repository examples (5 files), and commercial/FOSS relationship are all accurately reflected and verified. No unsupported or contradictory claims were found.",
+                  "input_sha256": "d7914ebfb9b1c9f0c27079c09ef495f3109264eefbe852c93f5caf3f23db086b",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (35 exports), development assets (48 tests), minimal verified example, installation coordinates, verified acquisition, product audience, capabilities, compatibility, formats, identity, license, limitations, release state, and repository examples are all factually consistent with the candidate content. The 'Enterprise Edition' terminology and license benefit terms are correctly aligned with the accepted facts. No unsupported or contradictory claims were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3443,8 +3443,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.example_presentation.1"
+                        "quality.finding.1",
+                        "quality.finding.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -3460,15 +3460,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.api.1",
-                      "factual.development.1"
+                      "factual.finding.1",
+                      "factual.finding.2"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.api.1",
-                        "factual.development.1"
+                        "factual.finding.1",
+                        "factual.finding.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -3494,7 +3494,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "6b8c5ccafa2a7434b48e6bb5d514fe6df5c5bd0bcd922446d9c420f43515e8dd",
+            "assessment_hash": "f2ef3eebb6cfb615ad22dc62358e29ca801f4d61d6a9fb35b386e9b216ea50c0",
             "attempt_count": 1,
             "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
             "diagram": {
@@ -3599,8 +3599,8 @@
                 }
               ]
             },
-            "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
-            "input_sha256": "10f2c17d101ff060fe848480bc0e4a065f1bdacc7eed9287dc16eab82204b279",
+            "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
+            "input_sha256": "3426f443dc14bb8999a8c36a4ac8dfe7d0f2268a64fd80496edec7ad9e2f885e",
             "model": "deterministic-verified-preservation-v1",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -3779,7 +3779,7 @@
                 "claim_text_sha256": "b810d2aa1a5c2a5f932ebd1d9869bd1743680a19f8c4ddfdeb8587aef4fb0f27",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "866af74f4b10d9cf921e846fb9006abb1336501222340ca804d4d81bf8ffb64f",
+                "fact_value_sha256": "d5a506cb3300705fbf88ad187ff2d8fa2f9e867f6a04393341c837eb5447895d",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "b810d2aa1a5c2a5f932ebd1d9869bd1743680a19f8c4ddfdeb8587aef4fb0f27",
                 "operation_id": "template.badges",
@@ -3933,7 +3933,7 @@
                 "claim_text_sha256": "1ee0072b056e3a283e2674f70dd8a4d0d33561f414a195891337b4bcb00f824c",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "866af74f4b10d9cf921e846fb9006abb1336501222340ca804d4d81bf8ffb64f",
+                "fact_value_sha256": "d5a506cb3300705fbf88ad187ff2d8fa2f9e867f6a04393341c837eb5447895d",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "4e71f42342a929c0119bc1d08a33d687eb35867eecfbb1096f2bfdcc35a6a594",
                 "operation_id": "template.section.installation.verified_acquisition",
@@ -4781,7 +4781,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+            "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
             "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
             "schema_version": 1
           },
@@ -5582,7 +5582,7 @@
             "archetype": "python-library",
             "candidate_sha256": "8854d4cfcda7b124dff3f631cce6e2a8938695289f23aed08fa764557d7144c9",
             "content_assurance": "repository_verified",
-            "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+            "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -5691,7 +5691,7 @@
             "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
           },
           "readme_assessment": {
-            "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+            "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
             "immutable_base_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
             "material_claims": [
               {
@@ -9093,7 +9093,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "866af74f4b10d9cf921e846fb9006abb1336501222340ca804d4d81bf8ffb64f"
+                      "value_sha256": "d5a506cb3300705fbf88ad187ff2d8fa2f9e867f6a04393341c837eb5447895d"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -11386,7 +11386,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+              "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
               "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
@@ -11493,7 +11493,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "807963e7161282b934cc71b18f92f720ef40e2d036e735f8c27b7ad2c76100d7",
+            "facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
             "header_visuals": {
               "badge_markdown": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/tree/53f2c3350b8171f2c8275e7b1a178f218695ac45) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.12](https://img.shields.io/badge/Requires-Python%20%3E%3D3.12-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.svg)](https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -12875,7 +12875,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260804-094822-5387",
+          "nonce": "20260804-150301-bab6",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -12883,7 +12883,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "78da383ae17843ab7f4ac62d460526a7a64071a7977a0aba71d889375922bded",
+          "token": "1e94cd1f49978c533f7ef090aada82d8f99f27a8f2a5ef954ef23da6dcfaa335",
           "verdict": "accept"
         },
         "written": false
@@ -12891,7 +12891,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T09:49:46.834798+00:00",
+      "last_run_timestamp": "2026-08-04T15:04:35.599198+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -14470,7 +14470,7 @@
     "updated_at": "2026-08-04T15:04:30.200914+00:00"
   },
   "schema_version": 2,
-  "state_version": 427,
+  "state_version": 428,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8c68236ee4cc0ce42027350283c929345d0384e6180221249ac23006c984d877",
