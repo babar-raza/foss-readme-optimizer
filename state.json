@@ -88,7 +88,7 @@
       "accepted_facts_hash": "8979b283fde6ef9640398714980bce1d6c0166a1ae910ac5fd2b2e4e9d053671",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 0,
+      "consecutive_skip_count": 1,
       "details": {
         "community_profile_health_percentage": 37,
         "detected_license": "MIT",
@@ -117,14 +117,16 @@
           "CODE_OF_CONDUCT": false,
           "CONTRIBUTING": false,
           "LICENSE": true
-        }
+        },
+        "skip_reason": "llm_selected",
+        "skipped_at_revision": "bd19e16057b628310b4a04330585d366cb40e9b7"
       },
       "domain": "community_files_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:00:37.963119+00:00",
+      "last_run_timestamp": "2026-08-04T11:35:46.027578+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": false,
+      "skipped_this_run": true,
       "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
     },
     "cross_surface_validation": {
@@ -624,7 +626,7 @@
     "updated_at": "2026-08-04T11:33:59.429444+00:00"
   },
   "schema_version": 2,
-  "state_version": 52,
+  "state_version": 53,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
