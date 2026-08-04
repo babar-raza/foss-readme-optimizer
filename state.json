@@ -717,6 +717,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-084050-a755:aspose-font-foss/Aspose.Font-FOSS-for-Python"
     },
+    "9700848103f6fec6f98960e00890dc83738db9b4c11145a54f03e5ebeb056343": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "9700848103f6fec6f98960e00890dc83738db9b4c11145a54f03e5ebeb056343",
+      "completed_at": "2026-08-04T10:05:37.902004+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "df07f62ee39bacc1d2f11afe8e53c25d2bf7bc1e4e146b1fdc39fc25d5dc3aca",
+      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "run_id": "20260804-100354-7b1a",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-04T10:05:37.901996+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-082320-2137:aspose-font-foss/Aspose.Font-FOSS-for-Python"
+    },
     "99f61a0fd1b93a696d3b768d081262937ec13d92a448b17c016b9be956566196": {
       "action": null,
       "attempt": 1,
@@ -9436,7 +9453,7 @@
     "updated_at": "2026-08-04T10:05:31.198026+00:00"
   },
   "schema_version": 2,
-  "state_version": 240,
+  "state_version": 241,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86748b3bbaa0ef1d8385661881ba5db5d93591b9db0a00ea85949ce59197d101",
@@ -9651,11 +9668,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "11acfbd86b1d7a42110436600816b0dad4bc57d80556d5e20454743bae27b331",
+      "last_checkpoint_id": "9700848103f6fec6f98960e00890dc83738db9b4c11145a54f03e5ebeb056343",
       "lease_expires_at": "2026-08-04T10:19:08.176037+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-04T10:04:40.942346+00:00"
+      "updated_at": "2026-08-04T10:05:37.902004+00:00"
     },
     "operator:20260801-083747-cbcc:aspose-font-foss/Aspose.Font-FOSS-for-Python": {
       "accepted_at": "2026-08-01T08:37:53.523582+00:00",
