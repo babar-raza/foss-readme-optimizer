@@ -6773,9 +6773,9 @@
     },
     "visual_preparation": {
       "accepted_facts_hash": "a5fff1721d25c20e8103637b03ae8cd3f9dea5095d3466530a4ce448f465d73a",
-      "accepted_status": "FIRST_OBSERVATION",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 1,
+      "consecutive_skip_count": 0,
       "details": {
         "alt_text": "words FOSS for python logo",
         "concerns": [],
@@ -6791,8 +6791,6 @@
         },
         "size_bytes": 2389,
         "size_within_reasonable_bounds": true,
-        "skip_reason": "llm_selected",
-        "skipped_at_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
@@ -6805,10 +6803,10 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T11:17:15.368510+00:00",
+      "last_run_timestamp": "2026-08-04T11:08:03.677025+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": true,
-      "upstream_revision_at_accept": "d051a96a7417149e816a8f862d45a5b769bc5fad"
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
     }
   },
   "last_run_id": null,
@@ -7254,7 +7252,7 @@
     "updated_at": "2026-08-04T11:07:42.827392+00:00"
   },
   "schema_version": 2,
-  "state_version": 122,
+  "state_version": 123,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
