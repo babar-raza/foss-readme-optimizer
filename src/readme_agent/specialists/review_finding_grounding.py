@@ -53,7 +53,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v29-mechanical-premise-ownership"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v30-mechanical-premise-specificity"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -1146,6 +1146,11 @@ def _mechanical_check_for_premise(
     ):
         return "document.required_h2_prefix"
     if finding.section.casefold() == "quick start" or "quick start" in premise:
+        # A reviewer commonly describes the containing fence before stating a line-count
+        # violation.  The explicit measured quantity owns the premise; merely mentioning a
+        # numbered fence must not steal a more specific nonblank-line citation.
+        if "nonblank" in premise and "line" in premise:
+            return "quick_start.max_nonblank_code_lines"
         quantified = bool(
             re.search(r"\b(?:two|three|four|\d+)\b", premise)
             or any(
@@ -1162,8 +1167,6 @@ def _mechanical_check_for_premise(
         )
         if quantified and ("fenc" in premise or "code block" in premise):
             return "quick_start.fenced_blocks"
-        if "nonblank" in premise and "line" in premise:
-            return "quick_start.max_nonblank_code_lines"
     return None
 
 

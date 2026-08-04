@@ -159,6 +159,54 @@ def test_fetch_remote_sha_does_not_retry_permanent_auth_failure(monkeypatch):
     assert len(calls) == 1
 
 
+def test_state_push_retries_transient_transport_failure(monkeypatch):
+    calls: list[list[str]] = []
+    real_run_with_retry = git_backend.run_with_retry
+
+    def fake_run_git(args: list[str]):
+        calls.append(args)
+        if len(calls) == 1:
+            return _completed(returncode=128, stderr="fatal: Empty reply from server")
+        return _completed()
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+    monkeypatch.setattr(
+        git_backend,
+        "run_with_retry",
+        lambda operation_class, operation: real_run_with_retry(
+            operation_class,
+            operation,
+            sleep=lambda _seconds: None,
+        ),
+    )
+
+    result = git_backend._push_remote_with_retry(
+        ["push", "origin", "abc:refs/readme-agent-state/example"],
+        remote_ref="refs/readme-agent-state/example",
+    )
+
+    assert result.returncode == 0
+    assert len(calls) == 2
+
+
+def test_state_push_does_not_retry_permanent_auth_failure(monkeypatch):
+    calls: list[list[str]] = []
+
+    def fake_run_git(args: list[str]):
+        calls.append(args)
+        return _completed(returncode=128, stderr="remote: Permission denied")
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    result = git_backend._push_remote_with_retry(
+        ["push", "origin", "abc:refs/readme-agent-state/example"],
+        remote_ref="refs/readme-agent-state/example",
+    )
+
+    assert result.returncode == 128
+    assert len(calls) == 1
+
+
 def test_fetch_remote_sha_cleans_ref_when_resolution_fails(monkeypatch):
     calls: list[list[str]] = []
 

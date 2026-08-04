@@ -22,6 +22,7 @@ _COMPLETE_LOCAL_POC_STATUSES = {
     "PR_ELIGIBLE",
     "PR_PROOF_COMPLETE",
 }
+_AGENT_APPROVED_OR_LATER_STATUSES = {"AGENT_APPROVED", *_COMPLETE_LOCAL_POC_STATUSES}
 PortfolioTargetStageV1 = Literal[
     "INTAKE_READY",
     "FACTS_READY",
@@ -118,6 +119,15 @@ class PortfolioPocSummaryV1(BaseModel):
         # without a separate mutable counter.
         return sum(
             result.exit_code == 0 and result.status in _COMPLETE_LOCAL_POC_STATUSES
+            for result in self.results
+        )
+
+    @property
+    def raw_agent_approved_count(self) -> int:
+        """Count reviewed approvals separately from complete no-op-proven bundles."""
+
+        return sum(
+            result.exit_code == 0 and result.status in _AGENT_APPROVED_OR_LATER_STATUSES
             for result in self.results
         )
 
@@ -221,7 +231,8 @@ class PortfolioPocSummaryV1(BaseModel):
             "local_poc portfolio: "
             f"target={self.target_lifecycle_stage} "
             f"complete={self.target_complete_count}/{self.registry_count} "
-            f"agent_approved={self.complete_agent_approved_count}/{self.registry_count} "
+            f"agent_approved={self.raw_agent_approved_count}/{self.registry_count} "
+            f"complete_bundles={self.complete_agent_approved_count}/{self.registry_count} "
             f"trusted_approved={self.trusted_transform_approved_count}/{self.registry_count} "
             f"trusted_no_op={self.trusted_no_op_proven_count}/{self.registry_count} "
             f"trusted_pr_open={self.trusted_pr_open_count}/{self.registry_count} "

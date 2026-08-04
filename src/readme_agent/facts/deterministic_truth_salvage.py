@@ -20,6 +20,7 @@ from readme_agent.facts.example_branding import (
 from readme_agent.facts.example_quality import generated_example_quality_failures
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.facts.format_direction import directional_format_fact_from_verified_evidence
+from readme_agent.facts.interpretive_resolution import replace_selected_for_regrounding
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.policy_evidence import (
@@ -146,16 +147,7 @@ def _replace_selected(
     facts: ProductFactsV2,
     replacements: dict[str, FactRecordV2],
 ) -> ProductFactsV2:
-    retained = [fact for fact in facts.facts if fact.field not in replacements]
-    retained.extend(replacements.values())
-    selected = dict(facts.selected_fact_ids)
-    selected.update({field: fact.fact_id for field, fact in replacements.items()})
-    return ProductFactsV2(
-        org_repo=facts.org_repo,
-        facts=retained,
-        selected_fact_ids=selected,
-        package_root_roles=facts.package_root_roles,
-    )
+    return replace_selected_for_regrounding(facts, replacements)
 
 
 def _repository_enriched_technical_facts(

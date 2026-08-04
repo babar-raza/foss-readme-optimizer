@@ -1566,6 +1566,76 @@ def test_supported_factual_polarity_is_derived_from_the_accepted_fact():
     assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
 
 
+def test_wrong_quick_start_metric_retries_once_and_preserves_attempt_history() -> None:
+    quote = "```python\nfirst()\n```\n\n```python\nsecond()\n```"
+    candidate = f"# Product\n\n## Quick start\n\n{quote}\n"
+    common = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "Quick start has two primary examples.",
+        "failed_criteria": ["example_presentation"],
+        "sections_affected": ["Quick start"],
+        "required_repair": "Consolidate Quick start to one fenced code block.",
+    }
+    finding = {
+        "finding_id": "quick-start-fences",
+        "kind": "quality",
+        "criterion": "example_presentation",
+        "section": "Quick start",
+        "claim": "Quick start contains two fenced code blocks, exceeding the configured maximum.",
+        "quoted_candidate_span": quote,
+        "disposition": "requires_repair",
+        "fact_id": None,
+        "evidence_excerpt": None,
+        "evidence_location": None,
+        "expected_polarity": None,
+        "observed_polarity": None,
+        "polarity_result": "not_applicable",
+        "required_repair": "Consolidate Quick start to one fenced code block.",
+    }
+    invalid = {
+        **common,
+        "findings": [
+            {
+                **finding,
+                "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                "reported_observed_value": 1,
+            }
+        ],
+    }
+    corrected = {
+        **common,
+        "findings": [
+            {
+                **finding,
+                "mechanical_check_id": "quick_start.fenced_blocks",
+                "reported_observed_value": 2,
+            }
+        ],
+    }
+    client = SequenceClient([invalid, corrected])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert grounding.valid
+    assert len(client.messages_seen) == 2
+    assert len(history) == 2
+    assert history[0]["valid"] is False
+    assert history[0]["errors"] == [
+        "quick-start-fences:mechanical premise cites "
+        "quick_start.max_nonblank_code_lines instead of quick_start.fenced_blocks"
+    ]
+    assert history[1]["valid"] is True
+
+
 def test_blind_rejection_vetoes_factual_acceptance():
     result = run_separated_readme_review(
         ORG_REPO,

@@ -135,6 +135,69 @@ print(Product())
     assert any("lacks required typed check" in error for error in result.errors)
 
 
+def test_quick_start_line_count_premise_uses_line_metric_despite_describing_fence() -> None:
+    code = "\n".join(f"line_{index}()" for index in range(9))
+    quote = f"```python\n{code}\n```"
+    candidate = f"# Product\n\n## Quick start\n\n{quote}\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="example-line-count",
+        kind="quality",
+        criterion="example_presentation",
+        section="Quick start",
+        claim=(
+            "The single fenced code block contains 9 nonblank code lines, exceeding the "
+            "configured maximum of 8."
+        ),
+        quoted_candidate_span=quote,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        mechanical_check_id="quick_start.max_nonblank_code_lines",
+        reported_observed_value=9,
+        required_repair="Reduce the primary example to at most 8 nonblank code lines.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert result.valid
+    assert result.errors == []
+
+
+def test_quick_start_fence_count_premise_cannot_cite_line_metric() -> None:
+    quote = "```python\nfirst()\n```\n\n```python\nsecond()\n```"
+    candidate = f"# Product\n\n## Quick start\n\n{quote}\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="example-fence-count",
+        kind="quality",
+        criterion="example_presentation",
+        section="Quick start",
+        claim="Quick start contains two fenced code blocks, exceeding the configured maximum.",
+        quoted_candidate_span=quote,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        mechanical_check_id="quick_start.max_nonblank_code_lines",
+        reported_observed_value=1,
+        required_repair="Consolidate Quick start to one fenced code block.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert result.errors == [
+        "example-fence-count:mechanical premise cites "
+        "quick_start.max_nonblank_code_lines instead of quick_start.fenced_blocks"
+    ]
+
+
 def test_duplicate_h2_claim_requires_and_obeys_parser_count() -> None:
     finding = GroundedReviewFindingV1(
         finding_id="license-duplicate",

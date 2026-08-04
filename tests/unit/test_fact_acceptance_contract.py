@@ -84,6 +84,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert "verified_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert "deterministic_truth_salvage.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert "interpretive_resolution.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert (
         "../capabilities/draft_product_truth.py"
         in _COMPONENT_FILES["drafting_and_example_selection"]
@@ -218,6 +219,19 @@ def test_curated_fact_owner_change_invalidates_root_role_component(tmp_path):
         path.write_text(f"owner = {relative_path!r}\n", encoding="utf-8")
     baseline = _component_hash(tmp_path, component_files)
     owner = tmp_path / "curated_python_evidence.py"
+    owner.write_text(owner.read_text(encoding="utf-8") + "contract = 2\n", encoding="utf-8")
+
+    assert _component_hash(tmp_path, component_files) != baseline
+
+
+def test_interpretive_resolution_change_invalidates_drafting_component(tmp_path):
+    component_files = _COMPONENT_FILES["drafting_and_example_selection"]
+    for relative_path in component_files:
+        path = tmp_path / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"owner = {relative_path!r}\n", encoding="utf-8")
+    baseline = _component_hash(tmp_path, component_files)
+    owner = tmp_path / "interpretive_resolution.py"
     owner.write_text(owner.read_text(encoding="utf-8") + "contract = 2\n", encoding="utf-8")
 
     assert _component_hash(tmp_path, component_files) != baseline

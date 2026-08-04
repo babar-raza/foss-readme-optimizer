@@ -197,6 +197,28 @@ def _fetch_remote_sha(
             )
 
 
+def _push_remote_with_retry(
+    args: list[str],
+    *,
+    remote_ref: str,
+    cwd: Path | None = None,
+):
+    """Retry idempotent state-ref pushes only for transient transport failures."""
+
+    def push_once():
+        result = _run_remote_git(args, cwd=cwd)
+        if result.returncode == 0 or _is_non_fast_forward(result.stderr):
+            return result
+        if any(marker in result.stderr.lower() for marker in _TRANSIENT_GIT_READ_ERRORS):
+            raise RetryableOperationError(f"push of {remote_ref} failed: {result.stderr}")
+        return result
+
+    try:
+        return run_with_retry("github_write", push_once)
+    except RetryableOperationError as exc:
+        raise StateBackendError(str(exc)) from exc
+
+
 def _read_blob(commit_sha: str, path: str, *, cwd: Path | None = None) -> str:
     result = _run_plumbing_git(["cat-file", "-p", f"{commit_sha}:{path}"], cwd=cwd)
     if result.returncode != 0:
@@ -268,7 +290,9 @@ def _acquire_lock_generic(
         cwd=cwd,
     )
 
-    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"], cwd=cwd)
+    push = _push_remote_with_retry(
+        ["push", remote, f"{commit_sha}:{remote_ref}"], remote_ref=remote_ref, cwd=cwd
+    )
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None  # lost the race to acquire/reclaim
@@ -298,8 +322,9 @@ def _release_lock_generic(
         )
         return
 
-    push = _run_remote_git(
+    push = _push_remote_with_retry(
         ["push", remote, f"--force-with-lease={remote_ref}:{expected_sha}", f":{remote_ref}"],
+        remote_ref=remote_ref,
         cwd=cwd,
     )
     if push.returncode != 0 and not _is_non_fast_forward(push.stderr):
@@ -339,7 +364,9 @@ def _renew_lock_generic(
         message=f"renew lock: {lock.org_repo}",
         cwd=cwd,
     )
-    push = _run_remote_git(["push", remote, f"{commit_sha}:{remote_ref}"], cwd=cwd)
+    push = _push_remote_with_retry(
+        ["push", remote, f"{commit_sha}:{remote_ref}"], remote_ref=remote_ref, cwd=cwd
+    )
     if push.returncode != 0:
         if _is_non_fast_forward(push.stderr):
             return None
@@ -541,8 +568,10 @@ class GitStateBackend:
                 cwd=self._git_cwd,
             )
 
-            push = _run_remote_git(
-                ["push", self._remote, f"{commit_sha}:{remote_ref}"], cwd=self._git_cwd
+            push = _push_remote_with_retry(
+                ["push", self._remote, f"{commit_sha}:{remote_ref}"],
+                remote_ref=remote_ref,
+                cwd=self._git_cwd,
             )
             if push.returncode != 0:
                 if _is_non_fast_forward(push.stderr):
@@ -692,8 +721,9 @@ class GitStateBackend:
                     message=f"model-route: {status.job} -> {status.status}",
                     cwd=self._git_cwd,
                 )
-                push = _run_remote_git(
+                push = _push_remote_with_retry(
                     ["push", self._remote, f"{commit_sha}:{MODEL_ROUTE_REF}"],
+                    remote_ref=MODEL_ROUTE_REF,
                     cwd=self._git_cwd,
                 )
                 if push.returncode == 0:

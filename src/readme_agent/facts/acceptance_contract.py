@@ -84,6 +84,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "deterministic_truth_salvage.py",
         "format_direction.py",
         "example_quality.py",
+        "interpretive_resolution.py",
         "problem_grounding.py",
         "python_repository_examples.py",
         "python_format_functionality.py",

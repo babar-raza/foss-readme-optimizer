@@ -59,6 +59,7 @@ from readme_agent.facts.format_direction import block_directionless_format_fact
 from readme_agent.facts.interpretive_evidence import groundedness_fact_candidate
 from readme_agent.facts.interpretive_resolution import (
     reconcile_final_interpretive_grounding,
+    replace_selected_for_regrounding,
     retain_established_repository_limitations,
 )
 from readme_agent.facts.local_verification import (
@@ -192,17 +193,7 @@ def _replace_facts(
     old fact for that field before adding the new one (never accumulates
     both), keeping `ProductFactsV2`'s own fact_id-uniqueness invariant
     intact regardless of how many repair rounds run."""
-    kept = [fact for fact in facts_so_far.facts if fact.field not in updates]
-    kept.extend(updates.values())
-    selected = dict(facts_so_far.selected_fact_ids)
-    for field_name, fact in updates.items():
-        selected[field_name] = fact.fact_id
-    return ProductFactsV2(
-        org_repo=facts_so_far.org_repo,
-        facts=kept,
-        selected_fact_ids=selected,
-        package_root_roles=facts_so_far.package_root_roles,
-    )
+    return replace_selected_for_regrounding(facts_so_far, updates)
 
 
 def _retain_established_technical_facts(

@@ -68,9 +68,11 @@ def test_summary_derives_counts_and_writes_a_checksum(tmp_path):
     write_portfolio_summary(path, summary)
 
     assert summary.complete_agent_approved_count == 1
+    assert summary.raw_agent_approved_count == 1
     assert summary.target_complete_count == 1
     assert summary.system_failure_count == 1
     assert summary.execution_slice_complete is True
+    assert "agent_approved=1/2 complete_bundles=1/2" in summary.summary_line()
     assert '"registry_count": 2' in path.read_text(encoding="utf-8")
     assert (
         path.with_suffix(".sha256")
@@ -103,6 +105,25 @@ def test_facts_target_summary_counts_only_fact_ready_or_later_lifecycle_states()
 
     assert summary.target_complete_count == 2
     assert "target=FACTS_READY complete=2/5" in summary.summary_line()
+
+
+def test_summary_distinguishes_reviewed_approval_from_complete_bundle():
+    summary = PortfolioPocSummaryV1(
+        registry_path="data/products.json",
+        registry_count=2,
+        results=[
+            PortfolioRepositoryResultV1(
+                org_repo="org/reviewed", status="AGENT_APPROVED", exit_code=0
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/complete", status="NO_OP_PROVEN", exit_code=0
+            ),
+        ],
+    )
+
+    assert summary.raw_agent_approved_count == 2
+    assert summary.complete_agent_approved_count == 1
+    assert "agent_approved=2/2 complete_bundles=1/2" in summary.summary_line()
 
 
 def test_intake_target_counts_ready_and_later_but_not_prefighting_or_blocked():

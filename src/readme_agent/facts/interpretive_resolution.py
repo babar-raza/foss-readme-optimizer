@@ -8,7 +8,12 @@ from readme_agent.facts.interpretive_evidence import (
     InterpretiveClaimV1,
     groundedness_fact_candidate,
 )
-from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.facts.schema_v2 import (
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _EVIDENCE_BACKED_FIELDS = (
@@ -47,14 +52,59 @@ def retain_established_repository_limitations(
     )
 
 
-def _replace_selected(
+def replace_selected_for_regrounding(
     facts: ProductFactsV2,
     replacements: Mapping[str, FactRecordV2],
 ) -> ProductFactsV2:
-    retained = [fact for fact in facts.facts if fact.field not in replacements]
-    retained.extend(replacements.values())
+    """Replace technical selections and invalidate stale interpretive dependents."""
+
+    effective = dict(replacements)
+    replaced_ids = {
+        facts.selected_fact(field).fact_id
+        for field, replacement in replacements.items()
+        if field in facts.selected_fact_ids
+        and facts.selected_fact(field).fact_id != replacement.fact_id
+    }
+    affected_fields = {
+        field
+        for field in facts.selected_fact_ids
+        if field not in replacements
+        and replaced_ids.intersection(facts.selected_fact(field).supporting_fact_ids)
+    }
+    unsupported = affected_fields - {"product.audience", "product.problems_solved"}
+    if unsupported:
+        raise ValueError(
+            "technical fact replacement invalidates unsupported dependent fields: "
+            f"{sorted(unsupported)}"
+        )
+    if affected_fields:
+        replacement_source = next(iter(replacements.values())).source
+        for field in sorted(affected_fields):
+            previous = facts.selected_fact(field)
+            effective[field] = FactRecordV2(
+                fact_id=descriptive_fact_id(field, "pending-reground"),
+                field=field,
+                value=None,
+                source=FactSourceV2(
+                    source_type="mechanical_repository",
+                    location="repository://pending-reground",
+                    source_revision=replacement_source.source_revision,
+                    retrieved_at=replacement_source.retrieved_at,
+                ),
+                verification_state="missing",
+                authoritative_owner=previous.authoritative_owner,
+                confidence=0.0,
+                affected_surfaces=previous.affected_surfaces,
+            )
+
+    retained = [
+        fact
+        for fact in facts.facts
+        if fact.field not in effective and not replaced_ids.intersection(fact.supporting_fact_ids)
+    ]
+    retained.extend(effective.values())
     selected = dict(facts.selected_fact_ids)
-    selected.update({field: fact.fact_id for field, fact in replacements.items()})
+    selected.update({field: fact.fact_id for field, fact in effective.items()})
     return ProductFactsV2(
         org_repo=facts.org_repo,
         facts=retained,
@@ -99,7 +149,7 @@ def reconcile_final_interpretive_grounding(
         if _accepted(selected):
             accepted_technical[field] = selected
 
-    grounding_facts = _replace_selected(facts_before_attempt, accepted_technical)
+    grounding_facts = replace_selected_for_regrounding(facts_before_attempt, accepted_technical)
     reconciled["product.audience"] = groundedness_fact_candidate(
         "product.audience",
         audience_claims,

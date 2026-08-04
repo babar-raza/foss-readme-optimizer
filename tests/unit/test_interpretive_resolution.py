@@ -5,6 +5,7 @@ from __future__ import annotations
 from readme_agent.facts.interpretive_evidence import InterpretiveClaimV1
 from readme_agent.facts.interpretive_resolution import (
     reconcile_final_interpretive_grounding,
+    replace_selected_for_regrounding,
 )
 from readme_agent.facts.schema_v2 import (
     REQUIRED_PRODUCT_FIELDS,
@@ -120,3 +121,61 @@ def test_interpretive_claim_is_rechecked_when_final_technical_fact_changes():
     assert reconciled["product.formats"] == new_formats
     assert reconciled["product.problems_solved"].verification_state == "blocked"
     assert reconciled["product.problems_solved"].supporting_fact_ids == []
+
+
+def test_technical_replacement_invalidates_dependent_until_atomic_regrounding():
+    facts = _facts()
+    old_capability = _fact("product.capabilities", ["Load OBJ documents."], "old-capability")
+    old_problem = _fact("product.problems_solved", ["Load OBJ documents."], "old-problem")
+    old_problem = old_problem.model_copy(update={"supporting_fact_ids": [old_capability.fact_id]})
+    facts = ProductFactsV2(
+        org_repo=facts.org_repo,
+        facts=[
+            fact
+            for fact in facts.facts
+            if fact.field not in {"product.capabilities", "product.problems_solved"}
+        ]
+        + [old_capability, old_problem],
+        selected_fact_ids={
+            **facts.selected_fact_ids,
+            "product.capabilities": old_capability.fact_id,
+            "product.problems_solved": old_problem.fact_id,
+        },
+    )
+    new_capability = _fact("product.capabilities", ["Load glTF documents."], "new-capability")
+
+    transitional = replace_selected_for_regrounding(facts, {"product.capabilities": new_capability})
+
+    assert transitional.selected_fact("product.capabilities") == new_capability
+    assert transitional.selected_fact("product.problems_solved").verification_state == "missing"
+    assert old_problem.fact_id not in {fact.fact_id for fact in transitional.facts}
+
+    new_problem = _fact("product.problems_solved", ["Load glTF documents."], "new-problem")
+    new_problem = new_problem.model_copy(update={"supporting_fact_ids": [new_capability.fact_id]})
+    final = replace_selected_for_regrounding(
+        facts,
+        {
+            "product.capabilities": new_capability,
+            "product.problems_solved": new_problem,
+        },
+    )
+
+    assert final.selected_fact("product.problems_solved") == new_problem
+
+
+def test_unselected_stale_dependent_is_removed_without_invalidating_current_selection():
+    facts = _facts()
+    old_capability = facts.selected_fact("product.capabilities")
+    current_problem = facts.selected_fact("product.problems_solved")
+    historical = _fact("product.problems_solved", ["Historical claim."], "historical-problem")
+    historical = historical.model_copy(update={"supporting_fact_ids": [old_capability.fact_id]})
+    facts = facts.model_copy(update={"facts": [*facts.facts, historical]})
+    new_capability = _fact("product.capabilities", ["Load glTF documents."], "new-capability")
+
+    replaced = replace_selected_for_regrounding(
+        facts,
+        {"product.capabilities": new_capability},
+    )
+
+    assert replaced.selected_fact("product.problems_solved") == current_problem
+    assert historical not in replaced.facts
