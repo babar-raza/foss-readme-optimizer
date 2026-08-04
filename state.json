@@ -3046,6 +3046,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-012453-89d4:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "8d5bb9816e8be441034bcf42ecf0ce07f1e847adf2f3277ee536bdbd7fc27113": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "8d5bb9816e8be441034bcf42ecf0ce07f1e847adf2f3277ee536bdbd7fc27113",
+      "completed_at": "2026-08-04T09:38:21.903111+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260804-093814-ab48",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-04T09:38:21.903093+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260803-081844-a1ff:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "8dcf5097e282132d866ef09892c304c21e721727f02111edb2e1156697f70115": {
       "action": null,
       "attempt": 1,
@@ -24866,7 +24883,7 @@
     "updated_at": "2026-08-03T08:44:48.793311+00:00"
   },
   "schema_version": 2,
-  "state_version": 1048,
+  "state_version": 1049,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
@@ -25675,11 +25692,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "ad96eba2b4e0b8d9fed6b77b7328b033f177e29f060ea32a7984dfcda53e0c01",
+      "last_checkpoint_id": "8d5bb9816e8be441034bcf42ecf0ce07f1e847adf2f3277ee536bdbd7fc27113",
       "lease_expires_at": null,
       "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T09:37:59.730739+00:00"
+      "updated_at": "2026-08-04T09:38:21.903111+00:00"
     },
     "operator:20260803-084145-ea1e:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-03T08:41:51.390609+00:00",
