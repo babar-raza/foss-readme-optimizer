@@ -5647,69 +5647,25 @@
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "2a8ba4fbccea2dff2a82ebbc1dbbcb25d1a3cae1f1e0a1a252f58cea9f5243e4",
+      "accepted_facts_hash": "70841de075e24c16f3da3d45e196557d281da183a02d9f656accbdecbcc7b057",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'enables developers to create, manipulate, and convert 3D scenes and models programmatically'.",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the audience (developers), ecosystem (Python), formats (OBJ, STL, glTF, 3MF), and common tasks (create, manipulate, convert 3D scenes/models).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The LICENSE is prominently named (MIT), linked to a local LICENSE file, and the README includes badges for version, package registry (pip), and Python versions \u2014 satisfying the top trust signals.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install command `pip install aspose-3d-foss` uses real, live PyPI coordinates (verified via live check of PyPI), and the README does not reference GitHub Packages.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, the 'Quick Start' section provides a complete, runnable Python example with clear prose explaining the operation and no source comments or docstrings inside the code block.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows the intended sequencing: product description \u2192 features \u2192 install \u2192 examples \u2192 technical details \u2192 license \u2192 resources.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals (images, diagrams) are present, and while not required, the standard notes that for document/data-processing libraries (like 3D format libraries), a small diagram showing input\u2192transformation\u2192output would be appropriate \u2014 but absence alone does not fail this dimension unless a decorative image is present.",
-            "satisfied": false
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The repository includes LICENSE (MIT), CONTRIBUTING (implied via 'Contributing' section), and README \u2014 GitHub will recognize these and show the quick-link row; though CODE_OF_CONDUCT and SECURITY are missing, the standard prioritizes LICENSE recognition, which is satisfied.",
-            "satisfied": true
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes versioned Python support (3.7\u20133.12), format-specific feature lists, and a recent-style 'Quick Start' example \u2014 consistent with active maintenance; GitHub's `pushed_at` and releases (not in README) would be the audit source.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial edition is mentioned exactly once \u2014 in the first blockquote after the title \u2014 using factual, capability-extension language (no pricing, no buttons, no adjectives), and the product description precedes it as required.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies all ten dimensions of the presentation standard, with particularly strong performance in product clarity, audience fit, trust signals, installation path, and natural commercial context. The only minor gap is the absence of a product-use diagram, which is optional and only warranted when it improves understanding \u2014 and the current API-focused content does not clearly require one."
+        "criteria_results": [],
+        "input_sha256": "5a7e4e80f3caf30ec3b7b759dbc9d2589462e0d2c9a43a0afe78b262fe197180",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T06:33:35.134434+00:00",
+      "last_run_timestamp": "2026-08-04T09:43:49.293217+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -30024,7 +29980,7 @@
     "updated_at": "2026-08-04T09:43:09.404072+00:00"
   },
   "schema_version": 2,
-  "state_version": 1071,
+  "state_version": 1072,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "096d5a6a45c60bc992d3d7cbb90535c9dba88a446e7693ec9b56a9e7609eed5b",
