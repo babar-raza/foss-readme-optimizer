@@ -1,0 +1,693 @@
+{
+  "schema_version": 2,
+  "content_assurance": "repository_verified",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "3d",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-3d-foss"
+        ],
+        "product_name": "Aspose.3D"
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "setup.py",
+          "name": "aspose-3d-foss",
+          "version": "26.1.0",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/3d/python/",
+          "family_url": "https://products.aspose.org/3d/",
+          "label": "Aspose.3D FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/3d/python-net/",
+          "family_url": "https://products.aspose.com/3d",
+          "label": "Aspose.3D for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "manifest_path": "setup.py",
+          "version": "26.1.0",
+          "active": true,
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:missing",
+      "field": "product.compatibility",
+      "value": null,
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "missing",
+      "authoritative_owner": "repository-owner",
+      "confidence": 0.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    },
+    {
+      "fact_id": "development.assets:repository-inventory",
+      "field": "development.assets",
+      "value": {
+        "tests": {
+          "count": 34,
+          "inventory_sha256": "95b6108d9bffa75ded507a3256b4fd6b9d496ce582ee573ed6eb07bf4c99222e",
+          "representative_paths": [
+            {
+              "path": "tests/test_3mf_exporter.py",
+              "sha256": "4911adfff483eb58f82a3d689bb85ed612e3f48302030647d72835f3bd403b8b"
+            },
+            {
+              "path": "tests/test_3mf_importer.py",
+              "sha256": "c1fecd1137712faf6ff65c0731f5e9614a30e7b6e1981e135e6d01c10ae37dca"
+            },
+            {
+              "path": "tests/test_3mf_material_export.py",
+              "sha256": "896f622682278feec40c9af870fb70b91484040515449e1bd0e787d7a998f6fa"
+            },
+            {
+              "path": "tests/test_3mf_materials.py",
+              "sha256": "1fd97c005c122c0a31689a7468b06558da41caae71ce332f7d50332a9d4eb9dc"
+            },
+            {
+              "path": "tests/test_3mf_roundtrip.py",
+              "sha256": "7449a50102c13011c2fffc0c09ef1cbe710b74b4268524170276387861ee8403"
+            },
+            {
+              "path": "tests/test_array_list_adapter.py",
+              "sha256": "cfffddda2927bfb36e50b7dafed44fd09c689880268e74160f3531b0d6179b32"
+            },
+            {
+              "path": "tests/test_collada_exporter.py",
+              "sha256": "4590bec8b9a989ef33b26d0db45f991f813bc9f62f0194668ee75fa1b5324da4"
+            },
+            {
+              "path": "tests/test_collada_importer.py",
+              "sha256": "d861cc4a8bc96453a030d7f71f501025e4f5f772b119546c04a3127247c4e661"
+            }
+          ]
+        }
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://tests/test_3mf_exporter.py,tests/test_3mf_importer.py,tests/test_3mf_material_export.py,tests/test_3mf_materials.py,tests/test_3mf_roundtrip.py,tests/test_array_list_adapter.py,tests/test_collada_exporter.py,tests/test_collada_importer.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.development"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum",
+        "File format import and export for OBJ, GLTF, STL, and 3MF",
+        "Animation system with keyframe support"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "aspose/threed/entities/Box.py",
+          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "observed_at": "2026-08-04T14:53:54.729290+00:00",
+          "line_number": 10,
+          "anchor": "Box",
+          "exact_excerpt": "class Box(Primitive):",
+          "context_excerpt": "if TYPE_CHECKING:\n    from .Mesh import Mesh\n\n\nclass Box(Primitive):\n    def __init__(self, name: str = None, length: float = 1.0, width: float = 1.0, height: float = 1.0,\n                 length_segments: int = 1, width_segments: int = 1, height_segments: int = 1):\n        if name is None:\n            name = \"Box\"",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "File format import and export for OBJ, GLTF, STL, and 3MF",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "aspose/threed/FileFormat.py",
+          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "observed_at": "2026-08-04T14:53:54.729290+00:00",
+          "line_number": 8,
+          "anchor": "FileFormat",
+          "exact_excerpt": "class FileFormat:",
+          "context_excerpt": "from .formats import LoadOptions, SaveOptions\n    import io\n\n\nclass FileFormat:\n    FBX6100ASCII = None\n    FBX6100_BINARY = None\n    FBX7200ASCII = None\n    FBX7200_BINARY = None",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Animation system with keyframe support",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "aspose/threed/animation/KeyFrame.py",
+          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "observed_at": "2026-08-04T14:53:54.729290+00:00",
+          "line_number": 12,
+          "anchor": "KeyFrame",
+          "exact_excerpt": "class KeyFrame:",
+          "context_excerpt": "from .KeyframeSequence import KeyframeSequence\n    from aspose.threed.utilities import Vector2\n\n\nclass KeyFrame:\n    def __init__(self, curve: 'KeyframeSequence', time: float):\n        self._curve = curve\n        self._time = time\n        self._value = 0.0",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:native-direction-evidence",
+      "field": "product.formats",
+      "value": [
+        "Output format: GLTF - GL Transmission Format (glTF 2.0)",
+        "Input format: GLTF - GL Transmission Format (glTF 2.0)",
+        "Input format: OBJ - Wavefront OBJ with full material support",
+        "Output format: STL - Stereo Lithography format",
+        "Input format: STL - Stereo Lithography format",
+        "Input format: 3MF - 3D Manufacturing Format",
+        "Output format: 3MF - 3D Manufacturing Format"
+      ],
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "repository://aspose/threed/formats/gltf/GltfExporter.py#L15;repository://aspose/threed/formats/gltf/GltfImporter.py#L13;repository://aspose/threed/formats/obj/ObjImporter.py#L11;repository://aspose/threed/formats/stl/StlExporter.py#L13;repository://aspose/threed/formats/stl/StlImporter.py#L12;repository://aspose/threed/formats/threemf/ThreeMfExporter.py#L23;repository://aspose/threed/formats/threemf/ThreeMfImporter.py#L26;aspose-org-extractor://cf6a7798191b82a1f2d285bf0311100b4aeb3f03?extractor_sha256=59ed15cb6e3d58659fe3c900706dea7b2936f4fefed07c25cfe796f43af05bf0&dependency_sha256=a214aaf4c818a5ce965c9447c9d92e0d434c453c1ade710538b0aaf03bebe112&receipt_sha256=9e8a61d1ba2f8ba51c1066978bae43bf518ae8970b613945428b006a2c6b1017",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:repository-evidence",
+      "field": "product.limitations",
+      "value": [],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://verified-empty",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.audience:platform-derived",
+      "field": "product.audience",
+      "value": [
+        "Developers using Python."
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://setup.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.platforms:manifest"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:capability-derived",
+      "field": "product.problems_solved",
+      "value": [
+        "3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum",
+        "File format import and export for OBJ, GLTF, STL, and 3MF",
+        "Animation system with keyframe support"
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:compiled-salvaged-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "python",
+        "class_name": "Scene",
+        "code": "from aspose.threed import Scene\n\nscene = Scene()\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "pinned package installed and exact public Python imports/example executed",
+        "repairable_by_example_change": false,
+        "blocked_category": "agent_fixable",
+        "verified_public_symbols": [
+          "aspose.threed.Scene"
+        ],
+        "input_fixture_bindings": [],
+        "public_api_sha256": "363fb0eb0020079f069ddb32ad490ca30803032a7cf21ad5ae59fae50c8a7a14",
+        "python_package": {
+          "schema_version": 1,
+          "manifest_path": "setup.py",
+          "distribution_name": "aspose-3d-foss",
+          "version": "26.1.0",
+          "requires_python": ">=3.7",
+          "source_root": ".",
+          "package_paths": [
+            "aspose",
+            "aspose/pydrawing",
+            "aspose/threed",
+            "aspose/pydrawing/design",
+            "aspose/pydrawing/drawing2d",
+            "aspose/pydrawing/imaging",
+            "aspose/pydrawing/printing",
+            "aspose/pydrawing/text",
+            "aspose/threed/animation",
+            "aspose/threed/deformers",
+            "aspose/threed/entities",
+            "aspose/threed/formats",
+            "aspose/threed/profiles",
+            "aspose/threed/render",
+            "aspose/threed/shading",
+            "aspose/threed/utilities",
+            "aspose/threed/formats/collada",
+            "aspose/threed/formats/fbx",
+            "aspose/threed/formats/gltf",
+            "aspose/threed/formats/obj",
+            "aspose/threed/formats/stl",
+            "aspose/threed/formats/threemf"
+          ],
+          "canonical_import": "aspose.threed",
+          "namespace_packages": [],
+          "source_sha256": "224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+        },
+        "typescript_package": null,
+        "rust_package": null,
+        "rust_formats": [],
+        "rust_source_dependency": null,
+        "acquisition_dependency_pins": [
+          "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb"
+        ],
+        "compiled_consumer": null
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-verifier://example.minimal",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "schema_version": 1,
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "ecosystem": "python",
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "pinned package installed and exact public Python imports/example executed",
+        "coordinate": {
+          "name": "aspose-3d-foss"
+        },
+        "registry_receipt": {
+          "schema_version": 1,
+          "resolver_ecosystem": "python",
+          "registry_label": "PyPI",
+          "coordinate": {
+            "name": "aspose-3d-foss"
+          },
+          "request_url": "https://pypi.org/pypi/aspose-3d-foss/json",
+          "status_code": 404,
+          "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
+          "retrieved_at": "2026-08-04T14:53:54.683597Z",
+          "found": false,
+          "detail": "PyPI: aspose-3d-foss NOT FOUND (404)"
+        },
+        "source_build_receipt": {
+          "schema_version": 1,
+          "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "argv": [
+            "python",
+            "-I",
+            ".readme-agent-consumer-driver.py"
+          ],
+          "input_sha256": "f1d87dd25c6de3e7568c07241203f69e64209fc142eca3d683430080c0a06112",
+          "policy_sha256": "c00ac44b938a015c49de6aa110736c9f069144cb65f2aa11fd106ab80bf7a75f",
+          "immutable_image": "python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+          "network_mode": "none",
+          "dependency_pins": [
+            "container_image=python@sha256:13f0881a239ca0d27fb8b2539536ace85f7d680a707bfaa178571e1dbfe85a91",
+            "input_sha256=f1d87dd25c6de3e7568c07241203f69e64209fc142eca3d683430080c0a06112",
+            "public_api_sha256=363fb0eb0020079f069ddb32ad490ca30803032a7cf21ad5ae59fae50c8a7a14",
+            "python_package_source_sha256=224ee6634ed03f7cd55c8d53f7b89e787e6be3c90a61f8f91cec8e2eb58bdbcb",
+            "source_revision=ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+          ],
+          "cleanup_complete": true,
+          "return_code": 0,
+          "truth_eligible": true
+        },
+        "truth_eligible": true
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "https://pypi.org/pypi/aspose-3d-foss/json",
+        "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:platform-derived",
+    "product.problems_solved": "product.problems_solved:capability-derived",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:native-direction-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:compiled-salvaged-example",
+    "documentation.links": "documentation.links:primary",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:repository-evidence",
+    "product.compatibility": "product.compatibility:missing",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary",
+    "development.assets": "development.assets:repository-inventory"
+  },
+  "package_root_roles": {
+    "schema_version": 1,
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+    "selection_state": "selected",
+    "selected_product_manifest_path": "setup.py",
+    "selection_rationale": [
+      "the sole non-secondary root matching the registry ecosystem was selected",
+      "manifest identity matches registry product family",
+      "manifest identity declares the FOSS package",
+      "manifest declares a distributable package identity",
+      "repository-root manifest"
+    ],
+    "roots": [
+      {
+        "path": ".",
+        "ecosystem": "python",
+        "manifest_path": "setup.py",
+        "role": "product",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "aspose-3d-foss",
+          "version": "26.1.0"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "selected as the canonical distributed product manifest",
+          "the sole non-secondary root matching the registry ecosystem was selected",
+          "manifest identity matches registry product family",
+          "manifest identity declares the FOSS package",
+          "manifest declares a distributable package identity",
+          "repository-root manifest"
+        ]
+      }
+    ]
+  }
+}

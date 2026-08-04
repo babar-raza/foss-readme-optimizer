@@ -1,0 +1,283 @@
+diff --git a/README.md b/README.md
+index c952868..31084d7 100644
+--- a/README.md
++++ b/README.md
+@@ -1,189 +1,117 @@
+ # Aspose.3D FOSS for Python
+ 
+-A powerful, free, and open-source 3D file format library for Python. Aspose.3D FOSS for Python enables developers to create, manipulate, and convert 3D scenes and models programmatically. It supports popular 3D file formats including OBJ, STL, glTF, 3MF, and more, and is released under the permissive **MIT License**.
+-
+-> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/python/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/), is available on [aspose.com](https://products.aspose.com/3d).
+-
+-## About Aspose.3D FOSS
+-
+-Aspose.3D FOSS is the free, open-source edition of Aspose.3D. It shares the same public API design as the commercial Aspose.3D On-Premise library, so you can:
+-
+-- **Build and ship 3D applications at no cost** under a permissive MIT License.
+-- **Start free and grow without rewriting code** — code written against the FOSS edition works with the commercial edition.
+-- **Upgrade only when you need to** — when you require the broader feature set, higher performance, or proprietary format support of the [commercial On-Premise edition](https://products.aspose.com/3d/python-net/), simply swap in the commercial package, no API rewrites required.
+-
+-The FOSS edition focuses on the most widely used open 3D formats. The commercial edition additionally covers proprietary and high-performance scenarios such as rendering, advanced mesh operations, and formats like FBX, USD, PDF, and more.
+-
+-## Features
+-
+-- **Format Support**
+-  - OBJ - Import/export with materials, textures, and grouping
+-  - GLTF - GL Transmission Format with full PBR material support
+-  - STL - Stereo Lithography format for 3D printing
+-  - 3MF - 3D Manufacturing Format for modern 3D printing workflows
+-
+-- **Scene Management**
+-  - Create and manipulate 3D scenes
+-  - Hierarchical node structure
+-  - Mesh and entity management
+-  - Material system with Lambert, Phong, and PBR materials
+-
+-- **3D Primitives**
+-  - Vector math (Vector2, Vector3, Vector4, Matrix4, Quaternion)
+-  - Bounding boxes and transformations
+-  - Camera and light objects
++[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/ab1a2267a0ba6302311d0c7c4ad01494974c7d76) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)
++
++Aspose.3D FOSS for Python provides 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum for developers using Python.
++
++## Navigation
++
++- [At a glance](#at-a-glance)
++- [Key capabilities](#key-capabilities)
++- [Installation](#installation)
++- [Quick start](#quick-start)
++- [Scope and limitations](#scope-and-limitations)
++- [Development and testing](#development-and-testing)
++- [License](#license)
++
++## At a glance
++
++```mermaid
++flowchart LR
++  subgraph Inputs["Inputs and formats"]
++    input_1["GLTF - GL Transmission Format (glTF 2.0) files"]
++    input_2["OBJ - Wavefront OBJ with full material support files"]
++    input_3["STL - Stereo Lithography format files"]
++    input_4["3MF - 3D Manufacturing Format files"]
++  end
++
++  product["Aspose.3D FOSS for Python"]
++
++  subgraph Capabilities["Core capabilities"]
++    capability_1["3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse,"]
++    capability_2["File format import and export for OBJ, GLTF, STL, and 3MF"]
++    capability_3["Animation system with keyframe support"]
++    capability_4["Writes GLTF - GL Transmission Format (glTF 2.0) files"]
++    capability_5["Reads GLTF - GL Transmission Format (glTF 2.0) files"]
++    capability_6["Reads OBJ - Wavefront OBJ with full material support files"]
++  end
++
++  subgraph Outputs["Outputs and accessible content"]
++    output_1["GLTF - GL Transmission Format (glTF 2.0) files"]
++    output_2["STL - Stereo Lithography format files"]
++    output_3["3MF - 3D Manufacturing Format files"]
++  end
++
++  input_1 --- product
++  input_2 --- product
++  input_3 --- product
++  input_4 --- product
++  product --- capability_1
++  product --- capability_2
++  product --- capability_3
++  product --- capability_4
++  product --- capability_5
++  product --- capability_6
++  product --- output_1
++  product --- output_2
++  product --- output_3
++```
+ 
+-- **Mesh Operations**
+-  - Triangulation support for polygon conversion
+-  - Mesh manipulation and modification
++## Key capabilities
+ 
+-- **Animation System**
+-  - Keyframe animation support
+-  - Animation curves and interpolation
++- 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum.
++- File format import and export for OBJ, GLTF, STL, and 3MF.
++- Animation system with keyframe support.
+ 
+ ## Installation
+ 
++Install the verified immutable repository revision from a local checkout:
++
+ ```bash
+-pip install aspose-3d-foss
++git clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git
++cd Aspose.3D-FOSS-for-Python
++git checkout --detach ab1a2267a0ba6302311d0c7c4ad01494974c7d76
++python -m pip install .
+ ```
+ 
+-## Quick Start
++`aspose-3d-foss` was installed and exercised from this exact source revision in an isolated, network-disabled verification environment. The matching PyPI receipt did not find a published package, so this README does not present a PyPI package installation command.
++
++## Quick start
++
++### Minimal verified example
+ 
+ ```python
+ from aspose.threed import Scene
+-from aspose.threed.formats.obj import ObjLoadOptions
+ 
+-# Create a new scene
+ scene = Scene()
+-
+-# Import an OBJ file
+-options = ObjLoadOptions()
+-options.enable_materials = True
+-options.flip_coordinate_system = False
+-scene.open("model.obj", options)
+-
+-# Access imported data
+-for node in scene.root_node.child_nodes:
+-    if node.entity:
+-        mesh = node.entity
+-        print(f"Mesh: {node.name}")
+-        print(f"  Vertices: {len(mesh.control_points)}")
+-        print(f"  Polygons: {mesh.polygon_count}")
+ ```
+ 
+-## Supported Formats
+-
+-### Import (Implemented)
+-- **OBJ** - Wavefront OBJ with full material support
+-- **GLTF** - GL Transmission Format (glTF 2.0)
+-- **STL** - Stereo Lithography format
+-- **3MF** - 3D Manufacturing Format
+-- More formats coming soon...
+-
+-### Export (Implemented)
+-- **OBJ** - Export with vertices, faces, and materials
+-- **GLTF** - Export to glTF 2.0 format
+-- **STL** - Export to STL format
+-- **3MF** - Export to 3MF format
+-- More formats coming soon...
++## Scope and limitations
+ 
+-## Python Version Support
++[Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/) and [Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.
+ 
+-- Python 3.7+
+-- Python 3.8+
+-- Python 3.9+
+-- Python 3.10+
+-- Python 3.11+
+-- Python 3.12+
++## Development and testing
+ 
+-## Format-Specific Features
++The repository includes 34 test files.
+ 
+-### OBJ Format
++<details>
++<summary>View development and testing resources</summary>
+ 
+-**Import Features:**
+-- Vertices (v), texture coordinates (vt), vertex normals (vn)
+-- Faces (f) with multiple index formats
+-- Objects (o), groups (g), smoothing groups (s)
+-- Materials (usemtl, mtllib)
++### Tests
+ 
+-**Load Options:**
+-- `flip_coordinate_system` - Swap Y and Z coordinates
+-- `enable_materials` - Enable/disable material loading
+-- `scale` - Scale factor for all coordinates
+-- `normalize_normal` - Normalize normal vectors
++- [`tests/test_3mf_exporter.py`](tests/test_3mf_exporter.py)
++- [`tests/test_3mf_importer.py`](tests/test_3mf_importer.py)
++- [`tests/test_3mf_material_export.py`](tests/test_3mf_material_export.py)
++- [`tests/test_3mf_materials.py`](tests/test_3mf_materials.py)
++- [`tests/test_3mf_roundtrip.py`](tests/test_3mf_roundtrip.py)
++- [`tests/test_array_list_adapter.py`](tests/test_array_list_adapter.py)
++- [`tests/test_collada_exporter.py`](tests/test_collada_exporter.py)
++- [`tests/test_collada_importer.py`](tests/test_collada_importer.py)
++- [Browse all test files](tests)
+ 
+-**Save Options:**
+-- `apply_unit_scale` - Apply unit scaling
+-- `point_cloud` - Export as point cloud
+-- `verbose` - Verbose output
+-- `serialize_w` - Include W coordinate
+-- `enable_materials` - Export materials
+-- `flip_coordinate_system` - Flip coordinate system
+ 
+-### GLTF Format
+-
+-**Features:**
+-- glTF 2.0 specification support
+-- PBR material system (metallic/roughness workflow)
+-- Mesh primitives with attributes
+-- Node hierarchy and transforms
+-- Texture and image support
+-
+-### STL Format
+-
+-**Features:**
+-- Binary and ASCII STL support
+-- Triangular mesh representation
+-- Unit conversion and scaling
+-- Import for 3D printing workflows
+-
+-### 3MF Format
+-
+-**Features:**
+-- 3D Manufacturing Format 1.2 support
+-- Rich metadata support
+-- Production-grade 3D printing
+-- Color and material support
+-
+-## Architecture
+-
+-The library is organized into several modules:
+-
+-- `aspose.threed` - Core scene classes (Scene, Node, Entity)
+-- `aspose.threed.entities` - 3D entities (Mesh, Camera, Light)
+-- `aspose.threed.formats` - File format importers and exporters (OBJ, GLTF, STL, 3MF)
+-- `aspose.threed.shading` - Material system (Lambert, Phong, PBR materials)
+-- `aspose.threed.utilities` - Math utilities (vectors, matrices, quaternions)
+-- `aspose.threed.animation` - Animation system (keyframes, curves)
+-
+-## Contributing
+-
+-Contributions are welcome! Please feel free to submit issues and pull requests.
++</details>
+ 
+ ## License
+ 
+-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+-
+-## Resources
+-
+-### Aspose.3D FOSS — free & open source (aspose.org)
+-- [Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/) — product page
+-- [Aspose.3D FOSS family](https://products.aspose.org/3d/) — all platforms (Python, .NET, Java, TypeScript)
+-- [Aspose FOSS documentation](https://docs.aspose.org/) — guides for all open-source libraries
+-- [Aspose FOSS blog](https://blog.aspose.org/) — tutorials and announcements
+-
+-### Aspose.3D — commercial On-Premise edition (aspose.com)
+-- [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/) — full-featured commercial edition
+-- [Aspose.3D product family](https://products.aspose.com/3d) — overview
+-- [Developer documentation](https://docs.aspose.com/3d/python-net/) — API guides
+-- [API reference](https://reference.aspose.com/3d/python-net/) — complete API documentation
+-- [Download / free trial](https://downloads.aspose.com/3d) — get the commercial package
+-
+-### Community & support
+-- [Aspose.3D support forum](https://forum.aspose.com/c/3d/19) — questions and help
+-- [Free online 3D apps](https://products.aspose.app/3d/) — convert and view 3D files in your browser
+-
+-## Acknowledgments
+-
+-- Aspose.3D FOSS is inspired by the Aspose.3D API.
+-- 3D format specifications are maintained by various 3D software vendors and standards bodies.
++This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.

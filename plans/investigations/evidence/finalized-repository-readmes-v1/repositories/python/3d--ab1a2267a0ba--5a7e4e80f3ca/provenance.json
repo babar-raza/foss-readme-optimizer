@@ -1,0 +1,269 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:missing": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "missing",
+    "confidence": 0.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/test_3mf_exporter.py,tests/test_3mf_importer.py,tests/test_3mf_material_export.py,tests/test_3mf_materials.py,tests/test_3mf_roundtrip.py,tests/test_array_list_adapter.py,tests/test_collada_exporter.py,tests/test_collada_importer.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://aspose/threed/formats/gltf/GltfExporter.py#L15;repository://aspose/threed/formats/gltf/GltfImporter.py#L13;repository://aspose/threed/formats/obj/ObjImporter.py#L11;repository://aspose/threed/formats/stl/StlExporter.py#L13;repository://aspose/threed/formats/stl/StlImporter.py#L12;repository://aspose/threed/formats/threemf/ThreeMfExporter.py#L23;repository://aspose/threed/formats/threemf/ThreeMfImporter.py#L26;aspose-org-extractor://cf6a7798191b82a1f2d285bf0311100b4aeb3f03?extractor_sha256=59ed15cb6e3d58659fe3c900706dea7b2936f4fefed07c25cfe796f43af05bf0&dependency_sha256=a214aaf4c818a5ce965c9447c9d92e0d434c453c1ade710538b0aaf03bebe112&receipt_sha256=9e8a61d1ba2f8ba51c1066978bae43bf518ae8970b613945428b006a2c6b1017",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:repository-evidence": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://verified-empty",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:disposable-source-build": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "https://pypi.org/pypi/aspose-3d-foss/json",
+      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "retrieved_at": "2026-08-04T14:53:54.729290+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}
