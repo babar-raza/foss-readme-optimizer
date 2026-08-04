@@ -712,7 +712,7 @@
     "updated_at": "2026-08-04T11:18:38.035628+00:00"
   },
   "schema_version": 2,
-  "state_version": 82,
+  "state_version": 83,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
@@ -795,13 +795,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings: ['f1:mechanical premise cites quick_start.max_nonblank_code_lines instead of quick_start.fenced_blocks']",
       "last_checkpoint_id": "a6757af92ef950b07c30488b6e486f3fc196fb319408a80d950234be534d457a",
-      "lease_expires_at": "2026-08-04T11:26:54.960518+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-04T11:19:52.764086+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-04T11:20:15.023020+00:00"
     }
   },
   "trigger_records": {},
