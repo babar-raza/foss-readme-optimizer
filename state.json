@@ -7175,7 +7175,7 @@
     "updated_at": "2026-08-01T09:49:56.400885+00:00"
   },
   "schema_version": 2,
-  "state_version": 112,
+  "state_version": 113,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2f1d53504bdb7ddb0bcc12ea1ed2ddd53ecc0a2ee98c0ab324b65508015e6d73",
@@ -7260,9 +7260,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "759ef1a8f0e6dd67437cd4bd8661dc7c6e13f382a7a8267b3a930974f11eb7f7",
       "lease_expires_at": null,
-      "recovery_count": 3,
+      "recovery_count": 4,
       "status": "retryable",
-      "updated_at": "2026-08-01T07:38:27.960776+00:00"
+      "updated_at": "2026-08-04T10:37:08.980951+00:00"
     },
     "operator:20260801-091623-604d:aspose-slides-foss/Aspose.Slides-FOSS-for-Python": {
       "accepted_at": "2026-08-01T09:16:31.051484+00:00",
@@ -7278,13 +7278,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['selected unverified minimal example is present']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "fbaa48a93797fb2ca4428ca1d3af55a145f7412707557f5e564411a364abf1e3",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T09:23:35.591421+00:00"
+      "updated_at": "2026-08-04T10:37:08.980951+00:00"
     },
     "operator:20260801-093841-3651:aspose-slides-foss/Aspose.Slides-FOSS-for-Python": {
       "accepted_at": "2026-08-01T09:38:47.401279+00:00",
