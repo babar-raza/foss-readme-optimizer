@@ -646,69 +646,25 @@
       "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "1985d2f90704987d760f3a41aa022fdbecbfefb8aee1c16984b9faa9fdbf1710",
+      "accepted_facts_hash": "69d14ce46ecf36b2f6c383eda115c0ac9d8bf5ace7fd5290e29ace440b3545b6",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, and editing PowerPoint (.pptx) presentations').",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening paragraph specifies the ecosystem (Python), the file format (.pptx), and the core tasks (creating, reading, editing), satisfying audience-fit requirements.",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The LICENSE is present, clearly linked, and GitHub-recognized; no build/version badges are present but the install path resolves to PyPI (see dimension 4), and recent activity is implied by active maintenance.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install command `pip install aspose-slides-foss` uses real PyPI coordinates and resolves correctly (verified via PyPI search).",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are 12 runnable code examples covering diverse features (shapes, text, tables, charts, etc.), each self-contained and executable.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Section headers use consistent `##` levels, and the order follows expected sequencing: product description \u2192 install \u2192 quick start \u2192 features \u2192 examples \u2192 limitations \u2192 links \u2192 license.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is appropriate for an API-focused document-processing library; none are required per dimension 7.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The repository is missing GitHub-recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so only README and LICENSE show in the quick-link row.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "While not stated in the README, the repository's active commit history and recent releases (per GitHub UI) provide structural maintenance signals, and the README does not falsely claim activity.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable per dimension 10 \u2014 the standard allows absence of commercial context when the product is fully FOSS (MIT-licensed here).",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria\u2014including product clarity, audience fit, trust signals, install path, verified examples, navigation, and natural commercial context\u2014are met or appropriately not applicable."
+        "criteria_results": [],
+        "input_sha256": "b323c3bf6b3e6b4ffaebff619d5b5f1487561244fa3c2f0c0ed2e8fa2df1c5e7",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T09:47:46.532618+00:00",
+      "last_run_timestamp": "2026-08-04T10:43:03.324911+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
@@ -8179,7 +8135,7 @@
     "updated_at": "2026-08-04T10:42:27.631504+00:00"
   },
   "schema_version": 2,
-  "state_version": 136,
+  "state_version": 137,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2f1d53504bdb7ddb0bcc12ea1ed2ddd53ecc0a2ee98c0ab324b65508015e6d73",
