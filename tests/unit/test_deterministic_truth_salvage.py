@@ -8,6 +8,7 @@ from types import SimpleNamespace
 
 from readme_agent.evidence.writer import refresh_sha256sums
 from readme_agent.facts.deterministic_truth_salvage import (
+    _dependent_product_source_block_category,
     _finding,
     _repository_enriched_technical_facts,
     _verified_example_fact,
@@ -267,6 +268,32 @@ def test_terminal_repository_source_failure_replaces_malformed_draft_without_app
     assert fact.value["repairable_by_example_change"] is False
     assert finding["blocked_category"] == "infra_external"
     assert "product-owned source/import defect" in finding["required_action"]
+    acquisition = fact.model_copy(
+        update={
+            "fact_id": "installation.verified_acquisition:blocked-source-build",
+            "field": "installation.verified_acquisition",
+            "value": {
+                "source_revision": CURRENT_REVISION,
+                "method": "source_build",
+                "outcome": "BUILD_FAILED",
+                "truth_eligible": False,
+            },
+        }
+    )
+    inherited = _dependent_product_source_block_category(acquisition, fact, CURRENT_REVISION)
+    acquisition_finding = _finding(acquisition, blocked_category_override=inherited)
+    assert acquisition_finding["blocked_category"] == "infra_external"
+    assert "product-owned source/import defect" in acquisition_finding["required_action"]
+    unrelated = acquisition.model_copy(
+        update={"value": {**acquisition.value, "outcome": "BLOCKED_NETWORK"}}
+    )
+    unrelated_inherited = _dependent_product_source_block_category(
+        unrelated, fact, CURRENT_REVISION
+    )
+    unrelated_finding = _finding(unrelated, blocked_category_override=unrelated_inherited)
+    assert unrelated_inherited is None
+    assert unrelated_finding["blocked_category"] == "agent_fixable"
+    assert "supply a current-revision repository" in unrelated_finding["required_action"]
 
 
 def test_repository_extensions_enrich_only_selected_verified_technical_facts() -> None:

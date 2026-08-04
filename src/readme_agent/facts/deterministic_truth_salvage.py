@@ -6,6 +6,7 @@ import hashlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -403,9 +404,15 @@ def _example_fact_for_candidate(
     return fact, verification
 
 
-def _finding(fact: FactRecordV2) -> dict:
+def _finding(
+    fact: FactRecordV2,
+    *,
+    blocked_category_override: Literal["infra_external"] | None = None,
+) -> dict:
     value = fact.value if isinstance(fact.value, dict) else {}
-    blocked_category = str(value.get("blocked_category") or "agent_fixable")
+    blocked_category = blocked_category_override or str(
+        value.get("blocked_category") or "agent_fixable"
+    )
     return {
         "finding_id": f"deterministic-salvage:{fact.field}",
         "classification": "BLOCKED_MISSING_EVIDENCE",
@@ -419,6 +426,27 @@ def _finding(fact: FactRecordV2) -> dict:
             "rerun deterministic revalidation"
         ),
     }
+
+
+def _dependent_product_source_block_category(
+    fact: FactRecordV2,
+    example_fact: FactRecordV2,
+    source_revision: str,
+) -> Literal["infra_external"] | None:
+    """Propagate only the same-revision terminal source-build failure dependency."""
+
+    example_value = example_fact.value if isinstance(example_fact.value, dict) else {}
+    fact_value = fact.value if isinstance(fact.value, dict) else {}
+    if (
+        example_value.get("blocked_category") == "infra_external"
+        and example_fact.source.source_revision == source_revision
+        and fact.field == "installation.verified_acquisition"
+        and fact_value.get("source_revision") == source_revision
+        and fact_value.get("method") == "source_build"
+        and fact_value.get("outcome") == "BUILD_FAILED"
+    ):
+        return "infra_external"
+    return None
 
 
 def salvage_product_truth_candidate(
@@ -525,7 +553,14 @@ def salvage_product_truth_candidate(
     }
     facts = _replace_selected(base_facts, replacements)
     findings = [
-        _finding(fact)
+        _finding(
+            fact,
+            blocked_category_override=_dependent_product_source_block_category(
+                fact,
+                example_fact,
+                snapshot.source_revision,
+            ),
+        )
         for fact in replacements.values()
         if fact.verification_state not in {"verified", "policy_approved"}
         or fact.has_unresolved_conflict
