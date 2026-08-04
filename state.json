@@ -443,7 +443,7 @@
     "updated_at": "2026-08-01T14:37:21.791941+00:00"
   },
   "schema_version": 2,
-  "state_version": 53,
+  "state_version": 54,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "df7f1f92fc60332bd56c5a37be6ad2a116e7dbb075e12db5b29b4fdd7ad5cb63",
@@ -817,6 +817,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-01T14:37:29.576635+00:00"
+    },
+    "operator:20260804-111138-0cc8:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": {
+      "accepted_at": "2026-08-04T11:11:43.023006+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260804-111138-0cc8:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-04T11:11:38.309072+00:00",
+        "provider_event_id": "20260804-111138-0cc8",
+        "repository_scope": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-04T11:11:43.023021+00:00"
     }
   },
   "trigger_records": {},
