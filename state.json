@@ -287,12 +287,12 @@
       "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "00897ebd3afeca97766bc61a083d8addd80d6f5b929830e00647121bc92043d1",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "4a40cae71bd0102bdbc4a34cd9db42b93351b812f4eb91f127cdeabe4612c9a0",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "evidence": "NuGet: Aspose.Cells.FOSS found",
+        "evidence": "NuGet: Aspose.cells.FOSS found",
         "handoff_findings": [],
         "install_path_resolved": true,
         "latest_release_name": "V26.7.0",
@@ -302,7 +302,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-23T07:20:24.017371+00:00",
+      "last_run_timestamp": "2026-08-04T11:14:23.370251+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
@@ -588,7 +588,7 @@
     "updated_at": "2026-08-04T11:13:23.596092+00:00"
   },
   "schema_version": 2,
-  "state_version": 66,
+  "state_version": 67,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "df7f1f92fc60332bd56c5a37be6ad2a116e7dbb075e12db5b29b4fdd7ad5cb63",
