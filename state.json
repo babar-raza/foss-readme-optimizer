@@ -18277,7 +18277,7 @@
     "updated_at": "2026-08-04T11:10:11.819444+00:00"
   },
   "schema_version": 2,
-  "state_version": 833,
+  "state_version": 834,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef102807e43dea4125518c9078a122109e1b5f7598e02126a249f46b85f9ea57",
@@ -19238,13 +19238,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:ValidationError:1 validation error for ProductFactsV2   Value error, fact 'product.problems_solved:capability-derived' cites missing supporting fact 'product.capabilities:dotnet-public-api' [type=value_error, input_value={'org_repo': 'aspose-3d-f...IsTestProject=true'])])}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
       "last_checkpoint_id": "9b95ba87111e1bc98643060df2ca10d2c207c511bdbdfc5992b797ca58a787a1",
-      "lease_expires_at": "2026-08-04T14:11:01.521329+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-04T13:56:38.378374+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-04T13:57:30.191103+00:00"
     }
   },
   "trigger_records": {},
