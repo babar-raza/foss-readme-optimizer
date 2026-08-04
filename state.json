@@ -326,6 +326,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-090548-eb0e:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
     },
+    "cb23bbf2f40a678b393445337fd21487b0a76aa93e93a4de2ee58af87ad85457": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "cb23bbf2f40a678b393445337fd21487b0a76aa93e93a4de2ee58af87ad85457",
+      "completed_at": "2026-08-04T11:22:46.515881+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "6e977ae4c15a2dcea059408b31f51ed738fec1e6d5d34120549a9c1296585187",
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+      "run_id": "20260804-112159-7f3f",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-04T11:22:46.515869+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-075002-7985:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+    },
     "ce65ea705a84d7c55d93dbe1eb20a15d6673d71b4bf1989ad202563886f4ce4a": {
       "action": null,
       "attempt": 1,
@@ -1000,7 +1017,7 @@
     "updated_at": "2026-08-04T09:08:03.250010+00:00"
   },
   "schema_version": 2,
-  "state_version": 72,
+  "state_version": 73,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
@@ -1218,11 +1235,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ce65ea705a84d7c55d93dbe1eb20a15d6673d71b4bf1989ad202563886f4ce4a",
+      "last_checkpoint_id": "cb23bbf2f40a678b393445337fd21487b0a76aa93e93a4de2ee58af87ad85457",
       "lease_expires_at": "2026-08-04T11:37:11.534293+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-04T11:22:16.317853+00:00"
+      "updated_at": "2026-08-04T11:22:46.515881+00:00"
     },
     "operator:20260804-075937-8fe5:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T07:59:43.818887+00:00",
