@@ -19,8 +19,8 @@ Current committed promotion count: **12 / 31 registry repositories**. Python pro
 | Python | `aspose-pdf-foss/Aspose-PDF-FOSS-for-Python` | `737d26451ed5c58e53017e3c9460e834f99d20ed` | `NO_OP_PROVEN` | [Review README](repositories/python/pdf--737d26451ed5--2c62095e3b3a/README.md) |
 | Python | `aspose-slides-foss/Aspose.Slides-FOSS-for-Python` | `ffaf6355fdc7f0b7a66680d742051e809a9d8c5f` | `NO_OP_PROVEN` | [Review README](repositories/python/slides--ffaf6355fdc7--b323c3bf6b3e/README.md) |
 | Python | `aspose-words-foss/Aspose.Words-FOSS-for-Python` | `4473f8cbeef1a65961adc7de304d982ada53a1dd` | `NO_OP_PROVEN` | [Review README](repositories/python/words--4473f8cbeef1--0eb586b4f291/README.md) |
-| Java | `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` | `2be25d979d1f3bf2875a1798aed62a16efab6619` | `NO_OP_PROVEN` | [Review README](repositories/java/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/adcade1840de499f3a887c40c5b8562da16a618a958ff6333b2503c9ceb7bf6f/README.md) |
-| .NET | `aspose-3d-foss/Aspose.3D-FOSS-for-.NET` | `e78d87e1b33e22560c90acd73247695a1eec6a34` | `NO_OP_PROVEN` | [Review README](repositories/net/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/dbfbedb81f9dc2517b22b9a1c74d810235947d0dd4f8a69c06b921a233f45765/README.md) |
+| Java | `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` | `2be25d979d1f3bf2875a1798aed62a16efab6619` | `NO_OP_PROVEN` | [Review README](repositories/java/cells--2be25d979d1f--4007636ed3b5/README.md) |
+| .NET | `aspose-3d-foss/Aspose.3D-FOSS-for-.NET` | `e78d87e1b33e22560c90acd73247695a1eec6a34` | `NO_OP_PROVEN` | [Review README](repositories/net/3d--e78d87e1b33e--f45adabecf5c/README.md) |
 
 Only the current candidate for each listed repository is present in this canonical
 review tree; superseded bytes remain recoverable from Git history and runtime

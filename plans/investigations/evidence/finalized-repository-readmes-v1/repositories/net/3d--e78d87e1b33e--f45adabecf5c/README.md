@@ -1,6 +1,6 @@
 # Aspose.3D FOSS for .NET
 
-[![NuGet: Aspose.3D.FOSS](https://img.shields.io/nuget/v/Aspose.3D.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.3D.FOSS) ![Platform: .NET](https://img.shields.io/badge/Platform-.NET-blue) [![Repository: Source](https://img.shields.io/badge/Repository-Source-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-.NET/tree/e78d87e1b33e22560c90acd73247695a1eec6a34) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-.NET](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-.NET.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-.NET/graphs/contributors)
+[![NuGet: Aspose.3D.FOSS](https://img.shields.io/nuget/v/Aspose.3D.FOSS.svg?label=NuGet)](https://www.nuget.org/packages/Aspose.3D.FOSS) ![Platform: .NET](https://img.shields.io/badge/Platform-.NET-blue) ![Requires: .NET netcoreapp3.1](https://img.shields.io/badge/Requires-.NET%20netcoreapp3.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-.NET](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-.NET.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-.NET/graphs/contributors)
 
 Aspose.3D FOSS for .NET provides Scene graph management for developers using .NET.
 

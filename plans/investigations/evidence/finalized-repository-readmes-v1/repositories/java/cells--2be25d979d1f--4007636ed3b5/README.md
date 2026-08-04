@@ -1,8 +1,8 @@
 # Aspose.Cells FOSS for Java
 
-[![Maven Central: org.aspose:aspose-cells-foss](https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) ![Platform: Java](https://img.shields.io/badge/Platform-Java-blue) [![Repository: Source](https://img.shields.io/badge/Repository-Source-blue)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/tree/2be25d979d1f3bf2875a1798aed62a16efab6619) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Java](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/graphs/contributors)
+[![Maven Central: org.aspose:aspose-cells-foss](https://img.shields.io/maven-central/v/org.aspose/aspose-cells-foss.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.aspose/aspose-cells-foss) ![Platform: Java](https://img.shields.io/badge/Platform-Java-blue) ![Requires: Java 17](https://img.shields.io/badge/Requires-Java%2017-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Java](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/graphs/contributors)
 
-Aspose.Cells FOSS for Java is a Java 17+ open-source library for developers using Java to read, write, and manipulate Excel XLSX workbooks. It supports cell values, formulas, charts, formatting, and diagnostics with full XLSX round-tripping.
+Aspose.Cells FOSS for Java is a Java 17 spreadsheet library for developers using Java to create, load, modify, and save Excel .xlsx workbooks. It supports reading and writing XLSX files, cell values (strings, numbers, booleans, dates, formulas), defined names, and chart creation for 21 standard chart types.
 
 ## Navigation
 
@@ -23,13 +23,19 @@ flowchart LR
 
   product["Aspose.Cells FOSS for Java"]
 
-  subgraph Capabilities["Core capabilities"]
-    capability_1["Reads XLSX files"]
-    capability_2["Writes XLSX files"]
-    capability_3["Cell values for strings, numbers, booleans, date/time values, and formulas"]
-    capability_4["Chart creation for 21 standard chart types via ChartCollection.add()"]
-    capability_5["Defined names"]
-    capability_6["Load diagnostics, repair reporting, preservation of unsupported package parts"]
+  subgraph Capabilities1["Core capabilities 1 of 2"]
+    capability_1["Read XLSX"]
+    capability_2["Write XLSX"]
+    capability_3["Cell values (strings, numbers, booleans, dates, formulas)"]
+    capability_4["Defined names"]
+    capability_5["Chart creation (21 types via ChartCollection.add())"]
+    capability_6["Load diagnostics and repair reporting"]
+  end
+
+  subgraph Capabilities2["Core capabilities 2 of 2"]
+    capability_7["Cell values for strings, numbers, booleans, date/time values, and formulas"]
+    capability_8["Chart creation for 21 standard chart types via ChartCollection.add()"]
+    capability_9["Load diagnostics, repair reporting, preservation of unsupported package parts"]
   end
 
   subgraph Outputs["Outputs and accessible content"]
@@ -43,6 +49,9 @@ flowchart LR
   product --- capability_4
   product --- capability_5
   product --- capability_6
+  product --- capability_7
+  product --- capability_8
+  product --- capability_9
   product --- output_1
 ```
 
