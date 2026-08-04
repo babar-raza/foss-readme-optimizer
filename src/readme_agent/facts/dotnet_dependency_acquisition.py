@@ -378,8 +378,8 @@ def acquire_dotnet_dependencies(
     verify_repository_snapshot(snapshot)
     if not _IMMUTABLE_IMAGE_RE.fullmatch(immutable_image):
         raise ValueError(".NET SDK image must be pinned as repository@sha256:<64 hex>")
-    if target_framework not in {"net8.0", "net9.0"}:
-        raise ValueError(".NET dependency target must be pinned to net8.0 or net9.0")
+    if target_framework not in {"net8.0", "net9.0", "net10.0"}:
+        raise ValueError(".NET dependency target must use a supported pinned SDK")
     manifest_path = portable_repository_path(selected_manifest_path)
     if Path(selected_manifest_path).is_absolute() or ".." in Path(manifest_path).parts:
         raise ValueError("selected .NET manifest path must stay inside the snapshot")

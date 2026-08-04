@@ -50,11 +50,16 @@ DOTNET_9_IMAGE = (
     "mcr.microsoft.com/dotnet/sdk@sha256:"
     "cb9d975bf57fd1b0915858d1db1184bea20f7f746f0536323fcab49673144e8c"
 )
+DOTNET_10_IMAGE = (
+    "mcr.microsoft.com/dotnet/sdk@sha256:"
+    "72dd743782f2ae7e5476fd64f6a460045e3998dc862218b80e6944cba79a01b0"
+)
 IsolatedExecutor = Callable[[IsolatedExecutionRequestV1], IsolatedExecutionResultV1]
 DependencyAcquirer = Callable[..., DotnetDependencyBundle | None]
 _SUPPORTED_TARGETS = {
     "net8.0": (DOTNET_8_IMAGE, "8.0.423"),
     "net9.0": (DOTNET_9_IMAGE, "9.0.316"),
+    "net10.0": (DOTNET_10_IMAGE, "10.0.302"),
 }
 
 
@@ -114,21 +119,32 @@ def _target_framework(project: Path, requested: str | None = None) -> str:
     if requested is not None:
         target = requested.strip().casefold()
         if target not in _SUPPORTED_TARGETS:
-            raise ValueError(".NET consumer target must be pinned to net8.0 or net9.0")
-        if target == "net8.0" and declared and all(value.startswith("net9") for value in declared):
-            raise ValueError("net8.0 consumer cannot reference a net9-only product project")
+            raise ValueError(".NET consumer target must be a supported pinned SDK target")
+        target_major = int(target.removeprefix("net").split(".", maxsplit=1)[0])
+        declared_majors = {
+            int(match.group(1))
+            for value in declared
+            if (match := re.fullmatch(r"net(\d+)(?:\.\d+)?", value)) is not None
+        }
+        if declared_majors and target_major < min(declared_majors):
+            raise ValueError(
+                f"{target} consumer cannot reference a net{min(declared_majors)}-only "
+                "product project"
+            )
         return target
-    if "net8.0" in declared:
-        return "net8.0"
-    if "net9.0" in declared:
-        return "net9.0"
+    # Builds run under Debug. Repositories may expose an older Release target while their
+    # Debug-only PropertyGroup requires the newest declared SDK, so select the highest supported
+    # target instead of silently preferring an older multi-target entry.
+    for supported in reversed(_SUPPORTED_TARGETS):
+        if supported in declared:
+            return supported
     if not declared or all(
         value.startswith("netstandard")
         or re.fullmatch(r"net(?:coreapp)?[1-8](?:\.\d+)?", value) is not None
         for value in declared
     ):
         return "net8.0"
-    raise ValueError(".NET project has no supported net8.0/net9.0 consumer target")
+    raise ValueError(".NET project has no supported pinned consumer target")
 
 
 def _selected_sources(

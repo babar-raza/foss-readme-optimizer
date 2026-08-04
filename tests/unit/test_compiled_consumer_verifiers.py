@@ -613,6 +613,53 @@ def test_dotnet_consumer_selects_pinned_net9_image_and_target(tmp_path, monkeypa
     assert "-p:TargetFrameworks=net9.0" in calls[0].argv[-1]
     assert "dotnet_sdk=9.0.316" in result.acquisition_dependency_pins
     assert "dotnet_target_framework=net9.0" in result.acquisition_dependency_pins
+
+
+def test_dotnet_consumer_selects_pinned_net10_image_and_target(tmp_path, monkeypatch):
+    project = tmp_path / "src/Product.csproj"
+    project.parent.mkdir(parents=True)
+    project.write_text(
+        '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>'
+        "<TargetFrameworks>net10.0;net8.0</TargetFrameworks>"
+        "</PropertyGroup><PropertyGroup Condition=\"'$(Configuration)' == 'Debug'\">"
+        "<TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>",
+        encoding="utf-8",
+    )
+    (project.parent / "Scene.cs").write_text(
+        "namespace Aspose.ThreeD; public class Scene { public void Save(string path) {} }",
+        encoding="utf-8",
+    )
+    snapshot = _snapshot(tmp_path).model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path="src",
+                    ecosystem="net",
+                    manifest_path="src/Product.csproj",
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+            )
+        }
+    )
+    calls: list[IsolatedExecutionRequestV1] = []
+    monkeypatch.setattr(dotnet_example_verifier, "verify_repository_snapshot", lambda _: None)
+    result = dotnet_example_verifier.verify(
+        snapshot,
+        _example(
+            "dotnet",
+            'using Aspose.ThreeD; var scene = new Scene(); scene.Save("out");',
+        ),
+        executor=_successful_executor(calls),
+        selected_product_manifest_path="src/Product.csproj",
+        dependency_acquirer=lambda *_args, **_kwargs: None,
+    )
+
+    assert result.truth_eligible
+    assert calls[0].policy.immutable_image == dotnet_example_verifier.DOTNET_10_IMAGE
+    assert "-p:TargetFramework=net10.0" in calls[0].argv[-1]
+    assert "dotnet_sdk=10.0.302" in result.acquisition_dependency_pins
+    assert "dotnet_target_framework=net10.0" in result.acquisition_dependency_pins
     assert "-p:RestoreConfigFile=/workspace/.readme-agent/NuGet.Config" in calls[0].argv[-1]
     assert calls[0].policy.network_mode == "none"
 

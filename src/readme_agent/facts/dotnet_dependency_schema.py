@@ -70,7 +70,7 @@ class DotnetDependencyAcquisitionV1(BaseModel):
     snapshot_inventory_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     selected_manifest_path: str = Field(min_length=1)
     manifest_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
-    target_framework: str = Field(pattern=r"^net[89]\.0$")
+    target_framework: str = Field(pattern=r"^net(?:8|9|10)\.0$")
     cache_key: str = Field(pattern=r"^[0-9a-f]{64}$")
     image: ContainerImageIdentityV1
     package_source: Literal["https://api.nuget.org/v3/index.json"] = NUGET_ORG_V3_SOURCE

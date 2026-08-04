@@ -2374,6 +2374,15 @@ that is the only permanence they carry; text is always the decision as it stands
     isolation, or asking a human to install an available dependency is prohibited. The 2026-08-04
     .NET 9 canary exposed this boundary when the exact SDK image was not cached; the exact digest
     was fetched and verified, and the runtime provisioning seam became part of the active repair.
+    The current Aspose.3D .NET source then required `net10.0`: the runtime selected and verified
+    the SDK image at immutable digest
+    `sha256:72dd743782f2ae7e5476fd64f6a460045e3998dc862218b80e6944cba79a01b0`
+    (`dotnet 10.0.302`), selected the Debug-compatible highest declared target rather than
+    downgrading to a Release-only target, invalidated stale verifier evidence through the complete
+    .NET dependency-contract hash, and reached the bounded `FACTS_READY` checkpoint. Missing SDK
+    generations therefore remain machinery work to provision, never product blockers. The retained
+    fact bundle proves final image identity and the isolated build; a separate pre-inspect/pull
+    receipt is still required before claiming that exact bundle proves a cache-miss acquisition.
     (2026-08-04, user robustness correction; strengthens decisions #82/#88 and `FACT-014`.)
 
 ## Architecture

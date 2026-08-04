@@ -9,6 +9,8 @@ _COMMON_FILES = (
     "local_verification.py",
     "example_execution.py",
     "isolated_execution.py",
+    "isolated_cleanup.py",
+    "isolated_docker_control.py",
     "isolated_execution_inputs.py",
     "isolated_execution_schema.py",
     "example_quality.py",
@@ -77,7 +79,16 @@ _ECOSYSTEM_FILES: dict[str, tuple[str, ...]] = {
         "../ecosystems/rust_use_resolution.py",
     ),
     "java": _COMPILED_COMMON_FILES + ("java_example_verifier.py",),
-    "net": _COMPILED_COMMON_FILES + ("dotnet_example_verifier.py",),
+    "net": _COMPILED_COMMON_FILES
+    + (
+        "dotnet_dependency_acquisition.py",
+        "dotnet_dependency_schema.py",
+        "dotnet_example_verifier.py",
+        "dotnet_legacy_reference_fallback.py",
+        "dotnet_lfs_acquisition.py",
+        "dotnet_project_closure.py",
+        "dotnet_source_generator_fallback.py",
+    ),
     "cpp": _COMPILED_COMMON_FILES
     + (
         "cpp_example_verifier.py",
