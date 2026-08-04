@@ -7324,6 +7324,17 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-slides-foss__Aspose.Slides-FOSS-for-Python\\20260804-104108-ffd7"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-04T10:41:54.648409+00:00",
+        "reason": "independent README review started after deterministic validation",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "intake_preflight_history": [
@@ -7352,11 +7363,11 @@
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-04T10:41:47.955397+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-08-04T10:41:54.648409+00:00"
   },
   "schema_version": 2,
-  "state_version": 132,
+  "state_version": 133,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2f1d53504bdb7ddb0bcc12ea1ed2ddd53ecc0a2ee98c0ab324b65508015e6d73",
