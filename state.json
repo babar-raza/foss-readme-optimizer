@@ -1587,13 +1587,13 @@
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+      "accepted_facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "3f3da8771ec48208b00b7bbdcb6230653ecd348113a5b32c00603d7e2642d138",
+          "assessment_hash": "77c6a589dac60bead61f277ada3ca6570df4796e5fcc348e1cbbc8698c271d60",
           "attempt_count": 1,
           "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
           "diagram": {
@@ -1642,8 +1642,8 @@
               }
             ]
           },
-          "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
-          "input_sha256": "f85ef8176e07e63df2cf289a53fb84059d439fe7a6559911d5f898cc5070b798",
+          "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
+          "input_sha256": "8926c0ea0237b8150dfa6f45aaf5ed83430d90d7d7229042367f46e4a8ff15d1",
           "model": "deterministic-verified-preservation-v1",
           "opening_summary": {
             "supporting_fact_ids": [
@@ -1816,9 +1816,9 @@
           "source_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf",
           "tool_schema_sha256": "aa1570f7967e1731937bb3c3a902c61126abc0e6bfcefe4ecd27a81dffbfb5b2"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\20260804-100748-5aef",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\20260804-182519-382b",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -1855,7 +1855,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+          "product_facts_v2_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
           "protected_content_losses": [],
           "valid": true
         },
@@ -1870,48 +1870,48 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                  "claim": "All required H2 prefixes are present in correct order.",
-                  "criterion": "hierarchy",
+                  "candidate_anchor_id": "candidate.anchor.6fccd92d8db396ad32eb.1",
+                  "claim": "The title clearly identifies the product and its FOSS nature.",
+                  "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.h2_prefix_compliance",
+                  "finding_id": "quality.clarity.1",
                   "kind": "quality",
-                  "mechanical_check_id": "document.required_h2_prefix",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Navigation",
-                  "reported_observed_value": true,
+                  "quoted_candidate_span": "# Aspose.Font FOSS for Python",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.44ffd1d0a732b89731e0.1"
+                  "section": "candidate.anchor.6fccd92d8db396ad32eb.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                  "claim": "The Quick start section contains a minimal verified example within allowed fenced block and line limits.",
-                  "criterion": "example_presentation",
+                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                  "claim": "Installation instructions are clear, include exact source revision, and explain absence of PyPI package.",
+                  "criterion": "installation_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_minimal_compliance",
+                  "finding_id": "quality.installation_presentation.1",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Quick start",
-                  "reported_observed_value": 2,
+                  "quoted_candidate_span": "## Installation",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                  "section": "candidate.anchor.a15d12503bf00f654df0.1"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.example_minimal_compliance",
-                  "quality.h2_prefix_compliance"
+                  "quality.clarity.1",
+                  "quality.installation_presentation.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -1923,7 +1923,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "05f7a210a99706a291c166eef30557e60212f3b422732dccbb67cbd5ae28ecbc",
-              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge kinds, required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a well-structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example within one fenced block and only two non-blank code lines, satisfying the primary example standard. License and scope sections include required terms (MIT, commercial use, Enterprise Edition). No duplicate H2 headings, no comments, and proper markdown integrity are observed.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge types, all required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a properly structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example with only 2 non-blank code lines, well under the 12-line limit. The 'Installation' section provides clear source-based installation instructions and optional extras. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition. The 'License' section includes required benefit terms. All mechanical checks pass.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -1935,48 +1935,48 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                    "claim": "All required H2 prefixes are present in correct order.",
-                    "criterion": "hierarchy",
+                    "candidate_anchor_id": "candidate.anchor.6fccd92d8db396ad32eb.1",
+                    "claim": "The title clearly identifies the product and its FOSS nature.",
+                    "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.h2_prefix_compliance",
+                    "finding_id": "quality.clarity.1",
                     "kind": "quality",
-                    "mechanical_check_id": "document.required_h2_prefix",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Navigation",
-                    "reported_observed_value": true,
+                    "quoted_candidate_span": "# Aspose.Font FOSS for Python",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.44ffd1d0a732b89731e0.1"
+                    "section": "candidate.anchor.6fccd92d8db396ad32eb.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                    "claim": "The Quick start section contains a minimal verified example within allowed fenced block and line limits.",
-                    "criterion": "example_presentation",
+                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                    "claim": "Installation instructions are clear, include exact source revision, and explain absence of PyPI package.",
+                    "criterion": "installation_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_minimal_compliance",
+                    "finding_id": "quality.installation_presentation.1",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Quick start",
-                    "reported_observed_value": 2,
+                    "quoted_candidate_span": "## Installation",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                    "section": "candidate.anchor.a15d12503bf00f654df0.1"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.example_minimal_compliance",
-                    "quality.h2_prefix_compliance"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -1988,7 +1988,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "05f7a210a99706a291c166eef30557e60212f3b422732dccbb67cbd5ae28ecbc",
-                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge kinds, required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a well-structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example within one fenced block and only two non-blank code lines, satisfying the primary example standard. License and scope sections include required terms (MIT, commercial use, Enterprise Edition). No duplicate H2 headings, no comments, and proper markdown integrity are observed.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge types, all required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a properly structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example with only 2 non-blank code lines, well under the 12-line limit. The 'Installation' section provides clear source-based installation instructions and optional extras. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition. The 'License' section includes required benefit terms. All mechanical checks pass.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2002,14 +2002,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.071726e38cd58879ed79.1",
-                    "claim": "The package declares 140 public exports in its static __all__ surface.",
+                    "claim": "The package declares 140 public exports in its static `__all__` surface.",
                     "criterion": "api.public_surface",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose_font",
                     "evidence_location": "repository://src/aspose_font/__init__.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/compatibility.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "api.public_surface:python-exports",
-                    "finding_id": "factual.api_surface_support",
+                    "finding_id": "factual.supports_acceptance.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -2020,29 +2020,29 @@
                     "section": "candidate.anchor.071726e38cd58879ed79.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                    "claim": "Installation instructions describe verified immutable repository revision acquisition.",
-                    "criterion": "installation.verified_acquisition",
+                    "candidate_anchor_id": "candidate.anchor.5ec122a1b6a1d0193da2.1",
+                    "claim": "The minimal verified example uses `FontLoader.open` with a Roboto variable font fixture.",
+                    "criterion": "example.minimal",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
-                    "evidence_location": "https://pypi.org/pypi/aspose-font-foss/json",
+                    "evidence_excerpt": "python",
+                    "evidence_location": "local-verifier://example.minimal",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "installation.verified_acquisition:disposable-source-build",
-                    "finding_id": "factual.installation_verified_support",
+                    "fact_id": "example.minimal:compiled-salvaged-example",
+                    "finding_id": "factual.supports_acceptance.2",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                    "quoted_candidate_span": "```python\nfrom aspose_font import FontLoader\n\nfont = FontLoader.open('Roboto-VariableFont_wdth,wght.ttf')\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.0d428567869339d8d451.1"
+                    "section": "candidate.anchor.5ec122a1b6a1d0193da2.1"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.api_surface_support",
-                    "factual.installation_verified_support"
+                    "factual.supports_acceptance.1",
+                    "factual.supports_acceptance.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -2053,8 +2053,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9142f217f62471b439bb78e8874c2c8a7a6f9c6feaf0031f82b670322b1d5b88",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The API public surface claim (140 exports) aligns with the python-exports fact showing 130 exports across 7 modules. The installation coordinates and verified acquisition facts confirm the git-clone-and-source-build workflow and version 1.0.0. The capabilities (Font format conversion, Web font bundle generation, Delta inspection) are explicitly verified in the product.capabilities fact. The license (MIT) matches the product.license fact. The Enterprise Edition terminology and commercial context are correctly distinguished per the commercial_foss relationship fact. The release state (Beta) and security guidance (SECURITY.md) are also consistent.",
+                "input_sha256": "6e75077fb37164929c2f22cc2bca7f6eeaa8b2dd0a32c0750655fb0c946fc58d",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and audience match the manifest and registry. The capabilities (font format conversion, web font bundle generation, delta inspection) are verified by repository evidence. Installation instructions align with the verified disposable source build and manifest coordinates. The optional extras (dev, mcp) are confirmed by pyproject.toml. The license is MIT as per LICENSE.txt. The FOSS vs Enterprise distinction is correctly stated. The security guidance points to SECURITY.md. The release state is Beta as per the manifest. The API surface count (140 public exports) is consistent with the 130 exports and 93 classes reported in the fact packet. The development section correctly references 29 test files and 2 Make targets. The example is verified as compiled-salvaged.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2062,14 +2062,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "d66967a582c12f8227894e6d3f469036d9a3ecfdefc0efb9a587a953fe35e687",
-                "factual_record_sha256": "8ca6f992eb15d108af4a0250fec2f65efe503b26e879df61656dfe4d0a53b48c",
-                "input_sha256": "e9607a67d401bbe0568cc0a5dc95c9499dd07abb829632af5c876d0c7abbd739",
+                "blind_record_sha256": "199ec6a748d833b6e8d369d61effba7eb675a9e69a2e4e8dc8fb0be98347a7f2",
+                "factual_record_sha256": "58c464ac38ede1d14d87dcf102e24bd71c970379d491189c747eb315a45cd8cc",
+                "input_sha256": "d8798d744bb2d7cfe5dc6bfda349e10a85ae9cd28ce525c5c5ca43417e8c992b",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-a9e07b54588038d0",
-                "raw_output_sha256": "a2c6ab8e4527c86cb41a0561c8f1bd681e22b8ef323068d8c13186851114352c"
+                "provider_request_id": "chatcmpl-a1dfa2ebdf0fa7b6",
+                "raw_output_sha256": "52b22d23c92c028bf5e6e134a853f6c0d25b41d4bebe3d72ba0cac64ef24f7e5"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -2085,14 +2085,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.071726e38cd58879ed79.1",
-                  "claim": "The package declares 140 public exports in its static __all__ surface.",
+                  "claim": "The package declares 140 public exports in its static `__all__` surface.",
                   "criterion": "api.public_surface",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose_font",
                   "evidence_location": "repository://src/aspose_font/__init__.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/compatibility.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "api.public_surface:python-exports",
-                  "finding_id": "factual.api_surface_support",
+                  "finding_id": "factual.supports_acceptance.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -2103,29 +2103,29 @@
                   "section": "candidate.anchor.071726e38cd58879ed79.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                  "claim": "Installation instructions describe verified immutable repository revision acquisition.",
-                  "criterion": "installation.verified_acquisition",
+                  "candidate_anchor_id": "candidate.anchor.5ec122a1b6a1d0193da2.1",
+                  "claim": "The minimal verified example uses `FontLoader.open` with a Roboto variable font fixture.",
+                  "criterion": "example.minimal",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
-                  "evidence_location": "https://pypi.org/pypi/aspose-font-foss/json",
+                  "evidence_excerpt": "python",
+                  "evidence_location": "local-verifier://example.minimal",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "installation.verified_acquisition:disposable-source-build",
-                  "finding_id": "factual.installation_verified_support",
+                  "fact_id": "example.minimal:compiled-salvaged-example",
+                  "finding_id": "factual.supports_acceptance.2",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                  "quoted_candidate_span": "```python\nfrom aspose_font import FontLoader\n\nfont = FontLoader.open('Roboto-VariableFont_wdth,wght.ttf')\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.0d428567869339d8d451.1"
+                  "section": "candidate.anchor.5ec122a1b6a1d0193da2.1"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.api_surface_support",
-                  "factual.installation_verified_support"
+                  "factual.supports_acceptance.1",
+                  "factual.supports_acceptance.2"
                 ],
                 "errors": [],
                 "valid": true
@@ -2136,8 +2136,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9142f217f62471b439bb78e8874c2c8a7a6f9c6feaf0031f82b670322b1d5b88",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The API public surface claim (140 exports) aligns with the python-exports fact showing 130 exports across 7 modules. The installation coordinates and verified acquisition facts confirm the git-clone-and-source-build workflow and version 1.0.0. The capabilities (Font format conversion, Web font bundle generation, Delta inspection) are explicitly verified in the product.capabilities fact. The license (MIT) matches the product.license fact. The Enterprise Edition terminology and commercial context are correctly distinguished per the commercial_foss relationship fact. The release state (Beta) and security guidance (SECURITY.md) are also consistent.",
+              "input_sha256": "6e75077fb37164929c2f22cc2bca7f6eeaa8b2dd0a32c0750655fb0c946fc58d",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and audience match the manifest and registry. The capabilities (font format conversion, web font bundle generation, delta inspection) are verified by repository evidence. Installation instructions align with the verified disposable source build and manifest coordinates. The optional extras (dev, mcp) are confirmed by pyproject.toml. The license is MIT as per LICENSE.txt. The FOSS vs Enterprise distinction is correctly stated. The security guidance points to SECURITY.md. The release state is Beta as per the manifest. The API surface count (140 public exports) is consistent with the 130 exports and 93 classes reported in the fact packet. The development section correctly references 29 test files and 2 Make targets. The example is verified as compiled-salvaged.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -2158,8 +2158,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.example_minimal_compliance",
-                    "quality.h2_prefix_compliance"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -2175,15 +2175,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.api_surface_support",
-                  "factual.installation_verified_support"
+                  "factual.supports_acceptance.1",
+                  "factual.supports_acceptance.2"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.api_surface_support",
-                    "factual.installation_verified_support"
+                    "factual.supports_acceptance.1",
+                    "factual.supports_acceptance.2"
                   ],
                   "errors": [],
                   "valid": true
@@ -2226,7 +2226,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260804-100748-5aef",
+                "nonce": "20260804-182519-382b",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -2234,11 +2234,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "18fa1b1d24fdb18e57cc7abc89cd46fb666707f5d33ecfc75ab57ccbc7eb6ac2",
+                "token": "c866742c8deb0d3dd8b6d8768e8cadd83cb7029aa18151ef6e280837aa82c85c",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\20260804-100748-5aef"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-font-foss__Aspose.Font-FOSS-for-Python\\20260804-182519-382b"
               ],
               "repair_attempt": 0,
               "review": {
@@ -2248,48 +2248,48 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                      "claim": "All required H2 prefixes are present in correct order.",
-                      "criterion": "hierarchy",
+                      "candidate_anchor_id": "candidate.anchor.6fccd92d8db396ad32eb.1",
+                      "claim": "The title clearly identifies the product and its FOSS nature.",
+                      "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.h2_prefix_compliance",
+                      "finding_id": "quality.clarity.1",
                       "kind": "quality",
-                      "mechanical_check_id": "document.required_h2_prefix",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Navigation",
-                      "reported_observed_value": true,
+                      "quoted_candidate_span": "# Aspose.Font FOSS for Python",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.44ffd1d0a732b89731e0.1"
+                      "section": "candidate.anchor.6fccd92d8db396ad32eb.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                      "claim": "The Quick start section contains a minimal verified example within allowed fenced block and line limits.",
-                      "criterion": "example_presentation",
+                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                      "claim": "Installation instructions are clear, include exact source revision, and explain absence of PyPI package.",
+                      "criterion": "installation_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_minimal_compliance",
+                      "finding_id": "quality.installation_presentation.1",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Quick start",
-                      "reported_observed_value": 2,
+                      "quoted_candidate_span": "## Installation",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                      "section": "candidate.anchor.a15d12503bf00f654df0.1"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.example_minimal_compliance",
-                      "quality.h2_prefix_compliance"
+                      "quality.clarity.1",
+                      "quality.installation_presentation.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -2301,7 +2301,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "05f7a210a99706a291c166eef30557e60212f3b422732dccbb67cbd5ae28ecbc",
-                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge kinds, required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a well-structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example within one fenced block and only two non-blank code lines, satisfying the primary example standard. License and scope sections include required terms (MIT, commercial use, Enterprise Edition). No duplicate H2 headings, no comments, and proper markdown integrity are observed.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge types, all required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a properly structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example with only 2 non-blank code lines, well under the 12-line limit. The 'Installation' section provides clear source-based installation instructions and optional extras. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition. The 'License' section includes required benefit terms. All mechanical checks pass.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -2313,48 +2313,48 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                        "claim": "All required H2 prefixes are present in correct order.",
-                        "criterion": "hierarchy",
+                        "candidate_anchor_id": "candidate.anchor.6fccd92d8db396ad32eb.1",
+                        "claim": "The title clearly identifies the product and its FOSS nature.",
+                        "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.h2_prefix_compliance",
+                        "finding_id": "quality.clarity.1",
                         "kind": "quality",
-                        "mechanical_check_id": "document.required_h2_prefix",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Navigation",
-                        "reported_observed_value": true,
+                        "quoted_candidate_span": "# Aspose.Font FOSS for Python",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.44ffd1d0a732b89731e0.1"
+                        "section": "candidate.anchor.6fccd92d8db396ad32eb.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.9535b10be9abb7a87788.1",
-                        "claim": "The Quick start section contains a minimal verified example within allowed fenced block and line limits.",
-                        "criterion": "example_presentation",
+                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+                        "claim": "Installation instructions are clear, include exact source revision, and explain absence of PyPI package.",
+                        "criterion": "installation_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_minimal_compliance",
+                        "finding_id": "quality.installation_presentation.1",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Quick start",
-                        "reported_observed_value": 2,
+                        "quoted_candidate_span": "## Installation",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.9535b10be9abb7a87788.1"
+                        "section": "candidate.anchor.a15d12503bf00f654df0.1"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.example_minimal_compliance",
-                        "quality.h2_prefix_compliance"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -2366,7 +2366,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "05f7a210a99706a291c166eef30557e60212f3b422732dccbb67cbd5ae28ecbc",
-                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge kinds, required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a well-structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example within one fenced block and only two non-blank code lines, satisfying the primary example standard. License and scope sections include required terms (MIT, commercial use, Enterprise Edition). No duplicate H2 headings, no comments, and proper markdown integrity are observed.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1 title, compliant badge row with required badge types, all required H2 prefixes (Navigation, At a glance, Key capabilities, Installation, Quick start), and a properly structured navigation list. The 'At a glance' section contains a valid Mermaid flowchart with inputs, product, capabilities, and outputs. The 'Quick start' section has a minimal verified example with only 2 non-blank code lines, well under the 12-line limit. The 'Installation' section provides clear source-based installation instructions and optional extras. The 'Scope and limitations' section correctly distinguishes FOSS from Enterprise Edition. The 'License' section includes required benefit terms. All mechanical checks pass.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -2380,14 +2380,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.071726e38cd58879ed79.1",
-                        "claim": "The package declares 140 public exports in its static __all__ surface.",
+                        "claim": "The package declares 140 public exports in its static `__all__` surface.",
                         "criterion": "api.public_surface",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose_font",
                         "evidence_location": "repository://src/aspose_font/__init__.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/compatibility.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "api.public_surface:python-exports",
-                        "finding_id": "factual.api_surface_support",
+                        "finding_id": "factual.supports_acceptance.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -2398,29 +2398,29 @@
                         "section": "candidate.anchor.071726e38cd58879ed79.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                        "claim": "Installation instructions describe verified immutable repository revision acquisition.",
-                        "criterion": "installation.verified_acquisition",
+                        "candidate_anchor_id": "candidate.anchor.5ec122a1b6a1d0193da2.1",
+                        "claim": "The minimal verified example uses `FontLoader.open` with a Roboto variable font fixture.",
+                        "criterion": "example.minimal",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
-                        "evidence_location": "https://pypi.org/pypi/aspose-font-foss/json",
+                        "evidence_excerpt": "python",
+                        "evidence_location": "local-verifier://example.minimal",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "installation.verified_acquisition:disposable-source-build",
-                        "finding_id": "factual.installation_verified_support",
+                        "fact_id": "example.minimal:compiled-salvaged-example",
+                        "finding_id": "factual.supports_acceptance.2",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                        "quoted_candidate_span": "```python\nfrom aspose_font import FontLoader\n\nfont = FontLoader.open('Roboto-VariableFont_wdth,wght.ttf')\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.0d428567869339d8d451.1"
+                        "section": "candidate.anchor.5ec122a1b6a1d0193da2.1"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.api_surface_support",
-                        "factual.installation_verified_support"
+                        "factual.supports_acceptance.1",
+                        "factual.supports_acceptance.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -2431,8 +2431,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9142f217f62471b439bb78e8874c2c8a7a6f9c6feaf0031f82b670322b1d5b88",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The API public surface claim (140 exports) aligns with the python-exports fact showing 130 exports across 7 modules. The installation coordinates and verified acquisition facts confirm the git-clone-and-source-build workflow and version 1.0.0. The capabilities (Font format conversion, Web font bundle generation, Delta inspection) are explicitly verified in the product.capabilities fact. The license (MIT) matches the product.license fact. The Enterprise Edition terminology and commercial context are correctly distinguished per the commercial_foss relationship fact. The release state (Beta) and security guidance (SECURITY.md) are also consistent.",
+                    "input_sha256": "6e75077fb37164929c2f22cc2bca7f6eeaa8b2dd0a32c0750655fb0c946fc58d",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and audience match the manifest and registry. The capabilities (font format conversion, web font bundle generation, delta inspection) are verified by repository evidence. Installation instructions align with the verified disposable source build and manifest coordinates. The optional extras (dev, mcp) are confirmed by pyproject.toml. The license is MIT as per LICENSE.txt. The FOSS vs Enterprise distinction is correctly stated. The security guidance points to SECURITY.md. The release state is Beta as per the manifest. The API surface count (140 public exports) is consistent with the 130 exports and 93 classes reported in the fact packet. The development section correctly references 29 test files and 2 Make targets. The example is verified as compiled-salvaged.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -2440,14 +2440,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "d66967a582c12f8227894e6d3f469036d9a3ecfdefc0efb9a587a953fe35e687",
-                    "factual_record_sha256": "8ca6f992eb15d108af4a0250fec2f65efe503b26e879df61656dfe4d0a53b48c",
-                    "input_sha256": "e9607a67d401bbe0568cc0a5dc95c9499dd07abb829632af5c876d0c7abbd739",
+                    "blind_record_sha256": "199ec6a748d833b6e8d369d61effba7eb675a9e69a2e4e8dc8fb0be98347a7f2",
+                    "factual_record_sha256": "58c464ac38ede1d14d87dcf102e24bd71c970379d491189c747eb315a45cd8cc",
+                    "input_sha256": "d8798d744bb2d7cfe5dc6bfda349e10a85ae9cd28ce525c5c5ca43417e8c992b",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-a9e07b54588038d0",
-                    "raw_output_sha256": "a2c6ab8e4527c86cb41a0561c8f1bd681e22b8ef323068d8c13186851114352c"
+                    "provider_request_id": "chatcmpl-a1dfa2ebdf0fa7b6",
+                    "raw_output_sha256": "52b22d23c92c028bf5e6e134a853f6c0d25b41d4bebe3d72ba0cac64ef24f7e5"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -2463,14 +2463,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.071726e38cd58879ed79.1",
-                      "claim": "The package declares 140 public exports in its static __all__ surface.",
+                      "claim": "The package declares 140 public exports in its static `__all__` surface.",
                       "criterion": "api.public_surface",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose_font",
                       "evidence_location": "repository://src/aspose_font/__init__.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/compatibility.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "api.public_surface:python-exports",
-                      "finding_id": "factual.api_surface_support",
+                      "finding_id": "factual.supports_acceptance.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -2481,29 +2481,29 @@
                       "section": "candidate.anchor.071726e38cd58879ed79.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.0d428567869339d8d451.1",
-                      "claim": "Installation instructions describe verified immutable repository revision acquisition.",
-                      "criterion": "installation.verified_acquisition",
+                      "candidate_anchor_id": "candidate.anchor.5ec122a1b6a1d0193da2.1",
+                      "claim": "The minimal verified example uses `FontLoader.open` with a Roboto variable font fixture.",
+                      "criterion": "example.minimal",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
-                      "evidence_location": "https://pypi.org/pypi/aspose-font-foss/json",
+                      "evidence_excerpt": "python",
+                      "evidence_location": "local-verifier://example.minimal",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "installation.verified_acquisition:disposable-source-build",
-                      "finding_id": "factual.installation_verified_support",
+                      "fact_id": "example.minimal:compiled-salvaged-example",
+                      "finding_id": "factual.supports_acceptance.2",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "Install the verified immutable repository revision from a local checkout:",
+                      "quoted_candidate_span": "```python\nfrom aspose_font import FontLoader\n\nfont = FontLoader.open('Roboto-VariableFont_wdth,wght.ttf')\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.0d428567869339d8d451.1"
+                      "section": "candidate.anchor.5ec122a1b6a1d0193da2.1"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.api_surface_support",
-                      "factual.installation_verified_support"
+                      "factual.supports_acceptance.1",
+                      "factual.supports_acceptance.2"
                     ],
                     "errors": [],
                     "valid": true
@@ -2514,8 +2514,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9142f217f62471b439bb78e8874c2c8a7a6f9c6feaf0031f82b670322b1d5b88",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The API public surface claim (140 exports) aligns with the python-exports fact showing 130 exports across 7 modules. The installation coordinates and verified acquisition facts confirm the git-clone-and-source-build workflow and version 1.0.0. The capabilities (Font format conversion, Web font bundle generation, Delta inspection) are explicitly verified in the product.capabilities fact. The license (MIT) matches the product.license fact. The Enterprise Edition terminology and commercial context are correctly distinguished per the commercial_foss relationship fact. The release state (Beta) and security guidance (SECURITY.md) are also consistent.",
+                  "input_sha256": "6e75077fb37164929c2f22cc2bca7f6eeaa8b2dd0a32c0750655fb0c946fc58d",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and audience match the manifest and registry. The capabilities (font format conversion, web font bundle generation, delta inspection) are verified by repository evidence. Installation instructions align with the verified disposable source build and manifest coordinates. The optional extras (dev, mcp) are confirmed by pyproject.toml. The license is MIT as per LICENSE.txt. The FOSS vs Enterprise distinction is correctly stated. The security guidance points to SECURITY.md. The release state is Beta as per the manifest. The API surface count (140 public exports) is consistent with the 130 exports and 93 classes reported in the fact packet. The development section correctly references 29 test files and 2 Make targets. The example is verified as compiled-salvaged.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -2536,8 +2536,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.example_minimal_compliance",
-                        "quality.h2_prefix_compliance"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -2553,15 +2553,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.api_surface_support",
-                      "factual.installation_verified_support"
+                      "factual.supports_acceptance.1",
+                      "factual.supports_acceptance.2"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.api_surface_support",
-                        "factual.installation_verified_support"
+                        "factual.supports_acceptance.1",
+                        "factual.supports_acceptance.2"
                       ],
                       "errors": [],
                       "valid": true
@@ -2598,7 +2598,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "3f3da8771ec48208b00b7bbdcb6230653ecd348113a5b32c00603d7e2642d138",
+            "assessment_hash": "77c6a589dac60bead61f277ada3ca6570df4796e5fcc348e1cbbc8698c271d60",
             "attempt_count": 1,
             "authoring_hints": "Deterministic verified-preservation composition from accepted repository facts; zero authoring-provider calls.",
             "diagram": {
@@ -2647,8 +2647,8 @@
                 }
               ]
             },
-            "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
-            "input_sha256": "f85ef8176e07e63df2cf289a53fb84059d439fe7a6559911d5f898cc5070b798",
+            "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
+            "input_sha256": "8926c0ea0237b8150dfa6f45aaf5ed83430d90d7d7229042367f46e4a8ff15d1",
             "model": "deterministic-verified-preservation-v1",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -2859,7 +2859,7 @@
                 "claim_text_sha256": "1beecacfc0a1bba57def86091e05d028a146d8b83348cde3dd94ab962cba9caf",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "3e7ebcc3af1f4387e592e3654a29b942e449859e57864b8d4327049ff3f0fc0c",
+                "fact_value_sha256": "72c2a1daf325a8c7f9ec38e1c86a0eda82d11a62030d6e318f9986e2ff630187",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "1beecacfc0a1bba57def86091e05d028a146d8b83348cde3dd94ab962cba9caf",
                 "operation_id": "template.badges",
@@ -3027,7 +3027,7 @@
                 "claim_text_sha256": "9f7aa513557eb507561f3a9484a48ca8b6423f9cbd4897f621c9599b97d8fad6",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "3e7ebcc3af1f4387e592e3654a29b942e449859e57864b8d4327049ff3f0fc0c",
+                "fact_value_sha256": "72c2a1daf325a8c7f9ec38e1c86a0eda82d11a62030d6e318f9986e2ff630187",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "7b09ebdd3c05a143f5eef2d8f3fe2c6eef38fc1a8001798c16eb382597584b02",
                 "operation_id": "template.section.installation.verified_acquisition",
@@ -16643,7 +16643,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+            "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
             "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
             "schema_version": 1
           },
@@ -24768,7 +24768,7 @@
             "archetype": "python-library",
             "candidate_sha256": "8f7e7edcdf67ac4929b9e6457a2fa8aad4e7c72cee4218b4ab74c31aa1f1813b",
             "content_assurance": "repository_verified",
-            "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+            "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -24877,7 +24877,7 @@
             "source_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf"
           },
           "readme_assessment": {
-            "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+            "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
             "immutable_base_revision": "54004305922b8a45e241fae6066c35c439615d28",
             "material_claims": [
               {
@@ -40347,7 +40347,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "3e7ebcc3af1f4387e592e3654a29b942e449859e57864b8d4327049ff3f0fc0c"
+                      "value_sha256": "72c2a1daf325a8c7f9ec38e1c86a0eda82d11a62030d6e318f9986e2ff630187"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -72391,7 +72391,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+              "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
               "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf"
@@ -72498,7 +72498,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "142b9c4f718633d745d7c57fe40c7e6b2a2d91590be390f82d4695375a2eb58e",
+            "facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
             "header_visuals": {
               "badge_markdown": "[![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-blue)](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/tree/54004305922b8a45e241fae6066c35c439615d28) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-font-foss/Aspose.Font-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-font-foss/Aspose.Font-FOSS-for-Python.svg)](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -74611,7 +74611,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260804-100748-5aef",
+          "nonce": "20260804-182519-382b",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -74619,7 +74619,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "18fa1b1d24fdb18e57cc7abc89cd46fb666707f5d33ecfc75ab57ccbc7eb6ac2",
+          "token": "c866742c8deb0d3dd8b6d8768e8cadd83cb7029aa18151ef6e280837aa82c85c",
           "verdict": "accept"
         },
         "written": false
@@ -74627,7 +74627,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T10:10:18.872154+00:00",
+      "last_run_timestamp": "2026-08-04T18:27:36.108244+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
@@ -75551,7 +75551,7 @@
     "updated_at": "2026-08-04T18:27:30.351509+00:00"
   },
   "schema_version": 2,
-  "state_version": 293,
+  "state_version": 294,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a0d53186e6eef2fddca9fb6b2dd4a9c2c5d45271f8ea902e1155543af936641e",
