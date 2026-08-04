@@ -419,6 +419,17 @@
         "reason": "read-only intake classified READY_FULL_PIPELINE",
         "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-.Net\\a8999e259143a9ffc660086b34a7f39516da29f5\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-04T08:04:40.142276+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -446,12 +457,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T14:43:14.574405+00:00"
+    "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-04T08:04:40.142276+00:00"
   },
   "schema_version": 2,
-  "state_version": 30,
+  "state_version": 31,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
