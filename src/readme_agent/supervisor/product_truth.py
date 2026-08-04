@@ -9,6 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent import paths
 from readme_agent.facts.acceptance_contract import (
+    README_TRUTH_FIELDS,
     classify_product_truth,
     current_fact_acceptance_contract,
     fact_contract_change_requires_recollection,
@@ -19,7 +20,7 @@ from readme_agent.facts.deterministic_truth_salvage import (
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
-from readme_agent.facts.schema_v2 import README_DRAFTABLE_PRODUCT_FIELDS, ProductFactsV2
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.backend import StateBackend
@@ -106,7 +107,7 @@ def _facts_need_resolution(facts: ProductFactsV2) -> bool:
     return any(
         facts.selected_fact(field).verification_state not in {"verified", "policy_approved"}
         or facts.selected_fact(field).has_unresolved_conflict
-        for field in README_DRAFTABLE_PRODUCT_FIELDS
+        for field in README_TRUTH_FIELDS
     )
 
 
@@ -400,7 +401,7 @@ def prepare_local_product_truth(
                     field,
                     facts.selected_fact(field).verification_state,
                 )
-                for field in README_DRAFTABLE_PRODUCT_FIELDS
+                for field in README_TRUTH_FIELDS
                 if facts.selected_fact(field).verification_state
                 not in {"verified", "policy_approved"}
                 or facts.selected_fact(field).has_unresolved_conflict

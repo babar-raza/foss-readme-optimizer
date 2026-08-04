@@ -21,6 +21,7 @@ def test_every_external_operation_has_a_bounded_policy():
         "state_cas",
         "clone",
         "package_registry",
+        "toolchain_registry",
         "github_write",
     }
     assert all(policy.max_attempts <= 5 for policy in RETRY_POLICIES.values())

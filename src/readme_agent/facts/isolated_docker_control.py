@@ -5,11 +5,13 @@ from __future__ import annotations
 import json
 import subprocess
 import time
+from collections.abc import Callable
 from typing import Any, Protocol
 
 from readme_agent.errors import ReadmeAgentError
 from readme_agent.evidence.redaction import redact
 from readme_agent.facts.isolated_execution_schema import ContainerImageIdentityV1
+from readme_agent.retry import RetryableOperationError, run_with_retry
 
 
 class IsolatedExecutionError(ReadmeAgentError):
@@ -74,6 +76,39 @@ def inspect_container_image(
         architecture=str(image_record["Architecture"]),
         engine_version=engine.stdout.strip(),
     )
+
+
+def ensure_container_image(
+    runner: DockerCommandRunner,
+    immutable_image: str,
+    *,
+    sleep: Callable[[float], None] | None = None,
+) -> ContainerImageIdentityV1:
+    """Inspect or retry acquisition of one pinned image, then verify its identity."""
+
+    try:
+        return inspect_container_image(runner, immutable_image)
+    except IsolatedExecutionError:
+        pass
+
+    def pull() -> None:
+        result = runner.run(["pull", immutable_image], timeout_seconds=600)
+        if result.returncode != 0:
+            detail = redact((result.stderr or result.stdout).strip())
+            raise RetryableOperationError(f"container registry acquisition failed: {detail}")
+
+    try:
+        run_with_retry("toolchain_registry", pull, sleep=sleep)
+    except RetryableOperationError as exc:
+        raise IsolatedExecutionError(
+            "container registry acquisition remained unavailable after bounded retry"
+        ) from exc
+    try:
+        return inspect_container_image(runner, immutable_image)
+    except IsolatedExecutionError as exc:
+        raise IsolatedExecutionError(
+            "acquired container image failed immutable identity verification"
+        ) from exc
 
 
 def _container_is_listed(runner: DockerCommandRunner, identity: str) -> bool:

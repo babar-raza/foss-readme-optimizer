@@ -15,7 +15,7 @@ from readme_agent.facts.isolated_docker_control import (
     DockerCommandRunner,
     IsolatedExecutionError,
     await_terminal_container_state,
-    inspect_container_image,
+    ensure_container_image,
     require_docker_success,
 )
 from readme_agent.facts.isolated_execution_inputs import build_isolated_input_bundle
@@ -86,7 +86,7 @@ def execute_isolated(
 
     active_runner = runner or LocalDockerCommandRunner()
     inputs = build_isolated_input_bundle(request)
-    image = inspect_container_image(active_runner, request.policy.immutable_image)
+    image = ensure_container_image(active_runner, request.policy.immutable_image)
     suffix = uuid.uuid4().hex
     volume = f"readme-agent-workspace-{suffix}"
     seed_name = f"readme-agent-seed-{suffix}"

@@ -15,6 +15,8 @@ def derive_grounded_problem_fallback(
     facts: ProductFactsV2,
     source_revision: str | None,
     observed_at: str | None,
+    *,
+    max_statements: int = _MAX_PROBLEM_STATEMENTS,
 ) -> tuple[list[InterpretiveClaimV1], FactRecordV2] | None:
     """Reuse verified capability text when an interpretive problem draft is ungrounded.
 
@@ -30,11 +32,13 @@ def derive_grounded_problem_fallback(
         return None
 
     values = capability.value if isinstance(capability.value, list) else [capability.value]
+    if max_statements < 1 or max_statements > _MAX_PROBLEM_STATEMENTS:
+        raise ValueError(f"max_statements must be between 1 and {_MAX_PROBLEM_STATEMENTS}")
     statements = list(
         dict.fromkeys(
             text for value in values if isinstance(value, str) and (text := value.strip())
         )
-    )[:_MAX_PROBLEM_STATEMENTS]
+    )[:max_statements]
     if not statements:
         return None
 

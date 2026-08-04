@@ -62,3 +62,17 @@ def test_verified_capabilities_become_exact_grounded_problem_statements():
 
 def test_unverified_capabilities_cannot_become_problem_statements():
     assert derive_grounded_problem_fallback(_facts("blocked"), "abc123", None) is None
+
+
+def test_problem_fallback_can_be_narrowed_without_weakening_grounding():
+    result = derive_grounded_problem_fallback(
+        _facts(),
+        "abc123",
+        None,
+        max_statements=1,
+    )
+
+    assert result is not None
+    claims, fact = result
+    assert [claim.text for claim in claims] == ["Create widgets"]
+    assert fact.value == ["Create widgets"]

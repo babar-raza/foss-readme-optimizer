@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
+from readme_agent.facts.dotnet_repository_evidence import build_dotnet_repository_evidence
+from readme_agent.facts.dotnet_truth_selection import dotnet_repository_truth_candidates
 from readme_agent.facts.manifest_facts import manifest_fact_candidates
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.policy_evidence import evidence_fact_candidate
@@ -15,6 +17,7 @@ from readme_agent.inspection.file_inventory import scan
 from readme_agent.license.auditor import detect_license
 from readme_agent.profile.schema import RepositoryProfile
 from readme_agent.registry.models import PolicyProfile, ProductEntry
+from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 
 def _source(
@@ -62,6 +65,7 @@ def ingest_repository_product_facts(
     observed_at: str | None = None,
     *,
     root_roles: PackageRootRoleInventoryV1 | None = None,
+    snapshot: RepositorySnapshotV1 | None = None,
 ) -> list[FactRecordV2]:
     """Return mechanically or policy verified candidates from one snapshot."""
 
@@ -80,6 +84,17 @@ def ingest_repository_product_facts(
         root_role_inventory,
     )
     candidates.extend(curated_repository_fact_candidates(root, source_revision, observed_at))
+    if (
+        entry.ecosystem == "net"
+        and snapshot is not None
+        and root_role_inventory.selection_state == "selected"
+    ):
+        catalog = build_dotnet_repository_evidence(
+            snapshot,
+            root_role_inventory,
+            family=entry.family,
+        )
+        candidates.extend(dotnet_repository_truth_candidates(catalog, observed_at=observed_at))
     truth = policy.product_truth
     if truth is not None:
         policy_source = _source(

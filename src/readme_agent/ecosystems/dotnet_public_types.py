@@ -10,7 +10,15 @@ from pygments import lex
 from pygments.lexers.dotnet import CSharpLexer
 from pygments.token import Comment, Literal
 
-_EXCLUDED_PARTS = {"bin", "obj", "sample", "samples", "test", "tests"}
+_EXCLUDED_PARTS = {
+    "bin",
+    "generated",
+    "obj",
+    "sample",
+    "samples",
+    "test",
+    "tests",
+}
 _NAMESPACE_RE = re.compile(r"(?m)^\s*namespace\s+(Aspose(?:\.[A-Za-z_]\w*)+)\s*[;{]")
 _PUBLIC_TYPE_RE = re.compile(
     r"\bpublic\s+(?:(?:abstract|partial|readonly|ref|sealed|static|unsafe)\s+)*"

@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import shutil
-from pathlib import Path
+import subprocess
+import tarfile
+import tempfile
+from pathlib import Path, PurePosixPath
 from typing import Literal
 
 from readme_agent.facts.compiled_consumer_schema import CompiledConsumerProofV1
@@ -12,7 +16,7 @@ from readme_agent.facts.example_execution import ExampleExecutionResultV1
 from readme_agent.facts.isolated_execution_schema import IsolatedExecutionResultV1
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 
-_COPY_IGNORE = shutil.ignore_patterns(
+_COPY_IGNORE_NAMES = (
     ".git",
     ".idea",
     ".venv",
@@ -27,10 +31,116 @@ _COPY_IGNORE = shutil.ignore_patterns(
 )
 
 
-def copy_snapshot(snapshot: RepositorySnapshotV1, destination: Path) -> None:
+def copy_snapshot(
+    snapshot: RepositorySnapshotV1,
+    destination: Path,
+    *,
+    ignored_names: tuple[str, ...] = (),
+    included_paths: tuple[str, ...] = (),
+) -> None:
     """Copy only immutable source inputs into a disposable executor workspace."""
 
-    shutil.copytree(snapshot.root_path, destination, ignore=_COPY_IGNORE)
+    if (snapshot.root_path / ".git").is_dir():
+        _copy_git_archive(
+            snapshot,
+            destination,
+            ignored_names=ignored_names,
+            included_paths=included_paths,
+        )
+        return
+    if included_paths:
+        destination.mkdir(parents=True)
+        for relative in included_paths:
+            portable = PurePosixPath(relative)
+            if portable.is_absolute() or ".." in portable.parts:
+                raise ValueError(f"immutable snapshot export path escapes the root: {relative}")
+            source = snapshot.root_path / relative
+            target = destination / relative
+            if source.is_dir():
+                shutil.copytree(
+                    source,
+                    target,
+                    dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns(*ignored_names),
+                )
+            elif source.is_file():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+            else:
+                raise ValueError(f"immutable snapshot export path is unavailable: {relative}")
+        return
+    shutil.copytree(
+        snapshot.root_path,
+        destination,
+        ignore=shutil.ignore_patterns(*_COPY_IGNORE_NAMES, *ignored_names),
+    )
+
+
+def _copy_git_archive(
+    snapshot: RepositorySnapshotV1,
+    destination: Path,
+    *,
+    ignored_names: tuple[str, ...],
+    included_paths: tuple[str, ...],
+) -> None:
+    """Export tracked immutable bytes without relying on hydrated checkout files."""
+
+    patterns = tuple(ignored_names if included_paths else (*_COPY_IGNORE_NAMES, *ignored_names))
+    with tempfile.TemporaryDirectory(prefix="readme-agent-git-export-") as temp:
+        archive = Path(temp) / "snapshot.tar"
+        argv = [
+            "git",
+            "-c",
+            "filter.lfs.process=",
+            "-c",
+            "filter.lfs.required=false",
+            "-C",
+            str(snapshot.root_path),
+            "archive",
+            "--format=tar",
+            f"--output={archive}",
+            snapshot.source_revision,
+        ]
+        if included_paths:
+            argv.extend(["--", *included_paths])
+        result = subprocess.run(
+            argv,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+        if result.returncode != 0:
+            raise ValueError(f"immutable Git snapshot export failed: {result.stderr.strip()}")
+        destination.mkdir(parents=True)
+        with tarfile.open(archive, mode="r:") as source:
+            for member in source:
+                relative = PurePosixPath(member.name)
+                if (
+                    relative.is_absolute()
+                    or ".." in relative.parts
+                    or any(
+                        fnmatch.fnmatch(part.casefold(), pattern.casefold())
+                        for part in relative.parts
+                        for pattern in patterns
+                    )
+                ):
+                    continue
+                target = destination.joinpath(*relative.parts)
+                if member.isdir():
+                    target.mkdir(parents=True, exist_ok=True)
+                    continue
+                if not member.isfile():
+                    raise ValueError(
+                        f"immutable Git snapshot contains unsupported entry: {member.name}"
+                    )
+                payload = source.extractfile(member)
+                if payload is None:
+                    raise ValueError(f"immutable Git snapshot entry is unreadable: {member.name}")
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with payload, target.open("wb") as output:
+                    shutil.copyfileobj(payload, output)
+                target.chmod(member.mode & 0o777)
 
 
 def source_paths_sha256(root: Path, relative_paths: list[str]) -> str:

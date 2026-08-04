@@ -170,6 +170,16 @@ materializes selected candidate implementation bytes for read-only worker consum
 - lifecycle/cache schemas;
 - runtime/toolchain and test inventory.
 
+Before any stage that executes repository or dependency code, the supervisor autonomously
+provisions its safe execution dependencies. It detects the selected root's declared runtime,
+selects an allow-listed digest/checksum-pinned image or toolchain, checks the content-addressed
+cache, acquires missing bytes with bounded retry/backoff and per-artifact deduplication, verifies
+identity, records a redacted receipt, and resumes the same checkpoint. A missing local dependency
+is agent-fixable, never a reason to stop or ask the human to install it. Only an exhausted external
+registry/network outage may leave dependent repositories visibly retryable while unrelated lanes
+continue. Target downgrades, mutable artifacts, host execution, credential exposure, and manual
+installation workarounds are prohibited.
+
 During a campaign, only a proven P0 factuality, safety, corruption, or acceptance defect may change
 a frozen shared contract. A permitted change records the defect, versions the contract, updates the
 freeze, and invalidates only actual dependents. Presentation preferences become backlog. Fix a
@@ -178,20 +188,22 @@ repository defect at the repository owner and a shared defect once at its earlie
 ## Minimal verified README pipeline
 
 1. Resolve immutable source revision and exact README bytes.
-2. Load dependency-valid cached facts.
-3. Refresh only missing or stale selected facts.
-4. Classify README density and required sections deterministically.
-5. Render stable structure deterministically: H1/badges, navigation, order, license/notices shell,
+2. Provision and verify every selected pinned execution dependency; reuse only checksum-valid
+   content-addressed cache entries.
+3. Load dependency-valid cached facts.
+4. Refresh only missing or stale selected facts.
+5. Classify README density and required sections deterministically.
+6. Render stable structure deterministically: H1/badges, navigation, order, license/notices shell,
    Mermaid grammar/fact labels, contextual-link ceilings, and disclosures.
-6. Make one repository-specific composition call for interpretive prose and section selection.
-7. Run deterministic factuality, claim-accountability, preservation, structure, link, safety, and
+7. Make one repository-specific composition call for interpretive prose and section selection.
+8. Run deterministic factuality, claim-accountability, preservation, structure, link, safety, and
    presentation gates.
-8. Make one independent non-authoring evidence-grounded review call.
-9. Repair only the rejected owned span: deterministic edits first, then at most one targeted prose
+9. Make one independent non-authoring evidence-grounded review call.
+10. Repair only the rejected owned span: deterministic edits first, then at most one targeted prose
    repair call when required.
-10. Rerun only affected validation and review.
-11. Seal the approved candidate.
-12. Prove an unchanged no-op with zero provider calls and effects.
+11. Rerun only affected validation and review.
+12. Seal the approved candidate.
+13. Prove an unchanged no-op with zero provider calls and effects.
 
 Do not send full trees or unfiltered knowledge to a model. Do not ask a model to rediscover
 mechanically extractable truth or regenerate deterministic structure.

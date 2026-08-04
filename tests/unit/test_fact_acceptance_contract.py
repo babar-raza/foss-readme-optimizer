@@ -146,6 +146,9 @@ def test_dotnet_family_adapter_hash_is_scoped_to_3d():
 
     assert "dotnet_3d_format_functionality.py" in three_d
     assert "dotnet_3d_format_functionality.py" not in pdf
+    email = _scoped_component_files("drafting_and_example_selection", "net", "email")
+    assert "dotnet_email_format_functionality.py" in email
+    assert "dotnet_email_format_functionality.py" not in pdf
 
 
 def test_python_family_adapter_hashes_invalidate_only_their_owner(tmp_path):

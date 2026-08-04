@@ -2360,6 +2360,22 @@ that is the only permanence they carry; text is always the decision as it stands
     satisfy dependencies, and each aggregate manifest maps every task and requirement to exact proof.
     (2026-08-02, user acceleration directive; revises the prior serial-pilot interpretation.)
 
+89. **Missing approved execution dependencies are provisioned automatically, never treated as
+    product blockers.** Before an isolated build, example, validator, workflow, or proof step, the
+    canonical runtime resolves the repository-declared runtime/toolchain requirement to an
+    allow-listed immutable artifact, acquires it when absent, verifies its digest and version,
+    caches it by content identity, and resumes the same durable checkpoint. This includes pinned
+    container images, JDKs, SDKs, compilers, package managers, and other declared build inputs.
+    Provisioning uses secret-free control commands, bounded retries/backoff, per-artifact
+    concurrency control, checksummed receipts, and cache-corruption recovery. A missing local
+    dependency is `agent_fixable`; only an exhausted, classified external registry/network outage
+    may become visible `retryable`/`infra_external`, without blocking unrelated repositories.
+    Falling back to an older/unpinned toolchain, executing on the operator host, weakening
+    isolation, or asking a human to install an available dependency is prohibited. The 2026-08-04
+    .NET 9 canary exposed this boundary when the exact SDK image was not cached; the exact digest
+    was fetched and verified, and the runtime provisioning seam became part of the active repair.
+    (2026-08-04, user robustness correction; strengthens decisions #82/#88 and `FACT-014`.)
+
 ## Architecture
 
 ### Content-assurance lanes
@@ -2453,6 +2469,17 @@ the full registry runs only against the frozen campaign. Cache reuse is accepted
 repository revision, selected package root, manifest/lock inputs, toolchain digest, adapter,
 fact contract, prompts, renderer, and acceptance contract match. Faster stale or lower-confidence
 output never counts as an optimization.
+
+Execution dependencies are prepared by a fail-closed provisioning boundary before repository code
+runs. It detects the selected product root's required runtime/toolchain, maps it to a governed
+digest/checksum lock, checks the content-addressed local cache, acquires a missing artifact through
+the appropriate public registry with bounded retry/backoff, verifies identity after acquisition,
+and records a redacted provisioning receipt. The downstream isolated command starts only after
+that receipt passes. Concurrent repositories may share immutable cached bytes but never a mutable
+workspace; one missing artifact cannot downgrade a target or block repositories that do not need
+it. Cache corruption triggers removal of only the invalid disposable artifact and one governed
+reacquisition. Registry unavailability leaves the repository visibly retryable and lets unrelated
+lanes continue.
 
 ### Portfolio fact reuse and bounded fan-out
 
@@ -3402,6 +3429,13 @@ only as historical implementation evidence in decisions and `logs/`; they are no
       record the isolated official/native command, pinned toolchain identity, raw result hash, and
       normalized output; custom parsing is limited to documented residual facts and cannot
       override contradictory evaluated consumer behavior.
+- [ ] **Automatic dependency-provisioning gate:** on a clean runner with every governed toolchain
+      cache empty, each supported ecosystem detects and acquires its exact pinned runtime/image,
+      verifies digest and version, records a redacted receipt, and resumes the same checkpoint.
+      Transient acquisition failure retries with bounded backoff; persistent external outage makes
+      only dependent repositories visibly retryable; concurrent requests deduplicate; corrupted
+      cache bytes are rejected and reacquired; no fallback target, host execution, credential leak,
+      product write, or human installation step occurs.
 - [ ] **Current-contract negative gate:** the historical 3D Java candidate fails deterministically
       for its visible marker/comment, missing factual badge header, missing fact-backed Mermaid
       overview, link-allocation/placement, protected-content-accountability, or Enterprise Edition

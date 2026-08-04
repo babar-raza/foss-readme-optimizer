@@ -19,6 +19,9 @@ from readme_agent.facts.aspose_org_format_contract import (
 from readme_agent.facts.dotnet_3d_format_functionality import (
     corroborate_dotnet_3d_format_directions,
 )
+from readme_agent.facts.dotnet_email_format_functionality import (
+    corroborate_dotnet_email_format_directions,
+)
 from readme_agent.facts.example_execution import secret_free_environment
 from readme_agent.facts.python_family_format_functionality import (
     corroborate_python_family_format_directions,
@@ -220,6 +223,12 @@ def extract_aspose_org_formats(
             )
         elif normalized_platform == "net" and family.casefold() == "3d":
             formats = corroborate_dotnet_3d_format_directions(
+                repository_root,
+                source_revision=source_revision or "",
+                formats=formats,
+            )
+        elif normalized_platform == "net" and family.casefold() == "email":
+            formats = corroborate_dotnet_email_format_directions(
                 repository_root,
                 source_revision=source_revision or "",
                 formats=formats,

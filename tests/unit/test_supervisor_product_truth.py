@@ -10,6 +10,7 @@ import pytest
 
 from readme_agent import paths
 from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
+from readme_agent.facts.acceptance_contract import README_TRUTH_FIELDS
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     REQUIRED_PRODUCT_FIELDS,
@@ -344,7 +345,8 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
     assert result.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
     assert result.facts == base
     assert result.resolution_source == "repository_and_policy"
-    assert len(result.findings) == len(README_DRAFTABLE_PRODUCT_FIELDS)
+    expected_missing = set(README_TRUTH_FIELDS) & set(README_DRAFTABLE_PRODUCT_FIELDS)
+    assert {finding["field"] for finding in result.findings} == expected_missing
     assert backend.load(ORG_REPO).readme_poc_lifecycle.facts_hash == base.canonical_hash()
     assert (Path(result.bundle_dir) / "facts" / "product-facts.json").is_file()
     assert not (Path(result.bundle_dir) / "facts" / "proposed-product-truth.json").is_file()
@@ -894,7 +896,8 @@ def test_same_inputs_reuse_a_narrow_repository_evidence_block(tmp_path, monkeypa
 
     assert first.lifecycle_status == "BLOCKED_MISSING_EVIDENCE"
     assert second.resolution_source == "durable_revision_cache"
-    assert len(first.findings) == len(README_DRAFTABLE_PRODUCT_FIELDS)
+    expected_missing = set(README_TRUTH_FIELDS) & set(README_DRAFTABLE_PRODUCT_FIELDS)
+    assert {finding["field"] for finding in first.findings} == expected_missing
     assert not (bundle_dir / "candidate").exists()
     assert not (bundle_dir / "review").exists()
     assert not (bundle_dir / "receipts").exists()

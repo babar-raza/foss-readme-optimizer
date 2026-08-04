@@ -161,8 +161,8 @@ def repository_readme_example_candidates(
     for token in MarkdownIt("commonmark").parse(text):
         info = token.info.strip().split(maxsplit=1)[0].lower() if token.info.strip() else ""
         code = token.content.strip()
-        if info in _LANGUAGE_ALIASES["python"]:
-            code = strip_source_comments("python", code).strip()
+        if info in aliases and language in {"python", "dotnet"}:
+            code = strip_source_comments(language, code).strip()
         anchor = _evidence_anchor(code)
         if (
             token.type != "fence"
@@ -243,6 +243,48 @@ def _go_source_example(root: Path, path: Path) -> MinimalExamplePolicy | None:
     )
 
 
+def _dotnet_source_example(root: Path, path: Path) -> MinimalExamplePolicy | None:
+    try:
+        source = path.read_text(encoding="utf-8-sig", errors="replace")
+    except OSError:
+        return None
+    code = strip_source_comments("dotnet", source).strip()
+    namespaces = sorted(set(re.findall(r"(?m)^\s*using\s+(Aspose(?:\.[A-Za-z_]\w*)+)\s*;", code)))
+    used_types = sorted(
+        set(
+            re.findall(
+                r"\b(?:new\s+|typeof\s*\(\s*|(?<![.\w]))([A-Z][A-Za-z0-9_]*)\s*(?:[.(])",
+                code,
+            )
+        )
+        - {"Main", "Program"}
+    )
+    explicit_main = bool(
+        re.search(r"\bstatic\s+(?:async\s+)?(?:void|Task|Task<int>|int)\s+Main\s*\(", code)
+    )
+    without_usings = re.sub(r"(?m)^\s*using\s+[^;]+;\s*$", "", code).strip()
+    top_level_program = bool(without_usings) and not re.fullmatch(
+        r"(?:namespace\s+[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*\s*;\s*)?",
+        without_usings,
+    )
+    if (
+        path.name.casefold() != "program.cs"
+        or not namespaces
+        or not used_types
+        or not (explicit_main or top_level_program)
+        or len(code) > _MAX_EXAMPLE_CHARS
+    ):
+        return None
+    relative_path = path.relative_to(root).as_posix()
+    return MinimalExamplePolicy(
+        language="dotnet",
+        class_name=_class_name(code, "ReadmeExample"),
+        code=code + "\n",
+        evidence_paths=[relative_path],
+        required_symbols=used_types,
+    )
+
+
 def repository_source_example_candidates(
     root: Path,
     language: ExampleLanguage,
@@ -255,9 +297,9 @@ def repository_source_example_candidates(
     resolution, and the disposable OS-isolated compiler before it is trusted.
     """
 
-    if language not in {"go", "python"}:
+    if language not in {"dotnet", "go", "python"}:
         return []
-    suffix = "*.go" if language == "go" else "*.py"
+    suffix = {"dotnet": "Program.cs", "go": "*.go", "python": "*.py"}[language]
     paths: list[Path] = []
     for path in root.rglob(suffix):
         relative_tokens = {
@@ -278,6 +320,15 @@ def repository_source_example_candidates(
             root,
             paths,
             max_chars=_MAX_EXAMPLE_CHARS,
+        )
+    if language == "dotnet":
+        return sorted(
+            (
+                candidate
+                for path in paths
+                if (candidate := _dotnet_source_example(root, path)) is not None
+            ),
+            key=lambda candidate: (len(candidate.code), candidate.evidence_paths[0]),
         )
     if not (root / "go.mod").is_file():
         return []

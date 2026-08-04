@@ -6,16 +6,24 @@ from datetime import UTC, datetime
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
+from readme_agent.facts import dotnet_example_verifier
 from readme_agent.facts.acquisition_facts import collect_acquisition_fact
 from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
+from readme_agent.facts.problem_grounding import derive_grounded_problem_fallback
+from readme_agent.facts.repository_examples import (
+    repository_readme_example_candidates,
+    repository_source_example_candidates,
+)
 from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
 from readme_agent.facts.resolution import resolve_product_facts
+from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
+from readme_agent.facts.verified_repository_examples import select_verified_repository_example
 from readme_agent.profile.cached import get_or_build_profile
 from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.registry.models import ProductEntry
@@ -33,6 +41,7 @@ def _local_verification_facts(
     policy,
     entry: ProductEntry,
     manifest_coordinate: dict[str, str] | None = None,
+    root_roles: PackageRootRoleInventoryV1 | None = None,
 ) -> tuple[list[FactRecordV2], dict | None]:
     """Package-acquisition verification (`installation.verified_acquisition`) and local
     minimal-example verification (`example.minimal`) are two independent questions --
@@ -53,15 +62,65 @@ def _local_verification_facts(
 
     facts: list[FactRecordV2] = []
     local_result = None
-    if truth is not None:
-        snapshot = current_repository_snapshot(org_repo)
+    snapshot = current_repository_snapshot(org_repo)
+    ecosystem = getattr(entry, "ecosystem", None)
+
+    def verify_example(example):
+        if snapshot is None:
+            return None
+        if ecosystem == "net":
+            selected_manifest = (
+                root_roles.selected_product_manifest_path if root_roles is not None else None
+            )
+            return verify_local_product_example(
+                snapshot,
+                example,
+                isolated_verifier=lambda active_snapshot, active_example: (
+                    dotnet_example_verifier.verify(
+                        active_snapshot,
+                        active_example,
+                        selected_product_manifest_path=selected_manifest,
+                    )
+                ),
+            )
+        return verify_local_product_example(snapshot, example)
+
+    example = truth.minimal_example if truth is not None else None
+    example_origin = "policy" if example is not None else "repository"
+    failures: list[str] = []
+    if example is not None:
         failures = evidence_failures(
             root,
-            truth.minimal_example.evidence_paths,
-            truth.minimal_example.required_symbols,
+            example.evidence_paths,
+            example.required_symbols,
         )
         if snapshot is not None and local_fact_verification_allowed() and not failures:
-            local_result = verify_local_product_example(snapshot, truth.minimal_example)
+            local_result = verify_example(example)
+    if (
+        ecosystem == "net"
+        and snapshot is not None
+        and local_fact_verification_allowed()
+        and (local_result is None or not local_result.truth_eligible)
+    ):
+        repository_candidates = [
+            *repository_source_example_candidates(root, "dotnet"),
+            *repository_readme_example_candidates(root, "dotnet"),
+        ]
+        if repository_candidates:
+            selection = select_verified_repository_example(
+                root,
+                source_revision=source_revision,
+                requested=repository_candidates[0],
+                verify_example_fn=verify_example,
+            )
+            if selection.outcome in {"VERIFIED", "TERMINAL_PRODUCT_FAILURE"}:
+                assert selection.example is not None
+                assert selection.verification is not None
+                example = selection.example
+                example_origin = "repository"
+                local_result = selection.verification
+                failures = []
+    if example is not None:
         if local_result is None:
             example_outcome = "BLOCKED_LOCAL_VERIFICATION"
             example_detail = (
@@ -79,12 +138,14 @@ def _local_verification_facts(
         )
         facts.append(
             FactRecordV2(
-                fact_id=descriptive_fact_id("example.minimal", "compiled-policy-example"),
+                fact_id=descriptive_fact_id(
+                    "example.minimal", f"compiled-{example_origin}-example"
+                ),
                 field="example.minimal",
                 value={
-                    "language": truth.minimal_example.language,
-                    "class_name": truth.minimal_example.class_name,
-                    "code": truth.minimal_example.code,
+                    "language": example.language,
+                    "class_name": example.class_name,
+                    "code": example.code,
                     "verification_outcome": example_outcome,
                     "verification_detail": example_detail,
                     **(
@@ -238,6 +299,7 @@ def collect_product_facts(
             source_revision,
             observed_at,
             root_roles=package_root_roles,
+            snapshot=snapshot,
         )
     )
     manifest_coordinate = None
@@ -272,6 +334,7 @@ def collect_product_facts(
         policy,
         entry,
         manifest_coordinate,
+        package_root_roles,
     )
     candidates.extend(local_candidates)
     resolved = resolve_product_facts(
@@ -286,6 +349,31 @@ def collect_product_facts(
         missing_field_surfaces=SURFACE_DEPENDENCIES,
         package_root_roles=package_root_roles,
     )
+    problem_fallback = derive_grounded_problem_fallback(
+        resolved,
+        source_revision,
+        observed_at,
+        max_statements=2 if entry.ecosystem == "net" else 4,
+    )
+    if (
+        resolved.selected_fact("product.problems_solved").verification_state
+        not in {"verified", "policy_approved"}
+        and problem_fallback is not None
+    ):
+        _claims, problem_fact = problem_fallback
+        candidates.append(problem_fact)
+        resolved = resolve_product_facts(
+            org_repo,
+            candidates,
+            missing_source=FactSourceV2(
+                source_type="mechanical_repository",
+                location=f"repository://{org_repo}",
+                source_revision=source_revision,
+                retrieved_at=observed_at,
+            ),
+            missing_field_surfaces=SURFACE_DEPENDENCIES,
+            package_root_roles=package_root_roles,
+        )
     active_facts = current_product_facts(org_repo)
     if active_facts is not None:
         identity_revision = active_facts.selected_fact("product.identity").source.source_revision

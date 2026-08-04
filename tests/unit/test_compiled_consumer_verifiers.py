@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
+from types import SimpleNamespace
+from xml.etree import ElementTree
 
 import pytest
 
@@ -13,12 +16,21 @@ from readme_agent.facts import (
     go_example_verifier,
     java_example_verifier,
 )
+from readme_agent.facts.compiled_consumer import copy_snapshot
+from readme_agent.facts.dotnet_legacy_reference_fallback import (
+    apply_repository_assembly_reference_fallback,
+)
+from readme_agent.facts.dotnet_project_closure import dotnet_project_export_paths
+from readme_agent.facts.dotnet_source_generator_fallback import (
+    apply_checked_in_generator_fallback,
+)
 from readme_agent.facts.isolated_execution_schema import (
     ContainerCleanupV1,
     ContainerImageIdentityV1,
     IsolatedExecutionRequestV1,
     IsolatedExecutionResultV1,
 )
+from readme_agent.profile.schema import PackageRoot
 from readme_agent.registry.models import MinimalExamplePolicy
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
@@ -156,10 +168,28 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
         encoding="utf-8",
     )
     calls: list[IsolatedExecutionRequestV1] = []
+    snapshot = _snapshot(tmp_path)
+    acquisition = SimpleNamespace(
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        snapshot_inventory_sha256=snapshot.inventory_sha256,
+        selected_manifest_path="src/Widget/Widget.csproj",
+        target_framework="net8.0",
+        image=SimpleNamespace(requested_reference=dotnet_example_verifier.DOTNET_8_IMAGE),
+        inventory_sha256="f" * 64,
+        project_transformations=[],
+    )
+    bundle = SimpleNamespace(acquisition=acquisition)
+    materialized: list[Path] = []
     monkeypatch.setattr(dotnet_example_verifier, "verify_repository_snapshot", lambda _: None)
+    monkeypatch.setattr(
+        dotnet_example_verifier,
+        "materialize_dotnet_dependencies",
+        lambda _bundle, destination, **_kwargs: materialized.append(destination),
+    )
 
     result = dotnet_example_verifier.verify(
-        _snapshot(tmp_path),
+        snapshot,
         _example(
             "dotnet",
             "using Aspose.Cells_FOSS;\n"
@@ -168,6 +198,7 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
             "var helper = new CellsHelper();\n",
         ),
         executor=_successful_executor(calls),
+        dependency_acquirer=lambda *_args, **_kwargs: bundle,
     )
 
     assert result.truth_eligible
@@ -176,6 +207,7 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
         "Aspose.Cells_FOSS.Workbook",
     ]
     assert "-p:RestoreConfigFile=/workspace/.readme-agent/NuGet.Config" in calls[0].argv[-1]
+    assert "-p:GenerateDocumentationFile=false" in calls[0].argv[-1]
     assert "dotnet --version" in calls[0].argv[-1]
     assert set(calls[0].environment) == {
         "DOTNET_CLI_HOME",
@@ -187,6 +219,157 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
         "TMPDIR",
     }
     assert calls[0].policy.network_mode == "none"
+    assert materialized and materialized[0].name == "nuget-packages"
+    assert "nuget_inventory_sha256=" + "f" * 64 in result.acquisition_dependency_pins
+    assert calls[0].environment["NUGET_PACKAGES"] == ("/workspace/.readme-agent/nuget-packages")
+
+
+def test_snapshot_copy_can_exclude_dotnet_build_generated_trees(tmp_path):
+    source = tmp_path / "source"
+    generated = source / "Generated" / "Generator"
+    generated.mkdir(parents=True)
+    (generated / "Transient.cs").write_text("generated", encoding="utf-8")
+    (source / "Product.cs").write_text("source", encoding="utf-8")
+    destination = tmp_path / "destination"
+
+    copy_snapshot(
+        _snapshot(source),
+        destination,
+        ignored_names=("Generated", "generated"),
+    )
+
+    assert (destination / "Product.cs").read_text(encoding="utf-8") == "source"
+    assert not (destination / "Generated").exists()
+
+
+def test_snapshot_copy_exports_committed_git_bytes_and_ignores_untracked_files(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    subprocess.run(["git", "init", "-q", str(source)], check=True)
+    subprocess.run(
+        ["git", "-C", str(source), "config", "user.email", "fixture@example.test"],
+        check=True,
+    )
+    subprocess.run(
+        ["git", "-C", str(source), "config", "user.name", "Fixture"],
+        check=True,
+    )
+    (source / "Product.cs").write_text("source", encoding="utf-8")
+    subprocess.run(["git", "-C", str(source), "add", "Product.cs"], check=True)
+    subprocess.run(["git", "-C", str(source), "commit", "-qm", "fixture"], check=True)
+    revision = subprocess.run(
+        ["git", "-C", str(source), "rev-parse", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    (source / "untracked.txt").write_text("not immutable", encoding="utf-8")
+    snapshot = _snapshot(source).model_copy(update={"source_revision": revision})
+    destination = tmp_path / "destination"
+
+    copy_snapshot(snapshot, destination)
+
+    assert (destination / "Product.cs").read_text(encoding="utf-8") == "source"
+    assert not (destination / "untracked.txt").exists()
+
+
+def test_targeted_snapshot_export_preserves_product_source_named_artifacts(tmp_path):
+    source = tmp_path / "source"
+    artifact_source = source / "src" / "Artifacts" / "ArtifactCollection.cs"
+    artifact_source.parent.mkdir(parents=True)
+    artifact_source.write_text("public class ArtifactCollection {}", encoding="utf-8")
+    destination = tmp_path / "destination"
+
+    copy_snapshot(_snapshot(source), destination, included_paths=("src",))
+
+    assert (destination / "src" / "Artifacts" / "ArtifactCollection.cs").is_file()
+
+
+def test_dotnet_project_export_closure_includes_references_and_root_build_files(tmp_path):
+    product = tmp_path / "Product" / "Product.csproj"
+    foundation = tmp_path / "Foundation" / "Foundation.csproj"
+    legacy_assembly = tmp_path / "packages" / "Legacy" / "lib" / "Legacy.dll"
+    product.parent.mkdir()
+    foundation.parent.mkdir()
+    legacy_assembly.parent.mkdir(parents=True)
+    legacy_assembly.write_bytes(b"fixture assembly")
+    product.write_text(
+        '<Project Sdk="Microsoft.NET.Sdk"><ItemGroup>'
+        '<ProjectReference Include="..\\Foundation\\Foundation.csproj" />'
+        '<Reference Include="..\\packages\\Legacy\\lib\\Legacy.dll" />'
+        "</ItemGroup></Project>",
+        encoding="utf-8",
+    )
+    foundation.write_text('<Project Sdk="Microsoft.NET.Sdk" />', encoding="utf-8")
+    (tmp_path / "Directory.Build.props").write_text("<Project />", encoding="utf-8")
+
+    assert dotnet_project_export_paths(tmp_path, product) == (
+        "Directory.Build.props",
+        "Foundation",
+        "packages/Legacy/lib/Legacy.dll",
+        "Product",
+    )
+
+
+def test_dotnet_project_export_closure_rejects_dynamic_references(tmp_path):
+    product = tmp_path / "Product.csproj"
+    product.write_text(
+        '<Project><ItemGroup><ProjectReference Include="$(Shared)/Shared.csproj" />'
+        "</ItemGroup></Project>",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="literal repository path"):
+        dotnet_project_export_paths(tmp_path, product)
+
+
+def test_dotnet_legacy_repository_assembly_reference_is_normalized(tmp_path):
+    project = tmp_path / "Product" / "Product.csproj"
+    assembly = tmp_path / "packages" / "Legacy" / "lib" / "Legacy.dll"
+    project.parent.mkdir()
+    assembly.parent.mkdir(parents=True)
+    assembly.write_bytes(b"fixture assembly")
+    project.write_text(
+        '<Project><ItemGroup><Reference Include="..\\packages\\Legacy\\lib\\Legacy.dll" />'
+        "</ItemGroup></Project>",
+        encoding="utf-8",
+    )
+
+    transformations = apply_repository_assembly_reference_fallback(tmp_path)
+
+    assert transformations == ("Product/Product.csproj:repository-assembly-reference-hint-paths=1",)
+    root = ElementTree.parse(project).getroot()
+    reference = next(item for item in root.iter() if item.tag == "Reference")
+    assert reference.attrib["Include"] == "Legacy"
+    assert next(item for item in reference if item.tag == "HintPath").text == (
+        "..\\packages\\Legacy\\lib\\Legacy.dll"
+    )
+
+
+def test_dotnet_generator_fallback_requires_private_reference_and_checked_in_output(tmp_path):
+    project = tmp_path / "Product" / "Product.csproj"
+    generated = project.parent / "Generated"
+    generated.mkdir(parents=True)
+    (generated / "EnumExtensions.cs").write_text(
+        "namespace Aspose.Widget; public static class EnumExtensions {}",
+        encoding="utf-8",
+    )
+    project.write_text(
+        '<Project Sdk="Microsoft.NET.Sdk"><ItemGroup>'
+        '<PackageReference Include="Aspose.EnumExtensionsGenerator" Version="1.0.2" '
+        'PrivateAssets="all" ExcludeAssets="runtime" />'
+        "</ItemGroup></Project>",
+        encoding="utf-8",
+    )
+
+    transformations = apply_checked_in_generator_fallback(tmp_path)
+    normalized = project.read_text(encoding="utf-8")
+
+    assert transformations == (
+        "Product/Product.csproj:Aspose.EnumExtensionsGenerator->checked-in-generated-source",
+    )
+    assert "Aspose.EnumExtensionsGenerator" not in normalized
+    assert "<IncludeGenerated>true</IncludeGenerated>" in normalized
 
 
 def test_cpp_consumer_binds_public_headers_and_namespace(tmp_path, monkeypatch):
@@ -345,6 +528,121 @@ def test_dotnet_project_selection_prefers_main_library(tmp_path):
     library.write_text("<Project />\n", encoding="utf-8")
 
     assert dotnet_example_verifier._project(_snapshot(tmp_path)) == library
+
+
+def test_dotnet_project_selection_accepts_root_role_manifest_with_windows_separators(tmp_path):
+    foundation = tmp_path / "Aspose.Foundation/Aspose.Foundation/Aspose.Foundation.csproj"
+    words = tmp_path / "Aspose.Words/Aspose.Words.csproj"
+    foundation.parent.mkdir(parents=True)
+    words.parent.mkdir(parents=True)
+    foundation.write_text("<Project />\n", encoding="utf-8")
+    words.write_text("<Project />\n", encoding="utf-8")
+    snapshot = _snapshot(tmp_path).model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path=r"Aspose.Foundation\Aspose.Foundation",
+                    ecosystem="net",
+                    manifest_path=(r"Aspose.Foundation\Aspose.Foundation\Aspose.Foundation.csproj"),
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+                PackageRoot(
+                    path="Aspose.Words",
+                    ecosystem="net",
+                    manifest_path=r"Aspose.Words\Aspose.Words.csproj",
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+            )
+        }
+    )
+
+    assert (
+        dotnet_example_verifier._project(
+            snapshot,
+            "Aspose.Words/Aspose.Words.csproj",
+        )
+        == words
+    )
+
+
+def test_dotnet_consumer_selects_pinned_net9_image_and_target(tmp_path, monkeypatch):
+    project = tmp_path / "Aspose.Words/Aspose.Words.csproj"
+    project.parent.mkdir(parents=True)
+    project.write_text(
+        '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>'
+        "<TargetFramework>net9.0</TargetFramework>"
+        "</PropertyGroup></Project>",
+        encoding="utf-8",
+    )
+    (project.parent / "Document.cs").write_text(
+        "namespace Aspose.Words; public class Document { public Document() {} }\n",
+        encoding="utf-8",
+    )
+    snapshot = _snapshot(tmp_path).model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path="Aspose.Words",
+                    ecosystem="net",
+                    manifest_path="Aspose.Words/Aspose.Words.csproj",
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+            )
+        }
+    )
+    calls: list[IsolatedExecutionRequestV1] = []
+    monkeypatch.setattr(dotnet_example_verifier, "verify_repository_snapshot", lambda _: None)
+
+    result = dotnet_example_verifier.verify(
+        snapshot,
+        _example(
+            "dotnet",
+            "using Aspose.Words;\nvar document = new Document();\n",
+        ),
+        executor=_successful_executor(calls),
+        selected_product_manifest_path="Aspose.Words/Aspose.Words.csproj",
+        dependency_acquirer=lambda *_args, **_kwargs: None,
+    )
+
+    assert result.truth_eligible
+    assert calls[0].policy.immutable_image == dotnet_example_verifier.DOTNET_9_IMAGE
+    assert "-p:TargetFramework=net9.0" in calls[0].argv[-1]
+    assert "-p:TargetFrameworks=net9.0" in calls[0].argv[-1]
+    assert "dotnet_sdk=9.0.316" in result.acquisition_dependency_pins
+    assert "dotnet_target_framework=net9.0" in result.acquisition_dependency_pins
+    assert "-p:RestoreConfigFile=/workspace/.readme-agent/NuGet.Config" in calls[0].argv[-1]
+    assert calls[0].policy.network_mode == "none"
+
+
+def test_dotnet_consumer_rejects_unbound_selected_project_and_net8_for_net9_only(tmp_path):
+    project = tmp_path / "Aspose.Words/Aspose.Words.csproj"
+    project.parent.mkdir(parents=True)
+    project.write_text(
+        "<Project><PropertyGroup><TargetFramework>net9.0</TargetFramework>"
+        "</PropertyGroup></Project>",
+        encoding="utf-8",
+    )
+    snapshot = _snapshot(tmp_path).model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path="Aspose.Words",
+                    ecosystem="net",
+                    manifest_path="Aspose.Words/Aspose.Words.csproj",
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+            )
+        }
+    )
+
+    with pytest.raises(ValueError, match="not bound"):
+        dotnet_example_verifier._project(snapshot, "Other/Other.csproj")
+    with pytest.raises(ValueError, match="cannot reference a net9-only"):
+        dotnet_example_verifier._target_framework(project, "net8.0")
 
 
 def test_java_class_name_cannot_escape_control_directory(tmp_path, monkeypatch):

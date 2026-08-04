@@ -8,6 +8,7 @@ import subprocess
 import pytest
 from pydantic import ValidationError
 
+from readme_agent.facts.isolated_docker_control import ensure_container_image
 from readme_agent.facts.isolated_execution import IsolatedExecutionError, execute_isolated
 from readme_agent.facts.isolated_execution_inputs import build_isolated_input_bundle
 from readme_agent.facts.isolated_execution_schema import (
@@ -114,6 +115,40 @@ class ScriptedDockerRunner:
                 stdout="" if name in self.removed_volumes else f"{name}\n",
             )
         raise AssertionError(f"unexpected Docker command: {argv}")
+
+
+class ProvisioningDockerRunner(ScriptedDockerRunner):
+    """Require one exact image pull before the normal executor commands can run."""
+
+    def __init__(self, *, pull_failures: int = 0) -> None:
+        super().__init__()
+        self.image_available = False
+        self.pull_failures = pull_failures
+
+    def run(
+        self,
+        argv: list[str],
+        *,
+        timeout_seconds: float,
+        input_bytes: bytes | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        if argv[:2] == ["image", "inspect"] and not self.image_available:
+            self.commands.append(argv)
+            return _completed(argv, returncode=1, stderr=f"No such image: {IMAGE}")
+        if argv[:1] == ["pull"]:
+            self.commands.append(argv)
+            assert argv == ["pull", IMAGE]
+            assert timeout_seconds == 600
+            if self.pull_failures:
+                self.pull_failures -= 1
+                return _completed(argv, returncode=1, stderr="registry temporarily unavailable")
+            self.image_available = True
+            return _completed(argv, stdout=f"Digest: {IMAGE.split('@', 1)[1]}\n")
+        return super().run(
+            argv,
+            timeout_seconds=timeout_seconds,
+            input_bytes=input_bytes,
+        )
 
 
 class UncertainCleanupRunner(ScriptedDockerRunner):
@@ -319,6 +354,39 @@ def test_executor_uses_named_volume_hardening_and_complete_cleanup(tmp_path):
         assert "\0".join(expected) in joined
     assert str(tmp_path) not in "\0".join(execution_create)
     assert any(argv[:2] == ["cp", "-"] for argv in runner.commands)
+
+
+def test_executor_provisions_missing_digest_pinned_image_and_continues(tmp_path):
+    runner = ProvisioningDockerRunner()
+
+    result = execute_isolated(_request(tmp_path), runner=runner)
+
+    assert result.truth_eligible is True
+    assert result.image.repo_digest == IMAGE
+    assert [argv[:1] for argv in runner.commands].count(["pull"]) == 1
+    assert [argv[:2] for argv in runner.commands].count(["image", "inspect"]) == 2
+
+
+def test_image_provisioning_retries_transient_registry_failure():
+    runner = ProvisioningDockerRunner(pull_failures=1)
+
+    identity = ensure_container_image(runner, IMAGE, sleep=lambda _seconds: None)
+
+    assert identity.repo_digest == IMAGE
+    assert [argv[:1] for argv in runner.commands].count(["pull"]) == 2
+    assert [argv[:2] for argv in runner.commands].count(["image", "inspect"]) == 2
+
+
+def test_image_provisioning_fails_closed_after_bounded_registry_retries():
+    runner = ProvisioningDockerRunner(pull_failures=10)
+
+    with pytest.raises(
+        IsolatedExecutionError,
+        match="remained unavailable after bounded retry",
+    ):
+        ensure_container_image(runner, IMAGE, sleep=lambda _seconds: None)
+
+    assert [argv[:1] for argv in runner.commands].count(["pull"]) == 3
 
 
 def test_cancellation_still_removes_containers_and_volume(tmp_path):

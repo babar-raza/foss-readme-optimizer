@@ -28,6 +28,20 @@ def test_indexes_exact_public_namespaces_and_ignores_test_sources(tmp_path: Path
     assert index["Box"].qualified_name == "Aspose.ThreeD.Entities.Box"
 
 
+def test_ignores_ephemeral_generated_sources(tmp_path: Path) -> None:
+    _write_type(tmp_path, "src/Document.cs", "Aspose.Words", "Document")
+    _write_type(
+        tmp_path,
+        "Generated/EnumGenerator/FieldTokenDecoderOptionsUtil.cs",
+        "Aspose.Words.Generated",
+        "FieldTokenDecoderOptionsUtil",
+    )
+
+    index = public_dotnet_type_index(tmp_path)
+
+    assert set(index) == {"Document"}
+
+
 def test_adds_only_missing_namespace_for_unqualified_public_type(tmp_path: Path) -> None:
     _write_type(tmp_path, "src/Scene.cs", "Aspose.ThreeD", "Scene")
     _write_type(tmp_path, "src/Entities/Box.cs", "Aspose.ThreeD.Entities", "Box")

@@ -115,10 +115,7 @@ class TestLocalVerificationFactsWithoutProductTruth:
         assert acquisition.confidence == 0.0
 
     def test_no_example_minimal_fact_is_produced_without_product_truth(self, monkeypatch):
-        """Correct, not a regression: there is genuinely no example to compile without a
-        policy-authored minimal_example -- only the acquisition fact is restored by this
-        fix, example.minimal legitimately stays absent (and resolve_product_facts() will
-        mark it 'missing', an honest reflection of reality)."""
+        """A non-.NET repository still needs a governed example source or policy example."""
         monkeypatch.setattr(
             provider,
             "collect_acquisition_fact",
@@ -133,6 +130,71 @@ class TestLocalVerificationFactsWithoutProductTruth:
         )
 
         assert "example.minimal" not in {f.field for f in facts}
+
+
+def test_dotnet_repository_example_uses_selected_product_manifest(monkeypatch):
+    example = SimpleNamespace(
+        language="dotnet",
+        class_name="ReadmeExample",
+        code="using Aspose.Words;\nvar document = new Document();\n",
+        evidence_paths=["examples/quickstart/Program.cs"],
+        required_symbols=["Document"],
+    )
+    verification = _VerifiedRustResult()
+    observed_manifests = []
+    monkeypatch.setattr(provider, "current_repository_snapshot", lambda _org_repo: object())
+    monkeypatch.setattr(provider, "local_fact_verification_allowed", lambda: True)
+    monkeypatch.setattr(
+        provider,
+        "repository_source_example_candidates",
+        lambda _root, _language: [example],
+    )
+    monkeypatch.setattr(
+        provider,
+        "repository_readme_example_candidates",
+        lambda _root, _language: [],
+    )
+
+    def select(*_args, requested, verify_example_fn, **_kwargs):
+        result = verify_example_fn(requested)
+        return SimpleNamespace(outcome="VERIFIED", example=requested, verification=result)
+
+    monkeypatch.setattr(provider, "select_verified_repository_example", select)
+
+    def dotnet_verify(_snapshot, _example, *, selected_product_manifest_path):
+        observed_manifests.append(selected_product_manifest_path)
+        return verification
+
+    monkeypatch.setattr(provider.dotnet_example_verifier, "verify", dotnet_verify)
+    monkeypatch.setattr(
+        provider,
+        "verify_local_product_example",
+        lambda snapshot, selected, *, isolated_verifier=None: isolated_verifier(snapshot, selected),
+    )
+    monkeypatch.setattr(
+        provider,
+        "collect_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_registry_fact("nuget"),
+    )
+
+    facts, local_verification = provider._local_verification_facts(
+        "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+        "a" * 40,
+        None,
+        root=object(),
+        policy=SimpleNamespace(product_truth=None),
+        entry=SimpleNamespace(ecosystem="net"),
+        root_roles=SimpleNamespace(
+            selected_product_manifest_path="Aspose.Words/Aspose.Words.csproj"
+        ),
+    )
+
+    assert observed_manifests == ["Aspose.Words/Aspose.Words.csproj"]
+    example_fact = next(fact for fact in facts if fact.field == "example.minimal")
+    assert example_fact.verification_state == "verified"
+    assert example_fact.fact_id == "example.minimal:compiled-repository-example"
+    assert example_fact.value["code"] == example.code
+    assert local_verification["outcome"] == "SOURCE_BUILD_VERIFIED"
 
 
 class _VerifiedRustResult:

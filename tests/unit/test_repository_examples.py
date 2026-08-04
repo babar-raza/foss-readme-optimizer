@@ -141,6 +141,27 @@ job.run()  # The output is written by the configured device.
     assert any('"https://example.test/#literal"' in candidate.code for candidate in candidates)
 
 
+def test_dotnet_readme_candidate_strips_comments_without_changing_string_literals(tmp_path):
+    (tmp_path / "README.md").write_text(
+        """# Cells
+
+```csharp
+using Aspose.Cells;
+
+var workbook = new Workbook("https://example.test/input.xlsx"); // Load a workbook.
+workbook.Save("output.pdf");
+```
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "dotnet")
+
+    assert candidates
+    assert all("Load a workbook" not in candidate.code for candidate in candidates)
+    assert any('"https://example.test/input.xlsx"' in candidate.code for candidate in candidates)
+
+
 def test_python_readme_fence_yields_smallest_self_contained_public_operation(tmp_path):
     (tmp_path / "pyproject.toml").write_text(
         '[project]\nname = "cssforge"\n[tool.setuptools.packages.find]\ninclude = ["engine*"]\n',
@@ -248,6 +269,50 @@ def test_go_source_examples_reject_sensitive_and_non_module_consumers(tmp_path):
     )
 
     assert repository_source_example_candidates(tmp_path, "go") == []
+
+
+def test_dotnet_source_example_accepts_bounded_complete_program(tmp_path):
+    examples = tmp_path / "examples" / "quickstart"
+    examples.mkdir(parents=True)
+    (examples / "Program.cs").write_text(
+        "using Aspose.Words;\n\n"
+        "// Repository commentary is not visitor-facing code.\n"
+        'var document = new Document("input.docx");\n'
+        'document.Save("output.pdf");\n',
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "dotnet")
+
+    assert len(candidates) == 1
+    assert candidates[0].evidence_paths == ["examples/quickstart/Program.cs"]
+    assert "Repository commentary" not in candidates[0].code
+    assert "Document" in candidates[0].required_symbols
+    assert 'document.Save("output.pdf");' in candidates[0].code
+
+
+def test_dotnet_source_examples_reject_fragments_sensitive_paths_and_oversized_programs(
+    tmp_path,
+):
+    fragment = tmp_path / "examples" / "fragment"
+    sensitive = tmp_path / "samples" / "token"
+    oversized = tmp_path / "examples" / "oversized"
+    fragment.mkdir(parents=True)
+    sensitive.mkdir(parents=True)
+    oversized.mkdir(parents=True)
+    (fragment / "Example.cs").write_text(
+        "using Aspose.Words;\nvar document = new Document();\n", encoding="utf-8"
+    )
+    (sensitive / "Program.cs").write_text(
+        "using Aspose.Words;\nvar document = new Document();\n", encoding="utf-8"
+    )
+    (oversized / "Program.cs").write_text(
+        "using Aspose.Words;\nvar document = new Document();\n"
+        + ('document.Save("output.docx");\n' * 100),
+        encoding="utf-8",
+    )
+
+    assert repository_source_example_candidates(tmp_path, "dotnet") == []
 
 
 def test_python_source_example_extracts_one_self_contained_public_operation(tmp_path):

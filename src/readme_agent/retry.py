@@ -17,6 +17,7 @@ OperationClass = Literal[
     "state_cas",
     "clone",
     "package_registry",
+    "toolchain_registry",
     "github_write",
 ]
 T = TypeVar("T")
@@ -60,6 +61,12 @@ RETRY_POLICIES: dict[OperationClass, RetryPolicyV1] = {
         max_attempts=3,
         initial_seconds=1,
         maximum_seconds=20,
+    ),
+    "toolchain_registry": RetryPolicyV1(
+        operation_class="toolchain_registry",
+        max_attempts=3,
+        initial_seconds=2,
+        maximum_seconds=30,
     ),
     "github_write": RetryPolicyV1(
         operation_class="github_write",

@@ -20,7 +20,7 @@ from readme_agent.facts.isolated_cleanup import remove_docker_resource
 from readme_agent.facts.isolated_docker_control import (
     DockerCommandRunner,
     IsolatedExecutionError,
-    inspect_container_image,
+    ensure_container_image,
 )
 from readme_agent.facts.isolated_execution import LocalDockerCommandRunner
 from readme_agent.facts.rust_dependency_schema import RustDependencyAcquisitionV1
@@ -247,7 +247,7 @@ def acquire_rust_dependencies(
             return bundle
 
         active_runner = runner or LocalDockerCommandRunner()
-        image = inspect_container_image(active_runner, immutable_image)
+        image = ensure_container_image(active_runner, immutable_image)
         with tempfile.TemporaryDirectory(prefix=".pending-rust-", dir=root) as temp:
             workspace = Path(temp) / "workspace"
             package_copy = workspace / "package"

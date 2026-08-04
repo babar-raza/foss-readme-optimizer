@@ -4,10 +4,10 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "0858ef4760c714832481fc59dd2a8e3b1764c594a1f59effb6b2365d0891ef29",
+  "source_sha256": "89a239f461c702d752e1d565733596aa398e349a92487da7d953510bf2d2a78e",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 464,
-  "mandatory_requirement_rows": 414,
+  "total_requirement_rows": 465,
+  "mandatory_requirement_rows": 415,
   "excluded_backlog_rows": 28,
   "excluded_deprecated_rows": 22,
   "reopened_implemented_rows": 0,
@@ -15,7 +15,7 @@
     "active_governance": 35,
     "excluded_backlog": 28,
     "excluded_deprecated": 22,
-    "open_mandatory": 224,
+    "open_mandatory": 225,
     "preserved_verified": 155
   },
   "taskcard_counts": {
@@ -55,7 +55,7 @@
     "L8-TRUTH-02B-PYTHON-API-TRUTH": 1,
     "L8-TRUTH-02C-TYPESCRIPT-EXPORT-TRUTH": 1,
     "L8-TRUTH-02D-RUST-API-TRUTH": 1,
-    "L8-TRUTH-03A-ISOLATED-EXECUTOR": 1,
+    "L8-TRUTH-03A-ISOLATED-EXECUTOR": 2,
     "L8-TRUTH-07-SEVEN-ECOSYSTEMS": 1,
     "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 2,
     "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
@@ -3786,6 +3786,14 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-045",
+      "priority": "P0",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }
