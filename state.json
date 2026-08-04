@@ -1006,6 +1006,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-011206-5780:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
     },
+    "92c90f1d278e037655b2686d77373d94a1d4d119db712b4409648e72a9834811": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "92c90f1d278e037655b2686d77373d94a1d4d119db712b4409648e72a9834811",
+      "completed_at": "2026-08-04T09:45:07.476224+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "run_id": "20260804-094459-2683",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-04T09:45:07.476210+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-163545-670c:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+    },
     "93557822a154c21c10b15e760c7eaf409fd1ace6b59ad8a882a35dd8697332dc": {
       "action": null,
       "attempt": 1,
@@ -8922,7 +8939,7 @@
     "updated_at": "2026-08-03T08:52:05.180971+00:00"
   },
   "schema_version": 2,
-  "state_version": 368,
+  "state_version": 369,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "95265de0c5fbc571e4d787c014da96d40194986e644c7ef5c9a995e309adc3d5",
@@ -9203,11 +9220,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "b55db889861edbe913820a188c640b2f7d93f438ee577292a526e152dcfe9ce1",
+      "last_checkpoint_id": "92c90f1d278e037655b2686d77373d94a1d4d119db712b4409648e72a9834811",
       "lease_expires_at": null,
       "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T09:44:50.624842+00:00"
+      "updated_at": "2026-08-04T09:45:07.476224+00:00"
     },
     "operator:20260801-163558-d498:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-01T16:36:05.205516+00:00",
