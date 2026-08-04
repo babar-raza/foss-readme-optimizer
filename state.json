@@ -6505,7 +6505,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "4c666736d76a8c4b15ac0710285a8646fe10ddd290eab34cce8d956b19bea4eb",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "0eb586b4f29188a204999cd407d654cb19f900b1f2d12304615d665050fea4df",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -6862,6 +6862,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\330d4dbf9cc33ace0e39\\r\\c30d68f488692d90\\s\\4473f8cbeef1\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-04T11:06:41.055635+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "intake_preflight_history": [
@@ -6890,11 +6902,11 @@
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-04T11:06:35.444919+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-04T11:06:41.055635+00:00"
   },
   "schema_version": 2,
-  "state_version": 117,
+  "state_version": 118,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
