@@ -597,15 +597,15 @@
         "fact_citations": {
           "metadata.description": [
             "product.identity:manifest-and-registry",
-            "product.audience:agent-drafted-grounded",
-            "product.problems_solved:agent-drafted-grounded"
+            "product.audience:platform-derived",
+            "product.problems_solved:capability-derived"
           ],
           "metadata.homepage": [
             "documentation.links:primary"
           ],
           "metadata.topics": [
             "product.capabilities:repository-evidence",
-            "product.formats:repository-evidence",
+            "product.formats:native-direction-evidence",
             "product.platforms:manifest"
           ]
         },
@@ -619,7 +619,7 @@
       "domain": "metadata_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T09:42:25.979263+00:00",
+      "last_run_timestamp": "2026-08-04T10:40:13.905201+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
@@ -7286,7 +7286,7 @@
     "updated_at": "2026-08-04T10:38:57.391383+00:00"
   },
   "schema_version": 2,
-  "state_version": 124,
+  "state_version": 125,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2f1d53504bdb7ddb0bcc12ea1ed2ddd53ecc0a2ee98c0ab324b65508015e6d73",
