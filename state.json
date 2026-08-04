@@ -22,7 +22,7 @@
       "GOAL-V1-VERIFIED-TRUTH",
       "GOAL-V2-VERIFIED-GATE-A"
     ],
-    "goal_activation_graph_sha256": "cd35463e3c78eebb2c83f1720ca9c38c13e22563098ce028977567f54d2f0319",
+    "goal_activation_graph_sha256": "c38296a50a30c514f96dec63a270e413652893d20c15385070b531184d2d113d",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -125,15 +125,15 @@
         "to_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC"
       }
     ],
-    "graph_sha256": "cd35463e3c78eebb2c83f1720ca9c38c13e22563098ce028977567f54d2f0319",
-    "last_evaluated_at": "2026-08-04T16:36:13.817666+00:00",
+    "graph_sha256": "c38296a50a30c514f96dec63a270e413652893d20c15385070b531184d2d113d",
+    "last_evaluated_at": "2026-08-04T17:40:01.126714+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 3,
-      "candidate_generated": 3,
+      "agent_approved": 4,
+      "candidate_generated": 4,
       "denominator": 31,
-      "derived_at": "2026-08-04T16:34:05.657042+00:00",
-      "deterministic_validated": 3,
-      "facts_ready": 4,
+      "derived_at": "2026-08-04T16:47:35.858451+00:00",
+      "deterministic_validated": 4,
+      "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -146,7 +146,7 @@
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 1,
+      "no_op_proven": 2,
       "raw_agent_approved": 12,
       "raw_candidate_generated": 16,
       "raw_deterministic_validated": 16,
@@ -203,10 +203,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -6482,7 +6478,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 745,
+  "state_version": 746,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
