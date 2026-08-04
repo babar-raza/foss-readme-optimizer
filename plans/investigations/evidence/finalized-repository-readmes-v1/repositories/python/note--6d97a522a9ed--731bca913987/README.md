@@ -1,6 +1,6 @@
 # Aspose.Note FOSS for Python
 
-[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
+[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
 
 Aspose.Note FOSS for Python provides Document and traversal for developers using Python.
 
@@ -27,13 +27,18 @@ flowchart LR
 
   product["Aspose.Note FOSS for Python"]
 
-  subgraph Capabilities["Core capabilities"]
+  subgraph Capabilities1["Core capabilities 1 of 2"]
     capability_1["Document and traversal"]
     capability_2["Page and Title nodes"]
     capability_3["RichText with formatting runs"]
     capability_4["Image and AttachedFile content"]
     capability_5["Table with rows and cells"]
     capability_6["OneNote tags on content nodes"]
+  end
+
+  subgraph Capabilities2["Core capabilities 2 of 2"]
+    capability_7["Numbered lists and outline elements"]
+    capability_8["PDF export via SaveFormat.Pdf"]
   end
 
   subgraph Outputs["Outputs and accessible content"]
@@ -47,6 +52,8 @@ flowchart LR
   product --- capability_4
   product --- capability_5
   product --- capability_6
+  product --- capability_7
+  product --- capability_8
   product --- output_1
 ```
 
@@ -73,6 +80,8 @@ Optional dependency groups declared in `pyproject.toml`:
 - `dev`: `python -m pip install "aspose-note[dev]"`
 - `pdf`: `python -m pip install "aspose-note[pdf]"`
 - `test-pdf`: `python -m pip install "aspose-note[test-pdf]"`
+
+- optional capability: `python -m pip install reportlab`
 
 ## Quick start
 

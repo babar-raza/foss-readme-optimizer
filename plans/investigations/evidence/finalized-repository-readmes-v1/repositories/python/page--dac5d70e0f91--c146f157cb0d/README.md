@@ -2,7 +2,7 @@
 
 [![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)
 
-Aspose.Page FOSS for Python provides PS/EPS to PDF conversion for developers using Python. Its verified scope also includes PS/EPS to image conversion, XPS to PDF conversion, XPS to image conversion, MCP server hosting, and EPS metadata extraction.
+Aspose.Page FOSS for Python provides PS/EPS to PDF conversion for developers using Python.
 
 ## Navigation
 
