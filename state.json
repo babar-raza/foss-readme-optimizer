@@ -1853,69 +1853,25 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "3d4c6ae5c2cff45efc4a72a9a969bd7bb1bf30be96bd2e6382c425506e5d562a",
+      "accepted_facts_hash": "81c24a092ac9d9b397360f1d8c506cec9463fa3424b11652960ba6dbee6c960f",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs (working with CFB, MSG, MAPI, EmailMessage) and specifies it's a 'lightweight open-source package' for MSG read/write workflows.",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The product description explicitly names the ecosystem (Python), file formats (CFB, MSG), and common tasks (MSG read/write, conversion to/from EmailMessage), satisfying audience fit in the opening block.",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "No LICENSE file is visible in the README (no badge or direct mention), and GitHub's community health check would likely flag missing LICENSE recognition \u2014 a critical gap per dimension 3/8.",
-            "satisfied": false
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install command `pip install aspose-email-foss` uses real PyPI coordinates, and the PyPI link is provided, satisfying the requirement for a working, registry-resolving path.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the Quick Start snippet, two full runnable examples (MSG\u2192EML and EML\u2192MSG) are provided with no comments or docstrings, matching the 'runnable code block' requirement.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Headers use consistent `##` levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 status/compatibility \u2192 links \u2192 contribution/legal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "No visuals are present, which is acceptable per the rule: for a pure API library like this, absence of imagery is not a shortfall, and no decorative or irrelevant images are included.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "While CONTRIBUTING.md and SECURITY.md are referenced, the README does not include a LICENSE file or badge, and GitHub's quick-link row would likely show only README (per dimension 8 evidence), failing the highest-priority gate.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and GitHub activity (not in README) would be the audit source \u2014 no false claims are made, satisfying the rule.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention anywhere in the README, which is acceptable: the standard allows absence of commercial context when the product is purely FOSS (like PDFBox), and no promotional or misplaced commercial content appears.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, installation path, examples, navigation, visual usefulness, maintenance signals, and natural commercial context), but fails on trust signals and contribution readiness due to missing LICENSE recognition \u2014 the highest-priority gap per the standard."
+        "criteria_results": [],
+        "input_sha256": "08ca05012c4fdc36b215e14de3808275ed86bc64cffe70341e26068f7b4fb1da",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T08:19:04.359794+00:00",
+      "last_run_timestamp": "2026-08-04T10:02:44.334053+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -10082,7 +10038,7 @@
     "updated_at": "2026-08-04T10:02:14.978736+00:00"
   },
   "schema_version": 2,
-  "state_version": 275,
+  "state_version": 276,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "50e6f4e01020fc2d2620bc277d88d06fd50b7057de53ef0446467ce52f9f36b0",
