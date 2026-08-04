@@ -5,27 +5,11 @@
   "registry_path": "data/products.json",
   "registry_sha256": "d9d687b42cc7112ee7ffafe0271e4a8cf3db7b9dc25c6a56854524c4129c37e3",
   "registry_denominator": 31,
-  "promoted_verified_readmes": 12,
+  "promoted_verified_readmes": 2,
   "python_denominator": 12,
-  "promoted_python_readmes": 10,
-  "template_sha256": "f74dfbbe69359e3609df03b431edbf608bfe18b1e78203675894088c326919e1",
-  "reviewer_standard_sha256": "7b100804198b75b0d6aa5511719b8996431a927bacf0e336c41c53ec76daff15",
-  "independent_campaign_receipt": {
-    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/independent-verification/three-slice-final/receipt.json",
-    "sha256": "ca19503ce94dac3e7bc4eb3999dfa36d2581af034762af77e291a6e0dcd879fc"
-  },
-  "campaign_scoreboard": {
-    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/validator-evidence/three-slice-current/scoreboard.json",
-    "sha256": "af9ae91f647891bc1755291036be59f196c1e2cb8135d8f7215e1abbed2432b0"
-  },
-  "campaign_contribution_evidence": {
-    "path": "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/coordinator-closeout/contribution-evidence.json",
-    "sha256": "ff5c08b17f3ea41e5d39eaab19aa0f85233051e36c26e4ba37cf7f9f7c7ffea5"
-  },
-  "independent_page_pdf_receipt": {
-    "path": "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-verification/final-page-pdf-verification-v2.json",
-    "sha256": "bb85597e87fee5da7212d68185026be66279bfb931b9c27b82cb235af524fc2c"
-  },
+  "promoted_python_readmes": 2,
+  "template_sha256": "8178c25e8081c30a8bfbc255957c6761287e955ffbaf11068f8204036056a666",
+  "reviewer_standard_sha256": "2a9de12cb208488ee67b6c234e6f59b55a9803fb7084eeb91c926154ac79fcf9",
   "effects": {
     "product_effects": 0,
     "default_branch_writes": 0,
@@ -33,123 +17,68 @@
   },
   "repositories": [
     {
-      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
-      "candidate_sha256": "5a7e4e80f3caf30ec3b7b759dbc9d2589462e0d2c9a43a0afe78b262fe197180",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--ab1a2267a0ba--5a7e4e80f3ca/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/source/revision.json",
-          "77ca3507c75d5e449525e42f83cef9baf5b7b6fd6e2f2e74841bde69eda2447a"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/source/README.md",
-          "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/facts/product-facts.json",
-          "aaf8fb725632702593dc8be32172dd19510d1ecbc87194c40498e691840b2c3f"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/planning/readme-document-plan.json",
-          "70aafe7d575d4714f8318408e23b859703ee60d0bde4b48218702d61f74445d5"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/candidate/README.patch",
-          "881166ef2ebd5e45b6a82e25a53e12c3e805706d7e2b7992c9e65e5a10337355"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/review/deterministic-validation.json",
-          "4d165b73220f0f0435a4e0f10bbf020e2ed91df290925c90246e2a140bd4a5e6"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/review/independent-agent-review.json",
-          "b6954981463412f4269a635ea87be99febb48881a33aecab992ad27ec8ed6ae5"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/review/repair-history.json",
-          "31cc2e0890f7c0c19744275f5439569a8ad1bbe4494a83307a21f6cd53bd01af"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/review/no-op-proof.json",
-          "1f347aa447ae1f7da079e2641f8f7a05f3fc7cf3ba93af7811abd7125d2b4321"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/llm-call-ledger.jsonl",
-          "45a6f5d7383a85891fae30a410f083c6016987f5a579c39ae40390040968ed31"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ab1a2267a0ba6302311d0c7c4ad01494974c7d76/manifest.json",
-          "1e3bed7504959da5400e656a73d5c33b945a15940a4c893ad5f0115c548b3e1f"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
-      "candidate_sha256": "8854d4cfcda7b124dff3f631cce6e2a8938695289f23aed08fa764557d7144c9",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/barcode--53f2c3350b81--8854d4cfcda7/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/source/revision.json",
-          "fb23507b662f5b3e3ca9bbe09879372838771c0e534468bbd534c0944c259561"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/source/README.md",
-          "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/facts/product-facts.json",
-          "9cc8a743cb90b8df07d1ba91795e4f68efce8a69589b945a9bc9ec5631179b47"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/planning/readme-document-plan.json",
-          "17d1a1ca47412bbf7a43d181322c460b1c428ff97bf1aff185fc750fc2324c23"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/candidate/README.patch",
-          "8208c3945046c570294677da9afe410dfe0f5850b05c48c1884f670f73556e06"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/review/deterministic-validation.json",
-          "972deb31d812992eeb0ab1c68a1fdcb938fea7687c9e0944896d6ccb58cc5694"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/review/independent-agent-review.json",
-          "cff89ed9df4d7ca1113332ccc35213d4b155daeef77375d5c415c9eda0d72846"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/review/repair-history.json",
-          "2dc32f07d1bb775ed210215844362279eea632b378e5648bb44f080201289848"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/review/no-op-proof.json",
-          "9d2526b4f442b00cad74f82a6496e7b9b1dbc1f7b598c22c8bb6985350fb9d7c"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/llm-call-ledger.jsonl",
-          "835b002c8256025ada094ca63dd2ade851c5ef21b60992d9cad36b4df24f0c14"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/53f2c3350b8171f2c8275e7b1a178f218695ac45/manifest.json",
-          "8ed5e677535d34e6244d03ff53dbfaa68669e6a6a250e33efdea98f6b739c771"
-        ]
-      }
-    },
-    {
       "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
       "platform": "python",
       "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
       "candidate_sha256": "d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
       "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/README.md",
       "verdict": "NO_OP_PROVEN",
+      "acceptance_cache_key": "a5ce8db27696686fdf58335e0ce3db26aba4ae080cb2b19af319e48e6d7bbbb9",
       "replay_provider_calls": 0,
+      "committed_artifacts": {
+        "ORIGINAL-README.md": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/ORIGINAL-README.md",
+          "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870"
+        ],
+        "README.patch": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/README.patch",
+          "b3ce0ca7ae6dedb22368afdaac5758982a986c28aa2dd27bb37d8ee501eec4ca"
+        ],
+        "product-facts.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/product-facts.json",
+          "99d8e89b780b3814bdb38ad7241e8cfc7b9109022316783b02c52fad27e33470"
+        ],
+        "provenance.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/provenance.json",
+          "50ffde6c4d56b69c9af87a5ee268347cb3a7c28f6ef5fe968e0f309f21cb6e40"
+        ],
+        "readme-document-plan.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/readme-document-plan.json",
+          "9fd195dc2b844528008919ee5ef4506ce2f259c9689731d90de10165ef80b04f"
+        ],
+        "claim-map.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/claim-map.json",
+          "9536282344b74a2580f9dcc1b86dd2d6eec9f46014ca96d2961b6cd4b00b0bb0"
+        ],
+        "deterministic-validation.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/deterministic-validation.json",
+          "e00e3ecf2071776663c76eaecac6c05431436e55d9e713b130bb8d06a7ee5d7d"
+        ],
+        "independent-agent-review.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/independent-agent-review.json",
+          "d2389e25e2a37cc0d7fbfd4f67164c367b1accf7f60a98220bc00b4414b5fafe"
+        ],
+        "final-verdict.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/final-verdict.json",
+          "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508"
+        ],
+        "repair-history.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/repair-history.json",
+          "bccbc20fffeb92bfde1ae2e2a60100da903c253fa947b4c3b38ef59d2c7ce245"
+        ],
+        "no-op-proof.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/no-op-proof.json",
+          "6350a394f7142ad3a69ba65e867a2c568ea556fe4bb0baabe60ed6e65a476516"
+        ],
+        "llm-call-ledger.jsonl": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/llm-call-ledger.jsonl",
+          "9f7c659abe7f5e4cb59aa7f1f3661fc1005819e36edfe5d7aee27fd08a40474e"
+        ],
+        "runtime-manifest.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/cells--1139a9a90280--d7f92b50b33e/runtime-manifest.json",
+          "a7b0fd0f0837302135cec52ff1e0ecab3b3b5e139f434269285a74ee1a58e321"
+        ]
+      },
       "runtime_artifacts": {
         "source_revision": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/source/revision.json",
@@ -161,27 +90,39 @@
         ],
         "product_facts": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/facts/product-facts.json",
-          "3d2b7251a0cab003c440d29da0fbfd31d4d52653144d5d9d6e2d56f87c3deffd"
+          "99d8e89b780b3814bdb38ad7241e8cfc7b9109022316783b02c52fad27e33470"
+        ],
+        "provenance": [
+          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/facts/provenance.json",
+          "50ffde6c4d56b69c9af87a5ee268347cb3a7c28f6ef5fe968e0f309f21cb6e40"
         ],
         "document_plan": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/planning/readme-document-plan.json",
-          "5e80dc43b0425afd9f4cee7e4c52328304abb6555079733ca5151bb4971287d2"
+          "9fd195dc2b844528008919ee5ef4506ce2f259c9689731d90de10165ef80b04f"
         ],
         "patch": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/candidate/README.patch",
           "b3ce0ca7ae6dedb22368afdaac5758982a986c28aa2dd27bb37d8ee501eec4ca"
         ],
+        "claim_map": [
+          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/candidate/claim-map.json",
+          "9536282344b74a2580f9dcc1b86dd2d6eec9f46014ca96d2961b6cd4b00b0bb0"
+        ],
         "deterministic_validation": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/review/deterministic-validation.json",
-          "813b3aac840f69f0b8eec194b7ab8c16befaa9da57f0fa54716cbe41fe52d9ae"
+          "e00e3ecf2071776663c76eaecac6c05431436e55d9e713b130bb8d06a7ee5d7d"
         ],
         "independent_review": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/review/independent-agent-review.json",
-          "305e9e987f4dce0efb29991ebb0d3b8318de62575c9e0edcca3e5a8499332c5e"
+          "d2389e25e2a37cc0d7fbfd4f67164c367b1accf7f60a98220bc00b4414b5fafe"
+        ],
+        "final_verdict": [
+          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/review/final-verdict.json",
+          "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508"
         ],
         "repair_history": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/review/repair-history.json",
-          "50194a0c42f8a5d0ae2dddbf745189ff9d5c1811da801e9b3dcfe9e48558ec1f"
+          "bccbc20fffeb92bfde1ae2e2a60100da903c253fa947b4c3b38ef59d2c7ce245"
         ],
         "no_op_proof": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/review/no-op-proof.json",
@@ -189,121 +130,11 @@
         ],
         "llm_ledger": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/llm-call-ledger.jsonl",
-          "f91144f2d3429d7dafca1b3d21cb57c6366785549dec8b910d46d3590a8b323f"
+          "9f7c659abe7f5e4cb59aa7f1f3661fc1005819e36edfe5d7aee27fd08a40474e"
         ],
         "manifest": [
           "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/1139a9a90280783cd91a7d3747adfdaa97a9cb47/manifest.json",
-          "3bf74ecf15cd015cdca71ed0840c8001d66577079635c1deaf8886e2f0fe73d3"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-      "candidate_sha256": "08ca05012c4fdc36b215e14de3808275ed86bc64cffe70341e26068f7b4fb1da",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/email--c336fa7c1d6b--08ca05012c4f/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/source/revision.json",
-          "05b83ad33908b3b0e84edfca0f225cf09a3d249cbd90e0ab9e5cbb02600a3540"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/source/README.md",
-          "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/facts/product-facts.json",
-          "afed79cc683bfac365ebc8b487ed66983953dce13155099fc12cd7faf5a6cc1c"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/planning/readme-document-plan.json",
-          "91ee5bbdffc598fe3520ec38e6e51dc563c26cef305a4a95a5bc164ad39b87dd"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/candidate/README.patch",
-          "e59d0f15edc1d8d244047ea6a88a85cf969249ee567c41e0d1fa35367b6c71b2"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/review/deterministic-validation.json",
-          "26dd809ced2bf7678e1736557ad5f59f025d64510f8d7c9905f6e68fb33cadb4"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/review/independent-agent-review.json",
-          "6b560d6a06f5065a2f90a8aecc23e135bcbaa14abee1557fe7a9f126f78e6715"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/review/repair-history.json",
-          "4d110d384541c7b3c6ed93268aaa6376bc84a8829d29248d646bfdb1bcea7abd"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/review/no-op-proof.json",
-          "0de50bbe80bc7f7e7a21a823c936405cd48c27d149cadd3e63476c1f938c04de"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/llm-call-ledger.jsonl",
-          "674f007c0ded974c421038a8213abbd395b4c30a0b06f8990eca03559b1c5dba"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-email-foss__Aspose.Email-FOSS-for-Python/c336fa7c1d6b90c6155ecf25a261477640c2b1b6/manifest.json",
-          "20857bdfc2d135762c2a78002cdc7182a0917e784782e8307256cee326dac800"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
-      "candidate_sha256": "8f7e7edcdf67ac4929b9e6457a2fa8aad4e7c72cee4218b4ab74c31aa1f1813b",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/font--54004305922b--8f7e7edcdf67/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/source/revision.json",
-          "33a2d479ccfe8d36f34059ff86390d664d930d359d7790a35b6fad59cf01e687"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/source/README.md",
-          "3de44e203b62696c90a3e09aa95587feb78c1fbd2a51c16b8cdd0183f47522cf"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/facts/product-facts.json",
-          "7130d1112dff42bf05f6388ef21eb092e909acfc38a2dd778a2a65c5437f345d"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/planning/readme-document-plan.json",
-          "b01422c7fd79587d932ba05efa464c5fd67ce9380d8e54c511fade3a6347e2ae"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/candidate/README.patch",
-          "29e4da0a10c522d2ea63b54a92dfc2ac7ae1f0f7e5edb706a8094f9979216414"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/review/deterministic-validation.json",
-          "f21f1a3a3f9aadd633fce971bbf7e8d5c8ad0d98eacfe6f265e6e485c200bef0"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/review/independent-agent-review.json",
-          "b68124d8d09719b090aeae61520c507cf64bd98cdcc3086185edd4d47f70876c"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/review/repair-history.json",
-          "dd90310f71a4c7607f995afbf5d84c6fce84b2ab2c671ab550d797b82adfcc85"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/review/no-op-proof.json",
-          "4d0628e8ddf3dba27b7775b754bddf7ede3320cde6f3a2f78c7f6e54c700a6a8"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/llm-call-ledger.jsonl",
-          "56c93214eef67a41f87624e90c490a7470e90867dec0b7f79122067fa0ab16d3"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-font-foss__Aspose.Font-FOSS-for-Python/54004305922b8a45e241fae6066c35c439615d28/manifest.json",
-          "22577a4c55aab63b328a8d03e92dc5218027c036a8ecf7623f2d1e7f0cd41b07"
+          "a7b0fd0f0837302135cec52ff1e0ecab3b3b5e139f434269285a74ee1a58e321"
         ]
       }
     },
@@ -314,7 +145,62 @@
       "candidate_sha256": "731bca913987b76743c48e6c8f33fba791baec5e161352ddd571950aa7dc7d29",
       "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/README.md",
       "verdict": "NO_OP_PROVEN",
+      "acceptance_cache_key": "691cf6f4bc974b011d99a25b58a309fb0482bfe49b3bc330015e45e91a966060",
       "replay_provider_calls": 0,
+      "committed_artifacts": {
+        "ORIGINAL-README.md": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/ORIGINAL-README.md",
+          "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4"
+        ],
+        "README.patch": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/README.patch",
+          "c009626da28b9784ec597e3073a7a50b72b13c4a526293079acfaaa4ca8917ce"
+        ],
+        "product-facts.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/product-facts.json",
+          "1c9af13e11723093f39d98a6130fb0110e2a2155a22bc728af0e8fb8ef087063"
+        ],
+        "provenance.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/provenance.json",
+          "a1b67bc98320f2d330243d576a60d8d66628a7daae19e55a50720b6b56b09f56"
+        ],
+        "readme-document-plan.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/readme-document-plan.json",
+          "f436980b863ec1295c95cc095f52ceebf8dc4fcca2585b23a2acef1b144a4c99"
+        ],
+        "claim-map.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/claim-map.json",
+          "e2c0358c5309b161860eb540020f5fd8032ffecd221021bbba0cc59e3696bbdc"
+        ],
+        "deterministic-validation.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/deterministic-validation.json",
+          "6a432e0db614dab9cd696c4cfc92e00137318598a3d68a02acc8c89f52f725b5"
+        ],
+        "independent-agent-review.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/independent-agent-review.json",
+          "b906aa3344504a743745482b85e25bae44591bd751ffe404291b2b296ef1324e"
+        ],
+        "final-verdict.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/final-verdict.json",
+          "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508"
+        ],
+        "repair-history.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/repair-history.json",
+          "a1b3037d6994869568afb31539b164a0e870c4881a084c83caf73bf8483fb7ae"
+        ],
+        "no-op-proof.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/no-op-proof.json",
+          "f97302a9f68c70d8739e583119dcab351f8dc0e4102efdf094bbc3a7023fba2f"
+        ],
+        "llm-call-ledger.jsonl": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/llm-call-ledger.jsonl",
+          "03cf09c98f8f535d029efbf05b95e45c41df2f1c13459a1f159769d2c0d4aaf7"
+        ],
+        "runtime-manifest.json": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--731bca913987/runtime-manifest.json",
+          "76095a6be9922cfef8acdd3a622bacce062dbe8d71a4dc543c2d3834956d581e"
+        ]
+      },
       "runtime_artifacts": {
         "source_revision": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/source/revision.json",
@@ -326,27 +212,39 @@
         ],
         "product_facts": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/facts/product-facts.json",
-          "1e99814a102cfeefccae428ec7fac9c2d1cb10964ae33d0df799cbcbe00f4638"
+          "1c9af13e11723093f39d98a6130fb0110e2a2155a22bc728af0e8fb8ef087063"
+        ],
+        "provenance": [
+          "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/facts/provenance.json",
+          "a1b67bc98320f2d330243d576a60d8d66628a7daae19e55a50720b6b56b09f56"
         ],
         "document_plan": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/planning/readme-document-plan.json",
-          "a2fed9dcd1e64365d5e360a5db4778ef194a42b0f6019257820892ddfa086cde"
+          "f436980b863ec1295c95cc095f52ceebf8dc4fcca2585b23a2acef1b144a4c99"
         ],
         "patch": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.patch",
           "c009626da28b9784ec597e3073a7a50b72b13c4a526293079acfaaa4ca8917ce"
         ],
+        "claim_map": [
+          "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/claim-map.json",
+          "e2c0358c5309b161860eb540020f5fd8032ffecd221021bbba0cc59e3696bbdc"
+        ],
         "deterministic_validation": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/deterministic-validation.json",
-          "58575642798110514706d07b7f120396fa7151db273274d180458b61a23af03f"
+          "6a432e0db614dab9cd696c4cfc92e00137318598a3d68a02acc8c89f52f725b5"
         ],
         "independent_review": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/independent-agent-review.json",
-          "50c37889e6e26ce9c84b273a6edc7c1a3f5281401d535f0df258143d38e0364b"
+          "b906aa3344504a743745482b85e25bae44591bd751ffe404291b2b296ef1324e"
+        ],
+        "final_verdict": [
+          "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/final-verdict.json",
+          "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508"
         ],
         "repair_history": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/repair-history.json",
-          "c60fff43a34f8f9511f9d7ea472c62eea36dd76d02661f349c112ac469111399"
+          "a1b3037d6994869568afb31539b164a0e870c4881a084c83caf73bf8483fb7ae"
         ],
         "no_op_proof": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/no-op-proof.json",
@@ -354,347 +252,79 @@
         ],
         "llm_ledger": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/llm-call-ledger.jsonl",
-          "44f417faed79df4bac4381da0fbb862ebf3eddec3dec1bfd048582a9ae54b9fc"
+          "03cf09c98f8f535d029efbf05b95e45c41df2f1c13459a1f159769d2c0d4aaf7"
         ],
         "manifest": [
           "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json",
-          "18f9b4c2c83e148a92d5a94c8bbcb187b6ee888e5062c744d2388e7ea627097e"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-      "candidate_sha256": "c146f157cb0d65cbc3754d6624ab89dc128ef9148ffb2b4ca67004ef4487ce91",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/page--dac5d70e0f91--c146f157cb0d/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/source/revision.json",
-          "bb04494b94e173d09d702d109d526a2e9a78fe84c9c8f3a9edc28257406f7996"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/source/README.md",
-          "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/facts/product-facts.json",
-          "2b09a43b0c39948db53d2c5a8dc89de7b33c8d6da13185e199fa107964b70f42"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/planning/readme-document-plan.json",
-          "1d20742d7b44c28deb373537321ccc7901310902781d1eba6b6460799c7d8f4c"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/candidate/README.patch",
-          "89be88ea5a3df6f35b6c9a2508f6db9b015cbd47cf4986493e399f660117d9da"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/deterministic-validation.json",
-          "5a2ddeeedc2185dede374a0f36e10b25450525eecb7b8782688d125d3c68db82"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/independent-agent-review.json",
-          "7b8db02bf4f975305fe4ad9d0703991b668cd0abd08095b737ff69c6e8ae9593"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/repair-history.json",
-          "2122a094e0d156c245e29951ed0ac7d23977d6518bd28b01178c0a32f8b96573"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/no-op-proof.json",
-          "8a1b74e3476b7c75b5377dc34b5f85c55d054250f9d5189f921a19b3db988fdf"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/llm-call-ledger.jsonl",
-          "fdb30cde00757c7d47ae218f62812c26f82659fc0ca881b5c1b15138903261e3"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/manifest.json",
-          "5688b1db0dd3b70b7ed2d2e52570f145bca2680dda353be57771b2aa0cf18948"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-      "candidate_sha256": "2c62095e3b3aaeb18754e79caf897f2f4fb30a91aaa2b6329106bf31bdac1fd7",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--737d26451ed5--2c62095e3b3a/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/source/revision.json",
-          "cc0f2093212d96c69101aa0d4d8951c2726cc334fd6970466fc0c185f97a470c"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/source/README.md",
-          "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/facts/product-facts.json",
-          "b59a8eef22621ca4f7d6a00b8d92e454028d0eda94fa513cafc9e6a8ba07407d"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/planning/readme-document-plan.json",
-          "866f1b67f68fc740e7fdcf38e82c19499c0524877d66b5c7ccaeeebe25f56e2e"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/candidate/README.patch",
-          "074991a84596d910e85dbbbf8843c6f9a6eb9214506ec5b95c3d60416bf2ad92"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/deterministic-validation.json",
-          "127f708ed0952b377ce19b92b3cb3230e3d41613f436f20985f4049cfff2ca0c"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/independent-agent-review.json",
-          "8790849145555cb88609c987f43392fa8b5f8c014d85bb31e5a4971502293698"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/repair-history.json",
-          "58d13a9825fc043aa94e31f8d20dbe69235189e04cab731c30656d71bcabb441"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/no-op-proof.json",
-          "15ed3e6a804ba571637516d46ed3518537ec048dd2ef485ca7ce92c75e630138"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/llm-call-ledger.jsonl",
-          "07cdf824c04a2c7c0d4c438e3bb5b448279b65493cfb57dac5b57059a893cba3"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/manifest.json",
-          "28c22b3428cdfc0814f8a9b6c8a9c55f76e75ead164db372f10c5df3707a3a11"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-      "candidate_sha256": "b323c3bf6b3e6b4ffaebff619d5b5f1487561244fa3c2f0c0ed2e8fa2df1c5e7",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/slides--ffaf6355fdc7--b323c3bf6b3e/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/source/revision.json",
-          "ee0f47c759d55e0f5f2b66e2276293976870dfbfabc6f21c089584a93256e7c6"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/source/README.md",
-          "2bc7bdbdcb927cdbfb6863fa4bec065bbfdebf2c92546e7ea51483154bb9bb8a"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/facts/product-facts.json",
-          "ae997b1d5cb2d98ea189880ca3a785aab44b8d3f1b3580c5ba37284dbeb86ff9"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/planning/readme-document-plan.json",
-          "178e31f9844a825da2c7664cba8cba9c7a14e2f0c4cfba5906fa81ebc4439080"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/candidate/README.patch",
-          "c9209757fe0dd0a987df69c1d8312b6e382c8c146a31ec8db57e73cb9e984efa"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/review/deterministic-validation.json",
-          "c46cfb545943f3b719cba77ff77765031c7defc5f50b64f4332864ae568ca18d"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/review/independent-agent-review.json",
-          "02c03c17f990ea26cdc96e230170d25b2c106697071d9ad636b6aa5132c783fc"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/review/repair-history.json",
-          "2c5d8d6b624f1aa3ad517fe121a83ff1c08b93268d5f276ee652bcec7388b805"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/review/no-op-proof.json",
-          "15b1a68c517f83c85c4f6fc0fc0ac4165817dc320d100a0087241f964db35ccf"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/llm-call-ledger.jsonl",
-          "7e8e3b33e00018a081bc028fe39d7342258834bc9e466bcf6e1d4f41cc3ad2d6"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/ffaf6355fdc7f0b7a66680d742051e809a9d8c5f/manifest.json",
-          "bee0527e5569c5ceb867bf26c9352e30aebd7e102bb65982dbf2f64298e2a783"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
-      "platform": "python",
-      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-      "candidate_sha256": "0eb586b4f29188a204999cd407d654cb19f900b1f2d12304615d665050fea4df",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/words--4473f8cbeef1--0eb586b4f291/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/source/revision.json",
-          "6fe5ad80ea401485e86742bfc568fb8a81a6857b8791ce4809e8ea48e7796b07"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/source/README.md",
-          "9fa814debe0fa71d062d807d9b50763fc14244e1226201baf24defd61ca12dce"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/facts/product-facts.json",
-          "f1a66f35926626cbf07a0938622e52847f0a4429082e8af17f115f469348e1ee"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/planning/readme-document-plan.json",
-          "bba7336c5f6d216b372e0635ceaa69244df49f2547ab8c0152bac0e686d89996"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/candidate/README.patch",
-          "65dca396f60c6f135e379366aabbac2ebe0ff3217cc45ef8ef6d855f44dd3d7f"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/review/deterministic-validation.json",
-          "0ae6a992c120f04c7783ab5eb65848912d3d3fbe37aa0869c08e102e69267197"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/review/independent-agent-review.json",
-          "76180c405ce72433dbba5839dfd2fb42e8c079baae02badd5f7e29527a409b98"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/review/repair-history.json",
-          "ea9808eebb0a60814b020565904344028af0eeb1ea2ddef0e5b1af2189287ef7"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/review/no-op-proof.json",
-          "c1609fcc5cd6012a127f44ecefb8d325de9fdba5cf7b87198f840770e45a9373"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/llm-call-ledger.jsonl",
-          "eeae845532fe24748d73f597216b658739baecbd608a45fd51366b8e534a0af9"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-words-foss__Aspose.Words-FOSS-for-Python/4473f8cbeef1a65961adc7de304d982ada53a1dd/manifest.json",
-          "cb13a88e039c0d3502e03dbd5711a1ec9436bb873b7927f75cec08dba3466000"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
-      "platform": "java",
-      "source_revision": "2be25d979d1f3bf2875a1798aed62a16efab6619",
-      "candidate_sha256": "4007636ed3b5fc17493d8b8d46f1f1957862bdbebfd6c42c054f6bce107a11b4",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/java/cells--2be25d979d1f--4007636ed3b5/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/source/revision.json",
-          "fc72194dacf676d5c58347b21e01cc055bf25d9b2ee31550a4b3d644d8ca5405"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/source/README.md",
-          "7dfb9aeaa9a26870bc3dd33970687904612d2ffb44f6c73fe320fd0b21e49adf"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/facts/product-facts.json",
-          "9be19e8d741e821694ce327e3ae099e55e708eb357303afed7f8ab64dee6cb38"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/planning/readme-document-plan.json",
-          "cf884b6c57bf6fbc7a69f593e6ada1a57cd002d8b95598de1f68944d31be6262"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/candidate/README.patch",
-          "24a5d7ebfcb5cb9170a5238e16bfa074d95e320204d724e0602b46a5d9699df8"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/deterministic-validation.json",
-          "db70919468716bab6e15a04c9ccc8b38d5b60a4e409f8eab3d287b1d63e06c24"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/independent-agent-review.json",
-          "6f9a8e9e1958403263f177a69e3ffd15b186c87b28f9ea9208b907a71ae384ed"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/repair-history.json",
-          "81f982b3273aa952926ef6f2b2b93bd36d12a0e5de084acd569bde6cdda37eec"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/review/no-op-proof.json",
-          "a60c821a28169922125639fc869ebdbdf724ba533a2faf998a5dd249dd85c393"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/llm-call-ledger.jsonl",
-          "fd6d253245b2300496afc4a5596e1f2cf969204a0dc4845836394bd2c8b8c820"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Java/2be25d979d1f3bf2875a1798aed62a16efab6619/manifest.json",
-          "13e5eef48ec9372657d2e6e2d39bbad7e7ccde21a961725b2665e71b2461fbf7"
-        ]
-      }
-    },
-    {
-      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
-      "platform": "net",
-      "source_revision": "e78d87e1b33e22560c90acd73247695a1eec6a34",
-      "candidate_sha256": "f45adabecf5c1bbdca1552631b111f7aee270f8302004a9652d0aab85a8d931c",
-      "committed_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/net/3d--e78d87e1b33e--f45adabecf5c/README.md",
-      "verdict": "NO_OP_PROVEN",
-      "replay_provider_calls": 0,
-      "runtime_artifacts": {
-        "source_revision": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/source/revision.json",
-          "f21770e608c6fc42c2af08478666f25ece7ebc47f96a9798291933ea9e43703b"
-        ],
-        "source_readme": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/source/README.md",
-          "648d3ccccf822a94a49977b2d24645fec25875ce62b7a7af9bd29f54c72ca811"
-        ],
-        "product_facts": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/facts/product-facts.json",
-          "9a4783f284c7153e1b1e1a365972a8be0667ff7a535442d9e74071402a667bef"
-        ],
-        "document_plan": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/planning/readme-document-plan.json",
-          "d39d378c1868984b461796f006b6091a432078d285d719d09e046dce7ab745e7"
-        ],
-        "patch": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/candidate/README.patch",
-          "41e904fd5be886f491b3262554ecf2f65a3ec1c16657e25185283162794f9963"
-        ],
-        "deterministic_validation": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/deterministic-validation.json",
-          "4e8f78234739da79734e11fc81a26dbd8ae7794e46b6845cc5c3d5c02758b19d"
-        ],
-        "independent_review": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/independent-agent-review.json",
-          "d4c65c9137f171ac7f9806604a24721a5195571a83a2224601f5877f57674344"
-        ],
-        "repair_history": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/repair-history.json",
-          "d1b875713d305a2dbc67f2f21864ad825437fb146b96a54991a01b9fa9c469d0"
-        ],
-        "no_op_proof": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/review/no-op-proof.json",
-          "ca79ff271be81e019c248ad55f0b6874512007f5ae85a4e398b709055261ce86"
-        ],
-        "llm_ledger": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/llm-call-ledger.jsonl",
-          "2c0dc28b6544f5e81834ee3f8707584f69f11df92113c2244a46e2fb518cb84d"
-        ],
-        "manifest": [
-          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-.NET/e78d87e1b33e22560c90acd73247695a1eec6a34/manifest.json",
-          "a532a05f5cb600067fbf1aa9762d52ef2311abfe81d7d9414ff2166dd6d561a1"
+          "76095a6be9922cfef8acdd3a622bacce062dbe8d71a4dc543c2d3834956d581e"
         ]
       }
     }
   ],
-  "current_python_independent_receipt": {
-    "path": "runs/multi-agent/L8-VPY-03-ALL-PYTHON-VERIFIED-POC/independent-verification/python-cohort-current/receipt.json",
-    "sha256": "305e0306012662a1756ef2740e8d8136a05c8d096c5285903cb2259d2e00dae5"
+  "promotion_exclusions": [
+    {
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "AGENT_APPROVED",
+      "reason": "missing_current_no_op_state"
+    },
+    {
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "AGENT_APPROVED",
+      "reason": "missing_current_no_op_state"
+    },
+    {
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "NO_OP_PROVEN",
+      "reason": "stale finalized acceptance for aspose-email-foss/Aspose.Email-FOSS-for-Python: fact_acceptance_component_hashes_changed,fact_acceptance_contract_hash_changed,fact_acceptance_recollection_component_changed,local_verification_contract_hash_changed,manifest_local_verification_contract_hash_mismatch,reviewer_standard_hash_changed"
+    },
+    {
+      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "NO_OP_PROVEN",
+      "reason": "stale finalized acceptance for aspose-font-foss/Aspose.Font-FOSS-for-Python: fact_acceptance_component_hashes_changed,fact_acceptance_contract_hash_changed,fact_acceptance_recollection_component_changed,local_verification_contract_hash_changed,manifest_local_verification_contract_hash_mismatch,reviewer_standard_hash_changed"
+    },
+    {
+      "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "BLOCKED_MISSING_EVIDENCE",
+      "reason": "missing_current_no_op_state"
+    },
+    {
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "NO_OP_PROVEN",
+      "reason": "stale finalized acceptance for aspose-page-foss/Aspose.Page-FOSS-for-Python: fact_acceptance_component_hashes_changed,fact_acceptance_contract_hash_changed,fact_acceptance_recollection_component_changed,local_verification_contract_hash_changed,manifest_local_verification_contract_hash_mismatch,reviewer_standard_hash_changed"
+    },
+    {
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "NO_OP_PROVEN",
+      "reason": "stale finalized acceptance for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: fact_acceptance_component_hashes_changed,fact_acceptance_contract_hash_changed,fact_acceptance_recollection_component_changed,local_verification_contract_hash_changed,manifest_local_verification_contract_hash_mismatch,reviewer_standard_hash_changed"
+    },
+    {
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "NO_OP_PROVEN",
+      "reason": "stale finalized acceptance for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: fact_acceptance_component_hashes_changed,fact_acceptance_contract_hash_changed,fact_acceptance_recollection_component_changed,local_verification_contract_hash_changed,manifest_local_verification_contract_hash_mismatch,reviewer_standard_hash_changed"
+    },
+    {
+      "repository": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "BLOCKED_MISSING_EVIDENCE",
+      "reason": "missing_current_no_op_state"
+    },
+    {
+      "repository": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+      "platform": "python",
+      "raw_status": "AGENT_APPROVED",
+      "reason": "missing_current_no_op_state"
+    }
+  ],
+  "state_source": {
+    "kind": "authoritative_durable_backend",
+    "location": "origin"
   }
 }

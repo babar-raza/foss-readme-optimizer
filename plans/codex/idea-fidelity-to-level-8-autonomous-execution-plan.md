@@ -139,7 +139,12 @@ Aspose.org knowledge is an index/cache, never authority. Its generated prose is 
 
 Run Page/PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
 repair the earliest shared boundary once, and store every independently approved/no-op-proven
-README plus its provenance and manifest in the committed finalized-artifact root.
+README in the committed finalized-artifact root. Store durable co-located copies of its original,
+facts/provenance, document plan, patch, claim map, deterministic validation, independent review,
+final verdict, no-op proof, LLM ledger, and runtime manifest. Promotion reads the authoritative
+durable backend by default, re-evaluates the current acceptance/cache contract, visibly excludes
+stale raw terminal records, removes superseded aggregate acceptance pointers, and never lets an
+explicit offline state snapshot masquerade as live authority.
 
 ### Campaign 5: remaining verified Gate A
 

@@ -2327,11 +2327,14 @@ that is the only permanence they carry; text is always the decision as it stands
     campaign continues automatically through .NET, Java, C++, TypeScript, Rust, and Go,
     then dynamic full-registry Gates A/B/C and Levels 5-8. Each finalized README is promoted from
     its mutable runtime bundle into the committed, versioned evidence root
-    `plans/investigations/evidence/finalized-repository-readmes-v1/repositories/<platform>/<org>__<repo>/<revision>/<readme-sha256>/`.
-    That directory stores the exact `README.md` once. A compact committed cohort manifest
-    hash-binds its source, facts, plan, patch, deterministic and independent verdicts, no-op
-    receipt, call accounting, effects, runtime inventory, and committed acceptance evidence
-    without copying mutable `runs/` trees. The cohort index provides direct human-review links. Promotion is forbidden
+    `plans/investigations/evidence/finalized-repository-readmes-v1/repositories/<platform>/<family>--<revision-prefix>--<readme-hash-prefix>/`.
+    That directory stores the exact `README.md` once and durable copies of the original README,
+    ProductFactsV2/provenance, document plan, patch, claim map, deterministic validation,
+    independent review, final verdict, no-op proof, LLM ledger, and runtime manifest. A compact
+    committed cohort manifest hash-binds those files plus effects and the runtime inventory; it
+    must re-evaluate the current acceptance contract from the authoritative durable backend and
+    remove stale raw-terminal or superseded aggregate evidence rather than preserving an
+    overclaimed numerator. The cohort index provides direct human-review links. Promotion is forbidden
     before independent approval and unchanged no-op proof; committed visibility is not itself an
     acceptance shortcut.
 
@@ -3020,8 +3023,9 @@ only as historical implementation evidence in decisions and `logs/`; they are no
         and no product-remote write.
   - [ ] Promote every independently approved/no-op-proven Python README into
         `plans/investigations/evidence/finalized-repository-readmes-v1/`, including a direct
-        review index and compact manifests that hash-bind complete provenance, patch, validation,
-        review, call-accounting, effects, runtime inventory, and acceptance evidence (`RDM-026`).
+        review index, durable co-located provenance/plan/patch/claim/validation/review/no-op
+        artifacts, and compact manifests that hash-bind call-accounting, effects, runtime
+        inventory, current acceptance, and committed evidence (`RDM-026`).
   - **Exit:** the early Python/.NET/Java slices are measured and no-op-proven, then verified
     `AGENT_APPROVED == NO_OP_PROVEN == dynamic Python denominator`; the indexed
     Python POC, committed README files, and SHA-256 inventory reproduce independently. This

@@ -1,0 +1,4460 @@
+{
+  "schema_version": 1,
+  "content_assurance": "repository_verified",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+  "immutable_base_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+  "facts_hash": "7856d9859f716f50b3dbdb16d25b3c298df4f81e125950a40f92160cddb6f962",
+  "template_sha256": "8178c25e8081c30a8bfbc255957c6761287e955ffbaf11068f8204036056a666",
+  "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+  "adoption": {
+    "marker_schema_version": null,
+    "metadata_location": "durable_evidence",
+    "already_adopted": false,
+    "source_document_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+    "source_inner_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+    "source_inner_bytes": 4580,
+    "preservation_check": "byte_identical"
+  },
+  "header_visuals": {
+    "schema_version": 1,
+    "title": "Aspose.Cells FOSS for Python",
+    "title_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ],
+    "badges": [
+      {
+        "badge_id": "package",
+        "kind": "package",
+        "alt_text": "PyPI: aspose-cells-foss",
+        "image_url": "https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI",
+        "target_url": "https://pypi.org/project/aspose-cells-foss/",
+        "fact_ids": [
+          "installation.verified_acquisition:registry-pypi"
+        ]
+      },
+      {
+        "badge_id": "platform",
+        "kind": "platform",
+        "alt_text": "Python versions",
+        "image_url": "https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg",
+        "target_url": null,
+        "fact_ids": [
+          "product.identity:manifest-and-registry",
+          "installation.verified_acquisition:registry-pypi"
+        ]
+      },
+      {
+        "badge_id": "compatibility",
+        "kind": "platform",
+        "alt_text": "Requires: Python >=3.7",
+        "image_url": "https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue",
+        "target_url": null,
+        "fact_ids": [
+          "product.compatibility:manifest"
+        ]
+      },
+      {
+        "badge_id": "license",
+        "kind": "license",
+        "alt_text": "License: MIT",
+        "image_url": "https://img.shields.io/badge/License-MIT-blue",
+        "target_url": "License/LICENSE.txt",
+        "fact_ids": [
+          "product.license:license-file"
+        ]
+      },
+      {
+        "badge_id": "contributors",
+        "kind": "contributors",
+        "alt_text": "Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        "image_url": "https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg",
+        "target_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      }
+    ],
+    "badge_markdown": "[![PyPI: aspose-cells-foss](https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI)](https://pypi.org/project/aspose-cells-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors)",
+    "diagram_nodes": [
+      {
+        "node_id": "product",
+        "role": "product",
+        "label": "Aspose.Cells FOSS for Python",
+        "fact_ids": [
+          "product.identity:manifest-and-registry"
+        ]
+      },
+      {
+        "node_id": "capability_1",
+        "role": "capability",
+        "label": "Read and write cell values and formulas",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_2",
+        "role": "capability",
+        "label": "Add, remove, rename, and manage worksheets",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_3",
+        "role": "capability",
+        "label": "Create and modify charts",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_4",
+        "role": "capability",
+        "label": "Add and manage ListObject tables with styles and auto-filters",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_5",
+        "role": "capability",
+        "label": "Add dropdown lists, number ranges, and custom validation rules",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "output_1",
+        "role": "output",
+        "label": "xlsx files",
+        "fact_ids": [
+          "product.formats:native-direction-evidence"
+        ]
+      },
+      {
+        "node_id": "input_1",
+        "role": "input",
+        "label": "cell values and formulas",
+        "fact_ids": [
+          "product.capabilities:repository-evidence"
+        ]
+      },
+      {
+        "node_id": "capability_6",
+        "role": "capability",
+        "label": "Writes xlsx files",
+        "fact_ids": [
+          "product.formats:native-direction-evidence"
+        ]
+      },
+      {
+        "node_id": "output_2",
+        "role": "output",
+        "label": "CSV files",
+        "fact_ids": [
+          "product.formats:native-direction-evidence"
+        ]
+      },
+      {
+        "node_id": "output_3",
+        "role": "output",
+        "label": "Markdown files",
+        "fact_ids": [
+          "product.formats:native-direction-evidence"
+        ]
+      },
+      {
+        "node_id": "output_4",
+        "role": "output",
+        "label": "JSON files",
+        "fact_ids": [
+          "product.formats:native-direction-evidence"
+        ]
+      }
+    ],
+    "mermaid_source": "flowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"cell values and formulas\"]\n  end\n\n  product[\"Aspose.Cells FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Read and write cell values and formulas\"]\n    capability_2[\"Add, remove, rename, and manage worksheets\"]\n    capability_3[\"Create and modify charts\"]\n    capability_4[\"Add and manage ListObject tables with styles and auto-filters\"]\n    capability_5[\"Add dropdown lists, number ranges, and custom validation rules\"]\n    capability_6[\"Writes xlsx files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"xlsx files\"]\n    output_2[\"CSV files\"]\n    output_3[\"Markdown files\"]\n    output_4[\"JSON files\"]\n  end\n\n  input_1 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4",
+    "mermaid_markdown": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"cell values and formulas\"]\n  end\n\n  product[\"Aspose.Cells FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Read and write cell values and formulas\"]\n    capability_2[\"Add, remove, rename, and manage worksheets\"]\n    capability_3[\"Create and modify charts\"]\n    capability_4[\"Add and manage ListObject tables with styles and auto-filters\"]\n    capability_5[\"Add dropdown lists, number ranges, and custom validation rules\"]\n    capability_6[\"Writes xlsx files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"xlsx files\"]\n    output_2[\"CSV files\"]\n    output_3[\"Markdown files\"]\n    output_4[\"JSON files\"]\n  end\n\n  input_1 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n```"
+  },
+  "contextual_links": {
+    "schema_version": 1,
+    "family": "cells",
+    "platform": "python",
+    "enterprise_product_name": "Aspose.Cells",
+    "aspose_org_catalog_hash": "sha256:1889a44093bd29273fa37039bb85acb77213c5fd5ddec8ecf3d039926ddc9f80",
+    "aspose_com_catalog_hash": "sha256:3560e9f9358401a30b95fc06d978ea3a21bfbc84d44008b13d06462d4a3bb5d7",
+    "budget": {
+      "schema_version": 1,
+      "mode": "auto",
+      "measurement": {
+        "schema_version": 1,
+        "visible_prose_words": 222,
+        "verified_code_blocks": 1,
+        "verified_code_units": 100,
+        "total_content_units": 322
+      },
+      "max_total": 2,
+      "domain_maxima": {
+        "aspose.org": 1,
+        "aspose.com": 2
+      },
+      "surface_maxima": {
+        "products": 2,
+        "docs": 2,
+        "kb": 2,
+        "blog": 1,
+        "reference": 2
+      }
+    },
+    "pre_link_occurrences": {
+      "total": 0,
+      "by_parent_domain": {
+        "aspose.org": 0,
+        "aspose.com": 0
+      },
+      "by_surface": {
+        "products": 0,
+        "docs": 0,
+        "kb": 0,
+        "blog": 0,
+        "reference": 0,
+        "other": 0
+      },
+      "repeated_targets": {}
+    },
+    "pre_link_url_counts": {},
+    "considered_record_ids": [
+      "org:products:cells:python:3386dfaa7ff2332e",
+      "com:products:cells:python:613b0c3f8c42b05f",
+      "com:products:cells:python:43b666ea4e106b57",
+      "org:products:cells:all:31c527233593c14e",
+      "com:products:cells:all:a1b0d14c7ae1d9e3"
+    ],
+    "bindings": [
+      {
+        "schema_version": 1,
+        "binding_id": "readme.relationship:com:products:cells:python:613b0c3f8c42b05f",
+        "context_kind": "relationship",
+        "section_heading": "Scope and limitations",
+        "context_id": "relationship.commercial_foss:primary",
+        "target_record_id": "com:products:cells:python:613b0c3f8c42b05f",
+        "target_url": "https://products.aspose.com/cells/python/",
+        "target_title": "Python",
+        "parent_domain": "aspose.com",
+        "surface": "products",
+        "support_rationale": "Verified product page supports the policy-approved open-source and Enterprise Edition relationship.",
+        "placement": "inline_supporting_prose",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry",
+          "relationship.commercial_foss:primary"
+        ],
+        "matched_subject_terms": [
+          "cells",
+          "python"
+        ]
+      },
+      {
+        "schema_version": 1,
+        "binding_id": "readme.relationship:org:products:cells:python:3386dfaa7ff2332e",
+        "context_kind": "relationship",
+        "section_heading": "Scope and limitations",
+        "context_id": "relationship.commercial_foss:primary",
+        "target_record_id": "org:products:cells:python:3386dfaa7ff2332e",
+        "target_url": "https://products.aspose.org/cells/python/",
+        "target_title": "Aspose.Cells FOSS for Python",
+        "parent_domain": "aspose.org",
+        "surface": "products",
+        "support_rationale": "Verified product page supports the policy-approved open-source and Enterprise Edition relationship.",
+        "placement": "inline_supporting_prose",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry",
+          "relationship.commercial_foss:primary"
+        ],
+        "matched_subject_terms": [
+          "cells",
+          "python"
+        ]
+      }
+    ],
+    "omission_reason": "none"
+  },
+  "enterprise_terminology_corrections": [],
+  "claim_accountability": {
+    "schema_version": 1,
+    "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+    "facts_hash": "7856d9859f716f50b3dbdb16d25b3c298df4f81e125950a40f92160cddb6f962",
+    "source_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+    "candidate_sha256": "d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+    "claims": [
+      {
+        "claim_id": "source:claim:21:ad30aa5d87a23f6f",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 21,
+        "source_byte_end": 137,
+        "content_sha256": "ad30aa5d87a23f6f9068ec879d48d6a0fe14798129a0acfbcd9f1871a806eb72",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:138:50cc717fe1b3ea49",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 138,
+        "source_byte_end": 475,
+        "content_sha256": "50cc717fe1b3ea4901ee4c7347f0e5c1bc7a3e24d69e5836f26161817f055dc0",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.license:license-file",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:489:6057c5de6977869d",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 489,
+        "source_byte_end": 574,
+        "content_sha256": "6057c5de6977869df6274bcd66991ed7b53e70379ce4cf520ae609930eaf85b8",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:574:b63931870d23df5a",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 574,
+        "source_byte_end": 633,
+        "content_sha256": "b63931870d23df5a22d3334368f0cad7985714e3b2c3bc4585c73a45c2152e6b",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:633:d6585c7cb0145e31",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 633,
+        "source_byte_end": 708,
+        "content_sha256": "d6585c7cb0145e314e55af57b7774e53a7d1638d989c432418500823ecb6af10",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:708:bfdcd945153ab5cd",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 708,
+        "source_byte_end": 778,
+        "content_sha256": "bfdcd945153ab5cd673d259cd5f06d4eaf346cbb7d0169b4033939d8c209e754",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/b3f6e4c2610e16e0",
+            "value_sha256": "b3f6e4c2610e16e09112e4fa0071092d01e9bed8378f30d304df5e10fe179ecd",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:778:90f1af8322edb0fb",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 778,
+        "source_byte_end": 880,
+        "content_sha256": "90f1af8322edb0fb616b4545c11ecd383535fea775999f114ac2525c9d29eef7",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/6e78ce2165a8d87c",
+            "value_sha256": "6e78ce2165a8d87cbec762b31f4956ec21fd585301122fe29203a34388e41eaf",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:880:36bfa0eb6b2198d6",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 880,
+        "source_byte_end": 956,
+        "content_sha256": "36bfa0eb6b2198d64e8fea2d3cb197d08a921fbcfc8515afbea68bb74caf6709",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/1d4291838dc11c45",
+            "value_sha256": "1d4291838dc11c457a0f67bf29818bd803743e23d0ed1710895f2cce5e0f16e2",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:956:45327a3dac6eaad7",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 956,
+        "source_byte_end": 1035,
+        "content_sha256": "45327a3dac6eaad7074cc71da3d6b47be3f8b1825cf1da4d999d96c0024db573",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1035:2f17e3ffae558293",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1035,
+        "source_byte_end": 1121,
+        "content_sha256": "2f17e3ffae558293480c667a7a63a21ab6289834e60cf41fbf93d91888b8031b",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/438dc0e3d7942c59",
+            "value_sha256": "438dc0e3d7942c59beca504bb07c92affd211fcc6de958abc5f87caffd9cacfa",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1121:282acec16699ce41",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1121,
+        "source_byte_end": 1192,
+        "content_sha256": "282acec16699ce4152527928d30239e7f0c98d13b40f1880f943c7a82a8c6a9a",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1192:b6c2f99f8259dd76",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1192,
+        "source_byte_end": 1271,
+        "content_sha256": "b6c2f99f8259dd76db3ea1dc58be1cbbd6350fc9880d88d0108b006bbffc89d4",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1271:3ae09451f87d87c4",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1271,
+        "source_byte_end": 1322,
+        "content_sha256": "3ae09451f87d87c4eb4540269cec1d9e8b08139d7bc5797296b1d153e43a9500",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1322:84d7ad6543b1886c",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1322,
+        "source_byte_end": 1381,
+        "content_sha256": "84d7ad6543b1886ca321afd3f2e0ec3d005137672a979835213aa27c8ac3b0a9",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1381:21f472a022aff573",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1381,
+        "source_byte_end": 1457,
+        "content_sha256": "21f472a022aff573e4b8efed117adff4b752159b86674bfa1d3259b53399eaed",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1457:fefabfbcd585d055",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1457,
+        "source_byte_end": 1524,
+        "content_sha256": "fefabfbcd585d055cbd01e5268175a45b0d81f6d06d2425c67e47cf663a32848",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1524:eb48d1063876f8ec",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1524,
+        "source_byte_end": 1612,
+        "content_sha256": "eb48d1063876f8ecf9408a2486ece452f3a3016c46306856290108907807ce7b",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1630:39226d4fc508c662",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1630,
+        "source_byte_end": 1672,
+        "content_sha256": "39226d4fc508c6625156cd7d80eb67a91d4678a4e67cc7eedb43c0515c9617fb",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.coordinates:manifest",
+          "installation.optional_extras:python-manifest",
+          "installation.verified_acquisition:registry-pypi",
+          "product.compatibility:manifest",
+          "python.distribution:pyproject-manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:1718:66dde3989bf63b8a",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 1718,
+        "source_byte_end": 2093,
+        "content_sha256": "66dde3989bf63b8aff2ed278a19c140cc64ddb5e80712a56e1cfa187a049b698",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:2127:26908340a4ddf4c5",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 2127,
+        "source_byte_end": 2392,
+        "content_sha256": "26908340a4ddf4c5f15f9f69cd934ad5ba225506d74aa92a7a979c799875db9e",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:2412:12a6210100728112",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 2412,
+        "source_byte_end": 2772,
+        "content_sha256": "12a6210100728112ccfab24406ff7e0be6a47378f7e4cec0fe87d85bf3a69581",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:2814:2bb54639209a98be",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 2814,
+        "source_byte_end": 3169,
+        "content_sha256": "2bb54639209a98bea46357d27d4dac4f92342fc1dfc3000fa982f469186f330e",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:3189:212844faee5d1552",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3189,
+        "source_byte_end": 3312,
+        "content_sha256": "212844faee5d15524d9f58738c55ae2bfe76ba42982529c975652f16a0b8fd26",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:3338:1e6ec1f926265f75",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3338,
+        "source_byte_end": 3683,
+        "content_sha256": "1e6ec1f926265f75f4b1259b524e60dc628b41d9a790c3916ab2b8891a0ce693",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:3701:a77c7737644a3245",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3701,
+        "source_byte_end": 3724,
+        "content_sha256": "a77c7737644a32453062539eca568299d08264a28f6ecd397a703e8ead4960d6",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:3724:d71c266e2f2610b4",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3724,
+        "source_byte_end": 3749,
+        "content_sha256": "d71c266e2f2610b481952422d90d06a85dce4c4a3c7cc26bcec7fd32a7e2e9b2",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:3749:a1689d7ea4fe7ccd",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3749,
+        "source_byte_end": 3767,
+        "content_sha256": "a1689d7ea4fe7ccdf604cb1f5b38523bd9ee589ee345d739bb2ad3acf3966eca",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:3786:9d513b9a7e6bbe98",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3786,
+        "source_byte_end": 3943,
+        "content_sha256": "9d513b9a7e6bbe98fe149ae056b87c515199bb95ef43b89f6f595e66947c899a",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:3961:76dfd1ba527690a9",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 3961,
+        "source_byte_end": 4031,
+        "content_sha256": "76dfd1ba527690a981c64bbe2dbedc043007dea73ea090ea8541f7b42f26faa3",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4032:3daa51daf08f9133",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4032,
+        "source_byte_end": 4055,
+        "content_sha256": "3daa51daf08f91330f5554c7d4c1609ffc98f764505e69e89c40ba96b51ea73b",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4055:23e5b13f36702ded",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4055,
+        "source_byte_end": 4129,
+        "content_sha256": "23e5b13f36702ded903cf3fc686dc307dcab2ee5c23722b1f00706dcd5b612a9",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4129:9261306727066780",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4129,
+        "source_byte_end": 4197,
+        "content_sha256": "9261306727066780914dbd218b39aca38080b0f085607bf59ded8576a732f089",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4197:c0206d36acdaf755",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4197,
+        "source_byte_end": 4263,
+        "content_sha256": "c0206d36acdaf755ef4dda8eeb2f7053eb21585a53f3c3420229fc8f7bf3d372",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4263:760e447f65c970c5",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4263,
+        "source_byte_end": 4286,
+        "content_sha256": "760e447f65c970c5568e3ad1347c3008b482c357d5eba78b5d4054bb64a71bcd",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "deferred_verification",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is excluded from the candidate and retained in evidence until repository verification can justify publication."
+      },
+      {
+        "claim_id": "source:claim:4299:e2d6bf6d93b6f844",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4299,
+        "source_byte_end": 4472,
+        "content_sha256": "e2d6bf6d93b6f844984b2dfd7704c0825ae25b2965915fe17b8bb9e3c9f80163",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.license:license-file"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "source:claim:4485:6309809fb5201042",
+        "stage": "source",
+        "origin": "inherited",
+        "source_byte_start": 4485,
+        "source_byte_end": 4580,
+        "content_sha256": "6309809fb5201042cdd116491cddf2d747976b15463eda36a7fb55e5e950c4d0",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.audience:platform-derived",
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": false,
+        "expected_disposition": "verified_obligation_replacement",
+        "currently_accountable": true,
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
+      },
+      {
+        "claim_id": "candidate:claim:32:64bd950e2c9bfd62",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 32,
+        "source_byte_end": 674,
+        "content_sha256": "64bd950e2c9bfd62db54b10ee0badc7ed11e8cc1f740437301367f8cf6d9b566",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.verified_acquisition:registry-pypi",
+          "product.compatibility:manifest",
+          "product.identity:manifest-and-registry",
+          "product.license:license-file",
+          "python.distribution:pyproject-manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.badges"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:675:d31eaac92d95dbb9",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 675,
+        "source_byte_end": 894,
+        "content_sha256": "d31eaac92d95dbb9e1bb3f798774dee8053de7cbc41678b6850fbee46bed4e65",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/03c938412dada550",
+            "value_sha256": "03c938412dada55070c639069ab5c092bea2c9f9249c30a7044045b4d55098f1",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/6e78ce2165a8d87c",
+            "value_sha256": "6e78ce2165a8d87cbec762b31f4956ec21fd585301122fe29203a34388e41eaf",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/b3f6e4c2610e16e0",
+            "value_sha256": "b3f6e4c2610e16e09112e4fa0071092d01e9bed8378f30d304df5e10fe179ecd",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:910:cfaea1ecdb87f28f",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 910,
+        "source_byte_end": 940,
+        "content_sha256": "cfaea1ecdb87f28fae62580ed3f05fcc4ff6be0031a2eb51fab2bcb30d5ca5ca",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:940:9c3b64a8a10efb81",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 940,
+        "source_byte_end": 980,
+        "content_sha256": "9c3b64a8a10efb816084f929f79a72116ed8132e12cfb13a76ee9a6829c457e5",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:980:a5749d911ef234ea",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 980,
+        "source_byte_end": 1012,
+        "content_sha256": "a5749d911ef234ea71282719b10f1d7c8f58e49fc94aaa6e4f99f489067df397",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:1012:abc523764801600a",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 1012,
+        "source_byte_end": 1042,
+        "content_sha256": "abc523764801600a931df48fb4fe1e4cb7310e1eff0567eedfb80368c3d66ac9",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:1042:edae497f5f1815f2",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 1042,
+        "source_byte_end": 1088,
+        "content_sha256": "edae497f5f1815f2984901d8b11727d94db4c1c519ac5e8e038d918cbbe6c7b8",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:1088:6cb07bb49a7cbbc2",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 1088,
+        "source_byte_end": 1138,
+        "content_sha256": "6cb07bb49a7cbbc267bd3e3cd788f49c8f33d97fc6cc82857fb1478b191bc4ea",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:1138:a18c82ae4032da43",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 1138,
+        "source_byte_end": 1160,
+        "content_sha256": "a18c82ae4032da4332032f769b84e364433dd5ffacc4c4181807a7c58a0950e6",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.navigation"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:1177:6549a5f335ed6f38",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 1177,
+        "source_byte_end": 2205,
+        "content_sha256": "6549a5f335ed6f38a9174ce46141e6114ba47e84bf808b0e4d544c88f5b62053",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.formats:native-direction-evidence",
+          "product.identity:manifest-and-registry",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/03c938412dada550",
+            "value_sha256": "03c938412dada55070c639069ab5c092bea2c9f9249c30a7044045b4d55098f1",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/1d4291838dc11c45",
+            "value_sha256": "1d4291838dc11c457a0f67bf29818bd803743e23d0ed1710895f2cce5e0f16e2",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/438dc0e3d7942c59",
+            "value_sha256": "438dc0e3d7942c59beca504bb07c92affd211fcc6de958abc5f87caffd9cacfa",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/6e78ce2165a8d87c",
+            "value_sha256": "6e78ce2165a8d87cbec762b31f4956ec21fd585301122fe29203a34388e41eaf",
+            "normalization_version": "structured-fact-coordinate-v1"
+          },
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/b3f6e4c2610e16e0",
+            "value_sha256": "b3f6e4c2610e16e09112e4fa0071092d01e9bed8378f30d304df5e10fe179ecd",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [
+          "readme.at_a_glance_mermaid"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2227:883e725b6b063726",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2227,
+        "source_byte_end": 2270,
+        "content_sha256": "883e725b6b0637267ebcf7ff36fc436480bab912d8d79d6ea80632252f92d42f",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/03c938412dada550",
+            "value_sha256": "03c938412dada55070c639069ab5c092bea2c9f9249c30a7044045b4d55098f1",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2270:85c3436a0932ca51",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2270,
+        "source_byte_end": 2316,
+        "content_sha256": "85c3436a0932ca514891616dc16dc291a53d0f2f4d3f5351724d8f7fa9bdaaf3",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/b3f6e4c2610e16e0",
+            "value_sha256": "b3f6e4c2610e16e09112e4fa0071092d01e9bed8378f30d304df5e10fe179ecd",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2316:d43bf5bbe70eb657",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2316,
+        "source_byte_end": 2344,
+        "content_sha256": "d43bf5bbe70eb6575397ba66bac15184a57ec182955675e20709a688268cbc82",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/6e78ce2165a8d87c",
+            "value_sha256": "6e78ce2165a8d87cbec762b31f4956ec21fd585301122fe29203a34388e41eaf",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2344:f8b9e1d54a284ad8",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2344,
+        "source_byte_end": 2409,
+        "content_sha256": "f8b9e1d54a284ad801e738af8b09ec01905f5dfc4a290620f1aa6becf1a0d7a4",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence",
+          "product.problems_solved:capability-derived"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/1d4291838dc11c45",
+            "value_sha256": "1d4291838dc11c457a0f67bf29818bd803743e23d0ed1710895f2cce5e0f16e2",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2409:3f4b031e1b4ed8b6",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2409,
+        "source_byte_end": 2475,
+        "content_sha256": "3f4b031e1b4ed8b69dfa927da6cf8397261d01b6d2f67876c46adef560975d4c",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.capabilities:repository-evidence"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "product.capabilities:repository-evidence",
+            "field": "product.capabilities",
+            "path": "/items/438dc0e3d7942c59",
+            "value_sha256": "438dc0e3d7942c59beca504bb07c92affd211fcc6de958abc5f87caffd9cacfa",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2493:6404dee8f0be3d04",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2493,
+        "source_byte_end": 2545,
+        "content_sha256": "6404dee8f0be3d04769a66337ceab412a4ee315eb7a132cd3d635467246ca5d4",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.verified_acquisition:registry-pypi"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "installation.verified_acquisition:registry-pypi",
+            "field": "installation.verified_acquisition",
+            "path": "/verified-rendered-acquisition",
+            "value_sha256": "89cab66b87222a81bc54f68e173a3f8b99631154495bcb8abfadc0cd099c8786",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [
+          "readme.verified_acquisition"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2546:9065718cd32ec48c",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2546,
+        "source_byte_end": 2576,
+        "content_sha256": "9065718cd32ec48cc61ca9cfa6b9a3d600b6105b32ee0bfcb75139457f52b446",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.compatibility:manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.verified_acquisition"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2577:8adcb0a04ef3a0cd",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2577,
+        "source_byte_end": 2634,
+        "content_sha256": "8adcb0a04ef3a0cd06705f1b5cba920cae5e1b3c6f47b7ed3d27af3fccf68043",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.optional_extras:python-manifest",
+          "python.distribution:pyproject-manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.verified_acquisition"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2634:c6bc0deeaee2ea65",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2634,
+        "source_byte_end": 2692,
+        "content_sha256": "c6bc0deeaee2ea65d7c07d61cbc63162b06fac9f930e14e89f45ef1bc2e84cd6",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.optional_extras:python-manifest"
+        ],
+        "accepted_fact_coordinates": [
+          {
+            "fact_id": "installation.optional_extras:python-manifest",
+            "field": "installation.optional_extras",
+            "path": "/extras/dev",
+            "value_sha256": "5aff5a3114420f7b63ec34087424fe39278de88b7f0e9436f866f42a3f4ca8dc",
+            "normalization_version": "structured-fact-coordinate-v1"
+          }
+        ],
+        "configured_standard_ids": [
+          "readme.verified_acquisition"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2693:215035b230d251ad",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2693,
+        "source_byte_end": 2794,
+        "content_sha256": "215035b230d251ad6dbe8cb02c64cab65d3e0429f3bb31186aac8aeb72689ea2",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "installation.optional_extras:python-manifest",
+          "python.distribution:pyproject-manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.verified_acquisition"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2841:5b24dfa276c15fbb",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2841,
+        "source_byte_end": 2905,
+        "content_sha256": "5b24dfa276c15fbb89a143df82c627848329f421344ff9b98050a3a21c12ef06",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "example.minimal:compiled-salvaged-example"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.primary_example"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:2930:add9a0f07048bfad",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 2930,
+        "source_byte_end": 3078,
+        "content_sha256": "add9a0f07048bfad2cb0176e587da3d242f2577ad67c8ff411b3f9b30e8fc075",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:3079:77d74169d6836c55",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3079,
+        "source_byte_end": 3145,
+        "content_sha256": "77d74169d6836c555b7c4ebd8e9e20f589b915e4e3720b38eb976a46f60707b1",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:3176:f0d346e7fbe528a4",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3176,
+        "source_byte_end": 3216,
+        "content_sha256": "f0d346e7fbe528a4d92a965bc5fef15dd5df3ff8b68613ec03a992c7c729fb04",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3216:1a88d17898a14818",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3216,
+        "source_byte_end": 3276,
+        "content_sha256": "1a88d17898a1481897fa47857b014b71039459b8bdd89b95d27d93923a28739f",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3276:4c7eb383c9ab748f",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3276,
+        "source_byte_end": 3350,
+        "content_sha256": "4c7eb383c9ab748f4a2204dbca5da17944859053a777c743a37a4fcf17e65a6a",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3350:3091325df76ffd28",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3350,
+        "source_byte_end": 3406,
+        "content_sha256": "3091325df76ffd28cdae0f64464fd12def787a5e6010951f6b1155344f0cfda1",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3406:d71eec6a7fdb519e",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3406,
+        "source_byte_end": 3470,
+        "content_sha256": "d71eec6a7fdb519e7f26770d796b6afd89f58bc70e06c3a9f455e50f0c15b069",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3470:f61c9d006cac99ae",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3470,
+        "source_byte_end": 3548,
+        "content_sha256": "f61c9d006cac99aec6c6ba2a618029c794b0069ea7d04426eafbc0c1b3f1ab3b",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3548:97d1f7adb2545478",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3548,
+        "source_byte_end": 3604,
+        "content_sha256": "97d1f7adb2545478b149b5f39e6c7401974194cfd756545e95f2d1c0e51579f6",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3604:399140bf736d09f1",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3604,
+        "source_byte_end": 3662,
+        "content_sha256": "399140bf736d09f183185494af5ff920d4980980ac1e389474f43ec199acf2d8",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3662:c5af16a4a52abd70",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3662,
+        "source_byte_end": 3712,
+        "content_sha256": "c5af16a4a52abd70967ee67393d7914f4cb384972c7284b94c911619334901eb",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3712:b77d939f2869686c",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3712,
+        "source_byte_end": 3790,
+        "content_sha256": "b77d939f2869686c6f5b2a340c7817141b14ee947ef22062d305de6cff947683",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3790:7bfa4f9f98f8d1f1",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3790,
+        "source_byte_end": 3858,
+        "content_sha256": "7bfa4f9f98f8d1f1cf26ff48b4d9c2d1da56b6deacb0e7c7727a3c6b37f25ac4",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3858:eb1597a0197aec2a",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3858,
+        "source_byte_end": 3926,
+        "content_sha256": "eb1597a0197aec2aee779d32df8f78495e7230acd7d03988e8638ee91c5ae913",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3926:3f14c70df7834982",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3926,
+        "source_byte_end": 3988,
+        "content_sha256": "3f14c70df7834982609afa66defcfe847264301d76053a14b7694c558d065fd9",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:3988:0392ae4b12c76c68",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 3988,
+        "source_byte_end": 4046,
+        "content_sha256": "0392ae4b12c76c6879bae434184ec54ba290ff3301cdb542c52049bd87827c35",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4046:8521e9e06fda5e04",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4046,
+        "source_byte_end": 4112,
+        "content_sha256": "8521e9e06fda5e04ca1c2d8dbce3c556c287587109c6a0c578e5da54b15e72b2",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4112:3e42d43c81e3d537",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4112,
+        "source_byte_end": 4180,
+        "content_sha256": "3e42d43c81e3d537e62eb62487e422da17af5187b3239a7994443c7ecb4133a0",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4180:a5dd208b159ccaf4",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4180,
+        "source_byte_end": 4244,
+        "content_sha256": "a5dd208b159ccaf4dfd0310823898508ed9690e92f156fc8e0fade51b9aa5906",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4244:85e065fe1e3465f2",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4244,
+        "source_byte_end": 4316,
+        "content_sha256": "85e065fe1e3465f267b2599edfeec5a021a7d6a0be29e69acde538d3fa21d2c1",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4316:283a8c40ddb261ff",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4316,
+        "source_byte_end": 4370,
+        "content_sha256": "283a8c40ddb261ffdc0054d6a7585b0959fc58b2e658406cc202e046d9989b65",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4370:9456c1d03d5e582a",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4370,
+        "source_byte_end": 4430,
+        "content_sha256": "9456c1d03d5e582a2de495f3ff1f732cfa839eb5ef17a270d997b1a99046518d",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4430:c3060daeba58fc3b",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4430,
+        "source_byte_end": 4490,
+        "content_sha256": "c3060daeba58fc3b059d2368523716bc8c1b810364a8d51e4ad95dc72d36ac1a",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4490:a78ae662ecf5328d",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4490,
+        "source_byte_end": 4544,
+        "content_sha256": "a78ae662ecf5328d83bd7d5a3c180da1c563fb89c563eb40bf2ad3f5df3bd8a9",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4544:3dd67f3ab06aec80",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4544,
+        "source_byte_end": 4614,
+        "content_sha256": "3dd67f3ab06aec80dc820baeef59dea7170cb9dda0df3eaad871afbf751501fb",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4614:be9020b631b1dd7b",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4614,
+        "source_byte_end": 4670,
+        "content_sha256": "be9020b631b1dd7b2ecac765d0431dec11c2fecb62e2facc3294108bc096d7ff",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4670:bae60407f5f14faa",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4670,
+        "source_byte_end": 4732,
+        "content_sha256": "bae60407f5f14faa7356ff292d4eabcea89b9a88a74db97586f130eee9a0be23",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4732:0a59835e51cb0903",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4732,
+        "source_byte_end": 4786,
+        "content_sha256": "0a59835e51cb0903cd1b782b86e82fe3c8bb1e4ec52a8de4acbf798499d8d8a7",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4786:54ca77ae4b17dd33",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4786,
+        "source_byte_end": 4858,
+        "content_sha256": "54ca77ae4b17dd33debeece6e9422411151d20555ff2cd7bc68be469d9a0d6d8",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4858:35a09876c691595b",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4858,
+        "source_byte_end": 4932,
+        "content_sha256": "35a09876c691595b283a99a58316f538c81c53d351be1ba314569be31c3fd2fa",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:4932:05e48e3109c7b145",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 4932,
+        "source_byte_end": 5006,
+        "content_sha256": "05e48e3109c7b14594991d1b0dae6d6138d33226f9aa4568d84f0bed620f3c6e",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:5006:48b3a5a1d8fffc9a",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5006,
+        "source_byte_end": 5080,
+        "content_sha256": "48b3a5a1d8fffc9adc55e09a662c3cbb2581cc451089fcff6ebf774fc7cd6570",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:5080:2b9b0a719f8a403e",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5080,
+        "source_byte_end": 5138,
+        "content_sha256": "2b9b0a719f8a403ec9549b352c4e3afab01a6421353e349f39c8baa9d5e9182c",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:5138:187eb612e6be41b2",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5138,
+        "source_byte_end": 5204,
+        "content_sha256": "187eb612e6be41b2566f8b77a2867f18ddf5351e785e3d12b1dcb71f41ec0c13",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "repository.examples:repository-inventory"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:5206:12f873dc0c7759e3",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5206,
+        "source_byte_end": 5217,
+        "content_sha256": "12f873dc0c7759e3b14f571734abcaccaff5f84a5fff8c887f97d17a27ace92f",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.additional_examples"
+        ],
+        "authoritative_owners": [],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "configured_standard",
+        "currently_accountable": true,
+        "rationale": "Generated structural content is bound to a governed presentation standard."
+      },
+      {
+        "claim_id": "candidate:claim:5244:f2db847cde049d9a",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5244,
+        "source_byte_end": 5302,
+        "content_sha256": "f2db847cde049d9aba7f7dc228040485f3e15894d2a5a0b3a9125f4d7381bbbe",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "python.distribution:pyproject-manifest"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.contextual_links",
+          "readme.enterprise_edition_terminology"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      },
+      {
+        "claim_id": "candidate:claim:5303:3b040c9201a692b0",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5303,
+        "source_byte_end": 5590,
+        "content_sha256": "3b040c9201a692b0864c6f2edfacd1ac3f9595ca45c24d365f898872689500b9",
+        "current_disposition": "remove_update",
+        "accepted_fact_ids": [
+          "product.identity:manifest-and-registry"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.contextual_links",
+          "readme.enterprise_edition_terminology"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "required_correction",
+        "currently_accountable": true,
+        "rationale": "The assessment requires a bounded correction before factual approval."
+      },
+      {
+        "claim_id": "candidate:claim:5603:f257934a86e20bda",
+        "stage": "candidate",
+        "origin": "generated",
+        "source_byte_start": 5603,
+        "source_byte_end": 5790,
+        "content_sha256": "f257934a86e20bda51f112d9b65875e1db29725121322b4791bf9cc9a4694763",
+        "current_disposition": "preserve",
+        "accepted_fact_ids": [
+          "product.license:license-file"
+        ],
+        "accepted_fact_coordinates": [],
+        "configured_standard_ids": [
+          "readme.license"
+        ],
+        "authoritative_owners": [
+          "repository-owner"
+        ],
+        "equivalence_group_id": null,
+        "equivalent_source_claim_ids": [],
+        "equivalent_candidate_claims": [],
+        "equivalence_normalization_version": null,
+        "survives_in_candidate": null,
+        "expected_disposition": "accepted_fact",
+        "currently_accountable": true,
+        "rationale": "Exact content is bound to at least one selected accepted fact."
+      }
+    ]
+  },
+  "candidate_content_provenance": [
+    {
+      "provenance_id": "template.title",
+      "candidate_byte_start": 2,
+      "candidate_byte_end": 30,
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "configured_standard_ids": [
+        "readme.header"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.badges",
+      "candidate_byte_start": 32,
+      "candidate_byte_end": 673,
+      "fact_ids": [
+        "installation.verified_acquisition:registry-pypi",
+        "product.compatibility:manifest",
+        "product.identity:manifest-and-registry",
+        "product.license:license-file"
+      ],
+      "configured_standard_ids": [
+        "readme.badges"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.summary",
+      "candidate_byte_start": 675,
+      "candidate_byte_end": 893,
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "configured_standard_ids": [],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.navigation",
+      "candidate_byte_start": 910,
+      "candidate_byte_end": 1159,
+      "fact_ids": [],
+      "configured_standard_ids": [
+        "readme.navigation"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.at_a_glance",
+      "candidate_byte_start": 1177,
+      "candidate_byte_end": 2204,
+      "fact_ids": [
+        "product.capabilities:repository-evidence",
+        "product.formats:native-direction-evidence",
+        "product.identity:manifest-and-registry"
+      ],
+      "configured_standard_ids": [
+        "readme.at_a_glance_mermaid"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.key_capabilities",
+      "candidate_byte_start": 2227,
+      "candidate_byte_end": 2474,
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "configured_standard_ids": [],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.installation.verified_acquisition",
+      "candidate_byte_start": 2493,
+      "candidate_byte_end": 2575,
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-pypi"
+      ],
+      "configured_standard_ids": [
+        "readme.verified_acquisition"
+      ],
+      "rationale": "Bind the exact deterministic acquisition block to its accepted coordinate and acquisition facts."
+    },
+    {
+      "provenance_id": "template.section.installation.claim:53:9065718cd32ec48c",
+      "candidate_byte_start": 2546,
+      "candidate_byte_end": 2576,
+      "fact_ids": [
+        "product.compatibility:manifest"
+      ],
+      "configured_standard_ids": [
+        "readme.verified_acquisition"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.installation.claim:84:8adcb0a04ef3a0cd",
+      "candidate_byte_start": 2577,
+      "candidate_byte_end": 2634,
+      "fact_ids": [
+        "installation.optional_extras:python-manifest",
+        "python.distribution:pyproject-manifest"
+      ],
+      "configured_standard_ids": [
+        "readme.verified_acquisition"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.installation.claim:141:c6bc0deeaee2ea65",
+      "candidate_byte_start": 2634,
+      "candidate_byte_end": 2692,
+      "fact_ids": [
+        "installation.optional_extras:python-manifest"
+      ],
+      "configured_standard_ids": [
+        "readme.verified_acquisition"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.installation.claim:200:5688701aef045015",
+      "candidate_byte_start": 2693,
+      "candidate_byte_end": 2793,
+      "fact_ids": [
+        "installation.optional_extras:python-manifest",
+        "python.distribution:pyproject-manifest"
+      ],
+      "configured_standard_ids": [
+        "readme.verified_acquisition"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.quick_start",
+      "candidate_byte_start": 2811,
+      "candidate_byte_end": 2904,
+      "fact_ids": [
+        "example.minimal:compiled-salvaged-example"
+      ],
+      "configured_standard_ids": [
+        "readme.primary_example"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:0:add9a0f07048bfad",
+      "candidate_byte_start": 2930,
+      "candidate_byte_end": 3078,
+      "fact_ids": [],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:149:77d74169d6836c55",
+      "candidate_byte_start": 3079,
+      "candidate_byte_end": 3145,
+      "fact_ids": [],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:246:f0d346e7fbe528a4",
+      "candidate_byte_start": 3176,
+      "candidate_byte_end": 3216,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:286:1a88d17898a14818",
+      "candidate_byte_start": 3216,
+      "candidate_byte_end": 3276,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:346:4c7eb383c9ab748f",
+      "candidate_byte_start": 3276,
+      "candidate_byte_end": 3350,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:420:3091325df76ffd28",
+      "candidate_byte_start": 3350,
+      "candidate_byte_end": 3406,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:476:d71eec6a7fdb519e",
+      "candidate_byte_start": 3406,
+      "candidate_byte_end": 3470,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:540:f61c9d006cac99ae",
+      "candidate_byte_start": 3470,
+      "candidate_byte_end": 3548,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:618:97d1f7adb2545478",
+      "candidate_byte_start": 3548,
+      "candidate_byte_end": 3604,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:674:399140bf736d09f1",
+      "candidate_byte_start": 3604,
+      "candidate_byte_end": 3662,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:732:c5af16a4a52abd70",
+      "candidate_byte_start": 3662,
+      "candidate_byte_end": 3712,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:782:b77d939f2869686c",
+      "candidate_byte_start": 3712,
+      "candidate_byte_end": 3790,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:860:7bfa4f9f98f8d1f1",
+      "candidate_byte_start": 3790,
+      "candidate_byte_end": 3858,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:928:eb1597a0197aec2a",
+      "candidate_byte_start": 3858,
+      "candidate_byte_end": 3926,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:996:3f14c70df7834982",
+      "candidate_byte_start": 3926,
+      "candidate_byte_end": 3988,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1058:0392ae4b12c76c68",
+      "candidate_byte_start": 3988,
+      "candidate_byte_end": 4046,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1116:8521e9e06fda5e04",
+      "candidate_byte_start": 4046,
+      "candidate_byte_end": 4112,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1182:3e42d43c81e3d537",
+      "candidate_byte_start": 4112,
+      "candidate_byte_end": 4180,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1250:a5dd208b159ccaf4",
+      "candidate_byte_start": 4180,
+      "candidate_byte_end": 4244,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1314:85e065fe1e3465f2",
+      "candidate_byte_start": 4244,
+      "candidate_byte_end": 4316,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1386:283a8c40ddb261ff",
+      "candidate_byte_start": 4316,
+      "candidate_byte_end": 4370,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1440:9456c1d03d5e582a",
+      "candidate_byte_start": 4370,
+      "candidate_byte_end": 4430,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1500:c3060daeba58fc3b",
+      "candidate_byte_start": 4430,
+      "candidate_byte_end": 4490,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1560:a78ae662ecf5328d",
+      "candidate_byte_start": 4490,
+      "candidate_byte_end": 4544,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1614:3dd67f3ab06aec80",
+      "candidate_byte_start": 4544,
+      "candidate_byte_end": 4614,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1684:be9020b631b1dd7b",
+      "candidate_byte_start": 4614,
+      "candidate_byte_end": 4670,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1740:bae60407f5f14faa",
+      "candidate_byte_start": 4670,
+      "candidate_byte_end": 4732,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1802:0a59835e51cb0903",
+      "candidate_byte_start": 4732,
+      "candidate_byte_end": 4786,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1856:54ca77ae4b17dd33",
+      "candidate_byte_start": 4786,
+      "candidate_byte_end": 4858,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:1928:35a09876c691595b",
+      "candidate_byte_start": 4858,
+      "candidate_byte_end": 4932,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:2002:05e48e3109c7b145",
+      "candidate_byte_start": 4932,
+      "candidate_byte_end": 5006,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:2076:48b3a5a1d8fffc9a",
+      "candidate_byte_start": 5006,
+      "candidate_byte_end": 5080,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:2150:2b9b0a719f8a403e",
+      "candidate_byte_start": 5080,
+      "candidate_byte_end": 5138,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:2208:187eb612e6be41b2",
+      "candidate_byte_start": 5138,
+      "candidate_byte_end": 5204,
+      "fact_ids": [
+        "repository.examples:repository-inventory"
+      ],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.additional_examples.claim:2276:88ac44c1aa8fc3c2",
+      "candidate_byte_start": 5206,
+      "candidate_byte_end": 5216,
+      "fact_ids": [],
+      "configured_standard_ids": [
+        "readme.additional_examples"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.scope_and_limitations.claim:0:f2db847cde049d9a",
+      "candidate_byte_start": 5244,
+      "candidate_byte_end": 5302,
+      "fact_ids": [
+        "python.distribution:pyproject-manifest"
+      ],
+      "configured_standard_ids": [
+        "readme.contextual_links",
+        "readme.enterprise_edition_terminology"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.scope_and_limitations.claim:59:4bf9472ebb03a87e",
+      "candidate_byte_start": 5303,
+      "candidate_byte_end": 5589,
+      "fact_ids": [
+        "product.identity:manifest-and-registry"
+      ],
+      "configured_standard_ids": [
+        "readme.contextual_links",
+        "readme.enterprise_edition_terminology"
+      ],
+      "rationale": "Bind one exact optional-section claim to accepted inputs."
+    },
+    {
+      "provenance_id": "template.section.license",
+      "candidate_byte_start": 5603,
+      "candidate_byte_end": 5789,
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "configured_standard_ids": [
+        "readme.license"
+      ],
+      "rationale": "Bind one exact compiled slot to its accepted inputs."
+    }
+  ],
+  "source_claim_resolutions": [
+    {
+      "claim_id": "claim:21:ad30aa5d87a23f6f",
+      "source_byte_start": 21,
+      "source_byte_end": 137,
+      "content_sha256": "ad30aa5d87a23f6f9068ec879d48d6a0fe14798129a0acfbcd9f1871a806eb72",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:21:ad30aa5d87a23f6f",
+        "source-content-sha256:ad30aa5d87a23f6f9068ec879d48d6a0fe14798129a0acfbcd9f1871a806eb72",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:138:50cc717fe1b3ea49",
+      "source_byte_start": 138,
+      "source_byte_end": 475,
+      "content_sha256": "50cc717fe1b3ea4901ee4c7347f0e5c1bc7a3e24d69e5836f26161817f055dc0",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:138:50cc717fe1b3ea49",
+        "source-content-sha256:50cc717fe1b3ea4901ee4c7347f0e5c1bc7a3e24d69e5836f26161817f055dc0",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:489:6057c5de6977869d",
+      "source_byte_start": 489,
+      "source_byte_end": 574,
+      "content_sha256": "6057c5de6977869df6274bcd66991ed7b53e70379ce4cf520ae609930eaf85b8",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:489:6057c5de6977869d",
+        "source-content-sha256:6057c5de6977869df6274bcd66991ed7b53e70379ce4cf520ae609930eaf85b8",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:574:b63931870d23df5a",
+      "source_byte_start": 574,
+      "source_byte_end": 633,
+      "content_sha256": "b63931870d23df5a22d3334368f0cad7985714e3b2c3bc4585c73a45c2152e6b",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:574:b63931870d23df5a",
+        "source-content-sha256:b63931870d23df5a22d3334368f0cad7985714e3b2c3bc4585c73a45c2152e6b",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:633:d6585c7cb0145e31",
+      "source_byte_start": 633,
+      "source_byte_end": 708,
+      "content_sha256": "d6585c7cb0145e314e55af57b7774e53a7d1638d989c432418500823ecb6af10",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:633:d6585c7cb0145e31",
+        "source-content-sha256:d6585c7cb0145e314e55af57b7774e53a7d1638d989c432418500823ecb6af10",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:708:bfdcd945153ab5cd",
+      "source_byte_start": 708,
+      "source_byte_end": 778,
+      "content_sha256": "bfdcd945153ab5cd673d259cd5f06d4eaf346cbb7d0169b4033939d8c209e754",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:708:bfdcd945153ab5cd",
+        "source-content-sha256:bfdcd945153ab5cd673d259cd5f06d4eaf346cbb7d0169b4033939d8c209e754",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:778:90f1af8322edb0fb",
+      "source_byte_start": 778,
+      "source_byte_end": 880,
+      "content_sha256": "90f1af8322edb0fb616b4545c11ecd383535fea775999f114ac2525c9d29eef7",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:778:90f1af8322edb0fb",
+        "source-content-sha256:90f1af8322edb0fb616b4545c11ecd383535fea775999f114ac2525c9d29eef7",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:880:36bfa0eb6b2198d6",
+      "source_byte_start": 880,
+      "source_byte_end": 956,
+      "content_sha256": "36bfa0eb6b2198d64e8fea2d3cb197d08a921fbcfc8515afbea68bb74caf6709",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:880:36bfa0eb6b2198d6",
+        "source-content-sha256:36bfa0eb6b2198d64e8fea2d3cb197d08a921fbcfc8515afbea68bb74caf6709",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:956:45327a3dac6eaad7",
+      "source_byte_start": 956,
+      "source_byte_end": 1035,
+      "content_sha256": "45327a3dac6eaad7074cc71da3d6b47be3f8b1825cf1da4d999d96c0024db573",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:956:45327a3dac6eaad7",
+        "source-content-sha256:45327a3dac6eaad7074cc71da3d6b47be3f8b1825cf1da4d999d96c0024db573",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1035:2f17e3ffae558293",
+      "source_byte_start": 1035,
+      "source_byte_end": 1121,
+      "content_sha256": "2f17e3ffae558293480c667a7a63a21ab6289834e60cf41fbf93d91888b8031b",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1035:2f17e3ffae558293",
+        "source-content-sha256:2f17e3ffae558293480c667a7a63a21ab6289834e60cf41fbf93d91888b8031b",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1121:282acec16699ce41",
+      "source_byte_start": 1121,
+      "source_byte_end": 1192,
+      "content_sha256": "282acec16699ce4152527928d30239e7f0c98d13b40f1880f943c7a82a8c6a9a",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1121:282acec16699ce41",
+        "source-content-sha256:282acec16699ce4152527928d30239e7f0c98d13b40f1880f943c7a82a8c6a9a",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1192:b6c2f99f8259dd76",
+      "source_byte_start": 1192,
+      "source_byte_end": 1271,
+      "content_sha256": "b6c2f99f8259dd76db3ea1dc58be1cbbd6350fc9880d88d0108b006bbffc89d4",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1192:b6c2f99f8259dd76",
+        "source-content-sha256:b6c2f99f8259dd76db3ea1dc58be1cbbd6350fc9880d88d0108b006bbffc89d4",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1271:3ae09451f87d87c4",
+      "source_byte_start": 1271,
+      "source_byte_end": 1322,
+      "content_sha256": "3ae09451f87d87c4eb4540269cec1d9e8b08139d7bc5797296b1d153e43a9500",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1271:3ae09451f87d87c4",
+        "source-content-sha256:3ae09451f87d87c4eb4540269cec1d9e8b08139d7bc5797296b1d153e43a9500",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1322:84d7ad6543b1886c",
+      "source_byte_start": 1322,
+      "source_byte_end": 1381,
+      "content_sha256": "84d7ad6543b1886ca321afd3f2e0ec3d005137672a979835213aa27c8ac3b0a9",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1322:84d7ad6543b1886c",
+        "source-content-sha256:84d7ad6543b1886ca321afd3f2e0ec3d005137672a979835213aa27c8ac3b0a9",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1381:21f472a022aff573",
+      "source_byte_start": 1381,
+      "source_byte_end": 1457,
+      "content_sha256": "21f472a022aff573e4b8efed117adff4b752159b86674bfa1d3259b53399eaed",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1381:21f472a022aff573",
+        "source-content-sha256:21f472a022aff573e4b8efed117adff4b752159b86674bfa1d3259b53399eaed",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1457:fefabfbcd585d055",
+      "source_byte_start": 1457,
+      "source_byte_end": 1524,
+      "content_sha256": "fefabfbcd585d055cbd01e5268175a45b0d81f6d06d2425c67e47cf663a32848",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1457:fefabfbcd585d055",
+        "source-content-sha256:fefabfbcd585d055cbd01e5268175a45b0d81f6d06d2425c67e47cf663a32848",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1524:eb48d1063876f8ec",
+      "source_byte_start": 1524,
+      "source_byte_end": 1612,
+      "content_sha256": "eb48d1063876f8ecf9408a2486ece452f3a3016c46306856290108907807ce7b",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "major_capabilities",
+      "fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.key_capabilities"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1524:eb48d1063876f8ec",
+        "source-content-sha256:eb48d1063876f8ecf9408a2486ece452f3a3016c46306856290108907807ce7b",
+        "obligation:major_capabilities",
+        "candidate-provenance:template.section.key_capabilities",
+        "accepted-fact:product.capabilities:repository-evidence"
+      ],
+      "rationale": "Major product capabilities require a repository-fact replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1630:39226d4fc508c662",
+      "source_byte_start": 1630,
+      "source_byte_end": 1672,
+      "content_sha256": "39226d4fc508c6625156cd7d80eb67a91d4678a4e67cc7eedb43c0515c9617fb",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "verified_installation",
+      "fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.optional_extras:python-manifest",
+        "installation.verified_acquisition:registry-pypi",
+        "product.compatibility:manifest",
+        "python.distribution:pyproject-manifest"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.installation.claim:141:c6bc0deeaee2ea65",
+        "template.section.installation.claim:200:5688701aef045015",
+        "template.section.installation.claim:53:9065718cd32ec48c",
+        "template.section.installation.claim:84:8adcb0a04ef3a0cd",
+        "template.section.installation.verified_acquisition"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1630:39226d4fc508c662",
+        "source-content-sha256:39226d4fc508c6625156cd7d80eb67a91d4678a4e67cc7eedb43c0515c9617fb",
+        "obligation:verified_installation",
+        "candidate-provenance:template.section.installation.claim:141:c6bc0deeaee2ea65",
+        "candidate-provenance:template.section.installation.claim:200:5688701aef045015",
+        "candidate-provenance:template.section.installation.claim:53:9065718cd32ec48c",
+        "candidate-provenance:template.section.installation.claim:84:8adcb0a04ef3a0cd",
+        "candidate-provenance:template.section.installation.verified_acquisition",
+        "accepted-fact:installation.coordinates:manifest",
+        "accepted-fact:installation.optional_extras:python-manifest",
+        "accepted-fact:installation.verified_acquisition:registry-pypi",
+        "accepted-fact:product.compatibility:manifest",
+        "accepted-fact:python.distribution:pyproject-manifest"
+      ],
+      "rationale": "Installation claims require an exact verified-acquisition replacement. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:1718:66dde3989bf63b8a",
+      "source_byte_start": 1718,
+      "source_byte_end": 2093,
+      "content_sha256": "66dde3989bf63b8aff2ed278a19c140cc64ddb5e80712a56e1cfa187a049b698",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:1718:66dde3989bf63b8a",
+        "source-content-sha256:66dde3989bf63b8aff2ed278a19c140cc64ddb5e80712a56e1cfa187a049b698",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:2127:26908340a4ddf4c5",
+      "source_byte_start": 2127,
+      "source_byte_end": 2392,
+      "content_sha256": "26908340a4ddf4c5f15f9f69cd934ad5ba225506d74aa92a7a979c799875db9e",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:2127:26908340a4ddf4c5",
+        "source-content-sha256:26908340a4ddf4c5f15f9f69cd934ad5ba225506d74aa92a7a979c799875db9e",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:2412:12a6210100728112",
+      "source_byte_start": 2412,
+      "source_byte_end": 2772,
+      "content_sha256": "12a6210100728112ccfab24406ff7e0be6a47378f7e4cec0fe87d85bf3a69581",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:2412:12a6210100728112",
+        "source-content-sha256:12a6210100728112ccfab24406ff7e0be6a47378f7e4cec0fe87d85bf3a69581",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:2814:2bb54639209a98be",
+      "source_byte_start": 2814,
+      "source_byte_end": 3169,
+      "content_sha256": "2bb54639209a98bea46357d27d4dac4f92342fc1dfc3000fa982f469186f330e",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:2814:2bb54639209a98be",
+        "source-content-sha256:2bb54639209a98bea46357d27d4dac4f92342fc1dfc3000fa982f469186f330e",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:3189:212844faee5d1552",
+      "source_byte_start": 3189,
+      "source_byte_end": 3312,
+      "content_sha256": "212844faee5d15524d9f58738c55ae2bfe76ba42982529c975652f16a0b8fd26",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3189:212844faee5d1552",
+        "source-content-sha256:212844faee5d15524d9f58738c55ae2bfe76ba42982529c975652f16a0b8fd26",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:3338:1e6ec1f926265f75",
+      "source_byte_start": 3338,
+      "source_byte_end": 3683,
+      "content_sha256": "1e6ec1f926265f75f4b1259b524e60dc628b41d9a790c3916ab2b8891a0ce693",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3338:1e6ec1f926265f75",
+        "source-content-sha256:1e6ec1f926265f75f4b1259b524e60dc628b41d9a790c3916ab2b8891a0ce693",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "A secondary quick-start example may be deferred with exact evidence."
+    },
+    {
+      "claim_id": "claim:3701:a77c7737644a3245",
+      "source_byte_start": 3701,
+      "source_byte_end": 3724,
+      "content_sha256": "a77c7737644a32453062539eca568299d08264a28f6ecd397a703e8ead4960d6",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3701:a77c7737644a3245",
+        "source-content-sha256:a77c7737644a32453062539eca568299d08264a28f6ecd397a703e8ead4960d6",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:3724:d71c266e2f2610b4",
+      "source_byte_start": 3724,
+      "source_byte_end": 3749,
+      "content_sha256": "d71c266e2f2610b481952422d90d06a85dce4c4a3c7cc26bcec7fd32a7e2e9b2",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3724:d71c266e2f2610b4",
+        "source-content-sha256:d71c266e2f2610b481952422d90d06a85dce4c4a3c7cc26bcec7fd32a7e2e9b2",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:3749:a1689d7ea4fe7ccd",
+      "source_byte_start": 3749,
+      "source_byte_end": 3767,
+      "content_sha256": "a1689d7ea4fe7ccdf604cb1f5b38523bd9ee589ee345d739bb2ad3acf3966eca",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3749:a1689d7ea4fe7ccd",
+        "source-content-sha256:a1689d7ea4fe7ccdf604cb1f5b38523bd9ee589ee345d739bb2ad3acf3966eca",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:3786:9d513b9a7e6bbe98",
+      "source_byte_start": 3786,
+      "source_byte_end": 3943,
+      "content_sha256": "9d513b9a7e6bbe98fe149ae056b87c515199bb95ef43b89f6f595e66947c899a",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3786:9d513b9a7e6bbe98",
+        "source-content-sha256:9d513b9a7e6bbe98fe149ae056b87c515199bb95ef43b89f6f595e66947c899a",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:3961:76dfd1ba527690a9",
+      "source_byte_start": 3961,
+      "source_byte_end": 4031,
+      "content_sha256": "76dfd1ba527690a981c64bbe2dbedc043007dea73ea090ea8541f7b42f26faa3",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:3961:76dfd1ba527690a9",
+        "source-content-sha256:76dfd1ba527690a981c64bbe2dbedc043007dea73ea090ea8541f7b42f26faa3",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4032:3daa51daf08f9133",
+      "source_byte_start": 4032,
+      "source_byte_end": 4055,
+      "content_sha256": "3daa51daf08f91330f5554c7d4c1609ffc98f764505e69e89c40ba96b51ea73b",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4032:3daa51daf08f9133",
+        "source-content-sha256:3daa51daf08f91330f5554c7d4c1609ffc98f764505e69e89c40ba96b51ea73b",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4055:23e5b13f36702ded",
+      "source_byte_start": 4055,
+      "source_byte_end": 4129,
+      "content_sha256": "23e5b13f36702ded903cf3fc686dc307dcab2ee5c23722b1f00706dcd5b612a9",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4055:23e5b13f36702ded",
+        "source-content-sha256:23e5b13f36702ded903cf3fc686dc307dcab2ee5c23722b1f00706dcd5b612a9",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4129:9261306727066780",
+      "source_byte_start": 4129,
+      "source_byte_end": 4197,
+      "content_sha256": "9261306727066780914dbd218b39aca38080b0f085607bf59ded8576a732f089",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4129:9261306727066780",
+        "source-content-sha256:9261306727066780914dbd218b39aca38080b0f085607bf59ded8576a732f089",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4197:c0206d36acdaf755",
+      "source_byte_start": 4197,
+      "source_byte_end": 4263,
+      "content_sha256": "c0206d36acdaf755ef4dda8eeb2f7053eb21585a53f3c3420229fc8f7bf3d372",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4197:c0206d36acdaf755",
+        "source-content-sha256:c0206d36acdaf755ef4dda8eeb2f7053eb21585a53f3c3420229fc8f7bf3d372",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4263:760e447f65c970c5",
+      "source_byte_start": 4263,
+      "source_byte_end": 4286,
+      "content_sha256": "760e447f65c970c5568e3ad1347c3008b482c357d5eba78b5d4054bb64a71bcd",
+      "resolution": "deferred_verification",
+      "obligation_id": null,
+      "fact_ids": [],
+      "replacement_provenance_ids": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4263:760e447f65c970c5",
+        "source-content-sha256:760e447f65c970c5568e3ad1347c3008b482c357d5eba78b5d4054bb64a71bcd",
+        "candidate-content-sha256:d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+        "risk-policy:optional-inherited-detail-deferred-v1"
+      ],
+      "rationale": "Contribution instructions require repository-owned workflow evidence; generic product overview prose cannot replace them."
+    },
+    {
+      "claim_id": "claim:4299:e2d6bf6d93b6f844",
+      "source_byte_start": 4299,
+      "source_byte_end": 4472,
+      "content_sha256": "e2d6bf6d93b6f844984b2dfd7704c0825ae25b2965915fe17b8bb9e3c9f80163",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "license",
+      "fact_ids": [
+        "product.license:license-file"
+      ],
+      "replacement_provenance_ids": [
+        "template.section.license"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4299:e2d6bf6d93b6f844",
+        "source-content-sha256:e2d6bf6d93b6f844984b2dfd7704c0825ae25b2965915fe17b8bb9e3c9f80163",
+        "obligation:license",
+        "candidate-provenance:template.section.license",
+        "accepted-fact:product.license:license-file"
+      ],
+      "rationale": "License disclosure is a mandatory golden-contract obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    },
+    {
+      "claim_id": "claim:4485:6309809fb5201042",
+      "source_byte_start": 4485,
+      "source_byte_end": 4580,
+      "content_sha256": "6309809fb5201042cdd116491cddf2d747976b15463eda36a7fb55e5e950c4d0",
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "product_overview",
+      "fact_ids": [
+        "product.audience:platform-derived",
+        "product.capabilities:repository-evidence",
+        "product.identity:manifest-and-registry",
+        "product.problems_solved:capability-derived"
+      ],
+      "replacement_provenance_ids": [
+        "template.summary",
+        "template.title"
+      ],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:4485:6309809fb5201042",
+        "source-content-sha256:6309809fb5201042cdd116491cddf2d747976b15463eda36a7fb55e5e950c4d0",
+        "obligation:product_overview",
+        "candidate-provenance:template.summary",
+        "candidate-provenance:template.title",
+        "accepted-fact:product.audience:platform-derived",
+        "accepted-fact:product.capabilities:repository-evidence",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.problems_solved:capability-derived"
+      ],
+      "rationale": "Opening and otherwise-unclassified product claims fail closed behind the verified product-overview obligation. The exact replacement slot is bound to selected, accepted repository facts."
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "readme.verified-template.compile",
+      "operation": "replace",
+      "path": "README.md",
+      "coordinate_space": "presentation_inner_utf8",
+      "source_byte_start": 0,
+      "source_byte_end": 4580,
+      "expected_sha256": "452a4f1e2321a2abb33871355af609c75a41054c54c4a45a0f67b88f23409870",
+      "replacement_text": "# Aspose.Cells FOSS for Python\n\n[![PyPI: aspose-cells-foss](https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI)](https://pypi.org/project/aspose-cells-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors)\n\nAspose.Cells FOSS for Python provides developers using Python a way to read and write cell values and formulas. Its verified scope also includes add, remove, rename, and manage worksheets, and create and modify charts.\n\n## Navigation\n\n- [At a glance](#at-a-glance)\n- [Key capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick start](#quick-start)\n- [Additional examples](#additional-examples)\n- [Scope and limitations](#scope-and-limitations)\n- [License](#license)\n\n## At a glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    input_1[\"cell values and formulas\"]\n  end\n\n  product[\"Aspose.Cells FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    capability_1[\"Read and write cell values and formulas\"]\n    capability_2[\"Add, remove, rename, and manage worksheets\"]\n    capability_3[\"Create and modify charts\"]\n    capability_4[\"Add and manage ListObject tables with styles and auto-filters\"]\n    capability_5[\"Add dropdown lists, number ranges, and custom validation rules\"]\n    capability_6[\"Writes xlsx files\"]\n  end\n\n  subgraph Outputs[\"Outputs and accessible content\"]\n    output_1[\"xlsx files\"]\n    output_2[\"CSV files\"]\n    output_3[\"Markdown files\"]\n    output_4[\"JSON files\"]\n  end\n\n  input_1 --- product\n  product --- capability_1\n  product --- capability_2\n  product --- capability_3\n  product --- capability_4\n  product --- capability_5\n  product --- capability_6\n  product --- output_1\n  product --- output_2\n  product --- output_3\n  product --- output_4\n```\n\n## Key capabilities\n\n- Read and write cell values and formulas.\n- Add, remove, rename, and manage worksheets.\n- Create and modify charts.\n- Add and manage ListObject tables with styles and auto-filters.\n- Add dropdown lists, number ranges, and custom validation rules.\n\n## Installation\n\n```bash\npython -m pip install aspose-cells-foss\n```\n\nRequires Python 3.7 or later.\n\nOptional dependency groups declared in `pyproject.toml`:\n- `dev`: `python -m pip install \"aspose-cells-foss[dev]\"`\n\nRequired runtime dependencies declared in `pyproject.toml`: `pycryptodome>=3.15.0`, `olefile>=0.46`.\n\n## Quick start\n\n### Minimal verified example\n\n```python\nfrom aspose.cells_foss import Font\n\nfont = Font()\n```\n\n## Additional examples\n\nThese additional workflows were syntax-checked and matched to the repository's static public API. They were not executed by the evidence collector.\n\n<details>\n<summary>View additional examples and results</summary>\n\n### Repository example files\n\n- [`__init__.py`](examples/__init__.py)\n- [`output_path_helper.py`](examples/output_path_helper.py)\n- [`test_alignment_properties.py`](examples/test_alignment_properties.py)\n- [`test_auto_filter.py`](examples/test_auto_filter.py)\n- [`test_border_settings.py`](examples/test_border_settings.py)\n- [`test_cell_protection_locked.py`](examples/test_cell_protection_locked.py)\n- [`test_cell_values.py`](examples/test_cell_values.py)\n- [`test_comment_size.py`](examples/test_comment_size.py)\n- [`test_comments.py`](examples/test_comments.py)\n- [`test_conditional_formatting.py`](examples/test_conditional_formatting.py)\n- [`test_create_all_charts.py`](examples/test_create_all_charts.py)\n- [`test_create_exceltable.py`](examples/test_create_exceltable.py)\n- [`test_create_picture.py`](examples/test_create_picture.py)\n- [`test_create_shape.py`](examples/test_create_shape.py)\n- [`test_create_sparkline.py`](examples/test_create_sparkline.py)\n- [`test_csv_import_export.py`](examples/test_csv_import_export.py)\n- [`test_data_validation.py`](examples/test_data_validation.py)\n- [`test_document_properties.py`](examples/test_document_properties.py)\n- [`test_encryption.py`](examples/test_encryption.py)\n- [`test_fill_settings.py`](examples/test_fill_settings.py)\n- [`test_font_settings.py`](examples/test_font_settings.py)\n- [`test_hyperlinks.py`](examples/test_hyperlinks.py)\n- [`test_manual_page_breaks.py`](examples/test_manual_page_breaks.py)\n- [`test_merge_cells.py`](examples/test_merge_cells.py)\n- [`test_number_formats.py`](examples/test_number_formats.py)\n- [`test_print_area.py`](examples/test_print_area.py)\n- [`test_workbook_protection.py`](examples/test_workbook_protection.py)\n- [`test_worksheet_management.py`](examples/test_worksheet_management.py)\n- [`test_worksheet_properties.py`](examples/test_worksheet_properties.py)\n- [`test_worksheet_protection.py`](examples/test_worksheet_protection.py)\n- [`test_xlsx_to_json.py`](examples/test_xlsx_to_json.py)\n- [`test_xlsx_to_markdown.py`](examples/test_xlsx_to_markdown.py)\n\n\n</details>\n\n## Scope and limitations\n\nThe package manifest classifies this release as **Beta**.\n\n[Aspose.Cells FOSS for Python](https://products.aspose.org/cells/python/) and [Aspose.Cells Enterprise Edition](https://products.aspose.com/cells/python/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.\n\n## License\n\nThis project is available under the [MIT License](License/LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
+      "replacement_sha256": "d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc",
+      "fact_ids": [],
+      "protected_content_treatment": "presentation_policy_correction",
+      "rationale": "Compile the accepted fact-slot presentation contract; exact candidate provenance and source-claim resolutions remain independently fail-closed.",
+      "validators": [
+        "source_span_hash",
+        "fact_citations",
+        "protected_content",
+        "document_reconstruction",
+        "independent_verifier"
+      ],
+      "rollback": "Restore the exact immutable source bytes for this operation.",
+      "stop_conditions": [
+        "immutable source revision changed",
+        "source span checksum changed",
+        "a cited fact is no longer selected and accepted",
+        "protected content outside an authoritative correction would be lost"
+      ]
+    }
+  ],
+  "candidate_sha256": "d7f92b50b33e97ac050764bb2709ed293a1a3cee58cdede77288cdc8a58677cc"
+}

@@ -1,8 +1,8 @@
 diff --git a/README.md b/README.md
-index 629a970..f56b49c 100644
+index 629a970..bfda4a2 100644
 --- a/README.md
 +++ b/README.md
-@@ -1,285 +1,98 @@
+@@ -1,285 +1,93 @@
 -# 🗒️ Aspose.Note FOSS for Python
 -
 -[![CI](https://github.com/aspose-note/aspose-note-python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note/aspose-note-python/actions/workflows/ci.yml)
@@ -46,9 +46,9 @@ index 629a970..f56b49c 100644
 -    print(page.Title.TitleText.Text)
 +# Aspose.Note FOSS for Python
 +
-+[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build: GitHub Actions](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
++[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
 +
-+Aspose.Note FOSS for Python is a Python library for reading Microsoft OneNote (.one) files and exporting to PDF, offering a subset-compatible Aspose.Note for .NET-shaped public API. It supports document traversal, content extraction (RichText, images, tables, tags, numbered lists), and PDF export via SaveFormat.Pdf.
++Aspose.Note FOSS for Python provides Document and traversal for developers using Python.
 +
 +## Navigation
 +
@@ -68,34 +68,30 @@ index 629a970..f56b49c 100644
 +```mermaid
 +flowchart LR
 +  subgraph Inputs["Inputs and formats"]
-+    input_1["Microsoft OneNote (.one) file"]
-+    input_2["Binary stream"]
-+    input_3["Python 3.10+ runtime"]
++    input_1["Microsoft OneNote (.one) files"]
 +  end
 +
 +  product["Aspose.Note FOSS for Python"]
 +
-+  subgraph Capabilities["Core capabilities"]
++  subgraph Capabilities1["Core capabilities 1 of 2"]
 +    capability_1["Document and traversal"]
 +    capability_2["Page and Title nodes"]
 +    capability_3["RichText with formatting runs"]
 +    capability_4["Image and AttachedFile content"]
 +    capability_5["Table with rows and cells"]
 +    capability_6["OneNote tags on content nodes"]
-+    capability_7["PDF export via SaveFormat.Pdf"]
++  end
++
++  subgraph Capabilities2["Core capabilities 2 of 2"]
++    capability_7["Numbered lists and outline elements"]
++    capability_8["PDF export via SaveFormat.Pdf"]
 +  end
 +
 +  subgraph Outputs["Outputs and accessible content"]
-+    output_1["Document object model"]
-+    output_2["Extracted text and metadata"]
-+    output_3["PDF document"]
-+    output_4["Image and attached file bytes"]
-+    output_5["Tagged content nodes"]
++    output_1["PDF files"]
 +  end
 +
 +  input_1 --- product
-+  input_2 --- product
-+  input_3 --- product
 +  product --- capability_1
 +  product --- capability_2
 +  product --- capability_3
@@ -103,11 +99,8 @@ index 629a970..f56b49c 100644
 +  product --- capability_5
 +  product --- capability_6
 +  product --- capability_7
++  product --- capability_8
 +  product --- output_1
-+  product --- output_2
-+  product --- output_3
-+  product --- output_4
-+  product --- output_5
  ```
  
 -### 📄 Export to PDF
@@ -144,8 +137,7 @@ index 629a970..f56b49c 100644
 -```
 -
 -From a local checkout:
-+Requires Python 3.10 or later.
- 
+-
 -```bash
 -python -m pip install -e .
 -```
@@ -179,14 +171,9 @@ index 629a970..f56b49c 100644
 -```bash
 -python tools/regenerate_pdf_goldens.py --case formatted_richtext --case simple_table
 -```
-+Optional dependency groups declared in `pyproject.toml`:
-+- `dev`: `python -m pip install "aspose-note[dev]"`
-+- `pdf`: `python -m pip install "aspose-note[pdf]"`
-+- `test-pdf`: `python -m pip install "aspose-note[test-pdf]"`
- 
+-
 -Run the verification suite with:
-+## Quick start
- 
+-
 -```bash
 -python -m unittest tests.test_aspose_note_pdf_goldens -v
 -```
@@ -201,11 +188,17 @@ index 629a970..f56b49c 100644
 -
 -The supported public entry points are `aspose.note` and `aspose.note.saving`.
 -Everything under `aspose.note._internal` is internal implementation detail and may change.
--
++Requires Python 3.10 or later.
+ 
 -Below is the supported public surface across those entry points.
--
++Optional dependency groups declared in `pyproject.toml`:
++- `dev`: `python -m pip install "aspose-note[dev]"`
++- `pdf`: `python -m pip install "aspose-note[pdf]"`
++- `test-pdf`: `python -m pip install "aspose-note[test-pdf]"`
+ 
 -### 🧭 Document and traversal
--
++- optional capability: `python -m pip install reportlab`
+ 
 -- `Document(source=None, load_options=None)`
 -  - `DisplayName: str | None`
 -  - `CreationTime: datetime | None`
@@ -215,7 +208,8 @@ index 629a970..f56b49c 100644
 -  - `DetectLayoutChanges()` (compatibility stub)
 -  - `Save(target, format_or_options=None)`
 -    - supported: `SaveFormat.Pdf` only
--
++## Quick start
+ 
 -- `PageHistory`
 -  - `Current: Page`
 -  - `Count: int`, `IsReadOnly: bool`
@@ -370,12 +364,13 @@ index 629a970..f56b49c 100644
  
  ```python
  from aspose.note import Document, Image
-@@ -291,188 +104,365 @@ for i, img in enumerate(doc.GetChildNodes(Image), start=1):
+@@ -291,188 +99,363 @@ for i, img in enumerate(doc.GetChildNodes(Image), start=1):
          f.write(img.Bytes)
  ```
  
 -### 🏷️📄 Export an MS OneNote document to PDF
--
++## Additional examples
+ 
 -```python
 -from aspose.note import Document, SaveFormat
 -from aspose.note.saving import PdfSaveOptions
@@ -386,28 +381,38 @@ index 629a970..f56b49c 100644
 -)
 -doc.Save("out.pdf", opts)
 -```
--
++These additional workflows were syntax-checked and matched to the repository's static public API. They were not executed by the evidence collector.
+ 
 -### 📦 Load an MS OneNote document from a binary stream
--
++<details>
++<summary>View additional examples and results</summary>
+ 
 -```python
 -from pathlib import Path
 -from aspose.note import Document
--
++### Repository example files
+ 
 -one_path = Path("testfiles/SimpleTable.one")
 -with one_path.open("rb") as f:
 -  doc = Document(f)
--
++- [`export_pdf.py`](examples/export_pdf.py)
++- [`extract_text.py`](examples/extract_text.py)
++- [`save_images.py`](examples/save_images.py)
+ 
 -print(doc.DisplayName)
 -print(len(list(doc)))
 -```
--
+ 
 -### 🧭 Traverse MS OneNote document structure (DOM) and print a simple outline
--
++</details>
+ 
 -```python
 -from aspose.note import Document, Page, Outline, OutlineElement, RichText
--
++## API reference
+ 
 -doc = Document("testfiles/SimpleTable.one")
--
++The package declares 36 public exports in its static `__all__` surface.
+ 
 -for page in doc.GetChildNodes(Page):
 -  title = page.Title.TitleText.Text if page.Title and page.Title.TitleText else "(no title)"
 -  print(f"# {title}")
@@ -424,61 +429,53 @@ index 629a970..f56b49c 100644
 -
 -```python
 -from aspose.note import Document, DocumentVisitor, Page, Image, RichText
--
-+## Additional examples
++<details>
++<summary>View MCP and public API details</summary>
+ 
++### `aspose`
  
 -class Counter(DocumentVisitor):
 -  def __init__(self) -> None:
 -    self.pages = 0
 -    self.rich_texts = 0
 -    self.images = 0
-+Explore additional examples for common product workflows.
++- `note`
  
 -  def VisitPageStart(self, page: Page) -> None:  # noqa: N802
 -    self.pages += 1
-+<details>
-+<summary>View additional source examples</summary>
++### `aspose.note`
  
 -  def VisitRichTextStart(self, rich_text: RichText) -> None:  # noqa: N802
 -    self.rich_texts += 1
-+- [`export_pdf.py`](examples/export_pdf.py)
-+- [`extract_text.py`](examples/extract_text.py)
-+- [`save_images.py`](examples/save_images.py)
- 
+-
 -  def VisitImageStart(self, image: Image) -> None:  # noqa: N802
 -    self.images += 1
-+</details>
- 
-+## API reference
- 
+-
+-
 -doc = Document("testfiles/3ImagesWithDifferentAlignment.one")
 -counter = Counter()
 -doc.Accept(counter)
 -print(counter.pages, counter.rich_texts, counter.images)
 -```
-+The package declares 36 public exports in its static `__all__` surface.
- 
+-
 -### 🔗 Extract hyperlinks from formatted text in an MS OneNote document
-+<details>
-+<summary>View the public API inventory</summary>
- 
+-
 -```python
 -from aspose.note import Document, RichText
-+### `aspose`
- 
+-
 -doc = Document("testfiles/FormattedRichText.one")
 -for rt in doc.GetChildNodes(RichText):
 -  for run in rt.TextRuns:
 -    if run.Style.IsHyperlink and run.Style.HyperlinkAddress:
 -      print(run.Text, "->", run.Style.HyperlinkAddress)
 -```
-+- `note`
- 
+-
 -### 🏷️ Inspect MS OneNote tags (NoteTag) across the document
-+### `aspose.note`
- 
+-
 -```python
 -from aspose.note import Document, RichText, Image, Table
+-
+-doc = Document("testfiles/TagSizes.one")
 +- `FileCorruptedException`
 +- `IncorrectDocumentStructureException`
 +- `IncorrectPasswordException`
@@ -751,32 +748,29 @@ index 629a970..f56b49c 100644
 +- `RemoveAt(index) -> None`
 +- `RemoveRange(index, count) -> None`
  
--doc = Document("testfiles/TagSizes.one")
-+### `Document` members
- 
 -def dump_tags(kind: str, tags) -> None:
 -  for t in tags:
 -    print(kind, "tag:", t.Label, t.Icon)
++### `Document` members
+ 
+-for rt in doc.GetChildNodes(RichText):
+-  dump_tags("RichText", rt.Tags)
 +- `FileFormat: FileFormat`
 +- `DetectLayoutChanges() -> None`
 +- `GetPageHistory(page) -> PageHistory`
 +- `Save(target, format_or_options=None) -> None`
  
--for rt in doc.GetChildNodes(RichText):
--  dump_tags("RichText", rt.Tags)
-+### `SaveOptions` members
- 
 -for img in doc.GetChildNodes(Image):
 -  dump_tags("Image", img.Tags)
-+- `SaveFormat: SaveFormat`
++### `SaveOptions` members
  
 -for tbl in doc.GetChildNodes(Table):
 -  dump_tags("Table", tbl.Tags)
 -```
-+</details>
++- `SaveFormat: SaveFormat`
  
 -### 🧱 Work with tables in an MS OneNote document (rows/cells)
-+## Scope and limitations
++</details>
  
 -```python
 -from aspose.note import Document, Table, TableRow, TableCell, RichText
@@ -793,10 +787,7 @@ index 629a970..f56b49c 100644
 -      values.append(cell_text)
 -    print(f"Row {row_index}:", values)
 -```
-+- Only .pdf file targets are supported for save operations
-+- Password-protected documents are not supported
-+- Only PDF save is supported
-+- PDF export requires ReportLab
++## Scope and limitations
  
 -### 📎 Extract attached files from an MS OneNote document
 +[Aspose.Note FOSS for Python](https://products.aspose.org/note/python/) and [Aspose.Note Enterprise Edition](https://products.aspose.com/note/) are separate products. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.

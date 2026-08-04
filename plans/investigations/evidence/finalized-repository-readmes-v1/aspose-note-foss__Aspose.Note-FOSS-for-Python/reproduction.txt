@@ -1,3 +1,0 @@
-.venv/Scripts/readme-agent supervise --repo aspose-note-foss/Aspose.Note-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary
-.venv/Scripts/python -c "from pathlib import Path; from readme_agent.evidence.writer import verify_sha256sums; assert verify_sha256sums(Path('runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7'))"
-.venv/Scripts/python -c "from pathlib import Path; from readme_agent.evidence.writer import verify_sha256sums; assert verify_sha256sums(Path('plans/investigations/evidence/finalized-repository-readmes-v1/aspose-note-foss__Aspose.Note-FOSS-for-Python'))"
