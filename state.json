@@ -748,7 +748,7 @@
         "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459"
       }
     ],
-    "facts_hash": "cec76c2124af4e441c1f8f5ad10c090a5503d56fb9080221499f54e374f5c746",
+    "facts_hash": "8694cb552ec3f91887ece9c8a18b540f2a6eff3be06843a808359d354f36f49b",
     "history": [
       {
         "evidence_refs": [],
@@ -866,6 +866,19 @@
         "reason": "fact inputs changed; invalidating dependent README stages",
         "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET\\8a3131b9a6f7e97c20214896c615dbee86272459\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET\\8a3131b9a6f7e97c20214896c615dbee86272459\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET\\8a3131b9a6f7e97c20214896c615dbee86272459\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-04T09:07:56.931981+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
+        "to_status": "FACTS_READY"
       }
     ],
     "intake_preflight_history": [
@@ -894,11 +907,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-04T09:07:51.727433+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-08-04T09:07:56.931981+00:00"
   },
   "schema_version": 2,
-  "state_version": 63,
+  "state_version": 64,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
