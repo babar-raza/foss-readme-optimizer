@@ -1224,7 +1224,7 @@
     "updated_at": "2026-08-02T06:36:37.629780+00:00"
   },
   "schema_version": 2,
-  "state_version": 110,
+  "state_version": 111,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:cd51d99ee6d72d899a29b5a494445443c3509cf059483dbeb19d2d97da7d942f": {
@@ -1329,13 +1329,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "8b85ac2fccd0b73ac16b66e7d2437a6b8532e7d7a6fe47e52e6ae227de2c7474",
       "lease_expires_at": null,
-      "recovery_count": 3,
+      "recovery_count": 4,
       "status": "retryable",
-      "updated_at": "2026-08-01T17:53:02.476703+00:00"
+      "updated_at": "2026-08-04T10:11:57.727391+00:00"
     },
     "operator:20260801-181232-97dd:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-01T18:12:37.622392+00:00",
@@ -1351,13 +1351,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "stage_limit_not_reached:FACTS_READY:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "5dfc6575a92b0262b2c120e42707c0bdebbeaf631109c2f1d02fa9e21dc5b7da",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T18:14:54.303836+00:00"
+      "updated_at": "2026-08-04T10:11:57.727391+00:00"
     },
     "operator:20260801-182537-6f46:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-01T18:25:43.351834+00:00",
@@ -1395,13 +1395,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "22cc73f37746790cff0e0709638712283d75f561effd5e520bbb33e647aa3a85",
-      "lease_expires_at": "2026-08-02T06:08:21.674449+00:00",
-      "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-02T05:54:02.381041+00:00"
+      "lease_expires_at": null,
+      "recovery_count": 1,
+      "status": "retryable",
+      "updated_at": "2026-08-04T10:11:57.727391+00:00"
     },
     "operator:20260802-060439-4026:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-02T06:04:44.600186+00:00",
@@ -1418,12 +1418,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:RuntimeError:durable product-facts evidence hash does not match lifecycle state for aspose-html-foss/Aspose.HTML-FOSS-for-Python@c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "70e9c4a080485876104121708cb6d87f81d19ced73ccd7721684122c46e78e75",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-02T06:05:35.762351+00:00"
+      "updated_at": "2026-08-04T10:11:57.727391+00:00"
     },
     "operator:20260802-063407-5549:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-02T06:34:12.061623+00:00",
@@ -1440,12 +1440,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:StateBackendError:push of refs/readme-agent-state/aspose-html-foss__Aspose.HTML-FOSS-for-Python failed: fatal: unable to access 'https://github.com/babar-raza/foss-readme-optimizer.git/': Empty reply from server ",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "a78164ee6e69a4a2dcdaedc522119c72dfb59d7f669600badb681964d3052b7b",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-02T06:35:07.135699+00:00"
+      "updated_at": "2026-08-04T10:11:57.727391+00:00"
     },
     "operator:20260802-063546-eaa4:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-02T06:35:51.484392+00:00",
