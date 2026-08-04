@@ -31,6 +31,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260730-013357-f45c:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
     },
+    "011a2b5df8bdbc46bb5f8d37e9146b0fc8475fdfb7b7e6f064286ad2e15ae752": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "011a2b5df8bdbc46bb5f8d37e9146b0fc8475fdfb7b7e6f064286ad2e15ae752",
+      "completed_at": "2026-08-04T10:48:18.214257+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "c72bb7b4493aa3cbc553ffbe51c0b5397bcacf2da5f1284a3c5b6d5cb17972f8",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "run_id": "20260804-104755-a58d",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-04T10:48:18.214245+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-104755-a58d:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+    },
     "0741ff81746b10a7c30cde3c490fee05aa6be929eb60d5cf2ac17d2031b979d2": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -10182,7 +10199,7 @@
     "updated_at": "2026-08-04T09:56:01.650624+00:00"
   },
   "schema_version": 2,
-  "state_version": 242,
+  "state_version": 243,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c6cd0efeb211ae6c4c598d1d63a763aee223e0d3da9a3f0c32a79b3027f0e3fc",
@@ -10487,11 +10504,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "31c36ee9ddf98b2a1c214c37729186b29de537fa1b12fcdba84a23503696d3da",
+      "last_checkpoint_id": "011a2b5df8bdbc46bb5f8d37e9146b0fc8475fdfb7b7e6f064286ad2e15ae752",
       "lease_expires_at": "2026-08-04T11:03:12.526155+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-04T10:48:12.526155+00:00"
+      "updated_at": "2026-08-04T10:48:18.214257+00:00"
     }
   },
   "trigger_records": {},
