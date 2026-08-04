@@ -6737,7 +6737,7 @@
     "updated_at": "2026-08-01T11:19:48.593392+00:00"
   },
   "schema_version": 2,
-  "state_version": 99,
+  "state_version": 100,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
@@ -6818,13 +6818,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "abdd948bdad4ed1fc4369448935a21c2e613d4120fe8846e4b27904b233c30f7",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T10:45:17.406799+00:00"
+      "updated_at": "2026-08-04T11:02:26.567451+00:00"
     },
     "operator:20260801-104901-9fd8:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-01T10:49:07.644267+00:00",
@@ -6840,13 +6840,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "9129efb546e0b461569744384198a7f3f00703a6e8931494c95abfd62c9ee497",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-01T10:52:05.771489+00:00"
+      "updated_at": "2026-08-04T11:02:26.567451+00:00"
     },
     "operator:20260801-110801-8a87:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-01T11:08:07.485275+00:00",
