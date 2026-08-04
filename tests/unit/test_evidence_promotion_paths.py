@@ -113,3 +113,8 @@ def test_enumeration_propagates_unreadable_subtree(tmp_path, monkeypatch):
 
     with pytest.raises(OSError, match="unreadable promoted subtree"):
         enumerate_readmes(tmp_path)
+
+
+def test_enumeration_requires_the_canonical_root_to_exist(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        enumerate_readmes(tmp_path / "repositories")

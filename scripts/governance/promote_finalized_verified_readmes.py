@@ -26,6 +26,19 @@ from readme_agent.state.schema import RunStateV2
 from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
 from readme_agent.supervisor.local_poc_cache import evaluate_completed_local_poc_cache
 
+if __package__:
+    from governance.finalized_promotion_layout import (
+        load_or_initialize_manifest,
+        remove_obsolete_empty_directories,
+        validate_repository_artifact_set,
+    )
+else:
+    from finalized_promotion_layout import (
+        load_or_initialize_manifest,
+        remove_obsolete_empty_directories,
+        validate_repository_artifact_set,
+    )
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = REPO_ROOT / "plans/investigations/evidence/finalized-repository-readmes-v1"
 RUNTIME_ARTIFACTS = {
@@ -372,9 +385,7 @@ def promote(state_git: Path | None, output_root: Path, independent_receipt: Path
     """Promote all current Python no-op states while preserving non-Python evidence."""
 
     manifest_path = output_root / "cohort-manifest.json"
-    if not verify_sha256sums(output_root):
-        raise ValueError("existing finalized cohort checksum verification failed")
-    manifest = _json(manifest_path)
+    manifest = load_or_initialize_manifest(output_root, repo_root=REPO_ROOT)
     _reconcile_current_manifest_metadata(manifest)
     registry = _registry()
     python_repositories = sorted(
@@ -478,7 +489,9 @@ def promote(state_git: Path | None, output_root: Path, independent_receipt: Path
     for item in repositories:
         _remove_legacy_evidence(item["repository"], output_root)
     expected_readmes = {(REPO_ROOT / item["committed_readme"]).resolve() for item in repositories}
-    actual_readmes = enumerate_readmes(output_root / "repositories")
+    repositories_root = output_root / "repositories"
+    repositories_root.mkdir(exist_ok=True)
+    actual_readmes = enumerate_readmes(repositories_root)
     if actual_readmes != expected_readmes:
         unexpected = sorted(path.as_posix() for path in actual_readmes - expected_readmes)
         missing = sorted(path.as_posix() for path in expected_readmes - actual_readmes)
@@ -486,6 +499,9 @@ def promote(state_git: Path | None, output_root: Path, independent_receipt: Path
             "canonical review tree does not match the promoted manifest: "
             f"unexpected={unexpected}; missing={missing}"
         )
+    validate_repository_artifact_set(repositories, output_root, repo_root=REPO_ROOT)
+    remove_obsolete_empty_directories(output_root)
+    validate_repository_artifact_set(repositories, output_root, repo_root=REPO_ROOT)
     manifest.update(
         {
             "registry_sha256": _sha256(REPO_ROOT / "data/products.json"),

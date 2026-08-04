@@ -146,6 +146,14 @@ durable backend by default, re-evaluates the current acceptance/cache contract, 
 stale raw terminal records, removes superseded aggregate acceptance pointers, and never lets an
 explicit offline state snapshot masquerade as live authority.
 
+Current execution boundary (2026-08-05): an independent semantic regression audit invalidated the
+previously promoted 3D, Cells, and Note candidates plus later Barcode, Email, and Font approvals.
+The shared accountability contract now fails closed on lost preserve claims, incomplete limitations,
+inexact fact/span replacement, unsupported example assurance, and heading collisions. Its complete
+official gate passes at `0c8b62956` (receipt: `runs/verification/pytest-full-latest.json`), all prior
+Python approvals are cache-invalid, and the finalized cohort is `0/12` Python and `0/31`
+registry-wide until candidates are freshly replayed, independently approved, and no-op-proven.
+
 ### Campaign 5: remaining verified Gate A
 
 Complete .NET, Java, C++, TypeScript, Rust, and Go in priority order using two to four isolated

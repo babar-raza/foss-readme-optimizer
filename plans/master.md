@@ -3021,6 +3021,12 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [ ] `L8-VPY-03`: process Page and PDF first, then the dynamic Python denominator; reuse every valid
         content-addressed stage and complete every current Python repository with no agent-fixable failure
         and no product-remote write.
+        **Current boundary (2026-08-05):** independent semantic regression review invalidated the
+        previous three finalized candidates and three later approvals. The common claim-accountability
+        repair is committed and the 3,061-test official gate passes at `0c8b62956` (receipt:
+        `runs/verification/pytest-full-latest.json`); all old Python acceptance hashes are stale and
+        the finalized cohort is reset to `0/12` Python and `0/31` registry-wide until fresh replay
+        and review succeed.
   - [ ] Promote every independently approved/no-op-proven Python README into
         `plans/investigations/evidence/finalized-repository-readmes-v1/`, including a direct
         review index, durable co-located provenance/plan/patch/claim/validation/review/no-op
