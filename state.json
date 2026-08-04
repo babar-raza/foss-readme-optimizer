@@ -4194,7 +4194,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "26c84d7d2d88799b75c861d0410231b75d59171c4f0e43f86767fc586e324dd8",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -4418,6 +4418,17 @@
           "agentic_review_reused": true,
           "lifecycle_status_reused": "AGENT_APPROVED",
           "outcome_kind": "unchanged_no_op"
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "failure_reason": "presentation_plan",
+          "message": "['fact-backed audience/problem overview is absent']",
+          "occurred_at": "2026-08-04T11:42:49.258982+00:00",
+          "schema_version": 1,
+          "source_revision": "ba69b546f0f27e98716638fe06bd0fae9b6b1382",
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -8424,9 +8435,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-28T19:02:16.429917+00:00",
+      "last_run_timestamp": "2026-08-04T11:42:49.258982+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3"
@@ -9904,7 +9915,7 @@
     "updated_at": "2026-08-04T11:39:39.817582+00:00"
   },
   "schema_version": 2,
-  "state_version": 749,
+  "state_version": 750,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ab98c6daf5199c8227b6f4209180d0e318786a76daa8d9896870d222671501b2",
