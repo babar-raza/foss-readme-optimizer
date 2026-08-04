@@ -3,10 +3,22 @@
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
+
+import pytest
 
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
+from readme_agent.presentation.verified_preservation_sections import preserved_h2_sections
+from readme_agent.presentation.verified_preservation_segments import (
+    CandidateEdit,
+    apply_edit,
+    rebase_provenance,
+)
+from readme_agent.presentation.verified_source_preservation import (
+    compose_verified_source_preservation,
+)
 from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.presentation.verified_template_runtime import declared_preserve_ranges
 from readme_agent.presentation.verified_template_sections import additional_examples_markdown
@@ -14,13 +26,17 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
 from readme_agent.readme.claim_replacement_validation import (
     replacement_candidate_claims_are_exact,
+    replacement_provenance_is_exact,
 )
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
 )
-from readme_agent.readme.document_structure import introduced_duplicate_headings
-from readme_agent.readme.document_templates import DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS
+from readme_agent.readme.document_structure import introduced_duplicate_headings, parse_headings
+from readme_agent.readme.document_templates import (
+    DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS,
+    document_template_hash,
+)
 from readme_agent.readme.example_assurance_validation import (
     unsupported_example_assurance_claims,
 )
@@ -296,7 +312,42 @@ def test_replacement_candidate_exactness_accepts_same_fact_and_span_binding() ->
     )
 
 
-def test_email_declared_preserve_sections_are_binding_even_without_fact_ids() -> None:
+def test_non_overview_replacement_rejects_an_extra_bound_accepted_fact() -> None:
+    facts = _facts()
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    license_id = facts.selected_fact_ids["product.license"]
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-capability",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="major_capabilities",
+        fact_ids=[capability_id, license_id],
+        replacement_provenance_ids=["template.section.key_capabilities"],
+        evidence=["negative-control"],
+        rationale="An unrelated accepted fact cannot broaden a non-overview replacement.",
+    )
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities",
+        candidate_byte_start=0,
+        candidate_byte_end=1,
+        fact_ids=[capability_id, license_id],
+        rationale="Bind both facts to prove exact-source equality remains mandatory.",
+    )
+
+    assert (
+        replacement_provenance_is_exact(
+            resolution,
+            facts,
+            {provenance.provenance_id: provenance},
+            exact_source_fact_ids=[capability_id],
+        )
+        is False
+    )
+
+
+def test_email_declared_preserve_claims_are_binding_even_without_fact_ids() -> None:
     facts = _facts()
     source = (
         "# Email library\n\n"
@@ -309,12 +360,125 @@ def test_email_declared_preserve_sections_are_binding_even_without_fact_ids() ->
         facts,
         base_revision="a" * 40,
     )
-    section = next(item for item in assessment.sections if item.heading == "Package Entry Points")
-
-    assert section.disposition == "preserve"
-    assert (section.source_byte_start, section.source_byte_end) in declared_preserve_ranges(
-        assessment
+    claim = next(
+        item
+        for item in assessment.material_claims
+        if "MapiMessage" in source.encode()[item.source_byte_start : item.source_byte_end].decode()
     )
+
+    assert claim.disposition == "preserve"
+    assert (claim.source_byte_start, claim.source_byte_end) in declared_preserve_ranges(assessment)
+
+
+def test_opening_promo_correction_cannot_capture_sibling_preserve_claim() -> None:
+    facts = _facts()
+    source = (
+        "# Widget\n\n"
+        "Widget reads and writes verified document formats.\n\n"
+        "> Widget is the 100% free official Aspose project. Visit "
+        "https://products.aspose.org/widget and https://products.aspose.com/widget.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    preserve = next(
+        claim
+        for claim in assessment.material_claims
+        if "reads and writes"
+        in source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    )
+    correction = next(
+        claim
+        for claim in assessment.material_claims
+        if "100% free" in source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    )
+
+    ranges = declared_preserve_ranges(assessment)
+
+    assert preserve.disposition == "preserve"
+    assert correction.disposition == "remove_update"
+    assert (preserve.source_byte_start, preserve.source_byte_end) in ranges
+    assert (correction.source_byte_start, correction.source_byte_end) not in ranges
+
+
+def test_duplicate_preserve_headings_fail_before_source_splicing() -> None:
+    facts = _facts()
+    source = (
+        "# Email library\n\n"
+        "## Package Entry Points\n\nUse MapiMessage.\n\n"
+        "## Package Entry Points\n\nUse MsgReader.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+
+    with pytest.raises(ValueError, match="duplicate H2 headings"):
+        preserved_h2_sections(source, assessment, set(), "# Email library\n\n## Navigation\n")
+
+
+def test_malformed_preserve_coordinates_fail_before_source_splicing() -> None:
+    facts = _facts()
+    source = "# Email library\n\n## Package Entry Points\n\nUse MapiMessage.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    target = next(item for item in assessment.sections if item.heading == "Package Entry Points")
+    malformed = assessment.model_copy(
+        update={
+            "sections": [
+                item.model_copy(update={"source_byte_end": item.source_byte_end - 1})
+                if item.section_id == target.section_id
+                else item
+                for item in assessment.sections
+            ]
+        }
+    )
+
+    with pytest.raises(ValueError, match="not an exact CommonMark H2 section"):
+        preserved_h2_sections(source, malformed, set(), "# Email library\n\n## Navigation\n")
+
+
+def test_preserve_h2_cannot_copy_nested_repair_h3_bytes() -> None:
+    facts = _facts()
+    source = (
+        "# Email library\n\n"
+        "## Package Entry Points\n\n"
+        "Use MapiMessage, MsgReader, and MsgWriter.\n\n"
+        "### Generated installation\n\n"
+        "pip install unverified-package\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    parent = next(item for item in assessment.sections if item.heading == "Package Entry Points")
+    child = next(item for item in assessment.sections if item.heading == "Generated installation")
+    mixed = assessment.model_copy(
+        update={
+            "sections": [
+                item.model_copy(update={"disposition": "preserve"})
+                if item.section_id == parent.section_id
+                else item.model_copy(update={"disposition": "repair"})
+                if item.section_id == child.section_id
+                else item
+                for item in assessment.sections
+            ]
+        }
+    )
+
+    with pytest.raises(ValueError, match="correction-owned child sections"):
+        preserved_h2_sections(source, mixed, set(), "# Email library\n\n## Navigation\n")
 
 
 def test_generic_capability_slot_cannot_replace_an_unbound_source_claim() -> None:
@@ -339,9 +503,156 @@ def test_generic_capability_slot_cannot_replace_an_unbound_source_claim() -> Non
     assert not any(item.resolution == "verified_obligation_replacement" for item in resolutions)
 
 
+def test_caller_supplied_correction_range_cannot_authorize_a_preserve_claim() -> None:
+    facts = _facts()
+    source = "# Widget\n\n## Features\n\nPackage entry points include Reader and Writer.\n"
+    candidate = "# Widget\n\n## Key capabilities\n\n- General document processing.\n"
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    license_id = facts.selected_fact_ids["product.license"]
+
+    def provenance(fact_id: str) -> list[CandidateContentProvenanceV1]:
+        return [
+            CandidateContentProvenanceV1(
+                provenance_id="template.section.key_capabilities",
+                candidate_byte_start=0,
+                candidate_byte_end=len(candidate.encode("utf-8")),
+                fact_ids=[fact_id],
+                rationale="Bind the negative control span to one selected fact.",
+            )
+        ]
+
+    correction_range = [(0, len(source.encode("utf-8")))]
+    capability_result = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance(capability_id),
+        authoritative_correction_ranges=correction_range,
+    )
+    license_result = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance(license_id),
+        authoritative_correction_ranges=correction_range,
+    )
+
+    assert not any(
+        item.resolution == "verified_obligation_replacement" for item in capability_result
+    )
+    assert not any(item.resolution == "verified_obligation_replacement" for item in license_result)
+
+
+def test_source_splice_rebases_generated_duplicate_text_without_rediscovery() -> None:
+    candidate = "# Widget\n\n## Navigation\n\n- [License](#license)\n\n## License\n\nShared text.\n"
+    generated_start = candidate.rindex("Shared text.")
+    binding = CandidateContentProvenanceV1(
+        provenance_id="template.section.license",
+        candidate_byte_start=len(candidate[:generated_start].encode("utf-8")),
+        candidate_byte_end=len(candidate[: generated_start + len("Shared text.")].encode("utf-8")),
+        fact_ids=[_facts().selected_fact_ids["product.license"]],
+        rationale="Bind the generated occurrence before inserting duplicate source text.",
+    )
+    insertion_character = candidate.index("## License")
+    insertion_byte = len(candidate[:insertion_character].encode("utf-8"))
+    edit = CandidateEdit(
+        insertion_byte,
+        insertion_byte,
+        "## Maintainer context\n\nShared text.\n\n",
+    )
+
+    composed = apply_edit(candidate, edit)
+    rebased = rebase_provenance([binding], edit, composed)[0]
+    bound_text = composed.encode("utf-8")[
+        rebased.candidate_byte_start : rebased.candidate_byte_end
+    ].decode("utf-8")
+
+    assert bound_text == "Shared text."
+    assert rebased.candidate_byte_start > len(composed[: composed.index("Shared text.")].encode())
+
+
+def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() -> None:
+    facts = _facts()
+    source = "# Email library\n\n## Package Entry Points\n\nExact detail at EOF"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    candidate = (
+        "# Email library\n\n"
+        "## Navigation\n\n- [License](#license)\n\n"
+        "## License\n\nPermit use under the [license](LICENSE).\n"
+    )
+    navigation_text = "- [License](#license)"
+    navigation_start = candidate.index(navigation_text)
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.navigation",
+            candidate_byte_start=len(candidate[:navigation_start].encode("utf-8")),
+            candidate_byte_end=len(
+                candidate[: navigation_start + len(navigation_text)].encode("utf-8")
+            ),
+            configured_standard_ids=["readme.navigation"],
+            rationale="Bind the generated Navigation before the exact source insertion.",
+        )
+    ]
+
+    first = compose_verified_source_preservation(
+        candidate,
+        source,
+        assessment,
+        set(),
+        provenance,
+    )
+    second = compose_verified_source_preservation(
+        first.candidate,
+        source,
+        assessment,
+        set(),
+        first.provenance,
+    )
+    headings = parse_headings(first.candidate)
+
+    assert "## Package Entry Points\n\nExact detail at EOF\n\n## License" in first.candidate
+    assert [heading.title for heading in headings if heading.level == 2].count("License") == 1
+    assert second.candidate == first.candidate
+    assert second.provenance == first.provenance
+
+
 def test_claim_accountability_helper_modules_are_document_contract_inputs() -> None:
     assert {
         "src/readme_agent/readme/claim_replacement_validation.py",
         "src/readme_agent/readme/example_assurance_validation.py",
         "src/readme_agent/readme/limitation_validation.py",
+        "src/readme_agent/presentation/verified_preservation_sections.py",
+        "src/readme_agent/presentation/verified_preservation_segments.py",
+        "src/readme_agent/presentation/verified_source_preservation.py",
     }.issubset(DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS)
+
+
+@pytest.mark.parametrize(
+    "relative_owner",
+    (
+        "src/readme_agent/presentation/verified_preservation_sections.py",
+        "src/readme_agent/presentation/verified_preservation_segments.py",
+        "src/readme_agent/presentation/verified_source_preservation.py",
+    ),
+)
+def test_each_preservation_owner_change_invalidates_document_contract_hash(
+    monkeypatch,
+    relative_owner: str,
+) -> None:
+    baseline = document_template_hash()
+    project_root = Path(__file__).resolve().parents[2]
+    owner = (project_root / relative_owner).resolve()
+    original_read_bytes = Path.read_bytes
+
+    def changed_owner_bytes(path: Path) -> bytes:
+        content = original_read_bytes(path)
+        return content + b"\ncontract-hash-control" if path.resolve() == owner else content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_owner_bytes)
+
+    assert document_template_hash() != baseline

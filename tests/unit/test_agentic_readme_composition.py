@@ -13,6 +13,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
+from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.readme.agentic_composition import (
     plan_readme_composition,
     validate_readme_composition_plan,
@@ -32,6 +33,9 @@ from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.verified_preservation_composition import (
+    build_verified_preservation_composition_plan,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -51,7 +55,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "cb250413d70e7fd46138dbe970b33309d03e5cda5504ae22ba369ff0c4fb7ef3"
+    "f8d1f0d81104759a3c94e02c2babe11ff3cec157a59160c35369997303156209"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -1008,14 +1012,149 @@ def test_presentation_replacement_does_not_blanket_authorize_protected_source_lo
         client=_client(_cover_assessment(_draft(facts), assessment)),
         max_attempts=1,
     )
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+    decision = validate_readme_document_candidate(source, candidate, document_plan, facts)
+
+    assert "## API reference\n\n```text\nmaintainer_api_contract()\n```\n" in candidate
+    assert decision.valid is False
+    assert decision.checks["claim_accountability_complete"] is False
+    assert any("claim accountability has" in error for error in decision.errors)
+
+
+def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned_claims():
+    bundle = (
+        PROJECT_ROOT
+        / "runs"
+        / "readme-poc"
+        / "aspose-3d-foss__Aspose.3D-FOSS-for-Python"
+        / "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+    )
+    source = (bundle / "source" / "README.md").read_text(encoding="utf-8")
+    facts = ProductFactsV2.model_validate_json(
+        (bundle / "facts" / "product-facts.json").read_text(encoding="utf-8")
+    )
+    revision = "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    composition = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert composition is not None
+
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=composition.model_dump(mode="json"),
+    )
+    decision = validate_readme_document_candidate(source, candidate, document_plan, facts)
+    preserved = next(
+        claim
+        for claim in assessment.material_claims
+        if claim.claim_id == "claim:29:47f5129fce47e0c8"
+    )
+    preserved_text = source.encode("utf-8")[
+        preserved.source_byte_start : preserved.source_byte_end
+    ].decode("utf-8")
+    promo = next(
+        claim
+        for claim in assessment.material_claims
+        if claim.disposition == "remove_update" and claim.source_byte_start == 349
+    )
+    promo_resolution = next(
+        item for item in document_plan.source_claim_resolutions if item.claim_id == promo.claim_id
+    )
+
+    assert decision.valid is False
+    assert decision.checks["adoption_preserved_source"] is True
+    assert decision.checks["no_introduced_duplicate_headings"] is True
+    assert decision.checks["claim_accountability_complete"] is False
+    assert decision.checks["claim_accountability_gaps_visible"] is True
+    assert candidate.count(preserved_text) == 1
+    assert all(
+        item.claim_id != preserved.claim_id for item in document_plan.source_claim_resolutions
+    )
+    assert promo_resolution.resolution == "verified_obligation_replacement"
+    assert "authority:deterministic-claim-disposition:remove_update" in promo_resolution.evidence
+    assert candidate.count("# Aspose.3D FOSS for Python") == 1
+    assert candidate.count("## Navigation") == 1
+    assert candidate.count("## License") == 1
+    assert "```mermaid" in candidate
+
+    rerun_assessment = assess_readme_document(
+        facts.org_repo,
+        candidate,
+        facts,
+        base_revision=revision,
+    )
+    rerun_composition = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        candidate,
+        facts,
+        rerun_assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert rerun_composition is not None
+    rerun_candidate, _rerun_document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        candidate,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=rerun_composition.model_dump(mode="json"),
+    )
+    assert rerun_candidate == candidate
+    assert rerun_candidate.count("## Preserved repository details") == 1
+
+    mixed_source = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Overview\n\n"
+        "Aspose.3D FOSS for Python supports XYZQ teleport conversion under the MIT license.\n"
+    )
     with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
-        build_readme_document_candidate(
+        build_source_claim_resolutions(
+            mixed_source,
+            candidate,
+            facts,
+            document_plan.candidate_content_provenance,
+            preserved_source_ranges=[(0, len(mixed_source.encode("utf-8")))],
+        )
+
+    malicious_claim = next(
+        claim
+        for claim in assess_readme_document(
             facts.org_repo,
-            source,
+            mixed_source,
             facts,
             base_revision=revision,
-            agentic_composition_plan=plan.model_dump(mode="json"),
-        )
+        ).material_claims
+        if "XYZQ teleport"
+        in mixed_source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    )
+    unauthorized = build_source_claim_resolutions(
+        mixed_source,
+        candidate,
+        facts,
+        document_plan.candidate_content_provenance,
+        authoritative_correction_ranges=[
+            (malicious_claim.source_byte_start, malicious_claim.source_byte_end)
+        ],
+    )
+    assert all(item.claim_id != malicious_claim.claim_id for item in unauthorized)
 
 
 def test_renderer_rejects_a_composition_plan_rebound_to_another_source():

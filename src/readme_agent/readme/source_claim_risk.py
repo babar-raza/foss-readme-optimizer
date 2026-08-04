@@ -7,6 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
@@ -55,6 +56,31 @@ _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = 
     "contextual_product_relationship": ("template.section.scope_and_limitations",),
 }
 _OTHER_PLATFORMS_HEADING = re.compile(r"other platforms(?: \(official [^)]+\))?")
+_OVERVIEW_FACT_FIELDS = (
+    "product.identity",
+    "product.audience",
+    "product.problems_solved",
+    "product.capabilities",
+    "product.formats",
+    "product.license",
+)
+
+
+def applicable_product_overview_fact_ids(facts: ProductFactsV2) -> set[str]:
+    """Return the complete selected accepted fact family for an overview replacement."""
+
+    result: set[str] = set()
+    for field in _OVERVIEW_FACT_FIELDS:
+        fact_id = facts.selected_fact_ids.get(field)
+        if fact_id is None:
+            continue
+        fact = facts.fact_by_id(fact_id)
+        if (
+            fact.verification_state in {"verified", "policy_approved"}
+            and not fact.has_unresolved_conflict
+        ):
+            result.add(fact_id)
+    return result
 
 
 def obligation_required_fact_fields(obligation: SourceClaimObligation) -> frozenset[str]:

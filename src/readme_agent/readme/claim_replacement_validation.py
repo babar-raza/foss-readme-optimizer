@@ -6,6 +6,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.source_claim_risk import (
+    applicable_product_overview_fact_ids,
     obligation_any_fact_fields,
     obligation_provenance_prefixes,
     obligation_required_fact_fields,
@@ -44,8 +45,16 @@ def replacement_provenance_is_exact(
         return False
     if not set(resolution.fact_ids).issubset(bound_fact_ids):
         return False
-    if exact_source_fact_ids is not None and (
-        not exact_source_fact_ids or set(resolution.fact_ids) != set(exact_source_fact_ids)
+    if exact_source_fact_ids is not None:
+        if not exact_source_fact_ids:
+            return False
+        if resolution.obligation_id == "product_overview":
+            if not set(exact_source_fact_ids).issubset(resolution.fact_ids):
+                return False
+        elif set(resolution.fact_ids) != set(exact_source_fact_ids):
+            return False
+    if resolution.obligation_id == "product_overview" and not (
+        applicable_product_overview_fact_ids(facts) <= set(resolution.fact_ids)
     ):
         return False
     fields = {fact.field for fact in bound_facts}
@@ -54,20 +63,32 @@ def replacement_provenance_is_exact(
     prefixes = obligation_provenance_prefixes(resolution.obligation_id)
     if not required_fields.issubset(fields) or (any_fields and not any_fields.intersection(fields)):
         return False
-    if not all(
-        any(
+    obligation_provenance_ids = {
+        provenance_id
+        for provenance_id in resolution.replacement_provenance_ids
+        if any(
             provenance_id == prefix or provenance_id.startswith(f"{prefix}.") for prefix in prefixes
         )
-        for provenance_id in resolution.replacement_provenance_ids
-    ):
+    }
+    if not obligation_provenance_ids:
         return False
-    if resolution.obligation_id == "product_overview" and not all(
-        any(
-            provenance_id == prefix or provenance_id.startswith(f"{prefix}.")
-            for provenance_id in resolution.replacement_provenance_ids
-        )
-        for prefix in prefixes
-    ):
+    supplemental = [
+        binding for binding in bindings if binding.provenance_id not in obligation_provenance_ids
+    ]
+    if resolution.obligation_id == "product_overview":
+        if any(
+            not set(binding.fact_ids).intersection(resolution.fact_ids) for binding in supplemental
+        ):
+            return False
+        if not all(
+            any(
+                provenance_id == prefix or provenance_id.startswith(f"{prefix}.")
+                for provenance_id in obligation_provenance_ids
+            )
+            for prefix in prefixes
+        ):
+            return False
+    elif supplemental:
         return False
     return all(
         facts.selected_fact_ids.get(fact.field) == fact.fact_id

@@ -19,6 +19,7 @@ from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_risk import (
     SourceClaimObligation,
+    applicable_product_overview_fact_ids,
     classify_source_claim_risk,
     obligation_any_fact_fields,
     obligation_provenance_prefixes,
@@ -50,6 +51,14 @@ _STRUCTURAL_SHELL = re.compile(
     r"- \[browse all [^]]+\]\([^)]+\))\s*$"
 )
 _PRESENTATION_MARKS = re.compile(r"[*_~]+")
+
+
+def _raise_unresolved_preserve(required: bool, claim_id: str) -> None:
+    if required:
+        raise ValueError(
+            "preserve disposition lost a source claim without exact fact-bound replacement "
+            f"candidate content: {claim_id}"
+        )
 
 
 def _presentation_equivalence_key(value: str) -> str:
@@ -216,12 +225,43 @@ def _accepted_obligation_bindings(
     ):
         return None
     bound_fact_ids = {fact_id for binding in bindings for fact_id in binding.fact_ids}
+    required_resolution_fact_ids = set(exact_source_fact_ids or [])
+    if obligation == "product_overview":
+        required_resolution_fact_ids.update(applicable_product_overview_fact_ids(facts))
     if exact_source_fact_ids is not None:
-        if not exact_source_fact_ids or not set(exact_source_fact_ids).issubset(bound_fact_ids):
+        if not exact_source_fact_ids and obligation != "product_overview":
             return None
-        resolution_fact_ids = sorted(set(exact_source_fact_ids))
+        if obligation == "product_overview":
+            missing_fact_ids = required_resolution_fact_ids - bound_fact_ids
+            supplemental = [
+                binding
+                for binding in provenance
+                if missing_fact_ids.intersection(binding.fact_ids) and binding not in bindings
+            ]
+            bindings.extend(supplemental)
+            bound_fact_ids.update(
+                fact_id for binding in supplemental for fact_id in binding.fact_ids
+            )
+        if not required_resolution_fact_ids.issubset(bound_fact_ids):
+            return None
+        resolution_fact_ids = sorted(required_resolution_fact_ids)
     else:
-        resolution_fact_ids = sorted(bound_fact_ids)
+        if obligation == "product_overview":
+            missing_fact_ids = required_resolution_fact_ids - bound_fact_ids
+            supplemental = [
+                binding
+                for binding in provenance
+                if missing_fact_ids.intersection(binding.fact_ids) and binding not in bindings
+            ]
+            bindings.extend(supplemental)
+            bound_fact_ids.update(
+                fact_id for binding in supplemental for fact_id in binding.fact_ids
+            )
+            if not required_resolution_fact_ids.issubset(bound_fact_ids):
+                return None
+            resolution_fact_ids = sorted(required_resolution_fact_ids)
+        else:
+            resolution_fact_ids = sorted(bound_fact_ids)
     accepted_fields: set[str] = set()
     for fact_id in sorted(bound_fact_ids):
         fact = facts.fact_by_id(fact_id)
@@ -239,13 +279,15 @@ def _accepted_obligation_bindings(
     return bindings, resolution_fact_ids
 
 
-def build_source_claim_resolutions(
+def _build_source_claim_resolutions(
     source_text: str,
     candidate: str,
     facts: ProductFactsV2,
     candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
     *,
     preserved_source_ranges: list[tuple[int, int]] | None = None,
+    authoritative_correction_ranges: list[tuple[int, int]] | None = None,
+    fail_on_unresolved_preserve: bool = True,
 ) -> list[SourceClaimResolutionV1]:
     """Resolve removed claims by risk; mandatory claims fail closed without verified slots."""
 
@@ -275,6 +317,7 @@ def build_source_claim_resolutions(
     resolutions: list[SourceClaimResolutionV1] = []
     source_bytes = source_text.encode("utf-8")
     preserve_ranges = preserved_source_ranges or []
+    correction_ranges = authoritative_correction_ranges or []
     for claim in source_claims:
         if raw_candidate_occurrences[claim.content_sha256] > 0:
             raw_candidate_occurrences[claim.content_sha256] -= 1
@@ -319,14 +362,23 @@ def build_source_claim_resolutions(
                     )
                 )
                 continue
-        if any(
+        preserve_required = claim.disposition == "preserve" and any(
             claim.source_byte_start < end and start < claim.source_byte_end
             for start, end in preserve_ranges
-        ):
-            raise ValueError(
-                "preserve disposition lost a source claim without exact fact-equivalent "
-                f"candidate content: {claim.claim_id}"
-            )
+        )
+        correction_required = claim.disposition in {
+            "investigate",
+            "remove_update",
+            "repair",
+            "replace_generic",
+            "rewrite",
+        } and any(
+            claim.source_byte_start < end and start < claim.source_byte_end
+            for start, end in correction_ranges
+        )
+        if preserve_required:
+            _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
+            continue
         folded = claim_text.strip().casefold()
         risk = (
             classify_source_claim_risk(source_text, claim)
@@ -341,6 +393,10 @@ def build_source_claim_resolutions(
                 candidate_content_provenance,
             )
             if accepted is None:
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
                 continue
             bindings, replacement_fact_ids = accepted
             replacement_ids = sorted(binding.provenance_id for binding in bindings)
@@ -389,10 +445,24 @@ def build_source_claim_resolutions(
             # Legacy renderers do not emit exact slot provenance. They must keep unresolved
             # source loss blocking instead of inheriting this verified-template fast path.
             if candidate_content_provenance is None:
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
                 continue
             if risk is None:
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
+                continue
+            if not correction_required:
                 continue
             if risk.risk_class == "optional_explicit_deferral":
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
                 resolutions.append(
                     SourceClaimResolutionV1(
                         claim_id=claim.claim_id,
@@ -411,20 +481,28 @@ def build_source_claim_resolutions(
                 )
                 continue
             if risk.obligation_id is None:
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
                 continue
             accepted = _accepted_obligation_bindings(
                 risk.obligation_id,
                 facts,
                 candidate_content_provenance,
-                exact_source_fact_ids=fact_ids,
+                exact_source_fact_ids=(fact_ids or None if correction_required else fact_ids),
             )
             if accepted is None:
+                _raise_unresolved_preserve(
+                    preserve_required and fail_on_unresolved_preserve,
+                    claim.claim_id,
+                )
                 continue
             bindings, replacement_fact_ids = accepted
             replacement_ids = sorted(binding.provenance_id for binding in bindings)
             rationale = (
                 f"{risk.rationale} The exact replacement slot is bound to selected, "
-                "accepted repository facts."
+                "accepted repository facts under an explicit hash-bound correction range."
             )
             resolutions.append(
                 SourceClaimResolutionV1(
@@ -440,6 +518,7 @@ def build_source_claim_resolutions(
                         f"source-claim:{claim.claim_id}",
                         f"source-content-sha256:{claim.content_sha256}",
                         f"obligation:{risk.obligation_id}",
+                        f"authority:deterministic-claim-disposition:{claim.disposition}",
                         *(f"candidate-provenance:{item}" for item in replacement_ids),
                         *(f"accepted-fact:{item}" for item in replacement_fact_ids),
                     ],
@@ -464,3 +543,47 @@ def build_source_claim_resolutions(
             )
         )
     return resolutions
+
+
+def build_source_claim_resolutions(
+    source_text: str,
+    candidate: str,
+    facts: ProductFactsV2,
+    candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
+    *,
+    preserved_source_ranges: list[tuple[int, int]] | None = None,
+    authoritative_correction_ranges: list[tuple[int, int]] | None = None,
+) -> list[SourceClaimResolutionV1]:
+    """Build final strict resolutions; unresolved leaf-preserve loss always raises."""
+
+    return _build_source_claim_resolutions(
+        source_text,
+        candidate,
+        facts,
+        candidate_content_provenance,
+        preserved_source_ranges=preserved_source_ranges,
+        authoritative_correction_ranges=authoritative_correction_ranges,
+        fail_on_unresolved_preserve=True,
+    )
+
+
+def probe_source_claim_resolutions_for_composition(
+    source_text: str,
+    candidate: str,
+    facts: ProductFactsV2,
+    candidate_content_provenance: list[CandidateContentProvenanceV1],
+    *,
+    preserved_source_ranges: list[tuple[int, int]],
+    authoritative_correction_ranges: list[tuple[int, int]],
+) -> list[SourceClaimResolutionV1]:
+    """Probe replaceable claims before exact preservation; never use as final plan evidence."""
+
+    return _build_source_claim_resolutions(
+        source_text,
+        candidate,
+        facts,
+        candidate_content_provenance,
+        preserved_source_ranges=preserved_source_ranges,
+        authoritative_correction_ranges=authoritative_correction_ranges,
+        fail_on_unresolved_preserve=False,
+    )

@@ -13,10 +13,18 @@ from readme_agent.links.contextual_validation import validate_contextual_link_ca
 from readme_agent.presentation.template_adapters import bind_product_facts
 from readme_agent.presentation.template_compiler import compile_repository_presentation
 from readme_agent.presentation.template_schema import PresentationTemplateInputV1
+from readme_agent.presentation.verified_preservation_sections import (
+    effective_correction_ranges,
+    effective_preserve_ranges,
+)
+from readme_agent.presentation.verified_source_preservation import (
+    compose_verified_source_preservation,
+)
 from readme_agent.presentation.verified_template_draft import build_verified_template_draft
 from readme_agent.presentation.verified_template_provenance import (
     build_source_claim_resolutions,
     build_template_provenance,
+    probe_source_claim_resolutions_for_composition,
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
@@ -49,20 +57,12 @@ class VerifiedTemplateCompilationV1(BaseModel):
     provenance: list[CandidateContentProvenanceV1]
 
 
-def declared_preserve_ranges(assessment: ReadmeAssessmentV1) -> list[tuple[int, int]]:
-    """Treat every declared preserve disposition as a binding source contract."""
+def declared_preserve_ranges(
+    assessment: ReadmeAssessmentV1,
+) -> list[tuple[int, int]]:
+    """Return leaf-owned preserve ranges without container/child authority overlap."""
 
-    ranges: list[tuple[int, int]] = []
-    for section in assessment.sections:
-        if section.disposition != "preserve":
-            continue
-        if any(
-            section.source_byte_start <= claim.source_byte_start
-            and claim.source_byte_end <= section.source_byte_end
-            for claim in assessment.material_claims
-        ):
-            ranges.append((section.source_byte_start, section.source_byte_end))
-    return ranges
+    return effective_preserve_ranges(assessment)
 
 
 def build_verified_template_compilation(
@@ -86,10 +86,42 @@ def build_verified_template_compilation(
     errors = validate_repository_presentation(candidate, template_input)
     if errors:
         raise ValueError("compiled verified presentation is invalid: " + "; ".join(errors))
+    provenance = build_template_provenance(candidate, template_input, facts)
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source_text,
+        facts,
+        base_revision=source_revision,
+    )
+    if assessment.canonical_hash() != agentic_plan.assessment_hash:
+        raise ValueError("verified template composition assessment binding changed")
+    preserved_source_ranges = declared_preserve_ranges(assessment)
+    correction_source_ranges = effective_correction_ranges(assessment)
+    preliminary_resolutions = probe_source_claim_resolutions_for_composition(
+        source_text,
+        candidate,
+        facts,
+        provenance,
+        preserved_source_ranges=preserved_source_ranges,
+        authoritative_correction_ranges=correction_source_ranges,
+    )
+    replaceable_claim_ids = {
+        resolution.claim_id
+        for resolution in preliminary_resolutions
+        if resolution.resolution != "deferred_verification"
+    }
+    composition = compose_verified_source_preservation(
+        candidate,
+        source_text,
+        assessment,
+        replaceable_claim_ids,
+        provenance,
+    )
+    candidate = composition.candidate
     return VerifiedTemplateCompilationV1(
         candidate=candidate,
         template_input=template_input,
-        provenance=build_template_provenance(candidate, template_input, facts),
+        provenance=composition.provenance,
     )
 
 
@@ -157,6 +189,7 @@ def build_verified_template_document_candidate(
         facts,
         compiled.provenance,
         preserved_source_ranges=preserved_source_ranges,
+        authoritative_correction_ranges=effective_correction_ranges(assessment),
     )
     operations = []
     if inner_text != candidate:
