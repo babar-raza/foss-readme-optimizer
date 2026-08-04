@@ -464,6 +464,17 @@
         "reason": "read-only intake classified READY_FAST_PATH",
         "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-.NET\\bd19e16057b628310b4a04330585d366cb40e9b7\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-04T11:33:00.646022+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "intake_preflight_history": [
@@ -491,12 +502,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T14:52:10.190082+00:00"
+    "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-04T11:33:00.646022+00:00"
   },
   "schema_version": 2,
-  "state_version": 41,
+  "state_version": 42,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
