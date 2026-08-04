@@ -626,7 +626,7 @@
     "updated_at": "2026-08-04T11:33:59.429444+00:00"
   },
   "schema_version": 2,
-  "state_version": 54,
+  "state_version": 55,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
@@ -771,6 +771,28 @@
       "recovery_count": 0,
       "status": "processing",
       "updated_at": "2026-08-04T11:34:06.125790+00:00"
+    },
+    "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": {
+      "accepted_at": "2026-08-04T16:32:38.759428+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-04T16:32:32.756066+00:00",
+        "provider_event_id": "20260804-163232-8344",
+        "repository_scope": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-04T16:32:38.759443+00:00"
     }
   },
   "trigger_records": {},
