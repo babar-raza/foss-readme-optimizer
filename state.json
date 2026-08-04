@@ -7225,7 +7225,7 @@
     "updated_at": "2026-08-04T11:07:42.827392+00:00"
   },
   "schema_version": 2,
-  "state_version": 126,
+  "state_version": 127,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
@@ -7317,13 +7317,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:StateBackendError:push of refs/readme-agent-state/aspose-words-foss__Aspose.Words-FOSS-for-Python failed: fatal: unable to access 'https://github.com/babar-raza/foss-readme-optimizer.git/': Empty reply from server ",
       "last_checkpoint_id": "0319c1c99618e72d98631a6106be81f1267e419592112ec2576e59bc7b8079dd",
-      "lease_expires_at": "2026-08-04T11:17:50.452476+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-04T11:08:40.078699+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-04T11:08:57.022842+00:00"
     },
     "operator:20260801-104901-9fd8:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-01T10:49:07.644267+00:00",
