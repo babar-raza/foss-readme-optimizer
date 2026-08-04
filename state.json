@@ -1410,69 +1410,25 @@
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "b470503f723ddfc2c9edccca00d7b71c563b21c272f46746cf920c976a4ef512",
+      "accepted_facts_hash": "71f067c7d1aac508e3aa10882116dca9a612211231d2a5faf8912390e4093cbe",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('prepare, review, package, and explain fonts') and avoids vague terms like 'leverage'.",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The second sentence explicitly states the target audience ('teams that need to prepare, review, package, and explain fonts') and the context ('deployable web-font packages, visual review assets...').",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license in the final section, satisfying the highest-priority trust signal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install section provides real PyPI coordinates (`pip install aspose-font`) and includes a working optional extra (`aspose-font[mcp]`), matching the expected registry behavior.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, there are multiple runnable Python code blocks (e.g., web handoff, QA report, instance creation) with no comments or docstrings, and real CLI examples with expected outputs.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Headers use consistent `##`/`###` Markdown levels, and the section order follows intent: product description \u2192 features \u2192 install \u2192 examples \u2192 capabilities \u2192 roadmap \u2192 license.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "All included images (e.g., QA report summary, axis grid, delta comparison) directly illustrate actual product outputs or workflows, not decorative placeholders.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README does not mention or link to a CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY file, and GitHub would only show 'README' and 'License' in the quick-link row.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "While not stated in prose, the README includes recent, detailed CLI/API examples and a development section implying active maintenance \u2014 consistent with structural signals like recent commits/releases.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "There is no commercial mention in the README, which is acceptable since the standard allows absence if the product is purely FOSS; no misleading or premature commercial framing is present.",
-            "satisfied": true
-          }
-        ],
-        "overall_summary": "The README satisfies 9 of 10 dimensions, with the sole gap being contribution readiness (missing CODE_OF_CONDUCT, CONTRIBUTING, and SECURITY files). All other criteria \u2014 especially product clarity, installation path, verified examples, and visual usefulness \u2014 are well met and align with leading FOSS practices."
+        "criteria_results": [],
+        "input_sha256": "8f7e7edcdf67ac4929b9e6457a2fa8aad4e7c72cee4218b4ab74c31aa1f1813b",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
+        "structural_observations": {
+          "ci_badge_count": 0,
+          "has_mermaid": true
+        }
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-01T09:10:52.440459+00:00",
+      "last_run_timestamp": "2026-08-04T10:10:55.567679+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
@@ -75318,7 +75274,7 @@
     "updated_at": "2026-08-04T10:10:13.736472+00:00"
   },
   "schema_version": 2,
-  "state_version": 257,
+  "state_version": 258,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86748b3bbaa0ef1d8385661881ba5db5d93591b9db0a00ea85949ce59197d101",
