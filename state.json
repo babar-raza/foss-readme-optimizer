@@ -1159,6 +1159,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-220224-02a6:aspose-page-foss/Aspose.Page-FOSS-for-Python"
     },
+    "44f679d2ca20fa390d5e8f4c8f9e4fba7a6be096c92454f8b8ad54ab5aabef20": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "44f679d2ca20fa390d5e8f4c8f9e4fba7a6be096c92454f8b8ad54ab5aabef20",
+      "completed_at": "2026-08-04T10:28:58.466188+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "861883be594d8e4a3cea5c72f17ef6f0a26c70d12f35d572abc5355b74f448b7",
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "run_id": "20260804-102145-ef64",
+      "schema_version": 1,
+      "stage": "final_acceptance",
+      "started_at": "2026-08-04T10:28:58.466171+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260731-022518-1fa9:aspose-page-foss/Aspose.Page-FOSS-for-Python"
+    },
     "45d934bd3b8e86c61c186b0121808258e9efc4a0db678a157b6f565b9dad3935": {
       "action": null,
       "attempt": 1,
@@ -20619,7 +20636,7 @@
     "updated_at": "2026-08-04T10:27:37.016703+00:00"
   },
   "schema_version": 2,
-  "state_version": 1001,
+  "state_version": 1002,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2e49dccb6e68d3ff3a16fb133b225d8846483e94d1dc208d4d986d42173ff017",
@@ -20748,11 +20765,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "b53bed8821881997f86c4709455a7f3a6037ca8af5e350f92b6faece31f6e235",
+      "last_checkpoint_id": "44f679d2ca20fa390d5e8f4c8f9e4fba7a6be096c92454f8b8ad54ab5aabef20",
       "lease_expires_at": "2026-08-04T10:36:58.578603+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-04T10:28:36.763477+00:00"
+      "updated_at": "2026-08-04T10:28:58.466188+00:00"
     },
     "operator:20260731-023954-657c:aspose-page-foss/Aspose.Page-FOSS-for-Python": {
       "accepted_at": "2026-07-31T02:39:58.571841+00:00",
