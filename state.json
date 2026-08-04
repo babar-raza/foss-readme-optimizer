@@ -326,6 +326,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-090548-eb0e:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
     },
+    "ce65ea705a84d7c55d93dbe1eb20a15d6673d71b4bf1989ad202563886f4ce4a": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "ce65ea705a84d7c55d93dbe1eb20a15d6673d71b4bf1989ad202563886f4ce4a",
+      "completed_at": "2026-08-04T11:22:16.317853+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "a53b2b1c5c7397924182e7d38358d826ca421d8c5e21f409d830a43dc47e9fc3",
+      "output_hash": null,
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+      "run_id": "20260804-112159-7f3f",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-04T11:22:16.317842+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-075002-7985:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+    },
     "cf92b07d5274e69ad8a0ab74467daff6ce2c959024b01a0aac852c4907f0394f": {
       "action": null,
       "attempt": 1,
@@ -983,7 +1000,7 @@
     "updated_at": "2026-08-04T09:08:03.250010+00:00"
   },
   "schema_version": 2,
-  "state_version": 71,
+  "state_version": 72,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "054203ee35e982cc402e49637b9ffead04af895e8aaa369af0ebe3aeb380f581",
@@ -1201,11 +1218,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "2250e09b5b192499529aed517df2c29fe03043a4eaeb3fd29f7ff05c1aceeba2",
+      "last_checkpoint_id": "ce65ea705a84d7c55d93dbe1eb20a15d6673d71b4bf1989ad202563886f4ce4a",
       "lease_expires_at": "2026-08-04T11:37:11.534293+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-04T11:22:11.534293+00:00"
+      "updated_at": "2026-08-04T11:22:16.317853+00:00"
     },
     "operator:20260804-075937-8fe5:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T07:59:43.818887+00:00",
