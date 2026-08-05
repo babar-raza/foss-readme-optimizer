@@ -6302,7 +6302,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 4,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -7253,14 +7253,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 4,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "ValueError",
-          "failure_reason": "execution_error",
-          "message": " invalid contextual README links: candidate contains non-linkable Aspose target: https://docs.aspose.org/; candidate contains non-linkable Aspose target: https://blog.aspose.org/; candidate contains non-linkable Aspose target: https://docs.aspose.com/3d/python-net/; candidate contains non-linkable Aspose target: https://reference.aspose.com/3d/python-net/; candidate contains non-linkable Aspose target: https://downloads.aspose.com/3d; candidate contains non-linkable Aspose target: https://forum.aspose.com/c/3d/19; candidate exceeds total Aspose-link ceiling; candidate exceeds aspose.org ceiling; candidate exceeds aspose.com ceiling; candidate exceeds products ceiling; candidate repeats an Aspose target; prohibited Enterprise terminology: the commercial Aspose.3D On-Premise library; prohibited Enterprise terminology: commercial edition; prohibited Enterprise terminology: [commercial On-Premise edition](https://products.aspose.com/3d/python-net/); prohibited Enterprise terminology: commercial On-Premise edition; prohibited Enterprise terminology: commercial package; prohibited Enterprise terminology: commercial edition; prohibited Enterprise terminology: commercial On-Premise edition; prohibited Enterprise terminology: [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/); prohibited Enterprise terminology: full-featured commercial edition; prohibited Enterprise terminology: [Aspose.3D product family](https://products.aspose.com/3d); prohibited Enterprise terminology: commercial package",
-          "occurred_at": "2026-08-05T00:24:43.354540+00:00",
+          "error_type": "blocked",
+          "failure_reason": "presentation_plan",
+          "message": "['candidate_has_no_comments failed', 'README contains a source comment in the python fence at line 134', 'README contains a source comment in the python fence at line 166', 'candidate_exact_badges failed', 'candidate_exact_mermaid failed', 'fact-backed README header or Mermaid diagram is absent', 'mandatory_claim_replacements_have_exact_provenance failed', 'claim accountability has 177 blocking claim(s): candidate:claim:10274:856f48b96dc4c35d, candidate:claim:11395:8f8da2936f700c2e, candidate:claim:11498:f5bb339b2352c5ce, candidate:claim:11508:82666362f67973d6, candidate:claim:11611:c1fea2d7e8f9e936, candidate:claim:11674:72dc2e8e98084c6c, candidate:claim:11719:c736dd9ff9f9de2a, candidate:claim:11728:ae9fce0c5e2acf96, candidate:claim:11791:606c20482c4f1ba5, candidate:claim:11855:f334997a4d3b3e53', 'presentation.raw_internal_token.3e034b6198ec: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.f2012c5a00a7: An internal snake-case token is exposed as visitor prose.']",
+          "occurred_at": "2026-08-05T19:10:56.011242+00:00",
           "schema_version": 1,
-          "source_revision": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+          "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
           "stage": null
         },
         "llm_called": false,
@@ -26745,9 +26745,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-05T00:24:43.354540+00:00",
+      "last_run_timestamp": "2026-08-05T19:10:56.011242+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -30995,7 +30995,7 @@
     "updated_at": "2026-08-05T19:08:34.252140+00:00"
   },
   "schema_version": 2,
-  "state_version": 1206,
+  "state_version": 1207,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
