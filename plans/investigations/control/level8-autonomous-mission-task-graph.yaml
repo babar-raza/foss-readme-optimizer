@@ -4598,17 +4598,21 @@ taskcards:
 - task_id: L8-TRUTH-03A-ISOLATED-EXECUTOR
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
-  title: Isolate untrusted build and example execution from the operator host
-  source_audit_finding: The current secret-filtered subprocess boundary explicitly is not an OS sandbox.
+  title: Isolate execution and provision required toolchains autonomously
+  source_audit_finding: The secret-filtered subprocess boundary was not an OS sandbox, and an absent
+    local SDK or immutable image could be mistaken for a product blocker instead of being acquired
+    and resumed by the runtime.
   audit_classification: not_attempted
   priority: P0
   lane: local-product-truth
   owner: readme-agent-supervisor
   status: TODO
   objective: Provide one disposable OS-isolated executor with bounded resources, filesystem, processes,
-    time, and deny-by-default network.
+    time, and deny-by-default network, plus autonomous detection, immutable selection, acquisition,
+    verification, content-addressed caching, and checkpoint resume for every required SDK, image,
+    compiler, JDK, package manager, or other approved execution dependency.
   why_it_matters: Repository and dependency code cannot prove truth by executing directly on the operator
-    host.
+    host, and a missing local toolchain is normal environment preparation rather than a product blocker.
   allowed_paths:
   - src/readme_agent/facts/
   - src/readme_agent/gitsafety/
@@ -4626,9 +4630,19 @@ taskcards:
   - immutable image identity
   - resource and network policy
   - bounded cleanup
+  - Typed dependency-selection and acquisition contract
+  - Content-addressed toolchain cache with corruption recovery and per-artifact deduplication
+  - Redacted pre-inspect, acquisition, post-inspect, and durable checkpoint-resume receipts
   acceptance_checks:
   - Host execution is ineligible for verified truth
   - isolated execution records complete reproducible provenance
+  - A clean-cache run detects and acquires the exact repository-required pinned toolchain, verifies
+    its digest and advertised version, and resumes the same repository checkpoint without human action
+  - An absent local dependency is classified agent_fixable preparation and never becomes a terminal
+    product blocker
+  - A corrupt cache entry is discarded and reacquired without weakening the requested target or isolation
+  - Exhausted external registry or network unavailability is repository-local retryable or infra_external,
+    while unrelated eligible repositories continue
   verification:
   - Host-secret
   - filesystem
@@ -4637,8 +4651,15 @@ taskcards:
   - timeout
   - resource
   - and cancellation escape controls
+  - clean-cache acquisition and exact-version selection
+  - cache-hit no-op, corrupt-cache recovery, concurrent deduplication, bounded retry, cancellation, and
+    durable resume controls
+  - real Slides .NET net9 and heterogeneous representative toolchain proofs
   negative_controls:
   - Credential filtering alone cannot satisfy isolation
+  - Missing local SDKs, images, compilers, JDKs, or package managers cannot be reported as product blockers
+  - Target downgrade, mutable tags, unpinned downloads, host execution, credential exposure, and manual
+    installation instructions cannot satisfy dependency readiness
   regression_checks:
   - Example execution
   - process cleanup
@@ -4652,16 +4673,20 @@ taskcards:
   - process inventory
   - raw outcomes
   - checksums
-  rollback_or_recovery: Disable untrusted execution and leave dependent facts visibly unverified.
-  failure_reroute: Repair the executor boundary before acquisition or example verification.
+  - Pre-inspect, download/pull attempts, verified post-inspect identity, cache decision, and resumed
+    checkpoint receipts for every acquired dependency
+  rollback_or_recovery: Invalidate only the affected toolchain cache entry, retry bounded autonomous
+    provisioning, and leave dependent facts visibly unverified until the exact dependency is ready.
+  failure_reroute: Repair the executor or dependency-provisioning boundary before acquisition or example
+    verification; classify only proven exhausted external availability as infra_external.
   closeout_rules:
   - No repository or dependency code used for fact verification executes on the operator host
   goal_ids:
   - GOAL-TRUTH
   core_contribution:
     kind: visible_deliverable
-    summary: Provide one disposable OS-isolated executor with bounded resources, filesystem, processes,
-      time, and deny-by-default network.
+    summary: Provide an isolated executor that autonomously provisions, verifies, caches, and resumes with
+      every repository-required immutable toolchain.
   requirement_ids:
   - L8-019
   - L8-045
