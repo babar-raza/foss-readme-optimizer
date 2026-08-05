@@ -34,10 +34,12 @@ REPORT_PATH = (
 
 STAGE_GOAL_ORDER = {
     "GOAL-P0-PLAN-FREEZE": 0,
+    "GOAL-V0A-FIRST-VERIFIED-README": 5,
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
     "GOAL-V0-VERIFIED-PYTHON-POC": 11,
     "GOAL-TP-TRUSTED-COHORT-POC": 12,
     "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION": 13,
+    "GOAL-V0B-POST-PYTHON-SLICES": 14,
     "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
     "GOAL-T1-TRUSTED-PORTFOLIO": 20,
     "GOAL-T2-WORKFLOW-STAGING": 30,
@@ -57,10 +59,16 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
 
     if task_id == "L8-PLAN-RECONCILIATION-ACCELERATION":
         return "GOAL-P0-PLAN-FREEZE", "primary_only"
+    if task_id == "L8-VPY-00-GOLDEN-TEMPLATE":
+        return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
+    if task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E":
+        return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
+    if task_id == "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
     if task_id.startswith("L8-VPY-"):
         return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
     if task_id == "L8-ACCEL-00-PYTHON-READINESS":
-        return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
+        return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
     if task_id == "L8-TRUTH-08-FULL-REGISTRY":
         return "GOAL-V2-VERIFIED-GATE-A", "read_only_assurance_isolated"
     if task_id.startswith("TRP-04P-"):
@@ -152,11 +160,13 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
     } or task_id.startswith("L8-INTAKE-"):
         return "CAMP-SHARED-ACCELERATION"
     if task_id in {
-        "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
     }:
         return "CAMP-THREE-SLICES"
+    if task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E":
+        return "CAMP-FIRST-PYTHON-SLICE"
     if task_id in {
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-ACCEL-02-EIGHT-PYTHON",
@@ -303,6 +313,7 @@ L8_TO_TASK = {
     "L8-043": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
     "L8-044": "L8-PLAN-RECONCILIATION-ACCELERATION",
     "L8-045": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+    "L8-046": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
     "PIL-016": "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF",
     "TRP-001": "TRP-00-ASSURANCE-CONTRACT",
     "TRP-002": "TRP-01-README-DERIVED-FACTS",

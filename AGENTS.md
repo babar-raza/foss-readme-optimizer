@@ -380,7 +380,9 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 Decision #88 in `plans/master.md` suspends the remaining trusted-delivery critical path. The
 immutable mission outcome is not an active goal. Mission `evaluate` derives exactly one primary
 goal from the earliest incomplete stage in this order:
-`GOAL-P0-PLAN-FREEZE`, `GOAL-V0-VERIFIED-PYTHON-POC`, `GOAL-C0-AUTHORIZED-PORTFOLIO`,
+`GOAL-P0-PLAN-FREEZE`, `GOAL-V0A-FIRST-VERIFIED-README`,
+`GOAL-V0-VERIFIED-PYTHON-POC`, `GOAL-V0B-POST-PYTHON-SLICES`,
+`GOAL-C0-AUTHORIZED-PORTFOLIO`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
 `GOAL-L6-AUTONOMOUS-PORTFOLIO`, `GOAL-L7-HETEROGENEOUS-30D`, and
@@ -412,18 +414,22 @@ in stable registry order until the user assigns them a priority.
 Portfolio reuse follows `validated source README + applicable family evidence + applicable
 ecosystem evidence + repository-specific delta`. Shared evidence must be content-addressed and
 repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,
-and inherited claims remain per-repository proof. After focused transaction, cache, cancellation,
-and serialized-aggregation isolation pass, the sole supervisor may use up to three read-only lanes
-for the early Note Python plus readiness-selected .NET/Java slices. After those three slices pass,
-it may use two to four isolated repository lanes with separate leases/state/evidence and serialized
-aggregation. Follow the graph's six-campaign mapping and one closure evidence package per campaign.
-Run the optimized complete non-live suite at three-slice closure and Gate-A closure, plus only a
-declared later repository-wide gate or typed P0 exception; do not revive micro-fix evidence churn.
+and inherited claims remain per-repository proof. Use one repository lane for the current
+Aspose.3D Python end-to-end slice. After its complete lifecycle, promotion, recovery, cache, and
+serialized-aggregation proof passes, the sole supervisor may use two to four isolated Python lanes
+with separate leases/state/evidence and serialized aggregation. Current .NET/Java slices follow the
+complete Python platform. Follow the graph's seven-campaign mapping and one closure evidence package
+per campaign. Run the pending optimized complete non-live suite on current committed HEAD before the
+first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
+gate or typed P0 exception; do not revive micro-fix evidence churn.
 
 The immediate small-goal sequence is `L8-VPY-00-GOLDEN-TEMPLATE` →
-`L8-ACCEL-00-PYTHON-READINESS` → `L8-VPY-01-NOTE-VERIFIED-CANARY` plus
-`L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (readiness-selected .NET and Java slices) →
-`L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` → `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`.
+`L8-ACCEL-00-PYTHON-READINESS` → `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` →
+`L8-VPY-01-NOTE-VERIFIED-CANARY` plus `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` →
+`L8-VPY-03-ALL-PYTHON-VERIFIED-POC` →
+`L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (post-Python .NET and Java slices).
+One finalized repository is the first verified README, all current Python repositories are the
+Python platform POC, and the full admitted registry is Gate A. Smaller numerators are partial only.
 Two ineffective attempts with one approach fingerprint or
 15 minutes without material narrowing prohibit another equivalent attempt. Before a third
 approach, record a first-principles review and change the causal owner, pipeline boundary, or

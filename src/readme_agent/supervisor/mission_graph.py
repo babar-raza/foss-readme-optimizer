@@ -19,10 +19,12 @@ _SUBORDINATE_GOAL_IDS = {
 }
 _STAGE_GOAL_ORDERS = {
     "GOAL-P0-PLAN-FREEZE": 0,
+    "GOAL-V0A-FIRST-VERIFIED-README": 5,
     "GOAL-T0-TRUSTED-QUALIFICATION": 10,
     "GOAL-V0-VERIFIED-PYTHON-POC": 11,
     "GOAL-TP-TRUSTED-COHORT-POC": 12,
     "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION": 13,
+    "GOAL-V0B-POST-PYTHON-SLICES": 14,
     "GOAL-C0-AUTHORIZED-PORTFOLIO": 15,
     "GOAL-T1-TRUSTED-PORTFOLIO": 20,
     "GOAL-T2-WORKFLOW-STAGING": 30,
@@ -46,10 +48,11 @@ _HISTORICAL_TRUSTED_STAGE_GOALS: set[StageGoalId] = {
 _CAMPAIGN_ORDERS: dict[ExecutionCampaignId, int] = {
     "CAMP-PLAN-FREEZE": 0,
     "CAMP-SHARED-ACCELERATION": 10,
-    "CAMP-THREE-SLICES": 20,
+    "CAMP-FIRST-PYTHON-SLICE": 20,
     "CAMP-PYTHON-PORTFOLIO": 30,
-    "CAMP-GATE-A-PORTFOLIO": 40,
-    "CAMP-GATE-B-AND-LATER": 50,
+    "CAMP-THREE-SLICES": 40,
+    "CAMP-GATE-A-PORTFOLIO": 50,
+    "CAMP-GATE-B-AND-LATER": 60,
 }
 _VAGUE_CONTRIBUTIONS = {
     "complete the task",
@@ -102,7 +105,7 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
 
     campaigns = graph.campaign_catalog
     if {campaign.campaign_id: campaign.order for campaign in campaigns} != _CAMPAIGN_ORDERS:
-        raise ConfigError("mission campaign_catalog does not match the governed six campaigns")
+        raise ConfigError("mission campaign_catalog does not match the governed seven campaigns")
 
     by_id: dict[str, TaskCardV1] = {}
     for task in graph.taskcards:

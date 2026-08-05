@@ -58,37 +58,42 @@ This sequence appears once and is binding as derived guidance:
 3. Seal clean governance/control bytes in `PlanFreezeV1`, materialize selected candidate bytes in
    `PipelineContractSnapshotV1`, and bind repository-stage inputs through
    `StageDependencyManifestV1`.
-4. Run zero-provider-call readiness classification for every current .NET and Java repository.
-5. Complete the fresh unchanged Note no-op proof.
-6. In parallel, execute one readiness-selected .NET and one Java verified vertical slice.
-7. Independently approve and no-op-prove Note, .NET, and Java.
-8. Run the official complete integration suite once at three-slice closure.
-9. Process Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python, then the dynamic Python
-   denominator.
-10. While Python candidate delivery remains primary, allow dependency-ready read-only fact/cache
-    preparation for later platforms.
-11. Continue candidates in .NET, Java, C++, TypeScript, Rust, and Go order.
-12. Close the full dynamic verified Gate A.
-13. Present Gate B only after complete independent approval and no-op proof.
-14. Continue Gate C, Level 5, Level 6, Level 7's 30-day proof, and Level 8's 90-day proof.
+4. Run the pending optimized complete non-live suite against the current committed HEAD.
+5. Freeze the shared template, fact-acceptance, validator, reviewer, prompt/model-route,
+   protected-content, and runtime dependency contract for delivery.
+6. Complete the current Aspose.3D FOSS for Python `FACTS_READY` revision through composition,
+   deterministic validation, independent review/repair, unchanged no-op, committed promotion,
+   and independent reconstruction. Use one repository lane and do not start speculative machinery
+   or portfolio fan-out before this closes.
+7. Rebuild Note under the sealed verified path; then process Page and PDF.
+8. Complete every remaining runtime-loaded Python repository and run the official complete suite
+   at Python-platform closure.
+9. Only after Python closes, execute one current readiness-selected .NET and one current Java
+   verified vertical slice.
+10. Continue candidates in .NET, Java, C++, TypeScript, Rust, and Go order.
+11. Close the full dynamic verified Gate A.
+12. Present Gate B only after complete independent approval and no-op proof.
+13. Continue Gate C, Level 5, Level 6, Level 7's 30-day proof, and Level 8's 90-day proof.
 
-Python-first means Python is the first complete platform milestone and has scheduling priority. It
-does not keep independent read-only later-platform work idle.
+Python-first means the first current end-to-end repository and first complete platform are both
+Python. Later-platform research may use otherwise idle capacity only after the first repository
+closes, and it cannot delay or invalidate Python delivery.
 
 ## Compatibility task identity
 
 The durable ID `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` is retained solely for state compatibility.
-Its canonical display name and sole current purpose are **Cross-platform .NET and Java vertical
-slices**. Nothing with that ID performs Page/PDF work. Page/PDF are a distinct first boundary
-inside `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` or its explicit graph child.
+Its canonical display name and sole current purpose are **Post-Python .NET and Java vertical
+slices**. Nothing with that ID performs Page/PDF work, and it is not eligible before the complete
+Python platform POC. Page/PDF are a distinct boundary inside
+`L8-VPY-03-ALL-PYTHON-VERIFIED-POC` or its explicit graph child.
 
 Committed graph `status` values are bootstrap/default metadata only. The graph owns task identity
 and dependencies; durable state owns the live task status and claim. Migration must preserve the
 active Note claim and all transition history.
 
-## Six execution campaigns
+## Seven execution campaigns
 
-Task IDs and acceptance remain distinct, but dependency-ready work is executed in six campaigns.
+Task IDs and acceptance remain distinct, but dependency-ready work is executed in seven campaigns.
 One campaign can close several taskcards only when its manifest maps every task and requirement to
 exact acceptance evidence.
 
@@ -125,19 +130,18 @@ only the sealed snapshot, never mutable coordinator-worktree bytes.
 
 Aspose.org knowledge is an index/cache, never authority. Its generated prose is never reused.
 
-### Campaign 3: three verified vertical slices
+### Campaign 3: first current verified README
 
-- Note: reuse its approved candidate under the frozen dependencies and prove a fresh unchanged
-  zero-provider-call, zero-effect no-op.
-- .NET and Java: perform zero-call readiness, select the evidence-readiest current repositories,
-  and run both through the same verified pipeline in isolated lanes.
-- Run deterministic validation, one independent non-authoring review, typed risk escalation when
-  required, targeted repair, and unchanged no-op.
-- Produce the three-slice throughput scoreboard, then run the official suite once.
+- Run the pending current-HEAD complete non-live receipt once.
+- Pin the current Aspose.3D Python revision and reuse its accepted `FACTS_READY` bundle.
+- Complete its plan, candidate, patch, deterministic validation, independent non-authoring review,
+  targeted repair, unchanged no-op, committed promotion, and independent reconstruction.
+- Freeze the successful vertical path. Do not call this a Python POC and do not fan out before it
+  closes.
 
 ### Campaign 4: complete Python
 
-Run Page/PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
+Run Note, Page, and PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
 repair the earliest shared boundary once, and store every independently approved/no-op-proven
 README in the committed finalized-artifact root. Store durable co-located copies of its original,
 facts/provenance, document plan, patch, claim map, deterministic validation, independent review,
@@ -146,21 +150,27 @@ durable backend by default, re-evaluates the current acceptance/cache contract, 
 stale raw terminal records, removes superseded aggregate acceptance pointers, and never lets an
 explicit offline state snapshot masquerade as live authority.
 
-Current execution boundary (2026-08-05): an independent semantic regression audit invalidated the
-previously promoted 3D, Cells, and Note candidates plus later Barcode, Email, and Font approvals.
-The shared accountability contract now fails closed on lost preserve claims, incomplete limitations,
-inexact fact/span replacement, unsupported example assurance, and heading collisions. Its complete
-official gate passes at `0c8b62956` (receipt: `runs/verification/pytest-full-latest.json`), all prior
-Python approvals are cache-invalid, and the finalized cohort is `0/12` Python and `0/31`
-registry-wide until candidates are freshly replayed, independently approved, and no-op-proven.
+Current execution boundary (2026-08-05): the project is pre-POC. The finalized cohort is `0/12`
+Python and `0/31` registry-wide. The prior complete-suite receipt belongs to older HEAD
+`e6e36d003`; correction-start HEAD `c5e4b9307` and the committed plan-correction HEAD still need
+the one pending complete runner. Aspose.3D Python
+has the current checksum-valid `FACTS_READY` bundle and is therefore the first executable vertical
+slice. Historical approvals remain cache-invalid until fresh replay, approval, no-op, promotion,
+and reconstruction succeed.
 
-### Campaign 5: remaining verified Gate A
+### Campaign 5: post-Python cross-platform slices
+
+After Python closes, run one current readiness-selected .NET and one current Java repository
+through the frozen verified lifecycle. Repair only defects proven by those slices and preserve
+unaffected Python evidence.
+
+### Campaign 6: remaining verified Gate A
 
 Complete .NET, Java, C++, TypeScript, Rust, and Go in priority order using two to four isolated
-repository lanes after the three-slice proof. Keep aggregation serialized. Complete discovery and
+repository lanes after first-slice, Python-platform, and post-Python cross-platform proof. Keep aggregation serialized. Complete discovery and
 the dynamic denominator. A partial prefix is never Gate A.
 
-### Campaign 6: Gate B and governed later gates
+### Campaign 7: Gate B and governed later gates
 
 Build the human review package only after Gate A. Human acceptance does not replace independent
 approval. Continue verified Gate C and later hosted/effect/maturity gates under their existing
@@ -248,16 +258,17 @@ known regression corpus; retain a second role only for failing risk classes.
 
 After focused transaction, cache, cancellation, and serialized-aggregation isolation:
 
-- use up to three isolated lanes for Note, .NET, and Java;
-- use two to four isolated repository lanes after all three pass;
+- use one repository lane for the first current Aspose.3D Python end-to-end slice;
+- use two to four isolated Python repository lanes only after that slice passes its complete
+  lifecycle, promotion, recovery, and aggregate proof;
+- execute current .NET/Java lanes only after the complete Python platform POC;
 - keep per-repository leases, state, cache receipts, and evidence separate;
 - serialize aggregate state and every future effect;
 - dynamically reduce concurrency only on measured pressure;
 - increase beyond four only after measured benefit and isolation proof.
 
 The seven-ecosystem set remains a heterogeneous qualification milestone. It is not a prerequisite
-for the early slices, Python delivery, knowledge adaptation, later-platform read-only preparation,
-or post-three-slice bounded concurrency.
+for the first current README, Python delivery, knowledge adaptation, or bounded Python concurrency.
 
 ## Narrow reuse and invalidation
 
@@ -286,8 +297,9 @@ remain mandatory.
 ## Verification pyramid
 
 Run Ruff and focused tests for the changed seam, then impacted integration/safety/cache/isolation
-tests at coherent boundaries. Run the optimized official suite once at three-slice closure and
-once at Gate-A closure. Later workflow/effect gates run it when claiming repository-wide scope.
+tests at coherent boundaries. Run the pending optimized official suite on current committed HEAD
+before the first slice, then once at Python-platform closure and once at Gate-A closure. Later
+workflow/effect gates run it when claiming repository-wide scope.
 An unapproved full-suite invocation outside a declared boundary is refused unless a recorded P0
 defect requires it. Reuse a suite receipt only when every governing hash matches.
 
@@ -316,8 +328,10 @@ Separate current contract-valid counts from legacy/stale artifacts and explicit 
 ## Time targets
 
 - plan reconciliation and freeze: at most 60 focused minutes;
-- Note no-op plus current .NET and Java slices: three active hours after freeze;
-- current Python portfolio: six active hours after freeze;
+- first current Aspose.3D Python end-to-end slice: one focused execution window after the current-HEAD
+  complete gate;
+- remaining current Python portfolio: one measured bounded campaign after the first slice freezes;
+- current .NET and Java slices: one focused post-Python campaign;
 - current Gate-A candidate set: one focused execution window with measured bounded concurrency.
 
 A breach records and repairs the first measured boundary. It never lowers acceptance or starts a

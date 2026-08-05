@@ -1,4 +1,4 @@
-"""Minimum campaign evidence aggregation for acceleration and three-slice work."""
+"""Minimum campaign evidence aggregation for early delivery campaigns."""
 
 from __future__ import annotations
 
@@ -10,7 +10,11 @@ from typing import Literal
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-SupportedCampaignId = Literal["CAMP-SHARED-ACCELERATION", "CAMP-THREE-SLICES"]
+SupportedCampaignId = Literal[
+    "CAMP-SHARED-ACCELERATION",
+    "CAMP-FIRST-PYTHON-SLICE",
+    "CAMP-THREE-SLICES",
+]
 TaskEvidenceVerdict = Literal["OPEN", "PARTIAL", "CLOSED", "BLOCKED_EXTERNAL"]
 
 

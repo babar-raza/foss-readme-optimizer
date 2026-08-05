@@ -4,10 +4,10 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements.md",
-  "source_sha256": "1c77634fc682816fd662fc0a499064ddce5d3697b291b11e762c1e3161af08ce",
+  "source_sha256": "bf097d82a36f04ee44b419dd346b159d7846b89937928248c4b7b528ac8a41de",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 465,
-  "mandatory_requirement_rows": 415,
+  "total_requirement_rows": 466,
+  "mandatory_requirement_rows": 416,
   "excluded_backlog_rows": 28,
   "excluded_deprecated_rows": 22,
   "reopened_implemented_rows": 0,
@@ -15,12 +15,13 @@
     "active_governance": 35,
     "excluded_backlog": 28,
     "excluded_deprecated": 22,
-    "open_mandatory": 225,
+    "open_mandatory": 226,
     "preserved_verified": 155
   },
   "taskcard_counts": {
     "L8-PLAN-RECONCILIATION-ACCELERATION": 1,
     "L8-VPY-00-GOLDEN-TEMPLATE": 1,
+    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": 1,
     "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": 1,
     "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": 1,
     "TRP-00-ASSURANCE-CONTRACT": 3,
@@ -3794,6 +3795,14 @@
       "priority": "P0",
       "requirement_status": "PARTIAL",
       "task_id": "L8-TRUTH-03A-ISOLATED-EXECUTOR",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "L8-046",
+      "priority": "P0",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

@@ -131,29 +131,43 @@ invisible, but it prevents admission. A result covering only part of the admitte
 registry whose source inventory is incomplete, is a development batch or partial result and is
 never presented as "the POC."
 
-### Current verified Python proving milestone
+### Current delivery-first verified Python proving milestone
 
 The temporary trusted lane is preserved but no longer executes. Its README-derived extraction,
 LLM composition, targeted repair, cache, retry, lease, workflow, staging, App, and effect evidence
 remain reusable only within their proven assurance boundary. They never become repository facts
 or verified acceptance merely through reuse.
 
-The immediate executable milestone is a repository-verified Python POC with early cross-platform
-feedback:
+The project remains **pre-POC** until one current repository completes the entire verified
+lifecycle. Machinery, facts, candidates, deterministic validation, historical approval, and a
+golden sample do not change that classification. The first visible milestone is one finalized
+verified README; it is not itself a platform POC. The first platform POC is Python and closes only
+when every runtime-loaded Python repository completes the same current contract.
+
+The immediate executable sequence is delivery-first:
 
 1. retain the human-accepted Aspose.Note FOSS for Python reference and compile its structure into
    `RepositoryPresentationTemplateV1`, not a universal prose template;
-2. classify every current .NET and Java repository with zero provider calls and freeze the
-   evidence-readiest current slice from each platform;
-3. rebuild Note from repository/package/example/policy evidence and prove the selected .NET and
-   Java vertical slices beside Note's independent approval and fresh unchanged no-op;
-4. run the official integration suite once after all three slices are independently approved and
-   no-op-proven;
-5. prove Page and PDF as side-by-side Python conformance canaries with repository-specific facts,
+2. run the one pending complete non-live control-repository gate against the current committed
+   HEAD, then freeze the shared template, fact-acceptance, validator, reviewer, and runtime
+   contracts for delivery;
+3. take the current `FACTS_READY` Aspose.3D FOSS for Python revision through composition,
+   deterministic validation, independent review, targeted repair, unchanged no-op, promotion,
+   and independent manifest reconstruction; no portfolio fan-out or new general machinery may
+   precede this unless that exact vertical slice proves a P0 blocker;
+4. rebuild Note from repository/package/example/policy evidence, then prove Page and PDF as
+   Python conformance canaries with repository-specific facts,
    formats, capabilities, examples, and Mermaid maps;
-6. reconcile the dynamic Python denominator and complete every current Python repository using
+5. reconcile the dynamic Python denominator and complete every current Python repository using
    content-addressed stage reuse;
+6. only after the complete Python platform POC, run current .NET and Java vertical slices to expose
+   cross-platform defects before the remaining portfolio fan-out;
 7. continue .NET, Java, C++, TypeScript, Rust, and Go, then verified Gate A/B/C and maturity.
+
+At each boundary, terminology is fail-closed: one finalized repository is the **first verified
+README**, all current Python repositories are the **verified Python platform POC**, and all current
+admitted repositories are **verified Gate A**. A smaller numerator must be reported as partial
+progress with its exact denominator.
 
 Two ineffective attempts with one approach fingerprint, or 15 minutes without a materially
 narrower result, prohibit another equivalent attempt. Before a third approach, the agent records

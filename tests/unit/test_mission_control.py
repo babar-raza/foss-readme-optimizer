@@ -123,23 +123,30 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-PLAN-RECONCILIATION-ACCELERATION"
     ]
     assert tasks["L8-ACCEL-00-PYTHON-READINESS"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
-    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-ACCEL-00-PYTHON-READINESS"]
-    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == [
         "L8-ACCEL-00-PYTHON-READINESS"
     ]
+    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == [
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+    ]
+    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    ]
     assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
-        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
     assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
     ]
     goals = {goal.goal_id: goal for goal in graph.mission_authority.stage_goal_catalog}
     campaigns = {campaign.campaign_id: campaign for campaign in graph.campaign_catalog}
     assert list(campaigns) == [
         "CAMP-PLAN-FREEZE",
         "CAMP-SHARED-ACCELERATION",
-        "CAMP-THREE-SLICES",
+        "CAMP-FIRST-PYTHON-SLICE",
         "CAMP-PYTHON-PORTFOLIO",
+        "CAMP-THREE-SLICES",
         "CAMP-GATE-A-PORTFOLIO",
         "CAMP-GATE-B-AND-LATER",
     ]
@@ -208,7 +215,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     )
 
     qualification = evaluate_mission(graph, state)
-    assert qualification.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert qualification.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert qualification.concurrent_goal_ids == ["GOAL-C0-AUTHORIZED-PORTFOLIO"]
     assert [task.task_id for task in qualification.eligible_tasks[:2]] == [
         "L8-VPY-00-GOLDEN-TEMPLATE",
@@ -330,7 +337,7 @@ def test_preserved_trusted_goals_cannot_regain_execution_authority():
     assert "TRP-04-CANARY-QUALIFICATION" not in evaluation.unresolved_task_ids
 
 
-def test_verified_python_goal_is_the_first_executable_goal_after_assurance():
+def test_first_verified_readme_goal_precedes_the_python_platform_goal():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
     statuses["L8-VPY-00-GOLDEN-TEMPLATE"] = "TODO"
@@ -343,7 +350,7 @@ def test_verified_python_goal_is_the_first_executable_goal_after_assurance():
 
     evaluation = evaluate_mission(graph, state)
 
-    assert evaluation.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert evaluation.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert evaluation.next_task is not None
     assert evaluation.next_task.task_id == "L8-VPY-00-GOLDEN-TEMPLATE"
 
