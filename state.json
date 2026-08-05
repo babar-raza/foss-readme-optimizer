@@ -18,11 +18,8 @@
     "claim_id": "9bdac50a9e9b4534b9ead252ad545245",
     "claimed_at": "2026-08-05T14:20:03.294612+00:00",
     "claimed_by": "codex",
-    "concurrent_goal_ids": [
-      "GOAL-V1-VERIFIED-TRUTH",
-      "GOAL-V2-VERIFIED-GATE-A"
-    ],
-    "goal_activation_graph_sha256": "821bdcc6502d23a183fb3ac09bf0856cd8d671c9fac24712c855474b928cea10",
+    "concurrent_goal_ids": [],
+    "goal_activation_graph_sha256": "967de07edfba679dfe2d5e51d3d2d6c97bb8d4ad066a42a573a49a11c60193a9",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -138,10 +135,22 @@
           "GOAL-V2-VERIFIED-GATE-A"
         ],
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
+      },
+      {
+        "from_concurrent_goal_ids": [
+          "GOAL-V1-VERIFIED-TRUTH",
+          "GOAL-V2-VERIFIED-GATE-A"
+        ],
+        "from_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+        "graph_sha256": "967de07edfba679dfe2d5e51d3d2d6c97bb8d4ad066a42a573a49a11c60193a9",
+        "occurred_at": "2026-08-05T14:33:48.519708+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [],
+        "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "821bdcc6502d23a183fb3ac09bf0856cd8d671c9fac24712c855474b928cea10",
-    "last_evaluated_at": "2026-08-05T14:20:03.294612+00:00",
+    "graph_sha256": "967de07edfba679dfe2d5e51d3d2d6c97bb8d4ad066a42a573a49a11c60193a9",
+    "last_evaluated_at": "2026-08-05T14:32:51.996176+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -316,6 +325,7 @@
       "L8-GATEA-03-NO-OP": "TODO",
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
+      "L8-HORIZON-01-ACTIVATE-GATE-A": "TODO",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
@@ -6522,7 +6532,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 751,
+  "state_version": 752,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
