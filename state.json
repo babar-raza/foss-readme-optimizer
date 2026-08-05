@@ -6472,7 +6472,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -7423,12 +7423,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "ValueError",
           "failure_reason": "execution_error",
           "message": " source placement overlaps generated provenance with an unsupported exact-source binding: template.section.api_reference.claim:19809:88ac44c1aa8fc3c2",
-          "occurred_at": "2026-08-05T19:59:14.090686+00:00",
+          "occurred_at": "2026-08-05T20:00:25.099217+00:00",
           "schema_version": 1,
           "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
           "stage": null
@@ -26917,7 +26917,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-05T19:59:14.090686+00:00",
+      "last_run_timestamp": "2026-08-05T20:00:25.099217+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
@@ -31208,7 +31208,7 @@
     "updated_at": "2026-08-05T19:57:00.898577+00:00"
   },
   "schema_version": 2,
-  "state_version": 1251,
+  "state_version": 1252,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
