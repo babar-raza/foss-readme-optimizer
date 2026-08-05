@@ -192,6 +192,49 @@ def test_compatibility_uses_runtime_label_and_preserves_upper_bound():
     assert view.phrases == ["Requires Node.js >=18,<22."]
 
 
+def test_python_compatibility_renders_one_exact_classifier_statement():
+    facts = _facts("python")
+    compatibility = facts.selected_fact("product.compatibility")
+    compatibility = compatibility.model_copy(
+        update={
+            "verification_state": "verified",
+            "value": [
+                {
+                    "ecosystem": "python",
+                    "runtime_label": "Python",
+                    "minimum_runtime": ">=3.7",
+                    "supported_runtime_versions": [
+                        "3.7",
+                        "3.8",
+                        "3.9",
+                        "3.10",
+                        "3.11",
+                        "3.12",
+                    ],
+                    "manifest_path": "setup.py",
+                }
+            ],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                compatibility if fact.fact_id == compatibility.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(facts, "product.compatibility")
+
+    assert view is not None
+    assert view.phrases == [
+        "Requires Python >=3.7 and is explicitly classified for Python 3.7, Python 3.8, "
+        "Python 3.9, Python 3.10, Python 3.11, and Python 3.12."
+    ]
+    assert "3.13" not in view.phrases[0]
+
+
 def test_typescript_compiler_target_is_not_presented_as_a_runtime_minimum():
     facts = _facts("net")
     compatibility = facts.selected_fact("product.compatibility")

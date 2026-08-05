@@ -174,6 +174,159 @@ def test_manifest_compatibility_normalizes_every_ecosystem_runtime_contract(tmp_
     }
 
 
+def test_static_setup_py_compatibility_is_not_a_verified_fact(tmp_path):
+    (tmp_path / "setup.py").write_text(
+        """from setuptools import setup
+
+setup(
+    name="aspose-3d-foss",
+    version="26.1.0",
+    python_requires=">=3.7",
+    classifiers=[
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+    ],
+)
+""",
+        encoding="utf-8",
+    )
+    profile = RepositoryProfile(
+        org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        package_roots=[
+            PackageRoot(
+                path=".",
+                ecosystem="python",
+                manifest_path="setup.py",
+                confidence=1.0,
+                evidence="found setup.py",
+            )
+        ],
+    )
+
+    candidates = ingest_repository_product_facts(
+        SimpleNamespace(
+            family="3d",
+            platform="python",
+            ecosystem="python",
+            active=True,
+        ),
+        _policy("setup.py", "setup"),
+        profile,
+        tmp_path,
+        "ab1a2267",
+    )
+
+    compatibility = next(fact for fact in candidates if fact.field == "product.compatibility")
+    assert compatibility.verification_state == "blocked"
+    assert compatibility.value == {
+        "reason": "immutable_snapshot_required",
+        "manifest_path": "setup.py",
+    }
+    assert compatibility.source.location.endswith("#isolated-generated-PKG-INFO")
+    assert compatibility.source.source_revision == "ab1a2267"
+    assert (
+        next(fact for fact in candidates if fact.field == "product.identity").verification_state
+        == "verified"
+    )
+    assert (
+        next(
+            fact for fact in candidates if fact.field == "installation.coordinates"
+        ).verification_state
+        == "verified"
+    )
+
+
+def test_isolated_pkg_info_promotes_setup_py_compatibility(tmp_path, monkeypatch):
+    (tmp_path / "setup.py").write_text(
+        "from setuptools import setup\nsetup(name='widget')\n",
+        encoding="utf-8",
+    )
+    profile = RepositoryProfile(
+        org_repo="acme/widget",
+        package_roots=[
+            PackageRoot(
+                path=".",
+                ecosystem="python",
+                manifest_path="setup.py",
+                confidence=1.0,
+                evidence="found setup.py",
+            )
+        ],
+    )
+    snapshot = RepositorySnapshotV1(
+        org_repo="acme/widget",
+        source_revision="a" * 40,
+        snapshot_root=str(tmp_path.resolve()),
+        inventory_sha256="b" * 64,
+        captured_at="2026-08-05T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url="https://example.test/acme/widget.git",
+            git_tree_sha256="b" * 64,
+        ),
+    )
+    metadata = SimpleNamespace(
+        requires_python=">=3.7",
+        python_classifier_versions=["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"],
+        pkg_info_sha256="c" * 64,
+    )
+    execution = SimpleNamespace(
+        input_sha256="d" * 64,
+        policy=SimpleNamespace(immutable_image="python@sha256:" + "e" * 64),
+        cleanup=SimpleNamespace(complete=True),
+    )
+    proof = SimpleNamespace(
+        truth_eligible=True,
+        snapshot_inventory_sha256="b" * 64,
+        manifest_sha256="f" * 64,
+        driver_sha256="1" * 64,
+        execution=execution,
+        metadata=metadata,
+        failure_reason=None,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.python_distribution_metadata_facts.local_fact_verification_allowed",
+        lambda: True,
+    )
+    monkeypatch.setattr(
+        "readme_agent.facts.python_distribution_metadata_facts.verify_python_distribution_metadata",
+        lambda _snapshot, _selected: proof,
+    )
+
+    candidates = ingest_repository_product_facts(
+        SimpleNamespace(
+            family="widget",
+            platform="python",
+            ecosystem="python",
+            active=True,
+        ),
+        _policy("setup.py", "setup"),
+        profile,
+        tmp_path,
+        "a" * 40,
+        snapshot=snapshot,
+    )
+
+    compatibility = next(fact for fact in candidates if fact.field == "product.compatibility")
+    assert compatibility.verification_state == "verified"
+    assert compatibility.value[0]["minimum_runtime"] == ">=3.7"
+    assert compatibility.value[0]["supported_runtime_versions"][-1] == "3.12"
+    assert compatibility.value[0]["metadata_proof"] == {
+        "truth_eligible": True,
+        "snapshot_inventory_sha256": "b" * 64,
+        "manifest_sha256": "f" * 64,
+        "driver_sha256": "1" * 64,
+        "input_sha256": "d" * 64,
+        "container_image": "python@sha256:" + "e" * 64,
+        "pkg_info_sha256": "c" * 64,
+        "cleanup_complete": True,
+    }
+    assert compatibility.source.location.endswith(":" + "c" * 64)
+
+
 def test_missing_or_escaped_evidence_blocks_only_technical_assertion(tmp_path):
     profile = RepositoryProfile(org_repo="acme/widget")
     candidates = ingest_repository_product_facts(

@@ -23,10 +23,11 @@ list there, not a dict, and `.get("find", {})` on a list raised
 """
 
 import ast
-import re
 import tomllib
 from configparser import ConfigParser
 from pathlib import Path
+
+from readme_agent.ecosystems.python_setup_py import parse_setup_py
 
 
 def _literal_assignment(path: Path, name: str) -> str | None:
@@ -136,18 +137,6 @@ def parse_pyproject(pyproject_path: Path) -> dict[str, str]:
             info["canonical_package"] = candidate
             break
 
-    return info
-
-
-def parse_setup_py(setup_py_path: Path) -> dict[str, str]:
-    text = setup_py_path.read_text(encoding="utf-8", errors="replace")
-    info: dict[str, str] = {}
-    match = re.search(r'name\s*=\s*["\']([^"\']+)', text)
-    if match:
-        info["name"] = match.group(1)
-    match = re.search(r'version\s*=\s*["\']([^"\']+)', text)
-    if match:
-        info["version"] = match.group(1)
     return info
 
 

@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 from readme_agent.ecosystems.registry import parse_manifest
+from readme_agent.facts.manifest_compatibility import manifest_compatibility_rows
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.root_role_schema import (
@@ -19,15 +20,6 @@ from readme_agent.facts.schema_v2 import (
 from readme_agent.profile.schema import PackageRoot, RepositoryProfile
 from readme_agent.registry.models import ProductEntry
 
-_RUNTIME_REQUIREMENT_FIELDS: dict[str, tuple[str, str]] = {
-    "cpp": ("cmake_min_version", "CMake"),
-    "go": ("runtime_min_version", "Go"),
-    "java": ("runtime_min_version", "Java"),
-    "net": ("min_framework", ".NET"),
-    "python": ("requires_python", "Python"),
-    "rust": ("rust_version", "Rust"),
-    "typescript": ("engines_node", "Node.js"),
-}
 _FOSS_REPOSITORY_NAME = re.compile(r"^(.+?)-FOSS-for-.+$", flags=re.IGNORECASE)
 
 
@@ -126,27 +118,9 @@ def _selected_manifest_values(
                 if value is not None
             }
         )
-        requirement_key, runtime_label = _RUNTIME_REQUIREMENT_FIELDS.get(
-            package_root.ecosystem,
-            ("runtime_min_version", package_root.ecosystem),
+        compatibility.extend(
+            manifest_compatibility_rows(package_root.ecosystem, parsed, manifest_path)
         )
-        runtime = parsed.get(requirement_key)
-        compatibility_kind = "minimum_runtime"
-        if not runtime and package_root.ecosystem == "typescript":
-            runtime = parsed.get("typescript_target")
-            runtime_label = "ECMAScript"
-            compatibility_kind = "compiler_target"
-        if runtime:
-            compatibility.append(
-                {
-                    "ecosystem": package_root.ecosystem,
-                    "runtime_label": runtime_label,
-                    "minimum_runtime": runtime,
-                    "compatibility_kind": compatibility_kind,
-                    "manifest_path": manifest_path,
-                    "root_role": "product",
-                }
-            )
         license_expression = parsed.get("license")
         if license_expression:
             if license_expression.startswith("LicenseRef-"):

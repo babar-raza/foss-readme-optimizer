@@ -7,36 +7,20 @@ from collections.abc import Callable
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.compatibility_rendering import (
+    compatibility_phrases,
+    ecosystem_display_label,
+    ecosystem_label_items,
+)
 from readme_agent.facts.limitation_rendering import limitation_phrases
 from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
-_ECOSYSTEM_LABELS = {
-    "cpp": "C++",
-    "dotnet": ".NET",
-    "go": "Go",
-    "java": "Java",
-    "net": ".NET",
-    "python": "Python",
-    "rust": "Rust",
-    "typescript": "TypeScript",
-}
 _FAMILY_LABELS = {
     "3d": "Aspose.3D",
     "cells": "Aspose.Cells",
     "pdf": "Aspose.PDF",
-}
-_RUNTIME_LABELS = {
-    ".net": ".NET",
-    "cmake": "CMake",
-    "ecmascript": "ECMAScript",
-    "go": "Go",
-    "java": "Java",
-    "node": "Node.js",
-    "node.js": "Node.js",
-    "python": "Python",
-    "rust": "Rust",
 }
 _INTERNAL_TOKEN_RE = re.compile(
     r"(?:[a-z0-9]+_[a-z0-9_]+|[a-z0-9]+(?:-[a-z0-9]+)+/[A-Za-z0-9._-]+|://)",
@@ -50,13 +34,6 @@ _VISITOR_REQUIRED_FIELDS = {
     "product.formats",
 }
 _INTERPRETIVE_FIELDS = {"product.audience", "product.problems_solved"}
-
-
-def ecosystem_display_label(ecosystem: str) -> str:
-    """Return the governed visitor-facing spelling for an ecosystem identifier."""
-
-    normalized = ecosystem.strip().casefold()
-    return _ECOSYSTEM_LABELS.get(normalized, normalized.replace("-", " ").title())
 
 
 class VisitorFactRenderViewV1(BaseModel):
@@ -143,7 +120,7 @@ def _audience_phrases(value: object) -> list[str]:
     phrases = _sentence_phrases(value)
     normalized: list[str] = []
     for phrase in phrases:
-        for ecosystem, label in _ECOSYSTEM_LABELS.items():
+        for ecosystem, label in ecosystem_label_items():
             phrase = re.sub(
                 rf"\busing\s+{re.escape(ecosystem)}\b",
                 f"using {label}",
@@ -170,46 +147,6 @@ def _identity_phrases(value: object) -> list[str]:
     ecosystem = str(value.get("ecosystem") or value.get("platform") or "").strip().lower()
     platform = ecosystem_display_label(ecosystem) if ecosystem else None
     return [f"{family} FOSS for {platform}"] if family and platform else []
-
-
-def _normalized_runtime(label: str, runtime: str) -> str:
-    value = runtime.strip()
-    value = re.sub(rf"^{re.escape(label)}\s*", "", value, flags=re.IGNORECASE)
-    value = value.removesuffix("+").strip()
-    if label == ".NET":
-        folded = value.casefold()
-        if folded.startswith("netcoreapp"):
-            value = "Core " + value[len("netcoreapp") :]
-        elif folded.startswith("netstandard"):
-            value = "Standard " + value[len("netstandard") :]
-        elif folded.startswith("net"):
-            value = value[3:]
-    if value.startswith(">=") and not re.search(r"[,<|^~*]", value[2:]):
-        value = value[2:].strip()
-    return value
-
-
-def _compatibility_phrases(value: object) -> list[str]:
-    rows = value if isinstance(value, list) else [value]
-    phrases: list[str] = []
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        ecosystem = str(row.get("ecosystem") or row.get("platform") or "").strip().lower()
-        runtime = str(row.get("minimum_runtime") or "").strip()
-        runtime_label = str(row.get("runtime_label") or "").strip().lower()
-        compatibility_kind = str(row.get("compatibility_kind") or "minimum_runtime")
-        label = _RUNTIME_LABELS.get(runtime_label) or _ECOSYSTEM_LABELS.get(ecosystem)
-        if label and runtime:
-            normalized_runtime = _normalized_runtime(label, runtime)
-            if normalized_runtime:
-                if compatibility_kind == "compiler_target":
-                    phrases.append(f"Targets {label} {normalized_runtime}.")
-                    continue
-                has_upper_bound = bool(re.search(r"[,<|^~*]", runtime.removeprefix(">=")))
-                suffix = "." if has_upper_bound else " or later."
-                phrases.append(f"Requires {label} {normalized_runtime}{suffix}")
-    return phrases
 
 
 def _acquisition_manifest_path(facts: ProductFactsV2) -> str | None:
@@ -271,7 +208,7 @@ _FIELD_RENDERERS: dict[str, Callable[[object], list[str]]] = {
     "product.formats": _format_phrases,
     "product.limitations": limitation_phrases,
     "product.identity": _identity_phrases,
-    "product.compatibility": _compatibility_phrases,
+    "product.compatibility": compatibility_phrases,
     "installation.verified_acquisition": _no_direct_prose,
     "relationship.commercial_foss": _no_direct_prose,
     "support.routes": _no_direct_prose,

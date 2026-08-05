@@ -194,13 +194,145 @@ class TestPythonParser:
 
     def test_falls_back_to_setup_py_when_no_pyproject_name(self, tmp_path):
         (tmp_path / "setup.py").write_text(
-            'setup(name="aspose-3d-foss", version="1.2.3")\n', encoding="utf-8"
+            'from setuptools import setup\nsetup(name="aspose-3d-foss", version="1.2.3")\n',
+            encoding="utf-8",
         )
 
         info = python.parse(tmp_path)
 
         assert info["name"] == "aspose-3d-foss"
         assert info["version"] == "1.2.3"
+
+    def test_statically_parses_real_shape_setup_python_compatibility(self, tmp_path):
+        (tmp_path / "setup.py").write_text(
+            """from setuptools import find_packages, setup
+
+with open("README.md", encoding="utf-8") as stream:
+    long_description = stream.read()
+
+setup(
+    name="aspose-3d-foss",
+    version="26.1.0",
+    packages=find_packages(),
+    python_requires=">=3.7",
+    long_description=long_description,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: 3.7",
+    ],
+)
+""",
+            encoding="utf-8",
+        )
+
+        info = python.parse(tmp_path)
+
+        assert info == {
+            "name": "aspose-3d-foss",
+            "version": "26.1.0",
+            "requires_python": ">=3.7",
+            "python_classifier_versions": "3.7,3.10,3.12",
+        }
+
+    def test_setup_py_dynamic_and_decoy_metadata_stays_absent(self, tmp_path):
+        side_effect = tmp_path / "must-not-exist"
+        (tmp_path / "setup.py").write_text(
+            f"""from setuptools import setup
+
+def discover():
+    open({str(side_effect)!r}, "w").write("executed")
+    return ">=3.13"
+
+decoy(name="wrong-name", version="99.0", python_requires=">=99")
+setup(
+    name="literal-name",
+    version=discover(),
+    python_requires=discover(),
+    classifiers=[f"Programming Language :: Python :: {{discover()}}"],
+)
+""",
+            encoding="utf-8",
+        )
+
+        info = python.parse(tmp_path)
+
+        assert info == {"name": "literal-name"}
+        assert not side_effect.exists()
+
+    def test_setup_py_multiple_setup_calls_fail_closed(self, tmp_path):
+        (tmp_path / "setup.py").write_text(
+            "from setuptools import setup\n"
+            'setup(name="first", python_requires=">=3.7")\n'
+            'setup(name="second", python_requires=">=3.12")\n',
+            encoding="utf-8",
+        )
+
+        assert python.parse(tmp_path) == {}
+
+    @pytest.mark.parametrize(
+        "source",
+        [
+            'def setup(**kwargs):\n    return kwargs\nsetup(name="forged")\n',
+            'from attacker import setup\nsetup(name="forged")\n',
+            'import attacker as setuptools\nsetuptools.setup(name="forged")\n',
+            (
+                'from setuptools import setup\nmetadata = {"python_requires": ">=99"}\n'
+                'setup(name="real", **metadata)\n'
+            ),
+        ],
+        ids=["local-function", "foreign-function", "foreign-module", "keyword-spread"],
+    )
+    def test_setup_py_rejects_unproven_setup_call_owners(self, tmp_path, source):
+        (tmp_path / "setup.py").write_text(source, encoding="utf-8")
+
+        assert python.parse(tmp_path) == {}
+
+    @pytest.mark.parametrize(
+        ("import_statement", "call_name"),
+        [
+            ("from setuptools import setup", "setup"),
+            ("from setuptools import setup as package_setup", "package_setup"),
+            ("import setuptools", "setuptools.setup"),
+            ("import setuptools as packaging", "packaging.setup"),
+        ],
+        ids=["direct-function", "aliased-function", "direct-module", "aliased-module"],
+    )
+    def test_setup_py_accepts_proven_setuptools_import_forms(
+        self, tmp_path, import_statement, call_name
+    ):
+        (tmp_path / "setup.py").write_text(
+            f'{import_statement}\n{call_name}(name="real", python_requires=">=3.11")\n',
+            encoding="utf-8",
+        )
+
+        assert python.parse(tmp_path) == {
+            "name": "real",
+            "requires_python": ">=3.11",
+        }
+
+    def test_setup_py_rejects_rebound_setuptools_import(self, tmp_path):
+        (tmp_path / "setup.py").write_text(
+            "from setuptools import setup\n"
+            "setup = lambda **kwargs: kwargs\n"
+            'setup(name="forged", python_requires=">=99")\n',
+            encoding="utf-8",
+        )
+
+        assert python.parse(tmp_path) == {}
+
+    def test_setup_py_rejects_rebound_setuptools_setup_attribute(self, tmp_path):
+        (tmp_path / "setup.py").write_text(
+            "import setuptools\n"
+            "setuptools.setup = lambda **kwargs: kwargs\n"
+            'setuptools.setup(name="forged", python_requires=">=99")\n',
+            encoding="utf-8",
+        )
+
+        assert python.parse(tmp_path) == {}
 
     def test_parses_setup_cfg_when_no_pyproject(self, tmp_path):
         (tmp_path / "setup.cfg").write_text(

@@ -10,6 +10,9 @@ from readme_agent.facts.dotnet_truth_selection import dotnet_repository_truth_ca
 from readme_agent.facts.manifest_facts import manifest_fact_candidates
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.policy_evidence import evidence_fact_candidate
+from readme_agent.facts.python_distribution_metadata_facts import (
+    python_setup_compatibility_candidate,
+)
 from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
@@ -83,6 +86,12 @@ def ingest_repository_product_facts(
         observed_at,
         root_role_inventory,
     )
+    if compatibility := python_setup_compatibility_candidate(
+        root_role_inventory,
+        snapshot,
+        observed_at,
+    ):
+        candidates.append(compatibility)
     candidates.extend(curated_repository_fact_candidates(root, source_revision, observed_at))
     if (
         entry.ecosystem == "net"
