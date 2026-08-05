@@ -189,30 +189,24 @@ state. This file also defines machinery-artifact naming and organization.
     no-op-proven result. A strong existing README may produce a byte-identical empty-patch
     candidate, but it receives the same fact, inherited-claim, deterministic, independent-review,
     and no-op proof. (Added 2026-07-25; amended 2026-07-29 — see Decisions #78 and #84.)
-19. **One accountable coordinator; bounded agents execute through disjoint leases.** During the
-    autonomous implementation sprint, Codex is the sole coordinator and the only authority for
-    shared governance/state files, integration, task transitions, commits, final verification,
-    and final evidence. The required Repair, Advancement, Validator/Evidence,
-    Documentation/State-Sync, and Independent Verification roles may run in waves with no more
-    than three workers beside the coordinator. Before work starts, each worker receives a concrete
-    task and an exclusive non-shared path lease. Workers edit only those paths, produce lane
-    evidence, run isolated focused tests, and report exact results; they cannot claim closure,
-    mutate shared state, commit, integrate, or perform a product effect. Documentation/State-Sync
-    is proposal-only: it writes a proposed patch or reconciliation report under its
-    `runs/multi-agent/` lane, and only the coordinator applies accepted changes to `AGENTS.md`,
-    `plans/`, shared evidence, taskcards, or durable state. No overlapping writes are permitted.
-    The independent verifier must not author the implementation it verifies, and human review or
-    approval is requested only after independent acceptance.
+19. **One accountable coordinator; parallelism is adaptive, measured, and repository-isolated.**
+    Codex is the sole coordinator and the only authority for shared governance/state files,
+    integration, task transitions, commits, final reconciliation, and aggregate evidence. New
+    shared behavior, calibration, and shared-root repair execute serially. After transaction,
+    cache, cancellation, and aggregation isolation are proved, the coordinator may begin with two
+    disjoint repository workers and permit a third only while measured end-to-end speedup remains
+    at least 1.5x and coordination overhead remains at or below 25 percent. Scale down when either
+    threshold fails. Workers receive exclusive non-shared path leases, run lane-focused checks,
+    produce lane evidence, and cannot mutate shared state, integrate, commit, transition tasks,
+    perform effects, or claim closure. No overlapping writes are permitted. Independent
+    verification is mandatory at governed acceptance boundaries and must not author the work it
+    accepts.
 
-    Every claimed task receives one idempotent task-lane execution record under
-    `runs/multi-agent/<task-id>/execution-plan.json` before implementation. The record must
-    disposition all five required roles as active or not applicable with a task-specific reason.
-    Each active lane names its objective, exclusive non-shared allowed paths, forbidden shared
-    paths, focused checks, and evidence destination. Documentation/State-Sync receives only its
-    proposal-artifact path. Do not spawn a ceremonial worker where no independent lane
-    exists; do run useful roles in successive waves when the three-worker capacity is full. Missing
-    role dispositions, overlapping path leases, absent lane evidence, or independent-verifier
-    authorship of the verified implementation fail closeout.
+    Create `runs/multi-agent/<task-id>/execution-plan.json` only when delegation occurs. It records
+    each active worker's objective, exclusive allowed paths, forbidden shared paths, focused checks,
+    evidence destination, timing, and measured throughput. A task with no useful independent lane
+    stays serial without ceremonial role records. Missing leases, overlapping paths, absent lane
+    evidence, or independent-verifier authorship fail closeout.
 
     Before starting a long test, proof builder, supervisor campaign, build, or workflow
     reproduction, the coordinator inventories repository-owned processes and grants the top-level
@@ -249,7 +243,7 @@ state. This file also defines machinery-artifact naming and organization.
 
 21. **Runtime goals are stage-derived, never universal or manually selected.** The immutable
     mission outcome is a closure standard, not an active goal. The sole mission graph declares the
-    ordered P0/V0/C0/V1/V2/V3/L5/L6/L7/L8 executable goal catalog. Historical trusted goals remain
+    ordered P0/V0/C0/V1/V2/V3/L5/L6 executable goal catalog. Historical trusted goals remain
     inspectable with `execution_required: false`. Mission `evaluate` derives exactly
     one primary goal from the earliest incomplete gate whose `execution_required` flag is true and zero or more concurrent goals only for
     dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy.
@@ -258,9 +252,41 @@ state. This file also defines machinery-artifact naming and organization.
     or registry growth. Only the primary goal owns stop/effect authority. Preserved non-executable
     goals remain auditable but never compete for capacity or authorize an effect. Safety and autonomy are acceptance
     invariants attached to the current goals, not alternate destinations. Narrative handovers and
-    operators may not manually override derived goal state. (Added 2026-07-29, user directive;
-    amended for verified Python execution; see Decisions #85/#88, `L8-025`, `L8-042`, and
-    `L8-VPY-00`–`L8-VPY-03`.)
+    operators may not manually override derived goal state. Level 7 and Level 8 are post-deployment
+    background certification states, not executable delivery blockers. (Added 2026-07-29, user
+    directive; amended for verified Python execution and agile delivery; see Decisions
+    #85/#88/#96, `L8-025`, `L8-042`, and `L8-VPY-00`–`L8-VPY-03`.)
+
+22. **Authority is compact, query-scoped, and agile.** `plans/idea.md` remains the short
+    human-reviewable outcome contract. Architecture and decisions in `plans/master.md` describe
+    current truth rather than repeating history. Normative requirements are maintained in a typed
+    catalog and loaded into a task only when directly mapped to that task, with no more than 25
+    requirement rows in one task context. The executable mission graph contains only the near-term
+    dependency horizon: at most 15 executable tasks and at most five ready tasks. Completed history
+    remains in Git and checksum-addressed evidence, not copied into every authority file. Derived
+    reports and handovers never become additional authority.
+
+    Template design is mutable. A repository transaction pins component versions for structure,
+    facts, prompts/routes, link policy, validators, reviewer standard, and runtime. A later change
+    invalidates only repositories whose dependency manifest includes the changed component. A
+    non-factual presentation preference discovered after acceptance records
+    `VALID_UPDATE_AVAILABLE`; it does not revoke an otherwise valid candidate. Factuality, safety,
+    corruption, or acceptance-contract defects reopen the earliest affected stage. Acceptance is
+    recorded separately for facts, deterministic validation, independent presentation review,
+    human review, and publication eligibility. Human calibration covers the first candidate and a
+    representative cohort; autonomous portfolio work then continues, followed by final all-registry
+    human acceptance before any product pull request.
+
+23. **Agents challenge tactics while preserving the approved outcome.** Classify a new instruction
+    as outcome, acceptance, preference, tactic, or external authority before changing work. Accept
+    outcome and acceptance changes into their owning authority. Evaluate a proposed tactic against
+    the critical path, existing proof, safety, and maintenance cost; explain and reject or defer it
+    when it would slow or weaken the mission. Two ineffective attempts with the same approach
+    fingerprint, or 15 minutes without material narrowing, require a first-principles review and a
+    changed causal owner, pipeline boundary, mechanism, or sequence before another attempt. Evidence
+    is promoted once per repository or campaign boundary instead of per micro-fix. Infrastructure is
+    implemented just in time at the first vertical slice that exercises it, never as an unrelated
+    prerequisite and never after the dependent slice needs it.
 
 ## Applying a new requirement (the actual procedure)
 

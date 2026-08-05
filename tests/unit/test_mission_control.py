@@ -123,9 +123,8 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-PLAN-RECONCILIATION-ACCELERATION"
     ]
     assert tasks["L8-ACCEL-00-PYTHON-READINESS"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
-    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == [
-        "L8-ACCEL-00-PYTHON-READINESS"
-    ]
+    assert tasks["L8-AGILE-AUTHORITY-RESET"].dependencies == ["L8-ACCEL-00-PYTHON-READINESS"]
+    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == ["L8-AGILE-AUTHORITY-RESET"]
     assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
@@ -162,6 +161,8 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     )
     assert goals["GOAL-V0-VERIFIED-PYTHON-POC"].execution_required is True
     assert goals["GOAL-TP-TRUSTED-COHORT-POC"].execution_required is False
+    assert goals["GOAL-L7-HETEROGENEOUS-30D"].execution_required is False
+    assert goals["GOAL-L8-SELF-MAINTAINING-90D"].execution_required is False
     assert tasks["TRP-04P-COHORT-FREEZE"].dependencies == ["TRP-03-INDEPENDENT-FIDELITY-REVIEW"]
     assert tasks["TRP-04-CANARY-QUALIFICATION"].dependencies == ["TRP-04P-POC-PRESENTATION"]
     assert tasks["TRP-04-CANARY-QUALIFICATION"].stage_goal_id == (

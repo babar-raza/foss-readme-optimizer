@@ -33,19 +33,14 @@ class AutonomousExecutionContractV1(_StrictModel):
     resume_strategy: str
     rejected_alternative: str
     mechanism_locked: bool
-    multi_agent_model: Literal["coordinator_led_bounded_worker_waves"]
+    multi_agent_model: Literal["adaptive_coordinator_led"]
     coordinator_role: str
-    required_worker_roles: list[
-        Literal[
-            "repair",
-            "advancement",
-            "validator_evidence",
-            "documentation_state_sync",
-            "independent_verification",
-        ]
-    ]
+    independent_verification_required: bool
+    serial_calibration_required: bool
+    minimum_parallel_speedup: float = Field(gt=1.0)
+    maximum_coordination_overhead_ratio: float = Field(ge=0.0, le=1.0)
     max_parallel_workers_beside_coordinator: int = Field(ge=1, le=3)
-    task_lane_plan_required: bool
+    task_lane_plan_required_when_delegating: bool
     task_lane_plan_path_template: str
     task_lane_plan_protocol: list[str]
 

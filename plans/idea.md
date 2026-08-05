@@ -148,26 +148,91 @@ The immediate executable sequence is delivery-first:
 
 1. retain the human-accepted Aspose.Note FOSS for Python reference and compile its structure into
    `RepositoryPresentationTemplateV1`, not a universal prose template;
-2. run the one pending complete non-live control-repository gate against the current committed
+2. complete one bounded agile-authority reset: compact the agent-owned authority, separate active
+   work from deferred certification, install component-level presentation versioning, staged
+   acceptance, risk-based proof, adaptive delegation, and evidence-backed replanning;
+3. run the one pending complete non-live control-repository gate against the current committed
    HEAD, then freeze the shared template, fact-acceptance, validator, reviewer, and runtime
-   contracts for delivery;
-3. take the current `FACTS_READY` Aspose.3D FOSS for Python revision through composition,
+   **versions for that transaction**, without freezing future presentation evolution;
+4. take the current `FACTS_READY` Aspose.3D FOSS for Python revision through composition,
    deterministic validation, independent review, targeted repair, unchanged no-op, promotion,
    and independent manifest reconstruction; no portfolio fan-out or new general machinery may
    precede this unless that exact vertical slice proves a P0 blocker;
-4. rebuild Note from repository/package/example/policy evidence, then prove Page and PDF as
+5. show that calibration README immediately, classify human feedback by affected component, and
+   rerun only the dependent presentation/fact stages;
+6. rebuild Note from repository/package/example/policy evidence, then prove Page and PDF as
    Python conformance canaries with repository-specific facts,
    formats, capabilities, examples, and Mermaid maps;
-5. reconcile the dynamic Python denominator and complete every current Python repository using
+7. reconcile the dynamic Python denominator and complete every current Python repository using
    content-addressed stage reuse;
-6. only after the complete Python platform POC, run current .NET and Java vertical slices to expose
+8. only after the complete Python platform POC, run current .NET and Java vertical slices to expose
    cross-platform defects before the remaining portfolio fan-out;
-7. continue .NET, Java, C++, TypeScript, Rust, and Go, then verified Gate A/B/C and maturity.
+9. continue .NET, Java, C++, TypeScript, Rust, and Go, then verified Gate A/B/C and production
+   deployment; elapsed Level-7/Level-8 observation runs only as background certification after
+   deployment.
 
 At each boundary, terminology is fail-closed: one finalized repository is the **first verified
 README**, all current Python repositories are the **verified Python platform POC**, and all current
 admitted repositories are **verified Gate A**. A smaller numerator must be reported as partial
 progress with its exact denominator.
+
+### Agile operating model
+
+The presentation design is intentionally agile. **Versions freeze; the design does not.** Every
+repository transaction pins immutable component versions for reproducibility, while later changes
+create new versions and migrate only affected sections. Component identities cover title/identity,
+badges, opening, navigation, Mermaid, installation, examples, capabilities/formats, documentation,
+community, license, Enterprise Edition relationship, contextual links, and density. Cosmetic,
+structural, prose-policy, fact-slot, factuality/safety, and major-document changes have distinct
+invalidation scopes. A non-critical later template version leaves an accepted README
+`VALID_UPDATE_AVAILABLE`; only factual, safety, protected-content, or severe acceptance defects
+make it invalid. Portfolio reporting separates fact-valid, presentation-valid, latest-version,
+human-accepted, and publication-eligible counts.
+
+Human acceptance is staged. The first Aspose.3D FOSS for Python README is a calibration output;
+Aspose.Note follows as the accepted-structure reference applied through current repository facts,
+then Page/PDF form the representative Python cohort. Human feedback may revise the component
+contract without erasing unrelated facts or accepted work. Remaining repositories continue
+autonomously after representative-cohort acceptance. No product-repository proposal is eligible
+until every admitted repository is locally valid and explicitly human-accepted in the indexed
+portfolio Gate B.
+
+Infrastructure is just-in-time. A task enters the active path only when it unblocks the current
+repository, will be exercised by the next bounded cohort, fixes a demonstrated safety/factuality/
+reproducibility defect, or measured repetition proves a net benefit inside the current cohort.
+Otherwise it is deferred. One infrastructure task at most may sit between visible README delivery
+tasks before Python closes. New ecosystem support begins with one serial representative and earns
+parallelism only after the transaction is stable.
+
+Verification is risk-based: touched static/focused checks, impacted integration/safety proof,
+complete non-live suites at shared-code or declared stage boundaries, mandatory per-repository
+facts/candidate/validation/independent-review/no-op proof, and one aggregate cohort reconstruction.
+Mutable failures stay under `runs/`; canonical evidence is promoted once per repository and cohort,
+not per micro-fix.
+
+The coordinator is the only operator and shared-state owner. The calibration transaction and shared
+repairs are serial; a non-authoring independent verifier remains mandatory. After isolation proof,
+two representative and then at most three disjoint repository workers may run with separate state
+and evidence plus serialized aggregation. Delegation is admitted only when measured throughput
+improves; mandatory five-role ceremony is prohibited.
+
+Elapsed maturity is certification, not delivery work. Production-ready and production-deployed are
+executable milestones. Level 7 and Level 8 observation periods are configurable background tracks
+started only after deployment; they never block POC, portfolio acceptance, staging, or deployment.
+
+The agent treats user input as goals, constraints, preferences, hypotheses, tactics, or authority.
+Goals and constraints bind; tactics and hypotheses are evaluated. Before a material route change,
+the agent checks critical-path, invalidation, infrastructure timing, safety, factuality, and smaller
+alternatives, and challenges an inefficient or conflicting tactic with evidence. Two equivalent
+failed attempts or 15 minutes without material narrowing require a first-principles review and a
+different causal boundary or mechanism. Clear safe implementation continues autonomously.
+
+`plans/idea.md` is the human product authority. Agent-owned authority must be compact and loaded by
+need: a concise `master.md`, a typed requirement catalog queried only for the current task and
+always-on invariants, an executable graph containing at most 15 current/near-term tasks and five
+ready tasks, and durable state as live truth. Detailed history remains in Git/logs; derived
+handovers never override live state. The authority reset precedes further product execution and is
+bounded to migration, validation, and one coherent commit.
 
 Two ineffective attempts with one approach fingerprint, or 15 minutes without a materially
 narrower result, prohibit another equivalent attempt. Before a third approach, the agent records

@@ -17,27 +17,26 @@ autonomous_execution_contract:
     C++, TypeScript, Rust, then Go.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
-  multi_agent_model: coordinator_led_bounded_worker_waves
+  multi_agent_model: adaptive_coordinator_led
   coordinator_role: sole owner of shared files, integration, durable transitions, commits, final verification,
     and aggregate evidence
-  required_worker_roles:
-  - repair
-  - advancement
-  - validator_evidence
-  - documentation_state_sync
-  - independent_verification
+  independent_verification_required: true
+  serial_calibration_required: true
+  minimum_parallel_speedup: 1.5
+  maximum_coordination_overhead_ratio: 0.25
   max_parallel_workers_beside_coordinator: 3
-  task_lane_plan_required: true
+  task_lane_plan_required_when_delegating: true
   task_lane_plan_path_template: runs/multi-agent/{task_id}/execution-plan.json
   task_lane_plan_protocol:
-  - Before implementation, classify every required worker role as active or not_applicable with a task-specific
-    reason; absence of useful disjoint work is valid, silent omission is not.
+  - Calibrate new shared behavior serially and use no worker when a task has no independent, disjoint
+    lane.
   - Give every active worker one bounded deliverable, exclusive non-shared allowed paths, forbidden shared
     paths, focused verification, and a lane-evidence destination before starting it.
   - Documentation/State-Sync is proposal-only under runs/multi-agent; only the coordinator applies accepted
     recommendations to AGENTS.md, plans, shared evidence, taskcards, or durable state.
-  - Use worker waves when more roles are useful than the three available worker slots; never overlap writes
-    or let a worker transition tasks, integrate, commit, perform effects, or claim closure.
+  - Begin with two repository workers only after transaction isolation passes; permit a third only when
+    measured end-to-end speedup remains at least 1.5x and coordination overhead remains at or below 25
+    percent.
   - The coordinator serializes shared-file reconciliation, integrated tests, official checks, task transitions,
     commits, and final evidence after all active implementation lanes report.
   - Independent verification starts only after integration evidence exists, uses no implementation paths,
@@ -53,14 +52,16 @@ mission_authority:
     fact-slot-driven template contract; finish the current Aspose.3D Python FACTS_READY slice through
     the entire verified lifecycle; then prove Note, Page, PDF, and every current Python repository. Current
     Java and .NET vertical slices follow the complete Python platform before the remaining dynamic-portfolio
-    Gate A, Gate B/C, and Level 5, 6, 7, and 8 program. Never promote trusted evidence into verified acceptance.
+    Gate A, Gate B/C, Level 5, and deployable Level 6 program. Level 7 and Level 8 remain background certification
+    states after deployment and never block tangible delivery. Never promote trusted evidence into verified
+    acceptance.
   governing_plan_path: plans/master.md
-  current_phase: pre-POC delivery-first correction; finish one current Aspose.3D Python verified README
-    before Python portfolio fan-out
+  current_phase: pre-POC agile-authority reset; compact and migrate the active control surface before
+    the Aspose.3D Python calibration README resumes
   in_scope_outcomes:
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
-    active runtime goal. The ordered catalog now starts the visible-output critical path with V0 verified
-    Python proof, followed by C0/V1/V2/V3/L5/L6/L7/L8.'
+    active runtime goal. The executable delivery path is V0, C0, V1, V2, V3, L5, and L6. L7/L8 are background
+    certification states after deployment.'
   - 'TRUSTED REUSE, NOT TRUSTED EXECUTION: retain README_INHERITED extraction, LLM composition, review,
     transport, staging, cache, retry, lease, and anti-stall assets as evidence and reusable machinery.
     Remaining TP/T0R/T1/T2/T3 goals are non-executable and cannot regain primary-goal authority unless
@@ -70,35 +71,36 @@ mission_authority:
     and bind one source-complete RegistryRevisionV1 before trusted portfolio fan-out.'
   - 'VERIFIED STAGES: V1 establishes repository facts, V2 completes full-registry Gate A, and V3 records
     Gate-B acceptance plus verified Java proposal proof.'
-  - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot, L6 proves autonomous
-    portfolio operation, L7 proves heterogeneous operation for 30 days, and L8 proves self-maintenance
-    for 90 days with an independent award.'
-  - 'DELIVERY-FIRST SHORT-TERM HORIZON: run the one pending complete control-repository gate, freeze the
-    shared delivery contract, and finish the current Aspose.3D Python FACTS_READY revision through composition,
-    deterministic validation, independent review/repair, unchanged no-op, committed promotion, and independent
-    reconstruction. Then finish Note/Page/PDF and every runtime-loaded Python repository. One repository
-    is the first verified README, not a platform POC; the complete Python denominator is the first platform
-    POC.'
+  - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot and L6 proves deployable
+    autonomous portfolio operation. L7 and L8 are non-blocking background certifications earned after
+    deployment from 30-day and 90-day evidence windows.'
+  - 'DELIVERY-FIRST SHORT-TERM HORIZON: complete the bounded agile-authority reset, then run the pending
+    control-repository gate, pin the transaction component versions, and finish the current Aspose.3D
+    Python FACTS_READY revision through composition, deterministic validation, independent review/repair,
+    unchanged no-op, committed promotion, and independent reconstruction. Then finish Note/Page/PDF and
+    every runtime-loaded Python repository. One repository is the first verified README, not a platform
+    POC; the complete Python denominator is the first platform POC.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
   - 'MEDIUM-TERM HORIZON: after the verified Python POC, reconcile complete discovery/intake and finish
     repository-verified Gate A in Python, .NET, Java, C++, TypeScript, Rust, Go order; then Gate B, Gate
     C, and Level 5.'
-  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: freeze the template contract; close current Aspose.3D Python
-    end to end with one lane; prove Note and Page/PDF; close the dynamic all-Python milestone; prove current
-    .NET and Java slices; then continue lower-priority platforms without omitting any Gate-A task or repository.'
-  - 'LONG-TERM HORIZON: Level-8-grade controls from hosted day 1, Level 7 at clean day 30, and Level 8
-    from the same uninterrupted series at day 90.'
+  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: pin the template-component versions per transaction; close
+    current Aspose.3D Python end to end with one lane; prove Note and Page/PDF; close the dynamic all-Python
+    milestone; prove current .NET and Java slices; then continue lower-priority platforms without omitting
+    any Gate-A task or repository.'
+  - 'LONG-TERM HORIZON: deploy with Level-8-grade controls, then accumulate Level-7 and Level-8 evidence
+    in the background without blocking usable output or subsequent repository delivery.'
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries. Work
     executes through plan freeze, shared acceleration, first Python slice, Python portfolio, post-Python
     cross-platform slices, Gate A, and Gate B/later campaigns rather than one full-test and evidence cycle
     per task.'
-  - 'COORDINATED MULTI-AGENT DELIVERY: one coordinator owns shared governance/state, integration, task
-    transitions, commits, final verification, and final evidence. Repair, Advancement, Validator/Evidence,
-    Documentation/State-Sync, and Independent Verification roles run in waves with at most three workers
-    beside the coordinator, exclusive path leases, lane evidence/tests, no overlapping writes, and no
-    closure or product-effect authority.'
+  - 'ADAPTIVE MULTI-AGENT DELIVERY: one coordinator owns shared governance/state, integration, task transitions,
+    commits, and aggregate evidence. Calibrate and repair shared machinery serially. After isolation proof,
+    start with two disjoint repository workers and permit a third only while measured speedup is at least
+    1.5x and coordination overhead is at most 25 percent. Independent verification never authors the work
+    it accepts.'
   - One canonical production supervisor and no alternate mutation path.
   - Restartable GitHub Actions runtime with durable lifecycle recovery.
   - Provenance-complete product facts and surface ownership.
@@ -148,11 +150,11 @@ mission_authority:
   - Content qualification remains coordinated by one supervisor. The first current Aspose.3D Python end-to-end
     slice uses one repository lane and has no product-effect authority. After its transaction, cache,
     cancellation, lifecycle, review, no-op, promotion, and serialized-aggregation proof passes, the sole
-    supervisor may use two to four isolated Python lanes with serialized aggregation. Current .NET/Java
-    slices and broader portfolio fan-out remain behind Python closure and subject to platform priority
-    and per-repository proof. Bounded control-repository agents may work only through coordinator-issued
-    disjoint path leases; shared files, integration, commits, task state, final verification, and final
-    evidence remain coordinator-only.
+    supervisor may use two and then at most three isolated Python lanes with serialized aggregation when
+    measured thresholds pass. Current .NET/Java slices and broader portfolio fan-out remain behind Python
+    closure and subject to platform priority and per-repository proof. Bounded control-repository agents
+    may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
+    task state, final verification, and final evidence remain coordinator-only.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
     may be bypassed temporarily but remains visible and regains priority immediately when cleared.
@@ -291,13 +293,15 @@ mission_authority:
     summary: Prove a complete lifecycle per supported ecosystem and thirty clean production days.
     acceptance_boundary: The heterogeneous portfolio and uninterrupted 30-day control series pass independent
       audit.
-    product_effects_allowed: true
+    execution_required: false
+    product_effects_allowed: false
   - goal_id: GOAL-L8-SELF-MAINTAINING-90D
     order: 110
     summary: Sustain self-maintaining portfolio operation through the complete ninety-day evidence window.
     acceptance_boundary: The 90-day control series is reproducible and an independent audit awards Level
       8.
-    product_effects_allowed: true
+    execution_required: false
+    product_effects_allowed: false
   mission_locked: true
 verified_baseline:
   schema: PlanFreezeReferenceV1
@@ -543,6 +547,94 @@ taskcards:
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
   campaign_id: CAMP-SHARED-ACCELERATION
+- task_id: L8-AGILE-AUTHORITY-RESET
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Install the compact agile delivery control before product execution
+  source_audit_finding: The prior authority, acceptance, invalidation, evidence, delegation, and maturity
+    design created broad rework and let long-horizon machinery outrank visible README delivery.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: agile-authority-reset
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Perform one lossless bounded migration to component-versioned presentation, staged acceptance,
+    just-in-time infrastructure, compact query-scoped authority, risk-based evidence, adaptive delegation,
+    background certification, and evidence-backed challenge/replanning before any README resumes.
+  why_it_matters: Without this reset, a small future presentation change can again invalidate unrelated
+    work or allow governance and infrastructure churn to consume the visible-delivery critical path.
+  allowed_paths:
+  - AGENTS.md
+  - plans/
+  - scripts/governance/
+  - src/readme_agent/state/
+  - src/readme_agent/supervisor/
+  - tests/unit/test_mission_control.py
+  - tests/unit/test_validate_plan_structure.py
+  - logs/
+  forbidden_paths:
+  - runs/readme-poc/
+  - production target repository remotes
+  - target default branches
+  - presentation rendering or ecosystem implementation
+  dependencies:
+  - L8-ACCEL-00-PYTHON-READINESS
+  expected_outputs:
+  - Compact master and agent instructions with idea.md preserved as human product authority
+  - Typed lossless requirement catalog plus current active slice
+  - At most fifteen executable near-term graph tasks and five ready tasks, with deferred work traceable
+  - Component delta, acceptance-axis, infrastructure-admission, test-tier, delegation, certification,
+    and challenge/rethink contracts
+  - Before/after authority inventory and one coherent control-only commit
+  acceptance_checks:
+  - Every stable requirement and task identifier has a preserved or explicit deferred disposition
+  - Current task context loads no more than twenty-five requirements plus declared always-on invariants
+  - Narrative handovers cannot override live durable state
+  - Level-7/Level-8 elapsed periods cannot become active delivery tasks
+  - A non-critical template delta leaves accepted facts and unrelated sections reusable
+  - No product candidate, remote write, or speculative infrastructure is produced
+  verification:
+  - plan structure, catalog/index, graph/state migration, and active-slice focused tests
+  - before/after stable-ID, dependency, requirement, and deferred-work coverage comparison
+  - negative tests for global cosmetic invalidation, elapsed-time blocking, ceremonial delegation, and
+    equivalent third attempts
+  - Ruff, formatting, mypy, and git diff checks for touched control code
+  negative_controls:
+  - Removing a future requirement or hiding it only in Git history fails migration
+  - More than fifteen executable tasks, five ready tasks, or twenty-five loaded active requirements fails
+  - A cosmetic template change cannot reset a fact-valid or human-accepted numerator
+  regression_checks:
+  - allow-list, push blocking, redaction, authorization, factuality, no-op, and independent-review invariants
+  - durable task history and claim recovery
+  evidence_requirements:
+  - AuthorityInventoryV1 before/after manifests and hashes
+  - requirement/task/dependency migration matrix
+  - focused control-test receipt and independent verification
+  rollback_or_recovery: Restore the last compact-migration commit and replay only the failed control stage;
+    never discard durable transition history or requirement IDs.
+  failure_reroute: Two equivalent failures or fifteen minutes without narrowing require a first-principles
+    mechanism or migration-boundary change; do not broaden this into product work.
+  closeout_rules:
+  - Compact authority and all approved agile controls are machine-enforced and independently accepted
+  - L8-VPY-03B is the sole next visible-delivery task
+  goal_ids:
+  - GOAL-AUTONOMY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Remove the control design that repeatedly invalidated visible output and obscured the next
+      task.
+  requirement_ids:
+  - L8-047
+  - L8-048
+  - L8-049
+  - L8-050
+  - L8-051
+  - L8-052
+  - L8-053
+  - L8-054
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  concurrency_class: primary_only
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
@@ -554,10 +646,10 @@ taskcards:
   lane: verified-python-first-slice
   owner: readme-agent-supervisor
   status: TODO
-  objective: Run the pending complete non-live gate on current committed HEAD, freeze the delivery contract,
-    then finish the current Aspose.3D FOSS for Python FACTS_READY revision through plan, candidate, exact
-    patch, deterministic validation, independent review/repair, unchanged no-op, committed promotion,
-    and independent reconstruction.
+  objective: Run the pending complete non-live gate on current committed HEAD, pin the delivery-contract
+    component versions, then finish the current Aspose.3D FOSS for Python FACTS_READY revision through
+    plan, candidate, exact patch, deterministic validation, independent review/repair, unchanged no-op,
+    committed promotion, and independent reconstruction.
   why_it_matters: This is the shortest current path from proven product truth to one visible, honestly
     finalized README and the executable reference for all later Python work.
   allowed_paths:
@@ -574,10 +666,10 @@ taskcards:
   - target default branches
   - speculative cross-platform generalization
   dependencies:
-  - L8-ACCEL-00-PYTHON-READINESS
+  - L8-AGILE-AUTHORITY-RESET
   expected_outputs:
   - Current-head complete non-live verification receipt
-  - Frozen first-slice dependency manifest
+  - Pinned first-slice dependency manifest
   - Complete current Aspose.3D Python verified bundle and exact README
   - Committed promoted artifact and independently reconstructed SHA-256 inventory
   acceptance_checks:
@@ -596,7 +688,8 @@ taskcards:
   negative_controls:
   - Facts-ready, candidate-generated, deterministic-only, stale approval, or unpromoted output cannot
     close this task
-  - A non-P0 preference cannot change the frozen shared contract or start general machinery
+  - A non-critical presentation preference creates a component delta and targeted rerun; it cannot start
+    general machinery or invalidate unrelated facts
   regression_checks:
   - Python truth and compatibility
   - template and product specificity
@@ -625,6 +718,7 @@ taskcards:
       path.
   requirement_ids:
   - L8-046
+  - L8-055
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
   campaign_id: CAMP-FIRST-PYTHON-SLICE
@@ -9756,10 +9850,10 @@ bootstrap_state:
   stop_reason: bootstrap metadata only; durable supervisor state owns live execution
 requirement_coverage:
   source_path: plans/requirements.md
-  source_sha256: bf097d82a36f04ee44b419dd346b159d7846b89937928248c4b7b528ac8a41de
+  source_sha256: 7bd1e7eb88615773e20ee18d27f7b647b41e8a60676be4e48a8291ddfa1f44bf
   semantic_matrix_path: plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json
-  total_requirement_rows: 466
-  mandatory_requirement_rows: 416
+  total_requirement_rows: 475
+  mandatory_requirement_rows: 425
   excluded_backlog_rows: 28
   excluded_deprecated_rows: 22
   reopened_implemented_rows: 0
@@ -12555,6 +12649,60 @@ requirement_coverage:
     disposition: open_mandatory
     semantic_findings: []
   - requirement_id: L8-046
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-047
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-048
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-049
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-050
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-051
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-052
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-053
+    priority: P1
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-054
+    priority: P0
+    requirement_status: PLANNED
+    task_id: L8-AGILE-AUTHORITY-RESET
+    disposition: open_mandatory
+    semantic_findings: []
+  - requirement_id: L8-055
     priority: P0
     requirement_status: PLANNED
     task_id: L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E

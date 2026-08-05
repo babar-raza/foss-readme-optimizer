@@ -177,18 +177,17 @@ capacity or authorize an effect.
 
 The project is currently **pre-POC**: the current contract has zero finalized, independently
 approved/no-op-proven READMEs, zero complete platforms, and zero verified product proposals. The
-active sequence is: one current complete-suite receipt for the committed control HEAD; freeze the
-shared delivery contract; finish Aspose.3D Python from its current `FACTS_READY` boundary through
-promotion and independent reconstruction; finish Note, Page, PDF, and the dynamic Python
-denominator; then prove current .NET and Java slices before remaining platforms in .NET, Java,
-C++, TypeScript, Rust, Go priority; dynamic Gate A; Gate B; Gate C; hosted operation; and Levels
-5-8. One finalized repository is the first verified README, not a platform POC. Seven ecosystems
-remain mandatory heterogeneous coverage, not a prerequisite for the first verified README or the
-complete Python platform.
+sole next task is the bounded agile-authority reset in decision #93. Product execution then resumes
+with one current complete-suite receipt and Aspose.3D Python from its `FACTS_READY` boundary through
+calibration, promotion, and reconstruction; Note, Page, PDF, and the dynamic Python denominator
+follow. Current .NET and Java slices follow Python before remaining platforms in .NET, Java, C++,
+TypeScript, Rust, Go priority. One finalized repository is the first verified README, not a platform
+POC. Level 7/8 elapsed observations are background certification after deployment, never active
+delivery blockers.
 
 Product execution remains paused until the P0 plan campaign has current migration evidence,
 focused validation, independent acceptance, a coherent control-repository commit, and a frozen
-contract manifest. Current registry completeness is separately fail-closed when discovery has
+transaction manifest. Current registry completeness is separately fail-closed when discovery has
 pending intake or unexplained observations; unrelated admitted read-only work may continue after
 the plan gate.
 ## Decision Ledger
@@ -2397,7 +2396,92 @@ that is the only permanence they carry; text is always the decision as it stands
     receipt is still required before claiming that exact bundle proves a cache-miss acquisition.
     (2026-08-04, user robustness correction; strengthens decisions #82/#88 and `FACT-014`.)
 
+90. **Presentation versions freeze; presentation design remains agile.** Each repository pins
+    component versions for reproducibility. Later cosmetic, structural, prose-policy, fact-slot,
+    factuality/safety, or major-document changes invalidate only their semantic dependants. A
+    non-critical new version yields `VALID_UPDATE_AVAILABLE`; it does not erase factual validity,
+    human acceptance, or the completed numerator. Only factual, safety, protected-content, or
+    severe acceptance defects invalidate an accepted README.
+
+91. **Acceptance is staged and multi-dimensional.** Aspose.3D FOSS for Python is the first
+    calibration output; Note and Page/PDF form the next representative review boundaries. Facts,
+    presentation validity/version, human acceptance, and publication eligibility are recorded
+    independently. Human feedback updates the smallest affected component. Gate B and every
+    repository's explicit human acceptance remain mandatory before any product-repository PR.
+
+92. **Infrastructure is admitted just in time through visible vertical slices.** It may enter the
+    active path only when the current repository needs it, the next bounded cohort will exercise
+    it, it repairs a demonstrated safety/factuality/reproducibility defect, or measured repetition
+    proves a current-cohort benefit. No speculative ecosystem, workflow, monitoring, or hosted
+    work may precede the delivery boundary that exercises it.
+
+93. **Compact authority before further product execution.** `idea.md` remains human product
+    authority. The agent-owned `master.md` is reduced to a concise current operating contract;
+    normative requirements move to a typed catalog loaded only for the current task and always-on
+    invariants; the executable graph contains at most 15 current/near-term tasks and five ready
+    tasks; future work is deferred without deletion. Git/logs retain history, derived handovers
+    never own current state, and stable IDs plus before/after coverage prove lossless migration.
+
+94. **Verification follows risk and evidence is promoted at delivery boundaries.** Touched static
+    and focused checks run during repair; shared seams receive impacted integration/safety proof;
+    complete non-live suites run only at shared-code or declared stage boundaries; every README
+    still requires deterministic validation, independent review, repair closure, no-op, and
+    reconstruction. Failed attempts remain under `runs/`; one canonical package is promoted per
+    repository and cohort rather than per micro-fix.
+
+95. **Multi-agent execution is adaptive, not ceremonial.** The coordinator alone owns shared
+    files, durable transitions, integration, commits, and closure. Calibration and shared repairs
+    are serial; an independent non-authoring verifier is mandatory. Repository workers are enabled
+    only after isolation proof, use disjoint state/evidence, and scale down when measured gain is
+    below 1.5x or coordination exceeds 25%. Mandatory five-role participation is retired.
+
+96. **Elapsed maturity is background certification.** Production-ready and production-deployed
+    are executable milestones. Configurable Level-7 and Level-8 observation windows begin only
+    after deployment and appear as `OBSERVATION_RUNNING`, never `BLOCKED`; they do not gate POC,
+    Gate A/B, staging, or deployment. Incidents reopen only affected requirements and metrics.
+
+97. **The agent evaluates tactics instead of following them literally.** User goals, constraints,
+    preferences, and authorization bind; hypotheses and implementation tactics remain subject to
+    evidence-backed technical judgment. A material route change records goal impact, reuse,
+    invalidation, critical-path effect, alternatives, and recommendation. Two equivalent failures
+    or 15 minutes without narrowing prohibit another equivalent attempt and force first-principles
+    causal and sequencing review.
+
+98. **Aspose.3D FOSS for Python is the first calibration README; Note is second.** Reuse the
+    current accepted `FACTS_READY` bundle when hashes match and the accepted Note sample only as a
+    structural/component reference. Generate, validate, independently review, and show Aspose.3D
+    immediately; classify feedback by component and rerun only affected stages. No portfolio fan-
+    out begins before this transaction and its no-op/reconstruction proof pass.
+
 ## Architecture
+
+### Agile delivery control
+
+```text
+human-edited idea.md
+  -> semantic impact classification
+  -> compact current-stage authority and task slice
+  -> one repository transaction pinned to component versions
+  -> deterministic and independent acceptance
+  -> immediate human calibration at declared boundaries
+  -> component-scoped migration and unchanged no-op
+  -> bounded cohort fan-out
+  -> portfolio acceptance
+  -> workflow/staging/production just in time
+  -> background operational certification
+```
+
+Presentation validity and currency are separate. Every section binds the presentation component,
+facts, validators, and review standard it consumed. Template changes create a typed delta and
+reopen only affected stages; factual and safety changes remain fail-closed. The first calibration
+is serial. Repository fan-out is earned through measured transaction, cache, cancellation, and
+aggregation isolation. Infrastructure and proof selection follow decisions #92/#94, and material
+sequencing changes follow decision #97.
+
+Active context is deliberately bounded. The mission controller reads the current task, its direct
+dependencies, always-on invariants, and their typed requirement records; it does not embed or load
+the full future roadmap. Deferred tasks remain traceable and are activated only when their entry
+condition approaches. Durable state is live truth; narrative snapshots are historical by default.
 
 ### Content-assurance lanes
 
@@ -3024,11 +3108,21 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - [x] `L8-ACCEL-00`: preserve the completed readiness and execution-cost evidence as reusable
         preparation. It is not POC output and does not authorize further cross-platform work before
         Python closes.
+  - [ ] `L8-AGILE-AUTHORITY-RESET`: before any further product execution, migrate decisions
+        #90-#98 into compact active authority. Preserve `idea.md` as human authority; reduce
+        `master.md` to the current operating contract; move normative obligations into a typed
+        catalog with a maximum 25-record active slice; reduce the executable graph to at most 15
+        current/near-term tasks and five ready tasks; retire stale handover authority; install
+        component-scoped invalidation, staged acceptance, just-in-time infrastructure, risk-based
+        evidence, adaptive delegation, background certification, and the challenge/rethink policy.
+        Prove stable-ID/requirement/dependency coverage before switching consumers. This is one
+        bounded control migration and one coherent commit, not a product or infrastructure program.
   - [ ] `L8-VPY-03B`: first run the optimized complete non-live suite on current committed HEAD, then
-        freeze the shared delivery contract and finish the current Aspose.3D Python `FACTS_READY`
+        pin the shared delivery-contract versions and finish the current Aspose.3D Python `FACTS_READY`
         revision through composition, deterministic validation, independent review/repair, unchanged
-        no-op, committed promotion, and independent reconstruction. Permit no speculative machinery or
-        cohort fan-out before this closes.
+        no-op, committed promotion, and independent reconstruction. Show the candidate immediately
+        for staged human calibration. Permit no speculative machinery or cohort fan-out before this
+        closes.
   - [ ] `L8-VPY-01`: after the first vertical path is sealed, rebuild Note through current
         repository/package/example/policy evidence and the same lifecycle.
   - [ ] `L8-VPY-03A`: prove Page and PDF under the sealed Python path, then retain their reusable
@@ -3321,33 +3415,45 @@ only as historical implementation evidence in decisions and `logs/`; they are no
   - **Exit:** all three complete the full production-like acceptance bundle. This is a controlled
     Java pilot, not heterogeneous proof.
 
-- [ ] **Wave 7 — Heterogeneous production portfolio (Levels 6 and 7)**
+- [ ] **Wave 7 — Heterogeneous production deployment**
   - **Level 6:** run every active registry repository in restartable scheduled/event-driven
     observe/proposal mode without routine human initiation; keep every block visible and obtain an
     independent Level-6 award. Humans only review proposals, authorization, blocked facts, and
     manual UI.
-  - **Level 7:** after the Level-6 award, prove one authorized repository per Java, .NET, Python,
-    TypeScript, C++, Go, and supported Rust ecosystem. Every active repository has terminal
-    evidence, each ecosystem has a full
-    lifecycle, health/recovery is operational, and 30 consecutive production days have zero
-    unauthorized writes, duplicate effects, or false convergence. Level-8-grade controls and the
-    common 90-day evidence series must already be active so these first 30 days can remain part of
-    the Level-8 window.
+  - **Deployment exit:** prove one authorized repository per Java, .NET, Python, TypeScript, C++,
+    Go, and supported Rust ecosystem. Every active repository has terminal evidence, each ecosystem
+    has a full lifecycle, and health/recovery is operational. Start certification observation only
+    after this technical deployment gate; elapsed time is not part of this executable wave.
 
-- [ ] **Wave 8 — Proven self-maintenance (Level 8)**
-  - Run weekly full-portfolio and incremental reevaluation, observe-only discovery proposals,
-    golden-set route disablement, dependency/SBOM/vulnerability monitoring, authorization expiry,
-    schema migrations, stale-proposal reconciliation, freshness, dead-man monitoring, and weekly
-    quality/traffic reporting.
-  - **Exit after 90 consecutive production days from the first qualifying hosted day:** zero
-    prohibited writes/duplicate effects/false
-    success; all accepted triggers terminal or visible; all terminal manifests checksum-complete;
-    ≥99% eligible runs autonomous; crash/outage recovery ≤24h; proposal age/drift visible ≤24h;
-    deterministic validation 100%; agentic accuracy ≥95%; independent audit awards Level 8.
-    The first 30 days may also establish Level 7 only when the complete Level-8 control set,
-    campaign identity, and uninterrupted evidence series were active from day 1.
+- [ ] **Background certification — Levels 7 and 8 (non-blocking after deployment)**
+  - Configure weekly portfolio/incremental reevaluation, observe-only discovery, route regression
+    disablement, dependency/SBOM/vulnerability monitoring, authorization expiry, schema migration,
+    proposal reconciliation, freshness, dead-man monitoring, and quality/traffic reporting before
+    starting observation.
+  - Record Level-7 and Level-8 policy windows as `OBSERVATION_RUNNING` after deployment. They never
+    hold an active execution claim or block POC, Gate A/B, staging, or production deployment.
+    Independent audits award the labels only after their configured evidence windows pass; an
+    incident reopens only its affected control and metric.
 
 ## Verification Checklist
+
+- [ ] **Agile-authority reset gate:** decisions #90-#98 are migrated into compact agent-owned
+      authority; `idea.md` remains human authority; the typed requirement catalog preserves every
+      stable ID and acceptance field; the active slice loads at most 25 requirements; the graph has
+      at most 15 executable near-term tasks and five ready tasks; deferred work is traceable; stale
+      handovers cannot override live state; before/after coverage and focused control tests pass.
+- [ ] **Template-agility gate:** cosmetic, structural, prose-policy, fact-slot, and factuality/safety
+      delta controls prove distinct invalidation scopes. A non-critical component update leaves a
+      finalized repository fact-valid and `VALID_UPDATE_AVAILABLE`; only affected sections rerender
+      and rereview; unchanged facts/package/example proof is reused.
+- [ ] **Staged-acceptance gate:** Aspose.3D calibration, Note, representative Python cohort, Python
+      completion, and portfolio Gate B expose separate factual, presentation, human, current-version,
+      and publication states. No product PR is eligible before every admitted repository is human-
+      accepted.
+- [ ] **Adaptive-execution gate:** just-in-time infrastructure admission, risk-tier test selection,
+      boundary-only evidence promotion, single-lane calibration, measured repository fan-out,
+      automatic concurrency scale-down, and the two-attempt/15-minute rethink rule are mechanically
+      enforced and negatively tested.
 
 - [x] **Wave 0 truth gate:** candidate inventory is checksum-addressed and originals remain
       recoverable; semantic matrix has zero high-confidence closure findings; unsupported claims

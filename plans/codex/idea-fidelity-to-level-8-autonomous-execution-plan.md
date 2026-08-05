@@ -27,8 +27,9 @@ Deliver `verified_repository_presentation` for every dynamically discovered and 
 FOSS repository. Python is the first complete platform; then proceed through .NET, Java, C++,
 TypeScript, Rust, and Go. Store finalized Python README artifacts and proof in the control
 repository. Continue through verified Gates A/B/C, hosted GitHub App operation, all presentation
-surfaces, Level 5, heterogeneous autonomous operation, the 30-day Level-7 proof, and the 90-day
-Level-8 independent award.
+surfaces, Level 5, and deployable heterogeneous autonomous operation. Accumulate the 30-day
+Level-7 and 90-day Level-8 evidence windows in the background after deployment; they certify
+maturity but do not block earlier usable delivery.
 
 The local path never writes a product remote. No product effect is authorized by this guide.
 
@@ -58,9 +59,11 @@ This sequence appears once and is binding as derived guidance:
 3. Seal clean governance/control bytes in `PlanFreezeV1`, materialize selected candidate bytes in
    `PipelineContractSnapshotV1`, and bind repository-stage inputs through
    `StageDependencyManifestV1`.
-4. Run the pending optimized complete non-live suite against the current committed HEAD.
-5. Freeze the shared template, fact-acceptance, validator, reviewer, prompt/model-route,
-   protected-content, and runtime dependency contract for delivery.
+4. Execute `L8-AGILE-AUTHORITY-RESET`: compact authority, type and query-scope requirements, reduce
+   the executable graph to the near-term horizon, and install component-scoped invalidation,
+   staged acceptance, risk-tiered evidence, adaptive parallelism, and tactic-challenge controls.
+5. Pin—not permanently freeze—the shared template, fact-acceptance, validator, reviewer,
+   prompt/model-route, protected-content, and runtime component versions for the transaction.
 6. Complete the current Aspose.3D FOSS for Python `FACTS_READY` revision through composition,
    deterministic validation, independent review/repair, unchanged no-op, committed promotion,
    and independent reconstruction. Use one repository lane and do not start speculative machinery
@@ -73,7 +76,8 @@ This sequence appears once and is binding as derived guidance:
 10. Continue candidates in .NET, Java, C++, TypeScript, Rust, and Go order.
 11. Close the full dynamic verified Gate A.
 12. Present Gate B only after complete independent approval and no-op proof.
-13. Continue Gate C, Level 5, Level 6, Level 7's 30-day proof, and Level 8's 90-day proof.
+13. Continue Gate C, Level 5, and deployable Level 6; then certify Level 7 and Level 8 in the
+    background without blocking repository delivery.
 
 Python-first means the first current end-to-end repository and first complete platform are both
 Python. Later-platform research may use otherwise idle capacity only after the first repository
@@ -97,7 +101,7 @@ Task IDs and acceptance remain distinct, but dependency-ready work is executed i
 One campaign can close several taskcards only when its manifest maps every task and requirement to
 exact acceptance evidence.
 
-### Campaign 1: plan reconciliation and freeze
+### Campaign 1: agile authority reset and transaction pinning
 
 Outputs:
 
@@ -176,7 +180,7 @@ Build the human review package only after Gate A. Human acceptance does not repl
 approval. Continue verified Gate C and later hosted/effect/maturity gates under their existing
 authorization and elapsed-time requirements.
 
-## Frozen campaign contracts
+## Versioned campaign contracts
 
 `PlanFreezeV1` binds clean committed authority/control inputs. `PipelineContractSnapshotV1`
 materializes selected candidate implementation bytes for read-only worker consumption.
@@ -203,10 +207,12 @@ registry/network outage may leave dependent repositories visibly retryable while
 continue. Target downgrades, mutable artifacts, host execution, credential exposure, and manual
 installation workarounds are prohibited.
 
-During a campaign, only a proven P0 factuality, safety, corruption, or acceptance defect may change
-a frozen shared contract. A permitted change records the defect, versions the contract, updates the
-freeze, and invalidates only actual dependents. Presentation preferences become backlog. Fix a
-repository defect at the repository owner and a shared defect once at its earliest shared owner.
+During a transaction, inputs are pinned for reproducibility; future design remains mutable. A
+change records the affected component, advances only that component version, and invalidates only
+manifests that depend on it. Factuality, safety, corruption, or acceptance defects reopen the
+earliest affected stage. A presentation preference discovered after acceptance records
+`VALID_UPDATE_AVAILABLE` and does not revoke an otherwise valid candidate. Fix a repository defect
+at the repository owner and a shared defect once at its earliest shared owner.
 
 ## Minimal verified README pipeline
 

@@ -58,30 +58,26 @@ The unambiguous form works from any shell without activation — prefer it:
 
 ## Coordinator-led execution and standing command authority
 
-Codex remains the accountable coordinator, but the user has authorized a bounded multi-agent
-execution model for this mission. The coordinator exclusively owns shared governance/state files,
-integration, task transitions, commits, final verification, and the final evidence bundle.
-Required roles are Repair, Advancement, Validator/Evidence, Documentation/State-Sync, and
-Independent Verification. Because the environment provides four concurrent slots including the
-coordinator, roles run in waves with at most three workers beside the coordinator.
+Codex remains the accountable coordinator and sole operator. The coordinator exclusively owns
+shared governance/state files, integration, task transitions, commits, closure, and aggregate
+evidence. Multi-agent execution is adaptive, not a required five-role ceremony. Calibration and
+shared-code repair run serially; an independent non-authoring verifier remains mandatory at
+acceptance. After one complete repository transaction proves isolation, repository workers may run
+only on disjoint repositories and scale from two to at most three workers beside the coordinator.
 
-Before delegation, the coordinator assigns each worker one disjoint path lease and a concrete
-plan-bound deliverable. A worker edits only its leased non-shared paths, reports the exact diff,
-focused tests, and lane evidence, and has no closure, task-transition, commit, shared-state,
-integration, or product-effect authority. Documentation/State-Sync is proposal-only: it writes its
-recommended patch or reconciliation report under its `runs/multi-agent/` lane, and the coordinator
-alone applies accepted changes to `AGENTS.md`, `plans/`, shared evidence, taskcards, or durable
-state. No two agents may write the same path. The independent verifier must not author the
-implementation it verifies, and human review/approval is requested only after its evidence-backed
-acceptance. If disjoint ownership is unavailable, execute serially.
+Before delegation, the coordinator assigns one disjoint repository/path lease and concrete
+plan-bound deliverable. A worker edits only leased non-shared paths, reports exact outputs and
+focused checks, and has no closure, transition, commit, shared-state, plan, integration, or effect
+authority. No two agents write the same path. Documentation/state synchronization is deterministic
+by default; a documentation worker is proposal-only when semantic reconciliation is genuinely
+needed. If disjoint ownership or transaction stability is unavailable, execute serially.
 
-Apply this decision to every claimed task. Before implementation, create or update the single
-idempotent `runs/multi-agent/<task-id>/execution-plan.json` record and classify all five roles as
-`active` or `not_applicable` with task-specific reasons. For every active role record its bounded
-objective, exclusive allowed paths, forbidden shared paths, focused checks, and evidence
-destination. Do not spawn ceremonial workers; run useful roles in later waves when all three worker
-slots are occupied. Missing dispositions, overlapping leases, missing lane evidence, or an
-independent verifier that authored the implementation fail closeout.
+Create `runs/multi-agent/<task-id>/execution-plan.json` only when delegation occurs. Record each
+active worker's objective, exclusive paths, focused checks, and evidence destination; do not record
+inactive ceremonial roles. Overlapping leases, missing active-lane evidence, or a verifier that
+authored the implementation fail closeout. Measure serial/parallel wall time, coordination, cache
+contention, duplicate work, and repair rate; reduce concurrency below 1.5x gain or above 25%
+coordination overhead.
 
 Before starting a long test, proof builder, supervisor campaign, build, or workflow reproduction,
 inspect repository-owned processes. The coordinator grants the top-level command lease: lane-local
@@ -385,8 +381,9 @@ goal from the earliest incomplete stage in this order:
 `GOAL-C0-AUTHORIZED-PORTFOLIO`,
 `GOAL-V1-VERIFIED-TRUTH`, `GOAL-V2-VERIFIED-GATE-A`,
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
-`GOAL-L6-AUTONOMOUS-PORTFOLIO`, `GOAL-L7-HETEROGENEOUS-30D`, and
-`GOAL-L8-SELF-MAINTAINING-90D`. It also derives zero or more `concurrent_goal_ids` only for
+and `GOAL-L6-AUTONOMOUS-PORTFOLIO`. Level-7/Level-8 elapsed windows are non-executable background
+certification after production deployment and may never become primary or block delivery. The
+controller also derives zero or more `concurrent_goal_ids` only for
 dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
 advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest
 affected goal after regression, invalidation, or denominator growth. Only a goal with
@@ -416,15 +413,17 @@ ecosystem evidence + repository-specific delta`. Shared evidence must be content
 repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,
 and inherited claims remain per-repository proof. Use one repository lane for the current
 Aspose.3D Python end-to-end slice. After its complete lifecycle, promotion, recovery, cache, and
-serialized-aggregation proof passes, the sole supervisor may use two to four isolated Python lanes
-with separate leases/state/evidence and serialized aggregation. Current .NET/Java slices follow the
+serialized-aggregation proof passes, the sole supervisor may use two representative and later at
+most three isolated Python workers with separate leases/state/evidence and serialized aggregation.
+Current .NET/Java slices follow the
 complete Python platform. Follow the graph's seven-campaign mapping and one closure evidence package
 per campaign. Run the pending optimized complete non-live suite on current committed HEAD before the
 first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
 gate or typed P0 exception; do not revive micro-fix evidence churn.
 
 The immediate small-goal sequence is `L8-VPY-00-GOLDEN-TEMPLATE` →
-`L8-ACCEL-00-PYTHON-READINESS` → `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` →
+`L8-ACCEL-00-PYTHON-READINESS` → `L8-AGILE-AUTHORITY-RESET` →
+`L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` →
 `L8-VPY-01-NOTE-VERIFIED-CANARY` plus `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` →
 `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` →
 `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (post-Python .NET and Java slices).
@@ -432,12 +431,22 @@ One finalized repository is the first verified README, all current Python reposi
 Python platform POC, and the full admitted registry is Gate A. Smaller numerators are partial only.
 Two ineffective attempts with one approach fingerprint or
 15 minutes without material narrowing prohibit another equivalent attempt. Before a third
-approach, record a first-principles review and change the causal owner, pipeline boundary, or
-mechanism. Reuse a sealed stage only when source, facts, template, prompts, policy, validators,
-reviewer standard, protected-content fingerprint, and runtime hashes all match; invalidate only
-downstream stages.
+approach, record a first-principles review and change the causal owner, pipeline boundary,
+mechanism, or dependency-ready sequence. Presentation versions are immutable per transaction but
+the design remains agile: a typed component delta invalidates only affected sections/facts/review;
+non-critical newer presentation versions leave prior accepted READMEs valid with
+`VALID_UPDATE_AVAILABLE`.
 
 ## Each wave reconciles the previous wave first
+
+Before a material plan or route change, classify user input as goal, constraint, preference,
+hypothesis, tactic, or authorization. Goals, constraints, and authorization bind; hypotheses and
+tactics still require technical evaluation. Check reuse, invalidation, critical-path,
+infrastructure timing, factuality, safety, and smaller alternatives. Challenge an inefficient or
+conflicting tactic with evidence and a recommendation; do not ask about routine commands or
+agent-fixable implementation. Two equivalent failed attempts or 15 minutes without material
+narrowing prohibit another equivalent attempt and require first-principles causal and sequencing
+review.
 
 Before starting a new wave's work, check the immediately preceding wave's actual delivered state —
 its code, tests, and evidence — against `plans/master.md` (that wave's Decision Ledger entry,
