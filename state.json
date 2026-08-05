@@ -9,8 +9,14 @@
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
     "active_task_id": "L8-AGILE-AUTHORITY-RESET",
+    "approach_control": {
+      "attempts": [],
+      "proposed_fingerprints": {},
+      "replans": []
+    },
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
+      "policy_max_repository_lanes": 1,
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 1
     },
@@ -21,7 +27,7 @@
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "77a9f244a6cebc0e03f3f914eeba3b8838ec9cacc1409c77adbfa00a3c780a9a",
+    "goal_activation_graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -151,8 +157,9 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "77a9f244a6cebc0e03f3f914eeba3b8838ec9cacc1409c77adbfa00a3c780a9a",
-    "last_evaluated_at": "2026-08-05T15:33:18.798868+00:00",
+    "graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
+    "infrastructure_tasks_since_visible_delivery": 0,
+    "last_evaluated_at": "2026-08-05T18:25:38.256268+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -294,6 +301,12 @@
       ],
       "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
       "task_id": "L8-AGILE-AUTHORITY-RESET"
+    },
+    "parallelism_control": {
+      "calibration_active": true,
+      "observations": [],
+      "shared_repair_active": false,
+      "transaction_isolation_proven": false
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "CLOSED",
@@ -6687,7 +6700,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 754,
+  "state_version": 755,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
