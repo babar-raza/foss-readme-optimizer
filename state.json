@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": null,
+    "active_task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
     "approach_control": {
       "attempts": [
         {
@@ -22,6 +22,14 @@
           "outcome": "effective",
           "started_at": "2026-08-05T18:31:44.303501+00:00",
           "task_id": "L8-AGILE-AUTHORITY-RESET"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "56286bfeb85ffaea203e18f2658f1b417db8182462e23fe5a25dcfd1f7e030c4",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-05T18:38:53.448613+00:00",
+          "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
         }
       ],
       "proposed_fingerprints": {},
@@ -34,10 +42,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-05T19:08:53.448613+00:00",
+    "claim_id": "c2765ed230b548f9b54c6cb22d21ced0",
+    "claimed_at": "2026-08-05T18:38:53.448613+00:00",
+    "claimed_by": "codex-python-calibration",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
@@ -172,7 +180,7 @@
     ],
     "graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
     "infrastructure_tasks_since_visible_delivery": 1,
-    "last_evaluated_at": "2026-08-05T18:35:50.579802+00:00",
+    "last_evaluated_at": "2026-08-05T18:38:53.448613+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -418,7 +426,7 @@
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
-      "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
+      "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "IN_PROGRESS",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
@@ -6827,6 +6835,15 @@
         "reason": "Accepted reset proof replayed through governed approach record for CLOSED",
         "task_id": "L8-AGILE-AUTHORITY-RESET",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex-python-calibration",
+        "occurred_at": "2026-08-05T18:38:53.448916+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -6836,7 +6853,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 765,
+  "state_version": 766,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
