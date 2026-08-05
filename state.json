@@ -14,12 +14,12 @@
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 1
     },
-    "claim_expires_at": "2026-08-05T14:50:03.294612+00:00",
-    "claim_id": "9bdac50a9e9b4534b9ead252ad545245",
-    "claimed_at": "2026-08-05T14:20:03.294612+00:00",
+    "claim_expires_at": "2026-08-05T15:23:14.465897+00:00",
+    "claim_id": "45fafe3da0bc4826b28097e753500c32",
+    "claimed_at": "2026-08-05T14:53:14.465897+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
-    "goal_activation_graph_sha256": "967de07edfba679dfe2d5e51d3d2d6c97bb8d4ad066a42a573a49a11c60193a9",
+    "goal_activation_graph_sha256": "577388e2d38e6eabbc55de73f5a50de028087a919c98f0e2f17995c1de2a1cae",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -149,8 +149,8 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "967de07edfba679dfe2d5e51d3d2d6c97bb8d4ad066a42a573a49a11c60193a9",
-    "last_evaluated_at": "2026-08-05T14:32:51.996176+00:00",
+    "graph_sha256": "577388e2d38e6eabbc55de73f5a50de028087a919c98f0e2f17995c1de2a1cae",
+    "last_evaluated_at": "2026-08-05T14:53:14.465897+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -393,7 +393,7 @@
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
-      "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
+      "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "DEFERRED_WITH_REASON",
       "L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE": "CLOSED",
       "L8-WAVE1-CANONICAL-SAFETY-SPINE": "CLOSED",
       "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
@@ -410,22 +410,22 @@
       "TRP-01-README-DERIVED-FACTS": "CLOSED",
       "TRP-02-LLM-FIRST-COMPOSITION": "CLOSED",
       "TRP-03-INDEPENDENT-FIDELITY-REVIEW": "CLOSED",
-      "TRP-04-CANARY-QUALIFICATION": "REGRESSED",
+      "TRP-04-CANARY-QUALIFICATION": "DEFERRED_WITH_REASON",
       "TRP-04P-ACT-WORKFLOW-PARITY": "CLOSED",
-      "TRP-04P-AUTHORIZATION-ACCESS": "TODO",
-      "TRP-04P-COHERENT-PRESENTATION-REPAIR": "REROUTED",
+      "TRP-04P-AUTHORIZATION-ACCESS": "DEFERRED_WITH_REASON",
+      "TRP-04P-COHERENT-PRESENTATION-REPAIR": "DEFERRED_WITH_REASON",
       "TRP-04P-COHORT-FREEZE": "CLOSED",
-      "TRP-04P-DRAFT-PR-COHORT": "TODO",
-      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "REROUTED",
-      "TRP-04P-POC-PRESENTATION": "TODO",
+      "TRP-04P-DRAFT-PR-COHORT": "DEFERRED_WITH_REASON",
+      "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": "DEFERRED_WITH_REASON",
+      "TRP-04P-POC-PRESENTATION": "DEFERRED_WITH_REASON",
       "TRP-04P-STAGING-EFFECT-PROOF": "CLOSED",
       "TRP-04P-TEST-LATENCY": "CLOSED",
-      "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
-      "TRP-05A-ACT-WORKFLOW-PARITY": "TODO",
-      "TRP-05B-STAGING-EFFECT-PROOF": "TODO",
-      "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION": "TODO",
-      "TRP-06-AUTHORIZATION-ACCESS": "TODO",
-      "TRP-07-DRAFT-PR-PORTFOLIO": "TODO"
+      "TRP-05-FULL-REGISTRY-TRANSFORM": "DEFERRED_WITH_REASON",
+      "TRP-05A-ACT-WORKFLOW-PARITY": "DEFERRED_WITH_REASON",
+      "TRP-05B-STAGING-EFFECT-PROOF": "DEFERRED_WITH_REASON",
+      "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION": "DEFERRED_WITH_REASON",
+      "TRP-06-AUTHORIZATION-ACCESS": "DEFERRED_WITH_REASON",
+      "TRP-07-DRAFT-PR-PORTFOLIO": "DEFERRED_WITH_REASON"
     },
     "transition_history": [
       {
@@ -6523,6 +6523,141 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-AGILE-AUTHORITY-RESET",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REROUTED",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465752+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465773+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04-CANARY-QUALIFICATION",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465783+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04P-AUTHORIZATION-ACCESS",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REROUTED",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465791+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04P-COHERENT-PRESENTATION-REPAIR",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465798+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04P-DRAFT-PR-COHORT",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REROUTED",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465804+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465810+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-04P-POC-PRESENTATION",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465820+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-05-FULL-REGISTRY-TRANSFORM",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465827+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-05A-ACT-WORKFLOW-PARITY",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465833+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-05B-STAGING-EFFECT-PROOF",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465838+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465844+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-06-AUTHORIZATION-ACCESS",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "mission-graph-migration",
+        "occurred_at": "2026-08-05T14:53:14.465850+00:00",
+        "reason": "compact authority archived historical control work with an explicit non-executable disposition",
+        "task_id": "TRP-07-DRAFT-PR-PORTFOLIO",
+        "to_status": "DEFERRED_WITH_REASON"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-05T14:53:14.465911+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-AGILE-AUTHORITY-RESET",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-05T14:53:14.466014+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-AGILE-AUTHORITY-RESET",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -6532,7 +6667,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 752,
+  "state_version": 753,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
