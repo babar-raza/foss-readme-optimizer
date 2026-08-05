@@ -30568,7 +30568,7 @@
     "updated_at": "2026-08-04T20:33:46.791225+00:00"
   },
   "schema_version": 2,
-  "state_version": 1167,
+  "state_version": 1168,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
@@ -31509,13 +31509,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: invalid contextual README links: candidate contains non-linkable Aspose target: https://docs.aspose.org/; candidate contains non-linkable Aspose target: https://blog.aspose.org/; candidate contains non-linkable Aspose target: https://docs.aspose.com/3d/python-net/; candidate contains non-linkable Aspose target: https://reference.aspose.com/3d/python-net/; candidate contains non-linkable Aspose target: https://downloads.aspose.com/3d; candidate contains non-linkable Aspose target: https://forum.aspose.com/c/3d/19; candidate exceeds total Aspose-link ceiling; candidate exceeds aspose.org ceiling; candidate exceeds aspose.com ceiling; candidate exceeds products ceiling; candidate repeats an Aspose target; prohibited Enterprise terminology: the commercial Aspose.3D On-Premise library; prohibited Enterprise terminology: commercial edition; prohibited Enterprise terminology: [commercial On-Premise edition](https://products.aspose.com/3d/python-net/); prohibited Enterprise terminology: commercial On-Premise edition; prohibited Enterprise terminology: commercial package; prohibited Enterprise terminology: commercial edition; prohibited Enterprise terminology: commercial On-Premise edition; prohibited Enterprise terminology: [Aspose.3D for Python via .NET](https://products.aspose.com/3d/python-net/); prohibited Enterprise terminology: full-featured commercial edition; prohibited Enterprise terminology: [Aspose.3D product family](https://products.aspose.com/3d); prohibited Enterprise terminology: commercial package",
       "last_checkpoint_id": "0fc8680247f8d44a401a26c4d9640db99f22c44994c65e408108329c0242b8f7",
-      "lease_expires_at": "2026-08-05T00:36:11.740876+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-05T00:24:54.574070+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-05T00:25:17.288401+00:00"
     }
   },
   "trigger_records": {},
