@@ -6061,7 +6061,7 @@
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
     },
     "independent_verification": {
-      "accepted_facts_hash": "511d35d20616d0f1aa3531e42d0ec07481845aef31f0ec99b85ec5855ba6a7c4",
+      "accepted_facts_hash": "d486de516fe027c09fe33bdafe5b44dad2de966ce10cd0cd5bad734a871d5200",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -6080,8 +6080,8 @@
         },
         "failure_escalations": {
           "readme_presentation": {
-            "consecutive_failure_count": 3,
-            "last_failure_reason": "execution_error"
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "presentation_plan"
           }
         },
         "requirement_map": {
@@ -6205,10 +6205,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-05T00:24:24.923487+00:00",
+      "last_run_timestamp": "2026-08-05T19:11:46.348680+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+      "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "4703dcb1f1f5b30652689cb166dbaacc003d6b45776de307c87fa5472dc378b3",
@@ -30995,7 +30995,7 @@
     "updated_at": "2026-08-05T19:08:34.252140+00:00"
   },
   "schema_version": 2,
-  "state_version": 1209,
+  "state_version": 1210,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
