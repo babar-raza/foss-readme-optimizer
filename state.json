@@ -31312,7 +31312,7 @@
     "updated_at": "2026-08-05T19:57:00.898577+00:00"
   },
   "schema_version": 2,
-  "state_version": 1274,
+  "state_version": 1275,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
@@ -32385,13 +32385,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['policy_corrections_have_exact_partial_lineage failed', 'mandatory_claim_replacements_have_exact_provenance failed', 'claim accountability has 148 blocking claim(s): candidate:claim:10098:ae9fce0c5e2acf96, candidate:claim:10444:754ba346682a9293, candidate:claim:10497:867f43561d4c7680, candidate:claim:10684:18d68728f19f28b7, candidate:claim:10830:55c2b2f9dcd65c3d, candidate:claim:10922:3f3c927fcdea352e, candidate:claim:11082:dcbabfcd2f4b5be1, candidate:claim:11319:1198ceb161768a9d, candidate:claim:11403:8040e2b9242456d0, candidate:claim:11515:a93357e72aa7d60d', 'presentation.uncollapsed_secondary_detail.0905e5920a11: Long secondary examples, API detail, and development workflows must collapse.']",
       "last_checkpoint_id": "fa772c1d0f93d51997c240f6211ed932d7930141e76dd4e53d753ef331c1c328",
-      "lease_expires_at": "2026-08-05T20:57:32.596020+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-05T20:46:21.435654+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-05T20:46:42.960521+00:00"
     }
   },
   "trigger_records": {},
