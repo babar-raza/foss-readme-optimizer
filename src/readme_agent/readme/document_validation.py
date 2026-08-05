@@ -229,13 +229,22 @@ def validate_readme_document_candidate(
             )
 
     for resolution in plan.source_claim_resolutions:
-        authorized_fragment_ids.update(
-            protected_fragment_ids_overlapping_byte_span(
-                source_inner,
-                resolution.source_byte_start,
-                resolution.source_byte_end,
-            )
+        resolution_ranges = (
+            [
+                (correction.source_byte_start, correction.source_byte_end)
+                for correction in resolution.policy_corrections
+            ]
+            if resolution.resolution == "presentation_policy_correction"
+            else [(resolution.source_byte_start, resolution.source_byte_end)]
         )
+        for start, end in resolution_ranges:
+            authorized_fragment_ids.update(
+                protected_fragment_ids_overlapping_byte_span(
+                    source_inner,
+                    start,
+                    end,
+                )
+            )
 
     checks["source_span_hashes"] = span_hashes_valid
     checks["fact_citations"] = citations_valid
@@ -396,6 +405,7 @@ def validate_readme_document_candidate(
             operations=plan.operations,
             candidate_content_provenance=plan.candidate_content_provenance,
             source_claim_resolutions=plan.source_claim_resolutions,
+            composition_ledger=plan.composition_ledger,
         )
         checks["claim_accountability_complete"] = accountability.approval_eligible
         checks["claim_accountability_gaps_visible"] = accountability.approval_eligible or bool(

@@ -16,10 +16,14 @@ from readme_agent.readme.claim_replacement_validation import (
     replacement_candidate_claims_are_exact,
     replacement_provenance_is_exact,
 )
+from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     ReadmeDocumentOperationV1,
     SourceClaimResolutionV1,
+)
+from readme_agent.readme.source_claim_policy_validation import (
+    policy_corrections_have_exact_partial_lineage,
 )
 
 
@@ -160,6 +164,7 @@ def validate_claim_accountability_map(
     operations: list[ReadmeDocumentOperationV1],
     candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
     source_claim_resolutions: list[SourceClaimResolutionV1] | None = None,
+    composition_ledger: ReadmeCompositionLedgerV1 | None = None,
 ) -> ClaimAccountabilityValidationV1:
     """Fail closed on missing units, stale spans, or correction-without-operation."""
 
@@ -243,6 +248,18 @@ def validate_claim_accountability_map(
     candidate_by_id = {
         record.claim_id.removeprefix("candidate:"): record for record in candidate_records
     }
+    checks["policy_corrections_have_exact_partial_lineage"] = (
+        policy_corrections_have_exact_partial_lineage(
+            resolutions,
+            source_by_id,
+            source_bytes,
+            candidate_bytes,
+            facts,
+            operations,
+            provenance,
+            composition_ledger,
+        )
+    )
     omission_provenance_exact = all(
         resolution.resolution != "verified_omission"
         or (

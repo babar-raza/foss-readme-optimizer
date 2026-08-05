@@ -12,6 +12,7 @@ from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
 from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.readme.source_claim_risk import SourceClaimObligation
 from readme_agent.state.assurance import ContentAssuranceV1
 
@@ -36,6 +37,7 @@ SourceClaimResolution = Literal[
     "verified_equivalence",
     "verified_obligation_replacement",
     "authoritative_correction",
+    "presentation_policy_correction",
 ]
 _ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]*$")
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -155,6 +157,7 @@ class SourceClaimResolutionV1(_StrictModel):
     obligation_id: SourceClaimObligation | None = None
     fact_ids: list[str] = Field(default_factory=list)
     replacement_provenance_ids: list[str] = Field(default_factory=list)
+    policy_corrections: list[SourceClaimPolicyCorrectionV1] = Field(default_factory=list)
     candidate_claim_id: str | None = None
     candidate_byte_start: int | None = Field(default=None, ge=0)
     candidate_byte_end: int | None = Field(default=None, ge=0)
@@ -177,6 +180,11 @@ class SourceClaimResolutionV1(_StrictModel):
             raise ValueError("source-claim resolution requires a nonempty span")
         if self.resolution == "authoritative_correction" and not self.fact_ids:
             raise ValueError("authoritative correction requires accepted facts")
+        if self.resolution == "presentation_policy_correction":
+            if not self.policy_corrections:
+                raise ValueError("presentation policy correction requires exact corrected spans")
+        elif self.policy_corrections:
+            raise ValueError("exact policy spans are reserved for policy corrections")
         if self.resolution == "deferred_verification" and (
             self.fact_ids or self.obligation_id or self.replacement_provenance_ids
         ):

@@ -156,6 +156,19 @@ def expected_disposition(
                 True,
                 "The exact source claim has an explicit evidence-backed verified omission.",
             )
+        if source_resolution.resolution == "presentation_policy_correction":
+            if survives_in_candidate is not False:
+                return (
+                    "unjustified_loss",
+                    False,
+                    "A partial policy correction must replace the original exact claim bytes.",
+                )
+            return (
+                "presentation_policy_correction",
+                True,
+                "Exact policy-owned spans are corrected while retained claim bytes remain "
+                "bound to exact source lineage.",
+            )
         return (
             "required_correction",
             True,

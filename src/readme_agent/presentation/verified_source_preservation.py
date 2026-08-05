@@ -23,10 +23,16 @@ from readme_agent.presentation.verified_source_placements import (
     resolve_preserve_claim_placements,
     separated_exact_blocks,
 )
+from readme_agent.presentation.verified_source_policy import VerifiedSourcePolicyEditV1
+from readme_agent.presentation.verified_source_policy_application import (
+    apply_verified_source_policy,
+    rebase_source_policy_corrections,
+)
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import heading_identity, parse_headings
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 
 
 @dataclass(frozen=True)
@@ -34,6 +40,7 @@ class VerifiedSourceComposition:
     candidate: str
     provenance: list[CandidateContentProvenanceV1]
     source_placements: list[ExactSourcePlacementV1]
+    source_policy_corrections: list[SourceClaimPolicyCorrectionV1]
 
 
 def compose_verified_source_preservation(
@@ -42,6 +49,7 @@ def compose_verified_source_preservation(
     assessment: ReadmeAssessmentV1,
     replaceable_claim_ids: set[str],
     provenance: list[CandidateContentProvenanceV1],
+    source_policy_edits: list[VerifiedSourcePolicyEditV1] | None = None,
 ) -> VerifiedSourceComposition:
     """Apply exact preserve dispositions without duplicating the source document shell."""
 
@@ -164,7 +172,21 @@ def compose_verified_source_preservation(
                 leading=f"## {preserved_heading}\n\n",
             )
         )
+    composed_provenance = exclude_source_placements_from_provenance(
+        composed_provenance,
+        source_placements,
+    )
+    composed, source_placements, composed_provenance, policy_corrections = (
+        apply_verified_source_policy(
+            composed,
+            source_text,
+            source_placements,
+            composed_provenance,
+            source_policy_edits or [],
+        )
+    )
     toc_edit = navigation_edit(composed)
+    policy_corrections = rebase_source_policy_corrections(policy_corrections, toc_edit)
     source_placements = rebase_source_placements(source_placements, toc_edit)
     composed = apply_edit(composed, toc_edit)
     composed_provenance = rebase_provenance(composed_provenance, toc_edit, composed)
@@ -190,4 +212,5 @@ def compose_verified_source_preservation(
         candidate=composed,
         provenance=composed_provenance,
         source_placements=source_placements,
+        source_policy_corrections=policy_corrections,
     )

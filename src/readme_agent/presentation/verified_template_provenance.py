@@ -8,6 +8,7 @@ from collections import Counter
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.template_schema import PresentationTemplateInputV1
+from readme_agent.presentation.verified_source_policy_resolution import source_policy_resolution
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.document_structure import parse_headings
@@ -17,6 +18,7 @@ from readme_agent.readme.example_assurance_validation import (
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.readme.source_claim_risk import (
     SourceClaimObligation,
     applicable_product_overview_fact_ids,
@@ -287,6 +289,7 @@ def _build_source_claim_resolutions(
     *,
     preserved_source_ranges: list[tuple[int, int]] | None = None,
     authoritative_correction_ranges: list[tuple[int, int]] | None = None,
+    presentation_policy_corrections: list[SourceClaimPolicyCorrectionV1] | None = None,
     fail_on_unresolved_preserve: bool = True,
 ) -> list[SourceClaimResolutionV1]:
     """Resolve removed claims by risk; mandatory claims fail closed without verified slots."""
@@ -318,6 +321,7 @@ def _build_source_claim_resolutions(
     source_bytes = source_text.encode("utf-8")
     preserve_ranges = preserved_source_ranges or []
     correction_ranges = authoritative_correction_ranges or []
+    policy_corrections = presentation_policy_corrections or []
     for claim in source_claims:
         if raw_candidate_occurrences[claim.content_sha256] > 0:
             raw_candidate_occurrences[claim.content_sha256] -= 1
@@ -329,6 +333,10 @@ def _build_source_claim_resolutions(
             candidate_hashes[claim.content_sha256] -= 1
             continue
         claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+        policy_resolution = source_policy_resolution(claim, policy_corrections)
+        if policy_resolution is not None:
+            resolutions.append(policy_resolution)
+            continue
         fact_ids = literal_fact_ids(claim_text, facts, selected_fact_ids)
         equivalent = equivalence_candidates.get(_presentation_equivalence_key(claim_text), [])
         if len(equivalent) == 1 and fact_ids:
@@ -553,6 +561,7 @@ def build_source_claim_resolutions(
     *,
     preserved_source_ranges: list[tuple[int, int]] | None = None,
     authoritative_correction_ranges: list[tuple[int, int]] | None = None,
+    presentation_policy_corrections: list[SourceClaimPolicyCorrectionV1] | None = None,
 ) -> list[SourceClaimResolutionV1]:
     """Build final strict resolutions; unresolved leaf-preserve loss always raises."""
 
@@ -563,6 +572,7 @@ def build_source_claim_resolutions(
         candidate_content_provenance,
         preserved_source_ranges=preserved_source_ranges,
         authoritative_correction_ranges=authoritative_correction_ranges,
+        presentation_policy_corrections=presentation_policy_corrections,
         fail_on_unresolved_preserve=True,
     )
 

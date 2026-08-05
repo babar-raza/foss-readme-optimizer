@@ -19,6 +19,7 @@ ExpectedClaimDisposition = Literal[
     "verified_omission",
     "verified_equivalence",
     "verified_obligation_replacement",
+    "presentation_policy_correction",
     "authoritative_owner_validation",
     "explicit_uncertainty",
     "required_correction",

@@ -17,6 +17,7 @@ from readme_agent.presentation.verified_preservation_sections import (
     effective_correction_ranges,
     effective_preserve_ranges,
 )
+from readme_agent.presentation.verified_source_policy import build_verified_source_policy_edits
 from readme_agent.presentation.verified_source_preservation import (
     compose_verified_source_preservation,
 )
@@ -49,6 +50,7 @@ from readme_agent.readme.header_visual import (
     render_readme_header_visual,
 )
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.registry.models import LinkAllocationPolicyV1
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
@@ -62,6 +64,7 @@ class VerifiedTemplateCompilationV1(BaseModel):
     template_input: PresentationTemplateInputV1
     provenance: list[CandidateContentProvenanceV1]
     source_placements: list[ExactSourcePlacementV1]
+    source_policy_corrections: list[SourceClaimPolicyCorrectionV1]
 
 
 def declared_preserve_ranges(
@@ -123,6 +126,7 @@ def build_verified_template_compilation(
         assessment,
         replaceable_claim_ids,
         provenance,
+        build_verified_source_policy_edits(source_text, facts),
     )
     candidate = composition.candidate
     return VerifiedTemplateCompilationV1(
@@ -130,6 +134,7 @@ def build_verified_template_compilation(
         template_input=template_input,
         provenance=composition.provenance,
         source_placements=composition.source_placements,
+        source_policy_corrections=composition.source_policy_corrections,
     )
 
 
@@ -199,6 +204,7 @@ def build_verified_template_document_candidate(
         persisted_provenance,
         preserved_source_ranges=preserved_source_ranges,
         authoritative_correction_ranges=effective_correction_ranges(assessment),
+        presentation_policy_corrections=compiled.source_policy_corrections,
     )
     operations = []
     if inner_text != candidate:
