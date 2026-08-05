@@ -144,8 +144,11 @@ def _source_catalog_errors(
     )
     migrated_requirements = [
         {
-            **record,
+            **{key: value for key, value in record.items() if key != "legacy_acceptance_evidence"},
             "status": record.get("legacy_status") or record["status"],
+            "acceptance_evidence": (
+                record.get("legacy_acceptance_evidence") or record["acceptance_evidence"]
+            ),
         }
         for record in requirements
     ]

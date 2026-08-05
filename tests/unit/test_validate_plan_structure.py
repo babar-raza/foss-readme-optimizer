@@ -53,6 +53,19 @@ class TestCompactAuthoritySourceBinding:
             "typed requirement catalog is not an exact source-record migration"
         ]
 
+    def test_current_status_and_evidence_can_advance_without_losing_source_record(self):
+        source_commit, requirements, decisions = self._records()
+        advanced = deepcopy(requirements)
+        advanced[0]["legacy_status"] = advanced[0]["status"]
+        advanced[0]["legacy_acceptance_evidence"] = advanced[0]["acceptance_evidence"]
+        advanced[0]["status"] = "IMPLEMENTED"
+        advanced[0]["acceptance_evidence"] = (
+            "Current proof: "
+            "`plans/investigations/evidence/agile-authority-reset-v1/verification.json`."
+        )
+
+        assert _source_catalog_errors(advanced, decisions, source_commit) == []
+
     def test_changed_decision_markdown_is_rejected_even_if_stable_ids_remain(self):
         source_commit, requirements, decisions = self._records()
         tampered = deepcopy(decisions)

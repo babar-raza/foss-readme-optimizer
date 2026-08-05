@@ -116,6 +116,7 @@ def _requirement_records(text: str) -> list[dict[str, Any]]:
                 "legacy_status": cells[2].strip("`"),
                 "requirement": cells[3],
                 "acceptance_evidence": cells[4],
+                "legacy_acceptance_evidence": cells[4],
                 "traceability": cells[5],
                 "section": section,
                 "legacy_line": line_number,

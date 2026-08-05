@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-AGILE-AUTHORITY-RESET",
+  "verdict": "ACCEPTED",
+  "implementation_commit": "73fb96db18133194ebc88c35d5997e19f5187f86",
+  "implementation_tree": "0f2dba6a132c230d1372f9f2290c83f9d58cbb10",
+  "product_scope_paths_changed": 0,
+  "requirements": [
+    "L8-047",
+    "L8-048",
+    "L8-049",
+    "L8-050",
+    "L8-051",
+    "L8-052",
+    "L8-053",
+    "L8-054"
+  ],
+  "official_checks": {
+    "result": "PASS",
+    "tree_precondition": "CLEAN",
+    "ruff_check": "PASS",
+    "ruff_format_check": "PASS: 1013 files",
+    "mypy_src": "PASS: 602 source files",
+    "plan_structure": "PASS: 104 nonblocking retrofit-on-touch warnings",
+    "verifier_wiring": "PASS",
+    "prompt_hygiene": "PASS: 15 active prompts",
+    "requirement_coverage": "PASS: 475 rows",
+    "semantic_traceability": "PASS: 155 IMPLEMENTED rows, zero closure findings",
+    "actionlint": "PASS"
+  },
+  "complete_non_live": {
+    "source_receipt": "runs/verification/pytest-full-latest.json",
+    "source_receipt_sha256": "02ec65b29103917e795623287dd93924957bf3c1bb8a76b4fda57a246e0accc7",
+    "head": "73fb96db18133194ebc88c35d5997e19f5187f86",
+    "index_tree_at_start": "0f2dba6a132c230d1372f9f2290c83f9d58cbb10",
+    "index_tree_at_end": "0f2dba6a132c230d1372f9f2290c83f9d58cbb10",
+    "tree_fingerprint_at_start": "3fcbaa904951b9d453f400f74e2191cece5a73577bb7ae078f8fbe30a503b891",
+    "tree_fingerprint_at_end": "3fcbaa904951b9d453f400f74e2191cece5a73577bb7ae078f8fbe30a503b891",
+    "inventory_count": 3229,
+    "inventory_sha256": "37bd2f102a43266404c6602f0cd7907d8c1daeb6313da0c6e4a1f9a6677824a4",
+    "passed": 3229,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "leaked_process_ids": [],
+    "tree_changed_during_run": false,
+    "duration_seconds": 379.902
+  },
+  "independent_verification": {
+    "verdict": "ACCEPTED",
+    "source_verdict": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/independent-verification/final-v3/verdict.md",
+    "source_verdict_sha256": "f0884358e47a3c98f902bfbd480e732f4e9cd4587c7ac513d5630aa86595b20b",
+    "source_receipt": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/independent-verification/final-v3/receipt.json",
+    "source_receipt_sha256": "cdf02d89eea1ab6e4f5a16a6c227283041e9a76d087b02cf5131f20989b14e8d",
+    "focused_public_seam_tests": "PASS: 288",
+    "safety_tests": "PASS: 80",
+    "blocking_findings": []
+  },
+  "catalog_migration": {
+    "decisions": 98,
+    "requirements": 475,
+    "active_tasks": 7,
+    "deferred_tasks": 125,
+    "ready_tasks": 1,
+    "active_deferred_overlap": 0,
+    "lossless": true
+  },
+  "portfolio_scoreboard": {
+    "sha256": "31cb8dbeb92171482325ea21330f4cf09a13ff9933b6ab82c86cd63aa4c748db",
+    "denominator": 31,
+    "facts_ready": 1,
+    "candidate_generated": 0,
+    "agent_approved": 0,
+    "no_op_proven": 0,
+    "human_accepted": 0,
+    "first_failing_boundary": "FACTS_READY"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-AGILE-AUTHORITY-RESET",
+  "verification_plan_sha256": "0d334c46b3338b68ce03a243feca93b587b6e1532123872d035f52eda24a8da1",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "safety_regression",
+    "complete_non_live"
+  ],
+  "promotion_boundary": "shared_code",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": false,
+  "proof_refs": [
+    "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "1cb5b0386e016c93daf272d81f769d3de05bd2c0af5c1669c155a49967ffe71c",
+  "multi_agent_admission_decision_sha256": "458afc608cb199fd192a92aa2c294d2bdef43c43d5ac260c66051c52253b4179"
+}

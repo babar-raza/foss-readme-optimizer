@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-AGILE-AUTHORITY-RESET",
+  "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+  "campaign_id": "CAMP-SHARED-ACCELERATION",
+  "goal_ids": [
+    "GOAL-AUTONOMY"
+  ],
+  "core_contribution": {
+    "kind": "first_boundary_removal",
+    "summary": "Remove the control design that repeatedly invalidated visible output and obscured the next task."
+  },
+  "acceptance_checks_passed": [
+    "Every stable requirement and task identifier has a preserved or explicit deferred disposition",
+    "Current task context loads no more than twenty-five requirements plus declared always-on invariants",
+    "Narrative handovers cannot override live durable state",
+    "Level-7/Level-8 elapsed periods cannot become active delivery tasks",
+    "A non-critical template delta leaves accepted facts and unrelated sections reusable",
+    "No product candidate, remote write, or speculative infrastructure is produced"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
+  ],
+  "scoreboard_before_sha256": "31cb8dbeb92171482325ea21330f4cf09a13ff9933b6ab82c86cd63aa4c748db",
+  "scoreboard_after_sha256": "31cb8dbeb92171482325ea21330f4cf09a13ff9933b6ab82c86cd63aa4c748db",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "oversized_authority_and_global_rework_boundary",
+  "contribution_boundary_after": "compact_stage_bound_delivery_control",
+  "independently_verified": true
+}

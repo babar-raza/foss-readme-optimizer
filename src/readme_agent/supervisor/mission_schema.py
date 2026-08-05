@@ -226,6 +226,7 @@ class RequirementCatalogRecordV1(_StrictModel):
         | None
     ) = None
     acceptance_evidence: str
+    legacy_acceptance_evidence: str | None = None
     traceability: str
     legacy_line: int = Field(gt=0)
     legacy_row_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")

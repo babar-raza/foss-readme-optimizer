@@ -668,6 +668,7 @@ def test_requirement_catalog_preserves_legacy_status_during_migration():
         status="PARTIAL",
         legacy_status="IMPLEMENTED",
         acceptance_evidence="Admission and negative controls.",
+        legacy_acceptance_evidence="Original admission evidence.",
         traceability="Decision 92",
         legacy_line=1,
         legacy_row_sha256="0" * 64,
@@ -675,6 +676,7 @@ def test_requirement_catalog_preserves_legacy_status_during_migration():
 
     assert record.status == "PARTIAL"
     assert record.legacy_status == "IMPLEMENTED"
+    assert record.legacy_acceptance_evidence == "Original admission evidence."
 
 
 def _lane(
