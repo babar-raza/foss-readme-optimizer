@@ -1,11 +1,12 @@
 # Plan Governance
 
 Authority is resolved by subject, not by one total file ordering. `plans/idea.md` owns the
-permanent product outcome and operating intent; `plans/requirements.md` owns normative obligations
-and acceptance; `plans/master.md` owns current architecture, decisions, sequencing, and rollout;
-this file and `AGENTS.md` own editing, safety, execution, and coordination governance; the Level-8
-mission graph owns machine-readable tasks and dependencies; and durable supervisor state alone
-owns live claims, transitions, and runtime status. Supporting Codex plans, roadmap, status,
+permanent product outcome and operating intent; `plans/requirements.md` and its typed catalog own
+normative obligations and acceptance; `plans/master.md` and its decision catalog own current
+architecture, decisions, sequencing, and rollout; this file and `AGENTS.md` own editing, safety,
+execution, and coordination governance; the Level-8 mission graph owns active machine-readable
+tasks and dependencies; its hashed deferred catalog preserves non-executable future work; and
+durable supervisor state alone owns live claims, transitions, and runtime status. Supporting Codex plans, roadmap, status,
 reports, and audits are derived guidance/evidence. A conflict is corrected in the file that owns
 its subject, with dependent views regenerated; no narrative file may override durable runtime
 state. This file also defines machinery-artifact naming and organization.
@@ -130,10 +131,12 @@ state. This file also defines machinery-artifact naming and organization.
     external blocker; repair root causes") into a named, propagated, machine-readable policy. (Added
     2026-07-25, user directive — see Decision #77, `AGT-009`/`AGT-010`, `GOV-028`.)
 14. **Authority is domain-specific; derived views never override their source.** `plans/idea.md`
-    owns product outcome and operating intent; `plans/requirements.md` owns normative obligations
-    and acceptance; `plans/master.md` owns architecture, decisions, sequencing, and rollout; this
-    file and `AGENTS.md` own editing, safety, execution, and coordination governance; the Level-8
-    mission graph is the sole machine-readable task/dependency graph; durable supervisor state is
+    owns product outcome and operating intent; `plans/requirements.md` plus its typed catalog own
+    normative obligations and acceptance; `plans/master.md` plus its decision catalog own
+    architecture, decisions, sequencing, and rollout; this file and `AGENTS.md` own editing, safety,
+    execution, and coordination governance; the Level-8 mission graph is the sole active
+    machine-readable task/dependency graph and its hashed deferred catalog is non-executable;
+    durable supervisor state is
     the sole live claim, transition, and runtime-status authority. `plans/roadmap.md`,
     `plans/status.md`, `plans/changelog.md`, `plans/codex/*`, reports, audits, and handovers are
     derived guidance, history, or evidence. Resolve a conflict in the file that owns its subject,
@@ -256,6 +259,9 @@ state. This file also defines machinery-artifact naming and organization.
     background certification states, not executable delivery blockers. (Added 2026-07-29, user
     directive; amended for verified Python execution and agile delivery; see Decisions
     #85/#88/#96, `L8-025`, `L8-042`, and `L8-VPY-00`–`L8-VPY-03`.)
+    Reporting distinguishes `delivery_complete` (all executable work through deployable Level 6)
+    from `certification_complete` (closed Level-7/8 observations and audits). Full
+    `mission_complete` requires both; no delivery-only result may claim Level 7 or Level 8.
 
 22. **Authority is compact, query-scoped, and agile.** `plans/idea.md` remains the short
     human-reviewable outcome contract. Architecture and decisions in `plans/master.md` describe

@@ -385,6 +385,15 @@ def write_local_poc_readme_candidate(
             },
         },
     )
+    candidate_component_manifest = current_candidate_stage_dependency_manifest(
+        repository=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        ecosystem=(snapshot.package_roots[0].ecosystem if snapshot.package_roots else "unknown"),
+    )
+    write_redacted_json(
+        planning_dir / "presentation-component-manifest.json",
+        candidate_component_manifest.model_dump(mode="json"),
+    )
     write_redacted_text(candidate_dir / "README.md", candidate_text)
     write_redacted_text(candidate_dir / "README.patch", patch_text)
     write_redacted_json(candidate_dir / "claim-map.json", claim_map.model_dump(mode="json"))
@@ -444,13 +453,10 @@ def write_local_poc_readme_candidate(
                 agentic_plan.canonical_hash() if agentic_plan is not None else None
             ),
             "candidate_hash": candidate_hash,
-            "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
-                repository=snapshot.org_repo,
-                source_revision=snapshot.source_revision,
-                ecosystem=(
-                    snapshot.package_roots[0].ecosystem if snapshot.package_roots else "unknown"
-                ),
-            ).stage_key,
+            "candidate_stage_dependency_key": candidate_component_manifest.stage_key,
+            "candidate_stage_dependency_manifest": candidate_component_manifest.model_dump(
+                mode="json"
+            ),
             "repair_budget_origin_hash": repair_budget_origin_hash,
             "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
             "completed_stages": completed_stages,

@@ -12,6 +12,10 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+from readme_agent.state.agile_execution_schema import (
+    ApproachControlStateV1,
+    ParallelismControlStateV1,
+)
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import (
     CheckpointV1,
@@ -397,6 +401,7 @@ MissionTaskStatus = Literal[
     "BLOCKED_EXTERNAL",
     "REROUTED",
     "DEFERRED_WITH_REASON",
+    "OBSERVATION_RUNNING",
     "REOPENED",
     "REGRESSED",
 ]
@@ -443,6 +448,15 @@ class MissionExecutionStateV1(BaseModel):
     goal_activation_graph_sha256: str | None = None
     goal_activation_reason: str | None = None
     capacity_allocation: dict[str, int] = Field(default_factory=dict)
+    infrastructure_tasks_since_visible_delivery: int = Field(default=0, ge=0)
+    parallelism_control: ParallelismControlStateV1 = Field(
+        default_factory=ParallelismControlStateV1
+    )
+    approach_control: ApproachControlStateV1 = Field(default_factory=ApproachControlStateV1)
+    # Delivery can finish while post-deployment elapsed-time certification
+    # remains observably in progress. Full mission closure requires both.
+    delivery_complete: bool = False
+    certification_complete: bool = False
     mission_complete: bool = False
     last_evaluated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 

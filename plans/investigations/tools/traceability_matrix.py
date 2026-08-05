@@ -2,7 +2,7 @@
 # artifact_role: analysis_or_evidence_only
 """Semantic implementation-truth matrix for requirement closure claims.
 
-For every `plans/requirements.md` row currently marked `IMPLEMENTED`, checks that cited paths exist,
+For every typed requirement currently marked `IMPLEMENTED`, checks that cited paths exist,
 cited pytest node IDs resolve to real functions/methods, cited JSON evidence parses, evidence files
 are checksum-addressed in the generated matrix, and the row's own acceptance prose does not
 explicitly contradict its `IMPLEMENTED` status. P0/P1 closure also requires a concrete test node or
@@ -55,7 +55,8 @@ from collections import Counter
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]  # tools -> investigations -> plans -> repo root
-REQUIREMENTS_MD = REPO_ROOT / "plans" / "requirements.md"
+REQUIREMENTS_CATALOG = REPO_ROOT / "plans" / "requirements" / "catalog.jsonl"
+DECISIONS_CATALOG = REPO_ROOT / "plans" / "decisions" / "catalog.jsonl"
 MASTER_MD = REPO_ROOT / "plans" / "master.md"
 STATUS_MD = REPO_ROOT / "plans" / "status.md"
 OUT_DIR = REPO_ROOT / "plans" / "investigations" / "evidence" / "implementation-truth-matrix-2026"
@@ -220,18 +221,19 @@ def _evidence_metadata(path: str) -> tuple[dict | None, str | None]:
 
 
 def build_matrix() -> dict:
-    text = REQUIREMENTS_MD.read_text(encoding="utf-8")
     rows = []
-    for lineno, line in enumerate(text.splitlines(), start=1):
-        if not line.startswith("| "):
+    for catalog_line, line in enumerate(
+        REQUIREMENTS_CATALOG.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        if not line:
             continue
-        cells = _split_table_row(line)
-        if len(cells) != 6:
-            continue
-        req_id = cells[0].strip("`")
+        record = json.loads(line)
+        req_id = record["requirement_id"]
         if not ID_RE.match(req_id):
             continue
-        priority, status, requirement, evidence, traceability = cells[1:6]
+        priority = record["priority"]
+        status = record["status"]
+        evidence = record["acceptance_evidence"]
         if status != "IMPLEMENTED":
             continue
 
@@ -294,7 +296,8 @@ def build_matrix() -> dict:
         rows.append(
             {
                 "id": req_id,
-                "line": lineno,
+                "line": record.get("legacy_line", catalog_line),
+                "catalog_line": catalog_line,
                 "priority": priority,
                 "cited_paths": cited_paths,
                 "cited_paths_existing": existing,
@@ -311,7 +314,7 @@ def build_matrix() -> dict:
         )
     return {
         "generated_by": "plans/investigations/tools/traceability_matrix.py",
-        "requirements_source": "plans/requirements.md",
+        "requirements_source": "plans/requirements/catalog.jsonl",
         "total_implemented_rows_checked": len(rows),
         "rows_with_high_confidence_findings": [r for r in rows if r["high_confidence_findings"]],
         "rows_with_informational_findings_only": [
@@ -327,18 +330,15 @@ def build_matrix() -> dict:
 
 
 def _requirement_status_counts() -> Counter:
-    text = REQUIREMENTS_MD.read_text(encoding="utf-8")
     counts: Counter = Counter()
-    for line in text.splitlines():
-        if not line.startswith("| "):
+    for line in REQUIREMENTS_CATALOG.read_text(encoding="utf-8").splitlines():
+        if not line:
             continue
-        cells = _split_table_row(line)
-        if len(cells) != 6:
-            continue
-        req_id = cells[0].strip("`")
+        record = json.loads(line)
+        req_id = record["requirement_id"]
         if not ID_RE.match(req_id):
             continue
-        counts[cells[2]] += 1
+        counts[record["status"]] += 1
     return counts
 
 
@@ -350,10 +350,13 @@ def _wave_checklist_state() -> list[tuple[bool, str]]:
 
 
 def _latest_decision_number() -> int | None:
-    if not MASTER_MD.exists():
+    if not DECISIONS_CATALOG.exists():
         return None
-    text = MASTER_MD.read_text(encoding="utf-8")
-    numbers = [int(n) for n in DECISION_RE.findall(text)]
+    numbers = [
+        int(json.loads(line)["decision_id"])
+        for line in DECISIONS_CATALOG.read_text(encoding="utf-8").splitlines()
+        if line
+    ]
     return max(numbers) if numbers else None
 
 
@@ -544,6 +547,9 @@ def _current_project_status() -> dict:
                 "state_version": mission_record.state_version,
                 "active_task_id": mission_state.active_task_id,
                 "active_goal_id": mission_state.active_goal_id,
+                "delivery_complete": mission_state.delivery_complete,
+                "certification_complete": mission_state.certification_complete,
+                "mission_complete": mission_state.mission_complete,
                 "claim_id": mission_state.claim_id,
                 "claim_expires_at": mission_state.claim_expires_at,
                 "durable_graph_sha256": mission_state.graph_sha256,
@@ -641,6 +647,9 @@ def _render_current_project_status(status: dict) -> list[str]:
         f"- Durable state version: `{mission['state_version']}`.",
         f"- Active task: `{mission['active_task_id'] or '-'}`.",
         f"- Active goal: `{mission['active_goal_id'] or '-'}`.",
+        f"- Delivery complete: **{str(mission['delivery_complete']).lower()}**.",
+        f"- Certification complete: **{str(mission['certification_complete']).lower()}**.",
+        f"- Full mission complete: **{str(mission['mission_complete']).lower()}**.",
         f"- Claim: `{mission['claim_id'] or '-'}`; expires `{mission['claim_expires_at'] or '-'}`.",
         f"- Loaded graph: `{mission['loaded_graph_sha256']}`.",
         f"- Durable graph: `{mission['durable_graph_sha256']}`; drift: "

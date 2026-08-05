@@ -11,7 +11,7 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-REQUIREMENTS_PATH = REPO_ROOT / "plans" / "requirements.md"
+REQUIREMENTS_PATH = REPO_ROOT / "plans" / "requirements" / "catalog.jsonl"
 GRAPH_PATH = (
     REPO_ROOT / "plans" / "investigations" / "control" / "level8-autonomous-mission-task-graph.yaml"
 )
@@ -30,6 +30,9 @@ REPORT_PATH = (
     / "evidence"
     / "level8-requirement-taskcard-coverage"
     / "requirement-taskcard-coverage.json"
+)
+DEFERRED_TASK_CATALOG_PATH = (
+    REPO_ROOT / "plans" / "investigations" / "control" / "level8-deferred-task-catalog.jsonl"
 )
 
 STAGE_GOAL_ORDER = {
@@ -61,6 +64,8 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-P0-PLAN-FREEZE", "primary_only"
     if task_id == "L8-AGILE-AUTHORITY-RESET":
         return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
+    if task_id == "L8-HORIZON-01-ACTIVATE-GATE-A":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
     if task_id == "L8-VPY-00-GOLDEN-TEMPLATE":
         return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
     if task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E":
@@ -361,19 +366,17 @@ def _split_row(line: str) -> list[str]:
 def _requirement_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for line in REQUIREMENTS_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.startswith("| "):
+        if not line:
             continue
-        cells = _split_row(line)
-        if len(cells) != 6:
-            continue
-        requirement_id = cells[0].strip("`")
+        record = json.loads(line)
+        requirement_id = record["requirement_id"]
         if not ID_RE.fullmatch(requirement_id):
-            continue
+            raise ValueError(f"invalid typed requirement ID {requirement_id!r}")
         rows.append(
             {
                 "requirement_id": requirement_id,
-                "priority": cells[1],
-                "requirement_status": cells[2],
+                "priority": record["priority"],
+                "requirement_status": record["status"],
             }
         )
     return rows
@@ -400,12 +403,48 @@ def _disposition(row: dict[str, str], findings: list[str]) -> str:
     return "open_mandatory"
 
 
-def build_coverage() -> tuple[dict, dict]:
+def _load_deferred_records() -> list[dict]:
+    return [
+        json.loads(line)
+        for line in DEFERRED_TASK_CATALOG_PATH.read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+
+
+def _jsonl_payload(records: list[dict]) -> bytes:
+    return (
+        "\n".join(json.dumps(record, sort_keys=True, separators=(",", ":")) for record in records)
+        + "\n"
+    ).encode("utf-8")
+
+
+def _reference(path: Path, payload: bytes, record_count: int) -> dict:
+    return {
+        "path": str(path.relative_to(REPO_ROOT)).replace("\\", "/"),
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "record_count": record_count,
+    }
+
+
+def build_coverage() -> tuple[dict, list[dict], dict]:
     graph = yaml.safe_load(GRAPH_PATH.read_text(encoding="utf-8"))
-    bind_stage_goals(graph)
+    deferred_records = _load_deferred_records()
+    combined = {
+        **graph,
+        "taskcards": [
+            *graph.get("taskcards", []),
+            *(record["task"] for record in deferred_records),
+        ],
+    }
+    bind_stage_goals(combined)
+    active_ids = {task["task_id"] for task in graph.get("taskcards", [])}
+    graph["taskcards"] = [task for task in combined["taskcards"] if task["task_id"] in active_ids]
+    updated_by_id = {task["task_id"]: task for task in combined["taskcards"]}
+    for record in deferred_records:
+        record["task"] = updated_by_id[record["task"]["task_id"]]
     if graph["mission_authority"]["mission_id"] != "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION":
         raise ValueError("refusing to update a different mission graph")
-    tasks = {task["task_id"]: task for task in graph["taskcards"]}
+    tasks = {task["task_id"]: task for task in combined["taskcards"]}
     unknown_targets = (set(PREFIX_TO_TASK.values()) | set(L8_TO_TASK.values())) - set(tasks)
     if unknown_targets:
         raise ValueError(f"mapping references unknown taskcards: {sorted(unknown_targets)}")
@@ -436,7 +475,7 @@ def build_coverage() -> tuple[dict, dict]:
 
     dispositions = [mapping["disposition"] for mapping in mappings]
     coverage = {
-        "source_path": "plans/requirements.md",
+        "source_path": "plans/requirements/catalog.jsonl",
         "source_sha256": canonical_text_sha256(REQUIREMENTS_PATH),
         "semantic_matrix_path": (
             "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json"
@@ -451,8 +490,6 @@ def build_coverage() -> tuple[dict, dict]:
         "reopened_implemented_rows": dispositions.count("reopened_semantic_evidence_gap"),
         "mappings": mappings,
     }
-    graph["requirement_coverage"] = coverage
-
     report = {
         "schema_version": 1,
         "producer": "scripts/governance/build_level8_requirement_taskcard_coverage.py",
@@ -472,14 +509,41 @@ def build_coverage() -> tuple[dict, dict]:
         "duplicate_requirement_ids": [],
         "mappings": mappings,
     }
-    return graph, report
+    deferred_payload = _jsonl_payload(deferred_records)
+    deferred_lines = deferred_payload.decode("utf-8").splitlines()
+    graph["deferred_task_catalog"] = _reference(
+        DEFERRED_TASK_CATALOG_PATH, deferred_payload, len(deferred_records)
+    )
+    graph["deferred_task_index"] = [
+        {
+            "task_id": record["task"]["task_id"],
+            "status": (
+                "DEFERRED_WITH_REASON"
+                if record["activation_group"] == "historical-control"
+                else record["task"]["status"]
+            ),
+            "stage_goal_id": record["task"]["stage_goal_id"],
+            "activation_group": record["activation_group"],
+            "record_sha256": hashlib.sha256(line.encode("utf-8")).hexdigest(),
+        }
+        for record, line in zip(deferred_records, deferred_lines, strict=True)
+    ]
+    requirement_payload = REQUIREMENTS_PATH.read_bytes()
+    graph["requirement_catalog"] = _reference(REQUIREMENTS_PATH, requirement_payload, len(rows))
+    report_payload = (json.dumps(report, indent=2) + "\n").encode("utf-8")
+    graph["requirement_coverage"] = {
+        **_reference(REPORT_PATH, report_payload, len(mappings)),
+        "mandatory_requirement_rows": coverage["mandatory_requirement_rows"],
+        "reopened_implemented_rows": coverage["reopened_implemented_rows"],
+    }
+    return graph, deferred_records, report
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
-    graph, report = build_coverage()
+    graph, deferred_records, report = build_coverage()
 
     if args.check:
         current = yaml.safe_load(GRAPH_PATH.read_text(encoding="utf-8"))
@@ -497,6 +561,19 @@ def main(argv: list[str] | None = None) -> int:
         if current.get("requirement_coverage") != graph["requirement_coverage"]:
             print("Level-8 requirement coverage is stale")
             return 1
+        if current.get("requirement_catalog") != graph["requirement_catalog"]:
+            print("Level-8 requirement catalog reference is stale")
+            return 1
+        if current.get("deferred_task_catalog") != graph["deferred_task_catalog"]:
+            print("Level-8 deferred-task catalog reference is stale")
+            return 1
+        if current.get("deferred_task_index") != graph["deferred_task_index"]:
+            print("Level-8 deferred-task index is stale")
+            return 1
+        expected_deferred = _jsonl_payload(deferred_records)
+        if DEFERRED_TASK_CATALOG_PATH.read_bytes() != expected_deferred:
+            print("Level-8 deferred-task catalog mappings are stale")
+            return 1
         if (
             not REPORT_PATH.exists()
             or json.loads(REPORT_PATH.read_text(encoding="utf-8")) != report
@@ -510,8 +587,9 @@ def main(argv: list[str] | None = None) -> int:
         yaml.safe_dump(graph, sort_keys=False, allow_unicode=True, width=100),
         encoding="utf-8",
     )
+    DEFERRED_TASK_CATALOG_PATH.write_bytes(_jsonl_payload(deferred_records))
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    REPORT_PATH.write_bytes((json.dumps(report, indent=2) + "\n").encode("utf-8"))
     print(f"Mapped {report['total_requirement_rows']} requirement rows")
     print(f"Mandatory: {report['mandatory_requirement_rows']}")
     print(f"Reopened IMPLEMENTED: {report['reopened_implemented_rows']}")

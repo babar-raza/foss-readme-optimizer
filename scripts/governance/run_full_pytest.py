@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -44,6 +45,60 @@ def _git(*args: str) -> str:
         check=True,
     )
     return result.stdout.strip()
+
+
+def _git_bytes(*args: str) -> bytes:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=True,
+    )
+    return result.stdout
+
+
+def _tree_fingerprint() -> str:
+    """Bind tracked, staged, and untracked bytes without mutating the index."""
+
+    status = _git_bytes("status", "--porcelain=v1", "-z", "--untracked-files=all")
+    unstaged = _git_bytes("diff", "--binary", "--no-ext-diff")
+    staged = _git_bytes("diff", "--cached", "--binary", "--no-ext-diff")
+    untracked = sorted(
+        path
+        for path in _git_bytes("ls-files", "--others", "--exclude-standard", "-z").split(b"\0")
+        if path
+    )
+    digest = hashlib.sha256()
+    for label, value in ((b"status", status), (b"unstaged", unstaged), (b"staged", staged)):
+        digest.update(label + b"\0" + len(value).to_bytes(8, "big") + value)
+    for encoded_path in untracked:
+        relative = encoded_path.decode("utf-8", errors="surrogateescape")
+        path = REPO_ROOT / relative
+        value = path.read_bytes() if path.is_file() else b""
+        digest.update(b"untracked\0" + encoded_path + b"\0" + hashlib.sha256(value).digest())
+    return digest.hexdigest()
+
+
+_OUTCOME_PATTERN = re.compile(
+    r"(?P<count>\d+) (?P<kind>passed|failed|skipped|xfailed|xpassed|errors?|deselected)"
+)
+
+
+def _outcome_counts(output: str) -> dict[str, int]:
+    counts = {
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "xfailed": 0,
+        "xpassed": 0,
+        "errors": 0,
+        "deselected": 0,
+    }
+    for match in _OUTCOME_PATTERN.finditer(output):
+        kind = match.group("kind")
+        key = "errors" if kind in {"error", "errors"} else kind
+        counts[key] = int(match.group("count"))
+    return counts
 
 
 def _repository_process_ids(output: str, repo_root: Path) -> set[int]:
@@ -114,19 +169,41 @@ def main(argv: list[str] | None = None) -> int:
     basetemp = Path(tempfile.gettempdir()) / "ra-p"
     command = _pytest_command(python, args.workers, basetemp)
     before_processes = _matching_process_ids()
+    tree_fingerprint_at_start = _tree_fingerprint()
+    index_tree_at_start = _git("write-tree")
     started = datetime.now(UTC)
     started_clock = time.monotonic()
-    completed = subprocess.run(command, cwd=REPO_ROOT, check=False)
+    completed = subprocess.run(
+        command,
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    print(completed.stdout, end="")
+    print(completed.stderr, end="", file=sys.stderr)
     duration_seconds = round(time.monotonic() - started_clock, 3)
     time.sleep(0.5)
     leaked_processes = sorted(_matching_process_ids() - before_processes)
+    tree_fingerprint_at_end = _tree_fingerprint()
+    index_tree_at_end = _git("write-tree")
+    tree_changed_during_run = (
+        tree_fingerprint_at_start != tree_fingerprint_at_end
+        or index_tree_at_start != index_tree_at_end
+    )
+    outcomes = _outcome_counts(f"{completed.stdout}\n{completed.stderr}")
 
     receipt = {
-        "schema_version": 1,
+        "schema_version": 2,
         "command": command,
         "branch": _git("branch", "--show-current"),
         "head": _git("rev-parse", "HEAD"),
         "dirty_tree": bool(_git("status", "--porcelain")),
+        "tree_fingerprint_at_start": tree_fingerprint_at_start,
+        "tree_fingerprint_at_end": tree_fingerprint_at_end,
+        "index_tree_at_start": index_tree_at_start,
+        "index_tree_at_end": index_tree_at_end,
+        "tree_changed_during_run": tree_changed_during_run,
         "python": sys.version,
         "dependency_lock_sha256": _sha256_file(REPO_ROOT / "requirements-lock.txt"),
         "test_inventory_count": len(nodes),
@@ -139,6 +216,7 @@ def main(argv: list[str] | None = None) -> int:
         "distribution": "worksteal",
         "max_worker_restart": 0,
         "leaked_process_ids": leaked_processes,
+        "outcome_counts": outcomes,
     }
     write_redacted_json(args.receipt, receipt)
     print(json.dumps(receipt, sort_keys=True))
@@ -147,6 +225,9 @@ def main(argv: list[str] | None = None) -> int:
             f"error: full pytest left descendant process IDs {leaked_processes}",
             file=sys.stderr,
         )
+        return 1
+    if tree_changed_during_run:
+        print("error: repository bytes changed during the full pytest run", file=sys.stderr)
         return 1
     return completed.returncode
 

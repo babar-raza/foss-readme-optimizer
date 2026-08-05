@@ -20,7 +20,9 @@ from readme_agent.capabilities.effect_ledger import (
 )
 from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.state.backend import Lock, SaveResult
+from readme_agent.state.proposal_schema import TrustedTransformationProposalV1
 from readme_agent.state.schema import RunStateV1
+from readme_agent.verification.checks import compute_verification_token
 
 ORG_REPO = "acme/widget"
 
@@ -1145,6 +1147,107 @@ class TestDispatchGatedEffectAuthorization:
 
         assert result.outcome == "blocked_pending_authorization"
         assert backend.load("aspose-cells-foss/Aspose.Cells-FOSS-for-Java") is None
+
+    def test_verified_open_pr_is_blocked_without_current_portfolio_acceptance(self, monkeypatch):
+        backend = FakeStateBackend()
+        repository = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+        facts_hash = "facts"
+        fresh_fingerprint = "fresh"
+        nonce = "nonce"
+        monkeypatch.setattr(
+            authorization_registry,
+            "authorized_for",
+            lambda *_args, **_kwargs: object(),
+        )
+        monkeypatch.setattr(
+            "readme_agent.capabilities.effect_ledger.load_current_registry_revision",
+            lambda: None,
+        )
+
+        result = dispatch_gated_effect(
+            _tool_call(
+                "open_presentation_pr",
+                {
+                    "org_repo": repository,
+                    "facts_hash": facts_hash,
+                    "fresh_fingerprint": fresh_fingerprint,
+                    "final_text": "# Candidate\n",
+                    "verification_verdict": compute_verification_token(
+                        repository, facts_hash, fresh_fingerprint, nonce
+                    ),
+                    "verification_nonce": nonce,
+                    "content_assurance": "repository_verified",
+                },
+            ),
+            {"remote_write"},
+            backend,
+            repository,
+            caller_domain="readme_presentation",
+        )
+
+        assert result.outcome == "blocked_pending_portfolio_acceptance"
+        assert result.detail == (
+            "verified publication is not currently eligible: registry:current_revision_missing"
+        )
+        assert backend.load(repository) is None
+
+    def test_verified_assurance_with_trusted_payload_is_rejected_before_ledger_write(
+        self, monkeypatch
+    ):
+        backend = FakeStateBackend()
+        repository = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+        nonce = "assurance-mismatch"
+        proposal = TrustedTransformationProposalV1(
+            proposal_id="1" * 64,
+            source_repository="aspose-note-foss/Aspose.Note-FOSS-for-Python",
+            target_repository=repository,
+            source_revision="source",
+            target_base_revision="base",
+            source_readme_hash="2" * 64,
+            facts_hash="3" * 64,
+            plan_hash="4" * 64,
+            candidate_hash="5" * 64,
+            deterministic_validation_hash="6" * 64,
+            independent_review_hash="7" * 64,
+            cohort_id="8" * 64,
+            authorization_id="staging-auth",
+            expires_at=(datetime.now(UTC) + timedelta(hours=1)).isoformat(),
+        )
+        monkeypatch.setattr(
+            authorization_registry,
+            "authorized_for",
+            lambda *_args, **_kwargs: object(),
+        )
+
+        result = dispatch_gated_effect(
+            _tool_call(
+                "open_presentation_pr",
+                {
+                    "org_repo": repository,
+                    "facts_hash": "3" * 64,
+                    "fresh_fingerprint": "2" * 64,
+                    "final_text": "# Candidate\n",
+                    "verification_verdict": compute_verification_token(
+                        repository, "3" * 64, "2" * 64, nonce
+                    ),
+                    "verification_nonce": nonce,
+                    "source_repository": proposal.source_repository,
+                    "staging_target_manifest": "unused-because-assurance-is-rejected.json",
+                    "trusted_proposal": proposal.model_dump(mode="json"),
+                    "content_assurance": "repository_verified",
+                },
+            ),
+            {"remote_write"},
+            backend,
+            repository,
+            caller_domain="readme_presentation",
+        )
+
+        assert result.outcome == "dispatched"
+        assert result.dispatch is not None
+        assert result.dispatch.outcome == "rejected_precondition_failed"
+        assert result.dispatch.error == "trusted_proposal requires trusted_inherited assurance"
+        assert backend.load(repository) is None
 
 
 class TestDispatchGatedEffectPassthrough:

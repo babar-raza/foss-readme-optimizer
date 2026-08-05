@@ -13,6 +13,7 @@ from readme_agent.errors import ConfigError
 from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.registry.loader import PRODUCTS_PATH, load_products
+from readme_agent.state.agile_execution_schema import TaskCloseoutControlEvidenceV1
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.lifecycle_schema import (
     ReadmePocLifecycleStateV1,
@@ -31,6 +32,7 @@ from readme_agent.supervisor.mission_lifecycle_freshness import (
     evaluate_lifecycle_fact_freshness,
 )
 from readme_agent.supervisor.mission_schema import TaskCardV1
+from readme_agent.supervisor.verification_policy import validate_closeout_control_evidence
 
 
 def _canonical_text_sha256(path: Path) -> str:
@@ -206,10 +208,11 @@ def validate_task_contribution_evidence(
     task: TaskCardV1,
     evidence_refs: list[str],
     scoreboard: MissionLifecycleScoreboardV1,
-) -> MissionContributionEvidenceV1:
+) -> tuple[MissionContributionEvidenceV1, TaskCloseoutControlEvidenceV1]:
     """Require one structured, matching, independently verified closeout record."""
 
     parsed: list[MissionContributionEvidenceV1] = []
+    control_receipts: list[TaskCloseoutControlEvidenceV1] = []
     for reference in evidence_refs:
         path = Path(reference)
         if not path.is_file() or path.suffix.lower() != ".json":
@@ -219,7 +222,13 @@ def validate_task_contribution_evidence(
                 MissionContributionEvidenceV1.model_validate_json(path.read_text(encoding="utf-8"))
             )
         except (OSError, UnicodeError, ValidationError):
-            continue
+            pass
+        try:
+            control_receipts.append(
+                TaskCloseoutControlEvidenceV1.model_validate_json(path.read_text(encoding="utf-8"))
+            )
+        except (OSError, UnicodeError, ValidationError):
+            pass
     matching = [item for item in parsed if item.task_id == task.task_id]
     if len(matching) != 1:
         raise ConfigError(
@@ -242,17 +251,36 @@ def validate_task_contribution_evidence(
     current_hash = lifecycle_scoreboard_sha256(scoreboard)
     if evidence.scoreboard_after_sha256 != current_hash:
         raise ConfigError(f"task {task.task_id!r} contribution evidence uses a stale scoreboard")
-    if (
-        task.core_contribution.kind == "first_boundary_removal"
-        and evidence.scoreboard_before_sha256 == evidence.scoreboard_after_sha256
-        and evidence.first_failing_boundary_before == evidence.first_failing_boundary_after
+    portfolio_boundary_changed = (
+        evidence.scoreboard_before_sha256 != evidence.scoreboard_after_sha256
+        or evidence.first_failing_boundary_before != evidence.first_failing_boundary_after
+    )
+    task_boundary_changed = (
+        evidence.contribution_boundary_before is not None
+        and evidence.contribution_boundary_after is not None
+        and evidence.contribution_boundary_before != evidence.contribution_boundary_after
+    )
+    if task.core_contribution.kind == "first_boundary_removal" and not (
+        portfolio_boundary_changed or task_boundary_changed
     ):
         raise ConfigError(
-            f"task {task.task_id!r} claims boundary removal without a scoreboard boundary delta"
+            f"task {task.task_id!r} claims boundary removal without a verified boundary delta"
         )
     if not any(Path(reference).exists() for reference in evidence.proof_refs):
         raise ConfigError(f"task {task.task_id!r} contribution proof refs do not exist")
-    return evidence
+    matching_controls = [item for item in control_receipts if item.task_id == task.task_id]
+    if len(matching_controls) != 1:
+        raise ConfigError(
+            f"closing task {task.task_id!r} requires exactly one closeout control evidence JSON"
+        )
+    control = matching_controls[0]
+    try:
+        validate_closeout_control_evidence(task, control)
+    except ValueError as exc:
+        raise ConfigError(f"task {task.task_id!r} closeout controls failed: {exc}") from exc
+    if not all(Path(reference).exists() for reference in control.proof_refs):
+        raise ConfigError(f"task {task.task_id!r} closeout control proof refs do not exist")
+    return evidence, control
 
 
 def utc_now_iso() -> str:

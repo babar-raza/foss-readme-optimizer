@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from scripts.governance.run_full_pytest import (
+    _outcome_counts,
     _pytest_command,
     _repository_process_ids,
     _selected_nodes,
@@ -43,3 +44,17 @@ def test_process_cleanup_ignores_other_repositories_but_keeps_attributable_proce
     )
 
     assert _repository_process_ids(output, current) == {101}
+
+
+def test_outcome_counts_are_explicit_and_normalize_error_wording():
+    output = "3173 passed, 2 skipped, 1 xfailed, 3 deselected, 4 errors in 12.34s"
+
+    assert _outcome_counts(output) == {
+        "passed": 3173,
+        "failed": 0,
+        "skipped": 2,
+        "xfailed": 1,
+        "xpassed": 0,
+        "errors": 4,
+        "deselected": 3,
+    }

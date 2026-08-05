@@ -176,4 +176,8 @@ class MissionContributionEvidenceV1(_StrictModel):
     scoreboard_after_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     first_failing_boundary_before: MissionLifecycleBoundary
     first_failing_boundary_after: MissionLifecycleBoundary
+    # Control and safety tasks can remove a non-portfolio boundary while the
+    # repository lifecycle scoreboard truthfully remains unchanged.
+    contribution_boundary_before: str | None = None
+    contribution_boundary_after: str | None = None
     independently_verified: bool

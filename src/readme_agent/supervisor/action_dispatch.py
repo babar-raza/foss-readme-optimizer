@@ -61,12 +61,20 @@ def dispatch_and_record(
         gated = dispatch_gated_effect(tool_call, effective_write_permissions, backend, org_repo)
         if gated.outcome == "already_applied":
             return graph.mark(task.task_id, "PASSED", result=gated.cached_result)
-        if gated.outcome == "blocked_pending_reconciliation":
+        if gated.outcome in {
+            "blocked_pending_reconciliation",
+            "blocked_pending_authorization",
+            "blocked_pending_portfolio_acceptance",
+        }:
             return graph.mark(
                 task.task_id,
                 "BLOCKED",
-                blocked_reason=gated.outcome,
-                blocked_category="agent_fixable",
+                blocked_reason=gated.detail or gated.outcome,
+                blocked_category=(
+                    "infra_external"
+                    if gated.outcome == "blocked_pending_authorization"
+                    else "agent_fixable"
+                ),
             )
         dispatch = gated.dispatch
     else:

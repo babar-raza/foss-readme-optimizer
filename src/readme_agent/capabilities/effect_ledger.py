@@ -29,9 +29,16 @@ from readme_agent.capabilities.dispatcher import DispatchResult, dispatch_tool_c
 from readme_agent.capabilities.effect_identity import build_effect_identity
 from readme_agent.capabilities.schema import CapabilityManifest, PermissionClass
 from readme_agent.errors import StateBackendError
+from readme_agent.registry.loader import load_products
+from readme_agent.registry.revision_gate import evaluate_registry_revision
+from readme_agent.registry.revision_store import load_current_registry_revision
 from readme_agent.retry import RetryableOperationError, run_with_retry
 from readme_agent.state.backend import StateBackend, safe_release_lock
 from readme_agent.state.lifecycle import current_lifecycle_recorder
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.readme_poc_publication import (
+    portfolio_publication_rejection_reasons,
+)
 from readme_agent.state.schema import CapabilityOutputCacheEntry, RunStateV1
 
 # side_effect_class values at or above this index require going through this
@@ -50,6 +57,7 @@ GatedOutcome = Literal[
     # this org_repo -- checked before any pending entry is written, same
     # positioning/rationale as a rejecting precheck() below.
     "blocked_pending_authorization",
+    "blocked_pending_portfolio_acceptance",
 ]
 
 
@@ -102,6 +110,39 @@ def retry_is_safe(manifest: CapabilityManifest) -> bool:
     if manifest.side_effect_class not in _MUTATING_PERMISSION_CLASSES:
         return True
     return manifest.retry_policy == "idempotent_only"
+
+
+def _verified_publication_rejection_reasons(
+    backend: StateBackend,
+    org_repo: str,
+) -> list[str]:
+    """Recompute the complete current portfolio boundary immediately before an effect."""
+
+    revision = load_current_registry_revision()
+    if revision is None:
+        return ["registry:current_revision_missing"]
+    products = [entry.model_dump(mode="json") for entry in load_products()]
+    revision_gate = evaluate_registry_revision(revision, products)
+    reasons = [f"registry:{reason}" for reason in revision_gate.reasons]
+    admitted = sorted(revision.admitted_repositories)
+    if org_repo not in admitted:
+        reasons.append(f"{org_repo}:absent_from_current_registry_revision")
+    state = backend.load(org_repo)
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+        reasons.append(f"{org_repo}:publication_lifecycle_missing")
+    else:
+        eligibility = lifecycle.publication_eligibility
+        if eligibility.status != "ELIGIBLE":
+            reasons.append(f"{org_repo}:stored_publication_eligibility_ineligible")
+        if eligibility.registry_revision != revision.revision_id:
+            reasons.append(f"{org_repo}:stored_registry_revision_stale")
+        if eligibility.admitted_repositories != admitted:
+            reasons.append(f"{org_repo}:stored_admitted_denominator_stale")
+        if eligibility.rejection_reasons:
+            reasons.append(f"{org_repo}:stored_publication_rejections_present")
+    reasons.extend(portfolio_publication_rejection_reasons(backend, admitted))
+    return sorted(set(reasons))
 
 
 def _find_entry(state: RunStateV1, key: str) -> CapabilityOutputCacheEntry | None:
@@ -248,6 +289,20 @@ def dispatch_gated_effect(
                 outcome="dispatched",
                 dispatch=DispatchResult(
                     outcome="rejected_precondition_failed", error=rejection_reason
+                ),
+            )
+
+    if (
+        capability_id == "open_presentation_pr"
+        and arguments.get("content_assurance", "repository_verified") == "repository_verified"
+    ):
+        publication_rejections = _verified_publication_rejection_reasons(backend, org_repo)
+        if publication_rejections:
+            return GatedDispatchResult(
+                outcome="blocked_pending_portfolio_acceptance",
+                detail=(
+                    "verified publication is not currently eligible: "
+                    + "; ".join(publication_rejections)
                 ),
             )
 

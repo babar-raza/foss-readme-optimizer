@@ -4,8 +4,17 @@ GOV-022 wave-reconciliation check below. Per this project's own evidence standar
 gate needs a regression test proving it actually catches the failure mode it claims to, not just a
 plausible-looking diff."""
 
+import json
+from copy import deepcopy
 from pathlib import Path
 
+from governance.validate_compact_authority import (
+    DECISION_CATALOG_PATH,
+    INVENTORY_PATH,
+    REQUIREMENT_CATALOG_PATH,
+    _jsonl,
+    _source_catalog_errors,
+)
 from governance.validate_plan_structure import (
     Result,
     _split_table_row,
@@ -16,6 +25,42 @@ from governance.validate_plan_structure import (
     check_specialist_module_map_completeness,
     check_wave_reconciliation_gate,
 )
+
+from readme_agent.supervisor.mission_schema import (
+    DecisionCatalogRecordV1,
+    RequirementCatalogRecordV1,
+)
+
+
+class TestCompactAuthoritySourceBinding:
+    def _records(self):
+        inventory = json.loads(INVENTORY_PATH.read_text(encoding="utf-8"))
+        requirements = _jsonl(REQUIREMENT_CATALOG_PATH, RequirementCatalogRecordV1)
+        decisions = _jsonl(DECISION_CATALOG_PATH, DecisionCatalogRecordV1)
+        return inventory["source_commit"], requirements, decisions
+
+    def test_real_catalogs_exactly_reconstruct_the_source_commit(self):
+        source_commit, requirements, decisions = self._records()
+
+        assert _source_catalog_errors(requirements, decisions, source_commit) == []
+
+    def test_changed_requirement_text_is_rejected_even_if_stable_ids_remain(self):
+        source_commit, requirements, decisions = self._records()
+        tampered = deepcopy(requirements)
+        tampered[0]["requirement"] += " silently changed"
+
+        assert _source_catalog_errors(tampered, decisions, source_commit) == [
+            "typed requirement catalog is not an exact source-record migration"
+        ]
+
+    def test_changed_decision_markdown_is_rejected_even_if_stable_ids_remain(self):
+        source_commit, requirements, decisions = self._records()
+        tampered = deepcopy(decisions)
+        tampered[0]["markdown"] += " silently changed"
+
+        assert _source_catalog_errors(requirements, tampered, source_commit) == [
+            "typed decision catalog is not an exact source-record migration"
+        ]
 
 
 class TestRealRepoIsClean:

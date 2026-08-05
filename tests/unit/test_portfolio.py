@@ -218,11 +218,12 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
         lambda org_repo: SimpleNamespace(family=family),
     )
     fact_contract = current_fact_acceptance_contract(ecosystem, family)
-    candidate_dependency_key = current_candidate_stage_dependency_manifest(
+    candidate_dependency_manifest = current_candidate_stage_dependency_manifest(
         repository="org/repo",
         source_revision=source_revision,
         ecosystem=ecosystem,
-    ).stage_key
+    )
+    candidate_dependency_key = candidate_dependency_manifest.stage_key
     reviewer_standard = separated_reviewer_standard_hash()
     control_plane = compute_control_plane_fingerprint(None)
     state = RunStateV2(
@@ -264,6 +265,9 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
             "candidate_stage_dependency_key": candidate_dependency_key,
+            "candidate_stage_dependency_manifest": candidate_dependency_manifest.model_dump(
+                mode="json"
+            ),
             "reviewer_standard_hash": reviewer_standard,
         },
     )

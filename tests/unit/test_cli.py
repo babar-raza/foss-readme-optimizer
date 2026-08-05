@@ -214,6 +214,25 @@ class TestSuperviseCommand:
         assert args.repo is None
         assert args.mission_task_graph.endswith("level8-autonomous-mission-task-graph.yaml")
 
+    @pytest.mark.parametrize(
+        "action",
+        ["record-narrowing", "record-replan", "record-parallel-observation"],
+    )
+    def test_mission_recovery_controls_are_public_supervisor_actions(self, action):
+        args = _build_parser().parse_args(
+            [
+                "supervise",
+                "--mission-task-graph",
+                "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+                "--mission-action",
+                action,
+                "--mission-control-input",
+                "control.json",
+            ]
+        )
+        assert args.mission_action == action
+        assert args.mission_control_input == "control.json"
+
     def test_repo_required(self):
         with pytest.raises(SystemExit):
             _build_parser().parse_args(["supervise"])

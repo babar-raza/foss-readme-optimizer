@@ -4,9 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 from uuid import uuid4
 
 from readme_agent.errors import ConfigError, StateBackendError
+from readme_agent.state.agile_execution_schema import (
+    FirstPrinciplesReplanV1,
+    ParallelismObservationV1,
+)
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.mission_goal_schema import (
     MissionGoalTransitionV1,
@@ -20,11 +25,25 @@ from readme_agent.state.schema import (
     MissionTransitionV1,
     RunStateV1,
 )
+from readme_agent.supervisor.approach_control import (
+    apply_first_principles_replan,
+    decide_approach_admission,
+    finish_latest_attempt,
+    record_material_narrowing,
+    start_approach_attempt,
+    validate_approach_closeout,
+)
+from readme_agent.supervisor.infrastructure_admission import (
+    decide_infrastructure_admission,
+    task_execution_kind,
+)
 from readme_agent.supervisor.mission_goal_guard import (
     derive_lifecycle_scoreboard,
     validate_task_contribution_evidence,
 )
 from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
+from readme_agent.supervisor.multi_agent_admission import validate_multi_agent_closeout_binding
+from readme_agent.supervisor.parallelism_admission import decide_parallelism
 
 _TERMINAL_SUCCESS = {"CLOSED"}
 _TERMINAL_EXCEPTION = {
@@ -39,9 +58,25 @@ _TERMINAL = _TERMINAL_SUCCESS | _TERMINAL_EXCEPTION
 # child evidence.
 _DEPENDENCY_SATISFIED = _TERMINAL_SUCCESS
 _CLAIM_LEASE = timedelta(minutes=30)
+_BACKGROUND_CERTIFICATION_GOALS: set[StageGoalId] = {
+    "GOAL-L7-HETEROGENEOUS-30D",
+    "GOAL-L8-SELF-MAINTAINING-90D",
+}
 _TRANSITIONS: dict[MissionTaskStatus, set[MissionTaskStatus]] = {
-    "TODO": {"READY", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
-    "READY": {"IN_PROGRESS", "BLOCKED", "BLOCKED_EXTERNAL", "DEFERRED_WITH_REASON"},
+    "TODO": {
+        "READY",
+        "BLOCKED",
+        "BLOCKED_EXTERNAL",
+        "DEFERRED_WITH_REASON",
+        "OBSERVATION_RUNNING",
+    },
+    "READY": {
+        "IN_PROGRESS",
+        "BLOCKED",
+        "BLOCKED_EXTERNAL",
+        "DEFERRED_WITH_REASON",
+        "OBSERVATION_RUNNING",
+    },
     "IN_PROGRESS": {"IMPLEMENTED", "BLOCKED", "BLOCKED_EXTERNAL", "REROUTED", "REGRESSED"},
     "IMPLEMENTED": {"VERIFIED", "REOPENED", "REGRESSED"},
     "VERIFIED": {"SCORED", "REOPENED", "REGRESSED"},
@@ -50,7 +85,8 @@ _TRANSITIONS: dict[MissionTaskStatus, set[MissionTaskStatus]] = {
     "BLOCKED": {"READY", "REROUTED", "BLOCKED_EXTERNAL"},
     "BLOCKED_EXTERNAL": {"REOPENED"},
     "REROUTED": {"READY", "DEFERRED_WITH_REASON"},
-    "DEFERRED_WITH_REASON": {"REOPENED"},
+    "DEFERRED_WITH_REASON": {"REOPENED", "OBSERVATION_RUNNING"},
+    "OBSERVATION_RUNNING": {"CLOSED", "REGRESSED"},
     "REOPENED": {"READY", "BLOCKED", "BLOCKED_EXTERNAL"},
     "REGRESSED": {"READY", "BLOCKED", "BLOCKED_EXTERNAL"},
 }
@@ -70,6 +106,8 @@ class MissionEvaluation:
     concurrent_goal_ids: list[StageGoalId]
     capacity_allocation: dict[str, int]
     core_goal_active: bool
+    delivery_complete: bool
+    certification_complete: bool
     mission_complete: bool
 
 
@@ -80,6 +118,7 @@ def mission_state_key(mission_id: str) -> str:
 
 def _initial_state(graph: MissionTaskGraphV1, graph_sha256: str) -> MissionExecutionStateV1:
     statuses = {task.task_id: task.status for task in graph.taskcards}
+    statuses.update({task.task_id: task.status for task in graph.deferred_task_index})
     active = [task.task_id for task in graph.taskcards if task.status == "IN_PROGRESS"]
     if len(active) > 1:
         raise ConfigError(f"mission graph has multiple IN_PROGRESS tasks: {active}")
@@ -145,6 +184,12 @@ def _recover_expired_claim(
         observed_by="mission-claim-recovery",
         reason="claim lease expired before a terminal verification state",
     )
+    approach_control = finish_latest_attempt(
+        state.approach_control,
+        task_id,
+        effective=False,
+        evidence_refs=["claim lease expired"],
+    )
     return state.model_copy(
         update={
             "task_statuses": statuses,
@@ -154,6 +199,61 @@ def _recover_expired_claim(
             "claimed_at": None,
             "claim_expires_at": None,
             "transition_history": [*state.transition_history, transition],
+            "approach_control": approach_control,
+            "parallelism_control": state.parallelism_control.model_copy(
+                update={"shared_repair_active": False}
+            ),
+            "last_evaluated_at": now.isoformat(),
+        }
+    )
+
+
+def _apply_deferred_dispositions(
+    state: MissionExecutionStateV1,
+    graph: MissionTaskGraphV1,
+    now: datetime,
+) -> MissionExecutionStateV1:
+    """Migrate newly archived work without deleting its durable history."""
+
+    deferred_ids = {
+        task.task_id for task in graph.deferred_task_index if task.status == "DEFERRED_WITH_REASON"
+    }
+    statuses = dict(state.task_statuses)
+    history = list(state.transition_history)
+    active_task_id = state.active_task_id
+    changed = False
+    for task_id in sorted(deferred_ids):
+        prior = statuses.get(task_id)
+        if prior in {None, "CLOSED", "DEFERRED_WITH_REASON"}:
+            continue
+        statuses[task_id] = "DEFERRED_WITH_REASON"
+        history.append(
+            MissionTransitionV1(
+                task_id=task_id,
+                from_status=prior,
+                to_status="DEFERRED_WITH_REASON",
+                observed_by="mission-graph-migration",
+                reason=(
+                    "compact authority archived historical control work with an explicit "
+                    "non-executable disposition"
+                ),
+            )
+        )
+        if active_task_id == task_id:
+            active_task_id = None
+        changed = True
+    if not changed:
+        return state
+    clear_claim = state.active_task_id != active_task_id
+    return state.model_copy(
+        update={
+            "task_statuses": statuses,
+            "active_task_id": active_task_id,
+            "claim_id": None if clear_claim else state.claim_id,
+            "claimed_by": None if clear_claim else state.claimed_by,
+            "claimed_at": None if clear_claim else state.claimed_at,
+            "claim_expires_at": None if clear_claim else state.claim_expires_at,
+            "transition_history": history,
             "last_evaluated_at": now.isoformat(),
         }
     )
@@ -182,6 +282,7 @@ def _load_or_initialize(
         )
 
     graph_ids = {task.task_id for task in graph.taskcards}
+    graph_ids.update(task.task_id for task in graph.deferred_task_index)
     unknown = set(state.task_statuses) - graph_ids
     if unknown:
         raise StateBackendError(
@@ -190,11 +291,16 @@ def _load_or_initialize(
     merged = dict(state.task_statuses)
     for task in graph.taskcards:
         merged.setdefault(task.task_id, task.status)
+    for deferred_task in graph.deferred_task_index:
+        merged.setdefault(deferred_task.task_id, deferred_task.status)
+    now = datetime.now(UTC)
+    state = _apply_deferred_dispositions(
+        state.model_copy(update={"task_statuses": merged}), graph, now
+    )
     reconciled = state.model_copy(
         update={
             "graph_sha256": graph_sha256,
-            "task_statuses": merged,
-            "last_evaluated_at": datetime.now(UTC).isoformat(),
+            "last_evaluated_at": now.isoformat(),
         }
     )
     return record.model_copy(update={"mission_execution": reconciled}), record.state_version
@@ -210,11 +316,25 @@ def _dependency_ready_tasks(
         return state.task_statuses.get(task_id, task.status)
 
     ready: list[TaskCardV1] = []
+    python_task = by_id.get("L8-VPY-03-ALL-PYTHON-VERIFIED-POC")
+    python_complete = python_task is not None and status_for(python_task.task_id) == "CLOSED"
     for task in graph.taskcards:
         status = status_for(task.task_id)
         if status not in {"TODO", "READY", "REOPENED", "REGRESSED"}:
             continue
-        if all(status_for(dependency) in _DEPENDENCY_SATISFIED for dependency in task.dependencies):
+        if not all(
+            status_for(dependency) in _DEPENDENCY_SATISFIED for dependency in task.dependencies
+        ):
+            continue
+        infrastructure = decide_infrastructure_admission(
+            task,
+            infrastructure_tasks_since_visible_delivery=(
+                state.infrastructure_tasks_since_visible_delivery
+            ),
+            python_platform_complete=python_complete,
+        )
+        approach = decide_approach_admission(state.approach_control, task)
+        if infrastructure.admitted and approach.admitted:
             ready.append(by_id[task.task_id])
     return ready
 
@@ -226,10 +346,17 @@ def _derive_goal_selection(
     """Derive primary/concurrent goals from task truth, never narrative selection."""
 
     goals = sorted(graph.mission_authority.stage_goal_catalog, key=lambda goal: goal.order)
-    tasks_by_goal = {
-        goal.goal_id: [task for task in graph.taskcards if task.stage_goal_id == goal.goal_id]
-        for goal in goals
+    task_statuses_by_goal: dict[StageGoalId, list[MissionTaskStatus]] = {
+        goal.goal_id: [] for goal in goals
     }
+    for task in graph.taskcards:
+        task_statuses_by_goal[task.stage_goal_id].append(
+            state.task_statuses.get(task.task_id, task.status)
+        )
+    for deferred_task in graph.deferred_task_index:
+        task_statuses_by_goal[deferred_task.stage_goal_id].append(
+            state.task_statuses.get(deferred_task.task_id, deferred_task.status)
+        )
 
     def status_for(task: TaskCardV1) -> MissionTaskStatus:
         return state.task_statuses.get(task.task_id, task.status)
@@ -238,12 +365,17 @@ def _derive_goal_selection(
         goal
         for goal in goals
         if goal.execution_required
-        and any(status_for(task) not in _TERMINAL for task in tasks_by_goal[goal.goal_id])
+        and any(status not in _TERMINAL for status in task_statuses_by_goal[goal.goal_id])
     ]
     primary = incomplete[0] if incomplete else None
     if primary is None:
         return None, [], {}
     ready = _dependency_ready_tasks(graph, state)
+    parallelism = decide_parallelism(state.parallelism_control)
+    admitted_lanes = min(
+        primary.max_concurrent_verified_lanes,
+        parallelism.max_repository_lanes,
+    )
     concurrent = [
         goal.goal_id
         for goal in incomplete[1:]
@@ -253,14 +385,13 @@ def _derive_goal_selection(
             and task.concurrency_class == "read_only_assurance_isolated"
             for task in ready
         )
-        and primary.max_concurrent_verified_lanes > 0
+        and admitted_lanes > 1
     ]
     capacity = {
-        "total_repository_lanes": (
-            primary.reserved_trusted_lanes + primary.max_concurrent_verified_lanes
-        ),
+        "total_repository_lanes": (primary.reserved_trusted_lanes + admitted_lanes),
         "reserved_trusted_lanes": primary.reserved_trusted_lanes,
-        "max_concurrent_verified_lanes": primary.max_concurrent_verified_lanes,
+        "max_concurrent_verified_lanes": admitted_lanes,
+        "policy_max_repository_lanes": parallelism.max_repository_lanes,
     }
     return primary.goal_id, concurrent, capacity
 
@@ -306,15 +437,55 @@ def evaluate_mission(
         if goal.execution_required
     }
     required_tasks = [task for task in graph.taskcards if task.stage_goal_id in required_goal_ids]
+    required_deferred = [
+        task
+        for task in graph.deferred_task_index
+        if task.stage_goal_id in required_goal_ids and task.activation_group != "historical-control"
+    ]
     unresolved = [task.task_id for task in required_tasks if status_for(task) not in _TERMINAL]
+    unresolved.extend(
+        task.task_id
+        for task in required_deferred
+        if state.task_statuses.get(task.task_id, task.status) not in _TERMINAL
+    )
     blocked_external = [
         task.task_id for task in required_tasks if status_for(task) == "BLOCKED_EXTERNAL"
     ]
-    complete = (
+    blocked_external.extend(
+        task.task_id
+        for task in required_deferred
+        if state.task_statuses.get(task.task_id, task.status) == "BLOCKED_EXTERNAL"
+    )
+    delivery_complete = (
         not unresolved
         and not blocked_external
         and all(status_for(task) == "CLOSED" for task in required_tasks)
+        and all(
+            state.task_statuses.get(task.task_id, task.status) == "CLOSED"
+            for task in required_deferred
+        )
     )
+    all_task_statuses = {
+        **{task.task_id: status_for(task) for task in graph.taskcards},
+        **{
+            task.task_id: state.task_statuses.get(task.task_id, task.status)
+            for task in graph.deferred_task_index
+        },
+    }
+    certification_task_ids = {
+        task.task_id
+        for task in graph.taskcards
+        if task.stage_goal_id in _BACKGROUND_CERTIFICATION_GOALS
+    }
+    certification_task_ids.update(
+        task.task_id
+        for task in graph.deferred_task_index
+        if task.stage_goal_id in _BACKGROUND_CERTIFICATION_GOALS
+    )
+    certification_complete = bool(certification_task_ids) and all(
+        all_task_statuses[task_id] == "CLOSED" for task_id in certification_task_ids
+    )
+    complete = delivery_complete and certification_complete
     active_goal_id, concurrent_goal_ids, capacity_allocation = _derive_goal_selection(graph, state)
     selected = active or (eligible[0] if eligible else None)
     next_task = (
@@ -340,6 +511,8 @@ def evaluate_mission(
         concurrent_goal_ids=concurrent_goal_ids,
         capacity_allocation=capacity_allocation,
         core_goal_active=not complete,
+        delivery_complete=delivery_complete,
+        certification_complete=certification_complete,
         mission_complete=complete,
     )
 
@@ -381,6 +554,8 @@ def _refresh_goal_state(
                 "earliest incomplete governed stage with dependency-ready read-only look-ahead"
             ),
             "capacity_allocation": evaluation.capacity_allocation,
+            "delivery_complete": evaluation.delivery_complete,
+            "certification_complete": evaluation.certification_complete,
             "mission_complete": evaluation.mission_complete,
         }
     )
@@ -441,13 +616,34 @@ def claim_next_task(
         now = datetime.now(UTC)
         state = _recover_expired_claim(state, now)
         if state.active_task_id is not None:
+            active_task = next(
+                task for task in graph.taskcards if task.task_id == state.active_task_id
+            )
+            approach = decide_approach_admission(
+                state.approach_control,
+                active_task,
+                now=now,
+            )
+            if not approach.admitted:
+                raise ConfigError(approach.reason)
             if state.claim_id is None or state.claimed_by == claimed_by:
+                try:
+                    approach_control = start_approach_attempt(
+                        state.approach_control,
+                        active_task,
+                        now=now,
+                    )
+                except ValueError as exc:
+                    raise ConfigError(
+                        f"task {active_task.task_id!r} approach admission failed: {exc}"
+                    ) from exc
                 return state.model_copy(
                     update={
                         "claim_id": uuid4().hex,
                         "claimed_by": claimed_by,
                         "claimed_at": now.isoformat(),
                         "claim_expires_at": (now + _CLAIM_LEASE).isoformat(),
+                        "approach_control": approach_control,
                         "last_evaluated_at": now.isoformat(),
                     }
                 )
@@ -461,6 +657,16 @@ def claim_next_task(
                 }
             )
         selected = ready[0]
+        try:
+            approach_control = start_approach_attempt(
+                state.approach_control,
+                selected,
+                now=now,
+            )
+        except ValueError as exc:
+            raise ConfigError(
+                f"task {selected.task_id!r} approach admission failed: {exc}"
+            ) from exc
         prior_status = state.task_statuses[selected.task_id]
         statuses = dict(state.task_statuses)
         statuses[selected.task_id] = "IN_PROGRESS"
@@ -480,6 +686,12 @@ def claim_next_task(
                 "claimed_at": now.isoformat(),
                 "claim_expires_at": (now + _CLAIM_LEASE).isoformat(),
                 "transition_history": [*state.transition_history, transition],
+                "approach_control": approach_control,
+                "parallelism_control": state.parallelism_control.model_copy(
+                    update={
+                        "shared_repair_active": task_execution_kind(selected) == "shared_repair"
+                    }
+                ),
                 "mission_complete": False,
                 "last_evaluated_at": now.isoformat(),
             }
@@ -505,17 +717,40 @@ def transition_task(
     if to_status in {"IMPLEMENTED", "VERIFIED", "SCORED", "CLOSED"} and not evidence_refs:
         raise ConfigError(f"transition to {to_status} requires at least one evidence reference")
     task = next(task for task in graph.taskcards if task.task_id == task_id)
+    if (
+        to_status == "OBSERVATION_RUNNING"
+        and task.stage_goal_id not in _BACKGROUND_CERTIFICATION_GOALS
+    ):
+        raise ConfigError(
+            "OBSERVATION_RUNNING is reserved for Level-7/Level-8 background "
+            f"certification tasks; {task_id!r} belongs to {task.stage_goal_id!r}"
+        )
 
     def transition(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        now = datetime.now(UTC)
         from_status = state.task_statuses[task_id]
         if to_status not in _TRANSITIONS[from_status]:
             raise ConfigError(f"invalid mission transition {from_status} -> {to_status}")
+        closeout_control = None
         if to_status == "CLOSED":
-            validate_task_contribution_evidence(
+            try:
+                validate_approach_closeout(state.approach_control, task, now=now)
+            except ValueError as exc:
+                raise ConfigError(f"task {task_id!r} approach closeout failed: {exc}") from exc
+            _, closeout_control = validate_task_contribution_evidence(
                 task,
                 evidence_refs,
                 derive_lifecycle_scoreboard(backend),
             )
+            try:
+                validate_multi_agent_closeout_binding(
+                    task_id,
+                    closeout_control,
+                    decide_parallelism(state.parallelism_control),
+                    repository_root=Path("."),
+                )
+            except ValueError as exc:
+                raise ConfigError(f"task {task_id!r} multi-agent closeout failed: {exc}") from exc
         if state.active_task_id not in {None, task_id}:
             raise ConfigError(
                 f"task {task_id!r} cannot transition while {state.active_task_id!r} is active"
@@ -523,6 +758,51 @@ def transition_task(
         statuses = dict(state.task_statuses)
         statuses[task_id] = to_status
         terminal_or_review = to_status not in {"IN_PROGRESS"}
+        approach_control = state.approach_control
+        if to_status == "IMPLEMENTED":
+            approach_control = finish_latest_attempt(
+                approach_control,
+                task_id,
+                effective=True,
+                evidence_refs=evidence_refs,
+                narrowed_at=now.isoformat(),
+            )
+        elif to_status in {"BLOCKED", "REGRESSED"}:
+            approach_control = finish_latest_attempt(
+                approach_control,
+                task_id,
+                effective=False,
+                evidence_refs=evidence_refs or [reason],
+            )
+        elif to_status in {"BLOCKED_EXTERNAL", "REROUTED"}:
+            # Reaching a governed external boundary or reroute is material narrowing,
+            # not an equivalent failed technical attempt.
+            approach_control = finish_latest_attempt(
+                approach_control,
+                task_id,
+                effective=True,
+                evidence_refs=evidence_refs or [reason],
+                narrowed_at=now.isoformat(),
+            )
+        infrastructure_count = state.infrastructure_tasks_since_visible_delivery
+        parallelism_control = state.parallelism_control
+        if to_status == "CLOSED":
+            kind = task_execution_kind(task)
+            if kind == "visible_delivery":
+                infrastructure_count = 0
+            elif kind in {"infrastructure", "shared_repair"}:
+                infrastructure_count += 1
+            if closeout_control is not None and closeout_control.transaction_isolation_proven:
+                parallelism_control = parallelism_control.model_copy(
+                    update={
+                        "transaction_isolation_proven": True,
+                        "calibration_active": False,
+                    }
+                )
+        if terminal_or_review and task_execution_kind(task) == "shared_repair":
+            parallelism_control = parallelism_control.model_copy(
+                update={"shared_repair_active": False}
+            )
         history = [
             *state.transition_history,
             MissionTransitionV1(
@@ -543,8 +823,11 @@ def transition_task(
                 "claimed_at": None if terminal_or_review else state.claimed_at,
                 "claim_expires_at": None if terminal_or_review else state.claim_expires_at,
                 "transition_history": history,
+                "approach_control": approach_control,
+                "infrastructure_tasks_since_visible_delivery": infrastructure_count,
+                "parallelism_control": parallelism_control,
                 "mission_complete": False,
-                "last_evaluated_at": datetime.now(UTC).isoformat(),
+                "last_evaluated_at": now.isoformat(),
             }
         )
         return next_state.model_copy(
@@ -552,3 +835,109 @@ def transition_task(
         )
 
     return _save_with_retry(backend, graph, graph_sha256, transition)
+
+
+def record_task_material_narrowing(
+    backend: StateBackend,
+    graph: MissionTaskGraphV1,
+    graph_sha256: str,
+    *,
+    task_id: str,
+    evidence_refs: list[str],
+) -> RunStateV1:
+    """Persist progress that resets the fifteen-minute anti-stall watermark."""
+
+    if not evidence_refs:
+        raise ConfigError("material narrowing requires at least one evidence reference")
+
+    def update(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        if state.active_task_id != task_id:
+            raise ConfigError(f"task {task_id!r} is not the active mission task")
+        try:
+            control = record_material_narrowing(
+                state.approach_control,
+                task_id,
+                evidence_refs=evidence_refs,
+            )
+        except ValueError as exc:
+            raise ConfigError(str(exc)) from exc
+        return state.model_copy(
+            update={
+                "approach_control": control,
+                "last_evaluated_at": datetime.now(UTC).isoformat(),
+            }
+        )
+
+    return _save_with_retry(backend, graph, graph_sha256, update)
+
+
+def record_first_principles_replan(
+    backend: StateBackend,
+    graph: MissionTaskGraphV1,
+    graph_sha256: str,
+    *,
+    replan: FirstPrinciplesReplanV1,
+) -> RunStateV1:
+    """Persist one structured, evidence-backed causal route change in mission state."""
+
+    graph_task_ids = {task.task_id for task in graph.taskcards}
+    if replan.task_id not in graph_task_ids:
+        raise ConfigError(f"unknown mission task_id {replan.task_id!r}")
+    missing = [reference for reference in replan.evidence_refs if not Path(reference).exists()]
+    if missing:
+        raise ConfigError(f"first-principles replan evidence does not exist: {missing}")
+    task = next(task for task in graph.taskcards if task.task_id == replan.task_id)
+
+    def update(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        task_status = state.task_statuses[replan.task_id]
+        if task_status not in {"IN_PROGRESS", "READY", "REOPENED", "REGRESSED", "BLOCKED"}:
+            raise ConfigError(
+                f"task {replan.task_id!r} cannot be replanned from status {task_status!r}"
+            )
+        control = finish_latest_attempt(
+            state.approach_control,
+            replan.task_id,
+            effective=False,
+            evidence_refs=replan.evidence_refs,
+        )
+        try:
+            control = apply_first_principles_replan(control, replan)
+            if state.active_task_id == replan.task_id:
+                control = start_approach_attempt(control, task)
+        except ValueError as exc:
+            raise ConfigError(str(exc)) from exc
+        return state.model_copy(
+            update={
+                "approach_control": control,
+                "last_evaluated_at": datetime.now(UTC).isoformat(),
+            }
+        )
+
+    return _save_with_retry(backend, graph, graph_sha256, update)
+
+
+def record_parallelism_observation(
+    backend: StateBackend,
+    graph: MissionTaskGraphV1,
+    graph_sha256: str,
+    *,
+    observation: ParallelismObservationV1,
+) -> RunStateV1:
+    """Append a measured lane result; the derived admission policy consumes it."""
+
+    def update(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        control = state.parallelism_control
+        if not control.transaction_isolation_proven:
+            raise ConfigError("parallel observation requires prior transaction-isolation proof")
+        if any(item.observed_at == observation.observed_at for item in control.observations):
+            raise ConfigError("parallel observation is already recorded")
+        return state.model_copy(
+            update={
+                "parallelism_control": control.model_copy(
+                    update={"observations": [*control.observations, observation]}
+                ),
+                "last_evaluated_at": datetime.now(UTC).isoformat(),
+            }
+        )
+
+    return _save_with_retry(backend, graph, graph_sha256, update)

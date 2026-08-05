@@ -24,6 +24,8 @@ from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2, SupervisorStateV1
 from readme_agent.supervisor import local_poc_cache, local_poc_noop_reuse
 from readme_agent.supervisor.stage_dependencies import (
+    SelectedDependencyV1,
+    build_stage_dependency_manifest,
     current_candidate_stage_dependency_manifest,
 )
 
@@ -89,6 +91,11 @@ def _valid_cache(tmp_path):
     )
     lifecycle = state.readme_poc_lifecycle
     bundle = tmp_path / SOURCE_REVISION
+    component_manifest = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
     write_redacted_json(
         bundle / "manifest.json",
         {
@@ -109,11 +116,8 @@ def _valid_cache(tmp_path):
             "local_verification_contract_hash": local_verification_contract_hash(),
             "prompt_registry_content_hash": prompt_registry.content_hash(),
             "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
-            "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
-                repository=ORG_REPO,
-                source_revision=SOURCE_REVISION,
-                ecosystem=None,
-            ).stage_key,
+            "candidate_stage_dependency_key": component_manifest.stage_key,
+            "candidate_stage_dependency_manifest": component_manifest.model_dump(mode="json"),
             "reviewer_standard_hash": reviewer_standard,
             "repair_budget_origin_hash": lifecycle.repair_budget_origin_hash,
         },
@@ -248,7 +252,7 @@ def test_approved_current_bundle_is_reusable_only_for_first_no_op_promotion(tmp_
     assert "lifecycle_not_complete" in completed.mismatch_reasons
 
 
-def test_approved_bundle_dependency_change_denies_first_no_op_promotion(
+def test_legacy_template_hash_helper_cannot_override_exact_component_manifest(
     monkeypatch,
     tmp_path,
 ):
@@ -262,12 +266,11 @@ def test_approved_bundle_dependency_change_denies_first_no_op_promotion(
         current_control_plane_fingerprint=CONTROL_FINGERPRINT,
     )
 
-    assert decision.reusable is False
-    assert "template_hash_changed" in decision.mismatch_reasons
-    assert decision.earliest_affected_stage == "PLAN_READY"
+    assert decision.reusable is True
+    assert decision.decision_status == "REUSE_CURRENT"
 
 
-def test_single_verified_template_owner_change_invalidates_completed_cache(
+def test_single_verified_template_owner_change_is_noncritical_update(
     monkeypatch,
     tmp_path,
 ):
@@ -290,8 +293,10 @@ def test_single_verified_template_owner_change_invalidates_completed_cache(
     decision = _decision(state, bundle)
 
     assert decision.reusable is False
-    assert "template_hash_changed" in decision.mismatch_reasons
-    assert decision.earliest_affected_stage == "PLAN_READY"
+    assert decision.decision_status == "VALID_UPDATE_AVAILABLE"
+    assert decision.mismatch_reasons == []
+    assert decision.earliest_affected_stage is None
+    assert decision.update_earliest_stage == "PLAN_READY"
 
 
 @pytest.mark.parametrize(
@@ -313,7 +318,7 @@ def test_single_verified_template_owner_change_invalidates_completed_cache(
     ),
     ids=("link-algorithm-owner", "link-catalog"),
 )
-def test_link_contract_change_invalidates_accepted_cache_at_planning(
+def test_link_contract_change_preserves_accepted_candidate_as_available_update(
     monkeypatch,
     tmp_path,
     cache_factory,
@@ -341,8 +346,9 @@ def test_link_contract_change_invalidates_accepted_cache_at_planning(
     )
 
     assert decision.reusable is False
-    assert "template_hash_changed" in decision.mismatch_reasons
-    assert decision.earliest_affected_stage == "PLAN_READY"
+    assert decision.decision_status == "VALID_UPDATE_AVAILABLE"
+    assert decision.mismatch_reasons == []
+    assert decision.update_earliest_stage == "PLAN_READY"
 
 
 def test_unrelated_registry_change_does_not_invalidate_global_document_contract(
@@ -510,7 +516,6 @@ def test_assurance_change_cannot_collide_with_verified_cache(tmp_path):
         ("source", "source_revision_changed", "SNAPSHOTTED"),
         ("facts", "manifest_facts_hash_mismatch", "FACTS_COLLECTING"),
         ("prompt", "prompt_registry_content_hash_changed", "FACTS_COLLECTING"),
-        ("template", "template_hash_changed", "PLAN_READY"),
         ("validator", "local_verification_contract_hash_changed", "FACTS_COLLECTING"),
         ("reviewer", "reviewer_standard_hash_changed", "AGENT_REVIEWING"),
         ("control_plane", "control_plane_fingerprint_changed", "FACTS_COLLECTING"),
@@ -728,16 +733,40 @@ def test_prompt_dependency_change_identifies_earliest_affected_stage(
     assert decision.earliest_affected_stage == expected_stage
 
 
-def test_candidate_stage_dependency_change_reopens_plan_without_recollecting_facts(
-    monkeypatch, tmp_path
-):
+def _changed_component_manifest(current, component_id: str, digest: str):
+    dependencies = []
+    for dependency in current.dependencies:
+        if dependency.dependency_id != component_id:
+            dependencies.append(dependency)
+            continue
+        files = dict(dependency.files)
+        files[next(iter(files))] = digest
+        dependencies.append(
+            SelectedDependencyV1(
+                dependency_id=dependency.dependency_id,
+                files=files,
+                semantic_scope=dependency.semantic_scope,
+                earliest_affected_stage=dependency.earliest_affected_stage,
+            )
+        )
+    return build_stage_dependency_manifest(
+        repository=current.repository,
+        source_revision=current.source_revision,
+        stage=current.stage,
+        ecosystem=current.ecosystem,
+        dependencies=dependencies,
+        upstream_receipt_ids=current.upstream_receipt_ids,
+    )
+
+
+def test_critical_candidate_component_change_reopens_its_earliest_boundary(monkeypatch, tmp_path):
     state, bundle = _valid_cache(tmp_path)
     current = current_candidate_stage_dependency_manifest(
         repository=ORG_REPO,
         source_revision=SOURCE_REVISION,
         ecosystem=None,
     )
-    changed = current.model_copy(update={"stage_key": "9" * 64})
+    changed = _changed_component_manifest(current, "composition_semantics", "9" * 64)
     monkeypatch.setattr(
         local_poc_cache,
         "current_candidate_stage_dependency_manifest",
@@ -747,20 +776,154 @@ def test_candidate_stage_dependency_change_reopens_plan_without_recollecting_fac
     decision = _decision(state, bundle)
 
     assert decision.reusable is False
-    assert "candidate_stage_dependency_key_changed" in decision.mismatch_reasons
-    assert decision.earliest_affected_stage == "PLAN_READY"
+    assert "presentation_component_factuality_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "FACTS_COLLECTING"
+    assert decision.decision_status == "INVALIDATED"
+    assert decision.fact_validity_preserved is False
 
 
-def test_missing_candidate_stage_dependency_key_fails_closed_at_plan_boundary(tmp_path):
+def test_cosmetic_component_change_returns_valid_update_without_revoking_acceptance(
+    monkeypatch, tmp_path
+):
+    state, bundle = _valid_cache(tmp_path)
+    current = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
+    changed = _changed_component_manifest(current, "header_visual", "8" * 64)
+    monkeypatch.setattr(
+        local_poc_cache,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed,
+    )
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert decision.decision_status == "VALID_UPDATE_AVAILABLE"
+    assert decision.mismatch_reasons == []
+    assert decision.earliest_affected_stage is None
+    assert decision.update_earliest_stage == "PLAN_READY"
+    assert decision.fact_validity_preserved is True
+    assert decision.presentation_validity_preserved is True
+    assert decision.status == "NO_OP_PROVEN"
+
+
+def test_noncritical_prompt_component_deduplicates_coarse_prompt_and_control_hashes(
+    monkeypatch, tmp_path
+):
+    state, bundle = _valid_cache(tmp_path)
+    current = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
+    changed = _changed_component_manifest(
+        current,
+        "prompt:plan_readme_composition",
+        "7" * 64,
+    )
+    monkeypatch.setattr(
+        local_poc_cache,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed,
+    )
+    current_prompt_dependencies = prompt_registry.dependency_hashes()
+    monkeypatch.setattr(prompt_registry, "content_hash", lambda: "6" * 64)
+    monkeypatch.setattr(
+        prompt_registry,
+        "dependency_hashes",
+        lambda: {**current_prompt_dependencies, "PLAN_READY": "5" * 64},
+    )
+
+    decision = _decision(state, bundle, control="4" * 64)
+
+    assert decision.decision_status == "VALID_UPDATE_AVAILABLE"
+    assert decision.mismatch_reasons == []
+    assert decision.update_earliest_stage == "PLAN_READY"
+    assert decision.fact_validity_preserved is True
+    assert decision.presentation_validity_preserved is True
+
+
+def test_noncritical_prompt_cannot_hide_a_simultaneous_critical_component_change(
+    monkeypatch, tmp_path
+):
+    state, bundle = _valid_cache(tmp_path)
+    current = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
+    changed_prompt = _changed_component_manifest(
+        current,
+        "prompt:plan_readme_composition",
+        "7" * 64,
+    )
+    changed_both = _changed_component_manifest(
+        changed_prompt,
+        "validation_ruleset",
+        "6" * 64,
+    )
+    monkeypatch.setattr(
+        local_poc_cache,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed_both,
+    )
+    monkeypatch.setattr(prompt_registry, "content_hash", lambda: "5" * 64)
+
+    decision = _decision(state, bundle, control="4" * 64)
+
+    assert decision.decision_status == "INVALIDATED"
+    assert "presentation_component_severe_acceptance_changed" in decision.mismatch_reasons
+    assert decision.presentation_validity_preserved is False
+
+
+def test_noncritical_prompt_and_cosmetic_change_remain_a_valid_update(monkeypatch, tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    current = current_candidate_stage_dependency_manifest(
+        repository=ORG_REPO,
+        source_revision=SOURCE_REVISION,
+        ecosystem=None,
+    )
+    changed_prompt = _changed_component_manifest(
+        current,
+        "prompt:plan_readme_composition",
+        "7" * 64,
+    )
+    changed_both = _changed_component_manifest(changed_prompt, "header_visual", "6" * 64)
+    monkeypatch.setattr(
+        local_poc_cache,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed_both,
+    )
+    current_prompt_dependencies = prompt_registry.dependency_hashes()
+    monkeypatch.setattr(prompt_registry, "content_hash", lambda: "5" * 64)
+    monkeypatch.setattr(
+        prompt_registry,
+        "dependency_hashes",
+        lambda: {**current_prompt_dependencies, "PLAN_READY": "4" * 64},
+    )
+
+    decision = _decision(state, bundle, control="3" * 64)
+
+    assert decision.decision_status == "VALID_UPDATE_AVAILABLE"
+    assert decision.mismatch_reasons == []
+    assert decision.update_earliest_stage == "PLAN_READY"
+    assert decision.fact_validity_preserved is True
+    assert decision.presentation_validity_preserved is True
+
+
+def test_missing_candidate_component_manifest_fails_closed_at_plan_boundary(tmp_path):
     state, bundle = _valid_cache(tmp_path)
     manifest_path = bundle / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest.pop("candidate_stage_dependency_key")
+    manifest.pop("candidate_stage_dependency_manifest")
     write_redacted_json(manifest_path, manifest)
     refresh_sha256sums(bundle)
 
     decision = _decision(state, bundle)
 
     assert decision.reusable is False
-    assert "candidate_stage_dependency_key_changed" in decision.mismatch_reasons
+    assert "candidate_stage_dependency_manifest_missing_or_invalid" in decision.mismatch_reasons
     assert decision.earliest_affected_stage == "PLAN_READY"

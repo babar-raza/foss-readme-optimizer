@@ -25,11 +25,13 @@ Read these before making non-trivial changes:
   governance" below.
 
 Authority is resolved by subject: `plans/idea.md` owns product outcome and intent;
-`plans/requirements.md` owns obligations and acceptance; `plans/master.md` owns architecture,
-decisions, sequence, and rollout; `plans/GOVERNANCE.md` and this file own editing, safety,
-execution, and coordination; the Level-8 mission graph is the sole machine-readable task graph;
-durable supervisor state alone owns live claims, transitions, and runtime status. Codex plans,
-roadmap, status, reports, audits, and handovers are derived guidance/evidence only.
+`plans/requirements.md` and its typed `plans/requirements/catalog.jsonl` own obligations and
+acceptance; `plans/master.md` and `plans/decisions/catalog.jsonl` own architecture, decisions,
+sequence, and rollout; `plans/GOVERNANCE.md` and this file own editing, safety, execution, and
+coordination; the Level-8 mission graph is the sole active machine-readable task graph; its hashed
+deferred-task catalog preserves future task records without making them executable; durable
+supervisor state alone owns live claims, transitions, and runtime status. Codex plans, roadmap,
+status, reports, audits, and handovers are derived guidance/evidence only.
 
 ## Setup and everyday commands
 
@@ -189,19 +191,16 @@ Related non-negotiables:
   cannot be expressed as a rule), it just no longer means "exactly one job in the whole system."
 - Rendered content stays inside the one owned marker span (`readme/markers.py`); the tool never
   edits content outside it.
-- **Every `data/products.json` entry has equal precedence for research and development.** The
-  allow-list's `mode` field (`full`/`dry_run`/`disabled`) gates *write/push-capable* access, not
-  relevance — a portfolio survey, fact-gathering task, or policy/validator design MUST cover the
-  whole runtime-loaded registry, never just selected modes or a historical fixed count. As of decision
-  #40, this is no longer just an offline-research-script carve-out: live read-only capability
-  execution (`profile_repository`, `get_product_facts`, `inspect_repository`, etc., and
-  `supervise_repo()` itself) runs against any registered repo regardless of mode too — `mode`
-  never meant "irrelevant to look at," only "push access unverified." The exception is
-  **end-to-end verification (anything that actually renders/commits)**: that's scoped to the
-  three enabled Java pilots (`aspose-3d-foss`, `aspose-cells-foss`, `aspose-pdf-foss`) purely
-  because they're the only `mode: "full"`/`"dry_run"` entries this tool can currently write
-  through — an access constraint, not a priority signal. See `plans/master.md` decisions #24/#40
-  and `PIL-011` in `plans/requirements.md`.
+- **Every `data/products.json` entry has equal inclusion in the dynamic denominator and evidence
+  obligations.** Dependency-ready execution follows `data/platform_priorities.json`; registry file
+  order and `mode` are not priority signals. The allow-list's `mode` field
+  (`full`/`dry_run`/`disabled`) gates product write/push-capable access, not relevance or local
+  verification. Portfolio surveys, fact gathering, policy/validator design, and live read-only
+  capabilities cover the whole runtime-loaded registry. The canonical `local_poc` may produce
+  revision-addressed local and control-repository artifacts for every allow-listed repository
+  regardless of `mode`, while push blocking and zero-effect validation prove that no product remote
+  is written. Product effects remain separately gated by `mode`, complete Gate-B acceptance,
+  authorization, and the fresh what/why/where rule. See decisions #24/#40 and `PIL-011`.
 
 ## Handling issues found outside the current task
 
@@ -296,13 +295,13 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   inherited claims, facts, and protected content; deterministic assessment may then produce a
   byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
   mandatory.
-- **Verified Python is the immediate complete-platform POC.** First compile the accepted Note
-  reference into a reusable fact-slot structural template. Next run zero-provider-call readiness
-  for current .NET and Java repositories, then prove repository-verified Note and one
-  readiness-selected vertical slice from each in parallel. Then prove
-  Page/PDF and every runtime-loaded Python repository. No product effect occurs in this local POC.
-  Continue common C0 and the complete verified Gate A/B/C sequence afterwards. For every verified
-  entry, capture the current
+- **Verified Python is the immediate complete-platform POC.** Finish the current Aspose.3D FOSS for
+  Python calibration README, then rebuild Note, qualify Page/PDF, and complete every dynamically
+  admitted Python repository. Only after the Python platform closes may current .NET and Java
+  vertical slices run; remaining-platform and Gate-A work follows the governed dependency and
+  platform order. No product effect occurs in these local stages. Continue source-complete
+  discovery and the verified Gate A/B/C sequence afterwards. For every verified entry, capture the
+  current
   default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
   original, verified facts, decision/operation plan, enhanced candidate, diff, deterministic
   validation, independent agentic verdict, and no-op rerun. Read-only GitHub access needed to
@@ -383,6 +382,9 @@ goal from the earliest incomplete stage in this order:
 `GOAL-V3-HUMAN-AND-JAVA-PROOF`, `GOAL-L5-PRESENTATION-PILOT`,
 and `GOAL-L6-AUTONOMOUS-PORTFOLIO`. Level-7/Level-8 elapsed windows are non-executable background
 certification after production deployment and may never become primary or block delivery. The
+controller reports `delivery_complete` only after executable work through deployable Level 6 and
+`certification_complete` only after the Level-7/8 observations and audits close. Full
+`mission_complete` requires both; delivery completion is never a Level-7/8 claim. The
 controller also derives zero or more `concurrent_goal_ids` only for
 dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
 advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest

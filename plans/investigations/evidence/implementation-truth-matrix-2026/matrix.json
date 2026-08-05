@@ -1,12 +1,13 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
-  "requirements_source": "plans/requirements.md",
+  "requirements_source": "plans/requirements/catalog.jsonl",
   "total_implemented_rows_checked": 155,
   "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
       "id": "GOV-021",
       "line": 90,
+      "catalog_line": 21,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -26,6 +27,7 @@
     {
       "id": "GOV-026",
       "line": 94,
+      "catalog_line": 24,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -55,6 +57,7 @@
     {
       "id": "GOV-024",
       "line": 95,
+      "catalog_line": 25,
       "priority": "P2",
       "cited_paths": [
         "src/readme_agent/llm/prompt_registry.py"
@@ -77,6 +80,7 @@
     {
       "id": "GOV-025",
       "line": 96,
+      "catalog_line": 26,
       "priority": "P1",
       "cited_paths": [
         "scripts/governance/run_official_checks.py",
@@ -108,6 +112,7 @@
     {
       "id": "OWN-004",
       "line": 122,
+      "catalog_line": 42,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -137,6 +142,7 @@
     {
       "id": "OWN-012",
       "line": 130,
+      "catalog_line": 50,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -166,6 +172,7 @@
     {
       "id": "FACT-011",
       "line": 149,
+      "catalog_line": 64,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/immutable-snapshot-and-product-facts-proof.json"
@@ -195,6 +202,7 @@
     {
       "id": "RDM-002",
       "line": 160,
+      "catalog_line": 70,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -224,6 +232,7 @@
     {
       "id": "RDM-010",
       "line": 168,
+      "catalog_line": 78,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -253,6 +262,7 @@
     {
       "id": "RDM-013",
       "line": 171,
+      "catalog_line": 81,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -282,6 +292,7 @@
     {
       "id": "RDM-014",
       "line": 172,
+      "catalog_line": 82,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -311,6 +322,7 @@
     {
       "id": "RDM-019",
       "line": 177,
+      "catalog_line": 87,
       "priority": "P2",
       "cited_paths": [
         "docs/presentation-standard.md"
@@ -333,6 +345,7 @@
     {
       "id": "RDM-023",
       "line": 181,
+      "catalog_line": 91,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -352,6 +365,7 @@
     {
       "id": "CORE-002",
       "line": 211,
+      "catalog_line": 111,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -381,6 +395,7 @@
     {
       "id": "CORE-003",
       "line": 212,
+      "catalog_line": 112,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -410,6 +425,7 @@
     {
       "id": "CORE-005",
       "line": 215,
+      "catalog_line": 115,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -439,6 +455,7 @@
     {
       "id": "CORE-007",
       "line": 217,
+      "catalog_line": 117,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -468,6 +485,7 @@
     {
       "id": "CORE-008",
       "line": 218,
+      "catalog_line": 118,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -497,6 +515,7 @@
     {
       "id": "CORE-009",
       "line": 219,
+      "catalog_line": 119,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -526,6 +545,7 @@
     {
       "id": "CORE-010",
       "line": 220,
+      "catalog_line": 120,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -555,6 +575,7 @@
     {
       "id": "CORE-011",
       "line": 221,
+      "catalog_line": 121,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -584,6 +605,7 @@
     {
       "id": "CORE-012",
       "line": 222,
+      "catalog_line": 122,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -613,6 +635,7 @@
     {
       "id": "CORE-013",
       "line": 223,
+      "catalog_line": 123,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -642,6 +665,7 @@
     {
       "id": "CORE-014",
       "line": 224,
+      "catalog_line": 124,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -671,6 +695,7 @@
     {
       "id": "CORE-016",
       "line": 226,
+      "catalog_line": 126,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -700,6 +725,7 @@
     {
       "id": "CORE-017",
       "line": 227,
+      "catalog_line": 127,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -729,6 +755,7 @@
     {
       "id": "CORE-018",
       "line": 228,
+      "catalog_line": 128,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -758,6 +785,7 @@
     {
       "id": "CORE-019",
       "line": 229,
+      "catalog_line": 129,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -787,6 +815,7 @@
     {
       "id": "CORE-026",
       "line": 236,
+      "catalog_line": 136,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -816,6 +845,7 @@
     {
       "id": "CORE-027",
       "line": 237,
+      "catalog_line": 137,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -845,6 +875,7 @@
     {
       "id": "CORE-028",
       "line": 238,
+      "catalog_line": 138,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -874,6 +905,7 @@
     {
       "id": "CORE-029",
       "line": 239,
+      "catalog_line": 139,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -903,6 +935,7 @@
     {
       "id": "CORE-030",
       "line": 240,
+      "catalog_line": 140,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -932,6 +965,7 @@
     {
       "id": "CORE-031",
       "line": 241,
+      "catalog_line": 141,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -961,6 +995,7 @@
     {
       "id": "OPS-002",
       "line": 250,
+      "catalog_line": 145,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -990,6 +1025,7 @@
     {
       "id": "OPS-005",
       "line": 253,
+      "catalog_line": 148,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
@@ -1019,6 +1055,7 @@
     {
       "id": "OPS-008",
       "line": 256,
+      "catalog_line": 151,
       "priority": "P1",
       "cited_paths": [
         ".github/workflows/update-products-registry.yml",
@@ -1050,6 +1087,7 @@
     {
       "id": "DEP-001",
       "line": 265,
+      "catalog_line": 157,
       "priority": "P2",
       "cited_paths": [
         "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
@@ -1079,6 +1117,7 @@
     {
       "id": "DEP-002",
       "line": 266,
+      "catalog_line": 158,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -1098,6 +1137,7 @@
     {
       "id": "DEP-003",
       "line": 267,
+      "catalog_line": 159,
       "priority": "P2",
       "cited_paths": [
         ".github/workflows/dependency-check.yml"
@@ -1120,6 +1160,7 @@
     {
       "id": "DEP-004",
       "line": 268,
+      "catalog_line": 160,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1149,6 +1190,7 @@
     {
       "id": "DEP-005",
       "line": 269,
+      "catalog_line": 161,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -1168,6 +1210,7 @@
     {
       "id": "LLM-001",
       "line": 276,
+      "catalog_line": 163,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1197,6 +1240,7 @@
     {
       "id": "LLM-002",
       "line": 277,
+      "catalog_line": 164,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1226,6 +1270,7 @@
     {
       "id": "LLM-003",
       "line": 278,
+      "catalog_line": 165,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1255,6 +1300,7 @@
     {
       "id": "LLM-004",
       "line": 279,
+      "catalog_line": 166,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1284,6 +1330,7 @@
     {
       "id": "LLM-007",
       "line": 282,
+      "catalog_line": 169,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1313,6 +1360,7 @@
     {
       "id": "LLM-008",
       "line": 283,
+      "catalog_line": 170,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1342,6 +1390,7 @@
     {
       "id": "LLM-013",
       "line": 288,
+      "catalog_line": 175,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1371,6 +1420,7 @@
     {
       "id": "LLM-014",
       "line": 289,
+      "catalog_line": 176,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1400,6 +1450,7 @@
     {
       "id": "LLM-015",
       "line": 290,
+      "catalog_line": 177,
       "priority": "P2",
       "cited_paths": [
         "plans/investigations/evidence/level8-llm-call-ledger/verification.json"
@@ -1429,6 +1480,7 @@
     {
       "id": "LLM-018",
       "line": 293,
+      "catalog_line": 180,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -1448,6 +1500,7 @@
     {
       "id": "LLM-019",
       "line": 294,
+      "catalog_line": 181,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/llm-gateway-context-ceiling-corrected.md",
@@ -1483,6 +1536,7 @@
     {
       "id": "VAL-001",
       "line": 303,
+      "catalog_line": 185,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1512,6 +1566,7 @@
     {
       "id": "VAL-002",
       "line": 304,
+      "catalog_line": 186,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1541,6 +1596,7 @@
     {
       "id": "VAL-003",
       "line": 305,
+      "catalog_line": 187,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1570,6 +1626,7 @@
     {
       "id": "VAL-004",
       "line": 306,
+      "catalog_line": 188,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1599,6 +1656,7 @@
     {
       "id": "VAL-006",
       "line": 308,
+      "catalog_line": 190,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1628,6 +1686,7 @@
     {
       "id": "SAFE-001",
       "line": 326,
+      "catalog_line": 203,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1657,6 +1716,7 @@
     {
       "id": "SAFE-002",
       "line": 327,
+      "catalog_line": 204,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1686,6 +1746,7 @@
     {
       "id": "SAFE-003",
       "line": 328,
+      "catalog_line": 205,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1715,6 +1776,7 @@
     {
       "id": "SAFE-004",
       "line": 329,
+      "catalog_line": 206,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1744,6 +1806,7 @@
     {
       "id": "SAFE-007",
       "line": 332,
+      "catalog_line": 209,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1773,6 +1836,7 @@
     {
       "id": "SAFE-008",
       "line": 333,
+      "catalog_line": 210,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1802,6 +1866,7 @@
     {
       "id": "SAFE-009",
       "line": 334,
+      "catalog_line": 211,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1831,6 +1896,7 @@
     {
       "id": "EVID-002",
       "line": 349,
+      "catalog_line": 223,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave3-truth-machinery-repair-2026-08-02/verification.json",
@@ -1868,6 +1934,7 @@
     {
       "id": "NFR-001",
       "line": 384,
+      "catalog_line": 245,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1897,6 +1964,7 @@
     {
       "id": "NFR-002",
       "line": 385,
+      "catalog_line": 246,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1926,6 +1994,7 @@
     {
       "id": "NFR-004",
       "line": 387,
+      "catalog_line": 248,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -1955,6 +2024,7 @@
     {
       "id": "DOC-003",
       "line": 439,
+      "catalog_line": 285,
       "priority": "P1",
       "cited_paths": [
         "docs/presentation-standard.md",
@@ -1988,6 +2058,7 @@
     {
       "id": "DOC-005",
       "line": 441,
+      "catalog_line": 287,
       "priority": "P1",
       "cited_paths": [
         "docs/github-surface-control.md",
@@ -2019,6 +2090,7 @@
     {
       "id": "AGT-001",
       "line": 461,
+      "catalog_line": 293,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2048,6 +2120,7 @@
     {
       "id": "AGT-003",
       "line": 463,
+      "catalog_line": 295,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2077,6 +2150,7 @@
     {
       "id": "RUN-003",
       "line": 492,
+      "catalog_line": 314,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2106,6 +2180,7 @@
     {
       "id": "EFF-001",
       "line": 554,
+      "catalog_line": 342,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2135,6 +2210,7 @@
     {
       "id": "VER-001",
       "line": 590,
+      "catalog_line": 363,
       "priority": "P0",
       "cited_paths": [
         "scripts/retrofits/prove_verify_gate_live.py",
@@ -2166,6 +2242,7 @@
     {
       "id": "VER-009",
       "line": 599,
+      "catalog_line": 372,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/verification-summary.json"
@@ -2195,6 +2272,7 @@
     {
       "id": "GAP-002",
       "line": 607,
+      "catalog_line": 375,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2224,6 +2302,7 @@
     {
       "id": "PRL-004",
       "line": 635,
+      "catalog_line": 392,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2253,6 +2332,7 @@
     {
       "id": "PRL-008",
       "line": 639,
+      "catalog_line": 396,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2282,6 +2362,7 @@
     {
       "id": "L8-002",
       "line": 676,
+      "catalog_line": 422,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -2311,6 +2392,7 @@
     {
       "id": "L8-018",
       "line": 692,
+      "catalog_line": 438,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json",
@@ -2348,6 +2430,7 @@
     {
       "id": "L8-029",
       "line": 703,
+      "catalog_line": 449,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -2377,6 +2460,7 @@
     {
       "id": "L8-030",
       "line": 704,
+      "catalog_line": 450,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -2406,6 +2490,7 @@
     {
       "id": "L8-031",
       "line": 705,
+      "catalog_line": 451,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -2435,6 +2520,7 @@
     {
       "id": "L8-032",
       "line": 706,
+      "catalog_line": 452,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -2464,6 +2550,7 @@
     {
       "id": "L8-035",
       "line": 709,
+      "catalog_line": 455,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -2565,6 +2652,7 @@
     {
       "id": "GOV-016",
       "line": 85,
+      "catalog_line": 16,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_llm_prompts.py",
@@ -2593,6 +2681,7 @@
     {
       "id": "GOV-021",
       "line": 90,
+      "catalog_line": 21,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -2612,6 +2701,7 @@
     {
       "id": "GOV-026",
       "line": 94,
+      "catalog_line": 24,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2641,6 +2731,7 @@
     {
       "id": "GOV-024",
       "line": 95,
+      "catalog_line": 25,
       "priority": "P2",
       "cited_paths": [
         "src/readme_agent/llm/prompt_registry.py"
@@ -2663,6 +2754,7 @@
     {
       "id": "GOV-025",
       "line": 96,
+      "catalog_line": 26,
       "priority": "P1",
       "cited_paths": [
         "scripts/governance/run_official_checks.py",
@@ -2694,6 +2786,7 @@
     {
       "id": "GOV-028",
       "line": 97,
+      "catalog_line": 27,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_convergence.py",
@@ -2721,6 +2814,7 @@
     {
       "id": "OWN-004",
       "line": 122,
+      "catalog_line": 42,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2750,6 +2844,7 @@
     {
       "id": "OWN-012",
       "line": 130,
+      "catalog_line": 50,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2779,6 +2874,7 @@
     {
       "id": "FACT-011",
       "line": 149,
+      "catalog_line": 64,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-2026-07-24/immutable-snapshot-and-product-facts-proof.json"
@@ -2808,6 +2904,7 @@
     {
       "id": "FACT-012",
       "line": 150,
+      "catalog_line": 65,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_facts_changeset.py"
@@ -2830,6 +2927,7 @@
     {
       "id": "FACT-015",
       "line": 152,
+      "catalog_line": 67,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/tools/collect_portfolio_readme_proposal_evidence.py",
@@ -2863,6 +2961,7 @@
     {
       "id": "RDM-002",
       "line": 160,
+      "catalog_line": 70,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2892,6 +2991,7 @@
     {
       "id": "RDM-005",
       "line": 163,
+      "catalog_line": 73,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_presentation_report.py"
@@ -2916,6 +3016,7 @@
     {
       "id": "RDM-010",
       "line": 168,
+      "catalog_line": 78,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2945,6 +3046,7 @@
     {
       "id": "RDM-013",
       "line": 171,
+      "catalog_line": 81,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -2974,6 +3076,7 @@
     {
       "id": "RDM-014",
       "line": 172,
+      "catalog_line": 82,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3003,6 +3106,7 @@
     {
       "id": "RDM-019",
       "line": 177,
+      "catalog_line": 87,
       "priority": "P2",
       "cited_paths": [
         "docs/presentation-standard.md"
@@ -3025,6 +3129,7 @@
     {
       "id": "RDM-023",
       "line": 181,
+      "catalog_line": 91,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -3044,6 +3149,7 @@
     {
       "id": "RDM-024",
       "line": 182,
+      "catalog_line": 92,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_claim_verification.py"
@@ -3068,6 +3174,7 @@
     {
       "id": "CORE-002",
       "line": 211,
+      "catalog_line": 111,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3097,6 +3204,7 @@
     {
       "id": "CORE-003",
       "line": 212,
+      "catalog_line": 112,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -3126,6 +3234,7 @@
     {
       "id": "CORE-033",
       "line": 214,
+      "catalog_line": 114,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_supervisor_loop.py",
@@ -3157,6 +3266,7 @@
     {
       "id": "CORE-005",
       "line": 215,
+      "catalog_line": 115,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3186,6 +3296,7 @@
     {
       "id": "CORE-007",
       "line": 217,
+      "catalog_line": 117,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3215,6 +3326,7 @@
     {
       "id": "CORE-008",
       "line": 218,
+      "catalog_line": 118,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3244,6 +3356,7 @@
     {
       "id": "CORE-009",
       "line": 219,
+      "catalog_line": 119,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3273,6 +3386,7 @@
     {
       "id": "CORE-010",
       "line": 220,
+      "catalog_line": 120,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3302,6 +3416,7 @@
     {
       "id": "CORE-011",
       "line": 221,
+      "catalog_line": 121,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3331,6 +3446,7 @@
     {
       "id": "CORE-012",
       "line": 222,
+      "catalog_line": 122,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3360,6 +3476,7 @@
     {
       "id": "CORE-013",
       "line": 223,
+      "catalog_line": 123,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3389,6 +3506,7 @@
     {
       "id": "CORE-014",
       "line": 224,
+      "catalog_line": 124,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3418,6 +3536,7 @@
     {
       "id": "CORE-015",
       "line": 225,
+      "catalog_line": 125,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_orchestrator.py"
@@ -3442,6 +3561,7 @@
     {
       "id": "CORE-016",
       "line": 226,
+      "catalog_line": 126,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3471,6 +3591,7 @@
     {
       "id": "CORE-017",
       "line": 227,
+      "catalog_line": 127,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3500,6 +3621,7 @@
     {
       "id": "CORE-018",
       "line": 228,
+      "catalog_line": 128,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3529,6 +3651,7 @@
     {
       "id": "CORE-019",
       "line": 229,
+      "catalog_line": 129,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3558,6 +3681,7 @@
     {
       "id": "CORE-026",
       "line": 236,
+      "catalog_line": 136,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3587,6 +3711,7 @@
     {
       "id": "CORE-027",
       "line": 237,
+      "catalog_line": 137,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3616,6 +3741,7 @@
     {
       "id": "CORE-028",
       "line": 238,
+      "catalog_line": 138,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3645,6 +3771,7 @@
     {
       "id": "CORE-029",
       "line": 239,
+      "catalog_line": 139,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3674,6 +3801,7 @@
     {
       "id": "CORE-030",
       "line": 240,
+      "catalog_line": 140,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3703,6 +3831,7 @@
     {
       "id": "CORE-031",
       "line": 241,
+      "catalog_line": 141,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3732,6 +3861,7 @@
     {
       "id": "CORE-032",
       "line": 242,
+      "catalog_line": 142,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_registry_discovery.py",
@@ -3765,6 +3895,7 @@
     {
       "id": "OPS-002",
       "line": 250,
+      "catalog_line": 145,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -3794,6 +3925,7 @@
     {
       "id": "OPS-005",
       "line": 253,
+      "catalog_line": 148,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-01-stable-identity-reconciliation-v1/verification.json"
@@ -3823,6 +3955,7 @@
     {
       "id": "OPS-008",
       "line": 256,
+      "catalog_line": 151,
       "priority": "P1",
       "cited_paths": [
         ".github/workflows/update-products-registry.yml",
@@ -3854,6 +3987,7 @@
     {
       "id": "OPS-010",
       "line": 258,
+      "catalog_line": 153,
       "priority": "P2",
       "cited_paths": [
         "tests/conftest.py",
@@ -3888,6 +4022,7 @@
     {
       "id": "OPS-012",
       "line": 260,
+      "catalog_line": 155,
       "priority": "P2",
       "cited_paths": [
         ".github/workflows/golden-set-run.yml",
@@ -3918,6 +4053,7 @@
     {
       "id": "DEP-001",
       "line": 265,
+      "catalog_line": 157,
       "priority": "P2",
       "cited_paths": [
         "plans/investigations/evidence/dependency-reproducibility-2026-07-23/sbom.cyclonedx.json"
@@ -3947,6 +4083,7 @@
     {
       "id": "DEP-002",
       "line": 266,
+      "catalog_line": 158,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -3966,6 +4103,7 @@
     {
       "id": "DEP-003",
       "line": 267,
+      "catalog_line": 159,
       "priority": "P2",
       "cited_paths": [
         ".github/workflows/dependency-check.yml"
@@ -3988,6 +4126,7 @@
     {
       "id": "DEP-004",
       "line": 268,
+      "catalog_line": 160,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4017,6 +4156,7 @@
     {
       "id": "DEP-005",
       "line": 269,
+      "catalog_line": 161,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -4036,6 +4176,7 @@
     {
       "id": "LLM-001",
       "line": 276,
+      "catalog_line": 163,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4065,6 +4206,7 @@
     {
       "id": "LLM-002",
       "line": 277,
+      "catalog_line": 164,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4094,6 +4236,7 @@
     {
       "id": "LLM-003",
       "line": 278,
+      "catalog_line": 165,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4123,6 +4266,7 @@
     {
       "id": "LLM-004",
       "line": 279,
+      "catalog_line": 166,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4152,6 +4296,7 @@
     {
       "id": "LLM-007",
       "line": 282,
+      "catalog_line": 169,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4181,6 +4326,7 @@
     {
       "id": "LLM-008",
       "line": 283,
+      "catalog_line": 170,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4210,6 +4356,7 @@
     {
       "id": "LLM-013",
       "line": 288,
+      "catalog_line": 175,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4239,6 +4386,7 @@
     {
       "id": "LLM-014",
       "line": 289,
+      "catalog_line": 176,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4268,6 +4416,7 @@
     {
       "id": "LLM-015",
       "line": 290,
+      "catalog_line": 177,
       "priority": "P2",
       "cited_paths": [
         "plans/investigations/evidence/level8-llm-call-ledger/verification.json"
@@ -4297,6 +4446,7 @@
     {
       "id": "LLM-016",
       "line": 291,
+      "catalog_line": 178,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_env.py"
@@ -4319,6 +4469,7 @@
     {
       "id": "LLM-018",
       "line": 293,
+      "catalog_line": 180,
       "priority": "P2",
       "cited_paths": [],
       "cited_paths_existing": [],
@@ -4338,6 +4489,7 @@
     {
       "id": "LLM-019",
       "line": 294,
+      "catalog_line": 181,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/llm-gateway-context-ceiling-corrected.md",
@@ -4373,6 +4525,7 @@
     {
       "id": "LLM-020",
       "line": 295,
+      "catalog_line": 182,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_capability_dispatcher.py"
@@ -4397,6 +4550,7 @@
     {
       "id": "LLM-021",
       "line": 296,
+      "catalog_line": 183,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_env.py"
@@ -4421,6 +4575,7 @@
     {
       "id": "VAL-001",
       "line": 303,
+      "catalog_line": 185,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4450,6 +4605,7 @@
     {
       "id": "VAL-002",
       "line": 304,
+      "catalog_line": 186,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4479,6 +4635,7 @@
     {
       "id": "VAL-003",
       "line": 305,
+      "catalog_line": 187,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4508,6 +4665,7 @@
     {
       "id": "VAL-004",
       "line": 306,
+      "catalog_line": 188,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4537,6 +4695,7 @@
     {
       "id": "VAL-006",
       "line": 308,
+      "catalog_line": 190,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4566,6 +4725,7 @@
     {
       "id": "SAFE-001",
       "line": 326,
+      "catalog_line": 203,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4595,6 +4755,7 @@
     {
       "id": "SAFE-002",
       "line": 327,
+      "catalog_line": 204,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4624,6 +4785,7 @@
     {
       "id": "SAFE-003",
       "line": 328,
+      "catalog_line": 205,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4653,6 +4815,7 @@
     {
       "id": "SAFE-004",
       "line": 329,
+      "catalog_line": 206,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4682,6 +4845,7 @@
     {
       "id": "SAFE-007",
       "line": 332,
+      "catalog_line": 209,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4711,6 +4875,7 @@
     {
       "id": "SAFE-008",
       "line": 333,
+      "catalog_line": 210,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4740,6 +4905,7 @@
     {
       "id": "SAFE-009",
       "line": 334,
+      "catalog_line": 211,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4769,6 +4935,7 @@
     {
       "id": "EVID-001",
       "line": 348,
+      "catalog_line": 222,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_manifest_v2.py",
@@ -4800,6 +4967,7 @@
     {
       "id": "EVID-002",
       "line": 349,
+      "catalog_line": 223,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave3-truth-machinery-repair-2026-08-02/verification.json",
@@ -4837,6 +5005,7 @@
     {
       "id": "AUTH-001",
       "line": 356,
+      "catalog_line": 227,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_authorization_registry.py"
@@ -4861,6 +5030,7 @@
     {
       "id": "AUTH-002",
       "line": 357,
+      "catalog_line": 228,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_authorization_registry.py"
@@ -4885,6 +5055,7 @@
     {
       "id": "AUTH-004",
       "line": 359,
+      "catalog_line": 230,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_authorization_registry.py",
@@ -4914,6 +5085,7 @@
     {
       "id": "AUTH-005",
       "line": 360,
+      "catalog_line": 231,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_authorization_registry.py"
@@ -4938,6 +5110,7 @@
     {
       "id": "AUTH-006",
       "line": 361,
+      "catalog_line": 232,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_cli.py"
@@ -4962,6 +5135,7 @@
     {
       "id": "NFR-001",
       "line": 384,
+      "catalog_line": 245,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -4991,6 +5165,7 @@
     {
       "id": "NFR-002",
       "line": 385,
+      "catalog_line": 246,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5020,6 +5195,7 @@
     {
       "id": "NFR-004",
       "line": 387,
+      "catalog_line": 248,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5049,6 +5225,7 @@
     {
       "id": "DOC-003",
       "line": 439,
+      "catalog_line": 285,
       "priority": "P1",
       "cited_paths": [
         "docs/presentation-standard.md",
@@ -5082,6 +5259,7 @@
     {
       "id": "DOC-005",
       "line": 441,
+      "catalog_line": 287,
       "priority": "P1",
       "cited_paths": [
         "docs/github-surface-control.md",
@@ -5113,6 +5291,7 @@
     {
       "id": "AGT-001",
       "line": 461,
+      "catalog_line": 293,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5142,6 +5321,7 @@
     {
       "id": "AGT-002",
       "line": 462,
+      "catalog_line": 294,
       "priority": "P0",
       "cited_paths": [
         "src/readme_agent/supervisor/",
@@ -5171,6 +5351,7 @@
     {
       "id": "AGT-003",
       "line": 463,
+      "catalog_line": 295,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5200,6 +5381,7 @@
     {
       "id": "AGT-007",
       "line": 467,
+      "catalog_line": 299,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_supervisor_loop.py"
@@ -5224,6 +5406,7 @@
     {
       "id": "AGT-009",
       "line": 468,
+      "catalog_line": 300,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_convergence.py"
@@ -5248,6 +5431,7 @@
     {
       "id": "CAP-002",
       "line": 477,
+      "catalog_line": 304,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_capabilities.py",
@@ -5277,6 +5461,7 @@
     {
       "id": "CAP-003",
       "line": 478,
+      "catalog_line": 305,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_capability_dispatcher.py"
@@ -5301,6 +5486,7 @@
     {
       "id": "CAP-004",
       "line": 479,
+      "catalog_line": 306,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_capabilities.py"
@@ -5325,6 +5511,7 @@
     {
       "id": "CAP-006",
       "line": 481,
+      "catalog_line": 308,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_capabilities.py",
@@ -5353,6 +5540,7 @@
     {
       "id": "CAP-008",
       "line": 483,
+      "catalog_line": 310,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_capabilities.py",
@@ -5382,6 +5570,7 @@
     {
       "id": "RUN-001",
       "line": 490,
+      "catalog_line": 312,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_gitsafety.py"
@@ -5406,6 +5595,7 @@
     {
       "id": "RUN-003",
       "line": 492,
+      "catalog_line": 314,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5435,6 +5625,7 @@
     {
       "id": "RUN-008",
       "line": 497,
+      "catalog_line": 319,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_execution_profile.py",
@@ -5462,6 +5653,7 @@
     {
       "id": "ECO-001",
       "line": 505,
+      "catalog_line": 322,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_profile.py",
@@ -5490,6 +5682,7 @@
     {
       "id": "ECO-002",
       "line": 506,
+      "catalog_line": 323,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_ecosystems.py"
@@ -5514,6 +5707,7 @@
     {
       "id": "ECO-003",
       "line": 507,
+      "catalog_line": 324,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_profile.py"
@@ -5538,6 +5732,7 @@
     {
       "id": "ECO-004",
       "line": 508,
+      "catalog_line": 325,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_inspection.py",
@@ -5583,6 +5778,7 @@
     {
       "id": "PKG-001",
       "line": 513,
+      "catalog_line": 327,
       "priority": "P1",
       "cited_paths": [
         "scripts/retrofits/prove_multi_registry_resolvers_live.py",
@@ -5609,6 +5805,7 @@
     {
       "id": "PKG-002",
       "line": 514,
+      "catalog_line": 328,
       "priority": "P1",
       "cited_paths": [
         "scripts/retrofits/prove_multi_registry_resolvers_live.py",
@@ -5635,6 +5832,7 @@
     {
       "id": "PKG-003",
       "line": 515,
+      "catalog_line": 329,
       "priority": "P1",
       "cited_paths": [
         "scripts/retrofits/prove_multi_registry_resolvers_live.py",
@@ -5661,6 +5859,7 @@
     {
       "id": "PKG-004",
       "line": 516,
+      "catalog_line": 330,
       "priority": "P2",
       "cited_paths": [
         "scripts/retrofits/prove_multi_registry_resolvers_live.py",
@@ -5687,6 +5886,7 @@
     {
       "id": "PKG-005",
       "line": 517,
+      "catalog_line": 331,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_verify_package_acquisition.py",
@@ -5721,6 +5921,7 @@
     {
       "id": "MEM-001",
       "line": 533,
+      "catalog_line": 337,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_orchestrator.py",
@@ -5749,6 +5950,7 @@
     {
       "id": "MEM-003",
       "line": 535,
+      "catalog_line": 339,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_state_backend.py",
@@ -5782,6 +5984,7 @@
     {
       "id": "MEM-004",
       "line": 536,
+      "catalog_line": 340,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_state_schema.py",
@@ -5810,6 +6013,7 @@
     {
       "id": "EFF-001",
       "line": 554,
+      "catalog_line": 342,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -5839,6 +6043,7 @@
     {
       "id": "EFF-002",
       "line": 555,
+      "catalog_line": 343,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_effect_ledger.py",
@@ -5867,6 +6072,7 @@
     {
       "id": "EFF-003",
       "line": 556,
+      "catalog_line": 344,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_repair.py",
@@ -5894,6 +6100,7 @@
     {
       "id": "EFF-004",
       "line": 557,
+      "catalog_line": 345,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_effect_ledger.py"
@@ -5918,6 +6125,7 @@
     {
       "id": "EFF-005",
       "line": 558,
+      "catalog_line": 346,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_effect_ledger.py",
@@ -5946,6 +6154,7 @@
     {
       "id": "EFF-006",
       "line": 559,
+      "catalog_line": 347,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_effect_identity.py",
@@ -5980,6 +6189,7 @@
     {
       "id": "FRESH-001",
       "line": 565,
+      "catalog_line": 348,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_freshness_contract.py",
@@ -6011,6 +6221,7 @@
     {
       "id": "FRESH-002",
       "line": 566,
+      "catalog_line": 349,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_freshness_contract.py"
@@ -6035,6 +6246,7 @@
     {
       "id": "FRESH-003",
       "line": 567,
+      "catalog_line": 350,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_freshness_contract.py",
@@ -6062,6 +6274,7 @@
     {
       "id": "FRESH-004",
       "line": 568,
+      "catalog_line": 351,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_convergence.py"
@@ -6086,6 +6299,7 @@
     {
       "id": "FRESH-005",
       "line": 569,
+      "catalog_line": 352,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_convergence.py"
@@ -6110,6 +6324,7 @@
     {
       "id": "FRESH-006",
       "line": 570,
+      "catalog_line": 353,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_convergence.py"
@@ -6134,6 +6349,7 @@
     {
       "id": "ORC-001",
       "line": 576,
+      "catalog_line": 354,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_task_graph.py",
@@ -6165,6 +6381,7 @@
     {
       "id": "ORC-005",
       "line": 580,
+      "catalog_line": 358,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_commands_compatibility.py",
@@ -6196,6 +6413,7 @@
     {
       "id": "ORC-007",
       "line": 582,
+      "catalog_line": 360,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_cli.py"
@@ -6221,6 +6439,7 @@
     {
       "id": "VER-001",
       "line": 590,
+      "catalog_line": 363,
       "priority": "P0",
       "cited_paths": [
         "scripts/retrofits/prove_verify_gate_live.py",
@@ -6252,6 +6471,7 @@
     {
       "id": "VER-003",
       "line": 592,
+      "catalog_line": 365,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_supervisor_loop.py",
@@ -6284,6 +6504,7 @@
     {
       "id": "VER-004",
       "line": 593,
+      "catalog_line": 366,
       "priority": "P2",
       "cited_paths": [
         "tests/unit/test_validation_registry.py"
@@ -6306,6 +6527,7 @@
     {
       "id": "VER-007",
       "line": 596,
+      "catalog_line": 369,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_convergence.py",
@@ -6333,6 +6555,7 @@
     {
       "id": "VER-009",
       "line": 599,
+      "catalog_line": 372,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/verification-summary.json"
@@ -6362,6 +6585,7 @@
     {
       "id": "GAP-001",
       "line": 606,
+      "catalog_line": 374,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_capability_dispatcher.py",
@@ -6389,6 +6613,7 @@
     {
       "id": "GAP-002",
       "line": 607,
+      "catalog_line": 375,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -6418,6 +6643,7 @@
     {
       "id": "SCL-007",
       "line": 620,
+      "catalog_line": 383,
       "priority": "P3",
       "cited_paths": [
         "tests/unit/test_capabilities.py"
@@ -6442,6 +6668,7 @@
     {
       "id": "SCL-009",
       "line": 625,
+      "catalog_line": 388,
       "priority": "P1",
       "cited_paths": [
         "tests/unit/test_gitsafety.py",
@@ -6470,6 +6697,7 @@
     {
       "id": "PRL-004",
       "line": 635,
+      "catalog_line": 392,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -6499,6 +6727,7 @@
     {
       "id": "PRL-007",
       "line": 638,
+      "catalog_line": 395,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_open_presentation_pr.py"
@@ -6523,6 +6752,7 @@
     {
       "id": "PRL-008",
       "line": 639,
+      "catalog_line": 396,
       "priority": "P1",
       "cited_paths": [
         "plans/investigations/evidence/level8-semantic-closure-verification.json"
@@ -6552,6 +6782,7 @@
     {
       "id": "TRP-001",
       "line": 652,
+      "catalog_line": 398,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_content_assurance.py",
@@ -6590,6 +6821,7 @@
     {
       "id": "L8-002",
       "line": 676,
+      "catalog_line": 422,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-wave1-heterogeneous-fail-closed-2026-07-23/canonical-mutation-path-audit.json"
@@ -6619,6 +6851,7 @@
     {
       "id": "L8-018",
       "line": 692,
+      "catalog_line": 438,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-truth-versioned-fact-acceptance-2026-07-26/replay-results.json",
@@ -6656,6 +6889,7 @@
     {
       "id": "L8-027",
       "line": 701,
+      "catalog_line": 447,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_llm_call_ledger.py",
@@ -6689,6 +6923,7 @@
     {
       "id": "L8-028",
       "line": 702,
+      "catalog_line": 448,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_prompt_hygiene.py",
@@ -6730,6 +6965,7 @@
     {
       "id": "L8-029",
       "line": 703,
+      "catalog_line": 449,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-aspose-org-ecosystem-adaptation/verification.json"
@@ -6759,6 +6995,7 @@
     {
       "id": "L8-030",
       "line": 704,
+      "catalog_line": 450,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-python-api-truth/verification.json"
@@ -6788,6 +7025,7 @@
     {
       "id": "L8-031",
       "line": 705,
+      "catalog_line": 451,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-typescript-export-truth/verification.json"
@@ -6817,6 +7055,7 @@
     {
       "id": "L8-032",
       "line": 706,
+      "catalog_line": 452,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-rust-api-truth/verification.json"
@@ -6846,6 +7085,7 @@
     {
       "id": "L8-033",
       "line": 707,
+      "catalog_line": 453,
       "priority": "P0",
       "cited_paths": [
         "tests/unit/test_package_root_roles.py",
@@ -6879,6 +7119,7 @@
     {
       "id": "L8-035",
       "line": 709,
+      "catalog_line": 455,
       "priority": "P0",
       "cited_paths": [
         "plans/investigations/evidence/level8-intake-00-discovery-truth-and-safety-v1/verification.json"
@@ -6908,6 +7149,7 @@
     {
       "id": "L8-037",
       "line": 711,
+      "catalog_line": 457,
       "priority": "P0",
       "cited_paths": [
         "tests/integration/test_readonly_intake_portfolio.py",

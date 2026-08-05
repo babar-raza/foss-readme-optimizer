@@ -1031,6 +1031,24 @@ class TestSerializationRoundTrip:
         )
         assert ReadmePocLifecycleStateV2.model_validate_json(state.model_dump_json()) == state
 
+    def test_old_v2_state_defaults_new_acceptance_axes_fail_closed(self):
+        restored = ReadmePocLifecycleStateV2.model_validate(
+            {
+                "schema_version": 2,
+                "status": "NO_OP_PROVEN",
+                "source_revision": "a" * 40,
+                "facts_hash": "b" * 64,
+                "candidate_hash": "c" * 64,
+            }
+        )
+
+        assert restored.factual_validity.status == "UNKNOWN"
+        assert restored.presentation_validity.status == "UNKNOWN"
+        assert restored.human_acceptance_history == []
+        assert restored.publication_eligibility.status == "INELIGIBLE"
+
+
+class TestSerializationRoundTripContinued:
     def test_run_state_v1_with_populated_lifecycle_round_trips(self):
         original = RunStateV1(
             org_repo="org/repo",

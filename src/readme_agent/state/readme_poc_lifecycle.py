@@ -34,6 +34,9 @@ from readme_agent.state.lifecycle_schema import (
     AssuranceReadmePocStatusV1,
     ContentAssuranceTransitionV1,
     FactAcceptanceBindingV1,
+    FactualValidityBindingV1,
+    PresentationValidityBindingV1,
+    PublicationEligibilityBindingV1,
     ReadmePocLifecycleStateV1,
     ReadmePocLifecycleStateV2,
     ReadmePocStatusV2,
@@ -352,6 +355,21 @@ def switch_content_assurance(
                 "prompt_hash": None,
                 "fact_acceptance_contract_hash": None,
                 "fact_acceptance_component_hashes": {},
+                "factual_validity": FactualValidityBindingV1(
+                    reason="content assurance changed",
+                    observed_by=observed_by,
+                    occurred_at=now,
+                ),
+                "presentation_validity": PresentationValidityBindingV1(
+                    reason="content assurance changed",
+                    observed_by=observed_by,
+                    occurred_at=now,
+                ),
+                "publication_eligibility": PublicationEligibilityBindingV1(
+                    rejection_reasons=["content assurance changed"],
+                    observed_by=observed_by,
+                    occurred_at=now,
+                ),
                 "reviewer_standard_hash": None,
                 "protected_content_fingerprint": None,
                 "repair_budget_origin_hash": None,
@@ -623,6 +641,33 @@ def transition_readme_poc_status(
                     else ({} if source_changed else prior.fact_acceptance_component_hashes)
                 ),
                 "fact_acceptance_history": acceptance_history,
+                "factual_validity": (
+                    FactualValidityBindingV1(
+                        reason="source or fact inputs changed",
+                        observed_by=observed_by,
+                        occurred_at=now,
+                    )
+                    if fact_inputs_changed
+                    else prior.factual_validity
+                ),
+                "presentation_validity": (
+                    PresentationValidityBindingV1(
+                        reason="source or fact inputs changed",
+                        observed_by=observed_by,
+                        occurred_at=now,
+                    )
+                    if fact_inputs_changed
+                    else prior.presentation_validity
+                ),
+                "publication_eligibility": (
+                    PublicationEligibilityBindingV1(
+                        rejection_reasons=["source or fact inputs changed"],
+                        observed_by=observed_by,
+                        occurred_at=now,
+                    )
+                    if fact_inputs_changed
+                    else prior.publication_eligibility
+                ),
                 "reviewer_standard_hash": (
                     reviewer_standard_hash
                     if reviewer_standard_hash is not None

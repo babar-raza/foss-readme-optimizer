@@ -1,5 +1,6 @@
 """Offline tests for the supervisor's central mission-taskcard consumer."""
 
+import hashlib
 import importlib.util
 import json
 from copy import deepcopy
@@ -18,10 +19,14 @@ from readme_agent.facts.schema_v2 import (
     descriptive_fact_id,
 )
 from readme_agent.registry.loader import load_products
+from readme_agent.state.agile_execution_schema import (
+    ParallelismControlStateV1,
+    TaskCloseoutControlEvidenceV1,
+)
 from readme_agent.state.backend import SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.mission_goal_schema import MissionContributionEvidenceV1
-from readme_agent.state.schema import MissionExecutionStateV1, RunStateV1
+from readme_agent.state.schema import MissionExecutionStateV1, MissionTransitionV1, RunStateV1
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
@@ -37,6 +42,16 @@ from readme_agent.supervisor.mission_goal_guard import (
 from readme_agent.supervisor.mission_graph import load_mission_graph
 from readme_agent.supervisor.mission_lifecycle_freshness import (
     evaluate_lifecycle_fact_freshness,
+)
+from readme_agent.supervisor.multi_agent_admission import (
+    decide_multi_agent_admission,
+    multi_agent_admission_sha256,
+    request_from_execution_plan,
+)
+from readme_agent.supervisor.parallelism_admission import decide_parallelism
+from readme_agent.supervisor.verification_policy import (
+    build_verification_plan,
+    verification_plan_sha256,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -78,7 +93,7 @@ def _write_contribution_evidence(
     tmp_path: Path,
     backend: _MemoryStateBackend,
     task,
-) -> Path:
+) -> list[Path]:
     proof_path = tmp_path / f"{task.task_id}-proof.txt"
     proof_path.write_text("independent task proof", encoding="utf-8")
     scoreboard = derive_lifecycle_scoreboard(backend)
@@ -95,11 +110,59 @@ def _write_contribution_evidence(
         scoreboard_after_sha256=scoreboard_hash,
         first_failing_boundary_before=scoreboard.first_failing_boundary,
         first_failing_boundary_after=scoreboard.first_failing_boundary,
+        contribution_boundary_before=(
+            "unresolved_task_boundary"
+            if task.core_contribution.kind == "first_boundary_removal"
+            else None
+        ),
+        contribution_boundary_after=(
+            "resolved_task_boundary"
+            if task.core_contribution.kind == "first_boundary_removal"
+            else None
+        ),
         independently_verified=True,
     )
     evidence_path = tmp_path / f"{task.task_id}-contribution.json"
     evidence_path.write_text(evidence.model_dump_json(indent=2), encoding="utf-8")
-    return evidence_path
+    verification_plan = build_verification_plan(task)
+    execution_plan_path = REPO_ROOT / "runs" / "multi-agent" / task.task_id / "execution-plan.json"
+    multi_agent_binding = {}
+    if execution_plan_path.is_file():
+        request = request_from_execution_plan(execution_plan_path)
+        decision = decide_multi_agent_admission(
+            request,
+            decide_parallelism(ParallelismControlStateV1()),
+            repository_root=REPO_ROOT,
+        )
+        assert decision.admitted
+        multi_agent_binding = {
+            "multi_agent_execution_plan_sha256": hashlib.sha256(
+                execution_plan_path.read_bytes()
+            ).hexdigest(),
+            "multi_agent_admission_decision_sha256": multi_agent_admission_sha256(decision),
+        }
+    control = TaskCloseoutControlEvidenceV1(
+        task_id=task.task_id,
+        verification_plan_sha256=verification_plan_sha256(verification_plan),
+        completed_tiers=verification_plan.required_tiers,
+        promotion_boundary=verification_plan.promotion_boundary,
+        canonical_evidence_promoted=verification_plan.canonical_promotion_allowed,
+        proof_refs=[str(proof_path)],
+        independently_verified=True,
+        **multi_agent_binding,
+    )
+    control_path = tmp_path / f"{task.task_id}-closeout-control.json"
+    control_path.write_text(control.model_dump_json(indent=2), encoding="utf-8")
+    return [evidence_path, control_path]
+
+
+def _all_closed_statuses(graph) -> dict[str, str]:
+    """Build a complete synthetic terminal state across active and deferred records."""
+
+    return {
+        **{task.task_id: "CLOSED" for task in graph.taskcards},
+        **{task.task_id: "CLOSED" for task in graph.deferred_task_index},
+    }
 
 
 def test_real_level8_graph_is_schema_valid_and_acyclic():
@@ -107,29 +170,23 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
 
     assert graph.mission_authority.mission_id == "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     assert graph.autonomous_execution_contract.mechanism_locked is True
-    assert len(graph.taskcards) >= 30
+    assert 1 <= len(graph.taskcards) <= 15
+    assert len(graph.deferred_task_index) == graph.deferred_task_catalog.record_count
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
-    assert tasks["L8-TRUTH-01A-FACT-CONTRACT"].goal_ids == ["GOAL-TRUTH"]
-    assert tasks["L8-COMPOSE-02-EXISTING-SECTIONS"].goal_ids == ["GOAL-README"]
-    assert tasks["L8-WAVE4-PRESENTATION-INTELLIGENCE"].goal_ids == [
-        "GOAL-README",
-        "GOAL-PROFILE",
-    ]
-    assert tasks["L8-MISSION-GOAL-GUARD"].goal_ids == ["GOAL-AUTONOMY"]
-    assert tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].goal_ids == ["GOAL-DELIVERY"]
-    assert tasks["L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"].goal_ids == ["GOAL-MATURITY"]
-    assert tasks["L8-VPY-00-GOLDEN-TEMPLATE"].dependencies == [
-        "L8-PLAN-RECONCILIATION-ACCELERATION"
-    ]
-    assert tasks["L8-ACCEL-00-PYTHON-READINESS"].dependencies == ["L8-VPY-00-GOLDEN-TEMPLATE"]
-    assert tasks["L8-AGILE-AUTHORITY-RESET"].dependencies == ["L8-ACCEL-00-PYTHON-READINESS"]
+    assert set(tasks) == {
+        "L8-AGILE-AUTHORITY-RESET",
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-HORIZON-01-ACTIVATE-GATE-A",
+    }
+    assert tasks["L8-AGILE-AUTHORITY-RESET"].dependencies == []
     assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == ["L8-AGILE-AUTHORITY-RESET"]
     assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
-    ]
-    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
-        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
     ]
     assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
@@ -137,6 +194,12 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
         "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+    ]
+    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    ]
+    assert tasks["L8-HORIZON-01-ACTIVATE-GATE-A"].dependencies == [
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
     ]
     goals = {goal.goal_id: goal for goal in graph.mission_authority.stage_goal_catalog}
     campaigns = {campaign.campaign_id: campaign for campaign in graph.campaign_catalog}
@@ -149,65 +212,43 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "CAMP-GATE-A-PORTFOLIO",
         "CAMP-GATE-B-AND-LATER",
     ]
-    assert all(
-        task.campaign_id is None
-        for task in graph.taskcards
-        if task.stage_goal_id.startswith("GOAL-T")
-    )
-    assert all(
-        task.campaign_id is not None
-        for task in graph.taskcards
-        if not task.stage_goal_id.startswith("GOAL-T")
-    )
+    assert all(task.campaign_id is not None for task in graph.taskcards)
     assert goals["GOAL-V0-VERIFIED-PYTHON-POC"].execution_required is True
     assert goals["GOAL-TP-TRUSTED-COHORT-POC"].execution_required is False
     assert goals["GOAL-L7-HETEROGENEOUS-30D"].execution_required is False
     assert goals["GOAL-L8-SELF-MAINTAINING-90D"].execution_required is False
-    assert tasks["TRP-04P-COHORT-FREEZE"].dependencies == ["TRP-03-INDEPENDENT-FIDELITY-REVIEW"]
-    assert tasks["TRP-04-CANARY-QUALIFICATION"].dependencies == ["TRP-04P-POC-PRESENTATION"]
-    assert tasks["TRP-04-CANARY-QUALIFICATION"].stage_goal_id == (
-        "GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION"
+    historical = [
+        task for task in graph.deferred_task_index if task.activation_group == "historical-control"
+    ]
+    assert historical
+    assert all(task.status == "DEFERRED_WITH_REASON" for task in historical)
+
+    requirement_catalog = REPO_ROOT / graph.requirement_catalog.path
+    coverage_path = REPO_ROOT / graph.requirement_coverage.path
+    deferred_catalog = REPO_ROOT / graph.deferred_task_catalog.path
+    assert hashlib.sha256(requirement_catalog.read_bytes()).hexdigest() == (
+        graph.requirement_catalog.sha256
     )
-    local_poc_children = {
-        task.task_id
-        for task in graph.taskcards
-        if task.parent_task_id == "L8-LOCAL-README-PROPOSAL-PROOF"
-    }
-    assert {
-        "L8-LOCAL-PORTFOLIO-RUNTIME",
-        "L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH",
-        "L8-LOCAL-README-ASSESSMENT-COMPOSITION",
-        "L8-LOCAL-INDEPENDENT-REVIEW-REPAIR",
-        "L8-LOCAL-HETEROGENEOUS-QUALIFICATION",
-        "L8-LOCAL-FULL-REGISTRY-GATE-A",
-    } <= local_poc_children
-    assert tasks["L8-LOCAL-HUMAN-REVIEW-GATE-B"].dependencies == ["L8-LOCAL-FULL-REGISTRY-GATE-A"]
     assert (
-        "L8-LOCAL-HUMAN-REVIEW-GATE-B" in tasks["L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"].dependencies
+        hashlib.sha256(coverage_path.read_bytes()).hexdigest() == graph.requirement_coverage.sha256
     )
-    assert tasks["L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF"].dependencies == [
-        "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE"
-    ]
-    assert tasks["L8-GATE-D-GITHUB-APP-INTEGRATION"].dependencies == [
-        "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF"
-    ]
-    assert tasks["L8-WAVE6-CONTROLLED-JAVA-PILOT"].dependencies == [
-        "L8-GATE-D-GITHUB-APP-INTEGRATION"
-    ]
-    assert tasks["L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO"].dependencies == [
-        "L8-WAVE6-CONTROLLED-JAVA-PILOT"
-    ]
-    assert tasks["L8-WAVE7-HETEROGENEOUS-PORTFOLIO"].dependencies == [
-        "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO"
-    ]
+    assert hashlib.sha256(deferred_catalog.read_bytes()).hexdigest() == (
+        graph.deferred_task_catalog.sha256
+    )
+    coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
+    assert len(coverage["mappings"]) == graph.requirement_coverage.record_count
+    assert coverage["unmapped_requirement_ids"] == []
+    assert {mapping["requirement_id"] for mapping in coverage["mappings"]} >= {
+        "L8-001",
+        "L8-011",
+        "L8-047",
+    }
 
 
 def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
-    statuses["L8-VPY-00-GOLDEN-TEMPLATE"] = "TODO"
-    statuses["L8-PLAN-RECONCILIATION-ACCELERATION"] = "CLOSED"
-    statuses["L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT"] = "TODO"
+    statuses = _all_closed_statuses(graph)
+    statuses["L8-AGILE-AUTHORITY-RESET"] = "TODO"
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,
@@ -217,112 +258,134 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
 
     qualification = evaluate_mission(graph, state)
     assert qualification.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
-    assert qualification.concurrent_goal_ids == ["GOAL-C0-AUTHORIZED-PORTFOLIO"]
-    assert [task.task_id for task in qualification.eligible_tasks[:2]] == [
-        "L8-VPY-00-GOLDEN-TEMPLATE",
-        "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-    ]
+    assert qualification.concurrent_goal_ids == []
+    assert [task.task_id for task in qualification.eligible_tasks] == ["L8-AGILE-AUTHORITY-RESET"]
     assert qualification.next_task is not None
     assert qualification.next_task.campaign_id == "CAMP-SHARED-ACCELERATION"
 
-    after_qualification = state.model_copy(
-        update={
-            "task_statuses": {
-                **statuses,
-                "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-            }
-        }
-    )
-    intake = evaluate_mission(graph, after_qualification)
-    assert intake.active_goal_id == "GOAL-C0-AUTHORIZED-PORTFOLIO"
-    assert intake.concurrent_goal_ids == []
-
-    preserved_trusted_statuses = {
-        **after_qualification.task_statuses,
-        "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
-        "TRP-05-FULL-REGISTRY-TRANSFORM": "TODO",
-    }
-    preserved_trusted = evaluate_mission(
+    first_readme = evaluate_mission(
         graph,
-        after_qualification.model_copy(update={"task_statuses": preserved_trusted_statuses}),
-    )
-    assert preserved_trusted.active_goal_id is None
-    assert "TRP-05-FULL-REGISTRY-TRANSFORM" not in preserved_trusted.unresolved_task_ids
-
-    reopened = evaluate_mission(
-        graph,
-        after_qualification.model_copy(
+        state.model_copy(
             update={
                 "task_statuses": {
-                    **preserved_trusted_statuses,
-                    "TRP-01-README-DERIVED-FACTS": "REGRESSED",
+                    **statuses,
+                    "L8-AGILE-AUTHORITY-RESET": "CLOSED",
+                    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
                 }
             }
         ),
     )
-    assert reopened.active_goal_id is None
-    assert "TRP-01-README-DERIVED-FACTS" not in reopened.unresolved_task_ids
-    tasks = {task.task_id: task for task in graph.taskcards}
-    local_wave3 = tasks["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
-    assert local_wave3.dependencies == ["L8-WAVE1-CANONICAL-SAFETY-SPINE"]
-    assert (
-        "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"
-        in tasks["L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP"].dependencies
+    assert first_readme.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
+    assert first_readme.next_task is not None
+    assert first_readme.next_task.task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+
+    python_cohort = evaluate_mission(
+        graph,
+        state.model_copy(
+            update={
+                "task_statuses": {
+                    **statuses,
+                    "L8-AGILE-AUTHORITY-RESET": "CLOSED",
+                    "L8-VPY-01-NOTE-VERIFIED-CANARY": "TODO",
+                    "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
+                }
+            }
+        ),
     )
-    local_wave4 = tasks["L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"]
-    assert local_wave4.dependencies == ["L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION"]
-    assert (
-        "L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"
-        in tasks["L8-WAVE4-PRESENTATION-INTELLIGENCE"].dependencies
+    assert python_cohort.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert [task.task_id for task in python_cohort.eligible_tasks] == [
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+    ]
+
+    post_python = evaluate_mission(
+        graph,
+        state.model_copy(
+            update={
+                "task_statuses": {
+                    **statuses,
+                    "L8-AGILE-AUTHORITY-RESET": "CLOSED",
+                    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "TODO",
+                }
+            }
+        ),
     )
-    preproduction = tasks["L8-PREPRODUCTION-IDEA-FIDELITY-GATE"]
-    assert preproduction.dependencies == ["L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION"]
-    assert (
-        "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
-        in tasks["L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME"].dependencies
+    assert post_python.active_goal_id == "GOAL-V0B-POST-PYTHON-SLICES"
+    assert post_python.next_task is not None
+    assert post_python.next_task.task_id == "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
+
+    reopened = evaluate_mission(
+        graph,
+        state.model_copy(
+            update={
+                "task_statuses": {
+                    **statuses,
+                    "L8-AGILE-AUTHORITY-RESET": "REGRESSED",
+                }
+            }
+        ),
     )
-    coverage = graph.requirement_coverage
-    assert coverage is not None
-    coverage_tool = _load_tool_module(
-        "build_level8_requirement_taskcard_coverage_contract",
-        "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+    assert reopened.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
+    assert reopened.next_task is not None
+    assert reopened.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
+
+
+def test_delivery_and_background_certification_have_distinct_closure_states():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = _all_closed_statuses(graph)
+    observation = next(
+        task
+        for task in graph.deferred_task_index
+        if task.stage_goal_id == "GOAL-L7-HETEROGENEOUS-30D"
     )
-    expected_graph, expected_report = coverage_tool.build_coverage()
-    expected_coverage = expected_graph["requirement_coverage"]
-    assert coverage.total_requirement_rows == expected_coverage["total_requirement_rows"]
-    assert coverage.mandatory_requirement_rows == expected_coverage["mandatory_requirement_rows"]
-    assert coverage.reopened_implemented_rows == expected_coverage["reopened_implemented_rows"]
-    assert len({mapping.requirement_id for mapping in coverage.mappings}) == len(
-        expected_coverage["mappings"]
+    statuses[observation.task_id] = "OBSERVATION_RUNNING"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
     )
-    assert expected_report["unmapped_requirement_ids"] == []
-    l8_mapping = next(
-        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-011"
+
+    observing = evaluate_mission(graph, state)
+
+    assert observing.active_goal_id is None
+    assert observing.delivery_complete is True
+    assert observing.certification_complete is False
+    assert observing.mission_complete is False
+
+    certified = evaluate_mission(
+        graph,
+        state.model_copy(update={"task_statuses": {**statuses, observation.task_id: "CLOSED"}}),
     )
-    assert l8_mapping.task_id == "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE"
-    auth_mapping = next(
-        mapping for mapping in coverage.mappings if mapping.requirement_id == "AUTH-008"
+
+    assert certified.delivery_complete is True
+    assert certified.certification_complete is True
+    assert certified.mission_complete is True
+
+
+def test_historical_deferred_dispositions_do_not_prevent_delivery_completion():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = _all_closed_statuses(graph)
+    historical = [
+        task for task in graph.deferred_task_index if task.activation_group == "historical-control"
+    ]
+    assert historical
+    for task in historical:
+        statuses[task.task_id] = "DEFERRED_WITH_REASON"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
     )
-    assert auth_mapping.task_id == "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION"
-    finalized_readme_mapping = next(
-        mapping for mapping in coverage.mappings if mapping.requirement_id == "RDM-026"
-    )
-    assert finalized_readme_mapping.task_id == "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
-    hosted_revalidation_mapping = next(
-        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-001"
-    )
-    assert hosted_revalidation_mapping.task_id == "L8-GATE-D-GITHUB-APP-INTEGRATION"
-    preproduction_mapping = next(
-        mapping for mapping in coverage.mappings if mapping.requirement_id == "L8-014"
-    )
-    assert preproduction_mapping.task_id == "L8-PREPRODUCTION-IDEA-FIDELITY-GATE"
-    requirements_path = REPO_ROOT / coverage.source_path
-    assert coverage.source_sha256 == coverage_tool.canonical_text_sha256(requirements_path)
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert evaluation.delivery_complete is True
+    assert all(task.task_id not in evaluation.unresolved_task_ids for task in historical)
 
 
 def test_preserved_trusted_goals_cannot_regain_execution_authority():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses = _all_closed_statuses(graph)
     statuses["TRP-04P-COHORT-FREEZE"] = "TODO"
     statuses["TRP-04-CANARY-QUALIFICATION"] = "TODO"
     state = MissionExecutionStateV1(
@@ -340,9 +403,13 @@ def test_preserved_trusted_goals_cannot_regain_execution_authority():
 
 def test_first_verified_readme_goal_precedes_the_python_platform_goal():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
-    statuses["L8-VPY-00-GOLDEN-TEMPLATE"] = "TODO"
-    statuses["TRP-04P-COHORT-FREEZE"] = "TODO"
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-AGILE-AUTHORITY-RESET": "TODO",
+            "L8-VPY-01-NOTE-VERIFIED-CANARY": "TODO",
+        }
+    )
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,
@@ -350,21 +417,18 @@ def test_first_verified_readme_goal_precedes_the_python_platform_goal():
     )
 
     evaluation = evaluate_mission(graph, state)
-
     assert evaluation.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert evaluation.next_task is not None
-    assert evaluation.next_task.task_id == "L8-VPY-00-GOLDEN-TEMPLATE"
+    assert evaluation.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
 
 
 def test_terminal_exception_stage_does_not_starve_later_ready_work():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: "CLOSED" for task in graph.taskcards}
+    statuses = _all_closed_statuses(graph)
     statuses.update(
         {
-            "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
-            "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": "BLOCKED_EXTERNAL",
-            "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
-            "TRP-04P-COHORT-FREEZE": "TODO",
+            "L8-HORIZON-01-ACTIVATE-GATE-A": "TODO",
+            "L8-GATE-D-GITHUB-APP-INTEGRATION": "BLOCKED_EXTERNAL",
         }
     )
     state = MissionExecutionStateV1(
@@ -375,9 +439,10 @@ def test_terminal_exception_stage_does_not_starve_later_ready_work():
 
     evaluation = evaluate_mission(graph, state)
 
-    assert evaluation.active_goal_id is None
-    assert evaluation.next_task is None
-    assert "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME" in evaluation.blocked_external_task_ids
+    assert evaluation.active_goal_id == "GOAL-V0B-POST-PYTHON-SLICES"
+    assert evaluation.next_task is not None
+    assert evaluation.next_task.task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    assert "L8-GATE-D-GITHUB-APP-INTEGRATION" in evaluation.blocked_external_task_ids
     assert evaluation.mission_complete is False
 
 
@@ -783,7 +848,7 @@ def test_requirement_coverage_classifier_handles_every_extractor_status():
     assert set(classifier.STATUS_DEFAULT) == extractor.VALID_STATUSES
 
 
-def test_evaluate_initializes_and_preserves_the_bootstrap_claim():
+def test_evaluate_initializes_then_claims_the_reset_task():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
 
@@ -794,21 +859,77 @@ def test_evaluate_initializes_and_preserves_the_bootstrap_claim():
     assert second.state_version == 2
     state = second.mission_execution
     assert state is not None
-    assert state.active_task_id == "L8-MISSION-CONTROL-CONSUMER"
-    assert state.task_statuses[state.active_task_id] == "IN_PROGRESS"
+    assert state.active_task_id is None
+    assert state.task_statuses["L8-AGILE-AUTHORITY-RESET"] == "TODO"
     evaluation = evaluate_mission(graph, state)
     assert evaluation.mission_complete is False
     assert state.lifecycle_scoreboard is not None
     assert state.lifecycle_scoreboard.denominator == len(load_products())
     assert state.next_task is not None
-    assert state.next_task.task_id == state.active_task_id
+    assert state.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
     assert evaluation.core_goal_active is True
+
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
+    assert claimed.mission_execution.task_statuses["L8-AGILE-AUTHORITY-RESET"] == "IN_PROGRESS"
+
+
+def test_evaluate_migrates_historical_work_to_a_durable_non_executable_disposition():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    historical = next(
+        task for task in graph.deferred_task_index if task.activation_group == "historical-control"
+    )
+    statuses = {
+        **{task.task_id: task.status for task in graph.taskcards},
+        **{task.task_id: task.status for task in graph.deferred_task_index},
+        historical.task_id: "IN_PROGRESS",
+    }
+    prior_transition = MissionTransitionV1(
+        task_id=historical.task_id,
+        from_status="TODO",
+        to_status="READY",
+        observed_by="pre-migration-worker",
+        reason="preserved pre-migration history",
+    )
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = RunStateV1(
+        org_repo=mission_state_key(graph.mission_authority.mission_id),
+        state_version=7,
+        mission_execution=MissionExecutionStateV1(
+            mission_id=graph.mission_authority.mission_id,
+            graph_sha256="0" * 64,
+            task_statuses=statuses,
+            active_task_id=historical.task_id,
+            claim_id="historical-claim",
+            claimed_by="pre-migration-worker",
+            claimed_at="2026-08-01T00:00:00+00:00",
+            claim_expires_at="2026-08-01T00:30:00+00:00",
+            transition_history=[prior_transition],
+        ),
+    )
+
+    migrated = persist_evaluation(backend, graph, graph_hash)
+
+    assert migrated.mission_execution is not None
+    state = migrated.mission_execution
+    assert state.task_statuses[historical.task_id] == "DEFERRED_WITH_REASON"
+    assert state.active_task_id is None
+    assert state.claim_id is None
+    assert state.transition_history[0] == prior_transition
+    assert state.transition_history[-1].task_id == historical.task_id
+    assert state.transition_history[-1].from_status == "IN_PROGRESS"
+    assert state.transition_history[-1].to_status == "DEFERRED_WITH_REASON"
+    assert state.transition_history[-1].observed_by == "mission-graph-migration"
 
 
 def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliation():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: task.status for task in graph.taskcards}
-    statuses.pop("L8-PREPRODUCTION-IDEA-FIDELITY-GATE")
+    statuses = {
+        **{task.task_id: task.status for task in graph.taskcards},
+        **{task.task_id: task.status for task in graph.deferred_task_index},
+    }
+    statuses.pop("L8-AGILE-AUTHORITY-RESET")
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,
@@ -817,7 +938,9 @@ def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliati
 
     evaluation = evaluate_mission(graph, state)
 
-    assert "L8-PREPRODUCTION-IDEA-FIDELITY-GATE" in evaluation.unresolved_task_ids
+    assert "L8-AGILE-AUTHORITY-RESET" in evaluation.unresolved_task_ids
+    assert evaluation.next_task is not None
+    assert evaluation.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
     assert evaluation.mission_complete is False
 
 
@@ -842,7 +965,10 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path)
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
     persist_evaluation(backend, graph, graph_hash)
-    task_id = "L8-MISSION-CONTROL-CONSUMER"
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
+    assert claimed.mission_execution is not None
+    task_id = "L8-AGILE-AUTHORITY-RESET"
+    assert claimed.mission_execution.active_task_id == task_id
     task = next(task for task in graph.taskcards if task.task_id == task_id)
     contribution_evidence = _write_contribution_evidence(tmp_path, backend, task)
 
@@ -856,7 +982,7 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path)
             observed_by="test-verifier",
             reason=f"test transition to {status}",
             evidence_refs=(
-                [str(contribution_evidence)]
+                [str(path) for path in contribution_evidence]
                 if status == "CLOSED"
                 else [f"evidence/{status.lower()}.json"]
             ),
@@ -864,26 +990,25 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path)
 
     state = record.mission_execution
     assert state is not None
+    assert state.infrastructure_tasks_since_visible_delivery == 1
+    assert state.approach_control.attempts[-1].outcome == "effective"
     evaluation = evaluate_mission(graph, state)
     assert [task.task_id for task in evaluation.eligible_tasks] == [
-        "L8-MISSION-GOAL-GUARD",
-        "L8-PLAN-RECONCILIATION-ACCELERATION",
-        "L8-REQUIREMENT-TO-TASKCARD-COVERAGE",
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
 
-    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
-    assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-MISSION-GOAL-GUARD"
+    next_claim = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
+    assert next_claim.mission_execution is not None
+    assert next_claim.mission_execution.active_task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
 
 
 def test_rerouted_parent_does_not_unlock_dependent_tasks():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
-    statuses = {task.task_id: task.status for task in graph.taskcards}
+    statuses = _all_closed_statuses(graph)
     statuses.update(
         {
-            "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
-            "L8-REQUIREMENT-TO-TASKCARD-COVERAGE": "CLOSED",
-            "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": "REROUTED",
+            "L8-AGILE-AUTHORITY-RESET": "REROUTED",
+            "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
         }
     )
     state = MissionExecutionStateV1(
@@ -894,11 +1019,8 @@ def test_rerouted_parent_does_not_unlock_dependent_tasks():
 
     eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
 
-    assert eligible == [
-        "L8-MISSION-GOAL-GUARD",
-        "L8-PLAN-RECONCILIATION-ACCELERATION",
-    ]
-    assert "L8-WAVE1-CANONICAL-SAFETY-SPINE" not in eligible
+    assert eligible == []
+    assert "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E" not in eligible
 
 
 def test_graph_drift_is_visible_to_read_only_status():
@@ -906,7 +1028,10 @@ def test_graph_drift_is_visible_to_read_only_status():
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256="0" * 64,
-        task_statuses={task.task_id: task.status for task in graph.taskcards},
+        task_statuses={
+            **{task.task_id: task.status for task in graph.taskcards},
+            **{task.task_id: task.status for task in graph.deferred_task_index},
+        },
     )
 
     assert has_graph_drift(state, graph_hash) is True
@@ -915,7 +1040,8 @@ def test_graph_drift_is_visible_to_read_only_status():
 def test_expired_claim_is_recovered_before_the_next_claim():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
-    record = persist_evaluation(backend, graph, graph_hash)
+    persist_evaluation(backend, graph, graph_hash)
+    record = claim_next_task(backend, graph, graph_hash, claimed_by="lost-worker")
     assert record.mission_execution is not None
     expired = record.mission_execution.model_copy(
         update={
@@ -932,7 +1058,7 @@ def test_expired_claim_is_recovered_before_the_next_claim():
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="recovery-worker")
 
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-MISSION-CONTROL-CONSUMER"
+    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
     assert claimed.mission_execution.claimed_by == "recovery-worker"
     assert any(
         transition.to_status == "REGRESSED"
@@ -944,13 +1070,16 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
     persist_evaluation(backend, graph, graph_hash)
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test")
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
 
     with pytest.raises(ConfigError, match="invalid mission transition"):
         transition_task(
             backend,
             graph,
             graph_hash,
-            task_id="L8-MISSION-CONTROL-CONSUMER",
+            task_id="L8-AGILE-AUTHORITY-RESET",
             to_status="CLOSED",
             observed_by="test",
             reason="skip every verification stage",
@@ -962,7 +1091,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-MISSION-CONTROL-CONSUMER",
+            task_id="L8-AGILE-AUTHORITY-RESET",
             to_status="IMPLEMENTED",
             observed_by="test",
             reason="no evidence",
@@ -974,7 +1103,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-MISSION-CONTROL-CONSUMER",
+            task_id="L8-AGILE-AUTHORITY-RESET",
             to_status=status,
             observed_by="test",
             reason=f"reach {status} for closure guard",
@@ -985,12 +1114,58 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-MISSION-CONTROL-CONSUMER",
+            task_id="L8-AGILE-AUTHORITY-RESET",
             to_status="CLOSED",
             observed_by="test",
             reason="ordinary report cannot close the task",
             evidence_refs=["evidence/report.json"],
         )
+
+
+def test_observation_running_is_reserved_for_background_certification():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+
+    with pytest.raises(ConfigError, match="reserved for Level-7/Level-8 background"):
+        transition_task(
+            backend,
+            graph,
+            graph_hash,
+            task_id="L8-AGILE-AUTHORITY-RESET",
+            to_status="OBSERVATION_RUNNING",
+            observed_by="test",
+            reason="delivery work cannot become an elapsed-time observation",
+            evidence_refs=[],
+        )
+
+    background_task = graph.taskcards[0].model_copy(
+        update={
+            "stage_goal_id": "GOAL-L7-HETEROGENEOUS-30D",
+            "status": "TODO",
+        }
+    )
+    background_graph = graph.model_copy(
+        update={"taskcards": [background_task, *graph.taskcards[1:]]}
+    )
+    background_backend = _MemoryStateBackend()
+    persist_evaluation(background_backend, background_graph, graph_hash)
+
+    observed = transition_task(
+        background_backend,
+        background_graph,
+        graph_hash,
+        task_id=background_task.task_id,
+        to_status="OBSERVATION_RUNNING",
+        observed_by="test",
+        reason="production is deployed; certification window is now accumulating",
+        evidence_refs=[],
+    )
+
+    assert observed.mission_execution is not None
+    assert observed.mission_execution.task_statuses[background_task.task_id] == (
+        "OBSERVATION_RUNNING"
+    )
 
 
 def test_cycle_and_alternative_controller_fail_closed(tmp_path):
@@ -1013,19 +1188,47 @@ def test_cycle_and_alternative_controller_fail_closed(tmp_path):
         load_mission_graph(alternative)
 
 
-def test_semantically_unsupported_implemented_requirement_cannot_be_preserved(tmp_path):
+def test_requirement_coverage_reference_is_hash_bound(tmp_path):
     raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
-    mapping = next(
-        item
-        for item in raw["requirement_coverage"]["mappings"]
-        if item["requirement_status"] == "IMPLEMENTED"
-        and item["disposition"] == "preserved_verified"
-    )
-    mapping["semantic_findings"] = ["synthetic missing semantic proof"]
+    raw["requirement_coverage"]["sha256"] = "0" * 64
     invalid = tmp_path / "invalid-closure-mission.yaml"
     invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
 
-    with pytest.raises(ConfigError, match="has semantic findings but was not reopened"):
+    with pytest.raises(ConfigError, match="requirement coverage hash mismatch"):
+        load_mission_graph(invalid)
+
+
+def test_deferred_index_metadata_is_bound_to_its_exact_catalog_record(tmp_path):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    first = raw["deferred_task_index"][0]
+    second = raw["deferred_task_index"][1]
+    first["record_sha256"], second["record_sha256"] = (
+        second["record_sha256"],
+        first["record_sha256"],
+    )
+    invalid = tmp_path / "swapped-deferred-index.yaml"
+    invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="deferred task index metadata mismatch"):
+        load_mission_graph(invalid)
+
+
+def test_requirement_catalog_is_typed_even_when_a_tampered_hash_matches(tmp_path):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    source = REPO_ROOT / raw["requirement_catalog"]["path"]
+    lines = source.read_text(encoding="utf-8").splitlines()
+    record = json.loads(lines[0])
+    record["priority"] = "P9"
+    lines[0] = json.dumps(record, sort_keys=True, separators=(",", ":"))
+    catalog = tmp_path / "tampered-requirements.jsonl"
+    catalog.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    raw["requirement_catalog"].update(
+        path=str(catalog), sha256=hashlib.sha256(catalog.read_bytes()).hexdigest()
+    )
+    invalid = tmp_path / "tampered-requirement-catalog.yaml"
+    invalid.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="invalid requirement catalog record"):
         load_mission_graph(invalid)
 
 

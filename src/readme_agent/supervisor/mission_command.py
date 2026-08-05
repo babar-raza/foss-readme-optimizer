@@ -7,6 +7,10 @@ import sys
 from pathlib import Path
 from typing import cast
 
+from readme_agent.state.agile_execution_schema import (
+    FirstPrinciplesReplanV1,
+    ParallelismObservationV1,
+)
 from readme_agent.state.git_backend import default_state_backend
 from readme_agent.state.schema import MissionTaskStatus
 from readme_agent.supervisor.mission_control import (
@@ -15,6 +19,9 @@ from readme_agent.supervisor.mission_control import (
     has_graph_drift,
     mission_state_key,
     persist_evaluation,
+    record_first_principles_replan,
+    record_parallelism_observation,
+    record_task_material_narrowing,
     transition_task,
 )
 from readme_agent.supervisor.mission_goal_guard import derive_lifecycle_scoreboard
@@ -42,7 +49,7 @@ def run_mission_command(args: argparse.Namespace) -> int:
             graph_sha256,
             claimed_by=args.mission_observer,
         )
-    else:
+    elif action == "transition":
         if not args.mission_task_id or not args.mission_to_status or not args.mission_reason:
             print(
                 "error: mission transition requires --mission-task-id, --mission-to-status, "
@@ -60,6 +67,46 @@ def run_mission_command(args: argparse.Namespace) -> int:
             reason=args.mission_reason,
             evidence_refs=args.mission_evidence,
         )
+    elif action == "record-narrowing":
+        if not args.mission_task_id or not args.mission_evidence:
+            print(
+                "error: record-narrowing requires --mission-task-id and --mission-evidence",
+                file=sys.stderr,
+            )
+            return 2
+        record = record_task_material_narrowing(
+            backend,
+            graph,
+            graph_sha256,
+            task_id=args.mission_task_id,
+            evidence_refs=args.mission_evidence,
+        )
+    elif action in {"record-replan", "record-parallel-observation"}:
+        input_path = getattr(args, "mission_control_input", None)
+        if not input_path:
+            print(f"error: {action} requires --mission-control-input", file=sys.stderr)
+            return 2
+        try:
+            payload = Path(input_path).read_text(encoding="utf-8")
+            if action == "record-replan":
+                record = record_first_principles_replan(
+                    backend,
+                    graph,
+                    graph_sha256,
+                    replan=FirstPrinciplesReplanV1.model_validate_json(payload),
+                )
+            else:
+                record = record_parallelism_observation(
+                    backend,
+                    graph,
+                    graph_sha256,
+                    observation=ParallelismObservationV1.model_validate_json(payload),
+                )
+        except (OSError, UnicodeError, ValueError) as exc:
+            print(f"error: invalid mission control input: {exc}", file=sys.stderr)
+            return 2
+    else:  # pragma: no cover - argparse constrains the public action vocabulary.
+        raise AssertionError(f"unsupported mission action {action!r}")
 
     state = record.mission_execution
     assert state is not None
@@ -136,6 +183,8 @@ def run_mission_command(args: argparse.Namespace) -> int:
         )
     drifted = has_graph_drift(state, graph_sha256)
     print(f"graph_drift: {str(drifted).lower()}")
+    print(f"delivery_complete: {str(evaluation.delivery_complete).lower()}")
+    print(f"certification_complete: {str(evaluation.certification_complete).lower()}")
     print(f"mission_complete: {str(evaluation.mission_complete).lower()}")
     if action == "status" and drifted:
         print(

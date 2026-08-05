@@ -1,61 +1,56 @@
-# Roadmap (derived campaign view)
+# Roadmap (derived active-horizon view)
 
-This file is a supporting view, not execution authority. It must never be used to override:
+This is supporting guidance, not execution authority. Product intent belongs to `plans/idea.md`;
+architecture and sequence to `plans/master.md` plus the decision catalog; obligations to
+`plans/requirements.md` plus the typed requirement catalog; active tasks to the Level-8 mission
+graph; and live claims/transitions to durable supervisor state.
 
-- `plans/idea.md` for product outcome and operating intent;
-- `plans/requirements.md` for obligations and acceptance;
-- `plans/master.md` for architecture, decisions, sequencing, and rollout;
-- `plans/GOVERNANCE.md` and `AGENTS.md` for safety, editing, execution, and coordination;
-- `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` for machine-readable
-  tasks and dependencies; or
-- durable supervisor state for live claims, transitions, and runtime status.
+## Current horizon
 
-Regenerate or reconcile this view after every campaign transition. Static checkboxes here do not
-close tasks and historical trusted work is not executable.
+1. **Agile authority reset**
+   - Compact active authority without losing any decision, requirement, task, dependency, status,
+     or evidence pointer.
+   - Keep no more than 15 active tasks, five ready tasks, and 25 loaded requirements per task.
+   - Preserve future work in the hashed non-executable deferred-task catalog.
+2. **First verified README**
+   - Finalize Aspose.3D FOSS for Python from its current `FACTS_READY` boundary.
+   - Show the independently accepted/no-op-proven result immediately for calibration.
+3. **Representative Python cohort**
+   - Rebuild Note through current verified facts.
+   - Prove Page and PDF with the same component-versioned transaction.
+4. **Complete Python platform**
+   - Finalize every dynamically admitted Python repository.
+5. **Post-Python representatives**
+   - Prove one current .NET and one current Java vertical slice.
+6. **Next horizon activation**
+   - Promote only the next dependency-ready verified tasks from the deferred catalog into the same
+     graph; do not create another controller or load the entire backlog.
 
-## Current campaign order
+## Later ordered outcomes
 
-1. **Plan reconciliation and freeze**
-   - Resolve the accepted contradiction inventory.
-   - Migrate graph/state without deleting transition history.
-   - Regenerate current status, seal clean committed `PlanFreezeV1`, and materialize immutable
-     `PipelineContractSnapshotV1` with an accepted replay receipt.
-2. **Shared acceleration and isolation proof**
-   - Freeze Note and campaign dependencies.
-   - Run zero-provider-call .NET/Java readiness classification.
-   - Qualify cache, invalidation, reviewer-risk, immutable-revision reuse, and lane isolation.
-3. **Three verified vertical slices**
-   - Complete fresh Note no-op proof.
-   - Complete readiness-selected .NET and Java candidates in isolated lanes.
-   - Independently approve and no-op-prove all three, then run one official integration suite.
-4. **Verified Python portfolio**
-   - Complete Page and PDF first.
-   - Complete every runtime-loaded Python repository while later-platform read-only preparation may
-     continue in spare isolated capacity.
-5. **Remaining verified Gate-A portfolio**
-   - Continue candidate delivery through .NET, Java, C++, TypeScript, Rust, and Go.
-   - Complete heterogeneous qualification and the dynamic full-registry Gate-A proof.
-6. **Gate B and later governed gates**
-   - Present the human review package only after deterministic and independent acceptance.
-   - Continue Gate C, hosted GitHub App operation, all presentation surfaces, and Levels 5-8 in
-     the governed order.
+- Reconcile source-complete discovery and intake.
+- Complete verified Gate A in .NET, Java, C++, TypeScript, Rust, and Go order.
+- Complete representative and final all-registry Gate-B human acceptance.
+- Prove the canonical workflow under `act`, disposable staging, and authorized Gate C.
+- Deploy hosted GitHub App operation and all presentation surfaces.
+- Earn Level 5 and deployable Level 6.
+- Accumulate Level-7 and Level-8 evidence as background certification after deployment.
 
-## Current sequence invariants
+## Invariants
 
-- `trusted_readme_transform` execution is suspended. Its compatible machinery and evidence remain
-  reusable only behind verified contracts and never satisfy verified acceptance.
-- Python is the first complete platform milestone; ready read-only work for later platforms need
-  not remain idle.
-- Up to three isolated lanes are allowed for the early Note/.NET/Java proof. After those slices
-  pass, use two to four isolated repository lanes with serialized aggregate state.
-- The seven-ecosystem set is a heterogeneous coverage milestone, not an admission prerequisite for
-  early slices, Python work, or later-platform read-only preparation.
-- The official complete non-live suite runs at three-slice closure and Gate-A closure, plus only a
-  declared later repository-wide gate or typed P0 exception.
-- No product repository write, branch, push, or pull request is authorized by this roadmap.
+- Trusted execution remains suspended; only assurance-safe machinery may be reused.
+- No product repository write or PR occurs before complete final Gate-B human acceptance and fresh
+  exact what/why/where authorization.
+- Calibration and shared repair are serial. Repository parallelism is admitted only after isolation
+  and measured throughput proof.
+- Infrastructure is just in time, verification is risk-tiered, and evidence is promoted at declared
+  repository/cohort/shared-code boundaries.
+- A cosmetic component update creates `VALID_UPDATE_AVAILABLE`; factual, safety, protected-content,
+  or severe acceptance defects reopen only the earliest affected stage.
+- Two equivalent failures or 15 minutes without narrowing require a first-principles mechanism or
+  sequencing change.
 
 ## Live status
 
-Read `plans/status.md` for the generated current portfolio and mission view. On every restart run
-the canonical supervisor mission `status`; if graph drift is reported, reconcile through
-`evaluate` and the recorded migration rather than treating this file as state.
+Read `plans/status.md` and run mission `status`. If graph drift appears, reconcile through mission
+`evaluate`; never infer state from this roadmap.

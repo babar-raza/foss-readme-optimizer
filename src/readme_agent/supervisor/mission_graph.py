@@ -7,7 +7,12 @@ import yaml
 
 from readme_agent.errors import ConfigError
 from readme_agent.state.mission_goal_schema import ExecutionCampaignId, StageGoalId
-from readme_agent.supervisor.mission_schema import MissionTaskGraphV1, TaskCardV1
+from readme_agent.supervisor.mission_schema import (
+    DeferredTaskRecordV1,
+    MissionTaskGraphV1,
+    RequirementCatalogRecordV1,
+    TaskCardV1,
+)
 
 _SUBORDINATE_GOAL_IDS = {
     "GOAL-TRUTH",
@@ -75,11 +80,30 @@ def load_mission_graph(path: Path) -> tuple[MissionTaskGraphV1, str]:
         graph = MissionTaskGraphV1.model_validate(raw)
     except (yaml.YAMLError, ValueError, TypeError) as exc:
         raise ConfigError(f"invalid mission task graph {path}: {exc}") from exc
-    _validate_graph(graph)
+    _validate_graph(graph, graph_path=path)
     return graph, hashlib.sha256(payload).hexdigest()
 
 
-def _validate_graph(graph: MissionTaskGraphV1) -> None:
+def _resolve_reference(graph_path: Path, reference_path: str) -> Path:
+    candidates = [Path.cwd(), *graph_path.resolve().parents]
+    for root in candidates:
+        candidate = root / reference_path
+        if candidate.is_file():
+            return candidate
+    raise ConfigError(f"mission catalog reference does not exist: {reference_path}")
+
+
+def _validate_reference(graph_path: Path, reference, label: str) -> Path:
+    path = _resolve_reference(graph_path, reference.path)
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != reference.sha256:
+        raise ConfigError(
+            f"{label} hash mismatch for {reference.path}: {actual} != {reference.sha256}"
+        )
+    return path
+
+
+def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
     contract = graph.autonomous_execution_contract
     authority = graph.mission_authority
     if not contract.mechanism_locked or contract.mechanism_type != "autonomous_supervision":
@@ -106,6 +130,99 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
     campaigns = graph.campaign_catalog
     if {campaign.campaign_id: campaign.order for campaign in campaigns} != _CAMPAIGN_ORDERS:
         raise ConfigError("mission campaign_catalog does not match the governed seven campaigns")
+
+    requirement_catalog = _validate_reference(
+        graph_path, graph.requirement_catalog, "requirement catalog"
+    )
+    coverage_path = _validate_reference(
+        graph_path, graph.requirement_coverage, "requirement coverage"
+    )
+    deferred_catalog = _validate_reference(
+        graph_path, graph.deferred_task_catalog, "deferred task catalog"
+    )
+    requirement_lines = [
+        line for line in requirement_catalog.read_text(encoding="utf-8").splitlines() if line
+    ]
+    if len(requirement_lines) != graph.requirement_catalog.record_count:
+        raise ConfigError("requirement catalog record count does not match its graph reference")
+    requirement_records = []
+    for lineno, line in enumerate(requirement_lines, start=1):
+        try:
+            requirement_records.append(RequirementCatalogRecordV1.model_validate_json(line))
+        except ValueError as exc:
+            raise ConfigError(
+                f"invalid requirement catalog record at line {lineno}: {exc}"
+            ) from exc
+    requirement_ids = [record.requirement_id for record in requirement_records]
+    if len(requirement_ids) != len(set(requirement_ids)):
+        raise ConfigError("requirement catalog contains duplicate stable IDs")
+    if sum(1 for line in coverage_path.read_text(encoding="utf-8").splitlines() if line) < 1:
+        raise ConfigError("requirement coverage artifact is empty")
+    deferred_lines = [
+        line for line in deferred_catalog.read_text(encoding="utf-8").splitlines() if line
+    ]
+    if len(deferred_lines) != graph.deferred_task_catalog.record_count:
+        raise ConfigError("deferred task catalog record count does not match its graph reference")
+    if len(graph.taskcards) > 15:
+        raise ConfigError("active mission graph exceeds the fifteen-task authority budget")
+
+    deferred_records: list[tuple[DeferredTaskRecordV1, str]] = []
+    for lineno, line in enumerate(deferred_lines, start=1):
+        try:
+            deferred_records.append(
+                (
+                    DeferredTaskRecordV1.model_validate_json(line),
+                    hashlib.sha256(line.encode()).hexdigest(),
+                )
+            )
+        except ValueError as exc:
+            raise ConfigError(
+                f"invalid deferred task catalog record at line {lineno}: {exc}"
+            ) from exc
+    deferred_by_id = {task.task_id: task for task in graph.deferred_task_index}
+    if len(deferred_by_id) != len(graph.deferred_task_index):
+        raise ConfigError("deferred task index contains duplicate IDs")
+    if set(deferred_by_id) & {task.task_id for task in graph.taskcards}:
+        raise ConfigError("active and deferred mission task IDs overlap")
+    if len(deferred_by_id) != graph.deferred_task_catalog.record_count:
+        raise ConfigError("deferred task index does not cover the deferred task catalog")
+    record_by_id = {
+        record.task.task_id: (record, line_hash) for record, line_hash in deferred_records
+    }
+    if len(record_by_id) != len(deferred_records):
+        raise ConfigError("deferred task catalog contains duplicate stable IDs")
+    if set(record_by_id) != set(deferred_by_id):
+        raise ConfigError("deferred task index IDs do not match the catalog")
+    known_task_ids = set(record_by_id) | {task.task_id for task in graph.taskcards}
+    for task_id, index in deferred_by_id.items():
+        record, line_hash = record_by_id[task_id]
+        if record.task.mission_id != authority.mission_id:
+            raise ConfigError(
+                f"deferred task {task_id!r} belongs to {record.task.mission_id!r}, "
+                f"not mission {authority.mission_id!r}"
+            )
+        missing_dependencies = set(record.task.dependencies) - known_task_ids
+        if missing_dependencies:
+            raise ConfigError(
+                f"deferred task {task_id!r} has unknown dependencies {sorted(missing_dependencies)}"
+            )
+        if record.task.parent_task_id not in {*known_task_ids, None}:
+            raise ConfigError(
+                f"deferred task {task_id!r} has unknown parent_task_id "
+                f"{record.task.parent_task_id!r}"
+            )
+        expected_status = (
+            "DEFERRED_WITH_REASON"
+            if record.activation_group == "historical-control"
+            else record.task.status
+        )
+        if (
+            index.record_sha256 != line_hash
+            or index.stage_goal_id != record.task.stage_goal_id
+            or index.activation_group != record.activation_group
+            or index.status != expected_status
+        ):
+            raise ConfigError(f"deferred task index metadata mismatch for {task_id!r}")
 
     by_id: dict[str, TaskCardV1] = {}
     for task in graph.taskcards:
@@ -193,47 +310,5 @@ def _validate_graph(graph: MissionTaskGraphV1) -> None:
     for task_id in by_id:
         visit(task_id)
 
-    coverage = graph.requirement_coverage
-    if coverage is None:
-        return
-    mapped_ids: set[str] = set()
-    mapped_by_task: dict[str, set[str]] = {task_id: set() for task_id in by_id}
-    for mapping in coverage.mappings:
-        if mapping.requirement_id in mapped_ids:
-            raise ConfigError(f"duplicate requirement mapping {mapping.requirement_id!r}")
-        if mapping.task_id not in by_id:
-            raise ConfigError(
-                f"requirement {mapping.requirement_id!r} maps to unknown task {mapping.task_id!r}"
-            )
-        if mapping.requirement_status == "IMPLEMENTED":
-            if mapping.semantic_findings and mapping.disposition != (
-                "reopened_semantic_evidence_gap"
-            ):
-                raise ConfigError(
-                    f"implemented requirement {mapping.requirement_id!r} has semantic findings "
-                    "but was not reopened"
-                )
-            if not mapping.semantic_findings and mapping.disposition != "preserved_verified":
-                raise ConfigError(
-                    f"clean implemented requirement {mapping.requirement_id!r} was not preserved"
-                )
-        if mapping.requirement_status == "BACKLOG" and mapping.disposition != "excluded_backlog":
-            raise ConfigError(f"backlog requirement {mapping.requirement_id!r} was made executable")
-        if (
-            mapping.requirement_status == "DEPRECATED"
-            and mapping.disposition != "excluded_deprecated"
-        ):
-            raise ConfigError(
-                f"deprecated requirement {mapping.requirement_id!r} was made executable"
-            )
-        mapped_ids.add(mapping.requirement_id)
-        mapped_by_task[mapping.task_id].add(mapping.requirement_id)
-
-    if len(mapped_ids) != coverage.total_requirement_rows:
-        raise ConfigError(
-            "requirement coverage total does not match unique mappings: "
-            f"{coverage.total_requirement_rows} != {len(mapped_ids)}"
-        )
-    for task_id, task in by_id.items():
-        if set(task.requirement_ids) != mapped_by_task[task_id]:
-            raise ConfigError(f"task {task_id!r} requirement_ids disagree with coverage mappings")
+    if any(len(task.requirement_ids) > 25 for task in graph.taskcards):
+        raise ConfigError("an active task exceeds the twenty-five-requirement context budget")

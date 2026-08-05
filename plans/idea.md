@@ -219,6 +219,8 @@ improves; mandatory five-role ceremony is prohibited.
 Elapsed maturity is certification, not delivery work. Production-ready and production-deployed are
 executable milestones. Level 7 and Level 8 observation periods are configurable background tracks
 started only after deployment; they never block POC, portfolio acceptance, staging, or deployment.
+`delivery_complete` closes executable work through deployable Level 6; `certification_complete`
+closes Level-7/8 observation and audit. Full mission closure requires both.
 
 The agent treats user input as goals, constraints, preferences, hypotheses, tactics, or authority.
 Goals and constraints bind; tactics and hypotheses are evaluated. Before a material route change,
@@ -348,51 +350,16 @@ bespoke mechanism where an established one already solves the problem requires a
 
 ## Lessons From Existing Repositories
 
-### n8n
+Leading FOSS repositories such as n8n show that README, metadata, visuals, packages, releases,
+and community files must present one coherent product; their exact sections are not templates to
+copy. Repository-owned surfaces may be proposed or changed through their governed owner, while
+GitHub-generated contributors, languages, activity, stars, and forks are observations only.
 
-A review of the n8n repository through this lens shows that the main lesson is not to copy its
-structure or sections. Instead, the README, repository information, visuals, releases, packages,
-and supporting files should work together to present one clear and credible product.
-
-Some of these elements can be managed directly:
-
-- README;
-- repository description;
-- website;
-- topics;
-- visuals;
-- community files;
-- releases; and
-- repository settings.
-
-Other elements are generated automatically by GitHub:
-
-- contributors;
-- languages;
-- activity;
-- stars; and
-- forks.
-
-The agent can audit these generated elements and investigate unexpected results, but it cannot
-directly control how GitHub displays them.
-
-### Aspose FOSS Repositories
-
-For context, the recent changes to the Aspose.3D FOSS for Python README were made by
-bot. They were not produced by the proposed central agent and do not represent the intended
-quality standard. However, the result shows why stronger shared standards and review controls are
-needed.
-
-A review of the existing FOSS repositories found considerable variation in how they:
-
-- describe the products;
-- structure the READMEs;
-- present examples; and
-- link back to Aspose.
-
-Because these repositories are maintained through different product agents and publishing
-workflows, a one-time cleanup would not be enough. Later automated updates could otherwise
-overwrite or weaken the improvements.
+Aspose FOSS repositories currently vary in product explanation, README structure, examples, and
+link placement. Existing bot-produced README changes are evidence and reusable input, not the
+quality standard. Because product agents and publishing workflows continue to update repositories,
+the solution must be a durable central control with drift detection and protected content—not a
+one-time cleanup.
 
 ## Proposed System
 

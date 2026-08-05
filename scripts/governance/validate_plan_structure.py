@@ -15,6 +15,7 @@ client.py`.
 
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
@@ -23,6 +24,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MASTER_MD = REPO_ROOT / "plans" / "master.md"
 REQUIREMENTS_MD = REPO_ROOT / "plans" / "requirements.md"
+REQUIREMENTS_CATALOG = REPO_ROOT / "plans" / "requirements" / "catalog.jsonl"
 ARCHITECTURE_MD = REPO_ROOT / "docs" / "architecture.md"
 LOGS_DIR = REPO_ROOT / "logs"
 LOGS_INDEX = LOGS_DIR / "README.md"
@@ -198,33 +200,53 @@ def check_requirement_row_column_counts(result: Result) -> None:
 
 
 def check_requirements(result: Result) -> None:
-    if not REQUIREMENTS_MD.exists():
-        result.error("plans/requirements.md not found")
+    if not REQUIREMENTS_CATALOG.exists():
+        result.error("plans/requirements/catalog.jsonl not found")
         return
-    text = REQUIREMENTS_MD.read_text(encoding="utf-8")
-    rows = _requirement_rows(text)
+    rows: list[tuple[str, str, str, int, int]] = []
+    for lineno, line in enumerate(
+        REQUIREMENTS_CATALOG.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        if not line:
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError as exc:
+            result.error(f"plans/requirements/catalog.jsonl:{lineno} invalid JSON: {exc}")
+            continue
+        rows.append(
+            (
+                str(record.get("requirement_id", "")),
+                str(record.get("status", "")),
+                str(record.get("priority", "")),
+                len(line),
+                lineno,
+            )
+        )
     seen: dict[str, int] = {}
     for req_id, status, priority, length, lineno in rows:
         if req_id in seen:
             result.error(
-                f"plans/requirements.md:{lineno} duplicate requirement ID `{req_id}` "
+                f"plans/requirements/catalog.jsonl:{lineno} duplicate requirement ID `{req_id}` "
                 f"(first seen at line {seen[req_id]})"
             )
         else:
             seen[req_id] = lineno
         if status not in VALID_STATUSES:
             result.error(
-                f"plans/requirements.md:{lineno} `{req_id}` has invalid Status `{status}` "
+                f"plans/requirements/catalog.jsonl:{lineno} `{req_id}` has invalid "
+                f"Status `{status}` "
                 f"(expected one of {sorted(VALID_STATUSES)})"
             )
         if priority not in VALID_PRIORITIES:
             result.error(
-                f"plans/requirements.md:{lineno} `{req_id}` has invalid Priority `{priority}` "
+                f"plans/requirements/catalog.jsonl:{lineno} `{req_id}` has invalid "
+                f"Priority `{priority}` "
                 f"(expected one of {sorted(VALID_PRIORITIES)})"
             )
         if length > ROW_LENGTH_WARN_THRESHOLD:
             result.warn(
-                f"plans/requirements.md:{lineno} `{req_id}` row is {length} chars "
+                f"plans/requirements/catalog.jsonl:{lineno} `{req_id}` record is {length} chars "
                 f"(over the {ROW_LENGTH_WARN_THRESHOLD}-char retrofit-on-touch guidance)"
             )
 

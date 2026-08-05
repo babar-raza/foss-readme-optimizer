@@ -2596,27 +2596,18 @@ class TestPrepareVisualAssetCapability:
 
 class TestRequirementIdsDrift:
     """Wave 8c (requirement mapping): `CapabilityManifest.requirement_ids`
-    couples code to `plans/requirements.md`, a document planning sessions
-    actively renumber/edit -- with zero enforced consistency check otherwise.
-    Reuses `plans/investigations/tools/extract_requirements.py`'s own proven
-    row-matching regex (`GOV-015`: reuse, don't reimplement a second parser)
-    by loading it as a module (never executing its `main()`, which would
-    write `plans/investigations/control/normalized-requirements-inventory.
-    yaml` as an unwanted side effect of running the test suite) -- fresh
-    against the current `plans/requirements.md`, not a possibly-stale
-    pre-generated snapshot."""
+    couples code to the typed requirement authority and must fail on drift."""
 
     def _known_requirement_ids(self) -> set[str]:
-        import importlib.util
+        import json
 
         repo_root = Path(__file__).resolve().parents[2]
-        module_path = repo_root / "plans" / "investigations" / "tools" / "extract_requirements.py"
-        spec = importlib.util.spec_from_file_location("extract_requirements", module_path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)  # module-level code only -- `main()` is never called
-
-        text = (repo_root / "plans" / "requirements.md").read_text(encoding="utf-8")
-        return {m.group("id") for line in text.splitlines() if (m := module.ROW_RE.match(line))}
+        catalog = repo_root / "plans" / "requirements" / "catalog.jsonl"
+        return {
+            json.loads(line)["requirement_id"]
+            for line in catalog.read_text(encoding="utf-8").splitlines()
+            if line
+        }
 
     def test_every_declared_requirement_id_exists_in_requirements_md(self):
         known_ids = self._known_requirement_ids()
@@ -2626,5 +2617,5 @@ class TestRequirementIdsDrift:
             unknown = set(manifest.requirement_ids) - known_ids
             assert not unknown, (
                 f"{manifest.capability_id!r} declares requirement_ids {sorted(unknown)} "
-                "that do not exist in plans/requirements.md"
+                "that do not exist in plans/requirements/catalog.jsonl"
             )

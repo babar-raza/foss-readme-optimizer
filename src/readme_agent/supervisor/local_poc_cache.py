@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -26,7 +26,12 @@ from readme_agent.state.schema import RunStateV2
 from readme_agent.supervisor.mission_lifecycle_freshness import (
     evaluate_lifecycle_fact_freshness,
 )
+from readme_agent.supervisor.presentation_component_versions import (
+    ComponentDeltaV1,
+    classify_component_delta,
+)
 from readme_agent.supervisor.stage_dependencies import (
+    StageDependencyManifestV1,
     current_candidate_stage_dependency_manifest,
 )
 
@@ -53,6 +58,13 @@ class LocalPocCacheDecisionV1(BaseModel):
     earliest_affected_stage: str | None = None
     stored_dependencies: dict[str, Any]
     current_dependencies: dict[str, Any]
+    decision_status: Literal["REUSE_CURRENT", "VALID_UPDATE_AVAILABLE", "INVALIDATED"] = (
+        "INVALIDATED"
+    )
+    fact_validity_preserved: bool = False
+    presentation_validity_preserved: bool = False
+    update_earliest_stage: str | None = None
+    component_delta: ComponentDeltaV1 | None = None
 
 
 def _canonical_sha256(value: Any) -> str:
@@ -143,6 +155,9 @@ def _stored_dependencies(
         "candidate_stage_dependency_key": (
             manifest.get("candidate_stage_dependency_key") if manifest else None
         ),
+        "candidate_stage_dependency_manifest": (
+            manifest.get("candidate_stage_dependency_manifest") if manifest else None
+        ),
         "reviewer_standard_hash": (manifest.get("reviewer_standard_hash") if manifest else None),
         "control_plane_fingerprint": (
             supervisor.control_plane_fingerprint if supervisor is not None else None
@@ -165,6 +180,11 @@ def _current_dependencies(
     if ecosystem is not None and family is None:
         resolved_family = require_listed(org_repo).family
     fact_contract = current_fact_acceptance_contract(ecosystem, resolved_family)
+    component_manifest = current_candidate_stage_dependency_manifest(
+        repository=org_repo,
+        source_revision=source_revision or "0" * 40,
+        ecosystem=ecosystem,
+    )
     return {
         "source_revision": source_revision,
         "content_assurance": content_assurance,
@@ -175,11 +195,8 @@ def _current_dependencies(
         "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
         "template_hash": document_template_hash(),
         "composition_prompt_hash": prompt_registry.prompt_hash("plan_readme_composition"),
-        "candidate_stage_dependency_key": current_candidate_stage_dependency_manifest(
-            repository=org_repo,
-            source_revision=source_revision or "0" * 40,
-            ecosystem=ecosystem,
-        ).stage_key,
+        "candidate_stage_dependency_key": component_manifest.stage_key,
+        "candidate_stage_dependency_manifest": component_manifest.model_dump(mode="json"),
         "reviewer_standard_hash": separated_reviewer_standard_hash(),
         "control_plane_fingerprint": control_plane_fingerprint,
         "artifact_inventory_sha256": inventory_sha256,
@@ -272,6 +289,7 @@ def _evaluate_local_poc_cache(
     )
     lifecycle = state.readme_poc_lifecycle if state is not None else None
     reasons: list[str] = []
+    component_delta: ComponentDeltaV1 | None = None
 
     resolved_family = family
     if ecosystem is not None and resolved_family is None:
@@ -381,41 +399,110 @@ def _evaluate_local_poc_cache(
         "fact_acceptance_contract_hash",
         "fact_acceptance_component_hashes",
         "local_verification_contract_hash",
-        "template_hash",
-        "composition_prompt_hash",
-        "candidate_stage_dependency_key",
         "reviewer_standard_hash",
-        "control_plane_fingerprint",
     ):
         if stored.get(field) != current.get(field):
             reasons.append(f"{field}_changed")
+    stored_component_payload = stored.get("candidate_stage_dependency_manifest")
+    current_component_payload = current.get("candidate_stage_dependency_manifest")
+    try:
+        stored_component_manifest = StageDependencyManifestV1.model_validate(
+            stored_component_payload
+        )
+        current_component_manifest = StageDependencyManifestV1.model_validate(
+            current_component_payload
+        )
+    except ValueError:
+        reasons.append("candidate_stage_dependency_manifest_missing_or_invalid")
+    else:
+        component_delta = classify_component_delta(
+            stored_component_manifest,
+            current_component_manifest,
+        )
+        if component_delta.outcome == "INVALIDATED":
+            reasons.extend(
+                f"presentation_component_{scope}_changed"
+                for scope in component_delta.changed_scopes
+            )
     stored_prompt_dependencies = stored.get("prompt_dependency_hashes")
     current_prompt_dependencies = current.get("prompt_dependency_hashes")
+    prompt_components_account_for_delta = bool(
+        component_delta is not None
+        and component_delta.outcome in {"VALID_UPDATE_AVAILABLE", "INVALIDATED"}
+        and component_delta.changed_component_ids
+        and any(
+            component_id.startswith("prompt:")
+            for component_id in component_delta.changed_component_ids
+        )
+    )
     if not isinstance(stored_prompt_dependencies, dict):
         reasons.append("prompt_dependency_hashes_missing")
-    elif stored_prompt_dependencies != current_prompt_dependencies:
+    elif (
+        stored_prompt_dependencies != current_prompt_dependencies
+        and not prompt_components_account_for_delta
+    ):
         current_scopes = (
             current_prompt_dependencies if isinstance(current_prompt_dependencies, dict) else {}
         )
         for scope in sorted(set(stored_prompt_dependencies) | set(current_scopes)):
             if stored_prompt_dependencies.get(scope) != current_scopes.get(scope):
                 reasons.append(f"prompt_scope_{scope}_changed")
-    elif stored.get("prompt_registry_content_hash") != current.get("prompt_registry_content_hash"):
+    elif (
+        stored.get("prompt_registry_content_hash") != current.get("prompt_registry_content_hash")
+        and not prompt_components_account_for_delta
+    ):
+        # The aggregate hashes remain a fail-closed consistency guard. They are
+        # suppressed only when the independently versioned prompt components
+        # identify the same semantic delta.
         reasons.append("prompt_registry_content_hash_changed")
+
+    if stored.get("control_plane_fingerprint") != current.get("control_plane_fingerprint"):
+        prompt_change_is_semantically_accounted = bool(
+            component_delta is not None
+            and component_delta.outcome == "VALID_UPDATE_AVAILABLE"
+            and stored.get("prompt_registry_content_hash")
+            != current.get("prompt_registry_content_hash")
+            and any(
+                component_id.startswith("prompt:")
+                for component_id in component_delta.changed_component_ids
+            )
+        )
+        critical_change_is_already_accounted = bool(
+            component_delta is not None and component_delta.outcome == "INVALIDATED"
+        )
+        if not prompt_change_is_semantically_accounted and not critical_change_is_already_accounted:
+            reasons.append("control_plane_fingerprint_changed")
 
     reasons = sorted(set(reasons))
     earliest_affected_stage = _earliest_affected_stage(reasons)
+    if component_delta is not None and component_delta.outcome == "INVALIDATED":
+        component_stage = component_delta.earliest_affected_stage
+        if component_stage is not None and (
+            earliest_affected_stage is None
+            or _STAGE_ORDER[component_stage] < _STAGE_ORDER[earliest_affected_stage]
+        ):
+            earliest_affected_stage = component_stage
     key_material = {
         "org_repo": state.org_repo if state is not None else None,
         "stored": stored,
         "current": current,
     }
-    reusable = not reasons
+    valid_update_available = bool(
+        not reasons
+        and component_delta is not None
+        and component_delta.outcome == "VALID_UPDATE_AVAILABLE"
+    )
+    reusable = not reasons and not valid_update_available
+    decision_status: Literal["REUSE_CURRENT", "VALID_UPDATE_AVAILABLE", "INVALIDATED"] = (
+        "VALID_UPDATE_AVAILABLE"
+        if valid_update_available
+        else ("REUSE_CURRENT" if reusable else "INVALIDATED")
+    )
     return LocalPocCacheDecisionV1(
         content_assurance=content_assurance,
         status=(
             lifecycle.status
-            if reusable and isinstance(lifecycle, ReadmePocLifecycleStateV2)
+            if decision_status != "INVALIDATED" and isinstance(lifecycle, ReadmePocLifecycleStateV2)
             else None
         ),
         reusable=reusable,
@@ -424,6 +511,21 @@ def _evaluate_local_poc_cache(
         earliest_affected_stage=earliest_affected_stage,
         stored_dependencies=stored,
         current_dependencies=current,
+        decision_status=decision_status,
+        fact_validity_preserved=(
+            component_delta.fact_validity_preserved if component_delta is not None else reusable
+        ),
+        presentation_validity_preserved=(
+            component_delta.presentation_validity_preserved
+            if component_delta is not None
+            else reusable
+        ),
+        update_earliest_stage=(
+            component_delta.earliest_affected_stage
+            if valid_update_available and component_delta is not None
+            else None
+        ),
+        component_delta=component_delta,
     )
 
 
@@ -471,6 +573,7 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
             "template_hash_changed",
             "composition_prompt_hash_changed",
             "candidate_stage_dependency_key_changed",
+            "candidate_stage_dependency_manifest_missing_or_invalid",
         }:
             affected.append("PLAN_READY")
         elif reason.startswith("manifest_candidate_") or reason in {
@@ -487,6 +590,8 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
             "no_op_proof_invalid",
         }:
             affected.append("AGENT_REVIEWING")
+        elif reason.startswith("presentation_component_"):
+            affected.append("PLAN_READY")
         else:
             affected.append("SNAPSHOTTED")
     return min(affected, key=_STAGE_ORDER.__getitem__) if affected else None

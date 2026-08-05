@@ -1,9 +1,17 @@
 """Typed contracts for the supervisor's central implementation mission graph."""
 
+from __future__ import annotations
+
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.state.agile_execution_schema import (
+    ChangeClass,
+    EvidencePromotionBoundary,
+    InfrastructureAdmissionSpecV1,
+    TaskExecutionKind,
+)
 from readme_agent.state.mission_goal_schema import (
     CoreContributionV1,
     ExecutionCampaignId,
@@ -126,6 +134,21 @@ class TaskCardV1(_StrictModel):
     blocker_attempts: list[BlockerAttemptV1] = Field(default_factory=list)
     exact_external_action: str | None = None
     exact_resume_condition: str | None = None
+    execution_kind: TaskExecutionKind = "auto"
+    infrastructure_admission: InfrastructureAdmissionSpecV1 | None = None
+    verification_change_classes: list[ChangeClass] = Field(default_factory=list)
+    evidence_promotion_boundary: EvidencePromotionBoundary | None = None
+
+    @model_validator(mode="after")
+    def _explicit_infrastructure_requires_admission(self) -> TaskCardV1:
+        if (
+            self.execution_kind in {"infrastructure", "shared_repair"}
+            and self.infrastructure_admission is None
+        ):
+            raise ValueError(
+                "explicit infrastructure/shared-repair tasks require infrastructure_admission"
+            )
+        return self
 
 
 class RequirementTaskMappingV1(_StrictModel):
@@ -164,12 +187,81 @@ class RequirementCoverageV1(_StrictModel):
     mappings: list[RequirementTaskMappingV1]
 
 
+class ExternalCatalogReferenceV1(_StrictModel):
+    path: str
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    record_count: int = Field(ge=0)
+
+
+class RequirementCoverageReferenceV1(ExternalCatalogReferenceV1):
+    mandatory_requirement_rows: int = Field(ge=0)
+    reopened_implemented_rows: int = Field(ge=0)
+
+
+class RequirementCatalogRecordV1(_StrictModel):
+    schema_version: Literal[1]
+    requirement_id: str
+    section: str
+    requirement: str
+    priority: Literal["P0", "P1", "P2", "P3"]
+    status: Literal[
+        "IMPLEMENTED",
+        "PARTIAL",
+        "PLANNED",
+        "RESEARCH-GATED",
+        "GOVERNANCE",
+        "DEPRECATED",
+        "BACKLOG",
+    ]
+    legacy_status: (
+        Literal[
+            "IMPLEMENTED",
+            "PARTIAL",
+            "PLANNED",
+            "RESEARCH-GATED",
+            "GOVERNANCE",
+            "DEPRECATED",
+            "BACKLOG",
+        ]
+        | None
+    ) = None
+    acceptance_evidence: str
+    traceability: str
+    legacy_line: int = Field(gt=0)
+    legacy_row_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
+class DecisionCatalogRecordV1(_StrictModel):
+    schema_version: Literal[1]
+    decision_id: int = Field(gt=0)
+    title: str
+    markdown: str
+    legacy_record_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
+class DeferredTaskRecordV1(_StrictModel):
+    schema_version: Literal[1]
+    activation_group: str
+    task: TaskCardV1
+
+
+class DeferredTaskIndexV1(_StrictModel):
+    task_id: str
+    status: MissionTaskStatus
+    stage_goal_id: StageGoalId
+    activation_group: str
+    record_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
 class MissionTaskGraphV1(_StrictModel):
-    schema_version: Literal[2]
+    schema_version: Literal[3]
     autonomous_execution_contract: AutonomousExecutionContractV1
     mission_authority: MissionAuthorityV1
     verified_baseline: dict
     campaign_catalog: list[ExecutionCampaignV1]
     taskcards: list[TaskCardV1]
-    requirement_coverage: RequirementCoverageV1 | None = None
+    requirement_catalog: ExternalCatalogReferenceV1
+    requirement_coverage: RequirementCoverageReferenceV1
+    deferred_task_catalog: ExternalCatalogReferenceV1
+    deferred_task_index: list[DeferredTaskIndexV1]
     bootstrap_state: dict

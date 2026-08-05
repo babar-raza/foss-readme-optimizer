@@ -124,6 +124,16 @@ IntakePreflightOutcomeV1 = Literal[
     "NOT_APPLICABLE",
     "SYSTEM_FAILURE",
 ]
+FactualValidityStatusV1 = Literal["UNKNOWN", "VALID", "INVALID"]
+PresentationValidityStatusV1 = Literal[
+    "UNKNOWN",
+    "VALID",
+    "VALID_UPDATE_AVAILABLE",
+    "INVALID",
+]
+HumanAcceptanceBoundaryV1 = Literal["calibration", "representative_cohort", "final_portfolio"]
+HumanAcceptanceDecisionV1 = Literal["ACCEPTED", "REJECTED", "REVOKED"]
+PublicationEligibilityStatusV1 = Literal["INELIGIBLE", "ELIGIBLE"]
 
 
 def utc_now_iso() -> str:
@@ -326,6 +336,103 @@ class IntakePreflightBindingV1(BaseModel):
     occurred_at: str = Field(default_factory=utc_now_iso)
 
 
+class FactualValidityBindingV1(BaseModel):
+    """Current or historical factual-validity decision, bound to exact facts."""
+
+    schema_version: Literal[1] = 1
+    status: FactualValidityStatusV1 = "UNKNOWN"
+    source_revision: str | None = Field(default=None, pattern=r"^[0-9a-f]{40,64}$")
+    facts_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    acceptance_contract_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    evidence_identity: str | None = None
+    reason: str = "not evaluated"
+    observed_by: str = "migration"
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+    @model_validator(mode="after")
+    def _valid_decision_is_bound(self) -> FactualValidityBindingV1:
+        if self.status == "VALID" and not all(
+            (
+                self.source_revision,
+                self.facts_hash,
+                self.acceptance_contract_hash,
+                self.evidence_identity,
+            )
+        ):
+            raise ValueError("VALID factuality requires complete source, contract, and evidence")
+        return self
+
+
+class PresentationValidityBindingV1(BaseModel):
+    """Presentation validity is independent from facts and from human acceptance."""
+
+    schema_version: Literal[1] = 1
+    status: PresentationValidityStatusV1 = "UNKNOWN"
+    source_revision: str | None = Field(default=None, pattern=r"^[0-9a-f]{40,64}$")
+    candidate_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    presentation_version: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    component_manifest_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    available_component_manifest_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    evidence_identity: str | None = None
+    reason: str = "not evaluated"
+    observed_by: str = "migration"
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+    @model_validator(mode="after")
+    def _accepted_presentation_is_bound(self) -> PresentationValidityBindingV1:
+        if self.status in {"VALID", "VALID_UPDATE_AVAILABLE"} and not all(
+            (
+                self.source_revision,
+                self.candidate_hash,
+                self.presentation_version,
+                self.component_manifest_hash,
+                self.evidence_identity,
+            )
+        ):
+            raise ValueError("valid presentation requires complete version and evidence binding")
+        if self.status == "VALID_UPDATE_AVAILABLE" and not self.available_component_manifest_hash:
+            raise ValueError("VALID_UPDATE_AVAILABLE requires the available component manifest")
+        return self
+
+
+class HumanAcceptanceBindingV1(BaseModel):
+    """One staged human decision bound to the exact accepted presentation."""
+
+    schema_version: Literal[1] = 1
+    source_revision: str = Field(pattern=r"^[0-9a-f]{40,64}$")
+    presentation_version: str = Field(pattern=r"^[0-9a-f]{64}$")
+    boundary: HumanAcceptanceBoundaryV1
+    decision: HumanAcceptanceDecisionV1
+    reviewer_identity: str = Field(min_length=1)
+    evidence_identity: str = Field(min_length=1)
+    reason: str = Field(min_length=1)
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+
+class PublicationEligibilityBindingV1(BaseModel):
+    """Portfolio-aware effect eligibility; defaults fail closed for old state."""
+
+    schema_version: Literal[1] = 1
+    status: PublicationEligibilityStatusV1 = "INELIGIBLE"
+    registry_revision: str | None = None
+    admitted_repositories: list[str] = Field(default_factory=list)
+    rejection_reasons: list[str] = Field(default_factory=lambda: ["not evaluated"])
+    evidence_identity: str | None = None
+    observed_by: str = "migration"
+    occurred_at: str = Field(default_factory=utc_now_iso)
+
+    @model_validator(mode="after")
+    def _eligible_portfolio_is_complete(self) -> PublicationEligibilityBindingV1:
+        if self.status == "ELIGIBLE" and (
+            not self.registry_revision
+            or not self.admitted_repositories
+            or self.rejection_reasons
+            or not self.evidence_identity
+        ):
+            raise ValueError("ELIGIBLE publication state requires complete portfolio proof")
+        return self
+
+
 class ReadmePocLifecycleStateV2(BaseModel):
     """Current per-repository local-POC lifecycle in the existing state slot."""
 
@@ -346,6 +453,19 @@ class ReadmePocLifecycleStateV2(BaseModel):
     fact_acceptance_history: list[FactAcceptanceBindingV1] = Field(default_factory=list)
     intake_preflight_pending: IntakePreflightReservationV1 | None = None
     intake_preflight_history: list[IntakePreflightBindingV1] = Field(default_factory=list)
+    factual_validity: FactualValidityBindingV1 = Field(default_factory=FactualValidityBindingV1)
+    factual_validity_history: list[FactualValidityBindingV1] = Field(default_factory=list)
+    presentation_validity: PresentationValidityBindingV1 = Field(
+        default_factory=PresentationValidityBindingV1
+    )
+    presentation_validity_history: list[PresentationValidityBindingV1] = Field(default_factory=list)
+    human_acceptance_history: list[HumanAcceptanceBindingV1] = Field(default_factory=list)
+    publication_eligibility: PublicationEligibilityBindingV1 = Field(
+        default_factory=PublicationEligibilityBindingV1
+    )
+    publication_eligibility_history: list[PublicationEligibilityBindingV1] = Field(
+        default_factory=list
+    )
     reviewer_standard_hash: str | None = None
     protected_content_fingerprint: str | None = None
     repair_budget_origin_hash: str | None = None

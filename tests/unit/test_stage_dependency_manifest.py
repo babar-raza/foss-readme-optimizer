@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from readme_agent.supervisor import stage_dependencies
+from readme_agent.supervisor.presentation_component_versions import classify_component_delta
 from readme_agent.supervisor.stage_dependencies import (
     SelectedDependencyV1,
     build_stage_dependency_manifest,
@@ -99,12 +102,12 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     }
     assert required_candidate_owners <= selected
     assert all(not path.startswith("tests/") for path in selected)
-    assert all("readme_review" not in path for path in selected)
+    assert "prompts/verification/independent_readme_review.yaml" in selected
     assert all("reviewer_client" not in path for path in selected)
 
 
 def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, monkeypatch) -> None:
-    for relative_paths in stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS.values():
+    for _scope, _stage, relative_paths in stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS.values():
         for relative_path in relative_paths:
             path = tmp_path / relative_path
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -132,3 +135,65 @@ def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, m
         if prior != current
     }
     assert changed_groups == {"candidate_orchestration"}
+
+
+def _component_manifest(*, scope: str, digest: str, stage: str = "PLAN_READY"):
+    return build_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision="1" * 40,
+        stage="CANDIDATE",
+        ecosystem="python",
+        dependencies=[
+            SelectedDependencyV1(
+                dependency_id="presentation/test",
+                files={"component.py": digest},
+                semantic_scope=scope,
+                earliest_affected_stage=stage,
+            )
+        ],
+    )
+
+
+def test_cosmetic_component_delta_preserves_validity_as_available_update() -> None:
+    delta = classify_component_delta(
+        _component_manifest(scope="cosmetic", digest=SHA_A),
+        _component_manifest(scope="cosmetic", digest=SHA_B),
+    )
+
+    assert delta.outcome == "VALID_UPDATE_AVAILABLE"
+    assert delta.fact_validity_preserved is True
+    assert delta.presentation_validity_preserved is True
+    assert delta.earliest_affected_stage == "PLAN_READY"
+
+
+def test_factuality_component_delta_fails_closed_at_fact_boundary() -> None:
+    delta = classify_component_delta(
+        _component_manifest(scope="factuality", digest=SHA_A, stage="FACTS_COLLECTING"),
+        _component_manifest(scope="factuality", digest=SHA_B, stage="FACTS_COLLECTING"),
+    )
+
+    assert delta.outcome == "INVALIDATED"
+    assert delta.fact_validity_preserved is False
+    assert delta.earliest_affected_stage == "FACTS_COLLECTING"
+
+
+def test_scope_downgrade_cannot_turn_prior_safety_owner_into_cosmetic_update() -> None:
+    delta = classify_component_delta(
+        _component_manifest(scope="safety", digest=SHA_A, stage="CANDIDATE_GENERATED"),
+        _component_manifest(scope="cosmetic", digest=SHA_B, stage="PLAN_READY"),
+    )
+
+    assert delta.outcome == "INVALIDATED"
+    assert set(delta.changed_scopes) == {"cosmetic", "safety"}
+    assert delta.earliest_affected_stage == "PLAN_READY"
+
+
+def test_component_versions_and_manifest_key_are_self_authenticating() -> None:
+    manifest = _component_manifest(scope="structural", digest=SHA_A)
+    payload = manifest.model_dump(mode="json")
+    payload["dependencies"][0]["component_version"] = "9" * 64
+
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError, match="component_version"):
+        type(manifest).model_validate(payload)

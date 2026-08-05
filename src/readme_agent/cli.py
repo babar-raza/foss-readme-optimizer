@@ -121,11 +121,26 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     p_supervise.add_argument(
         "--mission-action",
-        choices=["status", "evaluate", "claim", "transition"],
+        choices=[
+            "status",
+            "evaluate",
+            "claim",
+            "transition",
+            "record-narrowing",
+            "record-replan",
+            "record-parallel-observation",
+        ],
         default="evaluate",
         help="Mission-controller action when --mission-task-graph is used.",
     )
     p_supervise.add_argument("--mission-task-id")
+    p_supervise.add_argument(
+        "--mission-control-input",
+        help=(
+            "Typed JSON input for record-replan or record-parallel-observation. "
+            "The record is persisted into the existing durable mission state."
+        ),
+    )
     p_supervise.add_argument(
         "--mission-to-status",
         choices=[
@@ -140,6 +155,7 @@ def _build_parser() -> argparse.ArgumentParser:
             "BLOCKED_EXTERNAL",
             "REROUTED",
             "DEFERRED_WITH_REASON",
+            "OBSERVATION_RUNNING",
             "REOPENED",
             "REGRESSED",
         ],

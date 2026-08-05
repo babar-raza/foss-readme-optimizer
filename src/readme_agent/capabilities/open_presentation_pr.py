@@ -289,6 +289,34 @@ def precheck(arguments: dict) -> str | None:
     THIS call's own `org_repo`/`facts_hash`/`fresh_fingerprint`/
     `verification_nonce` -- never a hardcoded literal, never a token minted
     for different content or a different run."""
+    assurance = arguments.get("content_assurance", "repository_verified")
+    trusted_raw = arguments.get("trusted_proposal")
+    if assurance not in {"repository_verified", "trusted_inherited"}:
+        return "content_assurance is not a supported publication assurance"
+    if trusted_raw is not None and assurance != "trusted_inherited":
+        return "trusted_proposal requires trusted_inherited assurance"
+    if trusted_raw is None and assurance == "trusted_inherited":
+        return "trusted_inherited assurance requires a trusted_proposal"
+    if trusted_raw is not None:
+        try:
+            proposal = TrustedTransformationProposalV1.model_validate(trusted_raw)
+        except ValueError as exc:
+            return f"trusted_proposal is invalid: {exc}"
+        source_repository = arguments.get("source_repository")
+        manifest_path = arguments.get("staging_target_manifest")
+        if proposal.target_repository != arguments.get("org_repo"):
+            return "effect repository does not match trusted proposal target"
+        if source_repository != proposal.source_repository or not manifest_path:
+            return "trusted staging effect requires its bound source and manifest"
+        try:
+            load_staging_target(
+                str(manifest_path),
+                proposal.source_repository,
+                proposal.target_repository,
+            )
+        except (OSError, ValueError) as exc:
+            return f"trusted staging target is invalid: {exc}"
+
     verdict = arguments.get("verification_verdict")
     expected = compute_verification_token(
         arguments.get("org_repo", ""),
