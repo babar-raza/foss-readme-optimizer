@@ -7,22 +7,17 @@ graph; and live claims/transitions to durable supervisor state.
 
 ## Current horizon
 
-1. **Agile authority reset**
-   - Compact active authority without losing any decision, requirement, task, dependency, status,
-     or evidence pointer.
-   - Keep no more than 15 active tasks, five ready tasks, and 25 loaded requirements per task.
-   - Preserve future work in the hashed non-executable deferred-task catalog.
-2. **First verified README**
+1. **First verified README**
    - Finalize Aspose.3D FOSS for Python from its current `FACTS_READY` boundary.
    - Show the independently accepted/no-op-proven result immediately for calibration.
-3. **Representative Python cohort**
+2. **Representative Python cohort**
    - Rebuild Note through current verified facts.
    - Prove Page and PDF with the same component-versioned transaction.
-4. **Complete Python platform**
+3. **Complete Python platform**
    - Finalize every dynamically admitted Python repository.
-5. **Post-Python representatives**
+4. **Post-Python representatives**
    - Prove one current .NET and one current Java vertical slice.
-6. **Next horizon activation**
+5. **Next horizon activation**
    - Promote only the next dependency-ready verified tasks from the deferred catalog into the same
      graph; do not create another controller or load the entire backlog.
 

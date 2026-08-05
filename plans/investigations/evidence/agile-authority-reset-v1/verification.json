@@ -49,6 +49,24 @@
     "tree_changed_during_run": false,
     "duration_seconds": 379.902
   },
+  "closeout_commit_verification": {
+    "source_receipt": "runs/verification/pytest-full-latest.json",
+    "source_receipt_sha256": "b31b797dd52b27ebc167fbe832043049608ee3704b58bd1218bd8fd6db162001",
+    "head": "489c8dca227c5fbb54a38fdb3eb9ae6db79dd547",
+    "tree": "bdba91d38c61db822ccd3c2eed0b99278b95b53b",
+    "test_inventory_count": 3230,
+    "test_inventory_sha256": "b6bbc238d0fe33422a007516c030c1443fe0e78b7c2e1f5d8fc6ed6ef27bfaaf",
+    "passed": 3230,
+    "failed": 0,
+    "other_outcomes": 0,
+    "leaked_process_ids": [],
+    "tree_changed_during_run": false,
+    "durable_closed_state_version": 765,
+    "next_claimed_task": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+    "next_claim_state_version": 766,
+    "graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
+    "graph_drift": false
+  },
   "independent_verification": {
     "verdict": "ACCEPTED",
     "source_verdict": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/independent-verification/final-v3/verdict.md",

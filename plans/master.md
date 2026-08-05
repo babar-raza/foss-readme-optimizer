@@ -18,10 +18,11 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-The project remains pre-POC: current verified acceptance is `0/31` registry-wide. Durable mission
-state owns live status. The active task is `L8-AGILE-AUTHORITY-RESET`; no product work is permitted
-inside that task. After it closes, `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` finalizes Aspose.3D FOSS
-for Python as the first calibration README.
+The project remains pre-POC: current verified acceptance is `0/31` registry-wide. The agile
+authority reset is durably closed with independently accepted evidence at
+`plans/investigations/evidence/agile-authority-reset-v1/`. Durable mission state owns live status.
+The active task is `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E`, which finalizes Aspose.3D FOSS for Python
+as the first current calibration README before any portfolio fan-out.
 
 Current generated views: `plans/status.md`, `plans/roadmap.md`, and `logs/`. They are derived and
 never override the mission graph or durable state.

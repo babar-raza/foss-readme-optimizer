@@ -45,15 +45,15 @@ Current completion is derived from the runtime registry, durable repository life
 
 ### Live mission
 
-- Durable state version: `754`.
-- Active task: `L8-AGILE-AUTHORITY-RESET`.
+- Durable state version: `766`.
+- Active task: `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E`.
 - Active goal: `GOAL-V0A-FIRST-VERIFIED-README`.
 - Delivery complete: **false**.
 - Certification complete: **false**.
 - Full mission complete: **false**.
-- Claim: `619e555f03814b129d4aeb17c5ce4336`; expires `2026-08-05T16:03:18.798868+00:00`.
-- Loaded graph: `ad1d6d53f78c544dfcce2d02b9417a73286ce9664f1b7518f470e5dc601dd18a`.
-- Durable graph: `77a9f244a6cebc0e03f3f914eeba3b8838ec9cacc1409c77adbfa00a3c780a9a`; drift: **true**.
+- Claim: `c2765ed230b548f9b54c6cb22d21ced0`; expires `2026-08-05T19:08:53.448613+00:00`.
+- Loaded graph: `6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc`.
+- Durable graph: `6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc`; drift: **false**.
 
 Historical portfolio manifests remain inspectable evidence but never supply headline current status.
 
@@ -61,8 +61,8 @@ Historical portfolio manifests remain inspectable evidence but never supply head
 
 | Status | Count |
 |---|---:|
-| IMPLEMENTED | 155 |
-| PLANNED | 131 |
+| IMPLEMENTED | 163 |
+| PLANNED | 123 |
 | PARTIAL | 98 |
 | GOVERNANCE | 35 |
 | BACKLOG | 28 |
@@ -74,8 +74,8 @@ Historical portfolio manifests remain inspectable evidence but never supply head
 
 ## Implementation-truth matrix summary (Wave 9.2)
 
-- 155 `IMPLEMENTED` rows checked.
+- 163 `IMPLEMENTED` rows checked.
 - 0 with a semantic closure finding.
-- 87 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
+- 95 with informational-only findings (no test path cited -- often pre-dates this project's later per-row citation convention, not necessarily a real gap).
 - 68 fully clean.
 - Full detail: `plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json`.
