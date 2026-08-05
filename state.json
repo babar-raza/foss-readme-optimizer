@@ -31097,7 +31097,7 @@
     "updated_at": "2026-08-05T19:08:34.252140+00:00"
   },
   "schema_version": 2,
-  "state_version": 1231,
+  "state_version": 1232,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4bd1ea19b8e103e2724db82e9a90ed07eca2fcd24e1c58f92a1bf99fc3e71523",
@@ -32126,13 +32126,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['candidate_has_no_comments failed', 'README contains a source comment in the python fence at line 134', 'README contains a source comment in the python fence at line 166', 'candidate_exact_badges failed', 'candidate_exact_mermaid failed', 'fact-backed README header or Mermaid diagram is absent', 'mandatory_claim_replacements_have_exact_provenance failed', 'claim accountability has 177 blocking claim(s): candidate:claim:10274:856f48b96dc4c35d, candidate:claim:11395:8f8da2936f700c2e, candidate:claim:11498:f5bb339b2352c5ce, candidate:claim:11508:82666362f67973d6, candidate:claim:11611:c1fea2d7e8f9e936, candidate:claim:11674:72dc2e8e98084c6c, candidate:claim:11719:c736dd9ff9f9de2a, candidate:claim:11728:ae9fce0c5e2acf96, candidate:claim:11791:606c20482c4f1ba5, candidate:claim:11855:f334997a4d3b3e53', 'presentation.raw_internal_token.3e034b6198ec: An internal snake-case token is exposed as visitor prose.', 'presentation.raw_internal_token.f2012c5a00a7: An internal snake-case token is exposed as visitor prose.']",
       "last_checkpoint_id": "32933c900818778e454a44f21a68dcfa280a70418f61aa77b680ebf301b9bf6d",
-      "lease_expires_at": "2026-08-05T19:28:34.899090+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-05T19:17:23.337782+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-05T19:17:46.910721+00:00"
     }
   },
   "trigger_records": {},
