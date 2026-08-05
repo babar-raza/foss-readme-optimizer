@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-AGILE-AUTHORITY-RESET",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [],
       "proposed_fingerprints": {},
@@ -21,10 +21,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-05T16:03:18.798868+00:00",
-    "claim_id": "619e555f03814b129d4aeb17c5ce4336",
-    "claimed_at": "2026-08-05T15:33:18.798868+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
@@ -159,7 +159,7 @@
     ],
     "graph_sha256": "6bfe0443c80dfd1c622271ab57d04d4ef3717d93b5c460c352dc9059803410bc",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-05T18:25:38.256268+00:00",
+    "last_evaluated_at": "2026-08-05T18:26:37.263532+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -290,18 +290,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-SHARED-ACCELERATION",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Remove the control design that repeatedly invalidated visible output and obscured the next task."
-      },
-      "goal_ids": [
-        "GOAL-AUTONOMY"
-      ],
-      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-      "task_id": "L8-AGILE-AUTHORITY-RESET"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": true,
       "observations": [],
@@ -314,7 +303,7 @@
       "L8-ACCEL-02-EIGHT-PYTHON": "TODO",
       "L8-ACCEL-03-ALL-PYTHON": "TODO",
       "L8-ACT-CANONICAL-WORKFLOW-PARITY": "TODO",
-      "L8-AGILE-AUTHORITY-RESET": "IN_PROGRESS",
+      "L8-AGILE-AUTHORITY-RESET": "IMPLEMENTED",
       "L8-COMPOSE-00-CHARACTERIZE": "CLOSED",
       "L8-COMPOSE-01-DECOMPOSE": "CLOSED",
       "L8-COMPOSE-01A-SECTION-REGRESSIONS": "CLOSED",
@@ -6691,6 +6680,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-AGILE-AUTHORITY-RESET",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/agile-authority-reset-v1/L8-AGILE-AUTHORITY-RESET-contribution.json",
+          "plans/investigations/evidence/agile-authority-reset-v1/L8-AGILE-AUTHORITY-RESET-closeout-control.json",
+          "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex-reset-closeout",
+        "occurred_at": "2026-08-05T18:26:37.263559+00:00",
+        "reason": "Independent reset acceptance and commit-bound verification support IMPLEMENTED",
+        "task_id": "L8-AGILE-AUTHORITY-RESET",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -6700,7 +6702,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 755,
+  "state_version": 756,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
