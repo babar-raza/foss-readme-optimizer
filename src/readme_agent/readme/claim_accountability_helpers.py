@@ -16,14 +16,14 @@ from readme_agent.readme.claim_accountability_models import (
 )
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
-from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
 
 _CORRECTION_DISPOSITIONS = {"rewrite", "repair", "remove_update", "replace_generic"}
 _MARKDOWN_MARKS = re.compile(r"[`*_>#\[\]()]")
 
 
 def accepted_literal_facts(claim_text: str, facts: ProductFactsV2) -> set[str]:
-    return set(literal_fact_ids(claim_text, facts, list(facts.selected_fact_ids.values())))
+    return accepted_source_claim_fact_ids(claim_text, facts)
 
 
 def overlapping_candidate_fact_ids(
@@ -183,8 +183,9 @@ def expected_disposition(
     if current in _CORRECTION_DISPOSITIONS:
         return (
             "required_correction",
-            True,
-            "The assessment requires a bounded correction before factual approval.",
+            False,
+            "The assessment requires a bounded correction, but no accepted typed source-claim "
+            "resolution proves that the correction occurred.",
         )
     if stage == "source" and survives_in_candidate is False:
         return (

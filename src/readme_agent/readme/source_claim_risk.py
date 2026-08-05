@@ -7,98 +7,33 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
-from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.source_claim_obligations import (
+    SourceClaimObligation,
+    applicable_product_overview_fact_ids,
+    obligation_any_fact_fields,
+    obligation_provenance_prefixes,
+    obligation_required_fact_fields,
+    obligation_requires_source_entailment,
+)
+
+__all__ = [
+    "SourceClaimObligation",
+    "applicable_product_overview_fact_ids",
+    "obligation_any_fact_fields",
+    "obligation_provenance_prefixes",
+    "obligation_requires_source_entailment",
+    "obligation_required_fact_fields",
+]
 
 SourceClaimRiskClass = Literal[
     "mandatory_fact_resolution",
     "optional_explicit_deferral",
     "governed_valid_omission",
 ]
-SourceClaimObligation = Literal[
-    "product_overview",
-    "major_capabilities",
-    "verified_installation",
-    "primary_example",
-    "scope_and_limitations",
-    "third_party_notices",
-    "license",
-    "contextual_product_relationship",
-]
-
-_OBLIGATION_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
-    "product_overview": frozenset({"product.identity"}),
-    "major_capabilities": frozenset({"product.capabilities"}),
-    "verified_installation": frozenset(
-        {"installation.verified_acquisition", "installation.coordinates"}
-    ),
-    "primary_example": frozenset({"example.minimal"}),
-    "scope_and_limitations": frozenset({"product.limitations"}),
-    "third_party_notices": frozenset({"repository.third_party_notices"}),
-    "license": frozenset({"product.license"}),
-    "contextual_product_relationship": frozenset({"relationship.commercial_foss"}),
-}
-_OBLIGATION_ANY_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
-    "product_overview": frozenset(
-        {"product.audience", "product.problems_solved", "product.capabilities"}
-    )
-}
-_OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = {
-    "product_overview": ("template.title", "template.summary"),
-    "major_capabilities": ("template.section.key_capabilities",),
-    "verified_installation": ("template.section.installation",),
-    "primary_example": ("template.section.quick_start",),
-    "scope_and_limitations": ("template.section.scope_and_limitations",),
-    "third_party_notices": ("template.section.third_party_notices",),
-    "license": ("template.section.license",),
-    "contextual_product_relationship": ("template.section.scope_and_limitations",),
-}
 _OTHER_PLATFORMS_HEADING = re.compile(r"other platforms(?: \(official [^)]+\))?")
-_OVERVIEW_FACT_FIELDS = (
-    "product.identity",
-    "product.audience",
-    "product.problems_solved",
-    "product.capabilities",
-    "product.formats",
-    "product.license",
-)
-
-
-def applicable_product_overview_fact_ids(facts: ProductFactsV2) -> set[str]:
-    """Return the complete selected accepted fact family for an overview replacement."""
-
-    result: set[str] = set()
-    for field in _OVERVIEW_FACT_FIELDS:
-        fact_id = facts.selected_fact_ids.get(field)
-        if fact_id is None:
-            continue
-        fact = facts.fact_by_id(fact_id)
-        if (
-            fact.verification_state in {"verified", "policy_approved"}
-            and not fact.has_unresolved_conflict
-        ):
-            result.add(fact_id)
-    return result
-
-
-def obligation_required_fact_fields(obligation: SourceClaimObligation) -> frozenset[str]:
-    """Return fact fields every replacement for this obligation must cite."""
-
-    return _OBLIGATION_FACT_FIELDS[obligation]
-
-
-def obligation_any_fact_fields(obligation: SourceClaimObligation) -> frozenset[str]:
-    """Return a field group from which at least one citation is required."""
-
-    return _OBLIGATION_ANY_FACT_FIELDS.get(obligation, frozenset())
-
-
-def obligation_provenance_prefixes(obligation: SourceClaimObligation) -> tuple[str, ...]:
-    """Return exact golden-slot prefixes allowed to replace this obligation."""
-
-    return _OBLIGATION_PROVENANCE_PREFIXES[obligation]
 
 
 class SourceClaimRiskV1(BaseModel):
@@ -114,6 +49,21 @@ class SourceClaimRiskV1(BaseModel):
 
 def _normalized(value: str) -> str:
     return " ".join(strip_emoji_decorations(value).casefold().split())
+
+
+def _is_atomic_license_claim(value: str) -> bool:
+    words = re.findall(r"[a-z0-9]+", value)
+    sentences = [item for item in re.split(r"[.!?]+", value) if item.strip()]
+    return bool(
+        len(sentences) == 1
+        and len(words) <= 24
+        and (
+            value.startswith("mit license")
+            or "licensed under" in value
+            or "released under" in value
+            or value.startswith("license:")
+        )
+    )
 
 
 def _heading_path(
@@ -150,6 +100,20 @@ def classify_source_claim_risk(
                 "fact-bound contextual product-relationship replacement."
             ),
         )
+    if (
+        "aspose" in folded
+        and "foss" in folded
+        and any(marker in folded for marker in ("enterprise edition", "commercial edition"))
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="contextual_product_relationship",
+            heading_path=path,
+            rationale=(
+                "Explicit Aspose FOSS and Enterprise relationship prose requires the selected "
+                "commercial/FOSS relationship fact and its exact candidate slot."
+            ),
+        )
     if "third-party" in primary or "third party" in primary or "third-party" in folded:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
@@ -157,12 +121,51 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="Third-party attribution is a mandatory golden-contract obligation.",
         )
-    if primary == "license" or primary.endswith(" license"):
+    if primary == "license" or primary.endswith(" license") or _is_atomic_license_claim(folded):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
             obligation_id="license",
             heading_path=path,
             rationale="License disclosure is a mandatory golden-contract obligation.",
+        )
+    if re.search(
+        r"\b(?:python|java|node(?:\.js)?|typescript|rust|go)\s+(?:version\s+)?v?\d",
+        folded,
+    ) or re.search(r"(?:^|\s)(?:\.net|net)\s*(?:core\s*)?\d", folded):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="compatibility",
+            heading_path=path,
+            rationale=(
+                "Runtime and platform-version claims require exact selected compatibility facts; "
+                "generic product-overview facts cannot replace them."
+            ),
+        )
+    if any(
+        marker in folded
+        for marker in (
+            "coming soon",
+            "not supported",
+            "unsupported",
+            "does not support",
+            "cannot ",
+            "currently supports only",
+        )
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="scope_and_limitations",
+            heading_path=path,
+            rationale="Claim-level limitations cannot be deferred under a feature heading.",
+        )
+    if primary.startswith("about "):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            heading_path=path,
+            rationale=(
+                "Maintainer-authored product detail requires claim-specific evidence; a generic "
+                "overview cannot silently replace it."
+            ),
         )
     if "installation" in primary or "getting started" in primary:
         return SourceClaimRiskV1(
@@ -182,12 +185,14 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="Limitations cannot be deferred or silently removed.",
         )
-    if any(token in primary for token in ("feature", "capabilit")):
+    if any(token in primary for token in ("feature", "capabilit", "format")):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
-            obligation_id="major_capabilities",
             heading_path=path,
-            rationale="Major product capabilities require a repository-fact replacement.",
+            rationale=(
+                "Granular feature and format claims require claim-specific repository evidence; "
+                "a broad capability slot cannot replace them."
+            ),
         )
     if "quick start" in primary or "quickstart" in primary:
         if len(sections) == 1:
@@ -204,7 +209,7 @@ def classify_source_claim_risk(
         )
     if "mcp" in primary:
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
                 "MCP tools, setup, and dependency detail require a dedicated repository-source "
@@ -213,16 +218,16 @@ def classify_source_claim_risk(
         )
     if "security" in primary:
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
-                "Security guidance requires dedicated repository-source evidence; generic "
-                "product overview or capability prose cannot replace it."
+                "Security guidance is mandatory and requires dedicated repository-source "
+                "evidence; generic overview prose cannot replace it."
             ),
         )
     if "contribut" in primary:
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
                 "Contribution instructions require repository-owned workflow evidence; generic "
@@ -231,7 +236,7 @@ def classify_source_claim_risk(
         )
     if primary == "repository map":
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
                 "Repository-layout detail requires an inventory-bound replacement and cannot be "
@@ -240,31 +245,48 @@ def classify_source_claim_risk(
         )
     if any(token in primary for token in ("build", "developer", "test")):
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
                 "Build and test commands require manifest or task-runner evidence before they "
                 "may be rewritten or omitted from protected content."
             ),
         )
-    if any(
-        token in primary
-        for token in ("api", "example", "development", "testing", "workflow", "golden")
-    ):
+    if any(token in primary for token in ("acknowledgment", "attribution")):
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
             heading_path=path,
             rationale=(
-                "Exhaustive API, secondary-example, or historical workflow detail may be "
-                "deferred while the exact source claim remains visible in evidence."
+                "Maintainer-authored acknowledgment and attribution require exact ownership or "
+                "repository evidence and cannot be replaced by product prose."
+            ),
+        )
+    if any(
+        token in primary
+        for token in (
+            "api",
+            "architecture",
+            "resource",
+            "example",
+            "development",
+            "testing",
+            "workflow",
+            "golden",
+        )
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            heading_path=path,
+            rationale=(
+                "API, architecture, resource, example, and workflow details require exact "
+                "repository evidence; generic overview prose is not equivalent."
             ),
         )
     return SourceClaimRiskV1(
         risk_class="mandatory_fact_resolution",
-        obligation_id="product_overview",
         heading_path=path,
         rationale=(
-            "Opening and otherwise-unclassified product claims fail closed behind the verified "
-            "product-overview obligation."
+            "Otherwise-unclassified product claims require claim-specific evidence or an "
+            "authoritative owner; generic product-overview substitution is prohibited."
         ),
     )

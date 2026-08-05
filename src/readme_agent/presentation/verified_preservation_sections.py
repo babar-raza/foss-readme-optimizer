@@ -6,7 +6,6 @@ from collections import Counter
 from dataclasses import dataclass
 
 from readme_agent.readme.assessment import ReadmeAssessmentV1
-from readme_agent.readme.claim_accountability_helpers import claim_text
 from readme_agent.readme.document_structure import heading_identity, parse_headings
 
 
@@ -100,9 +99,8 @@ def preserved_h2_sections(
             and child.source_byte_end <= section.source_byte_end
             and child.disposition in {"remove_update", "repair", "replace_generic", "rewrite"}
         ]
-        replaceable = effective_claims and all(
-            claim.claim_id in replaceable_claim_ids or claim_text(source_text, claim) in candidate
-            for claim in effective_claims
+        descendant_reconciliation = any(
+            claim.claim_id in replaceable_claim_ids for claim in effective_claims
         )
         structural = coordinates.get((section.source_byte_start, section.source_byte_end))
         if structural != (2, section.heading):
@@ -121,7 +119,7 @@ def preserved_h2_sections(
             raise ValueError(
                 f"preserved source section is structurally malformed: {section.heading}"
             )
-        if replaceable:
+        if descendant_reconciliation:
             continue
         if nested_corrections:
             raise ValueError(

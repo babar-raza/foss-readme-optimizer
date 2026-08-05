@@ -586,7 +586,7 @@ def test_verified_omission_cannot_approve_a_surviving_source_claim():
     assert record.expected_disposition == "unjustified_loss"
 
 
-def test_investigate_claim_is_retained_as_fact_free_deferred_evidence() -> None:
+def test_investigate_claim_requires_verified_core_before_deferred_evidence() -> None:
     _source, _candidate, facts, _plan, _accountability = _case("python")
     source = (
         "# Product\n\n## API reference\n\n"
@@ -604,37 +604,7 @@ def test_investigate_claim_is_retained_as_fact_free_deferred_evidence() -> None:
         authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
     )
 
-    assert len(resolutions) == 1
-    assert resolutions[0].resolution == "deferred_verification"
-    assert resolutions[0].fact_ids == []
-    claim_map = ReadmeClaimMapV1(
-        org_repo=facts.org_repo,
-        facts_hash=facts.canonical_hash(),
-        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
-        claims=[],
-    )
-    accountability = build_readme_claim_accountability_map(
-        org_repo=facts.org_repo,
-        source_text=source,
-        candidate_text=candidate,
-        facts=facts,
-        generated_claim_map=claim_map,
-        source_claim_resolutions=resolutions,
-    )
-    record = _record_containing(accountability, source, "source", "advanced workflow")
-    verdict = validate_claim_accountability_map(
-        accountability,
-        source_text=source,
-        candidate_text=candidate,
-        facts=facts,
-        operations=[],
-        source_claim_resolutions=resolutions,
-    )
-
-    assert record.currently_accountable is True
-    assert record.expected_disposition == "deferred_verification"
-    assert verdict.approval_eligible is True
-    assert verdict.checks["deferred_claims_are_excluded_and_unverified"] is True
+    assert resolutions == []
 
 
 def test_preserved_section_claim_cannot_be_deferred_or_replaced():
@@ -700,9 +670,9 @@ def test_exact_source_claim_survives_when_collapsed_inside_html_details():
     ("heading", "expected_class", "expected_obligation"),
     [
         ("Feature Boundaries", "mandatory_fact_resolution", "scope_and_limitations"),
-        ("Contributing", "optional_explicit_deferral", None),
-        ("Security", "optional_explicit_deferral", None),
-        ("Repository Map", "optional_explicit_deferral", None),
+        ("Contributing", "mandatory_fact_resolution", None),
+        ("Security", "mandatory_fact_resolution", None),
+        ("Repository Map", "mandatory_fact_resolution", None),
     ],
 )
 def test_repository_governance_claims_do_not_map_to_positive_product_obligations(
@@ -714,6 +684,32 @@ def test_repository_governance_claims_do_not_map_to_positive_product_obligations
     risk = classify_source_claim_risk(source, claim)
 
     assert risk.risk_class == expected_class
+    assert risk.obligation_id == expected_obligation
+
+
+@pytest.mark.parametrize(
+    ("heading", "claim_text", "expected_obligation"),
+    [
+        ("Supported Formats", "More formats coming soon.", "scope_and_limitations"),
+        ("Python Version Support", "Python 3.7+", "compatibility"),
+        (
+            "Acknowledgments",
+            "Specifications are maintained by standards bodies.",
+            None,
+        ),
+    ],
+)
+def test_semantic_risks_are_not_downgraded_by_their_heading(
+    heading: str,
+    claim_text: str,
+    expected_obligation: str | None,
+) -> None:
+    source = f"# Product\n\n## {heading}\n\n{claim_text}\n"
+    claim = assess_material_claims(source)[0]
+
+    risk = classify_source_claim_risk(source, claim)
+
+    assert risk.risk_class == "mandatory_fact_resolution"
     assert risk.obligation_id == expected_obligation
 
 

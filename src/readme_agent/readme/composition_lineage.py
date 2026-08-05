@@ -19,6 +19,9 @@ from readme_agent.readme.composition_operation_origins import (
     operation_basis_errors,
     replay_operation_origins,
 )
+from readme_agent.readme.composition_source_fact_binding import (
+    exact_source_fact_binding_placement,
+)
 from readme_agent.readme.document_operations import apply_document_operations
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
@@ -162,19 +165,8 @@ def build_composition_ledger(
     expected_lineage_only = legacy_operation_provenance(replay)
     if lineage_only != expected_lineage_only:
         raise ValueError("lineage-only provenance differs from exact operation-origin replay")
-    for placement in placements:
-        overlapping = [
-            binding.provenance_id
-            for binding in provenance
-            if binding.authority_scope != "lineage_only"
-            and binding.candidate_byte_start < placement.final_byte_end
-            and placement.final_byte_start < binding.candidate_byte_end
-        ]
-        if overlapping:
-            raise ValueError(
-                f"source placement overlaps generated provenance: {placement.placement_id}: "
-                + ", ".join(overlapping)
-            )
+    for binding in provenance:
+        exact_source_fact_binding_placement(binding, placements)
 
     boundaries = {0, len(candidate_bytes)}
     for placement in placements:
@@ -218,10 +210,16 @@ def build_composition_ledger(
             )
             source_end = source_start + (end - start)
             origin: LineageOrigin = "source_preserved"
-            fact_ids: list[str] = []
-            standard_ids: list[str] = []
-            provenance_ids: list[str] = []
-            authority: LineageAuthority = "source_exact"
+            fact_ids = sorted({fact for item in authority_provenance for fact in item.fact_ids})
+            standard_ids = sorted(
+                {
+                    standard
+                    for item in authority_provenance
+                    for standard in item.configured_standard_ids
+                }
+            )
+            provenance_ids = sorted(item.provenance_id for item in authority_provenance)
+            authority: LineageAuthority = "source_exact_fact_bound" if fact_ids else "source_exact"
             source_hash: str | None = _sha256(source[source_start:source_end])
             operation_ids = []
             interval_treatments = []

@@ -20,6 +20,7 @@ from readme_agent.presentation.verified_template_provenance import build_source_
 from readme_agent.presentation.verified_template_runtime import declared_preserve_ranges
 from readme_agent.presentation.verified_template_sections import additional_examples_markdown
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_accountability_helpers import expected_disposition
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
 from readme_agent.readme.claim_replacement_validation import (
     replacement_candidate_claims_are_exact,
@@ -266,6 +267,49 @@ def _candidate_accountability(start: int, end: int) -> ReadmeClaimAccountability
         currently_accountable=True,
         rationale="Exercise exact replacement accountability.",
     )
+
+
+@pytest.mark.parametrize("disposition", ["rewrite", "repair", "remove_update", "replace_generic"])
+def test_unresolved_correction_disposition_remains_blocking(disposition: str) -> None:
+    expected, accountable, rationale = expected_disposition(
+        stage="source",
+        origin="inherited",
+        current=disposition,  # type: ignore[arg-type]
+        accepted_fact_ids=set(),
+        configured_standard_ids=set(),
+        survives_in_candidate=False,
+    )
+
+    assert expected == "required_correction"
+    assert accountable is False
+    assert "no accepted typed source-claim resolution" in rationale
+
+
+def test_typed_authoritative_correction_preserves_resolved_accountability() -> None:
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-correction",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="authoritative_correction",
+        fact_ids=["fact-1"],
+        evidence=["accepted-fact:fact-1"],
+        rationale="Bind the correction to an accepted typed source-claim resolution.",
+    )
+
+    expected, accountable, rationale = expected_disposition(
+        stage="source",
+        origin="inherited",
+        current="remove_update",
+        accepted_fact_ids=set(),
+        configured_standard_ids=set(),
+        survives_in_candidate=False,
+        source_resolution=resolution,
+    )
+
+    assert expected == "required_correction"
+    assert accountable is True
+    assert "accepted-fact correction" in rationale
 
 
 def _crossed_replacement_bindings() -> dict[str, CandidateContentProvenanceV1]:

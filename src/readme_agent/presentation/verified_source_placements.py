@@ -8,6 +8,9 @@ from readme_agent.presentation.verified_preservation_sections import PreservedBl
 from readme_agent.presentation.verified_preservation_segments import CandidateEdit
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
+from readme_agent.readme.composition_source_fact_binding import (
+    exact_source_fact_binding_placement,
+)
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import heading_identity, parse_headings
 
@@ -188,10 +191,22 @@ def exclude_source_placements_from_provenance(
     provenance: list[CandidateContentProvenanceV1],
     placements: list[ExactSourcePlacementV1],
 ) -> list[CandidateContentProvenanceV1]:
-    """Remove source-exact bytes from generated provenance without rediscovering text."""
+    """Separate source bytes from provenance, retaining only exact prior fact bindings."""
 
     rebased: list[CandidateContentProvenanceV1] = []
     for binding in provenance:
+        structural_overlap = any(
+            placement.placement_basis == "structural_exact_equivalence"
+            and binding.candidate_byte_start < placement.final_byte_end
+            and placement.final_byte_start < binding.candidate_byte_end
+            for placement in placements
+        )
+        retained_placement = (
+            exact_source_fact_binding_placement(binding, placements) if structural_overlap else None
+        )
+        if retained_placement is not None:
+            rebased.append(binding)
+            continue
         intervals = [(binding.candidate_byte_start, binding.candidate_byte_end)]
         for placement in placements:
             next_intervals: list[tuple[int, int]] = []

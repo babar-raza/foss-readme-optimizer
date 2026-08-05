@@ -13,6 +13,9 @@ from readme_agent.readme.composition_operation_origins import (
     operation_basis_errors,
     replay_operation_origins,
 )
+from readme_agent.readme.composition_source_fact_binding import (
+    exact_source_fact_binding_placement,
+)
 from readme_agent.readme.document_operations import apply_document_operations
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
@@ -50,11 +53,12 @@ def composition_ledger_errors(
     ]
     if ledger.candidate_provenance != expected_provenance:
         errors.append("plan candidate provenance differs from composition ledger projection")
+    for binding in candidate_provenance:
+        try:
+            exact_source_fact_binding_placement(binding, ledger.source_placements)
+        except ValueError as error:
+            errors.append(f"source placement overlaps provenance: {error}")
     for placement in ledger.source_placements:
-        all_provenance: list[CandidateContentProvenanceV1 | LineageProvenanceV1] = [
-            *candidate_provenance,
-            *ledger.candidate_provenance,
-        ]
         declared_source_length = placement.source_byte_end - placement.source_byte_start
         declared_final_length = placement.final_byte_end - placement.final_byte_start
         source_content = source[placement.source_byte_start : placement.source_byte_end]
@@ -74,15 +78,6 @@ def composition_ledger_errors(
             final_content.decode("utf-8")
         except UnicodeDecodeError:
             errors.append(f"{placement.placement_id}: placement is not UTF-8 aligned")
-        overlaps = [
-            binding.provenance_id
-            for binding in all_provenance
-            if binding.authority_scope != "lineage_only"
-            and binding.candidate_byte_start < placement.final_byte_end
-            and placement.final_byte_start < binding.candidate_byte_end
-        ]
-        if overlaps:
-            errors.append(f"{placement.placement_id}: source placement overlaps provenance")
     reconstructed_segments = bytearray()
     final_cursor = 0
     for segment in ledger.segments:
@@ -110,6 +105,37 @@ def composition_ledger_errors(
             ]
             if len(covering) != 1:
                 errors.append(f"{segment.segment_id}: source lineage placement is not unique")
+            source_fact_bindings = [
+                binding
+                for binding in ledger.candidate_provenance
+                if binding.authority_scope != "lineage_only"
+                and binding.candidate_byte_start <= segment.final_byte_start
+                and segment.final_byte_end <= binding.candidate_byte_end
+            ]
+            expected_fact_ids = sorted(
+                {fact_id for binding in source_fact_bindings for fact_id in binding.fact_ids}
+            )
+            expected_standard_ids = sorted(
+                {
+                    standard_id
+                    for binding in source_fact_bindings
+                    for standard_id in binding.configured_standard_ids
+                }
+            )
+            expected_provenance_ids = sorted(
+                binding.provenance_id for binding in source_fact_bindings
+            )
+            if (
+                segment.fact_ids != expected_fact_ids
+                or segment.configured_standard_ids != expected_standard_ids
+                or segment.provenance_ids != expected_provenance_ids
+            ):
+                errors.append(
+                    f"{segment.segment_id}: source fact authority differs from exact provenance"
+                )
+            expected_authority = "source_exact_fact_bound" if expected_fact_ids else "source_exact"
+            if segment.authority != expected_authority:
+                errors.append(f"{segment.segment_id}: source fact authority classification changed")
         elif segment.provenance_ids:
             known_provenance_ids = {
                 binding.provenance_id for binding in ledger.candidate_provenance

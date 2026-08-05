@@ -55,7 +55,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "2cff9ee124eb251c1dea1319a8494870265345f64ce612147927b35324a79973"
+    "bf1ecbb1af075999dca1f208b3d7512e1084e1ca3e66ff69aea825ebe456ca6a"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -449,7 +449,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     planned_fact_ids = {
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
     }
-    assert planned_fact_ids - cited_ids == {"product.audience:approved-policy"}
+    assert planned_fact_ids <= cited_ids
     assert any(
         segment.origin == "source_preserved"
         and draft["opening_summary"]["text"] in segment.content_text
@@ -462,7 +462,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         source_text=source,
         candidate_text=candidate,
     )
-    assert not any(
+    assert any(
         claim.fact_id == facts.selected_fact("product.audience").fact_id
         for claim in claim_map.claims
     )
@@ -1030,16 +1030,18 @@ def test_presentation_replacement_does_not_blanket_authorize_protected_source_lo
 
 
 def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned_claims():
-    bundle = (
-        PROJECT_ROOT
-        / "runs"
-        / "readme-poc"
-        / "aspose-3d-foss__Aspose.3D-FOSS-for-Python"
-        / "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
-    )
-    source = (bundle / "source" / "README.md").read_text(encoding="utf-8")
+    source = (
+        PROJECT_ROOT / "tests" / "fixtures" / "readmes" / "real_audit_2026-07-17" / "3d-python.md"
+    ).read_text(encoding="utf-8")
     facts = ProductFactsV2.model_validate_json(
-        (bundle / "facts" / "product-facts.json").read_text(encoding="utf-8")
+        (
+            PROJECT_ROOT
+            / "tests"
+            / "fixtures"
+            / "readmes"
+            / "verified_source_assurance"
+            / "aspose-3d-python-facts-ab1a2267.json"
+        ).read_text(encoding="utf-8")
     )
     revision = "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
     assessment = assess_readme_document(
@@ -1079,7 +1081,20 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
         if claim.disposition == "remove_update" and claim.source_byte_start == 349
     )
     promo_resolution = next(
-        item for item in document_plan.source_claim_resolutions if item.claim_id == promo.claim_id
+        (
+            item
+            for item in document_plan.source_claim_resolutions
+            if item.claim_id == promo.claim_id
+        ),
+        None,
+    )
+    assert document_plan.claim_accountability is not None
+    promo_accountability = next(
+        item
+        for item in document_plan.claim_accountability.claims
+        if item.stage == "source"
+        and item.source_byte_start == promo.source_byte_start
+        and item.source_byte_end == promo.source_byte_end
     )
 
     assert decision.valid is False
@@ -1091,8 +1106,9 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert all(
         item.claim_id != preserved.claim_id for item in document_plan.source_claim_resolutions
     )
-    assert promo_resolution.resolution == "verified_obligation_replacement"
-    assert "authority:deterministic-claim-disposition:remove_update" in promo_resolution.evidence
+    assert promo_resolution is None
+    assert promo_accountability.expected_disposition == "required_correction"
+    assert promo_accountability.currently_accountable is False
     assert candidate.count("# Aspose.3D FOSS for Python") == 1
     assert candidate.count("## Navigation") == 1
     assert candidate.count("## License") == 1
@@ -1144,33 +1160,14 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
         lifecycle_status="FACTS_READY",
     )
     assert rerun_composition is not None
-    rerun_candidate, rerun_document_plan = build_readme_document_candidate(
-        facts.org_repo,
-        candidate,
-        facts,
-        base_revision=revision,
-        agentic_composition_plan=rerun_composition.model_dump(mode="json"),
-    )
-    assert rerun_candidate == candidate
-    assert rerun_candidate.count("## Preserved repository details") == 1
-    assert rerun_document_plan.operations == []
-    assert rerun_document_plan.candidate_content_provenance == []
-    assert len(rerun_document_plan.composition_ledger.source_placements) == 1
-    assert (
-        rerun_document_plan.composition_ledger.source_placements[0].placement_basis
-        == "no_op_whole_source"
-    )
-    assert rerun_document_plan.composition_ledger.source_placements[0].source_byte_start == 0
-    assert rerun_document_plan.composition_ledger.source_placements[0].source_byte_end == len(
-        candidate.encode("utf-8")
-    )
-    assert all(
-        segment.origin == "source_preserved"
-        for segment in rerun_document_plan.composition_ledger.segments
-    )
-    assert rerun_document_plan.composition_ledger.operation_reconstruction_sha256 == (
-        document_plan.candidate_sha256
-    )
+    with pytest.raises(ValueError, match="unsupported exact-source binding"):
+        build_readme_document_candidate(
+            facts.org_repo,
+            candidate,
+            facts,
+            base_revision=revision,
+            agentic_composition_plan=rerun_composition.model_dump(mode="json"),
+        )
 
     mixed_source = (
         "# Aspose.3D FOSS for Python\n\n"

@@ -24,6 +24,8 @@ from readme_agent.readme.claim_accountability_models import (
     StructuredFactCoordinateV1,
 )
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
+from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
+from readme_agent.readme.composition_source_fact_binding import exact_source_claim_provenance
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.fact_grounding import literal_fact_ids
 
@@ -143,6 +145,7 @@ def build_readme_claim_accountability_map(
     generated_claim_map: ReadmeClaimMapV1,
     candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
     source_claim_resolutions: list[SourceClaimResolutionV1] | None = None,
+    composition_ledger: ReadmeCompositionLedgerV1 | None = None,
 ) -> ReadmeClaimAccountabilityMapV1:
     """Return one explicit expected disposition for every material claim."""
 
@@ -226,6 +229,17 @@ def build_readme_claim_accountability_map(
         source_standard_ids: set[str] = set()
         if source_text == candidate_text:
             exact_bindings = candidate_provenance_for_claim(claim, candidate_text, provenance)
+        elif composition_ledger is not None:
+            exact_bindings = exact_source_claim_provenance(
+                claim,
+                source_text,
+                candidate_text,
+                provenance,
+                composition_ledger.source_placements,
+            )
+        else:
+            exact_bindings = []
+        if exact_bindings:
             provenance_fact_ids = sorted(
                 {fact_id for binding in exact_bindings for fact_id in binding.fact_ids}
             )

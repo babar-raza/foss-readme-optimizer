@@ -50,6 +50,7 @@ from readme_agent.readme.header_visual import (
     render_readme_header_visual,
 )
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.readme.source_claim_assurance import build_source_claim_assurance
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.registry.models import LinkAllocationPolicyV1
 from readme_agent.validation.presentation_template import validate_repository_presentation
@@ -105,8 +106,12 @@ def build_verified_template_compilation(
     )
     if assessment.canonical_hash() != agentic_plan.assessment_hash:
         raise ValueError("verified template composition assessment binding changed")
-    preserved_source_ranges = declared_preserve_ranges(assessment)
-    correction_source_ranges = effective_correction_ranges(assessment)
+    source_assurance = build_source_claim_assurance(source_text, facts, assessment)
+    preserved_source_ranges = source_assurance.preserve_ranges
+    correction_source_ranges = [
+        *effective_correction_ranges(assessment),
+        *source_assurance.correction_ranges,
+    ]
     preliminary_resolutions = probe_source_claim_resolutions_for_composition(
         source_text,
         candidate,
@@ -118,7 +123,8 @@ def build_verified_template_compilation(
     replaceable_claim_ids = {
         resolution.claim_id
         for resolution in preliminary_resolutions
-        if resolution.resolution != "deferred_verification"
+        if resolution.resolution
+        in {"deferred_verification", "verified_omission", "verified_obligation_replacement"}
     }
     composition = compose_verified_source_preservation(
         candidate,
@@ -196,14 +202,18 @@ def build_verified_template_document_candidate(
     )
     if assessment.canonical_hash() != agentic_plan.assessment_hash:
         raise ValueError("verified template composition assessment binding changed")
-    preserved_source_ranges = declared_preserve_ranges(assessment)
+    source_assurance = build_source_claim_assurance(inner_text, facts, assessment)
+    preserved_source_ranges = source_assurance.preserve_ranges
     source_claim_resolutions = build_source_claim_resolutions(
         inner_text,
         candidate,
         facts,
         persisted_provenance,
         preserved_source_ranges=preserved_source_ranges,
-        authoritative_correction_ranges=effective_correction_ranges(assessment),
+        authoritative_correction_ranges=[
+            *effective_correction_ranges(assessment),
+            *source_assurance.correction_ranges,
+        ],
         presentation_policy_corrections=compiled.source_policy_corrections,
     )
     operations = []
@@ -226,6 +236,13 @@ def build_verified_template_document_candidate(
         )
     operation_provenance = legacy_operation_provenance(replay_operation_origins(source, operations))
     complete_provenance = [*persisted_provenance, *operation_provenance]
+    composition_ledger = build_composition_ledger(
+        inner_text,
+        candidate,
+        operations,
+        complete_provenance,
+        compiled.source_placements,
+    )
     plan = ReadmeDocumentPlanV1(
         org_repo=facts.org_repo,
         immutable_base_revision=source_revision,
@@ -246,13 +263,7 @@ def build_verified_template_document_candidate(
         contextual_links=contextual_links,
         candidate_content_provenance=complete_provenance,
         source_claim_resolutions=source_claim_resolutions,
-        composition_ledger=build_composition_ledger(
-            inner_text,
-            candidate,
-            operations,
-            complete_provenance,
-            compiled.source_placements,
-        ),
+        composition_ledger=composition_ledger,
         operations=operations,
         candidate_sha256=sha256_hex(candidate),
     )
@@ -270,5 +281,6 @@ def build_verified_template_document_candidate(
         generated_claim_map=claim_map,
         candidate_content_provenance=complete_provenance,
         source_claim_resolutions=plan.source_claim_resolutions,
+        composition_ledger=composition_ledger,
     )
     return candidate, plan.model_copy(update={"claim_accountability": accountability})
