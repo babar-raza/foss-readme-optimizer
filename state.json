@@ -47381,7 +47381,7 @@
     "updated_at": "2026-08-06T06:49:15.858264+00:00"
   },
   "schema_version": 2,
-  "state_version": 2209,
+  "state_version": 2210,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "03581f1e6d79359ca64cda0c14cf8538314b5775207b0ff1826fee90eba1d6fe",
@@ -50170,13 +50170,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: invalid contextual README links: candidate exceeds aspose.org ceiling",
       "last_checkpoint_id": "93db18721ed1ee11fe5b05e3a7e66c8acd2cb49ac8b91f8d0283efd4f88329f6",
-      "lease_expires_at": "2026-08-06T07:36:22.923534+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-06T07:25:27.982083+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-06T07:25:51.389584+00:00"
     }
   },
   "trigger_records": {},
