@@ -21,6 +21,7 @@ from readme_agent.presentation.verified_template_sections import (
     development_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import installation_text
@@ -238,6 +239,20 @@ def build_template_provenance(
                     claim.source_byte_start : claim.source_byte_end
                 ].decode("utf-8")
                 fact_ids = literal_fact_ids(claim_text, facts, content.fact_ids)
+                fact_ids = sorted(
+                    {
+                        *fact_ids,
+                        *(
+                            coordinate.fact_id
+                            for coordinate in structured_fact_coordinates(
+                                text,
+                                claim,
+                                facts,
+                                content.fact_ids,
+                            )
+                        ),
+                    }
+                )
                 if (
                     not fact_ids
                     and "readme.contextual_links" in content.standard_ids

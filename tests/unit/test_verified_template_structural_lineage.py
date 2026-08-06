@@ -17,6 +17,7 @@ from readme_agent.presentation.verified_template_sections import (
     api_reference_markdown,
     development_markdown,
 )
+from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.composition_lineage import build_composition_ledger
 from readme_agent.readme.composition_operation_origins import (
     legacy_operation_provenance,
@@ -24,7 +25,7 @@ from readme_agent.readme.composition_operation_origins import (
 )
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_structure import parse_headings
-from readme_agent.readme.document_templates import installation_text
+from readme_agent.readme.document_templates import example_text, installation_text
 
 ROOT = Path(__file__).resolve().parents[2]
 FACTS_PATH = (
@@ -315,6 +316,60 @@ def test_modified_fact_section_cannot_inherit_canonical_h3_authority() -> None:
     )
     assert not any(
         item.provenance_id.startswith("template.structure.h3.api_reference") for item in provenance
+    )
+
+
+def test_verified_input_fixture_prerequisite_has_exact_fact_lineage() -> None:
+    facts = _facts()
+    example = facts.selected_fact("example.minimal")
+    value = dict(example.value)
+    value["input_fixture_bindings"] = [
+        {
+            "source_path": "testfiles/scene.obj",
+            "target_path": "testfiles/scene.obj",
+        }
+    ]
+    replacement = example.model_copy(update={"value": value})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if item.fact_id == example.fact_id else item for item in facts.facts
+            ]
+        }
+    )
+    revision = facts.selected_fact("product.identity").source.source_revision
+    assert revision is not None
+    template_input = _template_input(facts)
+    template_input = template_input.model_copy(
+        update={
+            "sections": {
+                **template_input.sections,
+                "quick_start": _bound(
+                    facts,
+                    example_text(facts, revision),
+                    "example.minimal",
+                    standards=("readme.primary_example",),
+                ),
+            }
+        }
+    )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    fixture_claim = next(
+        claim
+        for claim in assess_material_claims(candidate)
+        if "verification used the repository fixture"
+        in candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
+            "utf-8"
+        )
+    )
+
+    assert any(
+        item.provenance_id.startswith("template.section.quick_start")
+        and item.candidate_byte_start <= fixture_claim.source_byte_start
+        and fixture_claim.source_byte_end <= item.candidate_byte_end
+        and example.fact_id in item.fact_ids
+        for item in provenance
     )
 
 
