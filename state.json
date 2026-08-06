@@ -40069,6 +40069,18 @@
       }
     ],
     "facts_hash": "c1d4d63050b67b2066908eb663c9263b662cc96d3deb1662b47031bfc57dbcf8",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-06T06:47:57.303800+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -46998,6 +47010,7 @@
         "to_status": "NO_OP_PROVEN"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -47017,8 +47030,35 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": "53fcf3f057d6caac4e009238e769e77d9278034fae28b3b9fe8de5091776ac39",
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-06T06:47:57.303830+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-06T06:47:57.303845+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "5ae8690d6e78f0ce4a0149e651b5b8b9043227a9ba37357c45e668de3a15cfd7",
     "reviewer_standard_hash": "2a9de12cb208488ee67b6c234e6f59b55a9803fb7084eeb91c926154ac79fcf9",
@@ -47028,7 +47068,7 @@
     "updated_at": "2026-08-04T16:47:35.858451+00:00"
   },
   "schema_version": 2,
-  "state_version": 2145,
+  "state_version": 2146,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "03581f1e6d79359ca64cda0c14cf8538314b5775207b0ff1826fee90eba1d6fe",
@@ -49756,6 +49796,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-04T16:48:10.638029+00:00"
+    },
+    "operator:20260806-064742-1b16:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
+      "accepted_at": "2026-08-06T06:47:55.907642+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260806-064742-1b16:aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-06T06:47:42.316305+00:00",
+        "provider_event_id": "20260806-064742-1b16",
+        "repository_scope": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-06T06:47:55.907656+00:00"
     }
   },
   "trigger_records": {},
