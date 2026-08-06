@@ -47290,7 +47290,7 @@
     "updated_at": "2026-08-06T06:49:15.858264+00:00"
   },
   "schema_version": 2,
-  "state_version": 2188,
+  "state_version": 2189,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "03581f1e6d79359ca64cda0c14cf8538314b5775207b0ff1826fee90eba1d6fe",
@@ -50057,13 +50057,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: preserve claim collides with unowned identical candidate bytes; explicit source placement required: claim:9202:ad9549bd0329b97a",
       "last_checkpoint_id": "68ae01ad38528803eb7b4892505d88fe9e3706d556641b947c11f49c4e1e37fc",
-      "lease_expires_at": "2026-08-06T07:14:55.925409+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-06T07:04:28.745285+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-06T07:04:53.215560+00:00"
     }
   },
   "trigger_records": {},
