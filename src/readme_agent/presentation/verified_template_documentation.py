@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
+from typing import Literal
 from urllib.parse import urlparse
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 
-_SURFACE_ORDER = ("docs", "kb", "reference")
+DocumentationSurface = Literal["docs", "reference", "kb"]
+DOCUMENTATION_SURFACE_ORDER: tuple[DocumentationSurface, ...] = (
+    "docs",
+    "reference",
+    "kb",
+)
 _SURFACE_LABELS = {
     "docs": "Product documentation",
     "kb": "Knowledge base",
@@ -35,7 +41,7 @@ def _accepted_catalog_rows(facts: ProductFactsV2) -> list[dict[str, object]]:
             continue
         surface = value.get("surface")
         url = value.get("url")
-        if surface not in _SURFACE_ORDER or not isinstance(url, str):
+        if surface not in DOCUMENTATION_SURFACE_ORDER or not isinstance(url, str):
             continue
         parsed = urlparse(url)
         if parsed.scheme != "https" or parsed.hostname != f"{surface}.aspose.org":
@@ -61,7 +67,11 @@ def _accepted_catalog_rows(facts: ProductFactsV2) -> list[dict[str, object]]:
     return rows
 
 
-def documentation_resources_markdown(facts: ProductFactsV2) -> str | None:
+def documentation_resources_markdown(
+    facts: ProductFactsV2,
+    *,
+    link_limit: int | None = None,
+) -> str | None:
     """Render accepted docs, knowledge-base, and API-reference catalog rows only."""
 
     rows = _accepted_catalog_rows(facts)
@@ -69,9 +79,20 @@ def documentation_resources_markdown(facts: ProductFactsV2) -> str | None:
         return None
     ordered = sorted(
         rows,
-        key=lambda row: (_SURFACE_ORDER.index(str(row["surface"])), str(row["url"])),
+        key=lambda row: (
+            DOCUMENTATION_SURFACE_ORDER.index(str(row["surface"])),
+            str(row["url"]),
+        ),
     )
+    if link_limit is not None:
+        ordered = ordered[: max(0, link_limit)]
+    if not ordered:
+        return None
     return "\n".join(f"- [{_SURFACE_LABELS[str(row['surface'])]}]({row['url']})" for row in ordered)
 
 
-__all__ = ["documentation_resources_markdown"]
+__all__ = [
+    "DOCUMENTATION_SURFACE_ORDER",
+    "DocumentationSurface",
+    "documentation_resources_markdown",
+]

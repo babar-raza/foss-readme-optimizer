@@ -117,7 +117,14 @@ def test_documentation_resources_render_selected_catalog_rows_in_stable_order() 
     assert markdown == "\n".join(
         (
             "- [Product documentation](https://docs.aspose.org/3d/python/)",
+            "- [API reference](https://reference.aspose.org/3d/python/)",
             "- [Knowledge base](https://kb.aspose.org/3d/python/)",
+        )
+    )
+
+    assert documentation_resources_markdown(_with_documentation_fact(), link_limit=2) == "\n".join(
+        (
+            "- [Product documentation](https://docs.aspose.org/3d/python/)",
             "- [API reference](https://reference.aspose.org/3d/python/)",
         )
     )

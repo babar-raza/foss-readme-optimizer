@@ -7,7 +7,7 @@ from pathlib import Path
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.links.catalog import load_aspose_link_catalogs
-from readme_agent.presentation.verified_template_runtime import (
+from readme_agent.presentation.verified_template_document import (
     build_verified_template_document_candidate,
 )
 from readme_agent.readme.agentic_composition_models import (

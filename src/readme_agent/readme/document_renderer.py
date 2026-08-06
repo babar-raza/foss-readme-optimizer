@@ -15,7 +15,7 @@ from readme_agent.links.terminology import (
     find_enterprise_terminology_findings,
 )
 from readme_agent.presentation.runtime_repairs import build_density_collapse_operations
-from readme_agent.presentation.verified_template_runtime import (
+from readme_agent.presentation.verified_template_document import (
     build_verified_template_document_candidate,
 )
 from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan

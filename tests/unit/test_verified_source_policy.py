@@ -9,7 +9,7 @@ import pytest
 from readme_agent.links.catalog import load_aspose_link_catalogs
 from readme_agent.presentation import verified_source_policy
 from readme_agent.presentation.verified_source_policy import build_verified_source_policy_edits
-from readme_agent.presentation.verified_template_runtime import (
+from readme_agent.presentation.verified_template_document import (
     build_verified_template_document_candidate,
 )
 from readme_agent.readme.document_validation import validate_readme_document_candidate

@@ -177,6 +177,7 @@ def build_verified_template_draft(
     source_revision: str,
     agentic_plan: ReadmeAgenticCompositionPlanV1,
     contextual_links: ContextualLinkPlanV1 | None = None,
+    documentation_link_limit: int | None = None,
 ) -> ProductFactsTemplateDraftV1:
     """Bind verified facts and the validated agentic plan to reusable slots."""
 
@@ -278,7 +279,7 @@ def build_verified_template_draft(
             ("readme.api_reference",),
         ),
         "documentation_resources": (
-            documentation_resources_markdown(facts),
+            documentation_resources_markdown(facts, link_limit=documentation_link_limit),
             ("documentation.links",),
             (),
         ),

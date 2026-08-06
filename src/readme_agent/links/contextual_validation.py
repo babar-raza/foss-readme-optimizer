@@ -52,8 +52,6 @@ def validate_contextual_link_candidate(
     fact_owned_targets = accepted_fact_owned_targets(facts, catalogs)
     expected_url_counts = Counter(plan.pre_link_url_counts)
     expected_url_counts.update(binding_url_counts)
-    for normalized_url in fact_owned_targets:
-        expected_url_counts[normalized_url] = max(expected_url_counts[normalized_url], 1)
     for normalized_url in sorted(set(candidate_url_counts) | set(expected_url_counts)):
         if candidate_url_counts[normalized_url] != expected_url_counts[normalized_url]:
             errors.append(

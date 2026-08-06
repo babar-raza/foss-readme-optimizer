@@ -8,7 +8,9 @@ from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.catalog import load_aspose_link_catalogs, normalize_target_url
 from readme_agent.links.fact_owned_targets import accepted_fact_owned_targets
+from readme_agent.presentation.verified_template_link_budget import documentation_link_limit
 from readme_agent.registry.loader import require_listed
+from readme_agent.registry.models import LinkAllocationPolicyV1
 
 ROOT = Path(__file__).resolve().parents[2]
 ORG_REPO = "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
@@ -57,6 +59,47 @@ def test_exact_source_catalog_documentation_targets_are_fact_owned() -> None:
     assert {target.fact_id for target in targets.values()} == {
         "documentation.links:governed-aspose-org-catalog"
     }
+
+
+def test_documentation_roots_are_bounded_before_contextual_link_selection() -> None:
+    facts = _facts_with_real_documentation()
+    catalogs = load_aspose_link_catalogs()
+    candidate = "\n".join(
+        (
+            "# Aspose.3D FOSS for Python",
+            "",
+            "## Documentation resources",
+            "",
+            "- [Product documentation](https://docs.aspose.org/3d/python/)",
+            "- [API reference](https://reference.aspose.org/3d/python/)",
+            "- [Knowledge base](https://kb.aspose.org/3d/python/)",
+        )
+    )
+    policy = LinkAllocationPolicyV1.model_validate(
+        {
+            "mode": "configured",
+            "max_total": 3,
+            "domain_maxima": {"aspose.org": 2, "aspose.com": 1},
+            "surface_maxima": {
+                "products": 1,
+                "docs": 1,
+                "kb": 1,
+                "blog": 0,
+                "reference": 1,
+            },
+        }
+    )
+
+    assert (
+        documentation_link_limit(
+            candidate,
+            facts,
+            catalogs,
+            policy,
+            verified_code_sha256s=set(),
+        )
+        == 2
+    )
 
 
 def test_catalog_or_product_mismatch_fails_closed() -> None:
