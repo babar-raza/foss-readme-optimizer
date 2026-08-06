@@ -7,7 +7,7 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+    "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
     "active_task_id": null,
     "approach_control": {
       "attempts": [
@@ -38,10 +38,10 @@
       "replans": []
     },
     "capacity_allocation": {
-      "max_concurrent_verified_lanes": 1,
-      "policy_max_repository_lanes": 1,
+      "max_concurrent_verified_lanes": 2,
+      "policy_max_repository_lanes": 2,
       "reserved_trusted_lanes": 0,
-      "total_repository_lanes": 1
+      "total_repository_lanes": 2
     },
     "certification_complete": false,
     "claim_expires_at": null,
@@ -178,11 +178,20 @@
         "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
         "to_concurrent_goal_ids": [],
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
+      },
+      {
+        "from_concurrent_goal_ids": [],
+        "from_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+        "graph_sha256": "813d3652e0687697c888c78fcfba62c56c58d91ae1cc61c36b586370c57b4047",
+        "occurred_at": "2026-08-06T06:43:07.828638+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [],
+        "to_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC"
       }
     ],
     "graph_sha256": "813d3652e0687697c888c78fcfba62c56c58d91ae1cc61c36b586370c57b4047",
-    "infrastructure_tasks_since_visible_delivery": 1,
-    "last_evaluated_at": "2026-08-06T06:35:47.074951+00:00",
+    "infrastructure_tasks_since_visible_delivery": 0,
+    "last_evaluated_at": "2026-08-06T06:41:53.346149+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -322,12 +331,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deliver the complete dynamic Python verified README POC under one reproducible contract."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-README"
+      ],
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    },
     "parallelism_control": {
-      "calibration_active": true,
+      "calibration_active": false,
       "observations": [],
       "shared_repair_active": false,
-      "transaction_isolation_proven": false
+      "transaction_isolation_proven": true
     },
     "task_statuses": {
       "L8-ACCEL-00-PYTHON-READINESS": "CLOSED",
@@ -425,7 +446,7 @@
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
-      "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "SCORED",
+      "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
@@ -6876,6 +6897,19 @@
         "reason": "All six task acceptance checks passed with exact evidence",
         "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/first-current-python-e2e-v1/mission-contribution.json",
+          "plans/investigations/evidence/first-current-python-e2e-v1/closeout-control.json",
+          "plans/investigations/evidence/first-current-python-e2e-v1/verification.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-06T06:42:59.614524+00:00",
+        "reason": "First current verified Python README is approved, no-op proven, promoted, reconstructable, and zero-effect",
+        "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -6885,7 +6919,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 772,
+  "state_version": 773,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
