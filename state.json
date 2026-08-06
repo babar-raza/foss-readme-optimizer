@@ -128290,6 +128290,18 @@
         "reason": "completed bundle cache invalidated at README_ASSESSED: presentation_component_protected_content_changed",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\b3a1c620c39cc0d41d32\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "README_ASSESSED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-06T14:53:12.357670+00:00",
+        "reason": "fact-cited source-span presentation plan completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "PLAN_READY"
       }
     ],
     "human_acceptance_history": [],
@@ -128311,7 +128323,7 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "47ff78b45a56a4d8808384401fe45f4cd3379dbfe2f3d520e7fe3d3836f462c6",
+    "presentation_plan_hash": "9784b1f1060305266b46a727575138dea781345b3b0232ae9e0dae9d071b2a6c",
     "presentation_validity": {
       "available_component_manifest_hash": null,
       "candidate_hash": null,
@@ -128342,15 +128354,15 @@
     },
     "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "2e51ea1411239a770a733b1d262d0f2f035c5b96f15489ddfa5aa33a24bf9769",
+    "repair_budget_origin_hash": "6de5cba42671c2081709403e057f4873f888540882f80101fd6ccc48d64db9d6",
     "reviewer_standard_hash": "a4fe0b13eeeb1e42568477ff98a945e8e31fabf3a0ade6ec947470560b4f29f9",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-08-06T14:49:19.511167+00:00"
+    "status": "PLAN_READY",
+    "updated_at": "2026-08-06T14:53:12.357670+00:00"
   },
   "schema_version": 2,
-  "state_version": 2497,
+  "state_version": 2498,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
