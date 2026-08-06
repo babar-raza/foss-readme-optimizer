@@ -1,2 +1,8 @@
+* text=auto eol=lf
+
+# Windows command files retain the line ending expected by cmd.exe.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
 plans/investigations/evidence/finalized-repository-readmes-v1/** text eol=lf
 plans/investigations/evidence/finalized-repository-readmes-v1/**/README.patch -whitespace
