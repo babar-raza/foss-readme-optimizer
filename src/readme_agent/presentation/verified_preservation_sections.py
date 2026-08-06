@@ -170,7 +170,7 @@ def preserved_h2_sections(
         (
             len(source_text[: heading.start].encode("utf-8")),
             len(source_text[: heading.section_end].encode("utf-8")),
-        ): (heading.level, heading.title)
+        ): (heading.level, heading_identity(heading.title))
         for heading in parse_headings(source_text)
     }
     sections: list[PreservedSection] = []
@@ -204,7 +204,7 @@ def preserved_h2_sections(
             claim.claim_id not in fact_authorized_claim_ids for claim in effective_claims
         )
         structural = coordinates.get((section.source_byte_start, section.source_byte_end))
-        if structural != (2, section.heading):
+        if structural != (2, heading_identity(section.heading)):
             raise ValueError(
                 f"preserve disposition is not an exact CommonMark H2 section: {section.section_id}"
             )
@@ -214,7 +214,7 @@ def preserved_h2_sections(
             not headings
             or headings[0].level != 2
             or headings[0].start != 0
-            or headings[0].title != section.heading
+            or heading_identity(headings[0].title) != heading_identity(section.heading)
             or any(heading.level < 2 for heading in headings)
         ):
             raise ValueError(

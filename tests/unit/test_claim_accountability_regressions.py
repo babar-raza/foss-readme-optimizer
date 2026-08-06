@@ -709,6 +709,19 @@ def test_malformed_preserve_coordinates_fail_before_source_splicing() -> None:
         preserved_h2_sections(source, malformed, set(), "# Email library\n\n## Navigation\n")
 
 
+def test_emoji_decorated_preserve_heading_uses_canonical_identity() -> None:
+    facts = _facts()
+    source = "# Email library\n\n## ✨ Features\n\nRepository details.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+
+    preserved_h2_sections(source, assessment, set(), "# Email library\n")
+
+
 def test_preserve_h2_cannot_copy_nested_repair_h3_bytes() -> None:
     facts = _facts()
     source = (
