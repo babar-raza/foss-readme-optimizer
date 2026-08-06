@@ -922,7 +922,12 @@ def test_multi_agent_admission_serializes_shared_repairs(tmp_path):
 
 def test_existing_execution_plan_preserves_bootstrap_violation_and_admits_serial_recovery():
     plan_path = (
-        REPO_ROOT / "runs" / "multi-agent" / "L8-AGILE-AUTHORITY-RESET" / "execution-plan.json"
+        REPO_ROOT
+        / "plans"
+        / "investigations"
+        / "evidence"
+        / "agile-authority-reset-v1"
+        / "multi-agent-execution-plan.json"
     )
 
     request = request_from_execution_plan(plan_path)

@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-AGILE-AUTHORITY-RESET",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "branch": "main",
+  "head_at_start": "fd98b0daf9e2d3736b9a83c4e473f429e99a8c11",
+  "durable_state_version": 754,
+  "graph_sha256": "77a9f244a6cebc0e03f3f914eeba3b8838ec9cacc1409c77adbfa00a3c780a9a",
+  "objective": "Complete the lossless compact-authority migration, prove its control semantics, and leave L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E as the sole next visible-delivery task without performing product work.",
+  "command_lease": {
+    "owner": "coordinator",
+    "long_running_commands_serialized": true,
+    "repository_owned_processes_at_start": 0
+  },
+  "roles": {
+    "coordinator": {
+      "status": "active",
+      "objective": "Own production control changes, shared authority files, integration, command serialization, evidence sealing, commit, and durable task transition.",
+      "allowed_paths": [
+        "AGENTS.md",
+        "plans/**",
+        "scripts/governance/**",
+        "src/readme_agent/cli.py",
+        "src/readme_agent/capabilities/effect_ledger.py",
+        "src/readme_agent/capabilities/open_presentation_pr.py",
+        "src/readme_agent/state/schema.py",
+        "src/readme_agent/supervisor/**",
+        "tests/unit/test_capabilities.py",
+        "tests/unit/test_effect_ledger.py",
+        "tests/unit/test_open_presentation_pr.py",
+        "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/coordinator/**"
+      ],
+      "forbidden_paths": [
+        "runs/readme-poc/**",
+        "presentation rendering or ecosystem implementation",
+        "production target repository remotes",
+        "target default branches"
+      ],
+      "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/coordinator/"
+    },
+    "repair": {
+      "status": "superseded_bootstrap_violation",
+      "disposition": "The newly implemented L8-052 admission control rejected these bootstrap leases because they overlapped the coordinator lease and included shared state and mission paths. Their outputs are proposal inputs only; the coordinator owns the accepted serial integration and verification. This violation is preserved rather than waived or hidden.",
+      "objective": "Repair the independently identified agile-control enforcement gaps in two disjoint implementation lanes, then return both lanes to the coordinator for serialized integration.",
+      "allowed_paths": [
+        "src/readme_agent/state/lifecycle_schema.py",
+        "src/readme_agent/state/readme_poc_lifecycle.py",
+        "src/readme_agent/state/readme_poc_acceptance.py",
+        "src/readme_agent/state/readme_poc_publication.py",
+        "src/readme_agent/state/schema.py",
+        "src/readme_agent/state/agile_execution_schema.py",
+        "src/readme_agent/supervisor/stage_dependencies.py",
+        "src/readme_agent/supervisor/presentation_component_versions.py",
+        "src/readme_agent/supervisor/local_poc_cache.py",
+        "src/readme_agent/supervisor/local_poc_evidence.py",
+        "src/readme_agent/supervisor/mission_schema.py",
+        "src/readme_agent/supervisor/mission_control.py",
+        "src/readme_agent/supervisor/mission_goal_guard.py",
+        "src/readme_agent/supervisor/infrastructure_admission.py",
+        "src/readme_agent/supervisor/verification_policy.py",
+        "src/readme_agent/supervisor/parallelism_admission.py",
+        "src/readme_agent/supervisor/multi_agent_admission.py",
+        "src/readme_agent/supervisor/approach_control.py",
+        "tests/unit/test_mission_control.py",
+        "tests/unit/test_stage_dependency_manifest.py",
+        "tests/unit/test_local_poc_cache.py",
+        "tests/unit/test_readme_poc_lifecycle.py",
+        "tests/unit/test_readme_poc_acceptance_axes.py",
+        "tests/unit/test_agile_execution_controls.py",
+        "tests/unit/test_portfolio.py",
+        "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/repair/**"
+      ],
+      "forbidden_paths": [
+        "AGENTS.md",
+        "plans/**",
+        "scripts/**",
+        "durable mission state",
+        "product repositories"
+      ],
+      "sub_lanes": [
+        {
+          "lane_id": "component-versioning-and-acceptance-axes",
+          "disposition": "proposal_only_after_bootstrap_lease_rejection",
+          "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/repair/component-versioning-and-acceptance-axes/",
+          "exclusive_paths": [
+            "src/readme_agent/state/lifecycle_schema.py",
+            "src/readme_agent/state/readme_poc_lifecycle.py",
+            "src/readme_agent/state/readme_poc_acceptance.py",
+            "src/readme_agent/state/readme_poc_publication.py",
+            "src/readme_agent/supervisor/stage_dependencies.py",
+            "src/readme_agent/supervisor/presentation_component_versions.py",
+            "src/readme_agent/supervisor/local_poc_cache.py",
+            "src/readme_agent/supervisor/local_poc_evidence.py",
+            "tests/unit/test_stage_dependency_manifest.py",
+            "tests/unit/test_local_poc_cache.py",
+            "tests/unit/test_readme_poc_lifecycle.py",
+            "tests/unit/test_readme_poc_acceptance_axes.py"
+          ]
+        },
+        {
+          "lane_id": "mission-admission-and-replanning-controls",
+          "disposition": "proposal_only_after_bootstrap_lease_rejection",
+          "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/repair/mission-admission-and-replanning-controls/",
+          "exclusive_paths": [
+            "src/readme_agent/state/schema.py",
+            "src/readme_agent/state/agile_execution_schema.py",
+            "src/readme_agent/supervisor/mission_schema.py",
+            "src/readme_agent/supervisor/mission_control.py",
+            "src/readme_agent/supervisor/mission_goal_guard.py",
+            "src/readme_agent/supervisor/infrastructure_admission.py",
+            "src/readme_agent/supervisor/verification_policy.py",
+            "src/readme_agent/supervisor/parallelism_admission.py",
+            "src/readme_agent/supervisor/multi_agent_admission.py",
+            "src/readme_agent/supervisor/approach_control.py",
+            "tests/unit/test_mission_control.py",
+            "tests/unit/test_agile_execution_controls.py"
+          ]
+        }
+      ],
+      "focused_checks": [
+        "component-scoped semantic invalidation and VALID_UPDATE_AVAILABLE",
+        "separate factual, presentation, human-acceptance, and publication axes",
+        "just-in-time infrastructure admission",
+        "risk-tiered verification and evidence-promotion policy",
+        "measured adaptive parallelism",
+        "equivalent-attempt rejection and first-principles replanning",
+        "background-only OBSERVATION_RUNNING"
+      ],
+      "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/repair/"
+    },
+    "advancement": {
+      "status": "not_applicable",
+      "reason": "Product advancement is explicitly forbidden during the authority reset."
+    },
+    "validator_evidence": {
+      "status": "active",
+      "objective": "Independently audit stable requirement, decision, active-task, deferred-task, dependency, hash, and migration coverage and report exact discrepancies without editing shared authority.",
+      "allowed_paths": [
+        "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/validator-evidence/**"
+      ],
+      "forbidden_paths": [
+        "AGENTS.md",
+        "plans/**",
+        "scripts/**",
+        "src/**",
+        "tests/**",
+        "durable mission state",
+        "product repositories"
+      ],
+      "focused_checks": [
+        "lossless stable-ID coverage",
+        "catalog and report hash integrity",
+        "active/deferred disjointness",
+        "dependency preservation",
+        "no hidden executable work"
+      ],
+      "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/validator-evidence/"
+    },
+    "documentation_state_sync": {
+      "status": "active",
+      "objective": "Perform a proposal-only consistency review of idea, master, requirements index, governance, AGENTS, roadmap, status, and graph; report only material drift.",
+      "allowed_paths": [
+        "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/documentation-state-sync/**"
+      ],
+      "forbidden_paths": [
+        "AGENTS.md",
+        "plans/**",
+        "scripts/**",
+        "src/**",
+        "tests/**",
+        "durable mission state",
+        "product repositories"
+      ],
+      "focused_checks": [
+        "subject-based authority agreement",
+        "current stage and next-task agreement",
+        "deferred work remains inspectable",
+        "elapsed certification is non-blocking",
+        "no stale trusted-lane execution authority"
+      ],
+      "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/documentation-state-sync/"
+    },
+    "independent_verification": {
+      "status": "active",
+      "wave": 2,
+      "objective": "After integration and focused gates, independently reproduce the compact-authority validators, inspect the migration evidence, and issue an accept or reject verdict without authoring implementation.",
+      "allowed_paths": [
+        "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/independent-verification/**"
+      ],
+      "forbidden_paths": [
+        "AGENTS.md",
+        "plans/**",
+        "scripts/**",
+        "src/**",
+        "tests/**",
+        "durable mission state",
+        "product repositories"
+      ],
+      "focused_checks": [
+        "typed catalog reproducibility",
+        "graph and durable-state migration semantics",
+        "focused and static gate receipts",
+        "reset acceptance and next-task eligibility",
+        "zero product work and zero effects"
+      ],
+      "evidence_destination": "runs/multi-agent/L8-AGILE-AUTHORITY-RESET/independent-verification/"
+    }
+  },
+  "closure_requires": [
+    "all stable requirements, decisions, tasks, and dependencies have preserved or explicit deferred dispositions",
+    "compact authority validators and focused mission-control tests pass",
+    "independent non-authoring verification accepts the exact integrated tree",
+    "one coherent control-only commit exists on main",
+    "durable state closes L8-AGILE-AUTHORITY-RESET and selects L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+  ]
+}
