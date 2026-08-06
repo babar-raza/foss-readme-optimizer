@@ -191,7 +191,7 @@
     ],
     "graph_sha256": "813d3652e0687697c888c78fcfba62c56c58d91ae1cc61c36b586370c57b4047",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-06T06:43:55.551783+00:00",
+    "last_evaluated_at": "2026-08-06T06:45:04.696773+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -445,7 +445,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "REGRESSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -6921,6 +6921,17 @@
         "reason": "Current fact-acceptance and local-verification contracts invalidate the historical Note closure",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json"
+        ],
+        "from_status": "CLOSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-06T06:45:04.696811+00:00",
+        "reason": "Current fact-acceptance and local-verification contracts invalidate the historical Page/PDF closure",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -6930,7 +6941,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 774,
+  "state_version": 775,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
