@@ -63,7 +63,8 @@ class ReadmeCompositionLedgerV1(BaseModel):
             ]
             if overlaps and (
                 len(overlaps) != 1
-                or overlaps[0].placement_basis != "structural_exact_equivalence"
+                or overlaps[0].placement_basis
+                not in {"structural_exact_equivalence", "relocated_exact_equivalence"}
                 or binding.candidate_byte_start < overlaps[0].final_byte_start
                 or overlaps[0].final_byte_end < binding.candidate_byte_end
                 or not binding.fact_ids

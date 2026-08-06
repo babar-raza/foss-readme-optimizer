@@ -10,6 +10,10 @@ import pytest
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
+from readme_agent.presentation.verified_source_placements import (
+    exclude_source_placements_from_provenance,
+    resolve_preserve_claim_placements,
+)
 from readme_agent.presentation.verified_source_preservation import (
     compose_verified_source_preservation,
 )
@@ -148,6 +152,62 @@ def test_composer_fails_closed_on_unplaced_generated_duplicate_of_preserve_claim
             set(),
             provenance,
         )
+
+
+def test_fact_authorized_exact_claim_can_move_to_one_governed_h2() -> None:
+    facts = _review_facts()
+    exact_claim = "Exact repository-owned detail."
+    source = f"# Email library\n\n## Repository details\n\n{exact_claim}\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    claim = next(item for item in assessment.material_claims if item.disposition == "preserve")
+    candidate = (
+        "# Email library\n\n"
+        "## Quick start\n\n"
+        f"Generated fact-backed introduction.\n\n{exact_claim}\n"
+    )
+    broad_start = candidate.index("Generated fact-backed introduction.")
+    broad_end = candidate.index(exact_claim) + len(exact_claim)
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.quick-start",
+            candidate_byte_start=len(candidate[:broad_start].encode("utf-8")),
+            candidate_byte_end=len(candidate[:broad_end].encode("utf-8")),
+            fact_ids=["example.minimal:verified"],
+            configured_standard_ids=["readme.primary_example"],
+            rationale="Bind the complete generated quick-start body.",
+        )
+    ]
+
+    missing, placements = resolve_preserve_claim_placements(
+        candidate,
+        source,
+        assessment,
+        set(),
+        {claim.claim_id},
+        [],
+    )
+    split = exclude_source_placements_from_provenance(provenance, placements)
+
+    assert not missing
+    assert len(placements) == 1
+    assert placements[0].source_owner_id == claim.claim_id
+    assert placements[0].placement_basis == "relocated_exact_equivalence"
+    assert placements[0].structural_role == "h2:quick-start"
+    fact_bound = [
+        binding
+        for binding in split
+        if binding.candidate_byte_start == placements[0].final_byte_start
+        and binding.fact_ids == ["example.minimal:verified"]
+    ]
+    assert len(fact_bound) == 1
+    assert not candidate.encode("utf-8")[
+        fact_bound[0].candidate_byte_end : placements[0].final_byte_end
+    ].strip()
 
 
 def test_ledger_rejects_operation_mismatch_and_overlapping_origin_authority() -> None:

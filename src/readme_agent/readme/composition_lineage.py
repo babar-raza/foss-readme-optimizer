@@ -86,7 +86,10 @@ def _validated_placements(
         if placement.placement_id in ids:
             raise ValueError("source placements contain duplicate IDs")
         ids.add(placement.placement_id)
-        if placement.placement_basis == "structural_exact_equivalence":
+        if placement.placement_basis in {
+            "structural_exact_equivalence",
+            "relocated_exact_equivalence",
+        }:
             assert placement.source_owner_id is not None
             if placement.source_owner_id in structural_owners:
                 raise ValueError("structural source owner has multiple final placements")

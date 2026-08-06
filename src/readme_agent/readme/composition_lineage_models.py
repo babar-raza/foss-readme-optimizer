@@ -19,6 +19,7 @@ LineageAuthority = Literal[
 ]
 SourcePlacementBasis = Literal[
     "structural_exact_equivalence",
+    "relocated_exact_equivalence",
     "composer_inserted_exact",
     "operation_unchanged_exact",
     "no_op_whole_source",
@@ -79,12 +80,16 @@ class ExactSourcePlacementV1(_StrictModel):
             self.placement_basis
             in {
                 "structural_exact_equivalence",
+                "relocated_exact_equivalence",
                 "composer_inserted_exact",
             }
             and self.source_owner_id is None
         ):
             raise ValueError("composer source placements require one explicit source owner")
-        if self.placement_basis == "structural_exact_equivalence":
+        if self.placement_basis in {
+            "structural_exact_equivalence",
+            "relocated_exact_equivalence",
+        }:
             if not self.structural_role:
                 raise ValueError("structural exact equivalence requires a governed role")
             if (

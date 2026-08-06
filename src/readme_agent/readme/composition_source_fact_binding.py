@@ -15,7 +15,7 @@ def exact_source_fact_binding_placement(
 
     Byte origin and factual authority are independent. A pre-existing fact binding may
     accompany exact source lineage only when its complete candidate span is contained by
-    one governed structural-equivalence placement. Partial, broad, multi-placement, and
+    one governed exact-equivalence placement. Partial, broad, multi-placement, and
     configured-standard-only overlaps are rejected rather than silently widened.
     """
 
@@ -31,7 +31,8 @@ def exact_source_fact_binding_placement(
         return None
     if (
         len(overlaps) != 1
-        or overlaps[0].placement_basis != "structural_exact_equivalence"
+        or overlaps[0].placement_basis
+        not in {"structural_exact_equivalence", "relocated_exact_equivalence"}
         or binding.candidate_byte_start < overlaps[0].final_byte_start
         or overlaps[0].final_byte_end < binding.candidate_byte_end
         or not binding.fact_ids

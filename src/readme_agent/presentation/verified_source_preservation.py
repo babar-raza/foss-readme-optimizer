@@ -165,11 +165,17 @@ def compose_verified_source_preservation(
         if preservation_selection is not None
         else resolved_claim_ids
     )
+    fact_authorized_claim_ids = (
+        set(preservation_selection.fact_authorized_claim_ids)
+        if preservation_selection is not None
+        else set()
+    )
     missing_blocks, adopted_placements = resolve_preserve_claim_placements(
         composed,
         source_text,
         assessment,
         non_preservable_claim_ids,
+        fact_authorized_claim_ids,
         source_placements,
     )
     missing_blocks = [

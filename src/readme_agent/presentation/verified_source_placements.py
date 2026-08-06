@@ -62,6 +62,7 @@ def resolve_preserve_claim_placements(
     source_text: str,
     assessment: ReadmeAssessmentV1,
     replaceable_claim_ids: set[str],
+    fact_authorized_claim_ids: set[str],
     existing_placements: list[ExactSourcePlacementV1],
 ) -> tuple[list[PreservedBlock], list[ExactSourcePlacementV1]]:
     """Return missing preserve blocks and uniquely governed structural equivalences."""
@@ -167,6 +168,38 @@ def resolve_preserve_claim_placements(
                     )
                 )
                 continue
+        if candidate_bytes.count(block) == 1 and claim.claim_id in fact_authorized_claim_ids:
+            final_start = candidate_bytes.index(block)
+            final_end = final_start + len(block)
+            target_headings = [
+                heading
+                for heading in candidate_headings
+                if len(candidate[: heading.start].encode("utf-8")) <= final_start
+                and final_end <= len(candidate[: heading.section_end].encode("utf-8"))
+            ]
+            if len(target_headings) == 1:
+                if any(
+                    placement.final_byte_start < final_end
+                    and final_start < placement.final_byte_end
+                    for placement in all_placements
+                ):
+                    raise ValueError(f"relocated source placements overlap: {claim.claim_id}")
+                block_hash = hashlib.sha256(block).hexdigest()
+                adopted.append(
+                    ExactSourcePlacementV1(
+                        placement_id=f"source.relocated-claim.{len(adopted):04d}",
+                        placement_basis="relocated_exact_equivalence",
+                        source_owner_id=claim.claim_id,
+                        structural_role=f"h2:{heading_identity(target_headings[0].title)}",
+                        source_byte_start=claim.source_byte_start,
+                        source_byte_end=claim.source_byte_end,
+                        source_content_sha256=block_hash,
+                        final_byte_start=final_start,
+                        final_byte_end=final_end,
+                        final_content_sha256=block_hash,
+                    )
+                )
+                continue
         if block in candidate_bytes:
             raise ValueError(
                 "preserve claim collides with unowned identical candidate bytes; "
@@ -195,33 +228,59 @@ def exclude_source_placements_from_provenance(
 
     rebased: list[CandidateContentProvenanceV1] = []
     for binding in provenance:
-        structural_overlap = any(
-            placement.placement_basis == "structural_exact_equivalence"
-            and binding.candidate_byte_start < placement.final_byte_end
-            and placement.final_byte_start < binding.candidate_byte_end
+        overlaps = [
+            placement
             for placement in placements
-        )
-        retained_placement = (
-            exact_source_fact_binding_placement(binding, placements) if structural_overlap else None
-        )
-        if retained_placement is not None:
-            rebased.append(binding)
-            continue
-        intervals = [(binding.candidate_byte_start, binding.candidate_byte_end)]
-        for placement in placements:
-            next_intervals: list[tuple[int, int]] = []
-            for start, end in intervals:
-                if end <= placement.final_byte_start or placement.final_byte_end <= start:
-                    next_intervals.append((start, end))
-                    continue
-                if start < placement.final_byte_start:
-                    next_intervals.append((start, placement.final_byte_start))
-                if placement.final_byte_end < end:
-                    next_intervals.append((placement.final_byte_end, end))
-            intervals = next_intervals
-        for index, (start, end) in enumerate(intervals):
+            if binding.candidate_byte_start < placement.final_byte_end
+            and placement.final_byte_start < binding.candidate_byte_end
+        ]
+        structural = [
+            placement
+            for placement in overlaps
+            if placement.placement_basis == "structural_exact_equivalence"
+        ]
+        if structural:
+            retained = exact_source_fact_binding_placement(binding, structural)
+            if retained is not None:
+                rebased.append(binding)
+                continue
+        relocated = [
+            placement
+            for placement in overlaps
+            if placement.placement_basis == "relocated_exact_equivalence"
+        ]
+        if relocated and (binding.authority_scope == "lineage_only" or not binding.fact_ids):
+            raise ValueError(
+                "source placement overlaps generated provenance with an unsupported "
+                f"exact-source binding: {binding.provenance_id}"
+            )
+        boundaries = {binding.candidate_byte_start, binding.candidate_byte_end}
+        for placement in overlaps:
+            boundaries.add(max(binding.candidate_byte_start, placement.final_byte_start))
+            boundaries.add(min(binding.candidate_byte_end, placement.final_byte_end))
+        points = sorted(boundaries)
+        intervals = list(zip(points[:-1], points[1:], strict=True))
+        retained_intervals: list[tuple[int, int]] = []
+        for start, end in intervals:
+            owners = [
+                placement
+                for placement in overlaps
+                if placement.final_byte_start <= start and end <= placement.final_byte_end
+            ]
+            if not owners:
+                retained_intervals.append((start, end))
+                continue
+            if (
+                len(owners) == 1
+                and owners[0].placement_basis
+                in {"structural_exact_equivalence", "relocated_exact_equivalence"}
+                and binding.authority_scope != "lineage_only"
+                and binding.fact_ids
+            ):
+                retained_intervals.append((start, end))
+        for index, (start, end) in enumerate(retained_intervals):
             unchanged = (
-                len(intervals) == 1
+                len(retained_intervals) == 1
                 and start == binding.candidate_byte_start
                 and end == binding.candidate_byte_end
             )
