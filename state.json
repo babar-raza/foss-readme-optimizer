@@ -127754,7 +127754,7 @@
     "updated_at": "2026-08-06T13:30:15.294288+00:00"
   },
   "schema_version": 2,
-  "state_version": 2407,
+  "state_version": 2408,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
@@ -130763,13 +130763,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:agentic_composition:execution_error:LLMError: composition opening summary contains promotional, edition-comparison, or internal text",
       "last_checkpoint_id": "a0f2e74ea36217e3dc1579ccec80977a67ab4b1d6a54d79daf35515a2011b961",
-      "lease_expires_at": "2026-08-06T13:58:09.871133+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-06T13:47:52.361011+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-06T13:48:22.198402+00:00"
     }
   },
   "trigger_records": {},
