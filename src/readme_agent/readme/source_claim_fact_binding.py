@@ -110,6 +110,38 @@ def verified_example_code(value: object) -> str | None:
     return code if isinstance(code, str) and code.strip() else None
 
 
+def verified_repository_example_code(
+    claim_text: str,
+    facts: ProductFactsV2,
+) -> tuple[str, str] | None:
+    """Return the selected fact and exact statically verified repository example."""
+
+    fact_id = facts.selected_fact_ids.get("repository.examples")
+    if fact_id is None:
+        return None
+    fact = facts.fact_by_id(fact_id)
+    code = _python_code(claim_text)
+    if (
+        code is None
+        or fact.verification_state not in _ACCEPTED_STATES
+        or fact.has_unresolved_conflict
+        or not isinstance(fact.value, dict)
+    ):
+        return None
+    inline = fact.value.get("inline_examples")
+    if not isinstance(inline, list):
+        return None
+    exact = [
+        item
+        for item in inline
+        if isinstance(item, dict)
+        and item.get("static_api_verified") is True
+        and isinstance(item.get("code"), str)
+        and item["code"].rstrip() + "\n" == code
+    ]
+    return (fact_id, code) if len(exact) == 1 else None
+
+
 def _fact_variants(facts: ProductFactsV2, fact_id: str) -> set[str]:
     fact = facts.fact_by_id(fact_id)
     view = visitor_fact_render_view(facts, fact.field)
@@ -153,6 +185,8 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
 
     literal_ids = set(literal_fact_ids(claim_text, facts, list(facts.selected_fact_ids.values())))
     result: set[str] = set()
+    if repository_example := verified_repository_example_code(claim_text, facts):
+        result.add(repository_example[0])
     variants_by_fact: dict[str, set[str]] = {}
     normalized_claim = _normalized(claim_text)
     for fact_id in facts.selected_fact_ids.values():
@@ -215,4 +249,5 @@ __all__ = [
     "python_claim_has_comments",
     "verified_comment_free_python_example",
     "verified_example_code",
+    "verified_repository_example_code",
 ]

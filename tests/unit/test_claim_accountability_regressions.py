@@ -178,7 +178,7 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
         {
             "inline_examples": [
                 {
-                    "title": "Quick Start",
+                    "title": "🚀 Quick Start",
                     "language": "python",
                     "code": "first()",
                     "static_api_verified": True,
@@ -198,6 +198,7 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
     assert rendered is not None
     assert "### Quick Start (2)" in rendered
     assert "### Quick Start (3)" in rendered
+    assert "🚀" not in rendered
     assert introduced_duplicate_headings("", "## Quick start\n\n" + rendered) == []
     assert "The inline workflows below were syntax-checked" in rendered
     fact_id = facts.selected_fact_ids["repository.examples"]
@@ -265,6 +266,44 @@ def test_exact_additional_example_disclosure_binds_its_repository_fact() -> None
     fact_id = facts.selected_fact_ids["repository.examples"]
 
     assert accepted_candidate_policy_fact_ids(claim, facts, _binding(claim, fact_id)) == {fact_id}
+
+
+def test_validated_mermaid_span_binds_its_selected_visual_facts() -> None:
+    facts = _facts()
+    fact_id = facts.selected_fact_ids["product.formats"]
+    claim = '```mermaid\nflowchart LR\n  input_1["PDF files"] --- product\n```\n'
+    bindings = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.at_a_glance",
+            candidate_byte_start=0,
+            candidate_byte_end=len(claim.encode("utf-8")),
+            fact_ids=[fact_id],
+            configured_standard_ids=["readme.at_a_glance_mermaid"],
+            rationale="Bind the exact validated Mermaid span to its selected format fact.",
+        )
+    ]
+
+    assert accepted_candidate_policy_fact_ids(claim, facts, bindings) == {fact_id}
+
+
+def test_mermaid_fact_binding_requires_both_fence_and_configured_standard() -> None:
+    facts = _facts()
+    fact_id = facts.selected_fact_ids["product.formats"]
+    claim = '```mermaid\nflowchart LR\n  input_1["PDF files"] --- product\n```'
+    binding = CandidateContentProvenanceV1(
+        provenance_id="template.section.at_a_glance",
+        candidate_byte_start=0,
+        candidate_byte_end=len(claim.encode("utf-8")),
+        fact_ids=[fact_id],
+        configured_standard_ids=[],
+        rationale="Exercise the fail-closed Mermaid policy boundary.",
+    )
+
+    assert accepted_candidate_policy_fact_ids(claim, facts, [binding]) == set()
+    configured = binding.model_copy(
+        update={"configured_standard_ids": ["readme.at_a_glance_mermaid"]}
+    )
+    assert accepted_candidate_policy_fact_ids("PDF files", facts, [configured]) == set()
 
 
 def test_contextual_policy_correction_requires_generated_fact_bound_prose() -> None:

@@ -14,6 +14,7 @@ from readme_agent.presentation.verified_source_claim_obligations import (
     accepted_obligation_bindings,
 )
 from readme_agent.presentation.verified_source_claim_omissions import (
+    deferred_unverified_obligation_detail_resolution,
     deferred_unverified_source_example_resolution,
     deferred_withheld_source_resolution,
     exact_authorized_claim_ids,
@@ -344,6 +345,23 @@ def resolve_source_claims(
                     contradiction_fact_ids=contradiction_fact_ids,
                 )
             if accepted is None:
+                candidate_core = accepted_obligation_bindings(
+                    risk.obligation_id,
+                    facts,
+                    candidate_content_provenance,
+                )
+                deferred_detail = deferred_unverified_obligation_detail_resolution(
+                    claim,
+                    claim_text,
+                    candidate_bytes,
+                    risk,
+                    facts,
+                    correction_candidate_claim_ids=correction_claim_ids,
+                    candidate_core_present=candidate_core is not None,
+                )
+                if deferred_detail is not None:
+                    resolutions.append(deferred_detail)
+                    continue
                 _raise_unresolved_preserve(
                     preserve_required and fail_on_unresolved_preserve,
                     claim.claim_id,

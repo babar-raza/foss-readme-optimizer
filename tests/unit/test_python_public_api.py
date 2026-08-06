@@ -75,9 +75,13 @@ def _write_package(root: Path, *, manifest: str = "pyproject") -> None:
         "    RED = 'red'\n\n"
         "class Config(TypedDict):\n"
         "    quality: int\n\n"
-        "@dataclass\n"
+        "@dataclass(slots=True)\n"
         "class Result:\n"
         "    size: int\n\n"
+        "class Runtime:\n"
+        "    def __init__(self) -> None:\n"
+        "        self.DisplayName: str | None = None\n"
+        "        self._internal: str | None = None\n\n"
         "def helper() -> str: return 'ok'\n"
         "def _private() -> None: pass\n",
         encoding="utf-8",
@@ -225,6 +229,9 @@ def test_public_surface_tracks_reexports_types_fields_and_full_property_stack(tm
     assert symbols["aspose.widget.models.Color.RED"].kind == "enum_member"
     assert symbols["aspose.widget.models.Config.quality"].kind == "typed_field"
     assert symbols["aspose.widget.models.Result.size"].kind == "typed_field"
+    assert symbols["aspose.widget.models.Runtime.DisplayName"].kind == "typed_field"
+    assert symbols["aspose.widget.models.Runtime.DisplayName"].annotation == "str | None"
+    assert "aspose.widget.models.Runtime._internal" not in symbols
     assert "aspose.widget.models._private" not in symbols
     assert "aspose.widget.models.abstractmethod" not in symbols
     assert surface.unresolved_reexports == ["aspose.widget:2:from .wildcard import *"]

@@ -6,16 +6,18 @@ import ast
 import re
 from dataclasses import dataclass
 
-_SAFE_BUILTINS = {"len", "open", "print", "range"}
+_SAFE_BUILTINS = {"enumerate", "len", "list", "open", "print", "range"}
 _UNSAFE_CALLS = {"compile", "eval", "exec", "__import__"}
 _STDLIB_MODULES = {
     "io": {"BytesIO": "bytes_io", "StringIO": "text_io"},
     "json": {"loads": "scalar"},
+    "pathlib": {"Path": "path"},
 }
 _STDLIB_MEMBERS = {
     "bytes": {"decode": "scalar"},
     "bytes_io": {"getvalue": "bytes", "read": "bytes", "seek": "scalar", "write": "scalar"},
     "file": {"read": "scalar", "write": "scalar"},
+    "path": {"open": "file"},
     "text_io": {"getvalue": "scalar", "read": "scalar", "seek": "scalar", "write": "scalar"},
 }
 
@@ -102,6 +104,7 @@ def _public_contract(
         if name_counts[str(row["name"]).casefold().replace("_", "")] == 1
     }
     classes: dict[str, _ClassContract] = {}
+    contracts_by_name: dict[str, _ClassContract] = {}
     for row in rows:
         name = str(row["name"])
         class_modules = _modules_from_source(str(row.get("source_path") or ""), name)
@@ -114,8 +117,14 @@ def _public_contract(
             for item in row.get("members", [])
             if isinstance(item, dict) and isinstance(item.get("name"), str)
         }
+        contract = _ClassContract(name=name, members=members)
+        contracts_by_name[name] = contract
         for module in class_modules:
-            classes[f"{module}:{name}"] = _ClassContract(name=name, members=members)
+            classes[f"{module}:{name}"] = contract
+    for module, exports in modules.items():
+        for exported in exports:
+            if exported in contracts_by_name:
+                classes.setdefault(f"{module}:{exported}", contracts_by_name[exported])
     functions = {
         f"{row['module']}:{row['name']}": str(row["return_class"])
         for row in value.get("functions", [])
@@ -210,6 +219,14 @@ class _Validator:
                     return _ValueType("product_instance", named_owner.key)
                 if named_owner is not None and named_owner.kind == "product_function":
                     return _ValueType("product_instance", named_owner.key)
+                if named_owner is not None and named_owner.kind == "local_function":
+                    return _ValueType("scalar")
+                if named_owner is not None and named_owner.kind in {
+                    "bytes_io",
+                    "path",
+                    "text_io",
+                }:
+                    return named_owner
                 if node.func.id in _SAFE_BUILTINS:
                     return _ValueType("file" if node.func.id == "open" else "scalar")
                 return self.reject(f"unknown_call:{node.func.id}")
@@ -222,6 +239,16 @@ class _Validator:
                 ):
                     self.resolve(node.func)
                     return _ValueType("product_instance", class_owner.key)
+            if (
+                isinstance(node.func, ast.Attribute)
+                and node.func.attr == "GetChildNodes"
+                and node.args
+                and isinstance(node.args[0], ast.Name)
+                and (target := self.names.get(node.args[0].id)) is not None
+                and target.kind == "product_class"
+            ):
+                owner = self.resolve(node.func)
+                return target if owner.kind != "invalid" else owner
             return self.resolve(node.func)
         if isinstance(
             node,
@@ -243,6 +270,10 @@ class _Validator:
                 if node.module is None:
                     return False, (), "relative_import"
                 for item in node.names:
+                    stdlib = _STDLIB_MODULES.get(node.module, {}).get(item.name)
+                    if stdlib is not None:
+                        self.names[item.asname or item.name] = _ValueType(stdlib)
+                        continue
                     key = f"{node.module}:{item.name}"
                     if key in self.functions:
                         self.names[item.asname or item.name] = _ValueType(
@@ -258,6 +289,39 @@ class _Validator:
         for node in tree.body:
             if isinstance(node, (ast.Import, ast.ImportFrom)):
                 continue
+            if isinstance(node, ast.ClassDef):
+                bases = [
+                    self.names.get(base.id) for base in node.bases if isinstance(base, ast.Name)
+                ]
+                inherited = next(
+                    (base for base in bases if base and base.kind == "product_class"),
+                    None,
+                )
+                if inherited is not None:
+                    inherited_contract = self.classes[inherited.key]
+                    members = dict(inherited_contract.members)
+                    for child in ast.walk(node):
+                        if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                            members.setdefault(child.name, None)
+                        targets = (
+                            child.targets
+                            if isinstance(child, ast.Assign)
+                            else [child.target]
+                            if isinstance(child, ast.AnnAssign)
+                            else []
+                        )
+                        for target in targets:
+                            if (
+                                isinstance(target, ast.Attribute)
+                                and isinstance(target.value, ast.Name)
+                                and target.value.id == "self"
+                            ):
+                                members.setdefault(target.attr, None)
+                    key = f"local:{node.name}"
+                    self.classes[key] = _ClassContract(name=node.name, members=members)
+                    self.names[node.name] = _ValueType("product_class", key)
+            elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                self.names[node.name] = _ValueType("local_function")
             if isinstance(node, (ast.Assign, ast.AnnAssign)):
                 value = self.resolve(node.value) if node.value is not None else _ValueType("scalar")
                 targets = node.targets if isinstance(node, ast.Assign) else [node.target]

@@ -16,6 +16,37 @@ def annotation(node: ast.AST | None) -> str | None:
     return ast.unparse(node) if node is not None else None
 
 
+def _decorator_name(node: ast.expr) -> str:
+    while isinstance(node, ast.Call):
+        node = node.func
+    if isinstance(node, ast.Attribute):
+        return node.attr
+    return node.id if isinstance(node, ast.Name) else ""
+
+
+def _annotated_instance_fields(node: ast.ClassDef) -> list[ast.AnnAssign]:
+    constructor = next(
+        (
+            child
+            for child in node.body
+            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and child.name == "__init__"
+        ),
+        None,
+    )
+    if constructor is None:
+        return []
+    return [
+        child
+        for child in ast.walk(constructor)
+        if isinstance(child, ast.AnnAssign)
+        and isinstance(child.target, ast.Attribute)
+        and isinstance(child.target.value, ast.Name)
+        and child.target.value.id == "self"
+        and not child.target.attr.startswith("_")
+    ]
+
+
 def python_symbol(
     *,
     module: str,
@@ -55,7 +86,7 @@ def class_symbols(
     bases = {ast.unparse(base).split(".")[-1] for base in node.bases}
     class_kind: PythonSymbolKind = "enum" if bases & {"Enum", "IntEnum", "StrEnum"} else "class"
     is_typed_dict = "TypedDict" in bases
-    is_dataclass = any(item.split(".")[-1] == "dataclass" for item in decorators(node))
+    is_dataclass = any(_decorator_name(item) == "dataclass" for item in node.decorator_list)
     results.append(
         python_symbol(
             module=module,
@@ -148,4 +179,23 @@ def class_symbols(
                     public_by="name",
                 )
             )
+    existing = {item.name.rsplit(".", 1)[-1] for item in results}
+    for child in _annotated_instance_fields(node):
+        target = child.target
+        assert isinstance(target, ast.Attribute)
+        name = target.attr
+        if name in existing:
+            continue
+        results.append(
+            python_symbol(
+                module=module,
+                name=f"{node.name}.{name}",
+                kind="typed_field",
+                path=path,
+                repository_root=repository_root,
+                line=child.lineno,
+                public_by="name",
+                annotation_=annotation(child.annotation),
+            )
+        )
     return results

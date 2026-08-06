@@ -377,6 +377,7 @@ def test_source_shell_claims_use_their_exact_configured_obligations() -> None:
 def test_source_repository_detail_uses_specific_fact_obligations() -> None:
     cases = [
         ("Additional examples", "- `examples/convert.py`\n", "additional_examples"),
+        ("MS OneNote Examples", "More examples are under `examples/`.\n", "additional_examples"),
         ("API reference", "- `Scene.open(path)` loads a scene.\n", "api_public_surface"),
         (
             "Documentation & resources",
@@ -389,6 +390,12 @@ def test_source_repository_detail_uses_specific_fact_obligations() -> None:
             "support_routes",
         ),
         ("Development and testing", "- Run `pytest -q`.\n", "development_commands"),
+        ("Development", "Run tests with `pytest -q`.\n", "development_commands"),
+        (
+            "Development",
+            "Third-party notices are in `THIRD_PARTY_NOTICES.md`.\n",
+            "third_party_notices",
+        ),
     ]
 
     for heading, claim_text, expected in cases:
@@ -404,6 +411,16 @@ def test_source_repository_detail_uses_specific_fact_obligations() -> None:
 
         assert risk.risk_class == "mandatory_fact_resolution"
         assert risk.obligation_id == expected
+
+
+def test_internal_golden_workflow_detail_is_explicitly_deferred() -> None:
+    source = "# Product\n\n## PDF golden workflow\n\nRegenerate internal baselines.\n"
+    claim = assess_material_claims(source)[0]
+
+    risk = classify_source_claim_risk(source, claim)
+
+    assert risk.risk_class == "optional_explicit_deferral"
+    assert risk.obligation_id is None
 
 
 def test_api_disclosure_shell_is_structural_and_compatibility_is_correctable() -> None:
@@ -482,11 +499,16 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
     assert "pip install aspose-3d-foss" not in candidate
     gltf_claim = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
     assert gltf_claim not in candidate
-    assert not [
-        resolution
+    gltf_source_claim = next(
+        claim
+        for claim in assess_material_claims(source)
+        if source.encode()[claim.source_byte_start : claim.source_byte_end].decode() == gltf_claim
+    )
+    assert gltf_source_claim.claim_id not in {
+        resolution.claim_id
         for resolution in plan.source_claim_resolutions
         if resolution.resolution == "deferred_verification"
-    ]
+    }
     assert plan.claim_accountability is not None
     source_bytes = source.encode("utf-8")
     gltf_record = next(

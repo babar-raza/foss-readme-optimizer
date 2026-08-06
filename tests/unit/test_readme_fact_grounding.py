@@ -178,6 +178,42 @@ def test_altered_or_registry_only_maven_text_cannot_ground_coordinates() -> None
         assert literal_fact_ids(claim, facts, [coordinate.fact_id]) == []
 
 
+def test_exact_python_install_command_grounds_manifest_distribution() -> None:
+    coordinate = _structured_fact(
+        "installation.coordinates",
+        [
+            {
+                "ecosystem": "python",
+                "name": "aspose-note",
+                "manifest_path": "pyproject.toml",
+                "version": "26.3.2",
+            }
+        ],
+    )
+    facts = _facts(coordinate)
+
+    assert literal_fact_ids(
+        "```bash\npython -m pip install aspose-note\n```",
+        facts,
+        [coordinate.fact_id],
+    ) == [coordinate.fact_id]
+
+
+def test_python_coordinate_grounding_rejects_partial_or_wrong_install_commands() -> None:
+    coordinate = _structured_fact(
+        "installation.coordinates",
+        [{"ecosystem": "python", "name": "aspose-note", "manifest_path": "pyproject.toml"}],
+    )
+    facts = _facts(coordinate)
+
+    for claim in (
+        "Install aspose-note from PyPI.",
+        "python -m pip install aspose-notes",
+        "python -m pip install aspose-note extra-argument",
+    ):
+        assert literal_fact_ids(claim, facts, [coordinate.fact_id]) == []
+
+
 def test_curated_structured_fields_expose_only_visitor_meaningful_values() -> None:
     records = [
         _structured_fact(

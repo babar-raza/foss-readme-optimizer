@@ -247,7 +247,7 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="A secondary quick-start example may be deferred with exact evidence.",
         )
-    if primary == "additional examples":
+    if primary == "additional examples" or primary.endswith(" examples"):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
             obligation_id="additional_examples",
@@ -332,7 +332,23 @@ def classify_source_claim_risk(
                 "discharged by generic product overview prose."
             ),
         )
-    if any(token in primary for token in ("build", "developer", "test")):
+    if "third-party" in folded and "notice" in folded:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="third_party_notices",
+            heading_path=path,
+            rationale="Third-party notice links require the repository-owned notices-file slot.",
+        )
+    if "golden" in primary:
+        return SourceClaimRiskV1(
+            risk_class="optional_explicit_deferral",
+            heading_path=path,
+            rationale=(
+                "Internal golden-test workflow detail may be withheld from the visitor README "
+                "only with an exact deferred source record."
+            ),
+        )
+    if any(token in primary for token in ("build", "develop", "test")):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
             obligation_id="development_commands",

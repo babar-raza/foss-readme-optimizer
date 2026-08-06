@@ -6,7 +6,13 @@ import pytest
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
+from readme_agent.presentation.verified_source_claim_matching import (
+    equivalent_source_claim_resolution,
+    index_equivalent_candidate_claims,
+)
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.source_claim_assurance import build_source_claim_assurance
 from readme_agent.readme.source_claim_fact_binding import (
     accepted_source_claim_fact_ids,
@@ -90,6 +96,39 @@ def _assurance(source: str):
     return facts, assessment, build_source_claim_assurance(source, facts, assessment)
 
 
+def _with_repository_example(facts: ProductFactsV2, code: str) -> ProductFactsV2:
+    identity = facts.selected_fact("product.identity")
+    examples = FactRecordV2(
+        fact_id="repository.examples:source-assurance-example",
+        field="repository.examples",
+        verification_state="verified",
+        value={
+            "inline_examples": [
+                {
+                    "title": "Save a widget",
+                    "language": "python",
+                    "code": code,
+                    "static_api_verified": True,
+                    "execution_verified": False,
+                }
+            ]
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    return facts.model_copy(
+        update={
+            "facts": [*facts.facts, examples],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "repository.examples": examples.fact_id,
+            },
+        }
+    )
+
+
 def test_exact_structured_api_claim_is_preservation_eligible() -> None:
     source = "# Product\n\n## API reference\n\n- `Matrix4` — `translate()`, `inverse()`\n"
 
@@ -149,6 +188,82 @@ def test_exact_literal_fact_claim_requires_complete_visitor_meaning() -> None:
     assert partial_assurance.correction_ranges == [
         (partial_claim.source_byte_start, partial_claim.source_byte_end)
     ]
+
+
+def test_exact_repository_example_is_fact_bound_but_comment_cleanup_requires_correction() -> None:
+    code = "from acme import Widget\n\n# Save the verified widget.\nWidget().save('out.bin')\n"
+    source = f"# Product\n\n## Examples\n\n```python\n{code}```\n"
+    facts = _with_repository_example(_facts(), code)
+    revision = facts.selected_fact("product.identity").source.source_revision or "a" * 40
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    claim = assessment.material_claims[0]
+    assurance = build_source_claim_assurance(source, facts, assessment)
+
+    binding = complete_source_claim_fact_binding(source, claim, facts)
+
+    assert binding is not None
+    assert binding.fact_ids == frozenset({facts.selected_fact_ids["repository.examples"]})
+    assert assurance.preserve_ranges == []
+    assert assurance.correction_ranges == [(claim.source_byte_start, claim.source_byte_end)]
+
+
+def test_comment_free_repository_example_requires_exact_ast_and_complete_provenance() -> None:
+    code = "from acme import Widget\n\n# Save the verified widget.\nWidget().save('out.bin')\n"
+    source = f"# Product\n\n## Examples\n\n```python\n{code}```\n"
+    candidate = (
+        "# Product\n\n## Examples\n\n"
+        "```python\nfrom acme import Widget\n\nWidget().save('out.bin')\n```\n"
+    )
+    facts = _with_repository_example(_facts(), code)
+    source_claim = assess_material_claims(source)[0]
+    candidate_claims = assess_material_claims(candidate)
+    candidate_claim = candidate_claims[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="repository-example-comment-cleanup",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[facts.selected_fact_ids["repository.examples"]],
+        rationale="Bind the comment-free code fence to the verified repository example.",
+    )
+
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        source.encode()[source_claim.source_byte_start : source_claim.source_byte_end].decode(),
+        candidate.encode(),
+        index_equivalent_candidate_claims(candidate.encode(), candidate_claims),
+        facts,
+        [provenance],
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert resolution.fact_ids == [facts.selected_fact_ids["repository.examples"]]
+
+    changed = candidate.replace("out.bin", "other.bin")
+    changed_claims = assess_material_claims(changed)
+    assert (
+        equivalent_source_claim_resolution(
+            source_claim,
+            source.encode()[source_claim.source_byte_start : source_claim.source_byte_end].decode(),
+            changed.encode(),
+            index_equivalent_candidate_claims(changed.encode(), changed_claims),
+            facts,
+            [
+                provenance.model_copy(
+                    update={
+                        "candidate_byte_start": changed_claims[0].source_byte_start,
+                        "candidate_byte_end": changed_claims[0].source_byte_end,
+                    }
+                )
+            ],
+        )
+        is None
+    )
 
 
 def test_stale_claim_hash_fails_closed() -> None:

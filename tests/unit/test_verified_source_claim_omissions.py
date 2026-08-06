@@ -9,6 +9,7 @@ import pytest
 
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 from readme_agent.presentation.verified_source_claim_omissions import (
+    deferred_unverified_obligation_detail_resolution,
     deferred_withheld_source_resolution,
     verified_paired_example_intro_resolution,
 )
@@ -42,6 +43,70 @@ def _optional_source() -> tuple[str, ReadmeMaterialClaimAssessmentV1]:
         "# Product\n\n## Quick Start\n\n### Alternative\n\nAlternative optional workflow detail.\n"
     )
     return source, assess_material_claims(source)[0]
+
+
+def test_mandatory_source_detail_can_defer_only_after_verified_core_exists() -> None:
+    source = "# Product\n\n## API reference\n\n- Detailed API wording to verify later.\n"
+    claim = assess_material_claims(source)[0]
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+
+    resolution = deferred_unverified_obligation_detail_resolution(
+        claim,
+        claim_text,
+        b"# Verified candidate\n",
+        risk,
+        _facts(),
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        candidate_core_present=True,
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "deferred_verification"
+    assert resolution.fact_ids == []
+    assert resolution.replacement_provenance_ids == []
+    assert (
+        deferred_unverified_obligation_detail_resolution(
+            claim,
+            claim_text,
+            b"# Candidate without a verified API slot\n",
+            risk,
+            _facts(),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+            candidate_core_present=False,
+        )
+        is None
+    )
+
+
+def test_generic_content_group_defers_only_when_verified_capabilities_cover_content() -> None:
+    facts = _facts()
+    capability = facts.selected_fact("product.capabilities")
+    replacement = capability.model_copy(update={"value": ["Image and attachment content"]})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == capability.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n\n## Capabilities\n\n- Content extraction\n"
+    claim = assess_material_claims(source)[0]
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+
+    resolution = deferred_unverified_obligation_detail_resolution(
+        claim,
+        claim_text,
+        b"# Candidate with verified content capabilities\n",
+        risk,
+        facts,
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        candidate_core_present=True,
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "deferred_verification"
 
 
 def _verified_example_case(

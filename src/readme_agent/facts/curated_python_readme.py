@@ -11,9 +11,17 @@ from readme_agent.facts.curated_python_example_validation import (
     validate_python_example,
 )
 from readme_agent.readme.document_structure import code_blocks_in_span, parse_headings
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 
 _IMAGE = re.compile(r"!\[(?P<alt>[^]]*)\]\((?P<path>[^)\s]+)(?:\s+[^)]*)?\)")
 _CANONICAL_EXAMPLE_SECTIONS = {"additional examples", "quick start", "usage"}
+
+
+def _is_example_section(title: str) -> bool:
+    """Recognize semantic example headings independently of decoration or product wording."""
+
+    normalized = " ".join(strip_emoji_decorations(title).casefold().split())
+    return normalized in _CANONICAL_EXAMPLE_SECTIONS or normalized.endswith(" examples")
 
 
 def _sha256(path: Path) -> str:
@@ -29,7 +37,7 @@ def verified_python_examples(
     headings = parse_headings(readme)
     sections: list[tuple[str, int, int]] = []
     for parent in headings:
-        if parent.level != 2 or parent.title.strip().casefold() not in _CANONICAL_EXAMPLE_SECTIONS:
+        if parent.level != 2 or not _is_example_section(parent.title):
             continue
         children = [
             heading

@@ -6,6 +6,7 @@ from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.presentation.template_schema import load_repository_presentation_template
 from readme_agent.readme.document_structure import heading_identity
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 
 _ACCEPTED = {"verified", "policy_approved"}
 
@@ -171,7 +172,11 @@ def additional_examples_markdown(
     if assets:
         used_headings.add(heading_identity("Example results"))
     for item in verified_inline:
-        base_title = str(item.get("title") or "Additional workflow").strip()
+        base_title = strip_emoji_decorations(
+            str(item.get("title") or "Additional workflow")
+        ).strip()
+        if not base_title:
+            base_title = "Additional workflow"
         title = base_title
         suffix = 1
         while heading_identity(title) in used_headings:

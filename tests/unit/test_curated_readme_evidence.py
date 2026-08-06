@@ -666,6 +666,34 @@ widget.save("output.bin")
     assert all(example["evidence_modules"] == ["acme"] for example in examples)
 
 
+def test_decorated_and_product_specific_example_headings_are_discovered() -> None:
+    readme = """# Acme
+
+## 🚀 Quick start
+
+```python
+from acme import Widget
+widget = Widget()
+widget.render()
+```
+
+## Acme document examples
+
+### Save a widget
+
+```python
+from acme import Widget
+widget = Widget()
+widget.save("output.bin")
+```
+"""
+
+    examples, decisions = verified_python_examples(readme, _example_surface())
+
+    assert [example["title"] for example in examples] == ["🚀 Quick start", "Save a widget"]
+    assert [decision.accepted for decision in decisions] == [True, True]
+
+
 def test_python_readme_example_validation_fails_closed_with_specific_reasons() -> None:
     surface = _example_surface()
     cases = {
@@ -706,6 +734,87 @@ def test_stdlib_example_operations_are_allowlisted_but_do_not_prove_product_api(
         "stream.seek(0)\nprint(len(stream.read()))\n",
         _example_surface(),
     )
+
+    assert accepted is True
+    assert modules == ("acme",)
+    assert reason == "accepted"
+
+
+def test_reexported_class_generic_children_and_safe_pathlib_are_resolved() -> None:
+    surface = {
+        "modules": [
+            {"module": "acme", "exports": ["Document", "Page"]},
+            {"module": "acme.saving", "exports": ["Options"]},
+        ],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "Document",
+                "source_path": "src/acme/model.py",
+                "members": [{"name": "GetChildNodes", "surface": "GetChildNodes(node_type)"}],
+            },
+            {
+                "module": "acme",
+                "name": "Page",
+                "source_path": "src/acme/model.py",
+                "members": [{"name": "Title", "surface": "Title: str | None"}],
+            },
+            {
+                "module": "acme",
+                "name": "Options",
+                "source_path": "src/acme/model.py",
+                "members": [],
+            },
+        ],
+        "functions": [],
+    }
+    code = """from pathlib import Path
+from acme import Document, Page
+from acme.saving import Options
+
+doc = Document(Path("input.bin").open("rb"))
+options = Options()
+for page in doc.GetChildNodes(Page):
+    print(page.Title)
+print(len(list(doc)), options)
+"""
+
+    accepted, modules, reason = validate_python_example(code, surface)
+
+    assert accepted is True
+    assert modules == ("acme", "acme.saving")
+    assert reason == "accepted"
+
+
+def test_local_subclass_of_public_visitor_is_safe_to_construct() -> None:
+    surface = {
+        "modules": [{"module": "acme", "exports": ["Document", "Visitor"]}],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "Document",
+                "source_path": "src/acme/model.py",
+                "members": [{"name": "Accept", "surface": "Accept(visitor)"}],
+            },
+            {
+                "module": "acme",
+                "name": "Visitor",
+                "source_path": "src/acme/model.py",
+                "members": [],
+            },
+        ],
+        "functions": [],
+    }
+    code = """from acme import Document, Visitor
+
+class Counter(Visitor):
+    pass
+
+doc = Document()
+doc.Accept(Counter())
+"""
+
+    accepted, modules, reason = validate_python_example(code, surface)
 
     assert accepted is True
     assert modules == ("acme",)

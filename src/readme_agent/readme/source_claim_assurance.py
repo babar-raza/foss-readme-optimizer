@@ -12,6 +12,7 @@ from readme_agent.readme.source_claim_fact_binding import (
     python_claim_has_comments,
     verified_comment_free_python_example,
     verified_example_code,
+    verified_repository_example_code,
 )
 
 
@@ -41,9 +42,12 @@ def build_source_claim_assurance(
         binding = complete_source_claim_fact_binding(source_text, claim, facts)
         verified_example = facts.selected_fact("example.minimal")
         verified_code = verified_example_code(verified_example.value)
+        repository_example = verified_repository_example_code(text, facts)
         comment_correction = bool(
-            verified_code
-            and verified_comment_free_python_example(text, verified_code)
+            (
+                (verified_code and verified_comment_free_python_example(text, verified_code))
+                or repository_example
+            )
             and python_claim_has_comments(text)
         )
         target = preserve if binding is not None and not comment_correction else correction

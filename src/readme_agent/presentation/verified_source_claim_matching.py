@@ -12,6 +12,11 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
+from readme_agent.readme.source_claim_fact_binding import (
+    python_claim_has_comments,
+    verified_comment_free_python_example,
+    verified_repository_example_code,
+)
 
 _PRESENTATION_MARKS = re.compile(r"[*_~]+")
 
@@ -47,6 +52,22 @@ def equivalent_source_claim_resolution(
     """Resolve one exact presentation-only rewrite when both claims share accepted facts."""
 
     equivalent = candidates.get(presentation_equivalence_key(source_claim_text), [])
+    comment_free_example = False
+    repository_example = verified_repository_example_code(source_claim_text, facts)
+    if not equivalent and repository_example and python_claim_has_comments(source_claim_text):
+        verified_code = repository_example[1]
+        candidate_pool = [claim for group in candidates.values() for claim in group]
+        equivalent = []
+        for claim in candidate_pool:
+            text = candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+            transformed = verified_comment_free_python_example(text, verified_code)
+            if (
+                transformed is not None
+                and transformed.strip() == text.strip()
+                and not python_claim_has_comments(text)
+            ):
+                equivalent.append(claim)
+        comment_free_example = bool(equivalent)
     if len(equivalent) != 1:
         return None
     candidate_claim = equivalent[0]
@@ -80,6 +101,8 @@ def equivalent_source_claim_resolution(
     )
     if provenance_ids and uncovered.strip():
         return None
+    if candidate_claim.content_sha256 == source_claim.content_sha256 and not provenance_ids:
+        return None
     if not candidate_fact_ids or (
         source_fact_ids and not source_fact_ids.issubset(candidate_fact_ids)
     ):
@@ -103,7 +126,10 @@ def equivalent_source_claim_resolution(
             *(f"accepted-fact:{fact_id}" for fact_id in fact_ids),
         ],
         rationale=(
-            "Bind this exact presentation-only rewrite to one exact candidate claim with the "
-            "same accepted fact set."
+            "Bind this exact comment-only Python example cleanup to the same statically verified "
+            "repository example and complete candidate provenance."
+            if comment_free_example
+            else "Bind this exact presentation-only rewrite to one exact candidate claim with "
+            "the same accepted fact set."
         ),
     )

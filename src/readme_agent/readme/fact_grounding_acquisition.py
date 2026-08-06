@@ -47,10 +47,18 @@ def _maven_dependency_matches(text: str, coordinate: dict) -> bool:
 
 
 def exact_coordinate_match(text: str, value: object) -> bool:
-    """Match only a complete version or fenced Maven coordinate."""
+    """Match only an exact package command, version, or fenced Maven coordinate."""
 
     rows = value if isinstance(value, list) else [value]
     stripped = text.strip()
+    python_name = _exact_python_install_name(text)
+    if python_name is not None and any(
+        str(row.get("ecosystem") or "").strip().casefold() == "python"
+        and python_name == _normalized_python_distribution(str(row.get("name") or "").strip())
+        for row in rows
+        if isinstance(row, dict) and str(row.get("name") or "").strip()
+    ):
+        return True
     if any(
         stripped == str(row.get("version") or "").strip()
         for row in rows

@@ -17,6 +17,7 @@ from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
 )
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_risk import SourceClaimRiskV1
 
 
@@ -78,6 +79,110 @@ def deferred_withheld_source_resolution(
         ],
         rationale=risk.rationale,
     )
+
+
+def deferred_unverified_obligation_detail_resolution(
+    claim: ReadmeMaterialClaimAssessmentV1,
+    claim_text: str,
+    candidate_bytes: bytes,
+    risk: SourceClaimRiskV1,
+    facts: ProductFactsV2,
+    *,
+    correction_candidate_claim_ids: frozenset[str],
+    candidate_core_present: bool,
+) -> SourceClaimResolutionV1 | None:
+    """Defer unsupported source detail only after the verified core slot exists."""
+
+    if (
+        claim.claim_id not in correction_candidate_claim_ids
+        or risk.risk_class != "mandatory_fact_resolution"
+        or risk.obligation_id not in {"api_public_surface", "major_capabilities"}
+        or not candidate_core_present
+    ):
+        return None
+    if risk.obligation_id == "major_capabilities" and not _capability_anchor_matches(
+        claim_text, facts
+    ):
+        return None
+    if hashlib.sha256(claim_text.encode("utf-8")).hexdigest() != claim.content_sha256:
+        raise ValueError("deferred source detail bytes do not match the assessed claim hash")
+    return SourceClaimResolutionV1(
+        claim_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+        content_sha256=claim.content_sha256,
+        resolution="deferred_verification",
+        evidence=[
+            f"source-claim:{claim.claim_id}",
+            f"source-content-sha256:{claim.content_sha256}",
+            f"candidate-content-sha256:{hashlib.sha256(candidate_bytes).hexdigest()}",
+            f"unverified-source-detail-for:{risk.obligation_id}",
+            "candidate-core-validated-separately",
+            "disposition:withheld-pending-repository-verification-v1",
+        ],
+        rationale=(
+            "Withhold this exact inherited detail because repository evidence does not yet "
+            "prove its complete wording. The candidate independently satisfies the required "
+            f"{risk.obligation_id} slot with accepted facts; this source claim remains visible "
+            "as deferred evidence and is not treated as false or verified."
+        ),
+    )
+
+
+_CAPABILITY_GENERIC_WORDS = {
+    "and",
+    "aspose",
+    "based",
+    "content",
+    "for",
+    "format",
+    "from",
+    "future",
+    "including",
+    "like",
+    "on",
+    "the",
+    "unverified",
+    "via",
+    "with",
+}
+
+
+def _capability_words(value: str) -> set[str]:
+    expanded = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", strip_emoji_decorations(value))
+    return {
+        word[:-1] if word.endswith("s") and len(word) > 4 else word
+        for word in re.findall(r"[A-Za-z0-9]+", expanded.casefold())
+        if word not in _CAPABILITY_GENERIC_WORDS
+    }
+
+
+def _capability_anchor_matches(claim_text: str, facts: ProductFactsV2) -> bool:
+    fact_id = facts.selected_fact_ids.get("product.capabilities")
+    if fact_id is None:
+        return False
+    fact = facts.fact_by_id(fact_id)
+    if (
+        fact.verification_state not in {"verified", "policy_approved"}
+        or fact.has_unresolved_conflict
+        or not isinstance(fact.value, list)
+    ):
+        return False
+    claim_words = _capability_words(claim_text)
+    claim_numbers = {word for word in claim_words if word.isdigit()}
+    normalized_claim = " ".join(
+        re.findall(r"[a-z]+", strip_emoji_decorations(claim_text).casefold())
+    ).removeprefix("content ")
+    generic_content_group = normalized_claim == "extraction"
+    for value in fact.value:
+        fact_words = _capability_words(str(value))
+        if generic_content_group and "content" in str(value).casefold():
+            return True
+        if claim_numbers - fact_words:
+            continue
+        if claim_words.intersection(fact_words):
+            return True
+    return False
 
 
 _INPUT_METHODS = frozenset({"from_file", "import_file", "load", "load_from", "open", "read"})
@@ -353,6 +458,7 @@ def governed_source_omission(claim_text: str) -> tuple[str, str] | None:
 
 
 __all__ = [
+    "deferred_unverified_obligation_detail_resolution",
     "deferred_unverified_source_example_resolution",
     "deferred_withheld_source_resolution",
     "exact_authorized_claim_ids",
