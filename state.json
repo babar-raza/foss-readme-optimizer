@@ -128415,6 +128415,17 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260806-152807-1faa"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-06T15:31:03.616805+00:00",
+        "reason": "independent README review started after deterministic validation",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "AGENT_REVIEWING"
       }
     ],
     "human_acceptance_history": [],
@@ -128468,14 +128479,14 @@
     "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "a08ecf51bf26d8602c6566e6c6b64d05f907e839d00a1617487bf556f16f493d",
-    "reviewer_standard_hash": "a4fe0b13eeeb1e42568477ff98a945e8e31fabf3a0ade6ec947470560b4f29f9",
+    "reviewer_standard_hash": "6bc136855ae988c758ed718711c405e605f3f408f71be6a9879fc0b3a1a00d45",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-06T15:30:54.463519+00:00"
+    "status": "AGENT_REVIEWING",
+    "updated_at": "2026-08-06T15:31:03.616805+00:00"
   },
   "schema_version": 2,
-  "state_version": 2536,
+  "state_version": 2537,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
