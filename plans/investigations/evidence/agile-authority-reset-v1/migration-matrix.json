@@ -2974,21 +2974,163 @@
       "id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
       "destination": "active_graph",
       "source_task_sha256": "ffbb5ad23d75ddd69264295604b40db804e1c1ee4dd44f54c21ad92d5bca4bee",
-      "destination_task_sha256": "ffbb5ad23d75ddd69264295604b40db804e1c1ee4dd44f54c21ad92d5bca4bee",
-      "transformation": "preserved_exactly",
-      "changed_fields": []
+      "destination_task_sha256": "4ac7efbec738249761f22a93be87bbfd8d5eba8a5593137fc86cd8090f2fc839",
+      "transformation": "resequenced_active_horizon",
+      "changed_fields": [
+        {
+          "field": "campaign_id",
+          "before": "CAMP-FIRST-PYTHON-SLICE",
+          "after": "CAMP-PYTHON-PORTFOLIO"
+        },
+        {
+          "field": "dependencies",
+          "before": [
+            "L8-AGILE-AUTHORITY-RESET"
+          ],
+          "after": [
+            "L8-VPY-01-NOTE-VERIFIED-CANARY"
+          ]
+        },
+        {
+          "field": "stage_goal_id",
+          "before": "GOAL-V0A-FIRST-VERIFIED-README",
+          "after": "GOAL-V0-VERIFIED-PYTHON-POC"
+        }
+      ]
     },
     {
       "id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
       "destination": "active_graph",
       "source_task_sha256": "e7ae8d559b0d1e162394a329705fb637de2884d1202fd073fc9dc7398e290263",
-      "destination_task_sha256": "f723d905e98873f95a0b866340e4b0f296b6ec5c06010b4b747bde1aeb155405",
+      "destination_task_sha256": "17398f5c0bb1bc6e8dd4499ba4d35b28bba87677f15557d54299183ac7ff86c2",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
+        {
+          "field": "acceptance_checks",
+          "before": [
+            "Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked",
+            "The verified candidate remains presentation-equivalent to the accepted reference except where evidence requires a correction",
+            "An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event"
+          ],
+          "after": [
+            "Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked",
+            "The candidate reaches or exceeds the useful editorial and graph behavior exposed by the comparison without copying sibling prose or making Aspose.org a runtime input",
+            "An acceptance rerun with the sibling checkout unavailable produces the same candidate and evidence",
+            "The opening, examples, API curation, documentation, limitations, and Mermaid topology pass the current professional-reader contract and the governed defect corpus",
+            "An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event"
+          ]
+        },
+        {
+          "field": "audit_classification",
+          "before": "not_attempted",
+          "after": "partially_done"
+        },
+        {
+          "field": "campaign_id",
+          "before": "CAMP-PYTHON-PORTFOLIO",
+          "after": "CAMP-FIRST-PYTHON-SLICE"
+        },
+        {
+          "field": "dependencies",
+          "before": [
+            "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+          ],
+          "after": [
+            "L8-AGILE-AUTHORITY-RESET"
+          ]
+        },
+        {
+          "field": "evidence_requirements",
+          "before": [
+            "Immutable source and fact citations",
+            "candidate and patch hashes",
+            "provider-call ledger",
+            "validation/review/no-op receipts",
+            "SHA-256 inventory"
+          ],
+          "after": [
+            "Aspose.org development-corpus hashes, represented revision, compatibility, dispositions, and native-owner mapping",
+            "Immutable source and fact citations",
+            "candidate and patch hashes",
+            "provider-call ledger",
+            "validation/review/no-op receipts",
+            "SHA-256 inventory"
+          ]
+        },
+        {
+          "field": "expected_outputs",
+          "before": [
+            "ProductFactsV2 and complete inherited/final claim accountability",
+            "structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op proof, and manifest",
+            "Committed review artifact under plans/investigations/evidence/finalized-repository-readmes-v1/ containing the exact finalized README and a compact manifest that hash-binds its complete acceptance inputs"
+          ],
+          "after": [
+            "Revision-bound comparative-disposition record and defect-to-native-owner matrix",
+            "Native composition, semantic-graph, and review contracts plus focused regression controls",
+            "ProductFactsV2 and complete inherited/final claim accountability",
+            "structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op proof, and manifest",
+            "Committed review artifact under plans/investigations/evidence/finalized-repository-readmes-v1/ containing the exact finalized README and a compact manifest that hash-binds its complete acceptance inputs"
+          ]
+        },
+        {
+          "field": "negative_controls",
+          "before": [
+            "Trusted README provenance cannot satisfy repository-verified acceptance",
+            "A factual correction cannot be rejected merely to preserve the golden wording"
+          ],
+          "after": [
+            "Trusted README provenance or an Aspose.org report cannot satisfy repository-verified acceptance",
+            "A sibling checkout, report, knowledge cache, skill, or script cannot be required by acceptance or deployment",
+            "A factual correction cannot be rejected merely to preserve the golden wording"
+          ]
+        },
+        {
+          "field": "objective",
+          "before": "Rebuild Aspose.Note FOSS for Python through the canonical verified pipeline using repository, package, example, license, and approved-policy evidence while preserving the accepted presentation.",
+          "after": "Compare the revision-matched Note artifacts during development, classify each material difference, implement only the missing native extraction, selection, composition, semantic-graph, or review behavior, remove the sibling checkout from the execution environment, and requalify Note through the canonical verified pipeline using repository, package, example, license, and approved-policy evidence."
+        },
         {
           "field": "parent_task_id",
           "before": "L8-LOCAL-FULL-REGISTRY-GATE-A",
           "after": null
+        },
+        {
+          "field": "source_audit_finding",
+          "before": "The accepted Note reference currently demonstrates presentation quality under trusted inherited content, not repository-verified factual acceptance.",
+          "after": "The canonical Note run proved repository facts, execution, safety, review, and no-op machinery, while the same-revision Aspose.org report exposed stronger editorial selection and graph semantics. The deployed system must learn those behaviors without depending on the sibling checkout."
+        },
+        {
+          "field": "stage_goal_id",
+          "before": "GOAL-V0-VERIFIED-PYTHON-POC",
+          "after": "GOAL-V0A-FIRST-VERIFIED-README"
+        },
+        {
+          "field": "title",
+          "before": "Prove the accepted Note design through repository-verified evidence",
+          "after": "Convert the same-revision Note comparison into a native verified contract"
+        },
+        {
+          "field": "verification",
+          "before": [
+            "Isolated Python acquisition/import/example proof",
+            "deterministic validation",
+            "independent review",
+            "unchanged no-op",
+            "manifest reconstruction"
+          ],
+          "after": [
+            "Comparative-disposition and sibling-isolation proof",
+            "Isolated Python acquisition/import/example proof",
+            "deterministic validation",
+            "independent review",
+            "unchanged no-op",
+            "manifest reconstruction"
+          ]
+        },
+        {
+          "field": "why_it_matters",
+          "before": "This separates a good-looking reference from the first honestly verified, reproducible README deliverable.",
+          "after": "This produces the best demonstrated reader experience without weakening truth or making production dependent on a sibling repository."
         }
       ]
     },
@@ -2996,9 +3138,24 @@
       "id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
       "destination": "active_graph",
       "source_task_sha256": "13b636a5c7d8b8d6357617056fda071d9b120c2c82da6b615eecf9db6f34280f",
-      "destination_task_sha256": "243f5e2eac73f6a26fdcd406a22bd3d6694e349300a50342dbbce64fc390cf0a",
+      "destination_task_sha256": "56df2f8e760f49a83790608b45f05c7d121f5f2fcb99eaa3a64561bd69b10525",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
+        {
+          "field": "acceptance_checks",
+          "before": [
+            "Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are consistent",
+            "Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific",
+            "Aspose.org-generated prose is not used as factual or presentation acceptance evidence",
+            "Shared repairs invalidate only the responsible dependency and reuse unaffected Python receipts"
+          ],
+          "after": [
+            "Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are consistent",
+            "Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific",
+            "Aspose.org-generated prose is not used as factual or presentation acceptance evidence, and the deployed/acceptance runtime has no sibling-repository dependency",
+            "Shared repairs invalidate only the responsible dependency and reuse unaffected Python receipts"
+          ]
+        },
         {
           "field": "parent_task_id",
           "before": "L8-LOCAL-FULL-REGISTRY-GATE-A",
@@ -3018,9 +3175,26 @@
       "id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
       "destination": "active_graph",
       "source_task_sha256": "c8dd4631c8391402dd0a024ac8df0df900e4f748c012346aedf65cee55eb457d",
-      "destination_task_sha256": "60865ec87298c4da86050097d2e0bfd848125ddaf15dd8aa9e4c2b9c8b19930d",
+      "destination_task_sha256": "5214ddd6c274eefcfe813d4effd03b6a10b3990c06ab7a1e422f94faa54f3122",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
+        {
+          "field": "acceptance_checks",
+          "before": [
+            "Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator",
+            "Agent-fixable Python failures equal zero",
+            "Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer, and protected-content fingerprints",
+            "One supervisor owns state; after the first current Aspose.3D Python lifecycle, recovery, cache, promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation",
+            "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
+          ],
+          "after": [
+            "Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator",
+            "Agent-fixable Python failures equal zero",
+            "Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer, and protected-content fingerprints",
+            "One supervisor owns state; after the comparative Note lifecycle, sibling-isolation, recovery, cache, promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation",
+            "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
+          ]
+        },
         {
           "field": "parent_task_id",
           "before": "L8-LOCAL-FULL-REGISTRY-GATE-A",

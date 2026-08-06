@@ -184,9 +184,9 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-HORIZON-01-ACTIVATE-GATE-A",
     }
     assert tasks["L8-AGILE-AUTHORITY-RESET"].dependencies == []
-    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == ["L8-AGILE-AUTHORITY-RESET"]
-    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == [
-        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-AGILE-AUTHORITY-RESET"]
+    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == [
+        "L8-VPY-01-NOTE-VERIFIED-CANARY"
     ]
     assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
@@ -270,14 +270,14 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
                 "task_statuses": {
                     **statuses,
                     "L8-AGILE-AUTHORITY-RESET": "CLOSED",
-                    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
+                    "L8-VPY-01-NOTE-VERIFIED-CANARY": "TODO",
                 }
             }
         ),
     )
     assert first_readme.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert first_readme.next_task is not None
-    assert first_readme.next_task.task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+    assert first_readme.next_task.task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY"
 
     python_cohort = evaluate_mission(
         graph,
@@ -286,7 +286,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
                 "task_statuses": {
                     **statuses,
                     "L8-AGILE-AUTHORITY-RESET": "CLOSED",
-                    "L8-VPY-01-NOTE-VERIFIED-CANARY": "TODO",
+                    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
                     "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
                 }
             }
@@ -294,8 +294,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     )
     assert python_cohort.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
     assert [task.task_id for task in python_cohort.eligible_tasks] == [
-        "L8-VPY-01-NOTE-VERIFIED-CANARY",
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
     ]
 
     post_python = evaluate_mission(
@@ -1044,12 +1043,12 @@ def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path)
     assert state.approach_control.attempts[-1].outcome == "effective"
     evaluation = evaluate_mission(graph, state)
     assert [task.task_id for task in evaluation.eligible_tasks] == [
-        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+        "L8-VPY-01-NOTE-VERIFIED-CANARY"
     ]
 
     next_claim = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
     assert next_claim.mission_execution is not None
-    assert next_claim.mission_execution.active_task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+    assert next_claim.mission_execution.active_task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY"
 
 
 def test_rerouted_parent_does_not_unlock_dependent_tasks():
@@ -1058,7 +1057,7 @@ def test_rerouted_parent_does_not_unlock_dependent_tasks():
     statuses.update(
         {
             "L8-AGILE-AUTHORITY-RESET": "REROUTED",
-            "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
+            "L8-VPY-01-NOTE-VERIFIED-CANARY": "TODO",
         }
     )
     state = MissionExecutionStateV1(
@@ -1070,7 +1069,7 @@ def test_rerouted_parent_does_not_unlock_dependent_tasks():
     eligible = [task.task_id for task in evaluate_mission(graph, state).eligible_tasks]
 
     assert eligible == []
-    assert "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E" not in eligible
+    assert "L8-VPY-01-NOTE-VERIFIED-CANARY" not in eligible
 
 
 def test_graph_drift_is_visible_to_read_only_status():

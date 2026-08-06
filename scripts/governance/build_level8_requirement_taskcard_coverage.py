@@ -68,7 +68,7 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
     if task_id == "L8-VPY-00-GOLDEN-TEMPLATE":
         return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
-    if task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E":
+    if task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY":
         return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
     if task_id == "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES":
         return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
@@ -171,10 +171,10 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
     }:
         return "CAMP-THREE-SLICES"
-    if task_id == "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E":
+    if task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY":
         return "CAMP-FIRST-PYTHON-SLICE"
     if task_id in {
-        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-ACCEL-02-EIGHT-PYTHON",

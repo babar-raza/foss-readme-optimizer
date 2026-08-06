@@ -70,24 +70,24 @@ without replacing the authoritative license text. A README-level copyright line
 is omitted by default because the repository license owns that declaration; a portfolio policy may
 enable it only when the same verified owner and formatting rule applies consistently.
 
-`At a glance` is a capability map, not an implied execution pipeline unless the product genuinely
-implements one. It places the product/API at the center and uses non-directional relationships to
-group concrete input formats, important product-specific capabilities, and concrete outputs.
-Generic three-node diagrams, ornamental styling, confusing directional chains, and cross-product
-labels fail presentation validation.
+`At a glance` is a typed semantic capability graph, not an implied pipeline unless the product
+implements one. It separates and factually connects inputs, capabilities, dependencies, outputs,
+and delivery mechanisms. Selector parameters are not inputs, intermediate structures are not
+outputs, and delivery methods are not formats; misleading topology fails even with valid syntax.
 
-GitHub-compatible `<details>` disclosure keeps long documents readable. The primary installation
-path, minimal example, core capabilities, important limitations, and top API entry points remain
-visible. Additional examples, long API inventories, and maintainer-only workflows may be collapsed
-behind descriptive summaries without dropping, rewriting, or factually approving their inherited
-content. A separate “Other platforms” or promotional section is omitted when it adds no reader
-utility beyond the single contextual Enterprise Edition relationship already stated elsewhere.
+GitHub-compatible `<details>` keeps long documents readable while installation, the minimal example,
+core capabilities, important limitations, and top APIs remain visible. Secondary material may be
+collapsed without dropping, rewriting, or approving inherited content. Omit redundant “Other
+platforms” or promotional sections that add no reader utility.
 
-The first binding reference is manually composed from the immutable Aspose.Note FOSS for Python
-README because it exercises the extended-document case. Human review freezes that reference as
-Presentation Contract v1 before Page, PDF, or the wider portfolio is regenerated. Compact,
-standard, and extended density profiles may omit inapplicable sections, but they may not diverge
-from the shared header, badge, visual, terminology, link, license, disclosure, and footer rules.
+The manually composed Note reference is a structural seed, not the ceiling. Its same-revision
+Aspose.org comparison is development-only and exposes missing native extraction, selection,
+composition, graph, and review behavior that must become self-contained Repo Presenter contracts.
+Production and acceptance cannot read sibling assets; Note must regenerate independently.
+
+The composer creates a coherent developer journey, not a fact inventory: precise opening, one badge
+row, navigation, semantic graph, task-oriented capabilities, acquisition, executed example, curated
+hub APIs, destinations, limitations, and maintainer guidance. Review rejects unhelpful presentation.
 
 ## Production-Readiness Standard
 
@@ -189,9 +189,9 @@ invalidation scopes. A non-critical later template version leaves an accepted RE
 make it invalid. Portfolio reporting separates fact-valid, presentation-valid, latest-version,
 human-accepted, and publication-eligible counts.
 
-Human acceptance is staged. The first Aspose.3D FOSS for Python README is a calibration output;
-Aspose.Note follows as the accepted-structure reference applied through current repository facts,
-then Page/PDF form the representative Python cohort. Human feedback may revise the component
+Human acceptance is staged. Comparative Aspose.Note FOSS for Python is the first calibration output
+and accepted-structure reference; Aspose.3D follows, then Page/PDF complete the representative
+Python cohort. Human feedback may revise the component
 contract without erasing unrelated facts or accepted work. Remaining repositories continue
 autonomously after representative-cohort acceptance. No product-repository proposal is eligible
 until every admitted repository is locally valid and explicitly human-accepted in the indexed
@@ -340,9 +340,9 @@ Standing constraints apply across every gate:
 - **Ecosystem truth includes the package's public consumer surface, not only its manifest.** Python
   imports and exported symbols, TypeScript package exports and declarations, and Rust visibility,
   modules, and re-exports must be proved before examples or capability claims are accepted. The
-  committed extraction modules and regressions in the sibling `aspose.org` pipeline are a proven
-  reference to adapt behind this project's contracts; the system must not depend on that sibling
-  working tree at runtime or copy it without provenance and compatibility review.
+  committed extraction modules and regressions in the sibling `aspose.org` pipeline are a
+  development-only reference. Any lesson must be reimplemented behind this project's contracts;
+  staging, deployment, and acceptance cannot read or depend on sibling assets.
 
 Battle-tested, proven tools and libraries are preferred over new custom infrastructure. Building a
 bespoke mechanism where an established one already solves the problem requires a documented reason

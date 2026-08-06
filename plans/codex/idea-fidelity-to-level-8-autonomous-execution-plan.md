@@ -118,8 +118,9 @@ No product pipeline work starts before this campaign passes.
 
 Implement only boundaries that directly unlock visible repository output:
 
-- read-only `AsposeOrgKnowledgeAdapter` with source revision, extractor/schema/raw hashes,
-  provenance, applicability, freshness, and assurance class;
+- development-only comparative analysis of revision-matched Aspose.org reports and knowledge to
+  identify missing native extractors, schemas, composition rules, semantic-graph rules, and reviewer
+  controls; no runtime adapter or deployed sibling-repository dependency;
 - persistent mirror/object reuse with immutable revision views;
 - narrow content-addressed stage receipts and cache invalidation;
 - per-README LLM budgets and logical/physical call accounting;
@@ -132,20 +133,25 @@ worker receipts, and a functional `CampaignEvidenceManifestV1` for Campaigns 2 a
 cache/reporting generalization is deferred while visible repository output proceeds. Workers consume
 only the sealed snapshot, never mutable coordinator-worktree bytes.
 
-Aspose.org knowledge is an index/cache, never authority. Its generated prose is never reused.
+Aspose.org knowledge and generated reports are a development-only comparative corpus, never runtime
+authority or input. A useful observation must be generalized into this repository's native,
+versioned implementation or regression fixtures. Acceptance must reproduce with the Aspose.org
+checkout unavailable, and generated sibling prose is never copied into a runtime candidate.
 
-### Campaign 3: first current verified README
+### Campaign 3: comparative Note regression and first current verified README
 
 - Run the pending current-HEAD complete non-live receipt once.
-- Pin the current Aspose.3D Python revision and reuse its accepted `FACTS_READY` bundle.
-- Complete its plan, candidate, patch, deterministic validation, independent non-authoring review,
+- Bind the already compared immutable Note revision and classify every useful Aspose.org difference
+  as a missing native fact, selection, composition, semantic-graph, or review capability.
+- Implement the smallest reusable native corrections, remove the sibling checkout, then complete
+  Note's plan, candidate, patch, deterministic validation, independent non-authoring review,
   targeted repair, unchanged no-op, committed promotion, and independent reconstruction.
 - Freeze the successful vertical path. Do not call this a Python POC and do not fan out before it
   closes.
 
 ### Campaign 4: complete Python
 
-Run Note, Page, and PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
+Run Aspose.3D, Page, and PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
 repair the earliest shared boundary once, and store every independently approved/no-op-proven
 README in the committed finalized-artifact root. Store durable co-located copies of its original,
 facts/provenance, document plan, patch, claim map, deterministic validation, independent review,
@@ -154,13 +160,12 @@ durable backend by default, re-evaluates the current acceptance/cache contract, 
 stale raw terminal records, removes superseded aggregate acceptance pointers, and never lets an
 explicit offline state snapshot masquerade as live authority.
 
-Current execution boundary (2026-08-05): the project is pre-POC. The finalized cohort is `0/12`
-Python and `0/31` registry-wide. The prior complete-suite receipt belongs to older HEAD
-`e6e36d003`; correction-start HEAD `c5e4b9307` and the committed plan-correction HEAD still need
-the one pending complete runner. Aspose.3D Python
-has the current checksum-valid `FACTS_READY` bundle and is therefore the first executable vertical
-slice. Historical approvals remain cache-invalid until fresh replay, approval, no-op, promotion,
-and reconstruction succeed.
+Current execution boundary: the project remains pre-POC. Existing Note facts, package/example
+receipts, candidate, review, and no-op records are reusable only where their dependency hashes remain
+valid; the comparative findings invalidate the composition, semantic-graph, editorial-review, and
+dependent no-op/promotion boundaries. Durable mission state and the dynamic registry own current
+counts. Historical approvals remain invalid until native replay, approval, no-op, promotion, and
+reconstruction succeed without an Aspose.org runtime dependency.
 
 ### Campaign 5: post-Python cross-platform slices
 
@@ -221,18 +226,23 @@ at the repository owner and a shared defect once at its earliest shared owner.
    content-addressed cache entries.
 3. Load dependency-valid cached facts.
 4. Refresh only missing or stale selected facts.
-5. Classify README density and required sections deterministically.
-6. Render stable structure deterministically: H1/badges, navigation, order, license/notices shell,
-   Mermaid grammar/fact labels, contextual-link ceilings, and disclosures.
-7. Make one repository-specific composition call for interpretive prose and section selection.
-8. Run deterministic factuality, claim-accountability, preservation, structure, link, safety, and
+5. Reconcile repository, package, existing-README, and approved-authority conflicts into typed
+   dispositions; omit unresolved dependent claims.
+6. Classify README density and required sections deterministically.
+7. Build a typed semantic graph for inputs, capabilities, dependencies, outputs, and delivery
+   mechanisms, then render stable structure deterministically: H1/badges, navigation, order,
+   license/notices shell, Mermaid grammar, contextual-link ceilings, and disclosures.
+8. Make one repository-specific composition call for interpretive prose, fact selection, API
+   curation, natural limitations, and section selection.
+9. Run deterministic factuality, claim-accountability, preservation, structure, link, graph-topology,
+   editorial-regression, safety, and
    presentation gates.
-9. Make one independent non-authoring evidence-grounded review call.
-10. Repair only the rejected owned span: deterministic edits first, then at most one targeted prose
+10. Make one independent non-authoring evidence-grounded review call.
+11. Repair only the rejected owned span: deterministic edits first, then at most one targeted prose
    repair call when required.
-11. Rerun only affected validation and review.
-12. Seal the approved candidate.
-13. Prove an unchanged no-op with zero provider calls and effects.
+12. Rerun only affected validation and review.
+13. Seal the approved candidate.
+14. Prove an unchanged no-op with zero provider calls and effects.
 
 Do not send full trees or unfiltered knowledge to a model. Do not ask a model to rediscover
 mechanically extractable truth or regenerate deterministic structure.
@@ -251,10 +261,14 @@ A typed evidence-backed exception is required for any budget overrun.
 
 Before independent review, deterministic gates cover factuality, complete claim accountability,
 protected-content preservation, schema/structure, badge/header rules, navigation, license and
-notices, Mermaid content/grammar, contextual links, prompt injection, safety, and candidate/patch
-integrity.
+notices, Mermaid syntax and semantic topology, contextual links, prompt injection, editorial defect
+controls, safety, and candidate/patch integrity.
 
-One independent non-authoring evidence-grounded reviewer is mandatory. A second reviewer runs only
+One independent non-authoring evidence-grounded reviewer is mandatory. It rejects correct-but-
+unhelpful organization, awkward or generic openings, duplication, raw inventories or exception
+strings, missing verified navigation, unsafe or unexplained examples, unsupported exhaustiveness,
+and weak graph semantics, and routes the finding to its owning stage without editing README bytes.
+A second reviewer runs only
 for a typed risk trigger: candidate-changing repair, conflicting evidence, high-risk
 installation/API claims, changed shared contract, reviewer uncertainty, sampled quality audit, or
 a regression class that escaped one reviewer. The merged mandatory reviewer must first pass the
@@ -264,7 +278,7 @@ known regression corpus; retain a second role only for failing risk classes.
 
 After focused transaction, cache, cancellation, and serialized-aggregation isolation:
 
-- use one repository lane for the first current Aspose.3D Python end-to-end slice;
+- use one repository lane for the comparative Note Python end-to-end slice;
 - use two to four isolated Python repository lanes only after that slice passes its complete
   lifecycle, promotion, recovery, and aggregate proof;
 - execute current .NET/Java lanes only after the complete Python platform POC;
@@ -334,7 +348,7 @@ Separate current contract-valid counts from legacy/stale artifacts and explicit 
 ## Time targets
 
 - plan reconciliation and freeze: at most 60 focused minutes;
-- first current Aspose.3D Python end-to-end slice: one focused execution window after the current-HEAD
+- comparative Note Python end-to-end slice: one focused execution window after the current-HEAD
   complete gate;
 - remaining current Python portfolio: one measured bounded campaign after the first slice freezes;
 - current .NET and Java slices: one focused post-Python campaign;

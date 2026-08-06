@@ -147,13 +147,13 @@ mission_authority:
     prove several adjacent tasks only when it contains per-task and per-requirement acceptance mappings.
   - Deterministic gates run before paid composition or review; unchanged work is reused only under a complete
     dependency fingerprint, and shared failures are repaired once at their earliest common owner.
-  - Content qualification remains coordinated by one supervisor. The first current Aspose.3D Python end-to-end
-    slice uses one repository lane and has no product-effect authority. After its transaction, cache,
-    cancellation, lifecycle, review, no-op, promotion, and serialized-aggregation proof passes, the sole
-    supervisor may use two and then at most three isolated Python lanes with serialized aggregation when
-    measured thresholds pass. Current .NET/Java slices and broader portfolio fan-out remain behind Python
-    closure and subject to platform priority and per-repository proof. Bounded control-repository agents
-    may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
+  - Content qualification remains coordinated by one supervisor. The same-revision comparative Note Python
+    slice uses one repository lane and has no product-effect authority. After its native transaction,
+    cache, sibling-isolation, cancellation, lifecycle, review, no-op, promotion, and serialized-aggregation
+    proof passes, the sole supervisor may use two and then at most three isolated Python lanes with serialized
+    aggregation when measured thresholds pass. Current .NET/Java slices and broader portfolio fan-out
+    remain behind Python closure and subject to platform priority and per-repository proof. Bounded control-repository
+    agents may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
     task state, final verification, and final evidence remain coordinator-only.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
@@ -511,7 +511,7 @@ taskcards:
   - target default branches
   - speculative cross-platform generalization
   dependencies:
-  - L8-AGILE-AUTHORITY-RESET
+  - L8-VPY-01-NOTE-VERIFIED-CANARY
   expected_outputs:
   - Current-head complete non-live verification receipt
   - Pinned first-slice dependency manifest
@@ -564,24 +564,27 @@ taskcards:
   requirement_ids:
   - L8-046
   - L8-055
-  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
-  campaign_id: CAMP-FIRST-PYTHON-SLICE
+  campaign_id: CAMP-PYTHON-PORTFOLIO
 - task_id: L8-VPY-01-NOTE-VERIFIED-CANARY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Prove the accepted Note design through repository-verified evidence
-  source_audit_finding: The accepted Note reference currently demonstrates presentation quality under
-    trusted inherited content, not repository-verified factual acceptance.
-  audit_classification: not_attempted
+  title: Convert the same-revision Note comparison into a native verified contract
+  source_audit_finding: The canonical Note run proved repository facts, execution, safety, review, and
+    no-op machinery, while the same-revision Aspose.org report exposed stronger editorial selection and
+    graph semantics. The deployed system must learn those behaviors without depending on the sibling checkout.
+  audit_classification: partially_done
   priority: P0
   lane: verified-python-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: Rebuild Aspose.Note FOSS for Python through the canonical verified pipeline using repository,
-    package, example, license, and approved-policy evidence while preserving the accepted presentation.
-  why_it_matters: This separates a good-looking reference from the first honestly verified, reproducible
-    README deliverable.
+  objective: Compare the revision-matched Note artifacts during development, classify each material difference,
+    implement only the missing native extraction, selection, composition, semantic-graph, or review behavior,
+    remove the sibling checkout from the execution environment, and requalify Note through the canonical
+    verified pipeline using repository, package, example, license, and approved-policy evidence.
+  why_it_matters: This produces the best demonstrated reader experience without weakening truth or making
+    production dependent on a sibling repository.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -595,8 +598,10 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  - L8-AGILE-AUTHORITY-RESET
   expected_outputs:
+  - Revision-bound comparative-disposition record and defect-to-native-owner matrix
+  - Native composition, semantic-graph, and review contracts plus focused regression controls
   - ProductFactsV2 and complete inherited/final claim accountability
   - structured document plan, candidate, native patch, deterministic verdict, independent verdict, no-op
     proof, and manifest
@@ -604,17 +609,23 @@ taskcards:
     the exact finalized README and a compact manifest that hash-binds its complete acceptance inputs
   acceptance_checks:
   - Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked
-  - The verified candidate remains presentation-equivalent to the accepted reference except where evidence
-    requires a correction
+  - The candidate reaches or exceeds the useful editorial and graph behavior exposed by the comparison
+    without copying sibling prose or making Aspose.org a runtime input
+  - An acceptance rerun with the sibling checkout unavailable produces the same candidate and evidence
+  - The opening, examples, API curation, documentation, limitations, and Mermaid topology pass the current
+    professional-reader contract and the governed defect corpus
   - An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event
   verification:
+  - Comparative-disposition and sibling-isolation proof
   - Isolated Python acquisition/import/example proof
   - deterministic validation
   - independent review
   - unchanged no-op
   - manifest reconstruction
   negative_controls:
-  - Trusted README provenance cannot satisfy repository-verified acceptance
+  - Trusted README provenance or an Aspose.org report cannot satisfy repository-verified acceptance
+  - A sibling checkout, report, knowledge cache, skill, or script cannot be required by acceptance or
+    deployment
   - A factual correction cannot be rejected merely to preserve the golden wording
   regression_checks:
   - Python truth
@@ -624,6 +635,8 @@ taskcards:
   - redaction
   - no-write
   evidence_requirements:
+  - Aspose.org development-corpus hashes, represented revision, compatibility, dispositions, and native-owner
+    mapping
   - Immutable source and fact citations
   - candidate and patch hashes
   - provider-call ledger
@@ -642,9 +655,9 @@ taskcards:
     kind: visible_deliverable
     summary: Deliver the first repository-verified Python README under the accepted presentation contract.
   requirement_ids: []
-  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
-  campaign_id: CAMP-PYTHON-PORTFOLIO
+  campaign_id: CAMP-FIRST-PYTHON-SLICE
 - task_id: L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
@@ -760,8 +773,9 @@ taskcards:
   - Agent-fixable Python failures equal zero
   - Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer,
     and protected-content fingerprints
-  - One supervisor owns state; after the first current Aspose.3D Python lifecycle, recovery, cache, promotion,
-    and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation
+  - One supervisor owns state; after the comparative Note lifecycle, sibling-isolation, recovery, cache,
+    promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate
+    mutation
   - Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate
     and is linked from the cohort index
   verification:
@@ -845,7 +859,8 @@ taskcards:
   - Headers, navigation, section grammar, license/notices handling, footer policy, and density rules are
     consistent
   - Facts, examples, packages, capabilities, formats, limitations, and Mermaid nodes remain repository-specific
-  - Aspose.org-generated prose is not used as factual or presentation acceptance evidence
+  - Aspose.org-generated prose is not used as factual or presentation acceptance evidence, and the deployed/acceptance
+    runtime has no sibling-repository dependency
   - Shared repairs invalidate only the responsible dependency and reuse unaffected Python receipts
   verification:
   - Per-repository deterministic and independent validation

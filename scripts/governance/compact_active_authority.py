@@ -275,8 +275,8 @@ def _compact_graph(graph: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str
     active = [by_id[task_id] for task_id in ACTIVE_TASK_IDS]
     dependencies = {
         "L8-AGILE-AUTHORITY-RESET": [],
-        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": ["L8-AGILE-AUTHORITY-RESET"],
-        "L8-VPY-01-NOTE-VERIFIED-CANARY": ["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"],
+        "L8-VPY-01-NOTE-VERIFIED-CANARY": ["L8-AGILE-AUTHORITY-RESET"],
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": ["L8-VPY-01-NOTE-VERIFIED-CANARY"],
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": ["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"],
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": [
             "L8-VPY-01-NOTE-VERIFIED-CANARY",
@@ -448,9 +448,10 @@ Level 8, or full umbrella-mission closure.
 ## Status
 
 The project remains pre-POC: current verified acceptance is `0/31` registry-wide. Durable mission
-state owns live status. The active task is `L8-AGILE-AUTHORITY-RESET`; no product work is permitted
-inside that task. After it closes, `L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` finalizes Aspose.3D FOSS
-for Python as the first calibration README.
+  state owns live status. After plan/state reconciliation, `L8-VPY-01-NOTE-VERIFIED-CANARY`
+  requalifies the same-revision Note comparison as the development-time comparative regression
+  pilot. Aspose.3D, Page, PDF, and the remaining Python cohort follow through the same reusable
+  native contract.
 
 Current generated views: `plans/status.md`, `plans/roadmap.md`, and `logs/`. They are derived and
 never override the mission graph or durable state.
@@ -492,11 +493,17 @@ Binding current decisions:
 - **#98 — First calibration.** Aspose.3D FOSS for Python is first; Note is second; Page/PDF form the
   representative Python cohort.
 
+Current execution amendment: the latest product-outcome direction changes only the calibration
+order recorded by #98. The same-revision Note comparison is now the first development regression;
+Aspose.3D and Page/PDF follow after the resulting native contract passes. Aspose.org is a
+development-only comparative corpus, never a deployed dependency or factual authority.
+
 ## Architecture
 
 ```text
 authorized discovery -> immutable snapshot -> verified ProductFactsV2
-  -> repository assessment -> component-versioned document plan
+  -> native fact selection + conflict reconciliation
+  -> repository assessment -> semantic graph + component-versioned document plan
   -> candidate + native patch -> deterministic validation
   -> independent review/repair -> unchanged no-op proof
   -> staged human acceptance -> separately authorized proposal effect
@@ -525,12 +532,14 @@ authorized discovery -> immutable snapshot -> verified ProductFactsV2
 
 ### Presentation contract
 
-All READMEs use a consistent professional header, product-specific title and description, balanced
-badges, list-form navigation, verified installation and examples, detailed fact-backed Mermaid
-overview, capability/format/platform information, support/community context, MIT-license prose when
-applicable, and a separate third-party-notices section. No comments or emoji are emitted. Aspose.com
-and Aspose.org links are natural, contextual, policy-capped, and selected from governed catalogs;
-`products.*` destinations have priority. Commercial products are called **Enterprise Edition**.
+All READMEs use a consistent professional header, product-specific title and opening, one useful
+badge row, list-form navigation, verified installation and examples, a detailed fact-backed semantic
+Mermaid graph, task-oriented capabilities, curated hub APIs, complete applicable documentation,
+user-relevant limitations, maintainer guidance, MIT-license prose when applicable, and a separate
+third-party-notices section. No comments, emoji, process narration, raw export dumps, duplicate
+sections, or dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
+contextual, policy-capped, and selected from governed catalogs; `products.*` destinations have
+priority. Commercial products are called **Enterprise Edition**.
 
 Template structure is reusable but prose and facts remain repository-specific. Dense examples and
 reference material may use accessible collapsible sections. Later style changes create component
@@ -587,15 +596,22 @@ credentials, authorization, and default-branch protection are non-negotiable.
 ## Reference Data
 
 Repository/package/test evidence outranks README prose. Approved policy owns subjective positioning.
-Release data and approved documentation follow. Aspose.org may locate facts or reusable ecosystem
-techniques but never substitutes for repository-bound verification.
+Release data and approved documentation follow. During development, matching Aspose.org knowledge
+and reports may expose gaps in Repo Presenter's extraction, selection, composition, graph, and
+review behavior. Those lessons must be generalized into this repository's native versioned
+contracts. Deployed and acceptance runs never read or depend on the sibling repository, its reports,
+skills, scripts, or caches.
 
 ## Build Checklist
 
 - [ ] **Agile authority reset:** compact catalogs and active graph, reconcile durable state, prove
   lossless stable-ID/dependency/coverage migration, and commit one control-only slice.
-- [ ] **First calibration:** finalize Aspose.3D FOSS for Python and show it immediately.
-- [ ] **Python representative cohort:** rebuild Note, then Page/PDF, with targeted feedback updates.
+- [ ] **Comparative Note regression:** use the revision-matched Aspose.org report during development
+  to expose native contract gaps, then regenerate Note without an Aspose.org runtime dependency and
+  pass factual, editorial, semantic-graph, review, repair,
+  promotion, and unchanged no-op proof without manual README editing.
+- [ ] **Python representative cohort:** apply the accepted native contract to Aspose.3D, then
+  Page/PDF, with targeted component-only feedback updates.
 - [ ] **Python platform POC:** finalize every dynamically admitted Python repository.
 - [ ] **Post-Python slices:** prove one current .NET and one current Java vertical slice.
 - [ ] **Discovery and verified Gate A:** reconcile the complete source denominator, then finalize all
@@ -615,6 +631,10 @@ techniques but never substitutes for repository-bound verification.
 - [ ] Cosmetic changes do not invalidate facts or unrelated accepted components.
 - [ ] Factual/safety/acceptance changes reopen the earliest affected stage.
 - [ ] No README proceeds without deterministic and independent acceptance and no-op proof.
+- [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
+  report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
+- [ ] Mermaid validation proves semantic topology, not syntax alone, and independent review rejects
+  a correct-but-unhelpful document.
 - [ ] Every admitted repository is human-accepted before Gate-C product effects.
 - [ ] No local/`act` run writes a product remote and no effect writes a default branch.
 - [ ] Recovery, deduplication, drift, lost-response, authorization, and corruption controls pass.
@@ -670,9 +690,10 @@ Their enforcement lives in registered validators and official checks, not repeat
 
 ## Current active slice
 
-`L8-AGILE-AUTHORITY-RESET` owns `L8-047` through `L8-054`. It may modify only governance, mission,
-state, catalog, validation, test, evidence, and log paths. Product presentation and product-repository
-effects are forbidden until this reset closes.
+The next executable slice is `L8-VPY-01-NOTE-VERIFIED-CANARY`: a development-only comparison and
+native comparative regression. Aspose.org artifacts may diagnose contract gaps, but the accepted
+run must succeed without that checkout and may not write any product repository. Durable supervisor
+state remains the sole authority for the live claim.
 
 ## Status and history
 

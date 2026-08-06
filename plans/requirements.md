@@ -42,9 +42,10 @@ Their enforcement lives in registered validators and official checks, not repeat
 
 ## Current active slice
 
-`L8-AGILE-AUTHORITY-RESET` owns `L8-047` through `L8-054`. It may modify only governance, mission,
-state, catalog, validation, test, evidence, and log paths. Product presentation and product-repository
-effects are forbidden until this reset closes.
+The next executable slice is `L8-VPY-01-NOTE-VERIFIED-CANARY`: a development-only comparison and
+native comparative regression. Aspose.org artifacts may diagnose contract gaps, but the accepted
+run must succeed without that checkout and may not write any product repository. Durable supervisor
+state remains the sole authority for the live claim.
 
 ## Status and history
 
