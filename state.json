@@ -47205,7 +47205,7 @@
     "updated_at": "2026-08-06T06:49:15.858264+00:00"
   },
   "schema_version": 2,
-  "state_version": 2167,
+  "state_version": 2168,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "03581f1e6d79359ca64cda0c14cf8538314b5775207b0ff1826fee90eba1d6fe",
@@ -49950,13 +49950,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: preserve disposition is not an exact CommonMark H2 section: heading:1103",
       "last_checkpoint_id": "4afdd31fe156e07a423601343ea6ec5106418df3a77911fec3fab4c6d5e5a8de",
-      "lease_expires_at": "2026-08-06T07:03:08.144824+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-06T06:52:32.257949+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-06T06:52:53.494733+00:00"
     }
   },
   "trigger_records": {},
