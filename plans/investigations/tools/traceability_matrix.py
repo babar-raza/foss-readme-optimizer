@@ -486,21 +486,41 @@ def _render_full_registry_status_table(
     return lines
 
 
+def _registry_status_projection() -> dict:
+    """Return clone-reproducible registry identity before loading runtime state."""
+
+    products_payload = json.loads(PRODUCTS_JSON.read_text(encoding="utf-8"))
+    entries = load_products(PRODUCTS_JSON)
+    return {
+        "denominator": len(entries),
+        "registry_hashes": {
+            "raw_sha256": hashlib.sha256(PRODUCTS_JSON.read_bytes()).hexdigest(),
+            "canonical_text_sha256": hashlib.sha256(
+                PRODUCTS_JSON.read_text(encoding="utf-8")
+                .replace("\r\n", "\n")
+                .replace("\r", "\n")
+                .encode("utf-8")
+            ).hexdigest(),
+            "canonical_json_sha256": products_registry_hash(products_payload),
+        },
+        "products_payload": products_payload,
+        "entries": entries,
+    }
+
+
 def _current_project_status() -> dict:
     """Build the fail-closed current registry, lifecycle, and mission projection."""
 
     try:
-        products_payload = json.loads(PRODUCTS_JSON.read_text(encoding="utf-8"))
-        entries = load_products(PRODUCTS_JSON)
-        raw_registry_hash = hashlib.sha256(PRODUCTS_JSON.read_bytes()).hexdigest()
-        canonical_registry_hash = hashlib.sha256(
-            PRODUCTS_JSON.read_text(encoding="utf-8")
-            .replace("\r\n", "\n")
-            .replace("\r", "\n")
-            .encode("utf-8")
-        ).hexdigest()
-        canonical_json_hash = products_registry_hash(products_payload)
-
+        registry = _registry_status_projection()
+    except Exception as exc:
+        return {
+            "available": False,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+    products_payload = registry.pop("products_payload")
+    entries = registry.pop("entries")
+    try:
         revision = RegistryRevisionV1.model_validate_json(
             REGISTRY_REVISION_PATH.read_text(encoding="utf-8")
         )
@@ -532,12 +552,7 @@ def _current_project_status() -> dict:
 
         return {
             "available": True,
-            "denominator": len(entries),
-            "registry_hashes": {
-                "raw_sha256": raw_registry_hash,
-                "canonical_text_sha256": canonical_registry_hash,
-                "canonical_json_sha256": canonical_json_hash,
-            },
+            **registry,
             "registry_revision": revision.model_dump(mode="json"),
             "registry_gate": revision_gate.model_dump(mode="json"),
             "scoreboard": scoreboard.model_dump(mode="json"),
@@ -560,6 +575,7 @@ def _current_project_status() -> dict:
     except Exception as exc:  # fail-closed report; never fall back to historical completion
         return {
             "available": False,
+            **registry,
             "error": f"{type(exc).__name__}: {exc}",
         }
 
@@ -569,14 +585,51 @@ def _render_current_project_status(status: dict) -> list[str]:
 
     lines = ["## Current verified portfolio status", ""]
     if not status["available"]:
-        return [
-            *lines,
+        lines += [
             "**CURRENT_RUNTIME_STATUS_UNAVAILABLE.** Historical manifests are not used "
             "as a fallback.",
             "",
             f"Reason: `{status['error']}`",
             "",
         ]
+        denominator = status.get("denominator")
+        hashes = status.get("registry_hashes")
+        if denominator is None or not isinstance(hashes, dict):
+            return lines
+        lines += [
+            "| Boundary | Current contract-valid | Raw lifecycle label (non-closing) |",
+            "|---|---:|---:|",
+            *(
+                f"| {label} | unavailable/{denominator} | unavailable/{denominator} |"
+                for label in (
+                    "FACTS_READY",
+                    "CANDIDATE_GENERATED",
+                    "DETERMINISTIC_VALIDATED",
+                    "AGENT_APPROVED",
+                    "NO_OP_PROVEN",
+                    "HUMAN_ACCEPTED",
+                )
+            ),
+            "",
+            "### Registry authority",
+            "",
+            f"- Denominator: **{denominator}**, loaded from `data/products.json`.",
+            f"- Raw SHA-256: `{hashes['raw_sha256']}`.",
+            f"- Canonical-text SHA-256: `{hashes['canonical_text_sha256']}`.",
+            f"- Canonical-JSON SHA-256: `{hashes['canonical_json_sha256']}`.",
+            "- Registry revision and Gate-A eligibility are unavailable until runtime "
+            "state is restored.",
+            "",
+            "### Excluded discoveries and intake",
+            "",
+            "- Unavailable until the current registry-revision record is restored.",
+            "",
+            "### Blocked admitted repositories",
+            "",
+            "- Unavailable until durable repository lifecycle state is restored.",
+            "",
+        ]
+        return lines
 
     scoreboard = status["scoreboard"]
     denominator = status["denominator"]

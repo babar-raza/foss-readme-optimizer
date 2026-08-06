@@ -121,6 +121,27 @@ def test_generator_runs_without_error_against_current_real_data(matrix_tool):
     assert "### Blocked admitted repositories" in markdown
 
 
+def test_missing_runtime_state_keeps_clone_reproducible_registry_identity(
+    matrix_tool, tmp_path, monkeypatch
+):
+    products = json.loads((REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+    monkeypatch.setattr(matrix_tool, "REGISTRY_REVISION_PATH", tmp_path / "missing.json")
+
+    status = matrix_tool._current_project_status()
+    markdown = matrix_tool._render_current_project_status(status)
+    rendered = "\n".join(markdown)
+
+    assert status["available"] is False
+    assert status["denominator"] == len(products)
+    assert "CURRENT_RUNTIME_STATUS_UNAVAILABLE" in rendered
+    assert f"- Denominator: **{len(products)}**, loaded from `data/products.json`." in rendered
+    assert (
+        f"| FACTS_READY | unavailable/{len(products)} | unavailable/{len(products)} |" in rendered
+    )
+    assert "### Excluded discoveries and intake" in rendered
+    assert "### Blocked admitted repositories" in rendered
+
+
 def test_repo_genuinely_absent_from_manifest_shows_not_yet_run(matrix_tool, tmp_path, monkeypatch):
     """A repo with no entry at all in the most recent portfolio manifest (e.g. a
     Java pilot run through the separate evidence path, or a brand-new registry
