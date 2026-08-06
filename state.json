@@ -119490,16 +119490,18 @@
       "accepted_facts_hash": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 0,
+      "consecutive_skip_count": 1,
       "details": {
-        "license_claim": null
+        "license_claim": null,
+        "skip_reason": "llm_selected",
+        "skipped_at_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
       },
       "domain": "readme_reconciliation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-06T12:03:05.353667+00:00",
+      "last_run_timestamp": "2026-08-06T12:39:50.006165+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": false,
+      "skipped_this_run": true,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "visual_preparation": {
@@ -127231,7 +127233,7 @@
     "updated_at": "2026-08-06T12:02:25.882234+00:00"
   },
   "schema_version": 2,
-  "state_version": 2305,
+  "state_version": 2306,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f2896bdea303c6008f7156cd36abde766b38d102bf5ae61603755ad8935b52fe",
