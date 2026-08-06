@@ -9211,7 +9211,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "25efb09b12ced1219a7bfff6336325af50bd116bbe481dc7de3ced296233ece8",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -10228,15 +10228,17 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
-          "error_type": "execution_error",
-          "failure_reason": "agentic_composition",
-          "message": "LLMError: composition opening summary contains promotional, edition-comparison, or internal text",
-          "occurred_at": "2026-08-06T13:46:53.965003+00:00",
+          "error_type": "blocked",
+          "facts_hash": "f574680b6be0460b1e062cf2b0f3eed19c500716faaf0cdcf2ddba32bd68b4a2",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "977ec54be20763cb5b895f55391d2daaa3cbc52bb9114e3bcd5706de5ebf4116",
+          "message": "['mandatory_claim_replacements_have_exact_provenance failed']",
+          "occurred_at": "2026-08-06T13:54:56.500261+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-          "stage": null
+          "stage": "document_validation"
         },
         "llm_called": true,
         "llm_calls": [
@@ -119964,9 +119966,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "agentic_composition",
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-06T13:46:53.965003+00:00",
+      "last_run_timestamp": "2026-08-06T13:54:56.502070+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -127822,7 +127824,7 @@
     "updated_at": "2026-08-06T13:30:15.294288+00:00"
   },
   "schema_version": 2,
-  "state_version": 2421,
+  "state_version": 2422,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
