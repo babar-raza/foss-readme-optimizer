@@ -367,6 +367,7 @@ def test_durable_artifact_contract_contains_required_review_evidence():
         "README.patch",
         "product-facts.json",
         "provenance.json",
+        "presentation-component-manifest.json",
         "readme-document-plan.json",
         "claim-map.json",
         "deterministic-validation.json",
