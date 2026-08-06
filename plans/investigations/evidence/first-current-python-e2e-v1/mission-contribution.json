@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+  "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+  "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the first current finalized repository-verified README and freeze its executable path."
+  },
+  "acceptance_checks_passed": [
+    "The current committed HEAD passes the optimized complete non-live runner before repository execution",
+    "Every material final claim is accepted by the current fact and claim-accountability contracts",
+    "Deterministic validation and one independent non-authoring reviewer accept the same candidate",
+    "The unchanged rerun is byte-identical with zero provider call, patch, duplicate event, or effect",
+    "The promoted artifact is byte-identical to the accepted runtime candidate and reconstructs independently",
+    "The result is labeled first verified README and partial portfolio progress, never Python POC or Gate A"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/first-current-python-e2e-v1/verification.json",
+    "plans/investigations/evidence/first-current-python-e2e-v1/complete-non-live-receipt.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/sha256sums.txt",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--6340b6512071/README.md"
+  ],
+  "scoreboard_before_sha256": "3768d6f55b6086560ce2ba3d1f8588c371cf01ab9963bc9ea4a7eb675ef0749d",
+  "scoreboard_after_sha256": "cfb5dc1d5870721d8123414d287c205d82a411369dc1a1995f98e8a7bb0d9bd8",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "zero_current_verified_promoted_readmes",
+  "contribution_boundary_after": "first_current_verified_readme_promoted",
+  "independently_verified": true
+}
