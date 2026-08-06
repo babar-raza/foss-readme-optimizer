@@ -75,6 +75,23 @@ def replacement_provenance_is_exact(
     supplemental = [
         binding for binding in bindings if binding.provenance_id not in obligation_provenance_ids
     ]
+    remaining_supplemental_facts = set(resolution.fact_ids) - {
+        fact_id
+        for binding in bindings
+        if binding.provenance_id in obligation_provenance_ids
+        for fact_id in binding.fact_ids
+    }
+    for binding in supplemental:
+        binding_fact_ids = set(binding.fact_ids)
+        if (
+            not binding_fact_ids
+            or not binding_fact_ids.issubset(resolution.fact_ids)
+            or not binding_fact_ids.intersection(remaining_supplemental_facts)
+        ):
+            return False
+        remaining_supplemental_facts.difference_update(binding_fact_ids)
+    if remaining_supplemental_facts:
+        return False
     if resolution.obligation_id == "product_overview":
         if any(
             not set(binding.fact_ids).intersection(resolution.fact_ids) for binding in supplemental
@@ -88,8 +105,6 @@ def replacement_provenance_is_exact(
             for prefix in prefixes
         ):
             return False
-    elif supplemental:
-        return False
     return all(
         facts.selected_fact_ids.get(fact.field) == fact.fact_id
         and fact.verification_state in {"verified", "policy_approved"}

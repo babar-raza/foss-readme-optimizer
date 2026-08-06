@@ -611,7 +611,7 @@ def test_preserved_section_claim_cannot_be_deferred_or_replaced():
     _source, _candidate, facts, _plan, _accountability = _case("python")
     source = "# Product\n\n## Security\n\nRetain repository-specific resource limits.\n"
     candidate = "# Product\n"
-    security = next(heading for heading in parse_headings(source) if heading.title == "Security")
+    security_claim = assess_material_claims(source)[0]
 
     with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
         build_source_claim_resolutions(
@@ -619,7 +619,9 @@ def test_preserved_section_claim_cannot_be_deferred_or_replaced():
             candidate,
             facts,
             [],
-            preserved_source_ranges=[(security.start, security.section_end)],
+            preserved_source_ranges=[
+                (security_claim.source_byte_start, security_claim.source_byte_end)
+            ],
         )
 
 
@@ -630,14 +632,14 @@ def test_exact_source_claim_survives_when_collapsed_inside_html_details():
         "# Product\n\n## Results\n\n<details>\n<summary>View results</summary>\n\n"
         "![Verified result](assets/result.png)\n\n</details>\n"
     )
-    results = next(heading for heading in parse_headings(source) if heading.title == "Results")
+    result_claim = assess_material_claims(source)[0]
 
     resolutions = build_source_claim_resolutions(
         source,
         candidate,
         facts,
         [],
-        preserved_source_ranges=[(results.start, results.section_end)],
+        preserved_source_ranges=[(result_claim.source_byte_start, result_claim.source_byte_end)],
     )
     claim_map = ReadmeClaimMapV1(
         org_repo=facts.org_repo,

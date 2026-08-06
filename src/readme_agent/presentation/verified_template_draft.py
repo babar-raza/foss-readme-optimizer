@@ -8,7 +8,11 @@ from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.presentation.template_schema import (
     FactFieldTemplateContentV1,
     ProductFactsTemplateDraftV1,
+    RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
+)
+from readme_agent.presentation.verified_template_documentation import (
+    documentation_resources_markdown,
 )
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
@@ -23,13 +27,16 @@ from readme_agent.presentation.verified_template_sections import (
     third_party_notices_markdown,
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_links import (
     render_contextual_example_markdown,
     render_contextual_relationship_markdown,
 )
+from readme_agent.readme.document_structure import heading_identity, parse_headings
 from readme_agent.readme.document_templates import example_text, installation_text
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.license_location import repository_license_path
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 
 
 def _included(
@@ -71,6 +78,42 @@ def _accepted_fields(facts: ProductFactsV2, *fields: str) -> tuple[str, ...]:
         ):
             accepted.append(field)
     return tuple(accepted)
+
+
+def _source_owned_optional_slots(
+    source_text: str,
+    facts: ProductFactsV2,
+    contract: RepositoryPresentationTemplateV1,
+) -> set[str]:
+    """Return optional H2 roles whose complete material content is fact-authorized."""
+
+    headings = [heading for heading in parse_headings(source_text) if heading.level == 2]
+    claims = assess_material_claims(source_text)
+    owned: set[str] = set()
+    for slot in contract.section_order:
+        if slot in contract.required_slots:
+            continue
+        matches = [
+            heading
+            for heading in headings
+            if heading_identity(heading.title) == heading_identity(contract.headings[slot])
+        ]
+        if len(matches) != 1:
+            continue
+        heading = matches[0]
+        start = len(source_text[: heading.start].encode("utf-8"))
+        end = len(source_text[: heading.section_end].encode("utf-8"))
+        section_claims = [
+            claim
+            for claim in claims
+            if start <= claim.source_byte_start and claim.source_byte_end <= end
+        ]
+        if section_claims and all(
+            complete_source_claim_fact_binding(source_text, claim, facts) is not None
+            for claim in section_claims
+        ):
+            owned.add(slot)
+    return owned
 
 
 def _scope_text(
@@ -200,8 +243,14 @@ def build_verified_template_draft(
         }
     )
     contract = load_repository_presentation_template()
+    source_owned_optional_slots = _source_owned_optional_slots(source_text, facts, contract)
     optional: dict = {
-        slot: _omitted("No separately verified repository content is bound to this slot.")
+        slot: _omitted(
+            "Current source owns this canonical optional H2; exact source preservation "
+            "reconciles it against verified facts."
+            if slot in source_owned_optional_slots
+            else "No separately verified repository content is bound to this slot."
+        )
         for slot in contract.section_order
         if slot
         not in {
@@ -228,6 +277,11 @@ def build_verified_template_draft(
             ("api.public_surface",),
             ("readme.api_reference",),
         ),
+        "documentation_resources": (
+            documentation_resources_markdown(facts),
+            ("documentation.links",),
+            (),
+        ),
         "development_and_testing": (
             development,
             _accepted_fields(facts, "development.assets", "development.commands"),
@@ -250,7 +304,7 @@ def build_verified_template_draft(
         ),
     }
     for slot, (markdown, fields, standards) in optional_sections.items():
-        if markdown:
+        if markdown and slot not in source_owned_optional_slots:
             optional[slot] = _included(markdown, *fields, standards=standards)
     return ProductFactsTemplateDraftV1(
         source_revision=source_revision,

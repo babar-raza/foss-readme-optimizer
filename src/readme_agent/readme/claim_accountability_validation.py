@@ -22,6 +22,7 @@ from readme_agent.readme.document_plan import (
     ReadmeDocumentOperationV1,
     SourceClaimResolutionV1,
 )
+from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
 from readme_agent.readme.source_claim_policy_validation import (
     policy_corrections_have_exact_partial_lineage,
 )
@@ -67,6 +68,23 @@ def _provenance_covers_record(
         covered[start:end] = b"\x01" * (end - start)
     uncovered = bytes(byte for index, byte in enumerate(content) if not covered[index])
     return bool(bindings) and not uncovered.strip()
+
+
+def _surviving_equivalence_has_generated_ownership(
+    resolution: SourceClaimResolutionV1,
+    composition_ledger: ReadmeCompositionLedgerV1 | None,
+) -> bool:
+    """Return whether exact surviving bytes have no source placement owner."""
+
+    if composition_ledger is None:
+        return False
+    assert resolution.candidate_byte_start is not None
+    assert resolution.candidate_byte_end is not None
+    return not any(
+        placement.final_byte_start < resolution.candidate_byte_end
+        and resolution.candidate_byte_start < placement.final_byte_end
+        for placement in composition_ledger.source_placements
+    )
 
 
 def _coordinate_key(coordinate) -> tuple[str, str, str, str]:
@@ -305,6 +323,15 @@ def validate_claim_accountability_map(
                 candidate_records,
                 provenance_by_id,
             )
+            and (
+                not resolution.contradiction_fact_ids
+                or set(resolution.contradiction_fact_ids)
+                == contradicted_source_claim_fact_ids(
+                    source_text,
+                    source_claim_by_id[resolution.claim_id],
+                    facts,
+                )
+            )
         )
         for resolution in resolutions.values()
     )
@@ -313,7 +340,16 @@ def validate_claim_accountability_map(
         resolution.resolution != "verified_equivalence"
         or (
             resolution.claim_id in source_by_id
-            and source_by_id[resolution.claim_id].survives_in_candidate is False
+            and (
+                source_by_id[resolution.claim_id].survives_in_candidate is False
+                or (
+                    source_by_id[resolution.claim_id].survives_in_candidate is True
+                    and _surviving_equivalence_has_generated_ownership(
+                        resolution,
+                        composition_ledger,
+                    )
+                )
+            )
             and source_by_id[resolution.claim_id].expected_disposition == "verified_equivalence"
             and resolution.candidate_claim_id in candidate_by_id
             and candidate_by_id[resolution.candidate_claim_id].source_byte_start

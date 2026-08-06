@@ -16,6 +16,9 @@ from readme_agent.readme.assessment_claims import (
 from readme_agent.readme.claim_accountability_api_coordinates import (
     api_structured_fact_coordinates,
 )
+from readme_agent.readme.claim_accountability_installation_coordinates import (
+    python_source_build_distribution_coordinates,
+)
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import installation_text
@@ -33,9 +36,9 @@ _INSTALL_SHELL = re.compile(
     r"\[(?P<listed_extra>[A-Za-z0-9_.-]+)\]['\"]`\s*$"
 )
 _VERIFIED_INPUT = re.compile(
-    r"(?is)-\s*(?:Before running the example,\s*)?provide\s+`(?P<target>[^`]+)`;\s*"
+    r"(?is)^\s*-\s*(?:Before running the example,\s*)?provide\s+`(?P<target>[^`]+)`;\s*"
     r"verification used the repository fixture\s*"
-    r"`(?P<source>[^`]+)`\."
+    r"`(?P<source>[^`]+)`\.\s*$"
 )
 
 
@@ -139,13 +142,21 @@ def _exact_list_coordinates(
     if not isinstance(value, list):
         return []
     normalized = " ".join(re.sub(r"[`*_~]", "", text).casefold().split())
+    covered = bytearray(len(normalized))
     coordinates = []
     for item in value:
         if not isinstance(item, str) or len(item.strip()) < 4:
             continue
         phrase = " ".join(item.casefold().split())
-        if phrase not in normalized:
+        starts = []
+        cursor = 0
+        while (start := normalized.find(phrase, cursor)) >= 0:
+            starts.append(start)
+            cursor = start + len(phrase)
+        if not starts:
             continue
+        for start in starts:
+            covered[start : start + len(phrase)] = b"\x01" * len(phrase)
         coordinates.append(
             _coordinate(
                 fact_id=fact_id,
@@ -154,7 +165,10 @@ def _exact_list_coordinates(
                 value=item,
             )
         )
-    return coordinates
+    remainder = "".join(
+        character for index, character in enumerate(normalized) if not covered[index]
+    )
+    return coordinates if not re.sub(r"[^a-z0-9]+", "", remainder) else []
 
 
 def _input_fixture_coordinates(
@@ -164,11 +178,10 @@ def _input_fixture_coordinates(
 ) -> list[StructuredFactCoordinateV1]:
     if not isinstance(value, dict) or not isinstance(value.get("input_fixture_bindings"), list):
         return []
-    matches = {
-        (item.group("target"), item.group("source")) for item in _VERIFIED_INPUT.finditer(text)
-    }
-    if not matches:
+    match = _VERIFIED_INPUT.fullmatch(text)
+    if match is None:
         return []
+    matches = {(match.group("target"), match.group("source"))}
     coordinates = []
     for binding in value["input_fixture_bindings"]:
         if not isinstance(binding, dict):
@@ -235,6 +248,16 @@ def structured_fact_coordinates(
             coordinates.extend(api_structured_fact_coordinates(text, context, fact_id, fact.value))
         elif fact.field == "installation.optional_extras":
             coordinates.extend(_optional_extra_coordinates(text, facts, fact_id, fact.value))
+        elif fact.field == "installation.coordinates":
+            coordinates.extend(
+                python_source_build_distribution_coordinates(
+                    text,
+                    facts,
+                    fact_id,
+                    fact.value,
+                    fact.source.source_revision,
+                )
+            )
         elif fact.field in {"product.capabilities", "product.formats", "product.limitations"}:
             coordinates.extend(_exact_list_coordinates(text, fact_id, fact.field, fact.value))
         elif fact.field == "example.minimal":

@@ -26,6 +26,11 @@ from readme_agent.presentation.template_schema import (
     load_repository_presentation_template,
     repository_presentation_template_hash,
 )
+from readme_agent.presentation.verified_preservation_sections import (
+    build_verified_source_preservation_selection,
+)
+from readme_agent.presentation.verified_source_claim_resolution_engine import resolve_source_claims
+from readme_agent.presentation.verified_source_density import apply_verified_source_density
 from readme_agent.presentation.verified_template_draft import build_verified_template_draft
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
@@ -40,7 +45,17 @@ from readme_agent.presentation.verified_template_sections import (
 )
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
-from readme_agent.readme.document_templates import installation_text
+from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
+from readme_agent.readme.document_plan import CandidateContentProvenanceV1
+from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.presentation_lint import lint_readme_presentation
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
+from readme_agent.readme.verified_preservation_composition import (
+    build_verified_preservation_composition_plan,
+)
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -53,6 +68,79 @@ REFERENCE = (
     / "aspose-note-foss-python-golden.md"
 )
 HASH = "0" * 64
+
+
+def _verified_3d_inputs(
+    source: str | None = None,
+    *,
+    include_api_surface: bool = False,
+) -> tuple[str, ProductFactsV2, str, ReadmeAgenticCompositionPlanV1]:
+    source = source or (
+        ROOT / "tests" / "fixtures" / "readmes" / "real_audit_2026-07-17" / "3d-python.md"
+    ).read_text(encoding="utf-8")
+    facts = ProductFactsV2.model_validate_json(
+        (
+            ROOT
+            / "tests"
+            / "fixtures"
+            / "readmes"
+            / "verified_source_assurance"
+            / "aspose-3d-python-facts-ab1a2267.json"
+        ).read_text(encoding="utf-8")
+    )
+    revision = "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+    if include_api_surface:
+        payload = facts.model_dump(mode="json")
+        fact_id = "api.public_surface:template-test"
+        payload["facts"].append(
+            FactRecordV2(
+                fact_id=fact_id,
+                field="api.public_surface",
+                value={
+                    "modules": [
+                        {
+                            "module": "aspose.threed",
+                            "exports": ["Scene", "Node", "Mesh"],
+                        }
+                    ],
+                    "classes": [
+                        {
+                            "name": name,
+                            "source_path": "aspose/threed/__init__.py",
+                            "source_sha256": character * 64,
+                            "members": [],
+                        }
+                        for name, character in (("Scene", "a"), ("Node", "b"), ("Mesh", "c"))
+                    ],
+                },
+                source=FactSourceV2(
+                    source_type="mechanical_repository",
+                    location="repository://aspose/threed/__init__.py",
+                    source_revision=revision,
+                ),
+                verification_state="verified",
+                authoritative_owner="repository-source",
+                confidence=1.0,
+                affected_surfaces=["readme.api_reference"],
+            ).model_dump(mode="json")
+        )
+        payload["selected_fact_ids"]["api.public_surface"] = fact_id
+        facts = ProductFactsV2.model_validate(payload)
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert plan is not None
+    return source, facts, revision, plan
 
 
 def _fact(markdown: str, *ids: str) -> BoundTemplateContentV1:
@@ -135,6 +223,42 @@ flowchart LR
                 "license-benefits-v1",
             ),
         },
+    )
+
+
+def _page_input_for_facts(facts: ProductFactsV2) -> PresentationTemplateInputV1:
+    """Rebind the synthetic Page layout to one concrete fact graph."""
+
+    template_input = _page_input()
+    aliases = {
+        "identity:page": "product.identity",
+        "acquisition:page": "installation.verified_acquisition",
+        "problems:page": "product.problems_solved",
+        "formats:page": "product.formats",
+        "capabilities:page": "product.capabilities",
+        "example:page": "example.minimal",
+        "limitations:page": "product.limitations",
+    }
+
+    def rebind(content: BoundTemplateContentV1) -> BoundTemplateContentV1:
+        return content.model_copy(
+            update={
+                "fact_ids": [
+                    facts.selected_fact_ids[aliases.get(fact_id, fact_id)]
+                    for fact_id in content.fact_ids
+                ]
+            }
+        )
+
+    return template_input.model_copy(
+        update={
+            "title": rebind(template_input.title),
+            "badges": rebind(template_input.badges),
+            "summary": rebind(template_input.summary),
+            "sections": {
+                slot: rebind(content) for slot, content in template_input.sections.items()
+            },
+        }
     )
 
 
@@ -227,16 +351,287 @@ def test_verified_template_omits_missing_compatibility_from_installation_binding
     binding = next(
         item
         for item in provenance
-        if item.provenance_id == "template.section.installation.verified_acquisition"
+        if {facts.fact_by_id(fact_id).field for fact_id in item.fact_ids}
+        == {"installation.coordinates", "installation.verified_acquisition"}
     )
     bound = candidate.encode("utf-8")[
         binding.candidate_byte_start : binding.candidate_byte_end
     ].decode("utf-8")
-    assert bound == installation_text(facts, facts.org_repo, "a" * 40)
+    assert bound == "```bash\npython -m pip install acme-pdf\n```"
     assert {facts.fact_by_id(fact_id).field for fact_id in binding.fact_ids} == {
         "installation.coordinates",
         "installation.verified_acquisition",
     }
+
+
+def test_verified_template_generates_fact_backed_optional_slot_when_source_lacks_it() -> None:
+    source, facts, revision, plan = _verified_3d_inputs(include_api_surface=True)
+
+    draft = build_verified_template_draft(facts, source, revision, plan)
+
+    api_reference = draft.sections["api_reference"]
+    assert api_reference.disposition == "include"
+    assert api_reference.fact_fields == ["api.public_surface"]
+    assert api_reference.standard_ids == ["readme.api_reference"]
+
+
+def test_verified_template_does_not_defer_optional_slot_from_heading_presence_alone() -> None:
+    source, facts, revision, _ = _verified_3d_inputs(include_api_surface=True)
+    contract = load_repository_presentation_template()
+    source = (
+        source.rstrip()
+        + f"\n\n## {contract.headings['api_reference']}\n\n"
+        + "The curated public surface includes `Scene`, `Node`, and `Mesh`.\n"
+    )
+    source, facts, revision, plan = _verified_3d_inputs(source, include_api_surface=True)
+
+    draft = build_verified_template_draft(facts, source, revision, plan)
+
+    api_reference = draft.sections["api_reference"]
+    assert api_reference.disposition == "include"
+    assert api_reference.fact_fields == ["api.public_surface"]
+    assert api_reference.standard_ids == ["readme.api_reference"]
+
+
+def test_source_owned_optional_slot_is_preserved_exactly_once() -> None:
+    source, facts, revision, _ = _verified_3d_inputs(include_api_surface=True)
+    contract = load_repository_presentation_template()
+    exact_body = "- `Scene`, `Node`, `Mesh`\n"
+    source = source.rstrip() + f"\n\n## {contract.headings['api_reference']}\n\n" + exact_body
+    source, facts, revision, plan = _verified_3d_inputs(source, include_api_surface=True)
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    api_section = next(
+        section
+        for section in assessment.sections
+        if section.heading == contract.headings["api_reference"]
+    )
+
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+
+    assert candidate.count(f"## {contract.headings['api_reference']}") == 1
+    assert candidate.count(exact_body.strip()) == 1
+    assert any(
+        placement.placement_basis == "composer_inserted_exact"
+        and placement.source_owner_id == api_section.section_id
+        for placement in document_plan.composition_ledger.source_placements
+    )
+
+
+def test_no_op_uses_source_lineage_and_changed_candidate_uses_verified_equivalence() -> None:
+    _, facts, _, _ = _verified_3d_inputs(include_api_surface=True)
+    source = "## Key capabilities\n\nVerified public capability.\n"
+    source_claim = assess_material_claims(source)[0]
+    fact_id = facts.selected_fact_ids["api.public_surface"]
+
+    assert (
+        resolve_source_claims(
+            source,
+            source,
+            facts,
+            fail_on_unresolved_preserve=False,
+        )
+        == []
+    )
+
+    candidate = "# Aspose.3D FOSS for Python\n\n" + source
+    candidate_claim = next(
+        claim
+        for claim in assess_material_claims(candidate)
+        if claim.content_sha256 == source_claim.content_sha256
+    )
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.api_reference",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end - 1,
+        fact_ids=[fact_id],
+        rationale="Bind material claim bytes while excluding only the trailing newline.",
+    )
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        [provenance],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "verified_equivalence"
+    assert resolutions[0].fact_ids == [fact_id]
+    assert resolutions[0].candidate_claim_id == candidate_claim.claim_id
+
+
+@pytest.mark.parametrize(
+    ("source", "candidate", "with_fact_provenance"),
+    [
+        (
+            "## Key capabilities\n\nVerified public capability.\n",
+            "## Key capabilities\n\nVerified public capability.\n\nVerified public capability.\n",
+            True,
+        ),
+        (
+            "## Key capabilities\n\nVerified public capability.\n",
+            "## Key capabilities\n\nVerified public capability with extra scope.\n",
+            True,
+        ),
+        (
+            "## Key capabilities\n\nVerified public capability.\n",
+            "## Key capabilities\n\nVerified public capability.\n",
+            False,
+        ),
+        (
+            "## Key capabilities\n\nStale public capability.\n",
+            "## Key capabilities\n\nVerified public capability.\n",
+            True,
+        ),
+    ],
+    ids=["ambiguous-duplicate", "partial", "unfacted", "stale"],
+)
+def test_unproven_candidate_claims_do_not_become_verified_equivalence(
+    source: str,
+    candidate: str,
+    with_fact_provenance: bool,
+) -> None:
+    _, facts, _, _ = _verified_3d_inputs(include_api_surface=True)
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = (
+        [
+            CandidateContentProvenanceV1(
+                provenance_id="template.section.api_reference",
+                candidate_byte_start=candidate_claim.source_byte_start,
+                candidate_byte_end=candidate_claim.source_byte_end,
+                fact_ids=[facts.selected_fact_ids["api.public_surface"]],
+                rationale="Negative-control fact binding.",
+            )
+        ]
+        if with_fact_provenance
+        else []
+    )
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert not any(item.resolution == "verified_equivalence" for item in resolutions)
+
+
+def test_unproven_leaf_in_required_role_is_removed_but_remains_blocking() -> None:
+    source, facts, revision, plan = _verified_3d_inputs()
+    candidate = compile_repository_presentation(
+        bind_product_facts(
+            facts,
+            build_verified_template_draft(facts, source, revision, plan),
+        )
+    )
+    contract = load_repository_presentation_template()
+    next_heading = f"## {contract.headings['installation']}"
+    unsupported_leaf = "Maintainer-specific deployment note with no verified fact."
+    mutated = candidate.replace(
+        next_heading,
+        f"{unsupported_leaf}\n\n{next_heading}",
+        1,
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        mutated,
+        facts,
+        base_revision=revision,
+    )
+    rerun_plan = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        mutated,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert rerun_plan is not None
+    leaf_claim = next(
+        claim
+        for claim in assessment.material_claims
+        if unsupported_leaf
+        in mutated.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    )
+    repaired, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        mutated,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=rerun_plan.model_dump(mode="json"),
+    )
+
+    assert unsupported_leaf not in repaired
+    placements = document_plan.composition_ledger.source_placements
+    assert not any(placement.source_owner_id == leaf_claim.claim_id for placement in placements)
+    assert document_plan.claim_accountability is not None
+    source_record = next(
+        record
+        for record in document_plan.claim_accountability.claims
+        if record.claim_id == f"source:{leaf_claim.claim_id}"
+    )
+    assert source_record.currently_accountable is False
+    assert source_record.survives_in_candidate is False
+
+
+def test_preservation_selection_rejects_partial_spoofed_and_stale_coordinates() -> None:
+    source, facts, revision, _ = _verified_3d_inputs(include_api_surface=True)
+    contract = load_repository_presentation_template()
+    exact_body = "- `Scene`, `Node`, `Mesh`\n"
+    source = source.rstrip() + f"\n\n## {contract.headings['api_reference']}\n\n" + exact_body
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    preserve_claim = next(
+        claim
+        for claim in assessment.material_claims
+        if exact_body.strip()
+        == source.encode("utf-8")[claim.source_byte_start : claim.source_byte_end]
+        .decode("utf-8")
+        .strip()
+    )
+    correction_ranges = [
+        (claim.source_byte_start, claim.source_byte_end)
+        for claim in assessment.material_claims
+        if claim.disposition == "preserve" and claim.claim_id != preserve_claim.claim_id
+    ]
+
+    with pytest.raises(ValueError, match="partial, spoofed, or stale"):
+        build_verified_source_preservation_selection(
+            source,
+            assessment,
+            fact_authorized_ranges=[
+                (preserve_claim.source_byte_start + 1, preserve_claim.source_byte_end)
+            ],
+            correction_candidate_ranges=correction_ranges,
+            resolved_claim_ids=set(),
+        )
+
+    selection = build_verified_source_preservation_selection(
+        source,
+        assessment,
+        fact_authorized_ranges=[(preserve_claim.source_byte_start, preserve_claim.source_byte_end)],
+        correction_candidate_ranges=correction_ranges,
+        resolved_claim_ids=set(),
+    )
+    with pytest.raises(ValueError, match="stale for source bytes"):
+        selection.validate(source + "\n", assessment)
 
 
 def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
@@ -453,7 +848,7 @@ def test_curated_repository_claims_receive_exact_fact_or_structural_provenance()
         }
     )
     fact_ids = {fact.field: fact.fact_id for fact in additions}
-    template_input = _page_input()
+    template_input = _page_input_for_facts(facts)
     sections = {
         **template_input.sections,
         "installation": BoundTemplateContentV1(
@@ -552,8 +947,239 @@ def test_configured_density_profile_supersedes_auto_selection() -> None:
     assert select_density_profile(10, configured_profile="extended") == "extended"
 
 
+def _preserved_density_case(title: str, body: str):
+    padding = "\n".join(f"source context {index}" for index in range(181)) + "\n\n"
+    exact_section = f"## {title}\n\n{body}\n\n"
+    policy_source = "Maintainer policy term"
+    source = padding + exact_section + policy_source + "\n"
+    candidate = (
+        "# Product\n\n## Navigation\n\n- [License](#license)\n\n"
+        + exact_section
+        + "## License\n\n"
+        + policy_source
+        + "\n"
+    )
+    source_bytes = source.encode("utf-8")
+    candidate_bytes = candidate.encode("utf-8")
+    source_start = len(padding.encode("utf-8"))
+    candidate_start = candidate_bytes.index(exact_section.encode("utf-8"))
+    section_hash = hashlib.sha256(exact_section.encode("utf-8")).hexdigest()
+    placement = ExactSourcePlacementV1(
+        placement_id="source.section.0000",
+        placement_basis="composer_inserted_exact",
+        source_owner_id="section:secondary-detail",
+        source_byte_start=source_start,
+        source_byte_end=source_start + len(exact_section.encode("utf-8")),
+        source_content_sha256=section_hash,
+        final_byte_start=candidate_start,
+        final_byte_end=candidate_start + len(exact_section.encode("utf-8")),
+        final_content_sha256=section_hash,
+    )
+    policy_source_start = source_bytes.index(policy_source.encode("utf-8"), source_start)
+    policy_candidate_start = candidate_bytes.index(
+        policy_source.encode("utf-8"), placement.final_byte_end
+    )
+    policy_hash = hashlib.sha256(policy_source.encode("utf-8")).hexdigest()
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="source.policy.term",
+        candidate_byte_start=policy_candidate_start,
+        candidate_byte_end=policy_candidate_start + len(policy_source.encode("utf-8")),
+        configured_standard_ids=["readme.test_policy"],
+        rationale="Exercise density rebasing after one generated policy replacement.",
+    )
+    correction = SourceClaimPolicyCorrectionV1(
+        correction_id="source.policy.term",
+        disposition="replace",
+        source_byte_start=policy_source_start,
+        source_byte_end=policy_source_start + len(policy_source.encode("utf-8")),
+        source_content_sha256=policy_hash,
+        candidate_byte_start=policy_candidate_start,
+        candidate_byte_end=policy_candidate_start + len(policy_source.encode("utf-8")),
+        candidate_content_sha256=policy_hash,
+        configured_standard_ids=["readme.test_policy"],
+        replacement_provenance_id=provenance.provenance_id,
+        operation_id="readme.verified-template.compile",
+    )
+    return source, candidate, exact_section, [provenance], [placement], [correction]
+
+
+@pytest.mark.parametrize(
+    "title",
+    ["Additional examples", "API reference", "Development and testing"],
+)
+def test_long_exact_preserved_secondary_slots_use_density_without_losing_lineage(
+    title: str,
+) -> None:
+    body = "\n".join(f"- Exact repository detail {index}" for index in range(12))
+    source, candidate, exact_section, provenance, placements, corrections = _preserved_density_case(
+        title, body
+    )
+
+    result = apply_verified_source_density(
+        candidate,
+        source,
+        provenance,
+        placements,
+        corrections,
+    )
+    repeated = apply_verified_source_density(
+        candidate,
+        source,
+        provenance,
+        placements,
+        corrections,
+    )
+
+    assert result == repeated
+    assert result.candidate.count("<details>") == 1
+    assert result.candidate.count("</details>") == 1
+    assert f"<summary>Show {title.casefold()}</summary>" in result.candidate
+    source_bytes = source.encode("utf-8")
+    candidate_bytes = result.candidate.encode("utf-8")
+    exact_fragments = sorted(
+        (
+            placement
+            for placement in result.source_placements
+            if placement.source_owner_id == "section:secondary-detail"
+        ),
+        key=lambda item: item.source_byte_start,
+    )
+    assert b"".join(
+        candidate_bytes[item.final_byte_start : item.final_byte_end] for item in exact_fragments
+    ) == exact_section.encode("utf-8")
+    assert all(
+        candidate_bytes[item.final_byte_start : item.final_byte_end]
+        == source_bytes[item.source_byte_start : item.source_byte_end]
+        for item in exact_fragments
+    )
+    wrapper_bindings = [
+        binding
+        for binding in result.provenance
+        if "readme.secondary_detail_density" in binding.configured_standard_ids
+    ]
+    assert len(wrapper_bindings) == 2
+    assert all(
+        not any(
+            placement.final_byte_start < binding.candidate_byte_end
+            and binding.candidate_byte_start < placement.final_byte_end
+            for placement in result.source_placements
+        )
+        for binding in wrapper_bindings
+    )
+    policy = result.source_policy_corrections[0]
+    assert (
+        hashlib.sha256(
+            candidate_bytes[policy.candidate_byte_start : policy.candidate_byte_end]
+        ).hexdigest()
+        == policy.candidate_content_sha256
+    )
+    policy_binding = next(
+        binding
+        for binding in result.provenance
+        if binding.provenance_id == policy.replacement_provenance_id
+    )
+    assert (policy_binding.candidate_byte_start, policy_binding.candidate_byte_end) == (
+        policy.candidate_byte_start,
+        policy.candidate_byte_end,
+    )
+
+
+@pytest.mark.parametrize(
+    ("title", "body"),
+    [
+        (
+            "Development and testing",
+            "\n".join(f"- Short detail {index}" for index in range(11)),
+        ),
+        (
+            "API reference",
+            "<details>\n<summary>Existing disclosure</summary>\n\n"
+            + "\n".join(f"- Existing detail {index}" for index in range(12))
+            + "\n\n</details>",
+        ),
+        (
+            "Architecture",
+            "\n".join(f"- Non-target detail {index}" for index in range(12)),
+        ),
+    ],
+    ids=["short", "already-collapsed", "non-target"],
+)
+def test_density_does_not_change_ineligible_preserved_sections(title: str, body: str) -> None:
+    source, candidate, _, provenance, placements, corrections = _preserved_density_case(title, body)
+
+    result = apply_verified_source_density(
+        candidate,
+        source,
+        provenance,
+        placements,
+        corrections,
+    )
+
+    assert result.candidate == candidate
+    assert result.provenance == provenance
+    assert result.source_placements == placements
+    assert result.source_policy_corrections == corrections
+
+
+def test_unverified_development_density_source_is_not_reinserted() -> None:
+    source, _, _, _ = _verified_3d_inputs()
+    body = "\n".join(f"- Run repository validation workflow `{index}`." for index in range(12))
+    source = source.rstrip() + f"\n\n## Development and testing\n\n{body}\n"
+    source, facts, revision, plan = _verified_3d_inputs(source)
+
+    candidate, document_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+    repeated, repeated_plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+
+    assert candidate == repeated
+    assert document_plan.model_dump(mode="json") == repeated_plan.model_dump(mode="json")
+    assert "<summary>Show development and testing</summary>" not in candidate
+    assert body not in candidate
+    lint = lint_readme_presentation(candidate, facts)
+    assert not [
+        finding for finding in lint.findings if finding.rule_id == "uncollapsed_secondary_detail"
+    ]
+    source_section = next(
+        heading for heading in parse_headings(source) if heading.title == "Development and testing"
+    )
+    source_start = len(source[: source_section.start].encode("utf-8"))
+    source_end = len(source[: source_section.section_end].encode("utf-8"))
+    source_bytes = source.encode("utf-8")
+    candidate_bytes = candidate.encode("utf-8")
+    placements = sorted(
+        (
+            placement
+            for placement in document_plan.composition_ledger.source_placements
+            if source_start <= placement.source_byte_start
+            and placement.source_byte_end <= source_end
+        ),
+        key=lambda item: item.source_byte_start,
+    )
+    assert not placements
+    assert source_bytes[source_start:source_end] not in candidate_bytes
+    for correction in (
+        correction
+        for resolution in document_plan.source_claim_resolutions
+        for correction in resolution.policy_corrections
+    ):
+        final = candidate_bytes[correction.candidate_byte_start : correction.candidate_byte_end]
+        assert hashlib.sha256(final).hexdigest() == correction.candidate_content_sha256
+
+
 def _additional_examples_provenance(markdown: str):
-    template_input = _page_input()
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    template_input = _page_input_for_facts(facts)
     original_sections = dict(template_input.sections)
     original_sections["installation"] = _configured(
         original_sections["installation"].markdown,
@@ -569,7 +1195,6 @@ def _additional_examples_provenance(markdown: str):
         if slot in original_sections
     }
     template_input = template_input.model_copy(update={"profile": "extended", "sections": sections})
-    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     sections = dict(template_input.sections)
     sections["scope_and_limitations"] = sections["scope_and_limitations"].model_copy(
         update={"fact_ids": [facts.selected_fact_ids["product.limitations"]]}
@@ -740,6 +1365,7 @@ flowchart LR
             ),
             "additional_examples": omit("No additional verified examples."),
             "api_reference": omit("No complete API inventory is verified."),
+            "documentation_resources": omit("No accepted documentation catalog links."),
             "scope_and_limitations": include(
                 "This package does not perform OCR.",
                 "product.limitations",

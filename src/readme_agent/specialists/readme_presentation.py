@@ -92,6 +92,7 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_P
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError, StateBackendError
+from readme_agent.evidence.redaction import redact
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
@@ -152,6 +153,83 @@ def _without_transient_candidate_details(state: DomainStateV1) -> dict:
         for key, value in state.details.items()
         if key not in _TRANSIENT_CANDIDATE_DETAIL_KEYS
     }
+
+
+def _failed_transaction_details(
+    baseline: DomainStateV1,
+    *,
+    accepted_status: str,
+    current_revision: str | None,
+    stage: str,
+    current_artifacts: dict | None = None,
+) -> dict:
+    """Describe only the failed current transaction and its superseded baseline."""
+
+    parts = accepted_status.split(":", 3)
+    failure_reason = parts[1] if len(parts) > 1 else "unknown"
+    error_type = parts[2] if len(parts) > 2 else "UnknownError"
+    message = parts[3] if len(parts) > 3 else ""
+    envelope: dict[str, object] = {
+        "schema_version": 1,
+        "domain": DOMAIN,
+        "failure_reason": failure_reason,
+        "error_type": error_type,
+        "message": redact(message),
+        "stage": stage,
+        "attempt": baseline.consecutive_failure_count + 1,
+        "source_revision": current_revision,
+        "occurred_at": datetime.now(UTC).isoformat(),
+    }
+    artifacts = dict(current_artifacts or {})
+    render_result = artifacts.get("render_result")
+    if isinstance(render_result, dict):
+        envelope["facts_hash"] = render_result.get("facts_hash")
+        envelope["fresh_fingerprint"] = render_result.get("fresh_fingerprint")
+
+    updates: dict[str, object] = {"failure_envelope": envelope}
+    if artifacts:
+        updates["current_failure_artifacts"] = artifacts
+    if baseline.accepted_status and not baseline.accepted_status.startswith("ERROR:"):
+        updates["superseded_baseline"] = {
+            "disposition": "SUPERSEDED_FOR_CURRENT_TRANSACTION",
+            "accepted_status": baseline.accepted_status,
+            "accepted_facts_hash": baseline.accepted_facts_hash,
+            "source_revision": baseline.upstream_revision_at_accept,
+        }
+    return merge_details(baseline.model_copy(update={"details": {}}), **updates)
+
+
+def _failed_transaction_view(
+    result: DomainStateV1,
+    baseline: DomainStateV1,
+    *,
+    current_revision: str | None,
+) -> DomainStateV1:
+    """Return a fail-closed current view without mutating the durable last-good baseline."""
+
+    if not (result.accepted_status or "").startswith("ERROR:"):
+        return result
+    details = result.details
+    if "failure_envelope" not in details:
+        details = _failed_transaction_details(
+            baseline,
+            accepted_status=result.accepted_status or "ERROR:unknown",
+            current_revision=current_revision,
+            stage=(result.accepted_status or "ERROR:unknown").split(":", 2)[1],
+        )
+    else:
+        details = {
+            key: value
+            for key, value in details.items()
+            if key in {"failure_envelope", "current_failure_artifacts", "superseded_baseline"}
+        }
+    return result.model_copy(
+        update={
+            "accepted_facts_hash": None,
+            "upstream_revision_at_accept": None,
+            "details": details,
+        }
+    )
 
 
 def _composition_plan_reusable(plan: dict | None) -> bool:
@@ -388,10 +466,18 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     while True:
         plan_dispatch = dispatch_build_presentation_plan(org_repo, current_render_result)
         if plan_dispatch.outcome != "executed":
+            accepted_status = (
+                f"ERROR:presentation_plan:{plan_dispatch.outcome}:{plan_dispatch.error}"
+            )
             return {
-                "accepted_status": (
-                    f"ERROR:presentation_plan:{plan_dispatch.outcome}:{plan_dispatch.error}"
-                )
+                "accepted_status": accepted_status,
+                "details": _failed_transaction_details(
+                    state,
+                    accepted_status=accepted_status,
+                    current_revision=config["configurable"].get("current_revision"),
+                    stage="presentation_plan",
+                    current_artifacts={"render_result": current_render_result},
+                ),
             }
         assert plan_dispatch.result is not None
         presentation_plan = plan_dispatch.result
@@ -418,15 +504,20 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         patch_text = presentation_plan["git_patch_proof"].get("patch", "")
         if not presentation_plan["executable"]:
             validation_errors = presentation_plan.get("document_validation", {}).get("errors", [])
+            accepted_status = "ERROR:presentation_plan:blocked" + (
+                f":{validation_errors}" if validation_errors else ""
+            )
             return {
-                "accepted_status": (
-                    "ERROR:presentation_plan:blocked"
-                    + (f":{validation_errors}" if validation_errors else "")
-                ),
-                "details": merge_details(
+                "accepted_status": accepted_status,
+                "details": _failed_transaction_details(
                     state,
-                    render_result=current_render_result,
-                    presentation_plan=presentation_plan_record,
+                    accepted_status=accepted_status,
+                    current_revision=config["configurable"].get("current_revision"),
+                    stage="document_validation",
+                    current_artifacts={
+                        "render_result": current_render_result,
+                        "presentation_plan": presentation_plan_record,
+                    },
                 ),
             }
 
@@ -868,4 +959,9 @@ def run(
             }
         },
     )
-    return DomainStateV1(**result)
+    returned_state = DomainStateV1(**result)
+    return _failed_transaction_view(
+        returned_state,
+        initial_state,
+        current_revision=current_revision,
+    )

@@ -1,7 +1,15 @@
 """Repository-bound facts for valuable curated README detail."""
 
+import hashlib
+import json
+import subprocess
 from pathlib import Path
 
+from readme_agent.facts.curated_python_example_validation import (
+    validate_python_example,
+)
+from readme_agent.facts.curated_python_fixture_inventory import snapshot_fixture_inventory
+from readme_agent.facts.curated_python_readme import verified_python_examples
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
 
 
@@ -9,6 +17,34 @@ def _write(root: Path, relative: str, text: str) -> None:
     path = root / relative
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def _git(root: Path, *args: str) -> str:
+    return subprocess.run(
+        ["git", "-C", str(root), *args],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
+def _example_surface() -> dict[str, object]:
+    return {
+        "modules": [{"module": "acme", "exports": ["Widget"]}],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "Widget",
+                "source_path": "src/acme/widget.py",
+                "members": [
+                    {"name": "render", "surface": "render()"},
+                    {"name": "save", "surface": "save(target)"},
+                    {"name": "factory", "surface": "factory()"},
+                ],
+            }
+        ],
+        "functions": [],
+    }
 
 
 def test_python_repository_detail_is_mechanical_and_revision_bound(tmp_path: Path) -> None:
@@ -26,7 +62,7 @@ dev = ["build>=1.2"]
     _write(
         tmp_path,
         "src/acme/widget/__init__.py",
-        '__all__ = ["Document", "LoadOptions"]\n',
+        'from .model import Document, LoadOptions\n\n__all__ = ["Document", "LoadOptions"]\n',
     )
     _write(
         tmp_path,
@@ -39,6 +75,10 @@ class Document:
 
     def save(self, path):
         return None
+
+
+class LoadOptions:
+    pass
 
 
 def enforce_constraints():
@@ -168,7 +208,7 @@ document.save("output.bin")
         "Only PDF save is supported",
         "Only .pdf file targets are supported for save operations",
     ]
-    assert selected["product.limitations"].value[0]["line"] == 11
+    assert selected["product.limitations"].value[0]["line"] == 15
     assert len(selected["product.limitations"].value[0]["source_sha256"]) == 64
     assert selected["development.assets"].value["tests"]["count"] == 2
     assert len(selected["development.assets"].value["tests"]["inventory_sha256"]) == 64
@@ -187,6 +227,39 @@ def test_readme_alone_never_creates_curated_repository_facts(tmp_path: Path) -> 
     )
 
     assert curated_repository_fact_candidates(tmp_path, "abc123", None) == []
+
+
+def test_fixture_inventory_proves_absence_only_for_complete_immutable_git_tree(
+    tmp_path: Path,
+) -> None:
+    _write(tmp_path, "README.md", "# Fixture\n")
+    _write(tmp_path, "testdata/scene.obj", "v 0 0 0\n")
+    _write(tmp_path, "src/acme.py", "VALUE = 1\n")
+    _git(tmp_path, "init", "-q")
+    _git(tmp_path, "config", "user.name", "Fixture")
+    _git(tmp_path, "config", "user.email", "fixture@example.test")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-qm", "fixture")
+    revision = _git(tmp_path, "rev-parse", "HEAD")
+
+    inventory = snapshot_fixture_inventory(tmp_path, revision)
+
+    assert inventory.scan_status == "complete"
+    assert inventory.source_revision == revision
+    assert inventory.scan_root == "."
+    assert inventory.tracked_file_count == 3
+    assert len(inventory.inventory_sha256 or "") == 64
+    assert [item.path for item in inventory.fixture_paths] == ["testdata/scene.obj"]
+    assert inventory.matching_paths("scene.obj") == ("testdata/scene.obj",)
+    assert inventory.matching_paths("missing.stl") == ()
+
+    _write(tmp_path, "src/acme.py", "VALUE = 2\n")
+    unscanned = snapshot_fixture_inventory(tmp_path, revision)
+
+    assert unscanned.scan_status == "unscanned"
+    assert unscanned.failure_reason == "tracked_worktree_modified"
+    assert unscanned.inventory_sha256 is None
+    assert unscanned.fixture_paths == []
 
 
 def test_dynamic_python_all_is_not_promoted_to_public_surface(tmp_path: Path) -> None:
@@ -227,6 +300,11 @@ document = Document.open("input.bin")
 
 
 def test_direct_quick_start_function_result_is_verified_from_public_api(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        "[project]\nname = 'acme'\n[tool.setuptools.packages.find]\nwhere = ['src']\n",
+    )
     _write(
         tmp_path,
         "src/acme/__init__.py",
@@ -287,6 +365,248 @@ png = result.to_png()
     assert "result.to_svg()" in example["code"]
 
 
+def test_python_public_surface_projects_exact_inherited_api_semantics(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        "[project]\nname = 'acme'\n[tool.setuptools.packages.find]\nwhere = ['src']\n",
+    )
+    _write(
+        tmp_path,
+        "src/acme/__init__.py",
+        "from .model import Child\n__all__ = ['Child']\n",
+    )
+    _write(
+        tmp_path,
+        "src/acme/model.py",
+        "class Base:\n"
+        "    def __init__(self, path: str, strict=False) -> None:\n"
+        "        self.path = path\n"
+        "    def save(self, target: str) -> bool:\n"
+        "        return True\n\n"
+        "class Child(Base):\n"
+        "    def inspect(self) -> dict[str, int]:\n"
+        "        return {}\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "abc123", None)
+    }
+    classes = selected["api.public_surface"].value["classes"]
+    child = next(item for item in classes if item["name"] == "Child")
+
+    assert child["bases"] == ["Base"]
+    assert child["constructor"] == {
+        "surface": "Base(path, strict=False)",
+        "line": 2,
+        "source_path": "src/acme/model.py",
+        "source_sha256": child["constructor"]["source_sha256"],
+        "parameters": [
+            {
+                "name": "path",
+                "kind": "positional",
+                "annotation": "str",
+                "default": None,
+            },
+            {
+                "name": "strict",
+                "kind": "positional",
+                "annotation": None,
+                "default": "False",
+            },
+        ],
+        "return_annotation": "None",
+        "declared_by": "Base",
+        "inherited": True,
+    }
+    members = {item["name"]: item for item in child["members"]}
+    assert members["inspect"]["return_annotation"] == "dict[str, int]"
+    assert members["inspect"]["declared_by"] == "Child"
+    assert members["inspect"]["inherited"] is False
+    assert members["save"]["return_annotation"] == "bool"
+    assert members["save"]["declared_by"] == "Base"
+    assert members["save"]["inherited"] is True
+
+
+def test_root_layout_public_surface_uses_distributed_packages_and_exact_hashes(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\n"
+        "setup(name='widget-foss', packages=['acme', 'acme.widget'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "from . import widget\n__all__ = ['widget']\n")
+    _write(
+        tmp_path,
+        "acme/widget/__init__.py",
+        "from .document import Document\n__all__ = ['Document']\n",
+    )
+    _write(
+        tmp_path,
+        "acme/widget/document.py",
+        "class Document:\n    def save(self, target='output.bin') -> None:\n        return None\n",
+    )
+    _write(tmp_path, "tests/not_distributed.py", "class InternalTool: pass\n")
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "root-revision", None)
+    }
+
+    surface = selected["api.public_surface"]
+    assert surface.source.source_revision == "root-revision"
+    modules = {item["module"]: item for item in surface.value["modules"]}
+    assert modules["acme.widget"]["exports"] == ["Document"]
+    assert all(module != "tests.not_distributed" for module in modules)
+    assert (
+        modules["acme.widget"]["source_sha256"]
+        == hashlib.sha256((tmp_path / "acme/widget/__init__.py").read_bytes()).hexdigest()
+    )
+    document = next(item for item in surface.value["classes"] if item["name"] == "Document")
+    assert document["module"] == "acme.widget"
+    assert document["source_path"] == "acme/widget/document.py"
+    assert (
+        document["source_sha256"]
+        == hashlib.sha256((tmp_path / "acme/widget/document.py").read_bytes()).hexdigest()
+    )
+    assert document["members"][0]["surface"] == "save(target='output.bin')"
+
+
+def test_root_layout_readme_example_binds_constructed_public_class(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\n"
+        "setup(name='widget-foss', packages=['acme', 'acme.widget'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "")
+    _write(tmp_path, "acme/widget/__init__.py", "from .Document import Document\n")
+    _write(
+        tmp_path,
+        "acme/widget/Document.py",
+        "class Document:\n    def save(self, target='output.bin') -> None:\n        return None\n",
+    )
+    _write(
+        tmp_path,
+        "README.md",
+        "# Widget\n\n"
+        "## Quick start\n\n"
+        "```python\n"
+        "from acme.widget import Document\n\n"
+        "document = Document()\n"
+        "document.save('output.bin')\n"
+        "```\n",
+    )
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "root-example", None)
+    }
+
+    inline = selected["repository.examples"].value["inline_examples"]
+    assert len(inline) == 1
+    assert inline[0]["static_api_verified"] is True
+    assert inline[0]["evidence_modules"] == ["acme.widget"]
+
+
+def test_generated_binding_nested_names_project_members_without_duplicating_class(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "from .Camera import Camera\n__all__ = ['Camera']\n")
+    _write(
+        tmp_path,
+        "acme/Camera.py",
+        "class Camera:\n    @property\n    def near_plane(self) -> float:\n        return 0.1\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "nested", None)
+    }
+    classes = selected["api.public_surface"].value["classes"]
+    cameras = [item for item in classes if item["name"] == "Camera"]
+    assert len(cameras) == 1
+    assert cameras[0]["members"] == [
+        {
+            "name": "near_plane",
+            "kind": "property",
+            "surface": "near_plane: float",
+            "return_annotation": "float",
+            "declared_by": "Camera",
+            "inherited": False,
+            "source_path": "acme/Camera.py",
+            "source_sha256": hashlib.sha256((tmp_path / "acme/Camera.py").read_bytes()).hexdigest(),
+            "line": 3,
+        }
+    ]
+
+
+def test_ambiguous_same_named_classes_fail_closed_from_class_projection(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "__all__ = []\n")
+    _write(tmp_path, "acme/one.py", "class Widget:\n    def one(self): pass\n")
+    _write(tmp_path, "acme/two.py", "class Widget:\n    def two(self): pass\n")
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "ambiguous", None)
+    }
+
+    assert all(item["name"] != "Widget" for item in selected["api.public_surface"].value["classes"])
+    assert selected["api.public_surface"].value["inventory_counts"]["ambiguous_classes"] == 1
+
+
+def test_public_surface_projection_is_hard_bounded_for_large_generated_api(tmp_path: Path) -> None:
+    class_names = [f"Type{index:02d}" for index in range(70)]
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(
+        tmp_path,
+        "acme/__init__.py",
+        "from .models import " + ", ".join(class_names) + "\n__all__ = " + repr(class_names) + "\n",
+    )
+    _write(
+        tmp_path,
+        "acme/models.py",
+        "\n\n".join(
+            f"class {name}:\n"
+            + "\n".join(f"    def method_{member:02d}(self): pass" for member in range(30))
+            for name in class_names
+        )
+        + "\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "large", None)
+    }
+    value = selected["api.public_surface"].value
+    prompt_projection = {key: item for key, item in value.items() if key != "coordinate_catalog"}
+    encoded = json.dumps(prompt_projection, sort_keys=True, separators=(",", ":")).encode()
+
+    assert value["projection_truncated"] is True
+    assert len(value["modules"]) <= value["projection_limits"]["modules"]
+    assert len(value["classes"]) <= value["projection_limits"]["classes"]
+    assert all(
+        len(item["members"]) <= value["projection_limits"]["members_per_class"]
+        for item in value["classes"]
+    )
+    assert len(encoded) <= value["projection_limits"]["json_bytes"]
+    assert value["package_namespaces"] == ["acme"]
+    assert value["coordinate_catalog"]["content_sha256"]
+
+
 def test_direct_quick_start_rejects_unknown_calls_and_methods(tmp_path: Path) -> None:
     _write(
         tmp_path,
@@ -316,6 +636,82 @@ def test_direct_quick_start_rejects_unknown_calls_and_methods(tmp_path: Path) ->
         assert all(fact.field != "repository.examples" for fact in facts)
 
 
+def test_additional_examples_h2_and_h3_blocks_are_discovered_and_verified() -> None:
+    readme = """# Acme
+
+## Additional examples
+
+```python
+from acme import Widget
+widget = Widget()
+widget.render()
+```
+
+### Save a widget
+
+```python
+from acme import Widget
+widget = Widget()
+widget.save("output.bin")
+```
+"""
+
+    examples, decisions = verified_python_examples(readme, _example_surface())
+
+    assert [example["title"] for example in examples] == [
+        "Additional examples",
+        "Save a widget",
+    ]
+    assert [decision.accepted for decision in decisions] == [True, True]
+    assert all(example["evidence_modules"] == ["acme"] for example in examples)
+
+
+def test_python_readme_example_validation_fails_closed_with_specific_reasons() -> None:
+    surface = _example_surface()
+    cases = {
+        "unknown member": (
+            "from acme import Widget\nwidget = Widget()\nwidget.unknown\n",
+            "unknown_product_member:Widget.unknown",
+        ),
+        "unknown chained member": (
+            "from acme import Widget\nwidget = Widget()\nwidget.factory().save('x')\n",
+            "unresolved_chained_product_member:Widget.save",
+        ),
+        "unsafe call": (
+            "from acme import Widget\nwidget = Widget()\neval('widget.render()')\n",
+            "unsafe_call:eval",
+        ),
+        "malformed code": (
+            "from acme import Widget\nwidget = Widget(\n",
+            "malformed_python",
+        ),
+        "cross-module spoof": (
+            "from acme.fake import Widget\nwidget = Widget()\nwidget.render()\n",
+            "unknown_product_import:acme.fake.Widget",
+        ),
+    }
+
+    for code, expected_reason in cases.values():
+        accepted, modules, reason = validate_python_example(code, surface)
+
+        assert accepted is False
+        assert modules == ()
+        assert reason == expected_reason
+
+
+def test_stdlib_example_operations_are_allowlisted_but_do_not_prove_product_api() -> None:
+    accepted, modules, reason = validate_python_example(
+        "import io\nfrom acme import Widget\n"
+        "widget = Widget()\nstream = io.BytesIO()\nwidget.save(stream)\n"
+        "stream.seek(0)\nprint(len(stream.read()))\n",
+        _example_surface(),
+    )
+
+    assert accepted is True
+    assert modules == ("acme",)
+    assert reason == "accepted"
+
+
 def test_constraint_extraction_is_product_neutral_and_source_bound(tmp_path: Path) -> None:
     _write(
         tmp_path,
@@ -332,6 +728,209 @@ def test_constraint_extraction_is_product_neutral_and_source_bound(tmp_path: Pat
         "Only XML output is supported",
         "Input archive requires an index",
     ]
+
+
+def test_root_layout_development_and_concrete_limitations_are_manifest_bound(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "")
+    _write(
+        tmp_path,
+        "acme/features.py",
+        "class BaseShape:\n"
+        "    def convert(self):\n"
+        "        raise NotImplementedError('conversion is not implemented')\n\n"
+        "class ConcreteShape(BaseShape):\n"
+        "    def convert(self):\n"
+        "        return 'mesh'\n\n"
+        "class AbstractThing:\n"
+        "    def convert(self):\n"
+        "        raise NotImplementedError('Abstract conversion is not implemented')\n\n"
+        "class IShape:\n"
+        "    def convert(self):\n"
+        "        raise NotImplementedError('conversion is not implemented')\n\n"
+        "class EntityRenderer:\n"
+        "    '''Base class for rendering entities.'''\n"
+        "    def render(self):\n"
+        "        raise NotImplementedError('EntityRenderer.render is not implemented')\n\n"
+        "class Mesh:\n"
+        "    def do_boolean(self):\n"
+        "        raise NotImplementedError('Mesh boolean union is not implemented')\n\n"
+        "class NurbsSurface:\n"
+        "    def evaluate(self):\n"
+        "        raise NotImplementedError('NURBS surface evaluation is not implemented')\n\n"
+        "class Scene:\n"
+        "    def render(self):\n"
+        "        raise NotImplementedError('Scene render is not implemented')\n",
+    )
+    _write(
+        tmp_path,
+        "tests/test_features.py",
+        "import unittest\n\nclass FeatureTests(unittest.TestCase):\n    pass\n",
+    )
+    _write(
+        tmp_path,
+        "tests/spoof.py",
+        "raise NotImplementedError('Repository-wide export is not implemented')\n",
+    )
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "root-truth", None)
+    }
+
+    commands = selected["development.commands"].value["entries"]
+    assert [item["command"] for item in commands] == [
+        "python -m pip install -e .",
+        'python -m unittest discover -s tests -p "test_*.py"',
+    ]
+    assert all(item["evidence_kind"] == "source_derived" for item in commands)
+    assert all(item["execution_verified"] is False for item in commands)
+    assert commands[0]["sources"][0]["path"] == "setup.py"
+    assert len(commands[0]["sources"][0]["sha256"]) == 64
+    statements = [item["statement"] for item in selected["product.limitations"].value]
+    assert statements == [
+        "Mesh boolean union is not implemented",
+        "NURBS surface evaluation is not implemented",
+        "Scene render is not implemented",
+    ]
+    assert all(item["path"] == "acme/features.py" for item in selected["product.limitations"].value)
+
+
+def test_src_layout_commands_and_limitations_ignore_undeclared_spoof_package(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        "[project]\nname='acme'\n"
+        "[project.optional-dependencies]\ntest=['pytest>=8']\n"
+        "[tool.setuptools.packages.find]\nwhere=['src']\ninclude=['acme*']\n",
+    )
+    _write(tmp_path, "src/acme/__init__.py", "")
+    _write(
+        tmp_path,
+        "src/acme/feature.py",
+        "def export():\n    raise NotImplementedError('Mesh export is not implemented')\n",
+    )
+    _write(
+        tmp_path,
+        "src/spoof/feature.py",
+        "def export():\n    raise NotImplementedError('Every format is unsupported')\n",
+    )
+    _write(tmp_path, "tests/test_feature.py", "def test_feature():\n    assert True\n")
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "src-truth", None)
+    }
+
+    commands = selected["development.commands"].value["entries"]
+    assert [item["command"] for item in commands] == [
+        "python -m pip install -e .",
+        "python -m pytest tests",
+    ]
+    limitations = selected["product.limitations"].value
+    assert [item["statement"] for item in limitations] == ["Mesh export is not implemented"]
+    assert limitations[0]["path"] == "src/acme/feature.py"
+
+
+def test_python_truth_fails_closed_for_absent_or_malformed_distribution_metadata(
+    tmp_path: Path,
+) -> None:
+    _write(tmp_path, "setup.py", "this is not valid Python !!!\n")
+    _write(
+        tmp_path,
+        "src/acme/feature.py",
+        "def export():\n    raise NotImplementedError('Mesh export is not implemented')\n",
+    )
+    _write(tmp_path, "tests/test_feature.py", "import unittest\n")
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "malformed-layout", None)
+    }
+
+    assert "development.commands" not in selected
+    assert "product.limitations" not in selected
+
+    absent = tmp_path / "absent"
+    _write(
+        absent,
+        "acme/feature.py",
+        "def export():\n    raise NotImplementedError('Mesh export is not implemented')\n",
+    )
+    absent_selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(absent, "absent-layout", None)
+    }
+    assert "development.commands" not in absent_selected
+    assert "product.limitations" not in absent_selected
+
+
+def test_source_limitations_are_deduplicated_and_bounded(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "")
+    statements = [f"Capability {index} is not implemented" for index in range(15)]
+    body = "\n\n".join(
+        f"def capability_{index}():\n    raise NotImplementedError({statement!r})"
+        for index, statement in enumerate(statements)
+    )
+    body += (
+        "\n\ndef duplicate():\n    raise NotImplementedError('Capability 0 is not implemented')\n"
+    )
+    _write(tmp_path, "acme/features.py", body)
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "bounded", None)
+    }
+    limitations = selected["product.limitations"].value
+
+    assert len(limitations) == 10
+    assert len({item["statement"] for item in limitations}) == 10
+
+
+def test_source_guidance_omits_incomplete_and_duplicate_rendering_notices(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "setup.py",
+        "from setuptools import setup\nsetup(name='acme', packages=['acme'])\n",
+    )
+    _write(tmp_path, "acme/__init__.py", "")
+    _write(
+        tmp_path,
+        "acme/Scene.py",
+        '"""Rendering is not supported in this package."""\n'
+        "class Scene:\n"
+        "    def render(self):\n"
+        "        raise NotImplementedError('render is not implemented')\n",
+    )
+    _write(
+        tmp_path,
+        "acme/Renderer.py",
+        "class Renderer:\n"
+        "    def render(self):\n"
+        "        raise NotImplementedError('Renderer.render is not implemented')\n"
+        "\nNOTICE = 'Unsupported data type for Widget:'\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "rendering", None)
+    }
+    limitations = selected["product.limitations"].value
+    statements = [item["statement"] for item in limitations]
+
+    assert statements == ["Scene and renderer output generation are not implemented."]
 
 
 def test_page_dependencies_and_focused_mcp_command_are_source_bound(tmp_path: Path) -> None:
@@ -448,6 +1047,7 @@ class PdfLoadLimits:
     assert [item["command"] for item in selected["development.commands"].value["entries"]] == [
         "scripts/build.sh",
         "scripts/check.sh",
+        "python -m pip install -e .",
     ]
 
 

@@ -1275,6 +1275,127 @@ class TestReadmePresentationSpecialist:
         assert result["accepted_status"].startswith("ERROR:agentic_composition:blocked:")
         assert result["details"] == {"durable_non_candidate_note": "preserve"}
 
+    @pytest.mark.parametrize(
+        ("failure_kind", "expected_stage", "current_plan_present"),
+        [
+            ("plan_dispatch", "presentation_plan", False),
+            ("document_validation", "document_validation", True),
+        ],
+    )
+    def test_current_plan_failure_does_not_expose_stale_accepted_subresults(
+        self,
+        monkeypatch,
+        failure_kind,
+        expected_stage,
+        current_plan_present,
+    ):
+        """A failed current transaction returns current evidence, not the last-good result."""
+
+        from readme_agent.specialists import readme_presentation
+
+        prior_revision = "a" * 40
+        current_revision = "b" * 40
+        prior_facts_hash = "c" * 64
+        current_facts_hash = "d" * 64
+        stale_details = {
+            "bundle_verification": {"verified": True},
+            "deterministic_validation": {"verdict": "accept"},
+            "independent_review": {"outcome_kind": "accepted"},
+            "no_op_proof": {"status": "NO_OP_PROVEN"},
+            "local_bundle_dir": "runs/readme-poc/stale-accepted-bundle",
+            "candidate_hash": "e" * 64,
+        }
+        accepted_baseline = DomainStateV1(
+            domain="readme_presentation",
+            accepted_facts_hash=prior_facts_hash,
+            accepted_status="NO_CHANGE",
+            upstream_revision_at_accept=prior_revision,
+            details=stale_details,
+        )
+        backend = _FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV1(
+            org_repo=ORG_REPO,
+            domain_states={"readme_presentation": accepted_baseline},
+        )
+        current_render = {
+            "needs_write": True,
+            "facts_hash": current_facts_hash,
+            "fresh_fingerprint": "f" * 64,
+            "status": "GENERATED",
+            "original_text": "# Prior\n",
+            "final_text": "# Current candidate\n",
+            "llm_called": False,
+            "llm_calls": [],
+        }
+        current_plan = {
+            "executable": False,
+            "git_patch_proof": {"patch": "current patch", "applies": True},
+            "document_validation": {"errors": ["current header validation failed"]},
+        }
+        monkeypatch.setattr(readme_presentation, "proposal_only_active", lambda: False)
+        monkeypatch.setattr(
+            readme_presentation,
+            "load_prepared_product_truth",
+            lambda *args, **kwargs: None,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_tool_call",
+            lambda *args, **kwargs: SimpleNamespace(
+                outcome="executed", error=None, result=current_render
+            ),
+        )
+        if failure_kind == "plan_dispatch":
+            plan_dispatch = SimpleNamespace(
+                outcome="blocked", error="current plan builder failed", result=None
+            )
+        else:
+            plan_dispatch = SimpleNamespace(outcome="executed", error=None, result=current_plan)
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_build_presentation_plan",
+            lambda *args, **kwargs: plan_dispatch,
+        )
+
+        result = readme_presentation.run(
+            ORG_REPO,
+            backend,
+            current_revision=current_revision,
+        )
+
+        assert result.accepted_status.startswith("ERROR:presentation_plan:")
+        assert result.accepted_facts_hash is None
+        assert result.upstream_revision_at_accept is None
+        assert set(result.details) == {
+            "failure_envelope",
+            "current_failure_artifacts",
+            "superseded_baseline",
+        }
+        assert result.details["failure_envelope"]["stage"] == expected_stage
+        assert result.details["failure_envelope"]["source_revision"] == current_revision
+        assert result.details["failure_envelope"]["facts_hash"] == current_facts_hash
+        current_artifacts = result.details["current_failure_artifacts"]
+        assert current_artifacts["render_result"]["final_text"] == "# Current candidate\n"
+        assert ("presentation_plan" in current_artifacts) is current_plan_present
+        assert result.details["superseded_baseline"] == {
+            "disposition": "SUPERSEDED_FOR_CURRENT_TRANSACTION",
+            "accepted_status": "NO_CHANGE",
+            "accepted_facts_hash": prior_facts_hash,
+            "source_revision": prior_revision,
+        }
+        assert set(stale_details).isdisjoint(result.details)
+
+        stored = backend.load(ORG_REPO).domain_states["readme_presentation"]
+        assert stored.accepted_status == "NO_CHANGE"
+        assert stored.accepted_facts_hash == prior_facts_hash
+        assert stored.upstream_revision_at_accept == prior_revision
+        for key, value in stale_details.items():
+            assert stored.details[key] == value
+        assert stored.details["last_failure_envelope"]["stage"] == expected_stage
+        assert stored.details["last_failure_envelope"]["source_revision"] == current_revision
+        assert stored.consecutive_failure_count == 1
+        assert stored.last_failure_reason == "presentation_plan"
+
     def test_a_genuinely_invalid_render_is_rejected_and_never_committed(
         self, tmp_path, monkeypatch
     ):

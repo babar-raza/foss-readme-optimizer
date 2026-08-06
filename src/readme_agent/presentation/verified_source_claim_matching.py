@@ -6,7 +6,10 @@ import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
-from readme_agent.readme.document_plan import SourceClaimResolutionV1
+from readme_agent.readme.document_plan import (
+    CandidateContentProvenanceV1,
+    SourceClaimResolutionV1,
+)
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
 
@@ -39,20 +42,49 @@ def equivalent_source_claim_resolution(
     candidate_bytes: bytes,
     candidates: dict[str, list[ReadmeMaterialClaimAssessmentV1]],
     facts: ProductFactsV2,
+    candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
 ) -> SourceClaimResolutionV1 | None:
     """Resolve one exact presentation-only rewrite when both claims share accepted facts."""
 
-    fact_ids = sorted(accepted_source_claim_fact_ids(source_claim_text, facts))
     equivalent = candidates.get(presentation_equivalence_key(source_claim_text), [])
-    if len(equivalent) != 1 or not fact_ids:
+    if len(equivalent) != 1:
         return None
     candidate_claim = equivalent[0]
     candidate_text = candidate_bytes[
         candidate_claim.source_byte_start : candidate_claim.source_byte_end
     ].decode("utf-8")
-    candidate_fact_ids = sorted(accepted_source_claim_fact_ids(candidate_text, facts))
-    if set(candidate_fact_ids) != set(fact_ids):
+    source_fact_ids = set(accepted_source_claim_fact_ids(source_claim_text, facts))
+    candidate_fact_ids = set(accepted_source_claim_fact_ids(candidate_text, facts))
+    provenance_ids: list[str] = []
+    covered = bytearray(candidate_claim.source_byte_end - candidate_claim.source_byte_start)
+    for binding in candidate_content_provenance or []:
+        if (
+            binding.authority_scope != "lineage_only"
+            and binding.fact_ids
+            and binding.candidate_byte_start < candidate_claim.source_byte_end
+            and candidate_claim.source_byte_start < binding.candidate_byte_end
+        ):
+            candidate_fact_ids.update(binding.fact_ids)
+            provenance_ids.append(binding.provenance_id)
+            start = max(candidate_claim.source_byte_start, binding.candidate_byte_start)
+            end = min(candidate_claim.source_byte_end, binding.candidate_byte_end)
+            covered[
+                start - candidate_claim.source_byte_start : end - candidate_claim.source_byte_start
+            ] = b"\x01" * (end - start)
+    uncovered = bytes(
+        byte
+        for index, byte in enumerate(
+            candidate_bytes[candidate_claim.source_byte_start : candidate_claim.source_byte_end]
+        )
+        if not covered[index]
+    )
+    if provenance_ids and uncovered.strip():
         return None
+    if not candidate_fact_ids or (
+        source_fact_ids and not source_fact_ids.issubset(candidate_fact_ids)
+    ):
+        return None
+    fact_ids = sorted(candidate_fact_ids)
     return SourceClaimResolutionV1(
         claim_id=source_claim.claim_id,
         source_byte_start=source_claim.source_byte_start,
@@ -67,6 +99,7 @@ def equivalent_source_claim_resolution(
         evidence=[
             f"source-content-sha256:{source_claim.content_sha256}",
             f"candidate-content-sha256:{candidate_claim.content_sha256}",
+            *(f"candidate-provenance:{provenance_id}" for provenance_id in sorted(provenance_ids)),
             *(f"accepted-fact:{fact_id}" for fact_id in fact_ids),
         ],
         rationale=(

@@ -38,6 +38,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "drafting_and_example_selection",
     "evidence_polarity",
     "root_role_selection",
+    "documentation_catalog",
 )
 VISITOR_RENDER_FIELDS = (
     "product.audience",
@@ -47,6 +48,10 @@ VISITOR_RENDER_FIELDS = (
 )
 
 _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
+    "documentation_catalog": (
+        "catalog_documentation.py",
+        "../../../data/aspose_org_links.json",
+    ),
     "acquisition_truth": (
         "acquisition.py",
         "acquisition_pins.py",
@@ -120,8 +125,16 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "repository_ingestion.py",
         "curated_readme_evidence.py",
         "curated_constraint_evidence.py",
+        "curated_python_api_ast.py",
+        "curated_python_api_projection.py",
+        "curated_python_dependencies.py",
+        "curated_python_development.py",
         "curated_python_evidence.py",
+        "curated_python_example_validation.py",
+        "curated_python_fixture_inventory.py",
+        "curated_python_import_shadowing.py",
         "curated_python_mcp.py",
+        "curated_python_public_surface.py",
         "curated_python_readme.py",
         "curated_repository_assets.py",
     ),
@@ -154,7 +167,15 @@ _ECOSYSTEM_FILE_OWNERS = {
     "typescript_example_verifier.py": "typescript",
     "rust_example_verifier.py": "rust",
     "curated_python_evidence.py": "python",
+    "curated_python_api_ast.py": "python",
+    "curated_python_api_projection.py": "python",
+    "curated_python_dependencies.py": "python",
+    "curated_python_development.py": "python",
+    "curated_python_example_validation.py": "python",
+    "curated_python_fixture_inventory.py": "python",
+    "curated_python_import_shadowing.py": "python",
     "curated_python_mcp.py": "python",
+    "curated_python_public_surface.py": "python",
     "curated_python_readme.py": "python",
 }
 

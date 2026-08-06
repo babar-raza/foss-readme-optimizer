@@ -13,6 +13,7 @@ from readme_agent.links.terminology import (
     canonicalize_enterprise_edition,
     enterprise_product_name_from_facts,
 )
+from readme_agent.presentation.verified_source_shell_policy import source_shell_policy_spans
 
 _FENCE = re.compile(r"(?ms)^```.*?^```[ \t]*$")
 _MARKDOWN_LINK = re.compile(r"(!?)\[([^\]\n]*)\]\((https?://[^)\s]+)\)", re.IGNORECASE)
@@ -62,6 +63,24 @@ def _accepted_relationship_fact_id(facts: ProductFactsV2) -> str | None:
     return None if fact.has_unresolved_conflict else fact_id
 
 
+def _edit(
+    source_text: str,
+    start: int,
+    end: int,
+    *,
+    standard_id: str,
+    rationale: str,
+    replacement: str = "",
+) -> VerifiedSourcePolicyEditV1:
+    return VerifiedSourcePolicyEditV1(
+        source_byte_start=_byte_offset(source_text, start),
+        source_byte_end=_byte_offset(source_text, end),
+        replacement=replacement,
+        configured_standard_ids=[standard_id],
+        rationale=rationale,
+    )
+
+
 def _expanded_link_span(markdown: str, start: int, end: int) -> tuple[int, int, str]:
     """Expand one URL to its visitor-visible link wrapper and safe plain-text replacement."""
 
@@ -98,8 +117,18 @@ def build_verified_source_policy_edits(
             "verified source terminology correction requires an accepted commercial/FOSS "
             "relationship fact"
         )
-    edits: list[VerifiedSourcePolicyEditV1] = []
-    occupied: list[tuple[int, int]] = []
+    edits = [
+        _edit(
+            source_text,
+            span.character_start,
+            span.character_end,
+            standard_id=span.standard_id,
+            rationale=span.rationale,
+            replacement=span.replacement,
+        )
+        for span in source_shell_policy_spans(source_text)
+    ]
+    occupied = [(item.source_byte_start, item.source_byte_end) for item in edits]
 
     for occurrence in find_aspose_link_occurrences(source_text):
         start, end, replacement = _expanded_link_span(
@@ -109,8 +138,10 @@ def build_verified_source_policy_edits(
         )
         if not _visitor_visible(source_text, start, end):
             continue
+        byte_start = _byte_offset(source_text, start)
+        byte_end = _byte_offset(source_text, end)
         if any(
-            existing_start < end and start < existing_end
+            existing_start < byte_end and byte_start < existing_end
             for existing_start, existing_end in occupied
         ):
             continue
@@ -120,7 +151,7 @@ def build_verified_source_policy_edits(
         )
         if terminology_overlap:
             replacement = canonical if relationship_fact_id and canonical else ""
-        occupied.append((start, end))
+        occupied.append((byte_start, byte_end))
         edits.append(
             VerifiedSourcePolicyEditV1(
                 source_byte_start=_byte_offset(source_text, start),
@@ -146,12 +177,14 @@ def build_verified_source_policy_edits(
             end = correction.character_end
             if not _visitor_visible(source_text, start, end):
                 continue
+            byte_start = _byte_offset(source_text, start)
+            byte_end = _byte_offset(source_text, end)
             if any(
-                existing_start < end and start < existing_end
+                existing_start < byte_end and byte_start < existing_end
                 for existing_start, existing_end in occupied
             ):
                 continue
-            occupied.append((start, end))
+            occupied.append((byte_start, byte_end))
             edits.append(
                 VerifiedSourcePolicyEditV1(
                     source_byte_start=_byte_offset(source_text, start),

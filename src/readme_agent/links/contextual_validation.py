@@ -10,6 +10,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.catalog import lookup_verified_target, normalize_target_url
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
+from readme_agent.links.fact_owned_targets import accepted_fact_owned_targets
 from readme_agent.links.occurrences import (
     count_aspose_link_occurrences,
     find_aspose_link_occurrences,
@@ -48,8 +49,11 @@ def validate_contextual_link_candidate(
     binding_url_counts = Counter(
         normalize_target_url(binding.target_url) for binding in plan.bindings
     )
+    fact_owned_targets = accepted_fact_owned_targets(facts, catalogs)
     expected_url_counts = Counter(plan.pre_link_url_counts)
     expected_url_counts.update(binding_url_counts)
+    for normalized_url in fact_owned_targets:
+        expected_url_counts[normalized_url] = max(expected_url_counts[normalized_url], 1)
     for normalized_url in sorted(set(candidate_url_counts) | set(expected_url_counts)):
         if candidate_url_counts[normalized_url] != expected_url_counts[normalized_url]:
             errors.append(
@@ -58,7 +62,9 @@ def validate_contextual_link_candidate(
             )
     for occurrence in occurrences:
         record = lookup_verified_target(catalogs, occurrence.url)
-        if record is None or not record.linkable:
+        if (
+            record is None or not record.linkable
+        ) and occurrence.normalized_url not in fact_owned_targets:
             errors.append(f"candidate contains non-linkable Aspose target: {occurrence.url}")
         if first_h2 < 0 or occurrence.character_start < first_h2:
             errors.append(f"Aspose target appears in the opening: {occurrence.url}")

@@ -8,6 +8,12 @@ import re
 from pathlib import Path
 
 from readme_agent.facts.curated_constraint_evidence import source_limitations
+from readme_agent.facts.curated_python_development import (
+    distributed_python_source_roots,
+)
+from readme_agent.facts.curated_python_development import (
+    repository_development_commands as _python_development_commands,
+)
 
 _PRIVATE_REPORT_URL = re.compile(
     r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/security/advisories/new"
@@ -17,6 +23,10 @@ _CONSTRAINT = re.compile(
     r"does not perform layout reflow|only\b.+\bimplemented|unsupported)\b",
     flags=re.IGNORECASE,
 )
+_ABSTRACT_CONSTRAINT = re.compile(
+    r"\b(?:abstract|base(?:\s+\w+){0,3}\s+class)\b",
+    flags=re.IGNORECASE,
+)
 
 
 def _sha256(path: Path) -> str:
@@ -24,55 +34,9 @@ def _sha256(path: Path) -> str:
 
 
 def repository_development_commands(root: Path) -> tuple[object, list[str]] | None:
-    """Return exact checked-in validation scripts and a source-derived MCP test command."""
+    """Retain the repository-guidance public seam for Python command facts."""
 
-    entries: list[dict[str, object]] = []
-    locations: list[str] = []
-    mcp_tests = sorted(path for path in (root / "tests/mcp").glob("test_*.py") if path.is_file())
-    if mcp_tests:
-        modules = [
-            path.relative_to(root).with_suffix("").as_posix().replace("/", ".")
-            for path in mcp_tests
-        ]
-        paths = [
-            {"path": path.relative_to(root).as_posix(), "sha256": _sha256(path)}
-            for path in mcp_tests
-        ]
-        entries.append(
-            {
-                "kind": "focused_test",
-                "scope": "MCP",
-                "command": "python -m unittest " + " ".join(modules),
-                "sources": paths,
-            }
-        )
-        locations.extend(str(item["path"]) for item in paths)
-    scripts = root / "scripts"
-    if scripts.is_dir():
-        for path in sorted(scripts.glob("*.sh")):
-            try:
-                text = path.read_text(encoding="utf-8")
-            except (OSError, UnicodeDecodeError):
-                continue
-            commands = [
-                line.strip() for line in text.splitlines() if line.strip().startswith("python -m ")
-            ]
-            if not commands:
-                continue
-            relative = path.relative_to(root).as_posix()
-            entries.append(
-                {
-                    "kind": "repository_script",
-                    "command": relative,
-                    "embedded_commands": commands,
-                    "path": relative,
-                    "source_sha256": _sha256(path),
-                }
-            )
-            locations.append(relative)
-    if not entries:
-        return None
-    return {"entries": entries}, sorted(set(locations))
+    return _python_development_commands(root)
 
 
 def repository_documentation_assets(root: Path) -> tuple[object, list[str]] | None:
@@ -238,21 +202,42 @@ def source_guidance_limitations(root: Path) -> tuple[object, list[str]] | None:
         if isinstance(rows, list):
             found.extend(item for item in rows if isinstance(item, dict))
         locations.extend(row_locations)
-    source_root = root / "src"
-    if not source_root.is_dir():
+    source_roots = distributed_python_source_roots(root)
+    if not source_roots:
         return (found, sorted(set(locations))) if found else None
-    for path in sorted(source_root.rglob("*.py")):
+    source_files = sorted(
+        {path for source_root in source_roots for path in source_root.rglob("*.py")}
+    )
+    for path in source_files:
         try:
             tree = ast.parse(path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError, SyntaxError):
             continue
         relative = path.relative_to(root).as_posix()
         digest = _sha256(path)
+        raised_constants = {
+            id(argument)
+            for item in ast.walk(tree)
+            if isinstance(item, ast.Raise) and isinstance(item.exc, ast.Call)
+            for argument in item.exc.args
+        }
         for node in ast.walk(tree):
-            if not isinstance(node, ast.Constant) or not isinstance(node.value, str):
+            if (
+                not isinstance(node, ast.Constant)
+                or not isinstance(node.value, str)
+                or id(node) in raised_constants
+            ):
                 continue
             for sentence in _sentences(node.value):
-                if _CONSTRAINT.search(sentence) is None:
+                if (
+                    _CONSTRAINT.search(sentence) is None
+                    or _ABSTRACT_CONSTRAINT.search(sentence) is not None
+                    or sentence.rstrip().endswith(":")
+                ):
+                    continue
+                if re.search(r"\brender", sentence, flags=re.IGNORECASE) and any(
+                    item.get("kind") == "rendering_unimplemented" for item in found
+                ):
                     continue
                 record = {
                     "statement": sentence,
@@ -267,11 +252,18 @@ def source_guidance_limitations(root: Path) -> tuple[object, list[str]] | None:
     if not found:
         return None
     substantial = [
-        item for item in found if len(re.findall(r"[A-Za-z0-9]+", str(item.get("statement")))) >= 5
+        item for item in found if len(re.findall(r"[A-Za-z0-9]+", str(item.get("statement")))) >= 4
     ]
     prioritized = sorted(
         substantial,
         key=lambda item: (
+            0
+            if re.search(
+                r"\b(?:do_boolean|union|difference|intersect|NURBS|render)\b",
+                str(item.get("statement")),
+                flags=re.IGNORECASE,
+            )
+            else 1,
             0 if "certification-grade" in str(item.get("statement")).casefold() else 1,
             0 if "layout reflow" in str(item.get("statement")).casefold() else 1,
             0 if "not fully implemented" in str(item.get("statement")).casefold() else 1,

@@ -228,6 +228,20 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         return None
     body: list[str] = []
     export_count = 0
+    namespaces = fact.value.get("package_namespaces")
+    if isinstance(namespaces, list) and namespaces:
+        body.extend(
+            [
+                "### Public package namespaces",
+                "",
+                *(
+                    f"- `{namespace}`"
+                    for namespace in namespaces
+                    if isinstance(namespace, str) and namespace.strip()
+                ),
+                "",
+            ]
+        )
     mcp = fact.value.get("mcp_server")
     if isinstance(mcp, dict):
         tools = mcp.get("tools")

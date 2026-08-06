@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.links.catalog import load_aspose_link_catalogs
 from readme_agent.presentation.verified_template_runtime import (
     build_verified_template_document_candidate,
@@ -25,7 +25,10 @@ from readme_agent.readme.source_claim_assurance import (
     build_source_claim_assurance,
     verified_comment_free_python_example,
 )
-from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+from readme_agent.readme.source_claim_risk import (
+    classify_source_claim_risk,
+    obligation_requires_source_entailment,
+)
 from readme_agent.registry.models import LinkAllocationPolicyV1
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -141,24 +144,147 @@ def _build(source: str):
     return candidate, plan, validation
 
 
-def test_generic_preserve_keeps_exact_fact_claim_but_does_not_defer_granular_detail() -> None:
-    verified_format = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
+def test_structured_source_facts_follow_an_exact_preserved_placement_end_to_end() -> None:
+    source = (
+        "# Product\n\n## Repository details\n\n- Work with `Matrix4` utilities for transforms.\n"
+    )
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    api = FactRecordV2(
+        fact_id="api.public_surface:preserved-placement-regression",
+        field="api.public_surface",
+        verification_state="verified",
+        value={
+            "classes": [
+                {
+                    "name": "Matrix4",
+                    "source_path": "package/Matrix4.py",
+                    "source_sha256": "a" * 64,
+                    "members": [],
+                }
+            ],
+            "modules": [],
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+    catalogs = load_aspose_link_catalogs()
+
+    candidate, plan = build_verified_template_document_candidate(
+        facts,
+        source,
+        REVISION,
+        _plan(source, facts),
+        link_catalogs=catalogs,
+        link_allocation_policy=LinkAllocationPolicyV1(),
+    )
+    validation = validate_readme_document_candidate(
+        source,
+        candidate,
+        plan,
+        facts,
+        link_catalogs=catalogs,
+    )
+
+    assert candidate.count("- Work with `Matrix4` utilities for transforms.\n") == 1
+    assert plan.claim_accountability is not None
+    source_record = next(
+        record for record in plan.claim_accountability.claims if record.stage == "source"
+    )
+    candidate_record = next(
+        record
+        for record in plan.claim_accountability.claims
+        if record.stage == "candidate" and record.content_sha256 == source_record.content_sha256
+    )
+    expected_fact_ids = {
+        api.fact_id,
+        facts.selected_fact_ids["product.capabilities"],
+    }
+    assert source_record.survives_in_candidate is True
+    assert source_record.currently_accountable is True
+    assert set(source_record.accepted_fact_ids) == expected_fact_ids
+    assert candidate_record.origin == "inherited"
+    assert candidate_record.currently_accountable is True
+    assert set(candidate_record.accepted_fact_ids) == expected_fact_ids
+    assert validation.checks["claim_accountability_complete"] is True
+
+
+def test_generic_preserve_does_not_reinsert_partially_verified_format_claims() -> None:
+    partially_verified_format = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
     unsupported_detail = "- Imaginary future format with unverified acceleration\n"
     source = (
         "# Aspose.3D FOSS for Python\n\n"
         "## Supported Formats\n\n"
-        f"{verified_format}{unsupported_detail}"
+        f"{partially_verified_format}{unsupported_detail}"
     )
 
     candidate, plan, validation = _build(source)
 
-    assert candidate.count(verified_format) == 1
+    assert partially_verified_format not in candidate
+    assert unsupported_detail not in candidate
     assert not validation.valid
     assert not [
         resolution
         for resolution in plan.source_claim_resolutions
         if resolution.resolution == "deferred_verification"
     ]
+    assert plan.claim_accountability is not None
+    source_bytes = source.encode("utf-8")
+    records = [
+        record
+        for record in plan.claim_accountability.claims
+        if record.stage == "source"
+        and source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
+        in {partially_verified_format, unsupported_detail}
+    ]
+    assert len(records) == 2
+    assert all(not record.currently_accountable for record in records)
+    assert all(record.expected_disposition == "unjustified_loss" for record in records)
+    assert all(not record.survives_in_candidate for record in records)
+
+
+def test_optional_secondary_quick_start_is_deferred_with_exact_evidence() -> None:
+    optional_detail = "Alternative optional workflow detail.\n"
+    source = (
+        f"# Aspose.3D FOSS for Python\n\n## Quick Start\n\n### Alternative\n\n{optional_detail}"
+    )
+
+    candidate, plan, validation = _build(source)
+
+    assert optional_detail not in candidate
+    assert not validation.valid
+    resolution = next(
+        item for item in plan.source_claim_resolutions if item.resolution == "deferred_verification"
+    )
+    source_claim = assess_material_claims(source)[0]
+    source_hash = hashlib.sha256(optional_detail.encode("utf-8")).hexdigest()
+    candidate_hash = hashlib.sha256(candidate.encode("utf-8")).hexdigest()
+    assert resolution.claim_id == source_claim.claim_id
+    assert resolution.content_sha256 == source_hash
+    assert resolution.evidence == [
+        f"source-claim:{source_claim.claim_id}",
+        f"source-content-sha256:{source_hash}",
+        f"candidate-content-sha256:{candidate_hash}",
+        "authority:verified-source-assurance:correction-candidate",
+        "risk-policy:optional-inherited-detail-deferred-v1",
+    ]
+    assert plan.claim_accountability is not None
+    record = next(
+        item
+        for item in plan.claim_accountability.claims
+        if item.claim_id == f"source:{source_claim.claim_id}"
+    )
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "deferred_verification"
+    assert record.survives_in_candidate is False
 
 
 def test_source_build_and_404_cannot_authorize_the_inherited_pip_command() -> None:
@@ -225,6 +351,75 @@ def test_explicit_foss_enterprise_prose_uses_the_relationship_obligation() -> No
     assert risk.obligation_id == "contextual_product_relationship"
 
 
+def test_source_shell_claims_use_their_exact_configured_obligations() -> None:
+    cases = [
+        ("", "[![License: MIT](license)\n", "header_badges"),
+        ("Navigation", "- [Install](#installation)\n", "navigation"),
+        ("At a glance", "`OBJ` is an input format.\n", "at_a_glance"),
+    ]
+
+    for heading, claim_text, expected in cases:
+        section = f"## {heading}\n\n" if heading else ""
+        source = f"# Product\n\n{section}{claim_text}"
+        claim = next(
+            item
+            for item in assess_material_claims(source)
+            if claim_text.strip()
+            in source.encode()[item.source_byte_start : item.source_byte_end].decode().strip()
+        )
+
+        risk = classify_source_claim_risk(source, claim)
+
+        assert risk.risk_class == "mandatory_fact_resolution"
+        assert risk.obligation_id == expected
+
+
+def test_source_repository_detail_uses_specific_fact_obligations() -> None:
+    cases = [
+        ("Additional examples", "- `examples/convert.py`\n", "additional_examples"),
+        ("API reference", "- `Scene.open(path)` loads a scene.\n", "api_public_surface"),
+        (
+            "Documentation & resources",
+            "- Read the format guide in `docs/formats.md`.\n",
+            "documentation_resources",
+        ),
+        (
+            "Documentation & resources",
+            "- Open an issue for support.\n",
+            "support_routes",
+        ),
+        ("Development and testing", "- Run `pytest -q`.\n", "development_commands"),
+    ]
+
+    for heading, claim_text, expected in cases:
+        source = f"# Product\n\n## {heading}\n\n{claim_text}"
+        claim = next(
+            item
+            for item in assess_material_claims(source)
+            if claim_text.strip()
+            in source.encode()[item.source_byte_start : item.source_byte_end].decode().strip()
+        )
+
+        risk = classify_source_claim_risk(source, claim)
+
+        assert risk.risk_class == "mandatory_fact_resolution"
+        assert risk.obligation_id == expected
+
+
+def test_api_disclosure_shell_is_structural_and_compatibility_is_correctable() -> None:
+    source = (
+        "# Product\n\n## API reference\n\n"
+        "<details>\n<summary>View the supported public API surface</summary>\n\n"
+        "</details>\n"
+    )
+    risks = [classify_source_claim_risk(source, claim) for claim in assess_material_claims(source)]
+
+    assert [risk.obligation_id for risk in risks] == ["api_structure", "api_structure"]
+    assert not obligation_requires_source_entailment("api_structure")
+    assert not obligation_requires_source_entailment("compatibility")
+    assert obligation_requires_source_entailment("api_public_surface")
+
+
 def test_comment_removal_requires_complete_verified_example_ast_equivalence() -> None:
     verified = "from aspose.threed import Scene\n\nscene = Scene()\n"
     source = (
@@ -258,7 +453,7 @@ def test_mandatory_unsupported_security_claim_remains_blocking() -> None:
 
     candidate, plan, validation = _build(source)
 
-    assert unsupported in candidate
+    assert unsupported not in candidate
     assert validation.checks["claim_accountability_complete"] is False
     assert not any(
         resolution.resolution == "deferred_verification"
@@ -269,6 +464,9 @@ def test_mandatory_unsupported_security_claim_remains_blocking() -> None:
         not record.currently_accountable
         and record.stage == "source"
         and record.current_disposition == "preserve"
+        and record.expected_disposition == "unjustified_loss"
+        and record.content_sha256 == hashlib.sha256(unsupported.encode("utf-8")).hexdigest()
+        and not record.survives_in_candidate
         for record in plan.claim_accountability.claims
     )
 
@@ -282,7 +480,8 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
     assert not validation.valid
     assert not validation.checks["claim_accountability_complete"]
     assert "pip install aspose-3d-foss" not in candidate
-    assert "- **GLTF** - GL Transmission Format (glTF 2.0)\n" in candidate
+    gltf_claim = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
+    assert gltf_claim not in candidate
     assert not [
         resolution
         for resolution in plan.source_claim_resolutions
@@ -290,6 +489,16 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
     ]
     assert plan.claim_accountability is not None
     source_bytes = source.encode("utf-8")
+    gltf_record = next(
+        record
+        for record in plan.claim_accountability.claims
+        if record.stage == "source"
+        and source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
+        == gltf_claim
+    )
+    assert gltf_record.currently_accountable is False
+    assert gltf_record.expected_disposition == "unjustified_loss"
+    assert gltf_record.survives_in_candidate is False
     rich_quick_start = next(
         record
         for record in plan.claim_accountability.claims
@@ -298,12 +507,11 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
         in source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
     )
     assert rich_quick_start.currently_accountable is False
-    assert rich_quick_start.expected_disposition == "authoritative_owner_validation"
-    assert rich_quick_start.survives_in_candidate is True
+    assert rich_quick_start.expected_disposition == "unjustified_loss"
+    assert rich_quick_start.survives_in_candidate is False
     assert "example.minimal:compiled-salvaged-example" not in rich_quick_start.accepted_fact_ids
     assert not any(
         resolution.claim_id == rich_quick_start.claim_id.removeprefix("source:")
-        and resolution.resolution == "verified_obligation_replacement"
         for resolution in plan.source_claim_resolutions
     )
     relationship_claim = next(
@@ -326,7 +534,8 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
         if record.stage == "source" and record.source_byte_start == 29
     )
     assert opening_overview.currently_accountable is False
-    assert opening_overview.survives_in_candidate is True
+    assert opening_overview.survives_in_candidate is False
+    assert opening_overview.expected_disposition == "unjustified_loss"
     assert not any(
         resolution.claim_id == opening_overview.claim_id.removeprefix("source:")
         and resolution.obligation_id == "license"

@@ -10,8 +10,10 @@ import pytest
 
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
+from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_structure import heading_identity, parse_headings
 from readme_agent.readme.document_validation import (
     DocumentCandidateValidationV1,
     validate_readme_document_candidate,
@@ -19,6 +21,9 @@ from readme_agent.readme.document_validation import (
 from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
+from readme_agent.readme.verified_preservation_composition import (
+    build_verified_preservation_composition_plan,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -367,6 +372,130 @@ System.out.println(url);
     assert "// Explain this in prose instead." not in candidate
     assert '"https://example.test/value//literal"' in candidate
     assert validation.checks["candidate_has_no_comments"] is True
+
+
+def test_verified_strong_source_shell_is_reconciled_once_with_exact_policy_lineage():
+    source_path = (
+        PROJECT_ROOT / "tests" / "fixtures" / "readmes" / "real_audit_2026-07-17" / "3d-python.md"
+    )
+    source = source_path.read_text(encoding="utf-8")
+    inherited_shell = """<!-- inherited shell metadata -->
+[![Inherited build](https://img.shields.io/badge/build-old-blue)](https://example.test)
+
+## Table of contents
+
+- [Inherited overview](#at-a-glance)
+
+## At a glance
+
+```mermaid
+flowchart LR
+  old["Inherited shell"] --- product["Aspose.3D FOSS for Python"]
+```
+
+## Maintainer diagnostics
+
+~~~~python linenos=true
+# Remove this visitor-facing explanation.
+url = "https://example.test/value#literal"
+print(url)
+~~~~~
+
+"""
+    opening_end = source.index("\n\n") + 2
+    source = source[:opening_end] + inherited_shell + source[opening_end:]
+    facts = ProductFactsV2.model_validate_json(
+        (
+            PROJECT_ROOT
+            / "tests"
+            / "fixtures"
+            / "readmes"
+            / "verified_source_assurance"
+            / "aspose-3d-python-facts-ab1a2267.json"
+        ).read_text(encoding="utf-8")
+    )
+    revision = "ab1a2267a0ba6302311d0c7c4ad01494974c7d76"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    composition = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert composition is not None
+
+    candidate, plan = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=composition.model_dump(mode="json"),
+    )
+
+    headings = parse_headings(candidate)
+    h2_identities = [heading_identity(heading.title) for heading in headings if heading.level == 2]
+    assert sum(heading.level == 1 for heading in headings) == 1
+    assert len(h2_identities) == len(set(h2_identities))
+    assert h2_identities.count("navigation") == 1
+    assert h2_identities.count("at-a-glance") == 1
+    assert plan.header_visuals is not None
+    assert candidate.count(plan.header_visuals.badge_markdown) == 1
+    assert candidate.count("```mermaid") == 1
+    assert "Inherited build" not in candidate
+    assert "## Table of contents" not in candidate
+    assert "Inherited shell" not in candidate
+    assert "<!-- inherited shell metadata -->" not in candidate
+    assert "# Create a new scene" not in candidate
+    assert "# Remove this visitor-facing explanation." not in candidate
+    assert 'scene.open("model.obj", options)' not in candidate
+    assert 'url = "https://example.test/value#literal"' not in candidate
+    assert "print(url)" not in candidate
+    assert "## Architecture" not in candidate
+    assert "The library is organized into several modules:" not in candidate
+    assert plan.claim_accountability is not None
+    assert any(
+        record.stage == "source"
+        and not record.currently_accountable
+        and record.survives_in_candidate is False
+        for record in plan.claim_accountability.claims
+    )
+
+    corrections = [
+        correction
+        for resolution in plan.source_claim_resolutions
+        for correction in resolution.policy_corrections
+    ]
+    standards = {
+        standard for correction in corrections for standard in correction.configured_standard_ids
+    }
+    assert {
+        "readme.at_a_glance",
+        "readme.badges",
+        "readme.navigation",
+        "readme.no_comments",
+    } <= standards
+    source_bytes = source.encode("utf-8")
+    for correction in corrections:
+        exact_source = source_bytes[correction.source_byte_start : correction.source_byte_end]
+        assert hashlib.sha256(exact_source).hexdigest() == correction.source_content_sha256
+        assert correction.operation_id == "readme.verified-template.compile"
+        if any(
+            standard
+            in {
+                "readme.at_a_glance",
+                "readme.badges",
+                "readme.navigation",
+                "readme.no_comments",
+            }
+            for standard in correction.configured_standard_ids
+        ):
+            assert correction.disposition == "omit"
 
 
 def test_final_validation_rejects_inline_comments_in_fenced_source() -> None:

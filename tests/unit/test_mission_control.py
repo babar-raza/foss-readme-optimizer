@@ -548,17 +548,67 @@ def test_dynamic_scoreboard_builds_fact_contract_per_registry_entry(tmp_path, mo
 
     def contract(ecosystem=None, family=None):
         observed.append((ecosystem, family))
-        return object()
+        return current_fact_acceptance_contract(ecosystem, family)
 
     monkeypatch.setattr(
         "readme_agent.supervisor.mission_goal_guard.current_fact_acceptance_contract",
         contract,
     )
 
-    scoreboard = derive_lifecycle_scoreboard(_MemoryStateBackend(), products_path=products_path)
+    backend = _MemoryStateBackend()
+    for item in selected:
+        org_repo = f"{item['repo_url'].split('/')[3]}/{item['repo_name']}"
+        backend.records[org_repo] = RunStateV1(
+            org_repo=org_repo,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(status="FACTS_READY"),
+        )
+
+    scoreboard = derive_lifecycle_scoreboard(backend, products_path=products_path)
 
     assert scoreboard.denominator == 2
     assert observed == [("python", "3d"), ("python", "barcode")]
+
+
+def test_dynamic_scoreboard_does_not_build_fact_contract_for_unconfigured_discovery(
+    tmp_path,
+    monkeypatch,
+):
+    products_path = tmp_path / "products.json"
+    products_path.write_text(
+        json.dumps(
+            [
+                {
+                    "family": "psd",
+                    "platform": "python",
+                    "repo_name": "Aspose.PSD-FOSS-for-Python",
+                    "repo_url": "https://github.com/aspose-psd-foss/Aspose.PSD-FOSS-for-Python",
+                    "clone_url": "https://github.com/aspose-psd-foss/Aspose.PSD-FOSS-for-Python.git",
+                    "active": True,
+                    "discovered_via": "github",
+                    "mode": "disabled",
+                    "ecosystem": None,
+                    "policy_profile": None,
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    def unexpected_contract(*_args, **_kwargs):
+        raise AssertionError("DISCOVERED intake must not require a fact contract")
+
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_goal_guard.current_fact_acceptance_contract",
+        unexpected_contract,
+    )
+
+    scoreboard = derive_lifecycle_scoreboard(_MemoryStateBackend(), products_path=products_path)
+
+    assert scoreboard.denominator == 1
+    assert scoreboard.lifecycle_status_counts == {"DISCOVERED": 1}
+    assert scoreboard.missing_lifecycle_repositories == [
+        "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
+    ]
 
 
 def test_dynamic_scoreboard_reports_raw_but_excludes_stale_acceptance(

@@ -381,6 +381,15 @@ def test_verified_template_binds_contextual_plan_before_compilation() -> None:
         "readme.contextual_links" in binding.configured_standard_ids
         for binding in plan.candidate_content_provenance
     )
+    assert plan.claim_accountability is not None
+    contextual_candidate_claims = [
+        record
+        for record in plan.claim_accountability.claims
+        if record.stage == "candidate"
+        and "readme.contextual_links" in record.configured_standard_ids
+    ]
+    assert contextual_candidate_claims
+    assert all(record.currently_accountable for record in contextual_candidate_claims)
 
 
 @pytest.mark.parametrize("platform", ["python", "net", "java", "cpp", "typescript", "rust", "go"])

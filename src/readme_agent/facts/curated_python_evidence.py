@@ -7,7 +7,8 @@ import hashlib
 import tomllib
 from pathlib import Path
 
-from readme_agent.facts.curated_python_mcp import python_mcp_server
+from readme_agent.facts.curated_python_fixture_inventory import snapshot_fixture_inventory
+from readme_agent.facts.curated_python_public_surface import python_public_surface
 from readme_agent.facts.curated_python_readme import verified_readme_examples
 
 _IGNORED_DIRECTORIES = {".git", ".venv", "__pycache__", "node_modules"}
@@ -17,11 +18,125 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _module_from_source(path: str) -> str | None:
-    if not path.startswith("src/") or not path.endswith(".py"):
+def _format_name(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str | None:
+    """Derive one importer format only from its exact supports_format implementation."""
+
+    for child in ast.walk(node):
+        if (
+            isinstance(child, ast.Call)
+            and isinstance(child.func, ast.Name)
+            and child.func.id == "isinstance"
+            and len(child.args) == 2
+            and isinstance(child.args[0], ast.Name)
+            and child.args[0].id == "file_format"
+            and isinstance(child.args[1], ast.Name)
+            and child.args[1].id.endswith("Format")
+        ):
+            stem = child.args[1].id.removesuffix("Format").casefold()
+            return {"gltf": "GLTF", "obj": "OBJ", "stl": "STL", "threemf": "3MF"}.get(
+                stem, stem.upper()
+            )
+    return None
+
+
+def _implemented(node: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:
+    statements = [
+        child
+        for child in node.body
+        if not isinstance(child, ast.Pass)
+        and not (
+            isinstance(child, ast.Expr)
+            and isinstance(child.value, ast.Constant)
+            and isinstance(child.value.value, str)
+        )
+    ]
+    return bool(statements) and not all(isinstance(child, ast.Raise) for child in statements)
+
+
+def _implemented_keyword_branch(tree: ast.AST, keyword: str) -> bool:
+    for child in ast.walk(tree):
+        if not isinstance(child, ast.If) or keyword not in ast.unparse(child.test).casefold():
+            continue
+        if any(not isinstance(statement, ast.Pass) for statement in child.body):
+            return True
+    return False
+
+
+def python_source_format_directions(root: Path) -> tuple[object, list[str]] | None:
+    """Collect source-implemented Python import and export directions without execution claims."""
+
+    directions: list[dict[str, object]] = []
+    locations: list[str] = []
+    roles = {
+        "Importer": ("import_scene", "input"),
+        "Exporter": ("export", "output"),
+    }
+    paths = sorted({path for role in roles for path in root.rglob(f"*{role}.py")})
+    for path in paths:
+        relative = path.relative_to(root)
+        if any(part in _IGNORED_DIRECTORIES for part in relative.parts):
+            continue
+        try:
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+        except (OSError, SyntaxError, UnicodeDecodeError):
+            continue
+        role = next((name for name in roles if path.stem.endswith(name)), None)
+        if role is None:
+            continue
+        implementation_name, direction = roles[role]
+        for definition in (node for node in tree.body if isinstance(node, ast.ClassDef)):
+            methods = {
+                node.name: node
+                for node in definition.body
+                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            }
+            support = methods.get("supports_format")
+            implementation = methods.get(implementation_name)
+            if support is None or implementation is None or not _implemented(implementation):
+                continue
+            format_name = _format_name(support)
+            if format_name is None:
+                continue
+            calls = {
+                node.func.attr
+                for node in ast.walk(implementation)
+                if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+            }
+            item: dict[str, object] = {
+                "format": format_name,
+                "direction": direction,
+                "implementation_symbol": f"{definition.name}.{implementation_name}",
+                "supports_format_symbol": f"{definition.name}.supports_format",
+                "source_path": relative.as_posix(),
+                "source_sha256": _sha256(path),
+                "execution_verified": False,
+            }
+            if format_name == "STL" and direction == "input":
+                item["variants"] = sorted(
+                    variant
+                    for variant, method in (
+                        ("ascii", "_read_ascii_stl"),
+                        ("binary", "_read_binary_stl"),
+                    )
+                    if method in calls
+                )
+            if format_name == "OBJ" and direction == "input":
+                item["material_library_support"] = all(
+                    _implemented_keyword_branch(tree, keyword) for keyword in ("mtllib", "usemtl")
+                )
+            directions.append(item)
+            locations.append(relative.as_posix())
+    if not directions:
         return None
-    module = path.removeprefix("src/").removesuffix(".py").replace("/", ".")
-    return module.removesuffix(".__init__")
+    return (
+        {
+            "schema_version": 1,
+            "assurance": "repository_source_implementation",
+            "execution_verified": False,
+            "directions": directions,
+        },
+        sorted(set(locations)),
+    )
 
 
 def python_optional_extras(root: Path) -> tuple[object, list[str]] | None:
@@ -43,195 +158,10 @@ def python_optional_extras(root: Path) -> tuple[object, list[str]] | None:
     return {"manifest_path": "pyproject.toml", "extras": normalized}, ["pyproject.toml"]
 
 
-def _literal_string_list(node: ast.AST) -> list[str] | None:
-    if not isinstance(node, (ast.List, ast.Tuple)):
-        return None
-    values: list[str] = []
-    for element in node.elts:
-        if not isinstance(element, ast.Constant) or not isinstance(element.value, str):
-            return None
-        values.append(element.value)
-    return values
-
-
-def python_public_surface(root: Path) -> tuple[object, list[str]] | None:
-    candidates = sorted((root / "src").glob("**/__init__.py")) if (root / "src").is_dir() else []
-    surfaces: list[dict[str, object]] = []
-    locations: list[str] = []
-    exported_names: set[str] = set()
-    export_origins: dict[tuple[str, str], str] = {}
-    for path in candidates:
-        try:
-            tree = ast.parse(path.read_text(encoding="utf-8"))
-        except (OSError, SyntaxError, UnicodeDecodeError):
-            continue
-        exports: list[str] | None = None
-        for node in tree.body:
-            if not isinstance(node, (ast.Assign, ast.AnnAssign)):
-                continue
-            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-            if not any(
-                isinstance(target, ast.Name) and target.id == "__all__" for target in targets
-            ):
-                continue
-            exports = _literal_string_list(node.value) if node.value is not None else None
-            break
-        if not exports:
-            continue
-        relative = path.relative_to(root).as_posix()
-        package_parts = path.relative_to(root / "src").parts[:-1]
-        if any(part.startswith("_") for part in package_parts):
-            continue
-        surfaces.append(
-            {
-                "module": ".".join(package_parts),
-                "exports": exports,
-                "source_path": relative,
-                "source_sha256": _sha256(path),
-            }
-        )
-        exported_names.update(exports)
-        module = ".".join(package_parts)
-        for node in tree.body:
-            if not isinstance(node, ast.ImportFrom) or node.level or node.module is None:
-                continue
-            for imported in node.names:
-                exposed = imported.asname or imported.name
-                if exposed in exports:
-                    export_origins[(module, exposed)] = f"{node.module}:{imported.name}"
-        locations.append(relative)
-    if not surfaces:
-        return None
-    classes: list[dict[str, object]] = []
-    class_keys: set[str] = set()
-    pending_functions: list[
-        tuple[str, Path, ast.FunctionDef | ast.AsyncFunctionDef, dict[str, str]]
-    ] = []
-    for path in sorted((root / "src").rglob("*.py")):
-        relative = path.relative_to(root).as_posix()
-        if any(part.startswith("_") for part in path.relative_to(root / "src").parts):
-            continue
-        try:
-            tree = ast.parse(path.read_text(encoding="utf-8"))
-        except (OSError, SyntaxError, UnicodeDecodeError):
-            continue
-        source_module = _module_from_source(relative)
-        if source_module is None:
-            continue
-        imports = {
-            imported.asname or imported.name: f"{node.module}:{imported.name}"
-            for node in tree.body
-            if isinstance(node, ast.ImportFrom) and not node.level and node.module is not None
-            for imported in node.names
-        }
-        for node in tree.body:
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                pending_functions.append((source_module, path, node, imports))
-                continue
-            if not isinstance(node, ast.ClassDef) or node.name not in exported_names:
-                continue
-            members = _class_public_members(node)
-            if not members:
-                continue
-            classes.append(
-                {
-                    "name": node.name,
-                    "members": members,
-                    "source_path": relative,
-                    "source_sha256": _sha256(path),
-                    "line": node.lineno,
-                }
-            )
-            class_keys.add(f"{source_module}:{node.name}")
-            locations.append(relative)
-    functions: list[dict[str, object]] = []
-    for row in surfaces:
-        exposed_module = str(row["module"])
-        surface_exports = row.get("exports")
-        if not isinstance(surface_exports, list):
-            continue
-        for exported in surface_exports:
-            origin = export_origins.get((exposed_module, str(exported)))
-            for module, path, node, imports in pending_functions:
-                if origin != f"{module}:{node.name}" or not isinstance(node.returns, ast.Name):
-                    continue
-                return_class = imports.get(node.returns.id, f"{module}:{node.returns.id}")
-                if return_class not in class_keys:
-                    continue
-                functions.append(
-                    {
-                        "module": exposed_module,
-                        "name": str(exported),
-                        "return_class": return_class,
-                        "source_path": path.relative_to(root).as_posix(),
-                        "source_sha256": _sha256(path),
-                    }
-                )
-                locations.append(path.relative_to(root).as_posix())
-    value: dict[str, object] = {
-        "modules": surfaces,
-        "classes": classes,
-        "functions": functions,
-    }
-    mcp = python_mcp_server(root)
-    if mcp is not None:
-        value["mcp_server"] = mcp[0]
-        locations.extend(mcp[1])
-    return value, sorted(set(locations))
-
-
-def _annotation(node: ast.AST | None) -> str | None:
-    return ast.unparse(node) if node is not None else None
-
-
-def _method_call(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
-    positional = [*node.args.posonlyargs, *node.args.args]
-    if positional and positional[0].arg in {"self", "cls"}:
-        positional = positional[1:]
-    defaults = [None] * (len(positional) - len(node.args.defaults)) + list(node.args.defaults)
-    rendered: list[str] = []
-    for argument, default in zip(positional, defaults, strict=True):
-        value = argument.arg
-        if default is not None:
-            value += "=" + ast.unparse(default)
-        rendered.append(value)
-    if node.args.vararg is not None:
-        rendered.append("*" + node.args.vararg.arg)
-    rendered.extend(argument.arg for argument in node.args.kwonlyargs)
-    if node.args.kwarg is not None:
-        rendered.append("**" + node.args.kwarg.arg)
-    return f"{node.name}({', '.join(rendered)})"
-
-
-def _class_public_members(node: ast.ClassDef) -> list[dict[str, object]]:
-    members: list[dict[str, object]] = []
-    for child in node.body:
-        if isinstance(child, ast.AnnAssign) and isinstance(child.target, ast.Name):
-            if child.target.id.startswith("_"):
-                continue
-            annotation = _annotation(child.annotation)
-            surface = f"{child.target.id}: {annotation}" if annotation else child.target.id
-            members.append({"name": child.target.id, "kind": "attribute", "surface": surface})
-            continue
-        if not isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            continue
-        if child.name.startswith("_"):
-            continue
-        decorators = {ast.unparse(decorator) for decorator in child.decorator_list}
-        annotation = _annotation(child.returns)
-        if "property" in decorators:
-            surface = f"{child.name}: {annotation}" if annotation else child.name
-            kind = "property"
-        else:
-            surface = _method_call(child)
-            if annotation:
-                surface += f" -> {annotation}"
-            kind = "method"
-        members.append({"name": child.name, "kind": kind, "surface": surface})
-    return members
-
-
-def example_inventory(root: Path) -> tuple[object, list[str]] | None:
+def example_inventory(
+    root: Path,
+    source_revision: str | None = None,
+) -> tuple[object, list[str]] | None:
     base = root / "examples"
     files = sorted(
         path
@@ -269,4 +199,8 @@ def example_inventory(root: Path) -> tuple[object, list[str]] | None:
         locations.extend(curated[1])
     if not entries and curated is None:
         return None
+    fixture_inventory = snapshot_fixture_inventory(root, source_revision)
+    value["fixture_inventory"] = fixture_inventory.model_dump(mode="json")
+    if fixture_inventory.tree_id is not None:
+        locations.append(f"git-tree:{fixture_inventory.tree_id}")
     return value, sorted(set(locations))

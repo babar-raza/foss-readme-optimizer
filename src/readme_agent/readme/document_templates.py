@@ -58,6 +58,7 @@ DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/presentation/verified_preservation_sections.py",
     "src/readme_agent/presentation/verified_preservation_segments.py",
     "src/readme_agent/presentation/verified_source_preservation.py",
+    "src/readme_agent/presentation/verified_source_assurance_projection.py",
     "src/readme_agent/presentation/verified_source_placements.py",
     "src/readme_agent/presentation/verified_template_draft.py",
     "src/readme_agent/presentation/verified_template_provenance.py",
@@ -68,6 +69,7 @@ DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/readme/header_badges.py",
     "src/readme_agent/readme/fact_grounding.py",
     "src/readme_agent/readme/claim_accountability.py",
+    "src/readme_agent/readme/claim_accountability_candidate_policy.py",
     "src/readme_agent/readme/claim_accountability_helpers.py",
     "src/readme_agent/readme/claim_accountability_models.py",
     "src/readme_agent/readme/claim_replacement_validation.py",
@@ -87,7 +89,12 @@ DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS = (
     "src/readme_agent/registry/loader.py",
     "src/readme_agent/registry/models.py",
 )
-DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS = ("src/readme_agent/links/*.py",)
+DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS = (
+    "src/readme_agent/links/*.py",
+    "src/readme_agent/presentation/verified_*.py",
+    "src/readme_agent/readme/claim_*.py",
+    "src/readme_agent/readme/source_claim_*.py",
+)
 DOCUMENT_CONTRACT_CATALOG_PATHS = (
     "data/aspose_com_links.json",
     "data/aspose_org_links.json",

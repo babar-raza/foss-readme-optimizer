@@ -82,7 +82,7 @@ def test_policy_blocks_terminology_without_relationship_fact(monkeypatch) -> Non
         )
 
 
-def test_preservation_reconciles_links_and_terminology_before_allocation() -> None:
+def test_unverified_link_prose_is_not_reinserted_or_claimed_as_partial_lineage() -> None:
     facts = _verified_facts()
     revision = facts.selected_fact("product.identity").source.source_revision
     assert revision is not None
@@ -113,57 +113,21 @@ def test_preservation_reconciles_links_and_terminology_before_allocation() -> No
 
     assert validation.checks["contextual_links"] is True
     assert "policy_corrections_have_exact_partial_lineage failed" not in validation.errors
-    assert "Exact opening value before FOSS family and after." in candidate
-    assert "Aspose.Cells Enterprise Edition and after it." in candidate
-    assert "[external guidance](https://example.test/guide)" in candidate
+    assert "Exact opening value before" not in candidate
+    assert "Enterprise Edition and after it." not in candidate
+    assert "external guidance" not in candidate
     assert all(term not in candidate for term in ("commercial On-Premise", "docs.aspose.com"))
     assert "kb.aspose.com" not in candidate
     assert candidate.count("products.aspose.org") == 1
     assert candidate.count("products.aspose.com") == 1
-    policy_bindings = [
+    assert not [
         binding
         for binding in plan.candidate_content_provenance
         if binding.provenance_id.startswith("source.policy.")
     ]
-    assert {
-        standard for binding in policy_bindings for standard in binding.configured_standard_ids
-    } == {"readme.contextual_links", "readme.enterprise_edition_terminology"}
-    terminology_binding = next(
-        binding
-        for binding in policy_bindings
-        if "readme.enterprise_edition_terminology" in binding.configured_standard_ids
-    )
-    assert terminology_binding.fact_ids == [facts.selected_fact_ids["relationship.commercial_foss"]]
-    assert plan.composition_ledger is not None
-    exact_fragments = [
-        segment.content_text
-        for segment in plan.composition_ledger.segments
-        if segment.origin == "source_preserved"
-    ]
-    assert any("Keep this exact valuable detail before the " in text for text in exact_fragments)
-    assert any(" and after it." in text for text in exact_fragments)
-
-    policy_resolutions = [
+    assert not [
         resolution
         for resolution in plan.source_claim_resolutions
         if resolution.resolution == "presentation_policy_correction"
     ]
-    assert policy_resolutions and all(item.policy_corrections for item in policy_resolutions)
-    target = policy_resolutions[0]
-    forged = target.policy_corrections[0].model_copy(update={"candidate_content_sha256": "0" * 64})
-    forged_plan = plan.model_copy(
-        update={
-            "source_claim_resolutions": [
-                item.model_copy(
-                    update={"policy_corrections": [forged, *item.policy_corrections[1:]]}
-                )
-                if item.claim_id == target.claim_id
-                else item
-                for item in plan.source_claim_resolutions
-            ]
-        }
-    )
-    forged_validation = validate_readme_document_candidate(
-        source, candidate, forged_plan, facts, link_catalogs=catalogs
-    )
-    assert "policy_corrections_have_exact_partial_lineage failed" in forged_validation.errors
+    assert any("claim accountability has 3 blocking claim(s)" in item for item in validation.errors)

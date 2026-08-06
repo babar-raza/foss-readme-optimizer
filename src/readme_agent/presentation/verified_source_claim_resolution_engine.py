@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 from collections import Counter
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -11,13 +10,21 @@ from readme_agent.presentation.verified_source_claim_matching import (
     index_equivalent_candidate_claims,
 )
 from readme_agent.presentation.verified_source_claim_obligations import (
+    accepted_correction_obligation_bindings,
     accepted_obligation_bindings,
 )
-from readme_agent.presentation.verified_source_claim_omissions import governed_source_omission
+from readme_agent.presentation.verified_source_claim_omissions import (
+    deferred_unverified_source_example_resolution,
+    deferred_withheld_source_resolution,
+    exact_authorized_claim_ids,
+    governed_source_omission,
+    verified_paired_example_intro_resolution,
+)
 from readme_agent.presentation.verified_source_policy_resolution import source_policy_resolution
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
-from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
+from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.readme.source_claim_risk import (
     classify_source_claim_risk,
@@ -46,6 +53,9 @@ def resolve_source_claims(
 ) -> list[SourceClaimResolutionV1]:
     """Resolve removed claims by risk; mandatory claims fail closed without verified slots."""
 
+    if source_text == candidate:
+        return []
+
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate)
     candidate_hashes = Counter(claim.content_sha256 for claim in candidate_claims)
@@ -63,42 +73,85 @@ def resolve_source_claims(
     equivalence_candidates = index_equivalent_candidate_claims(candidate_bytes, candidate_claims)
     resolutions: list[SourceClaimResolutionV1] = []
     source_bytes = source_text.encode("utf-8")
-    preserve_ranges = preserved_source_ranges or []
-    correction_ranges = authoritative_correction_ranges or []
+    preserve_claim_ids = exact_authorized_claim_ids(
+        source_text,
+        source_claims,
+        preserved_source_ranges or [],
+        authority="fact-authorized preservation",
+    )
+    correction_claim_ids = exact_authorized_claim_ids(
+        source_text,
+        source_claims,
+        authoritative_correction_ranges or [],
+        authority="correction-candidate withholding",
+    )
+    overlap = preserve_claim_ids & correction_claim_ids
+    if overlap:
+        raise ValueError(
+            "source claim cannot be both fact-authorized and correction-required: "
+            f"{sorted(overlap)[0]}"
+        )
     policy_corrections = presentation_policy_corrections or []
-    for claim in source_claims:
-        if raw_candidate_occurrences[claim.content_sha256] > 0:
+    for claim_index, claim in enumerate(source_claims):
+        claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+        fact_authorized_preserve = claim.claim_id in preserve_claim_ids
+        if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
             raw_candidate_occurrences[claim.content_sha256] -= 1
             if candidate_hashes[claim.content_sha256] > 0:
                 candidate_hashes[claim.content_sha256] -= 1
             continue
-        survives = candidate_hashes[claim.content_sha256] > 0
+        if candidate_content_provenance and not fact_authorized_preserve:
+            equivalent_resolution = equivalent_source_claim_resolution(
+                claim,
+                claim_text,
+                candidate_bytes,
+                equivalence_candidates,
+                facts,
+                candidate_content_provenance,
+            )
+            if equivalent_resolution is not None:
+                resolutions.append(equivalent_resolution)
+                if raw_candidate_occurrences[claim.content_sha256] > 0:
+                    raw_candidate_occurrences[claim.content_sha256] -= 1
+                if candidate_hashes[claim.content_sha256] > 0:
+                    candidate_hashes[claim.content_sha256] -= 1
+                continue
+        correction_candidate = claim.claim_id in correction_claim_ids
+        if not correction_candidate and raw_candidate_occurrences[claim.content_sha256] > 0:
+            raw_candidate_occurrences[claim.content_sha256] -= 1
+            if candidate_hashes[claim.content_sha256] > 0:
+                candidate_hashes[claim.content_sha256] -= 1
+            continue
+        survives = not correction_candidate and candidate_hashes[claim.content_sha256] > 0
         if survives:
             candidate_hashes[claim.content_sha256] -= 1
             continue
-        claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
-        policy_resolution = source_policy_resolution(claim, policy_corrections)
+        policy_resolution = source_policy_resolution(
+            claim,
+            policy_corrections,
+            source_bytes=source_bytes,
+            candidate_bytes=candidate_bytes,
+        )
         if policy_resolution is not None:
             resolutions.append(policy_resolution)
             continue
-        equivalent_resolution = equivalent_source_claim_resolution(
-            claim,
-            claim_text,
-            candidate_bytes,
-            equivalence_candidates,
-            facts,
+        equivalent_resolution = (
+            equivalent_source_claim_resolution(
+                claim,
+                claim_text,
+                candidate_bytes,
+                equivalence_candidates,
+                facts,
+                candidate_content_provenance,
+            )
+            if not fact_authorized_preserve
+            else None
         )
         if equivalent_resolution is not None:
             resolutions.append(equivalent_resolution)
             continue
-        preserve_required = claim.disposition == "preserve" and any(
-            claim.source_byte_start < end and start < claim.source_byte_end
-            for start, end in preserve_ranges
-        )
-        correction_required = any(
-            claim.source_byte_start < end and start < claim.source_byte_end
-            for start, end in correction_ranges
-        )
+        preserve_required = claim.disposition == "preserve" and claim.claim_id in preserve_claim_ids
+        correction_required = claim.claim_id in correction_claim_ids
         if preserve_required:
             _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
             continue
@@ -143,6 +196,10 @@ def resolve_source_claims(
                 )
             )
             continue
+        if risk is not None and not correction_required:
+            continue
+        if not correction_required:
+            continue
         governed_omission = governed_source_omission(claim_text)
         if governed_omission is None:
             if candidate_content_provenance is None or risk is None:
@@ -153,6 +210,62 @@ def resolve_source_claims(
                 continue
             if not correction_required:
                 continue
+            if risk.obligation_id == "primary_example":
+                accepted_primary = accepted_obligation_bindings(
+                    "primary_example",
+                    facts,
+                    candidate_content_provenance,
+                )
+                deferred_example = deferred_unverified_source_example_resolution(
+                    claim,
+                    claim_text,
+                    source_text,
+                    candidate_bytes,
+                    risk,
+                    facts,
+                    accepted_primary,
+                    correction_candidate_claim_ids=correction_claim_ids,
+                )
+                if deferred_example is not None:
+                    resolutions.append(deferred_example)
+                    continue
+                paired_claim = (
+                    source_claims[claim_index + 1] if claim_index + 1 < len(source_claims) else None
+                )
+                paired_claim_text = (
+                    source_bytes[
+                        paired_claim.source_byte_start : paired_claim.source_byte_end
+                    ].decode("utf-8")
+                    if paired_claim is not None
+                    else None
+                )
+                paired_resolution = (
+                    equivalent_source_claim_resolution(
+                        paired_claim,
+                        paired_claim_text,
+                        candidate_bytes,
+                        equivalence_candidates,
+                        facts,
+                        candidate_content_provenance,
+                    )
+                    if paired_claim is not None and paired_claim_text is not None
+                    else None
+                )
+                paired_intro = verified_paired_example_intro_resolution(
+                    claim,
+                    claim_text,
+                    paired_claim,
+                    paired_claim_text,
+                    source_text,
+                    risk,
+                    facts,
+                    accepted_primary,
+                    paired_resolution,
+                    correction_candidate_claim_ids=correction_claim_ids,
+                )
+                if paired_intro is not None:
+                    resolutions.append(paired_intro)
+                    continue
             if risk.risk_class == "optional_explicit_deferral":
                 core_evidence: list[str] = []
                 if risk.obligation_id is not None:
@@ -172,27 +285,20 @@ def resolve_source_claims(
                         f"verified-core-provenance:{binding.provenance_id}"
                         for binding in core_bindings
                     ]
-                _raise_unresolved_preserve(
-                    preserve_required and fail_on_unresolved_preserve,
-                    claim.claim_id,
+                deferred = deferred_withheld_source_resolution(
+                    claim,
+                    claim_text,
+                    candidate_bytes,
+                    risk,
+                    correction_candidate_claim_ids=correction_claim_ids,
+                    extra_evidence=core_evidence,
                 )
-                resolutions.append(
-                    SourceClaimResolutionV1(
-                        claim_id=claim.claim_id,
-                        source_byte_start=claim.source_byte_start,
-                        source_byte_end=claim.source_byte_end,
-                        content_sha256=claim.content_sha256,
-                        resolution="deferred_verification",
-                        evidence=[
-                            f"source-claim:{claim.claim_id}",
-                            f"source-content-sha256:{claim.content_sha256}",
-                            f"candidate-content-sha256:{hashlib.sha256(candidate_bytes).hexdigest()}",
-                            "risk-policy:optional-inherited-detail-deferred-v1",
-                            *core_evidence,
-                        ],
-                        rationale=risk.rationale,
+                if deferred is None:
+                    raise ValueError(
+                        "optional source withholding lacked exact correction authority: "
+                        f"{claim.claim_id}"
                     )
-                )
+                resolutions.append(deferred)
                 continue
             if risk.obligation_id is None:
                 _raise_unresolved_preserve(
@@ -205,11 +311,38 @@ def resolve_source_claims(
                 facts,
                 candidate_content_provenance,
                 exact_source_fact_ids=(
-                    sorted(accepted_source_claim_fact_ids(claim_text, facts))
+                    sorted(
+                        binding.fact_ids
+                        if (
+                            binding := complete_source_claim_fact_binding(
+                                source_text,
+                                claim,
+                                facts,
+                            )
+                        )
+                        else []
+                    )
                     if obligation_requires_source_entailment(risk.obligation_id)
                     else None
                 ),
             )
+            contradiction_fact_ids: set[str] = set()
+            if (
+                accepted is None
+                and obligation_requires_source_entailment(risk.obligation_id)
+                and correction_required
+            ):
+                contradiction_fact_ids = contradicted_source_claim_fact_ids(
+                    source_text,
+                    claim,
+                    facts,
+                )
+                accepted = accepted_correction_obligation_bindings(
+                    risk.obligation_id,
+                    facts,
+                    candidate_content_provenance,
+                    contradiction_fact_ids=contradiction_fact_ids,
+                )
             if accepted is None:
                 _raise_unresolved_preserve(
                     preserve_required and fail_on_unresolved_preserve,
@@ -218,6 +351,29 @@ def resolve_source_claims(
                 continue
             bindings, replacement_fact_ids = accepted
             replacement_ids = sorted(binding.provenance_id for binding in bindings)
+            if not replacement_fact_ids:
+                resolutions.append(
+                    SourceClaimResolutionV1(
+                        claim_id=claim.claim_id,
+                        source_byte_start=claim.source_byte_start,
+                        source_byte_end=claim.source_byte_end,
+                        content_sha256=claim.content_sha256,
+                        resolution="verified_omission",
+                        obligation_id=risk.obligation_id,
+                        evidence=[
+                            f"source-claim:{claim.claim_id}",
+                            f"source-content-sha256:{claim.content_sha256}",
+                            f"configured-obligation:{risk.obligation_id}",
+                            "authority:verified-source-assurance:correction-candidate",
+                            *(f"candidate-provenance:{item}" for item in replacement_ids),
+                        ],
+                        rationale=(
+                            f"{risk.rationale} The source shell is superseded by the exact "
+                            "configured candidate slot under hash-bound correction authority."
+                        ),
+                    )
+                )
+                continue
             resolutions.append(
                 SourceClaimResolutionV1(
                     claim_id=claim.claim_id,
@@ -227,12 +383,15 @@ def resolve_source_claims(
                     resolution="verified_obligation_replacement",
                     obligation_id=risk.obligation_id,
                     fact_ids=replacement_fact_ids,
+                    contradiction_fact_ids=sorted(contradiction_fact_ids),
                     replacement_provenance_ids=replacement_ids,
                     evidence=[
                         f"source-claim:{claim.claim_id}",
                         f"source-content-sha256:{claim.content_sha256}",
                         f"obligation:{risk.obligation_id}",
+                        "authority:verified-source-assurance:correction-candidate",
                         f"authority:deterministic-claim-disposition:{claim.disposition}",
+                        *(f"contradicting-fact:{item}" for item in sorted(contradiction_fact_ids)),
                         *(f"candidate-provenance:{item}" for item in replacement_ids),
                         *(f"accepted-fact:{item}" for item in replacement_fact_ids),
                     ],

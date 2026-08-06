@@ -1,0 +1,77 @@
+"""Render documentation catalog facts into the verified presentation template."""
+
+from __future__ import annotations
+
+from urllib.parse import urlparse
+
+from readme_agent.facts.schema_v2 import ProductFactsV2
+
+_SURFACE_ORDER = ("docs", "kb", "reference")
+_SURFACE_LABELS = {
+    "docs": "Product documentation",
+    "kb": "Knowledge base",
+    "reference": "API reference",
+}
+_CATALOG_LOCATION = "data/aspose_org_links.json"
+
+
+def _accepted_catalog_rows(facts: ProductFactsV2) -> list[dict[str, object]]:
+    try:
+        fact = facts.selected_fact("documentation.links")
+    except KeyError:
+        return []
+    if (
+        fact.verification_state not in {"verified", "policy_approved"}
+        or fact.has_unresolved_conflict
+        or fact.source.source_type != "external_registry"
+        or fact.source.location != _CATALOG_LOCATION
+        or not isinstance(fact.value, list)
+    ):
+        return []
+    rows: list[dict[str, object]] = []
+    seen: set[tuple[str, str]] = set()
+    for value in fact.value:
+        if not isinstance(value, dict):
+            continue
+        surface = value.get("surface")
+        url = value.get("url")
+        if surface not in _SURFACE_ORDER or not isinstance(url, str):
+            continue
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or parsed.hostname != f"{surface}.aspose.org":
+            continue
+        if not all(
+            isinstance(value.get(field), str) and str(value[field]).strip()
+            for field in (
+                "record_id",
+                "source_location",
+                "source_revision_or_hash",
+                "title",
+                "family",
+                "platform",
+                "product",
+            )
+        ):
+            continue
+        key = (surface, url)
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(value)
+    return rows
+
+
+def documentation_resources_markdown(facts: ProductFactsV2) -> str | None:
+    """Render accepted docs, knowledge-base, and API-reference catalog rows only."""
+
+    rows = _accepted_catalog_rows(facts)
+    if not rows:
+        return None
+    ordered = sorted(
+        rows,
+        key=lambda row: (_SURFACE_ORDER.index(str(row["surface"])), str(row["url"])),
+    )
+    return "\n".join(f"- [{_SURFACE_LABELS[str(row['surface'])]}]({row['url']})" for row in ordered)
+
+
+__all__ = ["documentation_resources_markdown"]

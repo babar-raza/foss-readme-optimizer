@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
@@ -66,7 +67,7 @@ def load_salvage_candidate(
     source_revision: str,
     current_readme_sha256: str | None = None,
 ) -> dict | None:
-    """Load an exact candidate or a README-identical historical hint candidate."""
+    """Load an exact candidate or a checksum-valid historical hint candidate."""
 
     exact = _load_bound_candidate(
         bundle_dir,
@@ -83,19 +84,34 @@ def load_salvage_candidate(
     repository_bundle_dir = bundle_dir.parent
     if not repository_bundle_dir.is_dir():
         return None
-    for historical_dir in sorted(repository_bundle_dir.iterdir(), reverse=True):
+    historical_dirs = [
+        historical_dir
+        for historical_dir in sorted(repository_bundle_dir.iterdir(), reverse=True)
         if (
-            historical_dir == bundle_dir
-            or not historical_dir.is_dir()
-            or len(historical_dir.name) != 40
-            or any(character not in "0123456789abcdef" for character in historical_dir.name)
-        ):
-            continue
+            historical_dir != bundle_dir
+            and historical_dir.is_dir()
+            and len(historical_dir.name) == 40
+            and all(character in "0123456789abcdef" for character in historical_dir.name)
+        )
+    ]
+    # Prefer a README-identical hint. If the README alone moved, an older candidate is
+    # still non-authoritative input: salvage_product_truth_candidate re-proves every
+    # accepted field against the current immutable repository snapshot.
+    for historical_dir in historical_dirs:
         candidate = _load_bound_candidate(
             historical_dir,
             org_repo=org_repo,
             expected_revision=historical_dir.name,
             expected_readme_sha256=current_readme_sha256,
+        )
+        if candidate is not None:
+            return candidate
+    for historical_dir in historical_dirs:
+        candidate = _load_bound_candidate(
+            historical_dir,
+            org_repo=org_repo,
+            expected_revision=historical_dir.name,
+            expected_readme_sha256=None,
         )
         if candidate is not None:
             return candidate
@@ -164,6 +180,14 @@ def _repository_enriched_technical_facts(
         boundaries = base_facts.selected_fact("repository.verified_boundaries")
     except KeyError:
         boundaries = None
+    try:
+        source_limitations = base_facts.selected_fact("product.limitations")
+    except KeyError:
+        source_limitations = None
+    try:
+        format_directions = base_facts.selected_fact("repository.format_directions")
+    except KeyError:
+        format_directions = None
     detail_value = (
         detail.value
         if detail is not None
@@ -230,6 +254,54 @@ def _repository_enriched_technical_facts(
             technical["product.formats"] = extension_fact(
                 "product.formats", list(dict.fromkeys(directional)), detail
             )
+
+    direction_value = (
+        format_directions.value
+        if format_directions is not None
+        and format_directions.verification_state == "verified"
+        and not format_directions.has_unresolved_conflict
+        and isinstance(format_directions.value, dict)
+        else {}
+    )
+    raw_directions = direction_value.get("directions")
+    if format_directions is not None and isinstance(raw_directions, list):
+        supported = {
+            (str(item.get("direction")), str(item.get("format")).casefold()): str(
+                item.get("format")
+            )
+            for item in raw_directions
+            if isinstance(item, dict)
+            and item.get("direction") in {"input", "output"}
+            and str(item.get("format") or "").strip()
+        }
+        current = technical["product.formats"].value
+        refined: list[str] = []
+        for value in current if isinstance(current, list) else []:
+            match = re.match(r"(?i)^(input|output)\s+format:\s*([A-Za-z0-9]+)", str(value))
+            if match is None:
+                continue
+            direction, token = match.group(1).casefold(), match.group(2).casefold()
+            canonical = supported.get((direction, token))
+            if canonical is not None:
+                refined.append(f"{direction.title()} format: {canonical}")
+        if refined:
+            technical["product.formats"] = extension_fact(
+                "product.formats",
+                list(dict.fromkeys(refined)),
+                format_directions,
+            )
+
+    if (
+        source_limitations is not None
+        and source_limitations.verification_state == "verified"
+        and not source_limitations.has_unresolved_conflict
+        and isinstance(source_limitations.value, list)
+        and source_limitations.value
+    ):
+        # A current-revision repository collector outranks the candidate draft. In
+        # particular, an empty drafted limitations list must never erase explicit
+        # source constraints that the base graph already proved.
+        technical["product.limitations"] = source_limitations
 
     verified_boundaries = boundary_value.get("boundaries")
     if boundaries is not None and isinstance(verified_boundaries, list):

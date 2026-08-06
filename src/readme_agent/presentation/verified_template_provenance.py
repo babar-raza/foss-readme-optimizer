@@ -5,10 +5,20 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.presentation.template_schema import PresentationTemplateInputV1
+from readme_agent.presentation.template_schema import (
+    BoundTemplateContentV1,
+    PresentationTemplateInputV1,
+    TemplateSlot,
+    load_repository_presentation_template,
+)
 from readme_agent.presentation.verified_source_claim_resolutions import (
     build_source_claim_resolutions,
     probe_source_claim_resolutions_for_composition,
+)
+from readme_agent.presentation.verified_template_sections import (
+    additional_examples_markdown,
+    api_reference_markdown,
+    development_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
@@ -26,6 +36,8 @@ _CLAIM_LEVEL_SLOTS = {
     "contributing",
     "development_and_testing",
     "installation",
+    "key_capabilities",
+    "quick_start",
     "scope_and_limitations",
     "security",
     "third_party_notices",
@@ -44,6 +56,70 @@ _STRUCTURAL_SHELL = re.compile(
     r"<details>\s*<summary>[^<]+</summary>|</details>|"
     r"- \[browse all [^]]+\]\([^)]+\))\s*$"
 )
+_MECHANICAL_STRUCTURE_STANDARD = "readme.composition.mechanical-markdown-v1"
+
+
+def _canonical_structural_section(
+    slot: TemplateSlot,
+    template_input: PresentationTemplateInputV1,
+    facts: ProductFactsV2,
+) -> str | None:
+    """Re-render the only variable-heading sections from accepted typed facts."""
+
+    if slot == "additional_examples":
+        title = " ".join(template_input.title.markdown.split())
+        return additional_examples_markdown(facts, reserved_heading_titles=(title,))
+    if slot == "api_reference":
+        return api_reference_markdown(facts)
+    if slot == "development_and_testing":
+        return development_markdown(facts)
+    return None
+
+
+def _structural_heading_bindings(
+    *,
+    slot: TemplateSlot,
+    content: BoundTemplateContentV1,
+    section_text: str,
+    section_base_byte: int,
+    template_input: PresentationTemplateInputV1,
+    facts: ProductFactsV2,
+) -> list[CandidateContentProvenanceV1]:
+    """Bind H3 bytes only when the complete section is the canonical fact renderer."""
+
+    canonical = _canonical_structural_section(slot, template_input, facts)
+    quick_start_shell = bool(
+        slot == "quick_start"
+        and section_text.startswith("### Minimal verified example\n\n")
+        and "readme.primary_example" in content.standard_ids
+    )
+    if (
+        (not quick_start_shell and (canonical is None or canonical.strip() != section_text))
+        or content.source_kind != "repository_fact_and_configured_standard"
+        or not content.fact_ids
+        or not content.standard_ids
+    ):
+        return []
+    bindings = []
+    for index, heading in enumerate(parse_headings(section_text)):
+        if heading.level != 3:
+            continue
+        bindings.append(
+            CandidateContentProvenanceV1(
+                provenance_id=f"template.structure.h3.{slot}.{index:04d}",
+                candidate_byte_start=section_base_byte
+                + len(section_text[: heading.start].encode("utf-8")),
+                candidate_byte_end=section_base_byte
+                + len(section_text[: heading.heading_end].encode("utf-8")),
+                fact_ids=content.fact_ids,
+                configured_standard_ids=content.standard_ids,
+                rationale=(
+                    "Bind one exact canonical fact-renderer H3 to its accepted facts and "
+                    "configured section standard."
+                ),
+            )
+        )
+    return bindings
 
 
 def build_template_provenance(
@@ -96,17 +172,37 @@ def build_template_provenance(
     navigation = next(
         heading for heading in parse_headings(candidate) if heading.title.casefold() == "navigation"
     )
+    bind("template.structure.h2.navigation", "## Navigation", [], ["readme.navigation"])
     navigation_body = candidate[navigation.heading_end : navigation.section_end].strip()
     bind("template.navigation", navigation_body, [], ["readme.navigation"])
+    contract = load_repository_presentation_template()
     for slot, content in template_input.sections.items():
         if content.source_kind == "omitted":
             continue
+        bind(
+            f"template.structure.h2.{slot}",
+            f"## {contract.headings[slot]}",
+            [],
+            [_MECHANICAL_STRUCTURE_STANDARD],
+        )
         if slot in _CLAIM_LEVEL_SLOTS:
             text = content.markdown.strip()
             start_character = candidate.find(text, cursor)
             if start_character < 0:
                 raise ValueError(f"compiled template content is absent: template.section.{slot}")
             base_byte = len(candidate[:start_character].encode("utf-8"))
+            bindings.extend(
+                _structural_heading_bindings(
+                    slot=slot,
+                    content=content,
+                    section_text=text,
+                    section_base_byte=base_byte,
+                    template_input=template_input,
+                    facts=facts,
+                )
+            )
+            verified_installation_range: tuple[int, int] | None = None
+            verified_installation_fact_ids: list[str] = []
             if slot == "installation":
                 verified_installation = installation_text(
                     facts,
@@ -132,25 +228,29 @@ def build_template_provenance(
                         in {"verified", "policy_approved"}
                         and not facts.selected_fact(field).has_unresolved_conflict
                     ]
-                    bindings.append(
-                        CandidateContentProvenanceV1(
-                            provenance_id=("template.section.installation.verified_acquisition"),
-                            candidate_byte_start=base_byte
-                            + len(text[:relative_start].encode("utf-8")),
-                            candidate_byte_end=base_byte + len(text[:relative_end].encode("utf-8")),
-                            fact_ids=accepted_fact_ids,
-                            configured_standard_ids=["readme.verified_acquisition"],
-                            rationale=(
-                                "Bind the exact deterministic acquisition block to its "
-                                "accepted coordinate and acquisition facts."
-                            ),
-                        )
+                    verified_installation_range = (
+                        len(text[:relative_start].encode("utf-8")),
+                        len(text[:relative_end].encode("utf-8")),
                     )
+                    verified_installation_fact_ids = accepted_fact_ids
             for claim in assess_material_claims(text):
                 claim_text = text.encode("utf-8")[
                     claim.source_byte_start : claim.source_byte_end
                 ].decode("utf-8")
                 fact_ids = literal_fact_ids(claim_text, facts, content.fact_ids)
+                if (
+                    not fact_ids
+                    and "readme.contextual_links" in content.standard_ids
+                    and "](https://" in claim_text
+                ):
+                    fact_ids = list(content.fact_ids)
+                installation_claim = bool(
+                    verified_installation_range is not None
+                    and verified_installation_range[0] <= claim.source_byte_start
+                    and claim.source_byte_end <= verified_installation_range[1]
+                )
+                if installation_claim:
+                    fact_ids = sorted({*fact_ids, *verified_installation_fact_ids})
                 if slot == "scope_and_limitations":
                     relationship_risk = classify_source_claim_risk(text, claim)
                     if relationship_risk.obligation_id == "contextual_product_relationship":
@@ -167,6 +267,8 @@ def build_template_provenance(
                     if fact_ids or _STRUCTURAL_SHELL.fullmatch(claim_text.strip())
                     else []
                 )
+                if installation_claim:
+                    standard_ids = sorted({*standard_ids, "readme.verified_acquisition"})
                 if not fact_ids and not standard_ids:
                     continue
                 bindings.append(

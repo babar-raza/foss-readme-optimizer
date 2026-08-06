@@ -14,8 +14,12 @@ from readme_agent.presentation.template_adapters import bind_product_facts
 from readme_agent.presentation.template_compiler import compile_repository_presentation
 from readme_agent.presentation.template_schema import PresentationTemplateInputV1
 from readme_agent.presentation.verified_preservation_sections import (
+    build_verified_source_preservation_selection,
     effective_correction_ranges,
     effective_preserve_ranges,
+)
+from readme_agent.presentation.verified_source_assurance_projection import (
+    project_source_assurance_for_candidate,
 )
 from readme_agent.presentation.verified_source_policy import build_verified_source_policy_edits
 from readme_agent.presentation.verified_source_preservation import (
@@ -106,7 +110,12 @@ def build_verified_template_compilation(
     )
     if assessment.canonical_hash() != agentic_plan.assessment_hash:
         raise ValueError("verified template composition assessment binding changed")
-    source_assurance = build_source_claim_assurance(source_text, facts, assessment)
+    source_assurance = project_source_assurance_for_candidate(
+        source_text,
+        assessment,
+        build_source_claim_assurance(source_text, facts, assessment),
+        provenance,
+    )
     preserved_source_ranges = source_assurance.preserve_ranges
     correction_source_ranges = [
         *effective_correction_ranges(assessment),
@@ -120,19 +129,32 @@ def build_verified_template_compilation(
         preserved_source_ranges=preserved_source_ranges,
         authoritative_correction_ranges=correction_source_ranges,
     )
-    replaceable_claim_ids = {
+    resolved_claim_ids = {
         resolution.claim_id
         for resolution in preliminary_resolutions
         if resolution.resolution
-        in {"deferred_verification", "verified_omission", "verified_obligation_replacement"}
+        in {
+            "deferred_verification",
+            "verified_equivalence",
+            "verified_omission",
+            "verified_obligation_replacement",
+        }
     }
+    preservation_selection = build_verified_source_preservation_selection(
+        source_text,
+        assessment,
+        fact_authorized_ranges=source_assurance.preserve_ranges,
+        correction_candidate_ranges=source_assurance.correction_ranges,
+        resolved_claim_ids=resolved_claim_ids,
+    )
     composition = compose_verified_source_preservation(
         candidate,
         source_text,
         assessment,
-        replaceable_claim_ids,
+        resolved_claim_ids,
         provenance,
         build_verified_source_policy_edits(source_text, facts),
+        preservation_selection=preservation_selection,
     )
     candidate = composition.candidate
     return VerifiedTemplateCompilationV1(
@@ -202,7 +224,12 @@ def build_verified_template_document_candidate(
     )
     if assessment.canonical_hash() != agentic_plan.assessment_hash:
         raise ValueError("verified template composition assessment binding changed")
-    source_assurance = build_source_claim_assurance(inner_text, facts, assessment)
+    source_assurance = project_source_assurance_for_candidate(
+        inner_text,
+        assessment,
+        build_source_claim_assurance(inner_text, facts, assessment),
+        persisted_provenance,
+    )
     preserved_source_ranges = source_assurance.preserve_ranges
     source_claim_resolutions = build_source_claim_resolutions(
         inner_text,

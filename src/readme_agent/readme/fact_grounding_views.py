@@ -32,6 +32,8 @@ def typed_fact_strings(field: str, value: object) -> list[str]:
         and all(isinstance(item, str) for item in value)
     ):
         return fact_strings(value)
+    if field == "documentation.links" and isinstance(value, list):
+        return fact_strings([item.get("url") for item in value if isinstance(item, dict)])
     if not isinstance(value, dict):
         return []
     if field == "example.minimal":
@@ -61,7 +63,12 @@ def typed_fact_strings(field: str, value: object) -> list[str]:
                 for module in modules
                 if isinstance(module, dict)
             ]
-            + [f"{len(exports)} public exports", member_surfaces, value.get("mcp_server")]
+            + [
+                f"{len(exports)} public exports",
+                value.get("package_namespaces"),
+                member_surfaces,
+                value.get("mcp_server"),
+            ]
         )
     if field == "repository.examples":
         files = value.get("files")

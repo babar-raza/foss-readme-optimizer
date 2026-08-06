@@ -7,11 +7,20 @@ from typing import Literal
 from readme_agent.facts.schema_v2 import ProductFactsV2
 
 SourceClaimObligation = Literal[
+    "header_badges",
     "product_overview",
+    "navigation",
+    "at_a_glance",
     "major_capabilities",
     "verified_installation",
     "primary_example",
+    "additional_examples",
+    "api_public_surface",
+    "api_structure",
+    "documentation_resources",
+    "support_routes",
     "scope_and_limitations",
+    "development_commands",
     "third_party_notices",
     "license",
     "contextual_product_relationship",
@@ -19,33 +28,60 @@ SourceClaimObligation = Literal[
 ]
 
 _OBLIGATION_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
+    "header_badges": frozenset({"product.identity", "product.license"}),
     "product_overview": frozenset({"product.identity"}),
+    "navigation": frozenset(),
+    "at_a_glance": frozenset({"product.capabilities", "product.formats"}),
     "major_capabilities": frozenset({"product.capabilities"}),
     "verified_installation": frozenset(
         {"installation.verified_acquisition", "installation.coordinates"}
     ),
     "primary_example": frozenset({"example.minimal"}),
+    "additional_examples": frozenset({"repository.examples"}),
+    "api_public_surface": frozenset({"api.public_surface"}),
+    "api_structure": frozenset(),
+    "documentation_resources": frozenset({"documentation.links"}),
+    "support_routes": frozenset({"support.routes"}),
     "scope_and_limitations": frozenset({"product.limitations"}),
+    "development_commands": frozenset({"development.commands"}),
     "third_party_notices": frozenset({"repository.third_party_notices"}),
     "license": frozenset({"product.license"}),
     "contextual_product_relationship": frozenset({"relationship.commercial_foss"}),
     "compatibility": frozenset({"product.compatibility"}),
 }
 _OBLIGATION_ANY_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
+    "header_badges": frozenset(
+        {"installation.coordinates", "product.compatibility", "release.state"}
+    ),
     "product_overview": frozenset(
         {"product.audience", "product.problems_solved", "product.capabilities"}
-    )
+    ),
 }
 _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = {
+    "header_badges": ("template.badges",),
     "product_overview": ("template.title", "template.summary"),
+    "navigation": ("template.navigation",),
+    "at_a_glance": ("template.section.at_a_glance",),
     "major_capabilities": ("template.section.key_capabilities",),
     "verified_installation": ("template.section.installation",),
     "primary_example": ("template.section.quick_start",),
+    "additional_examples": ("template.section.additional_examples",),
+    "api_public_surface": ("template.section.api_reference",),
+    "api_structure": ("template.section.api_reference",),
+    "documentation_resources": ("template.section.documentation_resources",),
+    "support_routes": ("template.section.documentation_resources",),
     "scope_and_limitations": ("template.section.scope_and_limitations",),
+    "development_commands": ("template.section.development_and_testing",),
     "third_party_notices": ("template.section.third_party_notices",),
     "license": ("template.section.license",),
     "contextual_product_relationship": ("template.section.scope_and_limitations",),
-    "compatibility": ("template.section.installation",),
+    "compatibility": ("template.section.installation", "template.badges"),
+}
+_OBLIGATION_STANDARD_IDS: dict[SourceClaimObligation, frozenset[str]] = {
+    "header_badges": frozenset({"readme.badges"}),
+    "navigation": frozenset({"readme.navigation"}),
+    "at_a_glance": frozenset({"readme.at_a_glance_mermaid"}),
+    "api_structure": frozenset({"readme.api_reference"}),
 }
 _OVERVIEW_FACT_FIELDS = (
     "product.identity",
@@ -55,7 +91,9 @@ _OVERVIEW_FACT_FIELDS = (
     "product.formats",
     "product.license",
 )
-_SOURCE_ENTAILMENT_REQUIRED = frozenset({"primary_example", "compatibility"})
+_SOURCE_ENTAILMENT_REQUIRED = frozenset(
+    {"api_public_surface", "major_capabilities", "primary_example"}
+)
 
 
 def applicable_product_overview_fact_ids(facts: ProductFactsV2) -> set[str]:
@@ -91,6 +129,12 @@ def obligation_provenance_prefixes(obligation: SourceClaimObligation) -> tuple[s
     """Return exact golden-slot prefixes allowed to replace this obligation."""
 
     return _OBLIGATION_PROVENANCE_PREFIXES[obligation]
+
+
+def obligation_required_standard_ids(obligation: SourceClaimObligation) -> frozenset[str]:
+    """Return configured standards required on the matching candidate slot."""
+
+    return _OBLIGATION_STANDARD_IDS.get(obligation, frozenset())
 
 
 def obligation_requires_source_entailment(obligation: SourceClaimObligation) -> bool:

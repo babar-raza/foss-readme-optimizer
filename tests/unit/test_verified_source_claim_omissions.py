@@ -1,0 +1,463 @@
+"""Prove exact, fail-closed dispositions for withheld inherited source claims."""
+
+from __future__ import annotations
+
+import hashlib
+from pathlib import Path
+
+import pytest
+
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.presentation.verified_source_claim_omissions import (
+    deferred_withheld_source_resolution,
+    verified_paired_example_intro_resolution,
+)
+from readme_agent.presentation.verified_source_claim_resolution_engine import (
+    resolve_source_claims,
+)
+from readme_agent.readme.assessment_claims import (
+    ReadmeMaterialClaimAssessmentV1,
+    assess_material_claims,
+)
+from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
+from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+
+ROOT = Path(__file__).resolve().parents[2]
+FACTS = (
+    ROOT
+    / "tests"
+    / "fixtures"
+    / "readmes"
+    / "verified_source_assurance"
+    / "aspose-3d-python-facts-ab1a2267.json"
+)
+
+
+def _facts() -> ProductFactsV2:
+    return ProductFactsV2.model_validate_json(FACTS.read_text(encoding="utf-8"))
+
+
+def _optional_source() -> tuple[str, ReadmeMaterialClaimAssessmentV1]:
+    source = (
+        "# Product\n\n## Quick Start\n\n### Alternative\n\nAlternative optional workflow detail.\n"
+    )
+    return source, assess_material_claims(source)[0]
+
+
+def _verified_example_case(
+    *,
+    source_execution_verified: bool = False,
+    fixture_paths: list[dict[str, object]] | None = None,
+    scan_status: str = "complete",
+    minimal_outcome: str = "SOURCE_BUILD_VERIFIED",
+) -> tuple[ProductFactsV2, str, str, list[CandidateContentProvenanceV1]]:
+    facts = _facts()
+    code = 'from aspose.threed import Scene\n\nscene = Scene()\nscene.open("model.obj")'
+    source = f"# Product\n\n## Quick Start\n\n```python\n{code}\n```\n"
+    source_revision = "a" * 40
+    inventory = {
+        "schema_version": 1,
+        "scan_status": scan_status,
+        "scan_root": ".",
+        "source_revision": source_revision,
+        "tree_id": "b" * 40 if scan_status == "complete" else None,
+        "inventory_sha256": "c" * 64 if scan_status == "complete" else None,
+        "tracked_file_count": 2 if scan_status == "complete" else None,
+        "recognized_extensions": [
+            ".3ds",
+            ".dae",
+            ".doc",
+            ".docx",
+            ".eml",
+            ".fbx",
+            ".glb",
+            ".gltf",
+            ".htm",
+            ".html",
+            ".jpeg",
+            ".jpg",
+            ".mbox",
+            ".msg",
+            ".obj",
+            ".one",
+            ".pdf",
+            ".ply",
+            ".png",
+            ".ppt",
+            ".pptx",
+            ".stl",
+            ".svg",
+            ".tif",
+            ".tiff",
+            ".xls",
+            ".xlsx",
+        ],
+        "fixture_paths": fixture_paths or [],
+        "failure_reason": None if scan_status == "complete" else "enumeration_unavailable",
+    }
+    examples = FactRecordV2(
+        fact_id="repository.examples:fixture-inventory",
+        field="repository.examples",
+        value={
+            "execution_policy": "inventory_only",
+            "files": [],
+            "inline_examples": [
+                {
+                    "title": "Quick Start",
+                    "code": code,
+                    "language": "python",
+                    "static_api_verified": True,
+                    "execution_verified": source_execution_verified,
+                    "evidence_modules": ["aspose.threed"],
+                }
+            ],
+            "result_assets": [],
+            "readme_sha256": hashlib.sha256(source.encode()).hexdigest(),
+            "fixture_inventory": inventory,
+        },
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://fixture",
+            source_revision=source_revision,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.examples"],
+    )
+    minimal_id = facts.selected_fact_ids["example.minimal"]
+    minimal = facts.fact_by_id(minimal_id).model_copy(
+        update={
+            "value": {**facts.fact_by_id(minimal_id).value, "verification_outcome": minimal_outcome}
+        }
+    )
+    records = [minimal if item.fact_id == minimal_id else item for item in facts.facts]
+    updated = facts.model_copy(
+        update={
+            "facts": [*records, examples],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "repository.examples": examples.fact_id,
+            },
+        }
+    )
+    minimal_code = str(minimal.value["code"]).rstrip()
+    candidate = f"# Product\n\n## Quick Start\n\n```python\n{minimal_code}\n```\n"
+    start = candidate.index("```python")
+    end = len(candidate)
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.quick_start",
+            candidate_byte_start=len(candidate[:start].encode()),
+            candidate_byte_end=len(candidate[:end].encode()),
+            fact_ids=[minimal_id],
+            rationale="Source-build-verified minimal example.",
+        )
+    ]
+    return ProductFactsV2.model_validate(updated), source, candidate, provenance
+
+
+def test_exact_optional_withholding_has_hash_bound_deferred_disposition() -> None:
+    source, claim = _optional_source()
+    candidate = "# Product\n"
+    coordinates = (claim.source_byte_start, claim.source_byte_end)
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        _facts(),
+        [],
+        authoritative_correction_ranges=[coordinates],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert len(resolutions) == 1
+    resolution = resolutions[0]
+    assert resolution.resolution == "deferred_verification"
+    assert resolution.claim_id == claim.claim_id
+    assert resolution.content_sha256 == claim.content_sha256
+    assert resolution.evidence == [
+        f"source-claim:{claim.claim_id}",
+        f"source-content-sha256:{claim.content_sha256}",
+        f"candidate-content-sha256:{hashlib.sha256(candidate.encode()).hexdigest()}",
+        "authority:verified-source-assurance:correction-candidate",
+        "risk-policy:optional-inherited-detail-deferred-v1",
+    ]
+
+
+@pytest.mark.parametrize("offset", [-1, 1])
+def test_partial_or_spoofed_withholding_range_is_rejected(offset: int) -> None:
+    source, claim = _optional_source()
+    coordinates = (claim.source_byte_start + offset, claim.source_byte_end)
+
+    with pytest.raises(ValueError, match="partial, spoofed, or stale"):
+        resolve_source_claims(
+            source,
+            "# Product\n",
+            _facts(),
+            [],
+            authoritative_correction_ranges=[coordinates],
+            fail_on_unresolved_preserve=False,
+        )
+
+
+def test_spoofed_claim_bytes_cannot_receive_deferred_disposition() -> None:
+    source, claim = _optional_source()
+    risk = classify_source_claim_risk(source, claim)
+
+    with pytest.raises(ValueError, match="do not match the assessed claim hash"):
+        deferred_withheld_source_resolution(
+            claim,
+            "Spoofed optional workflow detail.\n",
+            b"# Product\n",
+            risk,
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        )
+
+
+def test_mandatory_unsupported_claim_remains_unresolved_and_blocking() -> None:
+    source = "# Product\n\n## Security\n\nAll reports are vulnerability-free.\n"
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        "# Product\n",
+        _facts(),
+        [],
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert classify_source_claim_risk(source, claim).risk_class == "mandatory_fact_resolution"
+    assert resolutions == []
+
+
+def test_fact_authorized_claim_cannot_be_silently_withheld() -> None:
+    source, claim = _optional_source()
+    coordinates = (claim.source_byte_start, claim.source_byte_end)
+
+    with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
+        resolve_source_claims(
+            source,
+            "# Product\n",
+            _facts(),
+            [],
+            preserved_source_ranges=[coordinates],
+            fail_on_unresolved_preserve=True,
+        )
+
+
+def test_one_claim_cannot_have_preservation_and_withholding_authority() -> None:
+    source, claim = _optional_source()
+    coordinates = (claim.source_byte_start, claim.source_byte_end)
+
+    with pytest.raises(ValueError, match="both fact-authorized and correction-required"):
+        resolve_source_claims(
+            source,
+            "# Product\n",
+            _facts(),
+            [],
+            preserved_source_ranges=[coordinates],
+            authoritative_correction_ranges=[coordinates],
+            fail_on_unresolved_preserve=False,
+        )
+
+
+def test_static_source_example_with_absent_fixture_is_explicitly_deferred() -> None:
+    facts, source, candidate, provenance = _verified_example_case()
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert len(resolutions) == 1
+    resolution = resolutions[0]
+    assert resolution.resolution == "verified_omission"
+    assert resolution.obligation_id == "primary_example"
+    assert facts.selected_fact_ids["repository.examples"] in resolution.fact_ids
+    assert facts.selected_fact_ids["example.minimal"] in resolution.fact_ids
+    assert "absent-input-fixture:model.obj" in resolution.evidence
+    assert "disposition:static-only-source-example-deferred-v1" in resolution.evidence
+    assert "without claiming falsity or execution" in resolution.rationale
+
+
+def test_paired_example_intro_is_omitted_only_with_fact_bound_adjacent_example() -> None:
+    facts, _, _, primary_provenance = _verified_example_case()
+    source = "# Product\n\n## Quick Start\n\nLoad an OBJ scene:\n\n```python\npass\n```\n"
+    intro, example = assess_material_claims(source)
+    examples_id = facts.selected_fact_ids["repository.examples"]
+    example_text = source.encode()[example.source_byte_start : example.source_byte_end].decode()
+    paired_resolution = SourceClaimResolutionV1(
+        claim_id=example.claim_id,
+        source_byte_start=example.source_byte_start,
+        source_byte_end=example.source_byte_end,
+        content_sha256=example.content_sha256,
+        resolution="verified_equivalence",
+        fact_ids=[examples_id],
+        candidate_claim_id="claim:100:paired",
+        candidate_byte_start=100,
+        candidate_byte_end=100 + len(example_text.encode()),
+        candidate_content_sha256=example.content_sha256,
+        evidence=["exact-paired-example"],
+        rationale="Exact paired example remains in the candidate.",
+    )
+    accepted_primary = (
+        primary_provenance,
+        [facts.selected_fact_ids["example.minimal"]],
+    )
+
+    resolution = verified_paired_example_intro_resolution(
+        intro,
+        source.encode()[intro.source_byte_start : intro.source_byte_end].decode(),
+        example,
+        example_text,
+        source,
+        classify_source_claim_risk(source, intro),
+        facts,
+        accepted_primary,
+        paired_resolution,
+        correction_candidate_claim_ids=frozenset({intro.claim_id}),
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_omission"
+    assert resolution.obligation_id == "primary_example"
+    assert "disposition:paired-example-intro-superseded-v1" in resolution.evidence
+    assert examples_id not in resolution.fact_ids
+    assert f"paired-accepted-fact:{examples_id}" in resolution.evidence
+
+
+def test_paired_example_intro_without_exact_pair_remains_unresolved() -> None:
+    facts, _, _, primary_provenance = _verified_example_case()
+    source = "# Product\n\n## Quick Start\n\nLoad an OBJ scene:\n\n```python\npass\n```\n"
+    intro, example = assess_material_claims(source)
+
+    assert (
+        verified_paired_example_intro_resolution(
+            intro,
+            source.encode()[intro.source_byte_start : intro.source_byte_end].decode(),
+            example,
+            source.encode()[example.source_byte_start : example.source_byte_end].decode(),
+            source,
+            classify_source_claim_risk(source, intro),
+            facts,
+            (primary_provenance, [facts.selected_fact_ids["example.minimal"]]),
+            None,
+            correction_candidate_claim_ids=frozenset({intro.claim_id}),
+        )
+        is None
+    )
+
+
+def test_execution_verified_source_example_cannot_be_deferred() -> None:
+    facts, source, candidate, provenance = _verified_example_case(source_execution_verified=True)
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert resolutions == []
+
+
+def test_source_example_deferral_requires_executed_minimal_example() -> None:
+    facts, source, candidate, provenance = _verified_example_case(
+        minimal_outcome="STATIC_API_VERIFIED"
+    )
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert resolutions == []
+
+
+def test_unrelated_prose_cannot_receive_source_example_deferral() -> None:
+    facts, source, candidate, provenance = _verified_example_case()
+    source = "# Product\n\n## Quick Start\n\nOpen model.obj with the product.\n"
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert resolutions == []
+
+
+def test_source_example_bytes_surviving_candidate_cannot_be_deferred() -> None:
+    facts, source, candidate, provenance = _verified_example_case()
+    source_code = source.split("```python\n", 1)[1].split("\n```", 1)[0]
+    candidate = candidate + f"\n```python\n{source_code}\n```\n"
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert resolutions == []
+
+
+@pytest.mark.parametrize(
+    ("scan_status", "fixture_paths"),
+    [
+        ("unscanned", []),
+        (
+            "complete",
+            [
+                {
+                    "path": "testdata/model.obj",
+                    "extension": ".obj",
+                    "object_id": "d" * 40,
+                    "size": 12,
+                }
+            ],
+        ),
+    ],
+)
+def test_source_example_deferral_requires_complete_proof_of_fixture_absence(
+    scan_status: str,
+    fixture_paths: list[dict[str, object]],
+) -> None:
+    facts, source, candidate, provenance = _verified_example_case(
+        scan_status=scan_status,
+        fixture_paths=fixture_paths,
+    )
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert resolutions == []

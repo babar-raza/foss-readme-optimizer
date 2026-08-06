@@ -20,6 +20,10 @@ from readme_agent.presentation.verified_template_provenance import build_source_
 from readme_agent.presentation.verified_template_runtime import declared_preserve_ranges
 from readme_agent.presentation.verified_template_sections import additional_examples_markdown
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_accountability_candidate_policy import (
+    accepted_candidate_policy_fact_ids,
+    exact_candidate_policy_correction,
+)
 from readme_agent.readme.claim_accountability_helpers import expected_disposition
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
 from readme_agent.readme.claim_replacement_validation import (
@@ -32,6 +36,7 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.document_structure import introduced_duplicate_headings
 from readme_agent.readme.document_templates import (
+    DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS,
     DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS,
     document_template_hash,
 )
@@ -39,6 +44,7 @@ from readme_agent.readme.example_assurance_validation import (
     unsupported_example_assurance_claims,
 )
 from readme_agent.readme.limitation_validation import verified_limitations_are_represented
+from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 
 
 def _facts() -> ProductFactsV2:
@@ -238,6 +244,49 @@ def test_mixed_example_inventory_rejects_blanket_assurance_but_accepts_exact_sco
     )
 
 
+def test_exact_additional_example_disclosure_binds_its_repository_fact() -> None:
+    facts = _with_repository_examples(
+        _facts(),
+        {
+            "inline_examples": [
+                {
+                    "title": "Convert a file",
+                    "language": "python",
+                    "code": "convert()",
+                    "static_api_verified": True,
+                }
+            ]
+        },
+    )
+    claim = (
+        "The inline workflows below were syntax-checked and matched to the repository's static "
+        "public API. They were not executed by the evidence collector."
+    )
+    fact_id = facts.selected_fact_ids["repository.examples"]
+
+    assert accepted_candidate_policy_fact_ids(claim, facts, _binding(claim, fact_id)) == {fact_id}
+
+
+def test_contextual_policy_correction_requires_generated_fact_bound_prose() -> None:
+    fact_ids = {_facts().selected_fact_ids["product.identity"]}
+
+    assert exact_candidate_policy_correction(
+        "remove_update",
+        {"readme.contextual_links"},
+        fact_ids,
+    )
+    assert not exact_candidate_policy_correction(
+        "remove_update",
+        {"readme.contextual_links"},
+        set(),
+    )
+    assert not exact_candidate_policy_correction(
+        "remove_update",
+        {"readme.enterprise_edition_terminology"},
+        fact_ids,
+    )
+
+
 def _replacement_resolution() -> SourceClaimResolutionV1:
     return SourceClaimResolutionV1(
         claim_id="source-claim",
@@ -312,6 +361,95 @@ def test_typed_authoritative_correction_preserves_resolved_accountability() -> N
     assert "accepted-fact correction" in rationale
 
 
+@pytest.mark.parametrize(
+    ("accepted_fact_ids", "accountable"),
+    [(set(), False), ({"fact-1"}, True)],
+    ids=["lineage-only-is-not-factual-approval", "independently-fact-backed"],
+)
+def test_presentation_policy_correction_does_not_approve_retained_claim_content(
+    accepted_fact_ids: set[str],
+    accountable: bool,
+) -> None:
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-policy-correction",
+        source_byte_start=0,
+        source_byte_end=2,
+        content_sha256=hashlib.sha256(b"xy").hexdigest(),
+        resolution="presentation_policy_correction",
+        policy_corrections=[
+            SourceClaimPolicyCorrectionV1(
+                correction_id="source.policy.0-1",
+                disposition="omit",
+                source_byte_start=0,
+                source_byte_end=1,
+                source_content_sha256=hashlib.sha256(b"x").hexdigest(),
+                candidate_byte_start=0,
+                candidate_byte_end=0,
+                candidate_content_sha256=hashlib.sha256(b"").hexdigest(),
+                configured_standard_ids=["readme.no_comments"],
+                operation_id="readme.verified-template.compile",
+            )
+        ],
+        evidence=["configured-standard:readme.no_comments"],
+        rationale="Remove one policy-owned comment without approving the retained claim.",
+    )
+
+    expected, actual, rationale = expected_disposition(
+        stage="source",
+        origin="inherited",
+        current="preserve",
+        accepted_fact_ids=accepted_fact_ids,
+        configured_standard_ids=set(),
+        survives_in_candidate=False,
+        source_resolution=resolution,
+    )
+
+    assert expected == (
+        "presentation_policy_correction" if accountable else "authoritative_owner_validation"
+    )
+    assert actual is accountable
+    assert ("requires an accepted fact" in rationale) is (not accountable)
+
+
+def test_complete_structural_policy_omission_is_accountable_without_a_product_fact() -> None:
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-navigation",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="presentation_policy_correction",
+        policy_corrections=[
+            SourceClaimPolicyCorrectionV1(
+                correction_id="source.policy.navigation",
+                disposition="omit",
+                source_byte_start=0,
+                source_byte_end=1,
+                source_content_sha256=hashlib.sha256(b"x").hexdigest(),
+                candidate_byte_start=0,
+                candidate_byte_end=0,
+                candidate_content_sha256=hashlib.sha256(b"").hexdigest(),
+                configured_standard_ids=["readme.navigation"],
+                operation_id="readme.verified-template.compile",
+            )
+        ],
+        evidence=["configured-standard:readme.navigation"],
+        rationale="Replace the complete source navigation with the canonical generated shell.",
+    )
+
+    expected, accountable, _ = expected_disposition(
+        stage="source",
+        origin="inherited",
+        current="preserve",
+        accepted_fact_ids=set(),
+        configured_standard_ids=set(),
+        survives_in_candidate=False,
+        source_resolution=resolution,
+    )
+
+    assert expected == "presentation_policy_correction"
+    assert accountable is True
+
+
 def _crossed_replacement_bindings() -> dict[str, CandidateContentProvenanceV1]:
     return {
         "binding-a": CandidateContentProvenanceV1(
@@ -383,6 +521,89 @@ def test_non_overview_replacement_rejects_an_extra_bound_accepted_fact() -> None
             facts,
             {provenance.provenance_id: provenance},
             exact_source_fact_ids=[capability_id],
+        )
+        is False
+    )
+
+
+def test_api_replacement_accepts_only_a_needed_fact_exact_supplement() -> None:
+    facts = _facts()
+    api = FactRecordV2(
+        fact_id="api.public_surface:regression",
+        field="api.public_surface",
+        value={"classes": []},
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://api",
+            source_revision="a" * 40,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-api-overview",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="api_public_surface",
+        fact_ids=[api.fact_id, capability_id],
+        replacement_provenance_ids=[
+            "template.section.api_reference.claim",
+            "template.section.key_capabilities.claim",
+        ],
+        evidence=["positive-control"],
+        rationale="The API slot and one capability claim jointly replace the exact source facts.",
+    )
+    primary = CandidateContentProvenanceV1(
+        provenance_id="template.section.api_reference.claim",
+        candidate_byte_start=0,
+        candidate_byte_end=1,
+        fact_ids=[api.fact_id],
+        rationale="Bind the API replacement.",
+    )
+    supplemental = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim",
+        candidate_byte_start=1,
+        candidate_byte_end=2,
+        fact_ids=[capability_id],
+        rationale="Bind the one missing source capability fact.",
+    )
+    provenance = {
+        primary.provenance_id: primary,
+        supplemental.provenance_id: supplemental,
+    }
+
+    assert (
+        replacement_provenance_is_exact(
+            resolution,
+            facts,
+            provenance,
+            exact_source_fact_ids=[api.fact_id, capability_id],
+        )
+        is True
+    )
+
+    unrelated = supplemental.model_copy(
+        update={
+            "fact_ids": [capability_id, facts.selected_fact_ids["product.license"]],
+        }
+    )
+    assert (
+        replacement_provenance_is_exact(
+            resolution,
+            facts,
+            {**provenance, unrelated.provenance_id: unrelated},
+            exact_source_fact_ids=[api.fact_id, capability_id],
         )
         is False
     )
@@ -544,6 +765,74 @@ def test_generic_capability_slot_cannot_replace_an_unbound_source_claim() -> Non
     assert not any(item.resolution == "verified_obligation_replacement" for item in resolutions)
 
 
+def test_exact_correction_range_does_not_treat_a_factual_slot_as_contradiction_proof() -> None:
+    facts = _facts()
+    source = (
+        "# Widget\n\n## Features\n\nPackage entry points include Reader, Writer, and Converter.\n"
+    )
+    candidate = "# Widget\n\n## Key capabilities\n\n- General document processing.\n"
+    claim = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    ).material_claims[0]
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.key_capabilities",
+            candidate_byte_start=0,
+            candidate_byte_end=len(candidate.encode("utf-8")),
+            fact_ids=[capability_id],
+            rationale="Bind the complete corrected capability slot to repository evidence.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+    )
+
+    assert resolutions == []
+
+
+def test_exact_correction_authority_rejects_wrong_replacement_fact_family() -> None:
+    facts = _facts()
+    source = (
+        "# Widget\n\n## Features\n\nPackage entry points include Reader, Writer, and Converter.\n"
+    )
+    candidate = "# Widget\n\n## Key capabilities\n\n- General document processing.\n"
+    claim = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    ).material_claims[0]
+    license_id = facts.selected_fact_ids["product.license"]
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.key_capabilities",
+            candidate_byte_start=0,
+            candidate_byte_end=len(candidate.encode("utf-8")),
+            fact_ids=[license_id],
+            rationale="Negative control with the wrong fact family.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+    )
+
+    assert resolutions == []
+
+
 def test_caller_supplied_correction_range_cannot_authorize_a_preserve_claim() -> None:
     facts = _facts()
     source = "# Widget\n\n## Features\n\nPackage entry points include Reader and Writer.\n"
@@ -563,25 +852,15 @@ def test_caller_supplied_correction_range_cannot_authorize_a_preserve_claim() ->
         ]
 
     correction_range = [(0, len(source.encode("utf-8")))]
-    capability_result = build_source_claim_resolutions(
-        source,
-        candidate,
-        facts,
-        provenance(capability_id),
-        authoritative_correction_ranges=correction_range,
-    )
-    license_result = build_source_claim_resolutions(
-        source,
-        candidate,
-        facts,
-        provenance(license_id),
-        authoritative_correction_ranges=correction_range,
-    )
-
-    assert not any(
-        item.resolution == "verified_obligation_replacement" for item in capability_result
-    )
-    assert not any(item.resolution == "verified_obligation_replacement" for item in license_result)
+    for fact_id in (capability_id, license_id):
+        with pytest.raises(ValueError, match="partial, spoofed, or stale"):
+            build_source_claim_resolutions(
+                source,
+                candidate,
+                facts,
+                provenance(fact_id),
+                authoritative_correction_ranges=correction_range,
+            )
 
 
 def test_source_splice_rebases_generated_duplicate_text_without_rediscovery() -> None:
@@ -615,6 +894,7 @@ def test_source_splice_rebases_generated_duplicate_text_without_rediscovery() ->
 def test_claim_accountability_helper_modules_are_document_contract_inputs() -> None:
     assert {
         "src/readme_agent/readme/claim_replacement_validation.py",
+        "src/readme_agent/readme/claim_accountability_candidate_policy.py",
         "src/readme_agent/readme/example_assurance_validation.py",
         "src/readme_agent/readme/limitation_validation.py",
         "src/readme_agent/presentation/verified_preservation_sections.py",
@@ -622,6 +902,14 @@ def test_claim_accountability_helper_modules_are_document_contract_inputs() -> N
         "src/readme_agent/presentation/verified_source_preservation.py",
         "src/readme_agent/presentation/verified_source_placements.py",
     }.issubset(DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS)
+
+
+def test_verified_claim_contract_families_are_hashed_as_document_inputs() -> None:
+    assert {
+        "src/readme_agent/presentation/verified_*.py",
+        "src/readme_agent/readme/claim_*.py",
+        "src/readme_agent/readme/source_claim_*.py",
+    }.issubset(set(DOCUMENT_CONTRACT_IMPLEMENTATION_GLOBS))
 
 
 @pytest.mark.parametrize(

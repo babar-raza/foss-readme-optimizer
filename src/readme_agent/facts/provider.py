@@ -8,6 +8,7 @@ from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts import dotnet_example_verifier
 from readme_agent.facts.acquisition_facts import collect_acquisition_fact
+from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
@@ -314,6 +315,8 @@ def collect_product_facts(
             snapshot=snapshot,
         )
     )
+    if documentation_fact := catalog_documentation_fact(entry):
+        candidates.append(documentation_fact)
     manifest_coordinate = None
     for fact in candidates:
         if (

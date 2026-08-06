@@ -66,15 +66,6 @@ def derive_lifecycle_scoreboard(
         if callable(bulk_loader)
         else {org_repo: backend.load(org_repo) for org_repo in org_repos}
     )
-    fact_contracts = (
-        {
-            entry.org_repo: current_fact_acceptance_contract(entry.ecosystem, entry.family)
-            for entry in entries
-        }
-        if verify_acceptance_freshness
-        else {}
-    )
-
     for entry in entries:
         state = states[entry.org_repo]
         lifecycle = state.readme_poc_lifecycle if state is not None else None
@@ -99,6 +90,7 @@ def derive_lifecycle_scoreboard(
 
         facts_are_current = True
         if verify_acceptance_freshness and status in REACHED_STATUSES["FACTS_READY"]:
+            current_contract = current_fact_acceptance_contract(entry.ecosystem, entry.family)
             source_revision = getattr(lifecycle, "source_revision", None)
             org, repo = entry.org_repo.split("/", maxsplit=1)
             bundle_dir = paths.readme_poc_repository_dir(
@@ -109,7 +101,7 @@ def derive_lifecycle_scoreboard(
             fact_decision = evaluate_lifecycle_fact_freshness(
                 state,
                 bundle_dir,
-                current_contract=fact_contracts.get(entry.org_repo),
+                current_contract=current_contract,
                 current_local_verification_hash=local_verification_contract_hash(entry.ecosystem),
                 ecosystem=entry.ecosystem,
                 family=entry.family,

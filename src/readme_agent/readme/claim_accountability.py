@@ -6,7 +6,14 @@ import hashlib
 from collections import Counter
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.assessment_claims import (
+    ReadmeMaterialClaimAssessmentV1,
+    assess_material_claims,
+)
+from readme_agent.readme.claim_accountability_candidate_policy import (
+    accepted_candidate_policy_fact_ids,
+    exact_candidate_policy_correction,
+)
 from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
 from readme_agent.readme.claim_accountability_helpers import (
     accepted_literal_facts,
@@ -24,10 +31,14 @@ from readme_agent.readme.claim_accountability_models import (
     StructuredFactCoordinateV1,
 )
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
-from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
+from readme_agent.readme.composition_lineage_models import (
+    ExactSourcePlacementV1,
+    ReadmeCompositionLedgerV1,
+)
 from readme_agent.readme.composition_source_fact_binding import exact_source_claim_provenance
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 
 
 def _validated_source_resolutions(
@@ -45,6 +56,77 @@ def _validated_source_resolutions(
 
 def _coordinate_key(coordinate: StructuredFactCoordinateV1) -> tuple[str, str, str, str]:
     return (coordinate.fact_id, coordinate.field, coordinate.path, coordinate.value_sha256)
+
+
+def _candidate_claim_source(
+    claim: ReadmeMaterialClaimAssessmentV1,
+    source_bytes: bytes,
+    candidate_bytes: bytes,
+    placements: list[ExactSourcePlacementV1],
+    source_claims_by_id: dict[str, ReadmeMaterialClaimAssessmentV1],
+) -> ReadmeMaterialClaimAssessmentV1 | None:
+    covering = [
+        placement
+        for placement in placements
+        if placement.final_byte_start <= claim.source_byte_start
+        and claim.source_byte_end <= placement.final_byte_end
+    ]
+    if len(covering) != 1:
+        return None
+    placement = covering[0]
+    relative_start = claim.source_byte_start - placement.final_byte_start
+    relative_end = claim.source_byte_end - placement.final_byte_start
+    mapped_source_start = placement.source_byte_start + relative_start
+    mapped_source_end = placement.source_byte_start + relative_end
+    candidates = [
+        source_claim
+        for source_claim in source_claims_by_id.values()
+        if source_claim.source_byte_start == mapped_source_start
+        and source_claim.source_byte_end == mapped_source_end
+        and source_claim.content_sha256 == claim.content_sha256
+    ]
+    if len(candidates) != 1:
+        return None
+    source_claim = candidates[0]
+    source_claim_bytes = source_bytes[source_claim.source_byte_start : source_claim.source_byte_end]
+    candidate_claim_bytes = candidate_bytes[claim.source_byte_start : claim.source_byte_end]
+    return source_claim if source_claim_bytes == candidate_claim_bytes else None
+
+
+def _source_claim_has_candidate_placement(
+    claim: ReadmeMaterialClaimAssessmentV1,
+    source_bytes: bytes,
+    candidate_bytes: bytes,
+    placements: list[ExactSourcePlacementV1],
+) -> bool:
+    covering = [
+        placement
+        for placement in placements
+        if placement.source_byte_start <= claim.source_byte_start
+        and claim.source_byte_end <= placement.source_byte_end
+    ]
+    if len(covering) != 1:
+        return False
+    placement = covering[0]
+    relative_start = claim.source_byte_start - placement.source_byte_start
+    relative_end = claim.source_byte_end - placement.source_byte_start
+    mapped_candidate_start = placement.final_byte_start + relative_start
+    mapped_candidate_end = placement.final_byte_start + relative_end
+    return (
+        source_bytes[claim.source_byte_start : claim.source_byte_end]
+        == candidate_bytes[mapped_candidate_start:mapped_candidate_end]
+    )
+
+
+def _merged_fact_coordinates(
+    *coordinate_groups: list[StructuredFactCoordinateV1] | tuple[StructuredFactCoordinateV1, ...],
+) -> list[StructuredFactCoordinateV1]:
+    coordinates = {
+        _coordinate_key(coordinate): coordinate
+        for group in coordinate_groups
+        for coordinate in group
+    }
+    return [coordinates[key] for key in sorted(coordinates)]
 
 
 def _structured_equivalence_groups(
@@ -151,24 +233,45 @@ def build_readme_claim_accountability_map(
 
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate_text)
+    source_claims_by_id = {claim.claim_id: claim for claim in source_claims}
     source_bytes = source_text.encode("utf-8")
-    raw_candidate_occurrences = Counter(
-        {
-            claim.content_sha256: candidate_text.count(
-                source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    candidate_bytes = candidate_text.encode("utf-8")
+    candidate_origins: dict[str, ClaimOrigin]
+    candidate_sources: dict[str, ReadmeMaterialClaimAssessmentV1 | None]
+    if composition_ledger is not None:
+        candidate_sources = {
+            claim.claim_id: _candidate_claim_source(
+                claim,
+                source_bytes,
+                candidate_bytes,
+                composition_ledger.source_placements,
+                source_claims_by_id,
             )
-            for claim in source_claims
+            for claim in candidate_claims
         }
-    )
-    remaining_inherited = Counter(claim.content_sha256 for claim in source_claims)
-    candidate_origins: dict[str, ClaimOrigin] = {}
-    for claim in candidate_claims:
-        if remaining_inherited[claim.content_sha256] > 0:
-            candidate_origins[claim.claim_id] = "inherited"
-            remaining_inherited[claim.content_sha256] -= 1
-        else:
-            candidate_origins[claim.claim_id] = "generated"
-    candidate_hashes = Counter(claim.content_sha256 for claim in candidate_claims)
+        candidate_origins = {
+            claim_id: "inherited" if source_claim is not None else "generated"
+            for claim_id, source_claim in candidate_sources.items()
+        }
+        raw_candidate_occurrences: Counter[str] | None = None
+    else:
+        candidate_sources = {}
+        raw_candidate_occurrences = Counter(
+            {
+                claim.content_sha256: candidate_text.count(
+                    source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+                )
+                for claim in source_claims
+            }
+        )
+        remaining_inherited = Counter(claim.content_sha256 for claim in source_claims)
+        candidate_origins = {}
+        for claim in candidate_claims:
+            if remaining_inherited[claim.content_sha256] > 0:
+                candidate_origins[claim.claim_id] = "inherited"
+                remaining_inherited[claim.content_sha256] -= 1
+            else:
+                candidate_origins[claim.claim_id] = "generated"
     provenance = [
         binding
         for binding in candidate_content_provenance or []
@@ -187,11 +290,23 @@ def build_readme_claim_accountability_map(
             | overlapping_candidate_fact_ids(claim, candidate_text, generated_claim_map)
             | set(literal_fact_ids(text, facts, provenance_fact_ids))
         )
-        fact_coordinates = structured_fact_coordinates(
-            candidate_text,
-            claim,
-            facts,
-            fact_ids,
+        fact_ids.update(accepted_candidate_policy_fact_ids(text, facts, bindings))
+        source_claim = candidate_sources.get(claim.claim_id)
+        source_fact_binding = (
+            complete_source_claim_fact_binding(source_text, source_claim, facts)
+            if source_claim is not None
+            else None
+        )
+        if source_fact_binding is not None:
+            fact_ids.update(source_fact_binding.fact_ids)
+        fact_coordinates = _merged_fact_coordinates(
+            structured_fact_coordinates(
+                candidate_text,
+                claim,
+                facts,
+                fact_ids,
+            ),
+            list(source_fact_binding.fact_coordinates) if source_fact_binding is not None else [],
         )
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
         candidate_standard_ids = {
@@ -206,6 +321,11 @@ def build_readme_claim_accountability_map(
             configured_standard_ids=candidate_standard_ids,
             survives_in_candidate=None,
             variable_fact_binding_required=bool(provenance_fact_ids),
+            configured_candidate_policy_correction=exact_candidate_policy_correction(
+                claim.disposition,
+                candidate_standard_ids,
+                fact_ids,
+            ),
         )
         candidate_records.append(
             accountability_record(
@@ -226,6 +346,9 @@ def build_readme_claim_accountability_map(
     for claim in source_claims:
         text = claim_text(source_text, claim)
         fact_ids = accepted_literal_facts(text, facts)
+        complete_fact_binding = complete_source_claim_fact_binding(source_text, claim, facts)
+        if complete_fact_binding is not None:
+            fact_ids.update(complete_fact_binding.fact_ids)
         source_standard_ids: set[str] = set()
         if source_text == candidate_text:
             exact_bindings = candidate_provenance_for_claim(claim, candidate_text, provenance)
@@ -257,7 +380,7 @@ def build_readme_claim_accountability_map(
                 or resolution.content_sha256 != claim.content_sha256
             ):
                 raise ValueError(f"source claim resolution is stale: {claim.claim_id}")
-            for fact_id in resolution.fact_ids:
+            for fact_id in [*resolution.fact_ids, *resolution.contradiction_fact_ids]:
                 fact = facts.fact_by_id(fact_id)
                 if (
                     facts.selected_fact_ids.get(fact.field) != fact_id
@@ -265,14 +388,29 @@ def build_readme_claim_accountability_map(
                     or fact.has_unresolved_conflict
                 ):
                     raise ValueError(f"source claim resolution cites ineligible fact {fact_id!r}")
-                fact_ids.add(fact_id)
-        fact_coordinates = structured_fact_coordinates(source_text, claim, facts)
+                if fact_id in resolution.fact_ids:
+                    fact_ids.add(fact_id)
+        fact_coordinates = _merged_fact_coordinates(
+            structured_fact_coordinates(source_text, claim, facts, fact_ids),
+            (
+                list(complete_fact_binding.fact_coordinates)
+                if complete_fact_binding is not None
+                else []
+            ),
+        )
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
-        survives = raw_candidate_occurrences[claim.content_sha256] > 0
-        if survives:
-            raw_candidate_occurrences[claim.content_sha256] -= 1
-            if candidate_hashes[claim.content_sha256] > 0:
-                candidate_hashes[claim.content_sha256] -= 1
+        if composition_ledger is not None:
+            survives = _source_claim_has_candidate_placement(
+                claim,
+                source_bytes,
+                candidate_bytes,
+                composition_ledger.source_placements,
+            )
+        else:
+            assert raw_candidate_occurrences is not None
+            survives = raw_candidate_occurrences[claim.content_sha256] > 0
+            if survives:
+                raw_candidate_occurrences[claim.content_sha256] -= 1
         expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",

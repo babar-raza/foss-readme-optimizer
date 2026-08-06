@@ -7,22 +7,20 @@ import json
 import re
 
 from readme_agent.readme.claim_accountability_api_index import api_coordinate_index
+from readme_agent.readme.claim_accountability_api_shapes import (
+    class_headers,
+    coded_references,
+    compatible_member_reference,
+    context_classes,
+    has_only_api_punctuation,
+    is_matching_load_save_pair,
+    is_primitive_to_mesh_claim,
+    member_surfaces,
+    right_side_is_constrained,
+)
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 
-_CODE_SPAN = re.compile(r"`([^`]+)`")
-_IDENTIFIER = r"(?<![A-Za-z0-9_]){}(?![A-Za-z0-9_])"
-_API_SHELL = re.compile(
-    r"(?is)^\s*[-+*]\s*(?:`[^`]+`(?:\s*[,;/]\s*`[^`]+`)*)\s*"
-    r"(?:\(\s*has\s+a\s+`[^`]+`\s+field\s*\))?\s*$"
-)
-_MEMBER_SIGNATURE = re.compile(
-    r"^(?P<name>[A-Za-z_][A-Za-z0-9_]*)\((?P<parameters>[^)]*)\)"
-    r"(?:\s*->\s*(?P<return>.+))?$"
-)
-_PROPERTY_SIGNATURE = re.compile(
-    r"^(?P<name>[A-Za-z_][A-Za-z0-9_]*)(?:\s*(?::|->)\s*(?P<type>.+))?$"
-)
-_SYMBOL_TOKEN = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+_LIST_ITEM = re.compile(r"(?s)^\s*[-+*]\s+(?P<body>.+?)\s*$")
 
 
 def _coordinate(*, fact_id: str, path: str, value: object) -> StructuredFactCoordinateV1:
@@ -35,88 +33,130 @@ def _coordinate(*, fact_id: str, path: str, value: object) -> StructuredFactCoor
     )
 
 
-def _contains_identifier(text: str, identifier: str) -> bool:
-    return re.search(_IDENTIFIER.format(re.escape(identifier)), text) is not None
+def _class_coordinate(
+    fact_id: str, class_name: str, class_item: dict, *, prefix: str = ""
+) -> StructuredFactCoordinateV1:
+    return _coordinate(
+        fact_id=fact_id,
+        path=f"{prefix}/classes/{class_name}",
+        value={
+            "name": class_name,
+            "module": class_item.get("module"),
+            "qualified_name": class_item.get("qualified_name"),
+            "bases": class_item.get("bases"),
+            "source_path": class_item.get("source_path"),
+            "source_sha256": class_item.get("source_sha256"),
+        },
+    )
 
 
-def _parameter_names(value: str) -> list[tuple[str, bool]]:
-    parameters = []
-    for raw in value.split(",") if value.strip() else []:
-        token = raw.strip()
-        name = token.split("=", 1)[0].split(":", 1)[0].strip().lstrip("*")
-        if name:
-            parameters.append((name, "=" in token or token.startswith("*")))
-    return parameters
+def _member_groups(class_item: dict) -> dict[str, list[dict]]:
+    groups: dict[str, list[dict]] = {}
+    members = class_item.get("members")
+    if not isinstance(members, list):
+        return groups
+    for member in members:
+        if isinstance(member, dict) and isinstance(member.get("name"), str):
+            groups.setdefault(member["name"], []).append(member)
+    return groups
 
 
-def _compatible_member_reference(reference: str, surfaces: list[str]) -> bool:
-    reference = reference.strip()
-    call = _MEMBER_SIGNATURE.fullmatch(reference)
-    if call is not None:
-        for surface in surfaces:
-            candidate = _MEMBER_SIGNATURE.fullmatch(surface)
-            if candidate is None or candidate.group("name") != call.group("name"):
-                continue
-            actual_parameters = _parameter_names(candidate.group("parameters"))
-            claimed_parameters = _parameter_names(call.group("parameters"))
-            if call.group("parameters").strip() == "...":
-                claimed_parameters = []
-            if [name for name, _ in claimed_parameters] != [
-                name for name, _ in actual_parameters[: len(claimed_parameters)]
-            ]:
-                continue
-            if any(not optional for _, optional in actual_parameters[len(claimed_parameters) :]):
-                continue
-            claimed_return = (call.group("return") or "").strip()
-            actual_return = (candidate.group("return") or "").strip()
-            if not claimed_return or claimed_return == actual_return:
-                return True
-        return False
-    claimed = _PROPERTY_SIGNATURE.fullmatch(reference)
-    if claimed is None:
-        return False
-    for surface in surfaces:
-        candidate = _PROPERTY_SIGNATURE.fullmatch(surface)
-        if candidate is None or candidate.group("name") != claimed.group("name"):
-            continue
-        claimed_type = (claimed.group("type") or "").strip()
-        actual_type = (candidate.group("type") or "").strip()
-        if not claimed_type or claimed_type == actual_type:
-            return True
-    return False
+def _member_coordinate(
+    fact_id: str,
+    class_name: str,
+    member_name: str,
+    group: list[dict],
+    *,
+    prefix: str = "",
+) -> StructuredFactCoordinateV1:
+    return _coordinate(
+        fact_id=fact_id,
+        path=f"{prefix}/classes/{class_name}/members/{member_name}",
+        value={"class": class_name, "members": group},
+    )
 
 
-def _expanded_references(codes: list[str], member_names: set[str]) -> set[str]:
-    references = {
-        part.strip() for code in codes for part in re.split(r"\s*[,;]\s*", code) if part.strip()
-    }
-    expanded = set(references)
-    for reference in references:
-        if "/" not in reference:
-            continue
-        expanded.discard(reference)
-        first, *raw_suffixes = reference.split("/")
-        first_name = re.match(r"[A-Za-z_][A-Za-z0-9_]*", first)
-        suffixes = {
-            match.group(0)
-            for raw in raw_suffixes
-            if (match := re.match(r"[A-Za-z_][A-Za-z0-9_]*", raw.strip())) is not None
-        }
-        if first_name is None:
-            continue
-        expanded.add(first_name.group(0))
-        for member_name in member_names:
-            if member_name in suffixes:
-                expanded.add(member_name)
-                continue
-            common_length = 0
-            for left, right in zip(first_name.group(0), member_name, strict=False):
-                if left != right:
-                    break
-                common_length += 1
-            if common_length >= 2 and member_name[common_length:] in suffixes:
-                expanded.add(member_name)
-    return expanded
+def _constructor_coordinate(
+    fact_id: str,
+    class_name: str,
+    constructor: dict,
+    *,
+    prefix: str = "",
+) -> StructuredFactCoordinateV1:
+    return _coordinate(
+        fact_id=fact_id,
+        path=f"{prefix}/classes/{class_name}/constructor",
+        value={"class": class_name, "constructor": constructor},
+    )
+
+
+def _base_coordinate(
+    fact_id: str,
+    class_name: str,
+    claimed_base: str,
+    bases: list,
+    *,
+    prefix: str = "",
+) -> StructuredFactCoordinateV1:
+    return _coordinate(
+        fact_id=fact_id,
+        path=f"{prefix}/classes/{class_name}/bases/{claimed_base}",
+        value={"class": class_name, "claimed_base": claimed_base, "bases": bases},
+    )
+
+
+def _direct_constructor_coordinates(
+    body: str,
+    fact_id: str,
+    classes_by_name: dict[str, dict],
+    *,
+    prefix: str,
+    public_class_names: frozenset[str],
+) -> list[StructuredFactCoordinateV1] | None:
+    references = coded_references(body)
+    if len(references) != 1 or not has_only_api_punctuation(body):
+        return None
+    reference, _ = references[0]
+    match = re.fullmatch(r"(?P<name>[A-Za-z_][A-Za-z0-9_]*)\([^)]*\)", reference)
+    if match is None:
+        return None
+    class_name = match.group("name")
+    if prefix and class_name not in public_class_names:
+        return []
+    class_item = classes_by_name.get(class_name)
+    constructor = class_item.get("constructor") if isinstance(class_item, dict) else None
+    if not isinstance(class_item, dict) or not isinstance(constructor, dict):
+        return []
+    surface = constructor.get("surface")
+    if not isinstance(surface, str) or not compatible_member_reference(reference, [surface]):
+        return []
+    return [
+        _class_coordinate(fact_id, class_name, class_item, prefix=prefix),
+        _constructor_coordinate(fact_id, class_name, constructor, prefix=prefix),
+    ]
+
+
+def _primitive_group_coordinates(
+    body: str,
+    context: str,
+    fact_id: str,
+    classes_by_name: dict[str, dict],
+    *,
+    prefix: str = "",
+) -> list[StructuredFactCoordinateV1] | None:
+    if not is_primitive_to_mesh_claim(body):
+        return None
+    class_names = context_classes(context, classes_by_name)
+    if not class_names or "Mesh" not in classes_by_name:
+        return []
+    coordinates = []
+    for class_name in class_names:
+        group = _member_groups(classes_by_name[class_name]).get("to_mesh", [])
+        surfaces = member_surfaces(group)
+        if not group or not compatible_member_reference("to_mesh()", surfaces):
+            return []
+        coordinates.append(_member_coordinate(fact_id, class_name, "to_mesh", group, prefix=prefix))
+    return coordinates
 
 
 def api_structured_fact_coordinates(
@@ -127,91 +167,190 @@ def api_structured_fact_coordinates(
 ) -> list[StructuredFactCoordinateV1]:
     """Return coordinates only for a completely recognized API list-item shape."""
 
-    if not isinstance(value, dict) or not _API_SHELL.fullmatch(text.strip()):
+    if not isinstance(value, dict) or (item := _LIST_ITEM.fullmatch(text.strip())) is None:
         return []
     index = api_coordinate_index(value)
-    codes = _CODE_SPAN.findall(text)
-    code = " ".join(codes)
     if not index.classes_by_name:
         return []
-    references = _expanded_references(codes, set(index.all_member_names))
-    symbol_tokens = set(_SYMBOL_TOKEN.findall(f"{context}\n{code}"))
-    referenced_member_names = set(_SYMBOL_TOKEN.findall(" ".join(references)))
-    member_coordinates: list[StructuredFactCoordinateV1] = []
-    member_references: set[str] = set()
-    fallback_coordinates: list[StructuredFactCoordinateV1] = []
-    fallback_references: set[str] = set()
-    for class_name in sorted(symbol_tokens & set(index.classes_by_name)):
-        class_item = index.classes_by_name[class_name]
-        members = class_item.get("members")
-        member_groups: dict[str, list[dict]] = {}
-        if isinstance(members, list):
-            for member in members:
-                if isinstance(member, dict) and isinstance(member.get("name"), str):
-                    member_groups.setdefault(member["name"], []).append(member)
-        matched_members = []
-        for member_name in sorted(referenced_member_names & set(member_groups)):
-            group = member_groups[member_name]
-            surfaces = [
-                member["surface"] for member in group if isinstance(member.get("surface"), str)
-            ]
-            matching_references = {
-                reference
-                for reference in references
-                if _contains_identifier(reference, member_name)
-                and _compatible_member_reference(reference, surfaces)
-            }
-            if matching_references:
-                matched_members.append((member_name, group))
-                member_references.update(matching_references)
-        for member_name, group in matched_members:
-            member_coordinates.append(
-                _coordinate(
-                    fact_id=fact_id,
-                    path=f"/classes/{class_name}/members/{member_name}",
-                    value={"class": class_name, "members": group},
-                )
-            )
-        if matched_members:
-            continue
-        class_references = {
-            reference
-            for reference in references
-            if reference == class_name or reference.endswith(f".{class_name}")
-        }
-        if class_references:
-            fallback_coordinates.append(
-                _coordinate(
-                    fact_id=fact_id,
-                    path=f"/classes/{class_name}",
-                    value={
-                        "name": class_name,
-                        "source_path": class_item.get("source_path"),
-                        "source_sha256": class_item.get("source_sha256"),
-                    },
-                )
-            )
-            fallback_references.update(class_references)
-    if not member_coordinates:
-        for export in sorted(symbol_tokens & set(index.modules_by_export)):
-            if export in index.classes_by_name or not _contains_identifier(code, export):
+    body = item.group("body")
+    primitive_coordinates = _primitive_group_coordinates(
+        body,
+        context,
+        fact_id,
+        index.classes_by_name,
+        prefix=index.coordinate_prefix,
+    )
+    if primitive_coordinates is not None:
+        return primitive_coordinates
+    constructor_coordinates = _direct_constructor_coordinates(
+        body,
+        fact_id,
+        index.classes_by_name,
+        prefix=index.coordinate_prefix,
+        public_class_names=index.package_export_names,
+    )
+    if constructor_coordinates is not None:
+        return constructor_coordinates
+    headers: list[tuple[str, str | None, bool]] = []
+    if "—" in body:
+        left, right = body.split("—", 1)
+        parsed_headers = class_headers(left)
+        if parsed_headers is None:
+            return []
+        headers = parsed_headers
+        class_names = [name for name, _, _ in headers]
+        if any(
+            name not in index.classes_by_name
+            or (index.coordinate_prefix and name not in index.package_export_names)
+            for name in class_names
+        ):
+            return []
+        for class_name, claimed_base, base_role in headers:
+            if base_role and not any(
+                isinstance(item.get("bases"), list) and class_name in item["bases"]
+                for item in index.classes_by_name.values()
+            ):
+                return []
+            if claimed_base is None:
                 continue
-            for module in index.modules_by_export[export]:
-                module_name = str(module.get("module") or "")
-                fallback_coordinates.append(
-                    _coordinate(
-                        fact_id=fact_id,
-                        path=f"/modules/{module_name}/exports/{export}",
-                        value={
-                            "module": module_name,
-                            "export": export,
-                            "source_path": module.get("source_path"),
-                        },
-                    )
+            bases = index.classes_by_name[class_name].get("bases")
+            if (
+                claimed_base not in index.classes_by_name
+                or not isinstance(bases, list)
+                or claimed_base not in bases
+            ):
+                return []
+        if not right_side_is_constrained(right, class_names):
+            return []
+        references = coded_references(right)
+        declared_members_only = right.strip().casefold().startswith("adds ")
+    else:
+        references = coded_references(body)
+        declared_members_only = False
+        direct = [reference for reference, _ in references]
+        if (
+            has_only_api_punctuation(body)
+            and direct
+            and all(
+                reference in index.classes_by_name
+                and (not index.coordinate_prefix or reference in index.package_export_names)
+                for reference in direct
+            )
+        ):
+            return [
+                _class_coordinate(
+                    fact_id,
+                    name,
+                    index.classes_by_name[name],
+                    prefix=index.coordinate_prefix,
                 )
-                fallback_references.update(
-                    reference for reference in references if _contains_identifier(reference, export)
+                for name in direct
+            ]
+        class_names = context_classes(context, index.classes_by_name)
+        if (
+            not class_names
+            or not has_only_api_punctuation(body)
+            or any(
+                index.coordinate_prefix and name not in index.package_export_names
+                for name in class_names
+            )
+        ):
+            return []
+    if (
+        not class_names
+        or not references
+        or any(class_name not in index.classes_by_name for class_name in class_names)
+    ):
+        return []
+    coordinates = (
+        [
+            _class_coordinate(
+                fact_id,
+                name,
+                index.classes_by_name[name],
+                prefix=index.coordinate_prefix,
+            )
+            for name in class_names
+        ]
+        if "—" in body
+        else []
+    )
+    if "—" in body:
+        for class_name, claimed_base, _ in headers:
+            if claimed_base is None:
+                continue
+            bases = index.classes_by_name[class_name]["bases"]
+            coordinates.extend(
+                [
+                    _class_coordinate(
+                        fact_id,
+                        claimed_base,
+                        index.classes_by_name[claimed_base],
+                        prefix=index.coordinate_prefix,
+                    ),
+                    _base_coordinate(
+                        fact_id,
+                        class_name,
+                        claimed_base,
+                        bases,
+                        prefix=index.coordinate_prefix,
+                    ),
+                ]
+            )
+    for reference, tail in references:
+        if reference in index.classes_by_name:
+            coordinates.append(
+                _class_coordinate(
+                    fact_id,
+                    reference,
+                    index.classes_by_name[reference],
+                    prefix=index.coordinate_prefix,
                 )
-    if member_coordinates:
-        return member_coordinates if references.issubset(member_references) else []
-    return fallback_coordinates if references.issubset(fallback_references) else []
+            )
+            continue
+        targets = class_names
+        folded_tail = tail.casefold()
+        if "save only" in folded_tail:
+            targets = [name for name in class_names if "save" in name.casefold()]
+        elif "load only" in folded_tail:
+            targets = [name for name in class_names if "load" in name.casefold()]
+        if not targets:
+            return []
+        member_name_match = re.match(r"[A-Za-z_][A-Za-z0-9_]*", reference)
+        if member_name_match is None:
+            return []
+        member_name = member_name_match.group(0)
+        compatible_targets = []
+        target_groups = {}
+        for class_name in targets:
+            group = _member_groups(index.classes_by_name[class_name]).get(member_name, [])
+            surfaces = member_surfaces(group)
+            if (
+                group
+                and compatible_member_reference(reference, surfaces)
+                and (
+                    not declared_members_only
+                    or all(member.get("declared_by") == class_name for member in group)
+                )
+            ):
+                compatible_targets.append(class_name)
+                target_groups[class_name] = group
+        scoped_targets = compatible_targets
+        if not ("save only" in folded_tail or "load only" in folded_tail):
+            if len(compatible_targets) != len(targets) and not (
+                is_matching_load_save_pair(class_names) and len(compatible_targets) == 1
+            ):
+                return []
+        if not scoped_targets:
+            return []
+        for class_name in scoped_targets:
+            coordinates.append(
+                _member_coordinate(
+                    fact_id,
+                    class_name,
+                    member_name,
+                    target_groups[class_name],
+                    prefix=index.coordinate_prefix,
+                )
+            )
+    return coordinates

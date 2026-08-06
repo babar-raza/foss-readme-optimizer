@@ -16,6 +16,7 @@ from readme_agent.readme.source_claim_obligations import (
     obligation_any_fact_fields,
     obligation_provenance_prefixes,
     obligation_required_fact_fields,
+    obligation_required_standard_ids,
     obligation_requires_source_entailment,
 )
 
@@ -26,6 +27,7 @@ __all__ = [
     "obligation_provenance_prefixes",
     "obligation_requires_source_entailment",
     "obligation_required_fact_fields",
+    "obligation_required_standard_ids",
 ]
 
 SourceClaimRiskClass = Literal[
@@ -90,6 +92,29 @@ def classify_source_claim_risk(
     text = document.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
     folded = _normalized(text)
 
+    if not primary and folded.startswith("[!["):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="header_badges",
+            heading_path=path,
+            rationale="Inherited badges require the fact-bound configured header badge slot.",
+        )
+    if primary == "navigation":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="navigation",
+            heading_path=path,
+            rationale="Inherited navigation requires the configured canonical navigation slot.",
+        )
+    if primary == "at a glance":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="at_a_glance",
+            heading_path=path,
+            rationale=(
+                "Inherited visual product claims require the fact-bound canonical at-a-glance slot."
+            ),
+        )
     if _OTHER_PLATFORMS_HEADING.fullmatch(primary):
         return SourceClaimRiskV1(
             risk_class="governed_valid_omission",
@@ -114,13 +139,6 @@ def classify_source_claim_risk(
                 "commercial/FOSS relationship fact and its exact candidate slot."
             ),
         )
-    if "third-party" in primary or "third party" in primary or "third-party" in folded:
-        return SourceClaimRiskV1(
-            risk_class="mandatory_fact_resolution",
-            obligation_id="third_party_notices",
-            heading_path=path,
-            rationale="Third-party attribution is a mandatory golden-contract obligation.",
-        )
     if primary == "license" or primary.endswith(" license") or _is_atomic_license_claim(folded):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
@@ -141,6 +159,17 @@ def classify_source_claim_risk(
                 "generic product-overview facts cannot replace them."
             ),
         )
+    if (
+        "third-party" in primary
+        or "third party" in primary
+        or folded.startswith("third-party notices")
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="third_party_notices",
+            heading_path=path,
+            rationale="Third-party attribution is a mandatory golden-contract obligation.",
+        )
     if any(
         marker in folded
         for marker in (
@@ -151,6 +180,16 @@ def classify_source_claim_risk(
             "cannot ",
             "currently supports only",
         )
+    ) and not (
+        "installation" in primary
+        or "getting started" in primary
+        or "quick start" in primary
+        or "quickstart" in primary
+        or primary == "additional examples"
+        or "api" in primary
+        or "documentation" in primary
+        or primary == "resources"
+        or any(token in primary for token in ("build", "developer", "test"))
     ):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
@@ -188,6 +227,7 @@ def classify_source_claim_risk(
     if any(token in primary for token in ("feature", "capabilit", "format")):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="major_capabilities",
             heading_path=path,
             rationale=(
                 "Granular feature and format claims require claim-specific repository evidence; "
@@ -206,6 +246,55 @@ def classify_source_claim_risk(
             risk_class="optional_explicit_deferral",
             heading_path=path,
             rationale="A secondary quick-start example may be deferred with exact evidence.",
+        )
+    if primary == "additional examples":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="additional_examples",
+            heading_path=path,
+            rationale=(
+                "Inherited additional examples require the repository-inventory-backed "
+                "additional-examples slot."
+            ),
+        )
+    if "api" in primary and folded in {
+        "<details> <summary>view the supported public api surface</summary>",
+        "</details>",
+    }:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_structure",
+            heading_path=path,
+            rationale=(
+                "The exact API disclosure shell requires the configured API-reference slot, "
+                "not a fabricated product fact."
+            ),
+        )
+    if "api" in primary:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
+            heading_path=path,
+            rationale=(
+                "Inherited API detail requires the repository-source-backed public API slot."
+            ),
+        )
+    if "documentation" in primary or primary in {"resources", "documentation & resources"}:
+        support_claim = any(
+            marker in folded for marker in ("open an issue", "bug", "feature request", "support")
+        )
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="support_routes" if support_claim else "documentation_resources",
+            heading_path=path,
+            rationale=(
+                "Inherited support guidance requires a real fact-bound support slot."
+                if support_claim
+                else (
+                    "Inherited documentation guidance requires a real fact-bound documentation "
+                    "slot."
+                )
+            ),
         )
     if "mcp" in primary:
         return SourceClaimRiskV1(
@@ -246,6 +335,7 @@ def classify_source_claim_risk(
     if any(token in primary for token in ("build", "developer", "test")):
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="development_commands",
             heading_path=path,
             rationale=(
                 "Build and test commands require manifest or task-runner evidence before they "
@@ -280,6 +370,15 @@ def classify_source_claim_risk(
             rationale=(
                 "API, architecture, resource, example, and workflow details require exact "
                 "repository evidence; generic overview prose is not equivalent."
+            ),
+        )
+    if not primary:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="product_overview",
+            heading_path=path,
+            rationale=(
+                "Inherited opening prose requires the complete fact-bound title and summary slots."
             ),
         )
     return SourceClaimRiskV1(

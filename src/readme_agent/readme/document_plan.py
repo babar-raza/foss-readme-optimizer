@@ -156,6 +156,7 @@ class SourceClaimResolutionV1(_StrictModel):
     resolution: SourceClaimResolution
     obligation_id: SourceClaimObligation | None = None
     fact_ids: list[str] = Field(default_factory=list)
+    contradiction_fact_ids: list[str] = Field(default_factory=list)
     replacement_provenance_ids: list[str] = Field(default_factory=list)
     policy_corrections: list[SourceClaimPolicyCorrectionV1] = Field(default_factory=list)
     candidate_claim_id: str | None = None
@@ -186,7 +187,10 @@ class SourceClaimResolutionV1(_StrictModel):
         elif self.policy_corrections:
             raise ValueError("exact policy spans are reserved for policy corrections")
         if self.resolution == "deferred_verification" and (
-            self.fact_ids or self.obligation_id or self.replacement_provenance_ids
+            self.fact_ids
+            or self.contradiction_fact_ids
+            or self.obligation_id
+            or self.replacement_provenance_ids
         ):
             raise ValueError(
                 "deferred verification cannot cite facts or replacements as if verified"
@@ -196,6 +200,10 @@ class SourceClaimResolutionV1(_StrictModel):
         ):
             raise ValueError(
                 "verified obligation replacement requires an obligation, facts, and provenance"
+            )
+        if self.contradiction_fact_ids and self.resolution != "verified_obligation_replacement":
+            raise ValueError(
+                "contradiction facts are reserved for verified obligation replacements"
             )
         if self.resolution not in {
             "verified_obligation_replacement",

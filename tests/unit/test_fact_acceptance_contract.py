@@ -68,6 +68,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "evidence_polarity",
         "root_role_selection",
         "visitor_render_eligibility",
+        "documentation_catalog",
     }
     assert contract.recollect_on_component_change == (
         "fact_schema",
@@ -76,6 +77,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "drafting_and_example_selection",
         "evidence_polarity",
         "root_role_selection",
+        "documentation_catalog",
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
@@ -97,7 +99,15 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert {
         "curated_readme_evidence.py",
         "curated_constraint_evidence.py",
+        "curated_python_api_ast.py",
+        "curated_python_api_projection.py",
+        "curated_python_dependencies.py",
+        "curated_python_development.py",
         "curated_python_evidence.py",
+        "curated_python_example_validation.py",
+        "curated_python_fixture_inventory.py",
+        "curated_python_import_shadowing.py",
+        "curated_python_public_surface.py",
         "curated_repository_assets.py",
     }.issubset(_COMPONENT_FILES["root_role_selection"])
 

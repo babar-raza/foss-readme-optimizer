@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from collections import Counter
 from dataclasses import dataclass
 
 from readme_agent.presentation.verified_preservation_sections import (
     PreservedBlock,
+    VerifiedSourcePreservationSelectionV1,
     preserved_h2_sections,
     preserved_opening_claims,
 )
@@ -17,6 +17,7 @@ from readme_agent.presentation.verified_preservation_segments import (
     rebase_provenance,
     rebase_source_placements,
 )
+from readme_agent.presentation.verified_source_density import apply_verified_source_density
 from readme_agent.presentation.verified_source_placements import (
     exclude_source_placements_from_provenance,
     replacement_placements,
@@ -27,6 +28,11 @@ from readme_agent.presentation.verified_source_policy import VerifiedSourcePolic
 from readme_agent.presentation.verified_source_policy_application import (
     apply_verified_source_policy,
     rebase_source_policy_corrections,
+)
+from readme_agent.presentation.verified_source_shell_policy import (
+    fully_omitted_by_shell_policy,
+    unapplied_shell_omission_corrections,
+    validate_compiled_source_shell,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
@@ -47,17 +53,21 @@ def compose_verified_source_preservation(
     candidate: str,
     source_text: str,
     assessment: ReadmeAssessmentV1,
-    replaceable_claim_ids: set[str],
+    resolved_claim_ids: set[str],
     provenance: list[CandidateContentProvenanceV1],
     source_policy_edits: list[VerifiedSourcePolicyEditV1] | None = None,
+    *,
+    preservation_selection: VerifiedSourcePreservationSelectionV1 | None = None,
 ) -> VerifiedSourceComposition:
     """Apply exact preserve dispositions without duplicating the source document shell."""
 
+    policy_edits = source_policy_edits or []
     preserved_sections = preserved_h2_sections(
         source_text,
         assessment,
-        replaceable_claim_ids,
+        resolved_claim_ids,
         candidate,
+        preservation_selection=preservation_selection,
     )
     candidate_headings = [heading for heading in parse_headings(candidate) if heading.level == 2]
     block_by_identity = {heading_identity(heading.title): heading for heading in candidate_headings}
@@ -78,13 +88,28 @@ def compose_verified_source_preservation(
         )
         for section in preserved_sections
         if heading_identity(section.title) not in block_by_identity
+        and not fully_omitted_by_shell_policy(
+            section.source_byte_start,
+            section.source_byte_end,
+            policy_edits,
+        )
     ]
     opening_claims = preserved_opening_claims(
         source_text,
         assessment,
-        replaceable_claim_ids,
+        resolved_claim_ids,
         candidate,
+        preservation_selection=preservation_selection,
     )
+    opening_claims = [
+        block
+        for block in opening_claims
+        if not fully_omitted_by_shell_policy(
+            block.source_byte_start,
+            block.source_byte_end,
+            policy_edits,
+        )
+    ]
     edits: list[tuple[CandidateEdit, list[PreservedBlock], str, str]] = []
     if opening_claims:
         opening_end = candidate_headings[0].start if candidate_headings else len(candidate)
@@ -135,13 +160,27 @@ def compose_verified_source_preservation(
                 separated=prefix != "opening",
             )
         )
+    non_preservable_claim_ids = (
+        set(preservation_selection.non_preservable_claim_ids)
+        if preservation_selection is not None
+        else resolved_claim_ids
+    )
     missing_blocks, adopted_placements = resolve_preserve_claim_placements(
         composed,
         source_text,
         assessment,
-        replaceable_claim_ids,
+        non_preservable_claim_ids,
         source_placements,
     )
+    missing_blocks = [
+        block
+        for block in missing_blocks
+        if not fully_omitted_by_shell_policy(
+            block.source_byte_start,
+            block.source_byte_end,
+            policy_edits,
+        )
+    ]
     source_placements.extend(adopted_placements)
     if missing_blocks:
         preserved_heading = "Preserved repository details"
@@ -182,9 +221,25 @@ def compose_verified_source_preservation(
             source_text,
             source_placements,
             composed_provenance,
-            source_policy_edits or [],
+            policy_edits,
         )
     )
+    policy_corrections = unapplied_shell_omission_corrections(
+        source_text,
+        policy_edits,
+        policy_corrections,
+    )
+    density = apply_verified_source_density(
+        composed,
+        source_text,
+        composed_provenance,
+        source_placements,
+        policy_corrections,
+    )
+    composed = density.candidate
+    composed_provenance = density.provenance
+    source_placements = density.source_placements
+    policy_corrections = density.source_policy_corrections
     toc_edit = navigation_edit(composed)
     policy_corrections = rebase_source_policy_corrections(policy_corrections, toc_edit)
     source_placements = rebase_source_placements(source_placements, toc_edit)
@@ -195,17 +250,7 @@ def compose_verified_source_preservation(
         source_placements,
     )
 
-    headings = parse_headings(composed)
-    h1_count = sum(heading.level == 1 for heading in headings)
-    h2_identities = [heading_identity(heading.title) for heading in headings if heading.level == 2]
-    duplicate_h2s = sorted(
-        identity for identity, count in Counter(h2_identities).items() if count > 1
-    )
-    if h1_count != 1 or duplicate_h2s:
-        raise ValueError(
-            "source-preserving composition introduced an invalid document shell: "
-            f"h1_count={h1_count}, duplicate_h2s={duplicate_h2s}"
-        )
+    validate_compiled_source_shell(composed)
     if composed.rstrip() + "\n" != composed:
         raise ValueError("source-preserving composition produced a noncanonical trailing boundary")
     return VerifiedSourceComposition(

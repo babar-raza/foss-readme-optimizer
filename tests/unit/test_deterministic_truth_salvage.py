@@ -25,7 +25,7 @@ PRIOR_REVISION = "a" * 40
 README_SHA256 = "c" * 64
 
 
-def test_loads_checksum_valid_historical_candidate_only_for_identical_readme(
+def test_loads_checksum_valid_historical_candidate_after_readme_change_for_reproof(
     tmp_path: Path,
 ) -> None:
     current = tmp_path / CURRENT_REVISION
@@ -54,7 +54,7 @@ def test_loads_checksum_valid_historical_candidate_only_for_identical_readme(
     )
 
     assert loaded == candidate
-    assert mismatched is None
+    assert mismatched == candidate
     assert tampered is None
 
 
@@ -376,6 +376,121 @@ def test_repository_extensions_enrich_only_selected_verified_technical_facts() -
         "Rendering is best effort.",
     ]
     assert all(fact.source.source_type == "mechanical_repository" for fact in enriched.values())
+
+
+def test_repository_source_limitations_survive_an_empty_salvage_candidate() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://src/widget.py",
+        source_revision=CURRENT_REVISION,
+    )
+    limitations = FactRecordV2(
+        fact_id="product.limitations:source-guidance",
+        field="product.limitations",
+        value=[
+            {
+                "statement": "Mesh export is not implemented.",
+                "path": "src/widget.py",
+                "line": 12,
+                "source_sha256": "d" * 64,
+            }
+        ],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.limitations"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[limitations],
+        selected_fact_ids={limitations.field: limitations.fact_id},
+        package_root_roles=None,
+    )
+    technical = {
+        field: FactRecordV2(
+            fact_id=f"{field}:salvage",
+            field=field,
+            value=[],
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in ("product.capabilities", "product.formats", "product.limitations")
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    assert enriched["product.limitations"] is limitations
+
+
+def test_repository_directions_remove_unproved_format_qualifiers() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://package/formats",
+        source_revision=CURRENT_REVISION,
+    )
+    directions = FactRecordV2(
+        fact_id="repository.format_directions:python-source-directions",
+        field="repository.format_directions",
+        value={
+            "schema_version": 1,
+            "directions": [
+                {
+                    "format": "OBJ",
+                    "direction": "input",
+                    "material_library_support": False,
+                },
+                {"format": "OBJ", "direction": "output"},
+            ],
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[directions],
+        selected_fact_ids={directions.field: directions.fact_id},
+        package_root_roles=None,
+    )
+    technical = {
+        field: FactRecordV2(
+            fact_id=f"{field}:salvage",
+            field=field,
+            value=value,
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field, value in {
+            "product.capabilities": [],
+            "product.formats": [
+                "Input format: OBJ - Wavefront OBJ with full material support",
+                "Output format: OBJ - Wavefront OBJ",
+                "Output format: COLLADA",
+            ],
+            "product.limitations": [],
+        }.items()
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    assert enriched["product.formats"].value == [
+        "Input format: OBJ",
+        "Output format: OBJ",
+    ]
+    assert enriched["product.formats"].source.location == source.location
 
 
 def _write_bundle(

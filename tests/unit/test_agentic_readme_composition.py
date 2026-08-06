@@ -29,7 +29,9 @@ from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_accountability_validation import validate_claim_accountability_map
 from readme_agent.readme.claim_map import build_readme_claim_map
+from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
 from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
@@ -55,7 +57,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "bf1ecbb1af075999dca1f208b3d7512e1084e1ca3e66ff69aea825ebe456ca6a"
+    "326ea17c2003732cb751cb17fd9debc19662f06eba4c9e4fe130e70b837cb380"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
@@ -450,11 +452,65 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
         fact_id for sentence in plan.overview_sentences for fact_id in sentence.supporting_fact_ids
     }
     assert planned_fact_ids <= cited_ids
+    summary_equivalence = next(
+        resolution
+        for resolution in document_plan.source_claim_resolutions
+        if resolution.resolution == "verified_equivalence"
+    )
     assert any(
-        segment.origin == "source_preserved"
+        segment.origin != "source_preserved"
         and draft["opening_summary"]["text"] in segment.content_text
         for segment in document_plan.composition_ledger.segments
     )
+    assert summary_equivalence.candidate_byte_start is not None
+    assert summary_equivalence.candidate_byte_end is not None
+    assert not any(
+        placement.final_byte_start < summary_equivalence.candidate_byte_end
+        and summary_equivalence.candidate_byte_start < placement.final_byte_end
+        for placement in document_plan.composition_ledger.source_placements
+    )
+    injected_source_owner = ExactSourcePlacementV1(
+        placement_id="source.tamper.summary",
+        placement_basis="structural_exact_equivalence",
+        source_owner_id=summary_equivalence.claim_id,
+        structural_role="opening_material_claim",
+        source_byte_start=summary_equivalence.source_byte_start,
+        source_byte_end=summary_equivalence.source_byte_end,
+        source_content_sha256=summary_equivalence.content_sha256,
+        final_byte_start=summary_equivalence.candidate_byte_start,
+        final_byte_end=summary_equivalence.candidate_byte_end,
+        final_content_sha256=summary_equivalence.candidate_content_sha256,
+    )
+    tampered_ledger = document_plan.composition_ledger.model_copy(
+        update={
+            "source_placements": [
+                *document_plan.composition_ledger.source_placements,
+                injected_source_owner,
+            ]
+        }
+    )
+    tampered_validation = validate_claim_accountability_map(
+        document_plan.claim_accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=document_plan.operations,
+        candidate_content_provenance=document_plan.candidate_content_provenance,
+        source_claim_resolutions=document_plan.source_claim_resolutions,
+        composition_ledger=tampered_ledger,
+    )
+    assert tampered_validation.checks["verified_equivalences_have_exact_candidate_claims"] is False
+    no_ledger_validation = validate_claim_accountability_map(
+        document_plan.claim_accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=document_plan.operations,
+        candidate_content_provenance=document_plan.candidate_content_provenance,
+        source_claim_resolutions=document_plan.source_claim_resolutions,
+        composition_ledger=None,
+    )
+    assert no_ledger_validation.checks["verified_equivalences_have_exact_candidate_claims"] is False
     assert facts.selected_fact("product.formats").fact_id in cited_ids
     claim_map = build_readme_claim_map(
         document_plan,
@@ -1023,9 +1079,17 @@ def test_presentation_replacement_does_not_blanket_authorize_protected_source_lo
     )
     decision = validate_readme_document_candidate(source, candidate, document_plan, facts)
 
-    assert "## API reference\n\n```text\nmaintainer_api_contract()\n```\n" in candidate
+    assert "maintainer_api_contract()" not in candidate
     assert decision.valid is False
     assert decision.checks["claim_accountability_complete"] is False
+    assert document_plan.claim_accountability is not None
+    protected_source = next(
+        record
+        for record in document_plan.claim_accountability.claims
+        if record.stage == "source" and record.source_byte_start > 0
+    )
+    assert protected_source.survives_in_candidate is False
+    assert protected_source.currently_accountable is False
     assert any("claim accountability has" in error for error in decision.errors)
 
 
@@ -1075,6 +1139,11 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     preserved_text = source.encode("utf-8")[
         preserved.source_byte_start : preserved.source_byte_end
     ].decode("utf-8")
+    preserved_resolution = next(
+        item
+        for item in document_plan.source_claim_resolutions
+        if item.claim_id == preserved.claim_id
+    )
     promo = next(
         claim
         for claim in assessment.material_claims
@@ -1102,9 +1171,41 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert decision.checks["no_introduced_duplicate_headings"] is True
     assert decision.checks["claim_accountability_complete"] is False
     assert decision.checks["claim_accountability_gaps_visible"] is True
-    assert candidate.count(preserved_text) == 1
+    assert candidate.count(preserved_text) == 0
+    expected_overview_fact_ids = {
+        facts.selected_fact_ids[field]
+        for field in (
+            "product.identity",
+            "product.audience",
+            "product.problems_solved",
+            "product.capabilities",
+            "product.formats",
+            "product.license",
+        )
+    }
+    assert preserved_resolution.source_byte_start == preserved.source_byte_start
+    assert preserved_resolution.source_byte_end == preserved.source_byte_end
+    assert preserved_resolution.content_sha256 == preserved.content_sha256
+    assert preserved_resolution.resolution == "verified_obligation_replacement"
+    assert preserved_resolution.obligation_id == "product_overview"
+    assert set(preserved_resolution.fact_ids) == expected_overview_fact_ids
+    assert {
+        "template.title",
+        "template.summary",
+    }.issubset(preserved_resolution.replacement_provenance_ids)
+    assert set(preserved_resolution.replacement_provenance_ids) <= {
+        binding.provenance_id for binding in document_plan.candidate_content_provenance
+    }
+    assert f"source-claim:{preserved.claim_id}" in preserved_resolution.evidence
+    assert f"source-content-sha256:{preserved.content_sha256}" in preserved_resolution.evidence
+    assert "authority:verified-source-assurance:correction-candidate" in (
+        preserved_resolution.evidence
+    )
     assert all(
-        item.claim_id != preserved.claim_id for item in document_plan.source_claim_resolutions
+        facts.selected_fact_ids[facts.fact_by_id(fact_id).field] == fact_id
+        and facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
+        and not facts.fact_by_id(fact_id).has_unresolved_conflict
+        for fact_id in preserved_resolution.fact_ids
     )
     assert promo_resolution is None
     assert promo_accountability.expected_disposition == "required_correction"
@@ -1112,34 +1213,36 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert candidate.count("# Aspose.3D FOSS for Python") == 1
     assert candidate.count("## Navigation") == 1
     assert candidate.count("## License") == 1
-    assert "```mermaid" in candidate
+    assert candidate.count("```mermaid") == 1
+    assert "# Create a new scene" not in candidate
+    assert "# Import an OBJ file" not in candidate
+    assert "# Access imported data" not in candidate
+    assert 'scene.open("model.obj", options)' not in candidate
+    preserved_accountability = next(
+        item
+        for item in document_plan.claim_accountability.claims
+        if item.stage == "source"
+        and item.source_byte_start == preserved.source_byte_start
+        and item.source_byte_end == preserved.source_byte_end
+    )
+    assert preserved_accountability.expected_disposition == "verified_obligation_replacement"
+    assert preserved_accountability.currently_accountable is True
+    assert preserved_accountability.survives_in_candidate is False
+    assert set(preserved_accountability.accepted_fact_ids) == expected_overview_fact_ids
+    comment_corrections = [
+        correction
+        for resolution in document_plan.source_claim_resolutions
+        for correction in resolution.policy_corrections
+        if "readme.no_comments" in correction.configured_standard_ids
+    ]
+    assert not comment_corrections
     ledger = document_plan.composition_ledger
     assert ledger.candidate_sha256 == document_plan.candidate_sha256
     assert ledger.operation_reconstruction_sha256 == document_plan.candidate_sha256
     assert b"".join(segment.content_text.encode("utf-8") for segment in ledger.segments) == (
         candidate.encode("utf-8")
     )
-    trigger_segments = [
-        segment
-        for segment in ledger.segments
-        if segment.origin == "source_preserved"
-        and segment.source_byte_start is not None
-        and segment.source_byte_start <= preserved.source_byte_start
-        and segment.source_byte_end is not None
-        and preserved.source_byte_end <= segment.source_byte_end
-    ]
-    assert len(trigger_segments) == 1
-    assert preserved_text in trigger_segments[0].content_text
-    trigger_placement = next(
-        placement
-        for placement in ledger.source_placements
-        if placement.final_byte_start <= trigger_segments[0].final_byte_start
-        and trigger_segments[0].final_byte_end <= placement.final_byte_end
-    )
-    assert trigger_placement.placement_basis in {
-        "composer_inserted_exact",
-        "structural_exact_equivalence",
-    }
+    assert not ledger.source_placements
     assert all(
         segment.fact_ids or segment.configured_standard_ids
         for segment in ledger.segments
@@ -1160,21 +1263,30 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
         lifecycle_status="FACTS_READY",
     )
     assert rerun_composition is not None
-    with pytest.raises(ValueError, match="unsupported exact-source binding"):
-        build_readme_document_candidate(
-            facts.org_repo,
-            candidate,
-            facts,
-            base_revision=revision,
-            agentic_composition_plan=rerun_composition.model_dump(mode="json"),
-        )
+    rerendered, rerun_plan = build_readme_document_candidate(
+        facts.org_repo,
+        candidate,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=rerun_composition.model_dump(mode="json"),
+    )
+    assert rerendered == candidate
+    assert rerun_plan.operations == []
+    assert rerun_plan.candidate_sha256 == document_plan.candidate_sha256
+    assert rerun_plan.source_claim_resolutions == []
+    assert [
+        placement.placement_basis for placement in rerun_plan.composition_ledger.source_placements
+    ] == ["no_op_whole_source"]
 
     mixed_source = (
         "# Aspose.3D FOSS for Python\n\n"
         "## Overview\n\n"
         "Aspose.3D FOSS for Python supports XYZQ teleport conversion under the MIT license.\n"
     )
-    with pytest.raises(ValueError, match="preserve disposition lost a source claim"):
+    with pytest.raises(
+        ValueError,
+        match="fact-authorized preservation claim range is partial, spoofed, or stale",
+    ):
         build_source_claim_resolutions(
             mixed_source,
             candidate,

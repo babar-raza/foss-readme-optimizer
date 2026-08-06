@@ -61,10 +61,15 @@ def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() 
     )
     candidate = (
         "# Email library\n\n"
-        "## Navigation\n\n- [License](#license)\n\n"
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)\n\n"
+        "## Navigation\n\n"
+        "- [At a glance](#at-a-glance)\n"
+        "- [License](#license)\n\n"
+        "## At a glance\n\n"
+        "```mermaid\nflowchart LR\n  Input --- Email --- Output\n```\n\n"
         "## License\n\nPermit use under the [license](LICENSE).\n"
     )
-    navigation_text = "- [License](#license)"
+    navigation_text = "- [At a glance](#at-a-glance)\n- [License](#license)"
     navigation_start = candidate.index(navigation_text)
     provenance = [
         CandidateContentProvenanceV1(

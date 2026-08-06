@@ -14,7 +14,9 @@ from readme_agent.facts.curated_python_evidence import (
     example_inventory,
     python_optional_extras,
     python_public_surface,
+    python_source_format_directions,
 )
+from readme_agent.facts.curated_python_import_shadowing import python_import_shadowing
 from readme_agent.facts.curated_repository_assets import (
     development_assets,
     repository_ci,
@@ -287,7 +289,19 @@ def curated_repository_fact_candidates(
             "repository.examples",
             "repository-inventory",
             "mechanical_repository",
-            example_inventory,
+            lambda candidate_root: example_inventory(candidate_root, source_revision),
+        ),
+        (
+            "repository.format_directions",
+            "python-source-directions",
+            "mechanical_repository",
+            python_source_format_directions,
+        ),
+        (
+            "repository.python_import_shadowing",
+            "python-package-export-overrides",
+            "mechanical_repository",
+            python_import_shadowing,
         ),
         (
             "development.assets",
@@ -353,6 +367,8 @@ def curated_repository_fact_candidates(
         value, locations = result
         affected_surfaces = {
             "repository.capability_details": ["readme.capabilities", "readme.examples"],
+            "repository.format_directions": ["readme.capabilities"],
+            "repository.python_import_shadowing": ["readme.api"],
             "repository.verified_boundaries": ["readme.limitations", "readme.security"],
         }.get(field)
         facts.append(

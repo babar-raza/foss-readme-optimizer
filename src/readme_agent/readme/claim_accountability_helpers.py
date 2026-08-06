@@ -19,6 +19,22 @@ from readme_agent.readme.document_plan import CandidateContentProvenanceV1, Sour
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
 
 _CORRECTION_DISPOSITIONS = {"rewrite", "repair", "remove_update", "replace_generic"}
+
+
+def _policy_corrections_cover_entire_claim(resolution: SourceClaimResolutionV1) -> bool:
+    cursor = resolution.source_byte_start
+    for correction in sorted(
+        resolution.policy_corrections,
+        key=lambda item: (item.source_byte_start, item.source_byte_end),
+    ):
+        if correction.source_byte_end <= cursor:
+            continue
+        if correction.source_byte_start > cursor:
+            return False
+        cursor = max(cursor, correction.source_byte_end)
+    return cursor >= resolution.source_byte_end
+
+
 _MARKDOWN_MARKS = re.compile(r"[`*_>#\[\]()]")
 
 
@@ -90,6 +106,7 @@ def expected_disposition(
     source_resolution: SourceClaimResolutionV1 | None = None,
     variable_fact_binding_required: bool = False,
     structured_equivalence: bool = False,
+    configured_candidate_policy_correction: bool = False,
 ) -> tuple[ExpectedClaimDisposition, bool, str]:
     if structured_equivalence:
         if stage != "source" or survives_in_candidate is not False:
@@ -119,17 +136,18 @@ def expected_disposition(
                 "evidence until repository verification can justify publication.",
             )
         if source_resolution.resolution == "verified_equivalence":
-            if survives_in_candidate is not False:
+            if survives_in_candidate not in {False, True}:
                 return (
                     "unjustified_loss",
                     False,
-                    "A verified equivalence is only valid for a replaced source claim.",
+                    "A verified equivalence requires an exact candidate survival decision.",
                 )
             return (
                 "verified_equivalence",
                 True,
                 "The exact source claim is bound to an exact independently accountable "
-                "candidate claim with the same accepted facts.",
+                "candidate claim with the same accepted facts; final validation rejects "
+                "surviving bytes when any exact source placement owns that candidate claim.",
             )
         if source_resolution.resolution == "verified_obligation_replacement":
             if survives_in_candidate is not False:
@@ -163,11 +181,20 @@ def expected_disposition(
                     False,
                     "A partial policy correction must replace the original exact claim bytes.",
                 )
+            if not accepted_fact_ids and not _policy_corrections_cover_entire_claim(
+                source_resolution
+            ):
+                return (
+                    "authoritative_owner_validation",
+                    False,
+                    "The policy-owned spans are corrected with exact lineage, but the retained "
+                    "material claim still requires an accepted fact or authoritative owner.",
+                )
             return (
                 "presentation_policy_correction",
                 True,
-                "Exact policy-owned spans are corrected while retained claim bytes remain "
-                "bound to exact source lineage.",
+                "Exact policy-owned spans cover the complete claim or the retained material is "
+                "independently bound to accepted facts and exact source lineage.",
             )
         return (
             "required_correction",
@@ -179,6 +206,19 @@ def expected_disposition(
             "explicit_uncertainty",
             True,
             "Instruction-like or unresolved source content remains explicitly untrusted.",
+        )
+    if configured_candidate_policy_correction:
+        if stage != "candidate" or origin != "generated" or not accepted_fact_ids:
+            return (
+                "required_correction",
+                False,
+                "Configured candidate-policy correction lacks exact generated fact authority.",
+            )
+        return (
+            "accepted_fact",
+            True,
+            "Exact generated contextual prose is bound to selected accepted facts and its "
+            "governed link standard; catalog validation remains independently mandatory.",
         )
     if current in _CORRECTION_DISPOSITIONS:
         return (
