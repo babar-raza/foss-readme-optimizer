@@ -21136,7 +21136,7 @@
     "updated_at": "2026-08-07T07:47:52.009816+00:00"
   },
   "schema_version": 2,
-  "state_version": 1080,
+  "state_version": 1081,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7732c178a259dbfcb0702f4d44faa29a03f880e5d53adf7ab841f6fb1ab7ab7a",
@@ -22385,13 +22385,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:bundle_verification_rejected:20260807-074639-fb43: independent validation failed: ['template_hash_matches failed']; 20260807-074639-fb43: recomputed validation disagrees with stored document-validation.json",
       "last_checkpoint_id": "f767eee3463f1ed3e8dec1eb5f7fbf2ba1e7f1488c99481238c3fef5e99f8624",
-      "lease_expires_at": "2026-08-07T07:56:18.099346+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T07:48:47.775054+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T07:49:12.318924+00:00"
     }
   },
   "trigger_records": {},
