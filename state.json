@@ -30364,7 +30364,7 @@
     "updated_at": "2026-08-07T22:33:02.901148+00:00"
   },
   "schema_version": 2,
-  "state_version": 1519,
+  "state_version": 1520,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -32097,13 +32097,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 19 blocking claim(s): candidate:claim:17813:a25977b41eb6dc02, candidate:claim:18299:04c45ce945460216, candidate:claim:19436:f3fd7b0d46d554ca, candidate:claim:19646:251af29a6196fb77, candidate:claim:19889:9bb258809cba7f79, candidate:claim:20936:38f61aae749be8bb, candidate:claim:21186:c4586d44fb711ec0, candidate:claim:21781:6cda3d69db277ec1, candidate:claim:22107:50dfac9a566facc2, candidate:claim:22287:2d7b903d57e0a605']",
       "last_checkpoint_id": "931efa00eb439995f965480a93ff8ef9ea6e55b6d1890c49ab851fa4fe49f310",
-      "lease_expires_at": "2026-08-07T22:56:05.730047+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T22:46:42.980038+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T22:47:13.575045+00:00"
     }
   },
   "trigger_records": {},
