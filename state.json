@@ -10300,13 +10300,13 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "e5ee53261e03040cc1b0ea4ffefb5d902aa259e7c57e845e14eb72f3aa8bc717",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "e902d905d361fc605a3381915e3190f8675232d76eaf1e4d7a25c81d85b8d0c6",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "criteria_results": [],
-        "input_sha256": "7ba98f7b5959f1e7968e755a0cdd43e944a2627ab75aa7c5a751d3a847028b86",
+        "input_sha256": "cff2e1a1888343dd5e44d7c112a275170eb6a6544927e376b0648c0e5b41a1cd",
         "input_source": "verified_candidate_plan_and_merged_review",
         "overall_summary": "Reused the verified presentation plan after merged independent approval.",
         "review_reused": true,
@@ -10318,7 +10318,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-06T16:59:58.181274+00:00",
+      "last_run_timestamp": "2026-08-07T06:48:23.376142+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -47805,7 +47805,7 @@
     "updated_at": "2026-08-07T06:47:39.232174+00:00"
   },
   "schema_version": 2,
-  "state_version": 2684,
+  "state_version": 2685,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
