@@ -26777,6 +26777,18 @@
         "reason": "completed bundle cache invalidated at README_ASSESSED: presentation_component_cosmetic_changed, presentation_component_fact_slot_changed, presentation_component_protected_content_changed, presentation_component_severe_acceptance_changed, presentation_component_structural_changed, reviewer_standard_hash_changed",
         "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
         "to_status": "README_ASSESSED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\802fe4b7ffb00cbfe211\\r\\d682846653bd11e0\\s\\dac5d70e0f91\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\dac5d70e0f91949a780f2e98dfbb12314a5fbc70\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "README_ASSESSED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-07T12:04:08.645652+00:00",
+        "reason": "fact-cited source-span presentation plan completed",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "to_status": "PLAN_READY"
       }
     ],
     "human_acceptance_history": [],
@@ -26798,7 +26810,7 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "bc50714733e89a7600457931bcef89bbd045357b08284c127e474d0746a3a871",
+    "presentation_plan_hash": "523fd417a493169749528826bdb9e0803146b0904853cce2a7f1acbb8c9f3427",
     "presentation_validity": {
       "available_component_manifest_hash": null,
       "candidate_hash": null,
@@ -26829,15 +26841,15 @@
     },
     "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "73f10bbebaf37905ef1fc8649ae0a1a3cc9761081c8452f2d70106d0a552d282",
+    "repair_budget_origin_hash": "75dd2cf79dc841d6a25ef408764ebd2e9cdf01ca94d0a870b66ad668b7c0d949",
     "reviewer_standard_hash": "02f0cf84d9dcee8239183096e7878bf985540ad729a31f11a4f3d97acdf2e3f6",
     "schema_version": 2,
     "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-    "status": "README_ASSESSED",
-    "updated_at": "2026-08-07T12:00:41.383329+00:00"
+    "status": "PLAN_READY",
+    "updated_at": "2026-08-07T12:04:08.645652+00:00"
   },
   "schema_version": 2,
-  "state_version": 1171,
+  "state_version": 1172,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7732c178a259dbfcb0702f4d44faa29a03f880e5d53adf7ab841f6fb1ab7ab7a",
