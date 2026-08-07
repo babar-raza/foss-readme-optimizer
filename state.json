@@ -47941,6 +47941,18 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\52f0bb23386032881346\\r\\a5fcf6f574b15080\\s\\6d97a522a9ed\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-07T06:45:06.583621+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "README_ASSESSED"
       }
     ],
     "human_acceptance_history": [],
@@ -47993,15 +48005,15 @@
     },
     "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "972c49cb4a0205e96c6f255b9822811999f801e8c811828d827a47d0543093a6",
-    "reviewer_standard_hash": "e65f7963b5fac327dcc3b8e48a405921ae2a1eac2639e495b1843648ef85c854",
+    "repair_budget_origin_hash": "5772a1563567498dc5576ef4491212d9acd05541f8cd30df3d4a4ef2be548a50",
+    "reviewer_standard_hash": "02f0cf84d9dcee8239183096e7878bf985540ad729a31f11a4f3d97acdf2e3f6",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-06T17:02:22.003824+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-07T06:45:06.583621+00:00"
   },
   "schema_version": 2,
-  "state_version": 2676,
+  "state_version": 2677,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "bb1dc973611b1b8fe953eb75d200448b9ad5b0026b2ec3d3bc88ba69d91d4e32",
