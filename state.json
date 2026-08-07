@@ -29663,7 +29663,7 @@
     "updated_at": "2026-08-07T18:58:48.514742+00:00"
   },
   "schema_version": 2,
-  "state_version": 1424,
+  "state_version": 1425,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -31308,13 +31308,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: compiled verified presentation is invalid: Mermaid must use the complete product name",
       "last_checkpoint_id": "9de4f98d354ebdad97e403919f30a87f9f14c9f4568d15f6fb78be4d6e294fae",
-      "lease_expires_at": "2026-08-07T19:13:11.624445+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T19:03:54.614766+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T19:04:24.709776+00:00"
     }
   },
   "trigger_records": {},
