@@ -110576,7 +110576,7 @@
     "updated_at": "2026-08-07T15:06:42.044667+00:00"
   },
   "schema_version": 2,
-  "state_version": 1646,
+  "state_version": 1647,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "d20d7e5fb5cd245fd4646ba8465bab9782b17c3382b1eae60c4658fef04d68ce",
@@ -112221,13 +112221,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: invalid contextual README links: relationship target is outside the accepted scope section: com:products:3d:python:d51473dc54afa651; prohibited Enterprise terminology: [full-featured Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/)",
       "last_checkpoint_id": "72738488c6cff4c9890524c5141caf2d5a2cb66ec7f1280b3809cbc5b6e024c9",
-      "lease_expires_at": "2026-08-07T15:21:00.415601+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T15:12:47.971388+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T15:13:19.478939+00:00"
     }
   },
   "trigger_records": {},
