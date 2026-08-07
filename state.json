@@ -20869,7 +20869,7 @@
     "updated_at": "2026-08-07T07:14:41.954749+00:00"
   },
   "schema_version": 2,
-  "state_version": 1034,
+  "state_version": 1035,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7732c178a259dbfcb0702f4d44faa29a03f880e5d53adf7ab841f6fb1ab7ab7a",
@@ -22074,13 +22074,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: compiled verified presentation is invalid: API reference contains duplicated descriptions",
       "last_checkpoint_id": "c840aaaba6d74b9865b744dcec4b5a23cefbd6408e83377e1dc7a0a92c8b8226",
-      "lease_expires_at": "2026-08-07T07:27:27.408163+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T07:20:10.136766+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T07:20:35.341108+00:00"
     }
   },
   "trigger_records": {},
