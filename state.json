@@ -4552,7 +4552,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "4214833a265f72b0e83b0326e13b26db4e15f69b7bb290760e85616fed0b1cf9",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -5543,15 +5543,17 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
-          "error_type": "ValueError",
-          "failure_reason": "execution_error",
-          "message": " compiled verified presentation is invalid: API reference contains duplicated descriptions",
-          "occurred_at": "2026-08-07T07:19:57.623149+00:00",
+          "error_type": "blocked",
+          "facts_hash": "eab2064ca460ea2e9dc487ba3c7790021af3f52f557dfdb2a1339da70f2e380e",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "3d22dca1077cec891ad7f94ff29684b5de70f7231cb4d9ac3dedba27bd812554",
+          "message": "['unauthorized protected-content loss: example:bc997f5908e03e4c', 'unauthorized protected-content loss: technical_terminology:42d1a2e5fe6a8e9a', 'unauthorized protected-content loss: technical_terminology:b3177b1bccbabd9f', 'claim accountability has 16 blocking claim(s): source:claim:2444:8e7c2dbeb93211e1, source:claim:2474:2ff994531d302885, source:claim:2488:6d8debdbf1b19f02, source:claim:2504:e84e1639c558e0be, source:claim:2519:6f15caec4be43941, source:claim:2536:b4ca647fd4b59111, source:claim:2554:69c0f6fa61164f1f, source:claim:2571:14738ebdef3ace95, source:claim:2694:7288d7305deb3be3, source:claim:2712:c6fb9b989ed00798']",
+          "occurred_at": "2026-08-07T07:27:26.954392+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-          "stage": null
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -17868,9 +17870,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-07T07:19:57.623149+00:00",
+      "last_run_timestamp": "2026-08-07T07:27:26.956284+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -20937,7 +20939,7 @@
     "updated_at": "2026-08-07T07:14:41.954749+00:00"
   },
   "schema_version": 2,
-  "state_version": 1048,
+  "state_version": 1049,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7732c178a259dbfcb0702f4d44faa29a03f880e5d53adf7ab841f6fb1ab7ab7a",
