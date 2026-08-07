@@ -39618,7 +39618,7 @@
   "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "0da4bd036bb41b39c339b74919bf1881a254bde266efc4e2bf2506912dd99728",
+    "assessment_hash": null,
     "assurance_history": [
       {
         "from_assurance": "repository_verified",
@@ -39641,7 +39641,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "cff2e1a1888343dd5e44d7c112a275170eb6a6544927e376b0648c0e5b41a1cd",
+    "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -40187,13 +40187,13 @@
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
       }
     ],
-    "facts_hash": "f574680b6be0460b1e062cf2b0f3eed19c500716faaf0cdcf2ddba32bd68b4a2",
+    "facts_hash": "cf4e32670f5dfda902b3d3170013993b8264ad2adc645834a6bd95edd93e8426",
     "factual_validity": {
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
       "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-06T13:30:08.971157+00:00",
+      "occurred_at": "2026-08-07T07:00:47.210461+00:00",
       "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
@@ -47892,6 +47892,19 @@
         "reason": "completed bundle cache invalidated at FACTS_COLLECTING: presentation_component_factuality_changed, presentation_component_safety_changed",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-07T07:00:47.210461+00:00",
+        "reason": "provenance-complete ProductFactsV2 persisted",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_READY"
       }
     ],
     "human_acceptance_history": [],
@@ -47913,14 +47926,14 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "3f90e0116140c8f3e2485b18a075d2223949694f389ea1b3eb714af9563ff28a",
+    "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
       "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-06T13:30:08.971157+00:00",
+      "occurred_at": "2026-08-07T07:00:47.210461+00:00",
       "presentation_version": null,
       "reason": "source or fact inputs changed",
       "schema_version": 1,
@@ -47934,7 +47947,7 @@
       "admitted_repositories": [],
       "evidence_identity": null,
       "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-06T13:30:08.971157+00:00",
+      "occurred_at": "2026-08-07T07:00:47.210461+00:00",
       "registry_revision": null,
       "rejection_reasons": [
         "source or fact inputs changed"
@@ -47944,15 +47957,15 @@
     },
     "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
-    "repair_budget_origin_hash": "5772a1563567498dc5576ef4491212d9acd05541f8cd30df3d4a4ef2be548a50",
-    "reviewer_standard_hash": "02f0cf84d9dcee8239183096e7878bf985540ad729a31f11a4f3d97acdf2e3f6",
+    "repair_budget_origin_hash": null,
+    "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-07T06:55:18.487763+00:00"
+    "status": "FACTS_READY",
+    "updated_at": "2026-08-07T07:00:47.210461+00:00"
   },
   "schema_version": 2,
-  "state_version": 2702,
+  "state_version": 2703,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "0312fe6afe1f159242edcb62c030b85d3e9d0c2ba8db3f2731d21115590b4b5d",
