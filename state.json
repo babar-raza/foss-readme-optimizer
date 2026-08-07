@@ -49293,7 +49293,7 @@
     "updated_at": "2026-08-07T18:55:33.824894+00:00"
   },
   "schema_version": 2,
-  "state_version": 2894,
+  "state_version": 2895,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
@@ -52879,6 +52879,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-07T18:57:24.753478+00:00"
+    },
+    "operator:20260807-195616-ef8a:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
+      "accepted_at": "2026-08-07T19:56:49.477435+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260807-195616-ef8a:aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-07T19:56:16.389466+00:00",
+        "provider_event_id": "20260807-195616-ef8a",
+        "repository_scope": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-07T19:56:49.477446+00:00"
     }
   },
   "trigger_records": {},
