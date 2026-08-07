@@ -107045,7 +107045,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "f885830413c51b24933fc39b1422160bdf67dc4a307ef230eb518d09ea475779",
+    "candidate_hash": "d5463dfdb2e74193118f4c2a2177b574f56494e4f238d909fdf871cf4d083b59",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -112281,6 +112281,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\08465e2095b38ec54c48\\r\\fcc4d08dc8909ad0\\s\\62fb89f3ca76\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-07T18:38:13.923434+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "human_acceptance_history": [],
@@ -112352,11 +112364,11 @@
     "reviewer_standard_hash": "2a9c1ea247176283018f4526d253dedab8a95f97c77531c4934599bac929f834",
     "schema_version": 2,
     "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-07T18:38:06.203406+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-07T18:38:13.923434+00:00"
   },
   "schema_version": 2,
-  "state_version": 1792,
+  "state_version": 1793,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
