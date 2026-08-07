@@ -20956,7 +20956,7 @@
     "updated_at": "2026-08-07T07:14:41.954749+00:00"
   },
   "schema_version": 2,
-  "state_version": 1054,
+  "state_version": 1055,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7732c178a259dbfcb0702f4d44faa29a03f880e5d53adf7ab841f6fb1ab7ab7a",
@@ -22183,13 +22183,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['unauthorized protected-content loss: example:bc997f5908e03e4c', 'unauthorized protected-content loss: technical_terminology:42d1a2e5fe6a8e9a', 'unauthorized protected-content loss: technical_terminology:b3177b1bccbabd9f', 'claim accountability has 16 blocking claim(s): source:claim:2444:8e7c2dbeb93211e1, source:claim:2474:2ff994531d302885, source:claim:2488:6d8debdbf1b19f02, source:claim:2504:e84e1639c558e0be, source:claim:2519:6f15caec4be43941, source:claim:2536:b4ca647fd4b59111, source:claim:2554:69c0f6fa61164f1f, source:claim:2571:14738ebdef3ace95, source:claim:2694:7288d7305deb3be3, source:claim:2712:c6fb9b989ed00798']",
       "last_checkpoint_id": "30ade949ae1ced7e12d3bd984bdf2a7b0f4669963d0681639ea585d0bc755589",
-      "lease_expires_at": "2026-08-07T07:38:41.855920+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-07T07:28:39.880239+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-07T07:29:05.813526+00:00"
     }
   },
   "trigger_records": {},
