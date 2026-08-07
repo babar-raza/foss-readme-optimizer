@@ -48241,6 +48241,18 @@
       }
     ],
     "facts_hash": "5775d2951dde2618b80ad126c89a426656b9e5d339cf55f5829f66abda2983ed",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T08:25:35.317699+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -49217,6 +49229,7 @@
         "to_status": "NO_OP_PROVEN"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -49251,8 +49264,35 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": "3d93273bc018e45ed6449d3ce6fd095565ce7c79264cc622a1989bb7b0552cc0",
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T08:25:35.317729+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T08:25:35.317746+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "ba8aea8e43deeb4acad728e5eb312d5dc8292654169315ac9fcb944e247a1559",
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
@@ -49262,7 +49302,7 @@
     "updated_at": "2026-08-04T10:58:01.897608+00:00"
   },
   "schema_version": 2,
-  "state_version": 455,
+  "state_version": 456,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "eb5125c7ef4a0b9f08061c7c433d9653b0d62260638c041ab386992bb4c2e38f",
@@ -49900,6 +49940,28 @@
       "recovery_count": 2,
       "status": "retryable",
       "updated_at": "2026-08-04T10:57:09.116302+00:00"
+    },
+    "operator:20260807-082523-20c0:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
+      "accepted_at": "2026-08-07T08:25:33.342400+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260807-082523-20c0:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-07T08:25:23.474250+00:00",
+        "provider_event_id": "20260807-082523-20c0",
+        "repository_scope": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-07T08:25:33.342410+00:00"
     }
   },
   "trigger_records": {},
