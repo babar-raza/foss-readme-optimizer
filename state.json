@@ -4462,7 +4462,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "4214833a265f72b0e83b0326e13b26db4e15f69b7bb290760e85616fed0b1cf9",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -5453,12 +5453,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "failure_reason": "presentation_plan",
-          "message": "['claim accountability has 1 blocking claim(s): candidate:claim:5023:0dd19bcaec0c5cf4']",
-          "occurred_at": "2026-08-03T06:36:10.607488+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " compiled verified presentation is invalid: API reference contains duplicated descriptions",
+          "occurred_at": "2026-08-07T07:17:55.557112+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": null
@@ -17778,9 +17778,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T10:27:42.603596+00:00",
+      "last_run_timestamp": "2026-08-07T07:17:55.557112+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -20849,7 +20849,7 @@
     "updated_at": "2026-08-07T07:14:41.954749+00:00"
   },
   "schema_version": 2,
-  "state_version": 1027,
+  "state_version": 1028,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2e49dccb6e68d3ff3a16fb133b225d8846483e94d1dc208d4d986d42173ff017",
