@@ -6505,7 +6505,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-191007-34b6",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-210024-ef72",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -6552,20 +6552,39 @@
           "escalation": null,
           "final_review": {
             "blind_quality_review": {
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "content_assurance": "repository_verified",
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the core conversion workflow (PS to PDF) using only public APIs.",
-                  "criterion": "clarity",
+                  "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+                  "claim": "All required H2 headings are present, non-duplicated, and prefixed correctly per template.",
+                  "criterion": "hierarchy",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.1",
+                  "finding_id": "quality.h2_structure",
+                  "kind": "quality",
+                  "mechanical_check_id": "document.duplicate_h2_headings",
+                  "observed_polarity": null,
+                  "polarity_result": "not_applicable",
+                  "quoted_candidate_span": "## Navigation",
+                  "reported_observed_value": 0,
+                  "required_repair": "",
+                  "section": "Document structure"
+                },
+                {
+                  "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                  "claim": "The primary example is minimal, fenced, and within the 12 non-blank line limit.",
+                  "criterion": "example_presentation",
+                  "disposition": "supports_acceptance",
+                  "evidence_excerpt": null,
+                  "evidence_location": null,
+                  "expected_polarity": null,
+                  "fact_id": null,
+                  "finding_id": "quality.quick_start_example",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
@@ -6574,31 +6593,12 @@
                   "reported_observed_value": 5,
                   "required_repair": "",
                   "section": "Quick Start"
-                },
-                {
-                  "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
-                  "claim": "The Navigation section lists all required H2 headings in a consistent markdown bullet format, enabling predictable visitor navigation.",
-                  "criterion": "hierarchy",
-                  "disposition": "supports_acceptance",
-                  "evidence_excerpt": null,
-                  "evidence_location": null,
-                  "expected_polarity": null,
-                  "fact_id": null,
-                  "finding_id": "quality.hierarchy.1",
-                  "kind": "quality",
-                  "mechanical_check_id": "document.duplicate_h2_headings",
-                  "observed_polarity": null,
-                  "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
-                  "reported_observed_value": 0,
-                  "required_repair": "",
-                  "section": "Navigation"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.1",
-                  "quality.hierarchy.1"
+                  "quality.h2_structure",
+                  "quality.quick_start_example"
                 ],
                 "errors": [],
                 "valid": true
@@ -6609,28 +6609,47 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "blind_quality_reviewer"
               },
-              "input_sha256": "cf99357dc8df0dcefffda0a2dda5c0f98a26ce0f3b896aa5e5c2119991e22537",
-              "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header conventions (single H1, required H2 prefixes), includes a single badge row with all allowed badge kinds, and provides a concise Quick Start example within the 12 nonblank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram is balanced and correctly formatted. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). There are no visible duplications, internal assurances, or forbidden comments. Markdown integrity is preserved, and terminology is consistent with the template and brand contract.",
+              "input_sha256": "16dc51083cd48a8ef18826626cc2931772cfe39555701aac33b7a3889a701cfe",
+              "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required template hierarchy with all mandatory H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), uses consistent title-case headings, and includes a single H1. Badges are correctly placed in one row and include required types (Version, Platform, License, Contributors). The Quick Start section contains exactly one fenced block with 5 non-blank lines, meeting the 12-line limit. Installation details are specific, and examples are clearly labeled and separated. The license section explicitly lists required benefit terms (use, modification, distribution, commercial use). No visible duplication, internal assurance claims, or forbidden comments exist. Markdown integrity is preserved, and terminology (e.g., Enterprise Edition) aligns with the contract.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
             },
             "combined_review": {
               "blind_quality": {
-                "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                 "content_assurance": "repository_verified",
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the core conversion workflow (PS to PDF) using only public APIs.",
-                    "criterion": "clarity",
+                    "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+                    "claim": "All required H2 headings are present, non-duplicated, and prefixed correctly per template.",
+                    "criterion": "hierarchy",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.1",
+                    "finding_id": "quality.h2_structure",
+                    "kind": "quality",
+                    "mechanical_check_id": "document.duplicate_h2_headings",
+                    "observed_polarity": null,
+                    "polarity_result": "not_applicable",
+                    "quoted_candidate_span": "## Navigation",
+                    "reported_observed_value": 0,
+                    "required_repair": "",
+                    "section": "Document structure"
+                  },
+                  {
+                    "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                    "claim": "The primary example is minimal, fenced, and within the 12 non-blank line limit.",
+                    "criterion": "example_presentation",
+                    "disposition": "supports_acceptance",
+                    "evidence_excerpt": null,
+                    "evidence_location": null,
+                    "expected_polarity": null,
+                    "fact_id": null,
+                    "finding_id": "quality.quick_start_example",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
@@ -6639,31 +6658,12 @@
                     "reported_observed_value": 5,
                     "required_repair": "",
                     "section": "Quick Start"
-                  },
-                  {
-                    "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
-                    "claim": "The Navigation section lists all required H2 headings in a consistent markdown bullet format, enabling predictable visitor navigation.",
-                    "criterion": "hierarchy",
-                    "disposition": "supports_acceptance",
-                    "evidence_excerpt": null,
-                    "evidence_location": null,
-                    "expected_polarity": null,
-                    "fact_id": null,
-                    "finding_id": "quality.hierarchy.1",
-                    "kind": "quality",
-                    "mechanical_check_id": "document.duplicate_h2_headings",
-                    "observed_polarity": null,
-                    "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
-                    "reported_observed_value": 0,
-                    "required_repair": "",
-                    "section": "Navigation"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.hierarchy.1"
+                    "quality.h2_structure",
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -6674,29 +6674,48 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "blind_quality_reviewer"
                 },
-                "input_sha256": "cf99357dc8df0dcefffda0a2dda5c0f98a26ce0f3b896aa5e5c2119991e22537",
-                "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header conventions (single H1, required H2 prefixes), includes a single badge row with all allowed badge kinds, and provides a concise Quick Start example within the 12 nonblank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram is balanced and correctly formatted. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). There are no visible duplications, internal assurances, or forbidden comments. Markdown integrity is preserved, and terminology is consistent with the template and brand contract.",
+                "input_sha256": "16dc51083cd48a8ef18826626cc2931772cfe39555701aac33b7a3889a701cfe",
+                "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required template hierarchy with all mandatory H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), uses consistent title-case headings, and includes a single H1. Badges are correctly placed in one row and include required types (Version, Platform, License, Contributors). The Quick Start section contains exactly one fenced block with 5 non-blank lines, meeting the 12-line limit. Installation details are specific, and examples are clearly labeled and separated. The license section explicitly lists required benefit terms (use, modification, distribution, commercial use). No visible duplication, internal assurance claims, or forbidden comments exist. Markdown integrity is preserved, and terminology (e.g., Enterprise Edition) aligns with the contract.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
               },
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "content_assurance": "repository_verified",
               "factual_plan": {
-                "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                 "content_assurance": "repository_verified",
                 "failed_criteria": [],
                 "findings": [
                   {
+                    "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                    "claim": "The product is named 'Aspose.Page FOSS for Python', version 0.1.0, and licensed under MIT.",
+                    "criterion": "product_identity",
+                    "disposition": "supports_acceptance",
+                    "evidence_excerpt": "page",
+                    "evidence_location": "repository://pyproject.toml,setup.py",
+                    "expected_polarity": "positive_implementation",
+                    "fact_id": "product.identity:manifest-and-registry",
+                    "finding_id": "factual.product_identity",
+                    "kind": "factual",
+                    "mechanical_check_id": null,
+                    "observed_polarity": "positive_implementation",
+                    "polarity_result": "supports",
+                    "quoted_candidate_span": "# Aspose.Page FOSS for Python",
+                    "reported_observed_value": null,
+                    "required_repair": "",
+                    "section": "Title and badges"
+                  },
+                  {
                     "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                    "claim": "The README lists six core capabilities: PS/EPS to PDF conversion, PS/EPS to image conversion, XPS to PDF conversion, XPS to image conversion, MCP server hosting, and EPS metadata extraction.",
-                    "criterion": "product.capabilities",
+                    "claim": "The listed capabilities (PS/EPS to PDF, XPS to PDF, etc.) are implemented and verifiable in source code.",
+                    "criterion": "product_capabilities",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                     "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities.1",
+                    "finding_id": "factual.capabilities",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -6704,32 +6723,13 @@
                     "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Key Capabilities"
-                  },
-                  {
-                    "candidate_anchor_id": "candidate.anchor.950f03d019905b10770f.1",
-                    "claim": "The README states that the `aspose-page-foss` distribution is currently installed from source.",
-                    "criterion": "installation.verified_acquisition",
-                    "disposition": "supports_acceptance",
-                    "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                    "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
-                    "expected_polarity": "positive_implementation",
-                    "fact_id": "installation.verified_acquisition:disposable-source-build",
-                    "finding_id": "factual.installation.1",
-                    "kind": "factual",
-                    "mechanical_check_id": null,
-                    "observed_polarity": "positive_implementation",
-                    "polarity_result": "supports",
-                    "quoted_candidate_span": "The `aspose-page-foss` distribution is currently installed from source.",
-                    "reported_observed_value": null,
-                    "required_repair": "",
-                    "section": "Installation"
+                    "section": "Key Capabilities and At a Glance"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities.1",
-                    "factual.installation.1"
+                    "factual.capabilities",
+                    "factual.product_identity"
                   ],
                   "errors": [],
                   "valid": true
@@ -6740,8 +6740,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "d4232d36822462945904096cd64b27d478d27f36b10d10b8a78ba0dc6aeaaccc",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The installation instructions align with the verified source build and optional extras. The capabilities listed (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are directly verified by repository evidence. The API reference section accurately reflects the 77 public exports across 16 namespaces. The license, scope and limitations, and development/testing sections are consistent with the provided evidence. No conflicts or missing evidence were found.",
+                "input_sha256": "9ac9a0f74c42018663aa622a498d9422d3d637846763476b4614d6b2b9c2bef5",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (Aspose.Page FOSS for Python, version 0.1.0, MIT license) is confirmed by installation.coordinates, product.identity, and product.license. Capabilities (PS/EPS to PDF, XPS to PDF, etc.) match the evidence in product.capabilities. Installation instructions (git clone, checkout, pip install) align with installation.verified_acquisition and installation.coordinates. The API reference section accurately reflects the 77 public exports across 16 namespaces as per api.public_surface. Development assets (66 tests, 4 Make targets) match development.assets and development.commands. Limitations (e.g., exponential function requires one input) are directly sourced from product.limitations. The license section correctly describes MIT permissions. No unsupported or contradictory claims exist.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -6749,14 +6749,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "935ba3169edcc295a3bfc8ff8a2f75dc825b9858c6ef23cc6b981c91f127b833",
-                "factual_record_sha256": "d681558b8a8b926d1a0ce4a2bdd48bf426dd947953d9151cb4c8519f93180857",
-                "input_sha256": "2903db8f429b4385a62297f046dccb51c3a0ee80b04bbe254fe104b6b8b78054",
+                "blind_record_sha256": "926b36944267392d070b48138878e5729d106558f9c4803a5b723b2f081e696a",
+                "factual_record_sha256": "9a833b5978a2ab6e0f4975c09e9eed785fd02d0b616cf933ac6453ea31bc6b99",
+                "input_sha256": "963f92ed9323cf11b989baf8c497857e1826607c4af214cc9bc81de189436649",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-9f8f3acea40f9884",
-                "raw_output_sha256": "c74919dfdf8e54a7f207691e097d9bd5d81ef484c83bdf0c1f03f48897cb1233"
+                "provider_request_id": "chatcmpl-b0734c59dd81c90c",
+                "raw_output_sha256": "c4c96b105808351db596652915b2a5b27a24843d4455ded993dcc95f33a4b353"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -6766,20 +6766,39 @@
             },
             "content_assurance": "repository_verified",
             "factual_plan_review": {
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "content_assurance": "repository_verified",
               "failed_criteria": [],
               "findings": [
                 {
+                  "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                  "claim": "The product is named 'Aspose.Page FOSS for Python', version 0.1.0, and licensed under MIT.",
+                  "criterion": "product_identity",
+                  "disposition": "supports_acceptance",
+                  "evidence_excerpt": "page",
+                  "evidence_location": "repository://pyproject.toml,setup.py",
+                  "expected_polarity": "positive_implementation",
+                  "fact_id": "product.identity:manifest-and-registry",
+                  "finding_id": "factual.product_identity",
+                  "kind": "factual",
+                  "mechanical_check_id": null,
+                  "observed_polarity": "positive_implementation",
+                  "polarity_result": "supports",
+                  "quoted_candidate_span": "# Aspose.Page FOSS for Python",
+                  "reported_observed_value": null,
+                  "required_repair": "",
+                  "section": "Title and badges"
+                },
+                {
                   "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                  "claim": "The README lists six core capabilities: PS/EPS to PDF conversion, PS/EPS to image conversion, XPS to PDF conversion, XPS to image conversion, MCP server hosting, and EPS metadata extraction.",
-                  "criterion": "product.capabilities",
+                  "claim": "The listed capabilities (PS/EPS to PDF, XPS to PDF, etc.) are implemented and verifiable in source code.",
+                  "criterion": "product_capabilities",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                   "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities.1",
+                  "finding_id": "factual.capabilities",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -6787,32 +6806,13 @@
                   "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Key Capabilities"
-                },
-                {
-                  "candidate_anchor_id": "candidate.anchor.950f03d019905b10770f.1",
-                  "claim": "The README states that the `aspose-page-foss` distribution is currently installed from source.",
-                  "criterion": "installation.verified_acquisition",
-                  "disposition": "supports_acceptance",
-                  "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                  "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
-                  "expected_polarity": "positive_implementation",
-                  "fact_id": "installation.verified_acquisition:disposable-source-build",
-                  "finding_id": "factual.installation.1",
-                  "kind": "factual",
-                  "mechanical_check_id": null,
-                  "observed_polarity": "positive_implementation",
-                  "polarity_result": "supports",
-                  "quoted_candidate_span": "The `aspose-page-foss` distribution is currently installed from source.",
-                  "reported_observed_value": null,
-                  "required_repair": "",
-                  "section": "Installation"
+                  "section": "Key Capabilities and At a Glance"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities.1",
-                  "factual.installation.1"
+                  "factual.capabilities",
+                  "factual.product_identity"
                 ],
                 "errors": [],
                 "valid": true
@@ -6823,8 +6823,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "d4232d36822462945904096cd64b27d478d27f36b10d10b8a78ba0dc6aeaaccc",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The installation instructions align with the verified source build and optional extras. The capabilities listed (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are directly verified by repository evidence. The API reference section accurately reflects the 77 public exports across 16 namespaces. The license, scope and limitations, and development/testing sections are consistent with the provided evidence. No conflicts or missing evidence were found.",
+              "input_sha256": "9ac9a0f74c42018663aa622a498d9422d3d637846763476b4614d6b2b9c2bef5",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (Aspose.Page FOSS for Python, version 0.1.0, MIT license) is confirmed by installation.coordinates, product.identity, and product.license. Capabilities (PS/EPS to PDF, XPS to PDF, etc.) match the evidence in product.capabilities. Installation instructions (git clone, checkout, pip install) align with installation.verified_acquisition and installation.coordinates. The API reference section accurately reflects the 77 public exports across 16 namespaces as per api.public_surface. Development assets (66 tests, 4 Make targets) match development.assets and development.commands. Limitations (e.g., exponential function requires one input) are directly sourced from product.limitations. The license section correctly describes MIT permissions. No unsupported or contradictory claims exist.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -6836,7 +6836,7 @@
                 "context_mode": "full_review_packet",
                 "deterministically_dismissed_finding_ids": [],
                 "errors": [],
-                "input_character_count": 61582,
+                "input_character_count": 61618,
                 "invalid_findings": [],
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
@@ -6845,8 +6845,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.hierarchy.1"
+                    "quality.h2_structure",
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -6857,20 +6857,20 @@
                 "context_mode": "full_review_packet",
                 "deterministically_dismissed_finding_ids": [],
                 "errors": [],
-                "input_character_count": 61582,
+                "input_character_count": 61618,
                 "invalid_findings": [],
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.capabilities.1",
-                  "factual.installation.1"
+                  "factual.product_identity",
+                  "factual.capabilities"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities.1",
-                    "factual.installation.1"
+                    "factual.capabilities",
+                    "factual.product_identity"
                   ],
                   "errors": [],
                   "valid": true
@@ -6887,7 +6887,7 @@
           "outcome_kind": "accepted",
           "repair_history": [
             {
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "deterministic_validation": {
                 "checks": {
                   "adoption_preserved_source": true,
@@ -6916,7 +6916,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260807-191007-34b6",
+                "nonce": "20260807-210024-ef72",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -6924,29 +6924,48 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "a946c02351b601537ad52ce2c2e6f5f908af458001e1fc455d10a1df7ec0b30d",
+                "token": "1f60f287cc0dd993c59a758ec028628ba502e48bd984afb10a71d1e3961b3e92",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-191007-34b6"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-210024-ef72"
               ],
               "repair_attempt": 0,
               "review": {
                 "blind_quality_review": {
-                  "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                  "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                   "content_assurance": "repository_verified",
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the core conversion workflow (PS to PDF) using only public APIs.",
-                      "criterion": "clarity",
+                      "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+                      "claim": "All required H2 headings are present, non-duplicated, and prefixed correctly per template.",
+                      "criterion": "hierarchy",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.1",
+                      "finding_id": "quality.h2_structure",
+                      "kind": "quality",
+                      "mechanical_check_id": "document.duplicate_h2_headings",
+                      "observed_polarity": null,
+                      "polarity_result": "not_applicable",
+                      "quoted_candidate_span": "## Navigation",
+                      "reported_observed_value": 0,
+                      "required_repair": "",
+                      "section": "Document structure"
+                    },
+                    {
+                      "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                      "claim": "The primary example is minimal, fenced, and within the 12 non-blank line limit.",
+                      "criterion": "example_presentation",
+                      "disposition": "supports_acceptance",
+                      "evidence_excerpt": null,
+                      "evidence_location": null,
+                      "expected_polarity": null,
+                      "fact_id": null,
+                      "finding_id": "quality.quick_start_example",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
@@ -6955,31 +6974,12 @@
                       "reported_observed_value": 5,
                       "required_repair": "",
                       "section": "Quick Start"
-                    },
-                    {
-                      "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
-                      "claim": "The Navigation section lists all required H2 headings in a consistent markdown bullet format, enabling predictable visitor navigation.",
-                      "criterion": "hierarchy",
-                      "disposition": "supports_acceptance",
-                      "evidence_excerpt": null,
-                      "evidence_location": null,
-                      "expected_polarity": null,
-                      "fact_id": null,
-                      "finding_id": "quality.hierarchy.1",
-                      "kind": "quality",
-                      "mechanical_check_id": "document.duplicate_h2_headings",
-                      "observed_polarity": null,
-                      "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
-                      "reported_observed_value": 0,
-                      "required_repair": "",
-                      "section": "Navigation"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.1",
-                      "quality.hierarchy.1"
+                      "quality.h2_structure",
+                      "quality.quick_start_example"
                     ],
                     "errors": [],
                     "valid": true
@@ -6990,28 +6990,47 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "blind_quality_reviewer"
                   },
-                  "input_sha256": "cf99357dc8df0dcefffda0a2dda5c0f98a26ce0f3b896aa5e5c2119991e22537",
-                  "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header conventions (single H1, required H2 prefixes), includes a single badge row with all allowed badge kinds, and provides a concise Quick Start example within the 12 nonblank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram is balanced and correctly formatted. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). There are no visible duplications, internal assurances, or forbidden comments. Markdown integrity is preserved, and terminology is consistent with the template and brand contract.",
+                  "input_sha256": "16dc51083cd48a8ef18826626cc2931772cfe39555701aac33b7a3889a701cfe",
+                  "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required template hierarchy with all mandatory H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), uses consistent title-case headings, and includes a single H1. Badges are correctly placed in one row and include required types (Version, Platform, License, Contributors). The Quick Start section contains exactly one fenced block with 5 non-blank lines, meeting the 12-line limit. Installation details are specific, and examples are clearly labeled and separated. The license section explicitly lists required benefit terms (use, modification, distribution, commercial use). No visible duplication, internal assurance claims, or forbidden comments exist. Markdown integrity is preserved, and terminology (e.g., Enterprise Edition) aligns with the contract.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
                 },
                 "combined_review": {
                   "blind_quality": {
-                    "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                    "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                     "content_assurance": "repository_verified",
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the core conversion workflow (PS to PDF) using only public APIs.",
-                        "criterion": "clarity",
+                        "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+                        "claim": "All required H2 headings are present, non-duplicated, and prefixed correctly per template.",
+                        "criterion": "hierarchy",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.1",
+                        "finding_id": "quality.h2_structure",
+                        "kind": "quality",
+                        "mechanical_check_id": "document.duplicate_h2_headings",
+                        "observed_polarity": null,
+                        "polarity_result": "not_applicable",
+                        "quoted_candidate_span": "## Navigation",
+                        "reported_observed_value": 0,
+                        "required_repair": "",
+                        "section": "Document structure"
+                      },
+                      {
+                        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                        "claim": "The primary example is minimal, fenced, and within the 12 non-blank line limit.",
+                        "criterion": "example_presentation",
+                        "disposition": "supports_acceptance",
+                        "evidence_excerpt": null,
+                        "evidence_location": null,
+                        "expected_polarity": null,
+                        "fact_id": null,
+                        "finding_id": "quality.quick_start_example",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
@@ -7020,31 +7039,12 @@
                         "reported_observed_value": 5,
                         "required_repair": "",
                         "section": "Quick Start"
-                      },
-                      {
-                        "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
-                        "claim": "The Navigation section lists all required H2 headings in a consistent markdown bullet format, enabling predictable visitor navigation.",
-                        "criterion": "hierarchy",
-                        "disposition": "supports_acceptance",
-                        "evidence_excerpt": null,
-                        "evidence_location": null,
-                        "expected_polarity": null,
-                        "fact_id": null,
-                        "finding_id": "quality.hierarchy.1",
-                        "kind": "quality",
-                        "mechanical_check_id": "document.duplicate_h2_headings",
-                        "observed_polarity": null,
-                        "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
-                        "reported_observed_value": 0,
-                        "required_repair": "",
-                        "section": "Navigation"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.hierarchy.1"
+                        "quality.h2_structure",
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -7055,29 +7055,48 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "blind_quality_reviewer"
                     },
-                    "input_sha256": "cf99357dc8df0dcefffda0a2dda5c0f98a26ce0f3b896aa5e5c2119991e22537",
-                    "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header conventions (single H1, required H2 prefixes), includes a single badge row with all allowed badge kinds, and provides a concise Quick Start example within the 12 nonblank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram is balanced and correctly formatted. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use). There are no visible duplications, internal assurances, or forbidden comments. Markdown integrity is preserved, and terminology is consistent with the template and brand contract.",
+                    "input_sha256": "16dc51083cd48a8ef18826626cc2931772cfe39555701aac33b7a3889a701cfe",
+                    "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required template hierarchy with all mandatory H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), uses consistent title-case headings, and includes a single H1. Badges are correctly placed in one row and include required types (Version, Platform, License, Contributors). The Quick Start section contains exactly one fenced block with 5 non-blank lines, meeting the 12-line limit. Installation details are specific, and examples are clearly labeled and separated. The license section explicitly lists required benefit terms (use, modification, distribution, commercial use). No visible duplication, internal assurance claims, or forbidden comments exist. Markdown integrity is preserved, and terminology (e.g., Enterprise Edition) aligns with the contract.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
                   },
-                  "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                  "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                   "content_assurance": "repository_verified",
                   "factual_plan": {
-                    "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                    "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                     "content_assurance": "repository_verified",
                     "failed_criteria": [],
                     "findings": [
                       {
+                        "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                        "claim": "The product is named 'Aspose.Page FOSS for Python', version 0.1.0, and licensed under MIT.",
+                        "criterion": "product_identity",
+                        "disposition": "supports_acceptance",
+                        "evidence_excerpt": "page",
+                        "evidence_location": "repository://pyproject.toml,setup.py",
+                        "expected_polarity": "positive_implementation",
+                        "fact_id": "product.identity:manifest-and-registry",
+                        "finding_id": "factual.product_identity",
+                        "kind": "factual",
+                        "mechanical_check_id": null,
+                        "observed_polarity": "positive_implementation",
+                        "polarity_result": "supports",
+                        "quoted_candidate_span": "# Aspose.Page FOSS for Python",
+                        "reported_observed_value": null,
+                        "required_repair": "",
+                        "section": "Title and badges"
+                      },
+                      {
                         "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                        "claim": "The README lists six core capabilities: PS/EPS to PDF conversion, PS/EPS to image conversion, XPS to PDF conversion, XPS to image conversion, MCP server hosting, and EPS metadata extraction.",
-                        "criterion": "product.capabilities",
+                        "claim": "The listed capabilities (PS/EPS to PDF, XPS to PDF, etc.) are implemented and verifiable in source code.",
+                        "criterion": "product_capabilities",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                         "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities.1",
+                        "finding_id": "factual.capabilities",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -7085,32 +7104,13 @@
                         "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Key Capabilities"
-                      },
-                      {
-                        "candidate_anchor_id": "candidate.anchor.950f03d019905b10770f.1",
-                        "claim": "The README states that the `aspose-page-foss` distribution is currently installed from source.",
-                        "criterion": "installation.verified_acquisition",
-                        "disposition": "supports_acceptance",
-                        "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                        "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
-                        "expected_polarity": "positive_implementation",
-                        "fact_id": "installation.verified_acquisition:disposable-source-build",
-                        "finding_id": "factual.installation.1",
-                        "kind": "factual",
-                        "mechanical_check_id": null,
-                        "observed_polarity": "positive_implementation",
-                        "polarity_result": "supports",
-                        "quoted_candidate_span": "The `aspose-page-foss` distribution is currently installed from source.",
-                        "reported_observed_value": null,
-                        "required_repair": "",
-                        "section": "Installation"
+                        "section": "Key Capabilities and At a Glance"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities.1",
-                        "factual.installation.1"
+                        "factual.capabilities",
+                        "factual.product_identity"
                       ],
                       "errors": [],
                       "valid": true
@@ -7121,8 +7121,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "d4232d36822462945904096cd64b27d478d27f36b10d10b8a78ba0dc6aeaaccc",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The installation instructions align with the verified source build and optional extras. The capabilities listed (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are directly verified by repository evidence. The API reference section accurately reflects the 77 public exports across 16 namespaces. The license, scope and limitations, and development/testing sections are consistent with the provided evidence. No conflicts or missing evidence were found.",
+                    "input_sha256": "9ac9a0f74c42018663aa622a498d9422d3d637846763476b4614d6b2b9c2bef5",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (Aspose.Page FOSS for Python, version 0.1.0, MIT license) is confirmed by installation.coordinates, product.identity, and product.license. Capabilities (PS/EPS to PDF, XPS to PDF, etc.) match the evidence in product.capabilities. Installation instructions (git clone, checkout, pip install) align with installation.verified_acquisition and installation.coordinates. The API reference section accurately reflects the 77 public exports across 16 namespaces as per api.public_surface. Development assets (66 tests, 4 Make targets) match development.assets and development.commands. Limitations (e.g., exponential function requires one input) are directly sourced from product.limitations. The license section correctly describes MIT permissions. No unsupported or contradictory claims exist.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -7130,14 +7130,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "935ba3169edcc295a3bfc8ff8a2f75dc825b9858c6ef23cc6b981c91f127b833",
-                    "factual_record_sha256": "d681558b8a8b926d1a0ce4a2bdd48bf426dd947953d9151cb4c8519f93180857",
-                    "input_sha256": "2903db8f429b4385a62297f046dccb51c3a0ee80b04bbe254fe104b6b8b78054",
+                    "blind_record_sha256": "926b36944267392d070b48138878e5729d106558f9c4803a5b723b2f081e696a",
+                    "factual_record_sha256": "9a833b5978a2ab6e0f4975c09e9eed785fd02d0b616cf933ac6453ea31bc6b99",
+                    "input_sha256": "963f92ed9323cf11b989baf8c497857e1826607c4af214cc9bc81de189436649",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-9f8f3acea40f9884",
-                    "raw_output_sha256": "c74919dfdf8e54a7f207691e097d9bd5d81ef484c83bdf0c1f03f48897cb1233"
+                    "provider_request_id": "chatcmpl-b0734c59dd81c90c",
+                    "raw_output_sha256": "c4c96b105808351db596652915b2a5b27a24843d4455ded993dcc95f33a4b353"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -7147,20 +7147,39 @@
                 },
                 "content_assurance": "repository_verified",
                 "factual_plan_review": {
-                  "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+                  "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
                   "content_assurance": "repository_verified",
                   "failed_criteria": [],
                   "findings": [
                     {
+                      "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                      "claim": "The product is named 'Aspose.Page FOSS for Python', version 0.1.0, and licensed under MIT.",
+                      "criterion": "product_identity",
+                      "disposition": "supports_acceptance",
+                      "evidence_excerpt": "page",
+                      "evidence_location": "repository://pyproject.toml,setup.py",
+                      "expected_polarity": "positive_implementation",
+                      "fact_id": "product.identity:manifest-and-registry",
+                      "finding_id": "factual.product_identity",
+                      "kind": "factual",
+                      "mechanical_check_id": null,
+                      "observed_polarity": "positive_implementation",
+                      "polarity_result": "supports",
+                      "quoted_candidate_span": "# Aspose.Page FOSS for Python",
+                      "reported_observed_value": null,
+                      "required_repair": "",
+                      "section": "Title and badges"
+                    },
+                    {
                       "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                      "claim": "The README lists six core capabilities: PS/EPS to PDF conversion, PS/EPS to image conversion, XPS to PDF conversion, XPS to image conversion, MCP server hosting, and EPS metadata extraction.",
-                      "criterion": "product.capabilities",
+                      "claim": "The listed capabilities (PS/EPS to PDF, XPS to PDF, etc.) are implemented and verifiable in source code.",
+                      "criterion": "product_capabilities",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                       "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities.1",
+                      "finding_id": "factual.capabilities",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -7168,32 +7187,13 @@
                       "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Key Capabilities"
-                    },
-                    {
-                      "candidate_anchor_id": "candidate.anchor.950f03d019905b10770f.1",
-                      "claim": "The README states that the `aspose-page-foss` distribution is currently installed from source.",
-                      "criterion": "installation.verified_acquisition",
-                      "disposition": "supports_acceptance",
-                      "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                      "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
-                      "expected_polarity": "positive_implementation",
-                      "fact_id": "installation.verified_acquisition:disposable-source-build",
-                      "finding_id": "factual.installation.1",
-                      "kind": "factual",
-                      "mechanical_check_id": null,
-                      "observed_polarity": "positive_implementation",
-                      "polarity_result": "supports",
-                      "quoted_candidate_span": "The `aspose-page-foss` distribution is currently installed from source.",
-                      "reported_observed_value": null,
-                      "required_repair": "",
-                      "section": "Installation"
+                      "section": "Key Capabilities and At a Glance"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities.1",
-                      "factual.installation.1"
+                      "factual.capabilities",
+                      "factual.product_identity"
                     ],
                     "errors": [],
                     "valid": true
@@ -7204,8 +7204,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "d4232d36822462945904096cd64b27d478d27f36b10d10b8a78ba0dc6aeaaccc",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The installation instructions align with the verified source build and optional extras. The capabilities listed (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are directly verified by repository evidence. The API reference section accurately reflects the 77 public exports across 16 namespaces. The license, scope and limitations, and development/testing sections are consistent with the provided evidence. No conflicts or missing evidence were found.",
+                  "input_sha256": "9ac9a0f74c42018663aa622a498d9422d3d637846763476b4614d6b2b9c2bef5",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (Aspose.Page FOSS for Python, version 0.1.0, MIT license) is confirmed by installation.coordinates, product.identity, and product.license. Capabilities (PS/EPS to PDF, XPS to PDF, etc.) match the evidence in product.capabilities. Installation instructions (git clone, checkout, pip install) align with installation.verified_acquisition and installation.coordinates. The API reference section accurately reflects the 77 public exports across 16 namespaces as per api.public_surface. Development assets (66 tests, 4 Make targets) match development.assets and development.commands. Limitations (e.g., exponential function requires one input) are directly sourced from product.limitations. The license section correctly describes MIT permissions. No unsupported or contradictory claims exist.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -7217,7 +7217,7 @@
                     "context_mode": "full_review_packet",
                     "deterministically_dismissed_finding_ids": [],
                     "errors": [],
-                    "input_character_count": 61582,
+                    "input_character_count": 61618,
                     "invalid_findings": [],
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
@@ -7226,8 +7226,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.hierarchy.1"
+                        "quality.h2_structure",
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -7238,20 +7238,20 @@
                     "context_mode": "full_review_packet",
                     "deterministically_dismissed_finding_ids": [],
                     "errors": [],
-                    "input_character_count": 61582,
+                    "input_character_count": 61618,
                     "invalid_findings": [],
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.capabilities.1",
-                      "factual.installation.1"
+                      "factual.product_identity",
+                      "factual.capabilities"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities.1",
-                        "factual.installation.1"
+                        "factual.capabilities",
+                        "factual.product_identity"
                       ],
                       "errors": [],
                       "valid": true
@@ -7524,7 +7524,7 @@
             "tool_schema_sha256": "0857d59bfb368439d518327620c99dffd7d449bc3ea0665e09d7b4b21400e99d"
           },
           "claim_map": {
-            "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+            "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
             "claims": [
               {
                 "byte_end": 29,
@@ -7661,7 +7661,7 @@
                 "fact_id": "product.capabilities:repository-evidence",
                 "fact_value_sha256": "a6e0c337a1113d29d0902ad234dc834f0c7f4e0e92146871fc1b0ecb87a4cc98",
                 "field": "product.capabilities",
-                "introduced_text_sha256": "bd635fb50b3d56813d464af30cbaeaf950fe20518a1d4b3fbf7a1a63c8ee5ea8",
+                "introduced_text_sha256": "4fe44a69955121e68ad5fd826aa85eda5aff0ebd9234e906a6d5a73c2e773ced",
                 "operation_id": "template.section.at_a_glance",
                 "rationale": "Bind one exact compiled slot to its accepted inputs.",
                 "verification_state": "verified"
@@ -7675,9 +7675,23 @@
                 "fact_id": "product.identity:manifest-and-registry",
                 "fact_value_sha256": "3e74cb17e53c39daf710fabc21fa2bceb48ce1a8637a1986047eedd621267f81",
                 "field": "product.identity",
-                "introduced_text_sha256": "bd635fb50b3d56813d464af30cbaeaf950fe20518a1d4b3fbf7a1a63c8ee5ea8",
+                "introduced_text_sha256": "4fe44a69955121e68ad5fd826aa85eda5aff0ebd9234e906a6d5a73c2e773ced",
                 "operation_id": "template.section.at_a_glance",
                 "rationale": "Bind one exact compiled slot to its accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2284,
+                "byte_start": 2185,
+                "claim_id": "template.section.key_capabilities.claim:0:9e7e7bb0983dea32:api.public_surface",
+                "claim_text_sha256": "54c526b997373efc657f0c311da60240d34ce1defe5b04d85a6bbaa399f5a28b",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "9e7e7bb0983dea32345be18f5e5704c770d0305c2a87ef5718b5010658e3f5ab",
+                "operation_id": "template.section.key_capabilities.claim:0:9e7e7bb0983dea32",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
                 "verification_state": "verified"
               },
               {
@@ -7691,6 +7705,20 @@
                 "field": "product.capabilities",
                 "introduced_text_sha256": "9e7e7bb0983dea32345be18f5e5704c770d0305c2a87ef5718b5010658e3f5ab",
                 "operation_id": "template.section.key_capabilities.claim:0:9e7e7bb0983dea32",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2421,
+                "byte_start": 2285,
+                "claim_id": "template.section.key_capabilities.claim:100:6e743d939b0388b8:api.public_surface",
+                "claim_text_sha256": "b5fcece8e380117b35b2541ac91272767100014f20fed95ebacac2a1bff7fefb",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "6e743d939b0388b8cf6e988990ff9ebfde778ca0f208fb4c40fa789ea4b44d3b",
+                "operation_id": "template.section.key_capabilities.claim:100:6e743d939b0388b8",
                 "rationale": "Bind one exact optional-section claim to accepted inputs.",
                 "verification_state": "verified"
               },
@@ -7711,6 +7739,20 @@
               {
                 "byte_end": 2515,
                 "byte_start": 2422,
+                "claim_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd:api.public_surface",
+                "claim_text_sha256": "ca06d691f3beabc2b072a90b65aff37da20b958005fa96a94bcef61c154f8929",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "706a665b945a6fbd041c444b4160a3638513929e597f87ba4ff3079ad28daeec",
+                "operation_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2515,
+                "byte_start": 2422,
                 "claim_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd:product.capabilities",
                 "claim_text_sha256": "ca06d691f3beabc2b072a90b65aff37da20b958005fa96a94bcef61c154f8929",
                 "coordinate_space": "candidate_utf8",
@@ -7719,6 +7761,20 @@
                 "field": "product.capabilities",
                 "introduced_text_sha256": "706a665b945a6fbd041c444b4160a3638513929e597f87ba4ff3079ad28daeec",
                 "operation_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2662,
+                "byte_start": 2516,
+                "claim_id": "template.section.key_capabilities.claim:331:0a63446a807882d2:api.public_surface",
+                "claim_text_sha256": "13ef3f26787e3212cb83086e7da4eb184b77bcf73563fc36d0af6f34a9f86552",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "0a63446a807882d20b49d8c0741fd531ecb61a1388d28d92ed197f829b8340fe",
+                "operation_id": "template.section.key_capabilities.claim:331:0a63446a807882d2",
                 "rationale": "Bind one exact optional-section claim to accepted inputs.",
                 "verification_state": "verified"
               },
@@ -7739,6 +7795,20 @@
               {
                 "byte_end": 2750,
                 "byte_start": 2663,
+                "claim_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6:api.public_surface",
+                "claim_text_sha256": "2581dce0d14ecf878e62bd2807dbac5157fcd937bdc2eaa7087859b6647a92ed",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "cb8152e3eaff07d6d529063e97b471abd4b3978de6867f4a827fb1c6bd4cab29",
+                "operation_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2750,
+                "byte_start": 2663,
                 "claim_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6:product.capabilities",
                 "claim_text_sha256": "2581dce0d14ecf878e62bd2807dbac5157fcd937bdc2eaa7087859b6647a92ed",
                 "coordinate_space": "candidate_utf8",
@@ -7747,6 +7817,20 @@
                 "field": "product.capabilities",
                 "introduced_text_sha256": "cb8152e3eaff07d6d529063e97b471abd4b3978de6867f4a827fb1c6bd4cab29",
                 "operation_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6",
+                "rationale": "Bind one exact optional-section claim to accepted inputs.",
+                "verification_state": "verified"
+              },
+              {
+                "byte_end": 2848,
+                "byte_start": 2751,
+                "claim_id": "template.section.key_capabilities.claim:566:d03df77a9eb34f48:api.public_surface",
+                "claim_text_sha256": "d03df77a9eb34f482ad2f114dfe65c231c168b01448948a9b69d35cdb5dc99b9",
+                "coordinate_space": "candidate_utf8",
+                "fact_id": "api.public_surface:python-exports",
+                "fact_value_sha256": "44ef9f799071884f6ff52b2611d35b0dc434fdfac432a07e694adb5dd494eb91",
+                "field": "api.public_surface",
+                "introduced_text_sha256": "d03df77a9eb34f482ad2f114dfe65c231c168b01448948a9b69d35cdb5dc99b9",
+                "operation_id": "template.section.key_capabilities.claim:566:d03df77a9eb34f48",
                 "rationale": "Bind one exact optional-section claim to accepted inputs.",
                 "verification_state": "verified"
               },
@@ -9014,10 +9098,10 @@
           },
           "executable": true,
           "git_patch_proof": {
-            "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+            "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
             "git_apply_check_passed": true,
             "outside_spans_preserved": true,
-            "patch_sha256": "4bfdae4e0e2dc559e55ba93a8d85346b1637bf72d021e1139044c98b8b19a0e7",
+            "patch_sha256": "48a1ac0900ddfaebffe6264f820ab46abb7731cf1a3219121d16636126ae2204",
             "path": "README.md",
             "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683"
           },
@@ -9131,12 +9215,28 @@
                     "text": "Bind one exact compiled slot to its accepted inputs. [product.identity]"
                   },
                   {
+                    "claim_id": "template.section.key_capabilities.claim:0:9e7e7bb0983dea32.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
+                  },
+                  {
                     "claim_id": "template.section.key_capabilities.claim:0:9e7e7bb0983dea32.product.capabilities",
                     "fact_ids": [
                       "product.capabilities:repository-evidence"
                     ],
                     "surface_id": "readme.capabilities",
                     "text": "Bind one exact optional-section claim to accepted inputs. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "template.section.key_capabilities.claim:100:6e743d939b0388b8.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
                   },
                   {
                     "claim_id": "template.section.key_capabilities.claim:100:6e743d939b0388b8.product.capabilities",
@@ -9147,12 +9247,28 @@
                     "text": "Bind one exact optional-section claim to accepted inputs. [product.capabilities]"
                   },
                   {
+                    "claim_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
+                  },
+                  {
                     "claim_id": "template.section.key_capabilities.claim:237:706a665b945a6fbd.product.capabilities",
                     "fact_ids": [
                       "product.capabilities:repository-evidence"
                     ],
                     "surface_id": "readme.capabilities",
                     "text": "Bind one exact optional-section claim to accepted inputs. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "template.section.key_capabilities.claim:331:0a63446a807882d2.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
                   },
                   {
                     "claim_id": "template.section.key_capabilities.claim:331:0a63446a807882d2.product.capabilities",
@@ -9163,12 +9279,28 @@
                     "text": "Bind one exact optional-section claim to accepted inputs. [product.capabilities]"
                   },
                   {
+                    "claim_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
+                  },
+                  {
                     "claim_id": "template.section.key_capabilities.claim:478:cb8152e3eaff07d6.product.capabilities",
                     "fact_ids": [
                       "product.capabilities:repository-evidence"
                     ],
                     "surface_id": "readme.capabilities",
                     "text": "Bind one exact optional-section claim to accepted inputs. [product.capabilities]"
+                  },
+                  {
+                    "claim_id": "template.section.key_capabilities.claim:566:d03df77a9eb34f48.api.public_surface",
+                    "fact_ids": [
+                      "api.public_surface:python-exports"
+                    ],
+                    "surface_id": "readme.api_reference",
+                    "text": "Bind one exact optional-section claim to accepted inputs. [api.public_surface]"
                   },
                   {
                     "claim_id": "template.section.key_capabilities.claim:566:d03df77a9eb34f48.product.capabilities",
@@ -9980,7 +10112,7 @@
                   "repository.examples:repository-inventory"
                 ],
                 "ownership_class": "repository_file",
-                "patch_sha256": "4bfdae4e0e2dc559e55ba93a8d85346b1637bf72d021e1139044c98b8b19a0e7",
+                "patch_sha256": "48a1ac0900ddfaebffe6264f820ab46abb7731cf1a3219121d16636126ae2204",
                 "proposed_operation": "local_patch",
                 "region_id": "readme.presentation",
                 "rollback": "revert the bounded file patch",
@@ -9991,7 +10123,7 @@
                     "expected_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
                     "path": "README.md",
                     "purpose": "apply the independently reconstructed presentation-span adoption and its bounded inner document operations",
-                    "replacement_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb"
+                    "replacement_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09"
                   }
                 ],
                 "stop_conditions": [
@@ -10014,7 +10146,7 @@
               }
             ],
             "archetype": "python-library",
-            "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+            "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
             "content_assurance": "repository_verified",
             "facts_hash": "9c11f0a6c72ff5bc60399f3c086533adb70807af17f3db8fa7bde1d9e929ece3",
             "findings": [
@@ -11191,6 +11323,7 @@
                 "candidate_byte_start": 2185,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -11203,6 +11336,7 @@
                 "candidate_byte_start": 2285,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -11215,6 +11349,7 @@
                 "candidate_byte_start": 2422,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -11227,6 +11362,7 @@
                 "candidate_byte_start": 2516,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -11239,6 +11375,7 @@
                 "candidate_byte_start": 2663,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -11251,6 +11388,7 @@
                 "candidate_byte_start": 2751,
                 "configured_standard_ids": [],
                 "fact_ids": [
+                  "api.public_surface:python-exports",
                   "product.capabilities:repository-evidence"
                 ],
                 "lineage_operation_id": null,
@@ -12698,9 +12836,9 @@
                 "rationale": "Bind exact generated bytes to their governed document operation."
               }
             ],
-            "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+            "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
             "claim_accountability": {
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "claims": [
                 {
                   "accepted_fact_coordinates": [],
@@ -14171,11 +14309,11 @@
                   "authoritative_owners": [
                     "repository-owner"
                   ],
-                  "claim_id": "candidate:claim:1239:da512e6621c783a8",
+                  "claim_id": "candidate:claim:1239:f3f3ec3ecf91321e",
                   "configured_standard_ids": [
                     "readme.at_a_glance_mermaid"
                   ],
-                  "content_sha256": "da512e6621c783a8f36cdd2a18fc8923c89588dd10e09b90346d110599a0c44d",
+                  "content_sha256": "f3f3ec3ecf91321ea3a77f415e26aefbd0fa1f7d92b8f145db26621e1db85f92",
                   "current_disposition": "preserve",
                   "currently_accountable": true,
                   "equivalence_group_id": null,
@@ -14193,6 +14331,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -14218,6 +14357,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -14243,6 +14383,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -14268,6 +14409,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -14293,6 +14435,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -14318,6 +14461,7 @@
                 {
                   "accepted_fact_coordinates": [],
                   "accepted_fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "authoritative_owners": [
@@ -17040,6 +17184,7 @@
                   "candidate_byte_start": 2185,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -17052,6 +17197,7 @@
                   "candidate_byte_start": 2285,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -17064,6 +17210,7 @@
                   "candidate_byte_start": 2422,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -17076,6 +17223,7 @@
                   "candidate_byte_start": 2516,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -17088,6 +17236,7 @@
                   "candidate_byte_start": 2663,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -17100,6 +17249,7 @@
                   "candidate_byte_start": 2751,
                   "configured_standard_ids": [],
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "lineage_operation_id": null,
@@ -18547,8 +18697,8 @@
                   "rationale": "Bind exact generated bytes to their governed document operation."
                 }
               ],
-              "candidate_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
-              "operation_reconstruction_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
+              "candidate_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
+              "operation_reconstruction_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
               "schema_version": 1,
               "segments": [
                 {
@@ -18880,8 +19030,8 @@
                   "configured_standard_ids": [
                     "readme.at_a_glance_mermaid"
                   ],
-                  "content_sha256": "bd635fb50b3d56813d464af30cbaeaf950fe20518a1d4b3fbf7a1a63c8ee5ea8",
-                  "content_text": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
+                  "content_sha256": "4fe44a69955121e68ad5fd826aa85eda5aff0ebd9234e906a6d5a73c2e773ced",
+                  "content_text": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
                   "fact_ids": [
                     "product.capabilities:repository-evidence",
                     "product.formats:native-direction-evidence",
@@ -18981,6 +19131,7 @@
                   "content_sha256": "9e7e7bb0983dea32345be18f5e5704c770d0305c2a87ef5718b5010658e3f5ab",
                   "content_text": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2285,
@@ -19006,6 +19157,7 @@
                   "content_sha256": "6e743d939b0388b8cf6e988990ff9ebfde778ca0f208fb4c40fa789ea4b44d3b",
                   "content_text": "- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2422,
@@ -19031,6 +19183,7 @@
                   "content_sha256": "706a665b945a6fbd041c444b4160a3638513929e597f87ba4ff3079ad28daeec",
                   "content_text": "- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2516,
@@ -19056,6 +19209,7 @@
                   "content_sha256": "0a63446a807882d20b49d8c0741fd531ecb61a1388d28d92ed197f829b8340fe",
                   "content_text": "- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2663,
@@ -19081,6 +19235,7 @@
                   "content_sha256": "cb8152e3eaff07d6d529063e97b471abd4b3978de6867f4a827fb1c6bd4cab29",
                   "content_text": "- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2751,
@@ -19106,6 +19261,7 @@
                   "content_sha256": "d03df77a9eb34f482ad2f114dfe65c231c168b01448948a9b69d35cdb5dc99b9",
                   "content_text": "- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                   "fact_ids": [
+                    "api.public_surface:python-exports",
                     "product.capabilities:repository-evidence"
                   ],
                   "final_byte_end": 2848,
@@ -25040,8 +25196,8 @@
                   "role": "output"
                 }
               ],
-              "mermaid_markdown": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
-              "mermaid_source": "flowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs",
+              "mermaid_markdown": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
+              "mermaid_source": "flowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs",
               "schema_version": 1,
               "title": "Aspose.Page FOSS for Python",
               "title_fact_ids": [
@@ -25059,8 +25215,8 @@
                 "path": "README.md",
                 "protected_content_treatment": "presentation_policy_correction",
                 "rationale": "Compile the accepted fact-slot presentation contract; exact candidate provenance and source-claim resolutions remain independently fail-closed.",
-                "replacement_sha256": "7e4cdc11988c48a7249b06297da65db23ef303c5331d2890db7b58b4d77146bb",
-                "replacement_text": "# Aspose.Page FOSS for Python\n\n[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)\n\nAspose.Page FOSS for Python is an open-source library for developers using Python. It reads PS/EPS input files.\n\n## Navigation\n\n- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)\n\n## At a Glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```\n\n## Key Capabilities\n\n- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.\n\n<details>\n<summary>View Detailed Capabilities</summary>\n\n- Convert PS/EPS to PDF in Python\n\n\n- Convert XPS to PDF in Python\n\n\n- PS/EPS to PDF conversion\n\n\n- PS/EPS to PNG/JPEG conversion\n\n\n- XPS to PDF conversion\n\n\n- XPS to PNG/JPEG conversion\n\n\n</details>\n\n## Installation\n\nInstall the package directly from its source repository:\n\n```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```\n\nThe `aspose-page-foss` distribution is currently installed from source.\n\nOptional dependency groups declared in `pyproject.toml`:\n- `test`: `python -m pip install \".[test]\"`\n\n- image conversion: `python -m pip install Pillow`\n- MCP server hosting: `python -m pip install fastmcp`\n- image conversion: `python -m pip install skia-python`\n\n<details>\n<summary>View Additional Installation Details</summary>\n\nImportant notes:\n\n\n- `FastMCP` is required to start the MCP server.\n\n\n- `skia-python` is required for image conversion flows (`ps_to_image`, `xps_to_image`).\n\n\n</details>\n\n## Quick Start\n\n```python\nfrom aspose.page.ps.document import PsDocument\n\nps = PsDocument.from_file(\"input.ps\")\noutput_pdf = ps.to_pdf()\n\nwith open(\"output.pdf\", \"wb\") as f:\n    f.write(output_pdf)\n```\n\n## Additional Examples\n\nExpand this section to view examples for converting EPS to PNG, converting XPS to PDF, converting XPS to JPEG, and viewing generated example results.\n\n<details>\n<summary>View additional examples and results</summary>\n\n### Convert EPS to PNG\n\n```python\nfrom aspose.page.ps.document import PsDocument\nfrom aspose.page.ps.output import ImageSaveOptions\n\neps = PsDocument.from_file(\"input.eps\")\noutput_png = eps.to_image(ImageSaveOptions(format=\"png\", dpi=150))\n\nwith open(\"output.png\", \"wb\") as f:\n    f.write(output_png)\n```\n\n### Convert XPS to PDF\n\n```python\nfrom aspose.page.xps.document import XpsDocument\n\nxps = XpsDocument.from_file(\"input.xps\")\noutput_pdf = xps.to_pdf()\n\nwith open(\"output.pdf\", \"wb\") as f:\n    f.write(output_pdf)\n```\n\n### Convert XPS to JPEG\n\n```python\nfrom aspose.page.ps.output import ImageSaveOptions\nfrom aspose.page.xps.document import XpsDocument\n\nxps = XpsDocument.from_file(\"input.xps\")\noutput_jpeg = xps.to_image(ImageSaveOptions(format=\"jpeg\", dpi=150))\n\nwith open(\"output.jpg\", \"wb\") as f:\n    f.write(output_jpeg)\n```\n\n### Example Results\n\n![mb03 xps2pdf result](readme.resources/mb03.png)\n\n![ps2pdf result](readme.resources/TestImages.png)\n\n![PS to image sample](readme.resources/RGB10.png)\n\n\n</details>\n\n## API Reference\n\nThe package declares 77 public exports across 16 verified export namespaces. The verified package namespace inventory includes `aspose.page.mcp`, `aspose.page.pdf`, `aspose.page.ps`, `aspose.page.xps`.\n\n<details>\n<summary>View public API by namespace</summary>\n\n### Aspose.Page.MCP Namespace (`aspose.page.MCP`)\n\n| Type | Description |\n| --- | --- |\n| `create_server` | Public function for create server operations. |\n| `run` | Public function for run operations. |\n\n### Aspose.Page.PDF Namespace (`aspose.page.PDF`)\n\n| Type | Description |\n| --- | --- |\n| `ImageResource` | Image resource: access to bits per component, access to color space, and access to data. Includes 8 additional verified members. |\n| `PdfMetadata` | PDF metadata: access to creation date, access to creator, and access to mod date. Includes 3 additional verified members. |\n| `PdfWriter` | Public `PdfWriter` export provided by `aspose.page.pdf`. |\n\n### Aspose.Page.PS Namespace (`aspose.page.PS`)\n\n| Type | Description |\n| --- | --- |\n| `ImageSaveOptions` | Image save options: access to additional fonts folder, access to dpi, and access to font resolver. Includes 3 additional verified members. |\n| `PdfSaveOptions` | PDF save options: access to additional fonts folder and access to no compression. |\n| `PsDocument` | PS DOCUMENT: add, as, and create values. Includes 20 additional verified members. |\n| `convert_image_to_eps` | Public function for convert image to EPS operations. |\n\n### Aspose.Page.XPS Namespace (`aspose.page.XPS`)\n\n| Type | Description |\n| --- | --- |\n| `XpsDocument` | XPS DOCUMENT: add, create values, and from. Includes 12 additional verified members. |\n\n### Aspose.Page.Common.Color Resources Namespace (`aspose.page.common.color_resources`)\n\n| Type | Description |\n| --- | --- |\n| `AxialShading` | Axial shading: access to color space, access to coords, and access to domain. Includes 2 additional verified members. |\n| `CieBasedColorSpace` | Cie based color space: access to components, access to icc profile, and access to ranges. |\n| `ColorSpacePaint` | Color space paint: access to components and access to space id. |\n| `DeviceColorSpace` | Public `DeviceColorSpace` export provided by `aspose.page.common.color_resources`. |\n| `DeviceNColorSpace` | Device ncolor space: access to alternate, access to names, and access to tint. |\n| `ExponentialFunction` | Exponential function: evaluate, access to c0, and access to c1. Includes 3 additional verified members. |\n| `IndexedColorSpace` | Indexed color space: access to base, access to hival, and access to lookup. |\n| `PatternColorSpace` | Public `PatternColorSpace` export provided by `aspose.page.common.color_resources`. |\n| `PatternPaint` | Pattern paint: access to base components, access to base space id, and access to pattern id. |\n| `RadialShading` | Radial shading: access to color space, access to coords, and access to domain. Includes 2 additional verified members. |\n| `SampledFunction` | Sampled function: evaluate, access to bits per sample, and access to decode. Includes 6 additional verified members. |\n| `SeparationColorSpace` | Separation color space: access to alternate, access to name, and access to tint. |\n| `ShadingPattern` | Public `ShadingPattern` export provided by `aspose.page.common.color_resources`. |\n| `StitchingFunction` | Stitching function: evaluate, access to bounds, and access to domain. Includes 3 additional verified members. |\n| `TilingPattern` | Tiling pattern: access to bbox, access to commands, and access to matrix. Includes 4 additional verified members. |\n\n### Aspose.Page.Common.Render Model Namespace (`aspose.page.common.render_model`)\n\n| Type | Description |\n| --- | --- |\n| `ClipCommand` | Clip command: access to fill rule and access to path. |\n| `ImageCommand` | Image command: access to height, access to image id, and access to mask. Includes 4 additional verified members. |\n| `Matrix` | Matrix: identity, access to a, and access to b. Includes 4 additional verified members. |\n| `Paint` | Paint: access to kind and access to value. |\n| `Path` | Public `Path` export provided by `aspose.page.common.render_model`. |\n| `PathCommand` | Path command: access to fill, access to fill opacity, and access to fill rule. Includes 5 additional verified members. |\n| `PathSegment` | Path segment: access to kind and access to points. |\n| `Point` | Point: access to x and access to y. |\n| `Rect` | Rect: access to x max, access to x min, and access to y max. Includes 1 additional verified member. |\n| `RenderDocument` | Public `RenderDocument` export provided by `aspose.page.common.render_model`. |\n| `RenderImageResource` | Render image resource: access to bits per component, access to color space, and access to data. Includes 8 additional verified members. |\n| `RenderModelBuilder` | Render model builder: add, begin, and clip. Includes 10 additional verified members. |\n| `RenderPage` | Render page: access to commands, access to height, and access to width. |\n| `RenderResources` | Render resources: access to color spaces, access to functions, and access to images. Includes 1 additional verified member. |\n| `StateRestoreCommand` | Public `StateRestoreCommand` export provided by `aspose.page.common.render_model`. |\n| `StateSaveCommand` | Public `StateSaveCommand` export provided by `aspose.page.common.render_model`. |\n| `StrokeStyle` | Stroke style: access to dash, access to dash phase, and access to line cap. Includes 3 additional verified members. |\n| `TextCommand` | Text command: access to fill, access to fill opacity, and access to font ref. Includes 5 additional verified members. |\n| `rect_path` | Public function for rect path operations. |\n\n### Aspose.Page.Image.Encoders Namespace (`aspose.page.image.encoders`)\n\n| Type | Description |\n| --- | --- |\n| `add_png_dpi` | Public function for add PNG dpi operations. |\n| `encode_bmp` | Public function for encode BMP operations. |\n| `encode_jpeg` | Public function for encode JPEG operations. |\n| `encode_png` | Public function for encode PNG operations. |\n| `encode_tiff` | Public function for encode TIFF operations. |\n\n### Aspose.Page.Image.Raster Renderer Namespace (`aspose.page.image.raster_renderer`)\n\n| Type | Description |\n| --- | --- |\n| `RasterRenderer` | Public `RasterRenderer` export provided by `aspose.page.image.raster_renderer`. |\n| `RasterSurface` | Raster surface: create values, retrieve pixel, and set pixel. Includes 4 additional verified members. |\n\n### Aspose.Page.Image.Raster Writer Namespace (`aspose.page.image.raster_writer`)\n\n| Type | Description |\n| --- | --- |\n| `DefaultRasterWriter` | Public `DefaultRasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `RasterWriter` | Public `RasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `RenderModelRasterWriter` | Public `RenderModelRasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `select_raster_writer` | Public function for select raster writer operations. |\n\n### Aspose.Page.Image.Skia Raster Writer Namespace (`aspose.page.image.skia_raster_writer`)\n\n| Type | Description |\n| --- | --- |\n| `SkiaRasterWriter` | Public `SkiaRasterWriter` export provided by `aspose.page.image.skia_raster_writer`. |\n| `skia_available` | Public function for skia available operations. |\n\n### Aspose.Page.MCP.Handlers Namespace (`aspose.page.MCP.handlers`)\n\n| Type | Description |\n| --- | --- |\n| `eps_metadata` | Public function for EPS metadata operations. |\n| `ps_to_image` | Public function for PS to image operations. |\n| `ps_to_pdf` | Public function for PS to PDF operations. |\n| `xps_to_image` | Public function for XPS to image operations. |\n| `xps_to_pdf` | Public function for XPS to PDF operations. |\n\n### Aspose.Page.MCP.Server Namespace (`aspose.page.MCP.server`)\n\n| Type | Description |\n| --- | --- |\n| `create_server` | The `aspose.page.mcp.server` namespace re-exports `create_server` from the primary `aspose.page.mcp` namespace. |\n| `run` | The `aspose.page.mcp.server` namespace re-exports `run` from the primary `aspose.page.mcp` namespace. |\n\n### Aspose.Page.MCP.Types Namespace (`aspose.page.MCP.types`)\n\n| Type | Description |\n| --- | --- |\n| `McpConversionOptions` | MCP conversion options: access to dpi, access to format, and access to no compress. |\n| `McpInput` | MCP input: access to input bytes b64 and access to input path. |\n| `McpOutput` | MCP output: access to output path and access to return bytes. |\n| `McpResult` | MCP result: access to output bytes b64 and access to output path. |\n\n### Aspose.Page.PDF.Fonts Namespace (`aspose.page.PDF.fonts`)\n\n| Type | Description |\n| --- | --- |\n| `PdfEmbeddedFont` | PDF embedded font: access to ascent, access to base name, and access to bbox. Includes 16 additional verified members. |\n| `build_to_unicode` | Public function for build to unicode operations. |\n\n### Aspose.Page.PDF.Utils Namespace (`aspose.page.PDF.utils`)\n\n| Type | Description |\n| --- | --- |\n| `escape_pdf_string` | Public function for escape PDF string operations. |\n| `format_matrix` | Public function for format matrix operations. |\n| `format_rect` | Public function for format rect operations. |\n\n### Aspose.Page.PDF.Writer Namespace (`aspose.page.PDF.writer`)\n\n| Type | Description |\n| --- | --- |\n| `ImageResource` | The `aspose.page.pdf.writer` namespace re-exports `ImageResource` from the primary `aspose.page.pdf` namespace. |\n| `PdfMetadata` | The `aspose.page.pdf.writer` namespace re-exports `PdfMetadata` from the primary `aspose.page.pdf` namespace. |\n| `PdfWriter` | The `aspose.page.pdf.writer` namespace re-exports `PdfWriter` from the primary `aspose.page.pdf` namespace. |\n| `RectWrapper` | Rect wrapper: access to height, access to width, and access to x max. Includes 3 additional verified members. |\n\n</details>\n\n<details>\n<summary>View Additional API Details</summary>\n\n- Convert PS/EPS to PNG and JPEG in Python\n\n\n- Convert XPS to PNG and JPEG in Python\n\n\n- Integrate conversion workflows through MCP server tools\n\n\nMCP tools currently exposed:\n\n\n- `ps_to_pdf`\n\n\n- `ps_to_image`\n\n\n- `xps_to_pdf`\n\n\n- `xps_to_image`\n\n\n- `eps_metadata`\n\n\nRun MCP server:\n\n\n```python\nfrom aspose.page.mcp import create_server\n\nserver = create_server()\nserver.run(host=\"127.0.0.1\", port=8000)\n```\n\n\n</details>\n\n## Documentation and Resources\n\n- **[Getting started guide](https://docs.aspose.org/page/python/)** - installation, walkthroughs, and feature guides for this library.\n- **[How-to guides and FAQ](https://kb.aspose.org/page/python/)** - task-focused answers for common product questions.\n- **[Full API reference](https://reference.aspose.org/page/python/)** - the complete browsable reference for the public API.\n- Found a bug or have a feature request? [Open an issue](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/issues) on GitHub.\n\n## Scope and Limitations\n\n- exponential function requires one input\n- stitching function requires one input\n- Type0 embedded font requires CID descendant\n- unsupported color space type\n- unsupported device color space\n- Indexed color space requires base, hival, lookup\n- Separation color space requires name, alternate, tint\n- DeviceN color space requires names, alternate, tint\n- CIEBased color space requires dictionary\n- unsupported color tuple length\n\nFor requirements beyond the FOSS scope described above, explore the [full-featured Aspose.Page Enterprise Edition](https://products.aspose.com/page/). It is a separate product, so features and APIs may differ.\n\n## Development and Testing\n\nThe repository includes 66 test files, 4 declared Make targets, 3 source-bound validation commands.\n\n<details>\n<summary>View development and testing resources</summary>\n\n### Tests\n\n- [`tests/common/compare_utils.py`](tests/common/compare_utils.py)\n- [`tests/common/output_utils.py`](tests/common/output_utils.py)\n- [`tests/common/pdf_validator.py`](tests/common/pdf_validator.py)\n- [`tests/common/render_model_dump.py`](tests/common/render_model_dump.py)\n- [`tests/common/test_utils.py`](tests/common/test_utils.py)\n- [Browse all test files](tests)\n\n### Repository Make Targets\n\n```bash\nmake sync\n```\n\n```bash\nmake test\n```\n\n```bash\nmake build\n```\n\n```bash\nmake check\n```\n\n### Focused Commands and Repository Scripts\n\n```bash\npython -m unittest tests.mcp.test_handlers tests.mcp.test_server\n```\n\n```bash\npython -m pip install -e .\n```\n\n```bash\npython -m unittest discover -s tests -p \"test_*.py\"\n```\n\n\n</details>\n\n## License\n\nThis project is available under the [MIT License](LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
+                "replacement_sha256": "46c3cee392c64a128520f691ffa2f563db7b78cf4f14dec6d4b04ff56f698c09",
+                "replacement_text": "# Aspose.Page FOSS for Python\n\n[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)\n\nAspose.Page FOSS for Python is an open-source library for developers using Python. It reads PS/EPS input files.\n\n## Navigation\n\n- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)\n\n## At a Glance\n\n```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"PS/EPS input files\"]\n    I2[\"XPS files\"]\n  end\n\n  PRODUCT[\"Aspose.Page FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction LR\n    subgraph CapabilityColumn1[\" \"]\n      direction TB\n      C1[\"PS/EPS to PDF conversion\"]\n      C2[\"PS/EPS to image conversion\"]\n      C3[\"XPS to PDF conversion\"]\n      C1 ~~~ C2\n      C2 ~~~ C3\n    end\n    subgraph CapabilityColumn2[\" \"]\n      direction TB\n      C4[\"XPS to image conversion\"]\n      C5[\"MCP server hosting\"]\n      C6[\"EPS metadata extraction\"]\n      C4 ~~~ C5\n      C5 ~~~ C6\n    end\n  end\n  style CapabilityColumn1 fill:none,stroke:none\n  style CapabilityColumn2 fill:none,stroke:none\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"PDF files\"]\n    O2[\"image files\"]\n    O3[\"EPS metadata\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```\n\n## Key Capabilities\n\n- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.\n\n<details>\n<summary>View Detailed Capabilities</summary>\n\n- Convert PS/EPS to PDF in Python\n\n\n- Convert XPS to PDF in Python\n\n\n- PS/EPS to PDF conversion\n\n\n- PS/EPS to PNG/JPEG conversion\n\n\n- XPS to PDF conversion\n\n\n- XPS to PNG/JPEG conversion\n\n\n</details>\n\n## Installation\n\nInstall the package directly from its source repository:\n\n```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```\n\nThe `aspose-page-foss` distribution is currently installed from source.\n\nOptional dependency groups declared in `pyproject.toml`:\n- `test`: `python -m pip install \".[test]\"`\n\n- image conversion: `python -m pip install Pillow`\n- MCP server hosting: `python -m pip install fastmcp`\n- image conversion: `python -m pip install skia-python`\n\n<details>\n<summary>View Additional Installation Details</summary>\n\nImportant notes:\n\n\n- `FastMCP` is required to start the MCP server.\n\n\n- `skia-python` is required for image conversion flows (`ps_to_image`, `xps_to_image`).\n\n\n</details>\n\n## Quick Start\n\n```python\nfrom aspose.page.ps.document import PsDocument\n\nps = PsDocument.from_file(\"input.ps\")\noutput_pdf = ps.to_pdf()\n\nwith open(\"output.pdf\", \"wb\") as f:\n    f.write(output_pdf)\n```\n\n## Additional Examples\n\nExpand this section to view examples for converting EPS to PNG, converting XPS to PDF, converting XPS to JPEG, and viewing generated example results.\n\n<details>\n<summary>View additional examples and results</summary>\n\n### Convert EPS to PNG\n\n```python\nfrom aspose.page.ps.document import PsDocument\nfrom aspose.page.ps.output import ImageSaveOptions\n\neps = PsDocument.from_file(\"input.eps\")\noutput_png = eps.to_image(ImageSaveOptions(format=\"png\", dpi=150))\n\nwith open(\"output.png\", \"wb\") as f:\n    f.write(output_png)\n```\n\n### Convert XPS to PDF\n\n```python\nfrom aspose.page.xps.document import XpsDocument\n\nxps = XpsDocument.from_file(\"input.xps\")\noutput_pdf = xps.to_pdf()\n\nwith open(\"output.pdf\", \"wb\") as f:\n    f.write(output_pdf)\n```\n\n### Convert XPS to JPEG\n\n```python\nfrom aspose.page.ps.output import ImageSaveOptions\nfrom aspose.page.xps.document import XpsDocument\n\nxps = XpsDocument.from_file(\"input.xps\")\noutput_jpeg = xps.to_image(ImageSaveOptions(format=\"jpeg\", dpi=150))\n\nwith open(\"output.jpg\", \"wb\") as f:\n    f.write(output_jpeg)\n```\n\n### Example Results\n\n![mb03 xps2pdf result](readme.resources/mb03.png)\n\n![ps2pdf result](readme.resources/TestImages.png)\n\n![PS to image sample](readme.resources/RGB10.png)\n\n\n</details>\n\n## API Reference\n\nThe package declares 77 public exports across 16 verified export namespaces. The verified package namespace inventory includes `aspose.page.mcp`, `aspose.page.pdf`, `aspose.page.ps`, `aspose.page.xps`.\n\n<details>\n<summary>View public API by namespace</summary>\n\n### Aspose.Page.MCP Namespace (`aspose.page.MCP`)\n\n| Type | Description |\n| --- | --- |\n| `create_server` | Public function for create server operations. |\n| `run` | Public function for run operations. |\n\n### Aspose.Page.PDF Namespace (`aspose.page.PDF`)\n\n| Type | Description |\n| --- | --- |\n| `ImageResource` | Image resource: access to bits per component, access to color space, and access to data. Includes 8 additional verified members. |\n| `PdfMetadata` | PDF metadata: access to creation date, access to creator, and access to mod date. Includes 3 additional verified members. |\n| `PdfWriter` | Public `PdfWriter` export provided by `aspose.page.pdf`. |\n\n### Aspose.Page.PS Namespace (`aspose.page.PS`)\n\n| Type | Description |\n| --- | --- |\n| `ImageSaveOptions` | Image save options: access to additional fonts folder, access to dpi, and access to font resolver. Includes 3 additional verified members. |\n| `PdfSaveOptions` | PDF save options: access to additional fonts folder and access to no compression. |\n| `PsDocument` | PS DOCUMENT: add, as, and create values. Includes 20 additional verified members. |\n| `convert_image_to_eps` | Public function for convert image to EPS operations. |\n\n### Aspose.Page.XPS Namespace (`aspose.page.XPS`)\n\n| Type | Description |\n| --- | --- |\n| `XpsDocument` | XPS DOCUMENT: add, create values, and from. Includes 12 additional verified members. |\n\n### Aspose.Page.Common.Color Resources Namespace (`aspose.page.common.color_resources`)\n\n| Type | Description |\n| --- | --- |\n| `AxialShading` | Axial shading: access to color space, access to coords, and access to domain. Includes 2 additional verified members. |\n| `CieBasedColorSpace` | Cie based color space: access to components, access to icc profile, and access to ranges. |\n| `ColorSpacePaint` | Color space paint: access to components and access to space id. |\n| `DeviceColorSpace` | Public `DeviceColorSpace` export provided by `aspose.page.common.color_resources`. |\n| `DeviceNColorSpace` | Device ncolor space: access to alternate, access to names, and access to tint. |\n| `ExponentialFunction` | Exponential function: evaluate, access to c0, and access to c1. Includes 3 additional verified members. |\n| `IndexedColorSpace` | Indexed color space: access to base, access to hival, and access to lookup. |\n| `PatternColorSpace` | Public `PatternColorSpace` export provided by `aspose.page.common.color_resources`. |\n| `PatternPaint` | Pattern paint: access to base components, access to base space id, and access to pattern id. |\n| `RadialShading` | Radial shading: access to color space, access to coords, and access to domain. Includes 2 additional verified members. |\n| `SampledFunction` | Sampled function: evaluate, access to bits per sample, and access to decode. Includes 6 additional verified members. |\n| `SeparationColorSpace` | Separation color space: access to alternate, access to name, and access to tint. |\n| `ShadingPattern` | Public `ShadingPattern` export provided by `aspose.page.common.color_resources`. |\n| `StitchingFunction` | Stitching function: evaluate, access to bounds, and access to domain. Includes 3 additional verified members. |\n| `TilingPattern` | Tiling pattern: access to bbox, access to commands, and access to matrix. Includes 4 additional verified members. |\n\n### Aspose.Page.Common.Render Model Namespace (`aspose.page.common.render_model`)\n\n| Type | Description |\n| --- | --- |\n| `ClipCommand` | Clip command: access to fill rule and access to path. |\n| `ImageCommand` | Image command: access to height, access to image id, and access to mask. Includes 4 additional verified members. |\n| `Matrix` | Matrix: identity, access to a, and access to b. Includes 4 additional verified members. |\n| `Paint` | Paint: access to kind and access to value. |\n| `Path` | Public `Path` export provided by `aspose.page.common.render_model`. |\n| `PathCommand` | Path command: access to fill, access to fill opacity, and access to fill rule. Includes 5 additional verified members. |\n| `PathSegment` | Path segment: access to kind and access to points. |\n| `Point` | Point: access to x and access to y. |\n| `Rect` | Rect: access to x max, access to x min, and access to y max. Includes 1 additional verified member. |\n| `RenderDocument` | Public `RenderDocument` export provided by `aspose.page.common.render_model`. |\n| `RenderImageResource` | Render image resource: access to bits per component, access to color space, and access to data. Includes 8 additional verified members. |\n| `RenderModelBuilder` | Render model builder: add, begin, and clip. Includes 10 additional verified members. |\n| `RenderPage` | Render page: access to commands, access to height, and access to width. |\n| `RenderResources` | Render resources: access to color spaces, access to functions, and access to images. Includes 1 additional verified member. |\n| `StateRestoreCommand` | Public `StateRestoreCommand` export provided by `aspose.page.common.render_model`. |\n| `StateSaveCommand` | Public `StateSaveCommand` export provided by `aspose.page.common.render_model`. |\n| `StrokeStyle` | Stroke style: access to dash, access to dash phase, and access to line cap. Includes 3 additional verified members. |\n| `TextCommand` | Text command: access to fill, access to fill opacity, and access to font ref. Includes 5 additional verified members. |\n| `rect_path` | Public function for rect path operations. |\n\n### Aspose.Page.Image.Encoders Namespace (`aspose.page.image.encoders`)\n\n| Type | Description |\n| --- | --- |\n| `add_png_dpi` | Public function for add PNG dpi operations. |\n| `encode_bmp` | Public function for encode BMP operations. |\n| `encode_jpeg` | Public function for encode JPEG operations. |\n| `encode_png` | Public function for encode PNG operations. |\n| `encode_tiff` | Public function for encode TIFF operations. |\n\n### Aspose.Page.Image.Raster Renderer Namespace (`aspose.page.image.raster_renderer`)\n\n| Type | Description |\n| --- | --- |\n| `RasterRenderer` | Public `RasterRenderer` export provided by `aspose.page.image.raster_renderer`. |\n| `RasterSurface` | Raster surface: create values, retrieve pixel, and set pixel. Includes 4 additional verified members. |\n\n### Aspose.Page.Image.Raster Writer Namespace (`aspose.page.image.raster_writer`)\n\n| Type | Description |\n| --- | --- |\n| `DefaultRasterWriter` | Public `DefaultRasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `RasterWriter` | Public `RasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `RenderModelRasterWriter` | Public `RenderModelRasterWriter` export provided by `aspose.page.image.raster_writer`. |\n| `select_raster_writer` | Public function for select raster writer operations. |\n\n### Aspose.Page.Image.Skia Raster Writer Namespace (`aspose.page.image.skia_raster_writer`)\n\n| Type | Description |\n| --- | --- |\n| `SkiaRasterWriter` | Public `SkiaRasterWriter` export provided by `aspose.page.image.skia_raster_writer`. |\n| `skia_available` | Public function for skia available operations. |\n\n### Aspose.Page.MCP.Handlers Namespace (`aspose.page.MCP.handlers`)\n\n| Type | Description |\n| --- | --- |\n| `eps_metadata` | Public function for EPS metadata operations. |\n| `ps_to_image` | Public function for PS to image operations. |\n| `ps_to_pdf` | Public function for PS to PDF operations. |\n| `xps_to_image` | Public function for XPS to image operations. |\n| `xps_to_pdf` | Public function for XPS to PDF operations. |\n\n### Aspose.Page.MCP.Server Namespace (`aspose.page.MCP.server`)\n\n| Type | Description |\n| --- | --- |\n| `create_server` | The `aspose.page.mcp.server` namespace re-exports `create_server` from the primary `aspose.page.mcp` namespace. |\n| `run` | The `aspose.page.mcp.server` namespace re-exports `run` from the primary `aspose.page.mcp` namespace. |\n\n### Aspose.Page.MCP.Types Namespace (`aspose.page.MCP.types`)\n\n| Type | Description |\n| --- | --- |\n| `McpConversionOptions` | MCP conversion options: access to dpi, access to format, and access to no compress. |\n| `McpInput` | MCP input: access to input bytes b64 and access to input path. |\n| `McpOutput` | MCP output: access to output path and access to return bytes. |\n| `McpResult` | MCP result: access to output bytes b64 and access to output path. |\n\n### Aspose.Page.PDF.Fonts Namespace (`aspose.page.PDF.fonts`)\n\n| Type | Description |\n| --- | --- |\n| `PdfEmbeddedFont` | PDF embedded font: access to ascent, access to base name, and access to bbox. Includes 16 additional verified members. |\n| `build_to_unicode` | Public function for build to unicode operations. |\n\n### Aspose.Page.PDF.Utils Namespace (`aspose.page.PDF.utils`)\n\n| Type | Description |\n| --- | --- |\n| `escape_pdf_string` | Public function for escape PDF string operations. |\n| `format_matrix` | Public function for format matrix operations. |\n| `format_rect` | Public function for format rect operations. |\n\n### Aspose.Page.PDF.Writer Namespace (`aspose.page.PDF.writer`)\n\n| Type | Description |\n| --- | --- |\n| `ImageResource` | The `aspose.page.pdf.writer` namespace re-exports `ImageResource` from the primary `aspose.page.pdf` namespace. |\n| `PdfMetadata` | The `aspose.page.pdf.writer` namespace re-exports `PdfMetadata` from the primary `aspose.page.pdf` namespace. |\n| `PdfWriter` | The `aspose.page.pdf.writer` namespace re-exports `PdfWriter` from the primary `aspose.page.pdf` namespace. |\n| `RectWrapper` | Rect wrapper: access to height, access to width, and access to x max. Includes 3 additional verified members. |\n\n</details>\n\n<details>\n<summary>View Additional API Details</summary>\n\n- Convert PS/EPS to PNG and JPEG in Python\n\n\n- Convert XPS to PNG and JPEG in Python\n\n\n- Integrate conversion workflows through MCP server tools\n\n\nMCP tools currently exposed:\n\n\n- `ps_to_pdf`\n\n\n- `ps_to_image`\n\n\n- `xps_to_pdf`\n\n\n- `xps_to_image`\n\n\n- `eps_metadata`\n\n\nRun MCP server:\n\n\n```python\nfrom aspose.page.mcp import create_server\n\nserver = create_server()\nserver.run(host=\"127.0.0.1\", port=8000)\n```\n\n\n</details>\n\n## Documentation and Resources\n\n- **[Getting started guide](https://docs.aspose.org/page/python/)** - installation, walkthroughs, and feature guides for this library.\n- **[How-to guides and FAQ](https://kb.aspose.org/page/python/)** - task-focused answers for common product questions.\n- **[Full API reference](https://reference.aspose.org/page/python/)** - the complete browsable reference for the public API.\n- Found a bug or have a feature request? [Open an issue](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/issues) on GitHub.\n\n## Scope and Limitations\n\n- exponential function requires one input\n- stitching function requires one input\n- Type0 embedded font requires CID descendant\n- unsupported color space type\n- unsupported device color space\n- Indexed color space requires base, hival, lookup\n- Separation color space requires name, alternate, tint\n- DeviceN color space requires names, alternate, tint\n- CIEBased color space requires dictionary\n- unsupported color tuple length\n\nFor requirements beyond the FOSS scope described above, explore the [full-featured Aspose.Page Enterprise Edition](https://products.aspose.com/page/). It is a separate product, so features and APIs may differ.\n\n## Development and Testing\n\nThe repository includes 66 test files, 4 declared Make targets, 3 source-bound validation commands.\n\n<details>\n<summary>View development and testing resources</summary>\n\n### Tests\n\n- [`tests/common/compare_utils.py`](tests/common/compare_utils.py)\n- [`tests/common/output_utils.py`](tests/common/output_utils.py)\n- [`tests/common/pdf_validator.py`](tests/common/pdf_validator.py)\n- [`tests/common/render_model_dump.py`](tests/common/render_model_dump.py)\n- [`tests/common/test_utils.py`](tests/common/test_utils.py)\n- [Browse all test files](tests)\n\n### Repository Make Targets\n\n```bash\nmake sync\n```\n\n```bash\nmake test\n```\n\n```bash\nmake build\n```\n\n```bash\nmake check\n```\n\n### Focused Commands and Repository Scripts\n\n```bash\npython -m unittest tests.mcp.test_handlers tests.mcp.test_server\n```\n\n```bash\npython -m pip install -e .\n```\n\n```bash\npython -m unittest discover -s tests -p \"test_*.py\"\n```\n\n\n</details>\n\n## License\n\nThis project is available under the [MIT License](LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.\n",
                 "rollback": "Restore the exact immutable source bytes for this operation.",
                 "source_byte_end": 3151,
                 "source_byte_start": 0,
@@ -26076,7 +26232,7 @@
               }
             ],
             "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
-            "template_sha256": "7164fbbb2b5852f9df980d028af1a22ab602fadbd7126e10adff1836f3788d2a"
+            "template_sha256": "b50b6add7434a412389eba992dae583b8548beabeb2bcd6a63e302c6f5646130"
           }
         },
         "proposal_only": true,
@@ -26118,7 +26274,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260807-191007-34b6",
+          "nonce": "20260807-210024-ef72",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -26126,7 +26282,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "a946c02351b601537ad52ce2c2e6f5f908af458001e1fc455d10a1df7ec0b30d",
+          "token": "1f60f287cc0dd993c59a758ec028628ba502e48bd984afb10a71d1e3961b3e92",
           "verdict": "accept"
         },
         "written": false
@@ -26134,7 +26290,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-07T19:12:29.970088+00:00",
+      "last_run_timestamp": "2026-08-07T21:02:23.892434+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -29953,7 +30109,7 @@
     "updated_at": "2026-08-07T21:02:17.002991+00:00"
   },
   "schema_version": 2,
-  "state_version": 1470,
+  "state_version": 1471,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
