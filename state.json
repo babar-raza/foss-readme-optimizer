@@ -18099,6 +18099,18 @@
       }
     ],
     "facts_hash": "4214833a265f72b0e83b0326e13b26db4e15f69b7bb290760e85616fed0b1cf9",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T07:12:15.483392+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -20668,6 +20680,7 @@
         "to_status": "NO_OP_PROVEN"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -20687,8 +20700,35 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": "7012f8048b3d123787d6e24c4974edf8bb2352abcdc8962733632c69ddfc58de",
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T07:12:15.483423+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-07T07:12:15.483435+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "138dd9cea3a61a5a8ff7fd70b78da0e720e828e43cbe4a1ef81c76e971ab69e3",
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
@@ -20698,7 +20738,7 @@
     "updated_at": "2026-08-04T10:56:24.222731+00:00"
   },
   "schema_version": 2,
-  "state_version": 1012,
+  "state_version": 1013,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2e49dccb6e68d3ff3a16fb133b225d8846483e94d1dc208d4d986d42173ff017",
@@ -21886,6 +21926,28 @@
       "recovery_count": 2,
       "status": "retryable",
       "updated_at": "2026-08-04T10:55:36.060254+00:00"
+    },
+    "operator:20260807-071205-d356:aspose-page-foss/Aspose.Page-FOSS-for-Python": {
+      "accepted_at": "2026-08-07T07:12:13.940925+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260807-071205-d356:aspose-page-foss/Aspose.Page-FOSS-for-Python",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-07T07:12:05.334253+00:00",
+        "provider_event_id": "20260807-071205-d356",
+        "repository_scope": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-07T07:12:13.940940+00:00"
     }
   },
   "trigger_records": {},
