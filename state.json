@@ -6640,7 +6640,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "fabd0601220f4565982576b00894679db76c113f22457ea0dd85cbe3a1a969d2",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -7648,17 +7648,15 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "fabd0601220f4565982576b00894679db76c113f22457ea0dd85cbe3a1a969d2",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "3d22dca1077cec891ad7f94ff29684b5de70f7231cb4d9ac3dedba27bd812554",
-          "message": "['claim accountability has 19 blocking claim(s): candidate:claim:17813:a25977b41eb6dc02, candidate:claim:18299:04c45ce945460216, candidate:claim:19436:f3fd7b0d46d554ca, candidate:claim:19646:251af29a6196fb77, candidate:claim:19889:9bb258809cba7f79, candidate:claim:20936:38f61aae749be8bb, candidate:claim:21186:c4586d44fb711ec0, candidate:claim:21781:6cda3d69db277ec1, candidate:claim:22107:50dfac9a566facc2, candidate:claim:22287:2d7b903d57e0a605']",
-          "occurred_at": "2026-08-07T22:45:24.807649+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " preserve disposition lost a source claim without exact fact-bound replacement candidate content: claim:913:990e2379512ad7ea",
+          "occurred_at": "2026-08-07T23:13:34.955241+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": true,
         "llm_calls": [
@@ -32418,9 +32416,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-07T23:01:33.485275+00:00",
+      "last_run_timestamp": "2026-08-07T23:13:34.955241+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -36364,7 +36362,7 @@
     "updated_at": "2026-08-07T23:10:51.775237+00:00"
   },
   "schema_version": 2,
-  "state_version": 1561,
+  "state_version": 1562,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
