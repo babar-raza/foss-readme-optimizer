@@ -110205,6 +110205,17 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "local-poc-cache",
+        "occurred_at": "2026-08-07T13:14:28.430826+00:00",
+        "reason": "completed bundle cache invalidated at README_ASSESSED: presentation_component_protected_content_changed, presentation_component_structural_changed",
+        "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+        "to_status": "README_ASSESSED"
       }
     ],
     "human_acceptance_history": [],
@@ -110276,11 +110287,11 @@
     "reviewer_standard_hash": "cfb3f0ef7f607d61068e73febe98f3a228dce54bee818cd8e3270a56bcf1ed8f",
     "schema_version": 2,
     "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-07T12:46:24.409179+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-07T13:14:28.430826+00:00"
   },
   "schema_version": 2,
-  "state_version": 1593,
+  "state_version": 1594,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ef8ff5bfafc3f3256174de8f857abc539c7cba07c53dd86042dd4bd21c1d2b6b",
