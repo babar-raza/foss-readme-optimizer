@@ -487,7 +487,7 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T12:37:43.546384+00:00",
+    "last_evaluated_at": "2026-08-08T12:38:08.194888+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -726,7 +726,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "IMPLEMENTED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "VERIFIED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "TODO",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
@@ -7427,6 +7427,19 @@
         "reason": "Current PDF/Python candidate is repository-verified, deterministically accepted, independently accepted, no-op proven, and promoted with zero effects.",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/closeout-control.json",
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/manifest.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-08T12:38:08.194905+00:00",
+        "reason": "Exact runtime, claim-accountability, 20-rule public contract, inventories, and fresh/no-op evidence were independently reproduced.",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -7436,7 +7449,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 815,
+  "state_version": 816,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
