@@ -28024,7 +28024,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "candidate_hash": "90759575f724b49be97e549e24f4c35c619d9b75f91b357ebfeb1a65d7bcda8c",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -30108,6 +30108,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\4c532043f96ff7560fb4\\r\\f62dc1a5ec302587\\s\\537b8273b185\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\537b8273b185e4f7440b201cacad56567e55b2f0\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-08T17:47:05.357239+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "human_acceptance_history": [],
@@ -30209,11 +30221,11 @@
     "reviewer_standard_hash": "e873fc0eced616b35f126f803a66a5240c97df7bc1f17467d4704d49e88947ef",
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-08T17:46:56.689391+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-08T17:47:05.357239+00:00"
   },
   "schema_version": 2,
-  "state_version": 1002,
+  "state_version": 1003,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
