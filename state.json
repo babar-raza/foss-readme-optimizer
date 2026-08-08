@@ -2506,7 +2506,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "5775d2951dde2618b80ad126c89a426656b9e5d339cf55f5829f66abda2983ed",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3579,12 +3579,12 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "failure_reason": "presentation_plan",
-          "message": "['claim accountability has 1 blocking claim(s): candidate:claim:3591:add9a0f07048bfad']",
-          "occurred_at": "2026-08-03T07:45:15.450160+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " compiled verified presentation is invalid: API reference contains an incomplete generic description",
+          "occurred_at": "2026-08-08T06:57:41.762613+00:00",
           "schema_version": 1,
-          "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
+          "source_revision": "89ec152d48b35aa071a93c22e626096aa3f251c2",
           "stage": null
         },
         "llm_called": false,
@@ -48057,9 +48057,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T10:35:26.936354+00:00",
+      "last_run_timestamp": "2026-08-08T06:57:41.762613+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
@@ -49564,7 +49564,7 @@
     "updated_at": "2026-08-08T06:53:11.858927+00:00"
   },
   "schema_version": 2,
-  "state_version": 489,
+  "state_version": 490,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "eb5125c7ef4a0b9f08061c7c433d9653b0d62260638c041ab386992bb4c2e38f",
