@@ -215,7 +215,7 @@
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "0770c738fae2b5186cd1ed8875a59900e81a27b066441998395d8022c2e37e7e"
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47"
       },
       "replans": [
         {
@@ -356,6 +356,31 @@
           "pipeline_boundary_changed": true,
           "prior_fingerprint": "83f0ad950b393e3fa7d9f174b450ca954f9eee6fee164bb9739ae3adb79ab0ff",
           "rationale": "Move the causal owner from a generic rendering fallback to a fact-bound capability compiler and title-level semantic deduplication, with final lint independently rejecting generic capability prose.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T15:07:41.637393+00:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-shared-capability-action-semantics.json",
+            "runs/verification/pytest-full-latest.json"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "0770c738fae2b5186cd1ed8875a59900e81a27b066441998395d8022c2e37e7e",
+          "rationale": "Move the causal owner from duplicated renderer, SEO, and validator verb lists to one shared capability-action semantic seam, then regenerate acceptance under the final component hash.",
           "route_change_assessments": [
             "reuse",
             "invalidation",
@@ -541,7 +566,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T15:03:32.092317+00:00",
+    "last_evaluated_at": "2026-08-08T15:08:30.306063+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -683,7 +708,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-README"
+      ],
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
+      "repository_scope": [
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -7579,7 +7621,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 826,
+  "state_version": 827,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
