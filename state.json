@@ -9943,7 +9943,7 @@
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "cda7147afb3ff8f0d155cfd371c0cf0518c5117791cc75981ae36bede7fcc5e1",
+      "accepted_facts_hash": "7d0ddd91b8cc5ba9d30ecc94f408d6532bda469653482d5819a313f06ef2da40",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
@@ -9966,43 +9966,43 @@
           },
           {
             "dimension": "installation_path",
-            "note": "The install section uses `git clone` and local `pip install .`, which does not resolve against a real external registry (e.g., PyPI); no PyPI package coordinates or badge are provided.",
+            "note": "The install section uses `git clone` and local `pip install .`, which does not resolve against a real external registry (PyPI); no package coordinates (e.g., `pip install aspose-3d-foss`) are provided or verified.",
             "satisfied": false
           },
           {
             "dimension": "verified_examples",
-            "note": "There are multiple runnable code blocks beyond the install snippet (Quick Start, Additional Examples), all with clean prose explanations and no source comments inside the code.",
+            "note": "Beyond the minimal Quick Start, there are five fully runnable code examples with clear prose explanations and no source comments inside the code blocks.",
             "satisfied": true
           },
           {
             "dimension": "navigation",
-            "note": "Section headers use consistent `##`/`###` Markdown levels, and the order follows the expected intent: product understanding and getting-started content precede reference/contribution/legal content.",
+            "note": "Section headers use consistent `##` levels, and the table of contents at the top enables GitHub's native in-page navigation \u2014 sequencing follows product understanding \u2192 getting started \u2192 reference \u2192 legal.",
             "satisfied": true
           },
           {
             "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual product workflow (inputs \u2192 transformation \u2192 outputs), which improves understanding for a data-processing library \u2014 not decorative.",
+            "note": "The Mermaid flowchart clearly illustrates the product's input formats \u2192 transformation \u2192 output formats, directly supporting understanding of the library's workflow.",
             "satisfied": true
           },
           {
             "dimension": "contribution_readiness",
-            "note": "The repository lacks recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row.",
+            "note": "The README lacks recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY); GitHub would only show README and License, per the standard's definition of 'community-files readiness'.",
             "satisfied": false
           },
           {
             "dimension": "maintenance_signals",
-            "note": "The README includes a version badge and a pinned commit hash, and the repository's recent activity (e.g., test files, commit history) supports active maintenance.",
+            "note": "The version badge (26.1.0) and commit hash in the URL imply recent activity, and the README does not overclaim maintenance status \u2014 it relies on structural signals.",
             "satisfied": true
           },
           {
             "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under 'Scope and Limitations' \u2014 not as a banner, and without adjectives or pricing.",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language at the end of 'Scope and Limitations', with no promotional tone or repeated links.",
             "satisfied": true
           }
         ],
         "input_sha256": "cbb36c9a938ca7083934aa22dc4c09167e5eb74f5c773fe5a71cd6d7311a4409",
         "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (no external registry resolution) and contribution readiness (missing recognized community files like CONTRIBUTING and CODE_OF_CONDUCT).",
+        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (no external registry coordinates) and contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING/SECURITY files).",
         "structural_consistency": {
           "contradictions": [],
           "valid": true
@@ -10015,7 +10015,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T01:18:03.222566+00:00",
+      "last_run_timestamp": "2026-08-08T01:27:53.900381+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -116184,7 +116184,7 @@
     "updated_at": "2026-08-08T00:42:14.048521+00:00"
   },
   "schema_version": 2,
-  "state_version": 1988,
+  "state_version": 1989,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
