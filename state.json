@@ -44,11 +44,21 @@
           "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY"
         },
         {
+          "evidence_refs": [
+            "claim lease expired"
+          ],
+          "fingerprint": "6ae8534978d0855159f388cd40ec8a081aa2150298c9570dcd3cd881712917db",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
+          "started_at": "2026-08-07T19:54:00.956076+00:00",
+          "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY"
+        },
+        {
           "evidence_refs": [],
           "fingerprint": "6ae8534978d0855159f388cd40ec8a081aa2150298c9570dcd3cd881712917db",
           "last_material_narrowing_at": null,
           "outcome": "in_progress",
-          "started_at": "2026-08-07T19:54:00.956076+00:00",
+          "started_at": "2026-08-08T01:57:03.961754+00:00",
           "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY"
         }
       ],
@@ -62,9 +72,9 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-07T20:24:00.956076+00:00",
-    "claim_id": "c5c5d68137904ec2b7ecb45e00727dc0",
-    "claimed_at": "2026-08-07T19:54:00.956076+00:00",
+    "claim_expires_at": "2026-08-08T02:27:03.961754+00:00",
+    "claim_id": "0d25c12323c04859a105bd19a69f9cc5",
+    "claimed_at": "2026-08-08T01:57:03.961754+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -218,53 +228,40 @@
     ],
     "graph_sha256": "3d7b03f2442a4effcd15c4230b7917fab3411ffe606d9e31cd5335ae30fcaf6b",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-07T19:54:00.956076+00:00",
+    "last_evaluated_at": "2026-08-08T01:57:03.961754+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
+      "agent_approved": 3,
       "candidate_generated": 3,
       "denominator": 32,
-      "derived_at": "2026-08-07T19:22:48.894935+00:00",
+      "derived_at": "2026-08-08T01:09:01.850981+00:00",
       "deterministic_validated": 3,
-      "facts_ready": 4,
+      "facts_ready": 3,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 5,
+        "AGENT_APPROVED": 2,
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
         "FACTS_READY": 5,
         "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 6,
+        "NO_OP_PROVEN": 9,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 0,
+      "no_op_proven": 3,
       "raw_agent_approved": 11,
       "raw_candidate_generated": 15,
       "raw_deterministic_validated": 15,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 6,
+      "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ],
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -329,6 +326,9 @@
           "manifest_content_assurance_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -6987,6 +6987,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-08T01:57:03.961776+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-08T01:57:03.962294+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -6996,7 +7014,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 781,
+  "state_version": 782,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
