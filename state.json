@@ -161,16 +161,27 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-api-identifier-integrity.json",
+            "runs/evidence/20260808-120223-5a28"
+          ],
           "fingerprint": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T12:04:13.988675+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "83f0ad950b393e3fa7d9f174b450ca954f9eee6fee164bb9739ae3adb79ab0ff",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T12:11:38.800685+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7"
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "83f0ad950b393e3fa7d9f174b450ca954f9eee6fee164bb9739ae3adb79ab0ff"
       },
       "replans": [
         {
@@ -262,6 +273,31 @@
           "pipeline_boundary_changed": true,
           "prior_fingerprint": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633",
           "rationale": "Move the causal owner from downstream claim-accountability reduction to the public text compiler and deterministic visitor contract that create and admit visible capability/API copy.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T12:11:04.3785224Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-api-identifier-integrity.json",
+            "runs/evidence/20260808-120223-5a28"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "83f0ad950b393e3fa7d9f174b450ca954f9eee6fee164bb9739ae3adb79ab0ff",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7",
+          "rationale": "Move identifier correctness from an assumed side effect of public vocabulary normalization to a protected Markdown transform plus an independent exact-fact validation boundary.",
           "route_change_assessments": [
             "reuse",
             "invalidation",
@@ -447,24 +483,24 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T12:04:13.988675+00:00",
+    "last_evaluated_at": "2026-08-08T12:11:38.800993+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
+      "agent_approved": 0,
       "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-08T12:00:14.465793+00:00",
+      "derived_at": "2026-08-08T12:06:03.009852+00:00",
       "deterministic_validated": 1,
       "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 3,
+        "AGENT_APPROVED": 2,
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
         "FACTS_READY": 4,
         "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 9,
+        "NO_OP_PROVEN": 10,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
@@ -476,11 +512,16 @@
       "raw_deterministic_validated": 16,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 9,
+      "raw_no_op_proven": 10,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -7400,7 +7441,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 808,
+  "state_version": 809,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
