@@ -30272,7 +30272,7 @@
     "updated_at": "2026-08-08T17:49:12.742815+00:00"
   },
   "schema_version": 2,
-  "state_version": 1012,
+  "state_version": 1013,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -31543,13 +31543,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:ValidationError: 1 validation error for CandidateReviewAnchorV1\ntext\n  String should have at most 12000 characters [type=string_too_long, input_value='| Type | Description |\\n...adata for PDF output. |', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long",
       "last_checkpoint_id": "c27aed063d2d5953938ef48c8cca0053e4d97396f159082ea7ea7e8a5cb9ed14",
-      "lease_expires_at": "2026-08-08T17:56:44.267863+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-08T17:50:59.080651+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-08T17:51:33.816212+00:00"
     }
   },
   "trigger_records": {},
