@@ -322,10 +322,13 @@
             "runs/evidence/20260808-190430-3d4d",
             "tests/unit/test_curated_readme_evidence.py",
             "tests/unit/test_verified_template_api_descriptions.py",
-            "tests/unit/test_repository_presentation_template.py"
+            "tests/unit/test_repository_presentation_template.py",
+            "runs/evidence/20260808-193059-c773/manifest.json",
+            "src/readme_agent/presentation/verified_source_detail_routing.py",
+            "tests/unit/test_verified_source_detail_routing.py"
           ],
           "fingerprint": "37c3ffbeea9efb2b48c2d1a10c2459ba13b11f936184f35a370ad81259fea6ee",
-          "last_material_narrowing_at": "2026-08-08T19:12:04.045969+00:00",
+          "last_material_narrowing_at": "2026-08-08T19:33:54.624891+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-08T18:54:24.133644+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -791,14 +794,14 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T19:20:16.133559+00:00",
+    "last_evaluated_at": "2026-08-08T19:33:54.624911+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-08T18:57:11.727473+00:00",
+      "derived_at": "2026-08-08T19:23:15.795731+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 0,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -898,9 +901,6 @@
           "manifest_content_assurance_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -8066,7 +8066,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 854,
+  "state_version": 855,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
