@@ -49586,7 +49586,7 @@
     "updated_at": "2026-08-08T06:53:11.858927+00:00"
   },
   "schema_version": 2,
-  "state_version": 496,
+  "state_version": 497,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -50263,13 +50263,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: compiled verified presentation is invalid: API reference contains an incomplete generic description",
       "last_checkpoint_id": "8b474fb7ccffe6764427ec42569478a143d7fb14a3c37d4d85c737ac1bbad343",
-      "lease_expires_at": "2026-08-08T07:06:08.893028+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-08T07:00:42.904663+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-08T07:01:21.621011+00:00"
     }
   },
   "trigger_records": {},
