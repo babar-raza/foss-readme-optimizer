@@ -360,11 +360,21 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
+          "evidence_refs": [
+            "claim lease expired"
+          ],
+          "fingerprint": "3ffa698917732b78e2dd580e2b33e3db12437418de018e630b74374d01ff2415",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
+          "started_at": "2026-08-08T20:59:53.030870+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
           "evidence_refs": [],
           "fingerprint": "3ffa698917732b78e2dd580e2b33e3db12437418de018e630b74374d01ff2415",
           "last_material_narrowing_at": null,
           "outcome": "in_progress",
-          "started_at": "2026-08-08T20:59:53.030870+00:00",
+          "started_at": "2026-08-08T21:00:16.679353+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
@@ -747,9 +757,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-08T20:44:08.854853+00:00",
-    "claim_id": "a78498f7a79e44389fcf85accb081950",
-    "claimed_at": "2026-08-08T20:14:08.854853+00:00",
+    "claim_expires_at": "2026-08-08T21:30:16.679353+00:00",
+    "claim_id": "3463c9a78d444cb49ed325dcad458a00",
+    "claimed_at": "2026-08-08T21:00:16.679353+00:00",
     "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -912,7 +922,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T20:59:53.030937+00:00",
+    "last_evaluated_at": "2026-08-08T21:00:16.679353+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -8175,6 +8185,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-08T21:00:16.679377+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-08T21:00:16.679810+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -8184,7 +8212,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 864,
+  "state_version": 865,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
