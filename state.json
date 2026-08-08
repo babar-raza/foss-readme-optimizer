@@ -1128,7 +1128,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T23:54:36.971194+00:00",
+    "last_evaluated_at": "2026-08-08T23:55:02.570621+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 2,
       "candidate_generated": 2,
@@ -1366,7 +1366,7 @@
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "VERIFIED",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "SCORED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
       "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -8512,6 +8512,19 @@
         "reason": "Focused, deterministic, adversarial, and independent Page verification passed.",
         "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-03c-page-current-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-vpy-03c-page-current-v1/closeout-control.json",
+          "plans/investigations/evidence/level8-vpy-03c-page-current-v1/independent-verification.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-08T23:55:02.570633+00:00",
+        "reason": "Page contribution is reconciled to the current 2-of-32 lifecycle scoreboard.",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -8521,7 +8534,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 882,
+  "state_version": 883,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
