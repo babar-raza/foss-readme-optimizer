@@ -77,16 +77,55 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-security-routing.json",
+            "runs/evidence/20260808-092145-0e7c"
+          ],
           "fingerprint": "084ecb42f5fbca6fdae9ea7d1e8ba198fb815cb7ab96b8afaea9d1a4e84bfab0",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T09:11:22.194576+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "016a28924a743144a71d2d2ff0322c545f70819c1d9e6d97b540e3a49f97b075",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T09:29:16.650034+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
-      "proposed_fingerprints": {},
-      "replans": []
+      "proposed_fingerprints": {
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "016a28924a743144a71d2d2ff0322c545f70819c1d9e6d97b540e3a49f97b075"
+      },
+      "replans": [
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T09:28:55.3727954Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-security-routing.json",
+            "runs/evidence/20260808-092145-0e7c"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "016a28924a743144a71d2d2ff0322c545f70819c1d9e6d97b540e3a49f97b075",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "084ecb42f5fbca6fdae9ea7d1e8ba198fb815cb7ab96b8afaea9d1a4e84bfab0",
+          "rationale": "Move the causal owner from a pre-existing optional-section assumption to generic source-preservation destination materialization.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        }
+      ]
     },
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 2,
@@ -260,7 +299,7 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T09:11:22.194576+00:00",
+    "last_evaluated_at": "2026-08-08T09:29:16.650321+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -7141,7 +7180,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 791,
+  "state_version": 792,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
