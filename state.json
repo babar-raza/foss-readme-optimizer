@@ -396,16 +396,31 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-coordinate-protocol.json",
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/pdf-coordinate-contract-focused-proof.json",
+            "src/readme_agent/readme/claim_accountability_coordinates.py",
+            "src/readme_agent/readme/claim_accountability_validation.py",
+            "tests/unit/test_source_claim_assurance.py",
+            "tests/unit/test_verified_source_detail_routing.py"
+          ],
           "fingerprint": "c2904556bad56536085bf31f42d674ad4efbc79dc8eeb43fe860b61a537b6b22",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T21:33:52.386011+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T22:06:59.219572+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "c2904556bad56536085bf31f42d674ad4efbc79dc8eeb43fe860b61a537b6b22",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -827,6 +842,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T22:05:00+00:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-coordinate-protocol.json",
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/pdf-coordinate-contract-focused-proof.json",
+            "src/readme_agent/readme/claim_accountability_coordinates.py",
+            "src/readme_agent/readme/claim_accountability_validation.py",
+            "tests/unit/test_source_claim_assurance.py",
+            "tests/unit/test_verified_source_detail_routing.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "c2904556bad56536085bf31f42d674ad4efbc79dc8eeb43fe860b61a537b6b22",
+          "rationale": "Unify coordinate construction and independent recomputation with role-aware formats, then reuse that exact meaning to suppress redundant source detail.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1002,7 +1046,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T21:33:52.386075+00:00",
+    "last_evaluated_at": "2026-08-08T22:06:59.219643+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -8292,7 +8336,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 868,
+  "state_version": 869,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
