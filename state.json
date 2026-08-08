@@ -30133,7 +30133,7 @@
     "updated_at": "2026-08-08T17:30:40.776700+00:00"
   },
   "schema_version": 2,
-  "state_version": 987,
+  "state_version": 988,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -31382,13 +31382,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.api_reference_tautological_description.653c2efeee10: API descriptions must explain a concrete role or behavior.', 'presentation.api_reference_tautological_description.8477b3189abb: API descriptions must explain a concrete role or behavior.', 'presentation.api_reference_tautological_description.b95fb50169a9: API descriptions must explain a concrete role or behavior.']",
       "last_checkpoint_id": "5d79b5f0e24fe850bfaf9ec0df674740e7d56a93ce0c90d5f61b932cda16f6ae",
-      "lease_expires_at": "2026-08-08T17:44:59.488964+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-08T17:36:26.239488+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-08T17:37:02.078562+00:00"
     }
   },
   "trigger_records": {},
