@@ -30201,6 +30201,17 @@
         "reason": "independent review wiring failed: ValidationError: 1 validation error for CandidateReviewAnchorV1\ntext\n  String should have at most 12000 characters [type=string_too_long, input_value='| Type | Description |\\n...adata for PDF output. |', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long",
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\537b8273b185e4f7440b201cacad56567e55b2f0\\intake\\receipts\\fc348de588922250-a1.json"
+        ],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-08T17:56:48.291523+00:00",
+        "reason": "recovered checksum-bound safe boundary after non-intake system failure",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "to_status": "DETERMINISTIC_VALIDATED"
       }
     ],
     "human_acceptance_history": [],
@@ -30302,11 +30313,11 @@
     "reviewer_standard_hash": "e873fc0eced616b35f126f803a66a5240c97df7bc1f17467d4704d49e88947ef",
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-08-08T17:49:12.742815+00:00"
+    "status": "DETERMINISTIC_VALIDATED",
+    "updated_at": "2026-08-08T17:56:48.291523+00:00"
   },
   "schema_version": 2,
-  "state_version": 1017,
+  "state_version": 1018,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
