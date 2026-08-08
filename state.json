@@ -3820,17 +3820,15 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "8789eb62787f70417cdf1d72c481528a2cff6cb7e9d4087d66cfdbb8c6d29c7d",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['unauthorized protected-content loss: command:eceb782768fe7c55', 'unauthorized protected-content loss: example:130a5c0bdc5ddd89', 'unauthorized protected-content loss: example:eceb782768fe7c55', 'unauthorized protected-content loss: technical_terminology:01859c6e052b339e', 'unauthorized protected-content loss: technical_terminology:03b2d5596d232a42', 'unauthorized protected-content loss: technical_terminology:0b51abf33f0debde', 'unauthorized protected-content loss: technical_terminology:1a4de2337edaeec8', 'unauthorized protected-content loss: technical_terminology:34eabc9eab844921', 'unauthorized protected-content loss: technical_terminology:3abddc73c177c6aa', 'unauthorized protected-content loss: technical_terminology:5774326f1c9d0257', 'unauthorized protected-content loss: technical_terminology:5a3f098b29a67dc2', 'unauthorized protected-content loss: technical_terminology:723895db741e14e5', 'unauthorized protected-content loss: technical_terminology:8d95182f0f4071b4', 'unauthorized protected-content loss: technical_terminology:a3e5b0c952772d56', 'unauthorized protected-content loss: technical_terminology:c0287023b5ff8dc1', 'unauthorized protected-content loss: technical_terminology:e06554818e902b4b', 'claim accountability has 17 blocking claim(s): source:claim:1572:882ad92f946c8a4a, source:claim:1589:e8900f823476368f, source:claim:1605:ed34e62f3004baa5, source:claim:1722:8d23a01255861966, source:claim:6136:1d568bcc06962653, source:claim:6641:34d57783819d3037, source:claim:6688:75d6e3641224f5e0, source:claim:6713:335ef56ed07b0bea, source:claim:6758:b6aaa24c02980d5e, source:claim:6808:b3b3b0c80b87c8b6', 'presentation.semantic_duplicate.449778915382: Capability information is repeated across competing visitor sections.']",
-          "occurred_at": "2026-08-08T07:13:58.778133+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " canonical source-detail destination is absent: Security",
+          "occurred_at": "2026-08-08T09:18:26.863178+00:00",
           "schema_version": 1,
           "source_revision": "89ec152d48b35aa071a93c22e626096aa3f251c2",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -48302,9 +48300,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T07:13:58.779238+00:00",
+      "last_run_timestamp": "2026-08-08T09:18:26.863178+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
@@ -49853,7 +49851,7 @@
     "updated_at": "2026-08-08T07:37:12.221328+00:00"
   },
   "schema_version": 2,
-  "state_version": 543,
+  "state_version": 544,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
