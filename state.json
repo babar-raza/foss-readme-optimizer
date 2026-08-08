@@ -7930,7 +7930,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -8938,14 +8938,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 1,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "fabd0601220f4565982576b00894679db76c113f22457ea0dd85cbe3a1a969d2",
+          "facts_hash": "19a7b8f6aa806f2a685171a8c93bcba7cf946e02d9ccdbdef3cb92deb6c7497c",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "3d22dca1077cec891ad7f94ff29684b5de70f7231cb4d9ac3dedba27bd812554",
-          "message": "['presentation.semantic_duplicate.03eadf7619d8: Capability information is repeated across competing visitor sections.']",
-          "occurred_at": "2026-08-07T23:28:29.959205+00:00",
+          "message": "['presentation.semantic_duplicate.767d0a150d09: Capability information is repeated across competing visitor sections.', 'presentation.generic_capability_description.45a66f32f1af: Key-capability explanations must describe a concrete product behavior.']",
+          "occurred_at": "2026-08-08T15:59:10.613667+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": "document_validation"
@@ -33480,9 +33480,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T06:21:57.743729+00:00",
+      "last_run_timestamp": "2026-08-08T15:59:10.614799+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -38099,7 +38099,7 @@
     "updated_at": "2026-08-08T15:54:46.799085+00:00"
   },
   "schema_version": 2,
-  "state_version": 1866,
+  "state_version": 1867,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
