@@ -370,16 +370,29 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-coordinate-index-throughput.json",
+            "runs/llm-calls/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/20260808-210111-fa9a.jsonl",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
           "fingerprint": "3ffa698917732b78e2dd580e2b33e3db12437418de018e630b74374d01ff2415",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T21:00:16.679353+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "93988047380c54093d68413bb99e0c8188ac8fc438c082d3294a7019d5878768",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T21:19:59.933752+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "3ffa698917732b78e2dd580e2b33e3db12437418de018e630b74374d01ff2415",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "93988047380c54093d68413bb99e0c8188ac8fc438c082d3294a7019d5878768",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -747,6 +760,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T21:18:22+00:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-coordinate-index-throughput.json",
+            "runs/llm-calls/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/20260808-210111-fa9a.jsonl",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "93988047380c54093d68413bb99e0c8188ac8fc438c082d3294a7019d5878768",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "3ffa698917732b78e2dd580e2b33e3db12437418de018e630b74374d01ff2415",
+          "rationale": "Replace per-capability source reparsing with one transaction-local exact binding index while preserving coordinate-complete equivalence.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -922,7 +962,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T21:00:16.679353+00:00",
+    "last_evaluated_at": "2026-08-08T21:19:59.933823+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -8212,7 +8252,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 865,
+  "state_version": 866,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
