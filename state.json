@@ -3990,17 +3990,15 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "00e853b7161b6d5ee4e67045baf5bd62071669ba84774594d784594ee1f866e3",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['verified_equivalences_have_exact_candidate_claims failed', 'presentation.semantic_duplicate.8f34a08386df: Capability information is repeated across competing visitor sections.']",
-          "occurred_at": "2026-08-08T09:36:48.769569+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " preserve disposition lost a source claim without exact fact-bound replacement candidate content: claim:1300:113ad70119616883",
+          "occurred_at": "2026-08-08T09:54:00.874772+00:00",
           "schema_version": 1,
           "source_revision": "89ec152d48b35aa071a93c22e626096aa3f251c2",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -48472,9 +48470,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T09:36:48.770902+00:00",
+      "last_run_timestamp": "2026-08-08T09:54:00.874772+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
@@ -50023,7 +50021,7 @@
     "updated_at": "2026-08-08T07:37:12.221328+00:00"
   },
   "schema_version": 2,
-  "state_version": 584,
+  "state_version": 585,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
