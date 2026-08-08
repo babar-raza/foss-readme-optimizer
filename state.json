@@ -7204,7 +7204,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-233525-278b",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-010313-b942",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -7257,8 +7257,8 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                  "claim": "All required H2 prefixes are present and correctly ordered.",
-                  "criterion": "hierarchy",
+                  "claim": "All required H2 headings use the correct prefix as specified by the visitor contract.",
+                  "criterion": "template_genericity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
@@ -7272,32 +7272,32 @@
                   "quoted_candidate_span": "## Navigation",
                   "reported_observed_value": true,
                   "required_repair": "",
-                  "section": "Navigation"
+                  "section": "H2 Headings"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section contains a single, minimal, working example within line and block limits.",
-                  "criterion": "example_presentation",
+                  "candidate_anchor_id": "candidate.anchor.d1dc1fd50b5023ea511b.1",
+                  "claim": "Badges are presented in a single row and include required badge kinds (Version, Platform, Requires, License, Contributors).",
+                  "criterion": "markdown_integrity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.quick_start_example",
+                  "finding_id": "quality.badge_row_compliance",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                  "mechanical_check_id": "header.badge_rows",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Quick Start",
-                  "reported_observed_value": 5,
+                  "quoted_candidate_span": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)",
+                  "reported_observed_value": 1,
                   "required_repair": "",
-                  "section": "Quick Start"
+                  "section": "Header Badges"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.h2_prefix_compliance",
-                  "quality.quick_start_example"
+                  "quality.badge_row_compliance",
+                  "quality.h2_prefix_compliance"
                 ],
                 "errors": [],
                 "valid": true
@@ -7309,7 +7309,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), a single badge row with required badge kinds, a clear navigation list, a concise Quick Start example (5 non-blank lines, 1 fenced block), and a license section with required benefit terms. The Mermaid diagram in At a Glance is well-structured, and the API Reference section provides comprehensive namespace-level detail. There are no duplicate headings, no comments, and consistent title-case headings.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), a single badge row with required badge kinds, a concise Quick Start example (5 non-blank lines, 1 fenced block), clear navigation list, and appropriate use of Mermaid for At a Glance. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use), and the Scope and Limitations section correctly introduces Enterprise Edition terminology. No duplicate H2s, comments, or template placeholders are present.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -7322,8 +7322,8 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                    "claim": "All required H2 prefixes are present and correctly ordered.",
-                    "criterion": "hierarchy",
+                    "claim": "All required H2 headings use the correct prefix as specified by the visitor contract.",
+                    "criterion": "template_genericity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
@@ -7337,32 +7337,32 @@
                     "quoted_candidate_span": "## Navigation",
                     "reported_observed_value": true,
                     "required_repair": "",
-                    "section": "Navigation"
+                    "section": "H2 Headings"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section contains a single, minimal, working example within line and block limits.",
-                    "criterion": "example_presentation",
+                    "candidate_anchor_id": "candidate.anchor.d1dc1fd50b5023ea511b.1",
+                    "claim": "Badges are presented in a single row and include required badge kinds (Version, Platform, Requires, License, Contributors).",
+                    "criterion": "markdown_integrity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.quick_start_example",
+                    "finding_id": "quality.badge_row_compliance",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                    "mechanical_check_id": "header.badge_rows",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Quick Start",
-                    "reported_observed_value": 5,
+                    "quoted_candidate_span": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)",
+                    "reported_observed_value": 1,
                     "required_repair": "",
-                    "section": "Quick Start"
+                    "section": "Header Badges"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.h2_prefix_compliance",
-                    "quality.quick_start_example"
+                    "quality.badge_row_compliance",
+                    "quality.h2_prefix_compliance"
                   ],
                   "errors": [],
                   "valid": true
@@ -7374,7 +7374,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), a single badge row with required badge kinds, a clear navigation list, a concise Quick Start example (5 non-blank lines, 1 fenced block), and a license section with required benefit terms. The Mermaid diagram in At a Glance is well-structured, and the API Reference section provides comprehensive namespace-level detail. There are no duplicate headings, no comments, and consistent title-case headings.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), a single badge row with required badge kinds, a concise Quick Start example (5 non-blank lines, 1 fenced block), clear navigation list, and appropriate use of Mermaid for At a Glance. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use), and the Scope and Limitations section correctly introduces Enterprise Edition terminology. No duplicate H2s, comments, or template placeholders are present.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -7387,34 +7387,34 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
-                    "claim": "Installation instructions correctly reference the repository source and version.",
-                    "criterion": "installation_coordinates",
+                    "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                    "claim": "The product identity (Aspose.Page FOSS for Python, version 0.1.0, Python >=3.10, MIT license) is correctly represented.",
+                    "criterion": "product_identity",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                    "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
+                    "evidence_excerpt": "page",
+                    "evidence_location": "repository://pyproject.toml,setup.py",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "installation.verified_acquisition:disposable-source-build",
-                    "finding_id": "factual.installation_coordinates",
+                    "fact_id": "product.identity:manifest-and-registry",
+                    "finding_id": "factual.product_identity",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
+                    "quoted_candidate_span": "# Aspose.Page FOSS for Python",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Installation"
+                    "section": "Title and Badges"
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                    "claim": "Key Capabilities section accurately lists all supported capabilities.",
+                    "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by source code.",
                     "criterion": "product_capabilities",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                     "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities_evidence",
+                    "finding_id": "factual.capabilities",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -7427,8 +7427,8 @@
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities_evidence",
-                    "factual.installation_coordinates"
+                    "factual.capabilities",
+                    "factual.product_identity"
                   ],
                   "errors": [],
                   "valid": true
@@ -7439,8 +7439,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9b2e47a2a652aa261e50833c1596224b51b3c09f30dd9c179be19201532b4ad2",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the coordinates and verified acquisition facts. The capabilities listed in Key Capabilities and At a Glance are consistent with the product.capabilities fact. The limitations in Scope and Limitations match the product.limitations fact. The API Reference section aligns with the api.public_surface fact. The development and testing section correctly references the repository's test count and Make targets per development.assets and development.commands facts. The license section matches the product.license fact. No contradictions or missing evidence were found.",
+                "input_sha256": "d7d235b2033a0b26169a2ac4c507ebc8663273f838d80b4dc9eae9d4a7b00cb8",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, license, compatibility, capabilities, installation coordinates, optional extras, API surface, development assets, commands, documentation links, examples, and limitations are all consistent with the evidence. The Enterprise Edition terminology and Scope and Limitations section correctly reflect the source guidance. No unsupported or contradictory claims were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -7448,14 +7448,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "1c5dfb565996f7e8b9de8c78b52ecd0ba35f2866e2396c5f8e17017ccfa9aa14",
-                "factual_record_sha256": "395e63287841b033cb2b6af1b4bf6e2a84edba106445644af5787e1bea46a96e",
+                "blind_record_sha256": "bf202a520b30aa2b1da265bc0427b49f114f9e42f113db9021513479b830f105",
+                "factual_record_sha256": "a2ee81449ba50ce18e64d0d1a7b84e708724f6750edc31a1ddd9e52fb50de081",
                 "input_sha256": "754919c819123b092735629ed96adcfd82ea0d950d77840396d7c7918cdbb5ce",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-a33869d9d31d5a49",
-                "raw_output_sha256": "75ed387fd3ec7fda8de3d12b83eb8faf11920aa65b69fc2ddbc83c89cddbb675"
+                "provider_request_id": "chatcmpl-8b16a90884a8ccb5",
+                "raw_output_sha256": "97606ba14c0b7fe9aeed1e2defdea5dc6930fa3bff58604ee0805fa97f00d015"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -7470,34 +7470,34 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
-                  "claim": "Installation instructions correctly reference the repository source and version.",
-                  "criterion": "installation_coordinates",
+                  "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                  "claim": "The product identity (Aspose.Page FOSS for Python, version 0.1.0, Python >=3.10, MIT license) is correctly represented.",
+                  "criterion": "product_identity",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                  "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
+                  "evidence_excerpt": "page",
+                  "evidence_location": "repository://pyproject.toml,setup.py",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "installation.verified_acquisition:disposable-source-build",
-                  "finding_id": "factual.installation_coordinates",
+                  "fact_id": "product.identity:manifest-and-registry",
+                  "finding_id": "factual.product_identity",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
+                  "quoted_candidate_span": "# Aspose.Page FOSS for Python",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Installation"
+                  "section": "Title and Badges"
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                  "claim": "Key Capabilities section accurately lists all supported capabilities.",
+                  "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by source code.",
                   "criterion": "product_capabilities",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                   "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities_evidence",
+                  "finding_id": "factual.capabilities",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -7510,8 +7510,8 @@
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities_evidence",
-                  "factual.installation_coordinates"
+                  "factual.capabilities",
+                  "factual.product_identity"
                 ],
                 "errors": [],
                 "valid": true
@@ -7522,8 +7522,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9b2e47a2a652aa261e50833c1596224b51b3c09f30dd9c179be19201532b4ad2",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the coordinates and verified acquisition facts. The capabilities listed in Key Capabilities and At a Glance are consistent with the product.capabilities fact. The limitations in Scope and Limitations match the product.limitations fact. The API Reference section aligns with the api.public_surface fact. The development and testing section correctly references the repository's test count and Make targets per development.assets and development.commands facts. The license section matches the product.license fact. No contradictions or missing evidence were found.",
+              "input_sha256": "d7d235b2033a0b26169a2ac4c507ebc8663273f838d80b4dc9eae9d4a7b00cb8",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, license, compatibility, capabilities, installation coordinates, optional extras, API surface, development assets, commands, documentation links, examples, and limitations are all consistent with the evidence. The Enterprise Edition terminology and Scope and Limitations section correctly reflect the source guidance. No unsupported or contradictory claims were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -7544,8 +7544,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.h2_prefix_compliance",
-                    "quality.quick_start_example"
+                    "quality.badge_row_compliance",
+                    "quality.h2_prefix_compliance"
                   ],
                   "errors": [],
                   "valid": true
@@ -7561,15 +7561,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation_coordinates",
-                  "factual.capabilities_evidence"
+                  "factual.product_identity",
+                  "factual.capabilities"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities_evidence",
-                    "factual.installation_coordinates"
+                    "factual.capabilities",
+                    "factual.product_identity"
                   ],
                   "errors": [],
                   "valid": true
@@ -7615,7 +7615,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260807-233525-278b",
+                "nonce": "20260808-010313-b942",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -7623,11 +7623,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "190c274af3cea80058b9d6f0351ee8df217d83ac1519d4b31631de4bae6de0f1",
+                "token": "db6fa3cea329659353417b089ba1b152e90008afbe69409fa0ab39e9316991e7",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260807-233525-278b"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-010313-b942"
               ],
               "repair_attempt": 0,
               "review": {
@@ -7638,8 +7638,8 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                      "claim": "All required H2 prefixes are present and correctly ordered.",
-                      "criterion": "hierarchy",
+                      "claim": "All required H2 headings use the correct prefix as specified by the visitor contract.",
+                      "criterion": "template_genericity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
@@ -7653,32 +7653,32 @@
                       "quoted_candidate_span": "## Navigation",
                       "reported_observed_value": true,
                       "required_repair": "",
-                      "section": "Navigation"
+                      "section": "H2 Headings"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section contains a single, minimal, working example within line and block limits.",
-                      "criterion": "example_presentation",
+                      "candidate_anchor_id": "candidate.anchor.d1dc1fd50b5023ea511b.1",
+                      "claim": "Badges are presented in a single row and include required badge kinds (Version, Platform, Requires, License, Contributors).",
+                      "criterion": "markdown_integrity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.quick_start_example",
+                      "finding_id": "quality.badge_row_compliance",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                      "mechanical_check_id": "header.badge_rows",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Quick Start",
-                      "reported_observed_value": 5,
+                      "quoted_candidate_span": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)",
+                      "reported_observed_value": 1,
                       "required_repair": "",
-                      "section": "Quick Start"
+                      "section": "Header Badges"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.h2_prefix_compliance",
-                      "quality.quick_start_example"
+                      "quality.badge_row_compliance",
+                      "quality.h2_prefix_compliance"
                     ],
                     "errors": [],
                     "valid": true
@@ -7690,7 +7690,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), a single badge row with required badge kinds, a clear navigation list, a concise Quick Start example (5 non-blank lines, 1 fenced block), and a license section with required benefit terms. The Mermaid diagram in At a Glance is well-structured, and the API Reference section provides comprehensive namespace-level detail. There are no duplicate headings, no comments, and consistent title-case headings.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), a single badge row with required badge kinds, a concise Quick Start example (5 non-blank lines, 1 fenced block), clear navigation list, and appropriate use of Mermaid for At a Glance. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use), and the Scope and Limitations section correctly introduces Enterprise Edition terminology. No duplicate H2s, comments, or template placeholders are present.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -7703,8 +7703,8 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
-                        "claim": "All required H2 prefixes are present and correctly ordered.",
-                        "criterion": "hierarchy",
+                        "claim": "All required H2 headings use the correct prefix as specified by the visitor contract.",
+                        "criterion": "template_genericity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
@@ -7718,32 +7718,32 @@
                         "quoted_candidate_span": "## Navigation",
                         "reported_observed_value": true,
                         "required_repair": "",
-                        "section": "Navigation"
+                        "section": "H2 Headings"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section contains a single, minimal, working example within line and block limits.",
-                        "criterion": "example_presentation",
+                        "candidate_anchor_id": "candidate.anchor.d1dc1fd50b5023ea511b.1",
+                        "claim": "Badges are presented in a single row and include required badge kinds (Version, Platform, Requires, License, Contributors).",
+                        "criterion": "markdown_integrity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.quick_start_example",
+                        "finding_id": "quality.badge_row_compliance",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                        "mechanical_check_id": "header.badge_rows",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Quick Start",
-                        "reported_observed_value": 5,
+                        "quoted_candidate_span": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)",
+                        "reported_observed_value": 1,
                         "required_repair": "",
-                        "section": "Quick Start"
+                        "section": "Header Badges"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.h2_prefix_compliance",
-                        "quality.quick_start_example"
+                        "quality.badge_row_compliance",
+                        "quality.h2_prefix_compliance"
                       ],
                       "errors": [],
                       "valid": true
@@ -7755,7 +7755,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), a single badge row with required badge kinds, a clear navigation list, a concise Quick Start example (5 non-blank lines, 1 fenced block), and a license section with required benefit terms. The Mermaid diagram in At a Glance is well-structured, and the API Reference section provides comprehensive namespace-level detail. There are no duplicate headings, no comments, and consistent title-case headings.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), a single badge row with required badge kinds, a concise Quick Start example (5 non-blank lines, 1 fenced block), clear navigation list, and appropriate use of Mermaid for At a Glance. The license section explicitly mentions required benefit terms (use, modification, distribution, commercial use), and the Scope and Limitations section correctly introduces Enterprise Edition terminology. No duplicate H2s, comments, or template placeholders are present.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -7768,34 +7768,34 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
-                        "claim": "Installation instructions correctly reference the repository source and version.",
-                        "criterion": "installation_coordinates",
+                        "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                        "claim": "The product identity (Aspose.Page FOSS for Python, version 0.1.0, Python >=3.10, MIT license) is correctly represented.",
+                        "criterion": "product_identity",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                        "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
+                        "evidence_excerpt": "page",
+                        "evidence_location": "repository://pyproject.toml,setup.py",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "installation.verified_acquisition:disposable-source-build",
-                        "finding_id": "factual.installation_coordinates",
+                        "fact_id": "product.identity:manifest-and-registry",
+                        "finding_id": "factual.product_identity",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
+                        "quoted_candidate_span": "# Aspose.Page FOSS for Python",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Installation"
+                        "section": "Title and Badges"
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                        "claim": "Key Capabilities section accurately lists all supported capabilities.",
+                        "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by source code.",
                         "criterion": "product_capabilities",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                         "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities_evidence",
+                        "finding_id": "factual.capabilities",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -7808,8 +7808,8 @@
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities_evidence",
-                        "factual.installation_coordinates"
+                        "factual.capabilities",
+                        "factual.product_identity"
                       ],
                       "errors": [],
                       "valid": true
@@ -7820,8 +7820,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9b2e47a2a652aa261e50833c1596224b51b3c09f30dd9c179be19201532b4ad2",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the coordinates and verified acquisition facts. The capabilities listed in Key Capabilities and At a Glance are consistent with the product.capabilities fact. The limitations in Scope and Limitations match the product.limitations fact. The API Reference section aligns with the api.public_surface fact. The development and testing section correctly references the repository's test count and Make targets per development.assets and development.commands facts. The license section matches the product.license fact. No contradictions or missing evidence were found.",
+                    "input_sha256": "d7d235b2033a0b26169a2ac4c507ebc8663273f838d80b4dc9eae9d4a7b00cb8",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, license, compatibility, capabilities, installation coordinates, optional extras, API surface, development assets, commands, documentation links, examples, and limitations are all consistent with the evidence. The Enterprise Edition terminology and Scope and Limitations section correctly reflect the source guidance. No unsupported or contradictory claims were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -7829,14 +7829,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "1c5dfb565996f7e8b9de8c78b52ecd0ba35f2866e2396c5f8e17017ccfa9aa14",
-                    "factual_record_sha256": "395e63287841b033cb2b6af1b4bf6e2a84edba106445644af5787e1bea46a96e",
+                    "blind_record_sha256": "bf202a520b30aa2b1da265bc0427b49f114f9e42f113db9021513479b830f105",
+                    "factual_record_sha256": "a2ee81449ba50ce18e64d0d1a7b84e708724f6750edc31a1ddd9e52fb50de081",
                     "input_sha256": "754919c819123b092735629ed96adcfd82ea0d950d77840396d7c7918cdbb5ce",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-a33869d9d31d5a49",
-                    "raw_output_sha256": "75ed387fd3ec7fda8de3d12b83eb8faf11920aa65b69fc2ddbc83c89cddbb675"
+                    "provider_request_id": "chatcmpl-8b16a90884a8ccb5",
+                    "raw_output_sha256": "97606ba14c0b7fe9aeed1e2defdea5dc6930fa3bff58604ee0805fa97f00d015"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -7851,34 +7851,34 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
-                      "claim": "Installation instructions correctly reference the repository source and version.",
-                      "criterion": "installation_coordinates",
+                      "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
+                      "claim": "The product identity (Aspose.Page FOSS for Python, version 0.1.0, Python >=3.10, MIT license) is correctly represented.",
+                      "criterion": "product_identity",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-                      "evidence_location": "https://pypi.org/pypi/aspose-page-foss/json",
+                      "evidence_excerpt": "page",
+                      "evidence_location": "repository://pyproject.toml,setup.py",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "installation.verified_acquisition:disposable-source-build",
-                      "finding_id": "factual.installation_coordinates",
+                      "fact_id": "product.identity:manifest-and-registry",
+                      "finding_id": "factual.product_identity",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
+                      "quoted_candidate_span": "# Aspose.Page FOSS for Python",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Installation"
+                      "section": "Title and Badges"
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
-                      "claim": "Key Capabilities section accurately lists all supported capabilities.",
+                      "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by source code.",
                       "criterion": "product_capabilities",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
                       "evidence_location": "repository://src/aspose/page/image/raster_writer.py,src/aspose/page/mcp/__init__.py,src/aspose/page/mcp/handlers.py,src/aspose/page/mcp/server.py,src/aspose/page/pdf/writer.py,src/aspose/page/ps/document.py,src/aspose/page/ps/dsc.py,src/aspose/page/ps/output.py,src/aspose/page/xps/__init__.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities_evidence",
+                      "finding_id": "factual.capabilities",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -7891,8 +7891,8 @@
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities_evidence",
-                      "factual.installation_coordinates"
+                      "factual.capabilities",
+                      "factual.product_identity"
                     ],
                     "errors": [],
                     "valid": true
@@ -7903,8 +7903,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9b2e47a2a652aa261e50833c1596224b51b3c09f30dd9c179be19201532b4ad2",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the coordinates and verified acquisition facts. The capabilities listed in Key Capabilities and At a Glance are consistent with the product.capabilities fact. The limitations in Scope and Limitations match the product.limitations fact. The API Reference section aligns with the api.public_surface fact. The development and testing section correctly references the repository's test count and Make targets per development.assets and development.commands facts. The license section matches the product.license fact. No contradictions or missing evidence were found.",
+                  "input_sha256": "d7d235b2033a0b26169a2ac4c507ebc8663273f838d80b4dc9eae9d4a7b00cb8",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, license, compatibility, capabilities, installation coordinates, optional extras, API surface, development assets, commands, documentation links, examples, and limitations are all consistent with the evidence. The Enterprise Edition terminology and Scope and Limitations section correctly reflect the source guidance. No unsupported or contradictory claims were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -7925,8 +7925,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.h2_prefix_compliance",
-                        "quality.quick_start_example"
+                        "quality.badge_row_compliance",
+                        "quality.h2_prefix_compliance"
                       ],
                       "errors": [],
                       "valid": true
@@ -7942,15 +7942,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation_coordinates",
-                      "factual.capabilities_evidence"
+                      "factual.product_identity",
+                      "factual.capabilities"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities_evidence",
-                        "factual.installation_coordinates"
+                        "factual.capabilities",
+                        "factual.product_identity"
                       ],
                       "errors": [],
                       "valid": true
@@ -32457,7 +32457,7 @@
               }
             ],
             "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
-            "template_sha256": "ef68f59411282ed3af34b9dbb3f4f99e481d662e386b72882da83e617794c17d"
+            "template_sha256": "a86130072abd7a85730a2b39ac5018bbfcf89504b0455f585737f93b00f597af"
           }
         },
         "proposal_only": true,
@@ -32499,7 +32499,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260807-233525-278b",
+          "nonce": "20260808-010313-b942",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -32507,7 +32507,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "190c274af3cea80058b9d6f0351ee8df217d83ac1519d4b31631de4bae6de0f1",
+          "token": "db6fa3cea329659353417b089ba1b152e90008afbe69409fa0ab39e9316991e7",
           "verdict": "accept"
         },
         "written": false
@@ -32515,7 +32515,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-07T23:37:24.611086+00:00",
+      "last_run_timestamp": "2026-08-08T01:05:57.460889+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -36593,7 +36593,7 @@
     "updated_at": "2026-08-08T01:05:50.090113+00:00"
   },
   "schema_version": 2,
-  "state_version": 1643,
+  "state_version": 1644,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
