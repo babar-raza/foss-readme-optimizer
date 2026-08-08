@@ -319,23 +319,29 @@
         },
         {
           "evidence_refs": [
-            "runs/evidence/20260808-190430-3d4d",
-            "tests/unit/test_curated_readme_evidence.py",
-            "tests/unit/test_verified_template_api_descriptions.py",
-            "tests/unit/test_repository_presentation_template.py",
-            "runs/evidence/20260808-193059-c773/manifest.json",
-            "src/readme_agent/presentation/verified_source_detail_routing.py",
-            "tests/unit/test_verified_source_detail_routing.py"
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-capability-provenance.json",
+            "runs/evidence/20260808-194310-76b1/manifest.json",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "src/readme_agent/presentation/verified_source_claim_matching.py",
+            "tests/unit/test_source_claim_assurance.py"
           ],
           "fingerprint": "37c3ffbeea9efb2b48c2d1a10c2459ba13b11f936184f35a370ad81259fea6ee",
-          "last_material_narrowing_at": "2026-08-08T19:33:54.624891+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-08T18:54:24.133644+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "31d9fd415eff4dd9b627418f7eeecdfe325c348b7c3c83825df8045a7eb973e4",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T19:49:03.484159+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "37c3ffbeea9efb2b48c2d1a10c2459ba13b11f936184f35a370ad81259fea6ee",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "31d9fd415eff4dd9b627418f7eeecdfe325c348b7c3c83825df8045a7eb973e4",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -619,6 +625,34 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T19:47:00+00:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-capability-provenance.json",
+            "runs/evidence/20260808-194310-76b1/manifest.json",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "src/readme_agent/presentation/verified_source_claim_matching.py",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "31d9fd415eff4dd9b627418f7eeecdfe325c348b7c3c83825df8045a7eb973e4",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "37c3ffbeea9efb2b48c2d1a10c2459ba13b11f936184f35a370ad81259fea6ee",
+          "rationale": "Move the causal owner from post-render source-detail routing to complete renderer provenance and capability-scoped equivalence before duplicate content is materialized.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -794,7 +828,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T19:40:02.480144+00:00",
+    "last_evaluated_at": "2026-08-08T19:49:03.484218+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -8066,7 +8100,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 857,
+  "state_version": 858,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
