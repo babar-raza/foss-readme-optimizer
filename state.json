@@ -318,9 +318,14 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/evidence/20260808-190430-3d4d",
+            "tests/unit/test_curated_readme_evidence.py",
+            "tests/unit/test_verified_template_api_descriptions.py",
+            "tests/unit/test_repository_presentation_template.py"
+          ],
           "fingerprint": "37c3ffbeea9efb2b48c2d1a10c2459ba13b11f936184f35a370ad81259fea6ee",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-08T19:12:04.045969+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-08T18:54:24.133644+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -786,12 +791,12 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T18:54:24.133644+00:00",
+    "last_evaluated_at": "2026-08-08T19:12:04.045990+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-08T18:08:23.534295+00:00",
+      "derived_at": "2026-08-08T18:57:11.727473+00:00",
       "deterministic_validated": 0,
       "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
@@ -801,21 +806,21 @@
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
-        "FACTS_READY": 4,
+        "FACTS_READY": 5,
         "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 10,
+        "NO_OP_PROVEN": 9,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 12,
-      "raw_candidate_generated": 16,
-      "raw_deterministic_validated": 16,
+      "raw_agent_approved": 11,
+      "raw_candidate_generated": 15,
+      "raw_deterministic_validated": 15,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 10,
+      "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
@@ -8061,7 +8066,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 851,
+  "state_version": 852,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
