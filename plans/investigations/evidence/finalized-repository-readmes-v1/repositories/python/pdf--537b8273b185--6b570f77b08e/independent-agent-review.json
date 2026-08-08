@@ -1,0 +1,334 @@
+{
+  "content_assurance": "repository_verified",
+  "verdict": "ACCEPT",
+  "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+  "failed_criteria": [],
+  "sections_affected": [],
+  "required_repair": "",
+  "preserve": [],
+  "blind_quality_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "blind_quality_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "input_sha256": "b4b970f1cb0f980431a36896ce842adb11bdb2798033a3342fecf01b22fa0437",
+    "verdict": "ACCEPT",
+    "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with the required prefixes. The installation and quick start sections are presented with concise, executable code blocks. The navigation list is complete and matches the required labels. The At a Glance Mermaid diagram is present and correctly formatted. The license section includes the required benefit terms. The Enterprise Edition terminology is correctly placed below the fold. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "quality.clarity.1",
+        "kind": "quality",
+        "criterion": "clarity",
+        "section": "Header and Summary",
+        "claim": "The README opens with a clear H1 title, a concise one-line summary, and compliant badges that establish product identity and compatibility.",
+        "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
+        "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": "document.h1_blocks",
+        "reported_observed_value": 1,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "quality.installation_presentation.1",
+        "kind": "quality",
+        "criterion": "installation_presentation",
+        "section": "Installation",
+        "claim": "The Installation section provides a clear, executable source installation command and lists optional extras with specific pip install commands.",
+        "quoted_candidate_span": "## Installation",
+        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "quality.clarity.1",
+        "quality.installation_presentation.1"
+      ]
+    }
+  },
+  "factual_plan_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "factual_plan_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "input_sha256": "ff772100a9fa61299ade3ebae58a2e821c3597c2ca81f17ca350739383b25a2e",
+    "verdict": "ACCEPT",
+    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The API surface, capabilities, and limitations are consistent with the repository extension evidence. Installation instructions align with the pyproject.toml and verified acquisition facts. The license, development assets, and documentation links are correctly represented. No conflicts or missing evidence were found.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "factual.product_identity.1",
+        "kind": "factual",
+        "criterion": "product_identity",
+        "section": "Header and Summary",
+        "claim": "The product is identified as Aspose.PDF FOSS for Python, version 0.1.0a0, targeting Python developers.",
+        "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
+        "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "product.identity:manifest-and-registry",
+        "evidence_excerpt": "pdf",
+        "evidence_location": "repository://pyproject.toml",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "factual.installation.1",
+        "kind": "factual",
+        "criterion": "installation",
+        "section": "Installation",
+        "claim": "The README provides the correct source installation command and lists optional extras as declared in pyproject.toml.",
+        "quoted_candidate_span": "## Installation",
+        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "installation.optional_extras:python-manifest",
+        "evidence_excerpt": "pyproject.toml",
+        "evidence_location": "repository://pyproject.toml",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "factual.installation.1",
+        "factual.product_identity.1"
+      ]
+    }
+  },
+  "combined_review": {
+    "content_assurance": "repository_verified",
+    "verdict": "ACCEPT",
+    "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "blind_quality": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "blind_quality_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+      "input_sha256": "b4b970f1cb0f980431a36896ce842adb11bdb2798033a3342fecf01b22fa0437",
+      "verdict": "ACCEPT",
+      "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with the required prefixes. The installation and quick start sections are presented with concise, executable code blocks. The navigation list is complete and matches the required labels. The At a Glance Mermaid diagram is present and correctly formatted. The license section includes the required benefit terms. The Enterprise Edition terminology is correctly placed below the fold. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "quality.clarity.1",
+          "kind": "quality",
+          "criterion": "clarity",
+          "section": "Header and Summary",
+          "claim": "The README opens with a clear H1 title, a concise one-line summary, and compliant badges that establish product identity and compatibility.",
+          "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
+          "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": "document.h1_blocks",
+          "reported_observed_value": 1,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "quality.installation_presentation.1",
+          "kind": "quality",
+          "criterion": "installation_presentation",
+          "section": "Installation",
+          "claim": "The Installation section provides a clear, executable source installation command and lists optional extras with specific pip install commands.",
+          "quoted_candidate_span": "## Installation",
+          "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.clarity.1",
+          "quality.installation_presentation.1"
+        ]
+      }
+    },
+    "factual_plan": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "factual_plan_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+      "input_sha256": "ff772100a9fa61299ade3ebae58a2e821c3597c2ca81f17ca350739383b25a2e",
+      "verdict": "ACCEPT",
+      "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, and compatibility match the manifest. The API surface, capabilities, and limitations are consistent with the repository extension evidence. Installation instructions align with the pyproject.toml and verified acquisition facts. The license, development assets, and documentation links are correctly represented. No conflicts or missing evidence were found.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "factual.product_identity.1",
+          "kind": "factual",
+          "criterion": "product_identity",
+          "section": "Header and Summary",
+          "claim": "The product is identified as Aspose.PDF FOSS for Python, version 0.1.0a0, targeting Python developers.",
+          "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
+          "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "product.identity:manifest-and-registry",
+          "evidence_excerpt": "pdf",
+          "evidence_location": "repository://pyproject.toml",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "factual.installation.1",
+          "kind": "factual",
+          "criterion": "installation",
+          "section": "Installation",
+          "claim": "The README provides the correct source installation command and lists optional extras as declared in pyproject.toml.",
+          "quoted_candidate_span": "## Installation",
+          "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "installation.optional_extras:python-manifest",
+          "evidence_excerpt": "pyproject.toml",
+          "evidence_location": "repository://pyproject.toml",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.installation.1",
+          "factual.product_identity.1"
+        ]
+      }
+    },
+    "merged_call_receipt": {
+      "actor_id": "llm-route:merged-readme-review",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+      "input_sha256": "7d6fb3656a93f6899582c0ed2f8b7c06be531884ac4f31e9d1fb1eb1cc7fd83f",
+      "raw_output_sha256": "4d3431a545c9713991747d81b326a5691c33237fd58d7fd2b4a79a0e20b126b2",
+      "blind_record_sha256": "dd55b1a59328eba85053ddd6dde822855f53f756961e30ec31c8a06f7d6f6b38",
+      "factual_record_sha256": "97afe1de88c04e10775fb5e027157727f00b7ca588063ad20a6dcf9ed00259e4",
+      "provider_request_id": "chatcmpl-9d114fc4a98f8b2f",
+      "provider_model": "qwen3-next"
+    },
+    "identity_separation_valid": true,
+    "reasons": [
+      "blind_quality:ACCEPT",
+      "factual_plan:ACCEPT"
+    ]
+  },
+  "grounding_retry_history": [
+    {
+      "role": "blind_quality",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 106602,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.clarity.1",
+          "quality.installation_presentation.1"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    },
+    {
+      "role": "factual_plan",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 106602,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.installation.1",
+          "factual.product_identity.1"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [
+        "factual.product_identity.1",
+        "factual.installation.1"
+      ],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    }
+  ],
+  "review_contract_version": "2"
+}

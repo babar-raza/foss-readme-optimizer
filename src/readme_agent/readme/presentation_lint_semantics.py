@@ -40,6 +40,7 @@ _PROMPT_INJECTION = re.compile(
 _VISITOR_FRAGMENT = re.compile(r"\ufffd|鈥\?|â€”|â€“|â€")
 _ASPOSE_FOSS_PRODUCT = re.compile(r"\bAspose\.([A-Za-z0-9]+)\s+FOSS\b")
 _BULLET_PREFIX = re.compile(r"^\s*[-*+]\s+")
+_CAPABILITY_ROW = re.compile(r"^\s*[-*+]\s+\*\*(?P<title>[^*]+)\*\*\s+-\s+.+$")
 _MARKUP = re.compile(r"[`*_.,:;!?()\[\]{}]")
 _LABEL = re.compile(r"^\s*[-*+]\s+\*\*([^*]+):\*\*\s*(.+)$")
 _API_SIGNATURE_BULLET = re.compile(
@@ -49,7 +50,9 @@ _API_SIGNATURE_BULLET = re.compile(
 
 
 def _normalized_bullet(line: str) -> str:
-    value = _BULLET_PREFIX.sub("", line)
+    capability_row = _CAPABILITY_ROW.match(line)
+    value = capability_row.group("title") if capability_row is not None else line
+    value = _BULLET_PREFIX.sub("", value)
     value = _MARKUP.sub(" ", value).casefold()
     return " ".join(value.split())
 

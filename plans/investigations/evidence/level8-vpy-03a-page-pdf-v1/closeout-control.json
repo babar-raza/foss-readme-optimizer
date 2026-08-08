@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "verification_plan_sha256": "19fd9a7a77f5ba231f9150fe2c0e003cffb3ac940fa263474d34d59cb4128bd3",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "safety_regression",
+    "complete_non_live",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/verification-plan.json",
+    "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "runs/evidence/20260808-151937-24d7/manifest.json",
+    "runs/evidence/20260808-152226-476a/manifest.json",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "1119f49ad6aedb895e0560fce2c4a4ccfe8948a1ab7ad01d91e4017ca770e130",
+  "multi_agent_admission_decision_sha256": "783a75ad45009e1a322934cd56ff8d6d2f35fb70ac69e7f01dfd2745e1f1520a"
+}

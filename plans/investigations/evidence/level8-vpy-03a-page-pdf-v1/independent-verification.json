@@ -1,143 +1,38 @@
 {
   "schema_version": 1,
   "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-  "role": "independent_verification",
+  "role": "independent_non_authoring_acceptance",
   "candidate_or_repair_authored_by_this_role": false,
-  "verified_at_utc": "2026-08-03T16:11:53.9788518Z",
-  "prior_receipt": "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-verification/final-page-pdf-verification.json",
+  "verified_at_utc": "2026-08-08T15:25:50.035395+00:00",
   "verdict": "ACCEPT",
-  "summary": "The exact Page and corrected PDF candidates pass independent exact-hash, repository-fact, document-plan, claim-accountability, deterministic-validation, internal independent-review, global presentation, idempotency, checksum-inventory, and no-write verification. PDF now represents all 15 selected verified capabilities in Mermaid and uses concise grammatical opening prose. No blocking findings remain for this two-repository task.",
-  "bundles": [
-    {
-      "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-      "bundle_root": "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-      "candidate_sha256": "ce4b339678b1d905f4f09ca627cd4ba3b06d4363c96570155cca7bd89955724d",
-      "manifest_sha256": "c32538ff6b4578295d6f00db30639118116bed22e8444bfe8700ff370a5c6aac",
-      "sha_inventory_sha256": "aaaea885d31d55ec803df0d5bbcdbf9cc1f97c015a584cf8bb12e609fa50b9ef",
-      "claim_map_sha256": "19828ec8e824e733b2380fd18a532f615c13a80f4bdc0ed89613dd8461e19d13",
-      "deterministic_validation_sha256": "44b130eef55ee4accd62bd7583b4516455c668b9a5c6c064984d0a90f61b53fb",
-      "internal_independent_review_sha256": "e7dca4ce898ad1c59257fd6e4c20634d2fa2f324f1eca6da4df7a0cd5f406d2e",
-      "final_verdict_sha256": "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508",
-      "no_op_proof_sha256": "a988a2fc09f4e12cdfda1dabfe95c9348b50f260bc960bebb91eb3e7bdb2e8bc",
-      "claim_count": 123,
-      "verified_claim_count": 123,
-      "capabilities_listed": 6,
-      "capabilities_in_mermaid": 6,
-      "sha_inventory_entries": 223,
-      "sha_inventory_missing": 0,
-      "sha_inventory_mismatched": 0,
-      "verdict": "ACCEPT"
-    },
-    {
-      "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-      "bundle_root": "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed",
-      "candidate_sha256": "2c62095e3b3aaeb18754e79caf897f2f4fb30a91aaa2b6329106bf31bdac1fd7",
-      "manifest_sha256": "d5401312c52370be9db1c1d8b6bae6fdcac2b1738c43cd92a93355fec24be1a4",
-      "sha_inventory_sha256": "b9cada83f18986ff753ef4629e3d87bf08703a7557072cd6186ff77718e961e9",
-      "claim_map_sha256": "b329d9e6d5f9f381bf8cf978543b1529db8b1f8040d6018f8ccac4a4cf40f66e",
-      "deterministic_validation_sha256": "8fdaf42542a9895e4aba5ecb1fb89b8cda6a1b3330cd3b6279c4d16e31ded611",
-      "internal_independent_review_sha256": "a7894fac63bdd69e6fe7f25da12f96cab4059d3628f26822b5e7a986b495abf3",
-      "final_verdict_sha256": "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508",
-      "no_op_proof_sha256": "15ed3e6a804ba571637516d46ed3518537ec048dd2ef485ca7ce92c75e630138",
-      "claim_count": 558,
-      "verified_claim_count": 558,
-      "capabilities_listed": 15,
-      "capabilities_in_mermaid": 15,
-      "sha_inventory_entries": 88,
-      "sha_inventory_missing": 0,
-      "sha_inventory_mismatched": 0,
-      "verdict": "ACCEPT"
-    }
-  ],
-  "checks": [
-    {
-      "id": "exact_candidate_bytes",
-      "result": "PASS",
-      "detail": "Get-FileHash SHA256 exactly matched each candidate-hash.txt, manifest candidate_hash, internal review candidate hash, no-op candidate hash, and the task-assigned hash."
-    },
-    {
-      "id": "facts_plan_and_claim_accountability",
-      "result": "PASS",
-      "detail": "Both manifests bind repository_verified facts and presentation-plan hashes. Page has 123/123 and PDF has 558/558 claim-map entries with a fact_id and verification_state verified. Deterministic receipts report fact_citations, source hashes/spans, protected_content, and claim_accountability_complete true."
-    },
-    {
-      "id": "deterministic_and_internal_independent_review",
-      "result": "PASS",
-      "detail": "Both deterministic receipts say accept with every recorded check true. Both internal independent reviews bind the exact candidate, use review contract v2, report ACCEPT, and identify qwen3-next through llm-route:merged-readme-review separately from deterministic composition."
-    },
-    {
-      "id": "complete_mermaid_capability_coverage",
-      "result": "PASS",
-      "detail": "Exact text comparison found Page 6 listed capabilities == 6 Mermaid capability nodes and PDF 15 listed capabilities == 15 Mermaid capability nodes, with zero missing or extra entries. PDF groups its 15 capabilities into three readable subgraphs and retains explicit PDF input and PDF/PNG/TIFF outputs."
-    },
-    {
-      "id": "professional_opening",
-      "result": "PASS",
-      "detail": "PDF now opens with the grammatical sentence 'create, load, save, merge, and inspect PDF documents' and a concise second sentence covering representative verified editing and extraction scope. The previously mechanical 15-item prose concatenation is absent."
-    },
-    {
-      "id": "global_presentation_contract",
-      "result": "PASS",
-      "detail": "Each README has one H1, one five-badge header row, list-form navigation, full product display names, a detailed non-directional Mermaid diagram, collapsed long secondary detail, MIT benefit prose, Enterprise Edition terminology, two restrained products.aspose.org/products.aspose.com links below the fold, and no comments, internal markers, or emojis. PDF's example uses the full product display name."
-    },
-    {
-      "id": "manifest_and_sha_inventory",
-      "result": "PASS",
-      "detail": "Both manifests are complete, repository_verified, and NO_OP_PROVEN. Independent reconstruction verified all 223 Page inventory entries and all 88 PDF inventory entries with zero missing files and zero SHA-256 mismatches."
-    },
-    {
-      "id": "no_op_zero_provider_calls",
-      "result": "PASS",
-      "detail": "Both no-op receipts report NO_OP_PROVEN, new_provider_call_count 0, new_cache_reuse_count 1, patch_created false, duplicate_bundle_created false, and agentic_review_reused true."
-    },
-    {
-      "id": "push_blocking_and_zero_product_effects",
-      "result": "PASS",
-      "detail": "Both preflight receipts set target_local_effects_allowed and target_remote_effects_allowed false. Each exact work clone is clean at the source revision, has origin pushurl DISABLED, and has an unconditional pre-push hook containing READMEAGENT_PUSH_BLOCKED and exit 1. No push attempt was made."
-    }
-  ],
-  "resolved_findings": [
-    {
-      "finding_id": "v1.pdf.mermaid_capability_coverage",
-      "previous_state": "9 of 15 selected capabilities omitted",
-      "current_state": "15 of 15 selected capabilities represented exactly",
-      "status": "RESOLVED"
-    },
-    {
-      "finding_id": "v1.pdf.opening_prose",
-      "previous_state": "missing comma and mechanically title-cased fact concatenation",
-      "current_state": "concise grammatical two-sentence overview",
-      "status": "RESOLVED"
-    }
-  ],
+  "scope": "PDF Python task only; not the Python platform or Gate A",
+  "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+  "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+  "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+  "fact_acceptance_contract_sha256": "0e4fa0ad45b96e9b98c90e96478bee8c39d21c3cbf449602c79601633f67b33a",
+  "checks": {
+    "runtime_bundle_inventory": "35/35 valid",
+    "fresh_evidence_inventory": "4/4 valid",
+    "no_op_evidence_inventory": "4/4 valid",
+    "promoted_inventory": "17/17 valid",
+    "component_dependencies": "28/28 reconcile",
+    "claim_accountability": "120 candidate claims; 0 unaccountable",
+    "presentation_lint": "21 rules; 0 findings",
+    "fresh_runtime": "current-contract AGENT_APPROVED; EXACT 2 calls; 0 cache reuse; effects=[]",
+    "no_op_runtime": "NO_OP_PROVEN; EXACT 0 calls; 1 cache reuse; no patch; no duplicate; effects=[]",
+    "review_identity_separation": true,
+    "xmp_capability": "one concrete fact-backed row using XmpPacket, parse_xmp, serialize_xmp, and CosExtractor; generic fallback absent",
+    "mermaid": "PRODUCT to Capabilities to Outputs; deduplicated balanced 6/6 layout; PDF/PNG/TIFF outputs",
+    "public_copy": "action-led, explanatory, non-repetitive; no comments, emoji, internal assurance prose, or generic capability fallback",
+    "complete_non_live": "3485 passed; 0 failed; stable tree fingerprint; no leaked processes"
+  },
   "findings": [],
   "evidence_paths": [
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/manifest.json",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/sha256sums.txt",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/candidate/README.md",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/candidate/claim-map.json",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/deterministic-validation.json",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/independent-agent-review.json",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/no-op-proof.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/manifest.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/sha256sums.txt",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/candidate/README.md",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/candidate/claim-map.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/deterministic-validation.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/independent-agent-review.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/review/no-op-proof.json",
-    "runs/work/aspose-page-foss__Aspose.Page-FOSS-for-Python/.git/config",
-    "runs/work/aspose-page-foss__Aspose.Page-FOSS-for-Python/.git/hooks/pre-push",
-    "runs/work/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/.git/config",
-    "runs/work/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/.git/hooks/pre-push"
-  ],
-  "commands": [
-    "Get-FileHash <bundle>/candidate/README.md,<bundle>/manifest.json,<bundle>/sha256sums.txt,<bundle>/candidate/claim-map.json,<bundle>/review/*.json -Algorithm SHA256",
-    ".venv/Scripts/python -c <read each sha256sums.txt; require every path present and hashlib.sha256(file bytes) == recorded hash> <Page bundle> <PDF bundle>",
-    ".venv/Scripts/python -c <load manifest, deterministic validation, independent review, no-op proof, and claim map; report exact states, identities, and claim coverage> <Page bundle> <PDF bundle>",
-    "PowerShell regex comparison of every '- ' item under '## Key capabilities' with every capability_N Mermaid node for both exact candidate files",
-    "git -C runs/work/<repository> remote get-url --push origin; git -C runs/work/<repository> rev-parse HEAD; git -C runs/work/<repository> status --porcelain; inspect .git/hooks/pre-push"
+    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/manifest.json",
+    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/sha256sums.txt",
+    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/candidate/README.md",
+    "runs/evidence/20260808-151937-24d7/manifest.json",
+    "runs/evidence/20260808-152226-476a/manifest.json",
+    "runs/verification/pytest-full-latest.json"
   ]
 }

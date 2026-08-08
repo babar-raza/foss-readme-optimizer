@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.capability_semantics import is_action_led_capability_title
 from readme_agent.readme.diagram_semantic_candidates import (
     input_node_candidates,
     output_node_candidates,
@@ -85,6 +86,8 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
     if "signature" in lowered:
         return f"Work with {short_subject + ' ' if short_subject else ''}digital signatures"
     if "xmp" in lowered and "metadata" in lowered:
+        if re.search(r"\blow[- ]level\b", lowered) and "object" in lowered:
+            return "Work with XMP metadata and low-level PDF objects"
         return "Work with XMP metadata"
     if "primitive" in lowered:
         return f"Create {title}"
@@ -119,12 +122,7 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
             return f"Import {subject}"
         if any(term in lowered for term in ("export", "convert", "save", "write")) and output:
             return f"Convert {short_subject} files to {output}"
-    if re.match(
-        r"(?i)^(?:access|add|append|compress|concatenate|configure|convert|create|decrypt|"
-        r"delete|edit|encrypt|extract|generate|insert|inspect|load|manage|merge|optimi[sz]e|"
-        r"read|remove|render|replace|run|save|sign|traverse|update|validate|verify|write)",
-        title,
-    ):
+    if is_action_led_capability_title(title):
         return title
     return f"Work with {title}"
 

@@ -11,7 +11,10 @@ from readme_agent.presentation.verified_template_capability_seo import (
     seo_capability_title,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
-from readme_agent.readme.capability_semantics import normalize_capability_phrases
+from readme_agent.readme.capability_semantics import (
+    capability_action_verb,
+    normalize_capability_phrases,
+)
 from readme_agent.readme.presentation_similarity import semantically_repeats
 from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
@@ -82,6 +85,14 @@ _CAPABILITY_EXPLANATIONS = (
         "Control resource-use limits during document processing",
     ),
     (
+        re.compile(r"(?i)\bxmp\b.*\bmetadata\b.*\blow[- ]level\b.*\bobjects?\b"),
+        "Parse and serialize metadata packets while inspecting low-level PDF objects",
+    ),
+    (
+        re.compile(r"(?i)\bxmp\b.*\bmetadata\b"),
+        "Parse and serialize document metadata packets",
+    ),
+    (
         re.compile(r"(?i)\bdigital signatures?\b"),
         "Support document-signing workflows",
     ),
@@ -99,14 +110,6 @@ _CAPABILITY_EXPLANATIONS = (
     (re.compile(r"(?i)\btags?\b"), "Inspect tags on content nodes"),
     (re.compile(r"(?i)\blists?\b|\boutline\b"), "Inspect numbered lists and outline structures"),
     (re.compile(r"(?i)\bexport\b"), "Produce files in the verified output formats"),
-)
-
-_ACTION_LED_CAPABILITY = re.compile(
-    r"(?i)^(?:access|add|analy[sz]e|append|apply|build|compress|concatenate|configure|"
-    r"convert|create|decode|decrypt|delete|detect|edit|encode|encrypt|export|extract|"
-    r"generate|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
-    r"parse|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"
-    r"update|validate|verify|work|write)\b"
 )
 
 
@@ -148,6 +151,17 @@ def _words(value: str) -> set[str]:
 
 def _related_types(capability: str, type_names: list[str]) -> list[str]:
     capability_words = _words(capability)
+    if "xmp" in capability_words:
+        by_name = {name.casefold(): name for name in type_names}
+        preferred = [
+            by_name[name] for name in ("xmppacket", "parse_xmp", "serialize_xmp") if name in by_name
+        ]
+        if {"low-level", "low", "object"}.intersection(capability_words):
+            cos_extractor = by_name.get("cosextractor")
+            if cos_extractor is not None:
+                preferred.append(cos_extractor)
+        if preferred:
+            return preferred
     ranked: list[tuple[int, int, str]] = []
     for name in type_names:
         if name.endswith(("Error", "Exception")):
@@ -180,7 +194,13 @@ def _description(capability: str, source_capability: str, related_types: list[st
     if explanation:
         description = explanation + "."
         if related_types:
-            rendered = " and ".join(f"`{name}`" for name in related_types)
+            rendered_items = [f"`{name}`" for name in related_types]
+            if len(rendered_items) == 1:
+                rendered = rendered_items[0]
+            elif len(rendered_items) == 2:
+                rendered = " and ".join(rendered_items)
+            else:
+                rendered = ", ".join(rendered_items[:-1]) + f", and {rendered_items[-1]}"
             noun = "API" if len(related_types) == 1 else "APIs"
             description += f" Available through the public {rendered} {noun}."
         return description
@@ -194,8 +214,8 @@ def _description(capability: str, source_capability: str, related_types: list[st
             rendered = ", ".join(rendered_items[:-1]) + f", and {rendered_items[-1]}"
         noun = "API" if len(related_types) == 1 else "APIs"
         return f"Available through the public {rendered} {noun} for {public_capability}."
-    if _ACTION_LED_CAPABILITY.match(exact_capability):
-        action = exact_capability.split(maxsplit=1)[0].casefold()
+    action = capability_action_verb(exact_capability)
+    if action is not None:
         if action in {"create", "generate", "build"}:
             return "Build the corresponding content through the public object model."
         if action in {"read", "load", "import", "open", "extract"}:
@@ -237,6 +257,49 @@ def _richer_source_capability_exists(
     return False
 
 
+def _richer_fact_bound_source_capability(
+    source_text: str,
+    capability: str,
+    facts: ProductFactsV2,
+) -> tuple[str, list[str]] | None:
+    """Return one concise inherited capability that adds accepted repository detail."""
+
+    capability_fact_id = facts.selected_fact_ids.get("product.capabilities")
+    if capability_fact_id is None:
+        return None
+    source_bytes = source_text.encode("utf-8")
+    candidates: list[tuple[int, int, str, list[str]]] = []
+    for claim in assess_material_claims(source_text):
+        source_claim = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+        if "\n" in source_claim.strip():
+            continue
+        public_claim = re.sub(r"^\s*[-*+]\s+", "", source_claim.strip())
+        public_claim = visitor_capability_phrase(public_claim)
+        if (
+            not public_claim
+            or len(public_claim) > 160
+            or capability_action_verb(public_claim) is None
+            or not semantically_repeats(capability, public_claim, threshold=0.6)
+        ):
+            continue
+        binding = complete_source_claim_fact_binding(source_text, claim, facts)
+        if binding is None or capability_fact_id not in binding.fact_ids:
+            continue
+        added_words = _words(public_claim) - _words(capability)
+        added_facts = set(binding.fact_ids) - {capability_fact_id}
+        if not added_words and not added_facts:
+            continue
+        fact_ids = sorted(binding.fact_ids)
+        candidates.append((len(fact_ids), len(_words(public_claim)), public_claim, fact_ids))
+    if not candidates:
+        return None
+    _fact_count, _word_count, public_claim, fact_ids = max(
+        candidates,
+        key=lambda item: (item[0], item[1], item[2].casefold()),
+    )
+    return public_claim, fact_ids
+
+
 def _capability_rows(
     facts: ProductFactsV2,
     *,
@@ -266,6 +329,11 @@ def _capability_rows(
     retained_titles: list[str] = []
     retained_rows: list[str] = []
     for phrase in normalize_capability_phrases(view.phrases):
+        inherited_fact_ids: list[str] = []
+        if source_text is not None:
+            inherited = _richer_fact_bound_source_capability(source_text, phrase, facts)
+            if inherited is not None:
+                phrase, inherited_fact_ids = inherited
         title = visitor_capability_phrase(phrase)
         if not title:
             continue
@@ -273,7 +341,7 @@ def _capability_rows(
             continue
         seo_title = seo_capability_title(title, seo_context)
         related_types = _related_types(title, type_names)
-        fact_ids = list(view.citation_fact_ids)
+        fact_ids = [*view.citation_fact_ids, *inherited_fact_ids]
         if (
             identity_view is not None
             and seo_context.product_name
@@ -325,6 +393,12 @@ def capability_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> list[st
             canonicalize_public_markdown(markdown, canonical_terms).strip(),
         }:
             return fact_ids
+    view = visitor_fact_render_view(facts, "product.capabilities")
+    if view is not None and any(
+        semantically_repeats(normalized, phrase, threshold=0.6)
+        for phrase in normalize_capability_phrases(view.phrases)
+    ):
+        return list(view.citation_fact_ids)
     return []
 
 

@@ -1,0 +1,352 @@
+{
+  "schema_version": "StageDependencyManifestV1",
+  "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+  "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+  "stage": "CANDIDATE",
+  "ecosystem": "python",
+  "upstream_receipt_ids": [],
+  "dependencies": [
+    {
+      "dependency_id": "candidate_orchestration",
+      "files": {
+        "src/readme_agent/capabilities/build_presentation_plan.py": "599365ea80689c72e227eafff598f79c41c4b3b85689e45fdcc757fe0ea96282",
+        "src/readme_agent/capabilities/render_readme_candidate.py": "18c683815420d1e20eff494b03abc59a741a8cf13e09011d5e4e40b309aab6ce",
+        "src/readme_agent/readme/idea_candidate.py": "60bae7c565eafefc8b23152fe089a80ac1e325b9f8d9ab19089cba67e12b1d07",
+        "src/readme_agent/readme/verified_preservation_composition.py": "a5886a011b70313f0e93b98ce4f44a785e89bda8f50ec4009da1a60dbfbda608",
+        "src/readme_agent/specialists/readme_presentation.py": "85dfab90a0bc9b7d0bf5c83917f3c6272d8acfe8f5a8cc71915fd9f9ec8e41dc",
+        "src/readme_agent/supervisor/portfolio_scheduler/stages.py": "7407a09f814f0a630cdc441c05781a03ffbf953cd615e7ebae00899b8cc29e38"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "9a24fa5f977c8680f02f5f249c330bc2e105c3bfce83b9259684213b414d6574"
+    },
+    {
+      "dependency_id": "capability_registry",
+      "files": {
+        "virtual/capability-versions.json": "b64a8e0ad2cf659d952fd692fc54475d2725a01e56f623c74093dc176f2bcfd6"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "905948a3d1f04a3c8a6776b89adffb1bf6b364c4edc82ad77e94572e8c000f8c"
+    },
+    {
+      "dependency_id": "composition_semantics",
+      "files": {
+        "src/readme_agent/readme/agentic_composition.py": "02221d0743237634f0261d3beea552fe9ebe47ae64a57c33d68c8179e62406ec",
+        "src/readme_agent/readme/agentic_composition_grounding.py": "4ba9d5d48727501ab2aa32f8f2fb031378933d5b8316f53abbbffaf6f25dee27",
+        "src/readme_agent/readme/agentic_composition_inputs.py": "6b58c8f788212a49ad726354e2eb55d8d083fb6237388c14116a2e54580d87ba",
+        "src/readme_agent/readme/agentic_composition_models.py": "8a64a1aece7adf1266eaa7ffb283dbdf81d6f06d9142e139544ad2fbf8cc7f87",
+        "src/readme_agent/readme/agentic_composition_validation.py": "48dd8b44bc092eb38a5624f44d3af72d585cd40a365394cd8a3e1b70546b41d0",
+        "src/readme_agent/readme/capability_semantics.py": "f7826c159932647597fee35be5a79af98c2cb6d41bb5cce51f6d9fb4a17ee6d2",
+        "src/readme_agent/readme/diagram_role_semantics.py": "b398860f5d1bbca4e0b815ab24122e33131729580681c599ddaf7b615caf2c81",
+        "src/readme_agent/readme/diagram_semantic_candidates.py": "84dbc9991863d3060cc13c0a935ed0c1dcbf577da4f3e24aacae24e31bcafdef",
+        "src/readme_agent/readme/opening_summary_fallback.py": "57053404600151bf4d9afeb076ee3bc4c0743a240c099517d4097e3e91208fc1"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "81b0b5679212a3f8c71ab046d99c9b25633edfcb54e82cc668c228faaaad2717"
+    },
+    {
+      "dependency_id": "contextual_link_policy",
+      "files": {
+        "data/aspose_com_links.json": "c35f187eac91574298651b1a7c5ac9b3a67304a8af598c3d4994fa51564c30f9",
+        "data/aspose_org_links.json": "680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+        "src/readme_agent/links/allocation.py": "14ae91890f185d68c5fe18ba593348405c7cf9915a3af1d5d6fb723d227e00a9",
+        "src/readme_agent/links/contextual_selection.py": "a2e831f8af45b9f46f49272d951867530a7e9328b190c92a9745cd411ad8738c",
+        "src/readme_agent/presentation/verified_template_document.py": "586424c71e03311c08e3e73d4548fce293dc1c8d1d5c5436e42c977529e1104b",
+        "src/readme_agent/presentation/verified_template_documentation.py": "75568b9681536de750e5cd5895b9b734a58afe1e419255ea004f88c6ee561a71",
+        "src/readme_agent/presentation/verified_template_link_budget.py": "933aad86213df9c36f4903f280b5da1b0b2f07534aa38e7106546e41a98e26c6"
+      },
+      "semantic_scope": "prose_policy",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "d9e4f32c309e312a5b432671142aba417709e5bb86170a398e523aa64fb74e30"
+    },
+    {
+      "dependency_id": "document_compilation",
+      "files": {
+        "src/readme_agent/presentation/template_adapters.py": "99825242e63fc7d85350bb144af490265a286dfe4b05d4f0f8e962ed75f7d643",
+        "src/readme_agent/presentation/verified_template_api_reference.py": "0c023ab3998e26ecec16f350026a18908220a608cc5ab82920dac03e940f6eae",
+        "src/readme_agent/presentation/verified_template_capabilities.py": "33b3ea2891c5c9df1379aca8b830629f3ce0f10e7a13d119e3c2c39368086ebe",
+        "src/readme_agent/presentation/verified_template_capability_seo.py": "bade4b4182a8c68785552564f5679f7d5b9910bf9923fce5d998bcd6529880af",
+        "src/readme_agent/presentation/verified_template_draft.py": "bedcbd2b356db63a911fcaa70b0e5cb6d3236cf30ff358c2c67751adce44175c",
+        "src/readme_agent/presentation/verified_template_example_presentation.py": "7e9c3864ccfb1844de8dd16e3c7a0548962ad5dfe07f3d09b1a043aff6e09402",
+        "src/readme_agent/presentation/verified_template_runtime.py": "72101dd9817ccea6a77a141c973586d12d24a569cec2bdf4abd9e64a0dfca3cd",
+        "src/readme_agent/presentation/verified_template_sections.py": "621895284ccd52a4dd02cdf7dab72130442e306e8a89b056f74de871c7228aeb",
+        "src/readme_agent/readme/acquisition_contracts.py": "0d8df22bdafb26384220ccbbd1a8452d917d3557fa3f7210ffbc99bf890f31fd",
+        "src/readme_agent/readme/document_acquisition.py": "ba421a1f0a57858f55f64048ff81efda1cfa4765a096c0242001a17f150b6952",
+        "src/readme_agent/readme/document_renderer.py": "aa48dfaec3c403152cfc6a5404c854535fabe5ffd606db336f6f7b8408cf8a88",
+        "src/readme_agent/readme/document_templates.py": "eaf2f0e8341bc78bd0013dad515875147ce1ef9c6f652df19354f0f657cca2d8",
+        "src/readme_agent/readme/public_text.py": "f43aee5a0065f7090a7a0fb73a7d5ff732bf42d3638d9e075453f46ae0eae82c",
+        "templates/readme/additional-examples-details.md": "98ae987f74277d5b76a18f142d6fe83a7b9e2f8a592ec8f21ea77923ffe395d8",
+        "templates/readme/agentic-overview-and-navigation.md": "608a4ae417e434eb51004e6598ea4894cd325dd70f9272327a74297a58e2a9af",
+        "templates/readme/contextual-enterprise-relationship.md": "4516c858d6341b04d3e28ac03fb49a3dfdbe007465a336268e5d740b326122c9",
+        "templates/readme/contextual-example-link.md": "ca7ba382aa697f032c3b1389b5c49c147736283a22c420aa0ec29fa3fdbe79be",
+        "templates/readme/contextual-foss-product.md": "8ff7818e4da3c2165997c0052cbda41f10f02e8df81ef5fb3871bc80a38f4802",
+        "templates/readme/contextual-product-relationship.md": "db7622d207e2f385d56ab214a115a2ac34191e16a3ecb6a0e9bfa35a265d157e",
+        "templates/readme/product-overview-and-navigation.md": "53b7f77c4acc64bc9e5564587633ce255a5219bcee83a06be44290b65113a936",
+        "templates/readme/verified-cpp-nuget-acquisition.md": "e9e9f69036ff9868a600ddd2a07dd08c809d1095337d32494e597f394a799fd3",
+        "templates/readme/verified-dotnet-nuget-acquisition.md": "7e2fd9145d5d13ee4b578585ba81be4be6657bff7285820733dc70d4814cd239",
+        "templates/readme/verified-go-acquisition.md": "4095ac6e8cca943dffc413901be686bde222b508c3968a33c74fadbfb4a50774",
+        "templates/readme/verified-limitations.md": "19c31f0a9dcd2c822979b42b72559e9d6fe217e97a59969e6b42e19ae66c2bb4",
+        "templates/readme/verified-maven-acquisition.md": "0861107c4d29a06db835ed1138dfce80949501e73c75d170f8b17bb41da47ab2",
+        "templates/readme/verified-minimal-example.md": "c460c2ffeb8ae9a3feb7501c5aa7bbe2e63593090a27addd67dfefb7c403ead2",
+        "templates/readme/verified-python-pypi-acquisition.md": "cffd8763534a4c60e02119f026e26822d88d241e9786459b64af1636eb5981a8",
+        "templates/readme/verified-repository-constraints.md": "61242e7f03cb6830ec73a131f09ed5cd1e3f7e18c6228dd05cbc6c477df4fc0d",
+        "templates/readme/verified-source-acquisition.md": "3fe94cefbaf1fa647b7e491873b168c3e77d07c54e721a705fed57944f4a9d4a"
+      },
+      "semantic_scope": "structural",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "b4db61f8584b6d9110709372506b9d7ec5c44ed13ae2d2f409886c116d9f1d3a"
+    },
+    {
+      "dependency_id": "header_visual",
+      "files": {
+        "src/readme_agent/readme/header_badges.py": "756fc9ddbe7422349074defba6cf30faea6678eea12ae4869c717f4dc1538aff",
+        "src/readme_agent/readme/header_visual.py": "e757b2aaf721f7300de560f18108755bba73bd170228d7e18d4fc005799e1050",
+        "src/readme_agent/readme/header_visual_layout.py": "0f8d426398460d927b5684e6301dc8232967236ccb7d3a03aebc5eda68c8025f",
+        "src/readme_agent/readme/header_visual_mermaid.py": "62b384d75c9f0bd98986e9edbd5b7119d211dfb24e85b4c4924ee7d45b88a476",
+        "src/readme_agent/readme/header_visual_models.py": "fe5e39aeccc766d79831024ef964675cf253ccf9ba7605cb3674bfe96f5ad507",
+        "src/readme_agent/readme/header_visual_validation.py": "05eb4eb5aef1baf532e757b3f23fd458bce4e8bbf6fc54410800481e9a2c7e14"
+      },
+      "semantic_scope": "cosmetic",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "8f6345f229a298d88d3390c2c9e71cfc201770e7ecddf70dc356b6513d75e3e1"
+    },
+    {
+      "dependency_id": "presentation_template",
+      "files": {
+        "templates/readme/repository-presentation-v1.json": "811f9588b109298eee2262bc624e7f1d8add5594461410f97dd74a29839d7767"
+      },
+      "semantic_scope": "fact_slot",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "b18b6e35aa8098aa794e62001252a66b9b57cf01ea6170bd5c3c843f4afa1c6d"
+    },
+    {
+      "dependency_id": "presentation_validation",
+      "files": {
+        "src/readme_agent/links/contextual_validation.py": "79c00158153394e0937c3d5f3894c5bd140e8d4dae756fc19f417e6761d45cc1",
+        "src/readme_agent/readme/claim_accountability_validation.py": "57643d35bd6c0fbd59a59953819fbe3de285ad2b4671be4fc46b391a69d9794d",
+        "src/readme_agent/readme/document_validation.py": "09bec27c1bd041d237dc05eb75bfee83610225e3b6b98db426ca73a09aeb49f3",
+        "src/readme_agent/readme/header_visual_validation.py": "05eb4eb5aef1baf532e757b3f23fd458bce4e8bbf6fc54410800481e9a2c7e14",
+        "src/readme_agent/readme/limitation_validation.py": "27e227ccdfe10dabc8d111183b348bab5896e6f8e8d8e190ca36d37e2ee57b0f",
+        "src/readme_agent/readme/presentation_lint.py": "228a3637972dad5d60a03790206c2b0e3b4978a684d2d6cea82ce141accc928b",
+        "src/readme_agent/readme/presentation_lint_public_contract.py": "959628baca35fa978b13e8d06b65076ed86dce128e7aa513a7b430734c540635",
+        "src/readme_agent/readme/presentation_lint_semantics.py": "78101048205ca594862898f742b0c062c90e4af4be10463c2f63e43b875b3f63",
+        "src/readme_agent/readme/presentation_lint_structure.py": "121bda61aee561759d63e33a238536f78c3c73b60f5811279b747997dd0a7e42",
+        "src/readme_agent/validation/presentation_template.py": "6a09cdc2ffcc6eb7b3391ec033a19fab2353d22dccffeaae71c98478f26242a3"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "CANDIDATE_GENERATED",
+      "component_version": "e8c5a80090e4e0f8fe7851d60f4f749b7464c512dc6ebb9d632338cb1f3a6204"
+    },
+    {
+      "dependency_id": "prompt:blind_readme_quality_review",
+      "files": {
+        "prompts/verification/blind_readme_quality_review.yaml": "345591e9d3037878cfa9911e5fdf43711907c1db3ab2a5a01ab26fffe4189920"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "AGENT_REVIEWING",
+      "component_version": "ab843bb0efaf7fe420d078de73d58fa45bd98b7aa237cb1c3b49da9fc042cf4f"
+    },
+    {
+      "dependency_id": "prompt:draft_product_truth",
+      "files": {
+        "prompts/generation/draft_product_truth.yaml": "d0e1e768ce32aaa1443062da91e3e9fa0e282badbe22ab0b3d58f12d4abbc9e2"
+      },
+      "semantic_scope": "factuality",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "24b42c4a758030b1bc8a2c5780f2eafd55453f60082bd47d90e516bb9d2a3988"
+    },
+    {
+      "dependency_id": "prompt:factual_readme_plan_review",
+      "files": {
+        "prompts/verification/factual_readme_plan_review.yaml": "1d2605f3e8ad92f5145071f11bbb9a821db348f2e5b022d3ddc53d6face9f1d4"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "AGENT_REVIEWING",
+      "component_version": "dd7b7fd490a6391643a2225da4a5852084239815b94317b9b7f157495a0c2786"
+    },
+    {
+      "dependency_id": "prompt:independent_readme_review",
+      "files": {
+        "prompts/verification/independent_readme_review.yaml": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "AGENT_REVIEWING",
+      "component_version": "b18d3bfed7a301d13fc334f5007088eaf19cc201e5b1ef341f57ccffa4986500"
+    },
+    {
+      "dependency_id": "prompt:merged_readme_review",
+      "files": {
+        "prompts/verification/merged_readme_review.yaml": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "AGENT_REVIEWING",
+      "component_version": "61186459e94cbcca70378f0260e6fd79d20307970583f271567ff5612adfd254"
+    },
+    {
+      "dependency_id": "prompt:plan_readme_composition",
+      "files": {
+        "prompts/generation/plan_readme_composition.yaml": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
+      },
+      "semantic_scope": "prose_policy",
+      "earliest_affected_stage": "PLAN_READY",
+      "component_version": "f85a0cd853a4c19d4bf21688be49d560b0a60a238964641c96e9d2dc8086f0b9"
+    },
+    {
+      "dependency_id": "prompt:presentation_standard_compliance",
+      "files": {
+        "prompts/analysis/presentation_standard_compliance.yaml": "e5e204c87c552a86881d06ab4d5cf72710634a0185c5ac12a17747a428afe0da"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "README_ASSESSED",
+      "component_version": "f3954d5a778c9a8d00765b972b505b66e91d53c2bd48fe4069522a11b2130ceb"
+    },
+    {
+      "dependency_id": "prompt:prose_quality_check",
+      "files": {
+        "prompts/verification/prose_quality_check.yaml": "fcf388aea6222820812286a58be939bc490627738f0a8e9f7c2264b2b9f1ffc6"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "DETERMINISTIC_VALIDATED",
+      "component_version": "7bfd9d6aae543b97efce23c8c9da5c3ec4ea4473fa2935cf954495fa57437b9f"
+    },
+    {
+      "dependency_id": "prompt:relationship_explained",
+      "files": {
+        "prompts/generation/relationship_explained.yaml": "69b7712c86b151e8fcaa7545e4443934987bc2a028cfa74a820518b675c292f4"
+      },
+      "semantic_scope": "factuality",
+      "earliest_affected_stage": "CANDIDATE_GENERATED",
+      "component_version": "3245206fc9626f8d39085b70e43210c64c5414890e05c564d4a7d52f27e435a9"
+    },
+    {
+      "dependency_id": "prompt:repair_capability_selection",
+      "files": {
+        "prompts/planning/repair_capability_selection.yaml": "eca5e50e1427e924800ea37f0db46d6c510bce1d873218910767fd2415e6e1e6"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "REPAIRING",
+      "component_version": "833ce54f1ff4e3d619bf7b61e0761adbafa14b6de66e7ed4747bdd36d2ebfb0f"
+    },
+    {
+      "dependency_id": "prompt:specialist_selection_turn",
+      "files": {
+        "prompts/planning/specialist_selection_turn.yaml": "f6907af0523d0b8ea8c1473d7cecaa4ae4cb85359e3a9e02a220157444cc71c9"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "a38c98acd91005063ff50c30a42e1f58da10fa83c2beb2bc3bcbfc587119ef30"
+    },
+    {
+      "dependency_id": "prompt:supervisor_turn",
+      "files": {
+        "prompts/planning/supervisor_turn.yaml": "c028fb6a6f50db0f3e2a9693ea0eb202e5982d78d36660f92b7af1dfb1032539"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "7524baee9e462938f4f8e43301c32312d8bb3c15ad1c2386f9c27af920de45d1"
+    },
+    {
+      "dependency_id": "prompt:trusted_readme_fidelity_review",
+      "files": {
+        "prompts/verification/trusted_readme_fidelity_review.yaml": "b4078dbee6d17c76e8edf19b28be1249da35f451e518e086cd1d4e5c4411538e"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "e59dfd5d11e7cc46870ff5a2fff74cc562d0cd1ca68a30c858ecf9c704128852"
+    },
+    {
+      "dependency_id": "prompt:trusted_readme_section_transform",
+      "files": {
+        "prompts/generation/trusted_readme_section_transform.yaml": "eadddd6e90fb688a27f28c1fb4276db4bd663f501d1a41296829649c898549c4"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "2c08cc6e714253c5515fe449d34a9c1fdaca1f3d4a15b290b795bd452a3fc33a"
+    },
+    {
+      "dependency_id": "prompt:visual_asset_accuracy",
+      "files": {
+        "prompts/verification/visual_asset_accuracy.yaml": "9171a25b57b68b85f4b058ae4c7b86281349668ae29224fd7ba0f4d2e7cc328d"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "AGENT_REVIEWING",
+      "component_version": "53e04b1655fa52343fae6800b51a1f12e72aa7f82ebf15309e8109e9f6457a70"
+    },
+    {
+      "dependency_id": "repository_policy",
+      "files": {
+        "config/policies/aspose-pdf-foss-python.yml": "c78b63382929285dfadab6a48aa2ce648bb332113850cb891f863ea4bf95c081"
+      },
+      "semantic_scope": "factuality",
+      "earliest_affected_stage": "FACTS_COLLECTING",
+      "component_version": "9e0713256e40e9254f7147bd317b56ce9f396cbdab8a4169db410bca4c0fe89b"
+    },
+    {
+      "dependency_id": "source_bound_plan_and_patch",
+      "files": {
+        "src/readme_agent/presentation/document_planner.py": "ca5a422e8f73ee3e0b13ba847f7e223afabb3fbd7163b3becda235c00f18f98a",
+        "src/readme_agent/presentation/git_patch.py": "26b20c7b17bf1e48a9c176a917ad4994e02d688458d276d7182ff4909d051618",
+        "src/readme_agent/presentation/planner.py": "1f114f8205aba64274fbe49d08cfb6a82ee354cfd6f883aa1f18098f17701b24"
+      },
+      "semantic_scope": "protected_content",
+      "earliest_affected_stage": "README_ASSESSED",
+      "component_version": "a07b104dde662194c1395a77ab0c848e1847cadded1d4d087aaceacc1227b466"
+    },
+    {
+      "dependency_id": "source_claim_accountability",
+      "files": {
+        "src/readme_agent/presentation/verified_source_assurance_projection.py": "db823a815fe2927576cc8d3113c609c5cf3b989e1de3d09f4511c74a97f830fe",
+        "src/readme_agent/presentation/verified_source_claim_matching.py": "b8c04ddac1a323b737036c909a81883bd563ebe19296f7aaa3faee715b1975a4",
+        "src/readme_agent/presentation/verified_source_claim_obligations.py": "af243599b580d1517ede311ce693e7374cc930f3181bc43c4470da95e4536cda",
+        "src/readme_agent/presentation/verified_source_claim_omissions.py": "c116c674a9668bfe8c4652063fad9f8af834e48f465722525428b0fee5956bcc",
+        "src/readme_agent/presentation/verified_source_claim_resolution_engine.py": "a70f2634ef2f3a957f131a0e8f67c10074ec4b74f5f6460a369d9a61e1afdde3",
+        "src/readme_agent/presentation/verified_source_detail_routing.py": "c33c3dc2f951d3c04a452c1b108760b508d8c9ebb8a65da5d1ec376bc554f3c6",
+        "src/readme_agent/presentation/verified_source_placements.py": "3950bb276c0bb33289d38be9268a21376b107e146729fd246397df1c576cd6c2",
+        "src/readme_agent/presentation/verified_source_policy.py": "11ed67150aa374b19f19545206f340dcfe5ae8c241ff94cf6d1e126692ae99e5",
+        "src/readme_agent/presentation/verified_source_policy_application.py": "784d6e6aa1d31280badd3cb751eb6043df622ea1bda75af8ba83f432598bd7f2",
+        "src/readme_agent/presentation/verified_source_preservation.py": "a086ceb2d9b960ade647e6c16cbb4bb9a8b99864e816686c20cbe984833b5e2e",
+        "src/readme_agent/presentation/verified_template_provenance.py": "9ba37ad8e2be6ab3c431f1b09846282a1bb905fc029847c762ca58c0a611ea67",
+        "src/readme_agent/readme/claim_accountability.py": "3ac1f21ce0844b63bcc44bb13cd0cf37b19eb4aea8f48d2360b9feb860f1bc95",
+        "src/readme_agent/readme/claim_accountability_candidate_policy.py": "a191e0afd1753d72f698a78f8ce5740083fae35ef6322aba65c077d32b95bef5",
+        "src/readme_agent/readme/claim_replacement_validation.py": "9698f6432a9c5de5591d019885131f53394c1a4e9b85e15a493f1d839f837922",
+        "src/readme_agent/readme/example_assurance_validation.py": "2c3c90048b361ad37df1899d59b28ca6e90f43b8a6f9bb40d28e554e0ed5b7c2",
+        "src/readme_agent/readme/source_claim_assurance.py": "9a6c0f8ddfcbd4e4a5a795ca48204443d4d418d4663dfd3ec82d842f45a94135",
+        "src/readme_agent/readme/source_claim_conversion_binding.py": "2c496986121bcd189a9df69641a133c52ae29b0c7e49a0eb0e0bdb8fdca9cb2a",
+        "src/readme_agent/readme/source_claim_mcp_binding.py": "4ed42bb7a591fe64988e7dc10b918ed7cd1c7247d9cd82f142dc6525ce9b0872",
+        "src/readme_agent/readme/source_claim_repository_asset_binding.py": "7b461212e4bcc65c243d56fb47b2ea98d9b3dcb3f701e05596c16ccd6cd2d3a5",
+        "src/readme_agent/readme/source_claim_risk.py": "16d5e05beb9c2e9b43f71d0c43ac0b40cec61146b2e13a002ee7ea3b6e9c46cb",
+        "src/readme_agent/readme/source_claim_structured_matching.py": "85af4ec185ee6c8980653239a31187c2724ff91f3f83856836889d1864339b10"
+      },
+      "semantic_scope": "protected_content",
+      "earliest_affected_stage": "README_ASSESSED",
+      "component_version": "8b0bab32d3ac93e520f295983c076381733b84ff50313b66ea93e39d41272898"
+    },
+    {
+      "dependency_id": "stage_bundle_persistence",
+      "files": {
+        "src/readme_agent/evidence/redaction.py": "4d852adb1a55af8ab06e101def5af9c9c2c654de98442c387002afb061830364",
+        "src/readme_agent/evidence/writer.py": "ae4a0b322d2d645148d116ee60a1eb65019622801dd1dcb73896d174d24c92b6",
+        "src/readme_agent/supervisor/local_poc_evidence.py": "73a274f12cbe6c4e0fa704f57a7bd5d6ba25525579bdd4c8e77597e8fd13a039",
+        "src/readme_agent/supervisor/local_poc_snapshot_evidence.py": "9ad591bc46f559f4e60c41523489833b74ce92236848192deb98a7051cda28a2",
+        "src/readme_agent/supervisor/portfolio_scheduler/contracts.py": "b3abb4990de53f5209b2760d94208bb8e047516bc0c20810c48b4f4c178a618d",
+        "src/readme_agent/supervisor/portfolio_scheduler/lane.py": "5d95e216baa47dabc8685c4d243fe3214b0f9b93a63417b648a25b4cd8a249d0",
+        "src/readme_agent/supervisor/portfolio_scheduler/reducer.py": "d756fcb674839c0f9dabb4e36a75017dce35b20fc8e3ff53a7e26824ead81bb0"
+      },
+      "semantic_scope": "safety",
+      "earliest_affected_stage": "CANDIDATE_GENERATED",
+      "component_version": "05a0824f4ee624fab829d82a8f0cc505da228e58c12523708a36660a31de1042"
+    },
+    {
+      "dependency_id": "validation_ruleset",
+      "files": {
+        "virtual/validation-ruleset-version": "cc11310c456c3690d5a74c23aa31cc25b4e74cdae146c71e54ad9dbc1d109fde"
+      },
+      "semantic_scope": "severe_acceptance",
+      "earliest_affected_stage": "DETERMINISTIC_VALIDATED",
+      "component_version": "e2a2959cf74ee2e5cebb8cd4e55464e2a1871fdb291d79141a65dce493b09e7a"
+    }
+  ],
+  "stage_key": "c60b62ff6758f5583cbb1c6ed0c66cca462004b2c546031552a3c92e7db05dc4"
+}

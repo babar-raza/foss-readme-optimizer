@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the current PDF Python README before any further Python fan-out."
+  },
+  "acceptance_checks_passed": [
+    "PDF uses the frozen structure without copied product prose",
+    "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+    "The PDF candidate passes deterministic gates and independent non-authoring review",
+    "The unchanged PDF rerun is byte-identical and makes zero provider calls and effects",
+    "The exact PDF README path is reported before a broad suite or another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json",
+    "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/pytest-receipt.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "runs/evidence/20260808-151937-24d7/manifest.json",
+    "runs/evidence/20260808-152226-476a/manifest.json"
+  ],
+  "scoreboard_before_sha256": "11b467780dd147f156aa64e4ed48a080ee14f78a7123ece08a8e006892160679",
+  "scoreboard_after_sha256": "11b467780dd147f156aa64e4ed48a080ee14f78a7123ece08a8e006892160679",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "pdf_current_candidate_not_current_contract_accepted",
+  "contribution_boundary_after": "pdf_current_candidate_current_contract_accepted_no_op_proven_and_promoted",
+  "independently_verified": true
+}

@@ -301,6 +301,7 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
         "competing_primary_examples",
         "cross_product_leakage",
         "emoji_decoration",
+        "generic_capability_description",
         "generic_preservation_heading",
         "heading_not_title_case",
         "internal_assurance_commentary",
@@ -506,6 +507,41 @@ def test_capability_inventory_cannot_repeat_inside_collapsed_detail() -> None:
 
     assert not result.valid
     assert any(finding.rule_id == "semantic_duplicate" for finding in result.findings)
+
+
+def test_capability_title_cannot_repeat_inside_richer_collapsed_detail() -> None:
+    candidate = """# Aspose.PDF FOSS for Python
+
+## Key Capabilities
+
+- **Work with XMP metadata** - Parse and serialize document metadata packets.
+
+<details>
+<summary>View Detailed Capabilities</summary>
+
+- Work with XMP metadata and low-level PDF objects
+
+</details>
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert any(finding.rule_id == "semantic_duplicate" for finding in result.findings)
+
+
+def test_generic_capability_fallback_is_not_public_content() -> None:
+    candidate = """# Aspose.PDF FOSS for Python
+
+## Key Capabilities
+
+- **Work with XMP metadata** - Apply the operation through the product's public API.
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert any(finding.rule_id == "generic_capability_description" for finding in result.findings)
 
 
 def test_internal_api_assurance_narration_is_not_public_content() -> None:

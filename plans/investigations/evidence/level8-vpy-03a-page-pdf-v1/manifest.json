@@ -1,42 +1,56 @@
 {
   "schema_version": 1,
   "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "scope": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python only",
   "verdict": "ACCEPT",
-  "implementation_commits": [
-    "55eb47198fc5bfd2774cd21ec439d09784b97041",
-    "0b1941d2d8e9aa7bde6e3e143a78b1eabeeb5364"
-  ],
-  "independent_verification": {
-    "path": "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json",
-    "sha256": "bb85597e87fee5da7212d68185026be66279bfb931b9c27b82cb235af524fc2c",
-    "verdict": "ACCEPT"
+  "control_repository": {
+    "branch": "main",
+    "head": "88b42c9d0da6494c7877c045bf26c3323f0725ca",
+    "working_tree_dirty": true
   },
-  "contribution_evidence": {
-    "path": "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/contribution-evidence.json",
-    "sha256": "37cf3e20ae91c8d25d1fb05a4603e6bf419ee1af9fa93d74188866c772285cd1"
+  "candidate": {
+    "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+    "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+    "candidate_sha256": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "lifecycle": "NO_OP_PROVEN",
+    "content_assurance": "repository_verified",
+    "claim_accountability": "120/120",
+    "deterministic_rules": "21/21",
+    "fresh_evidence": "runs/evidence/20260808-151937-24d7",
+    "no_op_evidence": "runs/evidence/20260808-152226-476a",
+    "promoted_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--6b570f77b08e/README.md"
   },
-  "candidates": [
-    {
-      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-      "candidate_sha256": "ce4b339678b1d905f4f09ca627cd4ba3b06d4363c96570155cca7bd89955724d",
-      "verdict": "NO_OP_PROVEN",
-      "unchanged_provider_calls": 0,
-      "product_effects": 0
-    },
-    {
-      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-      "source_revision": "737d26451ed5c58e53017e3c9460e834f99d20ed",
-      "candidate_sha256": "2c62095e3b3aaeb18754e79caf897f2f4fb30a91aaa2b6329106bf31bdac1fd7",
-      "verdict": "NO_OP_PROVEN",
-      "unchanged_provider_calls": 0,
-      "product_effects": 0
-    }
-  ],
-  "regression_receipt": "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/pytest-receipt.json",
+  "runtime_artifact_hashes": {
+    "manifest.json": "b435aaee1e9109ae63b20da7e940b9ff8e685c0ec598f418078c18a2c78b72e1",
+    "sha256sums.txt": "5f00e92183cdd11a660cb7f815d8becfff0b590ec17c5360095f22c3cb248988",
+    "candidate/README.md": "6b570f77b08e5efcd5358c4d596c2c5da59ed2f028e8ce27f1b0ffab2b49de49",
+    "candidate/claim-map.json": "7f48cbe0335744e4c1376aef9144f405553ca9b46dd10ebf9e583f90604ed63d",
+    "review/deterministic-validation.json": "efd4cb4a9d3aa31269c1e01460c2d180e548b95c38db69cd83ec802256cbf42c",
+    "review/independent-agent-review.json": "2440b13b906d5263ba1f11bae556318f49ea3731d79c0f2063dc8bf64e770880",
+    "review/final-verdict.json": "3f5a7a520622be52c44e8a6aef79a4d69f9661a40b2a005c03cf37c25cb3a508",
+    "review/no-op-proof.json": "43d4584395e0d5816558f1440a1f52937bb409101b6ee24f78b6914ed38e9761"
+  },
+  "run_evidence_hashes": {
+    "runs/evidence/20260808-151937-24d7/manifest.json": "0f4eb3fb1d1f11c050b2ae1fe365854b6bd8bc08b2ba59df999bc906d820db83",
+    "runs/evidence/20260808-151937-24d7/sha256sums.txt": "4d70a119f44845bc553d9c2634d7ece147588ca879155abc269be117cfa6e3da",
+    "runs/evidence/20260808-152226-476a/manifest.json": "05990fd44309e710389efbbd28ca28a389a5b01a925b112be715272ee1ace02a",
+    "runs/evidence/20260808-152226-476a/sha256sums.txt": "2d12d9955f953c4f3596c7b1c898d0586d27663c17d88e0cbb0c6d5d61897be5"
+  },
+  "closeout_artifacts": {
+    "README.md": "3a93cfc4b8f13c6db37ad8dac0a773d3c690579e7d9a9616a921c7a029cbf6d6",
+    "verification-plan.json": "53c47bffc2e25d98b1de212b01f5ef5bed75257a486b93b961fcdaa05713fb8b",
+    "pytest-receipt.json": "0e6cfe0e1119ed3af417e01c76ab7ae32508ed9645f2bf53c9f4e49ce14353bd",
+    "independent-verification.json": "319ee5d1f7f3c67fccc4f904d51feae5abccf89f58cef22d7187d34b37dce2af",
+    "mission-contribution.json": "5ed80d43cfb298165804591ca087b231b23e7922239fee03fa0d53eb39c5c99f",
+    "closeout-control.json": "e9271bdba664dae17d2428c1382f88af203aa31581d70230ce1ef07c39911ff2"
+  },
   "effects": {
     "product_effects": 0,
     "default_branch_writes": 0,
     "pull_requests": 0
-  }
+  },
+  "limitations": [
+    "This is one PDF/Python repository result, not the complete Python platform or Gate A.",
+    "Page and the remaining Python repositories remain open under later governed tasks."
+  ]
 }

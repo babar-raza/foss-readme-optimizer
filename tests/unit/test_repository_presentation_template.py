@@ -464,6 +464,57 @@ def test_pdf_capabilities_share_one_normalized_public_semantic_view() -> None:
         assert validate_repository_presentation(candidate, template_input) == []
 
 
+def test_current_pdf_xmp_detail_becomes_one_concrete_fact_bound_capability() -> None:
+    """Regress the 537b827 PDF/Python duplicate rejected by independent review."""
+
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    api = FactRecordV2(
+        fact_id="api.public_surface:pdf-xmp-537b827",
+        field="api.public_surface",
+        value={
+            "modules": [{"module": "aspose_pdf", "exports": []}],
+            "classes": [
+                {"name": name, "module": "aspose_pdf", "members": []}
+                for name in ("XmpPacket", "parse_xmp", "serialize_xmp", "CosExtractor")
+            ],
+        },
+        source=capability.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["XMP metadata handling"]})
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+                if fact.field != "api.public_surface"
+            ]
+            + [api],
+            "selected_fact_ids": {**facts.selected_fact_ids, "api.public_surface": api.fact_id},
+        }
+    )
+    source = (
+        "# Aspose.PDF FOSS for Python\n\n"
+        "## Features\n\n"
+        "- Work with XMP metadata and low-level PDF objects\n"
+    )
+
+    rendered = capability_highlights_markdown(facts, source_text=source)
+
+    assert rendered is not None
+    assert rendered.count("XMP metadata") == 1
+    assert "**Work with XMP metadata and low-level PDF objects**" in rendered
+    assert "Parse and serialize metadata packets while inspecting low-level PDF objects" in rendered
+    assert "`XmpPacket`, `parse_xmp`, `serialize_xmp`, and `CosExtractor` APIs" in rendered
+    assert "Apply the operation through the product's public API" not in rendered
+    assert capability.fact_id in capability_claim_fact_ids(rendered, facts)
+
+
 def test_example_introduction_uses_parallel_visitor_facing_gerunds() -> None:
     rendered = public_examples_introduction(
         [

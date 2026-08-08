@@ -37,10 +37,11 @@ _GENERIC_NOUNS = re.compile(
     r"(?i)\b(?:configuration|handling|lifecycle management|operations|support|validation)\b"
 )
 _ACTION_VERBS = re.compile(
-    r"(?i)\b(?:access|add|append|compress|concatenate|configure|convert|create|decrypt|"
-    r"delete|edit|encrypt|export|extract|generate|import|insert|inspect|load|manage|merge|"
-    r"optimi[sz]e|read|remove|render|replace|run|save|sign|traverse|update|validate|"
-    r"verify|work|write)\b"
+    r"(?i)\b(?:access|add|analy[sz]e|append|apply|build|compress|concatenate|configure|"
+    r"convert|create|decode|decrypt|delete|detect|edit|encode|encrypt|export|extract|"
+    r"generate|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
+    r"parse|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"
+    r"update|validate|verify|work|write)\b"
 )
 _DISCRIMINATOR_TOKEN = re.compile(r"\b(?:[A-Z]{2,}[A-Z0-9.+-]*|[A-Za-z]*\d[A-Za-z0-9.+-]*)\b")
 
@@ -114,14 +115,21 @@ def normalize_capability_phrases(values: Iterable[str]) -> list[str]:
     return retained
 
 
+def capability_action_verb(value: str) -> str | None:
+    """Return the normalized leading public action verb, when present."""
+
+    match = _ACTION_VERBS.match(value.strip())
+    return match.group(0).casefold() if match and match.start() == 0 else None
+
+
 def is_action_led_capability_title(value: str) -> bool:
     """Return whether a public capability title starts with an approved action verb."""
 
-    match = _ACTION_VERBS.match(value.strip())
-    return bool(match and match.start() == 0)
+    return capability_action_verb(value) is not None
 
 
 __all__ = [
+    "capability_action_verb",
     "capability_domains",
     "is_action_led_capability_title",
     "normalize_capability_phrases",

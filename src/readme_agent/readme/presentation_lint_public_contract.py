@@ -27,6 +27,7 @@ RULE_IDS = (
     "internal_assurance_commentary",
     "noncanonical_technical_abbreviation",
     "capability_description_repeats_title",
+    "generic_capability_description",
     "unnatural_enterprise_link",
 )
 
@@ -44,6 +45,9 @@ _ENTERPRISE_LINK = re.compile(
     re.IGNORECASE,
 )
 _CAPABILITY_ROW = re.compile(r"^- \*\*(?P<title>[^*]+)\*\* - (?P<body>.+)$")
+_GENERIC_CAPABILITY_DESCRIPTION = re.compile(
+    r"(?i)^apply the operation through the product(?:'s|s) public api\.?$"
+)
 _API_NAMESPACE_HEADING = re.compile(r"^### [^\r\n]+ Namespace \(`(?P<identifier>[^`]+)`\)\s*$")
 
 
@@ -121,6 +125,14 @@ def lint_public_contract(
                     make_finding(
                         "capability_description_repeats_title",
                         "Key-capability explanations must add visitor-facing detail.",
+                        [line_span(text, line)],
+                    )
+                )
+            if _GENERIC_CAPABILITY_DESCRIPTION.fullmatch(capability_row.group("body").strip()):
+                findings.append(
+                    make_finding(
+                        "generic_capability_description",
+                        "Key-capability explanations must describe a concrete product behavior.",
                         [line_span(text, line)],
                     )
                 )

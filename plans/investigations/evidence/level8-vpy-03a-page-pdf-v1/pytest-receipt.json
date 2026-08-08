@@ -1,19 +1,13 @@
 {
   "schema_version": 1,
-  "command": ".venv/Scripts/python scripts/governance/run_full_pytest.py",
   "branch": "main",
-  "head": "0b1941d2d8e9aa7bde6e3e143a78b1eabeeb5364",
-  "dirty_tree": false,
-  "started_at": "2026-08-03T16:10:51.483789+00:00",
-  "finished_at": "2026-08-03T16:16:33.447647+00:00",
-  "duration_seconds": 340.705,
-  "exit_code": 0,
-  "test_inventory_count": 2939,
-  "test_inventory_sha256": "39b0388e0b13407151723231d911fa92e3f77230669f19a60040594af1479fbd",
-  "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c",
-  "worker_count": 4,
-  "distribution": "worksteal",
-  "max_worker_restart": 0,
-  "leaked_process_ids": [],
-  "result": "2939 passed in 339.52s"
+  "head": "88b42c9d0da6494c7877c045bf26c3323f0725ca",
+  "working_tree_dirty": true,
+  "focused_result": "130 impacted presentation and factuality tests passed; the 10 complete-gate regressions passed after the shared action-semantic repair",
+  "static_result": "Ruff check, Ruff format check, mypy src, plan validation, verifier wiring, prompt hygiene, 475-row requirement coverage, semantic traceability, actionlint, and git diff check passed",
+  "complete_non_live_command": ".venv/Scripts/python scripts/governance/run_full_pytest.py",
+  "complete_non_live_result": "3485 passed in 411.84 seconds; stable tree fingerprint; no leaked processes",
+  "complete_non_live_receipt": "runs/verification/pytest-full-latest.json",
+  "repository_acceptance": "current-contract fresh review plus zero-provider-call unchanged replay and independent non-authoring ACCEPT",
+  "result": "PASS"
 }
