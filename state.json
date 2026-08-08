@@ -10215,70 +10215,16 @@
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "7d0ddd91b8cc5ba9d30ecc94f408d6532bda469653482d5819a313f06ef2da40",
+      "accepted_facts_hash": "e53fffa4b919ef45412a488a551694340ab3a9144e389b5d307dc49ab78faa27",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'reads GLTF files, OBJ files, STL files, and 3MF files and writes GLTF files, STL files, and 3MF files.'",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The product description explicitly names the audience (Python developers), ecosystem (Python), formats handled (GLTF, OBJ, STL, 3MF), and common tasks (reading/writing those formats).",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license badge is present at the top, and build/version/platform badges are included \u2014 satisfying the highest-leverage trust signal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install section uses `git clone` and local `pip install .`, which does not resolve against a real external registry (PyPI); no package coordinates (e.g., `pip install aspose-3d-foss`) are provided or verified.",
-            "satisfied": false
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the minimal Quick Start, there are five fully runnable code examples with clear prose explanations and no source comments inside the code blocks.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "Section headers use consistent `##` levels, and the table of contents at the top enables GitHub's native in-page navigation \u2014 sequencing follows product understanding \u2192 getting started \u2192 reference \u2192 legal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart clearly illustrates the product's input formats \u2192 transformation \u2192 output formats, directly supporting understanding of the library's workflow.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README lacks recognized community files (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY); GitHub would only show README and License, per the standard's definition of 'community-files readiness'.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The version badge (26.1.0) and commit hash in the URL imply recent activity, and the README does not overclaim maintenance status \u2014 it relies on structural signals.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language at the end of 'Scope and Limitations', with no promotional tone or repeated links.",
-            "satisfied": true
-          }
-        ],
-        "input_sha256": "cbb36c9a938ca7083934aa22dc4c09167e5eb74f5c773fe5a71cd6d7311a4409",
-        "input_source": "candidate_text",
-        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (no external registry coordinates) and contribution readiness (missing CODE_OF_CONDUCT/CONTRIBUTING/SECURITY files).",
-        "structural_consistency": {
-          "contradictions": [],
-          "valid": true
-        },
+        "criteria_results": [],
+        "input_sha256": "e4bd5642cd51c2b50e8cd12eb66cd986b76e146d3554ff3980099f719cf88ce2",
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
         "structural_observations": {
           "ci_badge_count": 0,
           "has_mermaid": true
@@ -10287,7 +10233,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T01:27:53.900381+00:00",
+      "last_run_timestamp": "2026-08-08T04:06:43.624948+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -117333,7 +117279,7 @@
     "updated_at": "2026-08-08T04:05:33.135623+00:00"
   },
   "schema_version": 2,
-  "state_version": 2040,
+  "state_version": 2041,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
