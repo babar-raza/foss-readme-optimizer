@@ -5737,15 +5737,13 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "a95ff2c0ab8a9cbed5c7f034ae9535615cadfad831327da9adaa32b2845a36e2",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['presentation.api_reference_tautological_description.653c2efeee10: API descriptions must explain a concrete role or behavior.', 'presentation.api_reference_tautological_description.8477b3189abb: API descriptions must explain a concrete role or behavior.', 'presentation.api_reference_tautological_description.b95fb50169a9: API descriptions must explain a concrete role or behavior.']",
-          "occurred_at": "2026-08-08T17:34:53.381788+00:00",
+          "error_type": "ValidationError",
+          "failure_reason": "independent_review_exception",
+          "message": " 1 validation error for CandidateReviewAnchorV1\ntext\n  String should have at most 12000 characters [type=string_too_long, input_value='| Type | Description |\\n...adata for PDF output. |', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long",
+          "occurred_at": "2026-08-08T17:49:21.749420+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -27932,9 +27930,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T17:34:53.383267+00:00",
+      "last_run_timestamp": "2026-08-08T17:49:21.749420+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -30257,7 +30255,7 @@
     "updated_at": "2026-08-08T17:49:12.742815+00:00"
   },
   "schema_version": 2,
-  "state_version": 1006,
+  "state_version": 1007,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
