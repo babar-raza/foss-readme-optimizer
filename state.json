@@ -1116,7 +1116,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T23:20:32.317380+00:00",
+    "last_evaluated_at": "2026-08-08T23:20:57.784003+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -1355,7 +1355,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "IMPLEMENTED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "VERIFIED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
@@ -8429,6 +8429,19 @@
         "reason": "Current PDF implementation produced the sealed current-contract candidate and no-op receipt.",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/closeout-control.json",
+          "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-08T23:20:57.784015+00:00",
+        "reason": "Focused, deterministic, adversarial, and independent PDF verification passed.",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -8438,7 +8451,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 875,
+  "state_version": 876,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
