@@ -119,16 +119,27 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-claim-accountability.json",
+            "runs/evidence/20260808-110723-4b69"
+          ],
           "fingerprint": "65362ba1e9ce8f40d0b92b18041e08478796ddfce6d9f77ac03424b8807d0374",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T10:58:58.646929+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T11:17:44.007887+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "65362ba1e9ce8f40d0b92b18041e08478796ddfce6d9f77ac03424b8807d0374"
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633"
       },
       "replans": [
         {
@@ -170,6 +181,31 @@
           "pipeline_boundary_changed": true,
           "prior_fingerprint": "016a28924a743144a71d2d2ff0322c545f70819c1d9e6d97b540e3a49f97b075",
           "rationale": "Move the causal owner from surface-specific token similarity and SEO fallback behavior to one operation-sensitive public capability semantic contract shared by every generated surface.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T11:17:01.9630472Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-claim-accountability.json",
+            "runs/evidence/20260808-110723-4b69"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "65362ba1e9ce8f40d0b92b18041e08478796ddfce6d9f77ac03424b8807d0374",
+          "rationale": "Move the causal owner from public capability normalization to the downstream claim-accountability reduction that discarded exact canonical compiler bindings.",
           "route_change_assessments": [
             "reuse",
             "invalidation",
@@ -355,7 +391,7 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T10:58:58.646929+00:00",
+    "last_evaluated_at": "2026-08-08T11:17:44.008029+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -7273,7 +7309,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 802,
+  "state_version": 803,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
