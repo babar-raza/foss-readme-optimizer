@@ -7318,13 +7318,13 @@
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+      "accepted_facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "42e7d988c922c073fb0f499c84bc8c2e4dcc2121c8c6a007e493e4d09e424f6f",
+          "assessment_hash": "bceb09e132ad83b5db325ca8aa468d5b94268e8929e7dcc165354196460ec46c",
           "attempt_count": 1,
           "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"PS/EPS to PDF conversion\", \"PS/EPS to image conversion\", \"XPS to PDF conversion\", \"XPS to image conversion\", \"MCP server hosting\", \"EPS metadata extraction\"], \"input\": [\"PS/EPS input files\", \"XPS files\"], \"output\": [\"PDF files\", \"image files\", \"EPS metadata\"]}",
           "diagram": {
@@ -7408,8 +7408,8 @@
               }
             ]
           },
-          "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
-          "input_sha256": "57f14e733ac6fa4e9b36e925231bb81cbfc1de6a4c66c016c2039a42b1cb3355",
+          "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
+          "input_sha256": "2c92c4c1b084b14fe16237acbffa3d6be5f1cb2f52f3a884175d30b9e4e008e0",
           "model": "qwen3-next",
           "opening_summary": {
             "supporting_fact_ids": [
@@ -7417,7 +7417,7 @@
               "product.audience:platform-derived",
               "product.capabilities:repository-evidence"
             ],
-            "text": "Aspose.Page FOSS for Python is an open-source Python library that enables developers using Python to convert PS, EPS, and XPS documents to PDF and raster images, extract EPS metadata, and host MCP tools for programmatic access."
+            "text": "Aspose.Page FOSS for Python is an open-source Python library that enables developers using Python to convert PS/EPS and XPS documents into PDF and raster image formats. The library provides native Python APIs for document parsing, rendering, and output generation, supporting PS/EPS to PDF, PS/EPS to image, XPS to PDF, and XPS to image conversion workflows."
           },
           "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
           "overview_sentences": [
@@ -7441,14 +7441,14 @@
             }
           ],
           "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-          "repository_summary": "Aspose.Page FOSS for Python is an open-source Python library that enables developers to convert PS, EPS, and XPS documents to PDF and raster image formats, as well as extract EPS metadata and host MCP tools for programmatic access.",
+          "repository_summary": "Aspose.Page FOSS for Python is an open-source Python library that enables developers to convert PostScript (PS), Encapsulated PostScript (EPS), and XML Paper Specification (XPS) documents into PDF and raster image formats. The library provides native Python APIs for document parsing, rendering, and output generation, along with an MCP server interface for remote conversion workflows.",
           "review_repair": null,
           "schema_version": 1,
           "section_decisions": [
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The opening section accurately introduces the product identity and open-source status, supported by the manifest and registry facts and the commercial FOSS relationship fact.",
+              "rationale": "The opening section accurately introduces the product identity and open-source scope using verified facts from the manifest and registry policy.",
               "section_id": "opening",
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
@@ -7458,21 +7458,21 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The main heading is descriptive and matches the product's conversion purpose; no changes are required.",
+              "rationale": "The main heading is descriptive and matches the product identity and conversion capabilities verified in the repository evidence.",
               "section_id": "heading:0",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Why Aspose.Page for Python' section concisely lists the core capabilities and is aligned with the verified capabilities evidence.",
+              "rationale": "The 'Why Aspose.Page for Python' section concisely lists the verified capabilities without overclaiming.",
               "section_id": "heading:314",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The installation section correctly describes how to install the package, verify its acquisition, and install optional dependencies; all facts are backed by manifest and verification evidence.",
+              "rationale": "Installation instructions correctly reference editable install, optional extras, and verified acquisition evidence.",
               "section_id": "heading:552",
               "supporting_fact_ids": [
                 "installation.coordinates:manifest",
@@ -7493,7 +7493,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The Quick Start examples are verified and match the minimal salvaged example and repository inventory evidence.",
+              "rationale": "Quick Start examples match the verified minimal example and repository inventory of executable code samples.",
               "section_id": "heading:1026",
               "supporting_fact_ids": [
                 "example.minimal:compiled-salvaged-example",
@@ -7503,7 +7503,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The Example Results section correctly references assets from the repository inventory.",
+              "rationale": "Example Results section correctly references fixture assets from the repository inventory.",
               "section_id": "heading:2088",
               "supporting_fact_ids": [
                 "repository.examples:repository-inventory"
@@ -7512,7 +7512,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The MCP Server section accurately describes the exposed tools and optional dependency requirements, supported by the public surface and optional extras facts.",
+              "rationale": "MCP Server section accurately describes exposed tools and optional dependency requirements.",
               "section_id": "heading:2429",
               "supporting_fact_ids": [
                 "api.public_surface:python-exports",
@@ -7522,7 +7522,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The Build and Test section correctly lists development commands and test execution, supported by the repository inventory.",
+              "rationale": "Build and Test section correctly references repository test assets and Makefile guidance.",
               "section_id": "heading:2850",
               "supporting_fact_ids": [
                 "development.assets:repository-inventory"
@@ -7531,14 +7531,14 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The License section is brief and accurate; no changes are required.",
+              "rationale": "License section correctly states MIT license per verified license file.",
               "section_id": "heading:3119",
               "supporting_fact_ids": []
             },
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "A fact-backed At-a-glance section is needed to summarize the product's purpose, audience, and capabilities using verified descriptive facts.",
+              "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
               "section_id": "missing:at-a-glance",
               "supporting_fact_ids": [
                 "product.audience:platform-derived",
@@ -7549,7 +7549,7 @@
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "A limitations section should be added to transparently communicate known constraints supported by verified source guidance.",
+              "rationale": "Add limitations that are explicitly supported by verified repository evidence.",
               "section_id": "missing:limitations",
               "supporting_fact_ids": [
                 "product.limitations:source-guidance"
@@ -7559,9 +7559,9 @@
           "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683",
           "tool_schema_sha256": "0857d59bfb368439d518327620c99dffd7d449bc3ea0665e09d7b4b21400e99d"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-034055-c5cd",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-043309-9ef7",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -7598,7 +7598,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+          "product_facts_v2_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
           "protected_content_losses": [],
           "valid": true
         },
@@ -7614,7 +7614,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                  "claim": "The README contains exactly one H1 heading.",
+                  "claim": "The README has exactly one H1 heading, which is clear and descriptive.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -7632,29 +7632,29 @@
                   "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The Installation section provides clear, step-by-step source installation instructions and optional dependency groups.",
+                  "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
+                  "claim": "The installation section presents a clear, executable bash example with proper fenced block formatting and no comments.",
                   "criterion": "installation_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.installation_presentation.installation",
+                  "finding_id": "quality.installation_presentation.bash",
                   "kind": "quality",
                   "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Installation",
+                  "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                  "section": "candidate.anchor.dc73f0fabc0a407abd0b.1"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
                   "quality.clarity.h1_blocks",
-                  "quality.installation_presentation.installation"
+                  "quality.installation_presentation.bash"
                 ],
                 "errors": [],
                 "valid": true
@@ -7666,7 +7666,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section is complete and accurate. There is no visible duplication, forbidden comments, or template genericity issues. The license section includes required benefit terms and is properly balanced. The Enterprise Edition terminology is correctly placed below the fold with appropriate scope context.",
+              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section provides a complete list of H2 headings, and the license section includes required benefit terms. There is no visible duplication, internal assurance language, or promotional overreach. Markdown integrity is preserved, and the template is followed without generic filler.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -7679,7 +7679,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                    "claim": "The README contains exactly one H1 heading.",
+                    "claim": "The README has exactly one H1 heading, which is clear and descriptive.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -7697,29 +7697,29 @@
                     "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The Installation section provides clear, step-by-step source installation instructions and optional dependency groups.",
+                    "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
+                    "claim": "The installation section presents a clear, executable bash example with proper fenced block formatting and no comments.",
                     "criterion": "installation_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.installation_presentation.installation",
+                    "finding_id": "quality.installation_presentation.bash",
                     "kind": "quality",
                     "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Installation",
+                    "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                    "section": "candidate.anchor.dc73f0fabc0a407abd0b.1"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
                     "quality.clarity.h1_blocks",
-                    "quality.installation_presentation.installation"
+                    "quality.installation_presentation.bash"
                   ],
                   "errors": [],
                   "valid": true
@@ -7731,7 +7731,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section is complete and accurate. There is no visible duplication, forbidden comments, or template genericity issues. The license section includes required benefit terms and is properly balanced. The Enterprise Edition terminology is correctly placed below the fold with appropriate scope context.",
+                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section provides a complete list of H2 headings, and the license section includes required benefit terms. There is no visible duplication, internal assurance language, or promotional overreach. Markdown integrity is preserved, and the template is followed without generic filler.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -7745,7 +7745,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                    "claim": "The product identity (name, repository, platform, family) is correctly stated.",
+                    "claim": "The product identity (Aspose.Page FOSS for Python) matches the manifest and registry.",
                     "criterion": "product_identity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "page",
@@ -7763,8 +7763,8 @@
                     "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                    "claim": "The Key Capabilities section accurately lists all six supported capabilities.",
+                    "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
+                    "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by repository evidence.",
                     "criterion": "product_capabilities",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
@@ -7776,10 +7776,10 @@
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Key Capabilities",
+                    "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.78a4314321b11916555e.1"
+                    "section": "candidate.anchor.7b8bdd4983d4e45af810.1"
                   }
                 ],
                 "grounding_validation": {
@@ -7796,8 +7796,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "03351d94521fdec04741f4a6d31590c688717d5853c831d76b0a703992574d25",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, API surface, development assets, and license are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The navigation links and API reference tables align with the declared public surface. The MCP server example and installation commands match the repository guidance. No conflicts or missing evidence were found.",
+                "input_sha256": "80ce602176c9d4d942c89c6026f7d9de1883e39040fe087ad68f49a0aa71052e",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, license, API surface, development assets, and documentation links are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The MCP server example and installation dependencies align with the evidence. No conflicts or missing evidence were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -7805,14 +7805,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "324d933cb81a1ccea9e286c95c87eee9cd3f85161c4bb4a7ae74567ce90491e9",
-                "factual_record_sha256": "8f07a8c1f049c756a68eb8b81f94a980e6324afe8ef56e52f263dac15a85d585",
-                "input_sha256": "14e20b39953c8859adf7bf6b32b51c368c36caf73a36f082696bfaf3fcb0ad76",
+                "blind_record_sha256": "883b0fc1f91d74d18053c28b076697b46651c3d67e89e40a1e9997df550f47d7",
+                "factual_record_sha256": "ab0126fb25f0823d1f2d85dc3c4a02faa285997b6014cc364609c1caf4586943",
+                "input_sha256": "83d83968fd27f92c7da48a4ed6e2844b3d6d9d35a6a45c25959c36c7c24a8731",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-9121950bd3526844",
-                "raw_output_sha256": "dbdf31a9d1c07ba7e69819f2e74514fc033b3ef6d77606ad2982552f15b667e9"
+                "provider_request_id": "chatcmpl-9df8908218f006bc",
+                "raw_output_sha256": "ccba65c4d76d3fa54436e42b5f48c79609a4ce943af710a5375764bd98348333"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -7828,7 +7828,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                  "claim": "The product identity (name, repository, platform, family) is correctly stated.",
+                  "claim": "The product identity (Aspose.Page FOSS for Python) matches the manifest and registry.",
                   "criterion": "product_identity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "page",
@@ -7846,8 +7846,8 @@
                   "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                  "claim": "The Key Capabilities section accurately lists all six supported capabilities.",
+                  "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
+                  "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by repository evidence.",
                   "criterion": "product_capabilities",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
@@ -7859,10 +7859,10 @@
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Key Capabilities",
+                  "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.78a4314321b11916555e.1"
+                  "section": "candidate.anchor.7b8bdd4983d4e45af810.1"
                 }
               ],
               "grounding_validation": {
@@ -7879,8 +7879,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "03351d94521fdec04741f4a6d31590c688717d5853c831d76b0a703992574d25",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, API surface, development assets, and license are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The navigation links and API reference tables align with the declared public surface. The MCP server example and installation commands match the repository guidance. No conflicts or missing evidence were found.",
+              "input_sha256": "80ce602176c9d4d942c89c6026f7d9de1883e39040fe087ad68f49a0aa71052e",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, license, API surface, development assets, and documentation links are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The MCP server example and installation dependencies align with the evidence. No conflicts or missing evidence were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -7902,7 +7902,7 @@
                 "validation_result": {
                   "checked_finding_ids": [
                     "quality.clarity.h1_blocks",
-                    "quality.installation_presentation.installation"
+                    "quality.installation_presentation.bash"
                   ],
                   "errors": [],
                   "valid": true
@@ -7972,7 +7972,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260808-034055-c5cd",
+                "nonce": "20260808-043309-9ef7",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -7980,11 +7980,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "44c072533444df887a48a387f35df71f9392420c272a45183ee524f6dce6c4fc",
+                "token": "74f8a4a24e2156ce590e486e79c437cbeaa75a1183636633359d94525ff64f04",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-034055-c5cd"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-page-foss__Aspose.Page-FOSS-for-Python\\20260808-043309-9ef7"
               ],
               "repair_attempt": 0,
               "review": {
@@ -7995,7 +7995,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                      "claim": "The README contains exactly one H1 heading.",
+                      "claim": "The README has exactly one H1 heading, which is clear and descriptive.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -8013,29 +8013,29 @@
                       "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The Installation section provides clear, step-by-step source installation instructions and optional dependency groups.",
+                      "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
+                      "claim": "The installation section presents a clear, executable bash example with proper fenced block formatting and no comments.",
                       "criterion": "installation_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.installation_presentation.installation",
+                      "finding_id": "quality.installation_presentation.bash",
                       "kind": "quality",
                       "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Installation",
+                      "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                      "section": "candidate.anchor.dc73f0fabc0a407abd0b.1"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
                       "quality.clarity.h1_blocks",
-                      "quality.installation_presentation.installation"
+                      "quality.installation_presentation.bash"
                     ],
                     "errors": [],
                     "valid": true
@@ -8047,7 +8047,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section is complete and accurate. There is no visible duplication, forbidden comments, or template genericity issues. The license section includes required benefit terms and is properly balanced. The Enterprise Edition terminology is correctly placed below the fold with appropriate scope context.",
+                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section provides a complete list of H2 headings, and the license section includes required benefit terms. There is no visible duplication, internal assurance language, or promotional overreach. Markdown integrity is preserved, and the template is followed without generic filler.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -8060,7 +8060,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                        "claim": "The README contains exactly one H1 heading.",
+                        "claim": "The README has exactly one H1 heading, which is clear and descriptive.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -8078,29 +8078,29 @@
                         "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The Installation section provides clear, step-by-step source installation instructions and optional dependency groups.",
+                        "candidate_anchor_id": "candidate.anchor.dc73f0fabc0a407abd0b.1",
+                        "claim": "The installation section presents a clear, executable bash example with proper fenced block formatting and no comments.",
                         "criterion": "installation_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.installation_presentation.installation",
+                        "finding_id": "quality.installation_presentation.bash",
                         "kind": "quality",
                         "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Installation",
+                        "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git\ncd Aspose.Page-FOSS-for-Python\ngit checkout --detach dac5d70e0f91949a780f2e98dfbb12314a5fbc70\npython -m pip install .\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                        "section": "candidate.anchor.dc73f0fabc0a407abd0b.1"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
                         "quality.clarity.h1_blocks",
-                        "quality.installation_presentation.installation"
+                        "quality.installation_presentation.bash"
                       ],
                       "errors": [],
                       "valid": true
@@ -8112,7 +8112,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "32f8724486c8a3c00a2ca35da55da4dc1c5c8f293e2d042ebd8766a3f5eac72b",
-                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section is complete and accurate. There is no visible duplication, forbidden comments, or template genericity issues. The license section includes required benefit terms and is properly balanced. The Enterprise Edition terminology is correctly placed below the fold with appropriate scope context.",
+                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and compliant badge rows. The installation and quick start sections are well-structured with minimal code blocks and clear instructions. The navigation section provides a complete list of H2 headings, and the license section includes required benefit terms. There is no visible duplication, internal assurance language, or promotional overreach. Markdown integrity is preserved, and the template is followed without generic filler.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -8126,7 +8126,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                        "claim": "The product identity (name, repository, platform, family) is correctly stated.",
+                        "claim": "The product identity (Aspose.Page FOSS for Python) matches the manifest and registry.",
                         "criterion": "product_identity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "page",
@@ -8144,8 +8144,8 @@
                         "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                        "claim": "The Key Capabilities section accurately lists all six supported capabilities.",
+                        "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
+                        "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by repository evidence.",
                         "criterion": "product_capabilities",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
@@ -8157,10 +8157,10 @@
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Key Capabilities",
+                        "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.78a4314321b11916555e.1"
+                        "section": "candidate.anchor.7b8bdd4983d4e45af810.1"
                       }
                     ],
                     "grounding_validation": {
@@ -8177,8 +8177,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "03351d94521fdec04741f4a6d31590c688717d5853c831d76b0a703992574d25",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, API surface, development assets, and license are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The navigation links and API reference tables align with the declared public surface. The MCP server example and installation commands match the repository guidance. No conflicts or missing evidence were found.",
+                    "input_sha256": "80ce602176c9d4d942c89c6026f7d9de1883e39040fe087ad68f49a0aa71052e",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, license, API surface, development assets, and documentation links are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The MCP server example and installation dependencies align with the evidence. No conflicts or missing evidence were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -8186,14 +8186,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "324d933cb81a1ccea9e286c95c87eee9cd3f85161c4bb4a7ae74567ce90491e9",
-                    "factual_record_sha256": "8f07a8c1f049c756a68eb8b81f94a980e6324afe8ef56e52f263dac15a85d585",
-                    "input_sha256": "14e20b39953c8859adf7bf6b32b51c368c36caf73a36f082696bfaf3fcb0ad76",
+                    "blind_record_sha256": "883b0fc1f91d74d18053c28b076697b46651c3d67e89e40a1e9997df550f47d7",
+                    "factual_record_sha256": "ab0126fb25f0823d1f2d85dc3c4a02faa285997b6014cc364609c1caf4586943",
+                    "input_sha256": "83d83968fd27f92c7da48a4ed6e2844b3d6d9d35a6a45c25959c36c7c24a8731",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-9121950bd3526844",
-                    "raw_output_sha256": "dbdf31a9d1c07ba7e69819f2e74514fc033b3ef6d77606ad2982552f15b667e9"
+                    "provider_request_id": "chatcmpl-9df8908218f006bc",
+                    "raw_output_sha256": "ccba65c4d76d3fa54436e42b5f48c79609a4ce943af710a5375764bd98348333"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -8209,7 +8209,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.429dcf6bd2e865c5b662.1",
-                      "claim": "The product identity (name, repository, platform, family) is correctly stated.",
+                      "claim": "The product identity (Aspose.Page FOSS for Python) matches the manifest and registry.",
                       "criterion": "product_identity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "page",
@@ -8227,8 +8227,8 @@
                       "section": "candidate.anchor.429dcf6bd2e865c5b662.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                      "claim": "The Key Capabilities section accurately lists all six supported capabilities.",
+                      "candidate_anchor_id": "candidate.anchor.b7b2995d77e83f8f2e7e.1",
+                      "claim": "The listed capabilities (PS/EPS to PDF, PS/EPS to image, XPS to PDF, XPS to image, MCP server hosting, EPS metadata extraction) are verified by repository evidence.",
                       "criterion": "product_capabilities",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "def to_pdf(self, options: \"PdfSaveOptions | None\" = None) -> bytes:",
@@ -8240,10 +8240,10 @@
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Key Capabilities",
+                      "quoted_candidate_span": "- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.\n- **Use PS/EPS to image conversion with Aspose.Page for Python** - Supports PS/EPS to image conversion through the public `PsImage` API.\n- **Use XPS to PDF conversion with Aspose.Page for Python** - Supports XPS to PDF conversion.\n- **Use XPS to image conversion with Aspose.Page for Python** - Supports XPS to image conversion through the public `XpsImage` and `PsImage` APIs.\n- **Use MCP server hosting with Aspose.Page for Python** - Supports MCP server hosting.\n- **Use EPS metadata extraction with Aspose.Page for Python** - Supports EPS metadata extraction.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.78a4314321b11916555e.1"
+                      "section": "candidate.anchor.7b8bdd4983d4e45af810.1"
                     }
                   ],
                   "grounding_validation": {
@@ -8260,8 +8260,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "03351d94521fdec04741f4a6d31590c688717d5853c831d76b0a703992574d25",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, API surface, development assets, and license are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The navigation links and API reference tables align with the declared public surface. The MCP server example and installation commands match the repository guidance. No conflicts or missing evidence were found.",
+                  "input_sha256": "80ce602176c9d4d942c89c6026f7d9de1883e39040fe087ad68f49a0aa71052e",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, installation coordinates, optional extras, license, API surface, development assets, and documentation links are all accurately represented and verified. The limitations section correctly reflects source-guided constraints. The MCP server example and installation dependencies align with the evidence. No conflicts or missing evidence were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -8283,7 +8283,7 @@
                     "validation_result": {
                       "checked_finding_ids": [
                         "quality.clarity.h1_blocks",
-                        "quality.installation_presentation.installation"
+                        "quality.installation_presentation.bash"
                       ],
                       "errors": [],
                       "valid": true
@@ -8343,7 +8343,7 @@
         "llm_called": true,
         "llm_calls": [
           {
-            "input_sha256": "57f14e733ac6fa4e9b36e925231bb81cbfc1de6a4c66c016c2039a42b1cb3355",
+            "input_sha256": "2c92c4c1b084b14fe16237acbffa3d6be5f1cb2f52f3a884175d30b9e4e008e0",
             "job": "plan_readme_composition",
             "model": "qwen3-next",
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
@@ -8353,7 +8353,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "42e7d988c922c073fb0f499c84bc8c2e4dcc2121c8c6a007e493e4d09e424f6f",
+            "assessment_hash": "bceb09e132ad83b5db325ca8aa468d5b94268e8929e7dcc165354196460ec46c",
             "attempt_count": 1,
             "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"PS/EPS to PDF conversion\", \"PS/EPS to image conversion\", \"XPS to PDF conversion\", \"XPS to image conversion\", \"MCP server hosting\", \"EPS metadata extraction\"], \"input\": [\"PS/EPS input files\", \"XPS files\"], \"output\": [\"PDF files\", \"image files\", \"EPS metadata\"]}",
             "diagram": {
@@ -8437,8 +8437,8 @@
                 }
               ]
             },
-            "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
-            "input_sha256": "57f14e733ac6fa4e9b36e925231bb81cbfc1de6a4c66c016c2039a42b1cb3355",
+            "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
+            "input_sha256": "2c92c4c1b084b14fe16237acbffa3d6be5f1cb2f52f3a884175d30b9e4e008e0",
             "model": "qwen3-next",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -8446,7 +8446,7 @@
                 "product.audience:platform-derived",
                 "product.capabilities:repository-evidence"
               ],
-              "text": "Aspose.Page FOSS for Python is an open-source Python library that enables developers using Python to convert PS, EPS, and XPS documents to PDF and raster images, extract EPS metadata, and host MCP tools for programmatic access."
+              "text": "Aspose.Page FOSS for Python is an open-source Python library that enables developers using Python to convert PS/EPS and XPS documents into PDF and raster image formats. The library provides native Python APIs for document parsing, rendering, and output generation, supporting PS/EPS to PDF, PS/EPS to image, XPS to PDF, and XPS to image conversion workflows."
             },
             "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
             "overview_sentences": [
@@ -8470,14 +8470,14 @@
               }
             ],
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-            "repository_summary": "Aspose.Page FOSS for Python is an open-source Python library that enables developers to convert PS, EPS, and XPS documents to PDF and raster image formats, as well as extract EPS metadata and host MCP tools for programmatic access.",
+            "repository_summary": "Aspose.Page FOSS for Python is an open-source Python library that enables developers to convert PostScript (PS), Encapsulated PostScript (EPS), and XML Paper Specification (XPS) documents into PDF and raster image formats. The library provides native Python APIs for document parsing, rendering, and output generation, along with an MCP server interface for remote conversion workflows.",
             "review_repair": null,
             "schema_version": 1,
             "section_decisions": [
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The opening section accurately introduces the product identity and open-source status, supported by the manifest and registry facts and the commercial FOSS relationship fact.",
+                "rationale": "The opening section accurately introduces the product identity and open-source scope using verified facts from the manifest and registry policy.",
                 "section_id": "opening",
                 "supporting_fact_ids": [
                   "product.identity:manifest-and-registry",
@@ -8487,21 +8487,21 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The main heading is descriptive and matches the product's conversion purpose; no changes are required.",
+                "rationale": "The main heading is descriptive and matches the product identity and conversion capabilities verified in the repository evidence.",
                 "section_id": "heading:0",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Why Aspose.Page for Python' section concisely lists the core capabilities and is aligned with the verified capabilities evidence.",
+                "rationale": "The 'Why Aspose.Page for Python' section concisely lists the verified capabilities without overclaiming.",
                 "section_id": "heading:314",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The installation section correctly describes how to install the package, verify its acquisition, and install optional dependencies; all facts are backed by manifest and verification evidence.",
+                "rationale": "Installation instructions correctly reference editable install, optional extras, and verified acquisition evidence.",
                 "section_id": "heading:552",
                 "supporting_fact_ids": [
                   "installation.coordinates:manifest",
@@ -8522,7 +8522,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The Quick Start examples are verified and match the minimal salvaged example and repository inventory evidence.",
+                "rationale": "Quick Start examples match the verified minimal example and repository inventory of executable code samples.",
                 "section_id": "heading:1026",
                 "supporting_fact_ids": [
                   "example.minimal:compiled-salvaged-example",
@@ -8532,7 +8532,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The Example Results section correctly references assets from the repository inventory.",
+                "rationale": "Example Results section correctly references fixture assets from the repository inventory.",
                 "section_id": "heading:2088",
                 "supporting_fact_ids": [
                   "repository.examples:repository-inventory"
@@ -8541,7 +8541,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The MCP Server section accurately describes the exposed tools and optional dependency requirements, supported by the public surface and optional extras facts.",
+                "rationale": "MCP Server section accurately describes exposed tools and optional dependency requirements.",
                 "section_id": "heading:2429",
                 "supporting_fact_ids": [
                   "api.public_surface:python-exports",
@@ -8551,7 +8551,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The Build and Test section correctly lists development commands and test execution, supported by the repository inventory.",
+                "rationale": "Build and Test section correctly references repository test assets and Makefile guidance.",
                 "section_id": "heading:2850",
                 "supporting_fact_ids": [
                   "development.assets:repository-inventory"
@@ -8560,14 +8560,14 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The License section is brief and accurate; no changes are required.",
+                "rationale": "License section correctly states MIT license per verified license file.",
                 "section_id": "heading:3119",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "A fact-backed At-a-glance section is needed to summarize the product's purpose, audience, and capabilities using verified descriptive facts.",
+                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
                 "section_id": "missing:at-a-glance",
                 "supporting_fact_ids": [
                   "product.audience:platform-derived",
@@ -8578,7 +8578,7 @@
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "A limitations section should be added to transparently communicate known constraints supported by verified source guidance.",
+                "rationale": "Add limitations that are explicitly supported by verified repository evidence.",
                 "section_id": "missing:limitations",
                 "supporting_fact_ids": [
                   "product.limitations:source-guidance"
@@ -8626,7 +8626,7 @@
                 "claim_text_sha256": "d1dc1fd50b5023ea511b7f12da72736538c29a71a692fea3e0f87bde3c8c0c61",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def",
+                "fact_value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "d1dc1fd50b5023ea511b7f12da72736538c29a71a692fea3e0f87bde3c8c0c61",
                 "operation_id": "template.badges",
@@ -9060,7 +9060,7 @@
                 "claim_text_sha256": "22a686d1fc051d2c461d3d6f44fd2a333fdcad9891fc29bf205c2eb94fbb6fcc",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def",
+                "fact_value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "83354bd5013c48ac96f6784604a7dd0fcf2768fe6992d9b55c46162c9efdc2f1",
                 "operation_id": "template.section.installation.claim:58:83354bd5013c48ac",
@@ -9088,7 +9088,7 @@
                 "claim_text_sha256": "0cf6081411afda64b9f9579a9d4fb4ad73fd7ed6826b8c320514cd13d6725546",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def",
+                "fact_value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "e4c0fd7f5d50e116e665f3d9114ee3306864fef3127fc10142969b389319593f",
                 "operation_id": "template.section.installation.claim:267:e4c0fd7f5d50e116",
@@ -10944,7 +10944,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+            "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
             "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
             "schema_version": 1
           },
@@ -12558,7 +12558,7 @@
             "archetype": "python-library",
             "candidate_sha256": "d3daa13e0259d1c3eee3cdbc73bfc9e31c607adb606ed799df166fdbb1fc3236",
             "content_assurance": "repository_verified",
-            "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+            "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -12667,7 +12667,7 @@
             "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683"
           },
           "readme_assessment": {
-            "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+            "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
             "immutable_base_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
             "material_claims": [
               {
@@ -17617,7 +17617,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def"
+                      "value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -17652,7 +17652,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def"
+                      "value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -17694,7 +17694,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "ff2a602b4866391520509e2bb557a9778fd1c07b5b0c6a7f2fc1b29666940def"
+                      "value_sha256": "9f8f5119543b390443130ff53609d788e862e749185394e8cded07a9fd670be1"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -20618,7 +20618,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+              "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
               "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "455316f4dd77ad7ae46caf64720f1e2f2513cf1f57f0ee9ca1b2eb5d6df3f683"
@@ -31416,7 +31416,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "e12c08331f9d4705aa7322e64987e7c0c6a4d366dcbce013d44e6e1a876b7d3d",
+            "facts_hash": "d6647117c773fe003205067f78a9f1ea435734bc02e75e578b1e6e82afed9bda",
             "header_visuals": {
               "badge_markdown": "[![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/tree/dac5d70e0f91949a780f2e98dfbb12314a5fbc70) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-page-foss/Aspose.Page-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-page-foss/Aspose.Page-FOSS-for-Python.svg)](https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -32863,7 +32863,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260808-034055-c5cd",
+          "nonce": "20260808-043309-9ef7",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -32871,7 +32871,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "44c072533444df887a48a387f35df71f9392420c272a45183ee524f6dce6c4fc",
+          "token": "74f8a4a24e2156ce590e486e79c437cbeaa75a1183636633359d94525ff64f04",
           "verdict": "accept"
         },
         "written": false
@@ -32879,7 +32879,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T03:43:38.487491+00:00",
+      "last_run_timestamp": "2026-08-08T04:35:27.895503+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -37207,7 +37207,7 @@
     "updated_at": "2026-08-08T04:35:20.691461+00:00"
   },
   "schema_version": 2,
-  "state_version": 1726,
+  "state_version": 1727,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
