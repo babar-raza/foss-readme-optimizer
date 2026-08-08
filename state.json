@@ -172,9 +172,12 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "plans/investigations/evidence/level8-vpy-03a-page-pdf-v1/independent-verification.json",
+            "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json"
+          ],
           "fingerprint": "83f0ad950b393e3fa7d9f174b450ca954f9eee6fee164bb9739ae3adb79ab0ff",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-08T12:36:28.795328+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-08T12:11:38.800685+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -483,7 +486,7 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T12:35:51.059130+00:00",
+    "last_evaluated_at": "2026-08-08T12:36:28.795356+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -7436,7 +7439,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 812,
+  "state_version": 813,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
