@@ -233,7 +233,7 @@
     ],
     "graph_sha256": "3d7b03f2442a4effcd15c4230b7917fab3411ffe606d9e31cd5335ae30fcaf6b",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T06:39:37.191910+00:00",
+    "last_evaluated_at": "2026-08-08T06:40:29.635591+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 3,
       "candidate_generated": 3,
@@ -464,7 +464,7 @@
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-01-NOTE-VERIFIED-CANARY": "VERIFIED",
+      "L8-VPY-01-NOTE-VERIFIED-CANARY": "SCORED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
@@ -7027,6 +7027,20 @@
         "reason": "Current candidate is independently agent-approved, lint-clean, sibling-isolated, checksum-complete, and exact no-op proven",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--ed6cba11fc46",
+          "runs/evidence/20260808-062520-13ea",
+          "runs/evidence/20260808-062939-6f85",
+          "runs/verification/pytest-full-latest.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-08T06:40:29.635915+00:00",
+        "reason": "Acceptance score is complete: agent approval, 18-rule zero-finding lint, independent cohort acceptance, no-op, isolation, and regression gates pass",
+        "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -7036,7 +7050,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 784,
+  "state_version": 785,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
