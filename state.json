@@ -421,16 +421,32 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-source-build-extra-acquisition.json",
+            "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/candidate/README.md",
+            "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/facts/product-facts.json",
+            "src/readme_agent/readme/source_claim_portfolio_binding.py",
+            "src/readme_agent/readme/document_acquisition.py",
+            "tests/unit/test_source_claim_portfolio_binding.py",
+            "tests/unit/test_readme_assessment.py"
+          ],
           "fingerprint": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T22:07:58.246878+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "5c6bb23b0dc978ae8ac33976f34ea43426282e4c907ab502e4ee215b3a29306c",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T22:27:40.728888+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "5c6bb23b0dc978ae8ac33976f34ea43426282e4c907ab502e4ee215b3a29306c",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -881,6 +897,36 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T22:26:35+00:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-source-build-extra-acquisition.json",
+            "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/candidate/README.md",
+            "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/facts/product-facts.json",
+            "src/readme_agent/readme/source_claim_portfolio_binding.py",
+            "src/readme_agent/readme/document_acquisition.py",
+            "tests/unit/test_source_claim_portfolio_binding.py",
+            "tests/unit/test_readme_assessment.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "5c6bb23b0dc978ae8ac33976f34ea43426282e4c907ab502e4ee215b3a29306c",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "96a9a3d0fe42d35f95518eaa36253c9d02b39fc8dd0828e90d17df345096b26b",
+          "rationale": "Bind inherited optional-extra commands to the verified acquisition mode and correct contradicted Python source-build package commands across the full source document before composition.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1056,22 +1102,22 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T22:07:58.246878+00:00",
+    "last_evaluated_at": "2026-08-08T22:27:40.728954+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 0,
+      "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-08T19:23:15.795731+00:00",
-      "deterministic_validated": 0,
+      "derived_at": "2026-08-08T22:17:33.641502+00:00",
+      "deterministic_validated": 1,
       "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 2,
+        "AGENT_APPROVED": 3,
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
-        "FACTS_READY": 5,
+        "FACTS_READY": 4,
         "INTAKE_READY": 7,
         "NO_OP_PROVEN": 9,
         "SYSTEM_FAILURE": 1
@@ -1080,16 +1126,18 @@
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 11,
-      "raw_candidate_generated": 15,
-      "raw_deterministic_validated": 15,
+      "raw_agent_approved": 12,
+      "raw_candidate_generated": 16,
+      "raw_deterministic_validated": 16,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": []
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -8364,7 +8412,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 870,
+  "state_version": 871,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
