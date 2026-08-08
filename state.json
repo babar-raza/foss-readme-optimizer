@@ -239,9 +239,12 @@
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/evidence/20260808-162154-4db5",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
           "fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-08T16:27:14.584319+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-08T16:13:36.499846+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
@@ -627,7 +630,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T16:13:36.499885+00:00",
+    "last_evaluated_at": "2026-08-08T16:27:14.584337+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -7758,7 +7761,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 834,
+  "state_version": 835,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
