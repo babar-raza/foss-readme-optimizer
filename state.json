@@ -9841,16 +9841,70 @@
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "2a546a60ec2a6d86ecac83b5a8a601efde7c29bfbe2327d22aa3de498d76b171",
+      "accepted_facts_hash": "cda7147afb3ff8f0d155cfd371c0cf0518c5117791cc75981ae36bede7fcc5e1",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [],
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using concrete verbs: 'reads GLTF files, OBJ files, STL files, and 3MF files and writes GLTF files, STL files, and 3MF files.'",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The product description explicitly names the audience (Python developers), ecosystem (Python), formats handled (GLTF, OBJ, STL, 3MF), and common tasks (reading/writing those formats).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license badge is present at the top, and build/version/platform badges are included \u2014 satisfying the highest-leverage trust signal.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install section uses `git clone` and local `pip install .`, which does not resolve against a real external registry (e.g., PyPI); no PyPI package coordinates or badge are provided.",
+            "satisfied": false
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "There are multiple runnable code blocks beyond the install snippet (Quick Start, Additional Examples), all with clean prose explanations and no source comments inside the code.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent `##`/`###` Markdown levels, and the order follows the expected intent: product understanding and getting-started content precede reference/contribution/legal content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "The Mermaid flowchart illustrates the actual product workflow (inputs \u2192 transformation \u2192 outputs), which improves understanding for a data-processing library \u2014 not decorative.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The repository lacks recognized community files: no CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY files are present, so GitHub does not show the full quick-link row.",
+            "satisfied": false
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README includes a version badge and a pinned commit hash, and the repository's recent activity (e.g., test files, commit history) supports active maintenance.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language, under 'Scope and Limitations' \u2014 not as a banner, and without adjectives or pricing.",
+            "satisfied": true
+          }
+        ],
         "input_sha256": "cbb36c9a938ca7083934aa22dc4c09167e5eb74f5c773fe5a71cd6d7311a4409",
-        "input_source": "verified_candidate_plan_and_merged_review",
-        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
-        "review_reused": true,
+        "input_source": "candidate_text",
+        "overall_summary": "The README satisfies 8 of 10 dimensions, with critical gaps in installation path (no external registry resolution) and contribution readiness (missing recognized community files like CONTRIBUTING and CODE_OF_CONDUCT).",
+        "structural_consistency": {
+          "contradictions": [],
+          "valid": true
+        },
         "structural_observations": {
           "ci_badge_count": 0,
           "has_mermaid": true
@@ -9859,7 +9913,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T00:39:28.818955+00:00",
+      "last_run_timestamp": "2026-08-08T01:18:03.222566+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -116028,7 +116082,7 @@
     "updated_at": "2026-08-08T00:42:14.048521+00:00"
   },
   "schema_version": 2,
-  "state_version": 1967,
+  "state_version": 1968,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
