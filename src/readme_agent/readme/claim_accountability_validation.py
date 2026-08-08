@@ -317,6 +317,7 @@ def validate_claim_accountability_map(
                 facts,
                 provenance_by_id,
                 exact_source_fact_ids=source_by_id[resolution.claim_id].accepted_fact_ids,
+                allow_contradicted_source_subset=bool(resolution.contradiction_fact_ids),
             )
             and replacement_candidate_claims_are_exact(
                 resolution,
@@ -341,13 +342,13 @@ def validate_claim_accountability_map(
         or (
             resolution.claim_id in source_by_id
             and (
-                source_by_id[resolution.claim_id].survives_in_candidate is False
-                or (
-                    source_by_id[resolution.claim_id].survives_in_candidate is True
-                    and _surviving_equivalence_has_generated_ownership(
-                        resolution,
-                        composition_ledger,
-                    )
+                (
+                    not provenance
+                    and source_by_id[resolution.claim_id].survives_in_candidate is False
+                )
+                or _surviving_equivalence_has_generated_ownership(
+                    resolution,
+                    composition_ledger,
                 )
             )
             and source_by_id[resolution.claim_id].expected_disposition == "verified_equivalence"

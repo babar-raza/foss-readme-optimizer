@@ -15,6 +15,12 @@ from readme_agent.readme.presentation_lint_text import (
     strip_emoji_decorations,
     strip_fenced_code_comments,
 )
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    canonicalize_public_markdown,
+    public_text_corrections,
+    title_case_heading,
+)
 
 _VAGUE_FUTURE_BULLET = re.compile(
     r"(?im)^[ \t]*[-*+][ \t]+more[^\r\n]*coming soon(?:[.!…]+)?[ \t]*(?:\r?\n|$)"
@@ -25,9 +31,7 @@ _RAW_OPTION_BULLET = re.compile(
     r"[ \t]+[-–—:][ \t]+(?P<description>[^\r\n]+)(?P<newline>\r?\n|$)"
 )
 _COMMERCIAL_HEADING = re.compile(r"(?i)(?:enterprise edition|aspose\.com)")
-_OTHER_PLATFORMS_HEADING = re.compile(
-    r"(?i)^(?:[^\w]+\s*)*other platforms(?:\s+\(official [^)]+\))?$"
-)
+_OTHER_PLATFORMS_HEADING = re.compile(r"(?i)\bother platforms(?:\s+\(official [^)]+\))?$")
 _COMMERCIAL_CTA = re.compile(r"(?i)\b(?:buy|free trial|download|upgrade now)\b")
 _COMMERCIAL_DIRECTORY = re.compile(
     r"(?i)(?:products\.aspose\.com|full-featured Aspose product|official libraries)"
@@ -42,14 +46,14 @@ _MOJIBAKE_REPLACEMENTS = {
     "Â©": "©",
 }
 _CANONICAL_H2 = {
-    "currently available features": "Key capabilities",
+    "currently available features": "Key Capabilities",
     "in this readme": "Navigation",
-    "features": "Key capabilities",
-    "quick start": "Quick start",
-    "limitations": "Scope and limitations",
-    "known limitations": "Scope and limitations",
-    "current limitations": "Scope and limitations",
-    "project scope and limitations": "Scope and limitations",
+    "features": "Key Capabilities",
+    "quick start": "Quick Start",
+    "limitations": "Scope and Limitations",
+    "known limitations": "Scope and Limitations",
+    "current limitations": "Scope and Limitations",
+    "project scope and limitations": "Scope and Limitations",
 }
 
 
@@ -92,7 +96,7 @@ def commercial_directory_spans(context: DocumentRenderContext) -> list[tuple[int
     for heading in context.headings:
         if heading.level not in {2, 3} or not (
             _COMMERCIAL_HEADING.search(heading.title)
-            or _OTHER_PLATFORMS_HEADING.fullmatch(heading.title.strip())
+            or _OTHER_PLATFORMS_HEADING.search(heading.title.strip())
         ):
             continue
         section = context.inner_text[heading.start : heading.section_end]
@@ -108,6 +112,8 @@ def commercial_directory_spans(context: DocumentRenderContext) -> list[tuple[int
 
 def canonicalize_operation_decorations(
     operations: list[ReadmeDocumentOperationV1],
+    *,
+    canonical_terms: tuple[str, ...] | None = None,
 ) -> list[ReadmeDocumentOperationV1]:
     """Apply the no-emoji contract inside already-owned replacement spans."""
 
@@ -115,6 +121,11 @@ def canonicalize_operation_decorations(
     for operation in operations:
         replacement = _canonicalize_h2_text(
             strip_fenced_code_comments(strip_emoji_decorations(operation.replacement_text))
+        )
+        replacement = (
+            canonicalize_public_markdown(replacement, canonical_terms)
+            if canonical_terms is not None
+            else canonicalize_public_markdown(replacement)
         )
         if replacement == operation.replacement_text:
             normalized.append(operation)
@@ -144,10 +155,36 @@ def build_presentation_policy_operations(
     operations: list[ReadmeDocumentOperationV1] = []
     occupied = [*existing_operations]
 
-    for heading in context.headings:
-        if heading.level != 2:
+    # Whole-section policy dispositions own their source span before cosmetic
+    # heading repairs.  Otherwise a smaller title-case or emoji operation can
+    # occupy the heading bytes and silently prevent removal of the commercial
+    # directory that contains them.
+    for start, end in commercial_directory_spans(context):
+        if _overlaps(start, end, occupied):
             continue
-        canonical = _CANONICAL_H2.get(heading.title.strip().casefold())
+        operation = build_operation(
+            operation_id=f"readme.presentation.remove-commercial-directory:{start}",
+            operation="remove",
+            source=context.source,
+            start=start,
+            end=end,
+            replacement="",
+            fact_ids=[],
+            treatment="presentation_policy_correction",
+            rationale=(
+                "Remove a standalone commercial call-to-action directory; verified Enterprise "
+                "Edition context remains eligible only where it naturally supports reader prose."
+            ),
+        )
+        operations.append(operation)
+        occupied.append(operation)
+
+    for heading in context.headings:
+        canonical = (
+            _CANONICAL_H2.get(heading.title.strip().casefold()) if heading.level == 2 else None
+        ) or title_case_heading(
+            heading.title.strip(), canonical_abbreviations_from_facts(context.facts)
+        )
         if canonical is None or heading.title == canonical:
             continue
         start = context.byte_offset(heading.start)
@@ -160,7 +197,7 @@ def build_presentation_policy_operations(
             source=context.source,
             start=start,
             end=end,
-            replacement=f"## {canonical}\n",
+            replacement=f"{'#' * heading.level} {canonical}\n",
             fact_ids=[],
             treatment="presentation_policy_correction",
             rationale=(
@@ -206,22 +243,24 @@ def build_presentation_policy_operations(
                 operations.append(operation)
                 occupied.append(operation)
 
-    for start, end in commercial_directory_spans(context):
+    canonical_terms = canonical_abbreviations_from_facts(context.facts)
+    for correction in public_text_corrections(context.inner_text, canonical_terms):
+        if correction.standard_id != "readme.technical_abbreviation_case":
+            continue
+        start = context.byte_offset(correction.character_start)
+        end = context.byte_offset(correction.character_end)
         if _overlaps(start, end, occupied):
             continue
         operation = build_operation(
-            operation_id=f"readme.presentation.remove-commercial-directory:{start}",
-            operation="remove",
+            operation_id=f"readme.presentation.canonical-abbreviation:{start}",
+            operation="replace",
             source=context.source,
             start=start,
             end=end,
-            replacement="",
+            replacement=correction.replacement,
             fact_ids=[],
             treatment="presentation_policy_correction",
-            rationale=(
-                "Remove a standalone commercial call-to-action directory; verified Enterprise "
-                "Edition context remains eligible only where it naturally supports reader prose."
-            ),
+            rationale=correction.rationale,
         )
         operations.append(operation)
         occupied.append(operation)

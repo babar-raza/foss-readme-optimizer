@@ -13,7 +13,6 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.evidence.writer import verify_sha256sums
 from readme_agent.facts.acquisition_facts import reconcile_acquisition_fact
-from readme_agent.facts.aspose_org_format_adapter import extract_aspose_org_formats
 from readme_agent.facts.example_branding import (
     full_product_display_name,
     normalize_example_display_literals,
@@ -31,6 +30,7 @@ from readme_agent.facts.policy_evidence import (
 )
 from readme_agent.facts.problem_grounding import derive_grounded_problem_fallback
 from readme_agent.facts.render_views import ecosystem_display_label
+from readme_agent.facts.repository_format_extraction import extract_repository_format_directions
 from readme_agent.facts.schema_v2 import (
     FactRecordV2,
     FactSourceV2,
@@ -209,9 +209,16 @@ def _repository_enriched_technical_facts(
         field: str,
         values: list[str],
         extension: FactRecordV2,
+        *,
+        include_primary_source: bool = True,
     ) -> FactRecordV2:
         primary = technical[field]
-        locations = sorted({primary.source.location, extension.source.location})
+        locations = sorted(
+            {
+                extension.source.location,
+                *([primary.source.location] if include_primary_source else []),
+            }
+        )
         return FactRecordV2(
             fact_id=descriptive_fact_id(field, "repository-extension"),
             field=field,
@@ -252,7 +259,10 @@ def _repository_enriched_technical_facts(
         ]
         if directional:
             technical["product.formats"] = extension_fact(
-                "product.formats", list(dict.fromkeys(directional)), detail
+                "product.formats",
+                list(dict.fromkeys(directional)),
+                detail,
+                include_primary_source=False,
             )
 
     direction_value = (
@@ -535,9 +545,9 @@ def salvage_product_truth_candidate(
         local_verification,
         observed_at=observed_at,
     )
-    native_formats = extract_aspose_org_formats(
+    native_formats = extract_repository_format_directions(
         snapshot.root_path,
-        platform=entry.platform,
+        platform=entry.ecosystem or entry.platform,
         family=entry.family,
         source_revision=snapshot.source_revision,
     )

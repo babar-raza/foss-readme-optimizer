@@ -40,6 +40,10 @@ from readme_agent.readme.agentic_composition_validation import (
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.opening_summary_fallback import (
+    should_use_verified_format_opening,
+    verified_format_opening_summary,
+)
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MIN_CAPABILITIES,
     PRESENTATION_MERMAID_MIN_INPUTS,
@@ -59,6 +63,8 @@ _AUTHORING_HINTS = (
 _MINIMUM_SOURCE_BYTES = 512
 _MINIMUM_H2_SECTIONS = 3
 _MINIMUM_MATERIAL_CLAIMS = 4
+_BADGE_LINE = re.compile(r"(?m)^(?:!\[|\[!\[).+$")
+_AT_A_GLANCE_MERMAID = re.compile(r"(?msi)^##[ \t]+At a glance[ \t]*\r?\n.*?^```mermaid[ \t]*\r?\n")
 _ACTION_BASES = {
     "add": "add",
     "adds": "add",
@@ -112,6 +118,17 @@ _FACTS_READY_OR_LATER: frozenset[ReadmePocStatusV2] = frozenset(
 )
 
 
+def _has_existing_presentation_shell(source_text: str) -> bool:
+    """Keep zero-provider repair only when the source already owns the visual shell."""
+
+    headings = parse_headings(source_text)
+    return (
+        any(heading.level == 1 for heading in headings)
+        and _BADGE_LINE.search(source_text) is not None
+        and _AT_A_GLANCE_MERMAID.search(source_text) is not None
+    )
+
+
 def _canonical_hash(payload: object) -> str:
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
@@ -124,6 +141,7 @@ def verified_preservation_eligible(
     assessment: ReadmeAssessmentV1,
     *,
     lifecycle_status: ReadmePocStatusV2,
+    require_presentation_shell: bool = False,
 ) -> bool:
     """Return whether preservation can replace authoring without reducing assurance."""
 
@@ -148,6 +166,8 @@ def verified_preservation_eligible(
     if sum(heading.level == 2 for heading in headings) < _MINIMUM_H2_SECTIONS:
         return False
     if len(assessment.material_claims) < _MINIMUM_MATERIAL_CLAIMS:
+        return False
+    if require_presentation_shell and not _has_existing_presentation_shell(source_text):
         return False
     for field in README_DRAFTABLE_PRODUCT_FIELDS:
         selected = facts.selected_fact(field)
@@ -281,6 +301,7 @@ def build_verified_preservation_composition_plan(
     assessment: ReadmeAssessmentV1,
     *,
     lifecycle_status: ReadmePocStatusV2,
+    require_presentation_shell: bool = False,
 ) -> ReadmeAgenticCompositionPlanV1 | None:
     """Return a fully bound deterministic plan, or defer to live composition."""
 
@@ -290,6 +311,7 @@ def build_verified_preservation_composition_plan(
         facts,
         assessment,
         lifecycle_status=lifecycle_status,
+        require_presentation_shell=require_presentation_shell,
     ):
         return None
 
@@ -300,6 +322,8 @@ def build_verified_preservation_composition_plan(
         option["fact_id"] for option in phrase_options if option["fact_id"] in required_ids
     ]
     opening_summary = _verified_opening_summary(facts)
+    if opening_summary is None or should_use_verified_format_opening(facts):
+        opening_summary = verified_format_opening_summary(facts) or opening_summary
     if opening_summary is None:
         return None
     tool_draft = AgenticCompositionToolDraftV1(

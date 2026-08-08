@@ -1295,7 +1295,7 @@ def test_runtime_standard_binding_uses_policy_catalog_and_automatic_budget(tmp_p
     assert "https://products.aspose.org/3d/python/" in links["allowed_urls"]
     assert "https://products.aspose.com/3d/python-net/" in links["allowed_urls"]
     assert links["max_total"] == 2
-    assert links["domain_maxima"] == {"aspose.org": 1, "aspose.com": 2}
+    assert links["domain_maxima"] == {"aspose.org": 2, "aspose.com": 1}
     assert links["forbidden_sections"] == ["navigation", "at a glance"]
     assert links["forbid_blockquotes"] is True
     badge_fragments = standards["readme.badges"].parameters["required_fragments"]

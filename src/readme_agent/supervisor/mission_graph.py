@@ -261,6 +261,10 @@ def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
             raise ConfigError(
                 f"task {task.task_id!r} uses rationale instead of a concrete core contribution"
             )
+        if task.core_contribution.kind == "visible_deliverable" and task.execution_focus is None:
+            raise ConfigError(
+                f"visible-deliverable task {task.task_id!r} requires one execution_focus"
+            )
         by_id[task.task_id] = task
 
     for task in graph.taskcards:

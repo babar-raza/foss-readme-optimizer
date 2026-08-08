@@ -14,6 +14,10 @@ from readme_agent.links.terminology import (
     enterprise_product_name_from_facts,
 )
 from readme_agent.presentation.verified_source_shell_policy import source_shell_policy_spans
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    public_text_corrections,
+)
 
 _FENCE = re.compile(r"(?ms)^```.*?^```[ \t]*$")
 _MARKDOWN_LINK = re.compile(r"(!?)\[([^\]\n]*)\]\((https?://[^)\s]+)\)", re.IGNORECASE)
@@ -198,4 +202,24 @@ def build_verified_source_policy_edits(
                     ),
                 )
             )
+    for public_correction in public_text_corrections(
+        source_text, canonical_abbreviations_from_facts(facts)
+    ):
+        byte_start = _byte_offset(source_text, public_correction.character_start)
+        byte_end = _byte_offset(source_text, public_correction.character_end)
+        if any(
+            existing_start < byte_end and byte_start < existing_end
+            for existing_start, existing_end in occupied
+        ):
+            continue
+        occupied.append((byte_start, byte_end))
+        edits.append(
+            VerifiedSourcePolicyEditV1(
+                source_byte_start=byte_start,
+                source_byte_end=byte_end,
+                replacement=public_correction.replacement,
+                configured_standard_ids=[public_correction.standard_id],
+                rationale=public_correction.rationale,
+            )
+        )
     return sorted(edits, key=lambda item: item.source_byte_start)

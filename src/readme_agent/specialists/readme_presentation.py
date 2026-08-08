@@ -317,6 +317,7 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             prepared.facts,
             assessment,
             lifecycle_status=prepared.lifecycle_status,
+            require_presentation_shell=True,
         )
         if preservation_plan is not None:
             wiring_arguments["agentic_composition_plan"] = preservation_plan.model_dump(mode="json")

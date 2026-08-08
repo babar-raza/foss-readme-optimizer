@@ -12,8 +12,8 @@ The catalog contains **475** requirements:
 - `BACKLOG`: 28
 - `DEPRECATED`: 22
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 163
-- `PARTIAL`: 98
+- `IMPLEMENTED`: 162
+- `PARTIAL`: 99
 - `PLANNED`: 123
 - `RESEARCH-GATED`: 6
 
@@ -42,10 +42,13 @@ Their enforcement lives in registered validators and official checks, not repeat
 
 ## Current active slice
 
-The next executable slice is `L8-VPY-01-NOTE-VERIFIED-CANARY`: a development-only comparison and
-native comparative regression. Aspose.org artifacts may diagnose contract gaps, but the accepted
-run must succeed without that checkout and may not write any product repository. Durable supervisor
-state remains the sole authority for the live claim.
+Run mission `status` before execution and follow its exact immediate goal and repository scope.
+Every bounded canary must bind `--mission-task-id` and `--mission-observer` to the unexpired durable
+claim; graph drift, scope mismatch, foreign ownership, or an exhausted approach budget fails before
+repository work. Aspose.org artifacts may
+diagnose development-time contract gaps, but accepted runs must succeed without that checkout and
+may not write any product repository. Durable supervisor state remains the sole authority for the
+live task; this compact index intentionally does not duplicate a task ID that can become stale.
 
 ## Status and history
 

@@ -1,140 +1,95 @@
 # Aspose.Note FOSS for Python
 
-[![PyPI version](https://img.shields.io/pypi/v/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg)](https://pypi.org/project/aspose-note/) [![Build](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml/badge.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Contributors](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
+[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)
 
-Aspose.Note FOSS for Python is a free, open-source Python library for reading Microsoft OneNote
-`.one` files through an Aspose.Note-compatible API. It parses MS-ONE/OneStore data into a
-traversable document object model, extracts structured content, and exports documents to PDF.
+Aspose.Note FOSS for Python is an open-source library for developers using Python. It reads Microsoft OneNote (.one) files and writes PDF files.
 
 ## Navigation
 
-- [At a glance](#at-a-glance)
-- [Key capabilities](#key-capabilities)
+- [At a Glance](#at-a-glance)
+- [Key Capabilities](#key-capabilities)
 - [Installation](#installation)
-- [Quick start](#quick-start)
-- [Additional examples](#additional-examples)
-- [API reference](#api-reference)
-- [Scope and limitations](#scope-and-limitations)
-- [Development and testing](#development-and-testing)
-- [Third-party notices](#third-party-notices)
+- [Quick Start](#quick-start)
+- [Additional Examples](#additional-examples)
+- [API Reference](#api-reference)
+- [Documentation and Resources](#documentation-and-resources)
+- [Scope and Limitations](#scope-and-limitations)
+- [Development and Testing](#development-and-testing)
+- [Third-Party Notices](#third-party-notices)
 - [License](#license)
 
-## At a glance
+## At a Glance
 
 ```mermaid
 flowchart LR
-  subgraph Inputs["Inputs and formats"]
-    I1["Microsoft OneNote .one files"]
-    I2["File paths"]
-    I3["Binary streams"]
+  subgraph Inputs["Inputs and Formats"]
+    I1["Microsoft OneNote (.one) files"]
   end
 
   PRODUCT["Aspose.Note FOSS for Python"]
 
-  subgraph Capabilities["Core capabilities"]
-    C1["MS-ONE and OneStore parsing"]
-    C2["Document object model traversal"]
-    C3["Text and hyperlink extraction"]
-    C4["Image and attachment extraction"]
-    C5["Table, tag, and list inspection"]
-    C6["PDF export with ReportLab"]
+  subgraph Capabilities["Core Capabilities"]
+    direction LR
+    subgraph CapabilityColumn1[" "]
+      direction TB
+      C1["Document and traversal"]
+      C2["Page and Title nodes"]
+      C3["RichText with formatting runs"]
+      C4["Image and AttachedFile content"]
+      C1 ~~~ C2
+      C2 ~~~ C3
+      C3 ~~~ C4
+    end
+    subgraph CapabilityColumn2[" "]
+      direction TB
+      C5["Table with rows and cells"]
+      C6["OneNote tags on content nodes"]
+      C7["Numbered lists and outline elements"]
+      C8["PDF export"]
+      C5 ~~~ C6
+      C6 ~~~ C7
+      C7 ~~~ C8
+    end
   end
+  style CapabilityColumn1 fill:none,stroke:none
+  style CapabilityColumn2 fill:none,stroke:none
 
-  subgraph Outputs["Outputs and accessible content"]
-    O1["Pages, outlines, and metadata"]
-    O2["Rich text and formatting"]
-    O3["Images and attached files"]
-    O4["Tables, tags, and numbered lists"]
-    O5["PDF documents"]
+  subgraph Outputs["Outputs"]
+    O1["PDF files"]
   end
 
   I1 --- PRODUCT
-  I2 --- PRODUCT
-  I3 --- PRODUCT
-  PRODUCT --- C1
-  PRODUCT --- C2
-  PRODUCT --- C3
-  PRODUCT --- C4
-  PRODUCT --- C5
-  PRODUCT --- C6
-  C1 --- O1
-  C2 --- O1
-  C3 --- O2
-  C4 --- O3
-  C5 --- O4
-  C6 --- O5
+  PRODUCT --- Capabilities
+  Capabilities --- Outputs
 ```
 
-## Key capabilities
+## Key Capabilities
 
-- Read `.one` documents from a file path or binary stream.
-- Navigate an Aspose-style document object model with pages, outlines, and type-based search.
-- Extract rich text, formatting runs, hyperlinks, images, attached files, and document metadata.
-- Inspect tables, OneNote tags, numbered lists, and nested outline elements.
-- Traverse documents with `DocumentVisitor`.
-- Export documents to PDF through `Document.Save(..., SaveFormat.Pdf)` using ReportLab.
+- **Read and traverse Microsoft OneNote (.one) files in Python** - Navigate document content through the public `DocumentVisitor`, `Node`, and `Document` APIs.
+- **Access OneNote pages and page titles** - Inspect page and title nodes through the public `Node`, `Page`, and `Title` APIs.
+- **Extract rich text and formatting from OneNote files** - Work with formatted text through the public `TextRun`, `RichText`, and `TextStyle` APIs.
+- **Extract images and attached files from OneNote files** - Access images and attached-file content through the public `AttachedFile` and `Image` APIs.
+- **Read OneNote tables, rows, and cells** - Traverse tables, rows, and cells through the public `TableRow`, `TableCell`, and `Table` APIs.
+- **Inspect tags in OneNote documents** - Inspect tags on content nodes through the public `NoteTag` and `Node` APIs.
+- **Read numbered lists and outline elements in OneNote documents** - Inspect numbered lists and outline structures through the public `NumberList`, `OutlineElement`, and `Outline` APIs.
+- **Convert OneNote files to PDF** - Export supported output through the public `SaveFormat` API.
 
 ## Installation
-
-Install the library from PyPI:
 
 ```bash
 python -m pip install aspose-note
 ```
 
-Install PDF export support:
+Requires Python 3.10 or later.
 
-```bash
-python -m pip install "aspose-note[pdf]"
-```
+Optional dependency groups declared in `pyproject.toml`:
+- `dev`: `python -m pip install "aspose-note[dev]"`
+- `pdf`: `python -m pip install "aspose-note[pdf]"`
+- `test-pdf`: `python -m pip install "aspose-note[test-pdf]"`
 
-The package supports Python 3.10 and later.
+- optional capability: `python -m pip install reportlab`
 
-## Quick start
-
-Load a OneNote document and inspect its pages:
-
-```python
-from aspose.note import Document
-
-doc = Document("testfiles/SimpleTable.one")
-print(doc.DisplayName)
-pages = list(doc)
-print(len(pages))
-
-for page in pages:
-    print(page.Title.TitleText.Text)
-```
-
-Export a document to PDF:
-
-```python
-from aspose.note import Document, SaveFormat
-
-doc = Document("testfiles/FormattedRichText.one")
-doc.Save("out.pdf", SaveFormat.Pdf)
-```
-
-## Additional examples
-
-Runnable scripts and sample OneNote documents are available in the
-[`examples`](examples/) directory. The most common operations are collected below without
-obscuring the primary installation and quick-start path.
-
-<details>
-<summary>View additional examples</summary>
-
-### Extract all text
-
-```python
-from aspose.note import Document, RichText
-
-doc = Document("testfiles/FormattedRichText.one")
-texts = [rt.Text for rt in doc.GetChildNodes(RichText)]
-print("\n".join(texts))
-```
-
-### Save all images
+## Quick Start
 
 ```python
 from aspose.note import Document, Image
@@ -146,7 +101,48 @@ for i, img in enumerate(doc.GetChildNodes(Image), start=1):
         f.write(img.Bytes)
 ```
 
-### Export with PDF options
+## Additional Examples
+
+Expand this section to view examples for inspecting document metadata and page titles, exporting to PDF, extracting all text from an MS OneNote document, loading an MS OneNote document from a binary stream, and browsing repository example files, plus 8 more workflows.
+
+<details>
+<summary>View additional examples and results</summary>
+
+### Inspect Document Metadata and Page Titles
+
+```python
+from aspose.note import Document
+
+doc = Document("testfiles/SimpleTable.one")
+print(doc.DisplayName)
+pages = list(doc)
+print(len(pages))
+
+
+for page in pages:
+    print(page.Title.TitleText.Text)
+```
+
+### Export to PDF
+
+```python
+from aspose.note import Document, SaveFormat
+
+doc = Document("testfiles/FormattedRichText.one")
+doc.Save("out.pdf", SaveFormat.Pdf)
+```
+
+### Extract All Text from an MS OneNote Document
+
+```python
+from aspose.note import Document, RichText
+
+doc = Document("testfiles/FormattedRichText.one")
+texts = [rt.Text for rt in doc.GetChildNodes(RichText)]
+print("\n".join(texts))
+```
+
+### Export an MS OneNote Document to PDF
 
 ```python
 from aspose.note import Document, SaveFormat
@@ -159,7 +155,7 @@ opts = PdfSaveOptions(
 doc.Save("out.pdf", opts)
 ```
 
-### Load from a binary stream
+### Load an MS OneNote Document from a Binary Stream
 
 ```python
 from pathlib import Path
@@ -173,7 +169,7 @@ print(doc.DisplayName)
 print(len(list(doc)))
 ```
 
-### Traverse the document structure
+### Traverse MS OneNote Document Structure (DOM) and Print a Simple Outline
 
 ```python
 from aspose.note import Document, Page, Outline, OutlineElement, RichText
@@ -186,12 +182,13 @@ for page in doc.GetChildNodes(Page):
 
   for outline in page.GetChildNodes(Outline):
     for oe in outline.GetChildNodes(OutlineElement):
+
       texts = [rt.Text for rt in oe.GetChildNodes(RichText)]
       if texts:
         print("-", " ".join(t.strip() for t in texts if t.strip()))
 ```
 
-### Count nodes with DocumentVisitor
+### Count MS OneNote DOM Nodes with `DocumentVisitor`
 
 ```python
 from aspose.note import Document, DocumentVisitor, Page, Image, RichText
@@ -219,7 +216,7 @@ doc.Accept(counter)
 print(counter.pages, counter.rich_texts, counter.images)
 ```
 
-### Extract hyperlinks
+### Extract Hyperlinks from Formatted Text in an MS OneNote Document
 
 ```python
 from aspose.note import Document, RichText
@@ -231,18 +228,16 @@ for rt in doc.GetChildNodes(RichText):
       print(run.Text, "->", run.Style.HyperlinkAddress)
 ```
 
-### Inspect OneNote tags
+### Inspect MS OneNote Tags (NoteTag) Across the Document
 
 ```python
 from aspose.note import Document, RichText, Image, Table
 
 doc = Document("testfiles/TagSizes.one")
 
-
 def dump_tags(kind: str, tags) -> None:
   for t in tags:
     print(kind, "tag:", t.Label, t.Icon)
-
 
 for rt in doc.GetChildNodes(RichText):
   dump_tags("RichText", rt.Tags)
@@ -254,7 +249,7 @@ for tbl in doc.GetChildNodes(Table):
   dump_tags("Table", tbl.Tags)
 ```
 
-### Read tables
+### Work with Tables in an MS OneNote Document (Rows/Cells)
 
 ```python
 from aspose.note import Document, Table, TableRow, TableCell, RichText
@@ -272,7 +267,7 @@ for table in doc.GetChildNodes(Table):
     print(f"Row {row_index}:", values)
 ```
 
-### Extract attached files
+### Extract Attached Files from an MS OneNote Document
 
 ```python
 from aspose.note import Document, AttachedFile
@@ -286,7 +281,7 @@ for i, af in enumerate(doc.GetChildNodes(AttachedFile), start=1):
   print("saved:", name)
 ```
 
-### Inspect numbered lists
+### Inspect Numbered Lists in an MS OneNote Document
 
 ```python
 from aspose.note import Document, OutlineElement
@@ -304,222 +299,200 @@ for oe in doc.GetChildNodes(OutlineElement):
   )
 ```
 
+### Repository Example Files
+
+- [`export_pdf.py`](examples/export_pdf.py)
+- [`extract_text.py`](examples/extract_text.py)
+- [`save_images.py`](examples/save_images.py)
+
+
 </details>
 
-## API reference
+## API Reference
 
-The supported public entry points are `aspose.note` and `aspose.note.saving`. Everything under
-`aspose.note._internal` is an implementation detail and may change. The primary entry point is
-`Document`, which loads a OneNote document, exposes its page hierarchy, supports traversal and
-type-based searches, and saves supported output formats.
+The package declares 75 public exports across 7 verified namespaces.
 
 <details>
-<summary>View the supported public API surface</summary>
+<summary>View public API by namespace</summary>
 
-### Document and traversal
+### Aspose.Note Namespace (`aspose.note`)
 
-- `Document(source=None, load_options=None)`
-  - `DisplayName: str | None`
-  - `CreationTime: datetime | None`
-  - iteration with `for page in document: ...`
-  - `FileFormat -> FileFormat` with best-effort detection
-  - `GetPageHistory(page) -> PageHistory`
-  - `DetectLayoutChanges()`
-  - `Save(target, format_or_options=None)` with `SaveFormat.Pdf`
-- `PageHistory`
-  - `Current: Page`
-  - `Count: int`
-  - `IsReadOnly: bool`
-  - iteration and indexing over historical revisions
-- `DocumentVisitor`
-  - `VisitDocumentStart/End`
-  - `VisitPageStart/End`
-  - `VisitTitleStart/End`
-  - `VisitOutlineStart/End`
-  - `VisitOutlineElementStart/End`
-  - `VisitRichTextStart/End`
-  - `VisitImageStart/End`
-- `Node`
-  - `ParentNode`
-  - `Document`
-  - `Accept(visitor)`
-- Container nodes including `Document`, `Page`, `Title`, `Outline`, `OutlineElement`, `Image`,
-  `Table`, `TableRow`, and `TableCell`
-  - `FirstChild`, `LastChild`
-  - `AppendChildLast(node)`, `AppendChildFirst(node)`, `InsertChild(index, node)`,
-    `RemoveChild(node)`
-  - `GetEnumerator()` and iteration
-  - `GetChildNodes(Type) -> list[Type]`
+| Type | Description |
+| --- | --- |
+| `AttachedFile` | Attached file: access to bytes, access to file name, and access to tags. Inherits from `Node`. Includes 3 additional verified members. |
+| `Document` | Document: detect layout changes, retrieve page history, and save document output. Inherits from `CompositeNode`. Includes 14 additional verified members. |
+| `DocumentVisitor` | Document visitor: visit document, visit image, and visit outline element. Includes 11 additional verified members. |
+| `FileCorruptedException` | Signals a file corrupted condition; derives from `AsposeNoteError`. |
+| `FileFormat` | Enumerates file format values. Values include `OneNote2007`, `OneNote2010`, and `OneNoteOnline` and 1 more. |
+| `HorizontalAlignment` | Enumerates horizontal alignment values. Values include `Center`, `Left`, and `Right`. |
+| `Image` | Image: replace content, access to alignment, and access to bytes. Inherits from `CompositeNode`. Includes 17 additional verified members. |
+| `IncorrectDocumentStructureException` | Signals an incorrect document structure condition; derives from `AsposeNoteError`. |
+| `IncorrectPasswordException` | Signals an incorrect password condition; derives from `AsposeNoteError`. |
+| `License` | License: configure package licensing. |
+| `LoadOptions` | Load options: access to document password and access to load history. |
+| `Metered` | Metered: configure metered licensing keys. |
+| `Node` | Node: traverse with a visitor, access to document, and access to parent node. |
+| `NodeType` | Enumerates node type values. Values include `AttachedFile`, `Image`, and `Outline` and 5 more. |
+| `NoteTag` | Note tag: create musical note, create question mark, and create yellow star. Includes 7 additional verified members. |
+| `NumberList` | Number list: retrieve numbered list header, access to font, and access to font color. Includes 7 additional verified members. |
+| `Outline` | Outline: access to descendants cannot be moved, access to horizontal offset, and access to indent position. Inherits from `CompositeNode`. Includes 17 additional verified members. |
+| `OutlineElement` | Outline element: access to number list, traverse with a visitor, and append child nodes. Inherits from `CompositeNode`. Includes 9 additional verified members. |
+| `Page` | Page: clone content, access to author, and access to background color. Inherits from `CompositeNode`. Includes 20 additional verified members. |
+| `PageHistory` | Page history: add, clear content, and contains. Includes 11 additional verified members. |
+| `ParagraphStyle` | Paragraph style: create default values and access to font style. |
+| `RichText` | Rich text: append content, clear content, and find content. Inherits from `Node`. Includes 20 additional verified members. |
+| `SaveFormat` | Enumerates save format values. Values include `Pdf`. |
+| `Table` | Table: access to columns, access to tags, and traverse with a visitor. Inherits from `CompositeNode`. Includes 10 additional verified members. |
+| `TableCell` | Table cell: traverse with a visitor, append child nodes, and retrieve child nodes. Inherits from `CompositeNode`. Includes 8 additional verified members. |
+| `TableColumn` | Table column: access to locked width and access to width. |
+| `TableRow` | Table row: traverse with a visitor, append child nodes, and retrieve child nodes. Inherits from `CompositeNode`. Includes 8 additional verified members. |
+| `TagStatus` | Enumerates tag status values. Values include `Completed`, `Disabled`, and `Open`. |
+| `TextRun` | Text run: access to style and access to text. |
+| `TextStyle` | Text style: create default values, create default ms one note title date style, and create default ms one note title text style. Includes 17 additional verified members. |
+| `Title` | Title: retrieve child nodes, access to title date, and access to title text. Inherits from `Node`. Includes 5 additional verified members. |
+| `UnsupportedFileFormatException` | Signals an unsupported format condition; derives from `AsposeNoteError`. |
+| `UnsupportedSaveFormatException` | Signals an unsupported save format condition; derives from `AsposeNoteError`. |
 
-### Document structure
+### Aspose.Note.Enums Namespace (`aspose.note.enums`)
 
-- `Page`
-  - `Title: Title | None`
-  - `Author: str | None`
-  - `CreationTime: datetime | None`
-  - `LastModifiedTime: datetime | None`
-  - `Level: int | None`
-  - `Clone(deep=False) -> Page`
-- `Title`
-  - `TitleText: RichText | None`
-  - `TitleDate: RichText | None`
-  - `TitleTime: RichText | None`
-- `Outline`
-  - `HorizontalOffset`, `VerticalOffset`, `MaxWidth`
-  - `MaxHeight`, `MinWidth`, `ReservedWidth`, `IndentPosition`
-  - `DescendantsCannotBeMoved`, `LastModifiedTime`
-- `OutlineElement`
-  - `NumberList: NumberList | None`
+| Type | Description |
+| --- | --- |
+| `FileFormat` | The `aspose.note.enums` namespace re-exports `FileFormat` from the primary `aspose.note` namespace. |
+| `HorizontalAlignment` | The `aspose.note.enums` namespace re-exports `HorizontalAlignment` from the primary `aspose.note` namespace. |
+| `NodeType` | The `aspose.note.enums` namespace re-exports `NodeType` from the primary `aspose.note` namespace. |
+| `SaveFormat` | The `aspose.note.enums` namespace re-exports `SaveFormat` from the primary `aspose.note` namespace. |
+| `TagStatus` | The `aspose.note.enums` namespace re-exports `TagStatus` from the primary `aspose.note` namespace. |
 
-### Content
+### Aspose.Note.Exceptions Namespace (`aspose.note.exceptions`)
 
-- `RichText(Node)`
-  - `Text: str`
-  - `TextRuns: list[TextRun]`
-  - `ParagraphStyle: ParagraphStyle`
-  - `Length: int`
-  - `Alignment: HorizontalAlignment | None`
-  - `Tags: list[NoteTag]`
-  - `Append(text, style=None) -> RichText`
-  - `Replace(old_value, new_value) -> RichText`
-  - `IndexOf(...) -> int`
-- `TextRun`
-  - `Text: str`
-  - `Style: TextStyle`
-- `ParagraphStyle`
-  - default paragraph-level formatting for `RichText.ParagraphStyle`
-- `TextStyle`
-  - `IsBold`, `IsItalic`, `IsUnderline`, `IsStrikethrough`, `IsSuperscript`, `IsSubscript`
-  - `IsHidden`, `IsMathFormatting`
-  - `FontName`, `FontSize`, `FontColor`, `Highlight`, `Language`, `FontStyle`
-  - `IsHyperlink`, `HyperlinkAddress`
-- `Image`
-  - `FileName`, `Bytes`, `Width`, `Height`
-  - `AlternativeTextTitle`, `AlternativeTextDescription`
-  - `HyperlinkUrl`, `Tags`
-  - `Replace(image) -> None`
-- `AttachedFile(Node)`
-  - `FileName`, `Bytes`, `Tags`
-- `Table`
-  - `Columns: list[TableColumn]`
-  - `IsBordersVisible: bool`
-  - `Tags: list[NoteTag]`
-- `TableColumn`
-  - `Width: float | None`
-  - `LockedWidth: bool`
-- `TableRow`, `TableCell`
-- `NoteTag`
-  - `Label`, `Icon`, `Status`, `Highlight`, `CreationTime`, `CompletedTime`, `FontColor`
-  - `CreateYellowStar()`, `CreateQuestionMark()`
-- `NumberList`
-  - `Format`, `NumberFormat`, `Font`, `FontSize`, `FontColor`
-  - `IsBold`, `IsItalic`, `Restart`
-  - `GetNumberedListHeader(number) -> str`
+| Type | Description |
+| --- | --- |
+| `AsposeNoteError` | Signals an aspose note error condition; derives from `Exception`. |
+| `FileCorruptedException` | The `aspose.note.exceptions` namespace re-exports `FileCorruptedException` from the primary `aspose.note` namespace. |
+| `IncorrectDocumentStructureException` | The `aspose.note.exceptions` namespace re-exports `IncorrectDocumentStructureException` from the primary `aspose.note` namespace. |
+| `IncorrectPasswordException` | The `aspose.note.exceptions` namespace re-exports `IncorrectPasswordException` from the primary `aspose.note` namespace. |
+| `UnsupportedFileFormatException` | The `aspose.note.exceptions` namespace re-exports `UnsupportedFileFormatException` from the primary `aspose.note` namespace. |
+| `UnsupportedSaveFormatException` | The `aspose.note.exceptions` namespace re-exports `UnsupportedSaveFormatException` from the primary `aspose.note` namespace. |
 
-### Load and save options
+### Aspose.Note.Model Namespace (`aspose.note.model`)
 
-- `LoadOptions`
-  - `DocumentPassword: str | None`
-  - `LoadHistory: bool`
-- `aspose.note.saving.SaveOptions`
-  - abstract compatibility base type
-  - `SaveFormat: SaveFormat`
-  - `PageIndex`, `PageCount`, `FontsSubsystem`
-- `aspose.note.saving.PdfSaveOptions`
-  - `PageIndex`, `PageCount`
-  - `ImageCompression`, `JpegQuality`, `PageSettings`, `PageSplittingAlgorithm`
+| Type | Description |
+| --- | --- |
+| `AttachedFile` | The `aspose.note.model` namespace re-exports `AttachedFile` from the primary `aspose.note` namespace. |
+| `CompositeNode` | Composite node: append child nodes, retrieve child nodes, and insert content. Inherits from `Node`. Includes 8 additional verified members. |
+| `Document` | The `aspose.note.model` namespace re-exports `Document` from the primary `aspose.note` namespace. |
+| `DocumentVisitor` | The `aspose.note.model` namespace re-exports `DocumentVisitor` from the primary `aspose.note` namespace. |
+| `Image` | The `aspose.note.model` namespace re-exports `Image` from the primary `aspose.note` namespace. |
+| `License` | The `aspose.note.model` namespace re-exports `License` from the primary `aspose.note` namespace. |
+| `LoadOptions` | The `aspose.note.model` namespace re-exports `LoadOptions` from the primary `aspose.note` namespace. |
+| `Metered` | The `aspose.note.model` namespace re-exports `Metered` from the primary `aspose.note` namespace. |
+| `Node` | The `aspose.note.model` namespace re-exports `Node` from the primary `aspose.note` namespace. |
+| `NoteTag` | The `aspose.note.model` namespace re-exports `NoteTag` from the primary `aspose.note` namespace. |
+| `NumberList` | The `aspose.note.model` namespace re-exports `NumberList` from the primary `aspose.note` namespace. |
+| `Outline` | The `aspose.note.model` namespace re-exports `Outline` from the primary `aspose.note` namespace. |
+| `OutlineElement` | The `aspose.note.model` namespace re-exports `OutlineElement` from the primary `aspose.note` namespace. |
+| `Page` | The `aspose.note.model` namespace re-exports `Page` from the primary `aspose.note` namespace. |
+| `PageHistory` | The `aspose.note.model` namespace re-exports `PageHistory` from the primary `aspose.note` namespace. |
+| `ParagraphStyle` | The `aspose.note.model` namespace re-exports `ParagraphStyle` from the primary `aspose.note` namespace. |
+| `PdfSaveOptions` | PDF save options: access to save format. Inherits from `SaveOptions`. |
+| `RichText` | The `aspose.note.model` namespace re-exports `RichText` from the primary `aspose.note` namespace. |
+| `SaveOptions` | Save options: access to save format. |
+| `Table` | The `aspose.note.model` namespace re-exports `Table` from the primary `aspose.note` namespace. |
+| `TableCell` | The `aspose.note.model` namespace re-exports `TableCell` from the primary `aspose.note` namespace. |
+| `TableColumn` | The `aspose.note.model` namespace re-exports `TableColumn` from the primary `aspose.note` namespace. |
+| `TableRow` | The `aspose.note.model` namespace re-exports `TableRow` from the primary `aspose.note` namespace. |
+| `TextRun` | The `aspose.note.model` namespace re-exports `TextRun` from the primary `aspose.note` namespace. |
+| `TextStyle` | The `aspose.note.model` namespace re-exports `TextStyle` from the primary `aspose.note` namespace. |
+| `Title` | The `aspose.note.model` namespace re-exports `Title` from the primary `aspose.note` namespace. |
 
-### Enums
+### Aspose.Note.Saving Namespace (`aspose.note.saving`)
 
-- `SaveFormat`: `Pdf`
-- `FileFormat`: `OneNote2010`, `OneNoteOnline`, `OneNote2007`
-- `HorizontalAlignment`: `Left`, `Center`, `Right`
-- `NodeType`: `Document`, `Page`, `Outline`, `OutlineElement`, `RichText`, `Image`, `Table`,
-  `AttachedFile`
+| Type | Description |
+| --- | --- |
+| `PdfSaveOptions` | The `aspose.note.saving` namespace re-exports `PdfSaveOptions` from the primary `aspose.note.model` namespace. |
+| `SaveOptions` | The `aspose.note.saving` namespace re-exports `SaveOptions` from the primary `aspose.note.model` namespace. |
 
-### Exceptions
+### Aspose.Note.Saving.Options Namespace (`aspose.note.saving.options`)
 
-- `FileCorruptedException`
-- `IncorrectDocumentStructureException`
-- `IncorrectPasswordException`
-- `UnsupportedFileFormatException`
-- `UnsupportedSaveFormatException`
+| Type | Description |
+| --- | --- |
+| `PdfSaveOptions` | The `aspose.note.saving.options` namespace re-exports `PdfSaveOptions` from the primary `aspose.note.model` namespace. |
+| `SaveOptions` | The `aspose.note.saving.options` namespace re-exports `SaveOptions` from the primary `aspose.note.model` namespace. |
+
+### Aspose.Note.Saving.PDF Writer Namespace (`aspose.note.saving.pdf_writer`)
+
+| Type | Description |
+| --- | --- |
+| `write_pdf` | Public function for write PDF operations. |
 
 </details>
 
-## Scope and limitations
+## Documentation and Resources
 
-This project focuses on reading `.one` files and representing their contents as a Python document
-object model. Writing changes back to `.one` files is not implemented. Password-protected or
-encrypted documents are not supported, and PDF is currently the only implemented save format.
+- **[Getting started guide](https://docs.aspose.org/note/python/)** - installation, walkthroughs, and feature guides for this library.
+- **[How-to guides and FAQ](https://kb.aspose.org/note/python/)** - task-focused answers for common product questions.
+- **[Full API reference](https://reference.aspose.org/note/python/)** - the complete browsable reference for the public API.
+- Found a bug or have a feature request? [Open an issue](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/issues) on GitHub.
 
-For workflows that require broader writing, conversion, or compatibility support, see
-[Aspose.Note Enterprise Edition](https://products.aspose.com/note/).
+## Scope and Limitations
 
-## Development and testing
+- Password-protected documents are not supported
+- Unsupported format/options argument
+- Only PDF save is supported
+- Only PDF file targets are supported for save operations
+- PDF export requires ReportLab
 
-Install the repository with PDF support and run the test suite:
+For requirements beyond the FOSS scope described above, explore the [full-featured Aspose.Note Enterprise Edition](https://products.aspose.com/note/). It is a separate product, so features and APIs may differ.
 
-```bash
-python -m pip install -e ".[pdf]"
-python -m pytest -q
-```
+## Development and Testing
 
-Install the base package from a local checkout:
+The repository includes 13 test files, 1 maintenance tool, 13 golden assets, 2 source-bound validation commands.
+
+<details>
+<summary>View development and testing resources</summary>
+
+### Tests
+
+- [`tests/test_aspose_note_compat_smoke.py`](tests/test_aspose_note_compat_smoke.py)
+- [`tests/test_aspose_note_dom_content.py`](tests/test_aspose_note_dom_content.py)
+- [`tests/test_aspose_note_dom_document.py`](tests/test_aspose_note_dom_document.py)
+- [`tests/test_aspose_note_exceptions_and_stubs.py`](tests/test_aspose_note_exceptions_and_stubs.py)
+- [`tests/test_aspose_note_history.py`](tests/test_aspose_note_history.py)
+- [Browse all test files](tests)
+
+### Tools
+
+- [`tools/regenerate_pdf_goldens.py`](tools/regenerate_pdf_goldens.py)
+
+### Goldens
+
+- [`tests/goldens/pdf/attached_file_with_tag.manifest.json`](tests/goldens/pdf/attached_file_with_tag.manifest.json)
+- [`tests/goldens/pdf/formatted_richtext.manifest.json`](tests/goldens/pdf/formatted_richtext.manifest.json)
+- [`tests/goldens/pdf/image_with_tag.manifest.json`](tests/goldens/pdf/image_with_tag.manifest.json)
+- [`tests/goldens/pdf/images_with_alignment.manifest.json`](tests/goldens/pdf/images_with_alignment.manifest.json)
+- [`tests/goldens/pdf/numbered_list_with_tags.manifest.json`](tests/goldens/pdf/numbered_list_with_tags.manifest.json)
+- [`tests/goldens/pdf/one_page_with_file.manifest.json`](tests/goldens/pdf/one_page_with_file.manifest.json)
+- [`tests/goldens/pdf/page_with_subpage.manifest.json`](tests/goldens/pdf/page_with_subpage.manifest.json)
+- [`tests/goldens/pdf/page_with_subpage.pdf`](tests/goldens/pdf/page_with_subpage.pdf)
+- [Browse all golden assets](tests/goldens)
+
+### Focused Commands and Repository Scripts
 
 ```bash
 python -m pip install -e .
 ```
 
-Install the complete semantic PDF test dependencies:
-
 ```bash
-python -m pip install -e ".[pdf,test-pdf]"
+python -m unittest discover -s tests -p "test_*.py"
 ```
 
-<details>
-<summary>View the PDF golden-test workflow</summary>
-
-Golden PDFs are stored under `tests/goldens/pdf/` with JSON manifests extracted from the generated
-documents. The test suite compares manifests instead of raw PDF bytes so results remain stable
-across platforms and ReportLab internals. The PDF writer uses deterministic Base-14 fonts by
-default. Set `ASPOSE_NOTE_PDF_USE_SYSTEM_FONTS=1` only when inspecting Windows system fonts
-locally.
-
-Regenerate every baseline:
-
-```bash
-python tools/regenerate_pdf_goldens.py
-```
-
-Regenerate selected cases:
-
-```bash
-python tools/regenerate_pdf_goldens.py --case formatted_richtext --case simple_table
-```
-
-Run the verification suite:
-
-```bash
-python -m unittest tests.test_aspose_note_pdf_goldens -v
-```
-
-On mismatch, generated PDFs and manifests are written to
-`tests/out/pdf_golden_failures/`. When available, `PyMuPDF` renders visual diff artifacts;
-`pdftoppm` is used as the fallback renderer.
-
-Maintainers can publish releases through the
-[PyPI release page](https://pypi.org/manage/project/aspose-note/releases/).
 
 </details>
 
-## Third-party notices
+## Third-Party Notices
 
-Dependencies and incorporated third-party components, including ReportLab used for PDF export, are
-documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Third-party attribution and dependency license notices are recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). The MIT License permits use, copying,
-modification, distribution, sublicensing, and commercial use, provided its copyright and
-permission notice are retained. The software is provided without warranty.
+This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.

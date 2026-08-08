@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.presentation_lint_models import PresentationLintResultV1
+from readme_agent.readme.presentation_lint_public_contract import (
+    RULE_IDS as PUBLIC_CONTRACT_RULE_IDS,
+)
+from readme_agent.readme.presentation_lint_public_contract import lint_public_contract
 from readme_agent.readme.presentation_lint_semantics import (
     RULE_IDS as SEMANTIC_RULE_IDS,
 )
@@ -24,9 +28,13 @@ def lint_readme_presentation(
 ) -> PresentationLintResultV1:
     """Reject known visitor defects without an LLM call or product-name allowlist."""
 
-    findings = lint_semantics(candidate_text, facts) + lint_structure(candidate_text)
+    findings = (
+        lint_semantics(candidate_text, facts)
+        + lint_structure(candidate_text)
+        + lint_public_contract(candidate_text, facts)
+    )
     findings.sort(key=lambda finding: (finding.spans[0].start, finding.rule_id, finding.finding_id))
-    rules_run = sorted({*SEMANTIC_RULE_IDS, *STRUCTURE_RULE_IDS})
+    rules_run = sorted({*SEMANTIC_RULE_IDS, *STRUCTURE_RULE_IDS, *PUBLIC_CONTRACT_RULE_IDS})
     return PresentationLintResultV1(
         valid=not any(finding.severity == "critical" for finding in findings),
         rules_run=rules_run,

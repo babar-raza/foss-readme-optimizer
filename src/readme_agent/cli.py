@@ -133,7 +133,14 @@ def _build_parser() -> argparse.ArgumentParser:
         default="evaluate",
         help="Mission-controller action when --mission-task-graph is used.",
     )
-    p_supervise.add_argument("--mission-task-id")
+    p_supervise.add_argument(
+        "--mission-task-id",
+        help=(
+            "Mission task to transition, or the required active-task binding for a bounded "
+            "verified repository canary. The latter fails unless its current execution focus "
+            "explicitly admits the repository and the observer owns an unexpired claim."
+        ),
+    )
     p_supervise.add_argument(
         "--mission-control-input",
         help=(

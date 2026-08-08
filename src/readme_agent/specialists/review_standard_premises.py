@@ -28,7 +28,13 @@ def _mermaid_source(candidate_text: str) -> str:
 
 
 def _mermaid_role_count(source: str, role: str) -> int:
-    return len(re.findall(rf'(?m)^[ \t]*{re.escape(role)}_\d+\["', source))
+    prefix = {"input": "I", "capability": "C", "output": "O"}[role]
+    return len(
+        re.findall(
+            rf'(?m)^[ \t]*(?:{re.escape(role)}_\d+|{prefix}\d+)\["',
+            source,
+        )
+    )
 
 
 def _has_directional_connector(source: str) -> bool:

@@ -752,7 +752,7 @@ def _validate_quality_finding(
     header = standards.get("readme.header") or {}
     if (
         "parenthes" in premise
-        and header.get("heading_style") == "sentence_case_without_emoji"
+        and header.get("heading_style") == "title_case_without_emoji"
         and "forbid_parentheses" not in header
     ):
         errors.append(f"{finding.finding_id}:heading-parentheses premise is unconfigured")
@@ -1235,11 +1235,12 @@ def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) ->
     minimum_inputs = int(standard.get("minimum_inputs", 1))
     minimum_capabilities = int(standard.get("minimum_capabilities", 1))
     minimum_outputs = int(standard.get("minimum_outputs", 1))
+    output_count = len(re.findall(rf'(?m)^[ \t]*{output_id}\["', source))
     return bool(
         len(re.findall(rf'(?m)^[ \t]*{input_id}\["', source)) >= minimum_inputs
         and re.search(rf'(?m)^[ \t]*{product_id}\["[^"\r\n]+"\][ \t]*$', source)
         and len(re.findall(rf'(?m)^[ \t]*{capability_id}\["', source)) >= minimum_capabilities
-        and len(re.findall(rf'(?m)^[ \t]*{output_id}\["', source)) >= minimum_outputs
+        and output_count >= minimum_outputs
         and any(
             re.search(
                 rf"(?m)^[ \t]*{input_id}[ \t]+{re.escape(connector)}"
@@ -1248,13 +1249,16 @@ def _detailed_mermaid_contract_satisfied(candidate_text: str, standard: dict) ->
             )
             and re.search(
                 rf"(?m)^[ \t]*{product_id}[ \t]+{re.escape(connector)}"
-                rf"[ \t]+{capability_id}[ \t]*$",
+                r"[ \t]+Capabilities[ \t]*$",
                 source,
             )
-            and re.search(
-                rf"(?m)^[ \t]*{capability_id}[ \t]+{re.escape(connector)}"
-                rf"[ \t]+{output_id}[ \t]*$",
-                source,
+            and (
+                output_count == 0
+                or re.search(
+                    rf"(?m)^[ \t]*Capabilities[ \t]+{re.escape(connector)}"
+                    r"[ \t]+Outputs[ \t]*$",
+                    source,
+                )
             )
             for connector in connectors
         )

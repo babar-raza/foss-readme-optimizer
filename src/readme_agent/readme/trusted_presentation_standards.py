@@ -119,7 +119,7 @@ def bind_trusted_presentation_standards(
                 "platform": entry.platform,
                 "brand_contract_version": TRUSTED_PORTFOLIO_BRAND_CONTRACT_VERSION,
                 "required_h2_prefix": list(PRESENTATION_H2_PREFIX),
-                "heading_style": "sentence_case_without_emoji",
+                "heading_style": "title_case_without_emoji",
                 "emoji_policy": PRESENTATION_EMOJI_POLICY,
                 "heading_aliases": {"Features": "Key capabilities"},
                 "heading_prefix_aliases": PRESENTATION_HEADING_PREFIX_ALIASES,

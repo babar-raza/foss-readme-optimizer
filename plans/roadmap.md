@@ -7,12 +7,14 @@ graph; and live claims/transitions to durable supervisor state.
 
 ## Current horizon
 
-1. **First verified README**
-   - Finalize Aspose.3D FOSS for Python from its current `FACTS_READY` boundary.
-   - Show the independently accepted/no-op-proven result immediately for calibration.
-2. **Representative Python cohort**
-   - Rebuild Note through current verified facts.
-   - Prove Page and PDF with the same component-versioned transaction.
+1. **Current repository focus**
+   - Run mission `evaluate`, then execute only the immediate goal and repository printed by mission
+     `status`.
+   - Reopen the earliest stale closeout before a dependent; reuse unaffected content-addressed
+     stages.
+2. **Representative Python reconciliation chain**
+   - Complete the graph-owned PDF, Page, Note, and Aspose.3D current-contract focus tasks in their
+     dependency order, showing each independently accepted/no-op-proven README immediately.
 3. **Complete Python platform**
    - Finalize every dynamically admitted Python repository.
 4. **Post-Python representatives**
@@ -47,5 +49,6 @@ graph; and live claims/transitions to durable supervisor state.
 
 ## Live status
 
-Read `plans/status.md` and run mission `status`. If graph drift appears, reconcile through mission
-`evaluate`; never infer state from this roadmap.
+Run mission `status` for the live snapshot. `plans/status.md` is a generated, version-labelled
+supporting view and may be stale between regenerations. Run mission `evaluate` before claiming;
+never infer the active task from this roadmap.

@@ -263,17 +263,14 @@ def installation_text(
             return None
         repository_name = org_repo.split("/", 1)[1]
         return (
-            "Install the verified immutable repository revision from a local checkout:\n\n"
+            "Install the package directly from its source repository:\n\n"
             "```bash\n"
             f"git clone https://github.com/{org_repo}.git\n"
             f"cd {repository_name}\n"
             f"git checkout --detach {source_revision}\n"
             "python -m pip install .\n"
             "```\n\n"
-            f"`{package_name}` was installed and exercised from this exact source revision in "
-            "an isolated, network-disabled verification environment. The matching PyPI receipt "
-            "did not find a published package, so this README does not present a PyPI package "
-            "installation command."
+            f"Use source installation for the `{package_name}` distribution."
         )
     if method == "nuget" and ecosystem in {"net", "dotnet", "cpp"}:
         package_name = str(coordinate.get("name") or "").strip()
@@ -333,22 +330,7 @@ def example_text(facts: ProductFactsV2, source_revision: str) -> str:
     if example is None:
         return ""
     value = example.value if isinstance(example.value, dict) else {}
-    bindings = value.get("input_fixture_bindings")
-    prerequisite_items = []
-    if isinstance(bindings, list):
-        prerequisite_items = [
-            (
-                f"- Before running the example, provide `{binding['target_path']}`; verification "
-                f"used the repository fixture `{binding['source_path']}`."
-            )
-            for binding in bindings
-            if isinstance(binding, dict)
-            and isinstance(binding.get("target_path"), str)
-            and binding["target_path"]
-            and isinstance(binding.get("source_path"), str)
-            and binding["source_path"]
-        ]
-    prerequisites = "\n".join(prerequisite_items) + "\n\n" if prerequisite_items else ""
+    prerequisites = ""
     return (
         load_template("verified-minimal-example.md")
         .format(

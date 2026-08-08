@@ -88,6 +88,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "aspose_org_format_contract.py",
         "deterministic_truth_salvage.py",
         "format_direction.py",
+        "repository_format_extraction.py",
         "example_quality.py",
         "interpretive_resolution.py",
         "problem_grounding.py",

@@ -103,10 +103,10 @@ Existing quick start.
     _assert_compatibility_claim_block(validation, plan)
     assert h2s[:5] == [
         "Navigation",
-        "At a glance",
-        "Key capabilities",
+        "At a Glance",
+        "Key Capabilities",
         "Installation",
-        "Quick start",
+        "Quick Start",
     ]
     assert "\n## Why Product\n" not in candidate
     assert "\n## Currently Available Features\n" not in candidate
@@ -160,10 +160,10 @@ Existing quick start.
 
     assert h2s[:5] == [
         "Navigation",
-        "At a glance",
-        "Key capabilities",
+        "At a Glance",
+        "Key Capabilities",
         "Installation",
-        "Quick start",
+        "Quick Start",
     ]
     operation = next(
         operation
@@ -171,7 +171,7 @@ Existing quick start.
         if operation.operation_id == "readme.journey.key-capabilities"
     )
     assert operation.fact_ids
-    assert "## Key capabilities" in candidate
+    assert "## Key Capabilities" in candidate
 
 
 def test_pure_list_source_variants_cannot_hide_or_duplicate_core_capabilities():
@@ -200,7 +200,7 @@ Existing installation guidance.
     validation = validate_readme_document_candidate(source, candidate, plan, facts)
 
     _assert_compatibility_claim_block(validation, plan)
-    assert candidate.count("## Key capabilities") == 1
+    assert candidate.count("## Key Capabilities") == 1
     assert "<details>" not in candidate
     assert "Unverified inherited capability wording" not in candidate
     assert "Another inherited capability inventory" not in candidate

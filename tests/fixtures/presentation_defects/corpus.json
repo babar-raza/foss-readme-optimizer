@@ -227,6 +227,31 @@
       "platform": "rust",
       "source_path": "tests/fixtures/presentation_defects/strong-existing-content.md",
       "source_sha256": "6af318eb40ce4747f5ff14055acd0863aa71d4f635fc96bc8c9e189904af3b09",
+      "expected_verdict": "REJECT",
+      "findings": [
+        {
+          "finding_id": "presentation.heading.mesh-toolkit.non-title-case",
+          "rule_id": "heading_not_title_case",
+          "severity": "critical",
+          "exact_spans": [
+            "## In this README\n",
+            "## Known limitations\n"
+          ],
+          "expected_occurrences": [
+            1,
+            1
+          ],
+          "rationale": "Strong technical content still requires the portfolio title-case heading contract."
+        }
+      ]
+    },
+    {
+      "case_id": "synthetic.strong-existing-content-title-case",
+      "origin": "synthetic_positive",
+      "repository": "acme/mesh-toolkit",
+      "platform": "rust",
+      "source_path": "tests/fixtures/presentation_defects/strong-existing-content-title-case.md",
+      "source_sha256": "ff6f1893a627157c5d6624af6cc1be4e2f4c2ce9a500529439c3405ece93a85b",
       "expected_verdict": "ACCEPT",
       "findings": []
     }

@@ -8,7 +8,14 @@ from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_source_claim_matching import (
     equivalent_source_claim_resolution,
+    fact_bound_capability_candidate_claims,
     index_equivalent_candidate_claims,
+)
+from readme_agent.presentation.verified_source_claim_resolutions import (
+    build_source_claim_resolutions,
+)
+from readme_agent.presentation.verified_template_capabilities import (
+    capability_highlights_markdown,
 )
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -83,6 +90,231 @@ def _facts() -> ProductFactsV2:
     )
 
 
+def _page_mcp_facts() -> ProductFactsV2:
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    identity = identity.model_copy(
+        update={
+            "value": {
+                "family": "page",
+                "platform": "python",
+                "ecosystem": "python",
+                "repository": facts.org_repo,
+                "product_name": "Aspose.Page",
+            }
+        }
+    )
+    capabilities = facts.selected_fact("product.capabilities").model_copy(
+        update={
+            "value": [
+                "PS/EPS to PDF conversion",
+                "PS/EPS to image conversion",
+                "XPS to PDF conversion",
+                "XPS to image conversion",
+                "MCP server hosting",
+            ]
+        }
+    )
+    api = facts.selected_fact("api.public_surface").model_copy(
+        update={
+            "value": {
+                "modules": [
+                    {
+                        "module": "aspose.page.image.encoders",
+                        "exports": ["encode_png", "encode_jpeg"],
+                    }
+                ],
+                "mcp_server": {
+                    "module": "aspose.page.mcp",
+                    "factory": "create_server",
+                    "runner": "run",
+                    "factory_instance_run": True,
+                    "tools": [
+                        "eps_metadata",
+                        "ps_to_image",
+                        "ps_to_pdf",
+                        "xps_to_image",
+                        "xps_to_pdf",
+                    ],
+                    "runner_defaults": {"host": "127.0.0.1", "port": 8000},
+                    "dependency_package": "fastmcp",
+                },
+            }
+        }
+    )
+    dependencies = FactRecordV2(
+        fact_id="installation.capability_dependencies:page-mcp-test",
+        field="installation.capability_dependencies",
+        verification_state="verified",
+        value={
+            "entries": [
+                {
+                    "distribution": "fastmcp",
+                    "purpose": "MCP server hosting",
+                    "install_command": "python -m pip install fastmcp",
+                },
+                {
+                    "distribution": "skia-python",
+                    "purpose": "image conversion",
+                    "install_command": "python -m pip install skia-python",
+                },
+            ]
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    examples = FactRecordV2(
+        fact_id="repository.examples:page-result-test",
+        field="repository.examples",
+        verification_state="verified",
+        value={
+            "result_assets": [
+                {
+                    "alt": "PS to image sample",
+                    "path": "readme.resources/RGB10.png",
+                    "sha256": "b" * 64,
+                }
+            ]
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    replacements = {
+        facts.selected_fact_ids["product.identity"]: identity,
+        facts.selected_fact_ids["product.capabilities"]: capabilities,
+        facts.selected_fact_ids["api.public_surface"]: api,
+    }
+    return facts.model_copy(
+        update={
+            "facts": [
+                *[replacements.get(fact.fact_id, fact) for fact in facts.facts],
+                dependencies,
+                examples,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "installation.capability_dependencies": dependencies.fact_id,
+                "repository.examples": examples.fact_id,
+            },
+        }
+    )
+
+
+def _note_architecture_facts() -> ProductFactsV2:
+    facts = _facts()
+    identity = facts.selected_fact("product.identity").model_copy(
+        update={
+            "value": {
+                "family": "note",
+                "platform": "python",
+                "ecosystem": "python",
+                "repository": facts.org_repo,
+                "product_name": "Aspose.Note",
+            }
+        }
+    )
+    api = facts.selected_fact("api.public_surface").model_copy(
+        update={
+            "value": {
+                "modules": [{"module": "aspose.note", "exports": ["Document"]}],
+                "package_namespaces": ["aspose.note", "aspose.note.saving"],
+                "classes": [],
+            }
+        }
+    )
+    formats = facts.selected_fact("product.formats").model_copy(
+        update={"verification_state": "verified", "value": ["Input format: OneNote (.one)"]}
+    )
+    implementation = FactRecordV2(
+        fact_id="repository.implementation_components:python-test",
+        field="repository.implementation_components",
+        verification_state="verified",
+        value={
+            "components": [
+                {
+                    "kind": "parser",
+                    "labels": ["MS-ONE", "OneStore"],
+                    "path": "src/aspose/note/_internal/onestore/parser.py",
+                    "source_sha256": "b" * 64,
+                }
+            ]
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.opening", "readme.api_reference"],
+    )
+    replacements = {
+        identity.fact_id: identity,
+        api.fact_id: api,
+        formats.fact_id: formats,
+    }
+    return facts.model_copy(
+        update={
+            "facts": [
+                *[replacements.get(fact.fact_id, fact) for fact in facts.facts],
+                implementation,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "repository.implementation_components": implementation.fact_id,
+            },
+        }
+    )
+
+
+@pytest.mark.parametrize(
+    "claim",
+    [
+        (
+            "This repository provides a Python library with a subset-compatible "
+            "Aspose.Note for .NET-shaped public API for reading Microsoft OneNote files "
+            "(`.one`)."
+        ),
+        (
+            "The goal is to offer a familiar surface (`aspose.note.*`) inspired by "
+            "Aspose.Note for .NET, backed by this repository's built-in MS-ONE/OneStore parser."
+        ),
+    ],
+)
+def test_note_architecture_claims_bind_to_repository_source_facts(claim: str) -> None:
+    facts = _note_architecture_facts()
+    material_claim = assess_material_claims(claim)[0]
+
+    binding = complete_source_claim_fact_binding(claim, material_claim, facts)
+
+    assert binding is not None
+    assert facts.selected_fact_ids["api.public_surface"] in binding.fact_ids
+    assert facts.selected_fact_ids["product.identity"] in binding.fact_ids
+
+
+def test_note_parser_claim_fails_closed_without_implementation_fact() -> None:
+    facts = _note_architecture_facts()
+    implementation_id = facts.selected_fact_ids["repository.implementation_components"]
+    facts = facts.model_copy(
+        update={
+            "facts": [fact for fact in facts.facts if fact.fact_id != implementation_id],
+            "selected_fact_ids": {
+                field: fact_id
+                for field, fact_id in facts.selected_fact_ids.items()
+                if field != "repository.implementation_components"
+            },
+        }
+    )
+    claim = (
+        "The goal is to offer a familiar surface (`aspose.note.*`) inspired by "
+        "Aspose.Note for .NET, backed by this repository's built-in MS-ONE/OneStore parser."
+    )
+
+    binding = complete_source_claim_fact_binding(claim, assess_material_claims(claim)[0], facts)
+
+    assert binding is None
+
+
 def _assurance(source: str):
     facts = _facts()
     revision = facts.selected_fact("product.identity").source.source_revision
@@ -94,6 +326,125 @@ def _assurance(source: str):
         base_revision=revision,
     )
     return facts, assessment, build_source_claim_assurance(source, facts, assessment)
+
+
+def test_page_conversion_and_mcp_source_claims_receive_exact_fact_authority() -> None:
+    facts = _page_mcp_facts()
+    source = """# Aspose.Page FOSS for Python
+
+## Currently Available Features
+
+- Convert PS/EPS to PDF in Python
+- Convert PS/EPS to PNG and JPEG in Python
+- Convert XPS to PDF in Python
+- Convert XPS to PNG and JPEG in Python
+- Integrate conversion workflows through MCP server tools
+- PS/EPS to PNG/JPEG conversion
+- XPS to PNG/JPEG conversion
+
+![PS to image sample](readme.resources/RGB10.png)
+
+## MCP Server
+
+MCP tools currently exposed:
+
+- `ps_to_pdf`
+- `ps_to_image`
+- `xps_to_pdf`
+- `xps_to_image`
+- `eps_metadata`
+
+Run MCP server:
+
+```python
+from aspose.page.mcp import create_server
+
+server = create_server()
+server.run(host="127.0.0.1", port=8000)
+```
+
+Important notes:
+
+- `FastMCP` is required to start the MCP server.
+- `skia-python` is required for image conversion flows (`ps_to_image`, `xps_to_image`).
+"""
+    revision = facts.selected_fact("product.identity").source.source_revision
+    assert revision is not None
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    assurance = build_source_claim_assurance(source, facts, assessment)
+
+    preserve_claims = [
+        claim for claim in assessment.material_claims if claim.disposition == "preserve"
+    ]
+    assert assurance.fact_authorized_claim_count == len(preserve_claims)
+    assert assurance.correction_candidate_count == 0
+
+
+def test_page_mcp_source_binding_rejects_unknown_tool_and_changed_runner_port() -> None:
+    facts = _page_mcp_facts()
+    source = """# Aspose.Page FOSS for Python
+
+## MCP Server
+
+- `delete_everything`
+
+```python
+from aspose.page.mcp import create_server
+
+server = create_server()
+server.run(host="127.0.0.1", port=9000)
+```
+"""
+    revision = facts.selected_fact("product.identity").source.source_revision
+    assert revision is not None
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    assurance = build_source_claim_assurance(source, facts, assessment)
+
+    assert assurance.fact_authorized_claim_count == 0
+    assert assurance.correction_candidate_count == 2
+
+
+def test_fact_authorized_result_image_reuses_the_fact_bound_candidate_claim() -> None:
+    facts = _page_mcp_facts()
+    image = "![PS to image sample](readme.resources/RGB10.png)"
+    source = f"# Product\n\n## Example Results\n\n{image}\n"
+    candidate = f"# Product\n\n## Additional examples\n\n### Example results\n\n{image}\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    examples = facts.selected_fact("repository.examples")
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.additional_examples.result-image",
+            candidate_byte_start=candidate_claim.source_byte_start,
+            candidate_byte_end=candidate_claim.source_byte_end,
+            fact_ids=[examples.fact_id],
+            rationale="Bind the exact result image to its checksum-bound repository inventory.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+        preserved_source_ranges=[(source_claim.source_byte_start, source_claim.source_byte_end)],
+    )
+
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "verified_equivalence"
+    assert resolutions[0].candidate_claim_id == candidate_claim.claim_id
 
 
 def _with_repository_example(facts: ProductFactsV2, code: str) -> ProductFactsV2:
@@ -264,6 +615,76 @@ def test_comment_free_repository_example_requires_exact_ast_and_complete_provena
         )
         is None
     )
+
+
+def test_capability_equivalence_rejects_a_candidate_missing_one_structured_fact() -> None:
+    facts = _facts()
+    capability_fact_id = facts.selected_fact_ids["product.capabilities"]
+    api_fact_id = facts.selected_fact_ids["api.public_surface"]
+    source = "- Work with build verified meshes\n"
+    candidate = "- **Build verified meshes** - Supports build verified meshes.\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    source_binding = complete_source_claim_fact_binding(source, source_claim, facts)
+    assert source_binding is not None
+    assert source_binding.fact_ids == frozenset({capability_fact_id, api_fact_id})
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:test",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[capability_fact_id],
+        rationale="Bind only the narrower generated capability claim.",
+    )
+
+    assert (
+        fact_bound_capability_candidate_claims(
+            source,
+            candidate.encode(),
+            [candidate_claim],
+            facts,
+            [provenance],
+        )
+        == []
+    )
+
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        source.encode()[source_claim.source_byte_start : source_claim.source_byte_end].decode(),
+        candidate.encode(),
+        index_equivalent_candidate_claims(candidate.encode(), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+
+    assert resolution is None
+
+
+def test_fact_richer_source_capability_supersedes_only_the_narrow_generated_row() -> None:
+    facts = _facts()
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": ["Build verified meshes", "Export verified scenes"],
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(
+        facts,
+        source_text="- Work with build verified meshes\n",
+    )
+
+    assert rendered is not None
+    assert "Build verified meshes" not in rendered
+    assert "Export verified scenes" in rendered
 
 
 def test_stale_claim_hash_fails_closed() -> None:
@@ -460,3 +881,46 @@ def test_format_capabilities_require_the_exact_accepted_fact_union() -> None:
     assessment = assess_readme_document(facts.org_repo, unsupported, facts, base_revision=revision)
     unsupported_claim = assessment.material_claims[0]
     assert complete_source_claim_fact_binding(unsupported, unsupported_claim, facts) is None
+
+
+def test_fact_bound_format_claim_is_corrected_when_repository_evidence_disproves_it() -> None:
+    facts = _format_entailment_facts()
+    identity = facts.selected_fact("product.identity")
+    directions = FactRecordV2(
+        fact_id="repository.format_directions:source-assurance-test",
+        field="repository.format_directions",
+        verification_state="verified",
+        value={
+            "directions": [
+                {
+                    "format": "OBJ",
+                    "direction": "input",
+                    "material_library_support": False,
+                }
+            ]
+        },
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, directions],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                directions.field: directions.fact_id,
+            },
+        }
+    )
+    source = (
+        "# Product\n\n## Capabilities\n\n"
+        "- Import OBJ (with `.mtl` materials), STL, GLTF, and 3MF files into a common Scene.\n"
+    )
+    revision = identity.source.source_revision or "a" * 40
+    assessment = assess_readme_document(facts.org_repo, source, facts, base_revision=revision)
+
+    assurance = build_source_claim_assurance(source, facts, assessment)
+
+    assert assurance.fact_authorized_claim_count == 0
+    assert assurance.correction_candidate_count == 1

@@ -423,12 +423,20 @@ per campaign. Run the pending optimized complete non-live suite on current commi
 first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
 gate or typed P0 exception; do not revive micro-fix evidence churn.
 
-The immediate small-goal sequence is `L8-VPY-00-GOLDEN-TEMPLATE` →
-`L8-ACCEL-00-PYTHON-READINESS` → `L8-AGILE-AUTHORITY-RESET` →
-`L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E` →
-`L8-VPY-01-NOTE-VERIFIED-CANARY` plus `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` →
-`L8-VPY-03-ALL-PYTHON-VERIFIED-POC` →
-`L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` (post-Python .NET and Java slices).
+The completed historical small goals remain in durable state. The current executable sequence is
+`DELIVERY-PY-PDF-CURRENT` → `DELIVERY-PY-PAGE-CURRENT` →
+`DELIVERY-PY-NOTE-CURRENT` → `DELIVERY-PY-3D-CURRENT` →
+`DELIVERY-PY-REMAINING-COHORT` → `DELIVERY-POST-PYTHON-DOTNET-JAVA`. These are typed execution
+focuses on durable taskcards, not a second controller. Mission `status` prints the exact current
+focus and repository scope.
+
+Every top-level bounded verified canary MUST pass the active `--mission-task-id` and
+`--mission-observer`. The runtime rejects a repository outside that task's focus, graph drift, a
+missing/expired/foreign claim, or an exhausted approach budget before clone, preflight, or LLM work.
+Never run a bounded canary around this guard. Nonblocking findings are recorded for later and do not
+expand the current task. Once deterministic and independent acceptance plus no-op proof exist, show
+the README before starting a broad suite or another repository.
+
 One finalized repository is the first verified README, all current Python repositories are the
 Python platform POC, and the full admitted registry is Gate A. Smaller numerators are partial only.
 Two ineffective attempts with one approach fingerprint or

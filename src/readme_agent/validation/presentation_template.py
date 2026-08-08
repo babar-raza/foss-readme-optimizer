@@ -13,14 +13,23 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.readme.capability_semantics import is_action_led_capability_title
 from readme_agent.readme.document_structure import github_anchor, parse_headings
+from readme_agent.readme.header_visual_layout import validate_capability_group_layout
 
 _BADGE = re.compile(r"(?:!\[[^\]]+\]\([^)]+\)|\[!\[[^\]]+\]\([^)]+\)\]\([^)]+\))")
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 _CODE_COMMENT = re.compile(r"(?m)^\s*(?:#(?!\s*\[)|//|/\*|\*|--)\s+\S")
 _COPYRIGHT = re.compile(r"(?im)^\s*copyright(?:\s*©|\s+\(c\)|\s+\d{4})|©")
-_MERMAID_NODE = re.compile(r'(?m)^\s*[A-Za-z][A-Za-z0-9_]*\["[^"]+"\]\s*$')
+_MERMAID_NODE = re.compile(r'(?m)^\s{2}[A-Za-z][A-Za-z0-9_]*\(\["[^"]+"\]\)\s*$')
 _ASPOSE_FOSS_PRODUCT = re.compile(r"\bAspose\.([A-Za-z0-9]+)\s+FOSS\b")
+_INTERNAL_ASSURANCE_COMMENTARY = re.compile(
+    r"(?i)(?:inventoried at the source revision|syntax and static public API checked|"
+    r"not executed or syntax checked|checked but not executed|not executed by the evidence "
+    r"collector|verification metadata|exact source revision|immutable repository revision|"
+    r"network[- ]disabled verification|matching (?:pypi|registry) receipt|"
+    r"verification environment)"
+)
 
 
 def _contains_emoji(text: str) -> bool:
@@ -79,6 +88,78 @@ def validate_repository_presentation(
         if linked != expected:
             errors.append("navigation must be a complete H2 link list")
 
+    api_reference = next(
+        (heading for heading in h2s if heading.title.casefold() == "api reference"),
+        None,
+    )
+    if api_reference is not None:
+        api_body = candidate[api_reference.heading_end : api_reference.section_end]
+        namespace_tables = re.findall(
+            r"(?ms)^### [^\r\n]+ Namespace \(`[^`]+`\)\s+\| Type \| Description \|\s+"
+            r"\| --- \| --- \|",
+            api_body,
+        )
+        namespace_headings = re.findall(r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$", api_body)
+        api_rows = re.findall(r"(?m)^\| `([^`]+)` \| ([^|]+) \|$", api_body)
+        descriptions = [" ".join(description.split()).casefold() for _name, description in api_rows]
+        if (
+            "<details>" not in api_body
+            or "<summary>View public API by namespace</summary>" not in api_body
+            or "</details>" not in api_body
+            or not namespace_headings
+            or len(namespace_tables) != len(namespace_headings)
+            or re.search(r"(?m)^- `", api_body) is not None
+        ):
+            errors.append(
+                "API reference must contain one collapsed Type/Description table per namespace"
+            )
+        if any(
+            len(description.rstrip(".")) < 24
+            or description
+            in {
+                "public exception type.",
+                "public enumeration exported by this namespace.",
+                "public export provided by this namespace.",
+            }
+            for description in descriptions
+        ):
+            errors.append("API reference contains an incomplete generic description")
+        if len(descriptions) != len(set(descriptions)):
+            errors.append("API reference contains duplicated descriptions")
+
+    capabilities = next(
+        (heading for heading in h2s if heading.title.casefold() == "key capabilities"),
+        None,
+    )
+    if capabilities is not None:
+        body = candidate[capabilities.heading_end : capabilities.section_end].strip()
+        lines = [line for line in body.splitlines() if line.strip()]
+        if not lines or any(
+            re.fullmatch(r"- \*\*[^*\n]+\*\* - \S.+\.", line) is None for line in lines
+        ):
+            errors.append(
+                "Key capabilities must use bold feature names with same-line explanations"
+            )
+        titles = re.findall(r"(?m)^- \*\*([^*]+)\*\* - ", body)
+        if titles and any(not is_action_led_capability_title(title) for title in titles):
+            errors.append("Key capability titles must be action-led search phrases")
+
+    additional_examples = next(
+        (heading for heading in h2s if heading.title.casefold() == "additional examples"),
+        None,
+    )
+    if additional_examples is not None:
+        body = candidate[additional_examples.heading_end : additional_examples.section_end].strip()
+        introduction = body.partition("<details>")[0].strip()
+        if (
+            not introduction.startswith("Expand this section to ")
+            or "<summary>View additional examples and results</summary>" not in body
+            or re.search(r"(?m)^### .+ \(\d+\)$", body) is not None
+        ):
+            errors.append(
+                "Additional examples must preview named workflows and use meaningful headings"
+            )
+
     tokens = MarkdownIt("commonmark").parse(candidate)
     mermaid = [
         token.content for token in tokens if token.type == "fence" and token.info == "mermaid"
@@ -89,21 +170,39 @@ def validate_repository_presentation(
         source = mermaid[0]
         if title not in source:
             errors.append("Mermaid must use the complete product name")
-        for label, minimum in (
-            ("Inputs", contract.invariants.minimum_mermaid_inputs),
-            ("Capabilities", contract.invariants.minimum_mermaid_capabilities),
-            ("Outputs", contract.invariants.minimum_mermaid_outputs),
+        if not source.startswith("flowchart LR\n"):
+            errors.append("Mermaid must use the configured capability landscape")
+        for node_prefix, group_id, label, minimum in (
+            ("I", "Inputs", "Inputs", contract.invariants.minimum_mermaid_inputs),
+            (
+                "C",
+                "Capabilities",
+                "Capabilities",
+                contract.invariants.minimum_mermaid_capabilities,
+            ),
+            ("O", "Outputs", "Outputs", contract.invariants.minimum_mermaid_outputs),
         ):
-            match = re.search(
-                rf'(?ms)subgraph\s+\w+\["[^"]*{label}[^"]*"\](.*?)^\s*end\s*$',
-                source,
-                re.IGNORECASE,
-            )
-            count = len(_MERMAID_NODE.findall(match.group(1))) if match else 0
+            if minimum > 0 and source.count(f"subgraph {group_id}") != 1:
+                errors.append(f"Mermaid requires one {label.casefold()} subgraph")
+            indentation = "4,6" if node_prefix == "C" else "4"
+            count = len(re.findall(rf'(?m)^\s{{{indentation}}}{node_prefix}\d+\["', source))
             if count < minimum:
                 errors.append(f"Mermaid requires at least {minimum} {label.casefold()} nodes")
+        if not re.search(r"(?m)^\s{2}I\d+ --- PRODUCT$", source):
+            errors.append("Mermaid inputs must connect to the product")
+        capability_ids = re.findall(r'(?m)^\s{4,6}(C\d+)\["', source)
+        if not validate_capability_group_layout(source, capability_ids):
+            errors.append("Mermaid capability nodes must use the adaptive column layout")
+        if len(re.findall(r"(?m)^\s{2}PRODUCT --- Capabilities$", source)) != 1:
+            errors.append("Mermaid product must have one connection to Core capabilities")
+        output_count = len(re.findall(r'(?m)^\s{4}O\d+\["', source))
+        capability_output_edges = len(re.findall(r"(?m)^\s{2}Capabilities --- Outputs$", source))
+        if output_count and capability_output_edges != 1:
+            errors.append("Mermaid Core capabilities must have one connection to Outputs")
+        if not output_count and capability_output_edges:
+            errors.append("Mermaid cannot connect to an empty Outputs group")
         if "-->" in source:
-            errors.append("Mermaid overview must not imply a mandatory directional workflow")
+            errors.append("Mermaid overview must use only visible undirected relationships")
 
     if _HTML_COMMENT.search(candidate) or any(
         _CODE_COMMENT.search(token.content)
@@ -111,6 +210,8 @@ def validate_repository_presentation(
         if token.type in {"fence", "code_block"} and token.info != "mermaid"
     ):
         errors.append("candidate contains a visible or code comment")
+    if _INTERNAL_ASSURANCE_COMMENTARY.search(candidate):
+        errors.append("candidate exposes internal verification commentary")
     if _contains_emoji(candidate):
         errors.append("candidate contains emoji")
     if _COPYRIGHT.search(candidate):
@@ -150,4 +251,6 @@ def validate_repository_presentation(
         body = candidate[notices.heading_end : notices.section_end]
         if not re.search(r"\[[^\]]+\]\((?!https?://)[^)]+\)", body):
             errors.append("Third-party notices must link a repository-relative notice file")
+        if re.search(r"\[`[^`]+`\]\((?!https?://)[^)]+\)", body):
+            errors.append("Third-party notices link text must use normal link styling")
     return errors

@@ -11,12 +11,15 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
+from readme_agent.presentation.verified_template_capabilities import (
+    capability_highlights_markdown,
+)
 from readme_agent.presentation.verified_template_documentation import (
     documentation_resources_markdown,
 )
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
-    api_reference_markdown,
     contributing_markdown,
     dependency_markdown,
     development_markdown,
@@ -116,6 +119,37 @@ def _source_owned_optional_slots(
     return owned
 
 
+def _source_opening_summary(
+    source_text: str,
+    facts: ProductFactsV2,
+    title: str,
+) -> tuple[str, list[str]] | None:
+    """Reuse one fully fact-bound, product-named public opening without duplicating it."""
+
+    first_h2 = next(
+        (heading for heading in parse_headings(source_text) if heading.level == 2), None
+    )
+    opening_end = (
+        len(source_text[: first_h2.start].encode("utf-8"))
+        if first_h2 is not None
+        else len(source_text.encode("utf-8"))
+    )
+    source_bytes = source_text.encode("utf-8")
+    for claim in assess_material_claims(source_text):
+        if claim.source_byte_end > opening_end:
+            continue
+        text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8").strip()
+        if not text.casefold().startswith(title.casefold()) or "open-source" not in text.casefold():
+            continue
+        binding = complete_source_claim_fact_binding(source_text, claim, facts)
+        if binding is None:
+            continue
+        fields = sorted({facts.fact_by_id(fact_id).field for fact_id in binding.fact_ids})
+        if {"product.identity", "product.audience", "product.capabilities"}.issubset(fields):
+            return text, fields
+    return None
+
+
 def _scope_text(
     facts: ProductFactsV2,
     contextual_links: ContextualLinkPlanV1 | None,
@@ -185,7 +219,10 @@ def build_verified_template_draft(
     title = visual.title
     capabilities = _phrases(facts, "product.capabilities")
     problems = _phrases(facts, "product.problems_solved")
-    if agentic_plan.opening_summary is not None:
+    source_summary = _source_opening_summary(source_text, facts, title)
+    if source_summary is not None:
+        summary, summary_fields = source_summary
+    elif agentic_plan.opening_summary is not None:
         summary = agentic_plan.opening_summary.text.strip().rstrip(".") + "."
         summary_fact_ids = set(agentic_plan.opening_summary.supporting_fact_ids)
         summary_fields = sorted({facts.fact_by_id(fact_id).field for fact_id in summary_fact_ids})
@@ -208,7 +245,7 @@ def build_verified_template_draft(
         else:
             summary = f"{title} provides " + ", ".join(capabilities[:3] or problems[:3]) + "."
             summary_fields = ["product.identity", "product.capabilities"]
-    capability_text = "\n".join(f"- {item.rstrip('.').strip()}." for item in capabilities)
+    capability_text = capability_highlights_markdown(facts, source_text=source_text)
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
     optional_extras = optional_extras_markdown(facts)
@@ -280,8 +317,8 @@ def build_verified_template_draft(
         ),
         "documentation_resources": (
             documentation_resources_markdown(facts, link_limit=documentation_link_limit),
-            ("documentation.links",),
-            (),
+            ("documentation.links", "product.identity"),
+            ("readme.documentation_resources",),
         ),
         "development_and_testing": (
             development,
@@ -312,14 +349,28 @@ def build_verified_template_draft(
         source_line_count=len(source_text.splitlines()),
         title=_included(title, "product.identity", standards=("readme.header",)),
         badges=_included(visual.badge_markdown, *badge_fields, standards=("readme.badges",)),
-        summary=_included(summary, *summary_fields),
+        summary=_included(
+            summary,
+            *summary_fields,
+            standards=("readme.agentic_opening_summary",),
+        ),
         sections={
             "at_a_glance": _included(
                 at_a_glance,
                 *visual_fields,
                 standards=("readme.at_a_glance_mermaid",),
             ),
-            "key_capabilities": _included(capability_text, "product.capabilities"),
+            "key_capabilities": _included(
+                capability_text,
+                "product.capabilities",
+                *_accepted_fields(
+                    facts,
+                    "product.identity",
+                    "product.platforms",
+                    "product.formats",
+                    "api.public_surface",
+                ),
+            ),
             "installation": _included(
                 installation,
                 "installation.verified_acquisition",

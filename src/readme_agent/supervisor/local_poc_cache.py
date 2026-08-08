@@ -591,7 +591,9 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
         }:
             affected.append("AGENT_REVIEWING")
         elif reason.startswith("presentation_component_"):
-            affected.append("PLAN_READY")
+            # The typed component manifest owns this boundary. Its independently
+            # versioned earliest stage is applied after the reason scan.
+            continue
         else:
             affected.append("SNAPSHOTTED")
     return min(affected, key=_STAGE_ORDER.__getitem__) if affected else None

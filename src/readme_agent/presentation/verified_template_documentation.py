@@ -10,13 +10,22 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 DocumentationSurface = Literal["docs", "reference", "kb"]
 DOCUMENTATION_SURFACE_ORDER: tuple[DocumentationSurface, ...] = (
     "docs",
-    "reference",
     "kb",
+    "reference",
 )
-_SURFACE_LABELS = {
-    "docs": "Product documentation",
-    "kb": "Knowledge base",
-    "reference": "API reference",
+_SURFACE_PRESENTATION = {
+    "docs": (
+        "Getting started guide",
+        "installation, walkthroughs, and feature guides for this library",
+    ),
+    "kb": (
+        "How-to guides and FAQ",
+        "task-focused answers for common product questions",
+    ),
+    "reference": (
+        "Full API reference",
+        "the complete browsable reference for the public API",
+    ),
 }
 _CATALOG_LOCATION = "data/aspose_org_links.json"
 
@@ -88,7 +97,23 @@ def documentation_resources_markdown(
         ordered = ordered[: max(0, link_limit)]
     if not ordered:
         return None
-    return "\n".join(f"- [{_SURFACE_LABELS[str(row['surface'])]}]({row['url']})" for row in ordered)
+    resources = []
+    for row in ordered:
+        label, purpose = _SURFACE_PRESENTATION[str(row["surface"])]
+        resources.append(f"- **[{label}]({row['url']})** - {purpose}.")
+    identity = facts.selected_fact("product.identity")
+    identity_value = identity.value if isinstance(identity.value, dict) else {}
+    repository = str(identity_value.get("repository") or facts.org_repo).strip()
+    if (
+        identity.verification_state in {"verified", "policy_approved"}
+        and not identity.has_unresolved_conflict
+        and len(repository.split("/")) == 2
+    ):
+        resources.append(
+            f"- Found a bug or have a feature request? "
+            f"[Open an issue](https://github.com/{repository}/issues) on GitHub."
+        )
+    return "\n".join(resources)
 
 
 __all__ = [

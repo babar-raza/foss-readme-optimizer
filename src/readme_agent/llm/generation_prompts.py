@@ -174,8 +174,8 @@ def build_readme_composition_tool_schema(
                         "properties": {
                             "nodes": {
                                 "type": "array",
-                                "minItems": 14,
-                                "maxItems": 15,
+                                "minItems": 1,
+                                "maxItems": 32,
                                 "items": {
                                     "type": "object",
                                     "additionalProperties": False,

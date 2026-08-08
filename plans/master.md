@@ -18,14 +18,13 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-The project remains pre-POC: current verified acceptance is `0/31` registry-wide. The agile
-authority reset is durably closed with independently accepted evidence at
-`plans/investigations/evidence/agile-authority-reset-v1/`. Durable mission state owns live status.
-The presentation contract now requires a same-revision best-of-two regression. After graph/state
-reconciliation, `L8-VPY-01-NOTE-VERIFIED-CANARY` uses the revision-matched Aspose.org comparison
-during development to expose native contract gaps, then requalifies Note from repository-verified
-truth without a sibling-repository runtime dependency. Aspose.3D, Page, PDF, and the remaining
-Python cohort follow through that reusable contract before portfolio fan-out.
+The project remains pre-POC until the current dynamic Python denominator is independently approved
+and no-op-proven. Durable mission state owns the live task, immediate goal, repository scope,
+claim, transition history, and current contract-valid numerator. This document deliberately does
+not name a mutable active task. Run mission `status`; run mission `evaluate` before claiming work.
+Evaluation reconciles closed repository deliverables against current fact and acceptance hashes,
+regresses the earliest stale closeout when no later reconciliation task already owns that
+repository, and prevents dependants from advancing on historical closure alone.
 
 Current generated views: `plans/status.md`, `plans/roadmap.md`, and `logs/`. They are derived and
 never override the mission graph or durable state.
@@ -62,15 +61,18 @@ Binding current decisions:
   scale from two to at most three only after isolation and measured throughput proof.
 - **#96 — Background certification.** The 30/90-day windows are `OBSERVATION_RUNNING`, not blocked
   delivery tasks.
-- **#97 — Technical judgment.** Agents classify and challenge tactics. Two equivalent failures or
-  15 minutes without narrowing require a different causal boundary or mechanism.
-- **#98 — First calibration.** Aspose.3D FOSS for Python is first; Note is second; Page/PDF form the
-  representative Python cohort.
+- **#97 — Enforced execution focus.** Every visible-delivery task declares one small immediate goal,
+  repository scope, permitted change classes, retry/stall budget, next goal, and visible-output
+  boundary. A bounded canary must bind to the current durable claim. Two equivalent failures or
+  15 minutes without narrowing mechanically reject another equivalent execution until a recorded
+  first-principles replan changes the causal approach.
+- **#98 — Evidence-derived Python sequence.** Preserve completed evidence without manufacturing a
+  historical order. The graph stores the stable repository-focus chain; durable evaluation selects
+  its earliest dependency-ready or regressed boundary and never takes the current task from prose.
 
-Current execution amendment: the latest product-outcome direction changes only the calibration
-order recorded by #98. The same-revision Note comparison is now the first development regression;
-Aspose.3D and Page/PDF follow after the resulting native contract passes. Aspose.org is a
-development-only comparative corpus, never a deployed dependency or factual authority.
+Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
+authority. Repository order may change only through the durable dependency graph; changing a
+preference cannot silently enlarge the current task or invalidate unrelated accepted stages.
 
 ## Architecture
 
@@ -108,9 +110,13 @@ authorized discovery -> immutable snapshot -> verified ProductFactsV2
 
 All READMEs use a consistent professional header, product-specific title and opening, one useful
 badge row, list-form navigation, verified installation and examples, a detailed fact-backed semantic
-Mermaid graph, task-oriented capabilities, curated hub APIs, complete applicable documentation,
+Mermaid graph, action-led search-oriented capabilities, curated hub APIs, complete applicable documentation,
 user-relevant limitations, maintainer guidance, MIT-license prose when applicable, and a separate
-third-party-notices section. No comments, emoji, process narration, raw export dumps, duplicate
+third-party-notices section with normally styled repository-relative link text. The Mermaid graph
+uses vertically arranged Core capabilities and exactly one product-to-capabilities and one applicable
+capabilities-to-outputs relationship; it never fans out one edge per capability. Additional examples
+preview their named workflows before the disclosure and never publish internal verification state or
+numbered duplicate headings. No comments, emoji, process narration, raw export dumps, duplicate
 sections, or dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
 contextual, policy-capped, and selected from governed catalogs; `products.*` destinations have
 priority. Commercial products are called **Enterprise Edition**.
@@ -125,6 +131,28 @@ The coordinator owns shared state, plans, integration, commits, and closure. Cal
 repairs are serial. After transaction/cache/cancellation/aggregation isolation passes, two disjoint
 repository workers may run; a third is admitted only while speedup is at least 1.5x and coordination
 overhead at most 25 percent. Independent verification never authors accepted work.
+
+### Small-goal execution and anti-drift
+
+The umbrella mission never directly authorizes implementation. The controller selects one stage,
+one task, and one `TaskExecutionFocusV1`. Visible work is admitted only when the repository matches
+that focus, the named observer owns an unexpired durable claim, the graph hash is current, and the
+approach budget remains open. Nonblocking discoveries become backlog; they cannot enlarge the task.
+
+The stable small-goal catalog is:
+
+1. `DELIVERY-PY-PDF-CURRENT` — show current PDF Python plus independent and no-op proof.
+2. `DELIVERY-PY-PAGE-CURRENT` — reconcile and show Page using valid cached receipts.
+3. `DELIVERY-PY-NOTE-CURRENT` — reconcile and show Note without sibling runtime dependence.
+4. `DELIVERY-PY-3D-CURRENT` — reconcile and show Aspose.3D using valid cached receipts.
+5. `DELIVERY-PY-REMAINING-COHORT` — finalize and expose each remaining Python README individually.
+6. `DELIVERY-POST-PYTHON-DOTNET-JAVA` — prove .NET first, then Java, after Python closes.
+
+The exact current goal and repository scope are printed only by mission `status`. Mission
+`evaluate` first reconciles closed-task freshness; if an accepted repository becomes stale and no
+pending repository-specific refresh already owns it, the same closed task becomes `REGRESSED` and
+blocks its dependants. A broad suite follows the declared cohort/shared-code boundary; it does not
+delay showing an already accepted README.
 
 ### Verification tiers
 
@@ -183,8 +211,10 @@ skills, scripts, or caches.
 - [ ] **Comparative Note regression:** use the revision-matched Aspose.org report during development
   to expose native contract gaps, then regenerate Note without an Aspose.org runtime dependency and
   pass factual, editorial, semantic-graph, review, repair, promotion, and unchanged no-op proof.
-- [ ] **Python representative cohort:** apply the accepted native contract to Aspose.3D, then
-  Page/PDF, with targeted component-only feedback updates.
+- [ ] **Current PDF deliverable:** finish, independently approve, show, promote, and no-op-prove
+  PDF Python before any broad suite or unrelated machinery work.
+- [ ] **Reference reconciliation:** reconcile and show Page, Note, and Aspose.3D as three separate
+  cached small goals under the same current contract.
 - [ ] **Python platform POC:** finalize every dynamically admitted Python repository.
 - [ ] **Post-Python slices:** prove one current .NET and one current Java vertical slice.
 - [ ] **Discovery and verified Gate A:** reconcile the complete source denominator, then finalize all
@@ -198,6 +228,13 @@ skills, scripts, or caches.
 ## Verification Checklist
 
 - [ ] Active graph has at most 15 tasks, at most five ready, and no competing controller.
+- [ ] Every active visible-delivery task has one typed execution focus and mission `status` exposes
+  its exact immediate outcome and repository scope.
+- [ ] A bounded canary fails before repository work when its task, repository, observer, claim,
+  graph hash, or approach budget does not match the current execution focus.
+- [ ] Two equivalent ineffective attempts or 15 minutes without material narrowing prevent another
+  equivalent run until a recorded first-principles replan changes the approach fingerprint.
+- [ ] Accepted README output is shown before a deferred broad regression boundary begins.
 - [ ] Every original requirement, decision, task, dependency, status, and evidence pointer is preserved
   in a typed active or deferred record with verified hashes.
 - [ ] Current task loads at most 25 requirements plus always-on invariants.

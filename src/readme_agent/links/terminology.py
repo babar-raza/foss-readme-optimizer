@@ -80,6 +80,12 @@ def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str | None:
     return product_name
 
 
+def enterprise_product_link_label(enterprise_product_name: str) -> str:
+    """Return the required informative, visitor-facing Enterprise link label."""
+
+    return f"full-featured {enterprise_product_name.strip()} Enterprise Edition"
+
+
 def _visitor_ranges(markdown: str) -> list[tuple[int, int]]:
     """Return non-fenced ranges; source code is protected rather than rewritten."""
 
@@ -118,17 +124,18 @@ def canonicalize_enterprise_edition(
     """Replace only Aspose-scoped stale edition labels outside protected code."""
 
     canonical = f"{enterprise_product_name.strip()} Enterprise Edition"
+    link_label = enterprise_product_link_label(enterprise_product_name)
     corrections: list[EnterpriseTerminologyCorrectionV1] = []
     for chunk_start, _, chunk in _scoped_chunks(markdown):
         replacements: list[tuple[int, int, str]] = []
         for match in _PRODUCT_LINK.finditer(chunk):
             hostname = (urlparse(match.group(2)).hostname or "").casefold()
-            if hostname == "products.aspose.com" and match.group(1) != canonical:
+            if hostname == "products.aspose.com" and match.group(1) != link_label:
                 replacements.append(
                     (
                         match.start(),
                         match.end(),
-                        f"[{canonical}]({match.group(2)})",
+                        f"[{link_label}]({match.group(2)})",
                     )
                 )
         replacements.extend(
@@ -199,7 +206,7 @@ def find_enterprise_terminology_findings(
         for match in _PRODUCT_LINK.finditer(chunk):
             hostname = (urlparse(match.group(2)).hostname or "").casefold()
             required_label = (
-                f"{enterprise_product_name.strip()} Enterprise Edition"
+                enterprise_product_link_label(enterprise_product_name)
                 if enterprise_product_name
                 else None
             )

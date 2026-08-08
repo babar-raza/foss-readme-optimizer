@@ -495,6 +495,15 @@ def evaluate_mission(
             campaign_id=selected.campaign_id,
             goal_ids=selected.goal_ids,
             core_contribution=selected.core_contribution,
+            immediate_goal_id=(
+                selected.execution_focus.goal_id if selected.execution_focus else None
+            ),
+            immediate_outcome=(
+                selected.execution_focus.immediate_outcome if selected.execution_focus else None
+            ),
+            repository_scope=(
+                selected.execution_focus.repository_scope if selected.execution_focus else []
+            ),
         )
         if selected is not None
         else None
@@ -517,13 +526,73 @@ def evaluate_mission(
     )
 
 
+def _regress_stale_closed_repository_deliverables(
+    graph: MissionTaskGraphV1,
+    state: MissionExecutionStateV1,
+    scoreboard: MissionLifecycleScoreboardV1,
+) -> MissionExecutionStateV1:
+    stale = {
+        **scoreboard.stale_fact_contract_repositories,
+        **scoreboard.stale_acceptance_repositories,
+    }
+    if not stale:
+        return state
+    statuses = dict(state.task_statuses)
+    history = list(state.transition_history)
+    task_scopes = {
+        task.task_id: set(task.execution_focus.repository_scope)
+        for task in graph.taskcards
+        if task.execution_focus is not None
+    }
+    for org_repo in sorted(stale):
+        scoped_tasks = [
+            task for task in graph.taskcards if org_repo in task_scopes.get(task.task_id, set())
+        ]
+        if any(statuses.get(task.task_id, task.status) != "CLOSED" for task in scoped_tasks):
+            continue
+        closed = [
+            task for task in scoped_tasks if statuses.get(task.task_id, task.status) == "CLOSED"
+        ]
+        if not closed:
+            continue
+        task = closed[-1]
+        statuses[task.task_id] = "REGRESSED"
+        history.append(
+            MissionTransitionV1(
+                task_id=task.task_id,
+                from_status="CLOSED",
+                to_status="REGRESSED",
+                observed_by="mission-lifecycle-freshness",
+                reason=(
+                    f"repository deliverable became stale for {org_repo}: "
+                    + ",".join(stale[org_repo])
+                ),
+            )
+        )
+    if statuses == state.task_statuses:
+        return state
+    return state.model_copy(
+        update={
+            "task_statuses": statuses,
+            "transition_history": history,
+            "mission_complete": False,
+        }
+    )
+
+
 def _refresh_goal_state(
     backend: StateBackend,
     graph: MissionTaskGraphV1,
     state: MissionExecutionStateV1,
+    *,
+    scoreboard: MissionLifecycleScoreboardV1 | None = None,
 ) -> MissionExecutionStateV1:
-    scoreboard = derive_lifecycle_scoreboard(backend)
-    with_scoreboard = state.model_copy(update={"lifecycle_scoreboard": scoreboard})
+    scoreboard = scoreboard or derive_lifecycle_scoreboard(backend)
+    with_scoreboard = _regress_stale_closed_repository_deliverables(
+        graph,
+        state.model_copy(update={"lifecycle_scoreboard": scoreboard}),
+        scoreboard,
+    )
     evaluation = evaluate_mission(graph, with_scoreboard)
     goal_changed = (
         state.active_goal_id != evaluation.active_goal_id
@@ -571,7 +640,14 @@ def _save_with_retry(
         record, expected = _load_or_initialize(backend, graph, graph_sha256)
         state = record.mission_execution
         assert state is not None
-        next_state = _refresh_goal_state(backend, graph, mutator(state))
+        scoreboard = derive_lifecycle_scoreboard(backend)
+        reconciled = _refresh_goal_state(backend, graph, state, scoreboard=scoreboard)
+        next_state = _refresh_goal_state(
+            backend,
+            graph,
+            mutator(reconciled),
+            scoreboard=scoreboard,
+        )
         if next_state == state:
             return record
         result = backend.save(

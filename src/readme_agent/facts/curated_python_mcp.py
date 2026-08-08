@@ -30,6 +30,42 @@ def _literal_defaults(function: ast.FunctionDef) -> dict[str, object]:
     return values
 
 
+def _factory_instance_runs(
+    runner: ast.FunctionDef,
+    *,
+    factory_name: str,
+) -> bool:
+    """Prove that the exported runner invokes ``run`` on the factory result."""
+
+    factory_variables = {
+        target.id
+        for node in runner.body
+        if isinstance(node, (ast.Assign, ast.AnnAssign))
+        for target in (node.targets if isinstance(node, ast.Assign) else [node.target])
+        if isinstance(target, ast.Name)
+        and isinstance(node.value, ast.Call)
+        and isinstance(node.value.func, ast.Name)
+        and node.value.func.id == factory_name
+    }
+    for node in ast.walk(runner):
+        if not (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "run"
+        ):
+            continue
+        owner = node.func.value
+        if isinstance(owner, ast.Name) and owner.id in factory_variables:
+            return True
+        if (
+            isinstance(owner, ast.Call)
+            and isinstance(owner.func, ast.Name)
+            and owner.func.id == factory_name
+        ):
+            return True
+    return False
+
+
 def python_mcp_server(root: Path) -> tuple[dict[str, object], list[str]] | None:
     """Return the exact factory, tools, runner defaults, and dependency from source."""
 
@@ -47,6 +83,8 @@ def python_mcp_server(root: Path) -> tuple[dict[str, object], list[str]] | None:
     factory = _function(tree, "create_server")
     runner = _function(tree, "run")
     if factory is None or runner is None:
+        return None
+    if not _factory_instance_runs(runner, factory_name="create_server"):
         return None
     exports: set[str] = set()
     for node in init_tree.body:
@@ -97,6 +135,7 @@ def python_mcp_server(root: Path) -> tuple[dict[str, object], list[str]] | None:
             "module": relative_module,
             "factory": "create_server",
             "runner": "run",
+            "factory_instance_run": True,
             "tools": tools,
             "runner_defaults": _literal_defaults(runner),
             "dependency_package": "fastmcp",

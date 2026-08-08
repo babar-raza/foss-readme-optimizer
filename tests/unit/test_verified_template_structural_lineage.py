@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
@@ -11,10 +12,13 @@ from readme_agent.presentation.template_schema import (
     BoundTemplateContentV1,
     PresentationTemplateInputV1,
 )
+from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
+from readme_agent.presentation.verified_template_capabilities import (
+    capability_highlights_markdown,
+)
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
-    api_reference_markdown,
     development_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -23,9 +27,17 @@ from readme_agent.readme.composition_operation_origins import (
     legacy_operation_provenance,
     replay_operation_origins,
 )
+from readme_agent.readme.diagram_semantic_candidates import (
+    output_node_candidates,
+    selected_verified_capability_nodes,
+)
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import example_text, installation_text
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    canonicalize_public_markdown,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 FACTS_PATH = (
@@ -46,6 +58,7 @@ def _facts() -> ProductFactsV2:
         field="api.public_surface",
         value={
             "modules": [{"module": "aspose.threed", "exports": ["Scene"]}],
+            "package_namespaces": ["aspose.threed", "aspose.threed.animation"],
             "classes": [
                 {
                     "name": "Scene",
@@ -54,6 +67,7 @@ def _facts() -> ProductFactsV2:
                     "members": [
                         {
                             "name": "open",
+                            "kind": "method",
                             "surface": "open(file_or_stream, options=None)",
                             "source_path": "aspose/threed/Scene.py",
                             "source_sha256": "a" * 64,
@@ -116,7 +130,7 @@ def _bound(
 ) -> BoundTemplateContentV1:
     fact_ids = [facts.selected_fact(field).fact_id for field in fields]
     return BoundTemplateContentV1(
-        markdown=markdown,
+        markdown=canonicalize_public_markdown(markdown, canonical_abbreviations_from_facts(facts)),
         source_kind=("repository_fact_and_configured_standard" if standards else "repository_fact"),
         fact_ids=fact_ids,
         standard_ids=list(standards),
@@ -163,7 +177,7 @@ def _template_input(facts: ProductFactsV2) -> PresentationTemplateInputV1:
             ),
             "key_capabilities": _bound(
                 facts,
-                "- File format import and export for OBJ, GLTF, STL, and 3MF.",
+                "- **File format import and export** - Work with OBJ, GLTF, STL, and 3MF.",
                 "product.capabilities",
             ),
             "installation": _bound(
@@ -175,11 +189,7 @@ def _template_input(facts: ProductFactsV2) -> PresentationTemplateInputV1:
             ),
             "quick_start": _bound(
                 facts,
-                "### Minimal verified example\n\n"
-                "```python\n"
-                "from aspose.threed import Scene\n\n"
-                "scene = Scene()\n"
-                "```",
+                "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
                 "example.minimal",
                 standards=("readme.primary_example",),
             ),
@@ -215,6 +225,178 @@ def _template_input(facts: ProductFactsV2) -> PresentationTemplateInputV1:
             ),
         },
     )
+
+
+def test_api_reference_is_one_type_description_table_per_namespace() -> None:
+    api = api_reference_markdown(_facts())
+
+    assert api is not None
+    assert "<summary>View public API by namespace</summary>" in api
+    assert api.count("### Aspose.3D Namespace (`aspose.threed`)") == 1
+    assert api.count("| Type | Description |") == 1
+    assert (
+        "| `Scene` | `Scene` exposes the verified public `open content` operation "
+        "in the `aspose.threed` namespace. |"
+    ) in api
+    assert "`aspose.threed.animation`" in api
+    assert "\n- `Scene`" not in api
+
+
+def test_api_reference_preserves_identifier_and_humanizes_namespace_heading() -> None:
+    facts = _facts()
+    api_fact = facts.selected_fact("api.public_surface")
+    replacement = api_fact.model_copy(
+        update={
+            "value": {
+                "modules": [
+                    {"module": "aspose.threed.pdf_writer", "exports": ["Scene"]},
+                    {"module": "aspose.threed.A3DObject", "exports": ["Scene"]},
+                ],
+                "classes": [
+                    {"module": "aspose.threed.pdf_writer", "name": "Scene", "members": []},
+                ],
+            }
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == api_fact.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    api = api_reference_markdown(facts)
+
+    assert api is not None
+    assert "### Aspose.3D.PDF Writer Namespace (`aspose.threed.pdf_writer`)" in api
+    assert "### Aspose.3D.A3DObject Namespace (`aspose.threed.A3DObject`)" in api
+
+
+def test_api_reference_humanizes_underscore_root_without_repeating_product_family() -> None:
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    api_fact = facts.selected_fact("api.public_surface")
+    replacements = {
+        identity.fact_id: identity.model_copy(
+            update={"value": {**identity.value, "family": "PDF"}}
+        ),
+        api_fact.fact_id: api_fact.model_copy(
+            update={
+                "value": {
+                    "modules": [
+                        {
+                            "module": "aspose_pdf.annotations",
+                            "exports": ["PdfPlugin"],
+                        }
+                    ],
+                    "classes": [
+                        {
+                            "module": "aspose_pdf.annotations",
+                            "name": "PdfPlugin",
+                            "members": [{"name": "process", "kind": "method"}],
+                        }
+                    ],
+                }
+            }
+        ),
+    }
+    facts = facts.model_copy(
+        update={"facts": [replacements.get(fact.fact_id, fact) for fact in facts.facts]}
+    )
+
+    api = api_reference_markdown(facts)
+
+    assert api is not None
+    assert "### Aspose.PDF.Annotations Namespace (`aspose_pdf.annotations`)" in api
+    assert "Aspose PDF.PDF" not in api
+    assert (
+        "`PdfPlugin` exposes the verified public `process` operation "
+        "in the `aspose_pdf.annotations` namespace."
+    ) in api
+
+
+def test_duplicate_function_exports_are_described_as_namespace_reexports() -> None:
+    facts = _facts()
+    api_fact = facts.selected_fact("api.public_surface")
+    replacement = api_fact.model_copy(
+        update={
+            "value": {
+                "modules": [
+                    {"module": "aspose.page.mcp", "exports": ["create_server", "run"]},
+                    {
+                        "module": "aspose.page.mcp.server",
+                        "exports": ["create_server", "run"],
+                    },
+                ],
+                "classes": [],
+            }
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == api_fact.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    api = api_reference_markdown(facts)
+
+    assert api is not None
+    assert api.count("Public function for create server operations.") == 1
+    assert api.count("Public function for run operations.") == 1
+    assert (
+        "The `aspose.page.mcp.server` namespace re-exports `create_server` from the primary "
+        "`aspose.page.mcp` namespace."
+    ) in api
+    descriptions = [
+        match.group(1)
+        for line in api.splitlines()
+        if (match := re.fullmatch(r"\| `[^`]+` \| (.+) \|", line)) is not None
+    ]
+    assert len(descriptions) == len(set(descriptions))
+
+
+def test_capabilities_use_bold_features_with_same_line_explanations() -> None:
+    capabilities = capability_highlights_markdown(_facts())
+
+    assert capabilities is not None
+    assert all(
+        line.startswith("- **") and "** - " in line and line.endswith(".")
+        for line in capabilities.splitlines()
+    )
+    assert "**Import and export OBJ, GLTF, STL, and 3MF files**" in capabilities
+    assert "Convert GLTF - GL Transmission Format (glTF 2.0) files to GLTF" not in capabilities
+    assert "Exchange content across the listed supported file formats" in capabilities
+    assert "Build reusable scene geometry from the listed primitive types" in capabilities
+    assert "Animate scene properties with time-based keyframe data" in capabilities
+
+
+def test_diagram_derives_every_explicit_import_export_output_without_dangling_text() -> None:
+    facts = _facts()
+
+    assert {node.label for node in output_node_candidates(facts)} >= {
+        "OBJ files",
+        "GLTF files",
+        "STL files",
+        "3MF files",
+    }
+    assert all(
+        not node.label.endswith((",", ";", ":", "-"))
+        for node in selected_verified_capability_nodes(facts)
+    )
+
+
+def test_additional_examples_preview_public_workflows_without_internal_assurance() -> None:
+    examples = additional_examples_markdown(_facts())
+
+    assert examples is not None
+    assert examples.startswith("Expand this section to view examples for ")
+    assert "| Example source | Verification |" not in examples
+    assert "source revision" not in examples
+    assert "not executed" not in examples
+    assert "The inline workflows below" not in examples
 
 
 def _covered_heading_titles(
@@ -261,6 +443,31 @@ def test_canonical_compiler_h2_and_fact_renderer_h3_have_exact_lineage() -> None
     assert any(
         item.provenance_id.startswith("template.structure.h3.development_and_testing")
         for item in provenance
+    )
+    api_heading = next(
+        heading for heading in parse_headings(candidate) if heading.title == "API Reference"
+    )
+    api_start = len(candidate[: api_heading.start].encode("utf-8"))
+    api_end = len(candidate[: api_heading.section_end].encode("utf-8"))
+    api_fact_id = facts.selected_fact_ids["api.public_surface"]
+    api_claims = [
+        claim
+        for claim in assess_material_claims(candidate)
+        if api_start <= claim.source_byte_start
+        and claim.source_byte_end <= api_end
+        and candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end]
+        .decode("utf-8")
+        .startswith("| Type | Description |")
+    ]
+    assert api_claims
+    assert all(
+        any(
+            binding.candidate_byte_start <= claim.source_byte_start
+            and claim.source_byte_end <= binding.candidate_byte_end
+            and (api_fact_id in binding.fact_ids or bool(binding.configured_standard_ids))
+            for binding in provenance
+        )
+        for claim in api_claims
     )
     source = b"# Legacy\n"
     operation = build_operation(
@@ -319,7 +526,7 @@ def test_modified_fact_section_cannot_inherit_canonical_h3_authority() -> None:
     )
 
 
-def test_verified_input_fixture_prerequisite_has_exact_fact_lineage() -> None:
+def test_verified_input_fixture_does_not_add_generated_narration() -> None:
     facts = _facts()
     example = facts.selected_fact("example.minimal")
     value = dict(example.value)
@@ -355,19 +562,9 @@ def test_verified_input_fixture_prerequisite_has_exact_fact_lineage() -> None:
     )
     candidate = compile_repository_presentation(template_input)
     provenance = build_template_provenance(candidate, template_input, facts)
-    fixture_claim = next(
-        claim
-        for claim in assess_material_claims(candidate)
-        if "verification used the repository fixture"
-        in candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
-            "utf-8"
-        )
-    )
-
+    assert "verification used the repository fixture" not in candidate
     assert any(
         item.provenance_id.startswith("template.section.quick_start")
-        and item.candidate_byte_start <= fixture_claim.source_byte_start
-        and fixture_claim.source_byte_end <= item.candidate_byte_end
         and example.fact_id in item.fact_ids
         for item in provenance
     )

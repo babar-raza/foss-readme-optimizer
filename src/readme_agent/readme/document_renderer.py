@@ -78,6 +78,7 @@ from readme_agent.readme.document_terminology import (
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.public_text import canonical_abbreviations_from_facts
 from readme_agent.registry.models import LinkAllocationPolicyV1
 
 __all__ = [
@@ -233,15 +234,21 @@ def build_readme_document_candidate(
         )
         operations = apply_contextual_link_bindings(context, operations, contextual_links)
         operations = prune_noop_operations(source, operations)
-    operations = canonicalize_operation_decorations(operations)
+    operations = canonicalize_operation_decorations(
+        operations,
+        canonical_terms=canonical_abbreviations_from_facts(facts),
+    )
     operations = finalize_navigation_operations(source, operations)
     operations = enforce_canonical_section_order(source, operations)
+    operations = prune_noop_operations(source, operations)
     validate_agentic_operation_coverage(
         assessment,
         assessment.sections,
         operations,
     )
     rendered_inner = apply_document_operations(source, operations).decode("utf-8")
+    if rendered_inner == context.inner_text:
+        operations = []
     terminology_findings = (
         find_enterprise_terminology_findings(
             rendered_inner,

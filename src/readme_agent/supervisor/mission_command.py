@@ -174,6 +174,9 @@ def run_mission_command(args: argparse.Namespace) -> int:
     else:
         print(f"next_task: {evaluation.next_task.task_id}")
         print(f"next_task_stage_goal: {evaluation.next_task.stage_goal_id}")
+        print(f"next_immediate_goal: {evaluation.next_task.immediate_goal_id or '-'}")
+        print(f"next_immediate_outcome: {evaluation.next_task.immediate_outcome or '-'}")
+        print("next_repository_scope: " + (", ".join(evaluation.next_task.repository_scope) or "-"))
         print(f"next_task_campaign: {evaluation.next_task.campaign_id or '-'}")
         print(f"next_task_goals: {', '.join(evaluation.next_task.goal_ids)}")
         print(

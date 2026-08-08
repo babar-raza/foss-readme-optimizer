@@ -157,6 +157,9 @@ class MissionNextTaskV1(_StrictModel):
     campaign_id: ExecutionCampaignId | None = None
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
+    immediate_goal_id: str | None = None
+    immediate_outcome: str | None = None
+    repository_scope: list[str] = Field(default_factory=list)
 
 
 class MissionContributionEvidenceV1(_StrictModel):

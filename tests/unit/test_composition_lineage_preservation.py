@@ -90,6 +90,7 @@ def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() 
     first = compose_verified_source_preservation(
         candidate,
         source,
+        facts,
         assessment,
         set(),
         provenance,
@@ -97,6 +98,7 @@ def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() 
     second = compose_verified_source_preservation(
         first.candidate,
         source,
+        facts,
         assessment,
         set(),
         first.provenance,
@@ -148,6 +150,7 @@ def test_composer_fails_closed_on_unplaced_generated_duplicate_of_preserve_claim
         compose_verified_source_preservation(
             candidate,
             source,
+            facts,
             assessment,
             set(),
             provenance,

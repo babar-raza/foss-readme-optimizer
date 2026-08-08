@@ -30,6 +30,7 @@ from readme_agent.supervisor.local_poc_cache import (
 )
 from readme_agent.supervisor.local_poc_manifest_recovery import (
     reconcile_approved_manifest_from_receipt,
+    reconcile_completed_manifest_from_evidence,
 )
 from readme_agent.supervisor.local_poc_review_evidence import (
     write_local_poc_no_op_evidence,
@@ -179,6 +180,7 @@ def reuse_completed_local_poc_noop(
 ) -> LocalPocCompletedReuseV1:
     """Reuse a completed bundle when generic repository freshness is unavailable."""
 
+    reconcile_completed_manifest_from_evidence(state, bundle_dir)
     decision = evaluate_completed_local_poc_cache(
         state,
         bundle_dir,

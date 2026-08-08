@@ -94,6 +94,7 @@ def build_verified_template_compilation(
         assessment,
         build_source_claim_assurance(source_text, facts, assessment),
         provenance,
+        candidate,
     )
     preserved_source_ranges = source_assurance.preserve_ranges
     correction_source_ranges = [
@@ -129,6 +130,7 @@ def build_verified_template_compilation(
     composition = compose_verified_source_preservation(
         candidate,
         source_text,
+        facts,
         assessment,
         resolved_claim_ids,
         provenance,

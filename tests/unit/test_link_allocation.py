@@ -28,6 +28,13 @@ def test_auto_budget_uses_exact_content_unit_tiers(words: int, expected: int) ->
     assert budget.max_total == expected
 
 
+def test_auto_budget_prioritizes_aspose_org_within_the_total_ceiling() -> None:
+    budget = resolve_link_budget(LinkAllocationPolicyV1(), _markdown_with_words(3_500))
+
+    assert budget.max_total == 6
+    assert budget.domain_maxima == {"aspose.org": 4, "aspose.com": 3}
+
+
 def test_verified_code_block_adds_exactly_one_hundred_units() -> None:
     code = "from product import Widget\nWidget().save('out.bin')"
     markdown = f"# Product\n\nWords here.\n\n```python\n{code}\n```\n"

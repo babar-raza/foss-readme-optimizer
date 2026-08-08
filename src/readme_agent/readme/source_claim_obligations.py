@@ -13,6 +13,7 @@ SourceClaimObligation = Literal[
     "at_a_glance",
     "major_capabilities",
     "verified_installation",
+    "dependency_requirements",
     "primary_example",
     "additional_examples",
     "api_public_surface",
@@ -21,6 +22,9 @@ SourceClaimObligation = Literal[
     "support_routes",
     "scope_and_limitations",
     "development_commands",
+    "repository_map",
+    "contribution_guidance",
+    "security_guidance",
     "third_party_notices",
     "license",
     "contextual_product_relationship",
@@ -36,6 +40,7 @@ _OBLIGATION_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
     "verified_installation": frozenset(
         {"installation.verified_acquisition", "installation.coordinates"}
     ),
+    "dependency_requirements": frozenset(),
     "primary_example": frozenset({"example.minimal"}),
     "additional_examples": frozenset({"repository.examples"}),
     "api_public_surface": frozenset({"api.public_surface"}),
@@ -44,6 +49,9 @@ _OBLIGATION_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
     "support_routes": frozenset({"support.routes"}),
     "scope_and_limitations": frozenset({"product.limitations"}),
     "development_commands": frozenset({"development.commands"}),
+    "repository_map": frozenset(),
+    "contribution_guidance": frozenset({"repository.contribution_guidance"}),
+    "security_guidance": frozenset({"repository.security_guidance"}),
     "third_party_notices": frozenset({"repository.third_party_notices"}),
     "license": frozenset({"product.license"}),
     "contextual_product_relationship": frozenset({"relationship.commercial_foss"}),
@@ -56,6 +64,22 @@ _OBLIGATION_ANY_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
     "product_overview": frozenset(
         {"product.audience", "product.problems_solved", "product.capabilities"}
     ),
+    "dependency_requirements": frozenset(
+        {
+            "installation.capability_dependencies",
+            "installation.optional_extras",
+            "python.distribution",
+        }
+    ),
+    "repository_map": frozenset(
+        {
+            "api.public_surface",
+            "development.assets",
+            "development.commands",
+            "repository.ci",
+            "repository.documentation_assets",
+        }
+    ),
 }
 _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = {
     "header_badges": ("template.badges",),
@@ -64,6 +88,7 @@ _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = 
     "at_a_glance": ("template.section.at_a_glance",),
     "major_capabilities": ("template.section.key_capabilities",),
     "verified_installation": ("template.section.installation",),
+    "dependency_requirements": ("template.section.installation",),
     "primary_example": ("template.section.quick_start",),
     "additional_examples": ("template.section.additional_examples",),
     "api_public_surface": ("template.section.api_reference",),
@@ -72,6 +97,9 @@ _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = 
     "support_routes": ("template.section.documentation_resources",),
     "scope_and_limitations": ("template.section.scope_and_limitations",),
     "development_commands": ("template.section.development_and_testing",),
+    "repository_map": ("template.section.development_and_testing",),
+    "contribution_guidance": ("template.section.contributing",),
+    "security_guidance": ("template.section.security",),
     "third_party_notices": ("template.section.third_party_notices",),
     "license": ("template.section.license",),
     "contextual_product_relationship": ("template.section.scope_and_limitations",),
@@ -92,7 +120,16 @@ _OVERVIEW_FACT_FIELDS = (
     "product.license",
 )
 _SOURCE_ENTAILMENT_REQUIRED = frozenset(
-    {"api_public_surface", "major_capabilities", "primary_example"}
+    {
+        "api_public_surface",
+        "contribution_guidance",
+        "dependency_requirements",
+        "major_capabilities",
+        "primary_example",
+        "product_overview",
+        "repository_map",
+        "security_guidance",
+    }
 )
 
 

@@ -9,6 +9,7 @@ import pytest
 
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.presentation.verified_source_claim_matching import presentation_equivalence_key
 from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability import (
@@ -42,12 +43,41 @@ NOTE_SOURCE = (
 )
 
 
+def test_presentation_equivalence_normalizes_list_shell_and_terminal_colon() -> None:
+    assert presentation_equivalence_key("PDF export requires ReportLab:") == (
+        presentation_equivalence_key("- PDF export requires ReportLab")
+    )
+    assert presentation_equivalence_key("PDF export requires ReportLab:") != (
+        presentation_equivalence_key("PDF export does not require ReportLab")
+    )
+
+
 def _case(platform: str):
     root = REPRESENTATIVES / platform
     source = (root / "original-readme.md").read_text(encoding="utf-8")
     facts = ProductFactsV2.model_validate_json(
         (root / "product-facts-v2.json").read_text(encoding="utf-8")
     )
+    if platform in {"python", "typescript"}:
+        formats = facts.selected_fact("product.formats")
+        names = [str(value).split(" - ", 1)[0] for value in formats.value]
+        facts = facts.model_copy(
+            update={
+                "facts": [
+                    fact.model_copy(
+                        update={
+                            "value": [
+                                "Input formats: " + ", ".join(names),
+                                "Output formats: " + ", ".join(names),
+                            ]
+                        }
+                    )
+                    if fact.fact_id == formats.fact_id
+                    else fact
+                    for fact in facts.facts
+                ]
+            }
+        )
     revision = next(
         fact.source.source_revision
         for fact in facts.facts
@@ -452,6 +482,41 @@ def test_configured_standard_cannot_blanket_hallucinated_product_prose():
     assert record.expected_disposition == "unbound_generated"
 
 
+def test_exact_canonical_claim_provenance_authorizes_a_bounded_compiler_paraphrase():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n"
+    candidate = "# Product\n\n- **Configure PS resource limits** - Configure PS resource limits.\n"
+    claim = assess_material_claims(candidate)[0]
+    capability = facts.selected_fact("product.capabilities")
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:0:bounded",
+        candidate_byte_start=claim.source_byte_start,
+        candidate_byte_end=claim.source_byte_end,
+        fact_ids=[capability.fact_id],
+        rationale="Exact canonical capability-renderer output.",
+    )
+    claim_map = ReadmeClaimMapV1(
+        org_repo=facts.org_repo,
+        facts_hash=facts.canonical_hash(),
+        candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+        claims=[],
+    )
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=claim_map,
+        candidate_content_provenance=[provenance],
+    )
+    record = _record_containing(accountability, candidate, "candidate", "Configure PS")
+
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "accepted_fact"
+    assert record.accepted_fact_ids == [capability.fact_id]
+
+
 @pytest.mark.parametrize("target", ["input.ps", "different.ps"])
 def test_verified_input_prerequisite_requires_the_exact_fixture_pair(target: str):
     _source, _candidate, facts, _plan, _accountability = _case("python")
@@ -625,6 +690,66 @@ def test_preserved_section_claim_cannot_be_deferred_or_replaced():
         )
 
 
+def test_fact_authorized_preserve_accepts_fact_bound_presentation_equivalence():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\n## Scope and limitations\n\nPDF export requires ReportLab:\n"
+    candidate = "# Product\n\n## Scope and limitations\n\n- PDF export requires ReportLab\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    limitation = facts.selected_fact("product.limitations")
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.scope_and_limitations",
+            candidate_byte_start=candidate_claim.source_byte_start,
+            candidate_byte_end=candidate_claim.source_byte_end,
+            fact_ids=[limitation.fact_id],
+            rationale="Bind the presentation-only replacement to the accepted limitation.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+        preserved_source_ranges=[(source_claim.source_byte_start, source_claim.source_byte_end)],
+    )
+
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "verified_equivalence"
+    assert resolutions[0].candidate_claim_id == candidate_claim.claim_id
+
+
+def test_fact_authorized_command_fence_matches_one_fact_bound_inline_command():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\n## Installation\n\n```bash\npython -m pip install -e .\n```\n"
+    candidate = "# Product\n\n## Installation\n\n- Source build: `python -m pip install -e .`\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.installation",
+            candidate_byte_start=candidate_claim.source_byte_start,
+            candidate_byte_end=candidate_claim.source_byte_end,
+            fact_ids=[acquisition.fact_id],
+            rationale="Bind the inline source-build command to verified acquisition evidence.",
+        )
+    ]
+
+    resolutions = build_source_claim_resolutions(
+        source,
+        candidate,
+        facts,
+        provenance,
+        preserved_source_ranges=[(source_claim.source_byte_start, source_claim.source_byte_end)],
+    )
+
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "verified_equivalence"
+    assert resolutions[0].candidate_claim_id == candidate_claim.claim_id
+
+
 def test_exact_source_claim_survives_when_collapsed_inside_html_details():
     _source, _candidate, facts, _plan, _accountability = _case("python")
     source = "# Product\n\n## Results\n\n![Verified result](assets/result.png)\n"
@@ -672,9 +797,9 @@ def test_exact_source_claim_survives_when_collapsed_inside_html_details():
     ("heading", "expected_class", "expected_obligation"),
     [
         ("Feature Boundaries", "mandatory_fact_resolution", "scope_and_limitations"),
-        ("Contributing", "mandatory_fact_resolution", None),
-        ("Security", "mandatory_fact_resolution", None),
-        ("Repository Map", "mandatory_fact_resolution", None),
+        ("Contributing", "mandatory_fact_resolution", "contribution_guidance"),
+        ("Security", "mandatory_fact_resolution", "security_guidance"),
+        ("Repository Map", "mandatory_fact_resolution", "repository_map"),
     ],
 )
 def test_repository_governance_claims_do_not_map_to_positive_product_obligations(
@@ -755,15 +880,21 @@ def test_exact_other_platforms_directory_uses_fact_bound_relationship_omission()
             rationale="Bind the relationship replacement to accepted portfolio policy.",
         )
     ]
+    claims = assess_material_claims(source)
+    preserved_ranges = [
+        (claim.source_byte_start, claim.source_byte_end)
+        for claim in claims
+        if claim.disposition == "preserve"
+    ]
 
     resolutions = build_source_claim_resolutions(
         source,
         candidate,
         facts,
         provenance,
+        preserved_source_ranges=preserved_ranges,
     )
 
-    claims = assess_material_claims(source)
     assert len(resolutions) == len(claims)
     assert all(item.resolution == "verified_omission" for item in resolutions)
     assert all(item.obligation_id == "contextual_product_relationship" for item in resolutions)

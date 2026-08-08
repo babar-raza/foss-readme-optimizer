@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -15,9 +16,10 @@ from readme_agent.presentation.verified_source_claim_resolutions import (
     build_source_claim_resolutions,
     probe_source_claim_resolutions_for_composition,
 )
+from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
+from readme_agent.presentation.verified_template_capabilities import capability_claim_fact_ids
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
-    api_reference_markdown,
     development_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -29,6 +31,13 @@ from readme_agent.readme.example_assurance_validation import (
     additional_examples_disclosure_fact_ids,
 )
 from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    canonicalize_public_markdown,
+)
+from readme_agent.readme.source_claim_repository_asset_binding import (
+    repository_asset_source_claim_fact_ids,
+)
 from readme_agent.readme.source_claim_risk import classify_source_claim_risk
 
 _CLAIM_LEVEL_SLOTS = {
@@ -69,12 +78,18 @@ def _canonical_structural_section(
 
     if slot == "additional_examples":
         title = " ".join(template_input.title.markdown.split())
-        return additional_examples_markdown(facts, reserved_heading_titles=(title,))
-    if slot == "api_reference":
-        return api_reference_markdown(facts)
-    if slot == "development_and_testing":
-        return development_markdown(facts)
-    return None
+        markdown = additional_examples_markdown(facts, reserved_heading_titles=(title,))
+    elif slot == "api_reference":
+        markdown = api_reference_markdown(facts)
+    elif slot == "development_and_testing":
+        markdown = development_markdown(facts)
+    else:
+        return None
+    return (
+        canonicalize_public_markdown(markdown, canonical_abbreviations_from_facts(facts))
+        if markdown is not None
+        else None
+    )
 
 
 def _structural_heading_bindings(
@@ -89,13 +104,9 @@ def _structural_heading_bindings(
     """Bind H3 bytes only when the complete section is the canonical fact renderer."""
 
     canonical = _canonical_structural_section(slot, template_input, facts)
-    quick_start_shell = bool(
-        slot == "quick_start"
-        and section_text.startswith("### Minimal verified example\n\n")
-        and "readme.primary_example" in content.standard_ids
-    )
     if (
-        (not quick_start_shell and (canonical is None or canonical.strip() != section_text))
+        canonical is None
+        or canonical.strip() != section_text
         or content.source_kind != "repository_fact_and_configured_standard"
         or not content.fact_ids
         or not content.standard_ids
@@ -188,6 +199,13 @@ def build_template_provenance(
         )
         if slot in _CLAIM_LEVEL_SLOTS:
             text = content.markdown.strip()
+            canonical_structural_section = _canonical_structural_section(
+                slot, template_input, facts
+            )
+            canonical_structural_section_matches = (
+                canonical_structural_section is not None
+                and canonical_structural_section.strip() == text
+            )
             start_character = candidate.find(text, cursor)
             if start_character < 0:
                 raise ValueError(f"compiled template content is absent: template.section.{slot}")
@@ -253,6 +271,10 @@ def build_template_provenance(
                         ),
                     }
                 )
+                if slot == "key_capabilities":
+                    fact_ids = sorted({*fact_ids, *capability_claim_fact_ids(claim_text, facts)})
+                if slot == "api_reference" and canonical_structural_section_matches:
+                    fact_ids = sorted({*fact_ids, *content.fact_ids})
                 if (
                     not fact_ids
                     and "readme.contextual_links" in content.standard_ids
@@ -277,6 +299,26 @@ def build_template_provenance(
                             fact_ids = sorted({*fact_ids, relationship.fact_id})
                 if slot == "additional_examples" and not fact_ids:
                     fact_ids = additional_examples_disclosure_fact_ids(claim_text, facts)
+                if (
+                    slot == "additional_examples"
+                    and not fact_ids
+                    and canonical_structural_section_matches
+                    and claim_text.strip() == text.split("<details>", 1)[0].strip()
+                ):
+                    examples = facts.selected_fact("repository.examples")
+                    if (
+                        examples.fact_id in content.fact_ids
+                        and examples.verification_state in {"verified", "policy_approved"}
+                        and not examples.has_unresolved_conflict
+                    ):
+                        fact_ids = [examples.fact_id]
+                if slot == "additional_examples":
+                    fact_ids = sorted(
+                        {
+                            *fact_ids,
+                            *repository_asset_source_claim_fact_ids(claim_text, facts),
+                        }
+                    )
                 standard_ids = (
                     content.standard_ids
                     if fact_ids or _STRUCTURAL_SHELL.fullmatch(claim_text.strip())
@@ -286,11 +328,24 @@ def build_template_provenance(
                     standard_ids = sorted({*standard_ids, "readme.verified_acquisition"})
                 if not fact_ids and not standard_ids:
                     continue
+                claim_end = base_byte + claim.source_byte_end
+                provenance_id = f"template.section.{slot}.{claim.claim_id}"
+                if claim_text.strip() == "</details>":
+                    candidate_bytes = candidate.encode("utf-8")
+                    if candidate_bytes[claim_end : claim_end + 2] == b"\r\n":
+                        claim_end += 2
+                    elif candidate_bytes[claim_end : claim_end + 1] == b"\n":
+                        claim_end += 1
+                    exact_bytes = candidate_bytes[base_byte + claim.source_byte_start : claim_end]
+                    digest = hashlib.sha256(exact_bytes).hexdigest()[:16]
+                    provenance_id = (
+                        f"template.section.{slot}.claim:{claim.source_byte_start}:{digest}"
+                    )
                 bindings.append(
                     CandidateContentProvenanceV1(
-                        provenance_id=f"template.section.{slot}.{claim.claim_id}",
+                        provenance_id=provenance_id,
                         candidate_byte_start=base_byte + claim.source_byte_start,
-                        candidate_byte_end=base_byte + claim.source_byte_end,
+                        candidate_byte_end=claim_end,
                         fact_ids=fact_ids,
                         configured_standard_ids=standard_ids,
                         rationale="Bind one exact optional-section claim to accepted inputs.",

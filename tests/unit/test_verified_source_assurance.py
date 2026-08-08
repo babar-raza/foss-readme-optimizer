@@ -435,6 +435,7 @@ def test_api_disclosure_shell_is_structural_and_compatibility_is_correctable() -
     assert not obligation_requires_source_entailment("api_structure")
     assert not obligation_requires_source_entailment("compatibility")
     assert obligation_requires_source_entailment("api_public_surface")
+    assert obligation_requires_source_entailment("product_overview")
 
 
 def test_comment_removal_requires_complete_verified_example_ast_equivalence() -> None:
@@ -555,9 +556,16 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
         for record in plan.claim_accountability.claims
         if record.stage == "source" and record.source_byte_start == 29
     )
-    assert opening_overview.currently_accountable is False
+    assert opening_overview.currently_accountable is True
     assert opening_overview.survives_in_candidate is False
-    assert opening_overview.expected_disposition == "unjustified_loss"
+    assert opening_overview.expected_disposition == "deferred_verification"
+    opening_resolution = next(
+        resolution
+        for resolution in plan.source_claim_resolutions
+        if resolution.claim_id == opening_overview.claim_id.removeprefix("source:")
+    )
+    assert opening_resolution.resolution == "deferred_verification"
+    assert "unverified-source-detail-for:product_overview" in opening_resolution.evidence
     assert not any(
         resolution.claim_id == opening_overview.claim_id.removeprefix("source:")
         and resolution.obligation_id == "license"

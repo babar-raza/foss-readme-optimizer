@@ -28,6 +28,7 @@ SURFACE_DEPENDENCIES = {
     "example.minimal": ["readme.example"],
     "repository.examples": ["readme.examples"],
     "api.public_surface": ["readme.api_reference"],
+    "repository.implementation_components": ["readme.opening", "readme.api_reference"],
     "development.assets": ["readme.development"],
     "development.commands": ["readme.development", "readme.contributing"],
     "repository.documentation_assets": ["readme.resources", "readme.limitations"],

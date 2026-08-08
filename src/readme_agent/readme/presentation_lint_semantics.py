@@ -8,13 +8,18 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
 from readme_agent.readme.presentation_lint_text import (
+    VisibleLine,
     emoji_decoration_spans,
     exact_span,
     line_span,
     make_finding,
     visible_lines,
 )
-from readme_agent.readme.presentation_similarity import summaries_overlap
+from readme_agent.readme.presentation_similarity import (
+    capability_discriminators,
+    semantically_repeats,
+    summaries_overlap,
+)
 
 RULE_IDS = (
     "cross_product_leakage",
@@ -182,6 +187,44 @@ def lint_semantics(
                     [line_span(text, line) for line in repeated],
                 )
             )
+
+    capability_sections = {
+        heading.start: heading
+        for heading in h2_sections
+        if any(
+            marker in heading.title.casefold() for marker in ("capabilit", "feature", "why aspose")
+        )
+    }
+    cross_section_duplicates: list[VisibleLine] = []
+    capability_bullets = [
+        (section_start, normalized, line)
+        for (section_start, normalized), section_lines in bullets.items()
+        if section_start in capability_sections
+        for line in section_lines
+    ]
+    for index, (_left_section, left, left_line) in enumerate(capability_bullets):
+        for right_section, right, right_line in capability_bullets[index + 1 :]:
+            if _left_section == right_section:
+                left_discriminators = capability_discriminators(left)
+                right_discriminators = capability_discriminators(right)
+                if (
+                    left_discriminators
+                    and right_discriminators
+                    and left_discriminators != right_discriminators
+                ):
+                    continue
+            if not semantically_repeats(left, right):
+                continue
+            cross_section_duplicates.extend((left_line, right_line))
+    if cross_section_duplicates:
+        unique_lines = {(line.start, line.end): line for line in cross_section_duplicates}
+        findings.append(
+            make_finding(
+                "semantic_duplicate",
+                "Capability information is repeated across competing visitor sections.",
+                [line_span(text, line) for line in unique_lines.values()],
+            )
+        )
 
     labeled = []
     for line in lines:

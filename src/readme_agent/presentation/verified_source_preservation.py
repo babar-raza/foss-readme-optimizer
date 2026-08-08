@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_preservation_sections import (
     PreservedBlock,
     VerifiedSourcePreservationSelectionV1,
@@ -18,6 +19,10 @@ from readme_agent.presentation.verified_preservation_segments import (
     rebase_source_placements,
 )
 from readme_agent.presentation.verified_source_density import apply_verified_source_density
+from readme_agent.presentation.verified_source_detail_routing import (
+    route_source_detail_blocks,
+    source_section_routes_to_canonical_contract,
+)
 from readme_agent.presentation.verified_source_placements import (
     exclude_source_placements_from_provenance,
     replacement_placements,
@@ -52,6 +57,7 @@ class VerifiedSourceComposition:
 def compose_verified_source_preservation(
     candidate: str,
     source_text: str,
+    facts: ProductFactsV2,
     assessment: ReadmeAssessmentV1,
     resolved_claim_ids: set[str],
     provenance: list[CandidateContentProvenanceV1],
@@ -88,6 +94,13 @@ def compose_verified_source_preservation(
         )
         for section in preserved_sections
         if heading_identity(section.title) not in block_by_identity
+        and not source_section_routes_to_canonical_contract(
+            source_text,
+            assessment,
+            facts,
+            section.source_byte_start,
+            section.source_byte_end,
+        )
         and not fully_omitted_by_shell_policy(
             section.source_byte_start,
             section.source_byte_end,
@@ -189,34 +202,87 @@ def compose_verified_source_preservation(
     ]
     source_placements.extend(adopted_placements)
     if missing_blocks:
-        preserved_heading = "Preserved repository details"
-        headings = [heading for heading in parse_headings(composed) if heading.level == 2]
-        if any(
-            heading_identity(heading.title) == heading_identity(preserved_heading)
-            for heading in headings
-        ):
-            raise ValueError("source-preservation detail heading collides with candidate content")
-        license_heading = next(
-            (heading for heading in headings if heading_identity(heading.title) == "license"),
-            None,
+        routed = route_source_detail_blocks(
+            source_text,
+            assessment,
+            facts,
+            missing_blocks,
+            composed,
+            composed_provenance,
         )
-        insertion_character = license_heading.start if license_heading else len(composed)
-        detail_edit = CandidateEdit(
-            len(composed[:insertion_character].encode("utf-8")),
-            len(composed[:insertion_character].encode("utf-8")),
-            f"## {preserved_heading}\n\n" + separated_exact_blocks(missing_blocks),
-        )
-        source_placements = rebase_source_placements(source_placements, detail_edit)
-        composed = apply_edit(composed, detail_edit)
-        composed_provenance = rebase_provenance(composed_provenance, detail_edit, composed)
-        source_placements.extend(
-            replacement_placements(
-                missing_blocks,
-                detail_edit,
-                "source.preserved-detail",
-                leading=f"## {preserved_heading}\n\n",
+        for (target_title, summary), blocks in sorted(routed.items(), reverse=True):
+            headings = [heading for heading in parse_headings(composed) if heading.level == 2]
+            target = next(
+                (
+                    heading
+                    for heading in headings
+                    if heading_identity(heading.title) == heading_identity(target_title)
+                ),
+                None,
             )
-        )
+            if target is None:
+                license_heading = next(
+                    (
+                        heading
+                        for heading in headings
+                        if heading_identity(heading.title) == "license"
+                    ),
+                    None,
+                )
+                insertion_character = (
+                    license_heading.start if license_heading is not None else len(composed)
+                )
+                insertion_byte = len(composed[:insertion_character].encode("utf-8"))
+                leading = f"## {target_title}\n\n"
+                trailing = ""
+            else:
+                insertion_byte = len(composed[: target.section_end].encode("utf-8"))
+                leading = f"<details>\n<summary>{summary}</summary>\n\n"
+                trailing = "</details>\n\n"
+            source_detail = separated_exact_blocks(blocks)
+            replacement = leading + source_detail + trailing
+            detail_edit = CandidateEdit(insertion_byte, insertion_byte, replacement)
+            source_placements = rebase_source_placements(source_placements, detail_edit)
+            composed = apply_edit(composed, detail_edit)
+            composed_provenance = rebase_provenance(composed_provenance, detail_edit, composed)
+            source_placements.extend(
+                replacement_placements(
+                    blocks,
+                    detail_edit,
+                    f"source.canonical-detail.{heading_identity(target_title)}",
+                    leading=leading,
+                )
+            )
+            identity = heading_identity(target_title)
+            composed_provenance.append(
+                CandidateContentProvenanceV1(
+                    provenance_id=f"source.canonical-detail.{identity}.open",
+                    candidate_byte_start=insertion_byte,
+                    candidate_byte_end=insertion_byte + len(leading.encode("utf-8")),
+                    configured_standard_ids=["readme.source_detail_routing"],
+                    rationale=(
+                        "Bind the canonical source-detail destination to the governed "
+                        "detail-routing standard."
+                    ),
+                )
+            )
+            if trailing:
+                composed_provenance.append(
+                    CandidateContentProvenanceV1(
+                        provenance_id=f"source.canonical-detail.{identity}.close",
+                        candidate_byte_start=(
+                            insertion_byte
+                            + len(leading.encode("utf-8"))
+                            + len(source_detail.encode("utf-8"))
+                        ),
+                        candidate_byte_end=insertion_byte + len(replacement.encode("utf-8")),
+                        configured_standard_ids=["readme.source_detail_routing"],
+                        rationale=(
+                            "Bind the canonical collapsible source-detail closing to the "
+                            "governed detail-routing standard."
+                        ),
+                    ),
+                )
     composed_provenance = exclude_source_placements_from_provenance(
         composed_provenance,
         source_placements,

@@ -6,6 +6,7 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.readme.public_text import title_case_heading
 
 
 def build_presentation_visitor_contract(
@@ -29,7 +30,9 @@ def build_presentation_visitor_contract(
         ]
         applicability_basis = "unresolved_template"
     else:
-        applicable = list(dict.fromkeys(heading.strip() for heading in applicable_h2_headings))
+        applicable = list(
+            dict.fromkeys(title_case_heading(heading.strip()) for heading in applicable_h2_headings)
+        )
         applicable_set = {heading.casefold() for heading in applicable if heading}
         required_prefix = [
             contract.headings[slot]
@@ -63,7 +66,7 @@ def build_presentation_visitor_contract(
                         f"{contract.template_id}-v{contract.template_version}"
                     ),
                     "required_h2_prefix": required_prefix,
-                    "heading_style": "sentence_case_without_emoji",
+                    "heading_style": contract.invariants.heading_case,
                     "emoji_policy": contract.invariants.emoji,
                 },
             },
@@ -94,7 +97,15 @@ def build_presentation_visitor_contract(
                 "standard_id": "readme.at_a_glance_mermaid",
                 "parameters": {
                     "heading": contract.headings["at_a_glance"],
-                    "visual_grammar": "inputs-product-capabilities-outputs",
+                    "visual_grammar": contract.invariants.mermaid_visual_grammar,
+                    "capability_layout": contract.invariants.mermaid_capability_layout,
+                    "capability_column_threshold": (
+                        contract.invariants.mermaid_capability_column_threshold
+                    ),
+                    "capability_layout_constraint": (
+                        contract.invariants.mermaid_capability_layout_constraint
+                    ),
+                    "topology": contract.invariants.mermaid_topology,
                     "minimum_inputs": contract.invariants.minimum_mermaid_inputs,
                     "minimum_capabilities": contract.invariants.minimum_mermaid_capabilities,
                     "minimum_outputs": contract.invariants.minimum_mermaid_outputs,
@@ -106,6 +117,8 @@ def build_presentation_visitor_contract(
                         contract.invariants.target_mermaid_capabilities
                     ),
                     "directional_workflow": False,
+                    "product_to_capabilities_edges": 1,
+                    "capabilities_to_outputs_edges": 1,
                 },
             },
             {
@@ -115,6 +128,9 @@ def build_presentation_visitor_contract(
                     "maximum_fenced_blocks": 1,
                     "maximum_nonblank_code_lines": maximum_example_lines,
                     "secondary_examples": "collapsed_below_primary",
+                    "secondary_examples_intro": contract.invariants.additional_examples_intro,
+                    "public_internal_assurance": contract.invariants.public_internal_assurance,
+                    "duplicate_generic_headings": "forbidden",
                 },
             },
             {
@@ -122,6 +138,20 @@ def build_presentation_visitor_contract(
                 "parameters": {
                     "html_comments": contract.invariants.comments,
                     "code_comments": contract.invariants.comments,
+                },
+            },
+            {
+                "standard_id": "readme.public_language",
+                "parameters": {
+                    "heading_case": contract.invariants.heading_case,
+                    "technical_abbreviation_case": (
+                        contract.invariants.technical_abbreviation_case
+                    ),
+                    "internal_assurance": contract.invariants.public_internal_assurance,
+                    "semantic_section_repetition": (
+                        contract.invariants.semantic_section_repetition
+                    ),
+                    "source_detail_routing": contract.invariants.source_detail_routing,
                 },
             },
             {
@@ -142,6 +172,7 @@ def build_presentation_visitor_contract(
                     "required_term": contract.invariants.commercial_term,
                     "required_section": contract.headings["scope_and_limitations"],
                     "placement": "below_the_fold_scope_context",
+                    "anchor_style": contract.invariants.enterprise_link_anchor,
                 },
             },
         ],

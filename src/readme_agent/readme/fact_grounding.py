@@ -91,6 +91,8 @@ def literal_fact_ids(
                 *structured_rows(fact.field, fact.value),
             ]
         )
+        if fact.field == "product.audience":
+            value = [phrase.rstrip().rstrip(".!?") for phrase in value if phrase.rstrip(".!?")]
         if find_literal_fact_match(text, value) is not None:
             matched.add(fact_id)
     return sorted(matched)

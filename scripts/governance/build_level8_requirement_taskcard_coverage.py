@@ -176,6 +176,9 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
     if task_id in {
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "L8-VPY-03E-3D-CURRENT-REFRESH",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-ACCEL-02-EIGHT-PYTHON",
         "L8-ACCEL-03-ALL-PYTHON",

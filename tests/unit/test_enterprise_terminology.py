@@ -31,7 +31,8 @@ def test_accepted_foss_identity_derives_family_level_enterprise_base(monkeypatch
     assert corrections
     assert rendered == (
         "Install `aspose-note` and see "
-        "[Aspose.Note Enterprise Edition](https://products.aspose.com/note/python-net/).\n"
+        "[full-featured Aspose.Note Enterprise Edition]"
+        "(https://products.aspose.com/note/python-net/).\n"
     )
     assert phrases == ["Aspose.Note FOSS for Python"]
 
@@ -167,7 +168,7 @@ def test_products_aspose_com_anchor_becomes_exact_verified_enterprise_name() -> 
 
     assert corrections
     assert rendered == (
-        "Compare with [Aspose.3D for Python Enterprise Edition]"
+        "Compare with [full-featured Aspose.3D for Python Enterprise Edition]"
         "(https://products.aspose.com/3d/python-net/).\n"
     )
     assert (

@@ -116,6 +116,7 @@ def build_verified_template_document_candidate(
         assessment,
         build_source_claim_assurance(inner_text, facts, assessment),
         persisted_provenance,
+        candidate,
     )
     source_claim_resolutions = build_source_claim_resolutions(
         inner_text,

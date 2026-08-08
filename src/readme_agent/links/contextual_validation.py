@@ -113,7 +113,7 @@ def validate_contextual_link_candidate(
                     heading
                     for heading in parse_headings(candidate)
                     if heading.level == 2
-                    and heading.title == PRESENTATION_ENTERPRISE_LINK_SECTION
+                    and heading.title.casefold() == PRESENTATION_ENTERPRISE_LINK_SECTION.casefold()
                     and heading.heading_end <= link_start < heading.section_end
                 ),
                 None,

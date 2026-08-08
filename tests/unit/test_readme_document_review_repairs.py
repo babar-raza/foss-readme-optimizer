@@ -116,7 +116,7 @@ Install from source.
 
     assert len(repair_operations) == 2
     assert "## Why Aspose.Page FOSS for Python" not in candidate
-    assert candidate.count("## Key capabilities") == 1
+    assert candidate.count("## Key Capabilities") == 1
     assert "<summary>Why Aspose.Page FOSS for Python</summary>" in candidate
     assert "- Convert PS/EPS to PDF\n- Convert XPS to PDF" in candidate
     assert "Maintainer rationale remains valuable." in candidate

@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "17"
+version: "22"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -56,18 +56,18 @@ system: |
   beyond that ceiling. When it prohibits comments or requires Enterprise Edition terminology,
   judge the candidate against that configured standard rather than asking to restore conflicting
   source presentation. Enterprise Edition relationship language belongs below the fold in
-  `## Scope and limitations`, not immediately below the opening; never demand that it appear in
+  `## Scope and Limitations`, not immediately below the opening; never demand that it appear in
   the title, badge row, opening, or first paragraph. Configured
-  navigation is its own `## Navigation` section and does not belong inside `## At a glance`.
+  navigation is its own `## Navigation` section and does not belong inside `## At a Glance`.
 
   When the visitor contract names repository-presentation-brand-v1, require portfolio-grade visual
   coherence and reject any emoji anywhere in the candidate: an undecorated factual H1; the configured compact core badge row immediately below
-  it; a concise product-specific value proposition; the common Navigation, At a glance, Key
-  capabilities, Installation, and Quick start sequence; and consistent sentence-case headings.
-  Require section-local coherence: `## Quick start` contains concise setup or usage examples and
+  it; a concise product-specific value proposition; the common Navigation, At a Glance, Key
+  Capabilities, Installation, and Quick Start sequence; and consistent title-case headings.
+  Require section-local coherence: `## Quick Start` contains concise setup or usage examples and
   their directly useful explanation, not a second product overview, relationship pitch, or scope
   paragraph after the example. Product scope and Enterprise Edition relationship prose belongs
-  under `## Scope and limitations`; duplicated overview prose must be consolidated rather
+  under `## Scope and Limitations`; duplicated overview prose must be consolidated rather
   than left in an unrelated section.
   Useful source-specific build, package, version, and compatibility badges may follow the configured
   core badge row when the badge standard allows inherited badges; do not demand their removal merely
@@ -77,18 +77,45 @@ system: |
   removed merely because they are outside the required floor.
   The Mermaid visual must explain this repository through a detailed, scannable grammar of input
   formats, the full product, capabilities, and output formats. These are structural roles, not
-  required literal labels. Mermaid `---` connectors are non-directional; do not describe them as
-  arrows or a directional workflow. It must show concrete product-specific
-  formats and important feature groups. Reject generic step chains, repeated labels, paragraph-sized nodes, decorative
-  styling, or a diagram that merely duplicates the section list. Require the single configured
+  required literal labels. Require the configured relationship topology: input nodes connect to
+  the complete product node, exactly one visible undirected connector joins the product to the
+  Core capabilities group, and exactly one visible undirected connector joins Core capabilities
+  to Outputs when verified outputs exist. Inside the one visible Core capabilities group, use one
+  vertical feature column for at most five capabilities and two balanced vertical feature columns
+  above five. Transparent internal column containers and invisible layout links may enforce that
+  layout and do not represent product behavior. Do not reinterpret these relationships as an ordered runtime workflow.
+  Reject per-capability fan-out edges, generic step chains, repeated labels, paragraph-sized nodes,
+  decorative styling, or a diagram that merely duplicates the section list. Require the single configured
   Enterprise Edition link to read as useful scope, compatibility, or limitation context rather
   than promotion. Use descriptive Markdown link labels rather than demanding a bare configured URL
   as visible text. A technically valid document that looks inconsistent, generic, or unfinished
   is REJECT_REPAIRABLE.
 
+  Reject an opening that reads like a raw fact label inserted into a generic frame, for example
+  "provides Document and traversal for developers using Python." The opening must form a natural,
+  concrete developer-facing explanation of what the complete product enables. Reject capability
+  bullets that are predominantly class/member inventory fragments instead of understandable tasks.
+  Key-capability titles must be natural, action-led search phrases that use verified product,
+  platform, input-format, or output-format vocabulary without keyword stuffing. Additional examples
+  must preview the workflows a visitor can expand, use meaningful workflow headings, and never expose
+  internal phrases about source revisions, inventory, syntax checks, static API checks, or non-execution.
+  Reject mechanical Mermaid group labels such as "Core capabilities 1 of 2" or directional workflow
+  arrows. The relationship map should present inputs, independent capabilities, and accessible outputs
+  as clear categories while retaining the two configured group connectors. These are
+  visitor-quality defects even when every underlying fact is correct.
+
+  Reject noncanonical visitor-facing abbreviation casing such as Ps, eps, PdF, xps, xlsx, or html;
+  exact code identifiers, package names, paths, namespaces, commands, and link destinations keep
+  their technical spelling. Reject internal assurance narration about source revisions, isolated or
+  network-disabled verification, registry receipts, evidence collectors, and execution status.
+  Reject repeated capability inventories under competing Why, Features, or Capabilities sections.
+  Reject generic preservation labels: reconciled maintainer detail belongs in its semantic visitor
+  section. An Aspose.com product link must use a natural informative full-featured Enterprise Edition
+  anchor rather than a bare product label or promotional call to action.
+
   Parser-derived mechanical observations are supplied separately and are authoritative. For every
-  finding whose premise depends on an H1 count, duplicate-H2 count, badge-row count, Quick start
-  fence count, or Quick start nonblank-code-line count, select the matching mechanical_check_id and copy its exact
+  finding whose premise depends on an H1 count, duplicate-H2 count, badge-row count, Quick Start
+  fence count, or Quick Start nonblank-code-line count, select the matching mechanical_check_id and copy its exact
   observed_value into reported_observed_value. A compliant observation cannot support a repair.
   For a genuinely subjective finding, set both fields to null. Never estimate or reinterpret a
   parser-owned value from visual appearance. Never claim a configured term is missing when the

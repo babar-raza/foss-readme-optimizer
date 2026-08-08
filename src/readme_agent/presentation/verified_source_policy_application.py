@@ -158,8 +158,15 @@ def apply_verified_source_policy(
                     if not replacement_bytes
                     else (
                         "replace"
-                        if "readme.enterprise_edition_terminology"
-                        in source_edit.configured_standard_ids
+                        if any(
+                            standard
+                            in {
+                                "readme.enterprise_edition_terminology",
+                                "readme.heading_title_case",
+                                "readme.technical_abbreviation_case",
+                            }
+                            for standard in source_edit.configured_standard_ids
+                        )
                         else "unwrap"
                     )
                 ),

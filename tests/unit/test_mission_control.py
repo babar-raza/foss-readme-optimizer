@@ -179,6 +179,9 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
         "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "L8-VPY-03E-3D-CURRENT-REFRESH",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "L8-HORIZON-01-ACTIVATE-GATE-A",
@@ -191,10 +194,23 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
-    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
-        "L8-VPY-01-NOTE-VERIFIED-CANARY",
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+    assert tasks["L8-VPY-03C-PAGE-CURRENT-REFRESH"].dependencies == [
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     ]
+    assert tasks["L8-VPY-03D-NOTE-CURRENT-REFRESH"].dependencies == [
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+    ]
+    assert tasks["L8-VPY-03E-3D-CURRENT-REFRESH"].dependencies == [
+        "L8-VPY-03D-NOTE-CURRENT-REFRESH"
+    ]
+    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
+        "L8-VPY-03E-3D-CURRENT-REFRESH",
+    ]
+    assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].execution_focus is not None
+    assert (
+        tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].execution_focus.goal_id
+        == "DELIVERY-PY-PDF-CURRENT"
+    )
     assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
     ]
@@ -278,6 +294,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert first_readme.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert first_readme.next_task is not None
     assert first_readme.next_task.task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY"
+    assert first_readme.next_task.immediate_goal_id == "DELIVERY-PY-NOTE-NATIVE"
 
     python_cohort = evaluate_mission(
         graph,
@@ -922,6 +939,61 @@ def test_evaluate_initializes_then_claims_the_reset_task():
     assert claimed.mission_execution is not None
     assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
     assert claimed.mission_execution.task_statuses["L8-AGILE-AUTHORITY-RESET"] == "IN_PROGRESS"
+
+
+def test_evaluate_reopens_a_stale_closed_repository_before_its_dependent(monkeypatch):
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+            "L8-VPY-03C-PAGE-CURRENT-REFRESH": "TODO",
+            "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
+            "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
+            "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "TODO",
+            "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "TODO",
+            "L8-HORIZON-01-ACTIVATE-GATE-A": "TODO",
+        }
+    )
+    mission_key = mission_state_key(graph.mission_authority.mission_id)
+    backend.records[mission_key] = RunStateV1(
+        org_repo=mission_key,
+        state_version=8,
+        mission_execution=MissionExecutionStateV1(
+            mission_id=graph.mission_authority.mission_id,
+            graph_sha256=graph_hash,
+            task_statuses=statuses,
+        ),
+    )
+    scoreboard = derive_lifecycle_scoreboard(backend).model_copy(
+        update={
+            "stale_fact_contract_repositories": {
+                "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+                    "fact_acceptance_recollection_component_changed"
+                ]
+            }
+        }
+    )
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_control.derive_lifecycle_scoreboard",
+        lambda _backend: scoreboard,
+    )
+
+    record = persist_evaluation(backend, graph, graph_hash)
+
+    assert record.mission_execution is not None
+    state = record.mission_execution
+    assert state.task_statuses["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"] == "REGRESSED"
+    assert state.task_statuses["L8-VPY-03C-PAGE-CURRENT-REFRESH"] == "TODO"
+    assert state.next_task is not None
+    assert state.next_task.task_id == "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    assert state.transition_history[-1].observed_by == "mission-lifecycle-freshness"
+
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="freshness-worker")
+
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id == ("L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES")
 
 
 def test_evaluate_migrates_historical_work_to_a_durable_non_executable_disposition():

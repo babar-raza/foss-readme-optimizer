@@ -9,6 +9,7 @@ from urllib.parse import urlencode
 
 from readme_agent.facts.aspose_org_format_contract import AsposeOrgFormatExtractionV1
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
+from readme_agent.facts.repository_format_extraction import RepositoryFormatExtractionV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 from readme_agent.registry.models import EvidenceBackedProductFact
 
@@ -136,7 +137,7 @@ def directional_format_fact_from_verified_evidence(
     source_revision: str,
     specifications: Sequence[EvidenceBackedProductFact],
     example_fact: FactRecordV2,
-    native_extraction: AsposeOrgFormatExtractionV1,
+    native_extraction: AsposeOrgFormatExtractionV1 | RepositoryFormatExtractionV1,
 ) -> FactRecordV2:
     """Combine consumer-proven inputs with battle-tested native format extraction."""
 
@@ -169,12 +170,12 @@ def directional_format_fact_from_verified_evidence(
         failures.append(
             "no input/output format survived isolated-consumer and native-extractor verification"
         )
-    location = ";".join(
-        [
-            *sorted(set(locations)),
-            _native_extraction_location(native_extraction),
-        ]
-    )
+    provenance_locations = sorted(set(locations))
+    if native_extraction.status == "available" and isinstance(
+        native_extraction, AsposeOrgFormatExtractionV1
+    ):
+        provenance_locations.append(_native_extraction_location(native_extraction))
+    location = ";".join(provenance_locations) or "local-verifier://format-direction-unresolved"
     return FactRecordV2(
         fact_id=descriptive_fact_id("product.formats", "native-direction-evidence"),
         field="product.formats",

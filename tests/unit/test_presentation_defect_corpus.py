@@ -80,7 +80,9 @@ def test_expected_verdicts_fail_closed_without_turning_positive_content_into_a_t
     positives = [case for case in corpus["cases"] if case["expected_verdict"] == "ACCEPT"]
     negatives = [case for case in corpus["cases"] if case["expected_verdict"] == "REJECT"]
 
-    assert [case["case_id"] for case in positives] == ["synthetic.strong-existing-content"]
+    assert [case["case_id"] for case in positives] == [
+        "synthetic.strong-existing-content-title-case"
+    ]
     assert positives[0]["findings"] == []
     assert negatives
     assert all(case["findings"] for case in negatives)

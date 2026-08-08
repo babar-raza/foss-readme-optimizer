@@ -47,6 +47,10 @@ from readme_agent.readme.diagram_role_semantics import (
     diagram_role_phrase_guidance,
     normalize_diagram_role_nodes,
 )
+from readme_agent.readme.opening_summary_fallback import (
+    should_use_verified_format_opening,
+    verified_format_opening_summary,
+)
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MIN_CAPABILITIES,
     PRESENTATION_MERMAID_MIN_INPUTS,
@@ -98,10 +102,10 @@ def _repair_hints(
         + "\nFor opening_summary, use the complete product identity, cite that identity plus "
         "the accepted audience fact and at least one accepted purpose/capability/format fact, "
         "and omit promotion, Enterprise Edition comparisons, commercial terminology, and hashes."
-        + "\nFor diagram.nodes, return one to four distinct noun-phrase inputs, at least six "
-        "capabilities, and at least five outputs; "
-        "cite only accepted fact IDs and keep every label repository-specific. Every label must "
-        "retain at least one literal product term from the role-compatible vocabulary below; "
+        + "\nFor diagram.nodes, use only labels from the role-compatible vocabulary below. "
+        "Do not fill a count, reclassify a capability as an output, or invent a missing role; "
+        "deterministic evidence owns role assignment. Every proposed label must "
+        "retain at least one literal product term from the supplied vocabulary; "
         "do not use action phrases as inputs, and do not use runtime, source-code, package, "
         "installation, API, license, or support nouns "
         "unless they literally occur in this vocabulary:\n"
@@ -149,7 +153,14 @@ def plan_readme_composition(
         else None
     )
     independent_hints = independent_repair_hints(repair_request)
-    repair_hints_section = independent_hints
+    role_guidance = (
+        "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but "
+        "must not relabel or reclassify them:\n"
+        + json.dumps(diagram_role_phrase_guidance(facts), ensure_ascii=False, sort_keys=True)
+    )
+    repair_hints_section = "\n".join(
+        section for section in (independent_hints, role_guidance) if section
+    )
     last_error: LLMError | None = None
     for attempt in range(1, max_attempts + 1):
         input_payload = composition_input_payload(
@@ -177,6 +188,10 @@ def plan_readme_composition(
             tool_draft = AgenticCompositionToolDraftV1.model_validate(result.arguments)
             draft = materialize_tool_draft(tool_draft, phrase_options, facts)
             draft = bind_source_dispositions(draft, assessment)
+            if should_use_verified_format_opening(facts):
+                format_opening = verified_format_opening_summary(facts)
+                if format_opening is not None:
+                    draft = draft.model_copy(update={"opening_summary": format_opening})
             normalized_nodes = normalize_diagram_role_nodes(
                 draft.diagram.nodes,
                 facts,
@@ -202,17 +217,26 @@ def plan_readme_composition(
                 else LLMError(f"README composition response failed schema validation: {exc}")
             )
             if attempt == max_attempts:
-                raise last_error from exc
-            deterministic_repair_hints = _repair_hints(
-                last_error,
-                assessment,
-                facts,
-                attempt=attempt + 1,
-            )
-            repair_hints_section = "\n\n".join(
-                hint for hint in (independent_hints, deterministic_repair_hints) if hint
-            )
-            continue
+                fallback = (
+                    verified_format_opening_summary(facts)
+                    if str(last_error).startswith("composition opening summary")
+                    else None
+                )
+                if fallback is None:
+                    raise last_error from exc
+                draft = draft.model_copy(update={"opening_summary": fallback})
+                validate_composition_draft(draft, assessment, facts)
+            else:
+                deterministic_repair_hints = _repair_hints(
+                    last_error,
+                    assessment,
+                    facts,
+                    attempt=attempt + 1,
+                )
+                repair_hints_section = "\n\n".join(
+                    hint for hint in (independent_hints, deterministic_repair_hints) if hint
+                )
+                continue
         return ReadmeAgenticCompositionPlanV1(
             org_repo=org_repo,
             source_sha256=hashlib.sha256(source_text.encode("utf-8")).hexdigest(),

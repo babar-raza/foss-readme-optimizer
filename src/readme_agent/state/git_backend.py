@@ -72,6 +72,7 @@ RUN_LOCK_LEASE_SECONDS = 900
 # status, not scoped to any single repo.
 MODEL_ROUTE_REF = "refs/readme-agent-state/model-routes"
 _MODEL_ROUTE_SAVE_MAX_RETRIES = 5
+_STATE_FETCH_ARGS = ["fetch", "--no-write-fetch-head", "--no-tags", "--depth=1"]
 _TRANSIENT_GIT_READ_ERRORS = (
     "could not resolve host",
     "connection reset",
@@ -160,8 +161,7 @@ def _fetch_remote_sha(
     def fetch_once():
         result = _run_remote_git(
             [
-                "fetch",
-                "--no-write-fetch-head",
+                *_STATE_FETCH_ARGS,
                 remote,
                 f"+{remote_ref}:{local_ref}",
             ],
@@ -488,7 +488,7 @@ class GitStateBackend:
                 return dict.fromkeys(org_repos)
 
             fetched = _run_remote_git(
-                ["fetch", "--no-write-fetch-head", self._remote, *refspecs], cwd=self._git_cwd
+                [*_STATE_FETCH_ARGS, self._remote, *refspecs], cwd=self._git_cwd
             )
             if fetched.returncode != 0:
                 raise StateBackendError(

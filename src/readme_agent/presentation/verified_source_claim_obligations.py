@@ -6,7 +6,6 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.source_claim_risk import (
     SourceClaimObligation,
-    applicable_product_overview_fact_ids,
     obligation_any_fact_fields,
     obligation_provenance_prefixes,
     obligation_required_fact_fields,
@@ -97,10 +96,8 @@ def accepted_obligation_bindings(
         return None
     bound_fact_ids = {fact_id for binding in bindings for fact_id in binding.fact_ids}
     required_resolution_fact_ids = set(exact_source_fact_ids or [])
-    if obligation == "product_overview":
-        required_resolution_fact_ids.update(applicable_product_overview_fact_ids(facts))
     if exact_source_fact_ids is not None:
-        if not exact_source_fact_ids and obligation != "product_overview":
+        if not exact_source_fact_ids:
             return None
         supplemental = _minimal_supplemental_bindings(
             provenance,
@@ -115,18 +112,7 @@ def accepted_obligation_bindings(
             return None
         resolution_fact_ids = sorted(required_resolution_fact_ids)
     elif obligation == "product_overview":
-        supplemental = _minimal_supplemental_bindings(
-            provenance,
-            bindings,
-            required_resolution_fact_ids,
-        )
-        if supplemental is None:
-            return None
-        bindings.extend(supplemental)
-        bound_fact_ids.update(fact_id for binding in supplemental for fact_id in binding.fact_ids)
-        if not required_resolution_fact_ids.issubset(bound_fact_ids):
-            return None
-        resolution_fact_ids = sorted(required_resolution_fact_ids)
+        resolution_fact_ids = sorted(bound_fact_ids)
     else:
         resolution_fact_ids = sorted(bound_fact_ids)
     accepted_fields: set[str] = set()

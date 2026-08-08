@@ -433,6 +433,11 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
             return result
         type(self).saw_repair_hint = True
         arguments = dict(result.arguments)
+        # Exercise an agentic-owned ordering seam as well as diagram
+        # vocabulary. The deterministic diagram role normalizer may already
+        # have selected the same canonical nodes, but reordered accepted
+        # overview facts must still produce a reviewable candidate delta.
+        arguments["overview_fact_ids"] = list(reversed(arguments["overview_fact_ids"]))
         accepted_ids = tool_schema["function"]["parameters"]["properties"]["diagram"]["properties"][
             "nodes"
         ]["items"]["properties"]["supporting_fact_ids"]["items"]["enum"]
@@ -441,81 +446,27 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
             for accepted_id in accepted_ids
             if accepted_id.startswith("product.capabilities:")
         )
+        guidance = json.loads(
+            messages[-1]["content"]
+            .split(
+                "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, "
+                "but must not relabel or reclassify them:\n",
+                1,
+            )[1]
+            .split("\n\n", 1)[0]
+        )
         # A reviewer-directed authoring retry must change visitor-visible output.
         # The compact overview no longer repeats fact bullets, so exercise the
         # actual agentic seam: repository-specific visual vocabulary.
         arguments["diagram"] = {
             "nodes": [
                 {
-                    "role": "input",
-                    "label": "Document files",
+                    "role": role,
+                    "label": label,
                     "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "input",
-                    "label": "Document streams",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "input",
-                    "label": "Document content",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Create documents",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Read documents",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Modify documents",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Inspect document structure",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Extract document content",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "capability",
-                    "label": "Save document changes",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "output",
-                    "label": "Updated document files",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "output",
-                    "label": "Document text",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "output",
-                    "label": "Document metadata",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "output",
-                    "label": "Document structure",
-                    "supporting_fact_ids": [fact_id],
-                },
-                {
-                    "role": "output",
-                    "label": "Processed documents",
-                    "supporting_fact_ids": [fact_id],
-                },
+                }
+                for role in ("input", "capability", "output")
+                for label in reversed(guidance[role])
             ]
         }
         return ForcedToolResult(arguments=arguments, meta=result.meta)

@@ -176,6 +176,7 @@ document.save("output.bin")
         "LoadOptions",
     ]
     assert selected["api.public_surface"].value["mcp_server"]["tools"] == ["convert_widget"]
+    assert selected["api.public_surface"].value["mcp_server"]["factory_instance_run"] is True
     assert selected["api.public_surface"].value["mcp_server"]["test_path"] == (
         "tests/mcp/test_server.py"
     )
@@ -1183,6 +1184,7 @@ class Document:
     def validate_pdfua(self): pass
     def convert_to_pdfa(self): pass
     def convert_to_pdfua(self): pass
+    def add_attachment(self): pass
     def replace_text(self):
         """This operation does not perform layout reflow."""
 '''.strip(),
@@ -1194,6 +1196,8 @@ class Document:
 class Page:
     def add_text(self): pass
     def add_image(self): pass
+    def draw_line(self): pass
+    def draw_rectangle(self): pass
     def replace_text(self): pass
     def redact_text(self): pass
     def render(self):
@@ -1247,6 +1251,7 @@ class PdfLoadLimits:
     def unlimited(cls): return cls()
 """.strip(),
     )
+    _write(tmp_path, "src/aspose_pdf/text_layout.py", "class TextLayoutOptions:\n    pass\n")
     _write(
         tmp_path,
         "src/aspose_pdf/pdfa.py",
@@ -1280,7 +1285,9 @@ class PdfLoadLimits:
         "Lazy opening still defers page-content decoding.\n"
         "`PdfLoadLimits.unlimited()` returns a policy with every field disabled.\n"
         "The limits reduce risk; they are not a proof of complete isolation.\n"
-        "Run highly hostile documents in an isolated worker.\n",
+        "Run highly hostile documents in an isolated worker.\n"
+        "Positioned Standard-14 text or embedded Unicode text with `Page.add_text()`.\n"
+        "The Unicode bidi algorithm shapes mixed-direction text.\n",
     )
 
     selected = {
@@ -1289,7 +1296,8 @@ class PdfLoadLimits:
     }
 
     details = selected["repository.capability_details"].value
-    assert len(details["capability_groups"]) == 9
+    assert len(details["capability_groups"]) == 10
+    assert details["capability_groups"][-1]["label"].startswith("Add Standard-14")
     assert details["input_formats"] == ["PDF"]
     assert details["output_formats"] == ["PDF", "PNG", "TIFF"]
     boundaries = selected["repository.verified_boundaries"].value

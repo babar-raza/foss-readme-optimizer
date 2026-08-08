@@ -1,3 +1,3 @@
-## Repository-verified constraints
+## Repository-Verified Constraints
 
 {items}

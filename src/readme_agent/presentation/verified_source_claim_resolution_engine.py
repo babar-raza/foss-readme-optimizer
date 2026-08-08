@@ -26,6 +26,7 @@ from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
+from readme_agent.readme.source_claim_obligations import applicable_product_overview_fact_ids
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.readme.source_claim_risk import (
     classify_source_claim_risk,
@@ -96,12 +97,7 @@ def resolve_source_claims(
     for claim_index, claim in enumerate(source_claims):
         claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
         fact_authorized_preserve = claim.claim_id in preserve_claim_ids
-        if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
-            raw_candidate_occurrences[claim.content_sha256] -= 1
-            if candidate_hashes[claim.content_sha256] > 0:
-                candidate_hashes[claim.content_sha256] -= 1
-            continue
-        if candidate_content_provenance and not fact_authorized_preserve:
+        if candidate_content_provenance:
             equivalent_resolution = equivalent_source_claim_resolution(
                 claim,
                 claim_text,
@@ -117,6 +113,11 @@ def resolve_source_claims(
                 if candidate_hashes[claim.content_sha256] > 0:
                     candidate_hashes[claim.content_sha256] -= 1
                 continue
+        if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
+            raw_candidate_occurrences[claim.content_sha256] -= 1
+            if candidate_hashes[claim.content_sha256] > 0:
+                candidate_hashes[claim.content_sha256] -= 1
+            continue
         correction_candidate = claim.claim_id in correction_claim_ids
         if not correction_candidate and raw_candidate_occurrences[claim.content_sha256] > 0:
             raw_candidate_occurrences[claim.content_sha256] -= 1
@@ -145,7 +146,7 @@ def resolve_source_claims(
                 facts,
                 candidate_content_provenance,
             )
-            if not fact_authorized_preserve
+            if not fact_authorized_preserve or candidate_content_provenance
             else None
         )
         if equivalent_resolution is not None:
@@ -153,9 +154,6 @@ def resolve_source_claims(
             continue
         preserve_required = claim.disposition == "preserve" and claim.claim_id in preserve_claim_ids
         correction_required = claim.claim_id in correction_claim_ids
-        if preserve_required:
-            _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
-            continue
         risk = (
             classify_source_claim_risk(source_text, claim)
             if candidate_content_provenance is not None
@@ -196,6 +194,9 @@ def resolve_source_claims(
                     rationale=risk.rationale,
                 )
             )
+            continue
+        if preserve_required:
+            _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
             continue
         if risk is not None and not correction_required:
             continue
@@ -324,6 +325,8 @@ def resolve_source_claims(
                         else []
                     )
                     if obligation_requires_source_entailment(risk.obligation_id)
+                    else sorted(applicable_product_overview_fact_ids(facts))
+                    if risk.obligation_id == "product_overview"
                     else None
                 ),
             )

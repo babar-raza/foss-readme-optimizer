@@ -8,8 +8,13 @@ from markdown_it import MarkdownIt
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.diagram_role_semantics import selected_verified_capability_nodes
+from readme_agent.readme.diagram_semantic_candidates import meaningful_diagram_tokens
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.header_badge_targets import normalized_badge_target
+from readme_agent.readme.header_visual_layout import (
+    capability_layout_edges,
+    validate_capability_group_layout,
+)
 from readme_agent.readme.header_visual_models import (
     HeaderVisualValidationV1,
     ReadmeHeaderVisualV1,
@@ -17,8 +22,11 @@ from readme_agent.readme.header_visual_models import (
 )
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
-_NODE_LINE = re.compile(r'^\s{2,4}([a-z][a-z0-9_]*)\["([^"]+)"\]$')
-_EDGE_LINE = re.compile(r"^\s{2}([a-z][a-z0-9_]*) --- ([a-z][a-z0-9_]*)$")
+_ROOT_LINE = re.compile(r'^\s{2}(PRODUCT)\["([^"]+)"\]$')
+_GROUP_LINE = re.compile(r'^\s{2}subgraph (Inputs|Capabilities|Outputs)\["([^"]+)"\]$')
+_NODE_LINE = re.compile(r'^\s{4,6}([ICO]\d+)\["([^"]+)"\]$')
+_EDGE_LINE = re.compile(r"^\s{2}([A-Za-z][A-Za-z0-9]*) --- ([A-Za-z][A-Za-z0-9]*)$")
+_LAYOUT_EDGE_LINE = re.compile(r"^\s{4,6}(C\d+) ~~~ (C\d+)$")
 
 
 def validate_readme_header_visual(
@@ -39,15 +47,52 @@ def validate_readme_header_visual(
         len(fences) == 1 and fences[0].content.rstrip() == visual.mermaid_source
     )
     lines = visual.mermaid_source.splitlines()
-    node_lines = [match for line in lines[1:] if (match := _NODE_LINE.fullmatch(line)) is not None]
+    root_lines = [match for line in lines[1:] if (match := _ROOT_LINE.fullmatch(line)) is not None]
+    group_lines = [
+        match for line in lines[1:] if (match := _GROUP_LINE.fullmatch(line)) is not None
+    ]
+    node_lines = [
+        match
+        for line in lines[1:]
+        if (match := _NODE_LINE.fullmatch(line)) is not None and match.group(1) != "product"
+    ]
     edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
+    layout_edge_lines = [
+        match for line in lines[1:] if (match := _LAYOUT_EDGE_LINE.fullmatch(line)) is not None
+    ]
+    parsed_edges = {(match.group(1), match.group(2)) for match in edge_lines}
+    input_ids = {node.node_id for node in visual.diagram_nodes if node.role == "input"}
+    output_ids = {node.node_id for node in visual.diagram_nodes if node.role == "output"}
+    capability_ids = [node.node_id for node in visual.diagram_nodes if node.role == "capability"]
+    expected_layout_edges = capability_layout_edges(capability_ids)
+    parsed_layout_edges = [(match.group(1), match.group(2)) for match in layout_edge_lines]
+    expected_edges = {
+        *((node_id, "PRODUCT") for node_id in input_ids),
+        ("PRODUCT", "Capabilities"),
+        *([("Capabilities", "Outputs")] if output_ids else []),
+    }
+    expected_groups = ["Inputs"] if input_ids else []
+    expected_groups.append("Capabilities")
+    if output_ids:
+        expected_groups.append("Outputs")
     checks["mermaid_subset_parses"] = bool(
         lines
         and lines[0] == "flowchart LR"
-        and len(node_lines) == len(visual.diagram_nodes)
-        and edge_lines
-        and len(edge_lines) >= len(visual.diagram_nodes) - 1
+        and len(root_lines) == 1
+        and root_lines[0].group(1) == visual.diagram_nodes[0].node_id
+        and root_lines[0].group(2) == visual.diagram_nodes[0].label
+        and [match.group(1) for match in group_lines] == expected_groups
+        and len(node_lines) == len(visual.diagram_nodes) - 1
+        and parsed_edges == expected_edges
+        and "-->" not in visual.mermaid_source
+        and visual.mermaid_source.count("~~~") == len(expected_layout_edges)
     )
+    adaptive_layout_valid = (
+        validate_capability_group_layout(visual.mermaid_source, capability_ids)
+        and parsed_layout_edges == expected_layout_edges
+    )
+    checks["capability_layout_adaptive"] = adaptive_layout_valid
+    checks["capability_layout_vertical"] = adaptive_layout_valid
     checks["labels_safe"] = all(
         safe_mermaid_label(node.label) == node.label for node in visual.diagram_nodes
     )
@@ -58,6 +103,16 @@ def validate_readme_header_visual(
         (node.role, " ".join(node.label.casefold().split())) for node in visual.diagram_nodes
     ]
     checks["diagram_role_labels_unique"] = len(role_labels) == len(set(role_labels))
+    capability_tokens = {
+        frozenset(meaningful_diagram_tokens(node.label))
+        for node in visual.diagram_nodes
+        if node.role == "capability"
+    }
+    checks["capabilities_not_duplicated_as_outputs"] = all(
+        frozenset(meaningful_diagram_tokens(node.label)) not in capability_tokens
+        for node in visual.diagram_nodes
+        if node.role == "output"
+    )
     expected_capabilities = {
         " ".join(node.label.casefold().split()): set(node.supporting_fact_ids)
         for node in selected_verified_capability_nodes(facts)
@@ -71,10 +126,20 @@ def validate_readme_header_visual(
         label in rendered_capabilities and fact_ids <= rendered_capabilities[label]
         for label, fact_ids in expected_capabilities.items()
     )
-    checks["maps_match_markdown"] = all(
-        f'  {node.node_id}["{node.label}"]' in visual.mermaid_source
-        for node in visual.diagram_nodes
-    ) and all(badge.alt_text in visual.badge_markdown for badge in visual.badges)
+    checks["maps_match_markdown"] = (
+        f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
+        in visual.mermaid_source
+        and all(
+            re.search(
+                rf'^\s{{4,6}}{re.escape(node.node_id)}\["{re.escape(node.label)}"\]$',
+                visual.mermaid_source,
+                re.MULTILINE,
+            )
+            is not None
+            for node in visual.diagram_nodes[1:]
+        )
+        and all(badge.alt_text in visual.badge_markdown for badge in visual.badges)
+    )
     citations = visual.all_fact_ids
     checks["citations_accepted"] = all(
         (

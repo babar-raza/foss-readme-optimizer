@@ -116,16 +116,27 @@ def test_documentation_resources_render_selected_catalog_rows_in_stable_order() 
 
     assert markdown == "\n".join(
         (
-            "- [Product documentation](https://docs.aspose.org/3d/python/)",
-            "- [API reference](https://reference.aspose.org/3d/python/)",
-            "- [Knowledge base](https://kb.aspose.org/3d/python/)",
+            "- **[Getting started guide](https://docs.aspose.org/3d/python/)** - installation, "
+            "walkthroughs, and feature guides for this library.",
+            "- **[How-to guides and FAQ](https://kb.aspose.org/3d/python/)** - task-focused "
+            "answers for common product questions.",
+            "- **[Full API reference](https://reference.aspose.org/3d/python/)** - the complete "
+            "browsable reference for the public API.",
+            "- Found a bug or have a feature request? "
+            "[Open an issue](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues) "
+            "on GitHub.",
         )
     )
 
     assert documentation_resources_markdown(_with_documentation_fact(), link_limit=2) == "\n".join(
         (
-            "- [Product documentation](https://docs.aspose.org/3d/python/)",
-            "- [API reference](https://reference.aspose.org/3d/python/)",
+            "- **[Getting started guide](https://docs.aspose.org/3d/python/)** - installation, "
+            "walkthroughs, and feature guides for this library.",
+            "- **[How-to guides and FAQ](https://kb.aspose.org/3d/python/)** - task-focused "
+            "answers for common product questions.",
+            "- Found a bug or have a feature request? "
+            "[Open an issue](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues) "
+            "on GitHub.",
         )
     )
     assert "blog.aspose.org" not in markdown
@@ -178,13 +189,14 @@ def test_verified_draft_and_candidate_bind_exact_documentation_fact() -> None:
     draft = build_verified_template_draft(facts, source, REVISION, agentic_plan)
     documentation = draft.sections["documentation_resources"]
     assert documentation.disposition == "include"
-    assert documentation.fact_fields == ["documentation.links"]
+    assert documentation.fact_fields == ["documentation.links", "product.identity"]
+    assert documentation.standard_ids == ["readme.documentation_resources"]
 
     template_input = bind_product_facts(facts, draft)
     bound = template_input.sections["documentation_resources"]
-    assert bound.fact_ids == [FACT_ID]
+    assert bound.fact_ids == [FACT_ID, "product.identity:manifest-and-registry"]
     candidate = compile_repository_presentation(template_input)
-    assert "## Documentation resources" in candidate
+    assert "## Documentation and Resources" in candidate
     assert "blog.aspose.org" not in candidate
     provenance = build_template_provenance(candidate, template_input, facts)
     exact = next(
@@ -192,12 +204,15 @@ def test_verified_draft_and_candidate_bind_exact_documentation_fact() -> None:
         for binding in provenance
         if binding.provenance_id == "template.section.documentation_resources"
     )
-    assert exact.fact_ids == [FACT_ID]
+    assert exact.fact_ids == [FACT_ID, "product.identity:manifest-and-registry"]
     assert (
         candidate.encode("utf-8")[exact.candidate_byte_start : exact.candidate_byte_end].decode(
             "utf-8"
         )
         == bound.markdown
     )
-    for line in bound.markdown.splitlines():
+    lines = bound.markdown.splitlines()
+    for line in lines[:3]:
         assert literal_fact_ids(line, facts, [FACT_ID]) == [FACT_ID]
+    assert "Aspose.3D-FOSS-for-Python/issues" in lines[3]
+    assert exact.configured_standard_ids == ["readme.documentation_resources"]

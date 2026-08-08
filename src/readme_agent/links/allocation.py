@@ -166,8 +166,8 @@ def resolve_link_budget(
         measurement=measurement,
         max_total=total,
         domain_maxima={
-            "aspose.org": math.ceil(total / 2),
-            "aspose.com": math.ceil((2 * total) / 3),
+            "aspose.org": math.ceil((2 * total) / 3),
+            "aspose.com": math.ceil(total / 2),
         },
         surface_maxima={
             "products": min(2, total),

@@ -10,7 +10,10 @@ from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 
 _EXAMPLE_CONTEXT = re.compile(r"\b(?:example|workflow)s?\b", re.IGNORECASE)
 _SYNTAX_CHECKED = re.compile(r"\bsyntax[- ]checked\b", re.IGNORECASE)
-_API_MATCHED = re.compile(r"\bmatched\s+to\b.{0,80}\bapi\b", re.IGNORECASE)
+_API_MATCHED = re.compile(
+    r"(?:\bmatched\s+to\b.{0,80}\bapi\b|\bstatic\s+public\s+api\s+checked\b)",
+    re.IGNORECASE,
+)
 _EXECUTED = re.compile(r"\bexecuted\b", re.IGNORECASE)
 _COMPILED = re.compile(r"\bcompiled\b", re.IGNORECASE)
 _TESTED = re.compile(r"\b(?:runtime[- ]checked|tested)\b", re.IGNORECASE)
@@ -42,7 +45,36 @@ def additional_examples_disclosure_fact_ids(
     inline = fact.value.get("inline_examples")
     files = fact.value.get("files")
     assets = fact.value.get("result_assets")
-    if folded.startswith("the inline workflows below were syntax-checked"):
+    if folded.startswith("| example source | verification |"):
+        checks: list[bool] = []
+        if "| inline workflows |" in folded:
+            checks.append(
+                isinstance(inline, list)
+                and any(
+                    isinstance(item, dict)
+                    and item.get("static_api_verified") is True
+                    and bool(str(item.get("code") or "").strip())
+                    for item in inline
+                )
+            )
+        if "| repository example files |" in folded:
+            checks.append(
+                isinstance(files, list)
+                and any(
+                    isinstance(item, dict) and bool(str(item.get("path") or "").strip())
+                    for item in files
+                )
+            )
+        if "| example result assets |" in folded:
+            checks.append(
+                isinstance(assets, list)
+                and any(
+                    isinstance(item, dict) and bool(str(item.get("path") or "").strip())
+                    for item in assets
+                )
+            )
+        supported = bool(checks) and all(checks)
+    elif folded.startswith("the inline workflows below were syntax-checked"):
         supported = isinstance(inline, list) and any(
             isinstance(item, dict)
             and item.get("static_api_verified") is True

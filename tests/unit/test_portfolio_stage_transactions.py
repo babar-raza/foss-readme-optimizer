@@ -1,6 +1,7 @@
 """Private-attempt sealing and reducer-only stage promotion contracts."""
 
 import json
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
@@ -13,6 +14,7 @@ from readme_agent.supervisor.portfolio_scheduler.contracts import (
     build_stage_work_item,
 )
 from readme_agent.supervisor.portfolio_scheduler.lane import (
+    atomic_copy_file,
     prepare_stage_attempt,
     seal_stage_attempt,
     validate_sealed_stage_attempt,
@@ -32,6 +34,25 @@ ASSESSMENT_HASH = "e" * 64
 PLAN_HASH = "f" * 64
 CANDIDATE_HASH = "1" * 64
 REVIEWER_HASH = "2" * 64
+
+
+def test_atomic_copy_file_supports_same_process_concurrent_writers(tmp_path):
+    first = tmp_path / "first.json"
+    second = tmp_path / "second.json"
+    target = tmp_path / "planning" / "presentation-component-manifest.json"
+    first.write_text('{"writer": "first"}\n', encoding="utf-8")
+    second.write_text('{"writer": "second"}\n', encoding="utf-8")
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        futures = [executor.submit(atomic_copy_file, source, target) for source in (first, second)]
+        for future in futures:
+            future.result()
+
+    assert target.read_text(encoding="utf-8") in {
+        '{"writer": "first"}\n',
+        '{"writer": "second"}\n',
+    }
+    assert list(target.parent.glob("*.tmp")) == []
 
 
 def _backend(status: str = "FACTS_READY", *, candidate_hash: str | None = None):

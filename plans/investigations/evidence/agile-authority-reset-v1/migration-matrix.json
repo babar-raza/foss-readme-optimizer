@@ -4193,6 +4193,24 @@
       "destination": "active_graph",
       "destination_task_sha256": "79e72cadd4d69ba4551a1878ce8a04b942c3d7cd0e2fdc57c960ecb324b78a04",
       "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
+      "id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+      "destination": "active_graph",
+      "destination_task_sha256": "26ad58b8969dc0ef1aea7516bc67859dce7884f28fe0563cf853d59a72af1d22",
+      "reason": "separate Page delivery focus prevents combined repository work from hiding current acceptance"
+    },
+    {
+      "id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+      "destination": "active_graph",
+      "destination_task_sha256": "47dfed27902ef76cda23adda584a6a3edd30f15e409da4f58e42c8667c93910b",
+      "reason": "separate Note delivery focus preserves cached proof while making current reconciliation explicit"
+    },
+    {
+      "id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+      "destination": "active_graph",
+      "destination_task_sha256": "55f71e3e4b18fc75f4c9c4d734351064deb60c88709b7845510cda50ea29e740",
+      "reason": "separate Aspose.3D delivery focus closes the reference cohort before remaining Python fan-out"
     }
   ]
 }

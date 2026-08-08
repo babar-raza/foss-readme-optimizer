@@ -96,7 +96,8 @@ def deferred_unverified_obligation_detail_resolution(
     if (
         claim.claim_id not in correction_candidate_claim_ids
         or risk.risk_class != "mandatory_fact_resolution"
-        or risk.obligation_id not in {"api_public_surface", "major_capabilities"}
+        or risk.obligation_id
+        not in {"api_public_surface", "major_capabilities", "product_overview"}
         or not candidate_core_present
     ):
         return None

@@ -4,7 +4,7 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "faba11e3f8efdc94190169b7c0abc4398078e0339705194bfa9652b4cfcd7c7c",
+  "source_sha256": "4bb3c8648d8db7bf97e256017a172b602dba86245cf8d4569fc3f61db2a4cc61",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 475,
   "mandatory_requirement_rows": 425,
@@ -15,8 +15,8 @@
     "active_governance": 35,
     "excluded_backlog": 28,
     "excluded_deprecated": 22,
-    "open_mandatory": 227,
-    "preserved_verified": 163
+    "open_mandatory": 228,
+    "preserved_verified": 162
   },
   "taskcard_counts": {
     "L8-AGILE-AUTHORITY-RESET": 8,
@@ -3866,9 +3866,9 @@
     {
       "requirement_id": "L8-054",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-AGILE-AUTHORITY-RESET",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {

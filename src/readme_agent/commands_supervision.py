@@ -227,13 +227,13 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
-    if bounded_verified_canary:
+    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
+    if bounded_verified_canary and readme_poc_stage_limit != "INTAKE_READY":
         print(
             f"{args.repo}: BOUNDED_VERIFIED_CANARY -- partial repository proof only; "
             "does not satisfy full-registry Gate A",
             flush=True,
         )
-    readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     poc_profile_names = {"local_poc", "act_registry_intake", "act_poc"}
     if readme_poc_stage_limit is not None and (
         profile is None or profile.name not in poc_profile_names
@@ -274,6 +274,24 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
         if getattr(args, "durable_state", False)
         else (_force_durable_state_backend() if needs_durable_state else None)
     )
+
+    if bounded_verified_canary and readme_poc_stage_limit != "INTAKE_READY":
+        from readme_agent.supervisor.mission_execution_guard import (
+            require_visible_execution_binding,
+        )
+
+        assert state_backend is not None
+        try:
+            immediate_goal = require_visible_execution_binding(
+                state_backend,
+                task_id=getattr(args, "mission_task_id", None),
+                repository=args.repo,
+                observer=getattr(args, "mission_observer", "readme-agent-supervisor"),
+            )
+        except ConfigError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        print(f"{args.repo}: MISSION_BOUND -- immediate_goal={immediate_goal}", flush=True)
 
     lifecycle_recorder = None
     if profile is not None and profile.requires_durable_state:

@@ -44,7 +44,7 @@ class TestCompactAuthoritySourceBinding:
 
         assert _source_catalog_errors(requirements, decisions, source_commit) == []
 
-    def test_changed_requirement_text_is_rejected_even_if_stable_ids_remain(self):
+    def test_changed_requirement_text_is_rejected_without_legacy_snapshot(self):
         source_commit, requirements, decisions = self._records()
         tampered = deepcopy(requirements)
         tampered[0]["requirement"] += " silently changed"
@@ -52,6 +52,16 @@ class TestCompactAuthoritySourceBinding:
         assert _source_catalog_errors(tampered, decisions, source_commit) == [
             "typed requirement catalog is not an exact source-record migration"
         ]
+
+    def test_current_requirement_and_traceability_can_evolve_with_legacy_snapshot(self):
+        source_commit, requirements, decisions = self._records()
+        amended = deepcopy(requirements)
+        amended[0]["legacy_requirement"] = amended[0]["requirement"]
+        amended[0]["legacy_traceability"] = amended[0]["traceability"]
+        amended[0]["requirement"] += " Current normative amendment."
+        amended[0]["traceability"] += "; current implementation task"
+
+        assert _source_catalog_errors(amended, decisions, source_commit) == []
 
     def test_current_status_and_evidence_can_advance_without_losing_source_record(self):
         source_commit, requirements, decisions = self._records()

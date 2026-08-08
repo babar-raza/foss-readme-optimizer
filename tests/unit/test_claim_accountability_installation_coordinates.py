@@ -14,6 +14,7 @@ from readme_agent.readme.document_templates import installation_text
 _REVISION = "a" * 40
 _ORG_REPO = "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
 _DISTRIBUTION = "aspose-3d-foss"
+_SOURCE_BUILD_CLAIM = f"Use source installation for the `{_DISTRIBUTION}` distribution."
 
 
 def _source_build_facts() -> ProductFactsV2:
@@ -126,7 +127,7 @@ def test_exact_deterministic_source_build_claim_binds_acquisition_and_distributi
     rendered = installation_text(facts, facts.org_repo, _REVISION)
 
     assert rendered is not None
-    claim = _claim_containing(rendered, f"`{_DISTRIBUTION}` was installed")
+    claim = _claim_containing(rendered, _SOURCE_BUILD_CLAIM)
     coordinates = structured_fact_coordinates(rendered, claim, facts)
 
     assert {item.field for item in coordinates} == {
@@ -152,11 +153,11 @@ def test_partial_or_spoofed_generated_claim_is_not_a_structured_coordinate() -> 
     rendered = installation_text(facts, facts.org_repo, _REVISION)
 
     assert rendered is not None
-    exact = _claim_containing(rendered, f"`{_DISTRIBUTION}` was installed")
+    exact = _claim_containing(rendered, _SOURCE_BUILD_CLAIM)
     exact_text = rendered.encode("utf-8")[exact.source_byte_start : exact.source_byte_end].decode()
     for document in (
-        exact_text.split(". The matching", 1)[0] + ".\n",
-        exact_text.replace("network-disabled", "network-enabled") + "\n",
+        f"The `{_DISTRIBUTION}` distribution is available.\n",
+        exact_text.replace("source installation", "PyPI installation") + "\n",
     ):
         claim = _claim_containing(document, _DISTRIBUTION)
         assert "installation.coordinates" not in _coordinate_fields(document, claim, facts)

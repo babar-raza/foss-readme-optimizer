@@ -16,6 +16,7 @@ from readme_agent.facts.curated_python_evidence import (
     python_public_surface,
     python_source_format_directions,
 )
+from readme_agent.facts.curated_python_implementation import python_implementation_components
 from readme_agent.facts.curated_python_import_shadowing import python_import_shadowing
 from readme_agent.facts.curated_repository_assets import (
     development_assets,
@@ -116,6 +117,79 @@ _PDF_CAPABILITY_SPECS = (
 )
 
 
+def _pdf_rich_authoring_capability(root: Path) -> dict[str, object] | None:
+    """Verify the composite text, drawing, annotation, attachment, and form surface."""
+
+    components = (
+        (
+            "src/aspose_pdf/pages.py",
+            "Page",
+            {"add_text", "add_image", "draw_line", "draw_rectangle"},
+        ),
+        ("src/aspose_pdf/document.py", "Document", {"add_attachment"}),
+        ("src/aspose_pdf/forms.py", "Form", {"add_text_field"}),
+        ("src/aspose_pdf/annotations/__init__.py", "AnnotationCollection", {"add"}),
+    )
+    evidence: list[dict[str, object]] = []
+    for relative, class_name, required in components:
+        path = root / relative
+        methods = _class_methods(path, class_name) if path.is_file() else set()
+        if not required.issubset(methods):
+            return None
+        evidence.append(
+            {
+                "class": class_name,
+                "methods": sorted(required),
+                "source_path": relative,
+                "source_sha256": _sha256(path),
+            }
+        )
+    layout_path = root / "src/aspose_pdf/text_layout.py"
+    features_path = root / "supported-features.md"
+    if not layout_path.is_file() or not features_path.is_file():
+        return None
+    try:
+        layout_tree = ast.parse(layout_path.read_text(encoding="utf-8"))
+        features = features_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return None
+    if not any(
+        isinstance(node, ast.ClassDef) and node.name == "TextLayoutOptions"
+        for node in layout_tree.body
+    ) or not all(
+        marker in features.casefold()
+        for marker in (
+            "positioned standard-14 text or",
+            "embedded unicode text with `page.add_text()`",
+            "unicode bidi algorithm",
+        )
+    ):
+        return None
+    evidence.extend(
+        [
+            {
+                "class": "TextLayoutOptions",
+                "methods": [],
+                "source_path": "src/aspose_pdf/text_layout.py",
+                "source_sha256": _sha256(layout_path),
+            },
+            {
+                "class": None,
+                "methods": [],
+                "source_path": "supported-features.md",
+                "source_sha256": _sha256(features_path),
+            },
+        ]
+    )
+    return {
+        "label": (
+            "Add Standard-14 or embedded Unicode text, including shaped bidirectional text, "
+            "plus images, lines, rectangles, annotations, attachments, and form data"
+        ),
+        "components": evidence,
+    }
+
+
 def _pdf_capability_details(root: Path) -> _CollectorResult | None:
     """Return visitor-facing PDF groups only when every named API exists in source."""
 
@@ -136,6 +210,16 @@ def _pdf_capability_details(root: Path) -> _CollectorResult | None:
             }
         )
         locations.append(relative)
+    rich_authoring = _pdf_rich_authoring_capability(root)
+    if rich_authoring is not None:
+        groups.append(rich_authoring)
+        components = rich_authoring.get("components")
+        if isinstance(components, list):
+            locations.extend(
+                str(item["source_path"])
+                for item in components
+                if isinstance(item, dict) and item.get("source_path")
+            )
     render_test = root / "tests/test_page_rendering.py"
     render_source = root / "src/aspose_pdf/pages.py"
     output_formats: list[str] = []
@@ -286,6 +370,12 @@ def curated_repository_fact_candidates(
         ),
         ("api.public_surface", "python-exports", "mechanical_repository", python_public_surface),
         (
+            "repository.implementation_components",
+            "python-implementation-components",
+            "mechanical_repository",
+            python_implementation_components,
+        ),
+        (
             "repository.examples",
             "repository-inventory",
             "mechanical_repository",
@@ -367,6 +457,7 @@ def curated_repository_fact_candidates(
         value, locations = result
         affected_surfaces = {
             "repository.capability_details": ["readme.capabilities", "readme.examples"],
+            "repository.implementation_components": ["readme.opening", "readme.api_reference"],
             "repository.format_directions": ["readme.capabilities"],
             "repository.python_import_shadowing": ["readme.api"],
             "repository.verified_boundaries": ["readme.limitations", "readme.security"],

@@ -31,14 +31,13 @@ from readme_agent.readme.document_plan import (
 _MECHANICAL_STANDARD = "readme.composition.mechanical-markdown-v1"
 _GOVERNED_STRUCTURAL_LINES = {
     "## Navigation",
-    "## At a glance",
-    "## Key capabilities",
+    "## At a Glance",
+    "## Key Capabilities",
     "## Installation",
-    "## Quick start",
-    "## Scope and limitations",
-    "## Development and testing",
+    "## Quick Start",
+    "## Scope and Limitations",
+    "## Development and Testing",
     "### Tests",
-    "## Preserved repository details",
     "## License",
 }
 

@@ -8,6 +8,7 @@ from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
 from readme_agent.supervisor.local_poc_manifest_recovery import (
     reconcile_approved_manifest_from_receipt,
+    reconcile_completed_manifest_from_evidence,
 )
 from readme_agent.supervisor.portfolio_scheduler.contracts import (
     StageArtifactV1,
@@ -133,3 +134,86 @@ def test_approved_manifest_recovery_refuses_artifact_drift(tmp_path):
     )
 
     assert reconcile_approved_manifest_from_receipt(state, bundle) is False
+
+
+def test_completed_manifest_recovers_from_exact_review_and_no_op_evidence(tmp_path):
+    bundle = tmp_path / SOURCE_REVISION
+    candidate_path = bundle / "candidate" / "README.md"
+    write_redacted_text(candidate_path, "# Current\n")
+    candidate_hash = sha256_file(candidate_path)[0]
+    state = RunStateV2(
+        org_repo=ORG_REPO,
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            status="NO_OP_PROVEN",
+            source_revision=SOURCE_REVISION,
+            facts_hash="c" * 64,
+            assessment_hash="d" * 64,
+            presentation_plan_hash="e" * 64,
+            candidate_hash=candidate_hash,
+        ),
+    )
+    write_redacted_json(
+        bundle / "manifest.json",
+        {
+            "org_repo": ORG_REPO,
+            "source_revision": SOURCE_REVISION,
+            "lifecycle_status": "CANDIDATE_GENERATED",
+            "complete": False,
+            "completed_stages": ["CANDIDATE_GENERATED"],
+        },
+    )
+    write_redacted_json(
+        bundle / "review" / "final-verdict.json",
+        {
+            "verdict": "AGENT_APPROVED",
+            "agent_approved": True,
+            "deterministic_validation_passed": True,
+        },
+    )
+    write_redacted_json(
+        bundle / "review" / "no-op-proof.json",
+        {
+            "verdict": "NO_OP_PROVEN",
+            "candidate_hash": candidate_hash,
+            "patch_created": False,
+            "duplicate_bundle_created": False,
+            "agentic_review_reused": True,
+            "llm_accounting_status": "EXACT",
+            "new_provider_call_count": 0,
+        },
+    )
+
+    assert reconcile_completed_manifest_from_evidence(state, bundle) is True
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["lifecycle_status"] == "NO_OP_PROVEN"
+    assert manifest["complete"] is True
+    assert manifest["completed_stages"][-4:] == [
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+    ]
+    assert reconcile_completed_manifest_from_evidence(state, bundle) is False
+
+
+def test_completed_manifest_recovery_refuses_candidate_drift(tmp_path):
+    bundle = tmp_path / SOURCE_REVISION
+    candidate_path = bundle / "candidate" / "README.md"
+    write_redacted_text(candidate_path, "# Current\n")
+    state = RunStateV2(
+        org_repo=ORG_REPO,
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            status="NO_OP_PROVEN",
+            source_revision=SOURCE_REVISION,
+            facts_hash="c" * 64,
+            assessment_hash="d" * 64,
+            presentation_plan_hash="e" * 64,
+            candidate_hash="f" * 64,
+        ),
+    )
+    write_redacted_json(
+        bundle / "manifest.json",
+        {"org_repo": ORG_REPO, "source_revision": SOURCE_REVISION},
+    )
+
+    assert reconcile_completed_manifest_from_evidence(state, bundle) is False

@@ -33,8 +33,8 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "2ba5cabf810eadfe03888a7d29c422221b7dc515bf8c7ff955fd7f78ab8cdb96",
-        "674923cb5a1b397005e5bef73ac039388ea6791b4e60bf37361b4067bb7e222f",
+        "1f4c8684e357e44fa7a38b6ee94a96f1c543ec0c15f374b057b4e7e1470453e8",
+        "191f8c7254c5f9fb7dfb9045d39ea2d1886b080ef422abf6b27e444a09da659d",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -53,8 +53,8 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "333aa3ca201bb1995e19acf4772f97c1f3aa88c78410e8c7e70a8c22eaf7f51b",
-        "0246de666371cd360e3c5429e3d76539a72a1b1aeddb41ab1f27260afad6f2e9",
+        "d589fc4121f35df622d58be7125e241a2a137326a75ddc6eb1b667302197e8f3",
+        "2008a03d68875cb27d8dc2d675866e0ff1d2aba37a68a7ef9159302a794e181e",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -73,8 +73,8 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "48205009dc93fc0cf7caa89fb5abe4b0af2e4ac3ddbbb89403f994f39aa8e19e",
-        "062ed8dc8e53639a5fdf240852d6e837f549b04ceccfafe8e18175f5f2f4601a",
+        "11a073a50a1bca62d2cc5d3bc03dfaffc7118187e12bc8c9fa9f512a3ec77760",
+        "291e68a160e06d331623c15e0e587b44b3382ef23f57fa349b7462b2a9208d23",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -220,6 +220,6 @@ def test_agentic_composition_plan_is_characterized() -> None:
     )
 
     assert plan.canonical_hash() == (
-        "930040a354beefaf5471369db9a18358b81553087fce0f270f63c766c8300259"
+        "22db82fa92a47ab79bd29207488152ab9724c6efd43a10f7f8855612cd984828"
     )
-    assert plan.input_sha256 == ("124a62335aa612dd9d526cc61a20b9d8accf1af83da0567b442c59572853546a")
+    assert plan.input_sha256 == ("004ab18a2a6a0745f585917821013cb3bc2b926fd5905a33cbe607cdaa9d30a9")

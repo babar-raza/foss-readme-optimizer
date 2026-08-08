@@ -6,8 +6,14 @@ import json
 from pathlib import Path
 
 from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.presentation_lint import lint_readme_presentation
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    canonicalize_public_markdown,
+    title_case_heading,
+    visitor_capability_phrase,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORPUS_PATH = PROJECT_ROOT / "tests/fixtures/presentation_defects/corpus.json"
@@ -71,6 +77,11 @@ def test_finding_ids_and_spans_are_stable_across_identical_runs() -> None:
     )
 
 
+def test_visitor_capability_phrase_removes_enum_implementation_suffix() -> None:
+    assert visitor_capability_phrase("PDF export via SaveFormat.Pdf") == "PDF export"
+    assert visitor_capability_phrase("XPS to PDF conversion") == "XPS to PDF conversion"
+
+
 def test_code_tokens_and_a_product_specific_strong_readme_are_not_template_gated() -> None:
     candidate = """# Mesh Toolkit
 
@@ -100,7 +111,7 @@ def test_explained_option_tokens_and_same_bullet_in_distinct_sections_are_allowe
 - Hyperlinks
 - **Flip coordinate system** (`flip_coordinate_system`) — swap Y and Z coordinates
 
-## Test coverage
+## Test Coverage
 
 - hyperlinks
 """
@@ -114,7 +125,7 @@ def test_explained_option_tokens_and_same_bullet_in_distinct_sections_are_allowe
 def test_duplicate_bullets_inside_one_reader_section_remain_a_failure() -> None:
     candidate = """# Mesh Toolkit
 
-## Supported formats
+## Supported Formats
 
 ### Import
 
@@ -134,7 +145,7 @@ def test_duplicate_bullets_inside_one_reader_section_remain_a_failure() -> None:
 def test_repeated_api_signatures_in_distinct_class_sections_are_not_duplicate_prose() -> None:
     candidate = """# Aspose.Note FOSS for Python
 
-## API reference
+## API Reference
 
 ### RichText
 
@@ -234,9 +245,9 @@ def test_repository_verified_public_tool_name_is_allowed_as_code_only_bullet() -
             ]
         }
     )
-    candidate = """# Conversion toolkit
+    candidate = """# Conversion Toolkit
 
-## MCP tools
+## MCP Tools
 
 - `ps_to_pdf`
 """
@@ -267,7 +278,7 @@ def test_mechanically_verified_public_export_is_allowed_as_code_only_bullet() ->
         }
     )
     facts = facts.model_copy(update={"facts": [*facts.facts, public_surface]})
-    candidate = """# Conversion toolkit
+    candidate = """# Conversion Toolkit
 
 ## Public API
 
@@ -285,11 +296,17 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
     result = lint_readme_presentation(candidate.read_text(encoding="utf-8"), None)
 
     assert result.rules_run == [
+        "api_identifier_not_fact_exact",
+        "capability_description_repeats_title",
         "competing_primary_examples",
         "cross_product_leakage",
         "emoji_decoration",
+        "generic_preservation_heading",
+        "heading_not_title_case",
+        "internal_assurance_commentary",
         "invalid_third_party_notices",
         "malformed_navigation",
+        "noncanonical_technical_abbreviation",
         "promotional_imbalance",
         "promotional_opening",
         "prompt_injection_residue",
@@ -297,8 +314,216 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
         "redundant_quick_links",
         "semantic_duplicate",
         "uncollapsed_secondary_detail",
+        "unnatural_enterprise_link",
         "visitor_fragment",
     ]
+
+
+def test_public_contract_rejects_noncanonical_abbreviations_and_sentence_case_headings() -> None:
+    candidate = """# Page Converter
+
+## API reference
+
+Convert Ps, eps, xPs, and html files to PdF.
+
+```python
+format_name = "Pdf"
+```
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert {finding.rule_id for finding in result.findings} == {
+        "heading_not_title_case",
+        "noncanonical_technical_abbreviation",
+    }
+    abbreviation_spans = [
+        span.text
+        for finding in result.findings
+        if finding.rule_id == "noncanonical_technical_abbreviation"
+        for span in finding.spans
+    ]
+    assert abbreviation_spans == ["Ps", "eps", "xPs", "html", "PdF"]
+
+
+def test_public_contract_canonicalizes_api_names_and_rejects_repeated_capability_copy() -> None:
+    rendered = canonicalize_public_markdown(
+        "### Aspose.PDF.Cgm Namespace (`aspose_pdf.cgm`)\n\n"
+        "### Aspose.PDF.Engine.Cms Namespace (`aspose_pdf.engine.cms`)\n\n"
+        "### Aspose.PDF.Engine.Sfnt Namespace (`aspose_pdf.engine.sfnt`)\n\n"
+        "### Aspose.PDF.Predefined Cmaps Namespace (`aspose_pdf.engine.predefined_cmaps`)\n",
+        canonical_abbreviations_from_facts(None),
+    )
+
+    assert "Aspose.PDF.CGM Namespace (`aspose_pdf.cgm`)" in rendered
+    assert "Aspose.PDF.Engine.CMS Namespace (`aspose_pdf.engine.cms`)" in rendered
+    assert "Aspose.PDF.Engine.SFNT Namespace (`aspose_pdf.engine.sfnt`)" in rendered
+    assert (
+        "Aspose.PDF.Predefined CMaps Namespace (`aspose_pdf.engine.predefined_cmaps`)" in rendered
+    )
+
+    candidate = (
+        "# PDF Toolkit\n\n## Key Capabilities\n\n"
+        "- **Edit text and images in PDF documents** - "
+        "Edit text and images in PDF documents.\n"
+    )
+    result = lint_readme_presentation(candidate, None)
+
+    assert any(
+        finding.rule_id == "capability_description_repeats_title" for finding in result.findings
+    )
+
+
+def test_public_contract_rejects_internal_assurance_and_generic_preservation_prose() -> None:
+    candidate = """# Page Converter
+
+## Installation
+
+The package was exercised from this exact source revision in an isolated,
+network-disabled verification environment. The matching PyPI receipt was empty.
+
+## Preserved Repository Details
+
+Useful source information.
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert {finding.rule_id for finding in result.findings} == {
+        "generic_preservation_heading",
+        "internal_assurance_commentary",
+    }
+
+
+def test_public_contract_requires_natural_enterprise_edition_anchor() -> None:
+    weak = (
+        "# Page Converter\n\n## Scope and Limitations\n\n"
+        "See [Aspose.Page Enterprise Edition](https://products.aspose.com/page/).\n"
+    )
+    natural = (
+        "# Page Converter\n\n## Scope and Limitations\n\n"
+        "For broader requirements, explore the "
+        "[full-featured Aspose.Page Enterprise Edition](https://products.aspose.com/page/).\n"
+    )
+
+    assert any(
+        finding.rule_id == "unnatural_enterprise_link"
+        for finding in lint_readme_presentation(weak, None).findings
+    )
+    assert not any(
+        finding.rule_id == "unnatural_enterprise_link"
+        for finding in lint_readme_presentation(natural, None).findings
+    )
+
+
+def test_public_contract_learns_repository_abbreviations_from_accepted_facts() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    values = list(formats.value) if isinstance(formats.value, list) else []
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [*values, "HEIC export"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = "# Image Toolkit\n\n## Key Capabilities\n\nConvert heic files.\n"
+
+    result = lint_readme_presentation(candidate, facts)
+
+    assert any(
+        finding.rule_id == "noncanonical_technical_abbreviation"
+        and [span.text for span in finding.spans] == ["heic"]
+        for finding in result.findings
+    )
+
+
+def test_public_contract_does_not_promote_emphasized_common_words_to_acronyms() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["HEIC export is NOT implemented"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = "# Image Toolkit\n\n## Scope and Limitations\n\nHEIC export is not implemented.\n"
+
+    result = lint_readme_presentation(candidate, facts)
+
+    assert not any(
+        finding.rule_id == "noncanonical_technical_abbreviation"
+        and "not" in [span.text.casefold() for span in finding.spans]
+        for finding in result.findings
+    )
+
+
+def test_capability_inventory_cannot_repeat_across_competing_sections() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## Why Aspose.Page for Python
+
+- Convert PS/EPS to PDF in Python
+- Convert XPS to PNG and JPEG in Python
+
+## Currently Available Features
+
+- PS/EPS to PDF conversion
+- XPS to PNG/JPEG conversion
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert any(finding.rule_id == "semantic_duplicate" for finding in result.findings)
+
+
+def test_capability_inventory_cannot_repeat_inside_collapsed_detail() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## Key Capabilities
+
+- **Use PS/EPS to PDF conversion with Aspose.Page for Python** - Supports PS/EPS to PDF conversion.
+
+<details>
+<summary>View Detailed Capabilities</summary>
+
+- Convert PS/EPS to PDF in Python
+
+</details>
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert any(finding.rule_id == "semantic_duplicate" for finding in result.findings)
+
+
+def test_internal_api_assurance_narration_is_not_public_content() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## API Reference
+
+The package declares 12 public exports across 3 verified export namespaces.
+
+| Type | Description |
+| --- | --- |
+| `PsDocument` | Includes 4 additional verified members. |
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert any(finding.rule_id == "internal_assurance_commentary" for finding in result.findings)
 
 
 def test_real_note_failure_pattern_is_rejected_by_shared_contract() -> None:
@@ -332,7 +557,7 @@ Acme Document Toolkit for Python reads document files and exposes their verified
 - [Third-party notices](#third-party-notices)
 - [License](#license)
 
-## API reference
+## API Reference
 
 <details>
 <summary>Show API reference</summary>
@@ -341,7 +566,7 @@ Acme Document Toolkit for Python reads document files and exposes their verified
 
 </details>
 
-## Third-party notices
+## Third-Party Notices
 
 Dependency terms are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
@@ -354,3 +579,109 @@ This project uses the [MIT License](LICENSE), which permits use and modification
 
     assert result.valid is True
     assert result.findings == []
+
+
+def test_heading_title_case_normalizes_slash_separated_words() -> None:
+    assert (
+        title_case_heading("Work with Tables in an MS OneNote Document (Rows/cells)")
+        == "Work with Tables in an MS OneNote Document (Rows/Cells)"
+    )
+
+
+def test_dynamic_acronyms_cannot_uppercase_product_identity_words() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    identity = facts.selected_fact("product.identity")
+    capabilities = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": {
+                            **identity.value,
+                            "product_name": "Aspose.Page FOSS for Python",
+                            "family": "Page",
+                        }
+                    }
+                )
+                if fact.fact_id == identity.fact_id
+                else fact.model_copy(update={"value": ["PAGE export"]})
+                if fact.fact_id == capabilities.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = canonicalize_public_markdown(
+        'PRODUCT["Aspose.Page FOSS for Python"]\nPDF and eps output.\n',
+        canonical_abbreviations_from_facts(facts),
+    )
+
+    assert "Aspose.Page FOSS for Python" in rendered
+    assert "Aspose.PAGE" not in rendered
+    assert "PDF and EPS output" in rendered
+
+
+def test_api_constant_names_do_not_become_public_abbreviations() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    identity = facts.selected_fact("product.identity")
+    api = FactRecordV2(
+        fact_id="api.public_surface:vocabulary-test",
+        field="api.public_surface",
+        value={"modules": [{"module": "aspose.page", "exports": ["DOCUMENT"]}]},
+        source=identity.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_reference"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+
+    rendered = canonicalize_public_markdown(
+        "Document conversion with pdf output.",
+        canonical_abbreviations_from_facts(facts),
+    )
+
+    assert rendered == "Document conversion with PDF output."
+
+
+def test_public_contract_requires_exact_fact_derived_api_identifier_casing() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    identity = facts.selected_fact("product.identity")
+    api = FactRecordV2(
+        fact_id="api.public_surface:identifier-case-test",
+        field="api.public_surface",
+        value={
+            "modules": [{"module": "aspose_pdf.cgm", "exports": ["CgmLoadOptions"]}],
+            "classes": [{"module": "aspose_pdf.cgm", "name": "CgmLoadOptions"}],
+        },
+        source=identity.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_reference"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+    exact = "# PDF Toolkit\n\n## API Reference\n\n### Aspose.PDF.CGM Namespace (`aspose_pdf.cgm`)\n"
+    mutated = exact.replace("`aspose_pdf.cgm`", "`aspose_pdf.CGM`")
+
+    assert not any(
+        finding.rule_id == "api_identifier_not_fact_exact"
+        for finding in lint_readme_presentation(exact, facts).findings
+    )
+    assert any(
+        finding.rule_id == "api_identifier_not_fact_exact"
+        and [span.text for span in finding.spans] == ["aspose_pdf.CGM"]
+        for finding in lint_readme_presentation(mutated, facts).findings
+    )

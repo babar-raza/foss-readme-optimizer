@@ -208,20 +208,21 @@ Repository-specific product summary.
 ```mermaid
 flowchart LR
   subgraph Inputs["Inputs and formats"]
-    input_1["Microsoft OneNote (.one)"]
+    I1["Microsoft OneNote (.one)"]
   end
-  product["Aspose.Note FOSS for Python"]
+  PRODUCT["Aspose.Note FOSS for Python"]
   subgraph Capabilities["Core capabilities"]
-    capability_1["Read documents"]
-    capability_2["Traverse pages"]
-    capability_3["Export PDF"]
+    direction TB
+    C1["Read documents"]
+    C2["Traverse pages"]
+    C3["Export PDF"]
   end
-  subgraph Outputs["Outputs and accessible content"]
-    output_1["Text and PDF"]
+  subgraph Outputs["Outputs"]
+    O1["Text and PDF"]
   end
-  input_1 --- product
-  product --- capability_1
-  capability_1 --- output_1
+  I1 --- PRODUCT
+  PRODUCT --- Capabilities
+  Capabilities --- Outputs
 ```
 
 ## Quick start

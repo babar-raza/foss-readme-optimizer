@@ -5,9 +5,13 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import tempfile
 from pathlib import Path
 
+from filelock import FileLock
+
 from readme_agent import paths
+from readme_agent.evidence.file_inventory import filesystem_path
 from readme_agent.evidence.writer import write_redacted_json, write_redacted_text
 from readme_agent.supervisor.portfolio_scheduler.contracts import (
     LaneResultV1,
@@ -189,7 +193,26 @@ def validate_sealed_stage_attempt(
 def atomic_copy_file(source: Path, target: Path) -> None:
     """Replace one compatibility-view file without exposing partial bytes."""
 
-    target.parent.mkdir(parents=True, exist_ok=True)
-    temporary = target.with_name(f".{target.name}.{os.getpid()}.tmp")
-    temporary.write_bytes(source.read_bytes())
-    os.replace(temporary, target)
+    lock_root = Path(tempfile.gettempdir()) / "readme-agent-atomic-copy-locks"
+    lock_root.mkdir(parents=True, exist_ok=True)
+    lock_key = hashlib.sha256(str(target.resolve()).casefold().encode("utf-8")).hexdigest()
+    with FileLock(str(lock_root / f"{lock_key}.lock"), timeout=120):
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb",
+                dir=filesystem_path(target.parent),
+                prefix=f".{target.name}.",
+                suffix=".tmp",
+                delete=False,
+            ) as handle:
+                temporary = Path(handle.name)
+                handle.write(source.read_bytes())
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(filesystem_path(temporary), filesystem_path(target))
+            temporary = None
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)

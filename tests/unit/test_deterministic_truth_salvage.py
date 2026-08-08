@@ -428,6 +428,58 @@ def test_repository_source_limitations_survive_an_empty_salvage_candidate() -> N
     assert enriched["product.limitations"] is limitations
 
 
+def test_repository_format_details_exclude_development_extractor_provenance() -> None:
+    repository_source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://src/aspose/note/model.py,tests/test_model.py",
+        source_revision=CURRENT_REVISION,
+    )
+    detail = FactRecordV2(
+        fact_id="repository.capability_details:python-public-source-surfaces",
+        field="repository.capability_details",
+        value={"input_formats": ["Microsoft OneNote (.one)"], "output_formats": ["PDF"]},
+        source=repository_source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[detail],
+        selected_fact_ids={detail.field: detail.fact_id},
+        package_root_roles=None,
+    )
+    external_source = FactSourceV2(
+        source_type="mechanical_test",
+        location="aspose-org-extractor://development-only",
+        source_revision=CURRENT_REVISION,
+    )
+    technical = {
+        field: FactRecordV2(
+            fact_id=f"{field}:salvage",
+            field=field,
+            value=[],
+            source=external_source,
+            verification_state="blocked" if field == "product.formats" else "verified",
+            authoritative_owner="repository-owner",
+            confidence=0.0 if field == "product.formats" else 1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in ("product.capabilities", "product.formats", "product.limitations")
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    formats = enriched["product.formats"]
+    assert formats.value == ["Input format: Microsoft OneNote (.one)", "Output format: PDF"]
+    assert formats.verification_state == "verified"
+    assert formats.source.location == repository_source.location
+    assert "aspose-org-extractor" not in formats.source.location
+
+
 def test_repository_directions_remove_unproved_format_qualifiers() -> None:
     source = FactSourceV2(
         source_type="mechanical_repository",

@@ -598,7 +598,7 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
     assert f"git checkout --detach {revision}" in rendered
     assert "python -m pip install ." in rendered
     assert "pip install aspose-page-foss" not in rendered
-    assert "did not find a published package" in rendered
+    assert "Use source installation for the `aspose-page-foss-for-python` distribution" in rendered
     assert [badge.badge_id for badge in render_readme_badges(python_facts)] == [
         "version",
         "platform",
@@ -623,9 +623,9 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
             marker
             in candidate_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
             for marker in (
-                "Install the verified immutable repository revision",
+                "Install the package directly from its source repository",
                 "git clone https://github.com/example/page-python.git",
-                "matching PyPI receipt did not find a published package",
+                "Use source installation for the `aspose-page-foss-for-python` distribution",
             )
         )
     ]
@@ -694,7 +694,7 @@ Keep this limitation.
     )
 
 
-def test_verified_example_names_required_input_fixture_and_repository_provenance():
+def test_verified_example_uses_the_verified_code_without_generated_fixture_narration():
     facts, revision = _java_facts()
     example = facts.selected_fact("example.minimal")
     example_value = dict(example.value)
@@ -719,8 +719,9 @@ def test_verified_example_names_required_input_fixture_and_repository_provenance
 
     rendered = example_text(with_fixture, revision)
 
-    assert "Before running the example, provide `input.ps`" in rendered
-    assert "`testdata/ps/integration/minimal.ps`" in rendered
+    assert "Before running the example" not in rendered
+    assert "testdata/ps/integration/minimal.ps" not in rendered
+    assert 'workbook.save("hello.xlsx")' in rendered
 
 
 def test_python_source_build_fails_closed_for_blocked_incomplete_or_mismatched_proof():

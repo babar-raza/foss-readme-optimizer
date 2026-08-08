@@ -1,3 +1,3 @@
-## Known limitations
+## Known Limitations
 
 {items}

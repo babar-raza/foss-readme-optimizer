@@ -83,9 +83,31 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     )
 
     selected = {path for dependency in manifest.dependencies for path in dependency.files}
+    assert "src/readme_agent/readme/capability_semantics.py" in selected
     assert "src/readme_agent/readme/diagram_role_semantics.py" in selected
+    assert "src/readme_agent/readme/diagram_semantic_candidates.py" in selected
+    assert "src/readme_agent/readme/header_visual_mermaid.py" in selected
+    assert "src/readme_agent/readme/header_visual_layout.py" in selected
+    assert "src/readme_agent/readme/opening_summary_fallback.py" in selected
+    assert "src/readme_agent/presentation/verified_source_claim_matching.py" in selected
+    assert "src/readme_agent/presentation/verified_source_claim_resolution_engine.py" in selected
+    assert "src/readme_agent/readme/source_claim_conversion_binding.py" in selected
+    assert "src/readme_agent/readme/source_claim_mcp_binding.py" in selected
+    assert "src/readme_agent/readme/source_claim_repository_asset_binding.py" in selected
+    assert "src/readme_agent/readme/source_claim_structured_matching.py" in selected
+    assert "src/readme_agent/presentation/verified_template_documentation.py" in selected
+    assert "src/readme_agent/presentation/verified_template_api_reference.py" in selected
+    assert "src/readme_agent/presentation/verified_template_capabilities.py" in selected
+    assert "src/readme_agent/presentation/verified_template_capability_seo.py" in selected
+    assert "src/readme_agent/presentation/verified_template_example_presentation.py" in selected
+    assert "src/readme_agent/presentation/verified_template_provenance.py" in selected
+    assert "src/readme_agent/readme/example_assurance_validation.py" in selected
+    assert "src/readme_agent/presentation/verified_template_link_budget.py" in selected
+    assert "src/readme_agent/links/allocation.py" in selected
     assert "prompts/generation/plan_readme_composition.yaml" in selected
     assert "templates/readme/repository-presentation-v1.json" in selected
+    assert "templates/readme/verified-minimal-example.md" in selected
+    assert "src/readme_agent/validation/presentation_template.py" in selected
     required_candidate_owners = {
         "src/readme_agent/capabilities/build_presentation_plan.py",
         "src/readme_agent/capabilities/render_readme_candidate.py",

@@ -294,6 +294,10 @@ def normalize_trusted_candidate(
         normalize_trusted_portfolio_header_assets(structured, graph),
         graph,
     )
+    # Section-owned normalizers may materialize historical sentence-case
+    # labels. Re-apply the configured public heading contract at the final
+    # structural boundary so validation observes the actual visitor standard.
+    structured = normalize_trusted_portfolio_headings(structured, graph)
     structured = normalize_trusted_portfolio_emojis(structured, graph)
     structured = unlink_duplicate_opening_promotional_links(structured)
     source_headings = _heading_counts("\n\n".join(fact.value for fact in graph.inherited_facts))

@@ -18,6 +18,7 @@ from readme_agent.readme.agentic_composition_validation import (
     validate_readme_composition_plan,
 )
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.capability_semantics import normalize_capability_phrases
 from readme_agent.readme.presentation_lint_structure import lint_structure
 from readme_agent.readme.presentation_report import product_explanation_offset
 from readme_agent.readme.verified_preservation_composition import (
@@ -32,7 +33,33 @@ REVISION = "a" * 40
 def _source_readme(product: str) -> str:
     return f"""# {product} FOSS for Python
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 {product} FOSS for Python helps Python developers process verified product data.
+
+## Navigation
+
+- [At a glance](#at-a-glance)
+- [Key capabilities](#key-capabilities)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [Development](#development)
+- [License](#license)
+
+## At a glance
+
+```mermaid
+flowchart LR
+  input_1["Verified product data"] --- product["{product} FOSS for Python"]
+  product --- capability_1["Repository-verified operations"]
+  capability_1 --- output_1["Deterministic output"]
+```
+
+## Key capabilities
+
+- Repository-verified format handling.
+- Repository-verified product operations.
+- Deterministic output suitable for automated workflows.
 
 ## Installation
 
@@ -46,12 +73,6 @@ from example import Product
 result = Product().run("input")
 print(result)
 ```
-
-## Features
-
-- Repository-verified format handling.
-- Repository-verified product operations.
-- Deterministic output suitable for automated workflows.
 
 ## Development
 
@@ -195,7 +216,10 @@ def test_strong_verified_readme_builds_valid_fact_bound_plan(converter):
         (item.section_id, item.disposition) for item in planning_sections(assessment)
     ]
     assert {item.role for item in plan.diagram.nodes} == {"input", "capability", "output"}
-    assert sum(item.role == "capability" for item in plan.diagram.nodes) >= 6
+    capability_labels = [item.label for item in plan.diagram.nodes if item.role == "capability"]
+    assert capability_labels == normalize_capability_phrases(
+        facts.selected_fact("product.capabilities").value
+    )
     assert (
         validate_readme_composition_plan(
             plan.model_dump(mode="json"),
@@ -206,6 +230,23 @@ def test_strong_verified_readme_builds_valid_fact_bound_plan(converter):
         )
         == plan
     )
+
+
+def test_runtime_route_defers_noncompliant_source_shell_to_agentic_composition():
+    facts = _facts(converter=True)
+    source = _source_readme("Aspose.3D").replace("## At a glance", "## Architecture overview")
+    assessment = assess_readme_document(ORG_REPO, source, facts, base_revision=REVISION)
+
+    plan = build_verified_preservation_composition_plan(
+        ORG_REPO,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+        require_presentation_shell=True,
+    )
+
+    assert plan is None
 
 
 @pytest.mark.parametrize(
@@ -276,6 +317,58 @@ def test_opening_is_full_name_fact_cited_natural_product_explanation(
     assert product_explanation_offset(plan.opening_summary.text) == 0
     assert "http" not in plan.opening_summary.text.casefold()
     assert "enterprise edition" not in plan.opening_summary.text.casefold()
+
+
+def test_taxonomy_purpose_uses_verified_directional_formats_for_natural_opening():
+    facts = _with_fact_values(
+        _facts(converter=False),
+        {
+            "product.identity": {
+                "product_name": "Aspose.Note",
+                "family": "note",
+                "ecosystem": "python",
+            },
+            "product.audience": ["Developers using Python."],
+            "product.problems_solved": ["Document and traversal"],
+            "product.formats": [
+                "Input format: Microsoft OneNote (.one)",
+                "Output format: PDF",
+            ],
+        },
+    )
+    problem = facts.selected_fact("product.problems_solved")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "source": fact.source.model_copy(
+                            update={"source_type": "mechanical_repository"}
+                        )
+                    }
+                )
+                if fact.fact_id == problem.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = _source_readme("Aspose.Note")
+    assessment = assess_readme_document(ORG_REPO, source, facts, base_revision=REVISION)
+
+    plan = build_verified_preservation_composition_plan(
+        ORG_REPO,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+
+    assert plan is not None and plan.opening_summary is not None
+    assert plan.opening_summary.text == (
+        "Aspose.Note FOSS for Python is an open-source library for developers using Python. "
+        "It reads Microsoft OneNote (.one) files and writes PDF files."
+    )
 
 
 def test_page_opening_keeps_later_contextual_enterprise_link_balanced():

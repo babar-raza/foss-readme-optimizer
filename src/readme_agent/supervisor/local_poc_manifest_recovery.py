@@ -21,6 +21,19 @@ _REQUIRED_ARTIFACTS = {
     "candidate/README.md",
     "planning/presentation-plan.json",
 }
+_COMPLETED_STATUSES = {
+    "NO_OP_PROVEN",
+    "HUMAN_REVIEW_READY",
+    "HUMAN_ACCEPTED",
+    "PR_ELIGIBLE",
+    "PR_PROOF_COMPLETE",
+}
+_REVIEW_STAGES = (
+    "DETERMINISTIC_VALIDATED",
+    "AGENT_REVIEWING",
+    "AGENT_APPROVED",
+    "NO_OP_PROVEN",
+)
 
 
 def _json_object(path: Path) -> dict:
@@ -108,3 +121,62 @@ def reconcile_approved_manifest_from_receipt(
     write_local_poc_manifest(bundle_dir, {**manifest, **expected})
     refresh_sha256sums(bundle_dir)
     return True
+
+
+def reconcile_completed_manifest_from_evidence(
+    state: RunStateV2,
+    bundle_dir: Path,
+) -> bool:
+    """Repair a stale candidate-stage manifest from exact completed review evidence."""
+
+    lifecycle = state.readme_poc_lifecycle
+    if (
+        not isinstance(lifecycle, ReadmePocLifecycleStateV2)
+        or lifecycle.status not in _COMPLETED_STATUSES
+        or lifecycle.source_revision is None
+        or lifecycle.candidate_hash is None
+    ):
+        return False
+    manifest = _json_object(bundle_dir / "manifest.json")
+    final_verdict = _json_object(bundle_dir / "review" / "final-verdict.json")
+    no_op_proof = _json_object(bundle_dir / "review" / "no-op-proof.json")
+    candidate_path = bundle_dir / "candidate" / "README.md"
+    if (
+        manifest.get("org_repo") != state.org_repo
+        or manifest.get("source_revision") != lifecycle.source_revision
+        or not candidate_path.is_file()
+        or sha256_file(candidate_path)[0] != lifecycle.candidate_hash
+        or final_verdict.get("verdict") != "AGENT_APPROVED"
+        or final_verdict.get("agent_approved") is not True
+        or final_verdict.get("deterministic_validation_passed") is not True
+        or no_op_proof.get("verdict") != "NO_OP_PROVEN"
+        or no_op_proof.get("candidate_hash") != lifecycle.candidate_hash
+        or no_op_proof.get("patch_created") is not False
+        or no_op_proof.get("duplicate_bundle_created") is not False
+        or no_op_proof.get("agentic_review_reused") is not True
+        or no_op_proof.get("llm_accounting_status") != "EXACT"
+        or no_op_proof.get("new_provider_call_count") != 0
+    ):
+        return False
+    completed = [str(item) for item in manifest.get("completed_stages", [])]
+    for stage in _REVIEW_STAGES:
+        if stage not in completed:
+            completed.append(stage)
+    if lifecycle.status not in completed:
+        completed.append(lifecycle.status)
+    expected = {
+        "lifecycle_status": lifecycle.status,
+        "complete": True,
+        "completed_stages": completed,
+    }
+    if all(manifest.get(key) == value for key, value in expected.items()):
+        return False
+    write_local_poc_manifest(bundle_dir, {**manifest, **expected})
+    refresh_sha256sums(bundle_dir)
+    return True
+
+
+__all__ = [
+    "reconcile_approved_manifest_from_receipt",
+    "reconcile_completed_manifest_from_evidence",
+]

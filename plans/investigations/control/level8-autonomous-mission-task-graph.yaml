@@ -46,18 +46,15 @@ autonomous_execution_contract:
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   mission_summary: Complete verified_repository_presentation through an automatically derived ordered
-    stage-goal state machine. Preserve the trusted_readme_transform implementation, artifacts, operational
-    proof, and lessons as reusable lower-assurance inputs, but suspend its remaining execution goals.
-    First convert the human-accepted Aspose.Note FOSS for Python reference into an assurance-neutral,
-    fact-slot-driven template contract; finish the current Aspose.3D Python FACTS_READY slice through
-    the entire verified lifecycle; then prove Note, Page, PDF, and every current Python repository. Current
-    Java and .NET vertical slices follow the complete Python platform before the remaining dynamic-portfolio
-    Gate A, Gate B/C, Level 5, and deployable Level 6 program. Level 7 and Level 8 remain background certification
-    states after deployment and never block tangible delivery. Never promote trusted evidence into verified
-    acceptance.
+    stage-goal state machine. Preserve trusted_readme_transform assets only as lower-assurance reusable
+    inputs. Reconcile current lifecycle freshness, complete the graph-owned Python repository-focus
+    chain and dynamic Python denominator, then continue through the configured platform order, Gate A,
+    Gate B/C, Level 5, and deployable Level 6. Level 7 and Level 8 remain background certification
+    states after deployment and never block tangible delivery. Never promote trusted evidence into
+    verified acceptance or advance a dependent on a stale closed repository deliverable.
   governing_plan_path: plans/master.md
-  current_phase: pre-POC agile-authority reset; compact and migrate the active control surface before
-    the Aspose.3D Python calibration README resumes
+  current_phase: Derived exclusively from durable mission status after lifecycle-freshness reconciliation;
+    this declarative graph does not store a mutable current-task cursor.
   in_scope_outcomes:
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
     active runtime goal. The executable delivery path is V0, C0, V1, V2, V3, L5, and L6. L7/L8 are background
@@ -74,12 +71,11 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot and L6 proves deployable
     autonomous portfolio operation. L7 and L8 are non-blocking background certifications earned after
     deployment from 30-day and 90-day evidence windows.'
-  - 'DELIVERY-FIRST SHORT-TERM HORIZON: complete the bounded agile-authority reset, then run the pending
-    control-repository gate, pin the transaction component versions, and finish the current Aspose.3D
-    Python FACTS_READY revision through composition, deterministic validation, independent review/repair,
-    unchanged no-op, committed promotion, and independent reconstruction. Then finish Note/Page/PDF and
-    every runtime-loaded Python repository. One repository is the first verified README, not a platform
-    POC; the complete Python denominator is the first platform POC.'
+  - 'DELIVERY-FIRST SHORT-TERM HORIZON: mission evaluate first reconciles closed-task freshness; mission
+    status then supplies exactly one TaskExecutionFocusV1 and repository scope. Complete that repository
+    through current facts, composition, validation, independent review, unchanged no-op, promotion, and
+    reconstruction before advancing. One repository is partial progress; the complete dynamic Python
+    denominator is the first platform POC.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
@@ -561,6 +557,19 @@ taskcards:
     kind: visible_deliverable
     summary: Deliver the first current finalized repository-verified README and freeze its executable
       path.
+  execution_focus:
+    goal_id: DELIVERY-PY-3D-FIRST-CURRENT
+    immediate_outcome: Show the current independently approved Aspose.3D Python README before portfolio
+      fan-out.
+    repository_scope:
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Requalify the next dependency-ready Python repository under the same frozen
+      contract.
   requirement_ids:
   - L8-046
   - L8-055
@@ -654,6 +663,19 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Deliver the first repository-verified Python README under the accepted presentation contract.
+  execution_focus:
+    goal_id: DELIVERY-PY-NOTE-NATIVE
+    immediate_outcome: Show the repository-native independently approved Note Python README with no sibling
+      runtime dependency.
+    repository_scope:
+    - aspose-note-foss/Aspose.Note-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Finish the current Aspose.3D Python vertical slice without reopening accepted
+      Note facts.
   requirement_ids: []
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
@@ -661,19 +683,20 @@ taskcards:
 - task_id: L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
-  title: Prove Page and PDF Python under the frozen verified contract
-  source_audit_finding: The compatibility ID L8-VPY-02 now exclusively owns .NET and Java slices; Page
-    and PDF require their own unambiguous Python boundary before cohort fan-out.
+  title: Finish the current PDF Python verified README
+  source_audit_finding: Page already has a current accepted candidate, while PDF remains the first unfinished
+    boundary. Keeping both in one active task allowed PDF defects to expand into open-ended shared hardening.
   audit_classification: not_attempted
   priority: P0
   lane: verified-python-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: Run Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python through immutable facts, composition,
-    deterministic validation, independent review, targeted repair, and unchanged no-op under the frozen
-    campaign contract.
-  why_it_matters: These repositories prove compact and standard density adaptation before the remaining
-    Python cohort without overloading the cross-platform compatibility task.
+  objective: Resume Aspose.PDF FOSS for Python from its last valid content-addressed boundary, make only
+    factuality, safety, or acceptance-blocking repairs, then produce, independently approve, show, promote,
+    and unchanged-no-op-prove the current README before any broad regression or unrelated hardening.
+  why_it_matters: PDF is the current first failing boundary and the shortest path to the next visible
+    verified README. Closing it separately prevents Page or general machinery from hiding its delivery
+    state.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -689,17 +712,18 @@ taskcards:
   dependencies:
   - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
   expected_outputs:
-  - Complete verified Page and PDF bundles
-  - Side-by-side product-specificity and template-conformance verdict
-  - Unchanged zero-provider-call and zero-effect no-op receipts
+  - Complete current PDF verified bundle and exact reviewable README
+  - Deterministic and independent product-specificity verdict
+  - Unchanged zero-provider-call and zero-effect no-op receipt
   acceptance_checks:
-  - Both repositories use the frozen structure without copied product prose
+  - PDF uses the frozen structure without copied product prose
   - Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked
-  - Both candidates pass deterministic gates and independent non-authoring review
-  - Both unchanged reruns are byte-identical and make zero provider calls and effects
+  - The PDF candidate passes deterministic gates and independent non-authoring review
+  - The unchanged PDF rerun is byte-identical and makes zero provider calls and effects
+  - The exact PDF README path is reported before a broad suite or another repository begins
   verification:
-  - Per-repository deterministic and independent validation
-  - side-by-side conformance review
+  - PDF deterministic and independent validation
+  - focused PDF conformance and public-text review
   - unchanged no-op and cache reconstruction
   - checksum inventory
   negative_controls:
@@ -720,13 +744,280 @@ taskcards:
   failure_reroute: Apply the two-attempt/15-minute rule and repair the first causal boundary before another
     equivalent attempt.
   closeout_rules:
-  - Page and PDF are independently approved, unchanged-no-op-proven, zero-effect, and product-specific
+  - PDF is independently approved, unchanged-no-op-proven, zero-effect, promoted, and product-specific
   goal_ids:
   - GOAL-TRUTH
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Establish the explicit Page/PDF Python boundary before full Python fan-out.
+    summary: Deliver the current PDF Python README before any further Python fan-out.
+  execution_focus:
+    goal_id: DELIVERY-PY-PDF-CURRENT
+    immediate_outcome: Show the current independently approved PDF Python README and its no-op proof.
+    repository_scope:
+    - aspose-pdf-foss/Aspose-PDF-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Reconcile the already-generated Page Python artifact against the same current
+      contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
+- task_id: L8-VPY-03C-PAGE-CURRENT-REFRESH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  title: Reconcile and show the current Page Python README
+  source_audit_finding: Page has fresh candidate and no-op evidence, but current fact-contract scoring
+    must be reconciled explicitly instead of being hidden inside a combined canary task.
+  audit_classification: partially_done
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse the current Page candidate and receipts, reopen only the earliest invalid dependency,
+    obtain current deterministic and independent acceptance, prove unchanged no-op, and show the exact
+    README.
+  why_it_matters: A one-repository goal makes reuse, invalidation, and visible delivery independently
+    auditable.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - unrelated shared hardening
+  dependencies:
+  - L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
+  expected_outputs:
+  - Current Page verified bundle
+  - exact README path
+  - unchanged no-op receipt
+  acceptance_checks:
+  - Existing valid Page receipts are reused and only invalid dependencies rerun
+  - Page is current AGENT_APPROVED and NO_OP_PROVEN with zero effects
+  - The exact Page README is shown before another repository begins
+  verification:
+  - focused Page validation
+  - independent review
+  - no-op reconstruction
+  negative_controls:
+  - A stale score or broad shared refactor cannot substitute for current Page acceptance
+  regression_checks:
+  - Page truth
+  - presentation
+  - cache
+  - no-write
+  evidence_requirements:
+  - Current Page manifest
+  - verdicts
+  - no-op receipt
+  - and SHA-256 inventory
+  rollback_or_recovery: Reopen only the earliest invalid Page dependency and preserve all other receipts.
+  failure_reroute: After two equivalent failures or 15 minutes without narrowing, change the causal approach
+    before retrying.
+  closeout_rules:
+  - Page is current
+  - independently approved
+  - no-op-proven
+  - shown
+  - and zero-effect
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Reconcile and show one current Page Python README without broad rework.
+  execution_focus:
+    goal_id: DELIVERY-PY-PAGE-CURRENT
+    immediate_outcome: Show the current independently approved Page Python README and its no-op proof.
+    repository_scope:
+    - aspose-page-foss/Aspose.Page-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Reconcile the current Note Python artifact against the same contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
+- task_id: L8-VPY-03D-NOTE-CURRENT-REFRESH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  title: Reconcile and show the current Note Python README
+  source_audit_finding: Note closed its native canary, but later shared contract changes require a narrow
+    current-score reconciliation rather than silently treating historical acceptance as current.
+  audit_classification: partially_done
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse the promoted Note artifact and receipts, reopen only the earliest invalid dependency,
+    obtain current deterministic and independent acceptance, prove unchanged no-op, and show the exact
+    README.
+  why_it_matters: A separate goal prevents shared changes from triggering a complete Note rebuild or hiding
+    staleness.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - unrelated shared hardening
+  dependencies:
+  - L8-VPY-03C-PAGE-CURRENT-REFRESH
+  expected_outputs:
+  - Current Note verified bundle
+  - exact README path
+  - unchanged no-op receipt
+  acceptance_checks:
+  - Existing valid Note receipts are reused and only invalid dependencies rerun
+  - Note is current AGENT_APPROVED and NO_OP_PROVEN with zero effects
+  - The exact Note README is shown before another repository begins
+  verification:
+  - focused Note validation
+  - independent review
+  - no-op reconstruction
+  negative_controls:
+  - Historical closure or sibling-repository evidence cannot substitute for current native acceptance
+  regression_checks:
+  - Note truth
+  - sibling isolation
+  - presentation
+  - cache
+  - no-write
+  evidence_requirements:
+  - Current Note manifest
+  - verdicts
+  - no-op receipt
+  - and SHA-256 inventory
+  rollback_or_recovery: Reopen only the earliest invalid Note dependency and preserve all other receipts.
+  failure_reroute: After two equivalent failures or 15 minutes without narrowing, change the causal approach
+    before retrying.
+  closeout_rules:
+  - Note is current
+  - independently approved
+  - no-op-proven
+  - shown
+  - and sibling-independent
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Reconcile and show one current Note Python README without broad rework.
+  execution_focus:
+    goal_id: DELIVERY-PY-NOTE-CURRENT
+    immediate_outcome: Show the current independently approved Note Python README and its no-op proof.
+    repository_scope:
+    - aspose-note-foss/Aspose.Note-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Reconcile the current Aspose.3D Python artifact against the same contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
+- task_id: L8-VPY-03E-3D-CURRENT-REFRESH
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  title: Reconcile and show the current Aspose.3D Python README
+  source_audit_finding: Aspose.3D has fresh candidate and no-op evidence, but it must be scored under
+    the same current contract before the remaining Python cohort begins.
+  audit_classification: partially_done
+  priority: P0
+  lane: verified-python-poc
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse the current Aspose.3D candidate and receipts, reopen only the earliest invalid dependency,
+    obtain current deterministic and independent acceptance, prove unchanged no-op, and show the exact
+    README.
+  why_it_matters: This closes the reference cohort as three explicit deliverables before fan-out.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - unrelated shared hardening
+  dependencies:
+  - L8-VPY-03D-NOTE-CURRENT-REFRESH
+  expected_outputs:
+  - Current Aspose.3D verified bundle
+  - exact README path
+  - unchanged no-op receipt
+  acceptance_checks:
+  - Existing valid Aspose.3D receipts are reused and only invalid dependencies rerun
+  - Aspose.3D is current AGENT_APPROVED and NO_OP_PROVEN with zero effects
+  - The exact Aspose.3D README is shown before the remaining Python cohort begins
+  verification:
+  - focused Aspose.3D validation
+  - independent review
+  - no-op reconstruction
+  negative_controls:
+  - Historical approval or a broad suite cannot substitute for current repository acceptance
+  regression_checks:
+  - Aspose.3D truth
+  - presentation
+  - cache
+  - no-write
+  evidence_requirements:
+  - Current Aspose.3D manifest
+  - verdicts
+  - no-op receipt
+  - and SHA-256 inventory
+  rollback_or_recovery: Reopen only the earliest invalid Aspose.3D dependency and preserve all other receipts.
+  failure_reroute: After two equivalent failures or 15 minutes without narrowing, change the causal approach
+    before retrying.
+  closeout_rules:
+  - Aspose.3D is current
+  - independently approved
+  - no-op-proven
+  - shown
+  - and zero-effect
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Reconcile and show one current Aspose.3D Python README before cohort fan-out.
+  execution_focus:
+    goal_id: DELIVERY-PY-3D-CURRENT
+    immediate_outcome: Show the current independently approved Aspose.3D Python README and its no-op proof.
+    repository_scope:
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Complete the remaining dynamically admitted Python repository cohort.
   requirement_ids: []
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
@@ -760,8 +1051,7 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-01-NOTE-VERIFIED-CANARY
-  - L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
+  - L8-VPY-03E-3D-CURRENT-REFRESH
   expected_outputs:
   - Page/PDF-first zero-paid-call Python readiness and cache inventory
   - Complete verified Python bundle set and indexed review package
@@ -815,6 +1105,18 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Deliver the complete dynamic Python verified README POC under one reproducible contract.
+  execution_focus:
+    goal_id: DELIVERY-PY-REMAINING-COHORT
+    immediate_outcome: Finalize each remaining Python repository one at a time and expose each accepted
+      README immediately.
+    repository_scope:
+    - platform:Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Prove the first post-Python .NET vertical slice.
   requirement_ids:
   - RDM-026
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
@@ -893,6 +1195,18 @@ taskcards:
   core_contribution:
     kind: visible_deliverable
     summary: Prove current .NET and Java reuse after the complete Python platform POC.
+  execution_focus:
+    goal_id: DELIVERY-POST-PYTHON-DOTNET-JAVA
+    immediate_outcome: Show one current independently approved .NET README before starting the Java slice.
+    repository_scope:
+    - platform:.NET
+    - platform:Java
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    - safety
+    next_goal_on_success: Activate the next bounded verified Gate-A portfolio horizon.
   requirement_ids:
   - L8-043
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
@@ -970,13 +1284,13 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: cca11b57c590168492ea34c00dd9bf6d085ff81f6375fe39e91169152cac35e9
+  sha256: 87a08c071714d6b685bb54bb0b45c5ba5565ddc2d4cd399eea21af7490472c70
   record_count: 475
   mandatory_requirement_rows: 425
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: faba11e3f8efdc94190169b7c0abc4398078e0339705194bfa9652b4cfcd7c7c
+  sha256: 4bb3c8648d8db7bf97e256017a172b602dba86245cf8d4569fc3f61db2a4cc61
   record_count: 475
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl

@@ -5,27 +5,57 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
+from readme_agent.readme.assessment_claims import (
+    ReadmeMaterialClaimAssessmentV1,
+    assess_material_claims,
+)
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
 )
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.presentation_similarity import (
+    capability_discriminators,
+    semantically_repeats,
+)
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
 from readme_agent.readme.source_claim_fact_binding import (
+    complete_source_claim_fact_binding,
     python_claim_has_comments,
     verified_comment_free_python_example,
     verified_repository_example_code,
 )
 
 _PRESENTATION_MARKS = re.compile(r"[*_~]+")
+_LEADING_LIST_MARK = re.compile(r"^(?:[-+*]|\d+[.)])\s+")
+_SINGLE_COMMAND_FENCE = re.compile(
+    r"(?s)^\s*```(?:bash|console|powershell|ps1|shell|sh|zsh)?\s*\n([^\n]+)\n```\s*$",
+    re.IGNORECASE,
+)
+_INLINE_CODE = re.compile(r"(?<!`)`([^`\n]+)`(?!`)")
+_KEY_CAPABILITY_PROVENANCE = "template.section.key_capabilities.claim:"
+
+
+def _complete_claim_fact_ids(source_claim_text: str, facts: ProductFactsV2) -> set[str]:
+    """Return every literal and structured fact required by one isolated claim."""
+
+    fact_ids = set(accepted_source_claim_fact_ids(source_claim_text, facts))
+    source_claims = assess_material_claims(source_claim_text)
+    if len(source_claims) == 1:
+        binding = complete_source_claim_fact_binding(source_claim_text, source_claims[0], facts)
+        if binding is not None:
+            fact_ids.update(binding.fact_ids)
+    return fact_ids
 
 
 def presentation_equivalence_key(value: str) -> str:
     """Normalize presentation-only decoration without weakening factual comparison."""
 
     without_decorations = strip_emoji_decorations(value)
-    return " ".join(_PRESENTATION_MARKS.sub("", without_decorations).split()).casefold()
+    normalized = " ".join(_PRESENTATION_MARKS.sub("", without_decorations).split())
+    if "\n" not in without_decorations.strip():
+        normalized = _LEADING_LIST_MARK.sub("", normalized).rstrip(" .:;")
+    return normalized.casefold()
 
 
 def index_equivalent_candidate_claims(
@@ -41,6 +71,43 @@ def index_equivalent_candidate_claims(
     return candidates
 
 
+def fact_bound_capability_candidate_claims(
+    source_claim_text: str,
+    candidate_bytes: bytes,
+    candidate_claims: list[ReadmeMaterialClaimAssessmentV1],
+    facts: ProductFactsV2,
+    provenance: list[CandidateContentProvenanceV1],
+) -> list[ReadmeMaterialClaimAssessmentV1]:
+    """Find one fact-identical canonical capability that subsumes inherited wording."""
+
+    capability_fact_id = facts.selected_fact_ids.get("product.capabilities")
+    source_fact_ids = _complete_claim_fact_ids(source_claim_text, facts)
+    if capability_fact_id is None or capability_fact_id not in source_fact_ids:
+        return []
+    matches: list[ReadmeMaterialClaimAssessmentV1] = []
+    source_discriminators = capability_discriminators(source_claim_text)
+    for claim in candidate_claims:
+        candidate_text = candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode(
+            "utf-8"
+        )
+        if not source_discriminators.issubset(capability_discriminators(candidate_text)):
+            continue
+        if not semantically_repeats(source_claim_text, candidate_text, threshold=0.6):
+            continue
+        exact_bindings = [
+            binding
+            for binding in provenance
+            if binding.provenance_id.startswith(_KEY_CAPABILITY_PROVENANCE)
+            and binding.candidate_byte_start == claim.source_byte_start
+            and binding.candidate_byte_end == claim.source_byte_end
+            and capability_fact_id in binding.fact_ids
+            and source_fact_ids.issubset(binding.fact_ids)
+        ]
+        if len(exact_bindings) == 1:
+            matches.append(claim)
+    return matches
+
+
 def equivalent_source_claim_resolution(
     source_claim: ReadmeMaterialClaimAssessmentV1,
     source_claim_text: str,
@@ -53,7 +120,26 @@ def equivalent_source_claim_resolution(
 
     equivalent = candidates.get(presentation_equivalence_key(source_claim_text), [])
     comment_free_example = False
+    command_reformatted = False
+    capability_reformatted = False
+    source_fact_ids = _complete_claim_fact_ids(source_claim_text, facts)
     repository_example = verified_repository_example_code(source_claim_text, facts)
+    command_match = _SINGLE_COMMAND_FENCE.fullmatch(source_claim_text)
+    if not equivalent and command_match is not None:
+        command = command_match.group(1).strip()
+        candidate_pool = [claim for group in candidates.values() for claim in group]
+        equivalent = [
+            claim
+            for claim in candidate_pool
+            if command
+            in {
+                match.group(1).strip()
+                for match in _INLINE_CODE.finditer(
+                    candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+                )
+            }
+        ]
+        command_reformatted = bool(equivalent)
     if not equivalent and repository_example and python_claim_has_comments(source_claim_text):
         verified_code = repository_example[1]
         candidate_pool = [claim for group in candidates.values() for claim in group]
@@ -68,13 +154,22 @@ def equivalent_source_claim_resolution(
             ):
                 equivalent.append(claim)
         comment_free_example = bool(equivalent)
+    if not equivalent and candidate_content_provenance:
+        candidate_pool = [claim for group in candidates.values() for claim in group]
+        equivalent = fact_bound_capability_candidate_claims(
+            source_claim_text,
+            candidate_bytes,
+            candidate_pool,
+            facts,
+            candidate_content_provenance,
+        )
+        capability_reformatted = bool(equivalent)
     if len(equivalent) != 1:
         return None
     candidate_claim = equivalent[0]
     candidate_text = candidate_bytes[
         candidate_claim.source_byte_start : candidate_claim.source_byte_end
     ].decode("utf-8")
-    source_fact_ids = set(accepted_source_claim_fact_ids(source_claim_text, facts))
     candidate_fact_ids = set(accepted_source_claim_fact_ids(candidate_text, facts))
     provenance_ids: list[str] = []
     covered = bytearray(candidate_claim.source_byte_end - candidate_claim.source_byte_start)
@@ -126,9 +221,17 @@ def equivalent_source_claim_resolution(
             *(f"accepted-fact:{fact_id}" for fact_id in fact_ids),
         ],
         rationale=(
-            "Bind this exact comment-only Python example cleanup to the same statically verified "
-            "repository example and complete candidate provenance."
+            "Bind this inherited capability to one canonical, fact-identical visitor statement "
+            "instead of repeating the same feature in a second list."
+            if capability_reformatted
+            else (
+                "Bind this exact comment-only Python example cleanup to the same statically "
+                "verified repository example and complete candidate provenance."
+            )
             if comment_free_example
+            else "Bind this exact single-line command reformatted from a fenced block to one "
+            "fact-bound inline command in the candidate."
+            if command_reformatted
             else "Bind this exact presentation-only rewrite to one exact candidate claim with "
             "the same accepted fact set."
         ),

@@ -6,7 +6,6 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.source_claim_risk import (
-    applicable_product_overview_fact_ids,
     obligation_any_fact_fields,
     obligation_provenance_prefixes,
     obligation_required_fact_fields,
@@ -19,6 +18,7 @@ def replacement_provenance_is_exact(
     provenance_by_id: dict[str, CandidateContentProvenanceV1],
     *,
     exact_source_fact_ids: list[str] | None = None,
+    allow_contradicted_source_subset: bool = False,
 ) -> bool:
     """Require exact selected facts and allowed slot spans for one replacement."""
 
@@ -48,15 +48,14 @@ def replacement_provenance_is_exact(
     if exact_source_fact_ids is not None:
         if not exact_source_fact_ids:
             return False
-        if resolution.obligation_id == "product_overview":
+        if allow_contradicted_source_subset:
+            if not set(resolution.fact_ids).issubset(exact_source_fact_ids):
+                return False
+        elif resolution.obligation_id == "product_overview":
             if not set(exact_source_fact_ids).issubset(resolution.fact_ids):
                 return False
         elif set(resolution.fact_ids) != set(exact_source_fact_ids):
             return False
-    if resolution.obligation_id == "product_overview" and not (
-        applicable_product_overview_fact_ids(facts) <= set(resolution.fact_ids)
-    ):
-        return False
     fields = {fact.field for fact in bound_facts}
     required_fields = obligation_required_fact_fields(resolution.obligation_id)
     any_fields = obligation_any_fact_fields(resolution.obligation_id)

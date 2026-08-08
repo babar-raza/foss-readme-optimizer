@@ -61,25 +61,25 @@ forms only where that technical identifier is itself the subject. A package or n
 must never replace the product name merely to save space.
 
 The common visitor journey is product explanation, compact list-based navigation, a product-specific
-`At a glance`, capabilities, installation, a visible minimal example, additional examples, API
+`At a Glance`, capabilities, installation, a visible minimal example, additional examples, API
 reference when useful, scope and limitations, development/contribution material, and a prose
 license declaration. When a third-party-notices file exists, it receives its own visitor-visible
-heading and a correct repository-relative link. The license is never presented as a bare link; a
+heading and a correct repository-relative link whose label uses normal link text rather than
+inline-code styling. The license is never presented as a bare link; a
 permissive license such as MIT briefly explains its practical permissions and notice condition
 without replacing the authoritative license text. A README-level copyright line
 is omitted by default because the repository license owns that declaration; a portfolio policy may
 enable it only when the same verified owner and formatting rule applies consistently.
 
-`At a glance` is a typed semantic capability graph, not an implied pipeline unless the product
-implements one. It separates and factually connects inputs, capabilities, dependencies, outputs,
-and delivery mechanisms. Selector parameters are not inputs, intermediate structures are not
-outputs, and delivery methods are not formats; misleading topology fails even with valid syntax.
+Every Markdown heading uses title case. Visitor-facing technical abbreviations use their canonical uppercase forms throughout, including PS, EPS, PDF, XPS, XLSX, HTML, and equivalent discovered formats or protocols. Exact package names, paths, imports, namespaces, API members, commands, and link destinations retain their source spelling. The renderer derives terminology from accepted facts plus the governed technical registry; validation rejects noncanonical public casing.
+`At a Glance` is a typed semantic capability graph, not an implied runtime pipeline. It separates inputs, the complete product, a Core capabilities group whose feature nodes use one vertical column for at most five entries and two balanced vertical columns above five, and verified outputs. Inputs connect to the product; exactly one visible undirected relationship connects the product to Core capabilities, and one connects Core capabilities to Outputs when outputs exist. Individual capabilities do not fan out to the product or outputs. Selector parameters are not inputs, intermediate structures are not outputs, and delivery methods are not formats; misleading topology fails even with valid syntax.
 
 GitHub-compatible `<details>` keeps long documents readable while installation, the minimal example,
 core capabilities, important limitations, and top APIs remain visible. Secondary material may be
-collapsed without dropping, rewriting, or approving inherited content. Omit redundant “Other
+collapsed without dropping, rewriting, or approving inherited content. Additional-examples prose previews the named workflows a visitor can expand; it never exposes internal inventory, source-revision, syntax-check, static-API-check, or non-execution commentary. Every expanded workflow uses a meaningful task name rather than a duplicated generic heading with a numeric suffix. Key-capability titles are natural action-led search phrases grounded in accepted product, platform, input-format, and output-format facts without keyword stuffing. Omit redundant “Other
 platforms” or promotional sections that add no reader utility.
-
+Internal assurance narration never appears in the public README. Source revisions, isolated-build conditions, network policy, registry receipts, provider calls, evidence collectors, and validation status belong in evidence; the README states only the useful public consequence, such as installing from source when no verified package command is available. Aspose.com product links use natural explanatory prose and an informative **full-featured ... Enterprise Edition** anchor below the fold. Competing sections may not repeat the same capability inventory.
+Maintainer-authored source README information is valuable evidence, not disposable text and not automatically true. Once reconciled, it is preserved or tuned inside the relevant canonical section such as Key Capabilities, Installation, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, or Development and Testing. The system must never expose generic implementation labels such as “Preserved repository details.” Material detail with no safe semantic destination fails closed for upstream reconciliation rather than being dumped into the document.
 The manually composed Note reference is a structural seed, not the ceiling. Its same-revision
 Aspose.org comparison is development-only and exposes missing native extraction, selection,
 composition, graph, and review behavior that must become self-contained Repo Presenter contracts.
@@ -144,32 +144,22 @@ golden sample do not change that classification. The first visible milestone is 
 verified README; it is not itself a platform POC. The first platform POC is Python and closes only
 when every runtime-loaded Python repository completes the same current contract.
 
-The immediate executable sequence is delivery-first:
+Execution is delivery-first but its mutable cursor never lives in this product document:
 
-1. retain the human-accepted Aspose.Note FOSS for Python reference and compile its structure into
-   `RepositoryPresentationTemplateV1`, not a universal prose template;
-2. complete one bounded agile-authority reset: compact the agent-owned authority, separate active
-   work from deferred certification, install component-level presentation versioning, staged
-   acceptance, risk-based proof, adaptive delegation, and evidence-backed replanning;
-3. run the one pending complete non-live control-repository gate against the current committed
-   HEAD, then freeze the shared template, fact-acceptance, validator, reviewer, and runtime
-   **versions for that transaction**, without freezing future presentation evolution;
-4. take the current `FACTS_READY` Aspose.3D FOSS for Python revision through composition,
-   deterministic validation, independent review, targeted repair, unchanged no-op, promotion,
-   and independent manifest reconstruction; no portfolio fan-out or new general machinery may
-   precede this unless that exact vertical slice proves a P0 blocker;
-5. show that calibration README immediately, classify human feedback by affected component, and
-   rerun only the dependent presentation/fact stages;
-6. rebuild Note from repository/package/example/policy evidence, then prove Page and PDF as
-   Python conformance canaries with repository-specific facts,
-   formats, capabilities, examples, and Mermaid maps;
-7. reconcile the dynamic Python denominator and complete every current Python repository using
-   content-addressed stage reuse;
-8. only after the complete Python platform POC, run current .NET and Java vertical slices to expose
-   cross-platform defects before the remaining portfolio fan-out;
-9. continue .NET, Java, C++, TypeScript, Rust, and Go, then verified Gate A/B/C and production
-   deployment; elapsed Level-7/Level-8 observation runs only as background certification after
-   deployment.
+1. mission `evaluate` reconciles graph drift, claims, lifecycle freshness, and component hashes;
+2. mission `status` selects one typed immediate goal, repository scope, and next action from the
+   earliest dependency-ready or regressed boundary;
+3. that repository completes facts, composition, deterministic validation, independent review,
+   targeted repair, unchanged no-op, promotion, and manifest reconstruction before its task closes;
+4. feedback creates a component delta and reruns only dependent stages; historical closure cannot
+   satisfy a changed factual, safety, protected-content, or severe acceptance contract;
+5. the same loop completes the dynamic Python denominator, then .NET, Java, C++, TypeScript, Rust,
+   and Go, followed by verified Gate A/B/C and production deployment;
+6. Level-7 and Level-8 elapsed observations run only as background certification after deployment.
+
+The Level-8 mission graph owns the stable repository-focus chain. Durable mission state alone says
+which member is current. Narrative documents may describe stage order but must never override or
+duplicate that cursor.
 
 At each boundary, terminology is fail-closed: one finalized repository is the **first verified
 README**, all current Python repositories are the **verified Python platform POC**, and all current

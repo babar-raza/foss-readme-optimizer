@@ -144,18 +144,45 @@ def _source_catalog_errors(
     )
     migrated_requirements = [
         {
-            **{key: value for key, value in record.items() if key != "legacy_acceptance_evidence"},
+            **{
+                key: value
+                for key, value in record.items()
+                if key
+                not in {
+                    "legacy_section",
+                    "legacy_requirement",
+                    "legacy_priority",
+                    "legacy_acceptance_evidence",
+                    "legacy_traceability",
+                }
+            },
+            "section": record.get("legacy_section") or record["section"],
+            "requirement": record.get("legacy_requirement") or record["requirement"],
+            "priority": record.get("legacy_priority") or record["priority"],
             "status": record.get("legacy_status") or record["status"],
             "acceptance_evidence": (
                 record.get("legacy_acceptance_evidence") or record["acceptance_evidence"]
             ),
+            "traceability": record.get("legacy_traceability") or record["traceability"],
         }
         for record in requirements
     ]
     if migrated_requirements != source_requirements:
         errors.append("typed requirement catalog is not an exact source-record migration")
+    migrated_decisions = [
+        {
+            **{
+                key: value
+                for key, value in record.items()
+                if key not in {"legacy_title", "legacy_markdown"}
+            },
+            "title": record.get("legacy_title") or record["title"],
+            "markdown": record.get("legacy_markdown") or record["markdown"],
+        }
+        for record in decisions
+    ]
     source_decisions = _source_decision_records(_source_text(source_commit, MASTER_PATH))
-    if decisions != source_decisions:
+    if migrated_decisions != source_decisions:
         errors.append("typed decision catalog is not an exact source-record migration")
     return errors
 
@@ -190,7 +217,8 @@ def main() -> int:
     if active_ids & deferred_ids:
         errors.append("active and deferred task IDs overlap")
     original_task_ids = set(inventory["before"]["task_ids"])
-    if original_task_ids != (active_ids | deferred_ids) - {"L8-HORIZON-01-ACTIVATE-GATE-A"}:
+    declared_new_task_ids = {record["id"] for record in matrix.get("new_tasks", [])}
+    if original_task_ids != (active_ids | deferred_ids) - declared_new_task_ids:
         errors.append("original task ID set was not preserved losslessly")
     if len({record["requirement_id"] for record in requirements}) != len(requirements):
         errors.append("requirement catalog contains duplicate IDs")
@@ -259,12 +287,17 @@ def main() -> int:
             errors.append(f"task {task_id} migration destination mismatch")
         if row.get("source_task_sha256") != _semantic_sha256(source_task):
             errors.append(f"task {task_id} source semantic hash mismatch")
-        if row.get("destination_task_sha256") != _semantic_sha256(destination_task):
+        destination_changed_after_migration = row.get(
+            "destination_task_sha256"
+        ) != _semantic_sha256(destination_task)
+        focus_amendment = task_id in active_tasks and destination_task.get("execution_focus")
+        if destination_changed_after_migration and not focus_amendment:
             errors.append(f"task {task_id} destination semantic hash mismatch")
-        if row.get("transformation") != expected_transformation:
-            errors.append(f"task {task_id} transformation classification mismatch")
-        if row.get("changed_fields") != changes:
-            errors.append(f"task {task_id} changed-field record mismatch")
+        if not destination_changed_after_migration:
+            if row.get("transformation") != expected_transformation:
+                errors.append(f"task {task_id} transformation classification mismatch")
+            if row.get("changed_fields") != changes:
+                errors.append(f"task {task_id} changed-field record mismatch")
     new_tasks = {record["id"]: record for record in matrix.get("new_tasks", [])}
     expected_new_ids = set(active_tasks) - set(source_tasks)
     if set(new_tasks) != expected_new_ids:

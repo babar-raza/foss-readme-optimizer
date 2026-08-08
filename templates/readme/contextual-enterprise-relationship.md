@@ -1,1 +1,1 @@
-[{enterprise_product_name} Enterprise Edition]({enterprise_url}) is a separate product. This README documents the FOSS implementation; do not assume API or feature parity beyond verified behavior.
+For requirements beyond the FOSS scope described above, explore the [full-featured {enterprise_product_name} Enterprise Edition]({enterprise_url}). It is a separate product, so features and APIs may differ.

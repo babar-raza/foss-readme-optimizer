@@ -93,6 +93,55 @@ def _candidate_claim_source(
     return source_claim if source_claim_bytes == candidate_claim_bytes else None
 
 
+def _policy_corrected_candidate_source(
+    claim: ReadmeMaterialClaimAssessmentV1,
+    candidate_bytes: bytes,
+    placements: list[ExactSourcePlacementV1],
+    source_claims_by_id: dict[str, ReadmeMaterialClaimAssessmentV1],
+    resolutions: dict[str, SourceClaimResolutionV1],
+) -> ReadmeMaterialClaimAssessmentV1 | None:
+    """Map a claim rebuilt from exact source fragments plus governed text corrections."""
+
+    matches: list[ReadmeMaterialClaimAssessmentV1] = []
+    for claim_id, resolution in resolutions.items():
+        if resolution.resolution != "presentation_policy_correction":
+            continue
+        corrections = [
+            correction
+            for correction in resolution.policy_corrections
+            if correction.candidate_byte_start < correction.candidate_byte_end
+            and correction.candidate_byte_start < claim.source_byte_end
+            and claim.source_byte_start < correction.candidate_byte_end
+        ]
+        if not corrections:
+            continue
+        intervals = [
+            (placement.final_byte_start, placement.final_byte_end)
+            for placement in placements
+            if placement.source_owner_id == claim_id
+            and placement.final_byte_start < claim.source_byte_end
+            and claim.source_byte_start < placement.final_byte_end
+        ]
+        intervals.extend(
+            (correction.candidate_byte_start, correction.candidate_byte_end)
+            for correction in corrections
+        )
+        covered = bytearray(claim.source_byte_end - claim.source_byte_start)
+        for start, end in intervals:
+            relative_start = max(start, claim.source_byte_start) - claim.source_byte_start
+            relative_end = min(end, claim.source_byte_end) - claim.source_byte_start
+            covered[relative_start:relative_end] = b"\x01" * (relative_end - relative_start)
+        claim_bytes = candidate_bytes[claim.source_byte_start : claim.source_byte_end]
+        uncovered = bytes(byte for index, byte in enumerate(claim_bytes) if not covered[index])
+        if uncovered.strip():
+            continue
+        source_claim = source_claims_by_id.get(claim_id)
+        if source_claim is None:
+            continue
+        matches.append(source_claim)
+    return matches[0] if len(matches) == 1 else None
+
+
 def _source_claim_has_candidate_placement(
     claim: ReadmeMaterialClaimAssessmentV1,
     source_bytes: bytes,
@@ -236,8 +285,10 @@ def build_readme_claim_accountability_map(
     source_claims_by_id = {claim.claim_id: claim for claim in source_claims}
     source_bytes = source_text.encode("utf-8")
     candidate_bytes = candidate_text.encode("utf-8")
+    resolutions = _validated_source_resolutions(source_claims, source_claim_resolutions or [])
     candidate_origins: dict[str, ClaimOrigin]
     candidate_sources: dict[str, ReadmeMaterialClaimAssessmentV1 | None]
+    policy_candidate_sources: dict[str, ReadmeMaterialClaimAssessmentV1 | None]
     if composition_ledger is not None:
         candidate_sources = {
             claim.claim_id: _candidate_claim_source(
@@ -253,9 +304,20 @@ def build_readme_claim_accountability_map(
             claim_id: "inherited" if source_claim is not None else "generated"
             for claim_id, source_claim in candidate_sources.items()
         }
+        policy_candidate_sources = {
+            claim.claim_id: _policy_corrected_candidate_source(
+                claim,
+                candidate_bytes,
+                composition_ledger.source_placements,
+                source_claims_by_id,
+                resolutions,
+            )
+            for claim in candidate_claims
+        }
         raw_candidate_occurrences: Counter[str] | None = None
     else:
         candidate_sources = {}
+        policy_candidate_sources = {}
         raw_candidate_occurrences = Counter(
             {
                 claim.content_sha256: candidate_text.count(
@@ -277,7 +339,6 @@ def build_readme_claim_accountability_map(
         for binding in candidate_content_provenance or []
         if binding.authority_scope != "lineage_only"
     ]
-    resolutions = _validated_source_resolutions(source_claims, source_claim_resolutions or [])
     candidate_records = []
     for claim in candidate_claims:
         text = claim_text(candidate_text, claim)
@@ -285,20 +346,39 @@ def build_readme_claim_accountability_map(
         provenance_fact_ids = sorted(
             {fact_id for binding in bindings for fact_id in binding.fact_ids}
         )
+        claim_bytes = candidate_bytes[claim.source_byte_start : claim.source_byte_end]
+        material_claim_end = claim.source_byte_start + len(claim_bytes.rstrip())
+        exact_compiler_fact_ids = {
+            fact_id
+            for binding in bindings
+            if binding.provenance_id.startswith("template.section.")
+            and ".claim:" in binding.provenance_id
+            and binding.candidate_byte_start == claim.source_byte_start
+            and material_claim_end <= binding.candidate_byte_end <= claim.source_byte_end
+            and not candidate_bytes[binding.candidate_byte_end : claim.source_byte_end].strip()
+            for fact_id in binding.fact_ids
+            if facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
+            and not facts.fact_by_id(fact_id).has_unresolved_conflict
+        }
         fact_ids = (
             accepted_literal_facts(text, facts)
             | overlapping_candidate_fact_ids(claim, candidate_text, generated_claim_map)
             | set(literal_fact_ids(text, facts, provenance_fact_ids))
+            | exact_compiler_fact_ids
         )
         fact_ids.update(accepted_candidate_policy_fact_ids(text, facts, bindings))
-        source_claim = candidate_sources.get(claim.claim_id)
+        policy_source = policy_candidate_sources.get(claim.claim_id)
+        source_claim = candidate_sources.get(claim.claim_id) or policy_source
         source_fact_binding = (
             complete_source_claim_fact_binding(source_text, source_claim, facts)
             if source_claim is not None
             else None
         )
+        candidate_fact_binding = complete_source_claim_fact_binding(candidate_text, claim, facts)
         if source_fact_binding is not None:
             fact_ids.update(source_fact_binding.fact_ids)
+        if candidate_fact_binding is not None:
+            fact_ids.update(candidate_fact_binding.fact_ids)
         fact_coordinates = _merged_fact_coordinates(
             structured_fact_coordinates(
                 candidate_text,
@@ -307,6 +387,9 @@ def build_readme_claim_accountability_map(
                 fact_ids,
             ),
             list(source_fact_binding.fact_coordinates) if source_fact_binding is not None else [],
+            list(candidate_fact_binding.fact_coordinates)
+            if candidate_fact_binding is not None
+            else [],
         )
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
         candidate_standard_ids = {

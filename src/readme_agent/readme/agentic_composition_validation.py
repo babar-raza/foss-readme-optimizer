@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 
 from pydantic import ValidationError
 
@@ -32,6 +31,9 @@ from readme_agent.readme.agentic_composition_inputs import (
 from readme_agent.readme.agentic_composition_models import (
     AgenticCompositionDraftV1,
     ReadmeAgenticCompositionPlanV1,
+)
+from readme_agent.readme.agentic_composition_summary_validation import (
+    validate_opening_summary,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.diagram_role_semantics import validate_diagram_role_fact_semantics
@@ -166,36 +168,7 @@ def validate_composition_draft(
         raise LLMError(
             f"composition omitted required overview facts: {sorted(missing_overview_ids)}"
         )
-    if draft.opening_summary is not None:
-        identity_id = facts.selected_fact_ids.get("product.identity")
-        if identity_id not in draft.opening_summary.supporting_fact_ids:
-            raise LLMError("composition opening summary does not cite the selected identity")
-        audience_id = facts.selected_fact_ids.get("product.audience")
-        if audience_id and audience_id not in draft.opening_summary.supporting_fact_ids:
-            raise LLMError("composition opening summary does not cite the selected audience")
-        purpose_ids = {
-            facts.selected_fact_ids.get(field)
-            for field in (
-                "product.problems_solved",
-                "product.capabilities",
-                "product.formats",
-            )
-        }
-        if not purpose_ids.intersection(draft.opening_summary.supporting_fact_ids):
-            raise LLMError("composition opening summary has no accepted purpose citation")
-        identity = visitor_fact_render_view(facts, "product.identity")
-        title = identity.phrases[0] if identity and identity.phrases else ""
-        if title not in draft.opening_summary.text:
-            raise LLMError("composition opening summary omits the complete product identity")
-        if re.search(
-            r"(?i)(?:https?://|official\b|100%\s+free|revision\s+`?[0-9a-f]{7,}"
-            r"|\bcommercial\b|\benterprise\s+edition\b|\bon[- ]premise\b)",
-            draft.opening_summary.text,
-        ):
-            raise LLMError(
-                "composition opening summary contains promotional, edition-comparison, "
-                "or internal text"
-            )
+    validate_opening_summary(draft, facts)
     if draft.diagram.nodes:
         validate_diagram_role_fact_semantics(draft.diagram.nodes, facts)
         role_counts = {

@@ -16,7 +16,7 @@ from readme_agent.state.agile_execution_schema import (
 )
 from readme_agent.supervisor.mission_schema import TaskCardV1
 
-NARROWING_LIMIT = timedelta(minutes=15)
+DEFAULT_NARROWING_LIMIT = timedelta(minutes=15)
 
 
 def task_approach_fingerprint(task: TaskCardV1) -> str:
@@ -29,6 +29,9 @@ def task_approach_fingerprint(task: TaskCardV1) -> str:
         "dependencies": task.dependencies,
         "core_contribution": task.core_contribution.model_dump(mode="json"),
         "execution_kind": task.execution_kind,
+        "execution_focus": (
+            task.execution_focus.model_dump(mode="json") if task.execution_focus else None
+        ),
     }
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
@@ -58,18 +61,29 @@ def decide_approach_admission(
         for attempt in state.attempts
         if attempt.task_id == task.task_id and attempt.fingerprint == fingerprint
     ]
+    max_ineffective = (
+        task.execution_focus.max_equivalent_ineffective_attempts if task.execution_focus else 2
+    )
+    narrowing_limit = (
+        timedelta(minutes=task.execution_focus.max_minutes_without_narrowing)
+        if task.execution_focus
+        else DEFAULT_NARROWING_LIMIT
+    )
     ineffective = sum(attempt.outcome == "ineffective" for attempt in matching)
     latest = matching[-1] if matching else None
     timed_out = False
     if latest is not None and latest.outcome == "in_progress":
         watermark = latest.last_material_narrowing_at or latest.started_at
-        timed_out = now - _parse_time(watermark) >= NARROWING_LIMIT
-    requires_replan = ineffective >= 2 or timed_out
+        timed_out = now - _parse_time(watermark) >= narrowing_limit
+    requires_replan = ineffective >= max_ineffective or timed_out
     reason = "approach admitted"
-    if ineffective >= 2:
-        reason = "two equivalent ineffective attempts require a first-principles replan"
+    if ineffective >= max_ineffective:
+        reason = (
+            f"{max_ineffective} equivalent ineffective attempts require a first-principles replan"
+        )
     elif timed_out:
-        reason = "fifteen minutes without material narrowing require a first-principles replan"
+        minutes = int(narrowing_limit.total_seconds() // 60)
+        reason = f"{minutes} minutes without material narrowing require a first-principles replan"
     return ApproachAdmissionDecisionV1(
         task_id=task.task_id,
         admitted=not requires_replan,

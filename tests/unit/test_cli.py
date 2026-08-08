@@ -769,6 +769,7 @@ class TestExecutionProfileFlag:
         import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
         import readme_agent.supervisor.loop as loop_module
+        import readme_agent.supervisor.mission_execution_guard as mission_guard_module
 
         _stub_preflight_ok(monkeypatch)
         backend = _LifecycleFakeBackend()
@@ -777,6 +778,11 @@ class TestExecutionProfileFlag:
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
+        monkeypatch.setattr(
+            mission_guard_module,
+            "require_visible_execution_binding",
+            lambda *args, **kwargs: "DELIVERY-PY-PDF-CURRENT",
+        )
 
         def _fake_supervise_repo(repo, **kwargs):
             captured.update(kwargs)
@@ -792,6 +798,8 @@ class TestExecutionProfileFlag:
             execution_profile="local_poc",
             enable_dynamic_planning=False,
             max_readme_poc_stage="FACTS_READY",
+            mission_task_id="L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+            mission_observer="readme-agent-supervisor",
         )
 
         assert cmd_supervise(args) == 0

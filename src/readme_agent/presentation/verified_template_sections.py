@@ -5,6 +5,10 @@ from __future__ import annotations
 from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.presentation.template_schema import load_repository_presentation_template
+from readme_agent.presentation.verified_template_example_presentation import (
+    public_example_title,
+    public_examples_introduction,
+)
 from readme_agent.readme.document_structure import heading_identity
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 
@@ -163,6 +167,7 @@ def additional_examples_markdown(
     if not paths and not verified_inline and not assets:
         return None
     body: list[str] = []
+    rendered_titles: list[str] = []
     contract = load_repository_presentation_template()
     used_headings = {
         heading_identity(title) for title in (*contract.headings.values(), *reserved_heading_titles)
@@ -177,13 +182,15 @@ def additional_examples_markdown(
         ).strip()
         if not base_title:
             base_title = "Additional workflow"
-        title = base_title
-        suffix = 1
-        while heading_identity(title) in used_headings:
-            suffix += 1
-            title = f"{base_title} ({suffix})"
-        used_headings.add(heading_identity(title))
         language = str(item.get("language") or "text").strip()
+        title = public_example_title(
+            base_title,
+            str(item["code"]),
+            language,
+            used_headings,
+        )
+        used_headings.add(heading_identity(title))
+        rendered_titles.append(title)
         code = strip_source_comments(language, str(item["code"])).strip()
         if not code:
             continue
@@ -199,125 +206,21 @@ def additional_examples_markdown(
         )
     if assets:
         body.extend(["### Example results", ""])
-        body.extend(
-            f"![{str(item.get('alt') or 'Example result')}]({str(item.get('path'))})"
-            for item in assets
-            if isinstance(item, dict) and item.get("path")
-        )
-    disclosures: list[str] = []
-    if verified_inline:
-        disclosures.append(
-            "The inline workflows below were syntax-checked and matched to the repository's "
-            "static public API. They were not executed by the evidence collector."
-        )
-    if paths:
-        disclosures.append(
-            "The repository example files below were inventoried at the verified source "
-            "revision. They were not executed or syntax-checked by the evidence collector."
-        )
-    if assets:
-        disclosures.append(
-            "The example result assets below were inventoried at the verified source revision."
-        )
-    return "\n\n".join([*disclosures, _details("View additional examples and results", body)])
-
-
-def api_reference_markdown(facts: ProductFactsV2) -> str | None:
-    """Render literal public exports discovered from static package declarations."""
-
-    fact = _accepted(facts, "api.public_surface")
-    if fact is None or not isinstance(fact.value, dict):
-        return None
-    modules = fact.value.get("modules")
-    if not isinstance(modules, list):
-        return None
-    body: list[str] = []
-    export_count = 0
-    namespaces = fact.value.get("package_namespaces")
-    if isinstance(namespaces, list) and namespaces:
-        body.extend(
-            [
-                "### Public package namespaces",
-                "",
-                *(
-                    f"- `{namespace}`"
-                    for namespace in namespaces
-                    if isinstance(namespace, str) and namespace.strip()
-                ),
-                "",
-            ]
-        )
-    mcp = fact.value.get("mcp_server")
-    if isinstance(mcp, dict):
-        tools = mcp.get("tools")
-        defaults = mcp.get("runner_defaults")
-        module = str(mcp.get("module") or "").strip()
-        if module and isinstance(tools, list) and tools:
-            host = defaults.get("host") if isinstance(defaults, dict) else "127.0.0.1"
-            port = defaults.get("port") if isinstance(defaults, dict) else 8000
-            dependency = str(mcp.get("dependency_package") or "").strip()
+        for item in assets:
+            if not isinstance(item, dict) or not item.get("path"):
+                continue
             body.extend(
                 [
-                    "### MCP server",
+                    f"![{str(item.get('alt') or 'Example result')}]({str(item.get('path'))})",
                     "",
-                    "The repository registers these MCP tools:",
-                    "",
-                    *(f"- `{tool}`" for tool in tools),
-                    "",
-                    "```python",
-                    f"from {module} import create_server",
-                    "",
-                    "server = create_server()",
-                    f'server.run(host="{host}", port={port})',
-                    "```",
                 ]
             )
-            if dependency:
-                body.extend(
-                    [
-                        "",
-                        "The server imports FastMCP from the separately supplied "
-                        f"`{dependency}` package.",
-                        "",
-                    ]
-                )
-    for module_index, module in enumerate(modules):
-        if not isinstance(module, dict):
-            continue
-        name = str(module.get("module") or "").strip()
-        exports = module.get("exports")
-        if not name or not isinstance(exports, list):
-            continue
-        if module_index:
-            body.append("")
-        body.append(f"### `{name}`")
-        body.append("")
-        for export in exports:
-            body.append(f"- `{export}`")
-            export_count += 1
-    classes = fact.value.get("classes")
-    if isinstance(classes, list):
-        for item in classes:
-            if not isinstance(item, dict):
-                continue
-            class_name = str(item.get("name") or "").strip()
-            members = item.get("members")
-            if not class_name or not isinstance(members, list) or not members:
-                continue
-            body.append("")
-            body.append(f"### `{class_name}` members")
-            body.append("")
-            body.extend(
-                f"- `{str(member.get('surface'))}`"
-                for member in members
-                if isinstance(member, dict) and member.get("surface")
-            )
-    if not body:
-        return None
-    return (
-        f"The package declares {export_count} public exports in its static `__all__` surface.\n\n"
-        + _details("View MCP and public API details", body)
+    introduction = public_examples_introduction(
+        rendered_titles,
+        has_repository_files=bool(paths),
+        has_result_assets=bool(assets),
     )
+    return "\n\n".join([introduction, _details("View additional examples and results", body)])
 
 
 def development_markdown(facts: ProductFactsV2) -> str | None:
@@ -475,6 +378,5 @@ def third_party_notices_markdown(facts: ProductFactsV2) -> str | None:
     if not path:
         return None
     return (
-        "Third-party attribution and dependency license notices are recorded in "
-        f"[`{path}`]({path})."
+        f"Third-party attribution and dependency license notices are recorded in [{path}]({path})."
     )

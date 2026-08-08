@@ -31,7 +31,14 @@ from readme_agent.presentation.verified_preservation_sections import (
 )
 from readme_agent.presentation.verified_source_claim_resolution_engine import resolve_source_claims
 from readme_agent.presentation.verified_source_density import apply_verified_source_density
+from readme_agent.presentation.verified_template_capabilities import (
+    capability_claim_fact_ids,
+    capability_highlights_markdown,
+)
 from readme_agent.presentation.verified_template_draft import build_verified_template_draft
+from readme_agent.presentation.verified_template_example_presentation import (
+    public_examples_introduction,
+)
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
@@ -179,30 +186,36 @@ def _page_input() -> PresentationTemplateInputV1:
             "at_a_glance": _fact(
                 """```mermaid
 flowchart LR
-  subgraph Inputs["Inputs and formats"]
+  subgraph Inputs["Inputs and Formats"]
     I1["XPS documents"]
   end
+
   PRODUCT["Aspose.Page FOSS for Python"]
-  subgraph Capabilities["Core capabilities"]
+
+  subgraph Capabilities["Core Capabilities"]
+    direction TB
     C1["Read document structure"]
     C2["Inspect pages and resources"]
     C3["Convert supported content"]
+    C1 ~~~ C2
+    C2 ~~~ C3
   end
-  subgraph Outputs["Outputs and accessible content"]
+
+  subgraph Outputs["Outputs"]
     O1["Structured page data"]
   end
   I1 --- PRODUCT
-  PRODUCT --- C1
-  PRODUCT --- C2
-  PRODUCT --- C3
-  C1 --- O1
+  PRODUCT --- Capabilities
+  Capabilities --- Outputs
 ```""",
                 "identity:page",
                 "formats:page",
                 "capabilities:page",
             ),
             "key_capabilities": _fact(
-                "- Read XPS documents.\n- Inspect pages.\n- Convert supported content.",
+                "- **Read XPS documents** - Inspect XPS document content.\n"
+                "- **Inspect pages** - Access pages and resources.\n"
+                "- **Convert supported content** - Export supported output formats.",
                 "capabilities:page",
             ),
             "installation": _fact(
@@ -286,6 +299,187 @@ def test_compact_page_profile_is_product_specific_and_valid() -> None:
     assert "Aspose.Note" not in candidate
     assert ".one" not in candidate
     assert validate_repository_presentation(candidate, template_input) == []
+
+
+def test_capability_renderer_binds_cleaned_public_label_to_exact_facts() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["PDF export via SaveFormat.Pdf"]})
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert "SaveFormat.Pdf" not in rendered
+    assert "**Export PDF files**" in rendered
+    assert capability_claim_fact_ids(rendered, facts) == [capability.fact_id]
+
+
+def test_capability_renderer_keeps_first_rich_row_and_omits_semantic_repeats() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Run heuristic PDF/A and PDF/UA validation",
+                            "PDF/A and PDF/UA validation",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert len(rendered.splitlines()) == 1
+    assert "Run heuristic PDF/A and PDF/UA validation" in rendered
+
+
+def test_capability_renderer_applies_the_same_semantic_contract_after_seo_rendering() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    identity = facts.selected_fact("product.identity")
+    identity = identity.model_copy(
+        update={
+            "value": {
+                **(identity.value if isinstance(identity.value, dict) else {}),
+                "product_name": "Aspose.PDF",
+                "platform": "python",
+            }
+        }
+    )
+    api = FactRecordV2(
+        fact_id="api.public_surface:capability-dedup-test",
+        field="api.public_surface",
+        value={"modules": [], "classes": [{"name": "Document"}]},
+        source=identity.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                identity
+                if fact.fact_id == identity.fact_id
+                else fact.model_copy(
+                    update={
+                        "value": [
+                            "Encrypt, decrypt, optimize, and compress PDF documents",
+                            "Document lifecycle management",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+                if fact.field != "api.public_surface"
+            ]
+            + [api],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "api.public_surface": api.fact_id,
+            },
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert len(rendered.splitlines()) == 1
+    assert "Encrypt, decrypt, optimize, and compress PDF documents" in rendered
+    assert "Document lifecycle management" not in rendered
+
+
+def test_pdf_capabilities_share_one_normalized_public_semantic_view() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Create, load, save, merge, and inspect PDF documents",
+                            (
+                                "Add and edit text and images, including text replacement "
+                                "and redaction"
+                            ),
+                            "Run heuristic PDF/A and PDF/UA validation",
+                            "Encrypt, decrypt, optimize, and compress PDF documents",
+                            "Document lifecycle management",
+                            "PDF file editing operations",
+                            "PDF/A and PDF/UA validation",
+                            "Resource limit configuration",
+                            "Digital signature support",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert "Document lifecycle management" not in rendered
+    assert "PDF file editing operations" not in rendered
+    assert len([line for line in rendered.splitlines() if "PDF/A and PDF/UA" in line]) == 1
+    assert "Use " not in rendered
+    assert "Create and manage PDF documents" in rendered
+    assert "Edit text and images in PDF documents" in rendered
+    assert "Configure PDF resource limits" in rendered
+    assert "Work with PDF digital signatures" in rendered
+    assert "Create and manage PDF documents** - Create and manage PDF documents" not in rendered
+    assert "Edit text and images in PDF documents** - Edit text and images" not in rendered
+    assert "Check archival and accessibility conformance profiles" in rendered
+    assert "Protect document content through encryption while controlling file size" in rendered
+
+    template_input = _page_input()
+    for action in ("Add", "Concatenate", "Configure", "Encrypt", "Run", "Work"):
+        candidate = compile_repository_presentation(template_input).replace(
+            "**Read XPS documents**",
+            f"**{action} verified PDF content**",
+        )
+        assert validate_repository_presentation(candidate, template_input) == []
+
+
+def test_example_introduction_uses_parallel_visitor_facing_gerunds() -> None:
+    rendered = public_examples_introduction(
+        [
+            "Assign a PBR Material and Export to GLTF",
+            "Build a Cube and Export It to 3MF",
+            "Explore the Scene API",
+            "Convert a Primitive to a Mesh",
+            "Inspect Another Workflow",
+        ],
+        has_repository_files=False,
+        has_result_assets=False,
+    )
+
+    assert "assigning a PBR Material and exporting to GLTF" in rendered
+    assert "building a Cube and exporting It to 3MF" in rendered
+    assert "plus 1 more workflow" in rendered
 
 
 def test_verified_template_omits_missing_compatibility_from_installation_binding() -> None:
@@ -422,10 +616,76 @@ def test_source_owned_optional_slot_is_preserved_exactly_once() -> None:
     assert candidate.count(f"## {contract.headings['api_reference']}") == 1
     assert candidate.count(exact_body.strip()) == 1
     assert any(
-        placement.placement_basis == "composer_inserted_exact"
-        and placement.source_owner_id == api_section.section_id
+        placement.source_byte_start >= api_section.source_byte_start
+        and placement.source_byte_end <= api_section.source_byte_end
         for placement in document_plan.composition_ledger.source_placements
     )
+
+
+def test_source_owned_security_detail_keeps_a_generated_canonical_destination() -> None:
+    source, facts, revision, _ = _verified_3d_inputs(include_api_surface=True)
+    source_fact = facts.selected_fact("product.identity").source
+    security_fact = FactRecordV2(
+        fact_id="repository.security_guidance:test",
+        field="repository.security_guidance",
+        value={
+            "policy": {
+                "path": "SECURITY.md",
+                "private_reporting_url": (
+                    "https://github.com/aspose-3d-foss/"
+                    "Aspose.3D-FOSS-for-Python/security/advisories/new"
+                ),
+            }
+        },
+        source=source_fact,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                *[item for item in facts.facts if item.field != security_fact.field],
+                security_fact,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                security_fact.field: security_fact.fact_id,
+            },
+        }
+    )
+    source = (
+        source.rstrip()
+        + "\n\n## Security\n\n"
+        + "Follow [SECURITY.md](SECURITY.md) and use private vulnerability reporting.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert plan is not None
+
+    candidate, _ = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+        agentic_composition_plan=plan.model_dump(mode="json"),
+    )
+
+    assert candidate.count("## Security") == 1
+    assert "- [Security](#security)" in candidate
+    assert candidate.count("Follow [SECURITY.md](SECURITY.md)") == 1
 
 
 def test_no_op_uses_source_lineage_and_changed_candidate_uses_verified_equivalence() -> None:
@@ -1329,30 +1589,34 @@ def test_product_facts_adapter_uses_the_same_structural_contract() -> None:
             "at_a_glance": include(
                 """```mermaid
 flowchart LR
-  subgraph Inputs["Inputs and formats"]
+  subgraph Inputs["Inputs and Formats"]
     I1["PDF files"]
   end
+
   PRODUCT["AcmePDF Python"]
-  subgraph Capabilities["Core capabilities"]
+
+  subgraph Capabilities["Core Capabilities"]
+    direction TB
     C1["Open PDF pages"]
     C2["Inspect page content"]
     C3["Extract text"]
+    C1 ~~~ C2
+    C2 ~~~ C3
   end
-  subgraph Outputs["Outputs and accessible content"]
+
+  subgraph Outputs["Outputs"]
     O1["Page text"]
   end
   I1 --- PRODUCT
-  PRODUCT --- C1
-  PRODUCT --- C2
-  PRODUCT --- C3
-  C3 --- O1
+  PRODUCT --- Capabilities
+  Capabilities --- Outputs
 ```""",
                 "product.identity",
                 "product.formats",
                 "product.capabilities",
             ),
             "key_capabilities": include(
-                "- Extract text from text-based PDF pages.",
+                "- **Extract text from PDF pages** - Extract text from text-based PDF pages.",
                 "product.capabilities",
             ),
             "installation": include(
@@ -1433,8 +1697,8 @@ def test_note_specific_leakage_is_detectable_in_page_candidate() -> None:
     template_input = _page_input()
     candidate = compile_repository_presentation(template_input)
     leaked = candidate.replace(
-        "Read XPS documents.",
-        "Read XPS documents and Microsoft OneNote .one files with Aspose.Note FOSS for Python.",
+        "Inspect XPS document content.",
+        "Inspect XPS and Microsoft OneNote content with Aspose.Note FOSS for Python.",
     )
 
     errors = validate_repository_presentation(leaked, template_input)
@@ -1474,16 +1738,102 @@ def test_comments_emoji_directional_mermaid_and_copyright_fail() -> None:
     template_input = _page_input()
     candidate = compile_repository_presentation(template_input)
     invalid = (
-        candidate.replace("I1 --- PRODUCT", "I1 --> PRODUCT")
+        candidate.replace("flowchart LR\n", "flowchart LR\n  product --> input_1\n")
         + "\n<!-- generated -->\nStatus: 🚀\nCopyright © 2026\n"
     )
 
     errors = validate_repository_presentation(invalid, template_input)
 
-    assert "Mermaid overview must not imply a mandatory directional workflow" in errors
+    assert "Mermaid overview must use only visible undirected relationships" in errors
     assert "candidate contains a visible or code comment" in errors
     assert "candidate contains emoji" in errors
     assert "candidate contains a default copyright declaration" in errors
+
+
+def test_capability_examples_and_api_style_regressions_fail() -> None:
+    template_input = _page_input()
+    candidate = compile_repository_presentation(template_input)
+    invalid_capabilities = candidate.replace(
+        "- **Read XPS documents** - Inspect XPS document content.",
+        "- Read XPS documents.",
+    )
+    assert (
+        "Key capabilities must use bold feature names with same-line explanations"
+        in validate_repository_presentation(invalid_capabilities, template_input)
+    )
+    invalid_seo_title = candidate.replace(
+        "- **Read XPS documents** - Inspect XPS document content.",
+        "- **XPS document support** - Inspect XPS document content.",
+    )
+    assert "Key capability titles must be action-led search phrases" in (
+        validate_repository_presentation(invalid_seo_title, template_input)
+    )
+    invalid_layout = candidate.replace("    C1 ~~~ C2\n", "")
+    assert "Mermaid capability nodes must use the adaptive column layout" in (
+        validate_repository_presentation(invalid_layout, template_input)
+    )
+
+    sections = {
+        **template_input.sections,
+        "additional_examples": _fact(
+            "Expand this section to view examples for inspecting a page.\n\n"
+            "<details>\n<summary>View additional examples and results</summary>\n\n"
+            "### Inspect a page\n\n```python\nprint('page')\n```\n\n</details>",
+            "examples:page",
+        ),
+        "api_reference": _fact(
+            "Two public exports.\n\n<details>\n"
+            "<summary>View public API by namespace</summary>\n\n"
+            "### `aspose.page`\n\n| Type | Description |\n| --- | --- |\n"
+            "| `Document` | Document: load content. |\n"
+            "| `Page` | Page: load content. |\n\n</details>",
+            "api:page",
+        ),
+    }
+    extended = template_input.model_copy(update={"sections": sections})
+    extended_candidate = compile_repository_presentation(extended)
+    invalid_examples = extended_candidate.replace(
+        "Expand this section to view examples for inspecting a page.",
+        "The inline workflows below were checked but not executed.",
+    )
+    invalid_api = extended_candidate.replace(
+        "| `Page` | Page: load content. |",
+        "| `Page` | Document: load content. |",
+    )
+
+    assert (
+        "Additional examples must preview named workflows and use meaningful headings"
+        in validate_repository_presentation(invalid_examples, extended)
+    )
+    assert "candidate exposes internal verification commentary" in validate_repository_presentation(
+        invalid_examples, extended
+    )
+    assert "API reference contains duplicated descriptions" in validate_repository_presentation(
+        invalid_api, extended
+    )
+
+
+def test_third_party_notice_link_uses_normal_markdown_link_text() -> None:
+    template_input = _page_input()
+    sections = {
+        **template_input.sections,
+        "third_party_notices": _fact(
+            "Third-party attribution and dependency license notices are recorded in "
+            "[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).",
+            "notices:page",
+        ),
+    }
+    extended = template_input.model_copy(update={"sections": sections})
+    candidate = compile_repository_presentation(extended)
+
+    assert validate_repository_presentation(candidate, extended) == []
+    code_styled = candidate.replace(
+        "[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)",
+        "[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)",
+    )
+    assert "Third-party notices link text must use normal link styling" in (
+        validate_repository_presentation(code_styled, extended)
+    )
 
 
 def test_cache_key_changes_for_every_correctness_dependency() -> None:
@@ -1536,7 +1886,7 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     assert visitor["template_version"] == contract.template_version
     assert standards["readme.header"]["required_h2_prefix"][:2] == [
         "Navigation",
-        "At a glance",
+        "At a Glance",
     ]
     assert standards["readme.at_a_glance_mermaid"]["minimum_capabilities"] == 1
     assert standards["readme.at_a_glance_mermaid"]["target_capabilities"] == 6
@@ -1544,11 +1894,21 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     assert standards["readme.at_a_glance_mermaid"]["maximum_capabilities_per_group"] == 6
     assert standards["readme.at_a_glance_mermaid"]["target_outputs"] == 5
     assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is False
+    assert (
+        standards["readme.at_a_glance_mermaid"]["capability_layout"] == "adaptive_vertical_columns"
+    )
+    assert standards["readme.at_a_glance_mermaid"]["capability_column_threshold"] == 5
+    assert (
+        standards["readme.at_a_glance_mermaid"]["topology"] == "inputs-product-capabilities-outputs"
+    )
     assert standards["readme.primary_example"] == {
-        "heading": "Quick start",
+        "heading": "Quick Start",
         "maximum_fenced_blocks": 1,
         "maximum_nonblank_code_lines": 12,
         "secondary_examples": "collapsed_below_primary",
+        "secondary_examples_intro": "workflow_preview",
+        "public_internal_assurance": "forbidden",
+        "duplicate_generic_headings": "forbidden",
     }
     assert standards["readme.badges"]["allowed_badge_kinds"] == [
         "package",
@@ -1557,7 +1917,7 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
         "contributors",
     ]
     assert standards["readme.enterprise_edition_terminology"]["required_section"] == (
-        "Scope and limitations"
+        "Scope and Limitations"
     )
     assert standards["readme.no_comments"]["code_comments"] == "forbidden"
 
@@ -1590,14 +1950,14 @@ def test_blind_visitor_contract_resolves_navigation_to_applicable_candidate_sect
     assert visitor["applicability_basis"] == "validated_candidate_h2_headings"
     assert standards["readme.header"]["required_h2_prefix"] == [
         "Navigation",
-        "At a glance",
-        "Key capabilities",
+        "At a Glance",
+        "Key Capabilities",
     ]
     assert standards["readme.navigation"]["required_labels"] == [
-        "At a glance",
-        "Key capabilities",
+        "At a Glance",
+        "Key Capabilities",
         "Requirements",
         "Feature Boundaries",
         "License",
-        "Scope and limitations",
+        "Scope and Limitations",
     ]

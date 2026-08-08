@@ -92,8 +92,8 @@ def test_real_net_partial_sections_preserve_maintainer_content_without_fact_dupl
     decision = validate_readme_document_candidate(source, candidate, plan, facts)
 
     _assert_compatibility_claim_block(decision, plan)
-    assert candidate.count("## At a glance") == 1
-    assert candidate.count("## Scope and limitations") == 1
+    assert candidate.count("## At a Glance") == 1
+    assert candidate.count("## Scope and Limitations") == 1
     assert candidate.count(limitation.value[0]) == 1
     assert candidate.count(example.value["code"]) == 1
     assert candidate.count("dotnet add package Aspose.3D.FOSS") == 1

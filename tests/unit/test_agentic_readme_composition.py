@@ -24,7 +24,10 @@ from readme_agent.readme.agentic_composition_inputs import (
     compact_prompt_fact_value,
     composition_fact_payloads,
 )
-from readme_agent.readme.agentic_composition_models import MAX_AUTHORING_ATTEMPTS
+from readme_agent.readme.agentic_composition_models import (
+    MAX_AUTHORING_ATTEMPTS,
+    AgenticDiagramNodeV1,
+)
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
@@ -32,9 +35,13 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_accountability_validation import validate_claim_accountability_map
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
-from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
+from readme_agent.readme.diagram_role_semantics import (
+    normalize_diagram_role_nodes,
+    validate_diagram_role_fact_semantics,
+)
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
 )
@@ -54,13 +61,13 @@ CHARACTERIZATION_ASSESSMENT_SHA256 = (
     "9b3eee151d3e49cdbf3259d2646050d6c6af67d94f330a39fcd2453c98a75c4b"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "58b737d7977bce750260226a244a709ec6f40d3280293a1074b11851408e4abb"
+    "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "211eba9a18ec28ea8bc052562aa76811d87f0a234f8e7e7dc340278bbf81a81d"
+    "747a39f51519d441bed88e03dfd238449b7045be32ba30c6ea4ff9ecd8932cc6"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "5afc4cc1d1f05cceb231dc8edc9523c6190c09dc82ce3979ab9cc3097a8bdc7d"
+    "826b15a4e9bffe6dfc25d6fd35c1c5dba2ee236e33748b89ef570abfc09d5b05"
 )
 
 
@@ -327,7 +334,7 @@ def test_composition_tool_schema_avoids_gateway_unsupported_unique_items():
     assert "opening_summary" in schema["function"]["parameters"]["required"]
     assert (
         schema["function"]["parameters"]["properties"]["diagram"]["properties"]["nodes"]["minItems"]
-        == 14
+        == 1
     )
 
 
@@ -441,7 +448,8 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert plan.opening_summary is not None
     assert {node.role for node in plan.diagram.nodes} == {"input", "capability", "output"}
     assert _first_text(facts.selected_fact("product.audience").value) in candidate
-    assert _first_text(facts.selected_fact("product.capabilities").value) in candidate
+    assert "**Create and manage XLSX workbooks**" in candidate
+    assert "**Edit spreadsheet cell values and styles**" in candidate
     assert "Lead with the verified spreadsheet audience" not in candidate
     cited_ids = {
         fact_id
@@ -524,7 +532,7 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     )
 
 
-def test_fact_grounded_diagram_labels_do_not_replace_literal_capability_prose():
+def test_fact_grounded_diagram_labels_do_not_drop_capability_semantics():
     facts, revision = _facts()
     draft = _draft(facts)
     source = f"# Aspose.Cells FOSS for Java\n\n{draft['opening_summary']['text']}\n"
@@ -557,9 +565,21 @@ def test_fact_grounded_diagram_labels_do_not_replace_literal_capability_prose():
     )
 
     capability = facts.selected_fact("product.capabilities")
-    assert _first_text(capability.value) in candidate
+    assert "**Create and manage XLSX workbooks**" in candidate
+    assert "**Edit spreadsheet cell values and styles**" in candidate
     assert any(node.role == "capability" for node in plan.diagram.nodes)
-    assert any(claim.fact_id == capability.fact_id for claim in claim_map.claims)
+    capability_bindings = [
+        binding
+        for binding in document_plan.candidate_content_provenance
+        if capability.fact_id in binding.fact_ids
+        and binding.provenance_id.startswith("template.section.key_capabilities.claim:")
+    ]
+    assert len(capability_bindings) == 2
+    assert all(
+        candidate.encode("utf-8")[binding.candidate_byte_start : binding.candidate_byte_end].strip()
+        for binding in capability_bindings
+    )
+    assert claim_map.candidate_sha256 == document_plan.candidate_sha256
 
 
 def test_bidirectional_format_label_may_appear_once_in_input_and_output_roles():
@@ -658,6 +678,184 @@ def test_conversion_capabilities_complete_mermaid_input_and_output_roles():
         " ".join(node.label.casefold().split()) for node in nodes if node.role == "output"
     ]
     assert len(output_labels) == len(set(output_labels))
+
+
+def test_generic_endpoint_requires_an_exact_cited_fact_phrase():
+    facts, _revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["document files"]})
+                if fact.field == "product.formats"
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    validate_diagram_role_fact_semantics(
+        [
+            AgenticDiagramNodeV1(
+                role="input",
+                label="document files",
+                supporting_fact_ids=[formats.fact_id],
+            )
+        ],
+        facts,
+    )
+    with pytest.raises(LLMError, match="not an explicitly verified consumed input"):
+        validate_diagram_role_fact_semantics(
+            [
+                AgenticDiagramNodeV1(
+                    role="input",
+                    label="content files",
+                    supporting_fact_ids=[formats.fact_id],
+                )
+            ],
+            facts,
+        )
+
+
+def test_passive_content_capabilities_are_not_reclassified_as_outputs():
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": ["Input format: Microsoft OneNote (.one)", "Output format: PDF"],
+        "product.capabilities": [
+            "Document and traversal",
+            "Page and Title nodes",
+            "RichText with formatting runs",
+            "Image and AttachedFile content",
+            "Table with rows and cells",
+            "OneNote tags on content nodes",
+            "Numbered lists and outline elements",
+            "PDF export via SaveFormat.Pdf",
+        ],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    nodes = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+        target_counts={"input": 4, "capability": 6, "output": 5},
+    )
+    outputs = {node.label for node in nodes if node.role == "output"}
+
+    assert outputs == {"PDF files"}
+
+
+def test_llm_cannot_reclassify_a_passive_content_capability_as_an_output():
+    facts, _revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    capabilities = facts.selected_fact("product.capabilities")
+    replacements = {
+        "product.formats": ["Input format: Microsoft OneNote (.one)", "Output format: PDF"],
+        "product.capabilities": ["Page and Title nodes", "PDF export via SaveFormat.Pdf"],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    adversarial_proposal = [
+        AgenticDiagramNodeV1(
+            role="output",
+            label="Page and Title nodes",
+            supporting_fact_ids=[capabilities.fact_id],
+        ),
+        AgenticDiagramNodeV1(
+            role="input",
+            label="PDF files",
+            supporting_fact_ids=[formats.fact_id],
+        ),
+    ]
+
+    nodes = normalize_diagram_role_nodes(
+        adversarial_proposal,
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+    )
+
+    assert {node.label for node in nodes if node.role == "output"} == {"PDF files"}
+    assert {node.label for node in nodes if node.role == "input"} == {
+        "Microsoft OneNote (.one) files"
+    }
+    assert "Page and Title nodes" in {node.label for node in nodes if node.role == "capability"}
+
+
+def test_diagram_normalization_is_stable_across_different_llm_proposals():
+    facts, _revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    capabilities = facts.selected_fact("product.capabilities")
+    first = [
+        AgenticDiagramNodeV1(
+            role="input",
+            label="XLSX workbooks",
+            supporting_fact_ids=[formats.fact_id],
+        )
+    ]
+    second = [
+        AgenticDiagramNodeV1(
+            role="output",
+            label="Create workbooks",
+            supporting_fact_ids=[capabilities.fact_id],
+        )
+    ]
+
+    first_normalized = normalize_diagram_role_nodes(
+        first,
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+    )
+    second_normalized = normalize_diagram_role_nodes(
+        second,
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+    )
+
+    assert [node.model_dump(mode="json") for node in first_normalized] == [
+        node.model_dump(mode="json") for node in second_normalized
+    ]
+
+
+def test_diagram_normalization_accepts_only_a_complete_authoritative_reordering():
+    facts, _revision = _facts()
+    canonical = normalize_diagram_role_nodes(
+        [],
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+    )
+    proposed = [
+        node
+        for role in ("input", "capability", "output")
+        for node in reversed([item for item in canonical if item.role == role])
+    ]
+
+    reordered = normalize_diagram_role_nodes(
+        proposed,
+        facts,
+        {"input": 1, "capability": 1, "output": 1},
+    )
+
+    for role in ("input", "capability", "output"):
+        expected = [node.label for node in proposed if node.role == role]
+        actual = [node.label for node in reordered if node.role == role]
+        assert actual == expected
 
 
 def test_generation_capabilities_supply_literal_content_inputs_for_output_only_products():
@@ -1004,7 +1202,7 @@ def test_agentic_plan_rejects_internal_relationship_codes_as_overview_prose():
         )
 
 
-def test_document_validation_accepts_one_representative_phrase_per_overview_fact():
+def test_document_validation_does_not_force_extra_problem_phrases_into_the_diagram():
     facts, revision = _facts()
     problem = facts.selected_fact("product.problems_solved")
     facts = facts.model_copy(
@@ -1048,9 +1246,87 @@ def test_document_validation_accepts_one_representative_phrase_per_overview_fact
 
     assert result.valid, result.errors
     assert document_plan.header_visuals is not None
-    assert problem.fact_id in document_plan.header_visuals.diagram_fact_ids
-    assert candidate.count("Secondary verified task") == 1
-    assert '["Secondary verified task"]' in candidate
+    assert problem.fact_id not in document_plan.header_visuals.diagram_fact_ids
+    assert candidate.count("Secondary verified task") == 0
+    assert '["Secondary verified task"]' not in candidate
+
+
+def test_taxonomy_opening_is_replaced_with_verified_directional_format_prose():
+    facts, revision = _facts()
+    replacements = {
+        "product.identity": {
+            "product_name": "Aspose.Note",
+            "family": "note",
+            "ecosystem": "python",
+        },
+        "product.audience": ["Developers using Python."],
+        "product.problems_solved": ["Document and traversal"],
+        "product.formats": [
+            "Input format: Microsoft OneNote (.one)",
+            "Output format: PDF",
+        ],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    problem = facts.selected_fact("product.problems_solved")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "source": fact.source.model_copy(
+                            update={"source_type": "mechanical_repository"}
+                        )
+                    }
+                )
+                if fact.fact_id == problem.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    draft = _cover_assessment(_draft(facts), assessment)
+    draft["opening_summary"] = {
+        "text": (
+            "Aspose.Note FOSS for Python is free and handles OneNote. "
+            "For Developers using Python., it provides an Aspose-like API."
+        ),
+        "supporting_fact_ids": [
+            facts.selected_fact_ids["product.identity"],
+            facts.selected_fact_ids["product.audience"],
+            facts.selected_fact_ids["product.problems_solved"],
+        ],
+    }
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(draft),
+        max_attempts=1,
+    )
+
+    assert plan.opening_summary is not None
+    assert plan.opening_summary.text == (
+        "Aspose.Note FOSS for Python is an open-source library for developers using Python. "
+        "It reads Microsoft OneNote (.one) files and writes PDF files."
+    )
 
 
 def test_presentation_replacement_does_not_blanket_authorize_protected_source_loss():
@@ -1172,41 +1448,17 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert decision.checks["claim_accountability_complete"] is False
     assert decision.checks["claim_accountability_gaps_visible"] is True
     assert candidate.count(preserved_text) == 0
-    expected_overview_fact_ids = {
-        facts.selected_fact_ids[field]
-        for field in (
-            "product.identity",
-            "product.audience",
-            "product.problems_solved",
-            "product.capabilities",
-            "product.formats",
-            "product.license",
-        )
-    }
     assert preserved_resolution.source_byte_start == preserved.source_byte_start
     assert preserved_resolution.source_byte_end == preserved.source_byte_end
     assert preserved_resolution.content_sha256 == preserved.content_sha256
-    assert preserved_resolution.resolution == "verified_obligation_replacement"
-    assert preserved_resolution.obligation_id == "product_overview"
-    assert set(preserved_resolution.fact_ids) == expected_overview_fact_ids
-    assert {
-        "template.title",
-        "template.summary",
-    }.issubset(preserved_resolution.replacement_provenance_ids)
-    assert set(preserved_resolution.replacement_provenance_ids) <= {
-        binding.provenance_id for binding in document_plan.candidate_content_provenance
-    }
+    assert preserved_resolution.resolution == "deferred_verification"
+    assert preserved_resolution.obligation_id is None
+    assert preserved_resolution.fact_ids == []
+    assert preserved_resolution.replacement_provenance_ids == []
     assert f"source-claim:{preserved.claim_id}" in preserved_resolution.evidence
     assert f"source-content-sha256:{preserved.content_sha256}" in preserved_resolution.evidence
-    assert "authority:verified-source-assurance:correction-candidate" in (
-        preserved_resolution.evidence
-    )
-    assert all(
-        facts.selected_fact_ids[facts.fact_by_id(fact_id).field] == fact_id
-        and facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
-        and not facts.fact_by_id(fact_id).has_unresolved_conflict
-        for fact_id in preserved_resolution.fact_ids
-    )
+    assert "unverified-source-detail-for:product_overview" in preserved_resolution.evidence
+    assert "candidate-core-validated-separately" in preserved_resolution.evidence
     assert promo_resolution is None
     assert promo_accountability.expected_disposition == "required_correction"
     assert promo_accountability.currently_accountable is False
@@ -1225,10 +1477,10 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
         and item.source_byte_start == preserved.source_byte_start
         and item.source_byte_end == preserved.source_byte_end
     )
-    assert preserved_accountability.expected_disposition == "verified_obligation_replacement"
+    assert preserved_accountability.expected_disposition == "deferred_verification"
     assert preserved_accountability.currently_accountable is True
     assert preserved_accountability.survives_in_candidate is False
-    assert set(preserved_accountability.accepted_fact_ids) == expected_overview_fact_ids
+    assert preserved_accountability.accepted_fact_ids == []
     comment_corrections = [
         correction
         for resolution in document_plan.source_claim_resolutions
@@ -1504,6 +1756,132 @@ def test_agentic_plan_repairs_opening_that_omits_audience_citation():
     assert plan.attempt_count == 2
 
 
+def test_agentic_plan_repairs_opening_that_only_paraphrases_audience():
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["opening_summary"]["text"] = (
+        "Aspose.Cells FOSS for Java is an open-source spreadsheet library for programmers."
+    )
+    valid = _cover_assessment(_draft(facts), assessment)
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, valid),
+    )
+
+    assert _first_text(facts.selected_fact("product.audience").value) in plan.opening_summary.text
+    assert plan.attempt_count == 2
+
+
+def test_agentic_plan_repairs_opening_that_embeds_raw_capability_inventory():
+    facts, revision = _facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    replacement = capabilities.model_copy(
+        update={"value": ["Workbook and worksheet content", "Cell values and formulas"]}
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == capabilities.fact_id else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    audience = _first_text(facts.selected_fact("product.audience").value)
+    invalid["opening_summary"]["text"] = (
+        "Aspose.Cells FOSS for Java provides Workbook and worksheet content and Cell values "
+        "and formulas "
+        f"for {audience.rstrip('.').casefold()}."
+    )
+    valid = _cover_assessment(_draft(facts), assessment)
+    valid["opening_summary"]["text"] = (
+        "Aspose.Cells FOSS for Java is an open-source Java library for "
+        f"{audience.rstrip('.').casefold()} that reads and writes XLSX workbooks."
+    )
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, valid),
+    )
+
+    assert plan.opening_summary.text == valid["opening_summary"]["text"]
+    assert plan.attempt_count == 2
+
+
+def test_agentic_plan_uses_fact_literal_format_fallback_after_repeated_raw_inventory():
+    facts, revision = _facts()
+    replacements = {
+        "product.formats": ["Input format: XLSX", "Output format: CSV"],
+        "product.capabilities": ["Workbook and worksheet content", "Cell values and formulas"],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    audience = _first_text(facts.selected_fact("product.audience").value)
+    invalid["opening_summary"]["text"] = (
+        "Aspose.Cells FOSS for Java provides Workbook and worksheet content and Cell values "
+        f"and formulas for {audience.rstrip('.').casefold()}."
+    )
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, invalid),
+    )
+
+    assert "It reads XLSX files and writes CSV files." in plan.opening_summary.text
+    assert "provides Workbook and worksheet content" not in plan.opening_summary.text
+    assert plan.opening_summary.supporting_fact_ids == [
+        facts.selected_fact("product.identity").fact_id,
+        facts.selected_fact("product.audience").fact_id,
+        facts.selected_fact("product.formats").fact_id,
+    ]
+    assert facts.selected_fact("product.formats").fact_id in literal_fact_ids(
+        plan.opening_summary.text,
+        facts,
+        [facts.selected_fact("product.formats").fact_id],
+    )
+    assert plan.attempt_count == 2
+
+
 def test_agentic_plan_repairs_opening_with_enterprise_comparison():
     facts, revision = _facts()
     source = "# Product\n"
@@ -1526,6 +1904,42 @@ def test_agentic_plan_repairs_opening_with_enterprise_comparison():
     )
 
     assert "commercial" not in plan.opening_summary.text.casefold()
+    assert plan.attempt_count == 2
+
+
+def test_agentic_plan_uses_format_fallback_after_repeated_promotional_opening():
+    facts, revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Input format: XLSX", "Output format: CSV"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    invalid = _cover_assessment(_draft(facts), assessment)
+    invalid["opening_summary"]["text"] += " Compare the Enterprise Edition."
+
+    plan = plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=_client(invalid, invalid),
+    )
+
+    assert "Enterprise Edition" not in plan.opening_summary.text
+    assert "It reads XLSX files and writes CSV files." in plan.opening_summary.text
     assert plan.attempt_count == 2
 
 
@@ -1614,7 +2028,7 @@ def test_agentic_plan_does_not_invent_diagram_detail_to_reach_a_visual_target():
     assert plan.attempt_count == 1
 
 
-def test_agentic_plan_accepts_literal_format_fact_for_load_capability():
+def test_agentic_plan_cannot_reclassify_a_format_as_an_extra_capability():
     facts, revision = _facts()
     source = "# Product\n"
     assessment = assess_readme_document(
@@ -1637,7 +2051,8 @@ def test_agentic_plan_accepts_literal_format_fact_for_load_capability():
         client=_client(draft),
     )
 
-    assert any(node.label == "Load XLSX workbooks" for node in plan.diagram.nodes)
+    assert all(node.label != "Load XLSX workbooks" for node in plan.diagram.nodes)
+    assert any(node.role == "input" and "XLSX" in node.label for node in plan.diagram.nodes)
     assert plan.attempt_count == 1
 
 

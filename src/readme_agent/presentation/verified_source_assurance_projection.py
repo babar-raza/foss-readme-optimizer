@@ -13,8 +13,9 @@ def project_source_assurance_for_candidate(
     assessment: ReadmeAssessmentV1,
     assurance: SourceClaimAssurance,
     provenance: list[CandidateContentProvenanceV1],
+    candidate_text: str = "",
 ) -> SourceClaimAssurance:
-    """Recompile API claims only when an exact fact-bound candidate API slot exists."""
+    """Recompile source claims only when the canonical fact-bound slot covers their meaning."""
 
     api_slot_ready = any(
         binding.provenance_id.startswith("template.section.api_reference")
@@ -22,22 +23,22 @@ def project_source_assurance_for_candidate(
         and binding.candidate_byte_end > binding.candidate_byte_start
         for binding in provenance
     )
-    if not api_slot_ready:
-        return assurance
     claims_by_range = {
         (claim.source_byte_start, claim.source_byte_end): claim
         for claim in assessment.material_claims
     }
-    api_ranges = {
+    replacement_ranges = {
         span
         for span in assurance.preserve_ranges
         if (claim := claims_by_range.get(span)) is not None
+        and api_slot_ready
         and classify_source_claim_risk(source_text, claim).obligation_id == "api_public_surface"
     }
-    if not api_ranges:
+    del candidate_text
+    if not replacement_ranges:
         return assurance
-    preserve = sorted(set(assurance.preserve_ranges) - api_ranges)
-    correction = sorted({*assurance.correction_ranges, *api_ranges})
+    preserve = sorted(set(assurance.preserve_ranges) - replacement_ranges)
+    correction = sorted({*assurance.correction_ranges, *replacement_ranges})
     return SourceClaimAssurance(
         preserve_ranges=preserve,
         correction_ranges=correction,

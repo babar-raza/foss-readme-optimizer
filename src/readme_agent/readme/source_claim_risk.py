@@ -213,6 +213,16 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="Installation claims require an exact verified-acquisition replacement.",
         )
+    if primary in {"requirements", "dependencies", "prerequisites"}:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="dependency_requirements",
+            heading_path=path,
+            rationale=(
+                "Dependency and optional-extra claims require exact manifest or repository "
+                "evidence in the canonical installation section."
+            ),
+        )
     if (
         "limitation" in primary
         or "boundar" in primary
@@ -308,6 +318,7 @@ def classify_source_claim_risk(
     if "security" in primary:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="security_guidance",
             heading_path=path,
             rationale=(
                 "Security guidance is mandatory and requires dedicated repository-source "
@@ -317,6 +328,7 @@ def classify_source_claim_risk(
     if "contribut" in primary:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="contribution_guidance",
             heading_path=path,
             rationale=(
                 "Contribution instructions require repository-owned workflow evidence; generic "
@@ -326,6 +338,7 @@ def classify_source_claim_risk(
     if primary == "repository map":
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="repository_map",
             heading_path=path,
             rationale=(
                 "Repository-layout detail requires an inventory-bound replacement and cannot be "

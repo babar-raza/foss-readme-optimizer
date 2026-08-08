@@ -12,6 +12,7 @@ from readme_agent.facts.format_direction import (
     directional_format_fact_from_verified_evidence,
     format_direction_failures,
 )
+from readme_agent.facts.repository_format_extraction import RepositoryFormatExtractionV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2
 from readme_agent.registry.models import EvidenceBackedProductFact
 
@@ -159,6 +160,7 @@ def test_directional_fact_fails_closed_without_native_or_consumer_evidence() -> 
 
     assert result.verification_state == "blocked"
     assert result.value["evidence_failures"]
+    assert "aspose-org-extractor" not in result.source.location
 
 
 def test_directional_fact_expands_native_bidirectional_evidence() -> None:
@@ -181,6 +183,32 @@ def test_directional_fact_expands_native_bidirectional_evidence() -> None:
 
     assert result.verification_state == "verified"
     assert result.value == ["Input format: XLSX", "Output format: XLSX"]
+
+
+def test_repository_native_format_evidence_never_claims_sibling_provenance() -> None:
+    result = directional_format_fact_from_verified_evidence(
+        source_revision="abc1234",
+        specifications=[_spec("GLTF")],
+        example_fact=_verified_example().model_copy(update={"value": {}}),
+        native_extraction=RepositoryFormatExtractionV1(
+            status="available",
+            formats=[
+                AsposeOrgFormatEvidenceV1(
+                    format="Gltf",
+                    direction="export",
+                    file="aspose/threed/formats/gltf/GltfExporter.py",
+                    line=23,
+                    functional=True,
+                )
+            ],
+            detail="repository-native source and test corroboration",
+        ),
+    )
+
+    assert result.verification_state == "verified"
+    assert result.value == ["Output format: GLTF"]
+    assert result.source.location == ("repository://aspose/threed/formats/gltf/GltfExporter.py#L23")
+    assert "aspose-org" not in result.source.location
 
 
 def test_directional_fact_uses_human_3mf_label_for_threemf_source_symbol() -> None:

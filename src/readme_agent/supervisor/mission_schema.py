@@ -91,6 +91,28 @@ class ExecutionCampaignV1(_StrictModel):
     full_suite_policy: str = Field(min_length=20)
 
 
+class TaskExecutionFocusV1(_StrictModel):
+    """One small, visible execution goal inside the umbrella mission."""
+
+    goal_id: str = Field(pattern=r"^DELIVERY-[A-Z0-9-]+$")
+    immediate_outcome: str = Field(min_length=20)
+    repository_scope: list[str] = Field(min_length=1)
+    allowed_change_classes: list[ChangeClass] = Field(min_length=1)
+    next_goal_on_success: str = Field(min_length=10)
+    defer_nonblocking_findings: bool = True
+    show_output_before_broad_regression: bool = True
+    max_equivalent_ineffective_attempts: int = Field(default=2, ge=1, le=2)
+    max_minutes_without_narrowing: int = Field(default=15, ge=1, le=15)
+
+    @model_validator(mode="after")
+    def _scope_is_unique(self) -> TaskExecutionFocusV1:
+        if len(self.repository_scope) != len(set(self.repository_scope)):
+            raise ValueError("execution focus repository_scope contains duplicates")
+        if len(self.allowed_change_classes) != len(set(self.allowed_change_classes)):
+            raise ValueError("execution focus allowed_change_classes contains duplicates")
+        return self
+
+
 class TaskCardV1(_StrictModel):
     task_id: str
     mission_id: str
@@ -138,6 +160,7 @@ class TaskCardV1(_StrictModel):
     infrastructure_admission: InfrastructureAdmissionSpecV1 | None = None
     verification_change_classes: list[ChangeClass] = Field(default_factory=list)
     evidence_promotion_boundary: EvidencePromotionBoundary | None = None
+    execution_focus: TaskExecutionFocusV1 | None = None
 
     @model_validator(mode="after")
     def _explicit_infrastructure_requires_admission(self) -> TaskCardV1:
@@ -202,8 +225,11 @@ class RequirementCatalogRecordV1(_StrictModel):
     schema_version: Literal[1]
     requirement_id: str
     section: str
+    legacy_section: str | None = None
     requirement: str
+    legacy_requirement: str | None = None
     priority: Literal["P0", "P1", "P2", "P3"]
+    legacy_priority: Literal["P0", "P1", "P2", "P3"] | None = None
     status: Literal[
         "IMPLEMENTED",
         "PARTIAL",
@@ -228,6 +254,7 @@ class RequirementCatalogRecordV1(_StrictModel):
     acceptance_evidence: str
     legacy_acceptance_evidence: str | None = None
     traceability: str
+    legacy_traceability: str | None = None
     legacy_line: int = Field(gt=0)
     legacy_row_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
@@ -237,6 +264,8 @@ class DecisionCatalogRecordV1(_StrictModel):
     decision_id: int = Field(gt=0)
     title: str
     markdown: str
+    legacy_title: str | None = None
+    legacy_markdown: str | None = None
     legacy_record_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
 

@@ -215,7 +215,7 @@ def build_existing_overview_diagram_operations(
             fact_ids=visual.diagram_fact_ids,
             treatment=cast(ProtectedContentTreatment, treatment),
             rationale=(
-                "Show a bounded product-specific flowchart whose labels map only to selected "
+                "Show a bounded product-specific mind map whose labels map only to selected "
                 "accepted identity, problem, capability, and format facts."
             ),
         )

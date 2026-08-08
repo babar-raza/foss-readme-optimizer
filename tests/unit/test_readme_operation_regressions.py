@@ -69,7 +69,7 @@ Workbook second = Workbook.load("two.xlsx");
     )
 
     assert candidate.count("## Usage") == 1
-    assert candidate.count("## Additional examples") == 1
+    assert candidate.count("## Additional Examples") == 1
     assert candidate.count("<details>") == 1
     assert "<summary>Show additional examples</summary>" in candidate
     assert "// Keep the workbook setup concise." not in candidate

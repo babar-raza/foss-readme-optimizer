@@ -132,6 +132,17 @@ def test_limitation_view_still_rejects_internal_structured_values() -> None:
     assert view.phrases == []
 
 
+def test_public_acronym_case_does_not_break_limitation_accountability() -> None:
+    facts = _replace_selected_value(
+        _facts(),
+        "product.limitations",
+        [{"statement": "Only .pdf file targets are supported for save operations"}],
+    )
+    candidate = "- Only .PDF file targets are supported for save operations"
+
+    assert verified_limitations_are_represented(facts, candidate) is True
+
+
 def test_email_inventory_does_not_claim_syntax_or_api_verification() -> None:
     facts = _with_repository_examples(
         _facts(),
@@ -144,9 +155,10 @@ def test_email_inventory_does_not_claim_syntax_or_api_verification() -> None:
     rendered = additional_examples_markdown(facts)
 
     assert rendered is not None
-    assert "were inventoried at the verified source revision" in rendered
-    assert "matched to the repository's static public API" not in rendered
-    assert "not executed or syntax-checked" in rendered
+    assert "browsing repository example files" in rendered
+    assert "### Repository example files" in rendered
+    assert "Inventoried at the source revision" not in rendered
+    assert "| Example source | Verification |" not in rendered
 
 
 def test_inventory_fact_cannot_support_a_forged_syntax_check_claim() -> None:
@@ -196,11 +208,14 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
     rendered = additional_examples_markdown(facts)
 
     assert rendered is not None
-    assert "### Quick Start (2)" in rendered
-    assert "### Quick Start (3)" in rendered
+    assert "### Explore another repository workflow" in rendered
+    assert "### Explore another repository workflow with Python" in rendered
+    assert "Quick Start (" not in rendered
     assert "🚀" not in rendered
     assert introduced_duplicate_headings("", "## Quick start\n\n" + rendered) == []
-    assert "The inline workflows below were syntax-checked" in rendered
+    assert rendered.startswith("Expand this section to view examples for ")
+    assert "| Example source | Verification |" not in rendered
+    assert "Syntax and static public API checked" not in rendered
     fact_id = facts.selected_fact_ids["repository.examples"]
     assert (
         unsupported_example_assurance_claims(
@@ -268,6 +283,30 @@ def test_exact_additional_example_disclosure_binds_its_repository_fact() -> None
     assert accepted_candidate_policy_fact_ids(claim, facts, _binding(claim, fact_id)) == {fact_id}
 
 
+def test_canonical_public_example_preview_binds_its_repository_fact() -> None:
+    facts = _with_repository_examples(
+        _facts(),
+        {
+            "inline_examples": [
+                {
+                    "title": "Convert a file",
+                    "language": "python",
+                    "code": "convert()",
+                    "static_api_verified": True,
+                }
+            ]
+        },
+    )
+    claim = "Expand this section to view examples for converting a file."
+    fact_id = facts.selected_fact_ids["repository.examples"]
+    binding = _binding(claim, fact_id)[0].model_copy(
+        update={"configured_standard_ids": ["readme.additional_examples"]}
+    )
+
+    assert accepted_candidate_policy_fact_ids(claim, facts, [binding]) == {fact_id}
+    assert accepted_candidate_policy_fact_ids(claim, facts, _binding(claim, fact_id)) == set()
+
+
 def test_validated_mermaid_span_binds_its_selected_visual_facts() -> None:
     facts = _facts()
     fact_id = facts.selected_fact_ids["product.formats"]
@@ -304,6 +343,59 @@ def test_mermaid_fact_binding_requires_both_fence_and_configured_standard() -> N
         update={"configured_standard_ids": ["readme.at_a_glance_mermaid"]}
     )
     assert accepted_candidate_policy_fact_ids("PDF files", facts, [configured]) == set()
+
+
+def test_canonical_api_table_binds_only_with_api_fact_and_standard() -> None:
+    facts = _facts()
+    source = facts.selected_fact("product.identity").source
+    api = FactRecordV2(
+        fact_id="api.public_surface:canonical-table-test",
+        field="api.public_surface",
+        value={"modules": [{"module": "aspose.page", "exports": ["Document"]}]},
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_reference"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+    claim = (
+        "| Type | Description |\n"
+        "| --- | --- |\n"
+        "| `Document` | Public `Document` export provided by `aspose.page`. |\n"
+    )
+    binding = CandidateContentProvenanceV1(
+        provenance_id=(
+            "template.section.api_reference.claim:0:"
+            + hashlib.sha256(claim.encode("utf-8")).hexdigest()[:16]
+        ),
+        candidate_byte_start=0,
+        candidate_byte_end=len(claim.encode("utf-8")),
+        fact_ids=[api.fact_id],
+        configured_standard_ids=["readme.api_reference"],
+        rationale="Bind an exact canonical API table to the selected source fact.",
+    )
+
+    assert accepted_candidate_policy_fact_ids(claim, facts, [binding]) == {api.fact_id}
+    assert (
+        accepted_candidate_policy_fact_ids(
+            claim.replace("Public", "Fabricated benchmark for"), facts, [binding]
+        )
+        == set()
+    )
+    assert (
+        accepted_candidate_policy_fact_ids(
+            claim,
+            facts,
+            [binding.model_copy(update={"configured_standard_ids": []})],
+        )
+        == set()
+    )
 
 
 def test_contextual_policy_correction_requires_generated_fact_bound_prose() -> None:
@@ -560,6 +652,98 @@ def test_non_overview_replacement_rejects_an_extra_bound_accepted_fact() -> None
             facts,
             {provenance.provenance_id: provenance},
             exact_source_fact_ids=[capability_id],
+        )
+        is False
+    )
+
+
+def test_overview_replacement_accepts_exact_title_and_summary_facts() -> None:
+    facts = _facts()
+    identity_id = facts.selected_fact_ids["product.identity"]
+    audience_id = facts.selected_fact_ids["product.audience"]
+    formats_id = facts.selected_fact_ids["product.formats"]
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-overview",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="product_overview",
+        fact_ids=[identity_id, audience_id, formats_id],
+        replacement_provenance_ids=["template.title", "template.summary"],
+        evidence=["positive-control"],
+        rationale="The title and summary jointly replace the exact inherited overview claim.",
+    )
+    title = CandidateContentProvenanceV1(
+        provenance_id="template.title",
+        candidate_byte_start=0,
+        candidate_byte_end=1,
+        fact_ids=[identity_id],
+        rationale="Bind the product identity in the title.",
+    )
+    summary = CandidateContentProvenanceV1(
+        provenance_id="template.summary",
+        candidate_byte_start=1,
+        candidate_byte_end=2,
+        fact_ids=[audience_id, formats_id],
+        rationale="Bind the exact audience and format facts used by the summary.",
+    )
+
+    assert (
+        replacement_provenance_is_exact(
+            resolution,
+            facts,
+            {title.provenance_id: title, summary.provenance_id: summary},
+            exact_source_fact_ids=[identity_id],
+        )
+        is True
+    )
+
+
+def test_contradicted_replacement_accepts_only_a_source_fact_subset() -> None:
+    facts = _facts()
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    license_id = facts.selected_fact_ids["product.license"]
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-capability",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="major_capabilities",
+        fact_ids=[capability_id],
+        contradiction_fact_ids=[license_id],
+        replacement_provenance_ids=["template.section.key_capabilities"],
+        evidence=["positive-control"],
+        rationale="A contradiction may remove only the disproved part of the inherited claim.",
+    )
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities",
+        candidate_byte_start=0,
+        candidate_byte_end=1,
+        fact_ids=[capability_id],
+        rationale="Bind the surviving accepted capability fact.",
+    )
+
+    assert (
+        replacement_provenance_is_exact(
+            resolution,
+            facts,
+            {provenance.provenance_id: provenance},
+            exact_source_fact_ids=[capability_id, license_id],
+            allow_contradicted_source_subset=True,
+        )
+        is True
+    )
+
+    broadened = resolution.model_copy(update={"fact_ids": [capability_id, license_id]})
+    assert (
+        replacement_provenance_is_exact(
+            broadened,
+            facts,
+            {provenance.provenance_id: provenance},
+            exact_source_fact_ids=[capability_id],
+            allow_contradicted_source_subset=True,
         )
         is False
     )

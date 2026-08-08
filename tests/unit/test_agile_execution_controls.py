@@ -460,6 +460,21 @@ def test_two_equivalent_failures_and_fifteen_minutes_force_replan():
     assert decision.requires_first_principles_replan is True
 
 
+def test_visible_delivery_fingerprint_binds_the_small_execution_focus():
+    graph, _ = load_mission_graph(REAL_GRAPH)
+    task = next(item for item in graph.taskcards if item.execution_focus is not None)
+    assert task.execution_focus is not None
+    prior = task_approach_fingerprint(task)
+    changed = task.model_copy(
+        update={
+            "execution_focus": task.execution_focus.model_copy(
+                update={"immediate_outcome": "Show a materially different accepted README outcome."}
+            )
+        }
+    )
+    assert task_approach_fingerprint(changed) != prior
+
+
 def test_material_narrowing_refreshes_the_anti_stall_watermark():
     task = _graph_task()
     state = start_approach_attempt(

@@ -299,6 +299,28 @@ def test_single_verified_template_owner_change_is_noncritical_update(
     assert decision.update_earliest_stage == "PLAN_READY"
 
 
+def test_acceptance_validator_change_invalidates_completed_bundle(monkeypatch, tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    project_root = Path(__file__).resolve().parents[2]
+    owner = (
+        project_root / "src" / "readme_agent" / "readme" / "claim_accountability_validation.py"
+    ).resolve()
+    original_read_bytes = Path.read_bytes
+
+    def changed_owner_bytes(path: Path) -> bytes:
+        content = original_read_bytes(path)
+        return content + b"\ncache-invalidation-control" if path.resolve() == owner else content
+
+    monkeypatch.setattr(Path, "read_bytes", changed_owner_bytes)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert decision.decision_status == "INVALIDATED"
+    assert "presentation_component_severe_acceptance_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "CANDIDATE_GENERATED"
+
+
 @pytest.mark.parametrize(
     ("cache_factory", "evaluate"),
     [
@@ -776,10 +798,10 @@ def test_critical_candidate_component_change_reopens_its_earliest_boundary(monke
     decision = _decision(state, bundle)
 
     assert decision.reusable is False
-    assert "presentation_component_factuality_changed" in decision.mismatch_reasons
-    assert decision.earliest_affected_stage == "FACTS_COLLECTING"
+    assert "presentation_component_severe_acceptance_changed" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "PLAN_READY"
     assert decision.decision_status == "INVALIDATED"
-    assert decision.fact_validity_preserved is False
+    assert decision.fact_validity_preserved is True
 
 
 def test_cosmetic_component_change_returns_valid_update_without_revoking_acceptance(

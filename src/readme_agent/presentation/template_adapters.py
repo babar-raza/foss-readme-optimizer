@@ -15,6 +15,10 @@ from readme_agent.presentation.template_schema import (
     load_repository_presentation_template,
 )
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.public_text import (
+    canonical_abbreviations_from_facts,
+    canonicalize_public_markdown,
+)
 
 
 def _inherited(markdown: str, source_sha256: str) -> BoundTemplateContentV1:
@@ -95,7 +99,7 @@ def _verified(
         else "configured_standard"
     )
     return BoundTemplateContentV1(
-        markdown=markdown,
+        markdown=canonicalize_public_markdown(markdown, canonical_abbreviations_from_facts(facts)),
         source_kind=source_kind,
         fact_ids=sorted(set(fact_ids)),
         standard_ids=standards,

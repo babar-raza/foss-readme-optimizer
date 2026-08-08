@@ -36,7 +36,14 @@ def test_fetch_remote_sha_uses_and_cleans_an_isolated_ref(monkeypatch):
     assert git_backend._fetch_remote_sha("refs/readme-agent-state/example") == fetched_sha
     fetch_refspec = calls[0][-1]
     local_ref = fetch_refspec.split(":", 1)[1]
-    assert calls[0][:4] == ["fetch", "--no-write-fetch-head", "origin", fetch_refspec]
+    assert calls[0] == [
+        "fetch",
+        "--no-write-fetch-head",
+        "--no-tags",
+        "--depth=1",
+        "origin",
+        fetch_refspec,
+    ]
     assert local_ref.startswith("refs/readme-agent-fetch/")
     assert calls[1] == ["rev-parse", "--verify", local_ref]
     assert calls[2] == ["update-ref", "-d", local_ref]
@@ -62,7 +69,7 @@ def test_fetch_remote_sha_uses_explicit_state_remote(monkeypatch):
         )
         == fetched_sha
     )
-    assert calls[0][2] == "file:///isolated/state.git"
+    assert calls[0][4] == "file:///isolated/state.git"
 
 
 def test_remote_state_git_uses_ephemeral_github_auth(monkeypatch):

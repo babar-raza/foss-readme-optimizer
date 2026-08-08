@@ -52,9 +52,14 @@ class TemplateProfileV1(_StrictModel):
 class TemplateInvariantsV1(_StrictModel):
     badge_rows: Literal[1] = 1
     minimum_badges: int = Field(ge=1)
+    mermaid_visual_grammar: Literal["corporate-capability-landscape"]
+    mermaid_capability_layout: Literal["adaptive_vertical_columns"]
+    mermaid_capability_column_threshold: Literal[5]
+    mermaid_capability_layout_constraint: Literal["balanced_consecutive_invisible_chains"]
+    mermaid_topology: Literal["inputs-product-capabilities-outputs"]
     minimum_mermaid_inputs: int = Field(ge=1)
     minimum_mermaid_capabilities: int = Field(ge=1)
-    minimum_mermaid_outputs: int = Field(ge=1)
+    minimum_mermaid_outputs: int = Field(ge=0)
     target_mermaid_inputs: int = Field(ge=1)
     target_mermaid_capabilities: int = Field(ge=1)
     target_mermaid_outputs: int = Field(ge=1)
@@ -62,6 +67,15 @@ class TemplateInvariantsV1(_StrictModel):
     emoji: Literal["forbidden"]
     copyright: Literal["omitted_by_default"]
     commercial_term: Literal["Enterprise Edition"]
+    capability_titles: Literal["action_search_intent"]
+    technical_abbreviation_case: Literal["canonical_uppercase"]
+    heading_case: Literal["title_case"]
+    semantic_section_repetition: Literal["forbidden"]
+    source_detail_routing: Literal["canonical_section_only"]
+    enterprise_link_anchor: Literal["natural_full_featured_enterprise_edition"]
+    public_internal_assurance: Literal["forbidden"]
+    additional_examples_intro: Literal["workflow_preview"]
+    repository_link_style: Literal["normal_markdown_text"]
     primary_example_max_nonblank_lines: dict[str, int]
 
     @model_validator(mode="after")

@@ -16,6 +16,7 @@ from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
     PRESENTATION_MERMAID_MAX_NODES,
 )
+from readme_agent.readme.public_text import title_case_heading
 
 TRUSTED_PORTFOLIO_BRAND_CONTRACT_VERSION = PRESENTATION_CONTRACT_VERSION
 
@@ -162,7 +163,11 @@ def normalize_trusted_portfolio_headings(
             title,
         )
         if len(match.group(1)) > 1:
-            title = _sentence_case_heading(title)
+            title = (
+                title_case_heading(title)
+                if header.parameters.get("heading_style") == "title_case_without_emoji"
+                else _sentence_case_heading(title)
+            )
         return f"{match.group(1)} {title}"
 
     return _HEADING.sub(replace, candidate)
@@ -374,7 +379,7 @@ def normalize_trusted_portfolio_mermaid(
     mermaid = standards.get("readme.at_a_glance_mermaid")
     if mermaid is None or mermaid.parameters.get("visual_grammar") != PRESENTATION_MERMAID_GRAMMAR:
         return candidate
-    heading = re.search(r"(?m)^## At a glance[ \t]*$", candidate)
+    heading = re.search(r"^## At a Glance[ \t]*$", candidate, re.MULTILINE | re.IGNORECASE)
     if heading is None:
         return candidate
     next_h2 = re.search(r"(?m)^## ", candidate[heading.end() :])
@@ -876,7 +881,7 @@ def _validate_enterprise_link(candidate: str, standards: dict) -> None:
         raise LLMError("Enterprise Edition link must be embedded in useful contextual prose")
     prior_sections = list(_H2.finditer(candidate[: matches[0].start()]))
     section = prior_sections[-1].group(1).strip() if prior_sections else ""
-    if section != PRESENTATION_ENTERPRISE_LINK_SECTION:
+    if section.casefold() != PRESENTATION_ENTERPRISE_LINK_SECTION.casefold():
         raise LLMError(
             f"Enterprise Edition link must appear in {PRESENTATION_ENTERPRISE_LINK_SECTION} context"
         )
@@ -887,7 +892,7 @@ def _validate_enterprise_link(candidate: str, standards: dict) -> None:
 
 
 def _at_a_glance_mermaid(candidate: str) -> str:
-    heading = re.search(r"(?m)^## At a glance[ \t]*$", candidate)
+    heading = re.search(r"^## At a Glance[ \t]*$", candidate, re.MULTILINE | re.IGNORECASE)
     if heading is None:
         raise LLMError("portfolio brand contract requires an At a glance section")
     next_h2 = re.search(r"(?m)^## ", candidate[heading.end() :])
