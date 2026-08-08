@@ -6060,15 +6060,13 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "9d8fcce67803beb657c1798ef7ae72615908a900b4c63c327fcd2ab6cddacc56",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['no_deferred_source_claims_at_approval failed', 'presentation.semantic_duplicate.3e6f4bad1cef: The same visitor-facing bullet is repeated.', 'presentation.semantic_duplicate.3e6f4bad1cef: Capability information is repeated across competing visitor sections.', 'presentation.generic_capability_description.065e6bc4cc28: Key-capability explanations must describe a concrete product behavior.', 'presentation.generic_capability_description.4fb44fda2ebb: Key-capability explanations must describe a concrete product behavior.', 'presentation.capability_description_repeats_title.7af1f02f569c: Key-capability explanations must add visitor-facing detail.', 'presentation.capability_description_repeats_title.adc557bfe068: Key-capability explanations must add visitor-facing detail.', 'presentation.api_reference_malformed_terminology.2fb114a0840b: API descriptions must preserve canonical brands, acronyms, and grammar.', 'presentation.api_reference_malformed_terminology.e09495e251b6: API descriptions must preserve canonical brands, acronyms, and grammar.', 'presentation.api_reference_malformed_terminology.ce4ab06c5b28: API descriptions must preserve canonical brands, acronyms, and grammar.', 'presentation.api_reference_malformed_terminology.4109a946e136: API descriptions must preserve canonical brands, acronyms, and grammar.', 'presentation.api_reference_malformed_terminology.cb3451be7eb3: API descriptions must preserve canonical brands, acronyms, and grammar.']",
-          "occurred_at": "2026-08-08T19:02:29.768801+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " valuable source detail has no canonical presentation destination: claim:2473:10db0093384f3384:unclassified",
+          "occurred_at": "2026-08-08T19:27:44.561999+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -28255,9 +28253,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T19:02:29.770611+00:00",
+      "last_run_timestamp": "2026-08-08T19:27:44.561999+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -30712,7 +30710,7 @@
     "updated_at": "2026-08-08T19:23:15.795731+00:00"
   },
   "schema_version": 2,
-  "state_version": 1082,
+  "state_version": 1083,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
