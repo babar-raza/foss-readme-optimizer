@@ -50038,7 +50038,7 @@
     "updated_at": "2026-08-08T07:37:12.221328+00:00"
   },
   "schema_version": 2,
-  "state_version": 591,
+  "state_version": 592,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -50825,13 +50825,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: preserve disposition lost a source claim without exact fact-bound replacement candidate content: claim:1300:113ad70119616883",
       "last_checkpoint_id": "aee1c0f4cae6d8368ae10ad50041ecbc4f31604d73ec353db4cc3f8096637c27",
-      "lease_expires_at": "2026-08-08T10:03:22.320264+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-08T09:57:04.587727+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-08T09:57:44.178747+00:00"
     }
   },
   "trigger_records": {},
