@@ -10545,7 +10545,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-040134-fb70",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-045156-00a4",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -10653,8 +10653,8 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                  "claim": "The At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs in a structured flow.",
-                  "criterion": "product_specificity",
+                  "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
+                  "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
@@ -10718,8 +10718,8 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                    "claim": "The At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs in a structured flow.",
-                    "criterion": "product_specificity",
+                    "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
+                    "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
@@ -10783,7 +10783,7 @@
                     "section": "API Reference"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+                    "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
                     "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
                     "criterion": "product.limitations",
                     "disposition": "supports_acceptance",
@@ -10796,7 +10796,7 @@
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+                    "quoted_candidate_span": "## Scope and Limitations",
                     "reported_observed_value": null,
                     "required_repair": "",
                     "section": "Scope and Limitations"
@@ -10817,7 +10817,7 @@
                   "role": "factual_plan_reviewer"
                 },
                 "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh boolean, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled and verified. Navigation and documentation links align with the governed aspose.org catalog.",
+                "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -10825,14 +10825,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "4c06f446328e80566aaae329c7476dd922a1cc36be07183da0feb451f7c0bc3d",
-                "factual_record_sha256": "73d7ff6e650c6ec78d0e8e073ae5c6b527a33cc44db9bee78117cd84637b7257",
+                "blind_record_sha256": "34b588b6eba93e7413229008d68e6b9125c090436d9d4d3d4d3b361ddb86c288",
+                "factual_record_sha256": "feb523042f939a81df72899f9a7a313ba52694f37556a611e074c2474407faee",
                 "input_sha256": "e70f8e341d3d810493be8c506ff9c9c46f26bc164b0fc18033e2f6a4b388c634",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-82d8147f2a4103e3",
-                "raw_output_sha256": "33fd8a8495ac806d92b17d5bc67c79a29a5807bcc2e77450c69c1da1c3fc0e02"
+                "provider_request_id": "chatcmpl-ae8bad61a4d123ee",
+                "raw_output_sha256": "f9d3686686509e2492cd9ac7f086f195d47ce8863dd2b0c9be1f5da7a93e6218"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -10866,7 +10866,7 @@
                   "section": "API Reference"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+                  "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
                   "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
                   "criterion": "product.limitations",
                   "disposition": "supports_acceptance",
@@ -10879,7 +10879,7 @@
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+                  "quoted_candidate_span": "## Scope and Limitations",
                   "reported_observed_value": null,
                   "required_repair": "",
                   "section": "Scope and Limitations"
@@ -10900,7 +10900,7 @@
                 "role": "factual_plan_reviewer"
               },
               "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-              "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh boolean, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled and verified. Navigation and documentation links align with the governed aspose.org catalog.",
+              "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -10992,7 +10992,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260808-040134-fb70",
+                "nonce": "20260808-045156-00a4",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -11000,11 +11000,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "b6158d25612609ea340964bd8987c36a1c55ead4a2be1e94f9a3a47904eadee1",
+                "token": "c11f2daaeb61a066cd2f24424a23c6072113ef2db1740b2e0cf843131b3cc10a",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-040134-fb70"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-045156-00a4"
               ],
               "repair_attempt": 0,
               "review": {
@@ -11034,8 +11034,8 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                      "claim": "The At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs in a structured flow.",
-                      "criterion": "product_specificity",
+                      "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
+                      "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
@@ -11099,8 +11099,8 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                        "claim": "The At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs in a structured flow.",
-                        "criterion": "product_specificity",
+                        "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
+                        "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
@@ -11164,7 +11164,7 @@
                         "section": "API Reference"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+                        "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
                         "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
                         "criterion": "product.limitations",
                         "disposition": "supports_acceptance",
@@ -11177,7 +11177,7 @@
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+                        "quoted_candidate_span": "## Scope and Limitations",
                         "reported_observed_value": null,
                         "required_repair": "",
                         "section": "Scope and Limitations"
@@ -11198,7 +11198,7 @@
                       "role": "factual_plan_reviewer"
                     },
                     "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh boolean, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled and verified. Navigation and documentation links align with the governed aspose.org catalog.",
+                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -11206,14 +11206,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "4c06f446328e80566aaae329c7476dd922a1cc36be07183da0feb451f7c0bc3d",
-                    "factual_record_sha256": "73d7ff6e650c6ec78d0e8e073ae5c6b527a33cc44db9bee78117cd84637b7257",
+                    "blind_record_sha256": "34b588b6eba93e7413229008d68e6b9125c090436d9d4d3d4d3b361ddb86c288",
+                    "factual_record_sha256": "feb523042f939a81df72899f9a7a313ba52694f37556a611e074c2474407faee",
                     "input_sha256": "e70f8e341d3d810493be8c506ff9c9c46f26bc164b0fc18033e2f6a4b388c634",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-82d8147f2a4103e3",
-                    "raw_output_sha256": "33fd8a8495ac806d92b17d5bc67c79a29a5807bcc2e77450c69c1da1c3fc0e02"
+                    "provider_request_id": "chatcmpl-ae8bad61a4d123ee",
+                    "raw_output_sha256": "f9d3686686509e2492cd9ac7f086f195d47ce8863dd2b0c9be1f5da7a93e6218"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -11247,7 +11247,7 @@
                       "section": "API Reference"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+                      "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
                       "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
                       "criterion": "product.limitations",
                       "disposition": "supports_acceptance",
@@ -11260,7 +11260,7 @@
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+                      "quoted_candidate_span": "## Scope and Limitations",
                       "reported_observed_value": null,
                       "required_repair": "",
                       "section": "Scope and Limitations"
@@ -11281,7 +11281,7 @@
                     "role": "factual_plan_reviewer"
                   },
                   "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh boolean, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled and verified. Navigation and documentation links align with the governed aspose.org catalog.",
+                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -111476,7 +111476,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260808-040134-fb70",
+          "nonce": "20260808-045156-00a4",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -111484,7 +111484,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "b6158d25612609ea340964bd8987c36a1c55ead4a2be1e94f9a3a47904eadee1",
+          "token": "c11f2daaeb61a066cd2f24424a23c6072113ef2db1740b2e0cf843131b3cc10a",
           "verdict": "accept"
         },
         "written": false
@@ -111492,7 +111492,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T04:05:41.364955+00:00",
+      "last_run_timestamp": "2026-08-08T04:55:39.592324+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -117510,7 +117510,7 @@
     "updated_at": "2026-08-08T04:55:31.594336+00:00"
   },
   "schema_version": 2,
-  "state_version": 2074,
+  "state_version": 2075,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
