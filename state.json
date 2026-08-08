@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+    "active_task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
     "approach_control": {
       "attempts": [
         {
@@ -240,14 +240,21 @@
         },
         {
           "evidence_refs": [
-            "runs/evidence/20260808-162154-4db5",
-            "tests/unit/test_source_claim_assurance.py"
+            "claim lease expired"
           ],
           "fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
-          "last_material_narrowing_at": "2026-08-08T16:27:14.584319+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-08T16:13:36.499846+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T16:28:01.346182+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
@@ -465,9 +472,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-08T16:21:21.120990+00:00",
-    "claim_id": "6760d04268ae489f9b1b7bbf468690aa",
-    "claimed_at": "2026-08-08T15:51:21.120990+00:00",
+    "claim_expires_at": "2026-08-08T16:58:01.346182+00:00",
+    "claim_id": "6572e0548e05471eb1829a7f2fc04de5",
+    "claimed_at": "2026-08-08T16:28:01.346182+00:00",
     "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -630,7 +637,7 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T16:27:14.584337+00:00",
+    "last_evaluated_at": "2026-08-08T16:28:01.346182+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -773,19 +780,19 @@
       "campaign_id": "CAMP-PYTHON-PORTFOLIO",
       "core_contribution": {
         "kind": "visible_deliverable",
-        "summary": "Reconcile and show one current Page Python README without broad rework."
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
       },
       "goal_ids": [
         "GOAL-TRUTH",
         "GOAL-README"
       ],
-      "immediate_goal_id": "DELIVERY-PY-PAGE-CURRENT",
-      "immediate_outcome": "Show the current independently approved Page Python README and its no-op proof.",
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
       "repository_scope": [
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python"
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
       ],
       "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-      "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -888,9 +895,9 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "IN_PROGRESS",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "IN_PROGRESS",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
       "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -7752,6 +7759,24 @@
         "reason": "repository deliverable became stale for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: presentation_component_severe_acceptance_changed,presentation_component_structural_changed",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-08T16:28:01.346199+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-08T16:28:01.346517+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -7761,7 +7786,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 835,
+  "state_version": 836,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
