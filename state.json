@@ -140,16 +140,27 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-public-copy-contract.json",
+            "runs/evidence/20260808-114748-595b"
+          ],
           "fingerprint": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T11:30:48.685582+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T11:51:13.947744+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633"
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7"
       },
       "replans": [
         {
@@ -216,6 +227,31 @@
           "pipeline_boundary_changed": true,
           "prior_fingerprint": "65362ba1e9ce8f40d0b92b18041e08478796ddfce6d9f77ac03424b8807d0374",
           "rationale": "Move the causal owner from public capability normalization to the downstream claim-accountability reduction that discarded exact canonical compiler bindings.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T11:50:40.7395953Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/mission-control/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/first-principles-review-pdf-public-copy-contract.json",
+            "runs/evidence/20260808-114748-595b"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "2da72ea9f300f949558e8da332aad0a05b3983922ab9f0ddfca3623ac22533b7",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "32239c5031eba85417dd7f63a6de4f8edb50ef47f80434ba965aca9ad9b67633",
+          "rationale": "Move the causal owner from downstream claim-accountability reduction to the public text compiler and deterministic visitor contract that create and admit visible capability/API copy.",
           "route_change_assessments": [
             "reuse",
             "invalidation",
@@ -401,33 +437,34 @@
     ],
     "graph_sha256": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T11:30:48.685582+00:00",
+    "last_evaluated_at": "2026-08-08T11:51:13.947890+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
-      "candidate_generated": 1,
+      "agent_approved": 0,
+      "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-08T11:26:41.556361+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-08T11:41:47.592171+00:00",
+      "deterministic_validated": 0,
       "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 3,
+        "AGENT_APPROVED": 2,
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
         "FACTS_READY": 4,
         "INTAKE_READY": 7,
         "NO_OP_PROVEN": 9,
+        "README_ASSESSED": 1,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 12,
-      "raw_candidate_generated": 16,
-      "raw_deterministic_validated": 16,
+      "raw_agent_approved": 11,
+      "raw_candidate_generated": 15,
+      "raw_deterministic_validated": 15,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 9,
@@ -7336,7 +7373,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 805,
+  "state_version": 806,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
