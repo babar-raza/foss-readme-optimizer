@@ -49955,7 +49955,7 @@
     "updated_at": "2026-08-08T07:37:12.221328+00:00"
   },
   "schema_version": 2,
-  "state_version": 570,
+  "state_version": 571,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -50720,13 +50720,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['verified_equivalences_have_exact_candidate_claims failed', 'presentation.semantic_duplicate.8f34a08386df: Capability information is repeated across competing visitor sections.']",
       "last_checkpoint_id": "6b8642fb1ca8139289e1e1ae35fc31008ecc7838bce737a97b1994c5fef9cf2b",
-      "lease_expires_at": "2026-08-08T09:45:32.195128+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-08T09:38:39.225984+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-08T09:39:21.695014+00:00"
     }
   },
   "trigger_records": {},
