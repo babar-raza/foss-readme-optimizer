@@ -5289,6 +5289,23 @@
       "started_at": "2026-08-02T11:48:25.457023+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260802-114812-40bb:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+    },
+    "ffb96c644f9ba8b01af76c7d89e562e72397eb78785ddeaa855cd5cfa3e7530a": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "ffb96c644f9ba8b01af76c7d89e562e72397eb78785ddeaa855cd5cfa3e7530a",
+      "completed_at": "2026-08-08T22:31:18.171083+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "272a5e8d006f1d7e00b37c585530ad9e7d23ac5d3d90f0492583b66bcdd68adc",
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "run_id": "20260808-222819-6e07",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-08-08T22:31:18.171076+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260808-222819-6e07:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
     }
   },
   "domain_states": {
@@ -34148,7 +34165,7 @@
     "updated_at": "2026-08-08T22:17:33.641502+00:00"
   },
   "schema_version": 2,
-  "state_version": 1232,
+  "state_version": 1233,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -35696,11 +35713,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "b01d67cbc43c8d76e10f8c8ce741bb01e24420edfed820163d301e5e240da115",
+      "last_checkpoint_id": "ffb96c644f9ba8b01af76c7d89e562e72397eb78785ddeaa855cd5cfa3e7530a",
       "lease_expires_at": "2026-08-08T22:43:47.619481+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-08T22:29:45.960871+00:00"
+      "updated_at": "2026-08-08T22:31:18.171083+00:00"
     }
   },
   "trigger_records": {},
