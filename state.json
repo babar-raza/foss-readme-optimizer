@@ -2749,7 +2749,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "5775d2951dde2618b80ad126c89a426656b9e5d339cf55f5829f66abda2983ed",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3820,12 +3820,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "ValueError",
           "failure_reason": "execution_error",
           "message": " canonical source-detail destination is absent: Security",
-          "occurred_at": "2026-08-08T09:18:26.863178+00:00",
+          "occurred_at": "2026-08-08T09:21:14.186716+00:00",
           "schema_version": 1,
           "source_revision": "89ec152d48b35aa071a93c22e626096aa3f251c2",
           "stage": null
@@ -48302,7 +48302,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T09:18:26.863178+00:00",
+      "last_run_timestamp": "2026-08-08T09:21:14.186716+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "737d26451ed5c58e53017e3c9460e834f99d20ed"
@@ -49851,7 +49851,7 @@
     "updated_at": "2026-08-08T07:37:12.221328+00:00"
   },
   "schema_version": 2,
-  "state_version": 547,
+  "state_version": 548,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
