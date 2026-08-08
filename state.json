@@ -10698,7 +10698,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-045156-00a4",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-053211-a39f",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -10787,7 +10787,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                  "claim": "The README contains exactly one H1 heading and all required H2 headings with correct prefixes.",
+                  "claim": "The README contains exactly one H1 and all required H2 prefixes, with no duplicate H2 headings.",
                   "criterion": "hierarchy",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -10796,38 +10796,38 @@
                   "fact_id": null,
                   "finding_id": "quality.h2_structure",
                   "kind": "quality",
-                  "mechanical_check_id": "document.required_h2_prefix",
+                  "mechanical_check_id": "document.h1_blocks",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
                   "quoted_candidate_span": "# Aspose.3D FOSS for Python",
-                  "reported_observed_value": true,
+                  "reported_observed_value": 1,
                   "required_repair": "",
-                  "section": "Header"
+                  "section": "document structure"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                  "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
-                  "criterion": "clarity",
+                  "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
+                  "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, satisfying the primary example constraint.",
+                  "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.mermaid_at_a_glance",
+                  "finding_id": "quality.quick_start_example",
                   "kind": "quality",
-                  "mechanical_check_id": null,
+                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"OBJ files\"]\n    I2[\"GLTF files\"]\n    I3[\"STL files\"]\n    I4[\"3MF files\"]\n  end\n\n  PRODUCT[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction TB\n    C1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse\"]\n    C2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    C3[\"Animation system with keyframe support\"]\n    C1 ~~~ C2\n    C2 ~~~ C3\n  end\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"GLTF files\"]\n    O2[\"STL files\"]\n    O3[\"3MF files\"]\n    O4[\"OBJ files\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  I3 --- PRODUCT\n  I4 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
-                  "reported_observed_value": null,
+                  "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
+                  "reported_observed_value": 2,
                   "required_repair": "",
-                  "section": "At a Glance"
+                  "section": "Quick Start"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
                   "quality.h2_structure",
-                  "quality.mermaid_at_a_glance"
+                  "quality.quick_start_example"
                 ],
                 "errors": [],
                 "valid": true
@@ -10839,7 +10839,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "03886badea58f43e4af5af337b14561c5b8d766697126c8f89571f8930d708a2",
-              "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (1 H1, compliant H2 prefixes, no duplicate H2s), includes exactly one badge row with all allowed badge kinds, and provides a minimal Quick Start example within the 12 non-blank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs. The installation and quick start sections are distinct, with installation showing source-based setup and quick start showing a minimal 2-line Python snippet. The license section explicitly mentions use, modification, distribution, and commercial use. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a complete navigation list. The Quick Start section contains exactly one fenced block with only 2 non-blank code lines, satisfying the primary example constraint. The Mermaid diagram in At a Glance follows the required topology and capability layout. The License section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There are no duplicate H2 headings, no comments, and proper title-case headings throughout.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -10852,7 +10852,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                    "claim": "The README contains exactly one H1 heading and all required H2 headings with correct prefixes.",
+                    "claim": "The README contains exactly one H1 and all required H2 prefixes, with no duplicate H2 headings.",
                     "criterion": "hierarchy",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -10861,38 +10861,38 @@
                     "fact_id": null,
                     "finding_id": "quality.h2_structure",
                     "kind": "quality",
-                    "mechanical_check_id": "document.required_h2_prefix",
+                    "mechanical_check_id": "document.h1_blocks",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
                     "quoted_candidate_span": "# Aspose.3D FOSS for Python",
-                    "reported_observed_value": true,
+                    "reported_observed_value": 1,
                     "required_repair": "",
-                    "section": "Header"
+                    "section": "document structure"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                    "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
-                    "criterion": "clarity",
+                    "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
+                    "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, satisfying the primary example constraint.",
+                    "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.mermaid_at_a_glance",
+                    "finding_id": "quality.quick_start_example",
                     "kind": "quality",
-                    "mechanical_check_id": null,
+                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"OBJ files\"]\n    I2[\"GLTF files\"]\n    I3[\"STL files\"]\n    I4[\"3MF files\"]\n  end\n\n  PRODUCT[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction TB\n    C1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse\"]\n    C2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    C3[\"Animation system with keyframe support\"]\n    C1 ~~~ C2\n    C2 ~~~ C3\n  end\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"GLTF files\"]\n    O2[\"STL files\"]\n    O3[\"3MF files\"]\n    O4[\"OBJ files\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  I3 --- PRODUCT\n  I4 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
-                    "reported_observed_value": null,
+                    "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
+                    "reported_observed_value": 2,
                     "required_repair": "",
-                    "section": "At a Glance"
+                    "section": "Quick Start"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
                     "quality.h2_structure",
-                    "quality.mermaid_at_a_glance"
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -10904,7 +10904,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "03886badea58f43e4af5af337b14561c5b8d766697126c8f89571f8930d708a2",
-                "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (1 H1, compliant H2 prefixes, no duplicate H2s), includes exactly one badge row with all allowed badge kinds, and provides a minimal Quick Start example within the 12 non-blank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs. The installation and quick start sections are distinct, with installation showing source-based setup and quick start showing a minimal 2-line Python snippet. The license section explicitly mentions use, modification, distribution, and commercial use. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a complete navigation list. The Quick Start section contains exactly one fenced block with only 2 non-blank code lines, satisfying the primary example constraint. The Mermaid diagram in At a Glance follows the required topology and capability layout. The License section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There are no duplicate H2 headings, no comments, and proper title-case headings throughout.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -10937,14 +10937,14 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
-                    "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
+                    "claim": "Mesh boolean operations and NURBS evaluation are not implemented; COLLADA and FBX export are blocked.",
                     "criterion": "product.limitations",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "mesh_boolean_unimplemented",
                     "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.limitations:source-guidance",
-                    "finding_id": "factual.limited_export",
+                    "finding_id": "factual.limited_capabilities",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -10958,7 +10958,7 @@
                 "grounding_validation": {
                   "checked_finding_ids": [
                     "factual.api_surface",
-                    "factual.limited_export"
+                    "factual.limited_capabilities"
                   ],
                   "errors": [],
                   "valid": true
@@ -10970,7 +10970,7 @@
                   "role": "factual_plan_reviewer"
                 },
                 "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface claim (89 public exports across 21 namespaces) aligns with the inventory in api.public_surface:python-exports. The capabilities (3D primitives, file format import/export, animation) are verified by product.capabilities:repository-evidence. The installation coordinates (aspose-3d-foss, version 26.1.0) match installation.coordinates:manifest. The license (MIT) is confirmed by product.license:license-file. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are directly supported by product.limitations:source-guidance. The documentation links (docs, kb, reference) match documentation.links:governed-aspose-org-catalog. The test inventory (34 files) and commands (pip install, pytest) align with development.assets:repository-inventory and development.commands:repository-guidance. The example inventory in repository.examples:repository-inventory supports the Additional and",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -10978,14 +10978,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "34b588b6eba93e7413229008d68e6b9125c090436d9d4d3d4d3b361ddb86c288",
-                "factual_record_sha256": "feb523042f939a81df72899f9a7a313ba52694f37556a611e074c2474407faee",
+                "blind_record_sha256": "cea48a4df6b29745c8a9b90a8b2680971cb96a0dba278d02a1aa3cc087ad79f2",
+                "factual_record_sha256": "b1eeab47607ba55018394b3b6a61ceabe64d78fd2d607fce80191e9cf323aad3",
                 "input_sha256": "e70f8e341d3d810493be8c506ff9c9c46f26bc164b0fc18033e2f6a4b388c634",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-ae8bad61a4d123ee",
-                "raw_output_sha256": "f9d3686686509e2492cd9ac7f086f195d47ce8863dd2b0c9be1f5da7a93e6218"
+                "provider_request_id": "chatcmpl-8bef7382d5111f8a",
+                "raw_output_sha256": "6f750d3ab6552d4efd82155f275596675bb56395c54bc710f665ff01156b2e2b"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -11020,14 +11020,14 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
-                  "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
+                  "claim": "Mesh boolean operations and NURBS evaluation are not implemented; COLLADA and FBX export are blocked.",
                   "criterion": "product.limitations",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "mesh_boolean_unimplemented",
                   "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.limitations:source-guidance",
-                  "finding_id": "factual.limited_export",
+                  "finding_id": "factual.limited_capabilities",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -11041,7 +11041,7 @@
               "grounding_validation": {
                 "checked_finding_ids": [
                   "factual.api_surface",
-                  "factual.limited_export"
+                  "factual.limited_capabilities"
                 ],
                 "errors": [],
                 "valid": true
@@ -11053,7 +11053,7 @@
                 "role": "factual_plan_reviewer"
               },
               "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-              "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface claim (89 public exports across 21 namespaces) aligns with the inventory in api.public_surface:python-exports. The capabilities (3D primitives, file format import/export, animation) are verified by product.capabilities:repository-evidence. The installation coordinates (aspose-3d-foss, version 26.1.0) match installation.coordinates:manifest. The license (MIT) is confirmed by product.license:license-file. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are directly supported by product.limitations:source-guidance. The documentation links (docs, kb, reference) match documentation.links:governed-aspose-org-catalog. The test inventory (34 files) and commands (pip install, pytest) align with development.assets:repository-inventory and development.commands:repository-guidance. The example inventory in repository.examples:repository-inventory supports the Additional and",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -11075,7 +11075,7 @@
                 "validation_result": {
                   "checked_finding_ids": [
                     "quality.h2_structure",
-                    "quality.mermaid_at_a_glance"
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -11092,14 +11092,14 @@
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
                   "factual.api_surface",
-                  "factual.limited_export"
+                  "factual.limited_capabilities"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
                     "factual.api_surface",
-                    "factual.limited_export"
+                    "factual.limited_capabilities"
                   ],
                   "errors": [],
                   "valid": true
@@ -11145,7 +11145,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260808-045156-00a4",
+                "nonce": "20260808-053211-a39f",
                 "reason": null,
                 "requirement_map": {
                   "fact_backed_document_plan": true,
@@ -11153,11 +11153,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "c11f2daaeb61a066cd2f24424a23c6072113ef2db1740b2e0cf843131b3cc10a",
+                "token": "e6b0bf147b1bf18b308c8f5bc81656baad37bff0ef55db13b7967a69a24bdabb",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-045156-00a4"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260808-053211-a39f"
               ],
               "repair_attempt": 0,
               "review": {
@@ -11168,7 +11168,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                      "claim": "The README contains exactly one H1 heading and all required H2 headings with correct prefixes.",
+                      "claim": "The README contains exactly one H1 and all required H2 prefixes, with no duplicate H2 headings.",
                       "criterion": "hierarchy",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -11177,38 +11177,38 @@
                       "fact_id": null,
                       "finding_id": "quality.h2_structure",
                       "kind": "quality",
-                      "mechanical_check_id": "document.required_h2_prefix",
+                      "mechanical_check_id": "document.h1_blocks",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
                       "quoted_candidate_span": "# Aspose.3D FOSS for Python",
-                      "reported_observed_value": true,
+                      "reported_observed_value": 1,
                       "required_repair": "",
-                      "section": "Header"
+                      "section": "document structure"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                      "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
-                      "criterion": "clarity",
+                      "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
+                      "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, satisfying the primary example constraint.",
+                      "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.mermaid_at_a_glance",
+                      "finding_id": "quality.quick_start_example",
                       "kind": "quality",
-                      "mechanical_check_id": null,
+                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"OBJ files\"]\n    I2[\"GLTF files\"]\n    I3[\"STL files\"]\n    I4[\"3MF files\"]\n  end\n\n  PRODUCT[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction TB\n    C1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse\"]\n    C2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    C3[\"Animation system with keyframe support\"]\n    C1 ~~~ C2\n    C2 ~~~ C3\n  end\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"GLTF files\"]\n    O2[\"STL files\"]\n    O3[\"3MF files\"]\n    O4[\"OBJ files\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  I3 --- PRODUCT\n  I4 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
-                      "reported_observed_value": null,
+                      "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
+                      "reported_observed_value": 2,
                       "required_repair": "",
-                      "section": "At a Glance"
+                      "section": "Quick Start"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
                       "quality.h2_structure",
-                      "quality.mermaid_at_a_glance"
+                      "quality.quick_start_example"
                     ],
                     "errors": [],
                     "valid": true
@@ -11220,7 +11220,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "03886badea58f43e4af5af337b14561c5b8d766697126c8f89571f8930d708a2",
-                  "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (1 H1, compliant H2 prefixes, no duplicate H2s), includes exactly one badge row with all allowed badge kinds, and provides a minimal Quick Start example within the 12 non-blank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs. The installation and quick start sections are distinct, with installation showing source-based setup and quick start showing a minimal 2-line Python snippet. The license section explicitly mentions use, modification, distribution, and commercial use. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a complete navigation list. The Quick Start section contains exactly one fenced block with only 2 non-blank code lines, satisfying the primary example constraint. The Mermaid diagram in At a Glance follows the required topology and capability layout. The License section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There are no duplicate H2 headings, no comments, and proper title-case headings throughout.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -11233,7 +11233,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                        "claim": "The README contains exactly one H1 heading and all required H2 headings with correct prefixes.",
+                        "claim": "The README contains exactly one H1 and all required H2 prefixes, with no duplicate H2 headings.",
                         "criterion": "hierarchy",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -11242,38 +11242,38 @@
                         "fact_id": null,
                         "finding_id": "quality.h2_structure",
                         "kind": "quality",
-                        "mechanical_check_id": "document.required_h2_prefix",
+                        "mechanical_check_id": "document.h1_blocks",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
                         "quoted_candidate_span": "# Aspose.3D FOSS for Python",
-                        "reported_observed_value": true,
+                        "reported_observed_value": 1,
                         "required_repair": "",
-                        "section": "Header"
+                        "section": "document structure"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.a30e1bd4d39c5e6b96c1.1",
-                        "claim": "The At a Glance Mermaid diagram clearly maps inputs, product, capabilities, and outputs in a structured flow.",
-                        "criterion": "clarity",
+                        "candidate_anchor_id": "candidate.anchor.ce222ecfa524368da4ca.1",
+                        "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, satisfying the primary example constraint.",
+                        "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.mermaid_at_a_glance",
+                        "finding_id": "quality.quick_start_example",
                         "kind": "quality",
-                        "mechanical_check_id": null,
+                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "```mermaid\nflowchart LR\n  subgraph Inputs[\"Inputs and Formats\"]\n    I1[\"OBJ files\"]\n    I2[\"GLTF files\"]\n    I3[\"STL files\"]\n    I4[\"3MF files\"]\n  end\n\n  PRODUCT[\"Aspose.3D FOSS for Python\"]\n\n  subgraph Capabilities[\"Core Capabilities\"]\n    direction TB\n    C1[\"3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse\"]\n    C2[\"File format import and export for OBJ, GLTF, STL, and 3MF\"]\n    C3[\"Animation system with keyframe support\"]\n    C1 ~~~ C2\n    C2 ~~~ C3\n  end\n\n  subgraph Outputs[\"Outputs\"]\n    O1[\"GLTF files\"]\n    O2[\"STL files\"]\n    O3[\"3MF files\"]\n    O4[\"OBJ files\"]\n  end\n\n  I1 --- PRODUCT\n  I2 --- PRODUCT\n  I3 --- PRODUCT\n  I4 --- PRODUCT\n  PRODUCT --- Capabilities\n  Capabilities --- Outputs\n```",
-                        "reported_observed_value": null,
+                        "quoted_candidate_span": "```python\nfrom aspose.threed import Scene\n\nscene = Scene()\n```",
+                        "reported_observed_value": 2,
                         "required_repair": "",
-                        "section": "At a Glance"
+                        "section": "Quick Start"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
                         "quality.h2_structure",
-                        "quality.mermaid_at_a_glance"
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -11285,7 +11285,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "03886badea58f43e4af5af337b14561c5b8d766697126c8f89571f8930d708a2",
-                    "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (1 H1, compliant H2 prefixes, no duplicate H2s), includes exactly one badge row with all allowed badge kinds, and provides a minimal Quick Start example within the 12 non-blank code line limit. The navigation section lists all required H2 headings, and the At a Glance Mermaid diagram correctly maps inputs, product, capabilities, and outputs. The installation and quick start sections are distinct, with installation showing source-based setup and quick start showing a minimal 2-line Python snippet. The license section explicitly mentions use, modification, distribution, and commercial use. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a complete navigation list. The Quick Start section contains exactly one fenced block with only 2 non-blank code lines, satisfying the primary example constraint. The Mermaid diagram in At a Glance follows the required topology and capability layout. The License section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There are no duplicate H2 headings, no comments, and proper title-case headings throughout.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -11318,14 +11318,14 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
-                        "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
+                        "claim": "Mesh boolean operations and NURBS evaluation are not implemented; COLLADA and FBX export are blocked.",
                         "criterion": "product.limitations",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "mesh_boolean_unimplemented",
                         "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.limitations:source-guidance",
-                        "finding_id": "factual.limited_export",
+                        "finding_id": "factual.limited_capabilities",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -11339,7 +11339,7 @@
                     "grounding_validation": {
                       "checked_finding_ids": [
                         "factual.api_surface",
-                        "factual.limited_export"
+                        "factual.limited_capabilities"
                       ],
                       "errors": [],
                       "valid": true
@@ -11351,7 +11351,7 @@
                       "role": "factual_plan_reviewer"
                     },
                     "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface claim (89 public exports across 21 namespaces) aligns with the inventory in api.public_surface:python-exports. The capabilities (3D primitives, file format import/export, animation) are verified by product.capabilities:repository-evidence. The installation coordinates (aspose-3d-foss, version 26.1.0) match installation.coordinates:manifest. The license (MIT) is confirmed by product.license:license-file. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are directly supported by product.limitations:source-guidance. The documentation links (docs, kb, reference) match documentation.links:governed-aspose-org-catalog. The test inventory (34 files) and commands (pip install, pytest) align with development.assets:repository-inventory and development.commands:repository-guidance. The example inventory in repository.examples:repository-inventory supports the Additional and",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -11359,14 +11359,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "34b588b6eba93e7413229008d68e6b9125c090436d9d4d3d4d3b361ddb86c288",
-                    "factual_record_sha256": "feb523042f939a81df72899f9a7a313ba52694f37556a611e074c2474407faee",
+                    "blind_record_sha256": "cea48a4df6b29745c8a9b90a8b2680971cb96a0dba278d02a1aa3cc087ad79f2",
+                    "factual_record_sha256": "b1eeab47607ba55018394b3b6a61ceabe64d78fd2d607fce80191e9cf323aad3",
                     "input_sha256": "e70f8e341d3d810493be8c506ff9c9c46f26bc164b0fc18033e2f6a4b388c634",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-ae8bad61a4d123ee",
-                    "raw_output_sha256": "f9d3686686509e2492cd9ac7f086f195d47ce8863dd2b0c9be1f5da7a93e6218"
+                    "provider_request_id": "chatcmpl-8bef7382d5111f8a",
+                    "raw_output_sha256": "6f750d3ab6552d4efd82155f275596675bb56395c54bc710f665ff01156b2e2b"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -11401,14 +11401,14 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
-                      "claim": "COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.",
+                      "claim": "Mesh boolean operations and NURBS evaluation are not implemented; COLLADA and FBX export are blocked.",
                       "criterion": "product.limitations",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "mesh_boolean_unimplemented",
                       "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.limitations:source-guidance",
-                      "finding_id": "factual.limited_export",
+                      "finding_id": "factual.limited_capabilities",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -11422,7 +11422,7 @@
                   "grounding_validation": {
                     "checked_finding_ids": [
                       "factual.api_surface",
-                      "factual.limited_export"
+                      "factual.limited_capabilities"
                     ],
                     "errors": [],
                     "valid": true
@@ -11434,7 +11434,7 @@
                     "role": "factual_plan_reviewer"
                   },
                   "input_sha256": "44643262a5cd38a9e0f8d4cc9b53574d8fb56e7056cc22df0578a70961699aca",
-                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience match the manifest and registry. The API surface (89 exports across 21 namespaces) is verified by source inventory. Capabilities (primitives, file formats, animation) are confirmed by source code evidence. Limitations (mesh booleans, NURBS, COLLADA/FBX export, rendering) are explicitly documented and match source guidance. Installation instructions and verified acquisition via source build are consistent. License (MIT) and commercial context (FOSS with Enterprise Edition upgrade path) are correctly stated. The Quick Start example is compiled from salvaged examples and matches the public API. No contradictions or missing evidence were found.",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface claim (89 public exports across 21 namespaces) aligns with the inventory in api.public_surface:python-exports. The capabilities (3D primitives, file format import/export, animation) are verified by product.capabilities:repository-evidence. The installation coordinates (aspose-3d-foss, version 26.1.0) match installation.coordinates:manifest. The license (MIT) is confirmed by product.license:license-file. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are directly supported by product.limitations:source-guidance. The documentation links (docs, kb, reference) match documentation.links:governed-aspose-org-catalog. The test inventory (34 files) and commands (pip install, pytest) align with development.assets:repository-inventory and development.commands:repository-guidance. The example inventory in repository.examples:repository-inventory supports the Additional and",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -11456,7 +11456,7 @@
                     "validation_result": {
                       "checked_finding_ids": [
                         "quality.h2_structure",
-                        "quality.mermaid_at_a_glance"
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -11473,14 +11473,14 @@
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
                       "factual.api_surface",
-                      "factual.limited_export"
+                      "factual.limited_capabilities"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
                         "factual.api_surface",
-                        "factual.limited_export"
+                        "factual.limited_capabilities"
                       ],
                       "errors": [],
                       "valid": true
@@ -111629,7 +111629,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260808-045156-00a4",
+          "nonce": "20260808-053211-a39f",
           "reason": null,
           "requirement_map": {
             "fact_backed_document_plan": true,
@@ -111637,7 +111637,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "c11f2daaeb61a066cd2f24424a23c6072113ef2db1740b2e0cf843131b3cc10a",
+          "token": "e6b0bf147b1bf18b308c8f5bc81656baad37bff0ef55db13b7967a69a24bdabb",
           "verdict": "accept"
         },
         "written": false
@@ -111645,7 +111645,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T04:55:39.592324+00:00",
+      "last_run_timestamp": "2026-08-08T05:36:20.333608+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -117741,7 +117741,7 @@
     "updated_at": "2026-08-08T05:36:09.846254+00:00"
   },
   "schema_version": 2,
-  "state_version": 2110,
+  "state_version": 2111,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
