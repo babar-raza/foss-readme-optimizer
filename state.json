@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+    "active_task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
     "approach_control": {
       "attempts": [
         {
@@ -275,12 +275,22 @@
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "claim lease expired"
+          ],
           "fingerprint": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T17:18:18.981978+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T17:28:45.293671+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
@@ -526,9 +536,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-08T17:21:18.448266+00:00",
-    "claim_id": "1ccc9106e73e476e9e33503f2d665a2e",
-    "claimed_at": "2026-08-08T16:51:18.448266+00:00",
+    "claim_expires_at": "2026-08-08T17:58:45.293671+00:00",
+    "claim_id": "63d6ebb59a6d438da9ea7154097ab928",
+    "claimed_at": "2026-08-08T17:28:45.293671+00:00",
     "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -691,9 +701,9 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T17:18:18.982040+00:00",
+    "last_evaluated_at": "2026-08-08T17:28:45.293671+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 2,
+      "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 32,
       "derived_at": "2026-08-08T17:05:37.779980+00:00",
@@ -714,7 +724,7 @@
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 2,
+      "no_op_proven": 0,
       "raw_agent_approved": 12,
       "raw_candidate_generated": 16,
       "raw_deterministic_validated": 16,
@@ -724,7 +734,16 @@
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -829,19 +848,19 @@
       "campaign_id": "CAMP-PYTHON-PORTFOLIO",
       "core_contribution": {
         "kind": "visible_deliverable",
-        "summary": "Reconcile and show one current Page Python README without broad rework."
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
       },
       "goal_ids": [
         "GOAL-TRUTH",
         "GOAL-README"
       ],
-      "immediate_goal_id": "DELIVERY-PY-PAGE-CURRENT",
-      "immediate_outcome": "Show the current independently approved Page Python README and its no-op proof.",
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
       "repository_scope": [
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python"
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
       ],
       "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-      "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -944,9 +963,9 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "IN_PROGRESS",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "IN_PROGRESS",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
       "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -7888,6 +7907,33 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-08T17:28:45.293327+00:00",
+        "reason": "repository deliverable became stale for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: presentation_component_severe_acceptance_changed,presentation_component_structural_changed",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-08T17:28:45.293687+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-08T17:28:45.293880+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -7897,7 +7943,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 842,
+  "state_version": 843,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
