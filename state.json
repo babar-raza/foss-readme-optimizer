@@ -261,17 +261,31 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/evidence/20260808-170329-05e7",
+            "runs/evidence/20260808-170619-ec66",
+            "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/independent-verification/receipt.json",
+            "src/readme_agent/presentation/verified_template_api_reference.py",
+            "src/readme_agent/readme/presentation_lint.py"
+          ],
           "fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T16:51:18.448266+00:00",
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T17:18:18.981978+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ],
       "proposed_fingerprints": {
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47",
-        "L8-VPY-03C-PAGE-CURRENT-REFRESH": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1"
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
         {
@@ -474,6 +488,34 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T17:17:44.0692936Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/evidence/20260808-170329-05e7",
+            "runs/evidence/20260808-170619-ec66",
+            "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/independent-verification/receipt.json",
+            "src/readme_agent/presentation/verified_template_api_reference.py",
+            "src/readme_agent/readme/presentation_lint.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
+          "rationale": "The shared capability repair reached a mechanically valid Page candidate, but independent review rejected the API reference because its description fallback exposed internal assurance narration, tautological function prose, low-information member fragments, and incorrectly branded display namespaces. Retrying the same composition route cannot correct that boundary. Split visitor-facing API description composition from table rendering, derive role/action prose only from accepted API identifiers and member surfaces, preserve exact import identifiers separately, and add a dedicated deterministic API-reference lint before another live pipeline run.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ]
     },
@@ -649,13 +691,13 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T16:51:18.448266+00:00",
+    "last_evaluated_at": "2026-08-08T17:18:18.982040+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
-      "candidate_generated": 1,
+      "agent_approved": 2,
+      "candidate_generated": 2,
       "denominator": 32,
-      "derived_at": "2026-08-08T16:42:02.388162+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-08T17:05:37.779980+00:00",
+      "deterministic_validated": 2,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
@@ -664,21 +706,21 @@
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
-        "FACTS_READY": 5,
+        "FACTS_READY": 4,
         "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 9,
+        "NO_OP_PROVEN": 10,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 1,
-      "raw_agent_approved": 11,
-      "raw_candidate_generated": 15,
-      "raw_deterministic_validated": 15,
+      "no_op_proven": 2,
+      "raw_agent_approved": 12,
+      "raw_candidate_generated": 16,
+      "raw_deterministic_validated": 16,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 9,
+      "raw_no_op_proven": 10,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
@@ -7855,7 +7897,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 841,
+  "state_version": 842,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
