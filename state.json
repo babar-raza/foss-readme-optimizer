@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": null,
+    "active_task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
     "approach_control": {
       "attempts": [
         {
@@ -65,6 +65,14 @@
           "outcome": "effective",
           "started_at": "2026-08-08T01:57:03.961754+00:00",
           "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "056a13d62f3f50a5669276f55e9012c64d2b2488160de57c30112d880fd8252a",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T06:49:19.321981+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {},
@@ -77,10 +85,10 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-08T07:19:19.321981+00:00",
+    "claim_id": "e3afb9d9f959400f817896622cb495ec",
+    "claimed_at": "2026-08-08T06:49:19.321981+00:00",
+    "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "3d7b03f2442a4effcd15c4230b7917fab3411ffe606d9e31cd5335ae30fcaf6b",
@@ -242,7 +250,7 @@
     ],
     "graph_sha256": "3d7b03f2442a4effcd15c4230b7917fab3411ffe606d9e31cd5335ae30fcaf6b",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T06:48:23.068212+00:00",
+    "last_evaluated_at": "2026-08-08T06:49:19.321981+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 3,
       "candidate_generated": 3,
@@ -488,7 +496,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "IN_PROGRESS",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
@@ -7074,6 +7082,15 @@
         "reason": "Current Note canary contribution and risk-tier closeout controls are independently verified and checksum-bound",
         "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-08T06:49:19.322616+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -7083,7 +7100,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 786,
+  "state_version": 787,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
