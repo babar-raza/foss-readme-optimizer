@@ -226,16 +226,30 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/evidence/20260808-160050-acf7",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "src/readme_agent/presentation/verified_template_capability_seo.py",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
           "fingerprint": "b5a3e35c8010bfbc8f230ccffa52cc5f3925b4aceebadc70f81779cca352323b",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-08T15:51:21.120990+00:00",
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-08T16:13:36.499846+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47"
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bfe0e7748025e16e4f7934f3761e7c8d385269fc658bb6a79c32dbf42ca23b47",
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1"
       },
       "replans": [
         {
@@ -411,6 +425,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-08T16:12:59.7536017Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/evidence/20260808-160050-acf7",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "src/readme_agent/presentation/verified_template_capability_seo.py",
+            "tests/unit/test_source_claim_assurance.py"
+          ],
+          "input_classification": "hypothesis",
+          "mechanism_changed": true,
+          "new_fingerprint": "e5fab29350cdae71f6f3618915ec669fd8a434b2de723915e19f9a7b8a160fa1",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "b5a3e35c8010bfbc8f230ccffa52cc5f3925b4aceebadc70f81779cca352323b",
+          "rationale": "The first Page run proved that retries cannot repair deterministic composition defects. Move the causal owner to shared fact-bound capability normalization: preserve richer inherited wording, keep distinct format directions separate, generate concrete MCP and metadata prose, and retain the existing fail-closed validator and lifecycle boundary.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ]
     },
@@ -586,14 +627,14 @@
     ],
     "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-08T15:51:21.120990+00:00",
+    "last_evaluated_at": "2026-08-08T16:13:36.499885+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
+      "agent_approved": 0,
       "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-08T15:21:48.227504+00:00",
+      "derived_at": "2026-08-08T15:54:46.799085+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 1,
+      "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -601,25 +642,30 @@
         "BLOCKED_MISSING_EVIDENCE": 3,
         "DETERMINISTIC_VALIDATED": 4,
         "DISCOVERED": 1,
-        "FACTS_READY": 4,
+        "FACTS_READY": 5,
         "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 10,
+        "NO_OP_PROVEN": 9,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 1,
-      "raw_agent_approved": 12,
-      "raw_candidate_generated": 16,
-      "raw_deterministic_validated": 16,
+      "no_op_proven": 0,
+      "raw_agent_approved": 11,
+      "raw_candidate_generated": 15,
+      "raw_deterministic_validated": 15,
       "raw_facts_ready": 20,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 10,
+      "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -681,9 +727,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": [
@@ -842,7 +885,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "IN_PROGRESS",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "TODO",
@@ -7697,6 +7740,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-08T16:13:36.499484+00:00",
+        "reason": "repository deliverable became stale for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: presentation_component_severe_acceptance_changed,presentation_component_structural_changed",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -7706,7 +7758,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 833,
+  "state_version": 834,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
