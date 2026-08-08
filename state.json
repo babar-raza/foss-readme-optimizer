@@ -5452,7 +5452,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "a95ff2c0ab8a9cbed5c7f034ae9535615cadfad831327da9adaa32b2845a36e2",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -6534,14 +6534,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
           "facts_hash": "24fcbe8a9c2ec5e98ca610507cc84c94d8f499c99ff63609270fc780d428b0ff",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['structured_fact_coordinates_exact failed', 'verified_equivalences_have_exact_candidate_claims failed']",
-          "occurred_at": "2026-08-08T21:15:01.399708+00:00",
+          "message": "['structured_fact_coordinates_exact failed']",
+          "occurred_at": "2026-08-08T21:42:19.162785+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
           "stage": "document_validation"
@@ -28733,7 +28733,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T21:15:01.400949+00:00",
+      "last_run_timestamp": "2026-08-08T21:42:19.164064+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -31188,7 +31188,7 @@
     "updated_at": "2026-08-08T19:23:15.795731+00:00"
   },
   "schema_version": 2,
-  "state_version": 1189,
+  "state_version": 1190,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
