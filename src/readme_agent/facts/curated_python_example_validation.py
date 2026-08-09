@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import re
+import sys
 from dataclasses import dataclass
 
 _SAFE_BUILTINS = {"RuntimeError", "enumerate", "len", "list", "open", "print", "range"}
@@ -178,6 +179,16 @@ class _Validator:
             return _ValueType("scalar") if owner.kind != "invalid" else owner
         if isinstance(node, ast.Attribute):
             owner = self.resolve(node.value)
+            if owner.kind == "product_module":
+                member_key = f"{owner.key}:{node.attr}"
+                submodule = f"{owner.key}.{node.attr}"
+                if member_key in self.classes:
+                    return _ValueType("product_class", member_key)
+                if member_key in self.functions:
+                    return _ValueType("product_function", self.functions[member_key])
+                if submodule in self.modules:
+                    return _ValueType("product_module", submodule)
+                return self.reject(f"unknown_product_member:{owner.key}.{node.attr}")
             if owner.kind in {"product_class", "product_instance"}:
                 contract = self.classes[owner.key]
                 if node.attr not in contract.members:
@@ -227,6 +238,10 @@ class _Validator:
                     "text_io",
                 }:
                     return named_owner
+                if named_owner is not None and named_owner.kind == "scalar":
+                    # Calling an imported standard-library helper yields another
+                    # opaque supporting value, never product evidence.
+                    return _ValueType("scalar")
                 if node.func.id in _SAFE_BUILTINS:
                     return _ValueType("file" if node.func.id == "open" else "scalar")
                 return self.reject(f"unknown_call:{node.func.id}")
@@ -263,16 +278,32 @@ class _Validator:
         for node in tree.body:
             if isinstance(node, ast.Import):
                 for item in node.names:
-                    if item.name not in _STDLIB_MODULES:
+                    if item.name in _STDLIB_MODULES:
+                        self.names[item.asname or item.name] = _ValueType(
+                            "stdlib_module", item.name
+                        )
+                    elif item.name in self.modules:
+                        self.names[item.asname or item.name] = _ValueType(
+                            "product_module", item.name
+                        )
+                        self.evidence_modules.add(item.name)
+                    elif item.name.split(".")[0] in sys.stdlib_module_names:
+                        self.names[item.asname or item.name] = _ValueType("scalar")
+                    else:
                         return False, (), f"unsupported_import:{item.name}"
-                    self.names[item.asname or item.name] = _ValueType("stdlib_module", item.name)
             elif isinstance(node, ast.ImportFrom):
                 if node.module is None:
                     return False, (), "relative_import"
+                module_root = node.module.split(".")[0]
                 for item in node.names:
                     stdlib = _STDLIB_MODULES.get(node.module, {}).get(item.name)
                     if stdlib is not None:
                         self.names[item.asname or item.name] = _ValueType(stdlib)
+                        continue
+                    if module_root in sys.stdlib_module_names and node.module not in self.modules:
+                        # Standard-library helpers around the product API are
+                        # opaque supporting values, never product evidence.
+                        self.names[item.asname or item.name] = _ValueType("scalar")
                         continue
                     key = f"{node.module}:{item.name}"
                     if key in self.functions:

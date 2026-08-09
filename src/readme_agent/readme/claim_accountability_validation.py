@@ -261,7 +261,10 @@ def validate_claim_accountability_map(
                 },
                 key=lambda item: (item.fact_id, item.path, item.value_sha256),
             )
-        if record.accepted_fact_coordinates != expected_coordinates:
+        if not set(expected_coordinates) <= set(record.accepted_fact_coordinates):
+            # Records may carry additional coordinates merged from the matched
+            # source claim's own complete binding (verify-then-merge); every
+            # re-derivable coordinate must still be present exactly.
             structured_coordinates_exact = False
             break
     checks["structured_fact_coordinates_exact"] = structured_coordinates_exact

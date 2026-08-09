@@ -441,7 +441,16 @@ def run_poc_for_repo(org_repo: str) -> int:
         else ("REVIEW_OPEN" if review_open else f"VALIDATION_{verdict.get('verdict', 'unknown')}")
     )
     readme_path = str(share_dir / "README.md")
-    issues = "; ".join(ledger_errors) or ("independent review open" if review_open else "none")
+    issue_parts = [
+        *ledger_errors,
+        *(["independent review open"] if review_open else []),
+        *(
+            [str(verdict.get("reason", ""))[:160]]
+            if verdict.get("verdict") != "accept" and verdict.get("reason")
+            else []
+        ),
+    ]
+    issues = "; ".join(part for part in issue_parts if part) or "none"
     _append_results_row(org_repo, status, readme_path, issues)
     _log(f"{org_repo}: {status} -> {readme_path}")
     return 0
