@@ -8,12 +8,9 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.diagram_role_semantics import (
+    evidence_scaled_role_minimums,
     normalize_diagram_role_nodes,
     selected_verified_capability_nodes,
-)
-from readme_agent.readme.diagram_semantic_candidates import (
-    input_node_candidates,
-    output_node_candidates,
 )
 from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual_mermaid import (
@@ -48,11 +45,14 @@ def _evidence_scaled_minimums(facts: ProductFactsV2) -> dict[str, int]:
     output endpoints ships a capabilities-only landscape instead of failing.
     """
 
-    return {
-        "input": PRESENTATION_MERMAID_MIN_INPUTS if input_node_candidates(facts) else 0,
-        "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-        "output": PRESENTATION_MERMAID_MIN_OUTPUTS if output_node_candidates(facts) else 0,
-    }
+    return evidence_scaled_role_minimums(
+        facts,
+        {
+            "input": PRESENTATION_MERMAID_MIN_INPUTS,
+            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+        },
+    )
 
 
 def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:

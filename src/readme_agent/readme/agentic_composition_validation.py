@@ -36,7 +36,10 @@ from readme_agent.readme.agentic_composition_summary_validation import (
     validate_opening_summary,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
-from readme_agent.readme.diagram_role_semantics import validate_diagram_role_fact_semantics
+from readme_agent.readme.diagram_role_semantics import (
+    evidence_scaled_role_minimums,
+    validate_diagram_role_fact_semantics,
+)
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MIN_CAPABILITIES,
     PRESENTATION_MERMAID_MIN_INPUTS,
@@ -175,11 +178,14 @@ def validate_composition_draft(
             role: sum(node.role == role for node in draft.diagram.nodes)
             for role in ("input", "capability", "output")
         }
-        required_counts = {
-            "input": PRESENTATION_MERMAID_MIN_INPUTS,
-            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
-        }
+        required_counts = evidence_scaled_role_minimums(
+            facts,
+            {
+                "input": PRESENTATION_MERMAID_MIN_INPUTS,
+                "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+                "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+            },
+        )
         missing_roles = {
             role: minimum
             for role, minimum in required_counts.items()

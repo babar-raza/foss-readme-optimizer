@@ -38,7 +38,10 @@ from readme_agent.readme.agentic_composition_validation import (
     validate_readme_composition_plan,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
-from readme_agent.readme.diagram_role_semantics import normalize_diagram_role_nodes
+from readme_agent.readme.diagram_role_semantics import (
+    evidence_scaled_role_minimums,
+    normalize_diagram_role_nodes,
+)
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.opening_summary_fallback import (
     should_use_verified_format_opening,
@@ -340,11 +343,14 @@ def build_verified_preservation_composition_plan(
     normalized_nodes = normalize_diagram_role_nodes(
         draft.diagram.nodes,
         facts,
-        {
-            "input": PRESENTATION_MERMAID_MIN_INPUTS,
-            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
-        },
+        evidence_scaled_role_minimums(
+            facts,
+            {
+                "input": PRESENTATION_MERMAID_MIN_INPUTS,
+                "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+                "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+            },
+        ),
         target_counts={
             "input": PRESENTATION_MERMAID_TARGET_INPUTS,
             "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,

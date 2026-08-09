@@ -123,6 +123,24 @@ def _cross_role_errors(nodes: Iterable[AgenticDiagramNodeV1]) -> list[str]:
     return errors
 
 
+def evidence_scaled_role_minimums(
+    facts: ProductFactsV2,
+    base: dict[str, int],
+) -> dict[str, int]:
+    """Require input/output roles only when accepted evidence can populate them.
+
+    Working-condition presentation: repositories without derivable endpoints
+    ship a capabilities-only landscape instead of failing composition.
+    """
+
+    scaled = dict(base)
+    if not input_node_candidates(facts):
+        scaled["input"] = 0
+    if not output_node_candidates(facts):
+        scaled["output"] = 0
+    return scaled
+
+
 def normalize_diagram_role_nodes(
     nodes: Iterable[AgenticDiagramNodeV1],
     facts: ProductFactsV2,

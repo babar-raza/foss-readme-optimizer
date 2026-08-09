@@ -45,6 +45,7 @@ from readme_agent.readme.agentic_composition_validation import (
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.diagram_role_semantics import (
     diagram_role_phrase_guidance,
+    evidence_scaled_role_minimums,
     normalize_diagram_role_nodes,
 )
 from readme_agent.readme.opening_summary_fallback import (
@@ -195,11 +196,14 @@ def plan_readme_composition(
             normalized_nodes = normalize_diagram_role_nodes(
                 draft.diagram.nodes,
                 facts,
-                {
-                    "input": PRESENTATION_MERMAID_MIN_INPUTS,
-                    "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-                    "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
-                },
+                evidence_scaled_role_minimums(
+                    facts,
+                    {
+                        "input": PRESENTATION_MERMAID_MIN_INPUTS,
+                        "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+                        "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
+                    },
+                ),
                 target_counts={
                     "input": PRESENTATION_MERMAID_TARGET_INPUTS,
                     "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,

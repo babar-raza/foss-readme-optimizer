@@ -15,3 +15,6 @@
 - 2026-08-09: poc runner failed for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
 - 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
 - 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
+- 2026-08-09: poc runner failed for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
+- 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: composition opening summary contains invalid sentence punctuation
