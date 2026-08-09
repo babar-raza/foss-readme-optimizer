@@ -548,6 +548,18 @@
       }
     ],
     "facts_hash": "0547d1f3fd9e712bb4e2ee4ea5cd713465f6a39b411ed85798b556db67232efd",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T12:47:46.750022+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -680,8 +692,18 @@
         "reason": "independent review wiring failed: GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings: ['f1:mechanical premise cites quick_start.max_nonblank_code_lines instead of quick_start.fenced_blocks']",
         "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
         "to_status": "SYSTEM_FAILURE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "SYSTEM_FAILURE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-09T12:47:44.166117+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -701,18 +723,45 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": "dd150029282d8f592d826ad0b027557f288f654b50c99570153c8acdcd676429",
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T12:47:46.750053+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T12:47:46.750069+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "b35a6f3d4c053bc7142c864923a9c239285c5de59dd85285ef0a7fc9459472aa",
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
-    "status": "SYSTEM_FAILURE",
-    "updated_at": "2026-08-04T11:18:38.035628+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-09T12:47:44.166117+00:00"
   },
   "schema_version": 2,
-  "state_version": 83,
+  "state_version": 84,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
