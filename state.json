@@ -403,6 +403,18 @@
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
     "facts_hash": null,
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T12:58:41.083015+00:00",
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -423,8 +435,20 @@
         "reason": "read-only intake classified READY_FULL_PIPELINE",
         "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Cpp\\c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-09T12:58:41.083015+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "to_status": "SNAPSHOTTED"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -444,18 +468,45 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T12:58:41.083015+00:00",
+      "presentation_version": null,
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T12:58:41.083015+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "source or fact inputs changed"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T14:44:07.476540+00:00"
+    "source_revision": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-09T12:58:41.083015+00:00"
   },
   "schema_version": 2,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8841a5dcef7c6ebac09690e95e658cace15e994f8fdf8579387b0e377ee17a7",
