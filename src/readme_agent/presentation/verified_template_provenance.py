@@ -403,11 +403,12 @@ def build_template_provenance(
                 fact_ids = sorted(
                     {*fact_ids, *(coordinate.fact_id for coordinate in fact_coordinates)}
                 )
-                standard_ids = (
-                    content.standard_ids
-                    if fact_ids or _STRUCTURAL_SHELL.fullmatch(claim_text.strip())
-                    else []
-                )
+                if fact_ids:
+                    standard_ids = content.standard_ids
+                elif _STRUCTURAL_SHELL.fullmatch(claim_text.strip()):
+                    standard_ids = list(content.standard_ids) or [_MECHANICAL_STRUCTURE_STANDARD]
+                else:
+                    standard_ids = []
                 if installation_claim:
                     standard_ids = sorted({*standard_ids, "readme.verified_acquisition"})
                 if not fact_ids and not standard_ids:
