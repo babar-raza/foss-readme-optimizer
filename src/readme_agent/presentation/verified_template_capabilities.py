@@ -338,8 +338,9 @@ def _description(capability: str, source_capability: str, related_types: list[st
     if re.search(r"(?i)\beps\b.*\bmetadata", exact_capability):
         api_reference = _public_api_reference(related_types) if related_types else "the public API"
         return f"Read EPS metadata through {api_reference}."
+    subject = re.sub(r"(?i)^work with\s+", "", public_capability)
     if related_types:
-        return f"Use {_public_api_reference(related_types)} for {public_capability}."
+        return f"Use {_public_api_reference(related_types)} for {subject}."
     action = capability_action_verb(exact_capability)
     if action is not None:
         if action in {"create", "generate", "build"}:
@@ -352,7 +353,7 @@ def _description(capability: str, source_capability: str, related_types: list[st
             return "Change supported content through the public object model."
         if action in {"inspect", "navigate", "traverse", "search"}:
             return "Navigate the relevant structures through the public object model."
-        return "Apply the operation through the product's public API."
+        return f"Apply {subject} through the product's public object model."
     return f"Supports {public_capability}."
 
 

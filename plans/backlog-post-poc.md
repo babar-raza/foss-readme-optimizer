@@ -28,9 +28,16 @@
   routing found no structural home. Needs a working-condition placement lane that routes
   fact-authorized leftovers without pre-empting whole-section preservation (a naive
   preserve-path deferral regressed Security-section carry and was reverted).
-- 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: ValueError: verified template lacks required capability, acquisition, or example facts
-- 2026-08-09: TeX cannot compose - capabilities verify but the acquisition and minimal
-  example are blocked and the clone-and-import fallback found no usable package metadata in
-  api.public_surface. Needs the acquisition fallback widened to manifest-only evidence, or the
-  decision #99 LLM-drafted validator-grounded product-truth lane.
+- 2026-08-09: RESOLVED same day - TeX now DELIVERED clean (12/12). The earlier diagnosis
+  ("verified template lacks required capability, acquisition, or example facts") had a wrong
+  root cause: api.public_surface WAS verified with usable package metadata; the real gaps were
+  (a) empty class member inventories (extraction-depth gap, still open below) starving the
+  generated example, (b) mandatory verified_installation claims with no accepted binding
+  dropping silently instead of deferring, and (c) description fallbacks emitting text the
+  presentation lint bans. Fixed general lanes: import-only statically-validated Quick Start
+  fallback, working-condition deferral for unbindable mandatory obligations, concrete-operation
+  description fallbacks.
+- 2026-08-09: TeX class member inventories are empty (15 catalog classes, 0 members) - same
+  private-module re-export extraction-depth gap as BarCode/HTML; richer Quick Start and
+  per-member API tables need the member inventory to see through re-export chains.
 - 2026-08-09: 38 non-live tests pin pre-#99 fail-closed expectations (deferred-at-approval, source-assurance reinsert, final-claim corpus); update the expectations to the working-condition contract.

@@ -42,6 +42,16 @@ def _raise_unresolved_preserve(required: bool, claim_id: str) -> None:
         )
 
 
+def _acquisition_verification_blocked(facts: ProductFactsV2) -> bool:
+    """Report whether acquisition verification ran and is affirmatively blocked."""
+
+    try:
+        fact = facts.selected_fact("installation.verified_acquisition")
+    except KeyError:
+        return False
+    return fact.verification_state == "blocked"
+
+
 def resolve_source_claims(
     source_text: str,
     candidate: str,
@@ -394,6 +404,40 @@ def resolve_source_claims(
                 )
                 if deferred_detail is not None:
                     resolutions.append(deferred_detail)
+                    continue
+                if (
+                    not preserve_required
+                    and candidate_content_provenance is not None
+                    and risk.obligation_id == "verified_installation"
+                    and _acquisition_verification_blocked(facts)
+                ):
+                    # Working-condition presentation: installation commands whose
+                    # acquisition verification is affirmatively blocked (a logged
+                    # upstream defect) are withheld with an explicit deferral
+                    # instead of a silent, unaccountable drop. Unsupported claims
+                    # under any other obligation keep failing closed.
+                    resolutions.append(
+                        SourceClaimResolutionV1(
+                            claim_id=claim.claim_id,
+                            source_byte_start=claim.source_byte_start,
+                            source_byte_end=claim.source_byte_end,
+                            content_sha256=claim.content_sha256,
+                            resolution="deferred_verification",
+                            evidence=[
+                                f"source-claim:{claim.claim_id}",
+                                f"source-content-sha256:{claim.content_sha256}",
+                                f"unverified-source-detail-for:{risk.obligation_id}",
+                                "policy:working-condition-presentation",
+                            ],
+                            rationale=(
+                                "Working-condition presentation: repository evidence for the "
+                                f"required {risk.obligation_id} obligation is blocked or absent, "
+                                "so this exact inherited detail is withheld from the candidate "
+                                "until verification exists; it stays visible as deferred "
+                                "evidence and in the upstream defect log."
+                            ),
+                        )
+                    )
                     continue
                 _raise_unresolved_preserve(
                     preserve_required and fail_on_unresolved_preserve,

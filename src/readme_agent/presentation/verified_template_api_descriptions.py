@@ -109,6 +109,8 @@ def _function_description(name: str, *, module: str, family: str) -> str:
         return f"Writes {remainder} output through the public {public_family} API."
     if verb in {"read", "extract"} and remainder:
         return f"{verb.capitalize()}s {remainder} from source content."
+    if verb in {"create", "make"} and remainder:
+        return f"Creates {remainder} objects for use with the public {public_family} API."
     action = public_noun(name).casefold()
     return f"Provides the {action} operation in the public {public_family} API."
 

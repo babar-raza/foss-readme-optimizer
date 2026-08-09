@@ -293,6 +293,19 @@ def generated_minimal_example(facts: ProductFactsV2) -> str | None:
         accepted, _modules, _reason = validate_python_example(code, catalog)
         if accepted:
             return f"```python\n{code.rstrip()}\n```"
+    # Last resort when member inventories are empty (extraction-depth gap):
+    # an import-only entry point is still verified-working content.
+    canonical_classes = [
+        str(row.get("name") or "").strip()
+        for row in classes
+        if str(row.get("module") or "").strip() == canonical_import
+        and str(row.get("name") or "").strip()
+    ][:2]
+    if canonical_import and canonical_classes:
+        code = f"from {canonical_import} import {', '.join(canonical_classes)}\n"
+        accepted, _modules, _reason = validate_python_example(code, catalog)
+        if accepted:
+            return f"```python\n{code.rstrip()}\n```"
     return None
 
 
