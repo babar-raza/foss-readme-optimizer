@@ -28,3 +28,7 @@
   routing found no structural home. Needs a working-condition placement lane that routes
   fact-authorized leftovers without pre-empting whole-section preservation (a naive
   preserve-path deferral regressed Security-section carry and was reverted).
+- 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: ValueError: verified template lacks required capability, acquisition, or example facts
+- 2026-08-09: TeX cannot compose - its capability evidence does not verify at the current
+  revision, and Key Capabilities is a required slot. First candidate for the decision #99
+  LLM-drafted, validator-grounded product-truth lane (replaces hand-written policy blocks).
