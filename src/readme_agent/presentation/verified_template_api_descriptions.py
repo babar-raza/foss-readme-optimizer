@@ -41,9 +41,18 @@ def describe_api_export(
     if name.endswith("Exception") or any(base.endswith("Exception") for base in bases):
         condition = public_noun(name.removesuffix("Exception")).replace(" File Format", " format")
         if not condition.startswith("Aspose."):
-            condition = condition.casefold()
+            condition = " ".join(
+                word if word.isupper() and len(word) > 1 else word.casefold()
+                for word in condition.split()
+            )
         inheritance = f"; derives from `{bases[0]}`" if bases else ""
-        return f"Signals {grammatical_article(condition)} {condition} condition{inheritance}."
+        sentence = f"Signals {grammatical_article(condition)} {condition} condition{inheritance}."
+        if len(sentence.rstrip(".")) < 24:
+            sentence = (
+                f"Signals {grammatical_article(condition)} {condition} error condition "
+                f"raised by the public API{inheritance}."
+            )
+        return sentence
     if module.endswith(".enums") or any(base in {"Enum", "IntEnum", "StrEnum"} for base in bases):
         return f"Enumerates {human_name(name)} values."
     actions = summarize_api_members(item)
