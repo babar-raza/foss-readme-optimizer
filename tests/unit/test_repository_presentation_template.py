@@ -48,6 +48,7 @@ from readme_agent.presentation.verified_template_sections import (
     optional_extras_markdown,
     package_status_markdown,
     repository_documents_markdown,
+    scenario_dependency_markdown,
     security_markdown,
 )
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
@@ -705,8 +706,8 @@ def test_example_introduction_uses_parallel_visitor_facing_gerunds() -> None:
         has_result_assets=False,
     )
 
-    assert "assigning a PBR Material and exporting to GLTF" in rendered
-    assert "building a Cube and exporting It to 3MF" in rendered
+    assert "assigning a PBR material and exporting to GLTF" in rendered
+    assert "building a cube and exporting It to 3MF" in rendered
     assert "plus 1 more workflow" in rendered
 
 
@@ -1319,7 +1320,7 @@ def test_repository_enrichment_sections_render_only_selected_accepted_facts() ->
     )
 
     assert "cryptography>=42" in (dependency_markdown(facts) or "")
-    assert "python -m pip install fastmcp" in (dependency_markdown(facts) or "")
+    assert "python -m pip install fastmcp" in (scenario_dependency_markdown(facts) or "")
     assert "**Alpha**" in (package_status_markdown(facts) or "")
     assert "supported-features.md" in (repository_documents_markdown(facts) or "")
     development = development_markdown(facts) or ""

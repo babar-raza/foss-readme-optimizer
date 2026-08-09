@@ -26,9 +26,9 @@ from readme_agent.presentation.verified_template_sections import (
     contributing_markdown,
     dependency_markdown,
     development_markdown,
-    optional_extras_markdown,
     package_status_markdown,
     repository_documents_markdown,
+    scenario_dependency_markdown,
     security_markdown,
     third_party_notices_markdown,
 )
@@ -331,9 +331,9 @@ def build_verified_template_draft(
     )
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
-    optional_extras = optional_extras_markdown(facts)
-    if installation is not None and optional_extras:
-        installation += "\n\n" + optional_extras
+    scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
+    if installation is not None and scenario_dependencies:
+        installation += "\n\n" + scenario_dependencies
     dependencies = dependency_markdown(facts)
     if installation is not None and dependencies:
         installation += "\n\n" + dependencies
@@ -393,8 +393,16 @@ def build_verified_template_draft(
     security = security_markdown(facts)
     optional_sections = {
         "additional_examples": (
-            additional_examples_markdown(facts, reserved_heading_titles=(title,)),
-            ("repository.examples",),
+            (
+                examples_markdown := additional_examples_markdown(
+                    facts, reserved_heading_titles=(title,), source_text=source_text
+                )
+            ),
+            (
+                ("repository.examples", *_accepted_fields(facts, "api.public_surface"))
+                if examples_markdown and "### Host the MCP Server" in examples_markdown
+                else ("repository.examples",)
+            ),
             ("readme.additional_examples",),
         ),
         "api_reference": (
@@ -468,14 +476,18 @@ def build_verified_template_draft(
                 "installation.verified_acquisition",
                 "installation.coordinates",
                 *_accepted_fields(facts, "product.compatibility"),
-                *(["installation.optional_extras"] if optional_extras else []),
+                *(
+                    _accepted_fields(
+                        facts,
+                        "installation.optional_extras",
+                        "installation.capability_dependencies",
+                    )
+                    if scenario_dependencies
+                    else []
+                ),
                 *_accepted_fields(
                     facts,
-                    *(
-                        ("python.distribution", "installation.capability_dependencies")
-                        if dependencies
-                        else ()
-                    ),
+                    *(("python.distribution",) if dependencies else ()),
                 ),
                 standards=("readme.verified_acquisition",),
             ),

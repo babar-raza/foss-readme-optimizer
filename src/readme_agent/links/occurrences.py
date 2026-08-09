@@ -71,6 +71,10 @@ def find_aspose_link_occurrences(markdown: str) -> list[AsposeLinkOccurrenceV1]:
     occurrences: list[AsposeLinkOccurrenceV1] = []
     for match in _ASPOSE_URL.finditer(markdown):
         url = match.group(0).rstrip(".,;:")
+        if "products.aspose.org/media/" in url:
+            # The deterministic brand-banner image is part of the header shell,
+            # not a contextual product link governed by the link budget.
+            continue
         end = match.start() + len(url)
         hostname = (urlparse(url).hostname or "").casefold()
         parent: Literal["aspose.org", "aspose.com"] = (

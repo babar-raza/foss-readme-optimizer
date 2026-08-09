@@ -38,10 +38,16 @@ def _accepted(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
 def _api_exports(api: FactRecordV2, names: set[str]) -> bool:
     if not isinstance(api.value, dict):
         return False
-    modules = api.value.get("modules")
+    catalog = api.value.get("coordinate_catalog")
+    module_lists = [
+        api.value.get("modules"),
+        catalog.get("modules") if isinstance(catalog, dict) else None,
+    ]
     exports = {
         str(export).casefold()
-        for module in modules or []
+        for modules in module_lists
+        if isinstance(modules, list)
+        for module in modules
         if isinstance(module, dict)
         for export in module.get("exports", [])
         if isinstance(export, str)

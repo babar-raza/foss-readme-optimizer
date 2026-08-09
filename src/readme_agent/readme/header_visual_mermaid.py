@@ -35,9 +35,16 @@ def raster_output_formats_label(facts: ProductFactsV2) -> str | None:
         return None
     if not isinstance(api.value, dict):
         return None
+    catalog = api.value.get("coordinate_catalog")
+    module_lists = [
+        api.value.get("modules"),
+        catalog.get("modules") if isinstance(catalog, dict) else None,
+    ]
     exports = {
         str(export).casefold()
-        for module in api.value.get("modules") or []
+        for modules in module_lists
+        if isinstance(modules, list)
+        for module in modules
         if isinstance(module, dict)
         for export in module.get("exports", [])
         if isinstance(export, str)

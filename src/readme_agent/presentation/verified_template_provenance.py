@@ -24,7 +24,9 @@ from readme_agent.presentation.verified_template_capabilities import (
 )
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
+    dependency_markdown,
     development_markdown,
+    scenario_dependency_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
@@ -77,12 +79,15 @@ def _canonical_structural_section(
     slot: TemplateSlot,
     template_input: PresentationTemplateInputV1,
     facts: ProductFactsV2,
+    source_text: str | None = None,
 ) -> str | None:
     """Re-render the only variable-heading sections from accepted typed facts."""
 
     if slot == "additional_examples":
         title = " ".join(template_input.title.markdown.split())
-        markdown = additional_examples_markdown(facts, reserved_heading_titles=(title,))
+        markdown = additional_examples_markdown(
+            facts, reserved_heading_titles=(title,), source_text=source_text
+        )
     elif slot == "api_reference":
         markdown = api_reference_markdown(facts)
     elif slot == "development_and_testing":
@@ -104,10 +109,11 @@ def _structural_heading_bindings(
     section_base_byte: int,
     template_input: PresentationTemplateInputV1,
     facts: ProductFactsV2,
+    source_text: str | None = None,
 ) -> list[CandidateContentProvenanceV1]:
     """Bind H3 bytes only when the complete section is the canonical fact renderer."""
 
-    canonical = _canonical_structural_section(slot, template_input, facts)
+    canonical = _canonical_structural_section(slot, template_input, facts, source_text)
     if (
         canonical is None
         or canonical.strip() != section_text
@@ -207,7 +213,7 @@ def build_template_provenance(
         if slot in _CLAIM_LEVEL_SLOTS:
             text = content.markdown.strip()
             canonical_structural_section = _canonical_structural_section(
-                slot, template_input, facts
+                slot, template_input, facts, source_text
             )
             canonical_structural_section_matches = (
                 canonical_structural_section is not None
@@ -225,11 +231,26 @@ def build_template_provenance(
                     section_base_byte=base_byte,
                     template_input=template_input,
                     facts=facts,
+                    source_text=source_text,
                 )
             )
             verified_installation_range: tuple[int, int] | None = None
             verified_installation_fact_ids: list[str] = []
+            installation_slot_canonical = False
             if slot == "installation":
+                canonical_installation = installation_text(
+                    facts,
+                    template_input.org_repo,
+                    template_input.source_revision,
+                )
+                if canonical_installation is not None:
+                    scenario = scenario_dependency_markdown(facts, source_text=source_text)
+                    if scenario:
+                        canonical_installation += "\n\n" + scenario
+                    runtime_dependencies = dependency_markdown(facts)
+                    if runtime_dependencies:
+                        canonical_installation += "\n\n" + runtime_dependencies
+                    installation_slot_canonical = canonical_installation.strip() == text.strip()
                 verified_installation = installation_text(
                     facts,
                     template_input.org_repo,
@@ -304,6 +325,23 @@ def build_template_provenance(
                 )
                 if installation_claim:
                     fact_ids = sorted({*fact_ids, *verified_installation_fact_ids})
+                if slot == "installation" and not fact_ids and installation_slot_canonical:
+                    # Scenario-merged dependency rows are rendered verbatim by the
+                    # deterministic installation builder from these accepted facts.
+                    fact_ids = list(content.fact_ids)
+                if (
+                    slot == "additional_examples"
+                    and not fact_ids
+                    and canonical_structural_section_matches
+                ):
+                    fact_ids = list(content.fact_ids)
+                if slot == "scope_and_limitations" and not fact_ids:
+                    limitations_fact_id = facts.selected_fact_ids.get("product.limitations")
+                    before_details = text.split("<details>", 1)[0]
+                    if limitations_fact_id is not None and claim.source_byte_end <= len(
+                        before_details.encode("utf-8")
+                    ):
+                        fact_ids = [limitations_fact_id]
                 if slot == "scope_and_limitations":
                     relationship_risk = classify_source_claim_risk(text, claim)
                     if relationship_risk.obligation_id == "contextual_product_relationship":

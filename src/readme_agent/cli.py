@@ -464,6 +464,19 @@ def _build_parser() -> argparse.ArgumentParser:
         "--force", action="store_true", help="Overwrite an existing profile file"
     )
 
+    p_poc = sub.add_parser(
+        "poc",
+        help="Straight-line local README POC runner (POC-FREEZE.md); writes runs/share/poc/",
+    )
+    poc_target = p_poc.add_mutually_exclusive_group(required=True)
+    poc_target.add_argument("--repo", help="org/repo, must be in data/products.json")
+    poc_target.add_argument(
+        "--all-python",
+        action="store_true",
+        dest="all_python",
+        help="Every active python-ecosystem entry in data/products.json",
+    )
+
     return parser
 
 
@@ -477,6 +490,17 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = _build_parser()
     args = parser.parse_args(argv)
+
+    if args.command == "poc":
+        # Routed directly so the straight-line runner never touches the
+        # supervision/mission import surface (POC-FREEZE.md rule 3).
+        from readme_agent.commands_poc import cmd_poc
+
+        try:
+            return cmd_poc(args)
+        except ReadmeAgentError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return exc.exit_code
 
     from readme_agent import commands
 

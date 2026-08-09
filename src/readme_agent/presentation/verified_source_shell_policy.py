@@ -300,7 +300,11 @@ def validate_compiled_source_shell(candidate: str) -> None:
         (heading.start for heading in headings if heading.level == 2),
         default=len(candidate),
     )
-    badge_rows = [line for line in candidate[:first_h2].splitlines() if _BADGE.search(line)]
+    badge_rows = [
+        line
+        for line in candidate[:first_h2].splitlines()
+        if _BADGE.search(line) and "products.aspose.org/media/" not in line
+    ]
     if (
         h1_count != 1
         or duplicate_h2s

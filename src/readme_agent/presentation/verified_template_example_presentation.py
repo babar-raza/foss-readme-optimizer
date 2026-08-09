@@ -23,6 +23,7 @@ _ACTION_GERUNDS = {
     "explore": "exploring",
     "extract": "extracting",
     "generate": "generating",
+    "host": "hosting",
     "inspect": "inspecting",
     "load": "loading",
     "read": "reading",
@@ -95,11 +96,16 @@ def _gerund_phrase(title: str) -> str:
     if not words:
         return ""
     gerund = _ACTION_GERUNDS.get(words[0].casefold())
-    phrase = (
-        title[:1].lower() + title[1:]
-        if gerund is None
-        else gerund + (f" {words[1]}" if len(words) == 2 else "")
-    )
+    if gerund is None:
+        phrase = title[:1].lower() + title[1:]
+    else:
+        remainder = " ".join(
+            word[:1].lower() + word[1:]
+            if word[:1].isupper() and word[1:].islower() and len(word) > 3
+            else word
+            for word in (words[1].split() if len(words) == 2 else [])
+        )
+        phrase = f"{gerund} {remainder}".strip()
     for action, action_gerund in _ACTION_GERUNDS.items():
         phrase = re.sub(
             rf"(?i)\band\s+{re.escape(action)}\b",
@@ -162,7 +168,19 @@ def public_examples_introduction(
 
     preview_titles = _preview_titles(titles)
     phrases = [_gerund_phrase(title) for title in preview_titles]
-    extras = len(titles) - len(phrases)
+    merged_phrases: list[str] = []
+    for phrase in phrases:
+        head, separator, target = phrase.rpartition(" to ")
+        if merged_phrases and separator:
+            previous_head, previous_separator, previous_target = merged_phrases[-1].rpartition(
+                " to "
+            )
+            if previous_separator and previous_head == head and " and " not in previous_target:
+                merged_phrases[-1] = f"{head} to {previous_target} and {target}"
+                continue
+        merged_phrases.append(phrase)
+    phrases = merged_phrases
+    extras = len(titles) - len(preview_titles)
     if has_repository_files:
         phrases.append("browsing repository example files")
     if has_result_assets:

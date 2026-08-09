@@ -316,13 +316,14 @@ def classify_source_claim_risk(
                 )
             ),
         )
-    if "mcp" in primary:
+    if "mcp" in primary or "mcp server" in folded:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
             heading_path=path,
             rationale=(
-                "MCP tools, setup, and dependency detail require a dedicated repository-source "
-                "fact before they may be rewritten or omitted from protected content."
+                "MCP tools, setup, and dependency detail merge into the fact-bound MCP "
+                "workflow and installation scenario slots."
             ),
         )
     if "security" in primary:

@@ -93,7 +93,11 @@ _OBLIGATION_PROVENANCE_PREFIXES: dict[SourceClaimObligation, tuple[str, ...]] = 
     "dependency_requirements": ("template.section.installation",),
     "primary_example": ("template.section.quick_start",),
     "additional_examples": ("template.section.additional_examples",),
-    "api_public_surface": ("template.section.api_reference",),
+    "api_public_surface": (
+        "template.section.api_reference",
+        "template.section.additional_examples",
+        "template.section.installation",
+    ),
     "api_structure": ("template.section.api_reference",),
     "documentation_resources": ("template.section.documentation_resources",),
     "support_routes": ("template.section.documentation_resources",),

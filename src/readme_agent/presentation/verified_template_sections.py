@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.facts.example_quality import strip_source_comments
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.presentation.template_schema import load_repository_presentation_template
@@ -30,7 +32,10 @@ def _accepted(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
 
 
 def _details(summary: str, body: list[str]) -> str:
-    return "\n".join(["<details>", f"<summary>{summary}</summary>", "", *body, "", "</details>"])
+    trimmed = list(body)
+    while trimmed and not trimmed[-1].strip():
+        trimmed.pop()
+    return "\n".join(["<details>", f"<summary>{summary}</summary>", "", *trimmed, "", "</details>"])
 
 
 def optional_extras_markdown(facts: ProductFactsV2) -> str | None:
@@ -64,19 +69,101 @@ def dependency_markdown(facts: ProductFactsV2) -> str | None:
                 + ", ".join(f"`{item}`" for item in dependencies if isinstance(item, str))
                 + "."
             )
+    return "\n\n".join(sections) or None
+
+
+_EXTRA_PURPOSES = {
+    "test": "Running the test suite",
+    "tests": "Running the test suite",
+    "docs": "Building the documentation",
+}
+
+
+def _purpose_api_annotation(facts: ProductFactsV2, purpose: str) -> str | None:
+    """Name the concrete public entry points a dependency scenario serves."""
+
+    if "image conversion" not in purpose.casefold():
+        return None
+    api = _accepted(facts, "api.public_surface")
+    if api is None or not isinstance(api.value, dict):
+        return None
+    catalog = api.value.get("coordinate_catalog")
+    module_lists = [
+        api.value.get("modules"),
+        catalog.get("modules") if isinstance(catalog, dict) else None,
+    ]
+    exports = sorted(
+        {
+            str(export)
+            for modules in module_lists
+            if isinstance(modules, list)
+            for module in modules
+            if isinstance(module, dict)
+            for export in module.get("exports", [])
+            if isinstance(export, str) and export.endswith("_to_image")
+        }
+    )
+    if not exports:
+        return None
+    return ", ".join(f"`{name}`" for name in exports)
+
+
+def scenario_dependency_markdown(
+    facts: ProductFactsV2,
+    *,
+    source_text: str | None = None,
+) -> str | None:
+    """Merge capability dependencies and package extras into one scenario list.
+
+    Verify-then-merge (Tweak 4): same-purpose install commands are combined and
+    the source README's ordering of the merged distributions is preserved.
+    """
+
+    lines: list[str] = []
     capabilities = _accepted(facts, "installation.capability_dependencies")
     if capabilities is not None and isinstance(capabilities.value, dict):
         entries = capabilities.value.get("entries")
-        if isinstance(entries, list) and entries:
-            lines: list[str] = []
-            for item in entries:
-                if not isinstance(item, dict) or not item.get("install_command"):
-                    continue
-                purpose = str(item.get("purpose") or "Optional capability")
-                lines.append(f"- {purpose}: `{item['install_command']}`")
-            if lines:
-                sections.append("\n".join(lines))
-    return "\n\n".join(sections) or None
+        purposes: list[str] = []
+        distributions: dict[str, list[str]] = {}
+        for item in entries if isinstance(entries, list) else []:
+            if not isinstance(item, dict):
+                continue
+            purpose = str(item.get("purpose") or "").strip()
+            distribution = str(item.get("distribution") or "").strip()
+            if not purpose or not distribution:
+                continue
+            if purpose not in distributions:
+                purposes.append(purpose)
+                distributions[purpose] = []
+            if distribution not in distributions[purpose]:
+                distributions[purpose].append(distribution)
+        for purpose in purposes:
+            ordered = distributions[purpose]
+            if source_text:
+                mentioned = [name for name in ordered if name in source_text]
+                ordered = [
+                    *sorted(mentioned, key=source_text.find),
+                    *(name for name in ordered if name not in mentioned),
+                ]
+            label = purpose if purpose[:1].isupper() else purpose[:1].upper() + purpose[1:]
+            annotation = _purpose_api_annotation(facts, purpose)
+            if annotation:
+                label = f"{label} ({annotation})"
+            lines.append(f"- {label}: `python -m pip install {' '.join(ordered)}`")
+    extras_fact = _accepted(facts, "installation.optional_extras")
+    target_policy = selected_python_install_target(facts)
+    if (
+        extras_fact is not None
+        and target_policy is not None
+        and isinstance(extras_fact.value, dict)
+        and isinstance(extras_fact.value.get("extras"), dict)
+    ):
+        for name in sorted(str(item) for item in extras_fact.value["extras"]):
+            label = _EXTRA_PURPOSES.get(name.casefold(), f"Installing the `{name}` extra")
+            lines.append(f'- {label}: `python -m pip install "{target_policy.target}[{name}]"`')
+    if not lines:
+        return None
+    return "Install optional dependencies by scenario:\n\n" + "\n".join(lines)
 
 
 def package_status_markdown(facts: ProductFactsV2) -> str | None:
@@ -117,10 +204,95 @@ def repository_documents_markdown(facts: ProductFactsV2) -> str | None:
     )
 
 
+_RESULT_CAPTION_CONVERSION = re.compile(
+    r"^(?P<subject>.+?)\s*\((?:that\s+is\s+)?converted\s+(?:than|then)?\s*to\s+"
+    r"(?P<rendered>[A-Za-z0-9/]+)\)$",
+    re.IGNORECASE,
+)
+_AN_SOUND_INITIALS = frozenset("AEFHILMNORSX")
+
+
+def _caption_article(subject: str) -> str:
+    first_word = subject.split()[0] if subject.split() else ""
+    if first_word.isupper() and len(first_word) > 1:
+        return "An" if first_word[0] in _AN_SOUND_INITIALS else "A"
+    return "An" if first_word[:1].casefold() in "aeiou" else "A"
+
+
+def _result_asset_caption(source_text: str | None, asset_path: str) -> str | None:
+    """Rewrite the source's own caption heading for a result image as prose."""
+
+    if not source_text:
+        return None
+    image_offset = source_text.find(f"]({asset_path})")
+    if image_offset < 0:
+        return None
+    preceding = [
+        line.strip().lstrip("#").strip()
+        for line in source_text[:image_offset].splitlines()
+        if line.strip().startswith("###")
+    ]
+    if not preceding:
+        return None
+    heading = strip_emoji_decorations(preceding[-1]).strip()
+    if not heading:
+        return None
+    conversion = _RESULT_CAPTION_CONVERSION.fullmatch(heading)
+    if conversion is not None:
+        subject = " ".join(conversion.group("subject").split())
+        rendered = conversion.group("rendered").upper()
+        return f"{_caption_article(subject)} {subject}, rendered here as {rendered}:"
+    return f"{_caption_article(heading)} {heading.rstrip(':.')}:"
+
+
+def _mcp_workflow_section(
+    facts: ProductFactsV2,
+    source_text: str | None,
+) -> tuple[str, list[str]] | None:
+    """Merge the source's verified MCP hosting example into a canonical workflow."""
+
+    if not source_text:
+        return None
+    api = _accepted(facts, "api.public_surface")
+    if api is None or not isinstance(api.value, dict):
+        return None
+    mcp = api.value.get("mcp_server")
+    if not isinstance(mcp, dict):
+        return None
+    factory = str(mcp.get("factory") or "").strip()
+    runner = str(mcp.get("runner") or "").strip()
+    tools = [str(tool) for tool in mcp.get("tools") or [] if str(tool).strip()]
+    if not factory or not runner or not tools:
+        return None
+    code = next(
+        (
+            block.strip()
+            for block in re.findall(r"```python\n(.*?)```", source_text, re.DOTALL)
+            if f"{factory}(" in block and f".{runner}(" in block
+        ),
+        None,
+    )
+    if code is None:
+        return None
+    mentioned = [tool for tool in tools if tool in source_text]
+    tools = [
+        *sorted(mentioned, key=source_text.find),
+        *(tool for tool in tools if tool not in mentioned),
+    ]
+    rendered_tools = ", ".join(f"`{tool}`" for tool in tools[:-1]) + f", and `{tools[-1]}`"
+    workflow = (
+        "conversion workflows" if any("_to_" in tool for tool in tools) else "product workflows"
+    )
+    sentence = f"The MCP server exposes the {rendered_tools} tools for integrating {workflow}."
+    title = "Host the MCP Server"
+    return title, [f"### {title}", "", sentence, "", "```python", code, "```", ""]
+
+
 def additional_examples_markdown(
     facts: ProductFactsV2,
     *,
     reserved_heading_titles: tuple[str, ...] = (),
+    source_text: str | None = None,
 ) -> str | None:
     """Render repository examples without overstating their execution assurance."""
 
@@ -182,6 +354,13 @@ def additional_examples_markdown(
         if not code:
             continue
         body.extend([f"### {title}", "", f"```{language}", code, "```", ""])
+    mcp_section = _mcp_workflow_section(facts, source_text)
+    if mcp_section is not None:
+        mcp_title, mcp_lines = mcp_section
+        if heading_identity(mcp_title) not in used_headings:
+            used_headings.add(heading_identity(mcp_title))
+            rendered_titles.append(mcp_title)
+            body.extend(mcp_lines)
     if paths:
         body.extend(
             [
@@ -196,6 +375,9 @@ def additional_examples_markdown(
         for item in assets:
             if not isinstance(item, dict) or not item.get("path"):
                 continue
+            caption = _result_asset_caption(source_text, str(item.get("path")))
+            if caption:
+                body.extend([caption, ""])
             body.extend(
                 [
                     f"![{str(item.get('alt') or 'Example result')}]({str(item.get('path'))})",

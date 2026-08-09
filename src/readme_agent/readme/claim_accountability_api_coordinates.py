@@ -44,6 +44,22 @@ def api_module_export_fact_coordinates(
         return []
     modules = value.get("modules")
     if not isinstance(modules, list):
+        modules = []
+    catalog = value.get("coordinate_catalog")
+    catalog_modules = catalog.get("modules") if isinstance(catalog, dict) else None
+    if isinstance(catalog_modules, list):
+        # Presentation-excluded exports remain mechanically verified evidence;
+        # bindings consult the complete catalog, tables use presentable modules.
+        seen_names = {module.get("module") for module in modules if isinstance(module, dict)}
+        modules = [
+            *modules,
+            *(
+                module
+                for module in catalog_modules
+                if isinstance(module, dict) and module.get("module") not in seen_names
+            ),
+        ]
+    if not modules:
         return []
     requested = {name.casefold() for name in export_names}
     coordinates: list[StructuredFactCoordinateV1] = []

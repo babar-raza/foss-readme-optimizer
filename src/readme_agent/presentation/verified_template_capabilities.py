@@ -170,9 +170,13 @@ def _public_type_names(facts: ProductFactsV2) -> list[str]:
     ):
         return []
     classes = fact.value.get("classes")
+    catalog = fact.value.get("coordinate_catalog")
+    catalog_classes = catalog.get("classes") if isinstance(catalog, dict) else None
     names = [
         str(item.get("name")).strip()
-        for item in classes or []
+        for source_list in (classes, catalog_classes)
+        if isinstance(source_list, list)
+        for item in source_list
         if isinstance(item, dict) and str(item.get("name") or "").strip()
     ]
     mcp_server = fact.value.get("mcp_server")
@@ -253,9 +257,16 @@ def _related_types(capability: str, type_names: list[str]) -> list[str]:
                 preferred.append(cos_extractor)
         if preferred:
             return preferred
+    conversion = re.search(r"(?i)^convert\s+(?P<inputs>.+?)\s+(?:files\s+)?to\s+", capability)
+    input_tokens = _words(conversion.group("inputs")) if conversion is not None else set()
     ranked: list[tuple[int, int, str]] = []
     for name in type_names:
         if name.endswith(("Error", "Exception")):
+            continue
+        reverse_target = re.search(r"_to_([a-z0-9]+)$", name)
+        if reverse_target is not None and reverse_target.group(1).removesuffix("s") in input_tokens:
+            # A helper converting INTO the capability's input format runs the
+            # opposite direction and must not be attributed to this row.
             continue
         name_discriminators = capability_discriminators(name.replace("_", " "))
         if (
@@ -650,13 +661,9 @@ def _capability_rows(
             key=lambda item: (item.fact_id, item.path, item.value_sha256),
         )
         fact_ids = sorted({*fact_ids, *(coordinate.fact_id for coordinate in coordinates)})
-        if source_bindings and _richer_source_capability_exists(
-            source_bindings,
-            markdown,
-            fact_ids,
-            facts,
-        ):
-            continue
+        # Verify-then-merge (Tweak 4): richer inherited capabilities are merged
+        # into the generated row above, never preferred over it as a competing
+        # preserved block.
         rows.append((markdown, fact_ids, coordinates))
         retained_titles.append(title)
         retained_seo_titles.add(normalized_seo_title)

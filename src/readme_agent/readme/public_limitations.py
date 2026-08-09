@@ -88,10 +88,12 @@ def _readable_limitation_sentence(normalized: str) -> str:
     requirement = _REQUIRES_RE.fullmatch(normalized)
     if requirement is not None:
         subject = " ".join(requirement.group("subject").split())
-        return (
-            f"{_sentence_cased(_pluralized(subject))} require "
-            f"{_readable_requirement_object(requirement.group('object'))}"
-        )
+        subject_noun = subject.split()[-1] if subject.split() else ""
+        if subject_noun.islower():
+            return (
+                f"{_sentence_cased(_pluralized(subject))} require "
+                f"{_readable_requirement_object(requirement.group('object'))}"
+            )
     return _sentence_cased(normalized)
 
 
