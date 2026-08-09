@@ -18,3 +18,8 @@
 - 2026-08-09: poc runner failed for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
 - 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
 - 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: composition opening summary contains invalid sentence punctuation
+- 2026-08-09: BarCode header-visual mismatch — the composed candidate's output labels
+  canonicalized MIME subtypes ("PNG (image/PNG) files") while the document-plan render
+  produces lowercase ("image/png"), so candidate_exact_mermaid fails. Canonical-abbreviation
+  application to diagram endpoint labels is unstable across the two render sites; unify the
+  canonicalization step (apply once, in the authoritative candidate derivation) and re-run.
