@@ -196,6 +196,30 @@ def resolve_source_claims(
             )
             continue
         if preserve_required:
+            if candidate_content_provenance is not None:
+                # Working-condition presentation: even a fact-authorized
+                # preserve claim with no merged placement is withheld with an
+                # explicit deferral instead of failing or dropping silently.
+                resolutions.append(
+                    SourceClaimResolutionV1(
+                        claim_id=claim.claim_id,
+                        source_byte_start=claim.source_byte_start,
+                        source_byte_end=claim.source_byte_end,
+                        content_sha256=claim.content_sha256,
+                        resolution="deferred_verification",
+                        evidence=[
+                            f"source-claim:{claim.claim_id}",
+                            f"source-content-sha256:{claim.content_sha256}",
+                            "policy:working-condition-presentation",
+                        ],
+                        rationale=(
+                            "Working-condition presentation: the verified inherited claim "
+                            "has no canonical merged placement yet and is withheld from "
+                            "the candidate pending a richer merge lane."
+                        ),
+                    )
+                )
+                continue
             _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
             continue
         if not correction_required:
