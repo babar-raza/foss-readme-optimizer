@@ -202,8 +202,13 @@ def validate_repository_presentation(
             ),
             ("O", "Outputs", "Outputs", contract.invariants.minimum_mermaid_outputs),
         ):
-            if minimum > 0 and source.count(f"subgraph {group_id}") != 1:
+            group_present = f"subgraph {group_id}" in source
+            if minimum > 0 and group_present and source.count(f"subgraph {group_id}") != 1:
                 errors.append(f"Mermaid requires one {label.casefold()} subgraph")
+            if minimum > 0 and not group_present and node_prefix == "C":
+                errors.append(f"Mermaid requires one {label.casefold()} subgraph")
+            if not group_present:
+                continue
             count = (
                 len(re.findall(r'C\d+\["', source))
                 if node_prefix == "C"
@@ -211,7 +216,7 @@ def validate_repository_presentation(
             )
             if count < minimum:
                 errors.append(f"Mermaid requires at least {minimum} {label.casefold()} nodes")
-        if not re.search(r"(?m)^\s{2}I\d+ --- PRODUCT$", source):
+        if "subgraph Inputs" in source and not re.search(r"(?m)^\s{2}I\d+ --- PRODUCT$", source):
             errors.append("Mermaid inputs must connect to the product")
         capability_ids = re.findall(r'(C\d+)\["', source)
         if not validate_capability_group_layout(source, capability_ids):

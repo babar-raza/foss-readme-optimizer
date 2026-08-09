@@ -11,6 +11,10 @@ from readme_agent.readme.diagram_role_semantics import (
     normalize_diagram_role_nodes,
     selected_verified_capability_nodes,
 )
+from readme_agent.readme.diagram_semantic_candidates import (
+    input_node_candidates,
+    output_node_candidates,
+)
 from readme_agent.readme.header_badges import render_readme_badges
 from readme_agent.readme.header_visual_mermaid import (
     compact_diagram_node_label,
@@ -37,6 +41,20 @@ from readme_agent.readme.public_vocabulary import (
 )
 
 
+def _evidence_scaled_minimums(facts: ProductFactsV2) -> dict[str, int]:
+    """Require each diagram role only when accepted evidence can populate it.
+
+    Working-condition presentation: a repository without derivable input or
+    output endpoints ships a capabilities-only landscape instead of failing.
+    """
+
+    return {
+        "input": PRESENTATION_MERMAID_MIN_INPUTS if input_node_candidates(facts) else 0,
+        "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
+        "output": PRESENTATION_MERMAID_MIN_OUTPUTS if output_node_candidates(facts) else 0,
+    }
+
+
 def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:
     """Build the same evidence-classified graph without agentic vocabulary."""
 
@@ -57,11 +75,7 @@ def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:
     normalized = normalize_diagram_role_nodes(
         [],
         facts,
-        {
-            "input": PRESENTATION_MERMAID_MIN_INPUTS,
-            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
-        },
+        _evidence_scaled_minimums(facts),
     )
     counters = {"input": 0, "capability": 0, "output": 0}
     for proposed in normalized:
@@ -102,11 +116,7 @@ def _agentic_nodes(
     normalized = normalize_diagram_role_nodes(
         plan.diagram.nodes,
         facts,
-        {
-            "input": PRESENTATION_MERMAID_MIN_INPUTS,
-            "capability": PRESENTATION_MERMAID_MIN_CAPABILITIES,
-            "output": PRESENTATION_MERMAID_MIN_OUTPUTS,
-        },
+        _evidence_scaled_minimums(facts),
         target_counts={
             "input": PRESENTATION_MERMAID_TARGET_INPUTS,
             "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,
@@ -214,10 +224,9 @@ def render_readme_header_visual(
     if (
         agentic_plan is not None
         and agentic_plan.diagram.nodes
-        and (
-            role_counts["input"] < PRESENTATION_MERMAID_MIN_INPUTS
-            or role_counts["capability"] < PRESENTATION_MERMAID_MIN_CAPABILITIES
-            or role_counts["output"] < PRESENTATION_MERMAID_MIN_OUTPUTS
+        and any(
+            role_counts[role] < minimum
+            for role, minimum in _evidence_scaled_minimums(facts).items()
         )
     ):
         raise ValueError("README diagram lacks accepted input, capability, or output detail")
