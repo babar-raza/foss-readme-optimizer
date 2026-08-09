@@ -15,12 +15,18 @@ from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import heading_identity, parse_headings
 
 
+def _block_separator(markdown: str) -> str:
+    if markdown.endswith("\n\n"):
+        return ""
+    if markdown.endswith("\n"):
+        return "\n"
+    return "\n\n"
+
+
 def separated_exact_blocks(blocks: list[PreservedBlock]) -> str:
     """Keep each source block exact while generating a structural boundary after it."""
 
-    return "".join(
-        block.markdown + ("" if block.markdown.endswith("\n\n") else "\n\n") for block in blocks
-    )
+    return "".join(block.markdown + _block_separator(block.markdown) for block in blocks)
 
 
 def replacement_placements(
@@ -52,8 +58,8 @@ def replacement_placements(
             )
         )
         cursor += len(content)
-        if separated and not block.markdown.endswith("\n\n"):
-            cursor += 2
+        if separated:
+            cursor += len(_block_separator(block.markdown))
     return placements
 
 

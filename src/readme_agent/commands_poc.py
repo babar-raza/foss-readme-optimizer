@@ -290,6 +290,23 @@ def run_poc_for_repo(org_repo: str) -> int:
 
     with repository_snapshot_scope(snapshot, allow_local_fact_verification=True):
         bundle_dir = write_local_poc_snapshot(snapshot)
+        from readme_agent.state.readme_poc_lifecycle import (
+            record_repository_profile,
+            record_repository_snapshot,
+        )
+
+        record_repository_snapshot(
+            backend,
+            org_repo,
+            source_revision=snapshot.source_revision,
+            evidence_refs=[str(bundle_dir / "source" / "revision.json")],
+        )
+        record_repository_profile(
+            backend,
+            org_repo,
+            source_revision=snapshot.source_revision,
+            evidence_refs=[str(bundle_dir / "source" / "repository-profile.json")],
+        )
         mark_local_poc_profiled(snapshot, bundle_dir)
         prepared = prepare_local_product_truth(org_repo, snapshot, backend)
         facts = prepared.facts

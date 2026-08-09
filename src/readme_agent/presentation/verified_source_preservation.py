@@ -236,9 +236,20 @@ def compose_verified_source_preservation(
                 leading = f"## {target_title}\n\n"
                 trailing = ""
             else:
-                insertion_byte = len(composed[: target.section_end].encode("utf-8"))
-                leading = f"<details>\n<summary>{summary}</summary>\n\n"
-                trailing = "</details>\n\n"
+                section_text = composed[target.heading_end : target.section_end]
+                closing_offset = section_text.rfind("</details>")
+                if closing_offset >= 0:
+                    # The canonical section already folds detail; merge routed
+                    # source content into that one details block (one details
+                    # block per section is a contract rule).
+                    insertion_character = target.heading_end + closing_offset
+                    insertion_byte = len(composed[:insertion_character].encode("utf-8"))
+                    leading = ""
+                    trailing = ""
+                else:
+                    insertion_byte = len(composed[: target.section_end].encode("utf-8"))
+                    leading = f"<details>\n<summary>{summary}</summary>\n\n"
+                    trailing = "</details>\n\n"
             source_detail = separated_exact_blocks(blocks)
             replacement = leading + source_detail + trailing
             detail_edit = CandidateEdit(insertion_byte, insertion_byte, replacement)
@@ -254,18 +265,19 @@ def compose_verified_source_preservation(
                 )
             )
             identity = heading_identity(target_title)
-            composed_provenance.append(
-                CandidateContentProvenanceV1(
-                    provenance_id=f"source.canonical-detail.{identity}.open",
-                    candidate_byte_start=insertion_byte,
-                    candidate_byte_end=insertion_byte + len(leading.encode("utf-8")),
-                    configured_standard_ids=["readme.source_detail_routing"],
-                    rationale=(
-                        "Bind the canonical source-detail destination to the governed "
-                        "detail-routing standard."
-                    ),
+            if leading:
+                composed_provenance.append(
+                    CandidateContentProvenanceV1(
+                        provenance_id=f"source.canonical-detail.{identity}.open",
+                        candidate_byte_start=insertion_byte,
+                        candidate_byte_end=insertion_byte + len(leading.encode("utf-8")),
+                        configured_standard_ids=["readme.source_detail_routing"],
+                        rationale=(
+                            "Bind the canonical source-detail destination to the governed "
+                            "detail-routing standard."
+                        ),
+                    )
                 )
-            )
             if trailing:
                 composed_provenance.append(
                     CandidateContentProvenanceV1(

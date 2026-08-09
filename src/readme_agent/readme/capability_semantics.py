@@ -44,6 +44,12 @@ _ACTION_VERBS = re.compile(
     r"update|validate|verify|work|write)\b"
 )
 _DISCRIMINATOR_TOKEN = re.compile(r"\b(?:[A-Z]{2,}[A-Z0-9.+-]*|[A-Za-z]*\d[A-Za-z0-9.+-]*)\b")
+_READ_DIRECTION = re.compile(
+    r"(?i)\b(?:read(?:s|ing)?|load(?:s|ing)?|import(?:s|ing)?|open(?:s|ing)?|pars(?:e|es|ing))\b"
+)
+_WRITE_DIRECTION = re.compile(
+    r"(?i)\b(?:writ(?:e|es|ing)|sav(?:e|es|ing)|export(?:s|ing)?|generat(?:e|es|ing))\b"
+)
 
 
 def capability_domains(value: str) -> frozenset[str]:
@@ -70,6 +76,16 @@ def _same_public_capability(left: str, right: str) -> bool:
     left_discriminators = {item.upper() for item in _DISCRIMINATOR_TOKEN.findall(left)}
     right_discriminators = {item.upper() for item in _DISCRIMINATOR_TOKEN.findall(right)}
     if left_discriminators and right_discriminators and left_discriminators != right_discriminators:
+        return False
+    left_reads = _READ_DIRECTION.search(left) is not None
+    left_writes = _WRITE_DIRECTION.search(left) is not None
+    right_reads = _READ_DIRECTION.search(right) is not None
+    right_writes = _WRITE_DIRECTION.search(right) is not None
+    if (left_reads and not left_writes and right_writes and not right_reads) or (
+        left_writes and not left_reads and right_reads and not right_writes
+    ):
+        # Opposite data directions are distinct public capabilities even when
+        # every other token repeats (for example MSG reading vs MSG writing).
         return False
     if semantically_repeats(left, right, threshold=0.6):
         return True

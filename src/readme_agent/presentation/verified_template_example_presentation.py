@@ -82,10 +82,19 @@ def public_example_title(
         title = _semantic_title(code, language)
         title_id = heading_identity(title)
     if title_id in used_heading_ids:
-        imported = _imported_python_types(code)
-        qualifier = imported[0] if imported else language.title()
-        title = f"{title} with {qualifier}"
-        title_id = heading_identity(title)
+        base = title
+        qualifiers = [
+            *_imported_python_types(code),
+            *dict.fromkeys(
+                match.group(1) for match in re.finditer(r"\b([a-z][a-z0-9_]{3,})\(", code)
+            ),
+            language.title(),
+        ]
+        for qualifier in qualifiers:
+            title = f"{base} with {qualifier}"
+            title_id = heading_identity(title)
+            if title_id not in used_heading_ids:
+                break
     if title_id in used_heading_ids:
         raise ValueError("additional examples require distinct visitor-facing workflow names")
     return title

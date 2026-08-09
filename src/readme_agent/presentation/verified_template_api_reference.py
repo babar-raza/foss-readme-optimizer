@@ -144,7 +144,7 @@ def _member_table_rows(owner: str, item: dict[str, Any]) -> list[str]:
     ]
     casefolded_names: dict[str, list[str]] = {}
     for name in names:
-        casefolded_names.setdefault(name.casefold(), []).append(name)
+        casefolded_names.setdefault(re.sub(r"[^a-z0-9]", "", name.casefold()), []).append(name)
     for member in members:
         if not isinstance(member, dict):
             continue
@@ -153,7 +153,7 @@ def _member_table_rows(owner: str, item: dict[str, Any]) -> list[str]:
             continue
         seen.add(identifier)
         name = str(member.get("name") or "").strip()
-        variants = casefolded_names.get(name.casefold(), [])
+        variants = casefolded_names.get(re.sub(r"[^a-z0-9]", "", name.casefold()), [])
         case_variant_of = next(
             (variant for variant in variants if variant != name and variant[:1].islower()),
             None,
