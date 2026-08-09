@@ -5962,7 +5962,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "6e1b41a9b2c1b6ce94edb83e2f7fa43020b8377ce8b21ca7424ad393a5a80f62",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -7051,15 +7051,17 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
-          "error_type": "ValueError",
-          "failure_reason": "execution_error",
-          "message": " compiled verified presentation is invalid: API reference contains duplicated descriptions",
-          "occurred_at": "2026-08-09T02:14:35.092806+00:00",
+          "error_type": "blocked",
+          "facts_hash": "d024f11628388299613dc0574f0fcbf9ca596d034ab417330d263c7b6fbf7d21",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
+          "message": "['presentation.api_identifier_not_fact_exact.ca5ac575c4b3: Public API identifiers must preserve fact-derived spelling and casing.', 'presentation.api_identifier_not_fact_exact.1ba5c02a14e8: Public API identifiers must preserve fact-derived spelling and casing.', 'presentation.api_identifier_not_fact_exact.11ed35a49d08: Public API identifiers must preserve fact-derived spelling and casing.']",
+          "occurred_at": "2026-08-09T02:30:21.051864+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-          "stage": null
+          "stage": "document_validation"
         },
         "llm_called": true,
         "llm_calls": [
@@ -32090,9 +32092,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "execution_error",
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-09T02:14:35.092806+00:00",
+      "last_run_timestamp": "2026-08-09T02:30:21.052933+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -34786,7 +34788,7 @@
     "updated_at": "2026-08-09T02:07:46.951075+00:00"
   },
   "schema_version": 2,
-  "state_version": 1317,
+  "state_version": 1318,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
