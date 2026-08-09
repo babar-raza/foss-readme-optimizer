@@ -23,3 +23,8 @@
   produces lowercase ("image/png"), so candidate_exact_mermaid fails. Canonical-abbreviation
   application to diagram endpoint labels is unstable across the two render sites; unify the
   canonicalization step (apply once, in the authoritative candidate derivation) and re-run.
+- 2026-08-09: Cells retains 9 blocking source claims (feature bullets, contribution steps,
+  support links) that are fact-authorized preserves without a merged placement; per-claim
+  routing found no structural home. Needs a working-condition placement lane that routes
+  fact-authorized leftovers without pre-empting whole-section preservation (a naive
+  preserve-path deferral regressed Security-section carry and was reverted).
