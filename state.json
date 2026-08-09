@@ -7815,6 +7815,18 @@
       }
     ],
     "facts_hash": "f46ed1277cbeef169a9684c04d65552b297ac9a392508f7f561d265e2d176aa6",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T07:27:58.471444+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -8199,8 +8211,18 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-09T07:27:55.436460+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -8220,18 +8242,45 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": "b603c7387e8e94762d4e252ee70550ab018f6f5461abde4e2640451890d0b8f6",
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T07:27:58.471462+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T07:27:58.471484+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": "6019bc497eaf629769adc6cce34fdc006033b9dc6587ffda20bbb2ac12177c24",
     "reviewer_standard_hash": "49a9a985d06d9dbc9134b91bcf0550cfcedd6aa9e0870ce17cb4918b331de7c6",
     "schema_version": 2,
     "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-04T10:59:34.507322+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-09T07:27:55.436460+00:00"
   },
   "schema_version": 2,
-  "state_version": 151,
+  "state_version": 152,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6d5cfda776031d560921b50509af7b254b82f19b445369061f23223696cf9dbe",
