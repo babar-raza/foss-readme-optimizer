@@ -26,17 +26,36 @@ def validate_opening_summary(
     if identity_id not in summary.supporting_fact_ids:
         raise LLMError("composition opening summary does not cite the selected identity")
     audience_id = facts.selected_fact_ids.get("product.audience")
+    if audience_id is not None:
+        audience_fact = facts.fact_by_id(audience_id)
+        if (
+            audience_fact.verification_state not in {"verified", "policy_approved"}
+            or audience_fact.has_unresolved_conflict
+        ):
+            # Working-condition presentation: an unaccepted audience fact cannot
+            # be cited (the tool schema only offers accepted facts), so it is
+            # not required either.
+            audience_id = None
     if audience_id and audience_id not in summary.supporting_fact_ids:
         raise LLMError("composition opening summary does not cite the selected audience")
     if audience_id and audience_id not in literal_fact_ids(summary.text, facts, [audience_id]):
         raise LLMError(
             "composition opening summary does not literally ground the selected audience"
         )
-    purpose_ids = {
-        facts.selected_fact_ids.get(field)
-        for field in ("product.problems_solved", "product.capabilities", "product.formats")
-    }
-    if not purpose_ids.intersection(summary.supporting_fact_ids):
+    purpose_ids = set()
+    for field in ("product.problems_solved", "product.capabilities", "product.formats"):
+        fact_id = facts.selected_fact_ids.get(field)
+        if fact_id is None:
+            continue
+        fact = facts.fact_by_id(fact_id)
+        if (
+            fact.verification_state in {"verified", "policy_approved"}
+            and not fact.has_unresolved_conflict
+        ):
+            purpose_ids.add(fact_id)
+    # Working-condition presentation: with no accepted purpose evidence at all,
+    # an identity-grounded summary is the honest maximum and is allowed.
+    if purpose_ids and not purpose_ids.intersection(summary.supporting_fact_ids):
         raise LLMError("composition opening summary has no accepted purpose citation")
     identity = visitor_fact_render_view(facts, "product.identity")
     title = identity.phrases[0] if identity and identity.phrases else ""

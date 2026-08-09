@@ -184,7 +184,12 @@ def validate_repository_presentation(
     mermaid = [
         token.content for token in tokens if token.type == "fence" and token.info == "mermaid"
     ]
-    if len(mermaid) != 1:
+    at_a_glance_present = any(heading.title.casefold() == "at a glance" for heading in h2s)
+    if not at_a_glance_present and not mermaid:
+        # Working-condition presentation: with no accepted diagram evidence the
+        # At a Glance section is omitted and no mermaid block is required.
+        pass
+    elif len(mermaid) != 1:
         errors.append("candidate must contain exactly one Mermaid diagram")
     else:
         source = mermaid[0]

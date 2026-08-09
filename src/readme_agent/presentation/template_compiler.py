@@ -54,7 +54,9 @@ def _included_sections(
                 raise ValueError(f"template input is missing required slot {slot!r}")
             continue
         if content.source_kind == "omitted":
-            if slot in contract.required_slots:
+            if slot in contract.required_slots and not (content.omission_reason or "").startswith(
+                "Working-condition presentation:"
+            ):
                 raise ValueError(f"required template slot {slot!r} cannot be omitted")
             continue
         included.append((slot, content))

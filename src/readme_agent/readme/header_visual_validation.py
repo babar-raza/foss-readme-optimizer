@@ -50,12 +50,15 @@ def validate_readme_header_visual(
 
     checks: dict[str, bool] = {}
     errors: list[str] = []
+    diagramless = visual.mermaid_markdown == "" and len(visual.diagram_nodes) <= 1
     parsed = MarkdownIt("commonmark").parse(visual.mermaid_markdown)
     fences = [
         token for token in parsed if token.type == "fence" and token.info.strip() == "mermaid"
     ]
     checks["one_mermaid_fence"] = (
-        len(fences) == 1 and fences[0].content.rstrip() == visual.mermaid_source
+        visual.mermaid_source == ""
+        if diagramless
+        else len(fences) == 1 and fences[0].content.rstrip() == visual.mermaid_source
     )
     lines = visual.mermaid_source.splitlines()
     root_lines = [match for line in lines[1:] if (match := _ROOT_LINE.fullmatch(line)) is not None]
@@ -85,7 +88,7 @@ def validate_readme_header_visual(
     expected_groups.append("Capabilities")
     if output_ids:
         expected_groups.append("Outputs")
-    checks["mermaid_subset_parses"] = bool(
+    checks["mermaid_subset_parses"] = diagramless or bool(
         lines
         and lines[0] == "flowchart LR"
         and len(root_lines) == 1
@@ -97,7 +100,7 @@ def validate_readme_header_visual(
         and "-->" not in visual.mermaid_source
         and visual.mermaid_source.count("~~~") == len(expected_layout_edges)
     )
-    adaptive_layout_valid = (
+    adaptive_layout_valid = diagramless or (
         validate_capability_group_layout(visual.mermaid_source, capability_ids)
         and parsed_layout_edges == expected_layout_edges
     )
@@ -116,8 +119,10 @@ def validate_readme_header_visual(
     checks["labels_safe"] = all(
         safe_mermaid_label(node.label) == node.label for node in visual.diagram_nodes
     )
-    checks["diagram_specific"] = visual.diagram_nodes[0].role == "product" and any(
-        node.role != "product" for node in visual.diagram_nodes
+    checks["diagram_specific"] = (
+        bool(visual.diagram_nodes)
+        and visual.diagram_nodes[0].role == "product"
+        and (diagramless or any(node.role != "product" for node in visual.diagram_nodes))
     )
     role_labels = [
         (node.role, " ".join(node.label.casefold().split())) for node in visual.diagram_nodes
@@ -157,14 +162,16 @@ def validate_readme_header_visual(
         for label, fact_ids in expected_capabilities.items()
     )
     checks["maps_match_markdown"] = (
-        f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
-        in visual.mermaid_source
-        and all(
-            f'{node.node_id}["{node.label}"]' in visual.mermaid_source
-            for node in visual.diagram_nodes[1:]
+        diagramless
+        or (
+            f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
+            in visual.mermaid_source
+            and all(
+                f'{node.node_id}["{node.label}"]' in visual.mermaid_source
+                for node in visual.diagram_nodes[1:]
+            )
         )
-        and all(badge.alt_text in visual.badge_markdown for badge in visual.badges)
-    )
+    ) and all(badge.alt_text in visual.badge_markdown for badge in visual.badges)
     citations = visual.all_fact_ids
     checks["citations_accepted"] = all(
         (
@@ -269,8 +276,12 @@ def validate_readme_header_visual(
             for index in banner_indexes
         )
         checks["candidate_exact_mermaid"] = (
-            candidate_text.count(visual.mermaid_markdown) == 1
-            and candidate_text.count("```mermaid") == 1
+            candidate_text.count("```mermaid") == 0
+            if diagramless
+            else (
+                candidate_text.count(visual.mermaid_markdown) == 1
+                and candidate_text.count("```mermaid") == 1
+            )
         )
         checks["candidate_has_no_html_comments"] = "<!--" not in candidate_text
     for name, passed in checks.items():

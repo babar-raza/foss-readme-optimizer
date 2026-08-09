@@ -127,10 +127,19 @@ def materialize_tool_draft(
         overview_sentences.append(
             AgenticOverviewSentenceV1(text=text, supporting_fact_ids=[fact_id])
         )
+    opening_summary = tool_draft.opening_summary
+    if opening_summary is not None:
+        # Deterministic punctuation repair: drop a stray comma/semicolon/colon
+        # directly after a sentence ender. Pure cleanup — wording, facts, and
+        # citations are untouched; the summary validators still fail closed on
+        # everything semantic.
+        repaired = re.sub(r"([.!?])[ \t]*[,;:]+", r"\1", opening_summary.text)
+        if repaired != opening_summary.text:
+            opening_summary = opening_summary.model_copy(update={"text": repaired})
     return AgenticCompositionDraftV1(
         repository_summary=tool_draft.repository_summary,
         section_decisions=tool_draft.section_decisions,
         overview_sentences=overview_sentences,
-        opening_summary=tool_draft.opening_summary,
+        opening_summary=opening_summary,
         diagram=tool_draft.diagram,
     )

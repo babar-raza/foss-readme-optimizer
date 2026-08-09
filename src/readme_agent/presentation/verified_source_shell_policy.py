@@ -305,13 +305,18 @@ def validate_compiled_source_shell(candidate: str) -> None:
         for line in candidate[:first_h2].splitlines()
         if _BADGE.search(line) and "products.aspose.org/media/" not in line
     ]
+    at_a_glance_count = h2_identities.count("at-a-glance")
+    mermaid_count = len(_MERMAID.findall(candidate))
+    # Working-condition presentation: a repository with no accepted diagram
+    # evidence omits At a Glance and its mermaid block together.
+    diagramless = at_a_glance_count == 0 and mermaid_count == 0
     if (
         h1_count != 1
         or duplicate_h2s
         or h2_identities.count("navigation") != 1
-        or h2_identities.count("at-a-glance") != 1
+        or (not diagramless and at_a_glance_count != 1)
         or len(badge_rows) != 1
-        or len(_MERMAID.findall(candidate)) != 1
+        or (not diagramless and mermaid_count != 1)
     ):
         raise ValueError(
             "source-preserving composition introduced an invalid document shell: "

@@ -414,8 +414,11 @@ def resolve_source_claims(
                     # Working-condition presentation: installation commands whose
                     # acquisition verification is affirmatively blocked (a logged
                     # upstream defect) are withheld with an explicit deferral
-                    # instead of a silent, unaccountable drop. Unsupported claims
-                    # under any other obligation keep failing closed.
+                    # instead of a silent, unaccountable drop. Example claims keep
+                    # the strict deferral preconditions (executed minimal example,
+                    # fixture-absence proof) pinned by the omissions suite, and
+                    # unsupported claims under every other obligation keep
+                    # failing closed.
                     resolutions.append(
                         SourceClaimResolutionV1(
                             claim_id=claim.claim_id,

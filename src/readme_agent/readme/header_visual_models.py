@@ -58,9 +58,12 @@ class ReadmeHeaderVisualV1(_StrictModel):
     title_fact_ids: list[str] = Field(min_length=1)
     badges: list[ReadmeBadgeV1] = Field(default_factory=list)
     badge_markdown: str = ""
-    diagram_nodes: list[MermaidNodeV1] = Field(min_length=2)
-    mermaid_source: str = Field(min_length=1)
-    mermaid_markdown: str = Field(min_length=1)
+    # Working-condition presentation: a repository with no accepted diagram
+    # evidence ships a badges-only header (product node only, empty mermaid);
+    # validate_readme_header_visual enforces that the two degrade together.
+    diagram_nodes: list[MermaidNodeV1] = Field(min_length=1)
+    mermaid_source: str = ""
+    mermaid_markdown: str = ""
 
     @model_validator(mode="after")
     def _unique_ids(self) -> ReadmeHeaderVisualV1:

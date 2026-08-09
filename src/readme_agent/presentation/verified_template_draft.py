@@ -227,34 +227,46 @@ def source_tree_installation_text(facts: ProductFactsV2) -> str | None:
     """Working-condition acquisition: present the verified clone-and-import path."""
 
     try:
-        api = facts.selected_fact("api.public_surface")
         identity = facts.selected_fact("product.identity")
     except KeyError:
         return None
-    if not isinstance(api.value, dict) or not isinstance(identity.value, dict):
+    if not isinstance(identity.value, dict):
         return None
-    package = api.value.get("package")
-    if not isinstance(package, dict):
-        return None
+    package: dict = {}
+    try:
+        api = facts.selected_fact("api.public_surface")
+    except KeyError:
+        api = None
+    if (
+        api is not None
+        and isinstance(api.value, dict)
+        and isinstance(api.value.get("package"), dict)
+    ):
+        package = api.value["package"]
     canonical_import = str(package.get("canonical_import") or "").strip()
     source_root = str(package.get("source_root") or ".").strip()
     org_repo = str(identity.value.get("repository") or facts.org_repo).strip()
-    if not canonical_import or "/" not in org_repo:
+    if "/" not in org_repo:
         return None
     repo_name = org_repo.split("/", 1)[1]
+    clone_block = (
+        "Use the library from a clone of its source repository:\n\n"
+        "```bash\n"
+        f"git clone https://github.com/{org_repo}.git\n"
+        f"cd {repo_name}\n"
+        "```"
+    )
+    if not canonical_import:
+        # Working-condition presentation: with no verified package metadata the
+        # clone itself is the only provable acquisition; the import path stays
+        # out of the README until evidence exists.
+        return clone_block
     location = (
         "the repository root"
         if source_root in {"", "."}
         else f"the repository's `{source_root}` directory (add it to `PYTHONPATH`)"
     )
-    return (
-        "Use the library from a clone of its source repository:\n\n"
-        "```bash\n"
-        f"git clone https://github.com/{org_repo}.git\n"
-        f"cd {repo_name}\n"
-        "```\n\n"
-        f"The package imports as `{canonical_import}` from {location}."
-    )
+    return f"{clone_block}\n\nThe package imports as `{canonical_import}` from {location}."
 
 
 def generated_minimal_example(facts: ProductFactsV2) -> str | None:
@@ -350,16 +362,20 @@ def _scope_text(
             fields.extend(_fields_for_fact_ids(facts, relationship_fact_ids))
             standards.append("readme.contextual_links")
     if not paragraphs:
+        # Working-condition presentation: cite and render only accepted scope
+        # fields; a blocked formats or capabilities fact must not sink the
+        # whole template.
+        scope_fields = _accepted_fields(facts, "product.capabilities", "product.formats")
         scope_items = [
-            *_phrases(facts, "product.capabilities")[:3],
-            *_phrases(facts, "product.formats")[:3],
+            *(phrase for field in scope_fields for phrase in _phrases(facts, field)[:3]),
             *_phrases(facts, "product.compatibility")[:1],
         ]
-        paragraphs.append(
-            "Verified scope: " + "; ".join(item.rstrip(". ") for item in scope_items) + "."
-        )
-        fields.extend(["product.capabilities", "product.formats"])
-        fields.extend(_accepted_fields(facts, "product.compatibility"))
+        if scope_items:
+            paragraphs.append(
+                "Verified scope: " + "; ".join(item.rstrip(". ") for item in scope_items) + "."
+            )
+            fields.extend(scope_fields)
+            fields.extend(_accepted_fields(facts, "product.compatibility"))
     return "\n\n".join(paragraphs), fields, tuple(standards)
 
 
@@ -456,10 +472,15 @@ def build_verified_template_draft(
             example += "\n\n" + contextual_example
             example_fields.extend(_fields_for_fact_ids(facts, contextual_fact_ids))
             example_standards.append("readme.contextual_links")
-    if not capability_text or not installation or not example:
+    if not installation:
         raise ValueError(
             "verified template lacks required capability, acquisition, or example facts"
         )
+    working_condition_omitted = (
+        "Working-condition presentation: no accepted repository evidence populates "
+        "this slot; it is omitted until verification exists and the gap is logged "
+        "in the upstream defect report."
+    )
     scope, scope_fields, scope_standards = _scope_text(facts, contextual_links)
     badge_block = visual.badge_markdown
     banner = render_brand_banner(facts, product_name=title)
@@ -563,21 +584,29 @@ def build_verified_template_draft(
             standards=("readme.agentic_opening_summary",),
         ),
         sections={
-            "at_a_glance": _included(
-                at_a_glance,
-                *visual_fields,
-                standards=("readme.at_a_glance_mermaid",),
+            "at_a_glance": (
+                _included(
+                    at_a_glance,
+                    *visual_fields,
+                    standards=("readme.at_a_glance_mermaid",),
+                )
+                if at_a_glance
+                else _omitted(working_condition_omitted)
             ),
-            "key_capabilities": _included(
-                capability_text,
-                "product.capabilities",
-                *_accepted_fields(
-                    facts,
-                    "product.identity",
-                    "product.platforms",
-                    "product.formats",
-                    "api.public_surface",
-                ),
+            "key_capabilities": (
+                _included(
+                    capability_text,
+                    "product.capabilities",
+                    *_accepted_fields(
+                        facts,
+                        "product.identity",
+                        "product.platforms",
+                        "product.formats",
+                        "api.public_surface",
+                    ),
+                )
+                if capability_text
+                else _omitted(working_condition_omitted)
             ),
             "installation": _included(
                 installation,
@@ -605,12 +634,20 @@ def build_verified_template_draft(
                 ),
                 standards=("readme.verified_acquisition",),
             ),
-            "quick_start": _included(
-                example,
-                *example_fields,
-                standards=tuple(example_standards),
+            "quick_start": (
+                _included(
+                    example,
+                    *example_fields,
+                    standards=tuple(example_standards),
+                )
+                if example
+                else _omitted(working_condition_omitted)
             ),
-            "scope_and_limitations": _included(scope, *scope_fields, standards=scope_standards),
+            "scope_and_limitations": (
+                _included(scope, *scope_fields, standards=scope_standards)
+                if scope
+                else _omitted(working_condition_omitted)
+            ),
             "license": _included(
                 _license_text(facts), "product.license", standards=("readme.license",)
             ),

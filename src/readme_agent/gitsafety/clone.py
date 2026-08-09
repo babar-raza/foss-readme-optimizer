@@ -381,6 +381,11 @@ def create_work_clone(entry: ProductEntry, baseline_path: Path, work_path: Path)
     result = run_git(
         ["clone", "--no-tags", str(baseline_path), str(work_path)],
         timeout=120,
+        # The baseline was cloned with LFS smudge skipped (pointers only), so
+        # the local-to-local work clone must skip smudge too — otherwise
+        # checkout invokes git-lfs against the upstream endpoint and a single
+        # missing remote object sinks the whole intake.
+        env={"GIT_LFS_SKIP_SMUDGE": "1"},
     )
     if result.returncode != 0:
         raise GitSafetyError(f"work clone of {entry.org_repo} failed: {result.stderr}")

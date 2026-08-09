@@ -472,10 +472,12 @@ def validate_readme_document_candidate(
             facts,
             candidate_text=candidate_text,
         )
-        checks["header_visuals"] = (
-            header_visuals.valid
-            and plan.header_visuals.mermaid_markdown in candidate_text
-            and candidate_text.count(plan.header_visuals.mermaid_markdown) == 1
+        checks["header_visuals"] = header_visuals.valid and (
+            plan.header_visuals.mermaid_markdown == ""
+            or (
+                plan.header_visuals.mermaid_markdown in candidate_text
+                and candidate_text.count(plan.header_visuals.mermaid_markdown) == 1
+            )
         )
         errors.extend(header_visuals.errors)
         if not checks["header_visuals"]:

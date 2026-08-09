@@ -138,6 +138,8 @@ def evidence_scaled_role_minimums(
         scaled["input"] = 0
     if not output_node_candidates(facts):
         scaled["output"] = 0
+    if not selected_verified_capability_nodes(facts) and not _fallback_capability_nodes(facts):
+        scaled["capability"] = 0
     return scaled
 
 
@@ -155,7 +157,6 @@ def normalize_diagram_role_nodes(
         *(selected_verified_capability_nodes(facts) or _fallback_capability_nodes(facts)),
         *output_node_candidates(facts),
     ]
-    del target_counts
     normalized: list[AgenticDiagramNodeV1] = []
     for role in ("input", "capability", "output"):
         role_nodes = [node for node in authoritative if node.role == role]
@@ -172,6 +173,12 @@ def normalize_diagram_role_nodes(
             set(proposed_identities)
         ) == len(authoritative_by_identity):
             role_nodes = [authoritative_by_identity[identity] for identity in proposed_identities]
+        target = (target_counts or {}).get(role)
+        if role != "capability" and target is not None and len(role_nodes) > target:
+            # Presentation economy: inputs/outputs beyond the configured target
+            # stay in the text sections; selected capabilities are never
+            # trimmed because the header validator requires them complete.
+            role_nodes = role_nodes[:target]
         normalized.extend(role_nodes)
         minimum = required_counts.get(role, 0)
         if len(role_nodes) < minimum:

@@ -51,6 +51,7 @@ from readme_agent.readme.diagram_role_semantics import (
 from readme_agent.readme.opening_summary_fallback import (
     should_use_verified_format_opening,
     verified_format_opening_summary,
+    verified_identity_opening_summary,
 )
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MIN_CAPABILITIES,
@@ -223,6 +224,7 @@ def plan_readme_composition(
             if attempt == max_attempts:
                 fallback = (
                     verified_format_opening_summary(facts)
+                    or verified_identity_opening_summary(facts)
                     if str(last_error).startswith("composition opening summary")
                     else None
                 )

@@ -20,7 +20,7 @@ from readme_agent import paths
 from readme_agent.capabilities.build_presentation_plan import (
     execute as build_presentation_plan_execute,
 )
-from readme_agent.errors import ReadmeAgentError
+from readme_agent.errors import LLMError, ReadmeAgentError
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.facts.trusted_readme_extraction import extract_trusted_readme_fact_graph
 from readme_agent.gitsafety.baseline_reuse import verified_baseline_at_revision
@@ -385,7 +385,11 @@ def run_poc_for_repo(org_repo: str) -> int:
         )
         if plan is None:
             _log(f"{org_repo}: composing via LLM (no deterministic preservation plan)")
-            plan = plan_readme_composition(org_repo, source_text, facts, assessment)
+            try:
+                plan = plan_readme_composition(org_repo, source_text, facts, assessment)
+            except LLMError as exc:
+                _log(f"{org_repo}: composition plan rejected ({exc}); one retry")
+                plan = plan_readme_composition(org_repo, source_text, facts, assessment)
         plan_payload = plan.model_dump(mode="json")
         validate_readme_composition_plan(
             plan_payload,

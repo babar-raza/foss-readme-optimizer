@@ -71,6 +71,33 @@ def verified_format_opening_summary(
     )
 
 
+def verified_identity_opening_summary(
+    facts: ProductFactsV2,
+) -> AgenticOverviewSentenceV1 | None:
+    """Return the identity-and-audience-only opening for working-condition repositories.
+
+    When no purpose evidence (problems, capabilities, formats) is accepted, an
+    identity-grounded sentence is the honest maximum the summary can claim.
+    """
+
+    identity = visitor_fact_render_view(facts, "product.identity")
+    if identity is None or not identity.phrases:
+        return None
+    title = identity.phrases[0].strip().rstrip(".")
+    if not title:
+        return None
+    audience = visitor_fact_render_view(facts, "product.audience")
+    fact_ids = [identity.fact_id]
+    if audience is not None and audience.phrases:
+        audience_text = audience.phrases[0].strip().rstrip(".")
+        audience_clause = audience_text[:1].lower() + audience_text[1:]
+        text = f"{title} is an open-source library for {audience_clause}."
+        fact_ids.append(audience.fact_id)
+    else:
+        text = f"{title} is an open-source library."
+    return AgenticOverviewSentenceV1(text=text, supporting_fact_ids=fact_ids)
+
+
 def should_use_verified_format_opening(facts: ProductFactsV2) -> bool:
     """Return whether the first purpose is a taxonomy label rather than a useful action."""
 
@@ -84,4 +111,8 @@ def should_use_verified_format_opening(facts: ProductFactsV2) -> bool:
     )
 
 
-__all__ = ["should_use_verified_format_opening", "verified_format_opening_summary"]
+__all__ = [
+    "should_use_verified_format_opening",
+    "verified_format_opening_summary",
+    "verified_identity_opening_summary",
+]

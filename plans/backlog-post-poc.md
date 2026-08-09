@@ -41,3 +41,44 @@
   private-module re-export extraction-depth gap as BarCode/HTML; richer Quick Start and
   per-member API tables need the member inventory to see through re-export chains.
 - 2026-08-09: 38 non-live tests pin pre-#99 fail-closed expectations (deferred-at-approval, source-assurance reinsert, final-claim corpus); update the expectations to the working-condition contract.
+- 2026-08-09 (platforms): RESOLVED same day - non-Python delivery crashes closed as general
+  working-condition lanes: mermaid casing unified into the authoritative header render
+  (BarCode-class two-site instability), formats-optional scope citation, required-slot
+  omission with working-condition accounting (quick start / key capabilities / at a glance /
+  scope), diagramless badges-only header for zero-capability-evidence repos, accepted-only
+  purpose/audience summary gates with identity-grounded fallback, deterministic
+  opening-summary punctuation repair, identity-only clone acquisition fallback, and a
+  one-retry lane for LLM plan composition in the poc runner.
+- 2026-08-09 (platforms): Go/TypeScript/C++/Rust ecosystems lack capability/format/example
+  verification lanes - extraction produces assertions but nothing verifies them (Go: blocked
+  with "no input/output format survived isolated-consumer and native-extractor verification";
+  TS/C++: mostly missing). Working-condition delivery ships minimal verified READMEs
+  (identity + acquisition + license); richer content needs per-ecosystem verifiers.
+- 2026-08-09 (platforms): .NET capability phrases are raw XML-doc sentences ("Render state
+  for building the...") - diagram labels truncate mid-phrase and capability descriptions trip
+  repeats-title lint. Needs a .NET capability-phrase distillation lane.
+- 2026-08-09 (platforms): .NET 3D retains major_capabilities/api_public_surface prose claims
+  without a merged placement - same placement-lane gap as Cells/Email Python.
+- 2026-08-09 (platforms): Go "Requires" badge duplicates the platform token
+  ("Requires: Go Go 1.24.5+") - badge label composition should not repeat the platform name.
+- 2026-08-09 (platforms): LLM opening summaries can carry capability prose beyond accepted
+  facts (Go summary described spreadsheet capabilities while product.capabilities is
+  blocked); deterministic claim grounding rejects it downstream, but the summary lane should
+  be constrained to accepted evidence at authoring time.
+- 2026-08-09 (platforms): aspose-words-foss/Aspose.Words-FOSS-for-.NET cannot clone - the
+  upstream repository has a missing Git LFS object (TestData/Model/Charts/
+  TestSurfaceChartSegments.docx, remote missing object 3c72e272...). Upstream defect for the
+  product agent; local workaround is LFS-smudge-skipped baseline clones (the README pipeline
+  never needs LFS binaries).
+- 2026-08-09 (platforms): RESOLVED same day - Words-.NET clone (work clones now skip LFS
+  smudge like baselines) and oversized diagrams (input/output nodes trim to presentation
+  targets; selected capabilities stay complete). All 19 non-Python repos deliver.
+- 2026-08-09 (platforms): a broad working-condition deferral for unverified example fences
+  (primary_example/additional_examples obligations) was tried and reverted - it violated the
+  six pinned example-deferral guarantees in test_verified_source_claim_omissions.py
+  (execution-verified examples must never defer; surviving candidate bytes must never defer;
+  deferral requires an executed minimal example and fixture-absence proof; prose never
+  defers). An ecosystem-general example-deferral lane must generalize those preconditions
+  (executed minimal example + fixture proof for .NET/Java/C++/TS/Go/Rust) instead of
+  bypassing them; until then non-Python example claims stay visible as blocking accountability
+  rows in validation.json.

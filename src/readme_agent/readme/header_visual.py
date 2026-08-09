@@ -76,6 +76,11 @@ def _fallback_nodes(facts: ProductFactsV2) -> list[MermaidNodeV1]:
         [],
         facts,
         _evidence_scaled_minimums(facts),
+        target_counts={
+            "input": PRESENTATION_MERMAID_TARGET_INPUTS,
+            "capability": PRESENTATION_MERMAID_TARGET_CAPABILITIES,
+            "output": PRESENTATION_MERMAID_TARGET_OUTPUTS,
+        },
     )
     counters = {"input": 0, "capability": 0, "output": 0}
     for proposed in normalized:
@@ -150,6 +155,7 @@ def _compact_node_labels(
     """Apply deterministic label economy; keep originals on any compaction collision."""
 
     raster_formats = raster_output_formats_label(facts)
+    canonical_terms = canonical_abbreviations_from_facts(facts)
     compacted: list[MermaidNodeV1] = []
     seen: set[tuple[str, str]] = set()
     for node in nodes:
@@ -161,6 +167,10 @@ def _compact_node_labels(
         )
         if not label or (node.role, label.casefold()) in seen:
             label = node.label
+        # Canonicalize abbreviation casing here, in the authoritative render,
+        # so the downstream public-text repair pass finds nothing to rewrite
+        # inside the mermaid fence and both header copies stay byte-identical.
+        label = canonicalize_abbreviations(label, canonical_terms)
         seen.add((node.role, label.casefold()))
         compacted.append(node.model_copy(update={"label": label}))
     return compacted
@@ -230,7 +240,10 @@ def render_readme_header_visual(
         )
     ):
         raise ValueError("README diagram lacks accepted input, capability, or output detail")
-    if len(nodes) < 2:
+    diagramless = len(nodes) < 2 and all(
+        minimum == 0 for minimum in _evidence_scaled_minimums(facts).values()
+    )
+    if len(nodes) < 2 and not diagramless:
         raise ValueError("README diagram has no accepted repository-specific detail")
     badge_markdown = " ".join(
         (
@@ -240,8 +253,14 @@ def render_readme_header_visual(
         )
         for badge in badges
     )
-    mermaid_source = render_capability_landscape(nodes)
-    mermaid_markdown = f"```mermaid\n{mermaid_source}\n```"
+    if diagramless:
+        # Working-condition presentation: no accepted evidence populates any
+        # diagram role, so the header ships badges-only with no mermaid block.
+        mermaid_source = ""
+        mermaid_markdown = ""
+    else:
+        mermaid_source = render_capability_landscape(nodes)
+        mermaid_markdown = f"```mermaid\n{mermaid_source}\n```"
     visual = ReadmeHeaderVisualV1(
         title=title,
         title_fact_ids=identity.citation_fact_ids,
