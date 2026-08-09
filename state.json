@@ -5872,7 +5872,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "6e1b41a9b2c1b6ce94edb83e2f7fa43020b8377ce8b21ca7424ad393a5a80f62",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -6963,15 +6963,13 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "24fcbe8a9c2ec5e98ca610507cc84c94d8f499c99ff63609270fc780d428b0ff",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['unauthorized protected-content loss: command:eceb782768fe7c55', 'unauthorized protected-content loss: example:eceb782768fe7c55', 'claim accountability has 1 blocking claim(s): source:claim:1722:8d23a01255861966']",
-          "occurred_at": "2026-08-08T22:33:30.396240+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " compiled verified presentation is invalid: API reference contains duplicated descriptions",
+          "occurred_at": "2026-08-09T02:12:00.986316+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": true,
         "llm_calls": [
@@ -32002,9 +32000,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-08T23:08:29.262602+00:00",
+      "last_run_timestamp": "2026-08-09T02:12:00.986316+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -34698,7 +34696,7 @@
     "updated_at": "2026-08-09T02:07:46.951075+00:00"
   },
   "schema_version": 2,
-  "state_version": 1296,
+  "state_version": 1297,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
