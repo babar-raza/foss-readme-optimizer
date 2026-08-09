@@ -33,3 +33,4 @@
   example are blocked and the clone-and-import fallback found no usable package metadata in
   api.public_surface. Needs the acquisition fallback widened to manifest-only evidence, or the
   decision #99 LLM-drafted validator-grounded product-truth lane.
+- 2026-08-09: 38 non-live tests pin pre-#99 fail-closed expectations (deferred-at-approval, source-assurance reinsert, final-claim corpus); update the expectations to the working-condition contract.
