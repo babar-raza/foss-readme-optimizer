@@ -14283,6 +14283,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "53c742c76d9dceb1ed7edaaddf0fef832f23a16c",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\53c742c76d9dceb1ed7edaaddf0fef832f23a16c\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-09T13:05:49.072032+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "53c742c76d9dceb1ed7edaaddf0fef832f23a16c",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -14339,11 +14350,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "53c742c76d9dceb1ed7edaaddf0fef832f23a16c",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-09T13:05:36.251371+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-09T13:05:49.072032+00:00"
   },
   "schema_version": 2,
-  "state_version": 157,
+  "state_version": 158,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
