@@ -45,7 +45,7 @@ from readme_agent.repository_snapshot import (
     repository_snapshot_scope,
 )
 from readme_agent.specialists.separated_readme_review import run_separated_readme_review
-from readme_agent.state.git_backend import default_state_backend
+from readme_agent.state.local_poc_backend import default_local_poc_state_backend
 from readme_agent.supervisor.local_poc_snapshot_evidence import (
     mark_local_poc_profiled,
     write_local_poc_snapshot,
@@ -340,7 +340,7 @@ def run_poc_for_repo(org_repo: str) -> int:
 
         clone_baseline(entry, baseline)
     snapshot = capture_repository_snapshot(entry, baseline)
-    backend = default_state_backend()
+    backend = default_local_poc_state_backend()
 
     start_llm_call_accounting(org_repo, f"poc-{run_stamp}", stage="PRE_SNAPSHOT")
     bind_llm_repository_revision(snapshot.source_revision, stage="FACTS_COLLECTING")
@@ -527,7 +527,7 @@ def cmd_poc(args: argparse.Namespace) -> int:
         targets = [
             entry.org_repo
             for entry in load_products()
-            if entry.ecosystem == "python" and entry.active and entry.mode != "disabled"
+            if (entry.ecosystem or entry.platform) == "python" and entry.active
         ]
     else:
         targets = [args.repo]

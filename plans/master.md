@@ -18,8 +18,14 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-The project remains pre-POC until the current dynamic Python denominator is independently approved
-and no-op-proven. Durable mission state owns the live task, immediate goal, repository scope,
+The post-Claude checkpoint at `69b2af21d` produced reviewable candidates for 31 of 32 active
+registry entries. Codex completed the omitted disabled/read-only PSD Python intake without granting
+write authority, so the current local-review numerator is 32 of 32 candidates: five qualified and
+27 deterministically rejected with visible reasons. Renderer recomposition is proven for all 32;
+fresh-process complete-transaction no-op is not yet proven. The current review index is
+`runs/share/poc/REVIEW-INDEX.md`. This is complete candidate visibility, not verified Gate A.
+
+Durable mission state owns the live task, immediate goal, repository scope,
 claim, transition history, and current contract-valid numerator. This document deliberately does
 not name a mutable active task. Run mission `status`; run mission `evaluate` before claiming work.
 Evaluation reconciles closed repository deliverables against current fact and acceptance hashes,
@@ -31,7 +37,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 98 stable decisions in
+The complete typed ledger contains 100 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -70,17 +76,20 @@ Binding current decisions:
   historical order. The graph stores the stable repository-focus chain; durable evaluation selects
   its earliest dependency-ready or regressed boundary and never takes the current task from prose.
 - **#99 — Working-condition presentation, generate-verify split.** Every admitted repository gets a
-  delivered README presenting only deterministically verified functionality; unverifiable content
-  is hidden with explicit accounting plus a per-repo `UPSTREAM-DEFECTS.md` for the product agent.
+  visible candidate or an evidence-backed blocker. A candidate is not delivered or qualified until
+  deterministic validation and independent review both accept it. Unsupported public content is
+  omitted with explicit accounting plus a per-repo `UPSTREAM-DEFECTS.md` for the product agent.
   At 200-repo scale interpretive prose is LLM-authored and validator-grounded; per-family curated
   modules and hand-written policy product-truth blocks are transitional and must be retired.
   Deterministic forever: extraction, coordinates/URLs, install/build and example proofs, the
   presentation shape contract, and the hide-and-log policy.
-- **#100 — Reproducible idempotent machinery only.** No hand-rolled tasks: every delivery action is
-  a committed parameterized entrypoint (`readme-agent poc`), cache-keyed by revision plus
-  component/prompt hashes, and idempotent — unchanged inputs re-converge to byte-identical output
-  with zero new provider calls; changed components invalidate exactly the affected caches.
-  Composition plans should be cached by input hash so identical reruns reuse them.
+- **#100 — One reproducible repository transaction.** `readme-agent poc` is the rapid local control
+  lane and `supervise` is the governed production control lane; both must invoke one shared
+  repository transaction for snapshot, facts, assessment, planning, composition, validation,
+  independent review, repair, and evidence. Same-process recomposition proves only
+  `RENDER_REPRODUCIBLE`. `TRANSACTION_NO_OP_PROVEN` requires a fresh-process replay of the complete
+  transaction with byte-identical artifacts, no new provider work, and no duplicate lifecycle
+  effects. Changed component hashes invalidate only dependent stages.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
@@ -97,6 +106,12 @@ authorized discovery -> immutable snapshot -> verified ProductFactsV2
   -> staged human acceptance -> separately authorized proposal effect
   -> hosted observation and background maturity certification
 ```
+
+The transaction above is implemented once and exposed through three control lanes: rapid local
+candidate delivery, verified qualification/replay, and governed production supervision. Lanes may
+choose scope and stop boundary; they may not duplicate facts, rendering, validation, review, cache,
+or lifecycle semantics. Portfolio aggregation is serialized even when isolated repository
+transactions later run concurrently.
 
 ### Authority and state
 
@@ -218,19 +233,21 @@ skills, scripts, or caches.
 
 ## Build Checklist
 
-- [ ] **Agile authority reset:** compact catalogs and active graph, reconcile durable state, prove
-  lossless stable-ID/dependency/coverage migration, and commit one control-only slice.
-- [ ] **Comparative Note regression:** use the revision-matched Aspose.org report during development
-  to expose native contract gaps, then regenerate Note without an Aspose.org runtime dependency and
-  pass factual, editorial, semantic-graph, review, repair, promotion, and unchanged no-op proof.
-- [ ] **Current PDF deliverable:** finish, independently approve, show, promote, and no-op-prove
-  PDF Python before any broad suite or unrelated machinery work.
-- [ ] **Reference reconciliation:** reconcile and show Page, Note, and Aspose.3D as three separate
-  cached small goals under the same current contract.
-- [ ] **Python platform POC:** finalize every dynamically admitted Python repository.
+- [x] **Post-Claude baseline adoption:** preserve the clean `69b2af21d` candidate/evidence set by
+  hash and classify its lifecycle claims without regenerating accepted work.
+- [x] **Portfolio candidate visibility:** produce a local reviewable candidate for all 32 active
+  entries, including disabled/read-only PSD, without granting product-write authority.
+- [ ] **Python shared-cause qualification:** repair source-claim placement, component lineage, and
+  recurring presentation-validation families once, then replay only the eight affected Python
+  repositories until all 13 are deterministically and independently accepted.
+- [ ] **Portfolio shared-cause qualification:** apply the same component-bound repairs across .NET,
+  Java, C++, TypeScript, Rust, and Go; preserve every candidate during repair.
+- [ ] **Complete-transaction no-op:** prove fresh-process byte stability, zero new provider work,
+  recovery, and non-duplication separately from renderer recomposition.
+- [ ] **Canonical-state reconciliation:** make rapid POC and `supervise` consume the shared
+  transaction and import checksum-valid accelerated artifacts into durable lifecycle state.
+- [ ] **Verified Gate A:** reconcile source discovery and qualify every current admitted repository.
 - [ ] **Post-Python slices:** prove one current .NET and one current Java vertical slice.
-- [ ] **Discovery and verified Gate A:** reconcile the complete source denominator, then finalize all
-  repositories in .NET, Java, C++, TypeScript, Rust, and Go order.
 - [ ] **Gate B:** independently approved portfolio package and explicit human acceptance per repository.
 - [ ] **Workflow/staging/Gate C:** prove `act`, disposable GitHub staging, and authorized draft proposals.
 - [ ] **Hosted system:** GitHub App token isolation, recovery, health, backlog, alerts, and dead-man monitor.
@@ -253,6 +270,10 @@ skills, scripts, or caches.
 - [ ] Cosmetic changes do not invalidate facts or unrelated accepted components.
 - [ ] Factual/safety/acceptance changes reopen the earliest affected stage.
 - [ ] No README proceeds without deterministic and independent acceptance and no-op proof.
+- [ ] Candidate visibility, deterministic qualification, independent acceptance, renderer
+  reproducibility, and complete-transaction no-op are reported as separate lifecycle facts.
+- [ ] A same-process `_compose()` replay can satisfy only `RENDER_REPRODUCIBLE`; fresh-process replay
+  of the shared transaction is required for `TRANSACTION_NO_OP_PROVEN`.
 - [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
 - [ ] Mermaid validation proves semantic topology, not syntax alone, and independent review rejects

@@ -474,7 +474,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "--all-python",
         action="store_true",
         dest="all_python",
-        help="Every active python-ecosystem entry in data/products.json",
+        help=(
+            "Every active Python entry in data/products.json; mode controls external effects "
+            "and never excludes local candidate generation"
+        ),
     )
 
     return parser

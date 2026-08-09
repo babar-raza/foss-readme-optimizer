@@ -258,23 +258,25 @@ def validate_repository_presentation(
     if find_enterprise_terminology_findings(candidate):
         errors.append("candidate contains noncanonical Aspose Enterprise Edition terminology")
 
-    license_heading = next(
-        (heading for heading in h2s if heading.title.casefold() == "license"),
-        None,
-    )
-    license_body = (
-        candidate[license_heading.heading_end : license_heading.section_end]
-        if license_heading
-        else ""
-    )
-    if not license_heading or not re.search(
-        r"\[[^\]]*license[^\]]*\]\([^)]+\)",
-        license_body,
-        re.I,
-    ):
-        errors.append("License must be prose with a license link")
-    if "permit" not in license_body.casefold():
-        errors.append("License prose must summarize practical permission benefits")
+    license_binding = template_input.sections.get("license")
+    if license_binding is None or license_binding.source_kind != "omitted":
+        license_heading = next(
+            (heading for heading in h2s if heading.title.casefold() == "license"),
+            None,
+        )
+        license_body = (
+            candidate[license_heading.heading_end : license_heading.section_end]
+            if license_heading
+            else ""
+        )
+        if not license_heading or not re.search(
+            r"\[[^\]]*license[^\]]*\]\([^)]+\)",
+            license_body,
+            re.I,
+        ):
+            errors.append("License must be prose with a license link")
+        if "permit" not in license_body.casefold():
+            errors.append("License prose must summarize practical permission benefits")
 
     notices = next(
         (heading for heading in h2s if heading.title.casefold() == "third-party notices"),

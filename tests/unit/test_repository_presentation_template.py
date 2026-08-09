@@ -798,6 +798,25 @@ def test_verified_template_generates_fact_backed_optional_slot_when_source_lacks
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
+def test_verified_template_omits_license_when_repository_has_no_accepted_license_fact() -> None:
+    source, facts, revision, plan = _verified_3d_inputs()
+    license_id = facts.selected_fact_ids["product.license"]
+    payload = facts.model_dump(mode="json")
+    for record in payload["facts"]:
+        if record["fact_id"] == license_id:
+            record.update(verification_state="missing", value=None, confidence=0.0)
+    facts = ProductFactsV2.model_validate(payload)
+
+    draft = build_verified_template_draft(facts, source, revision, plan)
+    template_input = bind_product_facts(facts, draft)
+    candidate = compile_repository_presentation(template_input)
+
+    assert draft.sections["license"].disposition == "omit"
+    assert "## License" not in candidate
+    assert "(#license)" not in candidate
+    assert "License-" not in candidate
+
+
 def test_verified_template_does_not_defer_optional_slot_from_heading_presence_alone() -> None:
     source, facts, revision, _ = _verified_3d_inputs(include_api_surface=True)
     contract = load_repository_presentation_template()

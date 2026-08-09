@@ -648,8 +648,14 @@ def build_verified_template_draft(
                 if scope
                 else _omitted(working_condition_omitted)
             ),
-            "license": _included(
-                _license_text(facts), "product.license", standards=("readme.license",)
+            "license": (
+                _included(_license_text(facts), "product.license", standards=("readme.license",))
+                if _accepted_fields(facts, "product.license")
+                else _omitted(
+                    "Working-condition presentation: no accepted repository evidence identifies "
+                    "a license; omit the public license claim until the upstream repository "
+                    "supplies one."
+                )
             ),
             **optional,
         },

@@ -82,3 +82,9 @@
   (executed minimal example + fixture proof for .NET/Java/C++/TS/Go/Rust) instead of
   bypassing them; until then non-Python example claims stay visible as blocking accountability
   rows in validation.json.
+- 2026-08-09 (PSD Python): RESOLVED local candidate delivery. The private repository now uses
+  authenticated read-only cloning, the established local Git-ref state backend, and an explicit
+  Python policy profile while remaining `mode: disabled`. Required presentation slots may omit an
+  unsupported license rather than inventing one. The upstream repository contains only a two-line
+  README and no license or implementation evidence, so its visible candidate remains
+  `VALIDATION_FAILED` on one preserved source claim until authoritative product content arrives.
