@@ -9,8 +9,12 @@ from readme_agent.presentation.verified_template_example_presentation import (
     public_example_title,
     public_examples_introduction,
 )
+from readme_agent.presentation.verified_template_golden_workflow import (
+    golden_workflow_development,
+)
 from readme_agent.readme.document_structure import heading_identity
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.python_install_target import selected_python_install_target
 
 _ACCEPTED = {"verified", "policy_approved"}
 
@@ -33,30 +37,13 @@ def optional_extras_markdown(facts: ProductFactsV2) -> str | None:
     """Render exact package extras without assigning an inferred purpose to them."""
 
     extras_fact = _accepted(facts, "installation.optional_extras")
-    coordinates = _accepted(facts, "installation.coordinates")
-    if extras_fact is None or coordinates is None or not isinstance(extras_fact.value, dict):
+    target_policy = selected_python_install_target(facts)
+    if extras_fact is None or target_policy is None or not isinstance(extras_fact.value, dict):
         return None
     extras = extras_fact.value.get("extras")
     if not isinstance(extras, dict) or not extras:
         return None
-    rows = coordinates.value if isinstance(coordinates.value, list) else [coordinates.value]
-    package = next(
-        (
-            str(row.get("name"))
-            for row in rows
-            if isinstance(row, dict) and str(row.get("name") or "").strip()
-        ),
-        None,
-    )
-    if not package:
-        return None
-    acquisition = _accepted(facts, "installation.verified_acquisition")
-    acquisition_value = acquisition.value if acquisition is not None else None
-    install_target = (
-        "."
-        if isinstance(acquisition_value, dict) and acquisition_value.get("method") == "source_build"
-        else package
-    )
+    install_target = target_policy.target
     manifest_path = str(extras_fact.value.get("manifest_path") or "pyproject.toml")
     lines = [f"Optional dependency groups declared in `{manifest_path}`:"]
     for name in sorted(str(item) for item in extras):
@@ -230,9 +217,12 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
     assets = fact.value if fact is not None and isinstance(fact.value, dict) else {}
     counts: list[str] = []
     body: list[str] = []
+    golden_workflow = golden_workflow_development(facts)
     labels = {"tests": "test files", "tools": "maintenance tools", "goldens": "golden assets"}
     singular = {"tests": "test file", "tools": "maintenance tool", "goldens": "golden asset"}
     for group in ("tests", "tools", "goldens"):
+        if group == "goldens" and golden_workflow is not None:
+            continue
         inventory = assets.get(group)
         if not isinstance(inventory, dict):
             continue
@@ -269,24 +259,21 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
     )
     guidance_entries = guidance_value.get("entries")
     if isinstance(guidance_entries, list) and guidance_entries:
-        body.extend(["### Focused commands and repository scripts", ""])
-        rendered_count = 0
+        body.extend(["### Focused Commands and Repository Scripts", ""])
         for item in guidance_entries:
             if not isinstance(item, dict) or not item.get("command"):
                 continue
             body.extend(["```bash", str(item["command"]), "```", ""])
-            rendered_count += 1
-        if rendered_count:
-            label = "command" if rendered_count == 1 else "commands"
-            counts.append(f"{rendered_count} source-bound validation {label}")
-    if not counts:
+    if golden_workflow is not None:
+        label, lines = golden_workflow
+        counts.append(label)
+        body.extend(lines)
+    if not body:
         return None
-    return (
-        "The repository includes "
-        + ", ".join(counts)
-        + ".\n\n"
-        + _details("View development and testing resources", body)
-    )
+    details = _details("View development and testing resources", body)
+    if not counts:
+        return details
+    return "The repository includes " + ", ".join(counts) + ".\n\n" + details
 
 
 def contributing_markdown(facts: ProductFactsV2) -> str | None:
@@ -335,14 +322,14 @@ def security_markdown(facts: ProductFactsV2) -> str | None:
         fields = limits.get("fields")
         if class_name and isinstance(fields, list) and fields:
             paragraphs.append(
-                f"`{class_name}` exposes {len(fields)} source-defined limits for bounding "
+                f"`{class_name}` exposes {len(fields)} configurable limits for bounding "
                 "untrusted input and authored assets."
             )
             entry_points = limits.get("entry_points")
             if isinstance(entry_points, list) and entry_points:
                 rendered = ", ".join(f"`{item}`" for item in entry_points)
                 paragraphs.append(
-                    f"Pass a `{class_name}` policy through the source-defined {rendered} "
+                    f"Pass a `{class_name}` policy through the {rendered} "
                     "entry points when tighter limits are required."
                 )
     guidance = fact.value.get("operational_guidance")

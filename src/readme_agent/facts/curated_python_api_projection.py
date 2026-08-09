@@ -20,6 +20,10 @@ from readme_agent.facts.curated_python_api_ast import (
     module_from_source,
     source_sha256,
 )
+from readme_agent.facts.curated_python_api_eligibility import (
+    is_readme_presentable_symbol,
+    presentation_exclusion,
+)
 from readme_agent.facts.curated_python_mcp import python_mcp_server
 
 _LIMITS = {
@@ -161,6 +165,8 @@ def _classes(
     by_name: dict[str, PublicSymbolV1],
     locations: list[str],
     targets: set[str],
+    *,
+    presentation_only: bool = False,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], set[str], dict[str, int]]:
     candidates: dict[str, list[PublicSymbolV1]] = {}
     for symbol in top_level:
@@ -236,6 +242,8 @@ def _classes(
 
     complete_rows, keys = [], set()
     for name, (exposed, definition), members in resolved:
+        if presentation_only and not is_readme_presentable_symbol(exposed):
+            continue
         direct = [(member, name, False) for member in members]
         inherited = [
             (member, owner, True) for member, owner in inherited_members(definition, members)
@@ -297,6 +305,8 @@ def _functions(
     top_level: list[PublicSymbolV1],
     class_keys: set[str],
     locations: list[str],
+    *,
+    presentation_only: bool = False,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     rows: list[dict[str, object]] = []
     for definition in sorted(
@@ -315,6 +325,8 @@ def _functions(
             continue
         aliases = [item for item in top_level if item.reexported_from == definition.qualified_name]
         exposed = _preferred(aliases or [definition], layout.canonical_import)
+        if presentation_only and not is_readme_presentable_symbol(exposed):
+            continue
         rows.append(
             {
                 "module": exposed.import_module,
@@ -365,11 +377,12 @@ def project_public_surface(
         and "." not in item.name
         and item.kind in {"module", "class", "enum", "function"}
     ]
-    modules, complete_modules, exports, locations = _modules(root, layout, top_level)
-    if not modules:
+    presentable_top_level = [item for item in top_level if is_readme_presentable_symbol(item)]
+    modules, presentable_modules, exports, locations = _modules(root, layout, presentable_top_level)
+    if not top_level:
         return None
     by_name = {item.qualified_name: item for item in symbols}
-    classes, complete_classes, keys, stats = _classes(
+    classes, _presentable_classes, keys, _presentable_stats = _classes(
         root,
         layout,
         symbols,
@@ -377,8 +390,41 @@ def project_public_surface(
         by_name,
         locations,
         targets,
+        presentation_only=True,
     )
-    functions, complete_functions = _functions(root, layout, top_level, keys, locations)
+    functions, _presentable_functions = _functions(
+        root,
+        layout,
+        top_level,
+        keys,
+        locations,
+        presentation_only=True,
+    )
+    _all_modules, complete_modules, complete_exports, catalog_locations = _modules(
+        root, layout, top_level
+    )
+    _all_classes, complete_classes, complete_keys, stats = _classes(
+        root,
+        layout,
+        symbols,
+        top_level,
+        by_name,
+        catalog_locations,
+        targets,
+    )
+    _all_functions, complete_functions = _functions(
+        root, layout, top_level, complete_keys, catalog_locations
+    )
+    locations.extend(catalog_locations)
+    presented_definitions = {
+        _definition(item, by_name).qualified_name for item in presentable_top_level
+    }
+    excluded = [
+        presentation_exclusion(item)
+        for item in top_level
+        if not is_readme_presentable_symbol(item)
+        and item.qualified_name not in presented_definitions
+    ]
     coordinate_catalog = _coordinate_catalog(
         {
             "schema_version": 1,
@@ -386,11 +432,12 @@ def project_public_surface(
             "modules": complete_modules,
             "classes": complete_classes,
             "functions": complete_functions,
+            "presentation_exclusions": excluded,
         }
     )
     package_namespaces = sorted(
         str(row["module"])
-        for row in complete_modules
+        for row in presentable_modules
         if str(row["source_path"]).endswith("/__init__.py") or row["source_path"] == "__init__.py"
     )
     value: dict[str, object] = {
@@ -404,7 +451,9 @@ def project_public_surface(
         "inventory_counts": {
             "typed_symbols": len(surface.symbols),
             "distributed_symbols": len(symbols),
-            "modules": len(exports),
+            "modules": len(complete_exports),
+            "presentation_eligible_modules": len(exports),
+            "presentation_excluded_symbols": len(excluded),
             **stats,
         },
         "projection_limits": _LIMITS,

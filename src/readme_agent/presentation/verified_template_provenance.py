@@ -17,7 +17,11 @@ from readme_agent.presentation.verified_source_claim_resolutions import (
     probe_source_claim_resolutions_for_composition,
 )
 from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
-from readme_agent.presentation.verified_template_capabilities import capability_claim_fact_ids
+from readme_agent.presentation.verified_template_capabilities import (
+    CapabilityPresentationPlanV1,
+    capability_claim_fact_coordinates,
+    capability_claim_fact_ids,
+)
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     development_markdown,
@@ -138,6 +142,9 @@ def build_template_provenance(
     candidate: str,
     template_input: PresentationTemplateInputV1,
     facts: ProductFactsV2,
+    *,
+    source_text: str | None = None,
+    capability_plan: CapabilityPresentationPlanV1 | None = None,
 ) -> list[CandidateContentProvenanceV1]:
     """Bind each exact compiled span to its accepted facts and standards."""
 
@@ -272,7 +279,16 @@ def build_template_provenance(
                     }
                 )
                 if slot == "key_capabilities":
-                    fact_ids = sorted({*fact_ids, *capability_claim_fact_ids(claim_text, facts)})
+                    fact_ids = sorted(
+                        {
+                            *fact_ids,
+                            *capability_claim_fact_ids(
+                                claim_text,
+                                facts,
+                                presentation_plan=capability_plan,
+                            ),
+                        }
+                    )
                 if slot == "api_reference" and canonical_structural_section_matches:
                     fact_ids = sorted({*fact_ids, *content.fact_ids})
                 if (
@@ -319,6 +335,28 @@ def build_template_provenance(
                             *repository_asset_source_claim_fact_ids(claim_text, facts),
                         }
                     )
+                fact_coordinates = structured_fact_coordinates(
+                    text,
+                    claim,
+                    facts,
+                    fact_ids,
+                )
+                if slot == "key_capabilities":
+                    fact_coordinates = sorted(
+                        {
+                            *fact_coordinates,
+                            *capability_claim_fact_coordinates(
+                                claim_text,
+                                facts,
+                                source_text=source_text,
+                                presentation_plan=capability_plan,
+                            ),
+                        },
+                        key=lambda item: (item.fact_id, item.path, item.value_sha256),
+                    )
+                fact_ids = sorted(
+                    {*fact_ids, *(coordinate.fact_id for coordinate in fact_coordinates)}
+                )
                 standard_ids = (
                     content.standard_ids
                     if fact_ids or _STRUCTURAL_SHELL.fullmatch(claim_text.strip())
@@ -347,6 +385,7 @@ def build_template_provenance(
                         candidate_byte_start=base_byte + claim.source_byte_start,
                         candidate_byte_end=claim_end,
                         fact_ids=fact_ids,
+                        fact_coordinates=fact_coordinates,
                         configured_standard_ids=standard_ids,
                         rationale="Bind one exact optional-section claim to accepted inputs.",
                     )

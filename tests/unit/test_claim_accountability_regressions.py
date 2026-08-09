@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
 import pytest
@@ -44,6 +45,10 @@ from readme_agent.readme.example_assurance_validation import (
     unsupported_example_assurance_claims,
 )
 from readme_agent.readme.limitation_validation import verified_limitations_are_represented
+from readme_agent.readme.public_limitations import (
+    public_limitation_fact_coordinates,
+    public_limitation_phrases,
+)
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 
 
@@ -138,9 +143,41 @@ def test_public_acronym_case_does_not_break_limitation_accountability() -> None:
         "product.limitations",
         [{"statement": "Only .pdf file targets are supported for save operations"}],
     )
-    candidate = "- Only .PDF file targets are supported for save operations"
+    candidate = "- Output is limited to PDF files."
 
+    assert public_limitation_phrases(facts) == ["Output is limited to PDF files."]
     assert verified_limitations_are_represented(facts, candidate) is True
+
+
+def test_public_limitation_projection_retains_each_exact_source_coordinate() -> None:
+    limitations = [
+        {"statement": "Only .pdf file targets are supported for save operations"},
+        {"statement": "Only PDF save is supported"},
+    ]
+    facts = _replace_selected_value(_facts(), "product.limitations", limitations)
+    fact_id = facts.selected_fact_ids["product.limitations"]
+
+    coordinates = public_limitation_fact_coordinates(
+        "- Output is limited to PDF files.",
+        fact_id,
+        facts,
+    )
+
+    assert len(coordinates) == 2
+    assert {item.fact_id for item in coordinates} == {fact_id}
+    assert {item.field for item in coordinates} == {"product.limitations"}
+    expected_hashes = {
+        hashlib.sha256(
+            json.dumps(
+                value,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        for value in limitations
+    }
+    assert {item.value_sha256 for item in coordinates} == expected_hashes
 
 
 def test_email_inventory_does_not_claim_syntax_or_api_verification() -> None:

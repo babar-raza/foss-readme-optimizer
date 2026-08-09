@@ -7,6 +7,7 @@ import re
 from readme_agent.facts.schema_v2 import FactRecordV2
 from readme_agent.readme.acquisition_contracts import (
     contradicted_package_claim_spans,
+    coordinate_rows,
     stale_coordinate_version_replacements,
 )
 from readme_agent.readme.document_operations import build_operation
@@ -83,23 +84,40 @@ def build_acquisition_correction_operations(
     """Correct contradicted acquisition claims and stale coordinate versions."""
 
     installation = context.h2("installation")
-    if installation is None:
-        return []
     source_build_only, acquisition = _source_build_only(context)
     verified_installation = installation_text(
         context.facts,
         context.org_repo,
         context.base_revision,
     )
-    body = context.inner_text[installation.heading_end : installation.section_end]
-    operations: list[ReadmeDocumentOperationV1] = []
     acquisition_value = mapping_value(acquisition.value) if acquisition is not None else {}
+    python_source_build = (
+        source_build_only and str(acquisition_value.get("ecosystem") or "").casefold() == "python"
+    )
+    if python_source_build:
+        body = context.inner_text
+        body_character_start = 0
+    elif installation is not None:
+        body = context.inner_text[installation.heading_end : installation.section_end]
+        body_character_start = installation.heading_end
+    else:
+        body = ""
+        body_character_start = 0
+    operations: list[ReadmeDocumentOperationV1] = []
     coordinate = mapping_value(acquisition_value.get("coordinate"))
-    package_name = str(coordinate.get("name") or "").strip()
+    coordinates = accepted_fact(context.facts, "installation.coordinates")
+    package_names = {
+        str(row.get("name") or "").strip()
+        for row in coordinate_rows(coordinates.value if coordinates is not None else None)
+        if str(row.get("name") or "").strip()
+    }
+    acquisition_name = str(coordinate.get("name") or "").strip()
+    if acquisition_name:
+        package_names.add(acquisition_name)
     contradicted_spans = (
         contradicted_package_claim_spans(
             body,
-            package_names=(package_name,) if package_name else (),
+            package_names=tuple(sorted(package_names)),
         )
         if source_build_only
         else []
@@ -109,34 +127,35 @@ def build_acquisition_correction_operations(
             raise ValueError(
                 "verified source acquisition has no ecosystem-specific rendering contract"
             )
-        insertion = context.byte_offset(installation.heading_end)
-        operations.append(
-            build_operation(
-                operation_id="readme.installation.verified-source-insertion",
-                operation="insert_after",
-                source=context.source,
-                start=insertion,
-                end=insertion,
-                replacement="\n" + verified_installation + "\n\n",
-                fact_ids=[
-                    selected.fact_id
-                    for field in (
-                        "installation.coordinates",
-                        "installation.verified_acquisition",
-                        "product.compatibility",
-                    )
-                    if (selected := accepted_fact(context.facts, field)) is not None
-                ],
-                treatment="additive",
-                rationale=(
-                    "Add the source-build path that was executed for this immutable revision "
-                    "before removing only the contradicted package claim."
-                ),
+        if installation is not None and verified_installation not in body:
+            insertion = context.byte_offset(installation.heading_end)
+            operations.append(
+                build_operation(
+                    operation_id="readme.installation.verified-source-insertion",
+                    operation="insert_after",
+                    source=context.source,
+                    start=insertion,
+                    end=insertion,
+                    replacement="\n" + verified_installation + "\n\n",
+                    fact_ids=[
+                        selected.fact_id
+                        for field in (
+                            "installation.coordinates",
+                            "installation.verified_acquisition",
+                            "product.compatibility",
+                        )
+                        if (selected := accepted_fact(context.facts, field)) is not None
+                    ],
+                    treatment="additive",
+                    rationale=(
+                        "Add the source-build path that was executed for this immutable revision "
+                        "before removing only the contradicted package claim."
+                    ),
+                )
             )
-        )
         for index, (claim_start, claim_end) in enumerate(contradicted_spans, start=1):
-            start = context.byte_offset(installation.heading_end + claim_start)
-            end = context.byte_offset(installation.heading_end + claim_end)
+            start = context.byte_offset(body_character_start + claim_start)
+            end = context.byte_offset(body_character_start + claim_end)
             operations.append(
                 build_operation(
                     operation_id=f"readme.installation.remove-false-package-claim:{index}",
@@ -160,18 +179,17 @@ def build_acquisition_correction_operations(
                     ),
                 )
             )
-    coordinates = accepted_fact(context.facts, "installation.coordinates")
     stale_versions = (
         stale_coordinate_version_replacements(body, coordinates.value)
-        if coordinates is not None and not source_build_only
+        if installation is not None and coordinates is not None and not source_build_only
         else []
     )
     for index, (version_start, version_end, selected_version) in enumerate(
         stale_versions,
         start=1,
     ):
-        start = context.byte_offset(installation.heading_end + version_start)
-        end = context.byte_offset(installation.heading_end + version_end)
+        start = context.byte_offset(body_character_start + version_start)
+        end = context.byte_offset(body_character_start + version_end)
         operations.append(
             build_operation(
                 operation_id=f"readme.installation.correct-coordinate-version:{index}",

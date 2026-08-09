@@ -12,7 +12,11 @@ from readme_agent.readme.diagram_role_semantics import (
     selected_verified_capability_nodes,
 )
 from readme_agent.readme.header_badges import render_readme_badges
-from readme_agent.readme.header_visual_mermaid import render_capability_landscape
+from readme_agent.readme.header_visual_mermaid import (
+    compact_diagram_node_label,
+    raster_output_formats_label,
+    render_capability_landscape,
+)
 from readme_agent.readme.header_visual_models import (
     MermaidNodeV1,
     ReadmeHeaderVisualV1,
@@ -127,6 +131,31 @@ def _agentic_nodes(
     return nodes
 
 
+def _compact_node_labels(
+    nodes: list[MermaidNodeV1],
+    facts: ProductFactsV2,
+    *,
+    product_name: str,
+) -> list[MermaidNodeV1]:
+    """Apply deterministic label economy; keep originals on any compaction collision."""
+
+    raster_formats = raster_output_formats_label(facts)
+    compacted: list[MermaidNodeV1] = []
+    seen: set[tuple[str, str]] = set()
+    for node in nodes:
+        label = compact_diagram_node_label(
+            node.label,
+            node.role,
+            raster_output_formats=raster_formats,
+            product_name=product_name,
+        )
+        if not label or (node.role, label.casefold()) in seen:
+            label = node.label
+        seen.add((node.role, label.casefold()))
+        compacted.append(node.model_copy(update={"label": label}))
+    return compacted
+
+
 def render_readme_header_visual(
     facts: ProductFactsV2,
     agentic_plan: ReadmeAgenticCompositionPlanV1 | None = None,
@@ -153,6 +182,8 @@ def render_readme_header_visual(
         if agentic_plan is not None and agentic_plan.diagram.nodes
         else _fallback_nodes(facts)
     )
+    nodes = _compact_node_labels(nodes, facts, product_name=title)
+    raster_formats = raster_output_formats_label(facts)
     expected_capabilities = selected_verified_capability_nodes(facts)
     rendered_capability_labels = {
         " ".join(node.label.casefold().split()) for node in nodes if node.role == "capability"
@@ -160,7 +191,17 @@ def render_readme_header_visual(
     missing_capabilities = [
         node.label
         for node in expected_capabilities
-        if " ".join(node.label.casefold().split()) not in rendered_capability_labels
+        if " ".join(
+            compact_diagram_node_label(
+                node.label,
+                "capability",
+                raster_output_formats=raster_formats,
+                product_name=title,
+            )
+            .casefold()
+            .split()
+        )
+        not in rendered_capability_labels
     ]
     if missing_capabilities:
         raise ValueError(

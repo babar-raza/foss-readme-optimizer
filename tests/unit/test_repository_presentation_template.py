@@ -189,18 +189,22 @@ flowchart LR
   subgraph Inputs["Inputs and Formats"]
     I1["XPS documents"]
   end
-
   PRODUCT["Aspose.Page FOSS for Python"]
-
   subgraph Capabilities["Core Capabilities"]
-    direction TB
-    C1["Read document structure"]
-    C2["Inspect pages and resources"]
-    C3["Convert supported content"]
-    C1 ~~~ C2
-    C2 ~~~ C3
+    direction LR
+    subgraph Col1[" "]
+      C1["Read document structure"]
+    end
+    subgraph Col2[" "]
+      C2["Inspect pages and resources"]
+    end
+    subgraph Col3[" "]
+      C3["Convert supported content"]
+    end
   end
-
+  style Col1 fill:none,stroke:none
+  style Col2 fill:none,stroke:none
+  style Col3 fill:none,stroke:none
   subgraph Outputs["Outputs"]
     O1["Structured page data"]
   end
@@ -320,7 +324,135 @@ def test_capability_renderer_binds_cleaned_public_label_to_exact_facts() -> None
     assert rendered is not None
     assert "SaveFormat.Pdf" not in rendered
     assert "**Export PDF files**" in rendered
-    assert capability_claim_fact_ids(rendered, facts) == [capability.fact_id]
+    assert "Create files in the listed output formats" in rendered
+    assert "verified output" not in rendered.casefold()
+    assert capability_claim_fact_ids(rendered, facts) == sorted(
+        {capability.fact_id, facts.selected_fact_ids["product.formats"]}
+    )
+
+
+@pytest.mark.parametrize(
+    "capability_text",
+    [
+        "Export PDF documents",
+        "Save and write supported document output",
+        "Render pages to PNG or TIFF",
+    ],
+)
+def test_capability_output_never_exposes_internal_assurance_narration(
+    capability_text: str,
+) -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [capability_text]})
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    public_text = rendered.casefold()
+    for forbidden in (
+        "verified output",
+        "source-bound",
+        "source revision",
+        "inventory receipt",
+        "verification environment",
+        "syntax-checked",
+        "not executed",
+    ):
+        assert forbidden not in public_text
+
+
+def _render_scope_with_limitations(statements: list[str]) -> str:
+    source, facts, revision, plan = _verified_3d_inputs()
+    limitations_id = facts.selected_fact_ids["product.limitations"]
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            {"statement": statement, "path": "src/acme/reader.py"}
+                            for statement in statements
+                        ]
+                    }
+                )
+                if fact.fact_id == limitations_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    draft = build_verified_template_draft(facts, source, revision, plan)
+
+    return draft.sections["scope_and_limitations"].markdown
+
+
+def test_limitation_renderer_projects_exception_facts_into_public_copy() -> None:
+    rendered = _render_scope_with_limitations(
+        [
+            "Password-protected documents are not supported",
+            "Unsupported format/options argument",
+            "Only PDF save is supported",
+            "Only .pDf file targets are supported for save operations",
+            "PDF export requires reportlab",
+        ]
+    )
+
+    assert "- Password-protected documents are not supported as input." in rendered
+    assert rendered.count("- Output is limited to PDF files.") == 1
+    assert "- PDF exports require ReportLab." in rendered
+    assert "Unsupported format/options argument" not in rendered
+    assert ".PDF file targets" not in rendered
+    assert "documented output formats" not in rendered
+
+
+def test_limitation_renderer_is_format_generic_and_preserves_distinct_boundaries() -> None:
+    rendered = _render_scope_with_limitations(
+        [
+            "Only xPs and ePs output is supported",
+            "Only .XPS and .EPS file targets are supported for save operations",
+            "Unsupported options argument",
+            "SVG export requires CairoSVG",
+            "Mesh export is not implemented",
+        ]
+    )
+
+    assert rendered.count("- Output is limited to XPS and EPS files.") == 1
+    assert "- SVG exports require CairoSVG." in rendered
+    assert "- Mesh export is not implemented." in rendered
+    assert "Unsupported options argument" not in rendered
+    assert "documented save options" not in rendered
+
+
+@pytest.mark.parametrize(
+    ("exception_fragment", "visitor_copy"),
+    [
+        (
+            "Unsupported format/options argument",
+            "Only documented output formats and save options are supported.",
+        ),
+        ("Unsupported format argument", "Only documented output formats are supported."),
+        ("Unsupported options argument", "Only documented save options are supported."),
+    ],
+)
+def test_limitation_renderer_rephrases_a_standalone_exception_fragment(
+    exception_fragment: str,
+    visitor_copy: str,
+) -> None:
+    rendered = _render_scope_with_limitations([exception_fragment])
+
+    assert f"- {visitor_copy}" in rendered
+    assert exception_fragment not in rendered
 
 
 def test_capability_renderer_keeps_first_rich_row_and_omits_semantic_repeats() -> None:
@@ -348,7 +480,8 @@ def test_capability_renderer_keeps_first_rich_row_and_omits_semantic_repeats() -
 
     assert rendered is not None
     assert len(rendered.splitlines()) == 1
-    assert "Run heuristic PDF/A and PDF/UA validation" in rendered
+    assert "**Validate PDF/A and PDF/UA documents**" in rendered
+    assert "Run heuristic checks" in rendered
 
 
 def test_capability_renderer_applies_the_same_semantic_contract_after_seo_rendering() -> None:
@@ -452,8 +585,52 @@ def test_pdf_capabilities_share_one_normalized_public_semantic_view() -> None:
     assert "Work with PDF digital signatures" in rendered
     assert "Create and manage PDF documents** - Create and manage PDF documents" not in rendered
     assert "Edit text and images in PDF documents** - Edit text and images" not in rendered
-    assert "Check archival and accessibility conformance profiles" in rendered
+    assert "Validate PDF/A and PDF/UA documents" in rendered
+    assert "Run heuristic checks for archival and accessibility conformance profiles" in rendered
     assert "Protect document content through encryption while controlling file size" in rendered
+
+
+def test_pdf_capability_rows_deduplicate_seo_titles_and_avoid_generic_copy() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Extract text, images, and attachments",
+                            "Extract images and attachments",
+                            "Encrypt and decrypt documents with RC4 or AES",
+                            "Optimize streams, images, fonts, and unused objects",
+                            "Perform heuristic PDF/A and PDF/UA checks and conversions",
+                            "Render pages to PNG or TIFF",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact.model_copy(update={"value": ["PDF", "PNG", "TIFF"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert len([line for line in rendered.splitlines() if line.startswith("- **Extract")]) == 1
+    assert "Protect PDF content with RC4 or AES encryption" in rendered
+    assert "Compress streams and consolidate unused image" in rendered
+    assert "Validate and convert PDF/A and PDF/UA documents" in rendered
+    assert "Apply the operation" not in rendered
+    render_row = next(line for line in rendered.splitlines() if "Render pages" in line)
+    assert facts.selected_fact_ids["product.formats"] in capability_claim_fact_ids(
+        render_row,
+        facts,
+    )
 
     template_input = _page_input()
     for action in ("Add", "Concatenate", "Configure", "Encrypt", "Run", "Work"):
@@ -953,12 +1130,22 @@ def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
         source_revision="a" * 40,
     )
     values = {
+        "product.identity": {
+            "name": "Aspose.Page FOSS for Python",
+            "ecosystem": "python",
+        },
         "installation.optional_extras": {
             "manifest_path": "pyproject.toml",
             "extras": {"test": ["pytest>=8"]},
         },
-        "installation.coordinates": [{"name": "aspose-page-foss"}],
-        "installation.verified_acquisition": {"method": "source_build"},
+        "installation.coordinates": [{"ecosystem": "python", "name": "aspose-page-foss"}],
+        "installation.verified_acquisition": {
+            "ecosystem": "python",
+            "method": "source_build",
+            "outcome": "SOURCE_BUILD_VERIFIED",
+            "source_build_receipt": {"truth_eligible": True},
+            "truth_eligible": True,
+        },
     }
     added_records = [
         FactRecordV2(
@@ -992,6 +1179,68 @@ def test_source_build_optional_extras_use_the_local_checkout_target() -> None:
     assert rendered is not None
     assert 'python -m pip install ".[test]"' in rendered
     assert "aspose-page-foss[test]" not in rendered
+
+    non_python = facts.model_copy(
+        update={
+            "facts": [
+                record.model_copy(update={"value": {**record.value, "ecosystem": "java"}})
+                if record.field == "product.identity" and isinstance(record.value, dict)
+                else record
+                for record in facts.facts
+            ]
+        }
+    )
+    assert optional_extras_markdown(non_python) is None
+
+    incomplete_source_build = facts.model_copy(
+        update={
+            "facts": [
+                record.model_copy(
+                    update={
+                        "value": {
+                            "ecosystem": "python",
+                            "method": "source_build",
+                            "outcome": "SOURCE_BUILD_FAILED",
+                            "truth_eligible": False,
+                        }
+                    }
+                )
+                if record.field == "installation.verified_acquisition"
+                else record
+                for record in facts.facts
+            ]
+        }
+    )
+    assert optional_extras_markdown(incomplete_source_build) is None
+
+    registry = facts.model_copy(
+        update={
+            "facts": [
+                record.model_copy(
+                    update={
+                        "value": {
+                            "ecosystem": "python",
+                            "method": "pypi",
+                            "outcome": "REGISTRY_VERIFIED",
+                            "coordinate": {"name": "aspose-page-foss"},
+                            "registry_receipt": {
+                                "coordinate": {"name": "aspose-page-foss"},
+                                "found": True,
+                            },
+                            "truth_eligible": True,
+                        }
+                    }
+                )
+                if record.field == "installation.verified_acquisition"
+                else record
+                for record in facts.facts
+            ]
+        }
+    )
+    registry_rendered = optional_extras_markdown(registry)
+    assert registry_rendered is not None
+    assert 'python -m pip install "aspose-page-foss[test]"' in registry_rendered
+    assert 'python -m pip install ".[test]"' not in registry_rendered
 
 
 def test_repository_enrichment_sections_render_only_selected_accepted_facts() -> None:
@@ -1075,13 +1324,22 @@ def test_repository_enrichment_sections_render_only_selected_accepted_facts() ->
     assert "supported-features.md" in (repository_documents_markdown(facts) or "")
     development = development_markdown(facts) or ""
     assert "scripts/check.sh" in development
-    assert "1 source-bound validation command" in development
-    assert "1 source-bound validation commands" not in development
+    for forbidden in (
+        "source-bound",
+        "validation command",
+        "source revision",
+        "inventory receipt",
+        "verification environment",
+        "syntax-checked",
+        "not executed",
+    ):
+        assert forbidden not in development.casefold()
     assert "scripts/check.sh" in (contributing_markdown(facts) or "")
     assert "private vulnerability reporting" in (security_markdown(facts) or "")
     assert "shared resource limits" in (security_markdown(facts) or "")
     assert "unlimited()` disables every safeguard" in (security_markdown(facts) or "")
     assert "not a complete denial-of-service sandbox" in (security_markdown(facts) or "")
+    assert "source-defined" not in (security_markdown(facts) or "").casefold()
 
     blocked = additions[0].model_copy(update={"verification_state": "blocked"})
     blocked_facts = facts.model_copy(
@@ -1643,18 +1901,22 @@ flowchart LR
   subgraph Inputs["Inputs and Formats"]
     I1["PDF files"]
   end
-
   PRODUCT["AcmePDF Python"]
-
   subgraph Capabilities["Core Capabilities"]
-    direction TB
-    C1["Open PDF pages"]
-    C2["Inspect page content"]
-    C3["Extract text"]
-    C1 ~~~ C2
-    C2 ~~~ C3
+    direction LR
+    subgraph Col1[" "]
+      C1["Open PDF pages"]
+    end
+    subgraph Col2[" "]
+      C2["Inspect page content"]
+    end
+    subgraph Col3[" "]
+      C3["Extract text"]
+    end
   end
-
+  style Col1 fill:none,stroke:none
+  style Col2 fill:none,stroke:none
+  style Col3 fill:none,stroke:none
   subgraph Outputs["Outputs"]
     O1["Page text"]
   end
@@ -1819,7 +2081,9 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     assert "Key capability titles must be action-led search phrases" in (
         validate_repository_presentation(invalid_seo_title, template_input)
     )
-    invalid_layout = candidate.replace("    C1 ~~~ C2\n", "")
+    invalid_layout = candidate.replace(
+        '    subgraph Col1[" "]', '    subgraph CapabilityColumn1[" "]'
+    )
     assert "Mermaid capability nodes must use the adaptive column layout" in (
         validate_repository_presentation(invalid_layout, template_input)
     )

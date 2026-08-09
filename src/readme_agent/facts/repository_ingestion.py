@@ -92,7 +92,14 @@ def ingest_repository_product_facts(
         observed_at,
     ):
         candidates.append(compatibility)
-    candidates.extend(curated_repository_fact_candidates(root, source_revision, observed_at))
+    candidates.extend(
+        curated_repository_fact_candidates(
+            root,
+            source_revision,
+            observed_at,
+            ecosystem=entry.ecosystem,
+        )
+    )
     if (
         entry.ecosystem == "net"
         and snapshot is not None

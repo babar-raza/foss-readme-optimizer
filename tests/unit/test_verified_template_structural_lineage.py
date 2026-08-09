@@ -235,8 +235,8 @@ def test_api_reference_is_one_type_description_table_per_namespace() -> None:
     assert api.count("### Aspose.3D Namespace (`aspose.threed`)") == 1
     assert api.count("| Type | Description |") == 1
     assert (
-        "| `Scene` | `Scene` exposes the verified public `open content` operation "
-        "in the `aspose.threed` namespace. |"
+        "| `Scene` | Represents a Scene in the public threed API for Aspose.3D. "
+        "Supports opening content. |"
     ) in api
     assert "`aspose.threed.animation`" in api
     assert "\n- `Scene`" not in api
@@ -311,8 +311,8 @@ def test_api_reference_humanizes_underscore_root_without_repeating_product_famil
     assert "### Aspose.PDF.Annotations Namespace (`aspose_pdf.annotations`)" in api
     assert "Aspose PDF.PDF" not in api
     assert (
-        "`PdfPlugin` exposes the verified public `process` operation "
-        "in the `aspose_pdf.annotations` namespace."
+        "Represents a PDF Plugin in the public annotations API for Aspose.PDF. "
+        "Supports processing documents."
     ) in api
 
 
@@ -344,8 +344,8 @@ def test_duplicate_function_exports_are_described_as_namespace_reexports() -> No
     api = api_reference_markdown(facts)
 
     assert api is not None
-    assert api.count("Public function for create server operations.") == 1
-    assert api.count("Public function for run operations.") == 1
+    assert api.count("Creates and configures the Aspose.3D MCP server.") == 1
+    assert api.count("Starts the Aspose.3D MCP server.") == 1
     assert (
         "The `aspose.page.mcp.server` namespace re-exports `create_server` from the primary "
         "`aspose.page.mcp` namespace."

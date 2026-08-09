@@ -2,10 +2,18 @@
 
 from __future__ import annotations
 
+from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_source_claim_obligations import (
+    accepted_obligation_bindings,
+)
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.source_claim_assurance import SourceClaimAssurance
-from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
+from readme_agent.readme.source_claim_risk import (
+    classify_source_claim_risk,
+    obligation_requires_source_entailment,
+)
 
 
 def project_source_assurance_for_candidate(
@@ -13,27 +21,36 @@ def project_source_assurance_for_candidate(
     assessment: ReadmeAssessmentV1,
     assurance: SourceClaimAssurance,
     provenance: list[CandidateContentProvenanceV1],
+    facts: ProductFactsV2,
     candidate_text: str = "",
 ) -> SourceClaimAssurance:
-    """Recompile source claims only when the canonical fact-bound slot covers their meaning."""
+    """Recompile inherited detail only after exact canonical coordinates cover it."""
 
-    api_slot_ready = any(
-        binding.provenance_id.startswith("template.section.api_reference")
-        and binding.fact_ids
-        and binding.candidate_byte_end > binding.candidate_byte_start
-        for binding in provenance
-    )
     claims_by_range = {
         (claim.source_byte_start, claim.source_byte_end): claim
         for claim in assessment.material_claims
     }
-    replacement_ranges = {
-        span
-        for span in assurance.preserve_ranges
-        if (claim := claims_by_range.get(span)) is not None
-        and api_slot_ready
-        and classify_source_claim_risk(source_text, claim).obligation_id == "api_public_surface"
-    }
+    replacement_ranges: set[tuple[int, int]] = set()
+    for span in assurance.preserve_ranges:
+        claim = claims_by_range.get(span)
+        if claim is None:
+            continue
+        risk = classify_source_claim_risk(source_text, claim)
+        obligation = risk.obligation_id
+        if obligation is None or not obligation_requires_source_entailment(obligation):
+            continue
+        exact = complete_source_claim_fact_binding(source_text, claim, facts)
+        if exact is None:
+            continue
+        accepted = accepted_obligation_bindings(
+            obligation,
+            facts,
+            provenance,
+            exact_source_fact_ids=sorted(exact.fact_ids),
+            exact_source_fact_coordinates=list(exact.fact_coordinates),
+        )
+        if accepted is not None:
+            replacement_ranges.add(span)
     del candidate_text
     if not replacement_ranges:
         return assurance

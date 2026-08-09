@@ -34,3 +34,6 @@ def isolate_live_credentials_from_offline_tests(request, monkeypatch):
         # its own identity.
         monkeypatch.setenv("GIT_CONFIG_NOSYSTEM", "1")
         monkeypatch.setenv("GIT_CONFIG_GLOBAL", os.devnull)
+        # The brand-banner existence probe is a live HTTP check; offline tests
+        # must compose without it. Banner-specific tests inject their own probe.
+        monkeypatch.setenv("README_AGENT_BRAND_BANNER", "off")

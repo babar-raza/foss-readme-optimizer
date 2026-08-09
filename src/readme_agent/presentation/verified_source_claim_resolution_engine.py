@@ -308,45 +308,45 @@ def resolve_source_claims(
                     claim.claim_id,
                 )
                 continue
+            exact_binding = (
+                complete_source_claim_fact_binding(source_text, claim, facts)
+                if obligation_requires_source_entailment(risk.obligation_id)
+                else None
+            )
             accepted = accepted_obligation_bindings(
                 risk.obligation_id,
                 facts,
                 candidate_content_provenance,
                 exact_source_fact_ids=(
-                    sorted(
-                        binding.fact_ids
-                        if (
-                            binding := complete_source_claim_fact_binding(
-                                source_text,
-                                claim,
-                                facts,
-                            )
-                        )
-                        else []
-                    )
+                    sorted(exact_binding.fact_ids if exact_binding is not None else [])
                     if obligation_requires_source_entailment(risk.obligation_id)
                     else sorted(applicable_product_overview_fact_ids(facts))
                     if risk.obligation_id == "product_overview"
                     else None
                 ),
+                exact_source_fact_coordinates=(
+                    list(exact_binding.fact_coordinates)
+                    if exact_binding is not None and risk.obligation_id == "golden_workflow"
+                    else None
+                ),
             )
             contradiction_fact_ids: set[str] = set()
-            if (
-                accepted is None
-                and obligation_requires_source_entailment(risk.obligation_id)
-                and correction_required
+            if correction_required and (
+                risk.obligation_id == "verified_installation"
+                or (accepted is None and obligation_requires_source_entailment(risk.obligation_id))
             ):
                 contradiction_fact_ids = contradicted_source_claim_fact_ids(
                     source_text,
                     claim,
                     facts,
                 )
-                accepted = accepted_correction_obligation_bindings(
-                    risk.obligation_id,
-                    facts,
-                    candidate_content_provenance,
-                    contradiction_fact_ids=contradiction_fact_ids,
-                )
+                if contradiction_fact_ids:
+                    accepted = accepted_correction_obligation_bindings(
+                        risk.obligation_id,
+                        facts,
+                        candidate_content_provenance,
+                        contradiction_fact_ids=contradiction_fact_ids,
+                    )
             if accepted is None:
                 candidate_core = accepted_obligation_bindings(
                     risk.obligation_id,

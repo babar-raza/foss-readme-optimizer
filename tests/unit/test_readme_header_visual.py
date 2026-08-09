@@ -115,20 +115,22 @@ def test_mermaid_is_a_connected_corporate_capability_landscape_without_process_a
     assert "-->" not in visual.mermaid_source
     assert visual.mermaid_source.startswith("flowchart LR\n")
     assert " --- " in visual.mermaid_source
-    assert "    C1 ~~~ C2" in visual.mermaid_source
     assert '  PRODUCT["Aspose.Cells FOSS for Java"]' in visual.mermaid_source
     assert '  subgraph Inputs["Inputs and Formats"]' in visual.mermaid_source
     assert '  subgraph Capabilities["Core Capabilities"]' in visual.mermaid_source
     assert validate_readme_header_visual(visual, facts).checks["capability_layout_adaptive"]
     assert '  subgraph Outputs["Outputs"]' in visual.mermaid_source
+    assert '    subgraph Col1[" "]' in visual.mermaid_source
+    assert "  style Col1 fill:none,stroke:none" in visual.mermaid_source
     assert '    I1["' in visual.mermaid_source
     assert "  I1 --- PRODUCT" in visual.mermaid_source
-    assert '    C1["' in visual.mermaid_source
+    assert '      C1["' in visual.mermaid_source
     assert visual.mermaid_source.count("  PRODUCT --- Capabilities") == 1
     assert '    O1["' in visual.mermaid_source
     assert visual.mermaid_source.count("  Capabilities --- Outputs") == 1
     assert "  PRODUCT --- C1" not in visual.mermaid_source
     assert " --- O1" not in visual.mermaid_source
+    assert "" not in visual.mermaid_source.splitlines()
 
 
 def test_cached_agentic_plan_is_normalized_again_at_render_time():
@@ -215,9 +217,6 @@ def test_mermaid_represents_all_selected_capabilities_in_one_scannable_branch():
         "Import tabular data",
         "Protect documents",
         "Inspect styles",
-        "Manage metadata",
-        "Validate formats",
-        "Repair workbooks",
     ]
     facts = facts.model_copy(
         update={
@@ -236,26 +235,33 @@ def test_mermaid_represents_all_selected_capabilities_in_one_scannable_branch():
     assert [node.label for node in capability_nodes] == values
     assert visual.mermaid_source.count('  subgraph Capabilities["Core Capabilities"]') == 1
     assert '  subgraph Capabilities["Core Capabilities"]\n    direction LR' in visual.mermaid_source
-    assert visual.mermaid_source.count('subgraph CapabilityColumn1[" "]') == 1
-    assert visual.mermaid_source.count('subgraph CapabilityColumn2[" "]') == 1
-    assert visual.mermaid_source.count("      direction TB") == 2
+    assert visual.mermaid_source.count('subgraph Col1[" "]') == 1
+    assert visual.mermaid_source.count('subgraph Col2[" "]') == 1
+    assert visual.mermaid_source.count('subgraph Col3[" "]') == 1
+    assert "direction TB" not in visual.mermaid_source
     assert visual.mermaid_source.count("  PRODUCT --- Capabilities") == 1
-    assert len(re.findall(r'(?m)^      C\d+\["', visual.mermaid_source)) == len(values)
-    assert visual.mermaid_source.count("~~~") == len(values) - 2
-    assert "      C1 ~~~ C2" in visual.mermaid_source
-    assert "      C7 ~~~ C8" in visual.mermaid_source
-    assert "      C8 ~~~ C9" not in visual.mermaid_source
-    assert "      C9 ~~~ C10" in visual.mermaid_source
-    assert "      C14 ~~~ C15" in visual.mermaid_source
-    assert "  style CapabilityColumn1 fill:none,stroke:none" in visual.mermaid_source
-    assert "  style CapabilityColumn2 fill:none,stroke:none" in visual.mermaid_source
+    assert len(re.findall(r'C\d+\["', visual.mermaid_source)) == len(values)
+    assert visual.mermaid_source.count("~~~") == len(values) - 3
+    assert '      C1["Create workbooks"] ~~~ C2["Load workbooks"]' in visual.mermaid_source
+    assert '~~~ C4["Save workbooks"]' in visual.mermaid_source
+    assert 'C4["Save workbooks"] ~~~ C5' not in visual.mermaid_source
+    assert '      C5["Read cell values"] ~~~ C6' in visual.mermaid_source
+    assert '~~~ C12["Inspect styles"]' in visual.mermaid_source
+    assert "  style Col1 fill:none,stroke:none" in visual.mermaid_source
+    assert "  style Col2 fill:none,stroke:none" in visual.mermaid_source
+    assert "  style Col3 fill:none,stroke:none" in visual.mermaid_source
     assert validate_readme_header_visual(visual, facts).checks["capability_layout_adaptive"]
     assert validate_readme_header_visual(visual, facts).checks["selected_capabilities_complete"]
+    assert validate_readme_header_visual(visual, facts).checks["capability_columns_short"]
+    assert validate_readme_header_visual(visual, facts).checks["mermaid_block_compact"]
 
 
-@pytest.mark.parametrize(("count", "expected_columns"), [(5, 0), (6, 2)])
-def test_mermaid_switches_to_two_columns_only_above_five_capabilities(
-    count: int, expected_columns: int
+@pytest.mark.parametrize(
+    ("count", "expected_columns", "expected_edges"),
+    [(1, 0, 0), (2, 2, 0), (4, 2, 2), (5, 3, 2), (6, 3, 3), (7, 3, 4), (12, 3, 9)],
+)
+def test_mermaid_columns_stay_short_and_balanced(
+    count: int, expected_columns: int, expected_edges: int
 ):
     nodes = [
         MermaidNodeV1(
@@ -269,8 +275,10 @@ def test_mermaid_switches_to_two_columns_only_above_five_capabilities(
 
     source = "\n".join(render_capability_group(nodes))
 
-    assert source.count("subgraph CapabilityColumn") == expected_columns
-    assert ("    direction LR" in source) is (expected_columns == 2)
+    assert source.count("subgraph Col") == expected_columns
+    assert ("    direction LR" in source) is (expected_columns > 0)
+    assert source.count("~~~") == expected_edges
+    assert source.count("style Col") == expected_columns
     assert validate_capability_group_layout(source, [node.node_id for node in nodes])
 
 
@@ -356,21 +364,41 @@ def test_mermaid_uses_the_normalized_pdf_capability_view() -> None:
     labels = [node.label for node in visual.diagram_nodes if node.role == "capability"]
 
     assert labels == [
-        "Create, load, save, merge, and inspect PDF documents",
-        "Add and edit text and images, including text replacement and redaction",
-        "Run heuristic PDF/A and PDF/UA validation",
+        "Create, load, save, merge",
+        "Add and edit text and images",
+        "Run heuristic PDF/A and PDF/UA",
     ]
+    assert all(len(label) <= 36 for label in labels)
 
 
 def test_header_visual_validation_rejects_unconstrained_capability_grid():
     facts, _revision = _facts()
-    visual = render_readme_header_visual(facts)
-    unconstrained = visual.model_copy(
+    capabilities = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
         update={
-            "mermaid_source": "\n".join(
-                line for line in visual.mermaid_source.splitlines() if "~~~" not in line
-            )
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Create workbooks",
+                            "Load workbooks",
+                            "Modify workbooks",
+                            "Save workbooks",
+                            "Read cell values",
+                            "Write cell values",
+                        ]
+                    }
+                )
+                if fact.fact_id == capabilities.fact_id
+                else fact
+                for fact in facts.facts
+            ]
         }
+    )
+    visual = render_readme_header_visual(facts)
+    assert " ~~~ " in visual.mermaid_source
+    unconstrained = visual.model_copy(
+        update={"mermaid_source": visual.mermaid_source.replace('"] ~~~ ', '"]\n      ')}
     )
 
     verdict = validate_readme_header_visual(unconstrained, facts)

@@ -9,6 +9,7 @@ from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
 )
+from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
@@ -34,18 +35,73 @@ _SINGLE_COMMAND_FENCE = re.compile(
 )
 _INLINE_CODE = re.compile(r"(?<!`)`([^`\n]+)`(?!`)")
 _KEY_CAPABILITY_PROVENANCE = "template.section.key_capabilities.claim:"
+_CAPABILITY_COORDINATE_FIELDS = {
+    "api.public_surface",
+    "installation.capability_dependencies",
+    "installation.optional_extras",
+    "product.capabilities",
+    "product.compatibility",
+    "product.formats",
+    "product.limitations",
+    "product.problems_solved",
+}
 
 
-def _complete_claim_fact_ids(source_claim_text: str, facts: ProductFactsV2) -> set[str]:
-    """Return every literal and structured fact required by one isolated claim."""
+def _capability_equivalence_fact_ids(
+    fact_ids: set[str],
+    facts: ProductFactsV2,
+) -> set[str]:
+    """Keep the accepted fields that carry capability meaning across rewrites."""
+
+    return {
+        fact_id for fact_id in fact_ids if facts.fact_by_id(fact_id).field != "product.identity"
+    }
+
+
+def _complete_claim_fact_binding(
+    source_claim_text: str,
+    facts: ProductFactsV2,
+) -> tuple[set[str], set[StructuredFactCoordinateV1]]:
+    """Return every accepted fact and exact coordinate for one isolated claim."""
 
     fact_ids = set(accepted_source_claim_fact_ids(source_claim_text, facts))
+    coordinates: set[StructuredFactCoordinateV1] = set()
     source_claims = assess_material_claims(source_claim_text)
     if len(source_claims) == 1:
         binding = complete_source_claim_fact_binding(source_claim_text, source_claims[0], facts)
         if binding is not None:
             fact_ids.update(binding.fact_ids)
-    return fact_ids
+            coordinates.update(binding.fact_coordinates)
+    fact_ids.update(coordinate.fact_id for coordinate in coordinates)
+    return fact_ids, coordinates
+
+
+def _coordinate_keys(
+    coordinates: set[StructuredFactCoordinateV1],
+) -> set[tuple[str, str, str]]:
+    return {(item.fact_id, item.path, item.value_sha256) for item in coordinates}
+
+
+def _coordinates_cover(
+    required: set[StructuredFactCoordinateV1],
+    provided: set[StructuredFactCoordinateV1],
+) -> bool:
+    """Require exact coordinate identity, not only a shared aggregate fact ID."""
+
+    return _coordinate_keys(required).issubset(_coordinate_keys(provided))
+
+
+def _coordinates_complete_for_required_facts(
+    fact_ids: set[str],
+    coordinates: set[StructuredFactCoordinateV1],
+    facts: ProductFactsV2,
+) -> bool:
+    coordinate_fact_ids = {coordinate.fact_id for coordinate in coordinates}
+    return all(
+        facts.fact_by_id(fact_id).field not in _CAPABILITY_COORDINATE_FIELDS
+        or fact_id in coordinate_fact_ids
+        for fact_id in fact_ids
+    )
 
 
 def presentation_equivalence_key(value: str) -> str:
@@ -81,8 +137,20 @@ def fact_bound_capability_candidate_claims(
     """Find one fact-identical canonical capability that subsumes inherited wording."""
 
     capability_fact_id = facts.selected_fact_ids.get("product.capabilities")
-    source_fact_ids = _complete_claim_fact_ids(source_claim_text, facts)
+    source_fact_ids, source_coordinates = _complete_claim_fact_binding(source_claim_text, facts)
     if capability_fact_id is None or capability_fact_id not in source_fact_ids:
+        return []
+    required_source_fact_ids = _capability_equivalence_fact_ids(source_fact_ids, facts)
+    required_source_coordinates = {
+        coordinate
+        for coordinate in source_coordinates
+        if coordinate.fact_id in required_source_fact_ids
+    }
+    if not _coordinates_complete_for_required_facts(
+        required_source_fact_ids,
+        required_source_coordinates,
+        facts,
+    ):
         return []
     matches: list[ReadmeMaterialClaimAssessmentV1] = []
     source_discriminators = capability_discriminators(source_claim_text)
@@ -94,6 +162,10 @@ def fact_bound_capability_candidate_claims(
             continue
         if not semantically_repeats(source_claim_text, candidate_text, threshold=0.6):
             continue
+        candidate_fact_ids, candidate_coordinates = _complete_claim_fact_binding(
+            candidate_text,
+            facts,
+        )
         exact_bindings = [
             binding
             for binding in provenance
@@ -101,7 +173,11 @@ def fact_bound_capability_candidate_claims(
             and binding.candidate_byte_start == claim.source_byte_start
             and binding.candidate_byte_end == claim.source_byte_end
             and capability_fact_id in binding.fact_ids
-            and source_fact_ids.issubset(binding.fact_ids)
+            and required_source_fact_ids.issubset(set(binding.fact_ids) | candidate_fact_ids)
+            and _coordinates_cover(
+                required_source_coordinates,
+                set(binding.fact_coordinates) | candidate_coordinates,
+            )
         ]
         if len(exact_bindings) == 1:
             matches.append(claim)
@@ -122,7 +198,7 @@ def equivalent_source_claim_resolution(
     comment_free_example = False
     command_reformatted = False
     capability_reformatted = False
-    source_fact_ids = _complete_claim_fact_ids(source_claim_text, facts)
+    source_fact_ids, source_coordinates = _complete_claim_fact_binding(source_claim_text, facts)
     repository_example = verified_repository_example_code(source_claim_text, facts)
     command_match = _SINGLE_COMMAND_FENCE.fullmatch(source_claim_text)
     if not equivalent and command_match is not None:
@@ -170,7 +246,13 @@ def equivalent_source_claim_resolution(
     candidate_text = candidate_bytes[
         candidate_claim.source_byte_start : candidate_claim.source_byte_end
     ].decode("utf-8")
-    candidate_fact_ids = set(accepted_source_claim_fact_ids(candidate_text, facts))
+    candidate_fact_ids, direct_candidate_coordinates = _complete_claim_fact_binding(
+        candidate_text,
+        facts,
+    )
+    candidate_coordinates: set[StructuredFactCoordinateV1] = (
+        set(direct_candidate_coordinates) if not candidate_content_provenance else set()
+    )
     provenance_ids: list[str] = []
     covered = bytearray(candidate_claim.source_byte_end - candidate_claim.source_byte_start)
     for binding in candidate_content_provenance or []:
@@ -181,6 +263,7 @@ def equivalent_source_claim_resolution(
             and candidate_claim.source_byte_start < binding.candidate_byte_end
         ):
             candidate_fact_ids.update(binding.fact_ids)
+            candidate_coordinates.update(binding.fact_coordinates)
             provenance_ids.append(binding.provenance_id)
             start = max(candidate_claim.source_byte_start, binding.candidate_byte_start)
             end = min(candidate_claim.source_byte_end, binding.candidate_byte_end)
@@ -198,9 +281,29 @@ def equivalent_source_claim_resolution(
         return None
     if candidate_claim.content_sha256 == source_claim.content_sha256 and not provenance_ids:
         return None
+    required_source_fact_ids = (
+        _capability_equivalence_fact_ids(source_fact_ids, facts)
+        if capability_reformatted
+        else source_fact_ids
+    )
+    required_source_coordinates = (
+        {
+            coordinate
+            for coordinate in source_coordinates
+            if coordinate.fact_id in required_source_fact_ids
+        }
+        if capability_reformatted
+        else source_coordinates
+    )
     if not candidate_fact_ids or (
-        source_fact_ids and not source_fact_ids.issubset(candidate_fact_ids)
+        required_source_fact_ids and not required_source_fact_ids.issubset(candidate_fact_ids)
     ):
+        return None
+    if not _coordinates_complete_for_required_facts(
+        required_source_fact_ids,
+        required_source_coordinates,
+        facts,
+    ) or not _coordinates_cover(required_source_coordinates, candidate_coordinates):
         return None
     fact_ids = sorted(candidate_fact_ids)
     return SourceClaimResolutionV1(
@@ -219,6 +322,14 @@ def equivalent_source_claim_resolution(
             f"candidate-content-sha256:{candidate_claim.content_sha256}",
             *(f"candidate-provenance:{provenance_id}" for provenance_id in sorted(provenance_ids)),
             *(f"accepted-fact:{fact_id}" for fact_id in fact_ids),
+            *(
+                f"accepted-coordinate:{coordinate.fact_id}:{coordinate.path}:"
+                f"{coordinate.value_sha256}"
+                for coordinate in sorted(
+                    candidate_coordinates,
+                    key=lambda item: (item.fact_id, item.path, item.value_sha256),
+                )
+            ),
         ],
         rationale=(
             "Bind this inherited capability to one canonical, fact-identical visitor statement "

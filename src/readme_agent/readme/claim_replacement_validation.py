@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityV1
+from readme_agent.readme.claim_accountability_models import (
+    ReadmeClaimAccountabilityV1,
+    StructuredFactCoordinateV1,
+)
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.source_claim_risk import (
     obligation_any_fact_fields,
@@ -18,6 +21,7 @@ def replacement_provenance_is_exact(
     provenance_by_id: dict[str, CandidateContentProvenanceV1],
     *,
     exact_source_fact_ids: list[str] | None = None,
+    exact_source_fact_coordinates: list[StructuredFactCoordinateV1] | None = None,
     allow_contradicted_source_subset: bool = False,
 ) -> bool:
     """Require exact selected facts and allowed slot spans for one replacement."""
@@ -91,6 +95,18 @@ def replacement_provenance_is_exact(
         remaining_supplemental_facts.difference_update(binding_fact_ids)
     if remaining_supplemental_facts:
         return False
+    if exact_source_fact_coordinates:
+        required_coordinates = {
+            (item.fact_id, item.field, item.path, item.value_sha256)
+            for item in exact_source_fact_coordinates
+        }
+        bound_coordinates = {
+            (item.fact_id, item.field, item.path, item.value_sha256)
+            for binding in bindings
+            for item in binding.fact_coordinates
+        }
+        if not required_coordinates.issubset(bound_coordinates):
+            return False
     if resolution.obligation_id == "product_overview":
         if any(
             not set(binding.fact_ids).intersection(resolution.fact_ids) for binding in supplemental

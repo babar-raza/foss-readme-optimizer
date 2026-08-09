@@ -33,6 +33,91 @@ def _coordinate(*, fact_id: str, path: str, value: object) -> StructuredFactCoor
     )
 
 
+def api_module_export_fact_coordinates(
+    fact_id: str,
+    value: object,
+    export_names: set[str],
+) -> list[StructuredFactCoordinateV1]:
+    """Bind requested module exports to exact public-surface coordinates."""
+
+    if not isinstance(value, dict) or not export_names:
+        return []
+    modules = value.get("modules")
+    if not isinstance(modules, list):
+        return []
+    requested = {name.casefold() for name in export_names}
+    coordinates: list[StructuredFactCoordinateV1] = []
+    matched: set[str] = set()
+    for module in modules:
+        if not isinstance(module, dict) or not isinstance(module.get("module"), str):
+            continue
+        module_name = module["module"]
+        exports = module.get("exports")
+        if not isinstance(exports, list):
+            continue
+        for export in exports:
+            if not isinstance(export, str) or export.casefold() not in requested:
+                continue
+            matched.add(export.casefold())
+            coordinates.append(
+                _coordinate(
+                    fact_id=fact_id,
+                    path=f"/modules/{module_name}/exports/{export}",
+                    value={"module": module_name, "export": export},
+                )
+            )
+    if matched != requested:
+        return []
+    return sorted(set(coordinates), key=lambda item: (item.path, item.value_sha256))
+
+
+def api_mcp_server_fact_coordinates(
+    fact_id: str,
+    value: object,
+    *,
+    include_factory: bool = False,
+    include_runner: bool = False,
+    tool_names: set[str] | None = None,
+) -> list[StructuredFactCoordinateV1]:
+    """Bind requested MCP factory, runner, and tools to exact coordinates."""
+
+    if not isinstance(value, dict) or not isinstance(value.get("mcp_server"), dict):
+        return []
+    mcp = value["mcp_server"]
+    coordinates: list[StructuredFactCoordinateV1] = []
+    requested_tools = {name.casefold() for name in tool_names or set()}
+    if include_factory:
+        factory = mcp.get("factory")
+        if not isinstance(factory, str):
+            return []
+        coordinates.append(_coordinate(fact_id=fact_id, path="/mcp_server/factory", value=factory))
+    if include_runner:
+        runner = mcp.get("runner")
+        if not isinstance(runner, str):
+            return []
+        coordinates.append(_coordinate(fact_id=fact_id, path="/mcp_server/runner", value=runner))
+    if requested_tools:
+        tools = mcp.get("tools")
+        if not isinstance(tools, list):
+            return []
+        matched = {
+            tool.casefold(): tool
+            for tool in tools
+            if isinstance(tool, str) and tool.casefold() in requested_tools
+        }
+        if set(matched) != requested_tools:
+            return []
+        coordinates.extend(
+            _coordinate(
+                fact_id=fact_id,
+                path=f"/mcp_server/tools/{tool}",
+                value=tool,
+            )
+            for tool in matched.values()
+        )
+    return sorted(set(coordinates), key=lambda item: (item.path, item.value_sha256))
+
+
 def _class_coordinate(
     fact_id: str, class_name: str, class_item: dict, *, prefix: str = ""
 ) -> StructuredFactCoordinateV1:
@@ -354,3 +439,31 @@ def api_structured_fact_coordinates(
                 )
             )
     return coordinates
+
+
+def api_class_fact_coordinates(
+    fact_id: str,
+    value: object,
+    class_names: list[str],
+) -> list[StructuredFactCoordinateV1]:
+    """Return exact coordinates for unambiguous public class names."""
+
+    if not isinstance(value, dict):
+        return []
+    index = api_coordinate_index(value)
+    requested = list(dict.fromkeys(class_names))
+    if not requested or any(name not in index.classes_by_name for name in requested):
+        return []
+    if index.coordinate_prefix and any(
+        name not in index.package_export_names for name in requested
+    ):
+        return []
+    return [
+        _class_coordinate(
+            fact_id,
+            name,
+            index.classes_by_name[name],
+            prefix=index.coordinate_prefix,
+        )
+        for name in requested
+    ]

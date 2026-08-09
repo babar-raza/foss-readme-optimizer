@@ -56,3 +56,18 @@ def test_candidate_review_anchor_binding_replaces_only_a_known_selected_block() 
     bound = bind_candidate_review_anchors(value, anchors)
 
     assert bound["findings"][0]["quoted_candidate_span"] == paragraph.text
+
+
+def test_oversized_api_table_is_split_without_omission_or_unbounded_anchor() -> None:
+    rows = [
+        f"| `Type{index}` | Describes public API behavior number {index}. |" for index in range(500)
+    ]
+    table = "\n".join(["| Type | Description |", "| --- | --- |", *rows])
+    candidate = f"# Widget\n\n## API Reference\n\n{table}\n"
+
+    anchors = build_candidate_review_anchors(candidate)
+    table_anchors = [anchor for anchor in anchors if anchor.text.startswith("| ")]
+
+    assert len(table_anchors) > 1
+    assert all(len(anchor.text) <= 12_000 for anchor in table_anchors)
+    assert "\n".join(anchor.text for anchor in table_anchors) == table

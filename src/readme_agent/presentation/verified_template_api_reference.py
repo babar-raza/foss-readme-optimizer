@@ -7,7 +7,12 @@ from typing import Any
 
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.public_text import canonicalize_abbreviations
+from readme_agent.presentation.verified_template_api_descriptions import (
+    describe_api_export,
+    describe_api_member,
+    member_api_identifier,
+    namespace_display_name,
+)
 
 
 def _accepted_api_value(facts: ProductFactsV2) -> dict[str, Any] | None:
@@ -26,206 +31,6 @@ def _accepted_api_value(facts: ProductFactsV2) -> dict[str, Any] | None:
 
 def _table_cell(value: object) -> str:
     return " ".join(str(value).split()).replace("|", "\\|")
-
-
-_LOW_VALUE_MEMBERS = {
-    "Count",
-    "Current",
-    "Document",
-    "FirstChild",
-    "GetEnumerator",
-    "IsReadOnly",
-    "LastChild",
-    "ParentNode",
-}
-
-_VERB_PHRASES = {
-    "accept": "traverse with a visitor",
-    "append": "append content",
-    "clear": "clear content",
-    "clone": "clone content",
-    "copy": "copy content",
-    "create": "create values",
-    "default": "create default values",
-    "detect": "detect changes",
-    "get": "retrieve data",
-    "index": "find content",
-    "insert": "insert content",
-    "load": "load content",
-    "open": "open content",
-    "read": "read content",
-    "remove": "remove content",
-    "replace": "replace content",
-    "save": "save output",
-    "set": "set values",
-    "visit": "visit content",
-    "write": "write output",
-}
-
-_EXACT_MEMBER_PHRASES = {
-    "Accept": "traverse with a visitor",
-    "GetChildNodes": "retrieve child nodes",
-    "Save": "save document output",
-    "SetLicense": "configure package licensing",
-    "SetMeteredKey": "configure metered licensing keys",
-}
-
-
-def _human_name(value: str) -> str:
-    expanded = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", value)
-    expanded = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", expanded).replace("_", " ")
-    return " ".join(expanded.split()).casefold()
-
-
-def _member_rows(item: dict[str, Any]) -> list[tuple[int, dict[str, Any]]]:
-    members = item.get("members")
-    if not isinstance(members, list):
-        return []
-    rows: list[tuple[int, dict[str, Any]]] = []
-    for member in members:
-        if not isinstance(member, dict):
-            continue
-        name = str(member.get("name") or "").strip()
-        if not name:
-            continue
-        score = 0
-        if member.get("inherited") is True:
-            score += 20
-        if str(member.get("kind") or "") != "method":
-            score += 10
-        if name in _LOW_VALUE_MEMBERS:
-            score += 30
-        if name.endswith("End"):
-            score += 5
-        rows.append((score, member))
-    return sorted(rows, key=lambda row: (row[0], str(row[1]["name"]).casefold()))
-
-
-def _series(items: list[str]) -> str:
-    if not items:
-        return ""
-    if len(items) == 1:
-        return items[0]
-    if len(items) == 2:
-        return " and ".join(items)
-    return ", ".join(items[:-1]) + f", and {items[-1]}"
-
-
-def _member_phrase(member: dict[str, Any]) -> str:
-    name = str(member.get("name") or "").strip()
-    if name in _EXACT_MEMBER_PHRASES:
-        return _EXACT_MEMBER_PHRASES[name]
-    words = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", name).replace("_", " ").split()
-    if str(member.get("kind") or "") != "method" or not words:
-        return "access to " + _human_name(name)
-    verb = words[0].casefold()
-    remainder = " ".join(words[1:]).casefold()
-    if verb == "append" and remainder.startswith("child"):
-        return "append child nodes"
-    if verb == "get" and remainder:
-        return "retrieve " + remainder
-    if verb == "detect" and remainder:
-        return "detect " + remainder
-    if verb == "visit" and remainder:
-        return "visit " + re.sub(r"\s+(?:start|end)$", "", remainder)
-    if verb in {"create", "default", "replace", "set"} and remainder:
-        prefix = {
-            "create": "create",
-            "default": "create default",
-            "replace": "replace",
-            "set": "set",
-        }[verb]
-        return f"{prefix} {remainder}"
-    return _VERB_PHRASES.get(verb, verb)
-
-
-def _member_summary(item: dict[str, Any], *, limit: int = 3) -> tuple[str, int]:
-    rows = _member_rows(item)
-    selected: list[str] = []
-    for _score, member in rows:
-        phrase = _member_phrase(member)
-        if phrase not in selected:
-            selected.append(phrase)
-        if len(selected) == limit:
-            break
-    return _series(selected), max(0, len(rows) - len(selected))
-
-
-def _article(value: str) -> str:
-    return "an" if value[:1].casefold() in {"a", "e", "i", "o", "u"} else "a"
-
-
-def _class_description(item: dict[str, Any] | None, *, module: str, name: str) -> str:
-    if item is None:
-        if name[:1].islower():
-            return f"Public function for {_human_name(name)} operations."
-        return f"`{name}` is a verified public type exported by the `{module}` namespace."
-    bases = [str(base).strip() for base in item.get("bases", []) if str(base).strip()]
-    if name.endswith("Exception") or any(base.endswith("Exception") for base in bases):
-        condition = _human_name(name.removesuffix("Exception")).replace(" file format", " format")
-        inheritance = f"; derives from `{_table_cell(bases[0])}`" if bases else ""
-        return f"Signals {_article(condition)} {condition} condition{inheritance}."
-    if module.endswith(".enums") or any(base in {"Enum", "IntEnum", "StrEnum"} for base in bases):
-        values = [
-            f"`{_table_cell(str(member['name']))}`" for _score, member in _member_rows(item)[:3]
-        ]
-        detail = f" Values include {_series(values)}" if values else ""
-        remaining = max(0, len(_member_rows(item)) - len(values))
-        if remaining:
-            detail += f" and {remaining} more"
-        return f"Enumerates {_human_name(name)} values.{detail}".rstrip() + ("." if detail else "")
-    summary, remaining = _member_summary(item)
-    human_name = _human_name(name)
-    if not summary and not bases:
-        return f"`{name}` is a verified public type exported by the `{module}` namespace."
-    description = human_name.capitalize()
-    if summary:
-        description += f": {summary}"
-    if bases:
-        description += ". Inherits from " + ", ".join(f"`{_table_cell(base)}`" for base in bases)
-    if remaining:
-        description += f". Includes {remaining} additional member"
-        if remaining != 1:
-            description += "s"
-    description += "."
-    if len(description.rstrip(".")) < 24:
-        return (
-            f"`{name}` exposes the verified public `{summary}` operation "
-            f"in the `{module}` namespace."
-        )
-    return description
-
-
-def _namespace_display_name(module: str, family: str) -> str:
-    """Humanize dotted and underscore-root Python namespaces without duplicating family names."""
-
-    def display_part(value: str) -> str:
-        words = [
-            canonicalize_abbreviations(word[:1].upper() + word[1:])
-            for word in value.split("_")
-            if word
-        ]
-        return " ".join(words)
-
-    parts = module.split(".")
-    rendered_parts: list[str] = []
-    first = parts[0]
-    start = 1
-    if first.casefold() == "aspose":
-        rendered_parts.append("Aspose")
-        if len(parts) > 1:
-            rendered_parts.append(canonicalize_abbreviations(family or parts[1]))
-            start = 2
-    elif first.casefold().startswith("aspose_"):
-        suffix = first[len("aspose_") :]
-        rendered_parts.extend(
-            ["Aspose", canonicalize_abbreviations(family or display_part(suffix))]
-        )
-    else:
-        rendered_parts.append(display_part(first))
-    for part in parts[start:]:
-        rendered_parts.append(display_part(part))
-    return ".".join(rendered_parts)
 
 
 def _class_indexes(
@@ -249,6 +54,117 @@ def _class_indexes(
     return exact, by_name
 
 
+def _complete_catalog(value: dict[str, Any]) -> dict[str, Any]:
+    """Prefer the complete evidence catalog over the bounded planning projection."""
+
+    catalog = value.get("coordinate_catalog")
+    return catalog if isinstance(catalog, dict) else value
+
+
+def _excluded_exports(value: dict[str, Any]) -> set[tuple[str, str]]:
+    catalog = value.get("coordinate_catalog")
+    source = catalog if isinstance(catalog, dict) else value
+    exclusions = source.get("presentation_exclusions")
+    if not isinstance(exclusions, list):
+        return set()
+    return {
+        (str(item.get("import_module") or "").strip(), str(item.get("name") or "").strip())
+        for item in exclusions
+        if isinstance(item, dict)
+        and str(item.get("import_module") or "").strip()
+        and str(item.get("name") or "").strip()
+    }
+
+
+def _function_keys(value: dict[str, Any]) -> set[tuple[str, str]]:
+    functions = value.get("functions")
+    if not isinstance(functions, list):
+        return set()
+    return {
+        (str(item.get("module") or "").strip(), str(item.get("name") or "").strip())
+        for item in functions
+        if isinstance(item, dict)
+        and str(item.get("module") or "").strip()
+        and str(item.get("name") or "").strip()
+    }
+
+
+def _is_namespace_alias(
+    module: str,
+    export: str,
+    *,
+    namespaces: set[str],
+    class_keys: set[tuple[str, str]],
+    function_keys: set[tuple[str, str]],
+) -> bool:
+    """Identify exported child modules without guessing that all lowercase exports are modules."""
+
+    return bool(
+        (module, export) not in class_keys
+        and (module, export) not in function_keys
+        and f"{module}.{export}" in namespaces
+    )
+
+
+def _is_single_type_wrapper_namespace(
+    module: str,
+    exports: list[object],
+    classes_by_name: dict[str, list[dict[str, Any]]],
+) -> bool:
+    """Reject generated implementation modules that only wrap one canonically exported type."""
+
+    if len(exports) != 1:
+        return False
+    export = str(exports[0]).strip()
+    if not export or module.rsplit(".", 1)[-1] != export:
+        return False
+    candidates = classes_by_name.get(export, [])
+    return any(str(item.get("module") or "").strip() != module for item in candidates)
+
+
+def _class_surface(name: str, item: dict[str, Any]) -> str:
+    constructor = item.get("constructor")
+    if isinstance(constructor, dict):
+        surface = " ".join(str(constructor.get("surface") or "").split())
+        if surface:
+            return surface
+    return name
+
+
+def _member_table_rows(owner: str, item: dict[str, Any]) -> list[str]:
+    members = item.get("members")
+    if not isinstance(members, list):
+        return []
+    rows: list[str] = []
+    seen: set[str] = set()
+    names = [
+        str(member.get("name") or "").strip()
+        for member in members
+        if isinstance(member, dict) and str(member.get("name") or "").strip()
+    ]
+    casefolded_names: dict[str, list[str]] = {}
+    for name in names:
+        casefolded_names.setdefault(name.casefold(), []).append(name)
+    for member in members:
+        if not isinstance(member, dict):
+            continue
+        identifier = member_api_identifier(owner, member)
+        if not identifier or identifier in seen:
+            continue
+        seen.add(identifier)
+        name = str(member.get("name") or "").strip()
+        variants = casefolded_names.get(name.casefold(), [])
+        case_variant_of = next(
+            (variant for variant in variants if variant != name and variant[:1].islower()),
+            None,
+        )
+        rows.append(
+            f"| `{_table_cell(identifier)}` | "
+            f"{describe_api_member(owner, member, case_variant_of=case_variant_of)} |"
+        )
+    return rows
+
+
 def _namespace_table(
     module: str,
     exports: list[object],
@@ -257,7 +173,7 @@ def _namespace_table(
     primary_export_modules: dict[str, str],
     family: str,
 ) -> tuple[list[str], int]:
-    display_name = _namespace_display_name(module, family)
+    display_name = namespace_display_name(module, family)
     rows: list[str] = [
         f"### {display_name} Namespace (`{_table_cell(module)}`)",
         "",
@@ -279,9 +195,14 @@ def _namespace_table(
                 f"`{_table_cell(primary_module)}` namespace."
             )
         else:
-            description = _class_description(item, module=module, name=name)
-        rows.append(f"| `{_table_cell(name)}` | {description} |")
+            description = describe_api_export(item, module=module, name=name, family=family)
+        identifier = _class_surface(name, item) if item is not None else name
+        rows.append(f"| `{_table_cell(identifier)}` | {description} |")
         count += 1
+        if item is not None and primary_module == module:
+            member_rows = _member_table_rows(name, item)
+            rows.extend(member_rows)
+            count += len(member_rows)
     return rows, count
 
 
@@ -303,14 +224,16 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     value = _accepted_api_value(facts)
     if value is None:
         return None
+    complete = _complete_catalog(value)
     modules = value.get("modules")
     modules = modules if isinstance(modules, list) else []
-    exact_classes, classes_by_name = _class_indexes(value)
+    exact_classes, classes_by_name = _class_indexes(complete)
     family = _product_family(facts)
     body: list[str] = []
-    export_count = 0
+    entry_count = 0
     namespace_count = 0
     namespace_exports: dict[str, list[object]] = {}
+    excluded = _excluded_exports(value)
     for module in modules:
         if not isinstance(module, dict):
             continue
@@ -320,22 +243,53 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
             continue
         selected = namespace_exports.setdefault(name, [])
         for export in exports:
-            if export not in selected:
+            if (name, str(export).strip()) not in excluded and export not in selected:
                 selected.append(export)
+    projected_namespaces = set(namespace_exports)
+    package_namespaces = value.get("package_namespaces")
+    if isinstance(package_namespaces, list):
+        projected_namespaces.update(
+            str(item).strip() for item in package_namespaces if str(item).strip()
+        )
     # Some collectors provide the class inventory before a separate module
     # export index. A class with an explicit module is still sufficient
     # repository evidence for one namespace-scoped public API table.
-    classes = value.get("classes")
+    classes = complete.get("classes")
     if isinstance(classes, list):
         for item in classes:
             if not isinstance(item, dict):
                 continue
             name = str(item.get("name") or "").strip()
             module = str(item.get("module") or "").strip()
-            if name and module:
+            if (
+                name
+                and module
+                and module in projected_namespaces
+                and (module, name) not in excluded
+            ):
                 selected = namespace_exports.setdefault(module, [])
                 if name not in selected:
                     selected.append(name)
+    namespaces = set(namespace_exports)
+    if isinstance(package_namespaces, list):
+        namespaces.update(str(item).strip() for item in package_namespaces if str(item).strip())
+    class_keys = set(exact_classes)
+    function_keys = _function_keys(complete)
+    namespace_exports = {
+        module: [
+            export
+            for export in exports
+            if not _is_namespace_alias(
+                module,
+                str(export).strip(),
+                namespaces=namespaces,
+                class_keys=class_keys,
+                function_keys=function_keys,
+            )
+        ]
+        for module, exports in namespace_exports.items()
+        if not _is_single_type_wrapper_namespace(module, exports, classes_by_name)
+    }
     primary_export_modules = {
         str(export).strip(): module
         for module, exports in reversed(list(namespace_exports.items()))
@@ -356,11 +310,10 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         if body:
             body.append("")
         body.extend(table)
-        export_count += count
+        entry_count += count
         namespace_count += 1
     if not body:
         return None
-    package_namespaces = value.get("package_namespaces")
     namespace_inventory = (
         [str(namespace).strip() for namespace in package_namespaces if str(namespace).strip()]
         if isinstance(package_namespaces, list)
@@ -383,8 +336,8 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         ]
     )
     return (
-        f"The package declares {export_count} public exports across "
-        f"{namespace_count} export namespaces.{namespace_context}\n\n{details}"
+        f"The package documents {entry_count} public API entries across "
+        f"{namespace_count} namespaces.{namespace_context}\n\n{details}"
     )
 
 

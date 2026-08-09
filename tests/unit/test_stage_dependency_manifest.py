@@ -128,6 +128,26 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     assert all("reviewer_client" not in path for path in selected)
 
 
+def test_candidate_manifest_tracks_semantic_owners_at_the_earliest_affected_stage() -> None:
+    groups = stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS
+
+    assert {
+        "src/readme_agent/presentation/verified_template_api_descriptions.py",
+        "src/readme_agent/presentation/verified_template_api_members.py",
+        "src/readme_agent/presentation/verified_template_api_text.py",
+        "src/readme_agent/presentation/verified_template_golden_workflow.py",
+        "src/readme_agent/readme/public_limitations.py",
+    } <= set(groups["document_compilation"][2])
+    assert {
+        "src/readme_agent/readme/claim_accountability_coordinates.py",
+        "src/readme_agent/readme/source_claim_fact_binding.py",
+        "src/readme_agent/readme/source_claim_obligations.py",
+    } <= set(groups["source_claim_accountability"][2])
+    assert "src/readme_agent/readme/presentation_lint_api_reference.py" in set(
+        groups["presentation_validation"][2]
+    )
+
+
 def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, monkeypatch) -> None:
     for _scope, _stage, relative_paths in stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS.values():
         for relative_path in relative_paths:

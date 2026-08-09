@@ -21,6 +21,9 @@ from readme_agent.presentation.verified_source_policy import build_verified_sour
 from readme_agent.presentation.verified_source_preservation import (
     compose_verified_source_preservation,
 )
+from readme_agent.presentation.verified_template_capabilities import (
+    build_capability_presentation_plan,
+)
 from readme_agent.presentation.verified_template_draft import build_verified_template_draft
 from readme_agent.presentation.verified_template_provenance import (
     build_template_provenance,
@@ -67,6 +70,7 @@ def build_verified_template_compilation(
 ) -> VerifiedTemplateCompilationV1:
     """Return a compiled, validated, product-neutral verified presentation."""
 
+    capability_plan = build_capability_presentation_plan(facts, source_text=source_text)
     draft = build_verified_template_draft(
         facts,
         source_text,
@@ -74,13 +78,20 @@ def build_verified_template_compilation(
         agentic_plan,
         contextual_links,
         documentation_link_limit,
+        capability_plan,
     )
     template_input = bind_product_facts(facts, draft)
     candidate = compile_repository_presentation(template_input)
     errors = validate_repository_presentation(candidate, template_input)
     if errors:
         raise ValueError("compiled verified presentation is invalid: " + "; ".join(errors))
-    provenance = build_template_provenance(candidate, template_input, facts)
+    provenance = build_template_provenance(
+        candidate,
+        template_input,
+        facts,
+        source_text=source_text,
+        capability_plan=capability_plan,
+    )
     assessment = assess_readme_document(
         facts.org_repo,
         source_text,
@@ -94,6 +105,7 @@ def build_verified_template_compilation(
         assessment,
         build_source_claim_assurance(source_text, facts, assessment),
         provenance,
+        facts,
         candidate,
     )
     preserved_source_ranges = source_assurance.preserve_ranges

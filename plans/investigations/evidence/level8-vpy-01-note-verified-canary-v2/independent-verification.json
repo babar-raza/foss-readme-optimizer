@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "verifier": "/root/python_three_independent",
+  "verifier_authored_implementation": false,
+  "verdict": "ACCEPTED",
+  "scope": "Aspose.Note FOSS for Python bounded repository-verified canary",
+  "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "candidate_sha256": "ed6cba11fc46e1b64dd67e32b810dbaf1d54ce4767c28cc7cbfa1627bc2fbdfa",
+  "facts_canonical_sha256": "e19bd05a4c0252a4442cfb2bd6e1910abb0aba3f317ea7482f42f388ce18df74",
+  "runtime_manifest_sha256": "a72dcee2cb25f7d53c070c55568b1ff3a3a03ee86c89bd89a38d01718bc4e20c",
+  "runtime_inventory_sha256": "4a855e627e19bd99e780401b60ffaf0aa4ad8047ba11fb01df5abec4cc071c81",
+  "fresh_run_manifest_sha256": "80c15e70d54a7591fbf7fef4642e7a9cb3d76d374b670114d3da11c1c82a0fb5",
+  "no_op_run_manifest_sha256": "8e362694f0f2ce62b671077d4692ec41dfc68ac4548fcf91f8d3a9f8c6ae41d8",
+  "full_pytest_receipt_sha256": "787bd64ada74c03b99331c0ce3d07bf31377976c037a86355e0bea74b4544450",
+  "checks": {
+    "runtime_and_promoted_candidate_match": true,
+    "current_component_hashes_bound": true,
+    "agent_approved": true,
+    "no_op_proven": true,
+    "no_op_provider_calls": 0,
+    "no_op_cache_reuse": 1,
+    "presentation_lint_rules": 18,
+    "presentation_lint_findings": 0,
+    "aspose_org_runtime_provenance_hits": 0,
+    "product_effects": 0,
+    "default_branch_writes": 0,
+    "pull_requests": 0,
+    "complete_non_live_tests_passed": 3461,
+    "complete_non_live_tests_failed": 0,
+    "test_process_leaks": 0
+  },
+  "accepted_boundaries": [
+    "repository-derived factuality and claim accountability",
+    "professional public-presentation contract",
+    "balanced Mermaid layout and role semantics",
+    "Aspose.org development-only isolation",
+    "deterministic and independent acceptance",
+    "identical zero-call no-op",
+    "checksum-complete promotion",
+    "zero product effects"
+  ],
+  "scope_limits": [
+    "This accepts only the bounded Note/Python canary and the shared behavior it exercises.",
+    "It does not certify the complete Python platform, Gate A, publication, or maturity levels."
+  ]
+}

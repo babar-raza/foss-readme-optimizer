@@ -694,6 +694,56 @@ Keep this limitation.
     )
 
 
+def test_python_source_build_corrects_false_package_extras_outside_installation():
+    facts, revision = _java_facts()
+    python_facts = _python_source_build_facts(facts, revision)
+    source = """# Aspose.Page FOSS for Python
+
+## Requirements
+
+```bash
+python -m pip install 'aspose-page-foss-for-python[images]'
+```
+
+## Installation
+
+```bash
+pip install aspose-page-foss
+```
+
+## Limitations
+
+Keep this limitation.
+"""
+
+    candidate, plan = build_readme_document_candidate(
+        python_facts.org_repo,
+        source,
+        python_facts,
+        base_revision=revision,
+    )
+    validation = validate_readme_document_candidate(source, candidate, plan, python_facts)
+
+    assert "aspose-page-foss-for-python[images]" not in candidate
+    assert "pip install aspose-page-foss" not in candidate
+    assert "python -m pip install ." in candidate
+    assert "Keep this limitation." in candidate
+    assert not [
+        error
+        for error in validation.errors
+        if error.startswith("unauthorized protected-content loss:")
+    ]
+    removed_text = [
+        source.encode("utf-8")[operation.source_byte_start : operation.source_byte_end].decode(
+            "utf-8"
+        )
+        for operation in plan.operations
+        if operation.operation_id.startswith("readme.installation.remove-false-package-claim")
+    ]
+    assert any("[images]" in text for text in removed_text)
+    assert any("pip install aspose-page-foss" in text for text in removed_text)
+
+
 def test_verified_example_uses_the_verified_code_without_generated_fixture_narration():
     facts, revision = _java_facts()
     example = facts.selected_fact("example.minimal")

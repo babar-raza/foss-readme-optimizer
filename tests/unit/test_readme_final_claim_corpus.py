@@ -1020,6 +1020,48 @@ def test_deferred_source_claim_cannot_approve_a_surviving_claim_or_cite_facts():
         )
 
 
+def test_excluded_deferred_source_claim_still_blocks_final_approval():
+    _source, _candidate, facts, _plan, _accountability = _case("python")
+    source = "# Product\n\nMaintainer-authored detail pending verification.\n"
+    candidate = "# Product\n"
+    claim = assess_material_claims(source)[0]
+    resolution = SourceClaimResolutionV1(
+        claim_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+        content_sha256=claim.content_sha256,
+        resolution="deferred_verification",
+        evidence=["risk-policy:unverified-inherited-claim-excluded-v1"],
+        rationale="Keep the unverified source detail out of the public candidate.",
+    )
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        generated_claim_map=ReadmeClaimMapV1(
+            org_repo=facts.org_repo,
+            facts_hash=facts.canonical_hash(),
+            candidate_sha256=hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
+            claims=[],
+        ),
+        source_claim_resolutions=[resolution],
+    )
+
+    result = validate_claim_accountability_map(
+        accountability,
+        source_text=source,
+        candidate_text=candidate,
+        facts=facts,
+        operations=[],
+        source_claim_resolutions=[resolution],
+    )
+
+    assert result.valid is False
+    assert result.approval_eligible is False
+    assert result.checks["no_deferred_source_claims_at_approval"] is False
+
+
 def test_authoritative_correction_requires_an_overlapping_operation():
     _source, _candidate, facts, _plan, _accountability = _case("python")
     source = "# Product\n\nIncorrect product identity.\n"

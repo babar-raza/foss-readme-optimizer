@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+  "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "content_assurance": "repository_verified",
+  "lifecycle_status": "NO_OP_PROVEN",
+  "candidate_sha256": "ed6cba11fc46e1b64dd67e32b810dbaf1d54ce4767c28cc7cbfa1627bc2fbdfa",
+  "facts_canonical_sha256": "e19bd05a4c0252a4442cfb2bd6e1910abb0aba3f317ea7482f42f388ce18df74",
+  "presentation_lint": {
+    "rules": 18,
+    "findings": 0
+  },
+  "fresh_run": {
+    "evidence": "runs/evidence/20260808-062520-13ea",
+    "provider_calls": 2,
+    "effects": 0
+  },
+  "identical_rerun": {
+    "evidence": "runs/evidence/20260808-062939-6f85",
+    "verdict": "NO_OP_PROVEN",
+    "provider_calls": 0,
+    "cache_reuse": 1,
+    "effects": 0
+  },
+  "promoted_readme": "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--ed6cba11fc46/README.md",
+  "product_remote_writes": 0,
+  "pull_requests": 0,
+  "verdict": "ACCEPTED_BOUNDED_CANARY"
+}

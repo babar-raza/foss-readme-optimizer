@@ -103,6 +103,87 @@ MIT
     assert not result.findings
 
 
+def test_api_reference_lint_rejects_internal_tautological_and_low_information_prose() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## API Reference
+
+### Aspose.page.PDF Namespace (`aspose.page.pdf`)
+
+| Type | Description |
+| --- | --- |
+| `PdfWriter` | `PdfWriter` is a verified public type exported by the `aspose.page.pdf` namespace. |
+| `create_server` | Public function for create server operations. |
+| `PsDocument` | PS document: add, as, and create values. |
+| `OperationResult` | Stores operation result data. Supports ising byte array and toing dict. |
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert not result.valid
+    assert {
+        "api_reference_internal_assurance",
+        "api_reference_low_information_description",
+        "api_reference_namespace_branding",
+        "api_reference_tautological_description",
+    } <= {finding.rule_id for finding in result.findings}
+
+
+def test_api_reference_lint_rejects_malformed_public_terminology() -> None:
+    candidate = """# Aspose.PDF FOSS for Python
+
+## API Reference
+
+The package declares 3 public exports across 1 export namespace.
+
+<details>
+<summary>View public API by namespace</summary>
+
+### Aspose.PDF Namespace (`aspose_pdf`)
+
+| Type | Description |
+| --- | --- |
+| `PdfUaMode` | Represents a PDF Ua mode in the public Aspose PDF API. |
+| `Matrix3D` | Represents a Matrix3 D value. |
+| `XmpPacket` | Represents a XMP Packet for an URI Action. |
+
+</details>
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert {finding.rule_id for finding in result.findings} == {
+        "api_reference_malformed_terminology"
+    }
+
+
+def test_api_reference_lint_accepts_branded_role_and_action_descriptions() -> None:
+    candidate = """# Aspose.Page FOSS for Python
+
+## API Reference
+
+The package declares 3 public exports across 1 export namespace.
+
+<details>
+<summary>View public API by namespace</summary>
+
+### Aspose.Page.PDF Namespace (`aspose.page.pdf`)
+
+| Type | Description |
+| --- | --- |
+| `PdfWriter` | Writes PDF output through the public API. |
+| `create_server` | Creates and configures the Aspose.Page MCP server. |
+| `PsDocument` | Represents a PS document. Supports adding pages and saving PDF output. |
+
+</details>
+"""
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert result.valid
+    assert not result.findings
+
+
 def test_explained_option_tokens_and_same_bullet_in_distinct_sections_are_allowed() -> None:
     candidate = """# Mesh Toolkit
 
@@ -147,6 +228,11 @@ def test_repeated_api_signatures_in_distinct_class_sections_are_not_duplicate_pr
 
 ## API Reference
 
+The package declares 6 public members across 4 classes.
+
+<details>
+<summary>View public API by namespace</summary>
+
 ### RichText
 
 - `Text: str`
@@ -164,6 +250,8 @@ def test_repeated_api_signatures_in_distinct_class_sections_are_not_duplicate_pr
 ### Image
 
 - `FileName: str | None`, `Bytes: bytes`
+
+</details>
 """
 
     result = lint_readme_presentation(candidate, None)
@@ -297,6 +385,11 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
 
     assert result.rules_run == [
         "api_identifier_not_fact_exact",
+        "api_reference_internal_assurance",
+        "api_reference_low_information_description",
+        "api_reference_malformed_terminology",
+        "api_reference_namespace_branding",
+        "api_reference_tautological_description",
         "capability_description_repeats_title",
         "competing_primary_examples",
         "cross_product_leakage",
@@ -313,9 +406,12 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
         "prompt_injection_residue",
         "raw_internal_token",
         "redundant_quick_links",
+        "section_brief_overflow",
+        "section_details_multiplicity",
         "semantic_duplicate",
         "uncollapsed_secondary_detail",
         "unnatural_enterprise_link",
+        "unnormalized_blank_lines",
         "visitor_fragment",
     ]
 
@@ -694,6 +790,7 @@ def test_public_contract_requires_exact_fact_derived_api_identifier_casing() -> 
         fact_id="api.public_surface:identifier-case-test",
         field="api.public_surface",
         value={
+            "package_namespaces": ["aspose_pdf.engine.primitives"],
             "modules": [{"module": "aspose_pdf.cgm", "exports": ["CgmLoadOptions"]}],
             "classes": [{"module": "aspose_pdf.cgm", "name": "CgmLoadOptions"}],
         },
@@ -711,6 +808,11 @@ def test_public_contract_requires_exact_fact_derived_api_identifier_casing() -> 
     )
     exact = "# PDF Toolkit\n\n## API Reference\n\n### Aspose.PDF.CGM Namespace (`aspose_pdf.cgm`)\n"
     mutated = exact.replace("`aspose_pdf.cgm`", "`aspose_pdf.CGM`")
+    package_namespace = (
+        "# PDF Toolkit\n\n## API Reference\n\n"
+        "### Aspose.PDF.Engine.Primitives Namespace "
+        "(`aspose_pdf.engine.primitives`)\n"
+    )
 
     assert not any(
         finding.rule_id == "api_identifier_not_fact_exact"
@@ -720,4 +822,8 @@ def test_public_contract_requires_exact_fact_derived_api_identifier_casing() -> 
         finding.rule_id == "api_identifier_not_fact_exact"
         and [span.text for span in finding.spans] == ["aspose_pdf.CGM"]
         for finding in lint_readme_presentation(mutated, facts).findings
+    )
+    assert not any(
+        finding.rule_id == "api_identifier_not_fact_exact"
+        for finding in lint_readme_presentation(package_namespace, facts).findings
     )

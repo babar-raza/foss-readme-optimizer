@@ -1,0 +1,504 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/__init__.py,tests/conftest.py,tests/helpers_make_pdfs.py,tests/test_acc01_font_embedding.py,tests/test_aes_key_derivation.py,tests/test_agl.py,tests/test_algorithm_2b_v5r6.py,tests/test_annotation_appearance_decorations.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,scripts/build.sh,scripts/check.sh,tests/test_acc01_font_embedding.py,tests/test_aes_key_derivation.py,tests/test_agl.py,tests/test_algorithm_2b_v5r6.py,tests/test_annotation_appearance_decorations.py,tests/test_annotation_appearance_generation.py,tests/test_annotation_property_roundtrip.py,tests/test_annotations.py,tests/test_api_surface.py,tests/test_attachment_metadata.py,tests/test_attachments.py,tests/test_audit_issue_10_trailer_nested_dict.py,tests/test_audit_issue_11_tokenizer_null.py,tests/test_audit_issue_12_lazy_object_parse_errors.py,tests/test_audit_issue_13_object_stream.py,tests/test_audit_issue_16_lazy_encryption.py,tests/test_audit_issue_17_exceptions.py,tests/test_audit_issue_18_encrypted_exception_types.py,tests/test_audit_issue_19_content_stream_text.py,tests/test_audit_issue_20_content_stream_token_memory.py,tests/test_audit_issue_21_fonts_cmap_tounicode.py,tests/test_audit_issue_22_jbig2.py,tests/test_audit_issue_23_jpx_ccitt.py,tests/test_audit_issue_24_incremental_update.py,tests/test_audit_issue_25_encryption_v_and_password.py,tests/test_audit_issue_26_decrypt_lazy.py,tests/test_audit_issue_27_incremental_byte_range.py,tests/test_audit_issue_28_signatures_compromise_detector.py,tests/test_audit_issue_29_pdfa_heuristic.py,tests/test_audit_issue_30_pdfua_heuristic.py,tests/test_audit_issue_33_mmap_dispose.py,tests/test_audit_issue_34_dispose_close_consistency.py,tests/test_audit_issue_35_float_precision.py,tests/test_audit_issue_36_stream_boundaries.py,tests/test_audit_issue_37_stream_decoder.py,tests/test_audit_issue_38_attachments.py,tests/test_audit_issue_39_outlines.py,tests/test_audit_issue_40_annotations_appearance.py,tests/test_audit_issue_41_generated_document.py,tests/test_audit_issue_42_logging.py,tests/test_audit_issue_5_lazy_cos.py,tests/test_audit_issue_6_from_bytes.py,tests/test_audit_issue_7_parse_exception_handling.py,tests/test_audit_issue_9_xref_stream.py,tests/test_authoring_resource_limits.py,tests/test_auto_tag.py,tests/test_auto_tag_limits.py,tests/test_ccitt_decoder.py,tests/test_cff_predefined_encoding.py,tests/test_cff_rasterization.py,tests/test_cjk_cmap_rendering.py,tests/test_cmap_build_data.py,tests/test_cmap_resource_limits.py,tests/test_compatibility_surfaces.py,tests/test_complex_text_layout.py,tests/test_content_authoring.py,tests/test_cos.py,tests/test_cos_preservation.py,tests/test_cos_tree_resource_limits.py,tests/test_dct.py,tests/test_document_lifecycle.py,tests/test_document_metadata.py,tests/test_encrypted_pdf_validation.py,tests/test_encryption_aes.py,tests/test_encryption_task7.py,tests/test_engine_v0.py,tests/test_engine_v1.py,tests/test_error_handling.py,tests/test_field_appearance_generation.py,tests/test_field_type0_font.py,tests/test_file_editor_io.py,tests/test_filters.py,tests/test_filters_decoding.py,tests/test_filters_encoding.py,tests/test_flattening_task5.py,tests/test_font_authoring_formats.py,tests/test_font_source.py,tests/test_font_subset.py,tests/test_font_subset_cff.py,tests/test_font_subset_type1.py,tests/test_form_creation.py,tests/test_form_field_types.py,tests/test_forms.py,tests/test_fuzz_corpus.py,tests/test_glyph_rasterization.py,tests/test_image_codec_limits.py,tests/test_image_dimensions.py,tests/test_image_export.py,tests/test_image_extraction.py,tests/test_image_recompress.py,tests/test_image_resample.py,tests/test_incremental_save.py,tests/test_incremental_update.py,tests/test_integration_final.py,tests/test_interactive_actions.py,tests/test_jbig2_decoder.py,tests/test_jpeg_encoder.py,tests/test_jpx_task8.py,tests/test_lazy_images.py,tests/test_load_from_stream.py,tests/test_load_limits.py,tests/test_logging_task10.py,tests/test_lowcode.py,tests/test_lowcode_resource_limits.py,tests/test_merging_task4.py,tests/test_metadata.py,tests/test_opt_01_gc.py,tests/test_optimization_options.py,tests/test_optimization_task6.py,tests/test_p0_bugfixes.py,tests/test_package_metadata.py,tests/test_page_rendering.py,tests/test_page_rotation_cropbox.py,tests/test_pages.py,tests/test_password.py,tests/test_pdf_cos_parser_stream_sources.py,tests/test_pdf_extractor_bind_password.py,tests/test_pdf_file_editor_last_exception.py,tests/test_pdfa.py,tests/test_pdfa_cmyk_normalize.py,tests/test_pdfa_conformance_extended.py,tests/test_pdfa_conversion.py,tests/test_pdfa_embed_fonts.py,tests/test_pdfa_task9.py,tests/test_pdfa_validation_result.py,tests/test_pdfua_conformance.py,tests/test_pdfua_mcid_coverage.py,tests/test_predefined_cjk_cmaps.py,tests/test_pushbutton_appearance.py,tests/test_rc4_external.py,tests/test_redaction_overlay.py,tests/test_refactored_simple_pdf.py,tests/test_repair_task2.py,tests/test_resource_limits_ccitt_jbig2.py,tests/test_rich_text.py,tests/test_save_to_stream.py,tests/test_security.py,tests/test_shading.py,tests/test_shading_resource_limits.py,tests/test_signature.py,tests/test_signature_certification.py,tests/test_signature_chain_validation.py,tests/test_signature_field_authoring.py,tests/test_signature_pades.py,tests/test_signature_revocation.py,tests/test_signature_timestamp.py,tests/test_signature_validation.py,tests/test_signature_verification.py,tests/test_signing.py,tests/test_signing_e2e.py,tests/test_smoke_imports.py,tests/test_soft_mask_rendering.py,tests/test_standard14_rendering.py,tests/test_std_fonts.py,tests/test_stream_cmap_render.py,tests/test_streaming.py,tests/test_tagged_remediation.py,tests/test_text_edit_cross_operator.py,tests/test_text_edit_cross_position.py,tests/test_text_edit_limits.py,tests/test_text_edit_multi_tj.py,tests/test_text_edit_type0.py,tests/test_text_edit_type0_encodings.py,tests/test_text_edit_type0_reconstruct.py,tests/test_text_editing.py,tests/test_text_extraction.py,tests/test_text_extraction_task3.py,tests/test_text_fragment_absorber.py,tests/test_text_reshape_edit.py,tests/test_tiling_pattern.py,tests/test_txt01_fallback.py,tests/test_type1_rasterization.py,tests/test_unicode_font_authoring.py,tests/test_validation_task1.py,tests/test_validator_bytearray_limits.py,tests/test_verify_aes_generation.py,tests/test_watermark.py,tests/test_woff.py,tests/test_woff2.py,tests/test_woff2_collections.py,tests/test_xmp_info_sync.py,tests/test_xmp_namespace.py,tests/test_xmp_packet.py,tests/test_xref_streams.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "installation.capability_dependencies:python-source": {
+    "field": "installation.capability_dependencies",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/engine/jpx.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.api_reference"
+    ]
+  },
+  "installation.optional_extras:python-manifest": {
+    "field": "installation.optional_extras",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.development"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,src/aspose_pdf/py.typed",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.capability_details:python-public-source-surfaces": {
+    "field": "repository.capability_details",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/document.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/facades.py,src/aspose_pdf/forms.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pages.py,src/aspose_pdf/signature.py,src/aspose_pdf/text_layout.py,supported-features.md,tests/test_page_rendering.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.examples"
+    ]
+  },
+  "repository.ci:canonical-workflow": {
+    "field": "repository.ci",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://.github/workflows/ci.yml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.header"
+    ]
+  },
+  "repository.contribution_guidance:repository-entry-points": {
+    "field": "repository.contribution_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://scripts/build.sh,scripts/check.sh",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.contributing"
+    ]
+  },
+  "repository.documentation_assets:root-documents": {
+    "field": "repository.documentation_assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://supported-features.md,SECURITY.md",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "readme.limitations"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,git-tree:facdc56bc22f0a4dff3e6a9a5cc2bd82f139162b,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.public_guidance:python-pdf-source-guidance": {
+    "field": "repository.public_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,src/aspose_pdf/py.typed,supported-features.md,src/aspose_pdf/document.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/text_layout.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "readme.examples"
+    ]
+  },
+  "repository.security_guidance:security-policy-and-source": {
+    "field": "repository.security_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://SECURITY.md,src/aspose_pdf/load_limits.py,src/aspose_pdf/document.py,supported-features.md",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.security"
+    ]
+  },
+  "repository.verified_boundaries:authoritative-source-and-tests": {
+    "field": "repository.verified_boundaries",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/document.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/signature.py,supported-features.md",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations",
+      "readme.security"
+    ]
+  },
+  "product.capabilities:repository-extension": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/document.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/facades.py,src/aspose_pdf/forms.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pages.py,src/aspose_pdf/signature.py,src/aspose_pdf/text_layout.py,supported-features.md,tests/test_page_rendering.py;repository://src/aspose_pdf/document.py,src/aspose_pdf/facades.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/signature.py,src/aspose_pdf/xmp.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:repository-extension": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/document.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/facades.py,src/aspose_pdf/forms.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pages.py,src/aspose_pdf/signature.py,src/aspose_pdf/text_layout.py,supported-features.md,tests/test_page_rendering.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:repository-extension": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/_compat_surface.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/document.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/save_format.py,src/aspose_pdf/validation.py;repository://src/aspose_pdf/document.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/signature.py,supported-features.md",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/document.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/facades.py,src/aspose_pdf/forms.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pages.py,src/aspose_pdf/signature.py,src/aspose_pdf/text_layout.py,supported-features.md,tests/test_page_rendering.py;repository://src/aspose_pdf/document.py,src/aspose_pdf/facades.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/signature.py,src/aspose_pdf/xmp.py",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:disposable-source-build": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "https://pypi.org/pypi/aspose-pdf-foss/json",
+      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+      "retrieved_at": "2026-08-08T22:59:41.618101+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}

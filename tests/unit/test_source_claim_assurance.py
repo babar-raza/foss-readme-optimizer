@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import pytest
 
+import readme_agent.presentation.verified_template_capabilities as capabilities_module
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_source_claim_matching import (
+    _coordinates_cover,
     equivalent_source_claim_resolution,
     fact_bound_capability_candidate_claims,
     index_equivalent_candidate_claims,
@@ -15,13 +17,23 @@ from readme_agent.presentation.verified_source_claim_resolutions import (
     build_source_claim_resolutions,
 )
 from readme_agent.presentation.verified_template_capabilities import (
+    capability_claim_fact_coordinates,
+    capability_claim_fact_ids,
     capability_highlights_markdown,
 )
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.claim_accountability_api_coordinates import (
+    api_class_fact_coordinates,
+)
+from readme_agent.readme.claim_accountability_coordinates import (
+    literal_list_fact_coordinates,
+    structured_list_item_coordinate,
+)
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.source_claim_assurance import build_source_claim_assurance
 from readme_agent.readme.source_claim_fact_binding import (
+    CompleteSourceClaimFactBindingV1,
     accepted_source_claim_fact_ids,
     complete_source_claim_fact_binding,
 )
@@ -386,6 +398,107 @@ Important notes:
     assert assurance.correction_candidate_count == 0
 
 
+def test_page_capabilities_keep_distinct_format_directions_and_concrete_mcp_prose() -> None:
+    facts = _page_mcp_facts()
+    source = """# Aspose.Page FOSS for Python
+
+## Currently Available Features
+
+- Convert PS/EPS to PDF in Python
+- Convert PS/EPS to PNG and JPEG in Python
+- Convert XPS to PDF in Python
+- Convert XPS to PNG and JPEG in Python
+- Integrate conversion workflows through MCP server tools
+"""
+
+    rendered = capability_highlights_markdown(facts, source_text=source)
+
+    assert rendered is not None
+    assert len(rendered.splitlines()) == 5
+    assert "**Convert PS/EPS files to PDF in Python**" in rendered
+    assert "**Convert PS/EPS files to PNG and JPEG in Python**" in rendered
+    assert "**Convert XPS files to PDF in Python**" in rendered
+    assert "**Convert XPS files to PNG and JPEG in Python**" in rendered
+    assert "**Host MCP servers**" in rendered
+    assert "Create and run the MCP server" in rendered
+    assert "Apply the operation through the product's public API" not in rendered
+
+    candidate = "# Aspose.Page FOSS for Python\n\n## Key Capabilities\n\n" + rendered + "\n"
+    candidate_claims = assess_material_claims(candidate)
+    candidate_bytes = candidate.encode("utf-8")
+    identity_fact_id = facts.selected_fact_ids["product.identity"]
+    api_fact_id = facts.selected_fact_ids["api.public_surface"]
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id=f"template.section.key_capabilities.claim:{index}",
+            candidate_byte_start=claim.source_byte_start,
+            candidate_byte_end=claim.source_byte_end,
+            fact_ids=sorted(
+                {
+                    *capability_claim_fact_ids(
+                        candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode(
+                            "utf-8"
+                        ),
+                        facts,
+                    ),
+                    api_fact_id,
+                }
+            ),
+            fact_coordinates=capability_claim_fact_coordinates(
+                candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8"),
+                facts,
+                source_text=source,
+            ),
+            rationale="Bind the generated Page capability to accepted facts.",
+        )
+        for index, claim in enumerate(candidate_claims)
+    ]
+    assert all(identity_fact_id in item.fact_ids for item in provenance[:4])
+    image_source = "- Convert PS/EPS to PNG and JPEG in Python\n"
+    image_claim = assess_material_claims(image_source)[0]
+    image_binding = complete_source_claim_fact_binding(image_source, image_claim, facts)
+    assert image_binding is not None
+    assert {coordinate.path for coordinate in image_binding.fact_coordinates} == {
+        "/items/79de03fbaaa90ab1",
+        "/modules/aspose.page.image.encoders/exports/encode_jpeg",
+        "/modules/aspose.page.image.encoders/exports/encode_png",
+    }
+    mcp_binding = next(
+        binding
+        for binding in provenance
+        if "Host MCP servers"
+        in candidate_bytes[binding.candidate_byte_start : binding.candidate_byte_end].decode(
+            "utf-8"
+        )
+    )
+    assert {
+        "/mcp_server/factory",
+        "/mcp_server/runner",
+        "/mcp_server/tools/ps_to_image",
+        "/mcp_server/tools/ps_to_pdf",
+        "/mcp_server/tools/xps_to_image",
+        "/mcp_server/tools/xps_to_pdf",
+    }.issubset({coordinate.path for coordinate in mcp_binding.fact_coordinates})
+    for inherited_claim in (
+        "- Convert PS/EPS to PDF in Python",
+        "- Convert PS/EPS to PNG and JPEG in Python",
+        "- Convert XPS to PDF in Python",
+        "- Convert XPS to PNG and JPEG in Python",
+    ):
+        assert (
+            len(
+                fact_bound_capability_candidate_claims(
+                    inherited_claim,
+                    candidate_bytes,
+                    candidate_claims,
+                    facts,
+                    provenance,
+                )
+            )
+            == 1
+        )
+
+
 def test_page_mcp_source_binding_rejects_unknown_tool_and_changed_runner_port() -> None:
     facts = _page_mcp_facts()
     source = """# Aspose.Page FOSS for Python
@@ -498,6 +611,53 @@ def test_exact_structured_api_claim_is_preservation_eligible() -> None:
     assert assurance.correction_ranges == []
     assert assurance.fact_authorized_claim_count == 1
     assert assurance.correction_candidate_count == 0
+
+
+def test_coordinate_equivalence_rejects_a_different_api_member_in_the_same_fact() -> None:
+    facts = _facts()
+    api = facts.selected_fact("api.public_surface")
+    matrix = set(api_class_fact_coordinates(api.fact_id, api.value, ["Matrix4"]))
+    material = set(api_class_fact_coordinates(api.fact_id, api.value, ["Material"]))
+
+    assert matrix
+    assert material
+    assert _coordinates_cover(matrix, matrix)
+    assert not _coordinates_cover(matrix, material)
+
+
+def test_equivalence_resolver_rejects_wrong_api_coordinate_under_same_fact() -> None:
+    facts = _facts()
+    api = facts.selected_fact("api.public_surface")
+    source = "- `Matrix4` \N{EM DASH} `translate()`\n"
+    candidate = "- **`Matrix4`** \N{EM DASH} `translate()`\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    wrong_coordinates = api_class_fact_coordinates(api.fact_id, api.value, ["Material"])
+    provenance = [
+        CandidateContentProvenanceV1(
+            provenance_id="template.section.api_reference.claim:wrong-coordinate",
+            candidate_byte_start=candidate_claim.source_byte_start,
+            candidate_byte_end=candidate_claim.source_byte_end,
+            fact_ids=[api.fact_id],
+            fact_coordinates=wrong_coordinates,
+            rationale="Exercise rejection of an aggregate fact with the wrong exact coordinate.",
+        )
+    ]
+
+    assert (
+        equivalent_source_claim_resolution(
+            source_claim,
+            source,
+            candidate.encode("utf-8"),
+            index_equivalent_candidate_claims(
+                candidate.encode("utf-8"),
+                [candidate_claim],
+            ),
+            facts,
+            provenance,
+        )
+        is None
+    )
 
 
 @pytest.mark.parametrize(
@@ -617,6 +777,180 @@ def test_comment_free_repository_example_requires_exact_ast_and_complete_provena
     )
 
 
+def test_source_capability_bindings_are_computed_once_per_claim(monkeypatch) -> None:
+    facts = _page_mcp_facts()
+    source = """# Aspose.Page FOSS for Python
+
+## Currently Available Features
+
+- Convert PS/EPS to PDF in Python
+- Convert PS/EPS to PNG and JPEG in Python
+- Convert XPS to PDF in Python
+- Convert XPS to PNG and JPEG in Python
+- Integrate conversion workflows through MCP server tools
+"""
+    expected_calls = len(assess_material_claims(source))
+    actual_calls = 0
+    original = capabilities_module.complete_source_claim_fact_binding
+
+    def counted_binding(document, claim, product_facts):
+        nonlocal actual_calls
+        actual_calls += 1
+        return original(document, claim, product_facts)
+
+    monkeypatch.setattr(
+        capabilities_module,
+        "complete_source_claim_fact_binding",
+        counted_binding,
+    )
+
+    assert capability_highlights_markdown(facts, source_text=source) is not None
+    assert actual_calls == expected_calls
+
+
+def test_source_capability_index_does_not_leak_compound_or_ambiguous_evidence() -> None:
+    facts = _page_mcp_facts()
+    capabilities = facts.selected_fact("product.capabilities")
+    formats = facts.selected_fact("product.formats")
+    capability_a = structured_list_item_coordinate(
+        capabilities.fact_id,
+        capabilities.field,
+        "PS/EPS to PDF conversion",
+    )
+    capability_b = structured_list_item_coordinate(
+        capabilities.fact_id,
+        capabilities.field,
+        "XPS to PDF conversion",
+    )
+    png = structured_list_item_coordinate(formats.fact_id, formats.field, "PNG")
+    tiff = structured_list_item_coordinate(formats.fact_id, formats.field, "TIFF")
+    compound = CompleteSourceClaimFactBindingV1(
+        fact_ids=frozenset({capabilities.fact_id, formats.fact_id}),
+        fact_coordinates=(capability_a, capability_b, png),
+    )
+    compound_index = capabilities_module._source_capability_coordinate_index(
+        [("compound", compound)]
+    )
+
+    fact_ids, coordinates = capabilities_module._source_coordinates_for_capability_row(
+        compound_index,
+        [capability_a],
+    )
+
+    assert fact_ids == []
+    assert coordinates == []
+
+    first = CompleteSourceClaimFactBindingV1(
+        fact_ids=frozenset({capabilities.fact_id, formats.fact_id}),
+        fact_coordinates=(capability_a, png),
+    )
+    second = CompleteSourceClaimFactBindingV1(
+        fact_ids=frozenset({capabilities.fact_id, formats.fact_id}),
+        fact_coordinates=(capability_a, tiff),
+    )
+    ambiguous_index = capabilities_module._source_capability_coordinate_index(
+        [("first", first), ("second", second)]
+    )
+
+    fact_ids, coordinates = capabilities_module._source_coordinates_for_capability_row(
+        ambiguous_index,
+        [capability_a],
+    )
+
+    assert fact_ids == [capabilities.fact_id]
+    assert coordinates == [capability_a]
+
+
+def test_directional_format_coordinates_require_local_input_or_output_language() -> None:
+    fact_id = "product.formats:direction-test"
+    values = [
+        "Input format: PDF",
+        "Output format: PDF",
+        "Output format: PNG",
+        "Output format: TIFF",
+    ]
+
+    overview = literal_list_fact_coordinates(
+        "Create, read, edit, render, and validate PDF documents.",
+        fact_id,
+        "product.formats",
+        values,
+    )
+    directional = literal_list_fact_coordinates(
+        "Reads PDF files and writes PDF files, PNG files, and TIFF files.",
+        fact_id,
+        "product.formats",
+        values,
+    )
+    rendered = literal_list_fact_coordinates(
+        "Render pages to PNG or TIFF.",
+        fact_id,
+        "product.formats",
+        values,
+    )
+
+    assert overview == [
+        structured_list_item_coordinate(fact_id, "product.formats", "Input format: PDF")
+    ]
+    assert directional == [
+        structured_list_item_coordinate(fact_id, "product.formats", value) for value in values
+    ]
+    assert rendered == [
+        structured_list_item_coordinate(fact_id, "product.formats", value) for value in values[2:]
+    ]
+
+
+def test_capability_presentation_plan_is_reused_without_rebinding(monkeypatch) -> None:
+    facts = _page_mcp_facts()
+    source = """# Aspose.Page FOSS for Python
+
+## Currently Available Features
+
+- Convert PS/EPS to PDF in Python
+- Integrate conversion workflows through MCP server tools
+"""
+    plan = capabilities_module.build_capability_presentation_plan(
+        facts,
+        source_text=source,
+    )
+
+    def unexpected_rebind(*_args, **_kwargs):
+        raise AssertionError("precomputed capability plan must not rebind source claims")
+
+    monkeypatch.setattr(
+        capabilities_module,
+        "complete_source_claim_fact_binding",
+        unexpected_rebind,
+    )
+    rendered = capability_highlights_markdown(
+        facts,
+        source_text=source,
+        presentation_plan=plan,
+    )
+    assert rendered is not None
+    for markdown, fact_ids, coordinates in plan.rows:
+        assert capabilities_module.capability_claim_fact_ids(
+            markdown,
+            facts,
+            presentation_plan=plan,
+        )
+        assert set(
+            capabilities_module.capability_claim_fact_coordinates(
+                markdown,
+                facts,
+                source_text=source,
+                presentation_plan=plan,
+            )
+        ) == set(coordinates)
+        assert set(fact_ids).issubset(
+            capabilities_module.capability_claim_fact_ids(
+                markdown,
+                facts,
+                presentation_plan=plan,
+            )
+        )
+
+
 def test_capability_equivalence_rejects_a_candidate_missing_one_structured_fact() -> None:
     facts = _facts()
     capability_fact_id = facts.selected_fact_ids["product.capabilities"]
@@ -657,6 +991,172 @@ def test_capability_equivalence_rejects_a_candidate_missing_one_structured_fact(
     )
 
     assert resolution is None
+
+
+def test_capability_equivalence_accepts_complete_renderer_format_provenance() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Render pages to PNG or TIFF"]})
+                if fact.fact_id == capability.fact_id
+                else fact.model_copy(update={"value": ["PDF", "PNG", "TIFF"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "- Render pages to PNG or TIFF\n"
+    candidate = (
+        "- **Render pages to PNG or TIFF** - Produce PNG and TIFF image output "
+        "from individual pages.\n"
+    )
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:render",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[capability.fact_id, formats.fact_id],
+        fact_coordinates=[
+            structured_list_item_coordinate(
+                capability.fact_id,
+                capability.field,
+                "Render pages to PNG or TIFF",
+            ),
+            structured_list_item_coordinate(formats.fact_id, formats.field, "PNG"),
+            structured_list_item_coordinate(formats.fact_id, formats.field, "TIFF"),
+        ],
+        rationale="Bind the generated capability row to its capability and format facts.",
+    )
+
+    matches = fact_bound_capability_candidate_claims(
+        source,
+        candidate.encode(),
+        [candidate_claim],
+        facts,
+        [provenance],
+    )
+
+    assert matches == [candidate_claim]
+    source_claim = assess_material_claims(source)[0]
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        source,
+        candidate.encode(),
+        index_equivalent_candidate_claims(candidate.encode(), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+
+
+def test_capability_equivalence_rejects_wrong_coordinate_under_same_fact_id() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Render pages to PNG or TIFF",
+                            "Extract text from PDF pages",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact.model_copy(update={"value": ["PDF", "PNG", "TIFF"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "- Render pages to PNG or TIFF\n"
+    candidate = "- **Render pages to PNG or TIFF** - Produce raster image output.\n"
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:wrong-coordinate",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[capability.fact_id, formats.fact_id],
+        fact_coordinates=[
+            structured_list_item_coordinate(
+                capability.fact_id,
+                capability.field,
+                "Extract text from PDF pages",
+            ),
+            structured_list_item_coordinate(formats.fact_id, formats.field, "PNG"),
+            structured_list_item_coordinate(formats.fact_id, formats.field, "TIFF"),
+        ],
+        rationale="Deliberately bind the wrong capability coordinate for the negative control.",
+    )
+
+    assert (
+        fact_bound_capability_candidate_claims(
+            source,
+            candidate.encode(),
+            [candidate_claim],
+            facts,
+            [provenance],
+        )
+        == []
+    )
+
+
+def test_capability_equivalence_rejects_a_dropped_limitation_qualifier() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    limitation = facts.selected_fact("product.limitations")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Perform heuristic PDF/A validation"]})
+                if fact.fact_id == capability.fact_id
+                else fact.model_copy(
+                    update={"value": ["checks are not certification-grade conformance"]}
+                )
+                if fact.fact_id == limitation.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = (
+        "- Perform heuristic PDF/A validation; checks are not certification-grade conformance\n"
+    )
+    candidate = "- **Perform heuristic PDF/A validation** - Check archival conformance profiles.\n"
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:dropped-limitation",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[capability.fact_id],
+        fact_coordinates=[
+            structured_list_item_coordinate(
+                capability.fact_id,
+                capability.field,
+                "Perform heuristic PDF/A validation",
+            )
+        ],
+        rationale="Deliberately omit the limitation fact for the negative control.",
+    )
+
+    assert (
+        fact_bound_capability_candidate_claims(
+            source,
+            candidate.encode(),
+            [candidate_claim],
+            facts,
+            [provenance],
+        )
+        == []
+    )
 
 
 def test_fact_richer_source_capability_supersedes_only_the_narrow_generated_row() -> None:
@@ -772,6 +1272,30 @@ def test_only_the_identity_derived_github_issue_route_is_fact_bound() -> None:
         "- Read the guide at https://docs.aspose.org/3d/python/private-path/.",
         facts,
     )
+
+
+def test_exact_selected_guidance_binds_across_markdown_line_wrapping() -> None:
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    guidance = identity.model_copy(
+        update={
+            "fact_id": "repository.public_guidance:fixture",
+            "field": "repository.public_guidance",
+            "value": ["The package ships type information and remains in alpha while APIs evolve."],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, guidance],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "repository.public_guidance": guidance.fact_id,
+            },
+        }
+    )
+    wrapped = "The package ships type information and remains\nin alpha while APIs evolve."
+
+    assert accepted_source_claim_fact_ids(wrapped, facts) == {guidance.fact_id}
 
 
 def _format_entailment_facts() -> ProductFactsV2:

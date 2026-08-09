@@ -240,10 +240,18 @@ def _structured_equivalence_groups(
             for claim_id in candidate_ids
             for coordinate in records[claim_id].accepted_fact_coordinates
         }
-        if not candidate_ids or source_coordinates != candidate_coordinates:
+        # A canonical candidate claim may add other independently accountable facts.
+        # Preservation requires every exact source coordinate to survive, not byte-for-byte
+        # equality with the candidate's larger structured projection.
+        if not candidate_ids or not source_coordinates.issubset(candidate_coordinates):
             continue
         group_payload = "\n".join(
-            [*source_ids, *candidate_ids, *map(repr, sorted(source_coordinates))]
+            [
+                *source_ids,
+                *candidate_ids,
+                *map(repr, sorted(source_coordinates)),
+                *map(repr, sorted(candidate_coordinates)),
+            ]
         )
         group_hash = hashlib.sha256(group_payload.encode("utf-8")).hexdigest()
         group_id = f"fact-equivalence:{group_hash[:16]}"
@@ -386,6 +394,7 @@ def build_readme_claim_accountability_map(
                 facts,
                 fact_ids,
             ),
+            [coordinate for binding in bindings for coordinate in binding.fact_coordinates],
             list(source_fact_binding.fact_coordinates) if source_fact_binding is not None else [],
             list(candidate_fact_binding.fact_coordinates)
             if candidate_fact_binding is not None
@@ -475,6 +484,7 @@ def build_readme_claim_accountability_map(
                     fact_ids.add(fact_id)
         fact_coordinates = _merged_fact_coordinates(
             structured_fact_coordinates(source_text, claim, facts, fact_ids),
+            [coordinate for binding in exact_bindings for coordinate in binding.fact_coordinates],
             (
                 list(complete_fact_binding.fact_coordinates)
                 if complete_fact_binding is not None

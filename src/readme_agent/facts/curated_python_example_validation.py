@@ -6,7 +6,7 @@ import ast
 import re
 from dataclasses import dataclass
 
-_SAFE_BUILTINS = {"enumerate", "len", "list", "open", "print", "range"}
+_SAFE_BUILTINS = {"RuntimeError", "enumerate", "len", "list", "open", "print", "range"}
 _UNSAFE_CALLS = {"compile", "eval", "exec", "__import__"}
 _STDLIB_MODULES = {
     "io": {"BytesIO": "bytes_io", "StringIO": "text_io"},

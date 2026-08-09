@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import ast
-import hashlib
 from pathlib import Path
 
 from readme_agent.facts.curated_python_dependencies import (
@@ -18,6 +16,11 @@ from readme_agent.facts.curated_python_evidence import (
 )
 from readme_agent.facts.curated_python_implementation import python_implementation_components
 from readme_agent.facts.curated_python_import_shadowing import python_import_shadowing
+from readme_agent.facts.curated_python_pdf_evidence import python_pdf_capability_details
+from readme_agent.facts.curated_python_pdf_guidance import (
+    python_pdf_public_guidance,
+    python_pdf_verified_boundaries,
+)
 from readme_agent.facts.curated_repository_assets import (
     development_assets,
     repository_ci,
@@ -31,278 +34,10 @@ from readme_agent.facts.curated_repository_guidance import (
     source_guidance_limitations,
 )
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
+from readme_agent.facts.python_golden_workflow import python_golden_workflow_fact
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 
 _CollectorResult = tuple[object, list[str]]
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _class_methods(path: Path, class_name: str) -> set[str]:
-    try:
-        tree = ast.parse(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, SyntaxError):
-        return set()
-    definition = next(
-        (node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == class_name),
-        None,
-    )
-    if definition is None:
-        return set()
-    return {
-        node.name
-        for node in definition.body
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-        and not node.name.startswith("_")
-    }
-
-
-_PDF_CAPABILITY_SPECS = (
-    (
-        "Create, load, save, merge, and inspect PDF documents",
-        "src/aspose_pdf/document.py",
-        "Document",
-        ("load_from", "save", "merge", "validate"),
-    ),
-    (
-        "Add and edit text and images, including text replacement and redaction",
-        "src/aspose_pdf/pages.py",
-        "Page",
-        ("add_text", "add_image", "replace_text", "redact_text"),
-    ),
-    (
-        "Extract text, images, and attachments",
-        "src/aspose_pdf/facades.py",
-        "PdfExtractor",
-        ("extract_text", "get_text", "extract_image", "extract_attachment"),
-    ),
-    (
-        "Concatenate, extract, insert, delete, and append PDF pages",
-        "src/aspose_pdf/facades.py",
-        "PdfFileEditor",
-        ("concatenate", "extract", "insert", "delete", "append"),
-    ),
-    (
-        "Render PDF pages to PNG or TIFF images",
-        "src/aspose_pdf/pages.py",
-        "Page",
-        ("render", "save_as_image"),
-    ),
-    (
-        "Create and manage interactive form fields",
-        "src/aspose_pdf/forms.py",
-        "Form",
-        ("add_text_field", "add_checkbox", "add_radio_group", "flatten"),
-    ),
-    (
-        "Add, update, and remove PDF annotations",
-        "src/aspose_pdf/annotations/__init__.py",
-        "AnnotationCollection",
-        ("add", "insert", "delete", "clear"),
-    ),
-    (
-        "Encrypt, decrypt, optimize, and compress PDF documents",
-        "src/aspose_pdf/document.py",
-        "Document",
-        ("encrypt", "decrypt", "optimize", "compress_streams"),
-    ),
-    (
-        "Run heuristic PDF/A and PDF/UA validation",
-        "src/aspose_pdf/document.py",
-        "Document",
-        ("validate_pdfa", "validate_pdfua", "convert_to_pdfa", "convert_to_pdfua"),
-    ),
-)
-
-
-def _pdf_rich_authoring_capability(root: Path) -> dict[str, object] | None:
-    """Verify the composite text, drawing, annotation, attachment, and form surface."""
-
-    components = (
-        (
-            "src/aspose_pdf/pages.py",
-            "Page",
-            {"add_text", "add_image", "draw_line", "draw_rectangle"},
-        ),
-        ("src/aspose_pdf/document.py", "Document", {"add_attachment"}),
-        ("src/aspose_pdf/forms.py", "Form", {"add_text_field"}),
-        ("src/aspose_pdf/annotations/__init__.py", "AnnotationCollection", {"add"}),
-    )
-    evidence: list[dict[str, object]] = []
-    for relative, class_name, required in components:
-        path = root / relative
-        methods = _class_methods(path, class_name) if path.is_file() else set()
-        if not required.issubset(methods):
-            return None
-        evidence.append(
-            {
-                "class": class_name,
-                "methods": sorted(required),
-                "source_path": relative,
-                "source_sha256": _sha256(path),
-            }
-        )
-    layout_path = root / "src/aspose_pdf/text_layout.py"
-    features_path = root / "supported-features.md"
-    if not layout_path.is_file() or not features_path.is_file():
-        return None
-    try:
-        layout_tree = ast.parse(layout_path.read_text(encoding="utf-8"))
-        features = features_path.read_text(encoding="utf-8")
-    except (OSError, UnicodeDecodeError, SyntaxError):
-        return None
-    if not any(
-        isinstance(node, ast.ClassDef) and node.name == "TextLayoutOptions"
-        for node in layout_tree.body
-    ) or not all(
-        marker in features.casefold()
-        for marker in (
-            "positioned standard-14 text or",
-            "embedded unicode text with `page.add_text()`",
-            "unicode bidi algorithm",
-        )
-    ):
-        return None
-    evidence.extend(
-        [
-            {
-                "class": "TextLayoutOptions",
-                "methods": [],
-                "source_path": "src/aspose_pdf/text_layout.py",
-                "source_sha256": _sha256(layout_path),
-            },
-            {
-                "class": None,
-                "methods": [],
-                "source_path": "supported-features.md",
-                "source_sha256": _sha256(features_path),
-            },
-        ]
-    )
-    return {
-        "label": (
-            "Add Standard-14 or embedded Unicode text, including shaped bidirectional text, "
-            "plus images, lines, rectangles, annotations, attachments, and form data"
-        ),
-        "components": evidence,
-    }
-
-
-def _pdf_capability_details(root: Path) -> _CollectorResult | None:
-    """Return visitor-facing PDF groups only when every named API exists in source."""
-
-    groups: list[dict[str, object]] = []
-    locations: list[str] = []
-    for label, relative, class_name, required in _PDF_CAPABILITY_SPECS:
-        path = root / relative
-        methods = _class_methods(path, class_name) if path.is_file() else set()
-        if not set(required).issubset(methods):
-            continue
-        groups.append(
-            {
-                "label": label,
-                "class": class_name,
-                "methods": list(required),
-                "source_path": relative,
-                "source_sha256": _sha256(path),
-            }
-        )
-        locations.append(relative)
-    rich_authoring = _pdf_rich_authoring_capability(root)
-    if rich_authoring is not None:
-        groups.append(rich_authoring)
-        components = rich_authoring.get("components")
-        if isinstance(components, list):
-            locations.extend(
-                str(item["source_path"])
-                for item in components
-                if isinstance(item, dict) and item.get("source_path")
-            )
-    render_test = root / "tests/test_page_rendering.py"
-    render_source = root / "src/aspose_pdf/pages.py"
-    output_formats: list[str] = []
-    if render_test.is_file() and render_source.is_file():
-        text = render_test.read_text(encoding="utf-8")
-        methods = _class_methods(render_source, "Page")
-        if "save_as_image" in methods and '"page.png"' in text and '"page.tiff"' in text:
-            output_formats = ["PDF", "PNG", "TIFF"]
-            locations.append("tests/test_page_rendering.py")
-    if len(groups) < 6 or not output_formats:
-        return None
-    return (
-        {
-            "input_formats": ["PDF"],
-            "output_formats": output_formats,
-            "capability_groups": groups,
-            "assurance": "source_api_and_test_corroborated",
-        },
-        sorted(set(locations)),
-    )
-
-
-def _pdf_verified_boundaries(root: Path) -> _CollectorResult | None:
-    """Return exact PDF boundaries corroborated outside README prose."""
-
-    features = root / "supported-features.md"
-    source_paths = {
-        "rendering": root / "src/aspose_pdf/pages.py",
-        "reflow": root / "src/aspose_pdf/document.py",
-        "pdfa": root / "src/aspose_pdf/pdfa.py",
-        "pdfua": root / "src/aspose_pdf/pdfua.py",
-        "signature": root / "src/aspose_pdf/signature.py",
-        "compatibility": root / "src/aspose_pdf/exceptions.py",
-    }
-    if not features.is_file() or not all(path.is_file() for path in source_paths.values()):
-        return None
-    text = features.read_text(encoding="utf-8")
-    required_documentation = (
-        "contract is the active `tests/test_*.py` suite",
-        "Layout reflow remains out of scope in this prerelease.",
-        "OCR is not implemented.",
-        "heuristic signals, not certification-grade",
-    )
-    source_text = {name: path.read_text(encoding="utf-8") for name, path in source_paths.items()}
-    required_source = (
-        "The renderer is dependency-free and supports common page content",
-        "does not perform layout reflow",
-        "not certification-grade PDF/A conformance",
-        "not certification-grade PDF/UA conformance",
-        "does **not** perform full PKCS#7 certificate chain checking",
-        "Raised when a compatibility surface names a feature this package lacks",
-    )
-    corpus = "\n".join(source_text.values())
-    if not all(marker in text for marker in required_documentation) or not all(
-        marker in corpus for marker in required_source
-    ):
-        return None
-    boundaries = [
-        "Page rendering supports common page content; it is not represented as complete "
-        "PDF graphics coverage.",
-        "PDF/A and PDF/UA checks are heuristic signals, not certification-grade conformance.",
-        "OCR is not implemented, and layout reflow remains outside the prerelease scope.",
-        "The lightweight signature check does not perform full PKCS#7 certificate-chain "
-        "validation.",
-        "Compatibility surfaces may name features that are unavailable and must fail explicitly.",
-        "The documented feature set is bounded by the active test suite rather than every "
-        "exposed compatibility name.",
-    ]
-    locations = [
-        "supported-features.md",
-        *(path.relative_to(root).as_posix() for path in source_paths.values()),
-    ]
-    return (
-        {
-            "boundaries": boundaries,
-            "evidence": [
-                {"path": relative, "sha256": _sha256(root / relative)}
-                for relative in sorted(set(locations))
-            ],
-            "assurance": "source_and_authoritative_feature_contract",
-        },
-        sorted(set(locations)),
-    )
 
 
 def _source(
@@ -346,6 +81,8 @@ def curated_repository_fact_candidates(
     root: Path,
     source_revision: str | None,
     observed_at: str | None,
+    *,
+    ecosystem: str | None = None,
 ) -> list[FactRecordV2]:
     """Return conservative, mechanically evidenced detail facts from one snapshot."""
 
@@ -440,17 +177,37 @@ def curated_repository_fact_candidates(
             "repository.capability_details",
             "python-public-source-surfaces",
             "mechanical_repository",
-            _pdf_capability_details,
+            python_pdf_capability_details,
+        ),
+        (
+            "repository.public_guidance",
+            "python-pdf-source-guidance",
+            "mechanical_repository",
+            python_pdf_public_guidance,
         ),
         (
             "repository.verified_boundaries",
             "authoritative-source-and-tests",
             "mechanical_repository",
-            _pdf_verified_boundaries,
+            python_pdf_verified_boundaries,
         ),
     )
     facts: list[FactRecordV2] = []
+    python_fields = {
+        "installation.optional_extras",
+        "installation.capability_dependencies",
+        "python.distribution",
+        "api.public_surface",
+        "repository.implementation_components",
+        "repository.format_directions",
+        "repository.python_import_shadowing",
+        "repository.capability_details",
+        "repository.public_guidance",
+        "repository.verified_boundaries",
+    }
     for field, qualifier, source_type, collector in collectors:
+        if ecosystem is not None and ecosystem.casefold() != "python" and field in python_fields:
+            continue
         result: _CollectorResult | None = collector(root)
         if result is None:
             continue
@@ -460,6 +217,7 @@ def curated_repository_fact_candidates(
             "repository.implementation_components": ["readme.opening", "readme.api_reference"],
             "repository.format_directions": ["readme.capabilities"],
             "repository.python_import_shadowing": ["readme.api"],
+            "repository.public_guidance": ["readme.opening", "readme.examples"],
             "repository.verified_boundaries": ["readme.limitations", "readme.security"],
         }.get(field)
         facts.append(
@@ -474,4 +232,12 @@ def curated_repository_fact_candidates(
                 affected_surfaces=affected_surfaces,
             )
         )
+    if ecosystem is None or ecosystem.casefold() == "python":
+        golden_workflow = python_golden_workflow_fact(
+            root,
+            source_revision=source_revision,
+            observed_at=observed_at,
+        )
+        if golden_workflow is not None:
+            facts.append(golden_workflow)
     return facts

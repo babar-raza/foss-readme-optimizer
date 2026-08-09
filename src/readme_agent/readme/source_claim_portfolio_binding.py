@@ -7,16 +7,16 @@ import re
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
+from readme_agent.readme.python_install_target import (
+    normalized_python_distribution,
+    parse_python_optional_extras_install,
+    selected_python_install_target,
+)
 from readme_agent.readme.source_claim_risk import classify_source_claim_risk
 
 _FENCE = re.compile(r"^\s*```(?P<language>[A-Za-z0-9_+-]*)\s*\n(?P<body>.*)\n```\s*$", re.DOTALL)
 _PATH = re.compile(r"`(?P<path>(?:\.?[A-Za-z0-9_.-]+/)+[A-Za-z0-9_./*-]*)`")
 _PACKAGE = re.compile(r"[A-Za-z][A-Za-z0-9_.-]*")
-_EXTRA_INSTALL = re.compile(
-    r"python\s+-m\s+pip\s+install\s+['\"]?(?P<target>[^'\"\s\[]+)"
-    r"\[(?P<extras>[A-Za-z0-9_.,-]+)\]",
-    re.IGNORECASE,
-)
 
 
 def _accepted(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
@@ -33,36 +33,26 @@ def _dependency_ids(text: str, facts: ProductFactsV2) -> set[str]:
     distribution = _accepted(facts, "python.distribution")
     extras = _accepted(facts, "installation.optional_extras")
     capability = _accepted(facts, "installation.capability_dependencies")
-    coordinates = _accepted(facts, "installation.coordinates")
-    acquisition = _accepted(facts, "installation.verified_acquisition")
-    install = _EXTRA_INSTALL.search(text)
+    install = parse_python_optional_extras_install(text)
     if install is not None:
-        if extras is None or not isinstance(extras.value, dict):
+        target_policy = selected_python_install_target(facts)
+        if extras is None or not isinstance(extras.value, dict) or target_policy is None:
             return set()
         declared = extras.value.get("extras")
         if not isinstance(declared, dict):
             return set()
-        requested = {item.casefold() for item in install.group("extras").split(",")}
+        target, parsed_extras = install
+        requested = set(parsed_extras)
         if not requested or not requested.issubset({str(item).casefold() for item in declared}):
             return set()
-        target = install.group("target")
-        coordinate_names = {
-            str(item.get("name")).casefold()
-            for item in (
-                coordinates.value
-                if coordinates is not None and isinstance(coordinates.value, list)
-                else [coordinates.value]
-                if coordinates is not None
-                else []
-            )
-            if isinstance(item, dict) and item.get("name")
-        }
-        if target != "." and target.casefold() not in coordinate_names:
+        if normalized_python_distribution(target) != normalized_python_distribution(
+            target_policy.target
+        ):
             return set()
         return {
             extras.fact_id,
-            *([coordinates.fact_id] if coordinates is not None else []),
-            *([acquisition.fact_id] if acquisition is not None else []),
+            target_policy.coordinates_fact_id,
+            target_policy.acquisition_fact_id,
         }
 
     known: dict[str, str] = {}
@@ -177,6 +167,8 @@ def portfolio_source_claim_fact_ids(
 ) -> set[str]:
     """Return accepted facts for common source-detail obligations across products."""
 
+    if parse_python_optional_extras_install(text) is not None:
+        return _dependency_ids(text, facts)
     obligation = classify_source_claim_risk(document, claim).obligation_id
     if obligation == "dependency_requirements":
         return _dependency_ids(text, facts)

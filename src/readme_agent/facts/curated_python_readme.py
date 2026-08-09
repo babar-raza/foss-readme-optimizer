@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import re
 from pathlib import Path
@@ -52,10 +53,29 @@ def verified_python_examples(
     examples: list[dict[str, object]] = []
     decisions: list[ExampleDecision] = []
     for title, start, end in sections:
+        context_imports: list[str] = []
         for block in code_blocks_in_span(readme, start, end):
             accepted, modules, reason = validate_python_example(block.content, public_surface)
+            if not accepted and reason == "no_product_api_import" and context_imports:
+                contextual_code = "\n".join([*context_imports, block.content])
+                accepted, modules, contextual_reason = validate_python_example(
+                    contextual_code, public_surface
+                )
+                if accepted:
+                    reason = "accepted_with_section_import_context"
+                else:
+                    reason = contextual_reason
             decisions.append(ExampleDecision(title, accepted, reason, modules))
             if accepted:
+                try:
+                    tree = ast.parse(block.content)
+                except SyntaxError:  # pragma: no cover - accepted code already parsed
+                    tree = ast.Module(body=[], type_ignores=[])
+                for node in tree.body:
+                    if isinstance(node, (ast.Import, ast.ImportFrom)):
+                        statement = ast.unparse(node)
+                        if statement not in context_imports:
+                            context_imports.append(statement)
                 examples.append(
                     {
                         "title": title,
@@ -64,6 +84,7 @@ def verified_python_examples(
                         "static_api_verified": True,
                         "execution_verified": False,
                         "evidence_modules": list(modules),
+                        "validation_context_imports": list(context_imports),
                     }
                 )
     return examples, decisions
@@ -127,13 +148,18 @@ def verified_readme_examples(
         readme = readme_path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError):
         return None
-    inline_examples, _ = verified_python_examples(readme, public_surface)
+    validation_surface = public_surface
+    if isinstance(public_surface, dict):
+        complete_surface = public_surface.get("coordinate_catalog")
+        if isinstance(complete_surface, dict):
+            validation_surface = complete_surface
+    inline_examples, _ = verified_python_examples(readme, validation_surface)
     result_assets = _result_assets(root, readme)
     if not inline_examples and not result_assets:
         return None
     locations = ["README.md"]
-    if isinstance(public_surface, dict):
-        for rows in public_surface.values():
+    if isinstance(validation_surface, dict):
+        for rows in validation_surface.values():
             if not isinstance(rows, list):
                 continue
             locations.extend(

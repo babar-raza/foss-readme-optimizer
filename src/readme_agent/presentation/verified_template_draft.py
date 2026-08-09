@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
@@ -13,6 +15,7 @@ from readme_agent.presentation.template_schema import (
 )
 from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
 from readme_agent.presentation.verified_template_capabilities import (
+    CapabilityPresentationPlanV1,
     capability_highlights_markdown,
 )
 from readme_agent.presentation.verified_template_documentation import (
@@ -37,8 +40,10 @@ from readme_agent.readme.document_links import (
 )
 from readme_agent.readme.document_structure import heading_identity, parse_headings
 from readme_agent.readme.document_templates import example_text, installation_text
+from readme_agent.readme.header_badges import render_brand_banner
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.license_location import repository_license_path
+from readme_agent.readme.public_limitations import public_limitation_phrases
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 
 
@@ -150,12 +155,85 @@ def _source_opening_summary(
     return None
 
 
+_SCOPE_TOPIC_RULES = (
+    (re.compile(r"(?i)\bcolou?r\b"), "color-space"),
+    (re.compile(r"(?i)\bfunctions?\b"), "function"),
+    (re.compile(r"(?i)\bfonts?\b"), "embedded-font"),
+)
+_SPELLED_COUNTS = (
+    "Zero",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Twelve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen",
+    "Twenty",
+)
+_CONVERSION_WORKFLOW = re.compile(r"(?i)\bto\b.+\bconversion\b|\bconvert\b")
+
+
+def _scope_limitations_brief(facts: ProductFactsV2, limitations: list[str]) -> str:
+    topics: list[str] = []
+    for phrase in limitations:
+        for pattern, topic in _SCOPE_TOPIC_RULES:
+            if pattern.search(phrase) and topic not in topics:
+                topics.append(topic)
+    capability_phrases = _phrases(facts, "product.capabilities")
+    workflows = (
+        "conversion workflows"
+        if any(_CONVERSION_WORKFLOW.search(item) for item in capability_phrases)
+        else "workflows"
+    )
+    opening = f"The library targets the {workflows} listed above"
+    if topics:
+        joined = (
+            ", ".join(topics[:-1]) + f", and {topics[-1]}"
+            if len(topics) > 2
+            else " and ".join(topics)
+        )
+        opening += f"; {joined} support has documented boundaries"
+    count = len(limitations)
+    spelled = _SPELLED_COUNTS[count] if count < len(_SPELLED_COUNTS) else str(count)
+    noun = "constraint is" if count == 1 else "constraints are"
+    return f"{opening}. {spelled} specific {noun} listed below."
+
+
 def _scope_text(
     facts: ProductFactsV2,
     contextual_links: ContextualLinkPlanV1 | None,
 ) -> tuple[str, list[str], tuple[str, ...]]:
-    limitations = _phrases(facts, "product.limitations")
-    paragraphs = ["\n".join(f"- {item}" for item in limitations)] if limitations else []
+    limitations = public_limitation_phrases(facts)
+    paragraphs = (
+        [
+            _scope_limitations_brief(facts, limitations),
+            "\n".join(
+                [
+                    "<details>",
+                    "<summary>View specific limitations</summary>",
+                    "",
+                    *(f"- {item}" for item in limitations),
+                    "",
+                    "</details>",
+                ]
+            ),
+        ]
+        if limitations
+        else []
+    )
     fields = ["product.limitations"] if limitations else []
     package_status = package_status_markdown(facts)
     if package_status:
@@ -212,6 +290,7 @@ def build_verified_template_draft(
     agentic_plan: ReadmeAgenticCompositionPlanV1,
     contextual_links: ContextualLinkPlanV1 | None = None,
     documentation_link_limit: int | None = None,
+    capability_plan: CapabilityPresentationPlanV1 | None = None,
 ) -> ProductFactsTemplateDraftV1:
     """Bind verified facts and the validated agentic plan to reusable slots."""
 
@@ -245,7 +324,11 @@ def build_verified_template_draft(
         else:
             summary = f"{title} provides " + ", ".join(capabilities[:3] or problems[:3]) + "."
             summary_fields = ["product.identity", "product.capabilities"]
-    capability_text = capability_highlights_markdown(facts, source_text=source_text)
+    capability_text = capability_highlights_markdown(
+        facts,
+        source_text=source_text,
+        presentation_plan=capability_plan,
+    )
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
     optional_extras = optional_extras_markdown(facts)
@@ -270,6 +353,10 @@ def build_verified_template_draft(
             "verified template lacks required capability, acquisition, or example facts"
         )
     scope, scope_fields, scope_standards = _scope_text(facts, contextual_links)
+    badge_block = visual.badge_markdown
+    banner = render_brand_banner(facts, product_name=title)
+    if banner is not None:
+        badge_block += "\n\n" + banner
     badge_fields = sorted(
         {facts.fact_by_id(fact_id).field for badge in visual.badges for fact_id in badge.fact_ids}
     )
@@ -322,7 +409,12 @@ def build_verified_template_draft(
         ),
         "development_and_testing": (
             development,
-            _accepted_fields(facts, "development.assets", "development.commands"),
+            _accepted_fields(
+                facts,
+                "development.assets",
+                "development.commands",
+                "development.golden_workflow",
+            ),
             ("readme.development_and_testing",),
         ),
         "contributing": (
@@ -348,7 +440,7 @@ def build_verified_template_draft(
         source_revision=source_revision,
         source_line_count=len(source_text.splitlines()),
         title=_included(title, "product.identity", standards=("readme.header",)),
-        badges=_included(visual.badge_markdown, *badge_fields, standards=("readme.badges",)),
+        badges=_included(badge_block, *badge_fields, standards=("readme.badges",)),
         summary=_included(
             summary,
             *summary_fields,

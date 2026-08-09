@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 import re
 
 from markdown_it import MarkdownIt
@@ -13,20 +14,30 @@ from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.header_badge_targets import normalized_badge_target
 from readme_agent.readme.header_visual_layout import (
     capability_layout_edges,
+    split_capability_columns,
     validate_capability_group_layout,
+)
+from readme_agent.readme.header_visual_mermaid import (
+    compact_diagram_node_label,
+    raster_output_formats_label,
 )
 from readme_agent.readme.header_visual_models import (
     HeaderVisualValidationV1,
     ReadmeHeaderVisualV1,
     safe_mermaid_label,
 )
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_MERMAID_MAX_BLOCK_LINES,
+    PRESENTATION_MERMAID_MAX_COLUMN_NODES,
+    PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
+)
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _ROOT_LINE = re.compile(r'^\s{2}(PRODUCT)\["([^"]+)"\]$')
 _GROUP_LINE = re.compile(r'^\s{2}subgraph (Inputs|Capabilities|Outputs)\["([^"]+)"\]$')
-_NODE_LINE = re.compile(r'^\s{4,6}([ICO]\d+)\["([^"]+)"\]$')
+_NODE_CHAIN_LINE = re.compile(r'^\s{4,6}[ICO]\d+\["[^"]+"\](?: ~~~ [ICO]\d+\["[^"]+"\])*$')
+_NODE_ITEM = re.compile(r'([ICO]\d+)\["([^"]+)"\]')
 _EDGE_LINE = re.compile(r"^\s{2}([A-Za-z][A-Za-z0-9]*) --- ([A-Za-z][A-Za-z0-9]*)$")
-_LAYOUT_EDGE_LINE = re.compile(r"^\s{4,6}(C\d+) ~~~ (C\d+)$")
 
 
 def validate_readme_header_visual(
@@ -51,21 +62,20 @@ def validate_readme_header_visual(
     group_lines = [
         match for line in lines[1:] if (match := _GROUP_LINE.fullmatch(line)) is not None
     ]
-    node_lines = [
-        match
-        for line in lines[1:]
-        if (match := _NODE_LINE.fullmatch(line)) is not None and match.group(1) != "product"
-    ]
+    node_chain_lines = [line for line in lines[1:] if _NODE_CHAIN_LINE.fullmatch(line)]
+    node_items = [item for line in node_chain_lines for item in _NODE_ITEM.findall(line)]
     edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
-    layout_edge_lines = [
-        match for line in lines[1:] if (match := _LAYOUT_EDGE_LINE.fullmatch(line)) is not None
+    parsed_layout_edges = [
+        (left, right)
+        for line in node_chain_lines
+        if " ~~~ " in line
+        for left, right in itertools.pairwise(match.group(1) for match in _NODE_ITEM.finditer(line))
     ]
     parsed_edges = {(match.group(1), match.group(2)) for match in edge_lines}
     input_ids = {node.node_id for node in visual.diagram_nodes if node.role == "input"}
     output_ids = {node.node_id for node in visual.diagram_nodes if node.role == "output"}
     capability_ids = [node.node_id for node in visual.diagram_nodes if node.role == "capability"]
     expected_layout_edges = capability_layout_edges(capability_ids)
-    parsed_layout_edges = [(match.group(1), match.group(2)) for match in layout_edge_lines]
     expected_edges = {
         *((node_id, "PRODUCT") for node_id in input_ids),
         ("PRODUCT", "Capabilities"),
@@ -82,7 +92,7 @@ def validate_readme_header_visual(
         and root_lines[0].group(1) == visual.diagram_nodes[0].node_id
         and root_lines[0].group(2) == visual.diagram_nodes[0].label
         and [match.group(1) for match in group_lines] == expected_groups
-        and len(node_lines) == len(visual.diagram_nodes) - 1
+        and len(node_items) == len(visual.diagram_nodes) - 1
         and parsed_edges == expected_edges
         and "-->" not in visual.mermaid_source
         and visual.mermaid_source.count("~~~") == len(expected_layout_edges)
@@ -93,6 +103,16 @@ def validate_readme_header_visual(
     )
     checks["capability_layout_adaptive"] = adaptive_layout_valid
     checks["capability_layout_vertical"] = adaptive_layout_valid
+    checks["mermaid_block_compact"] = len(lines) <= PRESENTATION_MERMAID_MAX_BLOCK_LINES
+    checks["capability_columns_short"] = all(
+        len(column) <= PRESENTATION_MERMAID_MAX_COLUMN_NODES
+        for column in split_capability_columns(capability_ids)
+    )
+    checks["labels_compact"] = all(
+        len(node.label) <= PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS
+        for node in visual.diagram_nodes
+        if node.role != "product"
+    )
     checks["labels_safe"] = all(
         safe_mermaid_label(node.label) == node.label for node in visual.diagram_nodes
     )
@@ -113,8 +133,18 @@ def validate_readme_header_visual(
         for node in visual.diagram_nodes
         if node.role == "output"
     )
+    raster_formats = raster_output_formats_label(facts)
     expected_capabilities = {
-        " ".join(node.label.casefold().split()): set(node.supporting_fact_ids)
+        " ".join(
+            compact_diagram_node_label(
+                node.label,
+                "capability",
+                raster_output_formats=raster_formats,
+                product_name=visual.diagram_nodes[0].label,
+            )
+            .casefold()
+            .split()
+        ): set(node.supporting_fact_ids)
         for node in selected_verified_capability_nodes(facts)
     }
     rendered_capabilities = {
@@ -130,12 +160,7 @@ def validate_readme_header_visual(
         f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
         in visual.mermaid_source
         and all(
-            re.search(
-                rf'^\s{{4,6}}{re.escape(node.node_id)}\["{re.escape(node.label)}"\]$',
-                visual.mermaid_source,
-                re.MULTILINE,
-            )
-            is not None
+            f'{node.node_id}["{node.label}"]' in visual.mermaid_source
             for node in visual.diagram_nodes[1:]
         )
         and all(badge.alt_text in visual.badge_markdown for badge in visual.badges)
@@ -225,6 +250,24 @@ def validate_readme_header_visual(
         ]
         checks["candidate_exact_title"] = h1_titles == [visual.title]
         checks["candidate_exact_badges"] = badge_lines == [visual.badge_markdown]
+        header_lines = before_first_h2.splitlines()
+        banner_indexes = [
+            index
+            for index, line in enumerate(header_lines)
+            if line.startswith("![") and "products.aspose.org" in line
+        ]
+        badge_indexes = [index for index, line in enumerate(header_lines) if line in badge_lines]
+        checks["candidate_banner_wellformed"] = len(banner_indexes) <= 1 and all(
+            re.fullmatch(
+                rf"!\[{re.escape(visual.title)}\]"
+                r"\(https://products\.aspose\.org/media/[a-z0-9./_-]+\)",
+                header_lines[index],
+            )
+            is not None
+            and badge_indexes
+            and index > badge_indexes[0]
+            for index in banner_indexes
+        )
         checks["candidate_exact_mermaid"] = (
             candidate_text.count(visual.mermaid_markdown) == 1
             and candidate_text.count("```mermaid") == 1

@@ -9,7 +9,10 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.terminology import EnterpriseTerminologyCorrectionV1
-from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
+from readme_agent.readme.claim_accountability_models import (
+    ReadmeClaimAccountabilityMapV1,
+    StructuredFactCoordinateV1,
+)
 from readme_agent.readme.composition_lineage_models import ReadmeCompositionLedgerV1
 from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
@@ -128,6 +131,7 @@ class CandidateContentProvenanceV1(_StrictModel):
     candidate_byte_start: int = Field(ge=0)
     candidate_byte_end: int = Field(ge=0)
     fact_ids: list[str] = Field(default_factory=list)
+    fact_coordinates: list[StructuredFactCoordinateV1] = Field(default_factory=list)
     configured_standard_ids: list[str] = Field(default_factory=list)
     rationale: str = Field(min_length=1)
 
@@ -143,6 +147,8 @@ class CandidateContentProvenanceV1(_StrictModel):
             raise ValueError("lineage-only provenance requires an exact operation owner")
         if self.authority_scope != "lineage_only" and self.lineage_operation_id is not None:
             raise ValueError("operation ownership is reserved for lineage-only provenance")
+        if any(coordinate.fact_id not in self.fact_ids for coordinate in self.fact_coordinates):
+            raise ValueError("candidate provenance coordinates require their owning fact IDs")
         return self
 
 

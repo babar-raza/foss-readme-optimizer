@@ -8,6 +8,8 @@ from typing import TYPE_CHECKING, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
+
 LineageOrigin = Literal["source_preserved", "generated", "corrected"]
 LineageAuthority = Literal[
     "source_exact",
@@ -111,6 +113,7 @@ class LineageProvenanceV1(_StrictModel):
     candidate_byte_start: int = Field(ge=0)
     candidate_byte_end: int = Field(gt=0)
     fact_ids: list[str] = Field(default_factory=list)
+    fact_coordinates: list[StructuredFactCoordinateV1] = Field(default_factory=list)
     configured_standard_ids: list[str] = Field(default_factory=list)
     rationale: str = Field(min_length=1)
 
@@ -126,6 +129,8 @@ class LineageProvenanceV1(_StrictModel):
             raise ValueError("lineage-only provenance requires an exact operation owner")
         if self.authority_scope != "lineage_only" and self.lineage_operation_id is not None:
             raise ValueError("operation ownership is reserved for lineage-only provenance")
+        if any(coordinate.fact_id not in self.fact_ids for coordinate in self.fact_coordinates):
+            raise ValueError("lineage provenance coordinates require their owning fact IDs")
         return self
 
 

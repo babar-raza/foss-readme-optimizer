@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "verification_plan_sha256": "96c9ac85554e921e240a9840410a2d76807eb103e22cb38ec84e57045b90dd62",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v2/independent-verification.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--ed6cba11fc46/README.md",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "52637dbc34519d06a30b6d0306cb31c55b10072c5146d8ae05f0ff5522f3af76",
+  "multi_agent_admission_decision_sha256": "78fbd8cb5a929d7e660055e068b98ce0ba0c3007c59c4fe39514ea7b371b2595"
+}

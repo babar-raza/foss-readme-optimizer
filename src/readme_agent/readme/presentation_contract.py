@@ -17,7 +17,9 @@ PRESENTATION_HEADING_PREFIX_ALIASES = {"Why ": "Key capabilities"}
 PRESENTATION_EMOJI_POLICY = "none"
 PRESENTATION_MERMAID_GRAMMAR = _TEMPLATE.invariants.mermaid_visual_grammar
 PRESENTATION_MERMAID_MAX_NODES = 16
-PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS = 52
+PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS = 36
+PRESENTATION_MERMAID_MAX_BLOCK_LINES = 40
+PRESENTATION_MERMAID_MAX_COLUMN_NODES = 4
 PRESENTATION_MERMAID_MIN_INPUTS = _TEMPLATE.invariants.minimum_mermaid_inputs
 PRESENTATION_MERMAID_MIN_CAPABILITIES = _TEMPLATE.invariants.minimum_mermaid_capabilities
 PRESENTATION_MERMAID_MIN_OUTPUTS = _TEMPLATE.invariants.minimum_mermaid_outputs
@@ -25,3 +27,15 @@ PRESENTATION_MERMAID_TARGET_INPUTS = _TEMPLATE.invariants.target_mermaid_inputs
 PRESENTATION_MERMAID_TARGET_CAPABILITIES = _TEMPLATE.invariants.target_mermaid_capabilities
 PRESENTATION_MERMAID_TARGET_OUTPUTS = _TEMPLATE.invariants.target_mermaid_outputs
 PRESENTATION_ENTERPRISE_LINK_SECTION = "Scope and limitations"
+PRESENTATION_SECTION_VISIBLE_LINE_LIMITS = {
+    "key_capabilities": 6,
+    "additional_examples": 3,
+    "api_reference": 4,
+    "development_and_testing": 3,
+    "scope_and_limitations": 5,
+}
+PRESENTATION_SECTION_VISIBLE_LIMITS_BY_HEADING = {
+    _TEMPLATE.headings[slot]: limit
+    for slot, limit in PRESENTATION_SECTION_VISIBLE_LINE_LIMITS.items()
+    if slot in _TEMPLATE.headings
+}

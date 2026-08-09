@@ -395,3 +395,68 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
             )
         )
     return badges
+
+
+_BANNER_URL_PREFIX = "https://products.aspose.org/media/"
+_BANNER_PROBE_CACHE: dict[str, bool] = {}
+
+
+def _banner_url_exists(url: str) -> bool:
+    """HEAD (GET fallback) the banner once per family/platform per process."""
+
+    import os
+
+    if os.environ.get("README_AGENT_BRAND_BANNER", "").casefold() == "off":
+        return False
+    cached = _BANNER_PROBE_CACHE.get(url)
+    if cached is not None:
+        return cached
+    import requests
+
+    exists = False
+    try:
+        response = requests.head(url, timeout=10, allow_redirects=True)
+        if response.status_code == 200:
+            exists = True
+        elif response.status_code in {403, 405, 501}:
+            exists = requests.get(url, timeout=10, stream=True).status_code == 200
+    except requests.RequestException:
+        exists = False
+    _BANNER_PROBE_CACHE[url] = exists
+    return exists
+
+
+def _family_slug_for_org(github_org: str) -> str | None:
+    import json
+    from pathlib import Path
+
+    path = Path("data/families.json")
+    if not path.is_file():
+        return None
+    for entry in json.loads(path.read_text(encoding="utf-8")):
+        if isinstance(entry, dict) and entry.get("github_org") == github_org:
+            slug = entry.get("family")
+            return str(slug) if slug else None
+    return None
+
+
+def render_brand_banner(
+    facts: ProductFactsV2,
+    *,
+    product_name: str,
+    url_exists=None,
+) -> str | None:
+    """Render the portfolio brand banner only when its image verifiably exists."""
+
+    identity = _accepted(facts, "product.identity")
+    if identity is None or not isinstance(identity.value, dict):
+        return None
+    platform = str(identity.value.get("platform") or "").strip().casefold()
+    family = _family_slug_for_org(facts.org_repo.split("/")[0])
+    if not platform or not family:
+        return None
+    url = f"{_BANNER_URL_PREFIX}{family}/{platform}/banner-readme.png"
+    probe = url_exists if url_exists is not None else _banner_url_exists
+    if not probe(url):
+        return None
+    return f"![{product_name}]({url})"

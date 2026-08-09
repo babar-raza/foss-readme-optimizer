@@ -12,9 +12,15 @@ from dataclasses import dataclass
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
-from readme_agent.readme.claim_accountability_coordinates import structured_fact_coordinates
+from readme_agent.readme.claim_accountability_coordinates import (
+    literal_list_fact_coordinates,
+    structured_fact_coordinates,
+)
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.source_claim_conversion_binding import (
+    conversion_source_claim_fact_coordinates,
+)
 from readme_agent.readme.source_claim_structured_matching import (
     structured_source_claim_fact_ids,
     verified_issue_route_fact_ids,
@@ -35,6 +41,7 @@ _EXACT_VALUE_FIELDS = {
     "product.license",
     "product.limitations",
     "product.problems_solved",
+    "repository.public_guidance",
 }
 _STRUCTURED_ONLY_FIELDS = {
     "api.public_surface",
@@ -200,7 +207,7 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
             continue
         if fact.field in _STRUCTURED_ONLY_FIELDS:
             continue
-        if fact_id in literal_ids:
+        if fact_id in literal_ids or fact.field in _EXACT_VALUE_FIELDS:
             variants_by_fact[fact_id] = _fact_variants(facts, fact_id)
     result.update(_covered_by_fact_variants(normalized_claim, variants_by_fact))
     result.update(verified_issue_route_fact_ids(claim_text, facts))
@@ -222,14 +229,29 @@ def complete_source_claim_fact_binding(
         raise ValueError("source claim hash does not match immutable document bytes")
     text = claim_bytes.decode("utf-8")
     literal_ids = accepted_source_claim_fact_ids(text, facts)
-    coordinates = tuple(structured_fact_coordinates(document, claim, facts))
+    coordinates = list(structured_fact_coordinates(document, claim, facts))
+    coordinates.extend(conversion_source_claim_fact_coordinates(text, facts))
     structured_ids = structured_source_claim_fact_ids(document, claim, text, facts)
     fact_ids = frozenset({*literal_ids, *structured_ids, *(item.fact_id for item in coordinates)})
     if not fact_ids:
         return None
+    for fact_id in fact_ids:
+        fact = facts.fact_by_id(fact_id)
+        if fact.field in {
+            "product.capabilities",
+            "product.compatibility",
+            "product.formats",
+            "product.limitations",
+            "product.problems_solved",
+        }:
+            coordinates.extend(literal_list_fact_coordinates(text, fact_id, fact.field, fact.value))
+    coordinates = sorted(
+        set(coordinates),
+        key=lambda item: (item.fact_id, item.path, item.value_sha256),
+    )
     return CompleteSourceClaimFactBindingV1(
         fact_ids=fact_ids,
-        fact_coordinates=coordinates,
+        fact_coordinates=tuple(coordinates),
     )
 
 

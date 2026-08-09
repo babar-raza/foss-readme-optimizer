@@ -19,6 +19,7 @@ _ANCHOR_TOKEN_TYPES = frozenset(
         "paragraph_open",
     }
 )
+_MAX_ANCHOR_CHARACTERS = 12_000
 
 
 class CandidateReviewAnchorV1(BaseModel):
@@ -27,9 +28,53 @@ class CandidateReviewAnchorV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     anchor_id: str = Field(pattern=r"^candidate\.anchor\.[0-9a-f]{20}\.[0-9]+$")
-    text: str = Field(min_length=1, max_length=12_000)
+    text: str = Field(min_length=1, max_length=_MAX_ANCHOR_CHARACTERS)
     start_line: int = Field(ge=1)
     end_line_exclusive: int = Field(ge=2)
+
+
+def _bounded_block_parts(lines: list[str], start: int, end: int) -> list[tuple[str, int, int]]:
+    """Split one oversized source block without omitting or rewriting candidate bytes."""
+
+    text = "".join(lines[start:end]).rstrip("\r\n")
+    if len(text) <= _MAX_ANCHOR_CHARACTERS:
+        return [(text, start + 1, end + 1)] if text.strip() else []
+    parts: list[tuple[str, int, int]] = []
+    chunk_lines: list[str] = []
+    chunk_start = start
+    for line_index in range(start, end):
+        line = lines[line_index]
+        if len(line.rstrip("\r\n")) > _MAX_ANCHOR_CHARACTERS:
+            if chunk_lines:
+                chunk = "".join(chunk_lines).rstrip("\r\n")
+                parts.append((chunk, chunk_start + 1, line_index + 1))
+                chunk_lines = []
+            visible = line.rstrip("\r\n")
+            for offset in range(0, len(visible), _MAX_ANCHOR_CHARACTERS):
+                parts.append(
+                    (
+                        visible[offset : offset + _MAX_ANCHOR_CHARACTERS],
+                        line_index + 1,
+                        line_index + 2,
+                    )
+                )
+            chunk_start = line_index + 1
+            continue
+        candidate = "".join([*chunk_lines, line]).rstrip("\r\n")
+        if chunk_lines and len(candidate) > _MAX_ANCHOR_CHARACTERS:
+            chunk = "".join(chunk_lines).rstrip("\r\n")
+            parts.append((chunk, chunk_start + 1, line_index + 1))
+            chunk_lines = [line]
+            chunk_start = line_index
+        else:
+            if not chunk_lines:
+                chunk_start = line_index
+            chunk_lines.append(line)
+    if chunk_lines:
+        chunk = "".join(chunk_lines).rstrip("\r\n")
+        if chunk.strip():
+            parts.append((chunk, chunk_start + 1, end + 1))
+    return parts
 
 
 def build_candidate_review_anchors(markdown: str) -> tuple[CandidateReviewAnchorV1, ...]:
@@ -52,10 +97,10 @@ def build_candidate_review_anchors(markdown: str) -> tuple[CandidateReviewAnchor
         selected.append((start, end))
     occurrences: dict[str, int] = {}
     anchors: list[CandidateReviewAnchorV1] = []
-    for start, end in sorted(selected):
-        text = "".join(lines[start:end]).rstrip("\r\n")
-        if not text.strip():
-            continue
+    bounded = [
+        part for start, end in sorted(selected) for part in _bounded_block_parts(lines, start, end)
+    ]
+    for text, start_line, end_line_exclusive in bounded:
         digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:20]
         occurrence = occurrences.get(digest, 0) + 1
         occurrences[digest] = occurrence
@@ -63,8 +108,8 @@ def build_candidate_review_anchors(markdown: str) -> tuple[CandidateReviewAnchor
             CandidateReviewAnchorV1(
                 anchor_id=f"candidate.anchor.{digest}.{occurrence}",
                 text=text,
-                start_line=start + 1,
-                end_line_exclusive=end + 1,
+                start_line=start_line,
+                end_line_exclusive=end_line_exclusive,
             )
         )
     return tuple(anchors)

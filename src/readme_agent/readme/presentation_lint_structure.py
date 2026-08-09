@@ -9,7 +9,11 @@ from readme_agent.presentation.template_schema import load_repository_presentati
 from readme_agent.readme.document_structure import (
     code_blocks_in_span,
     github_anchor,
+    heading_identity,
     parse_headings,
+)
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_SECTION_VISIBLE_LIMITS_BY_HEADING,
 )
 from readme_agent.readme.presentation_lint_models import (
     PresentationLintFindingV1,
@@ -30,7 +34,10 @@ RULE_IDS = (
     "promotional_imbalance",
     "promotional_opening",
     "redundant_quick_links",
+    "section_brief_overflow",
+    "section_details_multiplicity",
     "uncollapsed_secondary_detail",
+    "unnormalized_blank_lines",
 )
 
 _PRIMARY_EXAMPLE = re.compile(r"(?i)^(?:quick start|usage|getting started|example)$")
@@ -185,6 +192,73 @@ def lint_structure(text: str) -> list[PresentationLintFindingV1]:
                 "malformed_navigation",
                 "One or more README navigation links do not resolve to a heading.",
                 broken,
+            )
+        )
+
+    limits_by_identity = {
+        heading_identity(title): limit
+        for title, limit in PRESENTATION_SECTION_VISIBLE_LIMITS_BY_HEADING.items()
+    }
+    for heading in headings:
+        if heading.level != 2:
+            continue
+        limit = limits_by_identity.get(heading_identity(heading.title))
+        if limit is None:
+            continue
+        body = text[heading.heading_end : heading.section_end]
+        details_count = len(re.findall(r"(?i)<details(?:\s|>)", body))
+        if details_count > 1:
+            findings.append(
+                make_finding(
+                    "section_details_multiplicity",
+                    f"{heading.title} must fold detail into at most one details block.",
+                    [_heading_span(text, heading.start, heading.heading_end)],
+                )
+            )
+        brief_end = heading.heading_end + len(body.partition("<details>")[0])
+        overflow = [
+            line_span(text, line)
+            for line in visible_lines(text)
+            if heading.heading_end <= line.start < brief_end and line.text.strip()
+        ][limit:]
+        if overflow:
+            findings.append(
+                make_finding(
+                    "section_brief_overflow",
+                    (
+                        f"{heading.title} must show at most {limit} always-visible "
+                        "lines before one details block."
+                    ),
+                    overflow,
+                )
+            )
+
+    blank_run_anchors: list[PresentationLintSpanV1] = []
+    fenced = False
+    consecutive_blank = 0
+    last_content: tuple[int, int] | None = None
+    offset = 0
+    for raw in text.splitlines(keepends=True):
+        content = raw.rstrip("\r\n")
+        if content.lstrip().startswith("```"):
+            fenced = not fenced
+            consecutive_blank = 0
+            last_content = (offset, offset + len(content))
+        elif fenced or content.strip():
+            consecutive_blank = 0
+            last_content = (offset, offset + len(content))
+        else:
+            consecutive_blank += 1
+            if consecutive_blank == 2 and last_content is not None:
+                blank_run_anchors.append(exact_span(text, *last_content))
+        offset += len(raw)
+    if blank_run_anchors:
+        unique_anchors = {(span.start, span.end): span for span in blank_run_anchors}
+        findings.append(
+            make_finding(
+                "unnormalized_blank_lines",
+                "Consecutive blank lines must be collapsed to a single separator.",
+                list(unique_anchors.values()),
             )
         )
 

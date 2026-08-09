@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+  "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the first repository-verified Python README under the accepted presentation contract."
+  },
+  "acceptance_checks_passed": [
+    "Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked",
+    "The candidate reaches or exceeds the useful editorial and graph behavior exposed by the comparison without copying sibling prose or making Aspose.org a runtime input",
+    "An acceptance rerun with the sibling checkout unavailable produces the same candidate and evidence",
+    "The opening, examples, API curation, documentation, limitations, and Mermaid topology pass the current professional-reader contract and the governed defect corpus",
+    "An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-01-note-verified-canary-v2/independent-verification.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--ed6cba11fc46/README.md",
+    "runs/evidence/20260808-062520-13ea/manifest.json",
+    "runs/evidence/20260808-062939-6f85/manifest.json",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "scoreboard_before_sha256": "2e83af011568ca71c93ed33335df0b54279b241b3898e191cb63de05d36e1d15",
+  "scoreboard_after_sha256": "2e83af011568ca71c93ed33335df0b54279b241b3898e191cb63de05d36e1d15",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

@@ -25,39 +25,25 @@ flowchart LR
   subgraph Inputs["Inputs and Formats"]
     I1["Microsoft OneNote (.one) files"]
   end
-
   PRODUCT["Aspose.Note FOSS for Python"]
-
   subgraph Capabilities["Core Capabilities"]
     direction LR
-    subgraph CapabilityColumn1[" "]
-      direction TB
-      C1["Document and traversal"]
-      C2["Page and Title nodes"]
-      C3["RichText with formatting runs"]
-      C4["Image and AttachedFile content"]
-      C1 ~~~ C2
-      C2 ~~~ C3
-      C3 ~~~ C4
+    subgraph Col1[" "]
+      C1["Document and traversal"] ~~~ C2["Page and Title nodes"] ~~~ C3["RichText with formatting runs"]
     end
-    subgraph CapabilityColumn2[" "]
-      direction TB
-      C5["Table with rows and cells"]
-      C6["OneNote tags on content nodes"]
-      C7["Numbered lists and outline elements"]
-      C8["PDF export"]
-      C5 ~~~ C6
-      C6 ~~~ C7
-      C7 ~~~ C8
+    subgraph Col2[" "]
+      C4["Image and AttachedFile content"] ~~~ C5["Table with rows and cells"] ~~~ C6["OneNote tags on content nodes"]
+    end
+    subgraph Col3[" "]
+      C7["Numbered lists and outline elements"] ~~~ C8["PDF export"]
     end
   end
-  style CapabilityColumn1 fill:none,stroke:none
-  style CapabilityColumn2 fill:none,stroke:none
-
+  style Col1 fill:none,stroke:none
+  style Col2 fill:none,stroke:none
+  style Col3 fill:none,stroke:none
   subgraph Outputs["Outputs"]
     O1["PDF files"]
   end
-
   I1 --- PRODUCT
   PRODUCT --- Capabilities
   Capabilities --- Outputs

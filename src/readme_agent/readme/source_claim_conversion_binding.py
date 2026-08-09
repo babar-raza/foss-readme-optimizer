@@ -5,6 +5,14 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.readme.claim_accountability_api_coordinates import (
+    api_mcp_server_fact_coordinates,
+    api_module_export_fact_coordinates,
+)
+from readme_agent.readme.claim_accountability_coordinates import (
+    structured_list_item_coordinate,
+)
+from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 
 _CONVERSION = re.compile(
     r"^\s*[-+*]\s+Convert (?P<inputs>.+?) to (?P<outputs>.+?) in (?P<platform>Python)\s*$",
@@ -89,4 +97,73 @@ def conversion_source_claim_fact_ids(text: str, facts: ProductFactsV2) -> set[st
     return set()
 
 
-__all__ = ["conversion_source_claim_fact_ids"]
+def conversion_source_claim_fact_coordinates(
+    text: str,
+    facts: ProductFactsV2,
+) -> list[StructuredFactCoordinateV1]:
+    """Return exact capability and corroborating API coordinates for a conversion claim."""
+
+    capabilities = _accepted(facts, "product.capabilities")
+    api = _accepted(facts, "api.public_surface")
+    if capabilities is None or not isinstance(capabilities.value, list):
+        return []
+    folded = " ".join(text.casefold().split())
+    capability_by_folded = {
+        str(item).casefold(): item for item in capabilities.value if isinstance(item, str)
+    }
+    if folded == _MCP_WORKFLOW:
+        item = capability_by_folded.get("mcp server hosting")
+        if item is None or api is None or not isinstance(api.value, dict):
+            return []
+        mcp = api.value.get("mcp_server")
+        tools = mcp.get("tools") if isinstance(mcp, dict) else None
+        conversion_tools = {
+            tool for tool in tools or [] if isinstance(tool, str) and "_to_" in tool
+        }
+        api_coordinates = api_mcp_server_fact_coordinates(
+            api.fact_id,
+            api.value,
+            tool_names=conversion_tools,
+        )
+        if not conversion_tools or len(api_coordinates) != len(conversion_tools):
+            return []
+        return [
+            structured_list_item_coordinate(capabilities.fact_id, capabilities.field, item),
+            *api_coordinates,
+        ]
+    match = _CONVERSION.fullmatch(text.strip()) or _CONVERSION_NOUN.fullmatch(text.strip())
+    if match is None:
+        return []
+    inputs = " ".join(match.group("inputs").split()).casefold()
+    outputs = " ".join(match.group("outputs").split()).casefold()
+    direct = f"{inputs} to {outputs} conversion"
+    capability_item = capability_by_folded.get(direct)
+    api_exports: set[str] = set()
+    if capability_item is None and outputs in {
+        "png and jpeg",
+        "jpeg and png",
+        "png/jpeg",
+        "jpeg/png",
+    }:
+        capability_item = capability_by_folded.get(f"{inputs} to image conversion")
+        api_exports = {"encode_png", "encode_jpeg"}
+    if capability_item is None:
+        return []
+    coordinates = [
+        structured_list_item_coordinate(
+            capabilities.fact_id,
+            capabilities.field,
+            capability_item,
+        )
+    ]
+    if api_exports:
+        if api is None:
+            return []
+        export_coordinates = api_module_export_fact_coordinates(api.fact_id, api.value, api_exports)
+        if len(export_coordinates) != len(api_exports):
+            return []
+        coordinates.extend(export_coordinates)
+    return coordinates
+
+
+__all__ = ["conversion_source_claim_fact_coordinates", "conversion_source_claim_fact_ids"]

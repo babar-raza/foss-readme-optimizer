@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Page Python README without broad rework."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Page receipts are reused and only invalid dependencies rerun",
+    "Page is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Page README is shown before another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-03c-page-current-v1/independent-verification.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/manifest.json",
+    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/review/no-op-proof.json"
+  ],
+  "scoreboard_before_sha256": "11b467780dd147f156aa64e4ed48a080ee14f78a7123ece08a8e006892160679",
+  "scoreboard_after_sha256": "9b5b7d05534dd27aa81e5576bc55841c38b06927628d76c55db5281aac1207bd",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "page_historical_acceptance_invalidated_at_facts_collecting",
+  "contribution_boundary_after": "page_current_contract_accepted_no_op_proven_and_promoted",
+  "independently_verified": true
+}

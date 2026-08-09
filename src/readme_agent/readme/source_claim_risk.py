@@ -206,6 +206,16 @@ def classify_source_claim_risk(
                 "overview cannot silently replace it."
             ),
         )
+    if re.search(r"\bpip\s+install\b", folded):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="verified_installation",
+            heading_path=path,
+            rationale=(
+                "Package installation commands require an exact verified-acquisition "
+                "replacement regardless of the source section that contains them."
+            ),
+        )
     if "installation" in primary or "getting started" in primary:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
@@ -354,11 +364,12 @@ def classify_source_claim_risk(
         )
     if "golden" in primary:
         return SourceClaimRiskV1(
-            risk_class="optional_explicit_deferral",
+            risk_class="mandatory_fact_resolution",
+            obligation_id="golden_workflow",
             heading_path=path,
             rationale=(
-                "Internal golden-test workflow detail may be withheld from the visitor README "
-                "only with an exact deferred source record."
+                "Repository-authored golden-test workflow detail requires a typed, source-bound "
+                "workflow fact and a complete canonical development-section replacement."
             ),
         )
     if any(token in primary for token in ("build", "develop", "test")):

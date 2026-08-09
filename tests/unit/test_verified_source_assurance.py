@@ -25,6 +25,7 @@ from readme_agent.readme.source_claim_assurance import (
     build_source_claim_assurance,
     verified_comment_free_python_example,
 )
+from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
 from readme_agent.readme.source_claim_risk import (
     classify_source_claim_risk,
     obligation_requires_source_entailment,
@@ -296,6 +297,66 @@ def test_source_build_and_404_cannot_authorize_the_inherited_pip_command() -> No
     )
 
 
+def test_source_build_package_extras_are_an_explicit_acquisition_contradiction() -> None:
+    facts = _facts()
+    source = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Requirements\n\n"
+        "```bash\npython -m pip install 'aspose-3d-foss[dev]'\n```\n"
+    )
+    claim = assess_material_claims(source)[0]
+
+    contradiction_ids = contradicted_source_claim_fact_ids(source, claim, facts)
+    risk = classify_source_claim_risk(source, claim)
+    assurance = build_source_claim_assurance(
+        source,
+        facts,
+        assess_readme_document(facts.org_repo, source, facts, base_revision=REVISION),
+    )
+    candidate, plan, validation = _build(source)
+
+    assert facts.selected_fact("installation.verified_acquisition").fact_id in contradiction_ids
+    assert facts.selected_fact("installation.coordinates").fact_id in contradiction_ids
+    assert risk.obligation_id == "verified_installation"
+    assert (claim.source_byte_start, claim.source_byte_end) in assurance.correction_ranges
+    assert "aspose-3d-foss[dev]" not in candidate
+    assert validation.checks["protected_content"] is True
+    assert validation.checks["claim_accountability_complete"] is True
+    assert not [
+        error
+        for error in validation.errors
+        if error.startswith("unauthorized protected-content loss:")
+        or "claim accountability" in error
+    ]
+    resolution = next(
+        item for item in plan.source_claim_resolutions if item.claim_id == claim.claim_id
+    )
+    assert resolution.resolution == "verified_obligation_replacement"
+    assert resolution.obligation_id == "verified_installation"
+    assert set(resolution.contradiction_fact_ids) == contradiction_ids
+
+
+def test_chained_optional_extras_command_cannot_survive_candidate_accountability() -> None:
+    source = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Requirements\n\n"
+        "```bash\n"
+        "python -m pip install '.[dev]' && python -m pip install malware-package\n"
+        "```\n"
+    )
+
+    candidate, plan, validation = _build(source)
+
+    assert "malware-package" not in candidate
+    assert plan.claim_accountability is not None
+    source_record = next(
+        record for record in plan.claim_accountability.claims if record.stage == "source"
+    )
+    assert source_record.survives_in_candidate is False
+    assert validation.checks["protected_content"] is True
+    assert validation.checks["claim_accountability_complete"] is True
+
+
 def test_mixed_install_fence_is_correction_owned_not_preserved() -> None:
     source = (
         "# Product\n\n"
@@ -413,14 +474,15 @@ def test_source_repository_detail_uses_specific_fact_obligations() -> None:
         assert risk.obligation_id == expected
 
 
-def test_internal_golden_workflow_detail_is_explicitly_deferred() -> None:
+def test_repository_golden_workflow_requires_typed_canonical_replacement() -> None:
     source = "# Product\n\n## PDF golden workflow\n\nRegenerate internal baselines.\n"
     claim = assess_material_claims(source)[0]
 
     risk = classify_source_claim_risk(source, claim)
 
-    assert risk.risk_class == "optional_explicit_deferral"
-    assert risk.obligation_id is None
+    assert risk.risk_class == "mandatory_fact_resolution"
+    assert risk.obligation_id == "golden_workflow"
+    assert obligation_requires_source_entailment("golden_workflow")
 
 
 def test_api_disclosure_shell_is_structural_and_compatibility_is_correctable() -> None:

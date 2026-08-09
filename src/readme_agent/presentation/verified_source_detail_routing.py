@@ -64,8 +64,41 @@ _FACT_FIELD_TARGETS = (
     ({"api.public_surface"}, _TARGETS["api_public_surface"]),
     ({"product.capabilities", "product.formats"}, _TARGETS["major_capabilities"]),
     ({"documentation.links"}, _TARGETS["documentation_resources"]),
-    ({"development.assets", "development.commands"}, _TARGETS["development_commands"]),
+    (
+        {"development.assets", "development.commands", "development.golden_workflow"},
+        _TARGETS["development_commands"],
+    ),
 )
+
+_GUIDANCE_SECTION_TARGETS = {
+    "at-a-glance": _TARGETS["at_a_glance"],
+    "documentation-and-resources": _TARGETS["documentation_resources"],
+    "installation": _TARGETS["verified_installation"],
+    "key-capabilities": _TARGETS["major_capabilities"],
+    "quick-start": _TARGETS["primary_example"],
+    "scope-and-limitations": _TARGETS["scope_and_limitations"],
+}
+
+
+def _guidance_target_for_source_context(
+    source_text: str,
+    source_byte_start: int,
+) -> tuple[str, str]:
+    """Route verified public guidance by its enclosing source H2."""
+
+    enclosing_h2 = None
+    for heading in parse_headings(source_text):
+        heading_byte_start = len(source_text[: heading.start].encode("utf-8"))
+        if heading_byte_start > source_byte_start:
+            break
+        if heading.level == 2:
+            enclosing_h2 = heading
+    if enclosing_h2 is None:
+        return _TARGETS["at_a_glance"]
+    return _GUIDANCE_SECTION_TARGETS.get(
+        heading_identity(enclosing_h2.title),
+        _TARGETS["at_a_glance"],
+    )
 
 
 def _api_reference_available(facts: ProductFactsV2) -> bool:
@@ -125,6 +158,8 @@ def _target_for_claim(
             ):
                 return None
             return fact_target
+    if "repository.public_guidance" in fields:
+        return _guidance_target_for_source_context(source_text, claim.source_byte_start)
     return None
 
 

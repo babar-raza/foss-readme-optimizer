@@ -100,6 +100,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "curated_readme_evidence.py",
         "curated_constraint_evidence.py",
         "curated_python_api_ast.py",
+        "curated_python_api_eligibility.py",
         "curated_python_api_projection.py",
         "curated_python_dependencies.py",
         "curated_python_development.py",
@@ -107,6 +108,8 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "curated_python_example_validation.py",
         "curated_python_fixture_inventory.py",
         "curated_python_import_shadowing.py",
+        "curated_python_pdf_evidence.py",
+        "curated_python_pdf_guidance.py",
         "curated_python_public_surface.py",
         "curated_repository_assets.py",
     }.issubset(_COMPONENT_FILES["root_role_selection"])

@@ -65,6 +65,37 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
     format_exchange = re.fullmatch(r"(?i)file\s+format\s+import\s+and\s+export\s+for\s+(.+)", title)
     if format_exchange is not None:
         return f"Import and export {format_exchange.group(1)} files"
+    action_directional = re.fullmatch(
+        r"(?i)convert\s+(.+?)\s+to\s+(.+?)(?:\s+in\s+[A-Za-z0-9.+#-]+)?$",
+        title,
+    )
+    if action_directional is not None:
+        source_format = action_directional.group(1).strip()
+        output_format = action_directional.group(2).strip()
+        source_label = (
+            source_format
+            if re.search(r"(?i)\b(?:files|documents|content)$", source_format)
+            else f"{source_format} files"
+        )
+        platform_suffix = f" in {context.platform}" if context.platform else ""
+        return f"Convert {source_label} to {output_format}{platform_suffix}"
+    directional_conversion = re.fullmatch(r"(?i)(.+?)\s+to\s+(.+?)\s+conversion", title)
+    if directional_conversion is not None:
+        source_format = directional_conversion.group(1).strip()
+        output_format = directional_conversion.group(2).strip()
+        source_label = (
+            source_format
+            if re.search(r"(?i)\b(?:files|documents|content)$", source_format)
+            else f"{source_format} files"
+        )
+        output_label = "images" if output_format.casefold() == "image" else output_format
+        platform_suffix = f" in {context.platform}" if context.platform else ""
+        return f"Convert {source_label} to {output_label}{platform_suffix}"
+    metadata_extraction = re.fullmatch(r"(?i)(.+?\s+metadata)\s+extraction", title)
+    if metadata_extraction is not None:
+        return f"Extract {metadata_extraction.group(1)}"
+    if re.fullmatch(r"(?i)mcp\s+server\s+hosting", title):
+        return "Host MCP servers"
     if (
         re.search(r"(?i)\bworkbooks?\b", title)
         and sum(verb in lowered for verb in ("create", "load", "modify", "save")) >= 2
@@ -83,6 +114,18 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
         return f"Edit text and images in {document_label}"
     if "resource" in lowered and "limit" in lowered:
         return f"Configure {short_subject + ' ' if short_subject else ''}resource limits"
+    if (
+        "pdf/a" in lowered
+        and "pdf/ua" in lowered
+        and any(term in lowered for term in ("check", "conversion", "convert", "validat"))
+    ):
+        has_validation = any(term in lowered for term in ("check", "validat"))
+        has_conversion = any(term in lowered for term in ("conversion", "convert"))
+        if has_validation and has_conversion:
+            return "Validate and convert PDF/A and PDF/UA documents"
+        if has_conversion:
+            return "Convert PDF/A and PDF/UA documents"
+        return "Validate PDF/A and PDF/UA documents"
     if "signature" in lowered:
         return f"Work with {short_subject + ' ' if short_subject else ''}digital signatures"
     if "xmp" in lowered and "metadata" in lowered:

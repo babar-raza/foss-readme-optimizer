@@ -1,0 +1,4 @@
+.venv/Scripts/readme-agent supervise --repo aspose-note-foss/Aspose.Note-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary
+.venv/Scripts/readme-agent supervise --repo aspose-note-foss/Aspose.Note-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary
+.venv/Scripts/python scripts/governance/promote_finalized_verified_readmes.py
+.venv/Scripts/python scripts/governance/run_full_pytest.py

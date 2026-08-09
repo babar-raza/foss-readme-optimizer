@@ -24,6 +24,17 @@ _BASE_OF = re.compile(
     r"(?is)^\s*[-+*]\s+`(?P<base>[A-Za-z_][A-Za-z0-9_]*)`\s+"
     r"\(base\s+of\s+`(?P<derived>[A-Za-z_][A-Za-z0-9_]*)`"
 )
+_SHELL_FENCE = re.compile(
+    r"\A```(?:bash|sh|shell|console|powershell|ps1)?[^\S\r\n]*\r?\n"
+    r"(?P<body>.*?)\r?\n```\Z",
+    re.DOTALL | re.IGNORECASE,
+)
+_PIP_PACKAGE_INSTALL = re.compile(
+    r"\A(?:python(?:3(?:\.\d+)?)?\s+-m\s+)?pip\s+install\s+"
+    r"(?:(?:--pre|-e)\s+)*['\"]?(?P<target>[A-Za-z0-9](?:[A-Za-z0-9._-]*"
+    r"[A-Za-z0-9])?)(?:\[[A-Za-z0-9_.,-]+\])?['\"]?\Z",
+    re.IGNORECASE,
+)
 
 
 def _accepted_fact(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
@@ -34,6 +45,59 @@ def _accepted_fact(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
     if fact.verification_state not in {"verified", "policy_approved"}:
         return None
     return None if fact.has_unresolved_conflict else fact
+
+
+def _normalized_python_distribution(value: str) -> str:
+    return re.sub(r"[-_.]+", "-", value).casefold()
+
+
+def _source_build_acquisition_contradiction(
+    claim_text: str,
+    facts: ProductFactsV2,
+) -> set[str]:
+    """Disprove one exact package-target pip command under source-only acquisition truth."""
+
+    acquisition = _accepted_fact(facts, "installation.verified_acquisition")
+    coordinates = _accepted_fact(facts, "installation.coordinates")
+    if acquisition is None or not isinstance(acquisition.value, dict):
+        return set()
+    value = acquisition.value
+    if (
+        value.get("method") != "source_build"
+        or value.get("outcome") != "SOURCE_BUILD_VERIFIED"
+        or value.get("truth_eligible") is not True
+    ):
+        return set()
+    command = claim_text.strip()
+    fence = _SHELL_FENCE.fullmatch(command)
+    if fence is not None:
+        command = fence.group("body").strip()
+    match = _PIP_PACKAGE_INSTALL.fullmatch(command)
+    if match is None:
+        return set()
+    target = _normalized_python_distribution(match.group("target"))
+    if target == ".":
+        return set()
+    names: set[str] = set()
+    selected_coordinate = value.get("coordinate")
+    if isinstance(selected_coordinate, dict) and selected_coordinate.get("name"):
+        names.add(_normalized_python_distribution(str(selected_coordinate["name"])))
+    coordinate_rows = (
+        coordinates.value
+        if coordinates is not None and isinstance(coordinates.value, list)
+        else [coordinates.value]
+        if coordinates is not None
+        else []
+    )
+    for row in coordinate_rows:
+        if isinstance(row, dict) and row.get("name"):
+            names.add(_normalized_python_distribution(str(row["name"])))
+    if target not in names:
+        return set()
+    return {
+        acquisition.fact_id,
+        *([coordinates.fact_id] if coordinates is not None else []),
+    }
 
 
 def _complete_api_fact(facts: ProductFactsV2) -> tuple[FactRecordV2, ApiCoordinateIndexV1] | None:
@@ -191,6 +255,7 @@ def contradicted_source_claim_fact_ids(
         _format_contradiction(claim_text, facts)
         | _import_shadowing_contradiction(claim_text, facts)
         | _api_contradiction(document, claim, claim_text, facts)
+        | _source_build_acquisition_contradiction(claim_text, facts)
     )
 
 

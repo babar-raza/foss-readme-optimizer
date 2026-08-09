@@ -9,7 +9,10 @@ from readme_agent.facts.curated_python_example_validation import (
     validate_python_example,
 )
 from readme_agent.facts.curated_python_fixture_inventory import snapshot_fixture_inventory
-from readme_agent.facts.curated_python_readme import verified_python_examples
+from readme_agent.facts.curated_python_readme import (
+    verified_python_examples,
+    verified_readme_examples,
+)
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
 
 
@@ -17,6 +20,40 @@ def _write(root: Path, relative: str, text: str) -> None:
     path = root / relative
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def test_non_python_ecosystem_skips_incidental_python_collectors(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        """[project]
+name = "incidental-tooling"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+""",
+    )
+
+    facts = curated_repository_fact_candidates(
+        tmp_path,
+        "abc123",
+        None,
+        ecosystem="java",
+    )
+
+    python_fields = {
+        "installation.optional_extras",
+        "installation.capability_dependencies",
+        "python.distribution",
+        "api.public_surface",
+        "repository.implementation_components",
+        "repository.format_directions",
+        "repository.python_import_shadowing",
+        "repository.capability_details",
+        "repository.public_guidance",
+        "repository.verified_boundaries",
+    }
+    assert not ({fact.field for fact in facts} & python_fields)
 
 
 def _git(root: Path, *args: str) -> str:
@@ -366,6 +403,53 @@ png = result.to_png()
     assert "result.to_svg()" in example["code"]
 
 
+def test_name_only_internal_function_stays_in_catalog_but_not_readme_projection(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        "[project]\nname = 'acme'\n[tool.setuptools.packages.find]\nwhere = ['src']\n",
+    )
+    _write(
+        tmp_path,
+        "src/acme/__init__.py",
+        "from .public import PublicThing\n__all__ = ['PublicThing']\n",
+    )
+    _write(tmp_path, "src/acme/public.py", "class PublicThing:\n    pass\n")
+    _write(
+        tmp_path,
+        "src/acme/internal.py",
+        "def write_output(value: object) -> bytes:\n    return b'output'\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "abc123", None)
+    }
+    value = selected["api.public_surface"].value
+    projected = {(row["module"], export) for row in value["modules"] for export in row["exports"]}
+    catalog = {
+        (row["module"], export)
+        for row in value["coordinate_catalog"]["modules"]
+        for export in row["exports"]
+    }
+
+    assert ("acme", "PublicThing") in projected
+    assert ("acme.internal", "write_output") not in projected
+    assert ("acme.internal", "write_output") in catalog
+    assert value["coordinate_catalog"]["presentation_exclusions"] == [
+        {
+            "qualified_name": "acme.internal.write_output",
+            "import_module": "acme.internal",
+            "name": "write_output",
+            "kind": "function",
+            "source_path": "src/acme/internal.py",
+            "source_line": 1,
+            "reason": "name_only_symbol_without_package_export_or_verified_consumer_import",
+        }
+    ]
+
+
 def test_python_public_surface_projects_exact_inherited_api_semantics(tmp_path: Path) -> None:
     _write(
         tmp_path,
@@ -608,6 +692,66 @@ def test_public_surface_projection_is_hard_bounded_for_large_generated_api(tmp_p
     assert value["coordinate_catalog"]["content_sha256"]
 
 
+def test_readme_example_validation_uses_complete_coordinate_catalog(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "README.md",
+        "# Acme\n\n## Usage\n\n```python\nfrom acme import Hidden\nHidden().merge()\n```\n",
+    )
+    projected = {
+        "modules": [{"module": "acme", "exports": ["Visible"]}],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "Visible",
+                "source_path": "src/acme/visible.py",
+                "members": [],
+            }
+        ],
+        "coordinate_catalog": {
+            "modules": [{"module": "acme", "exports": ["Hidden", "Visible"]}],
+            "classes": [
+                {
+                    "module": "acme",
+                    "name": "Hidden",
+                    "source_path": "src/acme/hidden.py",
+                    "members": [{"name": "merge", "surface": "merge()"}],
+                },
+                {
+                    "module": "acme",
+                    "name": "Visible",
+                    "source_path": "src/acme/visible.py",
+                    "members": [],
+                },
+            ],
+            "functions": [],
+            "content_sha256": "catalog-hash",
+        },
+    }
+
+    curated = verified_readme_examples(tmp_path, projected)
+
+    assert curated is not None
+    assert [item["title"] for item in curated[0]["inline_examples"]] == ["Usage"]
+    assert curated[0]["inline_examples"][0]["evidence_modules"] == ["acme"]
+    assert "src/acme/hidden.py" in curated[1]
+
+
+def test_readme_example_validation_allows_explicit_runtime_failure_guard() -> None:
+    code = (
+        "from acme import Widget\n"
+        "widget = Widget()\n"
+        "if not widget.render():\n"
+        '    raise RuntimeError("render failed")\n'
+    )
+
+    accepted, modules, reason = validate_python_example(code, _example_surface())
+
+    assert accepted is True
+    assert modules == ("acme",)
+    assert reason == "accepted"
+
+
 def test_direct_quick_start_rejects_unknown_calls_and_methods(tmp_path: Path) -> None:
     _write(
         tmp_path,
@@ -665,6 +809,35 @@ widget.save("output.bin")
     ]
     assert [decision.accepted for decision in decisions] == [True, True]
     assert all(example["evidence_modules"] == ["acme"] for example in examples)
+
+
+def test_follow_on_example_uses_prior_imports_within_the_same_section() -> None:
+    readme = """# Acme
+
+## Quick Start
+
+### Render Variants
+
+```python
+from acme import Widget
+widget = Widget()
+widget.render()
+```
+
+```python
+widget = Widget()
+widget.save("output.bin")
+```
+"""
+
+    examples, decisions = verified_python_examples(readme, _example_surface())
+
+    assert len(examples) == 2
+    assert [decision.reason for decision in decisions] == [
+        "accepted",
+        "accepted_with_section_import_context",
+    ]
+    assert examples[1]["validation_context_imports"] == ["from acme import Widget"]
 
 
 def test_decorated_and_product_specific_example_headings_are_discovered() -> None:
@@ -1176,9 +1349,13 @@ class Document:
     def save(self, target): pass
     def merge(self, other): pass
     def validate(self): pass
+    def info(self): pass
+    def xmp_metadata(self): pass
+    def outlines(self): pass
     def encrypt(self, password): pass
     def decrypt(self, password): pass
     def optimize(self): pass
+    def optimize_resources(self): pass
     def compress_streams(self): pass
     def validate_pdfa(self): pass
     def validate_pdfua(self): pass
@@ -1187,6 +1364,10 @@ class Document:
     def add_attachment(self): pass
     def replace_text(self):
         """This operation does not perform layout reflow."""
+
+LOAD_CONTRACT = (
+    "raw bytes, or a binary stream; missing password instead of yielding an empty document"
+)
 '''.strip(),
     )
     _write(
@@ -1265,7 +1446,10 @@ class PdfLoadLimits:
     _write(
         tmp_path,
         "src/aspose_pdf/signature.py",
-        'NOTICE = "does **not** perform full PKCS#7 certificate chain checking"\n',
+        'NOTICE = "does **not** perform full PKCS#7 certificate chain checking"\n'
+        "class PdfSignature:\n"
+        "    def valid(self): pass\n"
+        "    def validate(self): pass\n",
     )
     _write(
         tmp_path,
@@ -1274,6 +1458,27 @@ class PdfLoadLimits:
         '    """Raised when a compatibility surface names a feature this package lacks."""\n',
     )
     _write(tmp_path, "tests/test_page_rendering.py", 'png = "page.png"\ntiff = "page.tiff"\n')
+    _write(
+        tmp_path,
+        "src/aspose_pdf/engine/encryption.py",
+        'CONTRACT = "AES-CBC, RC4 encryption"\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/engine/font_authoring.py",
+        'CONTRACT = "FontEmbeddingException and /ToUnicode"\n',
+    )
+    _write(
+        tmp_path,
+        "src/aspose_pdf/engine/text_layout.py",
+        'CONTRACT = "TextLayoutOptions preserve shaped visual order"\n',
+    )
+    _write(tmp_path, "src/aspose_pdf/py.typed", "")
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        '[project]\nname = "aspose-pdf-foss"\nclassifiers = ["Development Status :: 3 - Alpha"]\n',
+    )
     _write(tmp_path, "SECURITY.md", "Report security issues privately.\n")
     _write(
         tmp_path,
@@ -1296,13 +1501,20 @@ class PdfLoadLimits:
     }
 
     details = selected["repository.capability_details"].value
-    assert len(details["capability_groups"]) == 10
-    assert details["capability_groups"][-1]["label"].startswith("Add Standard-14")
+    labels = {item["label"] for item in details["capability_groups"]}
+    assert len(details["capability_groups"]) == 13
+    assert "Create and inspect PDF signatures" in labels
+    assert "Optimize streams, images, fonts, and unused objects" in labels
+    assert "Encrypt and decrypt documents with RC4 or AES" in labels
+    assert any(label.startswith("Add Standard-14") for label in labels)
     assert details["input_formats"] == ["PDF"]
     assert details["output_formats"] == ["PDF", "PNG", "TIFF"]
     boundaries = selected["repository.verified_boundaries"].value
     assert len(boundaries["boundaries"]) == 6
     assert all(len(item["sha256"]) == 64 for item in boundaries["evidence"])
+    guidance = selected["repository.public_guidance"].value
+    assert len(guidance) == 8
+    assert all(isinstance(statement, str) and statement for statement in guidance)
     security = selected["repository.security_guidance"].value
     assert security["resource_limits"]["bounded_defaults"] is True
     assert security["resource_limits"]["entry_points"] == [

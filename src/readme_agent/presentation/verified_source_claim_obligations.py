@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.source_claim_risk import (
     SourceClaimObligation,
@@ -63,6 +64,7 @@ def accepted_obligation_bindings(
     provenance: list[CandidateContentProvenanceV1],
     *,
     exact_source_fact_ids: list[str] | None = None,
+    exact_source_fact_coordinates: list[StructuredFactCoordinateV1] | None = None,
 ) -> tuple[list[CandidateContentProvenanceV1], list[str]] | None:
     """Return accepted provenance that completely satisfies one source obligation."""
 
@@ -129,6 +131,18 @@ def accepted_obligation_bindings(
         any_fields and not any_fields.intersection(accepted_fields)
     ):
         return None
+    if exact_source_fact_coordinates:
+        required_coordinates = {
+            (item.fact_id, item.field, item.path, item.value_sha256)
+            for item in exact_source_fact_coordinates
+        }
+        bound_coordinates = {
+            (item.fact_id, item.field, item.path, item.value_sha256)
+            for binding in bindings
+            for item in binding.fact_coordinates
+        }
+        if not required_coordinates.issubset(bound_coordinates):
+            return None
     if obligation == "primary_example" and not _primary_example_is_executed(facts, bound_fact_ids):
         return None
     return bindings, resolution_fact_ids
@@ -147,6 +161,7 @@ def accepted_correction_obligation_bindings(
         "api_public_surface",
         "major_capabilities",
         "product_overview",
+        "verified_installation",
     }:
         return None
     for fact_id in contradiction_fact_ids:

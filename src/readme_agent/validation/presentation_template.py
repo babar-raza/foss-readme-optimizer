@@ -63,12 +63,26 @@ def validate_repository_presentation(
         errors.append("candidate must contain exactly one full-product-name H1")
 
     opening = candidate[: h2s[0].start] if h2s else candidate
-    badge_lines = [line for line in opening.splitlines() if _BADGE.search(line)]
+    badge_lines = [
+        line
+        for line in opening.splitlines()
+        if _BADGE.search(line) and "products.aspose.org/media/" not in line
+    ]
     if len(badge_lines) != contract.invariants.badge_rows:
         errors.append("candidate must contain exactly one opening badge row")
+    banner_lines = [line for line in opening.splitlines() if "products.aspose.org/media/" in line]
+    if len(banner_lines) > 1 or any(
+        re.fullmatch(
+            rf"!\[{re.escape(title)}\]\(https://products\.aspose\.org/media/[a-z0-9./_-]+\)",
+            line,
+        )
+        is None
+        for line in banner_lines
+    ):
+        errors.append("candidate brand banner must be one exact portfolio media image")
     elif len(_BADGE.findall(badge_lines[0])) < contract.invariants.minimum_badges:
         errors.append("candidate badge row has no applicable badge")
-    elif badge_lines[0] != template_input.badges.markdown.strip():
+    elif badge_lines[0] != template_input.badges.markdown.strip().splitlines()[0]:
         errors.append("candidate badge row differs from the bound applicable badge set")
 
     navigation = next(
@@ -133,7 +147,13 @@ def validate_repository_presentation(
     )
     if capabilities is not None:
         body = candidate[capabilities.heading_end : capabilities.section_end].strip()
-        lines = [line for line in body.splitlines() if line.strip()]
+        lines = [
+            line
+            for line in body.splitlines()
+            if line.strip()
+            and line.strip() not in {"<details>", "</details>"}
+            and not line.strip().startswith("<summary>")
+        ]
         if not lines or any(
             re.fullmatch(r"- \*\*[^*\n]+\*\* - \S.+\.", line) is None for line in lines
         ):
@@ -184,13 +204,16 @@ def validate_repository_presentation(
         ):
             if minimum > 0 and source.count(f"subgraph {group_id}") != 1:
                 errors.append(f"Mermaid requires one {label.casefold()} subgraph")
-            indentation = "4,6" if node_prefix == "C" else "4"
-            count = len(re.findall(rf'(?m)^\s{{{indentation}}}{node_prefix}\d+\["', source))
+            count = (
+                len(re.findall(r'C\d+\["', source))
+                if node_prefix == "C"
+                else len(re.findall(rf'(?m)^\s{{4}}{node_prefix}\d+\["', source))
+            )
             if count < minimum:
                 errors.append(f"Mermaid requires at least {minimum} {label.casefold()} nodes")
         if not re.search(r"(?m)^\s{2}I\d+ --- PRODUCT$", source):
             errors.append("Mermaid inputs must connect to the product")
-        capability_ids = re.findall(r'(?m)^\s{4,6}(C\d+)\["', source)
+        capability_ids = re.findall(r'(C\d+)\["', source)
         if not validate_capability_group_layout(source, capability_ids):
             errors.append("Mermaid capability nodes must use the adaptive column layout")
         if len(re.findall(r"(?m)^\s{2}PRODUCT --- Capabilities$", source)) != 1:

@@ -1,97 +1,62 @@
 {
-  "schema_version": 11,
+  "schema_version": 12,
   "handover_status": "HANDOVER_READY",
   "snapshot_is_historical": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "head": "923bbbe278354c704f8a13f5a7944e6e60135cf3",
-  "head_role": "content checkpoint immediately before this handover refresh",
-  "working_tree_at_capture": {
-    "modified_tracked": 51,
-    "untracked": 17,
-    "staged": 0,
-    "repository_owned_processes": 0,
-    "disposition": "preserved in place; do not reset, restore, clean, stash, or overwrite"
-  },
+  "head": "e8f4de70160fb18d61d5ea5ee70802eac0174cc7",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "a60e1a073ab401ff3c9754c4ea1541a89e83181d7e612240347aabdff8c4fdbb",
-  "durable_state_version": 689,
+  "authoritative_plan_hash": "ecc3c4567a448a9796c500a3916e8d6c026d9c18fdce33bc2c35212fbc270df1",
+  "durable_state_version": 790,
   "graph_drift": false,
   "current_phase": "Verified Python README POC",
-  "current_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
-  "current_task": "L8-VPY-01-NOTE-VERIFIED-CANARY",
+  "current_stage_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "current_task": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
   "current_task_status": "IN_PROGRESS",
-  "next_action": "Finish L8-VPY-01 by recompiling the Note candidate from the current verified facts, close every source-claim accountability finding, run deterministic validation and independent review, prove the identical no-op rerun, and commit the finalized Note README artifact. Do not rerun Page until Note closes; Page must then refresh FACTS_READY because the example-selection dependency changed after its last facts run.",
+  "immediate_goal": "DELIVERY-PY-PDF-CURRENT",
+  "repository_scope": [
+    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+  ],
+  "next_action": "Reclaim the expired active task through the mission controller, resume PDF from its last valid cached boundary, finish deterministic and independent approval plus no-op proof, and show the exact README before broad regression or another repository.",
+  "ordered_small_goals": [
+    "DELIVERY-PY-PDF-CURRENT",
+    "DELIVERY-PY-PAGE-CURRENT",
+    "DELIVERY-PY-NOTE-CURRENT",
+    "DELIVERY-PY-3D-CURRENT",
+    "DELIVERY-PY-REMAINING-COHORT",
+    "DELIVERY-POST-PYTHON-DOTNET-JAVA"
+  ],
   "portfolio_scoreboard": {
-    "denominator": 31,
-    "facts_ready_current": 2,
-    "facts_ready_raw": 17,
+    "denominator": 32,
+    "facts_ready_current": 1,
     "candidate_generated_current": 0,
-    "candidate_generated_raw": 9,
     "deterministic_validated_current": 0,
-    "deterministic_validated_raw": 9,
     "agent_approved_current": 0,
-    "agent_approved_raw": 2,
     "no_op_proven_current": 0,
-    "no_op_proven_raw": 2,
-    "human_accepted_current": 0,
     "first_failing_boundary": "FACTS_READY"
   },
-  "completed_verified": [
-    "923bbbe2: complete-workflow Python example value contract and same-revision limitation preservation committed to main",
-    "69 focused product-truth/example-value tests passed",
-    "repository-wide Ruff check, Ruff format check, mypy src, and git diff check passed at the checkpoint",
-    "Note current FACTS_READY: source revision 6d97a522a9ed24708687911f1aabb76e2dea2da7, one exact provider call, isolated repository-authored image-extraction workflow with observable files",
-    "PDF current FACTS_READY: source revision 737d26451ed5c58e53017e3c9460e834f99d20ed, one exact provider call, isolated create-add-text-save workflow producing hello.pdf",
-    "Page PS-to-PDF workflow independently executed successfully in the isolated source-build verifier"
+  "verified_controls": [
+    "69 focused mission, approach, CLI, and execution-binding tests passed",
+    "Bound PDF canary rejected the expired claim before preflight, clone, or LLM work",
+    "Mission status exposes exact immediate goal, outcome, and repository scope"
   ],
-  "implemented_unverified": [
-    "Page reached FACTS_READY with a verified PS-to-PDF example, but the final repository-order selector change invalidated its facts dependency; rerun only after Note closes",
-    "Current Note, Page, and PDF diagnostic candidates pass the visual contract but remain non-final because source-claim findings and no-op proof are open",
-    "The preserved presentation/claim-accountability candidate tree has 51 modified tracked files and 17 untracked paths and is not yet a green coherent commit",
-    "The last complete non-live suite before this checkpoint had 36 legacy compatibility failures in tests/unit/test_supervisor_loop.py; the focused repair tests are green, but the complete suite was not rerun after the latest slice"
-  ],
-  "remaining_tasks": [
-    "L8-VPY-01-NOTE-VERIFIED-CANARY",
-    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
-    "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
-    "verified .NET, Java, C++, TypeScript, Rust, and Go cohorts",
-    "full-registry verified Gates A and B",
-    "act, disposable staging, and authorized Gate C draft-PR proof",
-    "hosted GitHub App runtime and remaining presentation surfaces",
-    "Level 5, Level 6, 30-day Level 7, and 90-day Level 8 proof"
+  "remaining_proof": [
+    "Successful bound PDF canary after governed reclaim",
+    "Current PDF independent approval and no-op proof",
+    "Page, Note, and Aspose.3D current-contract reconciliation",
+    "Remaining Python platform POC and later portfolio gates"
   ],
   "blockers": [
-    {
-      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
-      "classification": "BLOCKED_EXTERNAL_IN_DURABLE_STATE",
-      "mission_impact": "Does not block the active local verified-Python work."
-    }
-  ],
-  "critical_references": [
-    "AGENTS.md",
-    "plans/idea.md",
-    "plans/master.md",
-    "plans/requirements.md",
-    "plans/GOVERNANCE.md",
-    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-    "runs/multi-agent/L8-VPY-01-NOTE-VERIFIED-CANARY/execution-plan.json",
-    "runs/multi-agent/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json"
-  ],
-  "evidence_paths": [
-    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/facts/product-facts.json",
-    "runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/facts/product-facts.json",
-    "runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/737d26451ed5c58e53017e3c9460e834f99d20ed/facts/product-facts.json",
-    "runs/multi-agent/independent-verification/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/independent-verification.json",
-    "runs/multi-agent/advancement/L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES/example-value-contract/manifest.json"
+    "The goal interface is paused; only the user/product control can resume it",
+    "One unrelated durable external task remains blocked and does not block current local Python work"
   ],
   "resume_protocol": [
-    "Confirm branch, HEAD, tree fingerprint, and zero repository-owned processes; preserve every existing change.",
-    "Run durable mission status. Evaluate only if graph drift is reported and never steal an unexpired claim.",
-    "Resume L8-VPY-01-NOTE-VERIFIED-CANARY through the same supervisor and existing execution plan.",
-    "Use the current Note fact bundle without another facts/LLM run while its dependency hashes match.",
-    "Repair source-claim accountability at the first failing boundary, then deterministic validation, independent review, and no-op proof.",
-    "Commit the finalized Note artifact and evidence to main, refresh this same handover set, evaluate, and continue automatically."
+    "Verify live Git, processes, goal status, and mission status",
+    "Evaluate only on graph drift",
+    "Claim or reclaim the exact printed task",
+    "Run only the repository admitted by its TaskExecutionFocusV1",
+    "Show accepted output before broad regression",
+    "Transition with evidence and continue to the next printed immediate goal"
   ]
 }

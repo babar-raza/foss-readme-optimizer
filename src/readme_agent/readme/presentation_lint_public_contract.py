@@ -65,6 +65,9 @@ def _accepted_api_identifiers(facts: ProductFactsV2 | None) -> set[str]:
     ):
         return set()
     identifiers: set[str] = set()
+    package_namespaces = fact.value.get("package_namespaces")
+    if isinstance(package_namespaces, list):
+        identifiers.update(str(item).strip() for item in package_namespaces if str(item).strip())
     for collection in (fact.value.get("modules"), fact.value.get("classes")):
         if not isinstance(collection, list):
             continue
