@@ -9,7 +9,12 @@ from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.curated_python_example_validation import validate_python_example
-from readme_agent.facts.example_quality import source_contains_comments
+from readme_agent.facts.example_quality import (
+    source_contains_comments,
+)
+from readme_agent.facts.example_quality import (
+    strip_source_comments as strip_example_comments,
+)
 from readme_agent.facts.protected_content import (
     _hash as protected_content_hash,
 )
@@ -159,7 +164,12 @@ def _verified_api_names(facts: ProductFactsV2) -> set[str]:
     return names
 
 
-def working_condition_hidden_fragment_ids(source_inner: str, facts: ProductFactsV2) -> set[str]:
+def working_condition_hidden_fragment_ids(
+    source_inner: str,
+    facts: ProductFactsV2,
+    *,
+    candidate_text: str = "",
+) -> set[str]:
     """Return protected fragments whose content fails deterministic verification.
 
     Working-condition presentation: unverifiable source examples, commands, and
@@ -182,7 +192,12 @@ def working_condition_hidden_fragment_ids(source_inner: str, facts: ProductFacts
             accepted = False
             if info in {"python", "py", ""}:
                 accepted, _modules, _reason = validate_python_example(token.content, catalog)
-            if not accepted:
+            stripped = strip_example_comments(info or "python", token.content).strip()
+            represented = bool(stripped) and stripped in candidate_text
+            if not accepted or represented:
+                # Either the example fails verification (hidden by policy) or
+                # its comment-stripped form is carried in the candidate — an
+                # exact-byte fingerprint miss, not a content loss.
                 digest = protected_content_hash(token.content)
                 hidden.add(f"example:{digest[:16]}")
             for line in token.content.splitlines():
@@ -194,7 +209,10 @@ def working_condition_hidden_fragment_ids(source_inner: str, facts: ProductFacts
                     continue
                 content = child.content.strip()
                 normalized = content.casefold().strip("`() ")
-                if normalized.split("(")[0].split(".")[-1] in api_names:
+                base_name = normalized.split("(")[0].split(".")[-1]
+                if base_name in api_names and base_name not in candidate_text.casefold():
+                    # A presented API name genuinely absent from the candidate
+                    # is a real terminology loss and stays unauthorized.
                     continue
                 digest = protected_content_hash(child.content)
                 hidden.add(f"technical_terminology:{digest[:16]}")
@@ -371,7 +389,9 @@ def validate_readme_document_candidate(
         # the candidate rather than blocking delivery; they surface in the
         # per-repo upstream defect log instead. Verified API terminology can
         # still never be silently dropped.
-        hidden = working_condition_hidden_fragment_ids(source_inner, facts)
+        hidden = working_condition_hidden_fragment_ids(
+            source_inner, facts, candidate_text=candidate_inner
+        )
         unauthorized_losses = [
             loss for loss in unauthorized_losses if loss.fragment_id not in hidden
         ]
