@@ -5772,6 +5772,28 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "supervisor_product_truth_recovery",
+        "occurred_at": "2026-08-09T08:55:08.941339+00:00",
+        "reason": "sealed fact inputs recovered; invalidating only dependent README stages",
+        "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-tex-foss__Aspose.TeX-FOSS-for-Python\\2f4bfab3863e66ef32868f5464685eb4c2d36911\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-tex-foss__Aspose.TeX-FOSS-for-Python\\2f4bfab3863e66ef32868f5464685eb4c2d36911\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-tex-foss__Aspose.TeX-FOSS-for-Python\\2f4bfab3863e66ef32868f5464685eb4c2d36911\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth_recovery",
+        "occurred_at": "2026-08-09T08:55:08.941339+00:00",
+        "reason": "checksum-sealed ProductFactsV2 commit recovered after interruption",
+        "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "human_acceptance_history": [],
@@ -5808,7 +5830,7 @@
       "status": "UNKNOWN"
     },
     "presentation_validity_history": [],
-    "prompt_hash": "08e4972926c8c1dc4e4d907b054b35f7b1cac31af03791db9b98361a4991adfc",
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
     "publication_eligibility": {
       "admitted_repositories": [],
@@ -5829,10 +5851,10 @@
     "schema_version": 2,
     "source_revision": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-09T08:22:43.937783+00:00"
+    "updated_at": "2026-08-09T08:55:08.941339+00:00"
   },
   "schema_version": 2,
-  "state_version": 111,
+  "state_version": 112,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e00621c9a87ed36e403b1fc8c9215f0a35558faf1450cd22b6dce1ed6198a688",
