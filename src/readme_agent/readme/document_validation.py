@@ -135,11 +135,9 @@ def _verified_api_names(facts: ProductFactsV2) -> set[str]:
     if not isinstance(api.value, dict):
         return set()
     names: set[str] = set()
-    sources: list[dict] = [api.value]
-    catalog = api.value.get("coordinate_catalog")
-    if isinstance(catalog, dict):
-        sources.append(catalog)
-    for value in sources:
+    # Presented surface only: mentions of presentation-excluded catalog members
+    # follow the exclusion policy and may be hidden with their content.
+    for value in [api.value]:
         for module in value.get("modules") or []:
             if isinstance(module, dict):
                 names.update(
