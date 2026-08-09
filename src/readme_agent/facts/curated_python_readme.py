@@ -37,8 +37,12 @@ def verified_python_examples(
 
     headings = parse_headings(readme)
     sections: list[tuple[str, int, int]] = []
+    excluded = {"installation", "license", "links", "changelog", "navigation"}
     for parent in headings:
-        if parent.level != 2 or not _is_example_section(parent.title):
+        if parent.level != 2:
+            continue
+        normalized_title = " ".join(strip_emoji_decorations(parent.title).casefold().split())
+        if not _is_example_section(parent.title) and normalized_title in excluded:
             continue
         children = [
             heading

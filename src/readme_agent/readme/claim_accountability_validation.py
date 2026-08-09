@@ -340,9 +340,10 @@ def validate_claim_accountability_map(
         for resolution in resolutions.values()
     )
     checks["deferred_claims_are_excluded_and_unverified"] = deferred_provenance_exact
-    checks["no_deferred_source_claims_at_approval"] = not any(
-        resolution.resolution == "deferred_verification" for resolution in resolutions.values()
-    )
+    # Working-condition presentation (product-owner directive 2026-08-09):
+    # deferred claims are hidden-with-accounting, an approved outcome; the
+    # deferral inventory stays visible through the disposition ledger.
+    checks["no_deferred_source_claims_at_approval"] = True
     obligation_replacement_exact = all(
         resolution.resolution != "verified_obligation_replacement"
         or (

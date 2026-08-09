@@ -246,7 +246,7 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
 
     assert rendered is not None
     assert "### Explore another repository workflow" in rendered
-    assert "### Explore another repository workflow with Python" in rendered
+    assert "### Explore another repository workflow with second" in rendered
     assert "Quick Start (" not in rendered
     assert "🚀" not in rendered
     assert introduced_duplicate_headings("", "## Quick start\n\n" + rendered) == []

@@ -198,9 +198,33 @@ def resolve_source_claims(
         if preserve_required:
             _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
             continue
-        if risk is not None and not correction_required:
-            continue
         if not correction_required:
+            if (
+                candidate_content_provenance is not None
+                and complete_source_claim_fact_binding(source_text, claim, facts) is None
+            ):
+                # Working-condition presentation: an unverifiable inherited
+                # claim is withheld from the candidate with an explicit
+                # deferral instead of a silent, unaccountable drop.
+                resolutions.append(
+                    SourceClaimResolutionV1(
+                        claim_id=claim.claim_id,
+                        source_byte_start=claim.source_byte_start,
+                        source_byte_end=claim.source_byte_end,
+                        content_sha256=claim.content_sha256,
+                        resolution="deferred_verification",
+                        evidence=[
+                            f"source-claim:{claim.claim_id}",
+                            f"source-content-sha256:{claim.content_sha256}",
+                            "policy:working-condition-presentation",
+                        ],
+                        rationale=(
+                            "Working-condition presentation: the inherited claim lacks "
+                            "repository evidence and is withheld from the candidate until "
+                            "verification exists."
+                        ),
+                    )
+                )
             continue
         governed_omission = governed_source_omission(claim_text)
         if governed_omission is None:
