@@ -9889,6 +9889,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "7eaf508a2feb0dfdde2f69e622778b783995d8db",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Java\\7eaf508a2feb0dfdde2f69e622778b783995d8db\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-09T12:34:03.597960+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "7eaf508a2feb0dfdde2f69e622778b783995d8db",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -9960,11 +9971,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "7eaf508a2feb0dfdde2f69e622778b783995d8db",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-09T12:33:47.344641+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-09T12:34:03.597960+00:00"
   },
   "schema_version": 2,
-  "state_version": 757,
+  "state_version": 758,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ee1df0df84ad92ca8a551957746712f28a5c77c49e3c5e827afdb99589901853",
