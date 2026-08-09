@@ -69,6 +69,18 @@ Binding current decisions:
 - **#98 — Evidence-derived Python sequence.** Preserve completed evidence without manufacturing a
   historical order. The graph stores the stable repository-focus chain; durable evaluation selects
   its earliest dependency-ready or regressed boundary and never takes the current task from prose.
+- **#99 — Working-condition presentation, generate-verify split.** Every admitted repository gets a
+  delivered README presenting only deterministically verified functionality; unverifiable content
+  is hidden with explicit accounting plus a per-repo `UPSTREAM-DEFECTS.md` for the product agent.
+  At 200-repo scale interpretive prose is LLM-authored and validator-grounded; per-family curated
+  modules and hand-written policy product-truth blocks are transitional and must be retired.
+  Deterministic forever: extraction, coordinates/URLs, install/build and example proofs, the
+  presentation shape contract, and the hide-and-log policy.
+- **#100 — Reproducible idempotent machinery only.** No hand-rolled tasks: every delivery action is
+  a committed parameterized entrypoint (`readme-agent poc`), cache-keyed by revision plus
+  component/prompt hashes, and idempotent — unchanged inputs re-converge to byte-identical output
+  with zero new provider calls; changed components invalidate exactly the affected caches.
+  Composition plans should be cached by input hash so identical reruns reuse them.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
