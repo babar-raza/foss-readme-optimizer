@@ -13856,23 +13856,13 @@
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
   "profile_cache": null,
   "readme_poc_lifecycle": {
-    "assessment_hash": "737cc7550aec348da04e6201e37043120e95b5702777966823a269cc3d32397c",
+    "assessment_hash": null,
     "assurance_history": [],
-    "candidate_hash": "074db4a563c6f8059311425e26e180abc9b96ae726e94419a121b64177114249",
+    "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "acquisition_truth": "978850719a44158eba0ada29e96a3746f9950cdb23e4b61d67accfad5cee96e0",
-      "classification_semantics": "567d8451150421d145b3ba27c90f1447c37e41f2809930faeae1455d1a39ae8a",
-      "conflict_semantics": "9a38f79f9733299ed41c0cef1a354e3a95b95e1d1ab5e83cf2cb3798eff3e2f7",
-      "drafting_and_example_selection": "1809d262948a770608b9162f3130988b69dc7d46e7c22606f8bc1e5df6c02de9",
-      "evidence_polarity": "d0d818517c08cedc99b4a495ca03ee7bc6a6dbfdd14fd430ccbd0d6732ed50e6",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "9c7c7aab629f977cf3c24b7ff89efacf0c50f5f6e6b394bdfe5ac2836509059a",
-      "root_role_selection": "5de12db8f0f55d15beb2065a415b7459bdc6346bb10ec99b45c5ea72afb66fc1",
-      "visitor_render_eligibility": "dd99a2a20e5c1a4799df7a288091c1317035c4f322905e20bcbd7f547d779697"
-    },
-    "fact_acceptance_contract_hash": "2a5ab46fa66a9beb16b06dbfb38371d62fbba8702cc75bc2f53ad2cd050b05bd",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -13979,7 +13969,19 @@
         "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314"
       }
     ],
-    "facts_hash": "787bfc6b1c3ee10d40f8f11efd510bd340bd24c103eeab30bfe008eaac5bf8b2",
+    "facts_hash": null,
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:05:36.251371+00:00",
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [
@@ -14270,8 +14272,20 @@
         "reason": "sealed deterministic README validation receipt promoted",
         "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Go\\53c742c76d9dceb1ed7edaaddf0fef832f23a16c\\source\\revision.json"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-09T13:05:36.251371+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "53c742c76d9dceb1ed7edaaddf0fef832f23a16c",
+        "to_status": "SNAPSHOTTED"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -14290,19 +14304,46 @@
       }
     ],
     "intake_preflight_pending": null,
-    "presentation_plan_hash": "28b965bb054ba40ed52d66210d47deb4010d79e52d46c30961bd44a5054ff95e",
-    "prompt_hash": "d5172e642baf372efb6eb1a1ee4a2b89e22ef2a986800e04240d2727160b19f0",
+    "presentation_plan_hash": null,
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:05:36.251371+00:00",
+      "presentation_version": null,
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
+    "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:05:36.251371+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "source or fact inputs changed"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
-    "reviewer_standard_hash": "a2d8e3f942fe8a2a636c6cd98cbb990ef8df951f4afc3bc37d38112f49c8cccc",
+    "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": "0fd5a52fc89b8fc745b98c9adc2547bfaed16314",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-01T14:47:46.464846+00:00"
+    "source_revision": "53c742c76d9dceb1ed7edaaddf0fef832f23a16c",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-09T13:05:36.251371+00:00"
   },
   "schema_version": 2,
-  "state_version": 156,
+  "state_version": 157,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
