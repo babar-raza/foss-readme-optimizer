@@ -728,6 +728,18 @@
       }
     ],
     "facts_hash": "513bd1fb753a7c1f6e870ae061f432c4c9e11835905c1837abeb0e998a8d518c",
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T13:01:46.137220+00:00",
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -836,8 +848,18 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-09T13:01:43.267964+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -857,18 +879,45 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T13:01:46.137246+00:00",
+      "presentation_version": null,
+      "reason": "not evaluated",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "migration",
+      "occurred_at": "2026-08-09T13:01:46.137262+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "not evaluated"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "a8999e259143a9ffc660086b34a7f39516da29f5",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-04T08:52:33.196298+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-09T13:01:43.267964+00:00"
   },
   "schema_version": 2,
-  "state_version": 64,
+  "state_version": 65,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
