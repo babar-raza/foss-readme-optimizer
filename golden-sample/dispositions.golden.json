@@ -1,0 +1,21 @@
+{
+  "schema": "SourceDispositionLedgerV1",
+  "repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+  "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+  "note": "GOLDEN SAMPLE. One entry per claim-bearing unit of the source README. Every unit MUST appear here with exactly one disposition. This is what runs/share/poc/<repo>/dispositions.json must look like.",
+  "units": [
+    {"unit": "H1: 'Aspose.Page for Python: Convert PS, EPS, and XPS to PDF, PNG, and JPEG'", "disposition": "SUPERSEDED", "target": "H1 + opening paragraph", "reason": "Canonical product name owns the H1 per presentation contract; the conversion claim is preserved verbatim in the opening paragraph and Key Capabilities."},
+    {"unit": "Opening paragraph (open-source Python document conversion library ...)", "disposition": "VERIFIED_MERGED", "target": "Opening paragraph", "reason": "Verified against pyproject/package facts; reused verbatim — already matched target prose style."},
+    {"unit": "'Why Aspose.Page for Python' bullet list (5 bullets)", "disposition": "VERIFIED_MERGED", "target": "Key Capabilities", "reason": "All five claims verified against public API (ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, MCP handlers); reworded into capability-bullet style with API attributions."},
+    {"unit": "Installation: pip install -e .", "disposition": "VERIFIED_MERGED", "target": "Installation", "reason": "Verified as the working install path; restructured into clone-then-install form for visitors arriving without a checkout."},
+    {"unit": "Installation: optional deps by scenario (fastmcp, skia-python, test deps)", "disposition": "VERIFIED_MERGED", "target": "Installation scenario list", "reason": "Verified against pyproject optional groups and import sites; source's scenario framing preserved, deduplicated."},
+    {"unit": "'Currently Available Features' list (4 conversions)", "disposition": "SUPERSEDED", "target": "Key Capabilities + Mermaid", "reason": "Same information stated more completely by the fact-backed capability list; no information lost."},
+    {"unit": "Quick Start: PS to PDF example", "disposition": "VERIFIED_MERGED", "target": "Quick Start", "reason": "Code verified against public API and reused unchanged."},
+    {"unit": "Quick Start: EPS→PNG, XPS→PDF, XPS→JPEG examples", "disposition": "VERIFIED_MERGED", "target": "Additional Examples (collapsed)", "reason": "Verified; moved under the disclosure per collapse rule with named-workflow brief."},
+    {"unit": "Example Results: three images WITH caption headings", "disposition": "VERIFIED_MERGED", "target": "Additional Examples → Example Results", "reason": "Images verified present in readme.resources/. Captions preserved as prose (source phrasing 'that is converted than to PNG' rewritten to target style). NOTE: the prior candidate dropped these captions silently — that is the failure mode this ledger exists to prevent."},
+    {"unit": "MCP Server section: tools list + run example + notes", "disposition": "VERIFIED_MERGED", "target": "Additional Examples → 'Host the MCP Server' + Installation notes", "reason": "Tools verified against aspose.page.mcp.handlers exports. NOTE: prior candidate dumped this into a second details block inside API Reference — wrong home, now placed as a workflow example."},
+    {"unit": "Build and Test (Developers): make sync/test/build + unittest command", "disposition": "VERIFIED_MERGED", "target": "Development and Testing (collapsed)", "reason": "Make targets verified against Makefile; commands reused."},
+    {"unit": "License: MIT link", "disposition": "VERIFIED_MERGED", "target": "License", "reason": "LICENSE.txt verified MIT; expanded to contract's license prose."}
+  ],
+  "summary": {"total_units": 12, "VERIFIED_MERGED": 10, "SUPERSEDED": 2, "UNVERIFIABLE_DROPPED": 0, "NON_CONTENT": 0, "dropped_share": 0.0}
+}
