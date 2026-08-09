@@ -409,6 +409,18 @@
     "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [],
     "facts_hash": null,
+    "factual_validity": {
+      "acceptance_contract_hash": null,
+      "evidence_identity": null,
+      "facts_hash": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:27:25.691527+00:00",
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "factual_validity_history": [],
     "history": [
       {
         "evidence_refs": [],
@@ -429,8 +441,20 @@
         "reason": "read-only intake classified READY_FAST_PATH",
         "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-Java\\9968c5b42525919f50bca3cdbcedd3ae1dc382c4\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-09T13:27:25.691527+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+        "to_status": "SNAPSHOTTED"
       }
     ],
+    "human_acceptance_history": [],
     "intake_preflight_history": [
       {
         "attempt": 1,
@@ -450,18 +474,45 @@
     ],
     "intake_preflight_pending": null,
     "presentation_plan_hash": null,
+    "presentation_validity": {
+      "available_component_manifest_hash": null,
+      "candidate_hash": null,
+      "component_manifest_hash": null,
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:27:25.691527+00:00",
+      "presentation_version": null,
+      "reason": "source or fact inputs changed",
+      "schema_version": 1,
+      "source_revision": null,
+      "status": "UNKNOWN"
+    },
+    "presentation_validity_history": [],
     "prompt_hash": null,
     "protected_content_fingerprint": null,
+    "publication_eligibility": {
+      "admitted_repositories": [],
+      "evidence_identity": null,
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-09T13:27:25.691527+00:00",
+      "registry_revision": null,
+      "rejection_reasons": [
+        "source or fact inputs changed"
+      ],
+      "schema_version": 1,
+      "status": "INELIGIBLE"
+    },
+    "publication_eligibility_history": [],
     "repair_attempts_for_revision": 0,
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-01T14:53:59.371193+00:00"
+    "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-09T13:27:25.691527+00:00"
   },
   "schema_version": 2,
-  "state_version": 35,
+  "state_version": 36,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c9495c289c3c5f2c360d210082279616728fb5c3943654e9eeaa82c0c7f8776b",
