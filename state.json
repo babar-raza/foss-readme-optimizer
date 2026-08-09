@@ -453,6 +453,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "25adb25c8796f06d9b89cd5f8093e490091195ef",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-Cpp\\25adb25c8796f06d9b89cd5f8093e490091195ef\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-09T13:24:53.606704+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "25adb25c8796f06d9b89cd5f8093e490091195ef",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -509,11 +520,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "25adb25c8796f06d9b89cd5f8093e490091195ef",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-09T13:24:43.910093+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-09T13:24:53.606704+00:00"
   },
   "schema_version": 2,
-  "state_version": 36,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b45b57f5b8b20edaccdd705a785a68d7023d9dade78afc593e68bbb02692cda5",
