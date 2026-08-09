@@ -452,6 +452,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-Java\\9968c5b42525919f50bca3cdbcedd3ae1dc382c4\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-09T13:27:34.939207+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -508,11 +519,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-09T13:27:25.691527+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-09T13:27:34.939207+00:00"
   },
   "schema_version": 2,
-  "state_version": 36,
+  "state_version": 37,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c9495c289c3c5f2c360d210082279616728fb5c3943654e9eeaa82c0c7f8776b",
