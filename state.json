@@ -52920,6 +52920,17 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\6d97a522a9ed24708687911f1aabb76e2dea2da7"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "local-poc-cache",
+        "occurred_at": "2026-08-09T00:00:26.030607+00:00",
+        "reason": "completed bundle cache invalidated at FACTS_COLLECTING: fact_acceptance_component_hashes_changed, fact_acceptance_contract_hash_changed, fact_acceptance_recollection_component_changed, presentation_component_protected_content_changed, presentation_component_severe_acceptance_changed, presentation_component_structural_changed",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -52976,11 +52987,11 @@
     "reviewer_standard_hash": "e873fc0eced616b35f126f803a66a5240c97df7bc1f17467d4704d49e88947ef",
     "schema_version": 2,
     "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-08T06:28:55.436104+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-09T00:00:26.030607+00:00"
   },
   "schema_version": 2,
-  "state_version": 3393,
+  "state_version": 3394,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
