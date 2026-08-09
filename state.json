@@ -9489,8 +9489,19 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {},
-    "fact_acceptance_contract_hash": null,
+    "fact_acceptance_component_hashes": {
+      "acquisition_truth": "078834ecc0e89ff2bf8a11512f7df39320c746b61e8983f540c51aaa6726d20c",
+      "classification_semantics": "6ccc8d8b227aeb7b841d42b682187117c92323026a78afb896057f5fc7d06222",
+      "conflict_semantics": "05b375c3f32016c2040d002bf104de2f1b05110521e38c5d720d073f61b04fc6",
+      "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
+      "drafting_and_example_selection": "58ec4298801e5a79e1d3671239d43d8bc407638ebb7ce23b5f89802c0eba9058",
+      "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+      "root_role_selection": "0835347ae5b6f5a53b37dc1d21240a4f108cbafbb75e059d5c39f85936e5e91c",
+      "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
+    },
+    "fact_acceptance_contract_hash": "4d948c449c5fa5518364f545fda89a15347af5b0a1430f6345cba1f35c0b6f81",
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -9628,15 +9639,37 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "227894a1120c22b9b6522564e23dc1d14c8fc39a"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "078834ecc0e89ff2bf8a11512f7df39320c746b61e8983f540c51aaa6726d20c",
+          "classification_semantics": "6ccc8d8b227aeb7b841d42b682187117c92323026a78afb896057f5fc7d06222",
+          "conflict_semantics": "05b375c3f32016c2040d002bf104de2f1b05110521e38c5d720d073f61b04fc6",
+          "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
+          "drafting_and_example_selection": "58ec4298801e5a79e1d3671239d43d8bc407638ebb7ce23b5f89802c0eba9058",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "0835347ae5b6f5a53b37dc1d21240a4f108cbafbb75e059d5c39f85936e5e91c",
+          "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
+        },
+        "contract_hash": "4d948c449c5fa5518364f545fda89a15347af5b0a1430f6345cba1f35c0b6f81",
+        "facts_hash": "fce16b2f660d9f04e18dc85f7065f9fd5ac47ecbdb778610884e53d2ab4b1a4a",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-09T12:32:16.538275+00:00",
+        "outcome": "BLOCKED_MISSING_EVIDENCE",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "schema_version": 1,
+        "source_revision": "d04b659a81a50dcde52394514603d39a88787256"
       }
     ],
-    "facts_hash": null,
+    "facts_hash": "fce16b2f660d9f04e18dc85f7065f9fd5ac47ecbdb778610884e53d2ab4b1a4a",
     "factual_validity": {
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
-      "observed_by": "supervisor_snapshot",
-      "occurred_at": "2026-08-09T12:31:02.682978+00:00",
+      "observed_by": "supervisor_product_truth",
+      "occurred_at": "2026-08-09T12:32:13.576220+00:00",
       "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
@@ -10603,6 +10636,19 @@
         "reason": "collecting and reconciling repository product truth",
         "source_revision": "d04b659a81a50dcde52394514603d39a88787256",
         "to_status": "FACTS_COLLECTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\d04b659a81a50dcde52394514603d39a88787256\\facts\\product-facts.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\d04b659a81a50dcde52394514603d39a88787256\\facts\\provenance.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript\\d04b659a81a50dcde52394514603d39a88787256\\facts\\conflicts.json"
+        ],
+        "from_status": "FACTS_COLLECTING",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-09T12:32:13.576220+00:00",
+        "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
+        "source_revision": "d04b659a81a50dcde52394514603d39a88787256",
+        "to_status": "BLOCKED_MISSING_EVIDENCE"
       }
     ],
     "human_acceptance_history": [],
@@ -10630,8 +10676,8 @@
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
-      "observed_by": "supervisor_snapshot",
-      "occurred_at": "2026-08-09T12:31:02.682978+00:00",
+      "observed_by": "supervisor_product_truth",
+      "occurred_at": "2026-08-09T12:32:13.576220+00:00",
       "presentation_version": null,
       "reason": "source or fact inputs changed",
       "schema_version": 1,
@@ -10644,8 +10690,8 @@
     "publication_eligibility": {
       "admitted_repositories": [],
       "evidence_identity": null,
-      "observed_by": "supervisor_snapshot",
-      "occurred_at": "2026-08-09T12:31:02.682978+00:00",
+      "observed_by": "supervisor_product_truth",
+      "occurred_at": "2026-08-09T12:32:13.576220+00:00",
       "registry_revision": null,
       "rejection_reasons": [
         "source or fact inputs changed"
@@ -10659,11 +10705,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "d04b659a81a50dcde52394514603d39a88787256",
-    "status": "FACTS_COLLECTING",
-    "updated_at": "2026-08-09T12:32:03.443575+00:00"
+    "status": "BLOCKED_MISSING_EVIDENCE",
+    "updated_at": "2026-08-09T12:32:13.576220+00:00"
   },
   "schema_version": 2,
-  "state_version": 397,
+  "state_version": 398,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
