@@ -199,13 +199,23 @@ def resolve_source_claims(
             _raise_unresolved_preserve(fail_on_unresolved_preserve, claim.claim_id)
             continue
         if not correction_required:
-            if (
-                candidate_content_provenance is not None
-                and complete_source_claim_fact_binding(source_text, claim, facts) is None
-            ):
-                # Working-condition presentation: an unverifiable inherited
-                # claim is withheld from the candidate with an explicit
-                # deferral instead of a silent, unaccountable drop.
+            if candidate_content_provenance is not None:
+                # Working-condition presentation: an inherited claim that no
+                # merge lane could place is withheld with an explicit deferral
+                # instead of a silent, unaccountable drop; the disposition
+                # ledger and the upstream defect log keep it visible.
+                bound = complete_source_claim_fact_binding(source_text, claim, facts)
+                rationale = (
+                    "Working-condition presentation: the inherited claim lacks "
+                    "repository evidence and is withheld from the candidate until "
+                    "verification exists."
+                    if bound is None
+                    else (
+                        "Working-condition presentation: the verified inherited claim "
+                        "has no canonical merged placement yet and is withheld from "
+                        "the candidate pending a richer merge lane."
+                    )
+                )
                 resolutions.append(
                     SourceClaimResolutionV1(
                         claim_id=claim.claim_id,
@@ -218,11 +228,7 @@ def resolve_source_claims(
                             f"source-content-sha256:{claim.content_sha256}",
                             "policy:working-condition-presentation",
                         ],
-                        rationale=(
-                            "Working-condition presentation: the inherited claim lacks "
-                            "repository evidence and is withheld from the candidate until "
-                            "verification exists."
-                        ),
+                        rationale=rationale,
                     )
                 )
             continue
