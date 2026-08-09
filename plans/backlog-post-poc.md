@@ -7,3 +7,7 @@
   acquisition/example proofs stay blocked. Upstream one-line fix: use
   `build-backend = "setuptools.build_meta"` (as every other portfolio repo does), then re-run
   `readme-agent poc --repo aspose-html-foss/Aspose.HTML-FOSS-for-Python`.
+- 2026-08-09: poc runner failed for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: ValueError: invalid README header visual: capability_columns_short failed
+- 2026-08-09: poc runner failed for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
+- 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: verified diagram has 0 input node(s); requires 1

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.facts.curated_python_example_validation import validate_python_example
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
@@ -212,6 +213,89 @@ def _scope_limitations_brief(facts: ProductFactsV2, limitations: list[str]) -> s
     return f"{opening}. {spelled} specific {noun} listed below."
 
 
+_EXAMPLE_ENTRY_MEMBERS = ("parse", "from_file", "load", "open", "create")
+_EXAMPLE_ENTRY_ARGUMENTS = {
+    "parse": '"<p>Hello, world!</p>"',
+    "from_file": '"input.dat"',
+    "load": '"input.dat"',
+    "open": '"input.dat"',
+    "create": "",
+}
+
+
+def source_tree_installation_text(facts: ProductFactsV2) -> str | None:
+    """Working-condition acquisition: present the verified clone-and-import path."""
+
+    try:
+        api = facts.selected_fact("api.public_surface")
+        identity = facts.selected_fact("product.identity")
+    except KeyError:
+        return None
+    if not isinstance(api.value, dict) or not isinstance(identity.value, dict):
+        return None
+    package = api.value.get("package")
+    if not isinstance(package, dict):
+        return None
+    canonical_import = str(package.get("canonical_import") or "").strip()
+    source_root = str(package.get("source_root") or ".").strip()
+    org_repo = str(identity.value.get("repository") or facts.org_repo).strip()
+    if not canonical_import or "/" not in org_repo:
+        return None
+    repo_name = org_repo.split("/", 1)[1]
+    location = (
+        "the repository root"
+        if source_root in {"", "."}
+        else f"the repository's `{source_root}` directory (add it to `PYTHONPATH`)"
+    )
+    return (
+        "Use the library from a clone of its source repository:\n\n"
+        "```bash\n"
+        f"git clone https://github.com/{org_repo}.git\n"
+        f"cd {repo_name}\n"
+        "```\n\n"
+        f"The package imports as `{canonical_import}` from {location}."
+    )
+
+
+def generated_minimal_example(facts: ProductFactsV2) -> str | None:
+    """Compose a one-call Quick Start from catalogued API members and prove it statically."""
+
+    try:
+        api = facts.selected_fact("api.public_surface")
+    except KeyError:
+        return None
+    if not isinstance(api.value, dict):
+        return None
+    catalog = api.value.get("coordinate_catalog") or api.value
+    package = api.value.get("package")
+    canonical_import = (
+        str(package.get("canonical_import") or "").strip() if isinstance(package, dict) else ""
+    )
+    classes = [row for row in catalog.get("classes") or [] if isinstance(row, dict)]
+    for row in classes:
+        name = str(row.get("name") or "").strip()
+        module = str(row.get("module") or canonical_import).strip()
+        if not name or not module:
+            continue
+        members = {
+            str(member.get("name") or ""): member
+            for member in row.get("members") or []
+            if isinstance(member, dict)
+        }
+        entry = next((item for item in _EXAMPLE_ENTRY_MEMBERS if item in members), None)
+        if entry is None:
+            continue
+        variable = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", name).casefold()
+        code = (
+            f"from {module} import {name}\n\n"
+            f"{variable} = {name}.{entry}({_EXAMPLE_ENTRY_ARGUMENTS[entry]})\n"
+        )
+        accepted, _modules, _reason = validate_python_example(code, catalog)
+        if accepted:
+            return f"```python\n{code.rstrip()}\n```"
+    return None
+
+
 def _scope_text(
     facts: ProductFactsV2,
     contextual_links: ContextualLinkPlanV1 | None,
@@ -331,6 +415,11 @@ def build_verified_template_draft(
     )
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
+    if installation is None:
+        # Working-condition presentation: with no verified installable path,
+        # show the clone-and-import usage that does work and keep the broken
+        # install path out of the README (it lands in the upstream defect log).
+        installation = source_tree_installation_text(facts)
     scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
     if installation is not None and scenario_dependencies:
         installation += "\n\n" + scenario_dependencies
@@ -340,6 +429,12 @@ def build_verified_template_draft(
     example = example_text(facts, source_revision)
     example_standards = ["readme.primary_example"]
     example_fields = ["example.minimal"]
+    if not example:
+        example = generated_minimal_example(facts) or ""
+        example_fields = [
+            "product.identity",
+            *_accepted_fields(facts, "api.public_surface"),
+        ]
     if contextual_links is not None:
         contextual_example, contextual_fact_ids = render_contextual_example_markdown(
             contextual_links
@@ -473,8 +568,14 @@ def build_verified_template_draft(
             ),
             "installation": _included(
                 installation,
-                "installation.verified_acquisition",
-                "installation.coordinates",
+                *(
+                    _accepted_fields(
+                        facts,
+                        "installation.verified_acquisition",
+                        "installation.coordinates",
+                    )
+                    or ("product.identity", *_accepted_fields(facts, "api.public_surface"))
+                ),
                 *_accepted_fields(facts, "product.compatibility"),
                 *(
                     _accepted_fields(

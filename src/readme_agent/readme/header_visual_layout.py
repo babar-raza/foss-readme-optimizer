@@ -8,6 +8,9 @@ from itertools import pairwise
 from typing import TypeVar
 
 from readme_agent.readme.header_visual_models import MermaidNodeV1
+from readme_agent.readme.presentation_contract import (
+    PRESENTATION_MERMAID_MAX_COLUMN_NODES,
+)
 
 CAPABILITY_COLUMN_MAX = 3
 _T = TypeVar("_T")
@@ -15,11 +18,14 @@ _LABELED_NODE = re.compile(r'\["[^"]*"\]')
 
 
 def split_capability_columns(items: list[_T]) -> tuple[tuple[_T, ...], ...]:
-    """Return up to three balanced reading-order columns of at most ceil(n/3) rows."""
+    """Return balanced reading-order columns: ceil(n/3) rows, at most four per column."""
 
     if not items:
         return (tuple(items),)
-    rows = math.ceil(len(items) / CAPABILITY_COLUMN_MAX)
+    rows = min(
+        math.ceil(len(items) / CAPABILITY_COLUMN_MAX),
+        PRESENTATION_MERMAID_MAX_COLUMN_NODES,
+    )
     count = math.ceil(len(items) / rows)
     base, extra = divmod(len(items), count)
     columns: list[tuple[_T, ...]] = []

@@ -206,6 +206,63 @@ def build_source_disposition_ledger(
     }
 
 
+def _upstream_defect_report(org_repo: str, snapshot, facts, source_text: str) -> str:
+    """Summarize product-repo defects hidden by working-condition presentation."""
+
+    import re as _re
+
+    from readme_agent.facts.curated_python_example_validation import validate_python_example
+
+    lines: list[str] = [
+        f"# Upstream defects — {org_repo}",
+        "",
+        f"Source revision: `{snapshot.source_revision}`. Items below failed deterministic",
+        "verification and are hidden from the generated README (working-condition",
+        "presentation). They need fixes in the product repository or richer evidence.",
+        "",
+    ]
+    entries = 0
+    for field in (
+        "installation.verified_acquisition",
+        "example.minimal",
+        "product.formats",
+        "product.capabilities",
+    ):
+        try:
+            fact = facts.selected_fact(field)
+        except KeyError:
+            continue
+        if fact.verification_state in {"verified", "policy_approved"}:
+            continue
+        value = fact.value if isinstance(fact.value, dict) else {}
+        detail = str(
+            value.get("detail")
+            or value.get("evidence_failures")
+            or value.get("outcome")
+            or fact.verification_state
+        )[:220]
+        lines.append(f"- `{field}` is {fact.verification_state}: {detail}")
+        entries += 1
+    try:
+        api = facts.selected_fact("api.public_surface")
+        api_value = api.value if isinstance(api.value, dict) else {}
+    except KeyError:
+        api_value = {}
+    catalog = api_value.get("coordinate_catalog") or api_value
+    for block in _re.findall(r"```python\n(.*?)```", source_text, _re.DOTALL):
+        accepted, _modules, reason = validate_python_example(block, catalog)
+        if not accepted and reason != "no_product_api_import":
+            first_line = block.strip().splitlines()[0][:80] if block.strip() else ""
+            lines.append(
+                f"- README example starting `{first_line}` does not verify against the "
+                f"public API ({reason})."
+            )
+            entries += 1
+    if not entries:
+        lines.append("- none recorded for this revision")
+    return "\n".join(lines) + "\n"
+
+
 def _disposition_acceptance(ledger: dict) -> tuple[bool, list[str]]:
     errors = []
     for item in ledger["units"]:
@@ -417,6 +474,11 @@ def run_poc_for_repo(org_repo: str) -> int:
 
     share_dir.mkdir(parents=True, exist_ok=True)
     (share_dir / "README.md").write_text(render["final_text"], encoding="utf-8", newline="")
+    (share_dir / "UPSTREAM-DEFECTS.md").write_text(
+        _upstream_defect_report(org_repo, snapshot, facts, source_text),
+        encoding="utf-8",
+        newline="",
+    )
     _write_json(share_dir / "dispositions.json", ledger)
     _write_json(
         share_dir / "validation.json",

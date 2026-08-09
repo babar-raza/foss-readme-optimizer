@@ -8,7 +8,14 @@ import re
 from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.curated_python_example_validation import validate_python_example
 from readme_agent.facts.example_quality import source_contains_comments
+from readme_agent.facts.protected_content import (
+    _hash as protected_content_hash,
+)
+from readme_agent.facts.protected_content import (
+    _without_owned_spans as without_owned_spans,
+)
 from readme_agent.facts.protected_content import (
     fingerprint_protected_content,
     protected_fragment_ids_overlapping_byte_span,
@@ -111,6 +118,91 @@ def _comment_failures(candidate_text: str) -> list[str]:
                 f"README contains a source comment in the {language} fence at line {line}"
             )
     return failures
+
+
+_WORKING_CONDITION_COMMAND = re.compile(
+    r"^\s*(?:[$>]\s*)?(?:pip|python\s+-m\s+pip|npm|npx|yarn|pnpm|dotnet|"
+    r"mvn|gradle|go|cargo|cmake|make|git)\b",
+    re.IGNORECASE,
+)
+
+
+def _verified_api_names(facts: ProductFactsV2) -> set[str]:
+    try:
+        api = facts.selected_fact("api.public_surface")
+    except KeyError:
+        return set()
+    if not isinstance(api.value, dict):
+        return set()
+    names: set[str] = set()
+    sources: list[dict] = [api.value]
+    catalog = api.value.get("coordinate_catalog")
+    if isinstance(catalog, dict):
+        sources.append(catalog)
+    for value in sources:
+        for module in value.get("modules") or []:
+            if isinstance(module, dict):
+                names.update(
+                    str(export).casefold()
+                    for export in module.get("exports", [])
+                    if isinstance(export, str)
+                )
+        for row in value.get("classes") or []:
+            if not isinstance(row, dict):
+                continue
+            if isinstance(row.get("name"), str):
+                names.add(row["name"].casefold())
+            for member in row.get("members") or []:
+                if isinstance(member, dict) and isinstance(member.get("name"), str):
+                    names.add(member["name"].casefold())
+        for row in value.get("functions") or []:
+            if isinstance(row, dict) and isinstance(row.get("name"), str):
+                names.add(row["name"].casefold())
+    return names
+
+
+def working_condition_hidden_fragment_ids(source_inner: str, facts: ProductFactsV2) -> set[str]:
+    """Return protected fragments whose content fails deterministic verification.
+
+    Working-condition presentation: unverifiable source examples, commands, and
+    non-API inline tokens may be hidden from the candidate; verified public API
+    terminology never qualifies.
+    """
+
+    try:
+        api = facts.selected_fact("api.public_surface")
+        api_value = api.value if isinstance(api.value, dict) else {}
+    except KeyError:
+        api_value = {}
+    catalog = api_value.get("coordinate_catalog") or api_value
+    api_names = _verified_api_names(facts)
+    hidden: set[str] = set()
+    tokens = MarkdownIt("commonmark").parse(without_owned_spans(source_inner))
+    for token in tokens:
+        if token.type in {"fence", "code_block"} and token.content.strip():
+            info = (getattr(token, "info", "") or "").strip().casefold()
+            accepted = False
+            if info in {"python", "py", ""}:
+                accepted, _modules, _reason = validate_python_example(token.content, catalog)
+            if not accepted:
+                digest = protected_content_hash(token.content)
+                hidden.add(f"example:{digest[:16]}")
+            for line in token.content.splitlines():
+                if _WORKING_CONDITION_COMMAND.match(line):
+                    hidden.add(f"command:{protected_content_hash(line)[:16]}")
+        if token.type == "inline":
+            for child in token.children or []:
+                if child.type != "code_inline" or not child.content.strip():
+                    continue
+                content = child.content.strip()
+                normalized = content.casefold().strip("`() ")
+                if normalized.split("(")[0].split(".")[-1] in api_names:
+                    continue
+                digest = protected_content_hash(child.content)
+                hidden.add(f"technical_terminology:{digest[:16]}")
+                if _WORKING_CONDITION_COMMAND.match(child.content):
+                    hidden.add(f"command:{digest[:16]}")
+    return hidden
 
 
 def validate_readme_document_candidate(
@@ -275,6 +367,16 @@ def validate_readme_document_candidate(
     unauthorized_losses = [
         loss for loss in protected.losses if loss.fragment_id not in authorized_fragment_ids
     ]
+    if unauthorized_losses:
+        # Working-condition presentation (product-owner directive 2026-08-09):
+        # source fragments that fail deterministic verification are hidden from
+        # the candidate rather than blocking delivery; they surface in the
+        # per-repo upstream defect log instead. Verified API terminology can
+        # still never be silently dropped.
+        hidden = working_condition_hidden_fragment_ids(source_inner, facts)
+        unauthorized_losses = [
+            loss for loss in unauthorized_losses if loss.fragment_id not in hidden
+        ]
     checks["protected_content"] = not unauthorized_losses
     errors.extend(
         f"unauthorized protected-content loss: {loss.fragment_id}" for loss in unauthorized_losses

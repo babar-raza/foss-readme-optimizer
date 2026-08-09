@@ -22,6 +22,10 @@ from readme_agent.presentation.verified_template_capabilities import (
     capability_claim_fact_coordinates,
     capability_claim_fact_ids,
 )
+from readme_agent.presentation.verified_template_draft import (
+    generated_minimal_example,
+    source_tree_installation_text,
+)
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     dependency_markdown,
@@ -242,7 +246,7 @@ def build_template_provenance(
                     facts,
                     template_input.org_repo,
                     template_input.source_revision,
-                )
+                ) or source_tree_installation_text(facts)
                 if canonical_installation is not None:
                     scenario = scenario_dependency_markdown(facts, source_text=source_text)
                     if scenario:
@@ -351,6 +355,10 @@ def build_template_provenance(
                             and not relationship.has_unresolved_conflict
                         ):
                             fact_ids = sorted({*fact_ids, relationship.fact_id})
+                if slot == "quick_start" and not fact_ids:
+                    generated = generated_minimal_example(facts)
+                    if generated is not None and generated.strip() in text:
+                        fact_ids = list(content.fact_ids)
                 if slot == "additional_examples" and not fact_ids:
                     fact_ids = additional_examples_disclosure_fact_ids(claim_text, facts)
                 if (
