@@ -18733,6 +18733,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\92ff427b71e532de19a5568ea5c4ce12c3ba8ae7\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-09T12:24:39.446894+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -18804,11 +18815,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-09T12:24:23.978419+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-09T12:24:39.446894+00:00"
   },
   "schema_version": 2,
-  "state_version": 891,
+  "state_version": 892,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "33faeca66c2f4cdc25d32109d98da0c885e8f13171098eaef0d4b13f89d32e79",
