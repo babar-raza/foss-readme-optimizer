@@ -13658,7 +13658,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "dfc5f5370f75635d1a797fb5a664b450ca5b80ae5c2ee5448dc4e639fa15b728",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -14675,17 +14675,15 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "dfc5f5370f75635d1a797fb5a664b450ca5b80ae5c2ee5448dc4e639fa15b728",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "977ec54be20763cb5b895f55391d2daaa3cbc52bb9114e3bcd5706de5ebf4116",
-          "message": "['policy_corrections_have_exact_partial_lineage failed', 'claim accountability has 1 blocking claim(s): source:claim:906:46fcbe2aa58ffae4']",
-          "occurred_at": "2026-08-10T15:20:41.024189+00:00",
+          "error_type": "ValueError",
+          "failure_reason": "execution_error",
+          "message": " compiled verified presentation is invalid: Mermaid capability nodes must use the adaptive column layout",
+          "occurred_at": "2026-08-10T16:38:55.647660+00:00",
           "schema_version": 1,
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": true,
         "llm_calls": [
@@ -50906,9 +50904,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T15:45:51.992926+00:00",
+      "last_run_timestamp": "2026-08-10T16:38:55.647660+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -61071,7 +61069,7 @@
     "updated_at": "2026-08-10T16:34:21.061727+00:00"
   },
   "schema_version": 2,
-  "state_version": 3482,
+  "state_version": 3483,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
