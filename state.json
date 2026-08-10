@@ -14023,16 +14023,70 @@
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "4d140e48719420c1a8bdc481ee4a063b12ce8ee4a7f9364b0fd25bb6f404bd82",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "ed87421926af40a3389f3c0f7165aee313fab1d12a41be5da1e90f3f8450691b",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [],
+        "criteria_results": [
+          {
+            "dimension": "product_clarity",
+            "note": "The opening paragraph clearly states what the product does using a concrete verb ('reads Microsoft OneNote (.one) files') before any other content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "audience_fit",
+            "note": "The second sentence explicitly names the audience (Python developers), ecosystem (Python), format (.one), and common tasks (reading OneNote files).",
+            "satisfied": true
+          },
+          {
+            "dimension": "trust_signals",
+            "note": "A visible, GitHub-recognized MIT license badge is present at the top, along with PyPI, Python version, and contributor badges \u2014 satisfying the top trust signals.",
+            "satisfied": true
+          },
+          {
+            "dimension": "installation_path",
+            "note": "The install command `python -m pip install aspose-note` uses real PyPI coordinates (`aspose-note`) and resolves correctly.",
+            "satisfied": true
+          },
+          {
+            "dimension": "verified_examples",
+            "note": "Beyond the install snippet, there are 11 runnable code examples with clear surrounding prose, no comments in code blocks, and realistic use cases.",
+            "satisfied": true
+          },
+          {
+            "dimension": "navigation",
+            "note": "Section headers use consistent `##` levels, and the order follows the intended sequence: product understanding \u2192 getting started \u2192 reference/contributing/legal content.",
+            "satisfied": true
+          },
+          {
+            "dimension": "visual_usefulness",
+            "note": "The Mermaid diagram illustrates the actual input (OneNote), transformation (library), and output (PDF), directly supporting understanding of the product workflow.",
+            "satisfied": true
+          },
+          {
+            "dimension": "contribution_readiness",
+            "note": "The README includes a LICENSE file reference, and GitHub's community-files quick links (README, License) are present \u2014 satisfying the highest-priority gate.",
+            "satisfied": true
+          },
+          {
+            "dimension": "maintenance_signals",
+            "note": "The README does not claim maintenance status, and the repository's actual activity (visible via badges and test files) supports active maintenance.",
+            "satisfied": true
+          },
+          {
+            "dimension": "natural_commercial_context",
+            "note": "The commercial mention appears exactly once, in factual/capability-extension language, as a short paragraph under 'Scope and Limitations' \u2014 not as a banner or repeated.",
+            "satisfied": true
+          }
+        ],
         "input_sha256": "0c4e39174e9fa5ff20f81adb2c505af64886bbcbd8c22f7e5bb41fe66ee7411f",
-        "input_source": "verified_candidate_plan_and_merged_review",
-        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
-        "review_reused": true,
+        "input_source": "candidate_text",
+        "overall_summary": "The README for aspose-note-foss/Aspose.Note-FOSS-for-Python satisfies all ten dimensions of the product-presentation standard: it leads with product clarity and audience fit, includes strong trust signals and a working install path, provides multiple verified examples, uses clear navigation and a useful visual, meets contribution-readiness via LICENSE recognition, avoids false maintenance claims, and places its single commercial mention appropriately and non-prominently.",
+        "structural_consistency": {
+          "contradictions": [],
+          "valid": true
+        },
         "structural_observations": {
           "ci_badge_count": 0,
           "has_mermaid": true
@@ -14041,7 +14095,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T17:20:32.761173+00:00",
+      "last_run_timestamp": "2026-08-10T18:05:46.602676+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -60868,7 +60922,7 @@
     "updated_at": "2026-08-10T17:25:07.216519+00:00"
   },
   "schema_version": 2,
-  "state_version": 3573,
+  "state_version": 3574,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
