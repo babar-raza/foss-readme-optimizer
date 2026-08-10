@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template_id": "repository-presentation",
-  "template_version": "1.17.0",
+  "template_version": "1.18.0",
   "accepted_reference_sha256": "cf0145713dcb862b9818a4823b377fb97920c5df7170f02d132391ab8d52f287",
   "reference_status": "requires_requalification",
   "section_order": [
@@ -70,7 +70,7 @@
     "mermaid_visual_grammar": "corporate-capability-landscape",
     "mermaid_capability_layout": "adaptive_vertical_columns",
     "mermaid_capability_column_threshold": 5,
-    "mermaid_capability_layout_constraint": "balanced_consecutive_invisible_chains",
+    "mermaid_capability_layout_constraint": "rendered_block_grid",
     "mermaid_topology": "inputs-product-capabilities-outputs",
     "minimum_mermaid_inputs": 1,
     "minimum_mermaid_capabilities": 1,
@@ -95,7 +95,7 @@
     ],
     "code_fence_language": "required",
     "code_fence_max_consecutive_blank_lines": 1,
-    "mermaid_endpoint_presentation": "uniform_wrapped_width",
+    "mermaid_endpoint_presentation": "uniform_column_width",
     "enterprise_link_anchor": "natural_full_featured_enterprise_edition",
     "public_internal_assurance": "forbidden",
     "additional_examples_intro": "workflow_preview",

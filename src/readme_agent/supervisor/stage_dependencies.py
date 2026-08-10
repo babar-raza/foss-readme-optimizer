@@ -111,6 +111,8 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/readme/header_visual_layout.py",
             "src/readme_agent/readme/header_visual_models.py",
             "src/readme_agent/readme/header_visual_validation.py",
+            "src/readme_agent/verification/mermaid_render.py",
+            "src/readme_agent/specialists/readme_visual_render_gate.py",
         ),
     ),
     "presentation_template": (

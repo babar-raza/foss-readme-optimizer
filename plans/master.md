@@ -150,8 +150,12 @@ vertical Core column through five capabilities or exactly two balanced, equally 
 above five, renders uniformly wrapped endpoint boxes, and has exactly one product-to-capabilities and one
 applicable capabilities-to-outputs relationship; it never fans out one edge per capability. Additional
 examples preview their named workflows before the disclosure and never publish internal verification
-state or numbered duplicate headings. No comments, emoji, process narration, raw export dumps, duplicate
-sections, repeated workflows, or dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
+state or numbered duplicate headings. The deterministic gate renders each non-empty diagram through the
+pinned official Mermaid CLI, inspects the resulting SVG geometry for compact landscape shape, adaptive
+Core columns, non-overlap, uniform peer endpoint widths, and the required semantic connectors, and caches
+only a source-hash-bound passing proof. Source grammar checks alone cannot approve a diagram.
+No comments, emoji, process narration, raw export dumps, duplicate sections, repeated workflows, or
+dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
 contextual, policy-capped, and selected from governed catalogs; `products.*` destinations have
 priority. Commercial products are called **Enterprise Edition**.
 
@@ -308,8 +312,8 @@ skills, scripts, or caches.
   of the shared transaction is required for `TRANSACTION_NO_OP_PROVEN`.
 - [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
-- [ ] Mermaid validation proves semantic topology, not syntax alone, and independent review rejects
-  a correct-but-unhelpful document.
+- [ ] Mermaid validation proves semantic topology and official-rendered SVG geometry, not syntax alone,
+  and independent review rejects a correct-but-unhelpful document.
 - [ ] Contract validation rejects collapsed selected capabilities, collapsed material limitations,
   fully collapsed development/testing guidance, untagged or whitespace-corrupt code fences, more
   than two Core columns, unequal endpoint presentation, semantic block/workflow repetition, and any

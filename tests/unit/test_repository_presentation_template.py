@@ -186,25 +186,31 @@ def _page_input() -> PresentationTemplateInputV1:
         sections={
             "at_a_glance": _fact(
                 """```mermaid
-flowchart LR
-  subgraph Inputs["Inputs and Formats"]
+block-beta
+  columns 5
+  block:Inputs
+    columns 1
+    IH["Inputs and Formats"]
     I1["XPS documents"]
   end
   PRODUCT["Aspose.Page FOSS for Python"]
-  subgraph Capabilities["Core Capabilities"]
-    direction TB
-    C1["Read document structure"]
-    C2["Inspect pages and resources"]
-    C3["Convert supported content"]
-    C1 ~~~ C2
-    C2 ~~~ C3
+  block:Capabilities:2
+    columns 2
+    C1["Read document structure"]:2
+    C2["Inspect pages and resources"]:2
+    CH["Core Capabilities"]:2
+    C3["Convert supported content"]:2
   end
-  subgraph Outputs["Outputs"]
+  block:Outputs
+    columns 1
+    OH["Outputs"]
     O1["Structured page data"]
   end
+  style IH fill:none,stroke:none,font-weight:bold
+  style OH fill:none,stroke:none,font-weight:bold
   I1 --- PRODUCT
-  PRODUCT --- Capabilities
-  Capabilities --- Outputs
+  PRODUCT --- CH
+  CH --- O1
 ```""",
                 "identity:page",
                 "formats:page",
@@ -1925,25 +1931,31 @@ def test_product_facts_adapter_uses_the_same_structural_contract() -> None:
         sections={
             "at_a_glance": include(
                 """```mermaid
-flowchart LR
-  subgraph Inputs["Inputs and Formats"]
+block-beta
+  columns 5
+  block:Inputs
+    columns 1
+    IH["Inputs and Formats"]
     I1["PDF files"]
   end
   PRODUCT["AcmePDF Python"]
-  subgraph Capabilities["Core Capabilities"]
-    direction TB
-    C1["Open PDF pages"]
-    C2["Inspect page content"]
-    C3["Extract text"]
-    C1 ~~~ C2
-    C2 ~~~ C3
+  block:Capabilities:2
+    columns 2
+    C1["Open PDF pages"]:2
+    C2["Inspect page content"]:2
+    CH["Core Capabilities"]:2
+    C3["Extract text"]:2
   end
-  subgraph Outputs["Outputs"]
+  block:Outputs
+    columns 1
+    OH["Outputs"]
     O1["Page text"]
   end
+  style IH fill:none,stroke:none,font-weight:bold
+  style OH fill:none,stroke:none,font-weight:bold
   I1 --- PRODUCT
-  PRODUCT --- Capabilities
-  Capabilities --- Outputs
+  PRODUCT --- CH
+  CH --- O1
 ```""",
                 "product.identity",
                 "product.formats",
@@ -2072,7 +2084,7 @@ def test_comments_emoji_directional_mermaid_and_copyright_fail() -> None:
     template_input = _page_input()
     candidate = compile_repository_presentation(template_input)
     invalid = (
-        candidate.replace("flowchart LR\n", "flowchart LR\n  product --> input_1\n")
+        candidate.replace("block-beta\n", "block-beta\n  PRODUCT --> CH\n")
         + "\n<!-- generated -->\nStatus: 🚀\nCopyright © 2026\n"
     )
 
@@ -2102,7 +2114,10 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     assert "Key capability titles must be action-led search phrases" in (
         validate_repository_presentation(invalid_seo_title, template_input)
     )
-    invalid_layout = candidate.replace("    C1 ~~~ C2\n", "")
+    invalid_layout = candidate.replace(
+        '    C1["Read document structure"]:2\n',
+        '    C1["Read document structure"]\n',
+    )
     assert "Mermaid capability nodes must use the adaptive column layout" in (
         validate_repository_presentation(invalid_layout, template_input)
     )

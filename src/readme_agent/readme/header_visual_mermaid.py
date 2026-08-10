@@ -12,7 +12,6 @@ from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
 )
 
-_WIDE_ENDPOINT_GROUP_MINIMUM = 4
 _RASTER_ENCODER_EXPORTS = frozenset({"encode_png", "encode_jpeg"})
 _RASTER_FORMATS_LABEL = "PNG/JPEG"
 _CONVERSION_LABEL = re.compile(r"(?i)^(?P<inputs>.+?) to (?P<outputs>.+?) conversion$")
@@ -24,7 +23,7 @@ _ENDPOINT_LINE_WIDTH = 20
 
 
 def endpoint_mermaid_label(label: str) -> str:
-    """Wrap and pad one endpoint label to a common GitHub-Mermaid box width."""
+    """Wrap an endpoint label; block columns make peer widths uniform without padding text."""
 
     lines = textwrap.wrap(
         " ".join(label.split()),
@@ -32,7 +31,15 @@ def endpoint_mermaid_label(label: str) -> str:
         break_long_words=False,
         break_on_hyphens=False,
     ) or [label]
-    return "<br/>".join(line + "&nbsp;" * (_ENDPOINT_LINE_WIDTH - len(line)) for line in lines)
+    return "<br/>".join(lines)
+
+
+def _endpoint_group(group_id: str, title: str, nodes: list[MermaidNodeV1]) -> list[str]:
+    lines = [f"  block:{group_id}", "    columns 1", f'    {group_id[0]}H["{title}"]']
+    lines.extend(f'    {node.node_id}["{endpoint_mermaid_label(node.label)}"]' for node in nodes)
+    lines.append("  end")
+    lines.append(f"  style {group_id[0]}H fill:none,stroke:none,font-weight:bold")
+    return lines
 
 
 def raster_output_formats_label(facts: ProductFactsV2) -> str | None:
@@ -119,29 +126,16 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
         role: [node for node in nodes if node.role == role]
         for role in ("input", "capability", "output")
     }
-    lines = ["flowchart LR"]
+    lines = ["block-beta", f"  columns {5 if grouped['output'] else 4}"]
     if grouped["input"]:
-        lines.append('  subgraph Inputs["Inputs and Formats"]')
-        if len(grouped["input"]) >= _WIDE_ENDPOINT_GROUP_MINIMUM:
-            lines.append("    direction LR")
-        lines.extend(
-            f'    {node.node_id}["{endpoint_mermaid_label(node.label)}"]'
-            for node in grouped["input"]
-        )
-        lines.append("  end")
+        lines.extend(_endpoint_group("Inputs", "Inputs and Formats", grouped["input"]))
     lines.append(f'  {product.node_id}["{product.label}"]')
     lines.extend(render_capability_group(grouped["capability"]))
     if grouped["output"]:
-        lines.append('  subgraph Outputs["Outputs"]')
-        if len(grouped["output"]) >= _WIDE_ENDPOINT_GROUP_MINIMUM:
-            lines.append("    direction LR")
-        lines.extend(
-            f'    {node.node_id}["{endpoint_mermaid_label(node.label)}"]'
-            for node in grouped["output"]
-        )
-        lines.append("  end")
-    lines.extend(f"  {node.node_id} --- {product.node_id}" for node in grouped["input"])
-    lines.append(f"  {product.node_id} --- Capabilities")
+        lines.extend(_endpoint_group("Outputs", "Outputs", grouped["output"]))
+    if grouped["input"]:
+        lines.append(f"  {grouped['input'][0].node_id} --- {product.node_id}")
+    lines.append(f"  {product.node_id} --- CH")
     if grouped["output"]:
-        lines.append("  Capabilities --- Outputs")
+        lines.append(f"  CH --- {grouped['output'][0].node_id}")
     return "\n".join(lines)

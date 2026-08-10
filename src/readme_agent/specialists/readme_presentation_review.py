@@ -21,6 +21,9 @@ from readme_agent.specialists.readme_review_repair_loop import (
 from readme_agent.specialists.readme_review_validation import (
     materialize_and_verify_bundle,
 )
+from readme_agent.specialists.readme_visual_render_gate import (
+    apply_official_visual_render_gate,
+)
 from readme_agent.specialists.separated_readme_review import run_separated_readme_review
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.domain_state import merge_details
@@ -150,6 +153,28 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     if document_plan_available:
         if render_result.get("product_facts_v2") is None:
             return {"accepted_status": "ERROR:verified_product_facts_missing_from_candidate"}
+        try:
+            verification = apply_official_visual_render_gate(
+                presentation_plan_record,
+                verification,
+            )
+        except Exception as exc:  # noqa: BLE001 -- a missing renderer fails deterministic proof
+            if lifecycle_backend is not None:
+                record_deterministic_validation_failure(
+                    lifecycle_backend,
+                    org_repo,
+                    observed_by=INDEPENDENT_VERIFICATION,
+                    reason=f"official Mermaid render proof failed: {type(exc).__name__}: {exc}",
+                )
+            return {
+                "accepted_status": (
+                    f"ERROR:official_mermaid_render_rejected:{type(exc).__name__}: {exc}"
+                ),
+                "details": merge_details(
+                    state_without_patch,
+                    deterministic_validation=verification,
+                ),
+            }
         bundle_verification_record, proposal_bundle_dir = materialize_and_verify_bundle(
             org_repo,
             render_result,

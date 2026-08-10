@@ -12,7 +12,6 @@ from readme_agent.readme.diagram_semantic_candidates import meaningful_diagram_t
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.header_badge_targets import normalized_badge_target
 from readme_agent.readme.header_visual_layout import (
-    capability_layout_edges,
     split_capability_columns,
     validate_capability_group_layout,
 )
@@ -33,10 +32,8 @@ from readme_agent.readme.presentation_contract import (
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _ROOT_LINE = re.compile(r'^\s{2}(PRODUCT)\["([^"]+)"\]$')
-_GROUP_LINE = re.compile(r'^\s{2}subgraph (Inputs|Capabilities|Outputs)\["([^"]+)"\]$')
-_NODE_LINE = re.compile(r'^\s{4,6}([ICO]\d+)\["([^"]+)"\]$')
-_LAYOUT_EDGE_LINE = re.compile(r"^\s{4,6}([ICO]\d+) ~~~ ([ICO]\d+)$")
-_NODE_ITEM = re.compile(r'([ICO]\d+)\["([^"]+)"\]')
+_GROUP_LINE = re.compile(r"^\s{2}block:(Inputs|Capabilities|Outputs)(?::2)?$")
+_NODE_ITEM = re.compile(r'([ICO]\d+)\["([^"]+)"\](?::2)?')
 _EDGE_LINE = re.compile(r"^\s{2}([A-Za-z][A-Za-z0-9]*) --- ([A-Za-z][A-Za-z0-9]*)$")
 
 
@@ -65,23 +62,16 @@ def validate_readme_header_visual(
     group_lines = [
         match for line in lines[1:] if (match := _GROUP_LINE.fullmatch(line)) is not None
     ]
-    node_lines = [line for line in lines[1:] if _NODE_LINE.fullmatch(line)]
-    node_items = [item for line in node_lines for item in _NODE_ITEM.findall(line)]
+    node_items = [item for line in lines[1:] for item in _NODE_ITEM.findall(line)]
     edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
-    parsed_layout_edges = [
-        (match.group(1), match.group(2))
-        for line in lines[1:]
-        if (match := _LAYOUT_EDGE_LINE.fullmatch(line)) is not None
-    ]
     parsed_edges = {(match.group(1), match.group(2)) for match in edge_lines}
-    input_ids = {node.node_id for node in visual.diagram_nodes if node.role == "input"}
-    output_ids = {node.node_id for node in visual.diagram_nodes if node.role == "output"}
+    input_ids = [node.node_id for node in visual.diagram_nodes if node.role == "input"]
+    output_ids = [node.node_id for node in visual.diagram_nodes if node.role == "output"]
     capability_ids = [node.node_id for node in visual.diagram_nodes if node.role == "capability"]
-    expected_layout_edges = capability_layout_edges(capability_ids)
     expected_edges = {
-        *((node_id, "PRODUCT") for node_id in input_ids),
-        ("PRODUCT", "Capabilities"),
-        *([("Capabilities", "Outputs")] if output_ids else []),
+        *([(input_ids[0], "PRODUCT")] if input_ids else []),
+        ("PRODUCT", "CH"),
+        *([("CH", output_ids[0])] if output_ids else []),
     }
     expected_groups = ["Inputs"] if input_ids else []
     expected_groups.append("Capabilities")
@@ -89,7 +79,8 @@ def validate_readme_header_visual(
         expected_groups.append("Outputs")
     checks["mermaid_subset_parses"] = diagramless or bool(
         lines
-        and lines[0] == "flowchart LR"
+        and lines[0] == "block-beta"
+        and lines[1] == f"  columns {5 if output_ids else 4}"
         and len(root_lines) == 1
         and root_lines[0].group(1) == visual.diagram_nodes[0].node_id
         and root_lines[0].group(2) == visual.diagram_nodes[0].label
@@ -97,11 +88,10 @@ def validate_readme_header_visual(
         and len(node_items) == len(visual.diagram_nodes) - 1
         and parsed_edges == expected_edges
         and "-->" not in visual.mermaid_source
-        and visual.mermaid_source.count("~~~") == len(expected_layout_edges)
+        and "~~~" not in visual.mermaid_source
     )
-    adaptive_layout_valid = diagramless or (
-        validate_capability_group_layout(visual.mermaid_source, capability_ids)
-        and parsed_layout_edges == expected_layout_edges
+    adaptive_layout_valid = diagramless or validate_capability_group_layout(
+        visual.mermaid_source, capability_ids
     )
     checks["capability_layout_adaptive"] = adaptive_layout_valid
     checks["capability_layout_vertical"] = adaptive_layout_valid

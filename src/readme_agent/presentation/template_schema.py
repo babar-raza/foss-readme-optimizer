@@ -55,7 +55,7 @@ class TemplateInvariantsV1(_StrictModel):
     mermaid_visual_grammar: Literal["corporate-capability-landscape"]
     mermaid_capability_layout: Literal["adaptive_vertical_columns"]
     mermaid_capability_column_threshold: Literal[5]
-    mermaid_capability_layout_constraint: Literal["balanced_consecutive_invisible_chains"]
+    mermaid_capability_layout_constraint: Literal["rendered_block_grid"]
     mermaid_topology: Literal["inputs-product-capabilities-outputs"]
     minimum_mermaid_inputs: int = Field(ge=1)
     minimum_mermaid_capabilities: int = Field(ge=1)
@@ -76,7 +76,7 @@ class TemplateInvariantsV1(_StrictModel):
     always_visible_slots: list[TemplateSlot]
     code_fence_language: Literal["required"]
     code_fence_max_consecutive_blank_lines: Literal[1]
-    mermaid_endpoint_presentation: Literal["uniform_wrapped_width"]
+    mermaid_endpoint_presentation: Literal["uniform_column_width"]
     enterprise_link_anchor: Literal["natural_full_featured_enterprise_edition"]
     public_internal_assurance: Literal["forbidden"]
     additional_examples_intro: Literal["workflow_preview"]

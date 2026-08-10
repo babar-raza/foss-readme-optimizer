@@ -729,7 +729,7 @@ taskcards:
   dependencies:
   - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
   expected_outputs:
-  - Typed template v1.17 contract and cache invalidation
+  - Typed template v1.18 contract and cache invalidation
   - Deterministic and reviewer controls for visibility, code spacing/language, Mermaid layout, semantic
     uniqueness, and complete source-information destinations
   - Refreshed current Note bundle, exact README, independent approval, unchanged no-op, promotion, and
@@ -741,14 +741,17 @@ taskcards:
     run
   - Core uses one compact vertical column for at most five capabilities or exactly two balanced columns
     above five; endpoints use deterministic wrapping/common width and the required relationship topology
+  - Every non-empty diagram is rendered by the pinned official Mermaid CLI; SVG geometry proves a compact
+    landscape, non-overlapping adaptive Core columns, uniform peer endpoint widths, and the required
+    product-to-Core-to-output connectors before deterministic promotion
   - Repeated semantic blocks, examples, or workflows fail validation
   - Every retained source-information unit maps exactly once to a non-empty canonical candidate destination,
     correction, or justified omission; the template owns public tone, headings, organization, and formatting
   - Note passes deterministic and independent acceptance, unchanged transaction no-op, promotion, reconstruction,
     and visible review under the current contract
   verification:
-  - Focused template, visibility, code-fence, Mermaid, semantic-uniqueness, and source-accountability
-    tests
+  - Focused template, visibility, code-fence, Mermaid source and official-render geometry,
+    semantic-uniqueness, and source-accountability tests
   - Existing public-text, title-case, abbreviation, link, safety, and no-write regressions
   - Canonical bounded Note supervisor transaction through no-op
   - Independent non-authoring contract and artifact reconstruction review
@@ -756,6 +759,8 @@ taskcards:
   - Collapsed capabilities, limitations, or representative development guidance fail
   - Untagged or blank-run code, three-or-more Mermaid columns, unequal endpoint presentation, semantic
     duplication, empty source target, source-tone obligation, or diagnostic `poc` acceptance fails
+  - A syntactically valid diagram whose official SVG stacks intended columns, overlaps nodes, changes
+    peer endpoint widths, or omits semantic connectors fails
   - Historical Note acceptance cannot satisfy the changed contract
   regression_checks:
   - Python repository truth, examples, acquisition, compatibility, and source accountability
