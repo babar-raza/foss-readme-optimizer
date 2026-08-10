@@ -13633,24 +13633,19 @@
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "00f6ca76fa35296e0c02c4424d82e416dac05ea39596c5373194bfe67d42ebbc",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [],
-        "input_sha256": "26b3079095c2a1146130495516769030c3ef4d2f569bd82fc38af1ac551ebd68",
-        "input_source": "verified_candidate_plan_and_merged_review",
-        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
-        "review_reused": true,
-        "structural_observations": {
-          "ci_badge_count": 0,
-          "has_mermaid": true
-        }
+        "status": "DEFERRED_UPSTREAM_FAILURE",
+        "upstream_domain": "readme_presentation",
+        "upstream_failure_reason": "execution_error",
+        "upstream_status": "CHANGED"
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T15:46:51.738435+00:00",
+      "last_run_timestamp": "2026-08-10T16:39:55.960346+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -61069,7 +61064,7 @@
     "updated_at": "2026-08-10T16:34:21.061727+00:00"
   },
   "schema_version": 2,
-  "state_version": 3484,
+  "state_version": 3485,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
