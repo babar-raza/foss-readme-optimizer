@@ -9,6 +9,9 @@ from readme_agent.presentation.verified_preservation_sections import PreservedBl
 from readme_agent.presentation.verified_source_claim_matching import (
     fact_bound_capability_candidate_claims,
 )
+from readme_agent.presentation.verified_source_limitation_matching import (
+    fact_bound_limitation_candidate_claims,
+)
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
@@ -239,6 +242,20 @@ def route_source_detail_blocks(
             target == _TARGETS["major_capabilities"]
             and len(
                 fact_bound_capability_candidate_claims(
+                    block.markdown,
+                    candidate_bytes,
+                    candidate_claims,
+                    facts,
+                    candidate_content_provenance,
+                )
+            )
+            == 1
+        ):
+            continue
+        if (
+            target == _TARGETS["scope_and_limitations"]
+            and len(
+                fact_bound_limitation_candidate_claims(
                     block.markdown,
                     candidate_bytes,
                     candidate_claims,

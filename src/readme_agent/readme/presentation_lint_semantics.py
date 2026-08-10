@@ -8,6 +8,7 @@ from markdown_it import MarkdownIt
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.limitation_semantics import public_limitations_equivalent
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
 from readme_agent.readme.presentation_lint_text import (
     VisibleLine,
@@ -262,6 +263,33 @@ def lint_semantics(
             make_finding(
                 "semantic_duplicate",
                 "Capability information is repeated across competing visitor sections.",
+                [line_span(text, line) for line in unique_lines.values()],
+            )
+        )
+
+    limitation_sections = {
+        heading.start
+        for heading in h2_sections
+        if "limitation" in heading.title.casefold() or "scope" in heading.title.casefold()
+    }
+    limitation_bullets = [
+        (normalized, line)
+        for (section_start, normalized), section_lines in bullets.items()
+        if section_start in limitation_sections
+        for line in section_lines
+    ]
+    repeated_limitations: list[VisibleLine] = []
+    for index, (left, left_line) in enumerate(limitation_bullets):
+        for right, right_line in limitation_bullets[index + 1 :]:
+            if left == right or not public_limitations_equivalent(left, right):
+                continue
+            repeated_limitations.extend((left_line, right_line))
+    if repeated_limitations:
+        unique_lines = {(line.start, line.end): line for line in repeated_limitations}
+        findings.append(
+            make_finding(
+                "semantic_duplicate",
+                "The same visitor-facing limitation is expressed more than once.",
                 [line_span(text, line) for line in unique_lines.values()],
             )
         )

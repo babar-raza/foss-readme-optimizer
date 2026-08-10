@@ -87,15 +87,24 @@ def _same_public_capability(left: str, right: str) -> bool:
         # Opposite data directions are distinct public capabilities even when
         # every other token repeats (for example MSG reading vs MSG writing).
         return False
-    if semantically_repeats(left, right, threshold=0.6):
-        return True
     left_domains = capability_domains(left)
     right_domains = capability_domains(right)
+    if (
+        left_domains
+        and right_domains
+        and left_domains.isdisjoint(right_domains)
+        and "document lifecycle management" not in (left + "\n" + right).casefold()
+    ):
+        # Shared action words such as "create" and "inspect" do not make
+        # document lifecycle and digital-signature work the same capability.
+        return False
+    if semantically_repeats(left, right, threshold=0.6):
+        return True
     if re.search(r"(?i)\bdocument lifecycle management\b", left + "\n" + right):
         concrete = right if "lifecycle management" in left.casefold() else left
         if re.search(r"(?i)\bdocuments?\b", concrete) and len(_ACTION_VERBS.findall(concrete)) >= 2:
             return True
-    comparable_domains = left_domains <= right_domains or right_domains <= left_domains
+    comparable_domains = left_domains == right_domains
     return bool(
         left_domains
         and right_domains
