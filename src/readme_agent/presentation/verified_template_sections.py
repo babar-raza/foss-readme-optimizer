@@ -249,7 +249,7 @@ def _result_asset_caption(source_text: str | None, asset_path: str) -> str | Non
 def _mcp_workflow_section(
     facts: ProductFactsV2,
     source_text: str | None,
-) -> tuple[str, list[str]] | None:
+) -> tuple[str, list[str], str] | None:
     """Merge the source's verified MCP hosting example into a canonical workflow."""
 
     if not source_text:
@@ -286,7 +286,7 @@ def _mcp_workflow_section(
     )
     sentence = f"The MCP server exposes the {rendered_tools} tools for integrating {workflow}."
     title = "Host the MCP Server"
-    return title, [f"### {title}", "", sentence, "", "```python", code, "```", ""]
+    return title, [f"### {title}", "", sentence, "", "```python", code, "```", ""], code
 
 
 def additional_examples_markdown(
@@ -314,6 +314,8 @@ def additional_examples_markdown(
     minimal_code = str(minimal_value.get("code") or "").strip()
     inline = fact.value.get("inline_examples")
     inline = inline if isinstance(inline, list) else []
+    mcp_section = _mcp_workflow_section(facts, source_text)
+    mcp_code = mcp_section[2] if mcp_section is not None else None
     verified_inline = [
         item
         for item in inline
@@ -321,10 +323,11 @@ def additional_examples_markdown(
         and item.get("static_api_verified") is True
         and str(item.get("code") or "").strip()
         and str(item.get("code") or "").strip() != minimal_code
+        and normalize_code_snippet(str(item.get("code") or "")) != mcp_code
     ]
     assets = fact.value.get("result_assets")
     assets = assets if isinstance(assets, list) else []
-    if not paths and not verified_inline and not assets:
+    if not paths and not verified_inline and not assets and mcp_section is None:
         return None
     body: list[str] = []
     rendered_titles: list[str] = []
@@ -355,9 +358,8 @@ def additional_examples_markdown(
         if not code:
             continue
         body.extend([f"### {title}", "", f"```{language}", code, "```", ""])
-    mcp_section = _mcp_workflow_section(facts, source_text)
     if mcp_section is not None:
-        mcp_title, mcp_lines = mcp_section
+        mcp_title, mcp_lines, _mcp_code = mcp_section
         if heading_identity(mcp_title) not in used_headings:
             used_headings.add(heading_identity(mcp_title))
             rendered_titles.append(mcp_title)

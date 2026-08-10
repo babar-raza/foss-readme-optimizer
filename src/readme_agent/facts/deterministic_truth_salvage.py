@@ -251,7 +251,14 @@ def _repository_enriched_technical_facts(
         and not extension.has_unresolved_conflict
         and isinstance(extension.value, dict)
         and isinstance(extension.value.get("capability_groups"), list)
+        and extension.value["capability_groups"]
     ]
+    # Repository capability details are product-level observations assembled from
+    # public source and tests. Implementation components are a lower-assurance
+    # fallback: mixing both promotes internal helpers (for example an embedded-font
+    # parser or raster writer) beside the product workflows they implement.
+    if capability_extensions and capability_extensions[0] is detail:
+        capability_extensions = capability_extensions[:1]
     detailed = list(
         dict.fromkeys(
             str(item.get("label") or "").strip()

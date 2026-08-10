@@ -32,6 +32,23 @@ _GENERIC_LIMITATION_WORDS = {
     "supported",
     "unsupported",
 }
+_CONSTRAINT_PREDICATE = re.compile(
+    r"(?i)\b(?:allows?|are|does|do|fails?|is|must|permits?|rejects?|requires?|returns?|"
+    r"supports?)\b"
+)
+_FAILS_EXPLICITLY = re.compile(r"(?i)\bfail\w*\s+explicitly\b")
+_INCOMPLETE_COVERAGE = re.compile(
+    r"(?i)(?:\bcoverage\b.*\bnot\s+(?:yet\s+)?complete\b|"
+    r"\bnot\s+(?:yet\s+)?complete\b.*\bcoverage\b)"
+)
+
+
+def _constraint_subject(value: str) -> frozenset[str]:
+    """Return the normalized entity constrained by one public limitation."""
+
+    prefix = _CONSTRAINT_PREDICATE.split(value, maxsplit=1)[0]
+    words = semantic_content_words(prefix) - _GENERIC_LIMITATION_WORDS
+    return frozenset(word[:-1] if len(word) > 4 and word.endswith("s") else word for word in words)
 
 
 def public_limitations_equivalent(left: str, right: str) -> bool:
@@ -55,9 +72,16 @@ def public_limitations_equivalent(left: str, right: str) -> bool:
         _LIMITING_LANGUAGE.search(normalized_right)
     ):
         return False
+    if all(
+        _FAILS_EXPLICITLY.search(value) and _INCOMPLETE_COVERAGE.search(value)
+        for value in (normalized_left, normalized_right)
+    ):
+        return True
     if not left_domains:
-        left_subject = semantic_content_words(normalized_left) - _GENERIC_LIMITATION_WORDS
-        right_subject = semantic_content_words(normalized_right) - _GENERIC_LIMITATION_WORDS
+        left_subject = _constraint_subject(normalized_left)
+        right_subject = _constraint_subject(normalized_right)
+        if left_subject and right_subject and left_subject != right_subject:
+            return False
         if not left_subject.intersection(right_subject):
             return False
     threshold = 0.5 if left_domains else 0.65

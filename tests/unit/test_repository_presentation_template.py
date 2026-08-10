@@ -1880,6 +1880,81 @@ def test_additional_examples_remove_source_comments_but_preserve_string_literals
     assert "# -> bytes" not in rendered
 
 
+def test_additional_examples_render_one_richer_mcp_workflow_for_identical_code() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://README.md",
+        source_revision="a" * 40,
+    )
+    code = (
+        "from aspose.page.mcp import create_server\n\n"
+        "server = create_server()\n"
+        'server.run(host="127.0.0.1", port=8000)'
+    )
+    examples = FactRecordV2(
+        fact_id="repository.examples:mcp",
+        field="repository.examples",
+        value={
+            "inline_examples": [
+                {
+                    "title": "MCP Server",
+                    "language": "python",
+                    "code": code,
+                    "static_api_verified": True,
+                }
+            ]
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    api = FactRecordV2(
+        fact_id="api.public_surface:mcp",
+        field="api.public_surface",
+        value={
+            "modules": [],
+            "classes": [],
+            "mcp_server": {
+                "factory": "create_server",
+                "runner": "run",
+                "tools": ["ps_to_pdf", "ps_to_image"],
+            },
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                *facts.facts,
+                api,
+                examples,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                api.field: api.fact_id,
+                examples.field: examples.fact_id,
+            },
+        }
+    )
+    source_text = (
+        f"## MCP Server\n\nMCP tools: `ps_to_pdf`, `ps_to_image`.\n\n```python\n{code}\n```\n"
+    )
+
+    rendered = additional_examples_markdown(facts, source_text=source_text)
+
+    assert rendered is not None
+    assert rendered.count(code) == 1
+    assert "### Host the MCP Server" in rendered
+    assert "The MCP server exposes" in rendered
+
+
 @pytest.mark.parametrize(
     "unsupported_claim",
     [

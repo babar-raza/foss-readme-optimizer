@@ -152,6 +152,18 @@ def test_limitation_equivalence_rejects_distinct_constraints() -> None:
         "OCR is not implemented.",
         "Layout reflow is not implemented.",
     )
+    assert not public_limitations_equivalent(
+        "Exponential functions require exactly one input.",
+        "Stitching functions require exactly one input.",
+    )
+    assert not public_limitations_equivalent(
+        "Unsupported color space types are rejected.",
+        "Unsupported device color spaces are rejected.",
+    )
+    assert not public_limitations_equivalent(
+        "Separation color spaces require name, alternate, and tint entries.",
+        "DeviceN color spaces require names, alternate, and tint entries.",
+    )
 
 
 def test_complementary_coverage_constraints_render_and_resolve_once() -> None:

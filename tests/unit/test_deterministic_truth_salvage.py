@@ -378,6 +378,69 @@ def test_repository_extensions_enrich_only_selected_verified_technical_facts() -
     assert all(fact.source.source_type == "mechanical_repository" for fact in enriched.values())
 
 
+def test_product_capability_details_supersede_low_level_implementation_groups() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://source.py",
+        source_revision=CURRENT_REVISION,
+    )
+    detail = FactRecordV2(
+        fact_id="repository.capability_details:page",
+        field="repository.capability_details",
+        value={"capability_groups": [{"label": "PS/EPS to PDF conversion"}]},
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    implementation = FactRecordV2(
+        fact_id="repository.implementation_components:page",
+        field="repository.implementation_components",
+        value={
+            "capability_groups": [
+                {"label": "Write RASTER documents using Python standard-library components"},
+                {"label": "Read TYPE1 documents using Python standard-library components"},
+            ]
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[detail, implementation],
+        selected_fact_ids={
+            detail.field: detail.fact_id,
+            implementation.field: implementation.fact_id,
+        },
+        package_root_roles=None,
+    )
+    technical = {
+        "product.capabilities": FactRecordV2(
+            fact_id="product.capabilities:policy",
+            field="product.capabilities",
+            value=["PS/EPS to image conversion"],
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme.capabilities"],
+        )
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    assert enriched["product.capabilities"].value == [
+        "PS/EPS to PDF conversion",
+        "PS/EPS to image conversion",
+    ]
+
+
 def test_repository_source_limitations_survive_an_empty_salvage_candidate() -> None:
     source = FactSourceV2(
         source_type="mechanical_repository",
