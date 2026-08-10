@@ -36569,7 +36569,7 @@
     "updated_at": "2026-08-10T12:32:52.831338+00:00"
   },
   "schema_version": 2,
-  "state_version": 1542,
+  "state_version": 1543,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -38456,13 +38456,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.collapsed_primary_content.9346249dfc6f: Key Capabilities is visitor-critical and must remain visible.', 'presentation.collapsed_primary_content.e48c93e38e04: Scope and Limitations is visitor-critical and must remain visible.', 'presentation.collapsed_primary_content.7a4a656fdb18: Development and Testing is visitor-critical and must remain visible.']",
       "last_checkpoint_id": "57aef69d7dce086bcd5f7f20482856fb54b3e138a1157675d1c822490e792f09",
-      "lease_expires_at": "2026-08-10T20:38:27.057270+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-10T20:31:20.668705+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-10T20:31:58.990123+00:00"
     }
   },
   "trigger_records": {},
