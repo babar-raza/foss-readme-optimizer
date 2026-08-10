@@ -616,10 +616,11 @@
         {
           "evidence_refs": [
             "src/readme_agent/readme/header_visual_layout.py",
-            "tests/unit/test_readme_header_visual.py"
+            "tests/unit/test_readme_header_visual.py",
+            "runs/mission-control/L8-VPY-00-PRESENTATION-CONTRACT-RESET/source-heading-context-performance-repair.json"
           ],
           "fingerprint": "d40c73c167d4a8ab5b75fa2ad0fd97722c0d885b0944b3c38c0980089cd9abc3",
-          "last_material_narrowing_at": "2026-08-10T16:44:29.353347+00:00",
+          "last_material_narrowing_at": "2026-08-10T17:04:14.468962+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T16:32:16.617613+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
@@ -1495,37 +1496,41 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T16:44:29.353380+00:00",
+    "last_evaluated_at": "2026-08-10T17:04:14.468991+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 1,
+      "candidate_generated": 2,
       "denominator": 32,
-      "derived_at": "2026-08-10T16:34:21.061727+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-10T16:58:28.829841+00:00",
+      "deterministic_validated": 2,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_APPROVED": 1,
         "AGENT_REVIEWING": 1,
         "BLOCKED_MISSING_EVIDENCE": 18,
         "DISCOVERED": 1,
-        "FACTS_READY": 11,
-        "README_ASSESSED": 1
+        "FACTS_READY": 11
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 0,
-      "raw_candidate_generated": 1,
-      "raw_deterministic_validated": 1,
+      "raw_agent_approved": 1,
+      "raw_candidate_generated": 2,
+      "raw_deterministic_validated": 2,
       "raw_facts_ready": 13,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -9048,7 +9053,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 921,
+  "state_version": 922,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
