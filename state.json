@@ -645,10 +645,12 @@
             "runs/verification/pytest-full-latest.json",
             "src/readme_agent/verification/mermaid_render.py",
             "tests/unit/test_mermaid_render.py",
-            "tests/unit/test_supervisor_loop.py"
+            "tests/unit/test_supervisor_loop.py",
+            "src/readme_agent/readme/source_claim_risk.py",
+            "tests/unit/test_verified_source_detail_routing.py"
           ],
           "fingerprint": "9ee7073b31d01af81ca93d6cb799d6305e8dbd7bfe4cac51e95a36d6e1446747",
-          "last_material_narrowing_at": "2026-08-10T17:55:05.001169+00:00",
+          "last_material_narrowing_at": "2026-08-10T18:02:49.318507+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T17:07:15.813952+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
@@ -1551,7 +1553,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T17:55:39.595971+00:00",
+    "last_evaluated_at": "2026-08-10T18:02:49.318531+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -1582,7 +1584,11 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": []
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
+          "manifest_lifecycle_status_mismatch",
+          "manifest_no_op_stage_missing",
+          "manifest_not_complete"
+        ]
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
@@ -9124,7 +9130,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 929,
+  "state_version": 930,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
