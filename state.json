@@ -556,21 +556,30 @@
         },
         {
           "evidence_refs": [
-            "tests/unit/test_agentic_readme_composition.py::test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate",
-            "src/readme_agent/readme/claim_accountability_validation.py",
+            "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json",
+            "src/readme_agent/presentation/verified_template_draft.py",
+            "src/readme_agent/readme/agentic_composition_summary_validation.py",
             "tests/unit/test_verified_source_opening.py",
-            "tests/unit/test_agentic_readme_composition.py::test_agentic_plan_rejects_lowercase_sentence_fragment_after_audience_phrase",
-            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/pdf-python-independent-verifier/receipt.json"
+            "tests/unit/test_agentic_readme_composition.py"
           ],
           "fingerprint": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
-          "last_material_narrowing_at": "2026-08-10T11:54:43.929147+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-10T11:11:27.530762+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T12:08:35.347736+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -1164,6 +1173,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-10T17:07:59.1835313+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json",
+            "src/readme_agent/presentation/verified_template_draft.py",
+            "src/readme_agent/readme/agentic_composition_summary_validation.py",
+            "tests/unit/test_verified_source_opening.py",
+            "tests/unit/test_agentic_readme_composition.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
+          "rationale": "Move the causal owner from repeated agentic opening generation to the verified source-opening boundary. Preserve the maintainer-authored product summary, add only a typed accepted audience sentence when absent, and retain the public-prose validator so malformed LLM fragments cannot enter the candidate.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1374,7 +1412,7 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T11:55:07.822947+00:00",
+    "last_evaluated_at": "2026-08-10T12:08:35.347796+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -8872,7 +8910,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 908,
+  "state_version": 909,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
