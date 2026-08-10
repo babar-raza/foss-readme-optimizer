@@ -526,7 +526,7 @@
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bef2c5bda48da29d34603cb8b534ce58229f7182fbd785995a991d624248064c",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "09c2f203ebebb019b12b64eb60ccf104b8f5805651636e28ce285fd00bc92b36",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -1035,6 +1035,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-10T15:17:29.4974442+05:00",
+          "dependency_sequence_changed": true,
+          "evidence_refs": [
+            "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json",
+            "src/readme_agent/supervisor/mission_control.py",
+            "tests/unit/test_mission_control.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": false,
+          "new_fingerprint": "09c2f203ebebb019b12b64eb60ccf104b8f5805651636e28ce285fd00bc92b36",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "bef2c5bda48da29d34603cb8b534ce58229f7182fbd785995a991d624248064c",
+          "rationale": "Stop reopening broad shared PDF machinery after lease expiry. Reuse the preserved candidate tree and sealed facts, bind recovery to the exact Python task, inspect the current artifact and first failing acceptance boundary, and run one focused repository transaction through deterministic review, independent review, and fresh-process no-op before any broad suite or platform fan-out.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1245,7 +1272,7 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T10:16:20.508607+00:00",
+    "last_evaluated_at": "2026-08-10T10:18:02.882415+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -1341,22 +1368,22 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-THREE-SLICES",
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
       "core_contribution": {
         "kind": "visible_deliverable",
-        "summary": "Produce the complete .NET local platform cohort while Python retains primary delivery authority."
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
       },
       "goal_ids": [
         "GOAL-TRUTH",
         "GOAL-README"
       ],
-      "immediate_goal_id": "DELIVERY-DOTNET-LOCAL-NO-OP",
-      "immediate_outcome": "Qualify and expose all .NET READMEs without delaying or mutating the Python primary lane.",
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
       "repository_scope": [
-        "platform:.NET"
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
       ],
-      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-VNET-01-ACCELERATED-LOCAL-NO-OP"
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -8735,7 +8762,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 895,
+  "state_version": 896,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
