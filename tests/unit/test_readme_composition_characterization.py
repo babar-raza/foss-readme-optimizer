@@ -33,8 +33,8 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "1f4c8684e357e44fa7a38b6ee94a96f1c543ec0c15f374b057b4e7e1470453e8",
-        "64b3d88e106e5f3875a96524afbd4ddcae0de622a22a32cae89498005c805be3",
+        "a7fc3536d8ef6727c47568249bb6ea332a336150cba22b30bb7897f3f349358f",
+        "d6ccf9af8a02afe6b368f68828cd5fa3556f3d142c07e49d73aa093849217a73",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -43,6 +43,7 @@ DOCUMENT_CASES = (
             "readme.limitations.add-verified",
             "readme.license.add-section",
             "readme.header.badges",
+            "readme.presentation.canonical-section-order",
         ],
     ),
     (
@@ -53,8 +54,8 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "d589fc4121f35df622d58be7125e241a2a137326a75ddc6eb1b667302197e8f3",
-        "88fc692f3af04b1a7fa204b88c267eb02e3b30016ba1dfa4122fa52aad95233f",
+        "254ef6b01d05f4cdf8b4f76263d6a7cce9b09857ff95277c52b7dfccf6beb162",
+        "bdef42e9d8d8198e528b9b504b6ce4bdd24ac68d27a703d582c173663d6e24dc",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -64,6 +65,7 @@ DOCUMENT_CASES = (
             "readme.license.add-section",
             "readme.header.badges",
             "readme.unresolved.withhold:1",
+            "readme.presentation.canonical-section-order",
         ],
     ),
     (
@@ -73,8 +75,8 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "11a073a50a1bca62d2cc5d3bc03dfaffc7118187e12bc8c9fa9f512a3ec77760",
-        "f66e9ee398be762f8cb1c2f33e4ea46d3ac97e016a637185901e356615aa7212",
+        "32fbc9e68b0280c1c3f8b6afee816d1c18021e3ca310e9e4630cd115499440df",
+        "47ced976cd7c2efaab8e2f9e98e71cb6864dd601e6e3a3fc51df0c7320baa112",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -83,6 +85,7 @@ DOCUMENT_CASES = (
             "readme.release.correct-manifest-version",
             "readme.license.add-section",
             "readme.header.badges",
+            "readme.presentation.canonical-section-order",
         ],
     ),
 )

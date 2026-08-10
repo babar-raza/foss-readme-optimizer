@@ -107,6 +107,22 @@ def resolve_source_claims(
     for claim_index, claim in enumerate(source_claims):
         claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
         fact_authorized_preserve = claim.claim_id in preserve_claim_ids
+        if fact_authorized_preserve and candidate_content_provenance:
+            moved_resolution = equivalent_source_claim_resolution(
+                claim,
+                claim_text,
+                candidate_bytes,
+                equivalence_candidates,
+                facts,
+                candidate_content_provenance,
+            )
+            if moved_resolution is not None:
+                resolutions.append(moved_resolution)
+                if raw_candidate_occurrences[claim.content_sha256] > 0:
+                    raw_candidate_occurrences[claim.content_sha256] -= 1
+                if candidate_hashes[claim.content_sha256] > 0:
+                    candidate_hashes[claim.content_sha256] -= 1
+                continue
         if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
             # Exact, fact-authorized source bytes remain on the preservation
             # path even when the canonical template independently cites the

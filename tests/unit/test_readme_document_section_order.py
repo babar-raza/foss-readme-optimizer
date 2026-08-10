@@ -110,3 +110,30 @@ more
 """
 
     assert enforce_canonical_section_order(source, []) == []
+
+
+def test_normalizes_public_spacing_but_preserves_fenced_code_spacing():
+    source = b"""# Product
+
+
+## Installation
+
+```python
+first = 1
+
+
+second = 2
+```
+
+
+## Quick start
+
+example
+"""
+
+    operations = enforce_canonical_section_order(source, [])
+    candidate = apply_document_operations(source, operations).decode()
+
+    assert "# Product\n\n## Installation" in candidate
+    assert "```python\nfirst = 1\n\n\nsecond = 2\n```" in candidate
+    assert "```\n\n## Quick start" in candidate

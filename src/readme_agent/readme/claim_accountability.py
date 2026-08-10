@@ -518,11 +518,18 @@ def build_readme_claim_accountability_map(
             survives = raw_candidate_occurrences[claim.content_sha256] > 0
             if survives:
                 raw_candidate_occurrences[claim.content_sha256] -= 1
+        disposition_fact_ids = fact_ids
+        if resolution is not None and resolution.resolution == "presentation_policy_correction":
+            # A casing or other policy-owned span cannot promote a partially
+            # matched inherited claim into verified truth. Only facts bound
+            # by the exact correction resolution authorize the retained
+            # non-policy bytes; independently discovered partial matches do not.
+            disposition_fact_ids = set(resolution.fact_ids)
         expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",
             current=claim.disposition,
-            accepted_fact_ids=fact_ids,
+            accepted_fact_ids=disposition_fact_ids,
             configured_standard_ids=source_standard_ids,
             survives_in_candidate=survives,
             source_resolution=resolution,

@@ -149,6 +149,20 @@ def test_public_acronym_case_does_not_break_limitation_accountability() -> None:
     assert verified_limitations_are_represented(facts, candidate) is True
 
 
+def test_terminal_punctuation_does_not_break_limitation_accountability() -> None:
+    facts = _replace_selected_value(
+        _facts(),
+        "product.limitations",
+        ["License management APIs not available"],
+    )
+
+    assert public_limitation_phrases(facts) == ["License management APIs not available."]
+    assert verified_limitations_are_represented(
+        facts,
+        "## Scope and Limitations\n\n- License management APIs not available\n",
+    )
+
+
 def test_public_limitation_projection_retains_each_exact_source_coordinate() -> None:
     limitations = [
         {"statement": "Only .pdf file targets are supported for save operations"},

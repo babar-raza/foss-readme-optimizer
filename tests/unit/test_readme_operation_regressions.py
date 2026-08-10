@@ -202,6 +202,25 @@ def test_noop_move_cannot_cover_an_actionable_section():
         validate_agentic_operation_coverage(assessment, [decision], operations)
 
 
+def test_candidate_coordinate_operation_is_not_pruned_against_original_source():
+    source = b"# Product\n"
+    preliminary = b"# Product\n\n\n## License\n"
+    operation = build_operation(
+        operation_id="readme.presentation.spacing",
+        operation="move_exact",
+        source=preliminary,
+        start=len(b"# Product\n\n"),
+        end=len(b"# Product\n\n\n"),
+        replacement="",
+        fact_ids=[],
+        treatment="presentation_policy_correction",
+        rationale="Remove an extra candidate-coordinate public separator.",
+        coordinate_space="candidate_utf8",
+    )
+
+    assert prune_noop_operations(source, [operation]) == [operation]
+
+
 def test_operation_hash_and_reconstruction_bind_to_the_immutable_source():
     source_text = "# Product\n\n## Usage\n\nStale guidance.\n"
     source = source_text.encode("utf-8")

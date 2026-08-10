@@ -8,6 +8,31 @@ from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
 from readme_agent.readme.document_structure import normalize_navigation_targets, parse_headings
 
 
+def _normalize_public_spacing(markdown: str) -> str:
+    """Collapse repeated public blank separators while preserving fenced-code bytes."""
+
+    rendered: list[str] = []
+    fenced = False
+    previous_public_blank = False
+    for raw in markdown.splitlines(keepends=True):
+        content = raw.rstrip("\r\n")
+        fence_boundary = content.lstrip().startswith("```")
+        if fence_boundary:
+            rendered.append(raw)
+            fenced = not fenced
+            previous_public_blank = False
+            continue
+        if fenced:
+            rendered.append(raw)
+            continue
+        blank = not content.strip()
+        if blank and previous_public_blank:
+            continue
+        rendered.append(raw)
+        previous_public_blank = blank
+    return "".join(rendered)
+
+
 def _ordered_candidate(markdown: str) -> str:
     contract = load_repository_presentation_template()
     rank_by_heading = {
@@ -23,18 +48,20 @@ def _ordered_candidate(markdown: str) -> str:
     ranks = [rank for _, rank in recognized]
     if len(ranks) != len(set(ranks)):
         raise ValueError("README candidate contains duplicate canonical H2 sections")
-    if ranks == sorted(ranks):
-        return markdown
+    ordered = markdown
+    if ranks != sorted(ranks):
+        blocks = [markdown[heading.start : heading.section_end] for heading in headings]
+        recognized_indexes = [index for index, _ in recognized]
+        ordered_blocks = [
+            blocks[index] for index, _ in sorted(recognized, key=lambda item: item[1])
+        ]
+        for index, block in zip(recognized_indexes, ordered_blocks, strict=True):
+            blocks[index] = block
 
-    blocks = [markdown[heading.start : heading.section_end] for heading in headings]
-    recognized_indexes = [index for index, _ in recognized]
-    ordered_blocks = [blocks[index] for index, _ in sorted(recognized, key=lambda item: item[1])]
-    for index, block in zip(recognized_indexes, ordered_blocks, strict=True):
-        blocks[index] = block
-
-    opening_end = headings[0].start if headings else len(markdown)
-    reordered = markdown[:opening_end] + "".join(blocks)
-    return normalize_navigation_targets(reordered)
+        opening_end = headings[0].start if headings else len(markdown)
+        ordered = markdown[:opening_end] + "".join(blocks)
+        ordered = normalize_navigation_targets(ordered)
+    return _normalize_public_spacing(ordered)
 
 
 def _changed_character_span(before: str, after: str) -> tuple[int, int, int]:
@@ -81,8 +108,9 @@ def enforce_canonical_section_order(
         fact_ids=[],
         treatment="preserve",
         rationale=(
-            "Move complete applicable H2 blocks into the accepted portfolio journey and "
-            "synchronize Navigation without rewriting section content or unknown sections."
+            "Move complete applicable H2 blocks into the accepted portfolio journey, "
+            "synchronize Navigation, and collapse repeated public blank separators without "
+            "rewriting section content, unknown sections, or fenced-code bytes."
         ),
         coordinate_space="candidate_utf8",
     )

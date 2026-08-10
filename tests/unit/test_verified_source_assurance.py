@@ -249,7 +249,16 @@ def test_generic_preserve_does_not_reinsert_partially_verified_format_claims() -
     ]
     assert len(records) == 2
     assert all(not record.currently_accountable for record in records)
-    assert all(record.expected_disposition == "unjustified_loss" for record in records)
+    dispositions = {
+        source_bytes[record.source_byte_start : record.source_byte_end].decode(
+            "utf-8"
+        ): record.expected_disposition
+        for record in records
+    }
+    assert dispositions == {
+        partially_verified_format: "authoritative_owner_validation",
+        unsupported_detail: "unjustified_loss",
+    }
     assert all(not record.survives_in_candidate for record in records)
 
 
@@ -681,7 +690,7 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
         == gltf_claim
     )
     assert gltf_record.currently_accountable is False
-    assert gltf_record.expected_disposition == "unjustified_loss"
+    assert gltf_record.expected_disposition == "authoritative_owner_validation"
     assert gltf_record.survives_in_candidate is False
     rich_quick_start = next(
         record

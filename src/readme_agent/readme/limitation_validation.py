@@ -2,10 +2,18 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.public_limitations import public_limitation_phrases
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
+
+
+def _normalized_public_text(value: str) -> str:
+    """Normalize presentation-only punctuation without weakening phrase identity."""
+
+    return " ".join(re.sub(r"[`*_~]", "", value).casefold().split()).rstrip(". !?")
 
 
 def verified_limitations_are_represented(
@@ -24,4 +32,5 @@ def verified_limitations_are_represented(
     phrases = public_limitation_phrases(facts)
     if not phrases:
         return False
-    return all(phrase in candidate_text for phrase in phrases)
+    normalized_candidate = _normalized_public_text(candidate_text)
+    return all(_normalized_public_text(phrase) in normalized_candidate for phrase in phrases)

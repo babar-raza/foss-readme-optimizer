@@ -124,11 +124,12 @@ def prune_noop_operations(
     source: bytes,
     operations: list[ReadmeDocumentOperationV1],
 ) -> list[ReadmeDocumentOperationV1]:
-    """Discard operations whose replacement is already the exact immutable source span."""
+    """Discard only source-coordinate operations that reproduce their immutable span."""
 
     return [
         operation
         for operation in operations
-        if source[operation.source_byte_start : operation.source_byte_end]
+        if operation.coordinate_space != "presentation_inner_utf8"
+        or source[operation.source_byte_start : operation.source_byte_end]
         != operation.replacement_text.encode("utf-8")
     ]
