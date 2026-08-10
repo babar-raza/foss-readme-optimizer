@@ -593,18 +593,27 @@
         },
         {
           "evidence_refs": [
-            "src/readme_agent/readme/claim_accountability.py",
-            "tests/unit/test_verified_source_assurance.py",
-            "runs/evidence/20260810-152240-7913/specialist_results.json"
+            "src/readme_agent/verification/mermaid_render.py",
+            "tests/unit/test_mermaid_render.py",
+            "runs/toolchains/mermaid-render-proofs/11.10.1/1/ef8b6e66fad3c3a87d149945f7d956039a525d4f6aae384a96725a51b05aedcd.json"
           ],
           "fingerprint": "6f29f1b16e6ecaab30129910700ec57ef92ce12ea19171fe3430f7f2f6d4cff5",
-          "last_material_narrowing_at": "2026-08-10T15:32:30.640043+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-10T15:11:55.805450+00:00",
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "d40c73c167d4a8ab5b75fa2ad0fd97722c0d885b0944b3c38c0980089cd9abc3",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T16:31:28.410796+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ],
       "proposed_fingerprints": {
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "d40c73c167d4a8ab5b75fa2ad0fd97722c0d885b0944b3c38c0980089cd9abc3",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
@@ -1228,6 +1237,32 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-10T21:30:18.0797576+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/verification/mermaid_render.py",
+            "tests/unit/test_mermaid_render.py",
+            "runs/toolchains/mermaid-render-proofs/11.10.1/1/ef8b6e66fad3c3a87d149945f7d956039a525d4f6aae384a96725a51b05aedcd.json"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "d40c73c167d4a8ab5b75fa2ad0fd97722c0d885b0944b3c38c0980089cd9abc3",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "6f29f1b16e6ecaab30129910700ec57ef92ce12ea19171fe3430f7f2f6d4cff5",
+          "rationale": "Preserve current Note source, facts, composition plan, safety, and review machinery, but replace the causal presentation owner: source-only flowchart validation accepted a visibly stacked diagram. Use a fixed Mermaid block grid and require a pinned official-CLI SVG geometry proof before deterministic promotion. Invalidate only header-visual and downstream candidate stages, cache passing proof by exact source hash, then regenerate the one scoped Note candidate before any other repository.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ]
     },
@@ -1447,7 +1482,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T16:26:27.883959+00:00",
+    "last_evaluated_at": "2026-08-10T16:31:28.411065+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -8989,7 +9024,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 918,
+  "state_version": 919,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
