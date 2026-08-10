@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": null,
+    "active_task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
     "approach_control": {
       "attempts": [
         {
@@ -580,6 +580,14 @@
           "outcome": "ineffective",
           "started_at": "2026-08-10T12:08:35.347736+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "6f29f1b16e6ecaab30129910700ec57ef92ce12ea19171fe3430f7f2f6d4cff5",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T14:20:23.214906+00:00",
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ],
       "proposed_fingerprints": {
@@ -1216,10 +1224,10 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-10T14:50:23.214906+00:00",
+    "claim_id": "e4da695783774997bc009b9372984b21",
+    "claimed_at": "2026-08-10T14:20:23.214906+00:00",
+    "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "c9e38b206f03488398ae1f986346ee335720b09a0708bed82b0d57fa7fe9e150",
@@ -1425,7 +1433,7 @@
     ],
     "graph_sha256": "c9e38b206f03488398ae1f986346ee335720b09a0708bed82b0d57fa7fe9e150",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T14:19:37.485321+00:00",
+    "last_evaluated_at": "2026-08-10T14:20:23.214906+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -1635,7 +1643,7 @@
       "L8-VNET-01-ACCELERATED-LOCAL-NO-OP": "REGRESSED",
       "L8-VNET-02-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "TODO",
+      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "IN_PROGRESS",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
@@ -8927,6 +8935,15 @@
         "reason": "Global Python presentation-contract defects invalidate PDF candidate and later presentation stages; resume after L8-VPY-00-PRESENTATION-CONTRACT-RESET closes.",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-10T14:20:23.215157+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -8936,7 +8953,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 912,
+  "state_version": 913,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
