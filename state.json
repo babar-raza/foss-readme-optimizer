@@ -1638,7 +1638,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T20:14:38.165619+00:00",
+    "last_evaluated_at": "2026-08-10T20:15:16.867323+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
@@ -1828,7 +1828,7 @@
       "L8-VNET-01-ACCELERATED-LOCAL-NO-OP": "REGRESSED",
       "L8-VNET-02-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "VERIFIED",
+      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "SCORED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
@@ -9232,6 +9232,19 @@
         "reason": "Current-HEAD focused regression and independent non-authoring verification pass for the approved Note Python contract.",
         "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/coordinator/approved-mermaid-regression-junit.xml",
+          "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/note-independent-verifier/receipt.json",
+          "runs/share/note-python-review/README.md"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex-coordinator",
+        "occurred_at": "2026-08-10T20:15:16.867337+00:00",
+        "reason": "Acceptance score: all declared contract checks pass; 165/165 focused regressions; independent PASS; canonical AGENT_APPROVED and NO_OP_PROVEN; approved review copy; zero effects.",
+        "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -9241,7 +9254,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 943,
+  "state_version": 944,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
