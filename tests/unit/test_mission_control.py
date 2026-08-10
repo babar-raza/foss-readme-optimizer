@@ -181,6 +181,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-AGILE-AUTHORITY-RESET",
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
         "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH",
         "L8-VPY-03D-NOTE-CURRENT-REFRESH",
@@ -188,6 +189,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
         "L8-VPY-04-PRODUCTION-TRANSPORT",
+        "L8-VPY-05-PRODUCTION-ADMISSION",
         "L8-VNET-02-PRODUCTION-TRANSPORT",
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "L8-HORIZON-01-ACTIVATE-GATE-A",
@@ -198,7 +200,13 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-VPY-01-NOTE-VERIFIED-CANARY"
     ]
     assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+    ]
+    assert tasks["L8-VPY-00-PRESENTATION-CONTRACT-RESET"].dependencies == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+    ]
+    assert tasks["L8-VNET-01-ACCELERATED-LOCAL-NO-OP"].dependencies == [
+        "L8-VPY-05-PRODUCTION-ADMISSION"
     ]
     assert tasks["L8-VPY-03C-PAGE-CURRENT-REFRESH"].dependencies == [
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -300,7 +308,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert first_readme.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert first_readme.next_task is not None
     assert first_readme.next_task.task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY"
-    assert first_readme.next_task.immediate_goal_id == "DELIVERY-PY-NOTE-NATIVE"
+    assert first_readme.next_task.immediate_goal_id == "DELIVERY-PY-CONTRACT-CURRENT"
 
     python_cohort = evaluate_mission(
         graph,
@@ -310,6 +318,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
                     **statuses,
                     "L8-AGILE-AUTHORITY-RESET": "CLOSED",
                     "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "TODO",
+                    "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "TODO",
                     "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
                 }
             }
@@ -352,7 +361,7 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert reopened.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
 
 
-def test_dotnet_local_write_lane_is_concurrent_only_after_transaction_isolation():
+def test_dotnet_remains_ineligible_until_python_production_admission():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     statuses = _all_closed_statuses(graph)
     statuses.update(
@@ -387,10 +396,9 @@ def test_dotnet_local_write_lane_is_concurrent_only_after_transaction_isolation(
         ),
     )
 
-    assert isolated.concurrent_goal_ids == ["GOAL-V0B-POST-PYTHON-SLICES"]
+    assert isolated.concurrent_goal_ids == []
     assert [task.task_id for task in isolated.eligible_tasks] == [
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-        "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
     ]
 
 
@@ -433,7 +441,7 @@ def test_concurrent_lane_cannot_replace_an_admission_blocked_primary_claim():
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="coordinator")
 
     assert evaluation.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
-    assert [task.task_id for task in evaluation.eligible_tasks] == [concurrent_id]
+    assert [task.task_id for task in evaluation.eligible_tasks] == []
     assert evaluation.next_task is None
     assert claimed.mission_execution is not None
     assert claimed.mission_execution.active_task_id is None
@@ -605,6 +613,26 @@ def test_requirement_coverage_source_hash_is_line_ending_independent(tmp_path: P
 
     assert coverage_tool.canonical_text_sha256(lf_path) == coverage_tool.canonical_text_sha256(
         crlf_path
+    )
+
+
+def test_requirement_coverage_preserves_python_contract_and_production_stage_order():
+    coverage_tool = _load_tool_module(
+        "build_level8_requirement_taskcard_coverage_stage_order",
+        "scripts/governance/build_level8_requirement_taskcard_coverage.py",
+    )
+
+    assert coverage_tool.task_stage_goal("L8-VPY-00-PRESENTATION-CONTRACT-RESET") == (
+        "GOAL-V0-VERIFIED-PYTHON-POC",
+        "primary_only",
+    )
+    assert coverage_tool.task_stage_goal("L8-VPY-04-PRODUCTION-TRANSPORT") == (
+        "GOAL-V0B-POST-PYTHON-SLICES",
+        "primary_only",
+    )
+    assert coverage_tool.task_stage_goal("L8-VPY-05-PRODUCTION-ADMISSION") == (
+        "GOAL-V0B-POST-PYTHON-SLICES",
+        "primary_only",
     )
 
 

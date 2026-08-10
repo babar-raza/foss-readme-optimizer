@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import re
 
+from markdown_it import MarkdownIt
+
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
@@ -167,6 +169,41 @@ def lint_semantics(
             )
 
     h2_sections = [heading for heading in parse_headings(text) if heading.level == 2]
+
+    raw_lines = text.splitlines(keepends=True)
+    line_offsets = [0]
+    for raw in raw_lines:
+        line_offsets.append(line_offsets[-1] + len(raw))
+    repeated_blocks: dict[tuple[str, str], list[tuple[int, int]]] = {}
+    for token in MarkdownIt("commonmark").parse(text):
+        if token.map is None or token.type not in {"paragraph_open", "fence"}:
+            continue
+        start_line, end_line = token.map
+        if token.type == "fence":
+            if token.info.strip().casefold() == "mermaid":
+                continue
+            normalized = " ".join(token.content.split()).casefold()
+            kind = "code"
+        else:
+            block = "".join(raw_lines[start_line:end_line])
+            normalized = " ".join(_MARKUP.sub(" ", block).casefold().split())
+            kind = "paragraph"
+        if len(normalized) < 40:
+            continue
+        start = line_offsets[start_line]
+        end = line_offsets[min(end_line, len(line_offsets) - 1)]
+        repeated_blocks.setdefault((kind, normalized), []).append((start, end))
+    for (kind, _normalized), spans in repeated_blocks.items():
+        if len(spans) < 2:
+            continue
+        findings.append(
+            make_finding(
+                "semantic_duplicate",
+                f"The same visitor-facing {kind} block is repeated.",
+                [exact_span(text, start, end) for start, end in spans],
+            )
+        )
+
     bullets: dict[tuple[int, str], list] = {}
     for line in lines:
         if _BULLET_PREFIX.match(line.text) and not _API_SIGNATURE_BULLET.fullmatch(line.text):

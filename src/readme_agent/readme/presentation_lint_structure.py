@@ -7,6 +7,7 @@ import re
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.template_compiler import select_density_profile
 from readme_agent.presentation.template_schema import load_repository_presentation_template
+from readme_agent.readme.code_fence_presentation import inspect_code_fences
 from readme_agent.readme.document_structure import (
     code_blocks_in_span,
     github_anchor,
@@ -30,7 +31,10 @@ from readme_agent.readme.presentation_lint_text import (
 from readme_agent.readme.presentation_report import product_explanation_offset
 
 RULE_IDS = (
+    "collapsed_primary_content",
     "competing_primary_examples",
+    "code_fence_language_missing",
+    "code_fence_spacing",
     "invalid_third_party_notices",
     "malformed_navigation",
     "promotional_imbalance",
@@ -98,6 +102,21 @@ def lint_structure(
     facts: ProductFactsV2 | None = None,
 ) -> list[PresentationLintFindingV1]:
     findings: list[PresentationLintFindingV1] = []
+    line_offsets = [0]
+    for raw in text.splitlines(keepends=True):
+        line_offsets.append(line_offsets[-1] + len(raw))
+    for issue in inspect_code_fences(text):
+        start = line_offsets[min(issue.line_start, len(line_offsets) - 1)]
+        end = line_offsets[min(issue.line_end, len(line_offsets) - 1)]
+        if end <= start:
+            end = min(len(text), start + 1)
+        findings.append(
+            make_finding(
+                issue.rule_id,
+                issue.message,
+                [exact_span(text, start, end)],
+            )
+        )
     headings = parse_headings(text)
     h1 = next((heading for heading in headings if heading.level == 1), None)
     first_h2 = next((heading for heading in headings if heading.level == 2), None)
@@ -158,6 +177,10 @@ def lint_structure(
     contract = load_repository_presentation_template()
     profile = select_density_profile(len(text.splitlines()), template=contract)
     collapsed_slots = set(contract.profiles[profile].collapse_slots)
+    always_visible_headings = {
+        heading_identity(contract.headings[slot])
+        for slot in contract.invariants.always_visible_slots
+    }
     for heading in headings:
         if heading.level != 2:
             continue
@@ -172,6 +195,17 @@ def lint_structure(
             else None
         )
         body = text[heading.heading_end : heading.section_end]
+        if (
+            heading_identity(heading.title) in always_visible_headings
+            and "<details" in body.casefold()
+        ):
+            findings.append(
+                make_finding(
+                    "collapsed_primary_content",
+                    f"{heading.title} is visitor-critical and must remain visible.",
+                    [_heading_span(text, heading.start, heading.heading_end)],
+                )
+            )
         if (
             slot in collapsed_slots
             and sum(bool(line.strip()) for line in body.splitlines()) >= 12

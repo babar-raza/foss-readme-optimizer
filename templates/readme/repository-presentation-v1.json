@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
   "template_id": "repository-presentation",
-  "template_version": "1.16.0",
+  "template_version": "1.17.0",
   "accepted_reference_sha256": "cf0145713dcb862b9818a4823b377fb97920c5df7170f02d132391ab8d52f287",
+  "reference_status": "requires_requalification",
   "section_order": [
     "navigation",
     "at_a_glance",
@@ -52,16 +53,14 @@
       "maximum_source_lines": 420,
       "collapse_slots": [
         "additional_examples",
-        "api_reference",
-        "development_and_testing"
+        "api_reference"
       ]
     },
     "extended": {
       "maximum_source_lines": null,
       "collapse_slots": [
         "additional_examples",
-        "api_reference",
-        "development_and_testing"
+        "api_reference"
       ]
     }
   },
@@ -88,6 +87,15 @@
     "heading_case": "title_case",
     "semantic_section_repetition": "forbidden",
     "source_detail_routing": "canonical_section_only",
+    "source_information_presentation": "verified_semantics_template_tone",
+    "always_visible_slots": [
+      "key_capabilities",
+      "scope_and_limitations",
+      "development_and_testing"
+    ],
+    "code_fence_language": "required",
+    "code_fence_max_consecutive_blank_lines": 1,
+    "mermaid_endpoint_presentation": "uniform_wrapped_width",
     "enterprise_link_anchor": "natural_full_featured_enterprise_edition",
     "public_internal_assurance": "forbidden",
     "additional_examples_intro": "workflow_preview",

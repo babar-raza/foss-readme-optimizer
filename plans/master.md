@@ -64,9 +64,9 @@ Binding current decisions:
   ready tasks, or 25 requirements in one task context. Stable deferred work remains hashed.
 - **#94 — Risk-tiered proof.** Focused proof follows each repair; complete suites and canonical
   evidence occur at declared shared/repository/cohort boundaries.
-- **#95 — Adaptive parallelism.** Calibration and shared repair are serial. After transaction
-  isolation, a Python primary lane may admit one disjoint repository-local .NET lane; workers scale
-  from two to at most three only with exclusive paths and measured throughput proof.
+- **#95 — Adaptive parallelism.** Calibration and shared repair are serial. Python may use two and
+  later at most three disjoint repository workers after transaction isolation, but no non-Python
+  goal or worker is eligible before Python production admission.
 - **#96 — Background certification.** The 30/90-day windows are `OBSERVATION_RUNNING`, not blocked
   delivery tasks.
 - **#97 — Enforced execution focus.** Every visible-delivery task declares one small immediate goal,
@@ -74,9 +74,9 @@ Binding current decisions:
   boundary. A bounded canary must bind to the current durable claim. Two equivalent failures or
   15 minutes without narrowing mechanically reject another equivalent execution until a recorded
   first-principles replan changes the causal approach.
-- **#98 — Evidence-derived Python sequence.** Preserve completed evidence without manufacturing a
-  historical order. The graph stores the stable repository-focus chain; durable evaluation selects
-  its earliest dependency-ready or regressed boundary and never takes the current task from prose.
+- **#98 — Python-first production sequence.** A contract defect reopens only presentation-dependent
+  stages. Note is the current contract reference; the complete Python cohort, human acceptance,
+  transport, and production admission close before any non-Python task becomes eligible.
 - **#99 — Working-condition presentation, generate-verify split.** Every admitted repository gets a
   visible candidate or an evidence-backed blocker. A candidate is not delivered or qualified until
   deterministic validation and independent review both accept it. Unsupported public content is
@@ -85,10 +85,10 @@ Binding current decisions:
   modules and hand-written policy product-truth blocks are transitional and must be retired.
   Deterministic forever: extraction, coordinates/URLs, install/build and example proofs, the
   presentation shape contract, and the hide-and-log policy.
-- **#100 — One reproducible repository transaction.** `readme-agent poc` is the rapid local control
-  lane and `supervise` is the governed production control lane; both must invoke one shared
-  repository transaction for snapshot, facts, assessment, planning, composition, validation,
-  independent review, repair, and evidence. Same-process recomposition proves only
+- **#100 — One reproducible repository transaction.** `supervise` is the sole acceptance and
+  production runtime. `readme-agent poc` is diagnostic unless it routes through that complete
+  transaction and cannot independently issue delivery, approval, or transaction-no-op states.
+  Same-process recomposition proves only
   `RENDER_REPRODUCIBLE`. `TRANSACTION_NO_OP_PROVEN` requires a fresh-process replay of the complete
   transaction with byte-identical artifacts, no new provider work, and no duplicate lifecycle
   effects. Changed component hashes invalidate only dependent stages.
@@ -141,25 +141,35 @@ All READMEs use a consistent professional header, product-specific title and ope
 badge row, list-form navigation, verified installation and examples, a detailed fact-backed semantic
 Mermaid graph, action-led search-oriented capabilities, curated hub APIs, complete applicable documentation,
 user-relevant limitations, maintainer guidance, MIT-license prose when applicable, and a separate
-third-party-notices section with normally styled repository-relative link text. The Mermaid graph
-uses vertically arranged Core capabilities and exactly one product-to-capabilities and one applicable
-capabilities-to-outputs relationship; it never fans out one edge per capability. Additional examples
-preview their named workflows before the disclosure and never publish internal verification state or
-numbered duplicate headings. No comments, emoji, process narration, raw export dumps, duplicate
-sections, or dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
+third-party-notices section with normally styled repository-relative link text. All selected Key
+Capabilities and every material limitation remain visible. Development and Testing remains visible,
+shows representative assets, and ends with a complete-inventory repository link when detail is omitted;
+only additional examples and long API inventories may collapse. Every code fence is language-tagged,
+language-valid, and normalized without repeated empty-line runs. The Mermaid graph uses one compact
+vertical Core column through five capabilities or exactly two balanced, equally spaced vertical columns
+above five, renders uniformly wrapped endpoint boxes, and has exactly one product-to-capabilities and one
+applicable capabilities-to-outputs relationship; it never fans out one edge per capability. Additional
+examples preview their named workflows before the disclosure and never publish internal verification
+state or numbered duplicate headings. No comments, emoji, process narration, raw export dumps, duplicate
+sections, repeated workflows, or dangling fragments are emitted. Aspose.com and Aspose.org links are natural,
 contextual, policy-capped, and selected from governed catalogs; `products.*` destinations have
 priority. Commercial products are called **Enterprise Edition**.
 
-Template structure is reusable but prose and facts remain repository-specific. Dense examples and
-reference material may use accessible collapsible sections. Later style changes create component
-deltas rather than global invalidation.
+Template structure and public tone are reusable but prose and facts remain repository-specific.
+Validated source information maps exactly once to a canonical candidate section, evidence-backed
+correction, or justified omission; source tone and layout are not preservation obligations. Dense
+additional examples and reference material may use accessible collapsible sections. Later style
+changes create component deltas rather than global invalidation.
 
 ### Execution and concurrency
 
 The coordinator owns shared state, plans, integration, commits, and closure. Calibration and shared
-repairs are serial. After transaction/cache/cancellation/aggregation isolation passes, two disjoint
-repository workers may run; a third is admitted only while speedup is at least 1.5x and coordination
-overhead at most 25 percent. Independent verification never authors accepted work.
+repairs are serial. Python is the sole executable platform until its complete dynamic cohort is
+independently approved, fresh-transaction-no-op-proven, human-accepted, transport-qualified, and
+production-admitted. After transaction/cache/cancellation/aggregation isolation passes, two disjoint
+Python repository workers may run; a third is admitted only while speedup is at least 1.5x and
+coordination overhead at most 25 percent. No non-Python concurrent goal or worker is eligible before
+Python production admission. Independent verification never authors accepted work.
 
 ### Small-goal execution and anti-drift
 
@@ -170,18 +180,21 @@ approach budget remains open. Nonblocking discoveries become backlog; they canno
 
 The stable small-goal catalog is:
 
-1. `DELIVERY-PY-PDF-CURRENT` — show current PDF Python plus independent and no-op proof.
-2. `DELIVERY-PY-PAGE-CURRENT` — reconcile and show Page using valid cached receipts.
-3. `DELIVERY-PY-NOTE-CURRENT` — reconcile and show Note without sibling runtime dependence.
-4. `DELIVERY-PY-3D-CURRENT` — reconcile and show Aspose.3D using valid cached receipts.
+1. `DELIVERY-PY-CONTRACT-CURRENT` — correct the global contract and show current Note as the
+   independently accepted reference without preserving source tone.
+2. `DELIVERY-PY-PDF-CURRENT` — reconcile and show PDF under that exact contract.
+3. `DELIVERY-PY-PAGE-CURRENT` — reconcile and show Page under that exact contract.
+4. `DELIVERY-PY-3D-CURRENT` — reconcile and show Aspose.3D under that exact contract.
 5. `DELIVERY-PY-REMAINING-COHORT` — finalize and expose each remaining Python README individually.
-6. `DELIVERY-DOTNET-LOCAL-NO-OP` — qualify all six .NET repositories in a disjoint local lane once
-   transaction isolation permits; Python remains primary.
+6. `DELIVERY-PY-PLATFORM-ACCEPTANCE` — independently reconstruct and obtain explicit human
+   acceptance for the complete current Python denominator.
 7. `DELIVERY-PYTHON-PRODUCTION-TRANSPORT` — prove the complete accepted Python platform through
-   the canonical workflow, disposable staging, and hosted GitHub App transport.
-8. `DELIVERY-DOTNET-PRODUCTION-TRANSPORT` — reuse the Python-proven transport for the complete
-   accepted .NET platform.
-9. `DELIVERY-JAVA-FIRST-CURRENT` — prove the first Java repository before Java cohort expansion.
+   the canonical workflow, `act`, disposable staging, hosted GitHub App transport, and recovery.
+8. `DELIVERY-PYTHON-PRODUCTION-ADMISSION` — admit only the accepted Python cohort to hosted
+   operation and separately authorized draft-PR effects.
+9. `DELIVERY-DOTNET-LOCAL-NO-OP` — qualify .NET only after Python production admission.
+10. `DELIVERY-DOTNET-PRODUCTION-TRANSPORT` — reuse the Python-proven transport for .NET.
+11. `DELIVERY-JAVA-FIRST-CURRENT` — prove the first Java repository after .NET admission.
 
 The exact current goal and repository scope are printed only by mission `status`. Mission
 `evaluate` first reconciles closed-task freshness; if an accepted repository becomes stale and no
@@ -297,6 +310,12 @@ skills, scripts, or caches.
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
 - [ ] Mermaid validation proves semantic topology, not syntax alone, and independent review rejects
   a correct-but-unhelpful document.
+- [ ] Contract validation rejects collapsed selected capabilities, collapsed material limitations,
+  fully collapsed development/testing guidance, untagged or whitespace-corrupt code fences, more
+  than two Core columns, unequal endpoint presentation, semantic block/workflow repetition, and any
+  merged source unit without one non-empty canonical destination.
+- [ ] No non-Python goal is eligible until the complete Python cohort is current, independently
+  accepted, fresh-transaction-no-op-proven, human-accepted, transport-qualified, and production-admitted.
 - [ ] Every product effect is limited to a complete, independently approved, explicitly human-accepted
   platform cohort under fresh what/why/where authorization; platform publication cannot promote
   another platform or satisfy full-registry Gate A/B.

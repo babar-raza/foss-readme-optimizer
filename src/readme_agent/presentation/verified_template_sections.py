@@ -14,6 +14,7 @@ from readme_agent.presentation.verified_template_example_presentation import (
 from readme_agent.presentation.verified_template_golden_workflow import (
     golden_workflow_development,
 )
+from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 from readme_agent.readme.document_structure import heading_identity
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.python_install_target import selected_python_install_target
@@ -266,7 +267,7 @@ def _mcp_workflow_section(
         return None
     code = next(
         (
-            block.strip()
+            normalize_code_snippet(block)
             for block in re.findall(r"```python\n(.*?)```", source_text, re.DOTALL)
             if f"{factory}(" in block and f".{runner}(" in block
         ),
@@ -350,7 +351,7 @@ def additional_examples_markdown(
         )
         used_headings.add(heading_identity(title))
         rendered_titles.append(title)
-        code = strip_source_comments(language, str(item["code"])).strip()
+        code = normalize_code_snippet(strip_source_comments(language, str(item["code"])))
         if not code:
             continue
         body.extend([f"### {title}", "", f"```{language}", code, "```", ""])
@@ -433,7 +434,7 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
         for item in entries:
             if not isinstance(item, dict) or not item.get("command"):
                 continue
-            body.extend(["```bash", str(item["command"]), "```", ""])
+            body.extend(["```bash", normalize_code_snippet(str(item["command"])), "```", ""])
         counts.append(f"{len(entries)} declared Make targets")
     guidance = _accepted(facts, "development.commands")
     guidance_value = (
@@ -445,17 +446,17 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
         for item in guidance_entries:
             if not isinstance(item, dict) or not item.get("command"):
                 continue
-            body.extend(["```bash", str(item["command"]), "```", ""])
+            body.extend(["```bash", normalize_code_snippet(str(item["command"])), "```", ""])
     if golden_workflow is not None:
         label, lines = golden_workflow
         counts.append(label)
         body.extend(lines)
     if not body:
         return None
-    details = _details("View development and testing resources", body)
+    visible_body = "\n".join(body).strip()
     if not counts:
-        return details
-    return "The repository includes " + ", ".join(counts) + ".\n\n" + details
+        return visible_body
+    return "The repository includes " + ", ".join(counts) + ".\n\n" + visible_body
 
 
 def contributing_markdown(facts: ProductFactsV2) -> str | None:

@@ -192,20 +192,13 @@ flowchart LR
   end
   PRODUCT["Aspose.Page FOSS for Python"]
   subgraph Capabilities["Core Capabilities"]
-    direction LR
-    subgraph Col1[" "]
-      C1["Read document structure"]
-    end
-    subgraph Col2[" "]
-      C2["Inspect pages and resources"]
-    end
-    subgraph Col3[" "]
-      C3["Convert supported content"]
-    end
+    direction TB
+    C1["Read document structure"]
+    C2["Inspect pages and resources"]
+    C3["Convert supported content"]
+    C1 ~~~ C2
+    C2 ~~~ C3
   end
-  style Col1 fill:none,stroke:none
-  style Col2 fill:none,stroke:none
-  style Col3 fill:none,stroke:none
   subgraph Outputs["Outputs"]
     O1["Structured page data"]
   end
@@ -280,18 +273,15 @@ def _page_input_for_facts(facts: ProductFactsV2) -> PresentationTemplateInputV1:
     )
 
 
-def test_accepted_note_reference_reconstructs_byte_for_byte() -> None:
+def test_superseded_note_reference_cannot_be_adopted_as_current() -> None:
     markdown = REFERENCE.read_text(encoding="utf-8")
-    template_input = adopt_accepted_reference(
-        markdown,
-        org_repo="aspose-note-foss/Aspose.Note-FOSS-for-Python",
-        source_revision="6d97a522a9ed24708687911f1aabb76e2dea2da7",
-    )
 
-    candidate = compile_repository_presentation(template_input)
-
-    assert candidate == markdown
-    assert validate_repository_presentation(candidate, template_input) == []
+    with pytest.raises(ValueError, match="requires current canonical requalification"):
+        adopt_accepted_reference(
+            markdown,
+            org_repo="aspose-note-foss/Aspose.Note-FOSS-for-Python",
+            source_revision="6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        )
 
 
 def test_compact_page_profile_is_product_specific_and_valid() -> None:
@@ -794,7 +784,7 @@ def test_verified_template_generates_fact_backed_optional_slot_when_source_lacks
 
     api_reference = draft.sections["api_reference"]
     assert api_reference.disposition == "include"
-    assert api_reference.fact_fields == ["api.public_surface"]
+    assert api_reference.fact_fields == ["api.public_surface", "documentation.links"]
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
@@ -831,7 +821,7 @@ def test_verified_template_does_not_defer_optional_slot_from_heading_presence_al
 
     api_reference = draft.sections["api_reference"]
     assert api_reference.disposition == "include"
-    assert api_reference.fact_fields == ["api.public_surface"]
+    assert api_reference.fact_fields == ["api.public_surface", "documentation.links"]
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
@@ -1594,7 +1584,7 @@ def _preserved_density_case(title: str, body: str):
 
 @pytest.mark.parametrize(
     "title",
-    ["Additional examples", "API reference", "Development and testing"],
+    ["Additional examples", "API reference"],
 )
 def test_long_exact_preserved_secondary_slots_use_density_without_losing_lineage(
     title: str,
@@ -1671,6 +1661,24 @@ def test_long_exact_preserved_secondary_slots_use_density_without_losing_lineage
         policy.candidate_byte_start,
         policy.candidate_byte_end,
     )
+
+
+def test_long_exact_preserved_development_slot_remains_visible() -> None:
+    body = "\n".join(f"- Exact repository detail {index}" for index in range(12))
+    source, candidate, _exact, provenance, placements, corrections = _preserved_density_case(
+        "Development and testing", body
+    )
+
+    result = apply_verified_source_density(
+        candidate,
+        source,
+        provenance,
+        placements,
+        corrections,
+    )
+
+    assert "<details>" not in result.candidate
+    assert "Exact repository detail 11" in result.candidate
 
 
 @pytest.mark.parametrize(
@@ -1923,20 +1931,13 @@ flowchart LR
   end
   PRODUCT["AcmePDF Python"]
   subgraph Capabilities["Core Capabilities"]
-    direction LR
-    subgraph Col1[" "]
-      C1["Open PDF pages"]
-    end
-    subgraph Col2[" "]
-      C2["Inspect page content"]
-    end
-    subgraph Col3[" "]
-      C3["Extract text"]
-    end
+    direction TB
+    C1["Open PDF pages"]
+    C2["Inspect page content"]
+    C3["Extract text"]
+    C1 ~~~ C2
+    C2 ~~~ C3
   end
-  style Col1 fill:none,stroke:none
-  style Col2 fill:none,stroke:none
-  style Col3 fill:none,stroke:none
   subgraph Outputs["Outputs"]
     O1["Page text"]
   end
@@ -2101,9 +2102,7 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     assert "Key capability titles must be action-led search phrases" in (
         validate_repository_presentation(invalid_seo_title, template_input)
     )
-    invalid_layout = candidate.replace(
-        '    subgraph Col1[" "]', '    subgraph CapabilityColumn1[" "]'
-    )
+    invalid_layout = candidate.replace("    C1 ~~~ C2\n", "")
     assert "Mermaid capability nodes must use the adaptive column layout" in (
         validate_repository_presentation(invalid_layout, template_input)
     )

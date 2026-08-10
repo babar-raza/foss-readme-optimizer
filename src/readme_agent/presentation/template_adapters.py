@@ -39,6 +39,8 @@ def adopt_accepted_reference(
     """Split accepted bytes into structural slots without promoting their factual assurance."""
 
     contract = template or load_repository_presentation_template()
+    if contract.reference_status != "accepted":
+        raise ValueError("presentation reference requires current canonical requalification")
     source_sha256 = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
     if source_sha256 != contract.accepted_reference_sha256:
         raise ValueError("accepted reference bytes do not match the template provenance hash")

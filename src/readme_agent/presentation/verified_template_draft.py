@@ -35,6 +35,7 @@ from readme_agent.presentation.verified_template_sections import (
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 from readme_agent.readme.document_links import (
     render_contextual_example_markdown,
     render_contextual_relationship_markdown,
@@ -331,7 +332,7 @@ def generated_minimal_example(facts: ProductFactsV2) -> str | None:
         )
         accepted, _modules, _reason = validate_python_example(code, catalog)
         if accepted:
-            return f"```python\n{code.rstrip()}\n```"
+            return f"```python\n{normalize_code_snippet(code)}\n```"
     # Last resort when member inventories are empty (extraction-depth gap):
     # an import-only entry point is still verified-working content.
     canonical_classes = [
@@ -344,7 +345,7 @@ def generated_minimal_example(facts: ProductFactsV2) -> str | None:
         code = f"from {canonical_import} import {', '.join(canonical_classes)}\n"
         accepted, _modules, _reason = validate_python_example(code, catalog)
         if accepted:
-            return f"```python\n{code.rstrip()}\n```"
+            return f"```python\n{normalize_code_snippet(code)}\n```"
     return None
 
 
@@ -356,16 +357,7 @@ def _scope_text(
     paragraphs = (
         [
             _scope_limitations_brief(facts, limitations),
-            "\n".join(
-                [
-                    "<details>",
-                    "<summary>View specific limitations</summary>",
-                    "",
-                    *(f"- {item}" for item in limitations),
-                    "",
-                    "</details>",
-                ]
-            ),
+            "\n".join(f"- {item}" for item in limitations),
         ]
         if limitations
         else []

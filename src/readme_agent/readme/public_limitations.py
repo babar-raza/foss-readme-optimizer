@@ -206,6 +206,7 @@ def _public_limitations(facts: ProductFactsV2) -> list[_PublicLimitation]:
         for phrase, value in sources
         if (phrases := limitation_phrases([value]))
         if is_public_constraint_sentence(phrases[0])
+        or _UNSUPPORTED_FORMAT_OPTIONS_RE.fullmatch(" ".join(phrases[0].split()))
     ]
     if not safe_sources:
         return []

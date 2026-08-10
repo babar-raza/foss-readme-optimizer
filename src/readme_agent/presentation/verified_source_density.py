@@ -23,7 +23,6 @@ from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV
 _DENSITY_SLOTS: tuple[TemplateSlot, ...] = (
     "additional_examples",
     "api_reference",
-    "development_and_testing",
 )
 _DETAILS = re.compile(r"(?i)<details(?:\s|>)")
 _DENSITY_STANDARD = "readme.secondary_detail_density"

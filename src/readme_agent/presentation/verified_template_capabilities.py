@@ -27,9 +27,6 @@ from readme_agent.readme.claim_accountability_implementation_coordinates import 
     implementation_component_coordinates,
 )
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
-from readme_agent.readme.presentation_contract import (
-    PRESENTATION_SECTION_VISIBLE_LINE_LIMITS,
-)
 from readme_agent.readme.presentation_similarity import (
     capability_discriminators,
     semantically_repeats,
@@ -776,20 +773,7 @@ def capability_highlights_markdown(
     bullets = [markdown for markdown, _fact_ids, _coordinates in rows]
     if not bullets:
         return None
-    visible_limit = PRESENTATION_SECTION_VISIBLE_LINE_LIMITS["key_capabilities"]
-    if len(bullets) <= visible_limit:
-        return "\n".join(bullets)
-    folded = "\n".join(
-        [
-            "<details>",
-            "<summary>View additional capabilities</summary>",
-            "",
-            *bullets[visible_limit:],
-            "",
-            "</details>",
-        ]
-    )
-    return "\n".join(bullets[:visible_limit]) + "\n\n" + folded
+    return "\n".join(bullets)
 
 
 def _identity_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> list[str]:

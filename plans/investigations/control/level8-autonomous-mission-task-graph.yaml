@@ -13,8 +13,8 @@ autonomous_execution_contract:
   continuation_consumer: readme-agent supervisor mission controller
   stop_evaluator: mission-aware supervisor task-graph evaluator
   resume_strategy: Reload the same task graph and versioned mission state, reconcile claimed work, and
-    claim the highest-priority dependency-ready task; within platform-scoped work use Python, .NET, Java,
-    C++, TypeScript, Rust, then Go.
+    claim the highest-priority dependency-ready task. Complete Python through production admission before
+    enabling .NET, Java, C++, TypeScript, Rust, or Go.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
   multi_agent_model: adaptive_coordinator_led
@@ -79,13 +79,13 @@ mission_authority:
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: qualify Python completely and prove its reusable workflow, disposable staging,
-    and hosted GitHub App transport first. After repository-transaction isolation is proven, qualify .NET
-    locally in a disjoint concurrent lane; then promote .NET through the same transport before Java, C++,
+  - 'MEDIUM-TERM HORIZON: qualify Python completely, obtain human acceptance, and prove its reusable workflow,
+    act, disposable staging, hosted GitHub App, recovery, authorization, and production-admission path
+    first. Only then qualify .NET locally and promote it through the same transport before Java, C++,
     TypeScript, Rust, and Go. Product effects remain separately human-reviewed and authorized.'
-  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: pin the template-component versions per transaction; finish
-    the dynamic all-Python milestone; prove Python workflow/staging/App transport; qualify the complete
-    .NET cohort concurrently when isolation permits; promote .NET through the same transport; then continue
+  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: correct and freeze the public presentation contract; finish
+    the dynamic all-Python milestone; obtain human acceptance; prove Python workflow/act/staging/App,
+    recovery, authorization, and production admission; only then qualify and transport .NET; continue
     Java and lower-priority platforms without omitting any Gate-A task or repository.'
   - 'LONG-TERM HORIZON: deploy with Level-8-grade controls, then accumulate Level-7 and Level-8 evidence
     in the background without blocking usable output or subsequent repository delivery.'
@@ -184,11 +184,11 @@ mission_authority:
     max_concurrent_verified_lanes: 0
   - goal_id: GOAL-V0A-FIRST-VERIFIED-README
     order: 5
-    summary: Finish the current Aspose.3D FOSS for Python FACTS_READY slice through one complete verified
-      lifecycle before portfolio fan-out.
-    acceptance_boundary: One current Aspose.3D Python README is independently approved, unchanged-no-op-proven,
-      promoted, and independently reconstructed under one frozen contract. This is one verified README,
-      not a platform POC.
+    summary: Correct and freeze the global public presentation contract on Aspose.Note FOSS for Python,
+      then requalify it through one complete verified lifecycle before portfolio fan-out.
+    acceptance_boundary: One current Aspose.Note Python README satisfies the corrected visibility, code,
+      Mermaid, semantic-uniqueness, and source-information contract; it is independently approved, unchanged-no-op-proven,
+      promoted, shown, and independently reconstructed. This is one verified README, not a platform POC.
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
     order: 10
@@ -223,13 +223,13 @@ mission_authority:
     reserved_trusted_lanes: 0
   - goal_id: GOAL-V0B-POST-PYTHON-SLICES
     order: 14
-    summary: Qualify .NET locally beside the Python primary when isolation permits, then prove Python
-      and .NET production transport in platform order before the Java slice.
-    acceptance_boundary: Python and .NET are independently approved, fresh-transaction-no-op-proven, and
-      reproducible through workflow, staging, and hosted App transport without an unauthorized product
-      effect; the following Java slice remains zero-effect and reconstructable.
-    concurrent_when_earlier_primary: true
-    max_concurrent_verified_lanes: 2
+    summary: Obtain complete Python human acceptance and prove Python workflow, act, staging, hosted App,
+      recovery, authorization, and production admission before enabling .NET, then Java.
+    acceptance_boundary: Python is independently approved, fresh-transaction-no-op-proven, human accepted,
+      and production-admitted through the canonical workflow without an unauthorized product effect before
+      .NET becomes eligible. .NET then reuses the proven transport before the zero-effect Java slice.
+    concurrent_when_earlier_primary: false
+    max_concurrent_verified_lanes: 1
   - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
     order: 15
     summary: Discover and reconcile every repository visible from every explicitly authorized source.
@@ -591,8 +591,9 @@ taskcards:
   lane: verified-python-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: Compare the revision-matched Note artifacts during development, classify each material difference,
-    implement only the missing native extraction, selection, composition, semantic-graph, or review behavior,
+  objective: Correct and freeze the global public presentation contract on Note; compare the revision-matched
+    development artifacts, classify each material difference, implement only the missing native extraction,
+    selection, composition, semantic-graph, source-accountability, code-presentation, or review behavior,
     remove the sibling checkout from the execution environment, and requalify Note through the canonical
     verified pipeline using repository, package, example, license, and approved-policy evidence.
   why_it_matters: This produces the best demonstrated reader experience without weakening truth or making
@@ -620,6 +621,15 @@ taskcards:
   - Committed review artifact under plans/investigations/evidence/finalized-repository-readmes-v1/ containing
     the exact finalized README and a compact manifest that hash-binds its complete acceptance inputs
   acceptance_checks:
+  - Key capabilities, material limitations, and representative development/test guidance remain visible;
+    only additional examples and long API inventories may collapse
+  - Every visitor code fence declares its language and has normalized language-valid spacing without repeated
+    empty-line runs
+  - Mermaid uses one compact vertical Core column for at most five items or exactly two balanced columns
+    above five, deterministic endpoint wrapping/common width, and the required product-to-Core-to-output
+    topology
+  - Repeated semantic blocks and workflows fail, and every retained source-information unit has exactly
+    one non-empty canonical candidate destination; the presentation contract, not source prose, owns tone
   - Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked
   - The candidate reaches or exceeds the useful editorial and graph behavior exposed by the comparison
     without copying sibling prose or making Aspose.org a runtime input
@@ -667,9 +677,9 @@ taskcards:
     kind: visible_deliverable
     summary: Deliver the first repository-verified Python README under the accepted presentation contract.
   execution_focus:
-    goal_id: DELIVERY-PY-NOTE-NATIVE
-    immediate_outcome: Show the repository-native independently approved Note Python README with no sibling
-      runtime dependency.
+    goal_id: DELIVERY-PY-CONTRACT-CURRENT
+    immediate_outcome: Show the corrected-contract, repository-native, independently approved Note Python
+      README with no sibling runtime dependency.
     repository_scope:
     - aspose-note-foss/Aspose.Note-FOSS-for-Python
     allowed_change_classes:
@@ -677,12 +687,112 @@ taskcards:
     - factuality
     - presentation
     - safety
-    next_goal_on_success: Finish the current Aspose.3D Python vertical slice without reopening accepted
-      Note facts.
+    next_goal_on_success: Apply the frozen contract to each remaining Python repository through the canonical
+      lifecycle without reopening accepted Note facts.
   requirement_ids: []
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
   campaign_id: CAMP-FIRST-PYTHON-SLICE
+- task_id: L8-VPY-00-PRESENTATION-CONTRACT-RESET
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  title: Correct and freeze the Python public presentation contract on Note
+  source_audit_finding: Current Python candidates hide visitor-critical sections, accept repeated blank
+    lines in code, render unstable Mermaid columns/endpoints, permit semantic repetition, and do not prove
+    where retained source information landed. These global defects must be corrected once before another
+    Python repository or platform can be accepted.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: verified-python-presentation-contract
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Implement the corrected global presentation contract in typed template invariants, renderers,
+    deterministic validators, reviewer criteria, cache dependencies, and source-accountability evidence;
+    regenerate Note through the canonical supervisor and obtain deterministic acceptance, independent
+    review, unchanged transaction no-op, promotion, and human-visible review before resuming PDF or any
+    other repository.
+  why_it_matters: One durable contract repair removes the known global defects without per-repository
+    patches and prevents another platform from inheriting invalid presentation behavior.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - prompts/
+  - templates/readme/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  - non-Python product runtime artifacts
+  dependencies:
+  - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  expected_outputs:
+  - Typed template v1.17 contract and cache invalidation
+  - Deterministic and reviewer controls for visibility, code spacing/language, Mermaid layout, semantic
+    uniqueness, and complete source-information destinations
+  - Refreshed current Note bundle, exact README, independent approval, unchanged no-op, promotion, and
+    checksum manifest
+  acceptance_checks:
+  - Key capabilities, material limitations, and representative development/test guidance are visible;
+    only additional examples and long API inventories may collapse
+  - Every code fence has the correct language and normalized language-valid spacing with no repeated empty-line
+    run
+  - Core uses one compact vertical column for at most five capabilities or exactly two balanced columns
+    above five; endpoints use deterministic wrapping/common width and the required relationship topology
+  - Repeated semantic blocks, examples, or workflows fail validation
+  - Every retained source-information unit maps exactly once to a non-empty canonical candidate destination,
+    correction, or justified omission; the template owns public tone, headings, organization, and formatting
+  - Note passes deterministic and independent acceptance, unchanged transaction no-op, promotion, reconstruction,
+    and visible review under the current contract
+  verification:
+  - Focused template, visibility, code-fence, Mermaid, semantic-uniqueness, and source-accountability
+    tests
+  - Existing public-text, title-case, abbreviation, link, safety, and no-write regressions
+  - Canonical bounded Note supervisor transaction through no-op
+  - Independent non-authoring contract and artifact reconstruction review
+  negative_controls:
+  - Collapsed capabilities, limitations, or representative development guidance fail
+  - Untagged or blank-run code, three-or-more Mermaid columns, unequal endpoint presentation, semantic
+    duplication, empty source target, source-tone obligation, or diagnostic `poc` acceptance fails
+  - Historical Note acceptance cannot satisfy the changed contract
+  regression_checks:
+  - Python repository truth, examples, acquisition, compatibility, and source accountability
+  - template agility and component-level invalidation
+  - independent review, cache, no-op, redaction, allow-list, push blocking, and zero effect
+  evidence_requirements:
+  - Contract delta and test receipt bound to HEAD
+  - Note source, facts, plan, candidate, patch, source dispositions, validations, independent review,
+    repair, no-op, LLM/cache ledger, manifest, and SHA-256 inventory
+  rollback_or_recovery: Reopen only the changed contract component and its dependent presentation stages;
+    preserve immutable source, repository facts, isolated example proof, and unrelated repository evidence.
+  failure_reroute: After two equivalent failures or 15 minutes without material narrowing, record a first-principles
+    causal review and change the owning mechanism before another attempt.
+  closeout_rules:
+  - The corrected contract is executable and current Note is independently approved, no-op-proven, promoted,
+    shown, reconstructed, and zero-effect
+  - PDF and every later task consume the same frozen contract without a per-repository patch
+  goal_ids:
+  - GOAL-README
+  - GOAL-TRUTH
+  core_contribution:
+    kind: visible_deliverable
+    summary: Freeze the corrected global presentation contract on one current verified Python README.
+  execution_focus:
+    goal_id: DELIVERY-PY-CONTRACT-CURRENT
+    immediate_outcome: Show the corrected-contract current Note Python README before resuming PDF.
+    repository_scope:
+    - aspose-note-foss/Aspose.Note-FOSS-for-Python
+    allowed_change_classes:
+    - presentation
+    - shared_code
+    - safety
+    next_goal_on_success: Resume and requalify the current PDF Python README under the frozen contract.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  concurrency_class: primary_only
+  campaign_id: CAMP-PYTHON-PORTFOLIO
 - task_id: L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
@@ -713,7 +823,7 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  - L8-VPY-00-PRESENTATION-CONTRACT-RESET
   expected_outputs:
   - Complete current PDF verified bundle and exact reviewable README
   - Deterministic and independent product-specificity verdict
@@ -1138,12 +1248,12 @@ taskcards:
   lane: verified-dotnet-local-qualification
   owner: readme-agent-supervisor
   status: TODO
-  objective: While Python remains the sole primary goal, use one disjoint .NET repository-local lane to
-    project existing .NET evidence into ProductFactsV2, verify repository-declared NuGet or source-build
-    acquisition, reconcile inherited claims, and advance all six .NET repositories through deterministic
-    acceptance, independent review, renderer reproducibility, and fresh-process transaction no-op.
-  why_it_matters: This overlaps high-value platform qualification with Python closure without allowing
-    the secondary lane to mutate shared authority, aggregate state, or product repositories.
+  objective: After Python production admission, project existing .NET evidence into ProductFactsV2, verify
+    repository-declared NuGet or source-build acquisition, reconcile inherited claims, and advance all
+    six .NET repositories through deterministic acceptance, independent review, renderer reproducibility,
+    and fresh-process transaction no-op.
+  why_it_matters: This adds the next highest-coverage platform only after Python has proved the complete
+    production transaction, preventing shared-contract churn from splitting delivery attention.
   allowed_paths:
   - src/readme_agent/ecosystems/dotnet.py
   - src/readme_agent/ecosystems/dotnet_public_types.py
@@ -1179,7 +1289,7 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  - L8-VPY-05-PRODUCTION-ADMISSION
   expected_outputs:
   - Six repository-specific .NET fact, candidate, deterministic-validation, independent-review, and no-op
     bundles
@@ -1221,11 +1331,10 @@ taskcards:
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Produce the complete .NET local platform cohort while Python retains primary delivery authority.
+    summary: Produce the complete .NET local platform cohort after Python production admission.
   execution_focus:
     goal_id: DELIVERY-DOTNET-LOCAL-NO-OP
-    immediate_outcome: Qualify and expose all .NET READMEs without delaying or mutating the Python primary
-      lane.
+    immediate_outcome: Qualify and expose all .NET READMEs using the production-proven Python contract.
     repository_scope:
     - platform:.NET
     allowed_change_classes:
@@ -1249,10 +1358,11 @@ taskcards:
   lane: verified-python-production-transport
   owner: readme-agent-supervisor
   status: TODO
-  objective: After every Python repository is locally qualified, run the same canonical supervisor through
-    act, disposable staging, and hosted GitHub App transport; prove token isolation, deduplication, recovery,
-    and proposal reconciliation, show the complete Python cohort for human review, and prepare exact separately
-    authorized draft-PR effects without writing a product repository during transport qualification.
+  objective: After every Python repository is locally qualified and shown, obtain recorded human acceptance
+    for the complete cohort, then run the same canonical supervisor through act, disposable staging, and
+    hosted GitHub App transport; prove token isolation, deduplication, recovery, authorization, and proposal
+    reconciliation, and prepare exact separately authorized draft-PR effects without writing a product
+    repository during transport qualification.
   why_it_matters: Python must become the first complete platform that can be safely admitted to production,
     not remain a collection of locally generated files.
   allowed_paths:
@@ -1275,6 +1385,8 @@ taskcards:
     matrix
   - Complete Python human-review package and exact per-repository publication authorization handoffs
   acceptance_checks:
+  - Every dynamically admitted Python README has an explicit human acceptance record bound to its accepted
+    candidate hash
   - The production supervisor is the only workflow runtime
   - Analysis receives no write credential and effect jobs mint short-lived App tokens
   - Default branches remain byte-identical and no unauthorized product effect occurs
@@ -1300,7 +1412,8 @@ taskcards:
   failure_reroute: Classify missing external installation or authorization precisely and continue all
     independent local work; repair every agent-fixable workflow or reconciliation defect.
   closeout_rules:
-  - Python is transport-qualified for separately authorized draft-PR operation
+  - Every Python README is human accepted and Python is transport-qualified for separately authorized
+    draft-PR operation
   - No product effect is inferred from transport qualification
   goal_ids:
   - GOAL-AUTONOMY
@@ -1320,7 +1433,100 @@ taskcards:
     - effect
     - safety
     - mission_state
-    next_goal_on_success: Reuse the proven transport for the already qualified .NET cohort.
+    next_goal_on_success: Admit the human-accepted Python cohort to authorized production operation.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
+- task_id: L8-VPY-05-PRODUCTION-ADMISSION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Admit the complete human-accepted Python platform to production
+  source_audit_finding: Python transport qualification without one authorized hosted transaction, recovery,
+    and ongoing operational proof would still leave the first platform outside the production suite.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-production-admission
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Use only the human-accepted Python candidates and the transport-qualified canonical supervisor
+    to prove authorized draft-proposal operation, lifecycle recovery, deduplication, authorization expiry,
+    health, and reconciliation for the Python cohort; admit Python as the first production platform without
+    merging, marking ready, force-pushing, closing proposals, or writing a default branch.
+  why_it_matters: This is the exact boundary the user requires before attention or execution capacity
+    moves to another ecosystem.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/
+  - tests/
+  - config/authorization/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - unauthorized production target repository remotes
+  - target default branches
+  - non-Python product repositories
+  dependencies:
+  - L8-VPY-04-PRODUCTION-TRANSPORT
+  expected_outputs:
+  - Python production-admission manifest bound to every accepted candidate and authorization
+  - Authorized create, unchanged retry, drift, duplicate-delivery, lost-response, expiry, crash-recovery,
+    and reconciliation receipts
+  - Python production health, backlog, lease, proposal-age, and zero-prohibited-write report
+  acceptance_checks:
+  - Every Python candidate/effect is bound to its human acceptance and fresh what/why/where authorization
+  - Exactly one correct draft proposal state exists per authorized repository/scenario
+  - Analysis, repository inspection, package/example execution, LLM planning, validation, and review receive
+    no target-write credential
+  - Default branches remain byte-identical and no unauthorized, merge, ready, close, release, package,
+    or generated-surface effect occurs
+  - Recovery, deduplication, expiry, reconciliation, health, backlog, and terminal manifests pass independent
+    verification
+  verification:
+  - Hosted Python-only canonical workflow and effect matrix
+  - Fresh-token and analysis/effect isolation proof
+  - Crash, duplicate, lost-response, drift, authorization-expiry, and stale-proposal recovery
+  - Independent production-admission audit and checksum reconstruction
+  negative_controls:
+  - Transport qualification alone cannot satisfy production admission
+  - A renderer no-op, local candidate, staging proposal, or unreviewed candidate cannot authorize an effect
+  - No non-Python task or concurrent goal becomes eligible before this task closes
+  regression_checks:
+  - Complete Python content and no-op evidence
+  - allow-list, authorization, token isolation, push blocking, and default-branch protection
+  - lifecycle recovery, effect deduplication, state migration, redaction, and evidence integrity
+  evidence_requirements:
+  - Per-repository accepted candidate, human acceptance, authorization, proposal/effect, recovery, health,
+    and checksum manifests
+  - Independent audit receipt proving Python production admission and later-platform dependency lock
+  rollback_or_recovery: Reopen the earliest affected Python transport or effect boundary, revoke stale
+    authorization, and preserve every unaffected content-addressed acceptance receipt.
+  failure_reroute: Repair every agent-fixable workflow, state, authorization, or reconciliation defect;
+    record unavailable owner authority or installation as an exact external block without enabling another
+    platform.
+  closeout_rules:
+  - Python is the first complete production-admitted platform through the canonical supervisor
+  - Every prohibited-write, duplicate-effect, false-success, and missing-terminal-manifest count is zero
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Admit the complete human-accepted Python cohort as the first production platform.
+  execution_focus:
+    goal_id: DELIVERY-PYTHON-PRODUCTION-ADMISSION
+    immediate_outcome: Prove authorized, recoverable Python-only production operation before enabling
+      .NET.
+    repository_scope:
+    - platform:Python
+    allowed_change_classes:
+    - workflow
+    - effect
+    - safety
+    - mission_state
+    next_goal_on_success: Qualify the complete .NET cohort under the Python-proven contract and transport.
   requirement_ids: []
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
   concurrency_class: primary_only
@@ -1564,13 +1770,13 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 8346e79ddfa5a1f5e68e38af3ef9494d6139401dad131b8142f3013f6a5a4035
+  sha256: 553f22cb7afd4a09c486aa3ccd3f7d1f7c6f14bb98544dcef3cd07b0a7d017a6
   record_count: 475
   mandatory_requirement_rows: 424
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: f7f33ca99ee8d1fcc4ee2cc7e12868605228c4f7c9d72ac12dbbd535fa6e8f80
+  sha256: e1561c2473865b5240c391840ce4c13b602b55d94d687b295a86d7dc0745a5b8
   record_count: 475
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl

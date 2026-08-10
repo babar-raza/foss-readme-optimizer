@@ -2,39 +2,26 @@
 
 from __future__ import annotations
 
-import math
 import re
 from itertools import pairwise
 from typing import TypeVar
 
 from readme_agent.readme.header_visual_models import MermaidNodeV1
-from readme_agent.readme.presentation_contract import (
-    PRESENTATION_MERMAID_MAX_COLUMN_NODES,
-)
 
-CAPABILITY_COLUMN_MAX = 3
+CAPABILITY_COLUMN_THRESHOLD = 5
 _T = TypeVar("_T")
 _LABELED_NODE = re.compile(r'\["[^"]*"\]')
 
 
 def split_capability_columns(items: list[_T]) -> tuple[tuple[_T, ...], ...]:
-    """Return balanced reading-order columns: ceil(n/3) rows, at most four per column."""
+    """Return one compact vertical column through five items, otherwise two balanced columns."""
 
     if not items:
         return (tuple(items),)
-    rows = min(
-        math.ceil(len(items) / CAPABILITY_COLUMN_MAX),
-        PRESENTATION_MERMAID_MAX_COLUMN_NODES,
-    )
-    count = math.ceil(len(items) / rows)
-    base, extra = divmod(len(items), count)
-    columns: list[tuple[_T, ...]] = []
-    start = 0
-    for index in range(count):
-        size = base + (1 if index < extra else 0)
-        columns.append(tuple(items[start : start + size]))
-        start += size
-    return tuple(columns)
+    if len(items) <= CAPABILITY_COLUMN_THRESHOLD:
+        return (tuple(items),)
+    split = (len(items) + 1) // 2
+    return (tuple(items[:split]), tuple(items[split:]))
 
 
 def capability_layout_edges(node_ids: list[str]) -> list[tuple[str, str]]:
@@ -44,8 +31,10 @@ def capability_layout_edges(node_ids: list[str]) -> list[tuple[str, str]]:
     return [edge for column in columns for edge in pairwise(column)]
 
 
-def _chained_node_line(nodes: tuple[MermaidNodeV1, ...], indent: str) -> str:
-    return indent + " ~~~ ".join(f'{node.node_id}["{node.label}"]' for node in nodes)
+def _column_lines(nodes: tuple[MermaidNodeV1, ...], indent: str) -> list[str]:
+    lines = [f'{indent}{node.node_id}["{node.label}"]' for node in nodes]
+    lines.extend(f"{indent}{left.node_id} ~~~ {right.node_id}" for left, right in pairwise(nodes))
+    return lines
 
 
 def render_capability_group(nodes: list[MermaidNodeV1]) -> list[str]:
@@ -55,12 +44,12 @@ def render_capability_group(nodes: list[MermaidNodeV1]) -> list[str]:
     lines = ['  subgraph Capabilities["Core Capabilities"]']
     if len(columns) == 1:
         lines.append("    direction TB")
-        lines.append(_chained_node_line(columns[0], "    "))
+        lines.extend(_column_lines(columns[0], "    "))
     else:
         lines.append("    direction LR")
         for index, column in enumerate(columns, start=1):
             lines.append(f'    subgraph Col{index}[" "]')
-            lines.append(_chained_node_line(column, "      "))
+            lines.extend(_column_lines(column, "      "))
             lines.append("    end")
     lines.append("  end")
     if len(columns) > 1:
@@ -115,12 +104,14 @@ def _expected_structure(node_ids: list[str]) -> list[str]:
     lines = ['  subgraph Capabilities["Core Capabilities"]']
     if len(columns) == 1:
         lines.append("    direction TB")
-        lines.append("    " + " ~~~ ".join(f'{node_id}["x"]' for node_id in columns[0]))
+        lines.extend(f'    {node_id}["x"]' for node_id in columns[0])
+        lines.extend(f"    {left} ~~~ {right}" for left, right in pairwise(columns[0]))
     else:
         lines.append("    direction LR")
         for index, column in enumerate(columns, start=1):
             lines.append(f'    subgraph Col{index}[" "]')
-            lines.append("      " + " ~~~ ".join(f'{node_id}["x"]' for node_id in column))
+            lines.extend(f'      {node_id}["x"]' for node_id in column)
+            lines.extend(f"      {left} ~~~ {right}" for left, right in pairwise(column))
             lines.append("    end")
     lines.append("  end")
     return lines

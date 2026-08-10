@@ -72,6 +72,11 @@ class TemplateInvariantsV1(_StrictModel):
     heading_case: Literal["title_case"]
     semantic_section_repetition: Literal["forbidden"]
     source_detail_routing: Literal["canonical_section_only"]
+    source_information_presentation: Literal["verified_semantics_template_tone"]
+    always_visible_slots: list[TemplateSlot]
+    code_fence_language: Literal["required"]
+    code_fence_max_consecutive_blank_lines: Literal[1]
+    mermaid_endpoint_presentation: Literal["uniform_wrapped_width"]
     enterprise_link_anchor: Literal["natural_full_featured_enterprise_edition"]
     public_internal_assurance: Literal["forbidden"]
     additional_examples_intro: Literal["workflow_preview"]
@@ -99,12 +104,27 @@ class TemplateInvariantsV1(_StrictModel):
             )
         return value
 
+    @field_validator("always_visible_slots")
+    @classmethod
+    def _complete_visible_slots(cls, value: list[TemplateSlot]) -> list[TemplateSlot]:
+        required = {
+            "key_capabilities",
+            "scope_and_limitations",
+            "development_and_testing",
+        }
+        if set(value) != required:
+            raise ValueError(
+                "always-visible slots must contain capabilities, limitations, and development"
+            )
+        return value
+
 
 class RepositoryPresentationTemplateV1(_StrictModel):
     schema_version: Literal[1] = 1
     template_id: Literal["repository-presentation"]
     template_version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
     accepted_reference_sha256: str
+    reference_status: Literal["accepted", "requires_requalification"]
     section_order: list[TemplateSlot]
     headings: dict[TemplateSlot, str]
     required_slots: list[TemplateSlot]
@@ -139,6 +159,9 @@ class RepositoryPresentationTemplateV1(_StrictModel):
             raise ValueError("template profile line ceilings must end with unbounded extended")
         if limits[0] >= limits[1]:
             raise ValueError("compact source-line ceiling must precede standard")
+        for profile in self.profiles.values():
+            if set(profile.collapse_slots) & set(self.invariants.always_visible_slots):
+                raise ValueError("always-visible slots cannot be configured as collapsible")
         return self
 
 

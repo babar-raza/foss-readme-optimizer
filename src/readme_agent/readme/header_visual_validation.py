@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import itertools
 import re
 
 from markdown_it import MarkdownIt
@@ -19,6 +18,7 @@ from readme_agent.readme.header_visual_layout import (
 )
 from readme_agent.readme.header_visual_mermaid import (
     compact_diagram_node_label,
+    endpoint_mermaid_label,
     raster_output_formats_label,
 )
 from readme_agent.readme.header_visual_models import (
@@ -28,14 +28,14 @@ from readme_agent.readme.header_visual_models import (
 )
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MAX_BLOCK_LINES,
-    PRESENTATION_MERMAID_MAX_COLUMN_NODES,
     PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
 )
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _ROOT_LINE = re.compile(r'^\s{2}(PRODUCT)\["([^"]+)"\]$')
 _GROUP_LINE = re.compile(r'^\s{2}subgraph (Inputs|Capabilities|Outputs)\["([^"]+)"\]$')
-_NODE_CHAIN_LINE = re.compile(r'^\s{4,6}[ICO]\d+\["[^"]+"\](?: ~~~ [ICO]\d+\["[^"]+"\])*$')
+_NODE_LINE = re.compile(r'^\s{4,6}([ICO]\d+)\["([^"]+)"\]$')
+_LAYOUT_EDGE_LINE = re.compile(r"^\s{4,6}([ICO]\d+) ~~~ ([ICO]\d+)$")
 _NODE_ITEM = re.compile(r'([ICO]\d+)\["([^"]+)"\]')
 _EDGE_LINE = re.compile(r"^\s{2}([A-Za-z][A-Za-z0-9]*) --- ([A-Za-z][A-Za-z0-9]*)$")
 
@@ -65,14 +65,13 @@ def validate_readme_header_visual(
     group_lines = [
         match for line in lines[1:] if (match := _GROUP_LINE.fullmatch(line)) is not None
     ]
-    node_chain_lines = [line for line in lines[1:] if _NODE_CHAIN_LINE.fullmatch(line)]
-    node_items = [item for line in node_chain_lines for item in _NODE_ITEM.findall(line)]
+    node_lines = [line for line in lines[1:] if _NODE_LINE.fullmatch(line)]
+    node_items = [item for line in node_lines for item in _NODE_ITEM.findall(line)]
     edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
     parsed_layout_edges = [
-        (left, right)
-        for line in node_chain_lines
-        if " ~~~ " in line
-        for left, right in itertools.pairwise(match.group(1) for match in _NODE_ITEM.finditer(line))
+        (match.group(1), match.group(2))
+        for line in lines[1:]
+        if (match := _LAYOUT_EDGE_LINE.fullmatch(line)) is not None
     ]
     parsed_edges = {(match.group(1), match.group(2)) for match in edge_lines}
     input_ids = {node.node_id for node in visual.diagram_nodes if node.role == "input"}
@@ -107,9 +106,10 @@ def validate_readme_header_visual(
     checks["capability_layout_adaptive"] = adaptive_layout_valid
     checks["capability_layout_vertical"] = adaptive_layout_valid
     checks["mermaid_block_compact"] = len(lines) <= PRESENTATION_MERMAID_MAX_BLOCK_LINES
-    checks["capability_columns_short"] = all(
-        len(column) <= PRESENTATION_MERMAID_MAX_COLUMN_NODES
-        for column in split_capability_columns(capability_ids)
+    capability_columns = split_capability_columns(capability_ids)
+    checks["capability_columns_balanced"] = (
+        len(capability_columns) == (1 if len(capability_ids) <= 5 else 2)
+        and max(map(len, capability_columns)) - min(map(len, capability_columns)) <= 1
     )
     checks["labels_compact"] = all(
         len(node.label) <= PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS
@@ -167,7 +167,12 @@ def validate_readme_header_visual(
             f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
             in visual.mermaid_source
             and all(
-                f'{node.node_id}["{node.label}"]' in visual.mermaid_source
+                (
+                    f'{node.node_id}["{endpoint_mermaid_label(node.label)}"]'
+                    if node.role in {"input", "output"}
+                    else f'{node.node_id}["{node.label}"]'
+                )
+                in visual.mermaid_source
                 for node in visual.diagram_nodes[1:]
             )
         )

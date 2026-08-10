@@ -2974,7 +2974,7 @@
       "id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
       "destination": "active_graph",
       "source_task_sha256": "ffbb5ad23d75ddd69264295604b40db804e1c1ee4dd44f54c21ad92d5bca4bee",
-      "destination_task_sha256": "4ac7efbec738249761f22a93be87bbfd8d5eba8a5593137fc86cd8090f2fc839",
+      "destination_task_sha256": "65f7cef4cfdd769690ae1efc8a126c32f0ee2ff4b8be2ef183f7610f158c02ed",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -2992,6 +2992,24 @@
           ]
         },
         {
+          "field": "execution_focus",
+          "before": null,
+          "after": {
+            "goal_id": "DELIVERY-PY-3D-FIRST-CURRENT",
+            "immediate_outcome": "Show the current independently approved Aspose.3D Python README before portfolio fan-out.",
+            "repository_scope": [
+              "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+            ],
+            "allowed_change_classes": [
+              "repository_runtime",
+              "factuality",
+              "presentation",
+              "safety"
+            ],
+            "next_goal_on_success": "Requalify the next dependency-ready Python repository under the same frozen contract."
+          }
+        },
+        {
           "field": "stage_goal_id",
           "before": "GOAL-V0A-FIRST-VERIFIED-README",
           "after": "GOAL-V0-VERIFIED-PYTHON-POC"
@@ -3002,7 +3020,7 @@
       "id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
       "destination": "active_graph",
       "source_task_sha256": "e7ae8d559b0d1e162394a329705fb637de2884d1202fd073fc9dc7398e290263",
-      "destination_task_sha256": "17398f5c0bb1bc6e8dd4499ba4d35b28bba87677f15557d54299183ac7ff86c2",
+      "destination_task_sha256": "917dee475ba9fa7573903f058a32b9c5f057ca4f63ad906700844a2e0f97b1a2",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3013,6 +3031,10 @@
             "An identical run performs no unnecessary LLM call and produces no patch or duplicate lifecycle event"
           ],
           "after": [
+            "Key capabilities, material limitations, and representative development/test guidance remain visible; only additional examples and long API inventories may collapse",
+            "Every visitor code fence declares its language and has normalized language-valid spacing without repeated empty-line runs",
+            "Mermaid uses one compact vertical Core column for at most five items or exactly two balanced columns above five, deterministic endpoint wrapping/common width, and the required product-to-Core-to-output topology",
+            "Repeated semantic blocks and workflows fail, and every retained source-information unit has exactly one non-empty canonical candidate destination; the presentation contract, not source prose, owns tone",
             "Every material final claim is repository-verified, policy-owned, corrected, omitted, or visibly blocked",
             "The candidate reaches or exceeds the useful editorial and graph behavior exposed by the comparison without copying sibling prose or making Aspose.org a runtime input",
             "An acceptance rerun with the sibling checkout unavailable produces the same candidate and evidence",
@@ -3058,6 +3080,24 @@
           ]
         },
         {
+          "field": "execution_focus",
+          "before": null,
+          "after": {
+            "goal_id": "DELIVERY-PY-CONTRACT-CURRENT",
+            "immediate_outcome": "Show the corrected-contract, repository-native, independently approved Note Python README with no sibling runtime dependency.",
+            "repository_scope": [
+              "aspose-note-foss/Aspose.Note-FOSS-for-Python"
+            ],
+            "allowed_change_classes": [
+              "repository_runtime",
+              "factuality",
+              "presentation",
+              "safety"
+            ],
+            "next_goal_on_success": "Apply the frozen contract to each remaining Python repository through the canonical lifecycle without reopening accepted Note facts."
+          }
+        },
+        {
           "field": "expected_outputs",
           "before": [
             "ProductFactsV2 and complete inherited/final claim accountability",
@@ -3087,7 +3127,7 @@
         {
           "field": "objective",
           "before": "Rebuild Aspose.Note FOSS for Python through the canonical verified pipeline using repository, package, example, license, and approved-policy evidence while preserving the accepted presentation.",
-          "after": "Compare the revision-matched Note artifacts during development, classify each material difference, implement only the missing native extraction, selection, composition, semantic-graph, or review behavior, remove the sibling checkout from the execution environment, and requalify Note through the canonical verified pipeline using repository, package, example, license, and approved-policy evidence."
+          "after": "Correct and freeze the global public presentation contract on Note; compare the revision-matched development artifacts, classify each material difference, implement only the missing native extraction, selection, composition, semantic-graph, source-accountability, code-presentation, or review behavior, remove the sibling checkout from the execution environment, and requalify Note through the canonical verified pipeline using repository, package, example, license, and approved-policy evidence."
         },
         {
           "field": "parent_task_id",
@@ -3138,7 +3178,7 @@
       "id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
       "destination": "active_graph",
       "source_task_sha256": "13b636a5c7d8b8d6357617056fda071d9b120c2c82da6b615eecf9db6f34280f",
-      "destination_task_sha256": "56df2f8e760f49a83790608b45f05c7d121f5f2fcb99eaa3a64561bd69b10525",
+      "destination_task_sha256": "a8d22a8c8b84417ee871816552eee89ce49f7d13ead3782e8a32d0add43c1891",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3157,9 +3197,89 @@
           ]
         },
         {
+          "field": "closeout_rules",
+          "before": [
+            "The selected .NET and Java repositories are repository-verified, independently approved, no-op-proven, measured, coherent, zero-effect, and product-specific after Python closure"
+          ],
+          "after": [
+            "The selected Java repository is repository-verified, independently approved, no-op-proven, measured, coherent, zero-effect, and product-specific after Python and .NET transport qualification"
+          ]
+        },
+        {
+          "field": "core_contribution",
+          "before": {
+            "kind": "visible_deliverable",
+            "summary": "Prove current .NET and Java reuse after the complete Python platform POC."
+          },
+          "after": {
+            "kind": "visible_deliverable",
+            "summary": "Prove current Java reuse after Python and .NET production-transport qualification."
+          }
+        },
+        {
+          "field": "dependencies",
+          "before": [
+            "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+          ],
+          "after": [
+            "L8-VNET-02-PRODUCTION-TRANSPORT"
+          ]
+        },
+        {
+          "field": "execution_focus",
+          "before": null,
+          "after": {
+            "goal_id": "DELIVERY-JAVA-FIRST-CURRENT",
+            "immediate_outcome": "Show one current independently approved Java README before Java cohort expansion.",
+            "repository_scope": [
+              "platform:Java"
+            ],
+            "allowed_change_classes": [
+              "repository_runtime",
+              "factuality",
+              "presentation",
+              "safety"
+            ],
+            "next_goal_on_success": "Activate the next bounded verified Gate-A portfolio horizon."
+          }
+        },
+        {
+          "field": "expected_outputs",
+          "before": [
+            "Complete verified .NET and Java bundles",
+            "Python-to-.NET/Java structural-consistency, product-specificity, cache, risk, LLM, and throughput scoreboard",
+            "Direct committed README review paths for the selected .NET and Java repositories"
+          ],
+          "after": [
+            "Complete verified Java representative bundle",
+            "Python/.NET-to-Java structural-consistency, product-specificity, cache, risk, LLM, and throughput scoreboard",
+            "Direct committed README review paths for the selected .NET and Java repositories"
+          ]
+        },
+        {
+          "field": "objective",
+          "before": "After the complete Python platform POC, run the readiness-selected .NET and Java repositories through the frozen verified lifecycle from immutable source facts to unchanged no-op, repair shared defects once, and preserve valid Python evidence.",
+          "after": "After Python and .NET transport qualification, run the readiness-selected Java repository through the frozen verified lifecycle from immutable source facts to unchanged no-op, repair shared defects once, and preserve valid Python and .NET evidence."
+        },
+        {
           "field": "parent_task_id",
           "before": "L8-LOCAL-FULL-REGISTRY-GATE-A",
           "after": null
+        },
+        {
+          "field": "source_audit_finding",
+          "before": "Cross-platform proof remains mandatory, but scheduling it before one complete repository and the first complete platform delayed visible delivery and did not produce a POC.",
+          "after": "Java remains the next platform after Python and .NET production transport; its representative must expose cross-platform defects before Java cohort expansion."
+        },
+        {
+          "field": "title",
+          "before": "Prove post-Python .NET and Java verified vertical slices",
+          "after": "Prove the first current Java verified vertical slice"
+        },
+        {
+          "field": "why_it_matters",
+          "before": "These slices expose cross-platform defects before remaining-portfolio fan-out without delaying the first visible deliverable or the first complete platform.",
+          "after": "The Java slice exposes the next ecosystem boundary without reopening or delaying the two already qualified platforms."
         }
       ]
     },
@@ -3167,15 +3287,127 @@
       "id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
       "destination": "active_graph",
       "source_task_sha256": "3fa93ba7a020b4f26d1e46a43fe96874d0baf966cdd867721a8486f9637c0b4c",
-      "destination_task_sha256": "3fa93ba7a020b4f26d1e46a43fe96874d0baf966cdd867721a8486f9637c0b4c",
-      "transformation": "preserved_exactly",
-      "changed_fields": []
+      "destination_task_sha256": "bb5f3baa87605ab0ff14a2f95cc0e2cd7258443fbcbd9870b38e376fb6b2d31a",
+      "transformation": "resequenced_active_horizon",
+      "changed_fields": [
+        {
+          "field": "acceptance_checks",
+          "before": [
+            "Both repositories use the frozen structure without copied product prose",
+            "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+            "Both candidates pass deterministic gates and independent non-authoring review",
+            "Both unchanged reruns are byte-identical and make zero provider calls and effects"
+          ],
+          "after": [
+            "PDF uses the frozen structure without copied product prose",
+            "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+            "The PDF candidate passes deterministic gates and independent non-authoring review",
+            "The unchanged PDF rerun is byte-identical and makes zero provider calls and effects",
+            "The exact PDF README path is reported before a broad suite or another repository begins"
+          ]
+        },
+        {
+          "field": "closeout_rules",
+          "before": [
+            "Page and PDF are independently approved, unchanged-no-op-proven, zero-effect, and product-specific"
+          ],
+          "after": [
+            "PDF is independently approved, unchanged-no-op-proven, zero-effect, promoted, and product-specific"
+          ]
+        },
+        {
+          "field": "core_contribution",
+          "before": {
+            "kind": "visible_deliverable",
+            "summary": "Establish the explicit Page/PDF Python boundary before full Python fan-out."
+          },
+          "after": {
+            "kind": "visible_deliverable",
+            "summary": "Deliver the current PDF Python README before any further Python fan-out."
+          }
+        },
+        {
+          "field": "dependencies",
+          "before": [
+            "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
+          ],
+          "after": [
+            "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+          ]
+        },
+        {
+          "field": "execution_focus",
+          "before": null,
+          "after": {
+            "goal_id": "DELIVERY-PY-PDF-CURRENT",
+            "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
+            "repository_scope": [
+              "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+            ],
+            "allowed_change_classes": [
+              "repository_runtime",
+              "factuality",
+              "presentation",
+              "safety"
+            ],
+            "next_goal_on_success": "Reconcile the already-generated Page Python artifact against the same current contract."
+          }
+        },
+        {
+          "field": "expected_outputs",
+          "before": [
+            "Complete verified Page and PDF bundles",
+            "Side-by-side product-specificity and template-conformance verdict",
+            "Unchanged zero-provider-call and zero-effect no-op receipts"
+          ],
+          "after": [
+            "Complete current PDF verified bundle and exact reviewable README",
+            "Deterministic and independent product-specificity verdict",
+            "Unchanged zero-provider-call and zero-effect no-op receipt"
+          ]
+        },
+        {
+          "field": "objective",
+          "before": "Run Aspose.Page FOSS for Python and Aspose.PDF FOSS for Python through immutable facts, composition, deterministic validation, independent review, targeted repair, and unchanged no-op under the frozen campaign contract.",
+          "after": "Resume Aspose.PDF FOSS for Python from its last valid content-addressed boundary, make only factuality, safety, or acceptance-blocking repairs, then produce, independently approve, show, promote, and unchanged-no-op-prove the current README before any broad regression or unrelated hardening."
+        },
+        {
+          "field": "source_audit_finding",
+          "before": "The compatibility ID L8-VPY-02 now exclusively owns .NET and Java slices; Page and PDF require their own unambiguous Python boundary before cohort fan-out.",
+          "after": "Page already has a current accepted candidate, while PDF remains the first unfinished boundary. Keeping both in one active task allowed PDF defects to expand into open-ended shared hardening."
+        },
+        {
+          "field": "title",
+          "before": "Prove Page and PDF Python under the frozen verified contract",
+          "after": "Finish the current PDF Python verified README"
+        },
+        {
+          "field": "verification",
+          "before": [
+            "Per-repository deterministic and independent validation",
+            "side-by-side conformance review",
+            "unchanged no-op and cache reconstruction",
+            "checksum inventory"
+          ],
+          "after": [
+            "PDF deterministic and independent validation",
+            "focused PDF conformance and public-text review",
+            "unchanged no-op and cache reconstruction",
+            "checksum inventory"
+          ]
+        },
+        {
+          "field": "why_it_matters",
+          "before": "These repositories prove compact and standard density adaptation before the remaining Python cohort without overloading the cross-platform compatibility task.",
+          "after": "PDF is the current first failing boundary and the shortest path to the next visible verified README. Closing it separately prevents Page or general machinery from hiding its delivery state."
+        }
+      ]
     },
     {
       "id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
       "destination": "active_graph",
       "source_task_sha256": "c8dd4631c8391402dd0a024ac8df0df900e4f748c012346aedf65cee55eb457d",
-      "destination_task_sha256": "5214ddd6c274eefcfe813d4effd03b6a10b3990c06ab7a1e422f94faa54f3122",
+      "destination_task_sha256": "1b6b99d465d493c894e02f4631bc0b365f9d9be0550e9375bf1082945a71884c",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3194,6 +3426,34 @@
             "One supervisor owns state; after the comparative Note lifecycle, sibling-isolation, recovery, cache, promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation",
             "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
           ]
+        },
+        {
+          "field": "dependencies",
+          "before": [
+            "L8-VPY-01-NOTE-VERIFIED-CANARY",
+            "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+          ],
+          "after": [
+            "L8-VPY-03E-3D-CURRENT-REFRESH"
+          ]
+        },
+        {
+          "field": "execution_focus",
+          "before": null,
+          "after": {
+            "goal_id": "DELIVERY-PY-REMAINING-COHORT",
+            "immediate_outcome": "Finalize each remaining Python repository one at a time and expose each accepted README immediately.",
+            "repository_scope": [
+              "platform:Python"
+            ],
+            "allowed_change_classes": [
+              "repository_runtime",
+              "factuality",
+              "presentation",
+              "safety"
+            ],
+            "next_goal_on_success": "Prove the first post-Python .NET vertical slice."
+          }
         },
         {
           "field": "parent_task_id",
@@ -4189,46 +4449,58 @@
   ],
   "new_tasks": [
     {
-      "id": "L8-HORIZON-01-ACTIVATE-GATE-A",
+      "id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
       "destination": "active_graph",
-      "destination_task_sha256": "79e72cadd4d69ba4551a1878ce8a04b942c3d7cd0e2fdc57c960ecb324b78a04",
+      "destination_task_sha256": "aa2637e05f9daa3bab9a9e477e7bc4c3ed7fbefa1515ea9bfbcaca25a9f850d7",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
       "destination": "active_graph",
       "destination_task_sha256": "26ad58b8969dc0ef1aea7516bc67859dce7884f28fe0563cf853d59a72af1d22",
-      "reason": "separate Page delivery focus prevents combined repository work from hiding current acceptance"
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
       "destination": "active_graph",
       "destination_task_sha256": "47dfed27902ef76cda23adda584a6a3edd30f15e409da4f58e42c8667c93910b",
-      "reason": "separate Note delivery focus preserves cached proof while making current reconciliation explicit"
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03E-3D-CURRENT-REFRESH",
       "destination": "active_graph",
       "destination_task_sha256": "55f71e3e4b18fc75f4c9c4d734351064deb60c88709b7845510cda50ea29e740",
-      "reason": "separate Aspose.3D delivery focus closes the reference cohort before remaining Python fan-out"
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
       "destination": "active_graph",
-      "destination_task_sha256": "be30db751cb3d246b0eb49b91def95fe23ff0535376c02ff7109e91be23938fa",
-      "reason": "admit one repository-isolated .NET local qualification lane after transaction isolation"
+      "destination_task_sha256": "73125ed2043b4f3dfe5a492250bfb51865ca18c31a59a1ec390c910fb500333d",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-04-PRODUCTION-TRANSPORT",
       "destination": "active_graph",
-      "destination_task_sha256": "19577cccffb0c34cc17118fc9ec0050349f12bbd231310032724559d40279b7a",
-      "reason": "make Python the first platform proven through canonical workflow, staging, and App transport"
+      "destination_task_sha256": "2da7f47d7424ab1819061753030600c95769b8a2042bf76177d714d1794b1061",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
+      "id": "L8-VPY-05-PRODUCTION-ADMISSION",
+      "destination": "active_graph",
+      "destination_task_sha256": "734b541933e8d13e24eb6b05153cec0d5139c7526d160c2d29ac325a06b49aa5",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VNET-02-PRODUCTION-TRANSPORT",
       "destination": "active_graph",
       "destination_task_sha256": "143ae4e361c619a882cc7c84e00bbb192f631d965e0261b07b50584bd70d549c",
-      "reason": "reuse the Python-proven transport for the complete accepted .NET platform"
+      "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
+      "id": "L8-HORIZON-01-ACTIVATE-GATE-A",
+      "destination": "active_graph",
+      "destination_task_sha256": "79e72cadd4d69ba4551a1878ce8a04b942c3d7cd0e2fdc57c960ecb324b78a04",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
     }
   ]
 }

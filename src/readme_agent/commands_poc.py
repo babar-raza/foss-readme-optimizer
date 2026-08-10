@@ -1,9 +1,8 @@
-"""Straight-line local POC runner (POC-FREEZE.md): compose, validate, review, prove no-op.
+"""Generate diagnostic portfolio candidates without acceptance or effect authority.
 
-This runner deliberately composes lower-level tested functions and never imports
-the mission graph, durable claims, execution guard, approach budgets, canaries,
-or campaign/trusted-cohort machinery. Its only required outputs are files under
-``runs/share/poc/<org__repo>/`` plus the facts cache bundle it reuses.
+This compatibility runner deliberately bypasses the mission graph, durable lifecycle,
+recovery, and complete supervisor transaction. Its files under ``runs/share/poc`` are
+review aids only and cannot claim delivery, independent approval, or transaction no-op.
 """
 
 from __future__ import annotations
@@ -273,6 +272,11 @@ def _disposition_acceptance(ledger: dict) -> tuple[bool, list[str]]:
             and not item["reason"].strip()
         ):
             errors.append(f"dropped unit without reason: {item['unit']}")
+        if (
+            item["disposition"] in {"VERIFIED_MERGED", "SUPERSEDED"}
+            and not str(item.get("target") or "").strip()
+        ):
+            errors.append(f"retained unit without candidate destination: {item['unit']}")
     share = ledger["summary"]["dropped_share"]
     if share > _DROPPED_SHARE_LIMIT and errors:
         errors.append(f"dropped share {share} exceeds {_DROPPED_SHARE_LIMIT} without reasons")
@@ -483,10 +487,10 @@ def run_poc_for_repo(org_repo: str) -> int:
         noop_summary = current_llm_accounting_summary()
         noop = {
             "verdict": (
-                "NO_OP_PROVEN"
+                "RENDER_REPRODUCIBLE"
                 if recomposed["final_text"] == render["final_text"]
                 and noop_summary.provider_call_count == 0
-                else "NO_OP_FAILED"
+                else "RENDER_REPRODUCIBILITY_FAILED"
             ),
             "candidate_sha256": _sha256(render["final_text"]),
             "recomposed_sha256": _sha256(recomposed["final_text"]),
@@ -515,14 +519,23 @@ def run_poc_for_repo(org_repo: str) -> int:
             "repair_attempted": repair_attempted,
             "disposition_ledger_valid": ledger_valid,
             "disposition_ledger_errors": ledger_errors,
+            "acceptance_authority": False,
+            "acceptance_exclusion": (
+                "Diagnostic runner bypasses the mission graph, durable lifecycle, "
+                "recovery, and the complete canonical supervisor transaction."
+            ),
         },
     )
     _write_json(share_dir / "noop.json", noop)
 
     status = (
-        "DELIVERED"
+        "REVIEW_CANDIDATE"
         if verdict.get("verdict") == "accept" and not review_open
-        else ("REVIEW_OPEN" if review_open else f"VALIDATION_{verdict.get('verdict', 'unknown')}")
+        else (
+            "DIAGNOSTIC_REVIEW_OPEN"
+            if review_open
+            else f"DIAGNOSTIC_VALIDATION_{verdict.get('verdict', 'unknown')}"
+        )
     )
     readme_path = str(share_dir / "README.md")
     issue_parts = [

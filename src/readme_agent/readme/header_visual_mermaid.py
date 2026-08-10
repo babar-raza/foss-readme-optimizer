@@ -20,6 +20,19 @@ _IMAGE_ENDPOINT = re.compile(r"(?i)^images?$")
 _IMAGE_FILES_LABEL = re.compile(r"(?i)^images? files$")
 _ENDPOINT_DIRECTION_WORD = re.compile(r"(?i)\b(?:input|output)\b")
 _FILES_SUFFIX = re.compile(r"(?i)\s+files$")
+_ENDPOINT_LINE_WIDTH = 20
+
+
+def endpoint_mermaid_label(label: str) -> str:
+    """Wrap and pad one endpoint label to a common GitHub-Mermaid box width."""
+
+    lines = textwrap.wrap(
+        " ".join(label.split()),
+        width=_ENDPOINT_LINE_WIDTH,
+        break_long_words=False,
+        break_on_hyphens=False,
+    ) or [label]
+    return "<br/>".join(line + "&nbsp;" * (_ENDPOINT_LINE_WIDTH - len(line)) for line in lines)
 
 
 def raster_output_formats_label(facts: ProductFactsV2) -> str | None:
@@ -111,7 +124,10 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
         lines.append('  subgraph Inputs["Inputs and Formats"]')
         if len(grouped["input"]) >= _WIDE_ENDPOINT_GROUP_MINIMUM:
             lines.append("    direction LR")
-        lines.extend(f'    {node.node_id}["{node.label}"]' for node in grouped["input"])
+        lines.extend(
+            f'    {node.node_id}["{endpoint_mermaid_label(node.label)}"]'
+            for node in grouped["input"]
+        )
         lines.append("  end")
     lines.append(f'  {product.node_id}["{product.label}"]')
     lines.extend(render_capability_group(grouped["capability"]))
@@ -119,7 +135,10 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
         lines.append('  subgraph Outputs["Outputs"]')
         if len(grouped["output"]) >= _WIDE_ENDPOINT_GROUP_MINIMUM:
             lines.append("    direction LR")
-        lines.extend(f'    {node.node_id}["{node.label}"]' for node in grouped["output"])
+        lines.extend(
+            f'    {node.node_id}["{endpoint_mermaid_label(node.label)}"]'
+            for node in grouped["output"]
+        )
         lines.append("  end")
     lines.extend(f"  {node.node_id} --- {product.node_id}" for node in grouped["input"])
     lines.append(f"  {product.node_id} --- Capabilities")
