@@ -5,6 +5,9 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_source_limitation_matching import (
+    fact_bound_limitation_candidate_claims,
+)
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
@@ -231,6 +234,7 @@ def equivalent_source_claim_resolution(
     comment_free_example = False
     command_reformatted = False
     capability_reformatted = False
+    limitation_reformatted = False
     source_fact_ids, source_coordinates = _complete_claim_fact_binding(source_claim_text, facts)
     repository_example = verified_repository_example_code(source_claim_text, facts)
     command_match = _SINGLE_COMMAND_FENCE.fullmatch(source_claim_text)
@@ -273,6 +277,16 @@ def equivalent_source_claim_resolution(
             candidate_content_provenance,
         )
         capability_reformatted = bool(equivalent)
+    if not equivalent and candidate_content_provenance:
+        candidate_pool = [claim for group in candidates.values() for claim in group]
+        equivalent = fact_bound_limitation_candidate_claims(
+            source_claim_text,
+            candidate_bytes,
+            candidate_pool,
+            facts,
+            candidate_content_provenance,
+        )
+        limitation_reformatted = bool(equivalent)
     if len(equivalent) != 1:
         return None
     candidate_claim = equivalent[0]
@@ -373,6 +387,11 @@ def equivalent_source_claim_resolution(
             "Bind this inherited capability to one canonical, fact-identical visitor statement "
             "instead of repeating the same feature in a second list."
             if capability_reformatted
+            else (
+                "Bind this inherited limitation to one fact-bound canonical constraint instead "
+                "of repeating the same boundary in preserved source detail."
+            )
+            if limitation_reformatted
             else (
                 "Bind this exact comment-only Python example cleanup to the same statically "
                 "verified repository example and complete candidate provenance."

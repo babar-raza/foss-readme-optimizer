@@ -3,6 +3,10 @@
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_preservation_sections import PreservedBlock
+from readme_agent.presentation.verified_source_claim_matching import (
+    equivalent_source_claim_resolution,
+    index_equivalent_candidate_claims,
+)
 from readme_agent.presentation.verified_source_detail_routing import route_source_detail_blocks
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -88,8 +92,19 @@ def test_fact_bound_canonical_limitation_suppresses_only_equivalent_source_detai
         candidate,
         [provenance],
     )
+    resolution = equivalent_source_claim_resolution(
+        claim,
+        block.markdown,
+        candidate.encode("utf-8"),
+        index_equivalent_candidate_claims(candidate.encode("utf-8"), [candidate_claim]),
+        facts,
+        [provenance],
+    )
 
     assert routed == {}
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert limitation.fact_id in resolution.fact_ids
 
 
 def test_limitation_equivalence_rejects_distinct_constraints() -> None:
