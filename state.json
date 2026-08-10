@@ -36933,6 +36933,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:badge-row-excess@header:navigation; factual_plan:ACCEPT",
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "navigation"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-10T22:22:08.443288+00:00",
+        "reason": "entering repair attempt 1/2: Revise header for navigation around exact span: [![Version: 0.1.0a0](https://img.shields.io/badge/Version-0.1.0a0-blue)](https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/tree/537b8273b185e4f7440b201cacad56567e55b2f0) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.11](https://img.shields.io/badge/Requires-Python%20%3E%3D3.11-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-pdf-foss/Aspose-PDF-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.svg)](https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/graphs/contributors)",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "to_status": "REPAIRING"
       }
     ],
     "human_acceptance_history": [],
@@ -37029,16 +37040,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "226ccc9afb925998496fecff09abddc459a7f890a04d5c0a636ba63471debfb6",
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-10T22:21:56.976694+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-10T22:22:08.443288+00:00"
   },
   "schema_version": 2,
-  "state_version": 1670,
+  "state_version": 1671,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
