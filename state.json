@@ -40045,7 +40045,7 @@
     "updated_at": "2026-08-10T23:30:45.972189+00:00"
   },
   "schema_version": 2,
-  "state_version": 1994,
+  "state_version": 1995,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -42328,13 +42328,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.semantic_duplicate.8666016bb36c: Capability information is repeated across competing visitor sections.', 'presentation.semantic_duplicate.d24ea83969fa: The same visitor-facing code block is repeated.', 'presentation.semantic_duplicate.fc841f99cf21: The same visitor-facing limitation is expressed more than once.']",
       "last_checkpoint_id": "fdaa23f77dcabf25f21f4f3f8a8f7f4854509f2e8db351cbc036067339683c1b",
-      "lease_expires_at": "2026-08-10T23:43:08.219943+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-10T23:36:18.204455+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-10T23:36:58.247278+00:00"
     }
   },
   "trigger_records": {},
