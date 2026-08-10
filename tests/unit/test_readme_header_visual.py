@@ -126,6 +126,14 @@ def test_mermaid_is_a_connected_corporate_capability_landscape():
     assert visual.mermaid_source.count("  CORE --> O1") == 1
     assert "  PRODUCT --> C1" not in visual.mermaid_source
     assert "  PRODUCT --> O1" not in visual.mermaid_source
+    assert "linkStyle default" not in visual.mermaid_source
+    capability_count = sum(node.role == "capability" for node in visual.diagram_nodes)
+    first_visible_edge = max(0, capability_count - 1)
+    assert (
+        "  linkStyle "
+        + ",".join(str(index) for index in range(first_visible_edge, first_visible_edge + 3))
+        + " stroke:#526D82,stroke-width:2px"
+    ) in visual.mermaid_source
     assert "" not in visual.mermaid_source.splitlines()
 
 
