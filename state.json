@@ -1037,9 +1037,11 @@
     "claim_id": "574012cef08d4aa5aebbd1025f6c2b2d",
     "claimed_at": "2026-08-09T02:38:52.529265+00:00",
     "claimed_by": "codex-root",
-    "concurrent_goal_ids": [],
+    "concurrent_goal_ids": [
+      "GOAL-V0B-POST-PYTHON-SLICES"
+    ],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
+    "goal_activation_graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -1194,42 +1196,48 @@
         "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
         "to_concurrent_goal_ids": [],
         "to_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC"
+      },
+      {
+        "from_concurrent_goal_ids": [],
+        "from_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+        "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
+        "occurred_at": "2026-08-10T10:13:56.224053+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [
+          "GOAL-V0B-POST-PYTHON-SLICES"
+        ],
+        "to_primary_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC"
       }
     ],
-    "graph_sha256": "476aeb8475a70224b86a8a9966ab6cc5351891d07c2ff30ed455cd6b6f9294a1",
+    "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-09T02:38:52.529265+00:00",
+    "last_evaluated_at": "2026-08-10T10:13:56.224234+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-09T02:07:46.951075+00:00",
+      "derived_at": "2026-08-09T13:36:44.453600+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 1,
+      "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 2,
-        "BLOCKED_MISSING_EVIDENCE": 3,
-        "DETERMINISTIC_VALIDATED": 4,
+        "BLOCKED_MISSING_EVIDENCE": 18,
         "DISCOVERED": 1,
-        "FACTS_READY": 6,
-        "INTAKE_READY": 7,
-        "NO_OP_PROVEN": 8,
-        "SYSTEM_FAILURE": 1
+        "FACTS_READY": 13
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 10,
-      "raw_candidate_generated": 14,
-      "raw_deterministic_validated": 14,
-      "raw_facts_ready": 20,
+      "raw_agent_approved": 0,
+      "raw_candidate_generated": 0,
+      "raw_deterministic_validated": 0,
+      "raw_facts_ready": 13,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 8,
+      "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
-      "registry_sha256": "9092a55f2d23c14c604793eb22b4c9154bab2dc2aab740ffc3aeff462bf2fb69",
+      "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
@@ -1242,69 +1250,40 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": [
-          "agent_draft_resolution_not_cacheable",
-          "draft_product_truth_prompt_hash_changed",
           "fact_acceptance_recollection_component_changed",
-          "manifest_content_assurance_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
-          "product_truth_hash_mismatch"
+          "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": [
-          "agent_draft_resolution_not_cacheable",
-          "draft_product_truth_prompt_hash_changed",
-          "fact_acceptance_recollection_component_changed",
-          "manifest_content_assurance_mismatch",
+          "manifest_facts_hash_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
-          "product_truth_hash_mismatch",
-          "product_truth_not_facts_ready"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": [
-          "agent_draft_resolution_not_cacheable",
-          "draft_product_truth_prompt_hash_changed",
-          "fact_acceptance_recollection_component_changed",
-          "manifest_content_assurance_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
-          "product_truth_hash_mismatch",
-          "product_truth_not_facts_ready"
-        ],
-        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": [
-          "agent_draft_resolution_not_cacheable",
-          "draft_product_truth_prompt_hash_changed",
-          "fact_acceptance_recollection_component_changed",
-          "manifest_content_assurance_mismatch",
+          "manifest_facts_hash_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
+        ],
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed",
+          "manifest_local_verification_contract_hash_mismatch"
+        ],
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed",
+          "manifest_local_verification_contract_hash_mismatch"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed",
+          "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -1314,15 +1293,7 @@
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
         "aspose-words-foss/Aspose.Words-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-words-foss/Aspose.Words-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ]
@@ -1450,6 +1421,8 @@
       "L8-TRUTH-06-INTERPRETIVE-VIEWS": "CLOSED",
       "L8-TRUTH-07-SEVEN-ECOSYSTEMS": "CLOSED",
       "L8-TRUTH-08-FULL-REGISTRY": "TODO",
+      "L8-VNET-01-ACCELERATED-LOCAL-NO-OP": "TODO",
+      "L8-VNET-02-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
@@ -1459,6 +1432,7 @@
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
+      "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
       "L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION": "CLOSED",
       "L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT": "CLOSED",
@@ -8700,7 +8674,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 892,
+  "state_version": 893,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
