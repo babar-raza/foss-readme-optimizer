@@ -59,6 +59,8 @@ from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.header_visual_mermaid import render_capability_landscape
+from readme_agent.readme.header_visual_models import MermaidNodeV1
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 from readme_agent.readme.verified_preservation_composition import (
@@ -167,6 +169,29 @@ def _configured(markdown: str, standard: str) -> BoundTemplateContentV1:
     )
 
 
+def _landscape_markdown(
+    title: str,
+    input_label: str,
+    capability_labels: list[str],
+    output_label: str,
+) -> str:
+    nodes = [
+        MermaidNodeV1(node_id="PRODUCT", role="product", label=title, fact_ids=["identity"]),
+        MermaidNodeV1(node_id="I1", role="input", label=input_label, fact_ids=["formats"]),
+        *[
+            MermaidNodeV1(
+                node_id=f"C{index}",
+                role="capability",
+                label=label,
+                fact_ids=["capabilities"],
+            )
+            for index, label in enumerate(capability_labels, start=1)
+        ],
+        MermaidNodeV1(node_id="O1", role="output", label=output_label, fact_ids=["formats"]),
+    ]
+    return f"```mermaid\n{render_capability_landscape(nodes)}\n```"
+
+
 def _page_input() -> PresentationTemplateInputV1:
     return PresentationTemplateInputV1(
         org_repo="aspose-page-foss/Aspose.Page-FOSS-for-Python",
@@ -185,33 +210,16 @@ def _page_input() -> PresentationTemplateInputV1:
         ),
         sections={
             "at_a_glance": _fact(
-                """```mermaid
-block-beta
-  columns 5
-  block:Inputs
-    columns 1
-    IH["Inputs and Formats"]
-    I1["XPS documents"]
-  end
-  PRODUCT["Aspose.Page FOSS for Python"]
-  block:Capabilities:2
-    columns 2
-    C1["Read document structure"]:2
-    C2["Inspect pages and resources"]:2
-    CH["Core Capabilities"]:2
-    C3["Convert supported content"]:2
-  end
-  block:Outputs
-    columns 1
-    OH["Outputs"]
-    O1["Structured page data"]
-  end
-  style IH fill:none,stroke:none,font-weight:bold
-  style OH fill:none,stroke:none,font-weight:bold
-  I1 --- PRODUCT
-  PRODUCT --- CH
-  CH --- O1
-```""",
+                _landscape_markdown(
+                    "Aspose.Page FOSS for Python",
+                    "XPS documents",
+                    [
+                        "Read document structure",
+                        "Inspect pages and resources",
+                        "Convert supported content",
+                    ],
+                    "Structured page data",
+                ),
                 "identity:page",
                 "formats:page",
                 "capabilities:page",
@@ -1930,33 +1938,12 @@ def test_product_facts_adapter_uses_the_same_structural_contract() -> None:
         ),
         sections={
             "at_a_glance": include(
-                """```mermaid
-block-beta
-  columns 5
-  block:Inputs
-    columns 1
-    IH["Inputs and Formats"]
-    I1["PDF files"]
-  end
-  PRODUCT["AcmePDF Python"]
-  block:Capabilities:2
-    columns 2
-    C1["Open PDF pages"]:2
-    C2["Inspect page content"]:2
-    CH["Core Capabilities"]:2
-    C3["Extract text"]:2
-  end
-  block:Outputs
-    columns 1
-    OH["Outputs"]
-    O1["Page text"]
-  end
-  style IH fill:none,stroke:none,font-weight:bold
-  style OH fill:none,stroke:none,font-weight:bold
-  I1 --- PRODUCT
-  PRODUCT --- CH
-  CH --- O1
-```""",
+                _landscape_markdown(
+                    "AcmePDF Python",
+                    "PDF files",
+                    ["Open PDF pages", "Inspect page content", "Extract text"],
+                    "Page text",
+                ),
                 "product.identity",
                 "product.formats",
                 "product.capabilities",
@@ -2080,17 +2067,17 @@ def test_unbound_extra_badge_fails_closed() -> None:
     )
 
 
-def test_comments_emoji_directional_mermaid_and_copyright_fail() -> None:
+def test_comments_emoji_duplicate_mermaid_edge_and_copyright_fail() -> None:
     template_input = _page_input()
     candidate = compile_repository_presentation(template_input)
     invalid = (
-        candidate.replace("block-beta\n", "block-beta\n  PRODUCT --> CH\n")
+        candidate.replace("flowchart LR\n", "flowchart LR\n  PRODUCT --> CORE\n")
         + "\n<!-- generated -->\nStatus: 🚀\nCopyright © 2026\n"
     )
 
     errors = validate_repository_presentation(invalid, template_input)
 
-    assert "Mermaid overview must use only visible undirected relationships" in errors
+    assert "Mermaid product must have one connection to Core capabilities" in errors
     assert "candidate contains a visible or code comment" in errors
     assert "candidate contains emoji" in errors
     assert "candidate contains a default copyright declaration" in errors
@@ -2115,8 +2102,8 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
         validate_repository_presentation(invalid_seo_title, template_input)
     )
     invalid_layout = candidate.replace(
-        '    C1["Read document structure"]:2\n',
-        '    C1["Read document structure"]\n',
+        "    C1 ~~~ C2\n",
+        "",
     )
     assert "Mermaid capability nodes must use the adaptive column layout" in (
         validate_repository_presentation(invalid_layout, template_input)
