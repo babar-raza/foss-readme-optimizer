@@ -1,0 +1,17 @@
+{
+  "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+  "change_classes": [
+    "governance",
+    "shared_code",
+    "repository_runtime"
+  ],
+  "required_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_promotion_allowed": true,
+  "reason": "risk tiers derive from touched seams and the declared acceptance boundary"
+}

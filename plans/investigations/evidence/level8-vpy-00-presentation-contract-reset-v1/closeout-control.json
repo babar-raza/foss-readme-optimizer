@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+  "verification_plan_sha256": "94e19aa9ad880e840d864b4ede1518770a4faec0b4cbd2d9adda332eb3498a4f",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/level8-vpy-00-presentation-contract-reset-v1/verification-plan.json",
+    "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/coordinator/approved-mermaid-regression-junit.xml",
+    "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/note-independent-verifier/receipt.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "340044663a952d57e79fdbbac745d1bd0579959ce35299a8286b0a83586ea559",
+  "multi_agent_admission_decision_sha256": "d7a0ba0086228830c28165d2e8fd8e2fb1c4d3575a11ffcea6fcefa781472b1e"
+}

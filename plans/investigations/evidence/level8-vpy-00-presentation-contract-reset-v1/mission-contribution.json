@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-README",
+    "GOAL-TRUTH"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Freeze the corrected global presentation contract on one current verified Python README."
+  },
+  "acceptance_checks_passed": [
+    "Key capabilities, material limitations, and representative development/test guidance are visible; only additional examples and long API inventories may collapse",
+    "Every code fence has the correct language and normalized language-valid spacing with no repeated empty-line run",
+    "Core uses one compact vertical column for at most five capabilities or exactly two balanced columns above five; endpoints use deterministic wrapping/common width and the required relationship topology",
+    "Every non-empty diagram is rendered by the pinned official Mermaid CLI; SVG geometry proves a compact landscape, non-overlapping adaptive Core columns, uniform peer endpoint widths, and the required product-to-Core-to-output connectors before deterministic promotion",
+    "Repeated semantic blocks, examples, or workflows fail validation",
+    "Every retained source-information unit maps exactly once to a non-empty canonical candidate destination, correction, or justified omission; the template owns public tone, headings, organization, and formatting",
+    "Note passes deterministic and independent acceptance, unchanged transaction no-op, promotion, reconstruction, and visible review under the current contract"
+  ],
+  "proof_refs": [
+    "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/coordinator/approved-mermaid-regression-junit.xml",
+    "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/note-independent-verifier/receipt.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/no-op-proof.json",
+    "runs/share/note-python-review/README.md"
+  ],
+  "scoreboard_before_sha256": "9bc8103ba2d463fee2584cfc43660f725994697a96d19d4d4b39b80390e107b6",
+  "scoreboard_after_sha256": "9bc8103ba2d463fee2584cfc43660f725994697a96d19d4d4b39b80390e107b6",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "note_presentation_contract_open",
+  "contribution_boundary_after": "note_presentation_contract_approved_and_frozen",
+  "independently_verified": true
+}
