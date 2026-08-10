@@ -40,6 +40,13 @@ _REQUIRES_RE = re.compile(r"^(?P<subject>.+?)\s+requires\s+(?P<object>.+)$")
 _DETERMINED_OBJECT_RE = re.compile(
     r"(?i)^(?:a|an|the|one|two|three|exactly|at\s+least|at\s+most|no|any|all)\b"
 )
+_EXPLICIT_UNSUPPORTED_RE = re.compile(
+    r"(?i)\b(?:compatibility|operation|unsupported|unavailable)\w*\b.*\bfail\w*\s+explicitly\b"
+)
+_INCOMPLETE_COVERAGE_RE = re.compile(
+    r"(?i)\b(?:coverage|feature\s+set|compatibility)\b.*"
+    r"\b(?:bounded|incomplete|not\s+(?:yet\s+)?complete)\b"
+)
 
 
 def _pluralized(noun_phrase: str) -> str:
@@ -106,6 +113,41 @@ class _PublicLimitation:
     text: str
     equivalence_key: str
     source_values: tuple[object, ...]
+
+
+def _merge_complementary_coverage_constraints(
+    limitations: list[_PublicLimitation],
+) -> list[_PublicLimitation]:
+    """Merge one fail-explicitly/coverage pair into one visitor-facing constraint."""
+
+    explicit = [
+        index
+        for index, item in enumerate(limitations)
+        if _EXPLICIT_UNSUPPORTED_RE.search(item.text)
+    ]
+    incomplete = [
+        index for index, item in enumerate(limitations) if _INCOMPLETE_COVERAGE_RE.search(item.text)
+    ]
+    if len(explicit) != 1 or len(incomplete) != 1 or explicit[0] == incomplete[0]:
+        return limitations
+    first = min(explicit[0], incomplete[0])
+    removed = {explicit[0], incomplete[0]}
+    merged = _PublicLimitation(
+        category="coverage_contract",
+        text="Unsupported operations fail explicitly, but coverage is not yet complete.",
+        equivalence_key="coverage:unsupported-explicit-incomplete",
+        source_values=(
+            *limitations[explicit[0]].source_values,
+            *limitations[incomplete[0]].source_values,
+        ),
+    )
+    result: list[_PublicLimitation] = []
+    for index, item in enumerate(limitations):
+        if index == first:
+            result.append(merged)
+        if index not in removed:
+            result.append(item)
+    return result
 
 
 def _natural_join(values: list[str]) -> str:
@@ -223,6 +265,7 @@ def _public_limitations(facts: ProductFactsV2) -> list[_PublicLimitation]:
         limitations = [
             item for item in limitations if item.category != "generic_output_restriction"
         ]
+    limitations = _merge_complementary_coverage_constraints(limitations)
     deduplicated: list[_PublicLimitation] = []
     by_key: dict[str, int] = {}
     for item in limitations:

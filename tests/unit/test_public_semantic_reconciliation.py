@@ -16,6 +16,10 @@ from readme_agent.readme.claim_accountability_coordinates import structured_list
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.limitation_semantics import public_limitations_equivalent
 from readme_agent.readme.presentation_lint import lint_readme_presentation
+from readme_agent.readme.public_limitations import (
+    public_limitation_fact_coordinates,
+    public_limitation_phrases,
+)
 
 
 def _facts_with_limitations(values: list[str]) -> ProductFactsV2:
@@ -148,6 +152,74 @@ def test_limitation_equivalence_rejects_distinct_constraints() -> None:
         "OCR is not implemented.",
         "Layout reflow is not implemented.",
     )
+
+
+def test_complementary_coverage_constraints_render_and_resolve_once() -> None:
+    source_values = [
+        "Compatibility surfaces may name features that are unavailable and must fail explicitly.",
+        (
+            "The documented feature set is bounded by the active test suite rather than every "
+            "exposed compatibility name."
+        ),
+    ]
+    facts = _facts_with_limitations(source_values)
+    limitation = facts.selected_fact("product.limitations")
+    public_text = "Unsupported operations fail explicitly, but coverage is not yet complete."
+
+    assert public_limitation_phrases(facts) == [public_text]
+    assert len(public_limitation_fact_coordinates(public_text, limitation.fact_id, facts)) == 2
+
+    source = (
+        "# Aspose.PDF FOSS for Python\n\n"
+        "## Scope and Limitations\n\n"
+        "This project aims to fail explicitly when an operation is unsupported, but PDF\n"
+        "is a large format and coverage is not yet complete.\n"
+    )
+    assessment = assess_readme_document(facts.org_repo, source, facts, base_revision="a" * 40)
+    claim = assessment.material_claims[0]
+    source_bytes = source.encode("utf-8")
+    block = PreservedBlock(
+        markdown=source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8"),
+        source_owner_id=claim.claim_id,
+        source_byte_start=claim.source_byte_start,
+        source_byte_end=claim.source_byte_end,
+    )
+    candidate = f"# Product\n\n## Scope and Limitations\n\n- {public_text}\n"
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.scope_and_limitations.claim:coverage",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[limitation.fact_id],
+        fact_coordinates=public_limitation_fact_coordinates(
+            public_text,
+            limitation.fact_id,
+            facts,
+        ),
+        rationale="Bind both accepted coverage constraints to one public limitation.",
+    )
+
+    routed = route_source_detail_blocks(
+        source,
+        assessment,
+        facts,
+        [block],
+        candidate,
+        [provenance],
+    )
+    resolution = equivalent_source_claim_resolution(
+        claim,
+        block.markdown,
+        candidate.encode("utf-8"),
+        index_equivalent_candidate_claims(candidate.encode("utf-8"), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+
+    assert routed == {}
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert resolution.candidate_claim_id == candidate_claim.claim_id
 
 
 def test_presentation_lint_rejects_semantically_repeated_limitations() -> None:
