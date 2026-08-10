@@ -20,6 +20,7 @@ _FILES_SUFFIX = re.compile(r"(?i)\s+files$")
 _PAREN_EXTENSION = re.compile(r"\(\.(?P<extension>[A-Za-z0-9]+)\)")
 _ENDPOINT_LINE_WIDTH = 20
 _CAPABILITY_LINE_WIDTH = 22
+_FORMAT_ENDPOINT = re.compile(r"^[A-Z0-9]+(?:[./+-][A-Z0-9]+)*$")
 
 
 def _wrapped_label(label: str, width: int) -> str:
@@ -38,6 +39,15 @@ def endpoint_mermaid_label(label: str) -> str:
     text = _FILES_SUFFIX.sub("", " ".join(label.split()))
     text = _PAREN_EXTENSION.sub(lambda match: f".{match.group('extension').upper()}", text)
     return _wrapped_label(text, _ENDPOINT_LINE_WIDTH)
+
+
+def endpoint_mermaid_labels(nodes: list[MermaidNodeV1]) -> dict[str, str]:
+    """Render peer format endpoints with one stable, equal-width visual label."""
+
+    labels = {node.node_id: endpoint_mermaid_label(node.label) for node in nodes}
+    if len(nodes) > 1 and all(_FORMAT_ENDPOINT.fullmatch(label) for label in labels.values()):
+        return {node_id: f"{label}<br/>Format" for node_id, label in labels.items()}
+    return labels
 
 
 def capability_mermaid_label(label: str) -> str:
@@ -135,13 +145,10 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
         for role in ("input", "capability", "output")
     }
     display_labels = {
-        node.node_id: (
-            endpoint_mermaid_label(node.label)
-            if node.role in {"input", "output"}
-            else capability_mermaid_label(node.label)
-        )
-        for node in grouped["input"] + grouped["capability"] + grouped["output"]
+        node.node_id: capability_mermaid_label(node.label) for node in grouped["capability"]
     }
+    display_labels.update(endpoint_mermaid_labels(grouped["input"]))
+    display_labels.update(endpoint_mermaid_labels(grouped["output"]))
     lines = ["flowchart LR"]
     if grouped["input"]:
         lines.extend(('  subgraph INPUTS["Inputs & Formats"]', "    direction TB"))

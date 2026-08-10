@@ -149,7 +149,7 @@ def normalize_diagram_role_nodes(
     required_counts: dict[str, int],
     target_counts: dict[str, int] | None = None,
 ) -> list[AgenticDiagramNodeV1]:
-    """Build stable roles from accepted evidence; accept only complete safe reorderings."""
+    """Build a bounded, evidence-backed overview in the proposed editorial order."""
 
     proposed = list(nodes)
     authoritative = [
@@ -163,21 +163,29 @@ def normalize_diagram_role_nodes(
         authoritative_by_identity = {
             diagram_role_identity(node.role, node.label): node for node in role_nodes
         }
-        proposed_identities = [
-            diagram_role_identity(node.role, node.label)
-            for node in proposed
-            if node.role == role
-            and diagram_role_identity(node.role, node.label) in authoritative_by_identity
-        ]
-        if len(proposed_identities) == len(authoritative_by_identity) and len(
-            set(proposed_identities)
-        ) == len(authoritative_by_identity):
-            role_nodes = [authoritative_by_identity[identity] for identity in proposed_identities]
+        proposed_identities: list[tuple[str, frozenset[str] | str]] = []
+        for node in proposed:
+            identity = diagram_role_identity(node.role, node.label)
+            if (
+                node.role == role
+                and identity in authoritative_by_identity
+                and identity not in proposed_identities
+            ):
+                proposed_identities.append(identity)
+        if proposed_identities:
+            remaining = [
+                node
+                for node in role_nodes
+                if diagram_role_identity(node.role, node.label) not in proposed_identities
+            ]
+            role_nodes = [
+                authoritative_by_identity[identity] for identity in proposed_identities
+            ] + remaining
         target = (target_counts or {}).get(role)
-        if role != "capability" and target is not None and len(role_nodes) > target:
-            # Presentation economy: inputs/outputs beyond the configured target
-            # stay in the text sections; selected capabilities are never
-            # trimmed because the header validator requires them complete.
+        if target is not None and len(role_nodes) > target:
+            # The Mermaid block is an overview, not the complete feature
+            # inventory. Omitted accepted facts remain visible in the full
+            # Key Capabilities or format sections.
             role_nodes = role_nodes[:target]
         normalized.extend(role_nodes)
         minimum = required_counts.get(role, 0)

@@ -25,6 +25,7 @@ from readme_agent.readme.header_visual_layout import (
     render_capability_group,
     validate_capability_group_layout,
 )
+from readme_agent.readme.header_visual_mermaid import render_capability_landscape
 from readme_agent.readme.header_visual_models import MermaidNodeV1
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
 from readme_agent.readme.verified_preservation_composition import (
@@ -205,7 +206,7 @@ def test_cached_agentic_plan_is_normalized_again_at_render_time():
     assert "EPS metadata files" not in labels
 
 
-def test_mermaid_represents_all_selected_capabilities_in_one_scannable_branch():
+def test_mermaid_keeps_large_capability_inventories_in_a_scannable_overview():
     facts, _revision = _facts()
     capabilities = facts.selected_fact("product.capabilities")
     values = [
@@ -236,20 +237,46 @@ def test_mermaid_represents_all_selected_capabilities_in_one_scannable_branch():
     visual = render_readme_header_visual(facts)
     capability_nodes = [node for node in visual.diagram_nodes if node.role == "capability"]
 
-    assert [node.label for node in capability_nodes] == values
+    assert [node.label for node in capability_nodes] == values[:6]
     assert visual.mermaid_source.count('  subgraph CORE["Core Capabilities"]') == 1
     assert visual.mermaid_source.count("  PRODUCT --> CORE") == 1
-    assert len(re.findall(r'C\d+\["', visual.mermaid_source)) == len(values)
+    assert len(re.findall(r'C\d+\["', visual.mermaid_source)) == 6
     assert '      C1["Create workbooks"]' in visual.mermaid_source
-    assert '      C7["Calculate formulas"]' in visual.mermaid_source
-    assert '      C12["Inspect styles"]' in visual.mermaid_source
+    assert '      C4["Save workbooks"]' in visual.mermaid_source
+    assert '      C6["Write cell values"]' in visual.mermaid_source
+    assert "Calculate formulas" not in visual.mermaid_source
     assert validate_readme_header_visual(visual, facts).checks["capability_layout_adaptive"]
     assert validate_readme_header_visual(visual, facts).checks["selected_capabilities_complete"]
     assert validate_readme_header_visual(visual, facts).checks["capability_columns_balanced"]
     assert validate_readme_header_visual(visual, facts).checks["mermaid_block_compact"]
     rendered_ids = re.findall(r'(C\d+)\["', visual.mermaid_source)
-    assert rendered_ids == sorted(rendered_ids, key=lambda node_id: int(node_id[1:]))
+    assert rendered_ids == [f"C{index}" for index in range(1, 7)]
     assert validate_capability_group_layout(visual.mermaid_source, rendered_ids)
+
+    candidate, _plan = build_readme_document_candidate(
+        facts.org_repo,
+        "# Existing README\n",
+        facts,
+        base_revision="a" * 40,
+    )
+    capability_section = candidate.split("## Key Capabilities\n", 1)[1].split("\n## ", 1)[0]
+    assert all(value in capability_section for value in values)
+
+
+def test_mermaid_uses_equal_width_labels_for_multiple_format_outputs():
+    nodes = [
+        MermaidNodeV1(node_id="PRODUCT", role="product", label="Product", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="C1", role="capability", label="Render", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O1", role="output", label="PDF files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O2", role="output", label="PNG files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O3", role="output", label="TIFF files", fact_ids=["fact"]),
+    ]
+
+    source = render_capability_landscape(nodes)
+
+    assert 'O1["PDF<br/>Format"]' in source
+    assert 'O2["PNG<br/>Format"]' in source
+    assert 'O3["TIFF<br/>Format"]' in source
 
 
 @pytest.mark.parametrize("count", [1, 2, 4, 5, 6, 7, 12])

@@ -67,7 +67,7 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "97c54cfcae84290ef810023845bbbb0f0b2deabf9733b4b26aba1bb82d0459e3"
+    "ab99db83fdce5cd32af177556fd8265753419b658762b16f2478f83400cd26ec"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"
@@ -2190,7 +2190,7 @@ def test_structured_load_save_format_facts_render_as_input_and_output_nouns():
     )
 
 
-def test_diagram_includes_every_safe_selected_verified_capability():
+def test_diagram_selects_a_bounded_safe_verified_capability_overview():
     facts, revision = _facts()
     capabilities = facts.selected_fact("product.capabilities")
     facts = facts.model_copy(
@@ -2246,9 +2246,10 @@ def test_diagram_includes_every_safe_selected_verified_capability():
         max_attempts=1,
     )
 
-    capability_labels = {node.label for node in plan.diagram.nodes if node.role == "capability"}
-    selected_labels = {str(value) for value in facts.selected_fact("product.capabilities").value}
-    assert selected_labels <= capability_labels
+    capability_labels = [node.label for node in plan.diagram.nodes if node.role == "capability"]
+    selected_labels = [str(value) for value in facts.selected_fact("product.capabilities").value]
+    assert capability_labels == selected_labels[:6]
+    assert "Load diagnostics and repair reporting" not in capability_labels
 
 
 def test_domain_package_parts_capability_is_not_misclassified_as_package_infrastructure():

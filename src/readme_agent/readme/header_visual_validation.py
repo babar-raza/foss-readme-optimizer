@@ -18,7 +18,7 @@ from readme_agent.readme.header_visual_layout import (
 from readme_agent.readme.header_visual_mermaid import (
     capability_mermaid_label,
     compact_diagram_node_label,
-    endpoint_mermaid_label,
+    endpoint_mermaid_labels,
     product_mermaid_label,
     raster_output_formats_label,
     render_capability_landscape,
@@ -31,6 +31,7 @@ from readme_agent.readme.header_visual_models import (
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_MERMAID_MAX_BLOCK_LINES,
     PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS,
+    PRESENTATION_MERMAID_TARGET_CAPABILITIES,
 )
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
@@ -120,10 +121,20 @@ def validate_readme_header_visual(
         for node in visual.diagram_nodes
         if node.role == "capability"
     }
-    checks["selected_capabilities_complete"] = all(
-        label in rendered_capabilities and fact_ids <= rendered_capabilities[label]
-        for label, fact_ids in expected_capabilities.items()
+    expected_rendered_count = min(
+        len(expected_capabilities), PRESENTATION_MERMAID_TARGET_CAPABILITIES
     )
+    checks["selected_capabilities_complete"] = not expected_capabilities or (
+        len(rendered_capabilities) == expected_rendered_count
+        and all(
+            label in expected_capabilities and expected_capabilities[label] <= fact_ids
+            for label, fact_ids in rendered_capabilities.items()
+        )
+    )
+    endpoint_labels = {
+        **endpoint_mermaid_labels([node for node in visual.diagram_nodes if node.role == "input"]),
+        **endpoint_mermaid_labels([node for node in visual.diagram_nodes if node.role == "output"]),
+    }
     checks["maps_match_markdown"] = (
         diagramless
         or (
@@ -132,7 +143,7 @@ def validate_readme_header_visual(
             in visual.mermaid_source
             and all(
                 (
-                    f'{node.node_id}["{endpoint_mermaid_label(node.label)}"]'
+                    f'{node.node_id}["{endpoint_labels[node.node_id]}"]'
                     if node.role in {"input", "output"}
                     else f'{node.node_id}["{capability_mermaid_label(node.label)}"]'
                 )

@@ -208,10 +208,8 @@ def render_readme_header_visual(
     rendered_capability_labels = {
         " ".join(node.label.casefold().split()) for node in nodes if node.role == "capability"
     }
-    missing_capabilities = [
-        node.label
-        for node in expected_capabilities
-        if " ".join(
+    expected_capability_labels = {
+        " ".join(
             compact_diagram_node_label(
                 node.label,
                 "capability",
@@ -221,13 +219,16 @@ def render_readme_header_visual(
             .casefold()
             .split()
         )
-        not in rendered_capability_labels
-    ]
-    if missing_capabilities:
-        raise ValueError(
-            "README diagram omits selected verified capabilities: "
-            + ", ".join(missing_capabilities)
-        )
+        for node in expected_capabilities
+    }
+    target_capability_count = min(
+        len(expected_capability_labels), PRESENTATION_MERMAID_TARGET_CAPABILITIES
+    )
+    if expected_capability_labels and (
+        len(rendered_capability_labels) != target_capability_count
+        or not rendered_capability_labels <= expected_capability_labels
+    ):
+        raise ValueError("README diagram capability overview is not fact-backed or target-sized")
     role_counts = {
         role: sum(node.role == role for node in nodes) for role in ("input", "capability", "output")
     }
