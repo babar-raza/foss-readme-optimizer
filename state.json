@@ -691,10 +691,11 @@
           "evidence_refs": [
             "src/readme_agent/presentation/verified_source_detail_presentation.py",
             "tests/unit/test_verified_source_detail_presentation.py",
-            "419f530212596aa498b2f2063e6caab8f2798cdf"
+            "419f530212596aa498b2f2063e6caab8f2798cdf",
+            "3377c304b5b489eb368b705bb2be1f6687ecd65a"
           ],
           "fingerprint": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
-          "last_material_narrowing_at": "2026-08-10T20:37:52.481530+00:00",
+          "last_material_narrowing_at": "2026-08-10T21:05:18.544139+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T20:22:03.084158+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -1650,19 +1651,19 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T20:37:52.481552+00:00",
+    "last_evaluated_at": "2026-08-10T21:05:18.544178+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 32,
-      "derived_at": "2026-08-10T19:59:19.004075+00:00",
-      "deterministic_validated": 2,
+      "derived_at": "2026-08-10T20:46:49.508522+00:00",
+      "deterministic_validated": 1,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_REVIEWING": 1,
         "BLOCKED_MISSING_EVIDENCE": 18,
+        "DETERMINISTIC_VALIDATION_FAILED": 1,
         "DISCOVERED": 1,
         "FACTS_READY": 11,
         "NO_OP_PROVEN": 1
@@ -1673,7 +1674,7 @@
       "no_op_proven": 0,
       "raw_agent_approved": 1,
       "raw_candidate_generated": 2,
-      "raw_deterministic_validated": 2,
+      "raw_deterministic_validated": 1,
       "raw_facts_ready": 13,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 1,
@@ -1682,7 +1683,9 @@
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "presentation_component_protected_content_changed"
+          "presentation_component_cosmetic_changed",
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -9308,7 +9311,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 947,
+  "state_version": 948,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
