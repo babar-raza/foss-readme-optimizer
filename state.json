@@ -637,9 +637,13 @@
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json",
+            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/deterministic-validation.json",
+            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/independent-agent-review.json"
+          ],
           "fingerprint": "9ee7073b31d01af81ca93d6cb799d6305e8dbd7bfe4cac51e95a36d6e1446747",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-10T17:23:05.571337+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T17:07:15.813952+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
@@ -1542,12 +1546,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T17:07:15.813952+00:00",
+    "last_evaluated_at": "2026-08-10T17:23:05.571369+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
+      "agent_approved": 1,
       "candidate_generated": 2,
       "denominator": 32,
-      "derived_at": "2026-08-10T16:58:28.829841+00:00",
+      "derived_at": "2026-08-10T17:19:19.308513+00:00",
       "deterministic_validated": 2,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
@@ -1572,11 +1576,7 @@
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "presentation_component_protected_content_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -9117,7 +9117,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 924,
+  "state_version": 925,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
