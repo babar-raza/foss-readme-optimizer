@@ -219,18 +219,18 @@ def test_structured_source_facts_follow_an_exact_preserved_placement_end_to_end(
     assert validation.checks["claim_accountability_complete"] is True
 
 
-def test_generic_preserve_does_not_reinsert_partially_verified_format_claims() -> None:
-    partially_verified_format = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
+def test_generic_preserve_corrects_fact_backed_format_but_rejects_unverified_detail() -> None:
+    fact_backed_format = "- **GLTF** - GL Transmission Format (glTF 2.0)\n"
     unsupported_detail = "- Imaginary future format with unverified acceleration\n"
     source = (
         "# Aspose.3D FOSS for Python\n\n"
         "## Supported Formats\n\n"
-        f"{partially_verified_format}{unsupported_detail}"
+        f"{fact_backed_format}{unsupported_detail}"
     )
 
     candidate, plan, validation = _build(source)
 
-    assert partially_verified_format not in candidate
+    assert fact_backed_format not in candidate
     assert unsupported_detail not in candidate
     assert not validation.valid
     assert not [
@@ -245,20 +245,19 @@ def test_generic_preserve_does_not_reinsert_partially_verified_format_claims() -
         for record in plan.claim_accountability.claims
         if record.stage == "source"
         and source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
-        in {partially_verified_format, unsupported_detail}
+        in {fact_backed_format, unsupported_detail}
     ]
     assert len(records) == 2
-    assert all(not record.currently_accountable for record in records)
-    dispositions = {
-        source_bytes[record.source_byte_start : record.source_byte_end].decode(
-            "utf-8"
-        ): record.expected_disposition
+    records_by_text = {
+        source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8"): record
         for record in records
     }
-    assert dispositions == {
-        partially_verified_format: "authoritative_owner_validation",
-        unsupported_detail: "unjustified_loss",
-    }
+    assert records_by_text[fact_backed_format].currently_accountable is True
+    assert (
+        records_by_text[fact_backed_format].expected_disposition == "presentation_policy_correction"
+    )
+    assert records_by_text[unsupported_detail].currently_accountable is False
+    assert records_by_text[unsupported_detail].expected_disposition == "unjustified_loss"
     assert all(not record.survives_in_candidate for record in records)
 
 
@@ -689,8 +688,8 @@ def test_real_3d_source_remains_blocked_until_granular_claims_and_example_are_ve
         and source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
         == gltf_claim
     )
-    assert gltf_record.currently_accountable is False
-    assert gltf_record.expected_disposition == "authoritative_owner_validation"
+    assert gltf_record.currently_accountable is True
+    assert gltf_record.expected_disposition == "presentation_policy_correction"
     assert gltf_record.survives_in_candidate is False
     rich_quick_start = next(
         record

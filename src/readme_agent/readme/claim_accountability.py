@@ -520,11 +520,18 @@ def build_readme_claim_accountability_map(
                 raw_candidate_occurrences[claim.content_sha256] -= 1
         disposition_fact_ids = fact_ids
         if resolution is not None and resolution.resolution == "presentation_policy_correction":
-            # A casing or other policy-owned span cannot promote a partially
-            # matched inherited claim into verified truth. Only facts bound
-            # by the exact correction resolution authorize the retained
-            # non-policy bytes; independently discovered partial matches do not.
-            disposition_fact_ids = set(resolution.fact_ids)
+            # A policy-owned span cannot promote partially matched inherited
+            # content into verified truth. The unaffected bytes are factual
+            # only when the complete-claim binder covers them; correction facts
+            # remain independently validated by the policy-lineage gate.
+            disposition_fact_ids = {
+                *resolution.fact_ids,
+                *(
+                    complete_fact_binding.fact_ids
+                    if complete_fact_binding is not None
+                    else frozenset()
+                ),
+            }
         expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",
