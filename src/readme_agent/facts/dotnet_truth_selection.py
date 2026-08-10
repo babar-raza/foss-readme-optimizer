@@ -2,32 +2,12 @@
 
 from __future__ import annotations
 
-import re
-from collections.abc import Iterable
-
-from readme_agent.facts.dotnet_repository_evidence_schema import (
-    DotnetApiTypeEvidenceV1,
-    DotnetRepositoryEvidenceCatalogV1,
+from readme_agent.facts.dotnet_capability_distillation import (
+    distilled_dotnet_capability_entries,
 )
+from readme_agent.facts.dotnet_repository_evidence_schema import DotnetRepositoryEvidenceCatalogV1
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
-
-_MAX_CAPABILITIES = 8
-_GENERIC_SUMMARY = re.compile(r"(?i)^represents (?:an? |the )?[a-z0-9_. ]+\.?$")
-_CAPABILITY_VERBS = re.compile(
-    r"(?i)\b(?:access|build|convert|create|extract|generate|load|manage|parse|process|"
-    r"provide|read|render|save|transform|write)\w*\b"
-)
-_LOW_VALUE_TYPE_SUFFIXES = (
-    "collection",
-    "enum",
-    "eventargs",
-    "exception",
-    "options",
-    "settings",
-    "style",
-    "type",
-)
 
 
 def _repository_location(path: str, line: int, digest: str) -> str:
@@ -58,44 +38,6 @@ def _fact(
         confidence=1.0,
         affected_surfaces=SURFACE_DEPENDENCIES[field],
     )
-
-
-def _capability_score(record: DotnetApiTypeEvidenceV1) -> tuple[int, int, int, str]:
-    summary = (record.summary or "").strip()
-    return (
-        0 if summary and not _GENERIC_SUMMARY.fullmatch(summary) else 1,
-        -len(_CAPABILITY_VERBS.findall(summary)),
-        1 if record.name.casefold().endswith(_LOW_VALUE_TYPE_SUFFIXES) else 0,
-        record.qualified_name.casefold(),
-    )
-
-
-def _capability_records(
-    records: Iterable[DotnetApiTypeEvidenceV1],
-) -> list[DotnetApiTypeEvidenceV1]:
-    selected: list[DotnetApiTypeEvidenceV1] = []
-    seen: set[str] = set()
-    for record in sorted(records, key=_capability_score):
-        summary = (record.summary or "").strip()
-        if not summary or _GENERIC_SUMMARY.fullmatch(summary):
-            continue
-        normalized = summary.casefold()
-        if normalized in seen:
-            continue
-        seen.add(normalized)
-        selected.append(record)
-        if len(selected) >= _MAX_CAPABILITIES:
-            break
-    if selected:
-        return selected
-    return sorted(records, key=_capability_score)[:_MAX_CAPABILITIES]
-
-
-def _capability_value(record: DotnetApiTypeEvidenceV1) -> str:
-    summary = (record.summary or "").strip()
-    if summary:
-        return summary
-    return f"Provides the {record.qualified_name} public API."
 
 
 def _format_values(catalog: DotnetRepositoryEvidenceCatalogV1) -> list[str]:
@@ -131,20 +73,20 @@ def dotnet_repository_truth_candidates(
             observed_at=observed_at,
         )
     ]
-    capability_records = _capability_records(catalog.api_types)
-    if capability_records:
+    capability_entries = distilled_dotnet_capability_entries(catalog.api_types)
+    if capability_entries:
         candidates.append(
             _fact(
                 "product.capabilities",
                 "dotnet-public-api",
-                [_capability_value(record) for record in capability_records],
+                [capability for _, capability in capability_entries],
                 source_location=";".join(
                     _repository_location(
                         record.source_path,
                         record.source_line,
                         record.source_sha256,
                     )
-                    for record in capability_records
+                    for record, _ in capability_entries
                 ),
                 source_revision=catalog.source_revision,
                 observed_at=observed_at,

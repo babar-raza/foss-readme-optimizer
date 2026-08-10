@@ -10,7 +10,12 @@ from readme_agent.facts.dotnet_repository_evidence_schema import (
 from readme_agent.facts.dotnet_truth_selection import dotnet_repository_truth_candidates
 
 
-def _api_type(name: str, summary: str) -> DotnetApiTypeEvidenceV1:
+def _api_type(
+    name: str,
+    summary: str,
+    *,
+    source_path: str | None = None,
+) -> DotnetApiTypeEvidenceV1:
     return DotnetApiTypeEvidenceV1(
         evidence_id=f"api-{name.casefold()}",
         origin="local_lexer",
@@ -18,7 +23,7 @@ def _api_type(name: str, summary: str) -> DotnetApiTypeEvidenceV1:
         qualified_name=f"Aspose.Cells_FOSS.{name}",
         kind="class",
         summary=summary,
-        source_path=f"src/Product/{name}.cs",
+        source_path=source_path or f"src/Product/{name}.cs",
         source_line=3,
         source_sha256="a" * 64,
     )
@@ -69,8 +74,8 @@ def test_dotnet_truth_uses_detailed_public_api_and_directional_formats() -> None
 
     assert by_field["product.audience"].value == ["Developers using .NET."]
     assert by_field["product.capabilities"].value == [
-        "Loads, creates, calculates, and saves workbooks.",
-        "Provides access to worksheet cells, rows, and columns.",
+        "Load, create, calculate, and save workbooks.",
+        "Access worksheet cells, rows, and columns.",
     ]
     assert by_field["product.formats"].value == [
         "Input format: XLSX",
@@ -81,13 +86,108 @@ def test_dotnet_truth_uses_detailed_public_api_and_directional_formats() -> None
     assert all(candidate.source.source_revision == "b" * 40 for candidate in candidates)
 
 
-def test_dotnet_truth_falls_back_to_public_type_identity_without_doc_claims() -> None:
+def test_dotnet_truth_does_not_promote_type_identity_without_visitor_capability() -> None:
     catalog = _catalog().model_copy(
         update={"api_types": (_api_type("Workbook", "Represents workbook."),)}
     )
 
     candidates = dotnet_repository_truth_candidates(catalog, observed_at=None)
+    assert all(item.field != "product.capabilities" for item in candidates)
+
+
+def test_dotnet_truth_distills_xml_docs_and_rejects_internal_types() -> None:
+    catalog = _catalog().model_copy(
+        update={
+            "api_types": (
+                _api_type(
+                    "Images",
+                    "Provides static factory methods for creating Image instances.",
+                ),
+                _api_type("FontUtilities", "Provides font management utilities for a document."),
+                _api_type("NotesSlideManager", "Manages notes slide operations for a slide."),
+                _api_type(
+                    "CellFormat",
+                    "Represents the formatting properties of a table cell, providing access to "
+                    "fill formatting and border line formats.",
+                ),
+                _api_type(
+                    "OpcPackage",
+                    "Manages an Open Packaging Conventions (OPC) package.",
+                    source_path="src/Product/Internal/Opc/OpcPackage.cs",
+                ),
+                _api_type(
+                    "DocumentReaderPluginLoadException",
+                    "Thrown during document load, when a plugin cannot be loaded.",
+                ),
+            )
+        }
+    )
+
+    candidates = dotnet_repository_truth_candidates(catalog, observed_at=None)
     capability = next(item for item in candidates if item.field == "product.capabilities")
 
-    assert capability.value == ["Represents workbook."]
-    assert "src/Product/Workbook.cs" in capability.source.location
+    assert set(capability.value) == {
+        "Access table cell formatting properties.",
+        "Manage font resources.",
+        "Create Image instances.",
+        "Manage notes slide operations for a slide.",
+    }
+    assert "Internal/Opc" not in capability.source.location
+
+
+def test_dotnet_truth_turns_mapi_reader_writer_evidence_into_public_action() -> None:
+    catalog = _catalog().model_copy(
+        update={
+            "api_types": (
+                _api_type(
+                    "CommonMessagePropertyId",
+                    "Common MAPI property identifiers used by the MSG reader and writer for core "
+                    "message semantics, body fields, transport headers, and attachments.",
+                ),
+            )
+        }
+    )
+
+    candidates = dotnet_repository_truth_candidates(catalog, observed_at=None)
+    capability = next(item for item in candidates if item.field == "product.capabilities")
+
+    assert capability.value == ["Read and write MSG message properties."]
+
+
+def test_dotnet_truth_distills_format_and_transform_actions_without_xml_doc_scaffolding() -> None:
+    catalog = _catalog().model_copy(
+        update={
+            "api_types": (
+                _api_type(
+                    "PdfBookmarkEditor",
+                    "Facade for bookmark manipulation: create, extract, delete bookmarks.",
+                ),
+                _api_type(
+                    "Workbook",
+                    "Represents the root spreadsheet object used to create, load, modify, and "
+                    "save an XLSX workbook.",
+                ),
+                _api_type(
+                    "Transform",
+                    "A transform contains information that allow access to object's "
+                    "translate/scale/rotation or transform matrix at minimum cost.",
+                ),
+                _api_type(
+                    "DocumentDevice",
+                    "Default DocumentDevice implementation that saves the document as a PDF "
+                    "(Document.Save round-trip).",
+                ),
+            )
+        }
+    )
+
+    candidates = dotnet_repository_truth_candidates(catalog, observed_at=None)
+    capability = next(item for item in candidates if item.field == "product.capabilities")
+
+    assert set(capability.value) == {
+        "Save the document as a PDF.",
+        "Transform objects with translation, scaling, rotation, and matrices.",
+        "Create, extract, and delete bookmarks.",
+        "Create, load, modify, and save an XLSX workbook.",
+    }
+    assert all("Facade for" not in item for item in capability.value)
