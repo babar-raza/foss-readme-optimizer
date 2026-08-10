@@ -1638,7 +1638,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T20:15:16.867323+00:00",
+    "last_evaluated_at": "2026-08-10T20:20:27.237943+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
@@ -1727,7 +1727,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-README"
+      ],
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
+      "repository_scope": [
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -1828,7 +1845,7 @@
       "L8-VNET-01-ACCELERATED-LOCAL-NO-OP": "REGRESSED",
       "L8-VNET-02-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-00-GOLDEN-TEMPLATE": "CLOSED",
-      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "SCORED",
+      "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
@@ -9245,6 +9262,18 @@
         "reason": "Acceptance score: all declared contract checks pass; 165/165 focused regressions; independent PASS; canonical AGENT_APPROVED and NO_OP_PROVEN; approved review copy; zero effects.",
         "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/level8-vpy-00-presentation-contract-reset-v1/mission-contribution.json",
+          "plans/investigations/evidence/level8-vpy-00-presentation-contract-reset-v1/closeout-control.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex-coordinator",
+        "occurred_at": "2026-08-10T20:20:38.473176+00:00",
+        "reason": "Frozen Note Python contract is executable, independently verified, no-op-proven, reconstructed, human-visible and approved, and zero-effect. Downstream Python tasks must consume the same contract.",
+        "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -9254,7 +9283,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 944,
+  "state_version": 945,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
