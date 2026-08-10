@@ -23,6 +23,11 @@ from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2, SupervisorStateV1
 from readme_agent.supervisor import local_poc_cache, local_poc_noop_reuse
+from readme_agent.supervisor.local_poc_acceptance_binding import (
+    bind_deterministic_validation,
+    build_review_acceptance_binding,
+)
+from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 from readme_agent.supervisor.stage_dependencies import (
     SelectedDependencyV1,
     build_stage_dependency_manifest,
@@ -122,6 +127,31 @@ def _valid_cache(tmp_path):
             "repair_budget_origin_hash": lifecycle.repair_budget_origin_hash,
         },
     )
+    validation, deterministic_binding = bind_deterministic_validation(
+        {
+            "verdict": "accept",
+            "official_mermaid_render": {
+                "status": "not_applicable",
+                "reason": "fixture has no diagram",
+            },
+        },
+        candidate_hash=lifecycle.candidate_hash,
+        candidate_stage_dependency_key=component_manifest.stage_key,
+    )
+    review_binding = build_review_acceptance_binding(
+        validation,
+        deterministic_binding,
+        reviewer_standard_hash=reviewer_standard,
+    ).model_dump(mode="json")
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["deterministic_validation_hash"] = canonical_sha256(validation)
+    write_redacted_json(manifest_path, manifest)
+    write_redacted_json(bundle / "review" / "deterministic-validation.json", validation)
+    write_redacted_json(
+        bundle / "review" / "independent-agent-review.json",
+        {"verdict": "ACCEPT", "acceptance_binding": review_binding},
+    )
     write_redacted_json(
         bundle / "planning" / "readme-document-plan.json",
         {"template_sha256": document_template_hash()},
@@ -136,6 +166,7 @@ def _valid_cache(tmp_path):
             "verdict": "AGENT_APPROVED",
             "agent_approved": True,
             "deterministic_validation_passed": True,
+            "acceptance_binding": review_binding,
         },
     )
     write_redacted_json(
@@ -148,6 +179,7 @@ def _valid_cache(tmp_path):
             "agentic_review_reused": True,
             "llm_accounting_status": "EXACT",
             "new_provider_call_count": 0,
+            "acceptance_binding": review_binding,
         },
     )
     write_redacted_json(
@@ -949,3 +981,40 @@ def test_missing_candidate_component_manifest_fails_closed_at_plan_boundary(tmp_
     assert decision.reusable is False
     assert "candidate_stage_dependency_manifest_missing_or_invalid" in decision.mismatch_reasons
     assert decision.earliest_affected_stage == "PLAN_READY"
+
+
+def test_partial_manifest_refresh_cannot_launder_stale_acceptance_proof(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["candidate_stage_dependency_key"] = "1" * 64
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert decision.decision_status == "INVALIDATED"
+    assert "deterministic_manifest_dependency_key_mismatch" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "AGENT_REVIEWING"
+
+
+def test_mermaid_proof_contract_must_match_its_persisted_acceptance_binding(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    validation_path = bundle / "review" / "deterministic-validation.json"
+    validation = json.loads(validation_path.read_text(encoding="utf-8"))
+    validation["official_mermaid_render"] = {
+        "status": "passed",
+        "contract_version": "stale",
+    }
+    write_redacted_json(validation_path, validation)
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["deterministic_validation_hash"] = canonical_sha256(validation)
+    write_redacted_json(manifest_path, manifest)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "mermaid_render_binding_mismatch" in decision.mismatch_reasons

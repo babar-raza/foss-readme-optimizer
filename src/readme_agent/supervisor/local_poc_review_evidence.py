@@ -9,6 +9,11 @@ from readme_agent.evidence.writer import (
     refresh_sha256sums,
     write_redacted_json,
 )
+from readme_agent.supervisor.local_poc_acceptance_binding import (
+    ReviewAcceptanceBindingV1,
+    bind_deterministic_validation,
+    build_review_acceptance_binding,
+)
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_manifest
 from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 
@@ -69,12 +74,28 @@ def write_local_poc_review_evidence(
         raise ValueError(f"unsupported local README review lifecycle status: {lifecycle_status}")
     agent_approved = lifecycle_status == "AGENT_APPROVED"
     review_dir = bundle_dir / "review"
+    manifest = _load_manifest(bundle_dir)
+    candidate_hash = manifest.get("candidate_hash")
+    candidate_stage_dependency_key = manifest.get("candidate_stage_dependency_key")
+    if not isinstance(candidate_hash, str) or not isinstance(candidate_stage_dependency_key, str):
+        raise ValueError("review evidence requires candidate and dependency identities")
+    bound_validation, deterministic_binding = bind_deterministic_validation(
+        deterministic_validation,
+        candidate_hash=candidate_hash,
+        candidate_stage_dependency_key=candidate_stage_dependency_key,
+    )
     deterministic_validation_path = review_dir / "deterministic-validation.json"
-    write_redacted_json(deterministic_validation_path, deterministic_validation)
+    write_redacted_json(deterministic_validation_path, bound_validation)
     persisted_validation = json.loads(deterministic_validation_path.read_text(encoding="utf-8"))
+    acceptance_binding = build_review_acceptance_binding(
+        persisted_validation,
+        deterministic_binding,
+        reviewer_standard_hash=reviewer_standard_hash,
+    )
+    acceptance_payload = acceptance_binding.model_dump(mode="json")
     write_redacted_json(
         review_dir / "independent-agent-review.json",
-        independent_review,
+        {**independent_review, "acceptance_binding": acceptance_payload},
     )
     if blind_quality_review is not None:
         write_redacted_json(review_dir / "blind-quality-review.json", blind_quality_review)
@@ -91,10 +112,10 @@ def write_local_poc_review_evidence(
             "agent_approved": agent_approved,
             "deterministic_validation_passed": deterministic_validation_passed,
             "repair_attempts": repair_attempts,
+            "acceptance_binding": acceptance_payload,
         },
     )
 
-    manifest = _load_manifest(bundle_dir)
     if lifecycle_status == "DETERMINISTIC_VALIDATION_FAILED":
         completed = _completed_stages(manifest, "DETERMINISTIC_VALIDATION_FAILED")
     elif lifecycle_status == "README_ASSESSED":
@@ -139,6 +160,14 @@ def write_local_poc_no_op_evidence(
     llm_summary = current_llm_accounting_summary()
     if llm_summary.status == "EXACT" and llm_summary.provider_call_count != 0:
         raise RuntimeError("unchanged README no-op made one or more new provider calls")
+    final_verdict = json.loads(
+        (bundle_dir / "review" / "final-verdict.json").read_text(encoding="utf-8")
+    )
+    acceptance_binding = ReviewAcceptanceBindingV1.model_validate(
+        final_verdict.get("acceptance_binding")
+    )
+    if acceptance_binding.candidate_hash != candidate_hash:
+        raise RuntimeError("no-op candidate does not match the accepted review binding")
     write_redacted_json(
         bundle_dir / "review" / "no-op-proof.json",
         {
@@ -150,6 +179,7 @@ def write_local_poc_no_op_evidence(
             "llm_accounting_status": llm_summary.status,
             "new_provider_call_count": llm_summary.provider_call_count,
             "new_cache_reuse_count": llm_summary.cache_reuse_count,
+            "acceptance_binding": acceptance_binding.model_dump(mode="json"),
         },
     )
     manifest = _load_manifest(bundle_dir)

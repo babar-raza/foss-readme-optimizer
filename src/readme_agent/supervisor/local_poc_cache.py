@@ -23,6 +23,9 @@ from readme_agent.registry.loader import require_listed
 from readme_agent.state.assurance import ContentAssuranceV1
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.local_poc_acceptance_binding import (
+    validate_acceptance_artifact_chain,
+)
 from readme_agent.supervisor.mission_lifecycle_freshness import (
     evaluate_lifecycle_fact_freshness,
 )
@@ -269,6 +272,8 @@ def _evaluate_local_poc_cache(
     document_plan = _load_json(bundle_dir / "planning" / "readme-document-plan.json")
     agentic_plan = _load_json(bundle_dir / "planning" / "agentic-composition-plan.json")
     final_verdict = _load_json(bundle_dir / "review" / "final-verdict.json")
+    deterministic_validation = _load_json(bundle_dir / "review" / "deterministic-validation.json")
+    independent_review = _load_json(bundle_dir / "review" / "independent-agent-review.json")
     no_op_proof = _load_json(bundle_dir / "review" / "no-op-proof.json")
     expected_inventory, inventory_sha256 = _load_inventory(bundle_dir)
     stored = _stored_dependencies(
@@ -351,6 +356,24 @@ def _evaluate_local_poc_cache(
         or final_verdict.get("deterministic_validation_passed") is not True
     ):
         reasons.append("final_verdict_not_approved")
+    if manifest is not None:
+        reasons.extend(
+            validate_acceptance_artifact_chain(
+                manifest=manifest,
+                deterministic_validation=deterministic_validation,
+                independent_review=independent_review,
+                final_verdict=final_verdict,
+                no_op_proof=no_op_proof,
+                candidate_hash=(
+                    getattr(lifecycle, "candidate_hash", None) if lifecycle is not None else None
+                ),
+                manifest_candidate_stage_dependency_key=(
+                    str(stored["candidate_stage_dependency_key"])
+                ),
+                reviewer_standard_hash=current["reviewer_standard_hash"],
+                require_no_op=not approved_only,
+            )
+        )
     if not approved_only:
         if no_op_proof is None:
             reasons.append("no_op_proof_missing_or_invalid")
@@ -584,6 +607,17 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
             affected.append("CANDIDATE_GENERATED")
         elif reason in {
             "reviewer_standard_hash_changed",
+            "deterministic_validation_missing_or_invalid",
+            "deterministic_acceptance_binding_missing_or_invalid",
+            "deterministic_validation_not_accepted",
+            "deterministic_candidate_hash_mismatch",
+            "deterministic_manifest_dependency_key_mismatch",
+            "mermaid_render_binding_mismatch",
+            "manifest_deterministic_validation_hash_mismatch",
+            "independent_review_missing_or_invalid",
+            "independent_review_acceptance_binding_mismatch",
+            "final_verdict_acceptance_binding_mismatch",
+            "no_op_acceptance_binding_mismatch",
             "final_verdict_missing_or_invalid",
             "final_verdict_not_approved",
             "no_op_proof_missing_or_invalid",
