@@ -156,6 +156,7 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/presentation/verified_source_claim_omissions.py",
             "src/readme_agent/presentation/verified_source_claim_resolution_engine.py",
             "src/readme_agent/presentation/verified_source_detail_routing.py",
+            "src/readme_agent/presentation/verified_source_detail_presentation.py",
             "src/readme_agent/presentation/verified_source_placements.py",
             "src/readme_agent/presentation/verified_source_policy.py",
             "src/readme_agent/presentation/verified_source_policy_application.py",

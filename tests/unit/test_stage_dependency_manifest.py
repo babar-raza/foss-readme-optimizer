@@ -91,6 +91,7 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     assert "src/readme_agent/readme/opening_summary_fallback.py" in selected
     assert "src/readme_agent/presentation/verified_source_claim_matching.py" in selected
     assert "src/readme_agent/presentation/verified_source_claim_resolution_engine.py" in selected
+    assert "src/readme_agent/presentation/verified_source_detail_presentation.py" in selected
     assert "src/readme_agent/readme/source_claim_conversion_binding.py" in selected
     assert "src/readme_agent/readme/source_claim_mcp_binding.py" in selected
     assert "src/readme_agent/readme/source_claim_repository_asset_binding.py" in selected

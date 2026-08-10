@@ -19,6 +19,9 @@ from readme_agent.presentation.verified_preservation_segments import (
     rebase_source_placements,
 )
 from readme_agent.presentation.verified_source_density import apply_verified_source_density
+from readme_agent.presentation.verified_source_detail_presentation import (
+    source_detail_presentation,
+)
 from readme_agent.presentation.verified_source_detail_routing import (
     route_source_detail_blocks,
     source_section_routes_to_canonical_contract,
@@ -233,23 +236,27 @@ def compose_verified_source_preservation(
                     license_heading.start if license_heading is not None else len(composed)
                 )
                 insertion_byte = len(composed[:insertion_character].encode("utf-8"))
-                leading = f"## {target_title}\n\n"
-                trailing = ""
+                presentation = source_detail_presentation(
+                    target_title,
+                    summary,
+                    target_exists=False,
+                )
             else:
                 section_text = composed[target.heading_end : target.section_end]
-                closing_offset = section_text.rfind("</details>")
-                if closing_offset >= 0:
-                    # The canonical section already folds detail; merge routed
-                    # source content into that one details block (one details
-                    # block per section is a contract rule).
+                presentation = source_detail_presentation(
+                    target_title,
+                    summary,
+                    target_exists=True,
+                    section_text=section_text,
+                )
+                if presentation.insert_before_existing_details_close:
+                    closing_offset = section_text.casefold().rfind("</details>")
                     insertion_character = target.heading_end + closing_offset
                     insertion_byte = len(composed[:insertion_character].encode("utf-8"))
-                    leading = ""
-                    trailing = ""
                 else:
                     insertion_byte = len(composed[: target.section_end].encode("utf-8"))
-                    leading = f"<details>\n<summary>{summary}</summary>\n\n"
-                    trailing = "</details>\n\n"
+            leading = presentation.leading
+            trailing = presentation.trailing
             source_detail = separated_exact_blocks(blocks)
             replacement = leading + source_detail + trailing
             detail_edit = CandidateEdit(insertion_byte, insertion_byte, replacement)
