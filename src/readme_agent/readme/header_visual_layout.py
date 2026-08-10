@@ -68,6 +68,10 @@ def render_capability_group(nodes: list[MermaidNodeV1]) -> list[str]:
 def validate_capability_group_layout(source: str, node_ids: list[str]) -> bool:
     """Require the exact block-grid layout for the supplied capability IDs."""
 
+    # Callers that recover IDs from block-grid source observe row-major order
+    # (C1, C5, C2, C6, ...), while the renderer assigns IDs in semantic list
+    # order. Reconstruct from the stable numeric identity, never parse order.
+    node_ids = sorted(node_ids, key=lambda node_id: int(node_id[1:]))
     expected_nodes = [
         MermaidNodeV1(
             node_id=node_id,

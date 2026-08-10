@@ -243,6 +243,9 @@ def test_mermaid_represents_all_selected_capabilities_in_one_scannable_branch():
     assert validate_readme_header_visual(visual, facts).checks["selected_capabilities_complete"]
     assert validate_readme_header_visual(visual, facts).checks["capability_columns_balanced"]
     assert validate_readme_header_visual(visual, facts).checks["mermaid_block_compact"]
+    row_major_ids = re.findall(r'(C\d+)\["', visual.mermaid_source)
+    assert row_major_ids != sorted(row_major_ids, key=lambda node_id: int(node_id[1:]))
+    assert validate_capability_group_layout(visual.mermaid_source, row_major_ids)
 
 
 @pytest.mark.parametrize("count", [1, 2, 4, 5, 6, 7, 12])
