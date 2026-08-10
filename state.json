@@ -1483,9 +1483,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-10T22:10:46.596363+00:00",
-    "claim_id": "b4cbebd80855449da79f00ac82fa1251",
-    "claimed_at": "2026-08-10T21:40:46.596363+00:00",
+    "claim_expires_at": "2026-08-10T22:23:43.838570+00:00",
+    "claim_id": "38c142ea35984dc2a9e04955a4eeaecd",
+    "claimed_at": "2026-08-10T21:53:43.838570+00:00",
     "claimed_by": "codex-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -1692,13 +1692,13 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T21:40:46.596363+00:00",
+    "last_evaluated_at": "2026-08-10T21:53:43.838570+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 2,
+      "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-10T21:23:48.814504+00:00",
-      "deterministic_validated": 2,
+      "derived_at": "2026-08-10T21:43:32.161532+00:00",
+      "deterministic_validated": 1,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
@@ -1706,28 +1706,25 @@
         "BLOCKED_MISSING_EVIDENCE": 18,
         "DISCOVERED": 1,
         "FACTS_READY": 11,
-        "NO_OP_PROVEN": 2
+        "NO_OP_PROVEN": 1,
+        "README_ASSESSED": 1
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 2,
-      "raw_candidate_generated": 2,
-      "raw_deterministic_validated": 2,
+      "raw_agent_approved": 1,
+      "raw_candidate_generated": 1,
+      "raw_deterministic_validated": 1,
       "raw_facts_ready": 13,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 2,
+      "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "presentation_component_cosmetic_changed",
-          "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
         ]
@@ -9391,7 +9388,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 953,
+  "state_version": 954,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
