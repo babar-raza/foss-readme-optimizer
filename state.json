@@ -36697,7 +36697,7 @@
     "updated_at": "2026-08-10T20:46:49.508522+00:00"
   },
   "schema_version": 2,
-  "state_version": 1566,
+  "state_version": 1567,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -38606,13 +38606,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:official_mermaid_render_rejected:MermaidRenderError: rendered Mermaid geometry failed: landscape_and_compact, output_peer_widths_uniform",
       "last_checkpoint_id": "8a5c84ce2a5ee1dfd0b5ba49962c0cacfb14be575f26199edb759e46e2b0c216",
-      "lease_expires_at": "2026-08-10T20:53:43.171625+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-10T20:48:49.116642+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-10T20:49:29.280342+00:00"
     }
   },
   "trigger_records": {},
