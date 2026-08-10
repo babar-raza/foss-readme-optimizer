@@ -172,11 +172,28 @@ def visible_header_badge_row_count(candidate_text: str) -> int:
         stripped = line.strip()
         if not stripped:
             continue
-        if stripped.startswith(("[![", "![")):
+        if stripped.startswith(("[![", "![")) and _line_contains_badge_image(stripped):
             count += 1
             continue
         break
     return count
+
+
+_MARKDOWN_IMAGE_TARGET = re.compile(r"!\[[^\]]*\]\((?P<target>[^\s)]+)")
+
+
+def _line_contains_badge_image(line: str) -> bool:
+    """Distinguish trust/status badges from product banners and other visuals."""
+
+    for match in _MARKDOWN_IMAGE_TARGET.finditer(line):
+        target = match.group("target").casefold()
+        if (
+            "img.shields.io/" in target
+            or target.endswith("/badge.svg")
+            or ("/badge/" in target and target.endswith(".svg"))
+        ):
+            return True
+    return False
 
 
 def _observation(

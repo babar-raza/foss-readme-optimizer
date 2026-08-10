@@ -6,6 +6,7 @@ from readme_agent.specialists.review_finding_grounding import (
 )
 from readme_agent.specialists.review_mechanical_observations import (
     build_candidate_mechanical_observations,
+    visible_header_badge_row_count,
 )
 
 
@@ -71,6 +72,31 @@ def test_candidate_mechanical_observations_are_section_scoped() -> None:
     assert observations["quick_start.fenced_blocks"].observed_value == 1
     assert observations["quick_start.max_nonblank_code_lines"].observed_value == 2
     assert all(item.compliant for item in observations.values())
+
+
+def test_product_banner_is_not_misclassified_as_a_second_badge_row() -> None:
+    candidate = """# Aspose.PDF FOSS for Python
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+
+![Aspose.PDF FOSS for Python](https://products.aspose.org/media/pdf/python/banner-readme.png)
+
+Repository-specific opening prose.
+"""
+
+    assert visible_header_badge_row_count(candidate) == 1
+
+
+def test_two_actual_badge_lines_are_counted_as_two_rows() -> None:
+    candidate = """# Product
+
+![Platform](https://img.shields.io/badge/Platform-Python-blue)
+![Build](https://github.com/example/product/actions/workflows/ci.yml/badge.svg)
+
+Opening prose.
+"""
+
+    assert visible_header_badge_row_count(candidate) == 2
 
 
 def test_mechanical_repair_finding_cannot_reinterpret_compliant_parser_value() -> None:
