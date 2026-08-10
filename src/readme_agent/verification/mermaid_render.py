@@ -21,7 +21,7 @@ from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 MERMAID_CLI_PACKAGE = "@mermaid-js/mermaid-cli"
 MERMAID_CLI_VERSION = "11.10.1"
-MERMAID_RENDER_CONTRACT_VERSION = "1"
+MERMAID_RENDER_CONTRACT_VERSION = "2"
 _TRANSLATE = re.compile(r"translate\(\s*(-?[\d.]+)(?:[ ,]+)(-?[\d.]+)\s*\)")
 
 
@@ -219,16 +219,16 @@ def _peer_widths_match(nodes: list[MermaidNodeGeometryV1]) -> bool:
     return max(widths) - min(widths) <= 1
 
 
-def _required_links(root: ET.Element) -> bool:
+def _required_links(root: ET.Element, visual: ReadmeHeaderVisualV1) -> bool:
     ids = {element.attrib.get("id", "") for element in root.iter() if element.tag.endswith("path")}
-    return all(
-        any(identifier.endswith(suffix) for identifier in ids)
-        for suffix in (
-            "-I1-PRODUCT",
-            "-PRODUCT-CH",
-            "-CH-O1",
-        )
-    )
+    inputs = [node.node_id for node in visual.diagram_nodes if node.role == "input"]
+    outputs = [node.node_id for node in visual.diagram_nodes if node.role == "output"]
+    required = ["-PRODUCT-CH"]
+    if inputs:
+        required.append(f"-{inputs[0]}-PRODUCT")
+    if outputs:
+        required.append(f"-CH-{outputs[0]}")
+    return all(any(identifier.endswith(suffix) for identifier in ids) for suffix in required)
 
 
 def _build_proof(
@@ -272,7 +272,7 @@ def _build_proof(
         "capability_nodes_do_not_overlap": _nodes_do_not_overlap(capabilities),
         "input_peer_widths_uniform": _peer_widths_match(inputs),
         "output_peer_widths_uniform": _peer_widths_match(outputs),
-        "semantic_relationship_connectors_rendered": _required_links(root),
+        "semantic_relationship_connectors_rendered": _required_links(root, visual),
     }
     errors = [name for name, passed in checks.items() if not passed]
     return MermaidRenderProofV1(

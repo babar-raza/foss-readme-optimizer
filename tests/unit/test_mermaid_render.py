@@ -117,3 +117,42 @@ def test_official_render_proof_requires_every_semantic_node(tmp_path):
         assert "all_semantic_nodes_rendered" in str(exc)
     else:
         raise AssertionError("incomplete Mermaid render was accepted")
+
+
+def test_official_render_proof_requires_only_evidence_present_endpoint_links(tmp_path):
+    visual = _visual().model_copy(
+        update={
+            "diagram_nodes": [
+                node for node in _visual().diagram_nodes if node.role not in {"input", "output"}
+            ]
+        }
+    )
+    svg = (
+        _svg()
+        .replace(b'<path id="my-svg-1-I1-PRODUCT"/>', b"")
+        .replace(b'<path id="my-svg-1-CH-O1"/>', b"")
+    )
+
+    proof = verify_official_mermaid_render(
+        visual,
+        renderer=lambda _source: svg,
+        cache_dir=tmp_path,
+    )
+
+    assert proof.valid
+    assert proof.checks["semantic_relationship_connectors_rendered"]
+
+
+def test_official_render_proof_rejects_missing_present_endpoint_link(tmp_path):
+    svg = _svg().replace(b'<path id="my-svg-1-CH-O1"/>', b"")
+
+    try:
+        verify_official_mermaid_render(
+            _visual(),
+            renderer=lambda _source: svg,
+            cache_dir=tmp_path,
+        )
+    except MermaidRenderError as exc:
+        assert "semantic_relationship_connectors_rendered" in str(exc)
+    else:
+        raise AssertionError("missing evidence-present Mermaid connector was accepted")
