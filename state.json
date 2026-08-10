@@ -570,9 +570,13 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/evidence/20260810-121718-e367",
+            "src/readme_agent/presentation/verified_template_provenance.py",
+            "tests/unit/test_verified_source_opening.py"
+          ],
           "fingerprint": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-10T12:24:09.531149+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T12:08:35.347736+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -1412,7 +1416,7 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T12:08:35.347796+00:00",
+    "last_evaluated_at": "2026-08-10T12:24:09.531169+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -1442,7 +1446,10 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": []
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_structural_changed"
+        ]
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
@@ -8910,7 +8917,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 909,
+  "state_version": 910,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
