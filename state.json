@@ -540,16 +540,31 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json",
+            "src/readme_agent/readme/claim_accountability.py",
+            "src/readme_agent/readme/claim_accountability_validation.py",
+            "tests/unit/test_readme_final_claim_corpus.py",
+            "runs/evidence/20260810-110253-4011"
+          ],
           "fingerprint": "ede12d2656b03bb9e015085f4628d0aa218a99c7e7981d5043ac9e01650d656d",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-10T10:53:49.163051+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T11:11:27.530762+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "ede12d2656b03bb9e015085f4628d0aa218a99c7e7981d5043ac9e01650d656d",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
       "replans": [
@@ -1114,6 +1129,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-10T16:10:48.6845654+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/execution-plan.json",
+            "src/readme_agent/readme/claim_accountability.py",
+            "src/readme_agent/readme/claim_accountability_validation.py",
+            "tests/unit/test_readme_final_claim_corpus.py",
+            "runs/evidence/20260810-110253-4011"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "ede12d2656b03bb9e015085f4628d0aa218a99c7e7981d5043ac9e01650d656d",
+          "rationale": "Move the causal owner to accountability-map construction. A verified equivalence already records the exact accepted replacement subset, so prevent broader contextual source bindings from inflating that subset while retaining the strict validator and its partial-fact negative control.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1324,14 +1368,14 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T10:54:17.825963+00:00",
+    "last_evaluated_at": "2026-08-10T11:11:27.530819+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-10T10:35:22.250032+00:00",
+      "derived_at": "2026-08-10T10:56:45.721743+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 0,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -1393,9 +1437,6 @@
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -8822,7 +8863,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 902,
+  "state_version": 903,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
