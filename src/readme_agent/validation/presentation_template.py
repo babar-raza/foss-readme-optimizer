@@ -193,9 +193,9 @@ def validate_repository_presentation(
         errors.append("candidate must contain exactly one Mermaid diagram")
     else:
         source = mermaid[0]
-        if title not in source:
+        if title not in source.replace("<br/>", " "):
             errors.append("Mermaid must use the complete product name")
-        if not source.startswith("block-beta\n"):
+        if not source.startswith("flowchart LR\n"):
             errors.append("Mermaid must use the configured capability landscape")
         for node_prefix, group_id, label, minimum in (
             ("I", "Inputs", "Inputs", contract.invariants.minimum_mermaid_inputs),
@@ -207,8 +207,14 @@ def validate_repository_presentation(
             ),
             ("O", "Outputs", "Outputs", contract.invariants.minimum_mermaid_outputs),
         ):
-            group_present = f"block:{group_id}" in source
-            if minimum > 0 and group_present and source.count(f"block:{group_id}") != 1:
+            mermaid_group = {
+                "Inputs": "INPUTS",
+                "Capabilities": "CORE",
+                "Outputs": "OUTPUTS",
+            }[group_id]
+            group_marker = f"subgraph {mermaid_group}["
+            group_present = group_marker in source
+            if minimum > 0 and group_present and source.count(group_marker) != 1:
                 errors.append(f"Mermaid requires one {label.casefold()} block")
             if minimum > 0 and not group_present and node_prefix == "C":
                 errors.append(f"Mermaid requires one {label.casefold()} block")
@@ -217,21 +223,19 @@ def validate_repository_presentation(
             count = len(re.findall(rf'{node_prefix}\d+\["', source))
             if count < minimum:
                 errors.append(f"Mermaid requires at least {minimum} {label.casefold()} nodes")
-        if "block:Inputs" in source and not re.search(r"(?m)^\s{2}I\d+ --- PRODUCT$", source):
+        if "subgraph INPUTS[" in source and not re.search(r"(?m)^\s{2}I\d+ --> PRODUCT$", source):
             errors.append("Mermaid inputs must connect to the product")
         capability_ids = re.findall(r'(C\d+)\["', source)
         if not validate_capability_group_layout(source, capability_ids):
             errors.append("Mermaid capability nodes must use the adaptive column layout")
-        if len(re.findall(r"(?m)^\s{2}PRODUCT --- CH$", source)) != 1:
+        if len(re.findall(r"(?m)^\s{2}PRODUCT --> CORE$", source)) != 1:
             errors.append("Mermaid product must have one connection to Core capabilities")
         output_count = len(re.findall(r'O\d+\["', source))
-        capability_output_edges = len(re.findall(r"(?m)^\s{2}CH --- O\d+$", source))
+        capability_output_edges = len(re.findall(r"(?m)^\s{2}CORE --> O\d+$", source))
         if output_count and capability_output_edges != 1:
             errors.append("Mermaid Core capabilities must have one connection to Outputs")
         if not output_count and capability_output_edges:
             errors.append("Mermaid cannot connect to an empty Outputs group")
-        if "-->" in source:
-            errors.append("Mermaid overview must use only visible undirected relationships")
 
     if _HTML_COMMENT.search(candidate) or any(
         _CODE_COMMENT.search(token.content)

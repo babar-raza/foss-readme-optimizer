@@ -43,37 +43,35 @@ def _visual(count: int = 6) -> ReadmeHeaderVisualV1:
         title="Aspose.Note FOSS for Python",
         title_fact_ids=["identity"],
         diagram_nodes=nodes,
-        mermaid_source="block-beta\n  columns 5\n",
-        mermaid_markdown="```mermaid\nblock-beta\n  columns 5\n```",
+        mermaid_source="flowchart LR\n",
+        mermaid_markdown="```mermaid\nflowchart LR\n```",
     )
 
 
 def _svg(*, one_column: bool = False) -> bytes:
     groups = [
-        '<g id="my-svg-PRODUCT" transform="translate(400, -100)">'
+        '<g id="my-svg-flowchart-PRODUCT-1" transform="translate(400, -100)">'
         '<rect class="basic label-container" width="200" height="40"/></g>',
-        '<g id="my-svg-I1" transform="translate(100, -100)">'
+        '<g id="my-svg-flowchart-I1-0" transform="translate(100, -100)">'
         '<rect class="basic label-container" width="200" height="40"/></g>',
-        '<g id="my-svg-CH" transform="translate(800, -100)">'
-        '<rect class="basic label-container" width="400" height="40"/></g>',
-        '<g id="my-svg-O1" transform="translate(1300, -100)">'
+        '<g id="my-svg-flowchart-O1-9" transform="translate(1300, -100)">'
         '<rect class="basic label-container" width="200" height="40"/></g>',
     ]
     positions = [(700, -180), (700, -140), (700, -60), (1000, -180), (1000, -140), (1000, -60)]
     if one_column:
         positions = [(700, -180 + index * 40) for index in range(6)]
     groups.extend(
-        f'<g id="my-svg-C{index}" transform="translate({x}, {y})">'
+        f'<g id="my-svg-flowchart-C{index}-{index + 1}" transform="translate({x}, {y})">'
         '<rect class="basic label-container" width="250" height="30"/></g>'
         for index, (x, y) in enumerate(positions, start=1)
     )
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1450 300" '
-        'aria-roledescription="block">'
+        'aria-roledescription="flowchart-v2">'
         + "".join(groups)
-        + '<path id="my-svg-1-I1-PRODUCT"/>'
-        + '<path id="my-svg-1-PRODUCT-CH"/>'
-        + '<path id="my-svg-1-CH-O1"/>'
+        + '<path id="my-svg-L_I1_PRODUCT_0"/>'
+        + '<path id="my-svg-L_PRODUCT_CORE_0"/>'
+        + '<path id="my-svg-L_CORE_O1_0"/>'
         + "</svg>"
     ).encode()
 
@@ -105,7 +103,7 @@ def test_official_render_proof_rejects_six_capabilities_in_one_column(tmp_path):
 
 
 def test_official_render_proof_requires_every_semantic_node(tmp_path):
-    incomplete = _svg().replace(b"my-svg-C6", b"my-svg-X6")
+    incomplete = _svg().replace(b"my-svg-flowchart-C6-7", b"my-svg-flowchart-X6-7")
 
     try:
         verify_official_mermaid_render(
@@ -129,8 +127,8 @@ def test_official_render_proof_requires_only_evidence_present_endpoint_links(tmp
     )
     svg = (
         _svg()
-        .replace(b'<path id="my-svg-1-I1-PRODUCT"/>', b"")
-        .replace(b'<path id="my-svg-1-CH-O1"/>', b"")
+        .replace(b'<path id="my-svg-L_I1_PRODUCT_0"/>', b"")
+        .replace(b'<path id="my-svg-L_CORE_O1_0"/>', b"")
     )
 
     proof = verify_official_mermaid_render(
@@ -144,7 +142,7 @@ def test_official_render_proof_requires_only_evidence_present_endpoint_links(tmp
 
 
 def test_official_render_proof_rejects_missing_present_endpoint_link(tmp_path):
-    svg = _svg().replace(b'<path id="my-svg-1-CH-O1"/>', b"")
+    svg = _svg().replace(b'<path id="my-svg-L_CORE_O1_0"/>', b"")
 
     try:
         verify_official_mermaid_render(

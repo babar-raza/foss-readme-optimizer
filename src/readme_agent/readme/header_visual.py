@@ -285,7 +285,7 @@ def has_marker_free_presentation_contract(text: str) -> bool:
         re.search(r"(?m)^# .+\n", text)
         and re.search(r"(?m)^(?:!\[|\[!\[)", text)
         and re.search(
-            r"(?msi)^## At a Glance\s+.*?^```mermaid\nblock-beta\n",
+            r"(?msi)^## At a Glance\s+.*?^```mermaid\nflowchart LR\n",
             text,
         )
     )

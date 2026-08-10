@@ -16,9 +16,12 @@ from readme_agent.readme.header_visual_layout import (
     validate_capability_group_layout,
 )
 from readme_agent.readme.header_visual_mermaid import (
+    capability_mermaid_label,
     compact_diagram_node_label,
     endpoint_mermaid_label,
+    product_mermaid_label,
     raster_output_formats_label,
+    render_capability_landscape,
 )
 from readme_agent.readme.header_visual_models import (
     HeaderVisualValidationV1,
@@ -31,10 +34,6 @@ from readme_agent.readme.presentation_contract import (
 )
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
-_ROOT_LINE = re.compile(r'^\s{2}(PRODUCT)\["([^"]+)"\]$')
-_GROUP_LINE = re.compile(r"^\s{2}block:(Inputs|Capabilities|Outputs)(?::2)?$")
-_NODE_ITEM = re.compile(r'([ICO]\d+)\["([^"]+)"\](?::2)?')
-_EDGE_LINE = re.compile(r"^\s{2}([A-Za-z][A-Za-z0-9]*) --- ([A-Za-z][A-Za-z0-9]*)$")
 
 
 def validate_readme_header_visual(
@@ -58,37 +57,11 @@ def validate_readme_header_visual(
         else len(fences) == 1 and fences[0].content.rstrip() == visual.mermaid_source
     )
     lines = visual.mermaid_source.splitlines()
-    root_lines = [match for line in lines[1:] if (match := _ROOT_LINE.fullmatch(line)) is not None]
-    group_lines = [
-        match for line in lines[1:] if (match := _GROUP_LINE.fullmatch(line)) is not None
-    ]
-    node_items = [item for line in lines[1:] for item in _NODE_ITEM.findall(line)]
-    edge_lines = [match for line in lines[1:] if (match := _EDGE_LINE.fullmatch(line)) is not None]
-    parsed_edges = {(match.group(1), match.group(2)) for match in edge_lines}
-    input_ids = [node.node_id for node in visual.diagram_nodes if node.role == "input"]
-    output_ids = [node.node_id for node in visual.diagram_nodes if node.role == "output"]
     capability_ids = [node.node_id for node in visual.diagram_nodes if node.role == "capability"]
-    expected_edges = {
-        *([(input_ids[0], "PRODUCT")] if input_ids else []),
-        ("PRODUCT", "CH"),
-        *([("CH", output_ids[0])] if output_ids else []),
-    }
-    expected_groups = ["Inputs"] if input_ids else []
-    expected_groups.append("Capabilities")
-    if output_ids:
-        expected_groups.append("Outputs")
-    checks["mermaid_subset_parses"] = diagramless or bool(
-        lines
-        and lines[0] == "block-beta"
-        and lines[1] == f"  columns {5 if output_ids else 4}"
-        and len(root_lines) == 1
-        and root_lines[0].group(1) == visual.diagram_nodes[0].node_id
-        and root_lines[0].group(2) == visual.diagram_nodes[0].label
-        and [match.group(1) for match in group_lines] == expected_groups
-        and len(node_items) == len(visual.diagram_nodes) - 1
-        and parsed_edges == expected_edges
-        and "-->" not in visual.mermaid_source
-        and "~~~" not in visual.mermaid_source
+    checks["mermaid_subset_parses"] = diagramless or (
+        bool(lines)
+        and lines[0] == "flowchart LR"
+        and visual.mermaid_source == render_capability_landscape(visual.diagram_nodes)
     )
     adaptive_layout_valid = diagramless or validate_capability_group_layout(
         visual.mermaid_source, capability_ids
@@ -154,13 +127,14 @@ def validate_readme_header_visual(
     checks["maps_match_markdown"] = (
         diagramless
         or (
-            f'  {visual.diagram_nodes[0].node_id}["{visual.diagram_nodes[0].label}"]'
+            f"  {visual.diagram_nodes[0].node_id}"
+            f'["{product_mermaid_label(visual.diagram_nodes[0].label)}"]'
             in visual.mermaid_source
             and all(
                 (
                     f'{node.node_id}["{endpoint_mermaid_label(node.label)}"]'
                     if node.role in {"input", "output"}
-                    else f'{node.node_id}["{node.label}"]'
+                    else f'{node.node_id}["{capability_mermaid_label(node.label)}"]'
                 )
                 in visual.mermaid_source
                 for node in visual.diagram_nodes[1:]

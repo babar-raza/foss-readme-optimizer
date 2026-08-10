@@ -355,7 +355,7 @@ def output_node_candidates(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
 
 
 def selected_verified_capability_nodes(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
-    """Return every safe selected capability in stable repository-evidence order."""
+    """Return capabilities, excluding actions already represented as output artifacts."""
 
     view = visitor_fact_render_view(facts, "product.capabilities")
     if view is None:
@@ -377,4 +377,15 @@ def selected_verified_capability_nodes(facts: ProductFactsV2) -> list[AgenticDia
                 supporting_fact_ids=view.citation_fact_ids,
             )
         )
-    return nodes
+    output_tokens = [
+        meaningful_diagram_tokens(node.label) for node in output_node_candidates(facts)
+    ]
+    output_action_tokens = {"convert", "conversion", "export", "render", "save", "write"}
+    return [
+        node
+        for node in nodes
+        if not any(
+            tokens and tokens == meaningful_diagram_tokens(node.label) - output_action_tokens
+            for tokens in output_tokens
+        )
+    ]

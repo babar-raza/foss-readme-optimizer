@@ -21,7 +21,7 @@ from readme_agent.readme.header_visual_models import ReadmeHeaderVisualV1
 
 MERMAID_CLI_PACKAGE = "@mermaid-js/mermaid-cli"
 MERMAID_CLI_VERSION = "11.10.1"
-MERMAID_RENDER_CONTRACT_VERSION = "2"
+MERMAID_RENDER_CONTRACT_VERSION = "3"
 _TRANSLATE = re.compile(r"translate\(\s*(-?[\d.]+)(?:[ ,]+)(-?[\d.]+)\s*\)")
 
 
@@ -161,32 +161,50 @@ def _view_box(root: ET.Element) -> list[float]:
     return values
 
 
-def _geometry(root: ET.Element, node_id: str) -> MermaidNodeGeometryV1 | None:
-    suffix = f"-{node_id}"
-    for element in root.iter():
-        if not element.tag.endswith("g") or not element.attrib.get("id", "").endswith(suffix):
-            continue
-        match = _TRANSLATE.fullmatch(element.attrib.get("transform", ""))
-        if match is None:
-            continue
-        rectangle = next(
-            (
-                child
-                for child in element.iter()
-                if child.tag.endswith("rect") and "label-container" in child.attrib.get("class", "")
-            ),
+def _node_geometries(
+    root: ET.Element,
+    node_ids: list[str],
+) -> list[MermaidNodeGeometryV1]:
+    """Recover absolute node geometry from nested flowchart subgraphs."""
+
+    wanted = {
+        re.compile(rf"(?:^|-)flowchart-{re.escape(node_id)}-\d+$"): node_id for node_id in node_ids
+    }
+    found: dict[str, MermaidNodeGeometryV1] = {}
+
+    def visit(element: ET.Element, parent_x: float, parent_y: float) -> None:
+        x, y = parent_x, parent_y
+        if match := _TRANSLATE.fullmatch(element.attrib.get("transform", "")):
+            x += float(match.group(1))
+            y += float(match.group(2))
+        identifier = element.attrib.get("id", "")
+        node_id = next(
+            (candidate for pattern, candidate in wanted.items() if pattern.search(identifier)),
             None,
         )
-        if rectangle is None:
-            continue
-        return MermaidNodeGeometryV1(
-            node_id=node_id,
-            center_x=float(match.group(1)),
-            center_y=float(match.group(2)),
-            width=float(rectangle.attrib.get("width", "0")),
-            height=float(rectangle.attrib.get("height", "0")),
-        )
-    return None
+        if node_id is not None:
+            rectangle = next(
+                (
+                    child
+                    for child in element.iter()
+                    if child.tag.endswith("rect")
+                    and "label-container" in child.attrib.get("class", "")
+                ),
+                None,
+            )
+            if rectangle is not None:
+                found[node_id] = MermaidNodeGeometryV1(
+                    node_id=node_id,
+                    center_x=x,
+                    center_y=y,
+                    width=float(rectangle.attrib.get("width", "0")),
+                    height=float(rectangle.attrib.get("height", "0")),
+                )
+        for child in element:
+            visit(child, x, y)
+
+    visit(root, 0.0, 0.0)
+    return [found[node_id] for node_id in node_ids if node_id in found]
 
 
 def _balanced_capability_columns(nodes: list[MermaidNodeGeometryV1]) -> bool:
@@ -220,15 +238,19 @@ def _peer_widths_match(nodes: list[MermaidNodeGeometryV1]) -> bool:
 
 
 def _required_links(root: ET.Element, visual: ReadmeHeaderVisualV1) -> bool:
-    ids = {element.attrib.get("id", "") for element in root.iter() if element.tag.endswith("path")}
+    ids = {
+        element.attrib.get("id", "").replace("_", "-")
+        for element in root.iter()
+        if element.tag.endswith("path")
+    }
     inputs = [node.node_id for node in visual.diagram_nodes if node.role == "input"]
     outputs = [node.node_id for node in visual.diagram_nodes if node.role == "output"]
-    required = ["-PRODUCT-CH"]
+    required = ["-PRODUCT-CORE"]
     if inputs:
         required.append(f"-{inputs[0]}-PRODUCT")
     if outputs:
-        required.append(f"-CH-{outputs[0]}")
-    return all(any(identifier.endswith(suffix) for identifier in ids) for suffix in required)
+        required.append(f"-CORE-{outputs[0]}")
+    return all(any(suffix in identifier for identifier in ids) for suffix in required)
 
 
 def _build_proof(
@@ -245,8 +267,8 @@ def _build_proof(
             f"official Mermaid renderer returned malformed SVG: {exc}"
         ) from exc
     view_box = _view_box(root)
-    expected_ids = [node.node_id for node in visual.diagram_nodes] + ["CH"]
-    geometries = [geometry for node_id in expected_ids if (geometry := _geometry(root, node_id))]
+    expected_ids = [node.node_id for node in visual.diagram_nodes]
+    geometries = _node_geometries(root, expected_ids)
     by_id = {geometry.node_id: geometry for geometry in geometries}
     capabilities = [
         by_id[node.node_id]
@@ -265,9 +287,9 @@ def _build_proof(
     ]
     aspect_ratio = view_box[2] / view_box[3]
     checks = {
-        "official_renderer_succeeded": root.attrib.get("aria-roledescription") == "block",
+        "official_renderer_succeeded": root.attrib.get("aria-roledescription") == "flowchart-v2",
         "all_semantic_nodes_rendered": set(expected_ids) == set(by_id),
-        "landscape_and_compact": aspect_ratio >= 1.5 and view_box[3] <= 700,
+        "landscape_and_compact": aspect_ratio >= 1.5 and view_box[3] <= 800,
         "capability_columns_adaptive": _balanced_capability_columns(capabilities),
         "capability_nodes_do_not_overlap": _nodes_do_not_overlap(capabilities),
         "input_peer_widths_uniform": _peer_widths_match(inputs),

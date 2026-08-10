@@ -1,15 +1,16 @@
-"""Define and verify the adaptive Mermaid block-grid capability layout."""
+"""Define and verify the adaptive Mermaid flowchart capability layout."""
 
 from __future__ import annotations
 
 import re
+from itertools import pairwise
 from typing import TypeVar
 
 from readme_agent.readme.header_visual_models import MermaidNodeV1
 
 CAPABILITY_COLUMN_THRESHOLD = 5
 _T = TypeVar("_T")
-_CAPABILITY_NODE = re.compile(r'^\s+C\d+\["[^"]+"\](?::2)?(?:\s|$)')
+_CAPABILITY_NODE = re.compile(r'^\s+C\d+\["[^"]+"\]$')
 
 
 def split_capability_columns(items: list[_T]) -> tuple[tuple[_T, ...], ...]:
@@ -23,54 +24,43 @@ def split_capability_columns(items: list[_T]) -> tuple[tuple[_T, ...], ...]:
     return (tuple(items[:split]), tuple(items[split:]))
 
 
-def capability_grid_rows(items: list[_T]) -> tuple[tuple[_T | None, ...], ...]:
-    """Return stable rows for one full-width column or two consecutive columns."""
-
-    columns = split_capability_columns(items)
-    if len(columns) == 1:
-        return tuple((item,) for item in columns[0])
-    left, right = columns
-    return tuple(
-        (left[index], right[index] if index < len(right) else None) for index in range(len(left))
-    )
+def _render_node(node: MermaidNodeV1, label: str) -> str:
+    return f'{node.node_id}["{label}"]'
 
 
-def _render_node(node: MermaidNodeV1, *, span_two: bool = False) -> str:
-    suffix = ":2" if span_two else ""
-    return f'{node.node_id}["{node.label}"]{suffix}'
+def _render_column(
+    nodes: tuple[MermaidNodeV1, ...], labels: dict[str, str], indent: str
+) -> list[str]:
+    lines = [f"{indent}{_render_node(node, labels[node.node_id])}" for node in nodes]
+    lines.extend(f"{indent}{left.node_id} ~~~ {right.node_id}" for left, right in pairwise(nodes))
+    return lines
 
 
-def render_capability_group(nodes: list[MermaidNodeV1]) -> list[str]:
-    """Render one compact Core block with a visible central relationship anchor."""
+def render_capability_group(
+    nodes: list[MermaidNodeV1],
+    labels: dict[str, str] | None = None,
+) -> list[str]:
+    """Render Core Capabilities as one vertical column or two balanced vertical columns."""
 
-    rows = capability_grid_rows(nodes)
+    labels = labels or {node.node_id: node.label for node in nodes}
     columns = split_capability_columns(nodes)
-    anchor_at = (len(rows) + 1) // 2
-    lines = ["  block:Capabilities:2", "    columns 2"]
-    for index, row in enumerate(rows):
-        if index == anchor_at:
-            lines.append('    CH["Core Capabilities"]:2')
-        left_node = row[0]
-        if left_node is None:
-            raise ValueError("capability grid cannot start a row with an empty cell")
-        if len(columns) == 1:
-            lines.append("    " + _render_node(left_node, span_two=True))
-        else:
-            left = _render_node(left_node)
-            right = _render_node(row[1]) if row[1] is not None else "space"
-            lines.append(f"    {left} {right}")
-    if anchor_at == len(rows):
-        lines.append('    CH["Core Capabilities"]:2')
+    lines = ['  subgraph CORE["Core Capabilities"]']
+    if len(columns) == 1:
+        lines.append("    direction TB")
+        lines.extend(_render_column(columns[0], labels, "    "))
+    else:
+        lines.extend(("    direction LR", '    subgraph CORE_LEFT[" "]', "      direction TB"))
+        lines.extend(_render_column(columns[0], labels, "      "))
+        lines.extend(("    end", '    subgraph CORE_RIGHT[" "]', "      direction TB"))
+        lines.extend(_render_column(columns[1], labels, "      "))
+        lines.extend(("    end", "    CORE_LEFT ~~~ CORE_RIGHT"))
     lines.append("  end")
     return lines
 
 
 def validate_capability_group_layout(source: str, node_ids: list[str]) -> bool:
-    """Require the exact block-grid layout for the supplied capability IDs."""
+    """Require the exact adaptive flowchart structure for the supplied capability IDs."""
 
-    # Callers that recover IDs from block-grid source observe row-major order
-    # (C1, C5, C2, C6, ...), while the renderer assigns IDs in semantic list
-    # order. Reconstruct from the stable numeric identity, never parse order.
     node_ids = sorted(node_ids, key=lambda node_id: int(node_id[1:]))
     expected_nodes = [
         MermaidNodeV1(
@@ -83,20 +73,23 @@ def validate_capability_group_layout(source: str, node_ids: list[str]) -> bool:
     ]
     expected = [_structure_skeleton(line) for line in render_capability_group(expected_nodes)]
     block = _capability_block(source.splitlines())
-    if block is None:
-        return False
-    actual = [_structure_skeleton(line) for line in block]
-    return actual == expected
+    return block is not None and [_structure_skeleton(line) for line in block] == expected
 
 
 def _capability_block(lines: list[str]) -> list[str] | None:
     try:
-        start = lines.index("  block:Capabilities:2")
+        start = lines.index('  subgraph CORE["Core Capabilities"]')
     except ValueError:
         return None
-    for index in range(start + 1, len(lines)):
-        if lines[index] == "  end":
-            return lines[start : index + 1]
+    depth = 0
+    for index in range(start, len(lines)):
+        stripped = lines[index].strip()
+        if stripped.startswith("subgraph "):
+            depth += 1
+        elif stripped == "end":
+            depth -= 1
+            if depth == 0:
+                return lines[start : index + 1]
     return None
 
 
