@@ -650,15 +650,20 @@
         },
         {
           "evidence_refs": [
-            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/manifest.json",
-            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/review/no-op-proof.json",
-            "runs/multi-agent/L8-VPY-00-PRESENTATION-CONTRACT-RESET/note-independent-verifier/receipt.json",
-            "runs/verification/pytest-full-latest.json"
+            "claim lease expired"
           ],
           "fingerprint": "091a97718d03829ff822f111b488cb8fc23824d454eed88897559ca9c6adc0b2",
-          "last_material_narrowing_at": "2026-08-10T19:03:09.732016+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-10T18:41:51.885275+00:00",
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "091a97718d03829ff822f111b488cb8fc23824d454eed88897559ca9c6adc0b2",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T19:25:51.204817+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ],
@@ -1376,9 +1381,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-10T18:55:04.400025+00:00",
-    "claim_id": "41855cd804744cbdb42378a4ebde2757",
-    "claimed_at": "2026-08-10T18:25:04.400025+00:00",
+    "claim_expires_at": "2026-08-10T19:55:51.204817+00:00",
+    "claim_id": "b581d912fffb450bb49a5fe63dedf3af",
+    "claimed_at": "2026-08-10T19:25:51.204817+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -1585,7 +1590,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T19:25:18.049205+00:00",
+    "last_evaluated_at": "2026-08-10T19:25:51.204817+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -9152,6 +9157,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-10T19:25:51.204834+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-10T19:25:51.205167+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -9161,7 +9184,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 936,
+  "state_version": 937,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
