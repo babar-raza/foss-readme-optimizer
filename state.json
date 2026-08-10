@@ -6251,7 +6251,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "6e1b41a9b2c1b6ce94edb83e2f7fa43020b8377ce8b21ca7424ad393a5a80f62",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 3,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -7340,14 +7340,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "730d9a5aeaba3d57ba7386496aa32da835a0e11d435b5bdd0cdf2c2ab717703e",
+          "facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['verified_equivalences_have_exact_candidate_claims failed', 'claim accountability has 7 blocking claim(s): source:claim:6641:34d57783819d3037, source:claim:6688:75d6e3641224f5e0, source:claim:6713:335ef56ed07b0bea, source:claim:6758:b6aaa24c02980d5e, source:claim:6808:b3b3b0c80b87c8b6, source:claim:6870:634d70c12c0ffcfc, source:claim:6929:6bdb694b3731a035']",
-          "occurred_at": "2026-08-10T10:39:55.368658+00:00",
+          "message": "['verified_equivalences_have_exact_candidate_claims failed']",
+          "occurred_at": "2026-08-10T11:01:12.096234+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
           "stage": "document_validation"
@@ -32383,7 +32383,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T10:39:55.369721+00:00",
+      "last_run_timestamp": "2026-08-10T11:01:12.097491+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -35277,7 +35277,7 @@
     "updated_at": "2026-08-10T10:56:45.721743+00:00"
   },
   "schema_version": 2,
-  "state_version": 1386,
+  "state_version": 1387,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
