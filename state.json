@@ -557,10 +557,13 @@
         {
           "evidence_refs": [
             "tests/unit/test_agentic_readme_composition.py::test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate",
-            "src/readme_agent/readme/claim_accountability_validation.py"
+            "src/readme_agent/readme/claim_accountability_validation.py",
+            "tests/unit/test_verified_source_opening.py",
+            "tests/unit/test_agentic_readme_composition.py::test_agentic_plan_rejects_lowercase_sentence_fragment_after_audience_phrase",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/pdf-python-independent-verifier/receipt.json"
           ],
           "fingerprint": "2c7782584b177c2058312d665b62f57d2980324250ca39feea249df3c4ebd593",
-          "last_material_narrowing_at": "2026-08-10T11:30:56.610018+00:00",
+          "last_material_narrowing_at": "2026-08-10T11:54:43.929147+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T11:11:27.530762+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -1371,12 +1374,12 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T11:31:17.262207+00:00",
+    "last_evaluated_at": "2026-08-10T11:54:43.929169+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-10T11:25:11.036630+00:00",
+      "derived_at": "2026-08-10T11:42:40.127891+00:00",
       "deterministic_validated": 1,
       "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
@@ -1401,9 +1404,7 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
-          "presentation_component_severe_acceptance_changed"
-        ]
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": []
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
@@ -8871,7 +8872,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 906,
+  "state_version": 907,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
