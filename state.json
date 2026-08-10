@@ -61091,7 +61091,7 @@
     "updated_at": "2026-08-10T16:34:21.061727+00:00"
   },
   "schema_version": 2,
-  "state_version": 3489,
+  "state_version": 3490,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
@@ -65376,13 +65376,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: compiled verified presentation is invalid: Mermaid capability nodes must use the adaptive column layout",
       "last_checkpoint_id": "a4da1e948af771e1b1c529289ff9460fb04dc770ae1a5ca16823a02e1732157c",
-      "lease_expires_at": "2026-08-10T16:48:17.351764+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-10T16:41:11.902896+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-10T16:41:56.090825+00:00"
     }
   },
   "trigger_records": {},
