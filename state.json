@@ -592,9 +592,13 @@
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/readme/claim_accountability.py",
+            "tests/unit/test_verified_source_assurance.py",
+            "runs/evidence/20260810-152240-7913/specialist_results.json"
+          ],
           "fingerprint": "6f29f1b16e6ecaab30129910700ec57ef92ce12ea19171fe3430f7f2f6d4cff5",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-10T15:32:30.640043+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T15:11:55.805450+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
@@ -1443,14 +1447,14 @@
     ],
     "graph_sha256": "fe04cec61ccbc59ed7adc3b019b6a37ea203e0cb0e945d8e7947f26e9c942248",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T15:11:55.805450+00:00",
+    "last_evaluated_at": "2026-08-10T15:32:30.640066+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-10T12:32:52.831338+00:00",
+      "derived_at": "2026-08-10T15:15:14.959583+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 1,
+      "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -1505,10 +1509,6 @@
           "manifest_facts_hash_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
@@ -8981,7 +8981,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 915,
+  "state_version": 916,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
