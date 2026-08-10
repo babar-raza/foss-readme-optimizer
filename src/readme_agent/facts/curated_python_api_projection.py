@@ -309,24 +309,28 @@ def _functions(
     presentation_only: bool = False,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     rows: list[dict[str, object]] = []
+    seen: set[tuple[str, str]] = set()
     for definition in sorted(
         (item for item in top_level if item.kind == "function"),
         key=lambda item: item.qualified_name,
     ):
-        if not definition.annotation or not definition.annotation.isidentifier():
-            continue
         module = module_from_source(definition.source_path, layout.source_root)
         if module is None:
             continue
-        returned = function_imports(root / definition.source_path, module).get(
-            definition.annotation, f"{module}:{definition.annotation}"
-        )
-        if returned not in class_keys:
-            continue
+        returned: str | None = None
+        if definition.annotation and definition.annotation.isidentifier():
+            candidate = function_imports(root / definition.source_path, module).get(
+                definition.annotation, f"{module}:{definition.annotation}"
+            )
+            returned = candidate if candidate in class_keys else None
         aliases = [item for item in top_level if item.reexported_from == definition.qualified_name]
         exposed = _preferred(aliases or [definition], layout.canonical_import)
         if presentation_only and not is_readme_presentable_symbol(exposed):
             continue
+        key = (exposed.import_module, exposed.name)
+        if key in seen:
+            continue
+        seen.add(key)
         rows.append(
             {
                 "module": exposed.import_module,

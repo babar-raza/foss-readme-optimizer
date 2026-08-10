@@ -29,6 +29,7 @@ class LocalProductVerificationV1(BaseModel):
     ecosystem: str
     outcome: Literal[
         "SOURCE_BUILD_VERIFIED",
+        "SOURCE_TREE_VERIFIED",
         "BLOCKED_TOOLCHAIN",
         "BUILD_FAILED",
         "ISOLATION_REQUIRED",
@@ -47,6 +48,8 @@ class LocalProductVerificationV1(BaseModel):
     rust_formats: list[RustFormatEvidenceV1] = Field(default_factory=list)
     rust_source_dependency: str | None = None
     acquisition_dependency_pins: list[str] = Field(default_factory=list)
+    python_execution_mode: Literal["installed_package", "source_tree"] | None = None
+    python_source_install_failure: Literal["invalid_build_backend"] | None = None
     compiled_consumer: CompiledConsumerProofV1 | None = None
 
     def fact_projection(self) -> dict[str, object]:
@@ -70,6 +73,8 @@ class LocalProductVerificationV1(BaseModel):
             "rust_formats": [record.model_dump(mode="json") for record in self.rust_formats],
             "rust_source_dependency": self.rust_source_dependency,
             "acquisition_dependency_pins": self.acquisition_dependency_pins,
+            "python_execution_mode": self.python_execution_mode,
+            "python_source_install_failure": self.python_source_install_failure,
             "compiled_consumer": (
                 self.compiled_consumer.model_dump(mode="json")
                 if self.compiled_consumer is not None
@@ -80,7 +85,7 @@ class LocalProductVerificationV1(BaseModel):
     @model_validator(mode="after")
     def verified_truth_requires_isolated_execution(self) -> LocalProductVerificationV1:
         if self.truth_eligible and (
-            self.outcome != "SOURCE_BUILD_VERIFIED"
+            self.outcome not in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
             or self.isolated_execution is None
             or not self.isolated_execution.truth_eligible
             or self.isolated_execution.return_code != 0
@@ -88,6 +93,11 @@ class LocalProductVerificationV1(BaseModel):
             raise ValueError(
                 "truth-eligible product verification requires a successful isolated execution"
             )
+        if self.outcome == "SOURCE_TREE_VERIFIED" and (
+            self.python_execution_mode != "source_tree"
+            or self.python_source_install_failure is None
+        ):
+            raise ValueError("source-tree verification requires its typed install failure")
         if self.verified_public_symbols and (
             not self.truth_eligible
             or self.public_api_sha256 is None

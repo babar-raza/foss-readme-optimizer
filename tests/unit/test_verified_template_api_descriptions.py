@@ -72,6 +72,33 @@ def test_function_descriptions_explain_concrete_behavior() -> None:
     )
 
 
+def test_generic_function_names_produce_concrete_source_bound_roles() -> None:
+    cases = {
+        ("aspose.words_foss", "loading"): "Groups public APIs for loading supported content.",
+        ("aspose.words_foss", "saving"): "Groups public APIs for saving supported content.",
+        ("aspose.words_foss.md_import", "drive_block"): (
+            "Advances block-level parsing across Markdown source content."
+        ),
+        ("aspose.words_foss.md_import", "is_block_start"): (
+            "Reports whether block start applies to the inspected content."
+        ),
+        ("aspose.words_foss.md_import", "parse_and_build"): (
+            "Parses source content and builds the corresponding document structure."
+        ),
+        ("aspose.words_foss.md_import", "parse_document"): ("Parses document from source content."),
+        ("aspose.words_foss.utils", "find_all_elements"): ("Finds all elements in source content."),
+        ("aspose.words_foss.utils", "get_element_text"): (
+            "Returns element text from source content."
+        ),
+        ("aspose.words_foss.docx_writer", "render_styles_xml"): (
+            "Renders styles XML for serialized output."
+        ),
+    }
+
+    for (module, name), expected in cases.items():
+        assert describe_api_export(None, module=module, name=name, family="Words") == expected
+
+
 def test_namespace_display_is_branded_but_import_identifier_can_remain_exact() -> None:
     assert namespace_display_name("aspose.page.pdf.writer", "page") == "Aspose.Page.PDF.Writer"
     assert namespace_display_name("aspose.threed.formats.stl", "3D") == ("Aspose.3D.Formats.STL")
@@ -281,3 +308,71 @@ def test_case_variant_member_descriptions_remain_distinct_and_fact_bound() -> No
     assert describe_api_member("PageCollection", member, case_variant_of="delete") == (
         "Exposes the `Delete` entry point alongside `delete` on `PageCollection`."
     )
+
+
+def test_spreadsheet_io_and_encryption_functions_have_concrete_descriptions() -> None:
+    expectations = {
+        "load_csv_workbook": "Loads CSV workbook from source content.",
+        "save_workbook_as_csv": "Saves workbook content as CSV output.",
+        "save_workbook_as_json": "Saves workbook content as JSON output.",
+        "save_workbook_as_markdown": "Saves workbook content as Markdown output.",
+        "encrypt_xlsx": "Encrypts XLSX content with the requested password and parameters.",
+        "decrypt_xlsx": "Decrypts password-protected XLSX content.",
+    }
+
+    for name, expected in expectations.items():
+        assert (
+            describe_api_export(
+                None,
+                module="aspose.cells_foss",
+                name=name,
+                family="Cells",
+            )
+            == expected
+        )
+
+
+def test_barcode_generator_functions_have_concrete_symbology_descriptions() -> None:
+    expectations = {
+        "code128": "Generates a Code 128 barcode from the supplied content.",
+        "code39": "Generates a Code 39 barcode from the supplied content.",
+        "code39ext": "Generates an extended Code 39 barcode for full ASCII content.",
+        "ean13": "Generates an EAN-13 retail barcode from numeric content.",
+        "ean8": "Generates an EAN-8 retail barcode from numeric content.",
+        "generate": "Selects a registered symbology and generates its barcode representation.",
+        "qr": "Generates a QR Code symbol from the supplied content.",
+        "upca": "Generates a UPC-A retail barcode from numeric content.",
+        "upce": "Generates a zero-suppressed UPC-E retail barcode from numeric content.",
+    }
+
+    for name, expected in expectations.items():
+        assert (
+            describe_api_export(None, module="aspose_barcode_foss", name=name, family="Barcode")
+            == expected
+        )
+
+
+def test_cfb_directory_name_comparison_has_a_concrete_description() -> None:
+    assert (
+        describe_api_export(
+            None,
+            module="aspose.email_foss.cfb",
+            name="compare_directory_entry_names",
+            family="Email",
+        )
+        == "Compares CFB directory-entry names using the format's ordering rules."
+    )
+
+
+def test_font_cryptography_and_preset_helpers_have_concrete_descriptions() -> None:
+    expectations = {
+        "available_subset_presets": (
+            "Returns the subset presets available to font-processing workflows."
+        ),
+        "charstring_decrypt_full": "Decrypts a complete Type 1 charstring byte sequence.",
+        "eexec_decrypt": "Decrypts Type 1 eexec-encrypted font data.",
+        "eexec_encrypt": "Encrypts font data with the Type 1 eexec algorithm.",
+    }
+
+    for name, expected in expectations.items():
+        assert describe_api_export(None, module="aspose_font", name=name, family="Font") == expected

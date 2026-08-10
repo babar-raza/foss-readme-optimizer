@@ -121,9 +121,19 @@ def _contribution_ids(text: str, facts: ProductFactsV2) -> set[str]:
     guidance = _accepted(facts, "repository.contribution_guidance")
     if guidance is None:
         return set()
+    value = guidance.value if isinstance(guidance.value, dict) else {}
+    readme_workflow = value.get("readme_standard_workflow")
+    if isinstance(readme_workflow, dict):
+        statements = {
+            " ".join(str(item).split())
+            for item in readme_workflow.get("validated_statements", [])
+            if str(item).strip()
+        }
+        if " ".join(text.split()) in statements:
+            return {guidance.fact_id}
     fence = _FENCE.fullmatch(text)
     if fence is None:
-        return {guidance.fact_id}
+        return set()
     commands = _accepted(facts, "development.commands")
     if commands is None or not isinstance(commands.value, dict):
         return set()
@@ -141,14 +151,16 @@ def _security_ids(text: str, facts: ProductFactsV2) -> set[str]:
     if security is None or not isinstance(security.value, dict):
         return set()
     corpus = json.dumps(security.value, sort_keys=True).casefold()
-    api = _accepted(facts, "api.public_surface")
-    api_corpus = json.dumps(api.value, sort_keys=True).casefold() if api is not None else ""
     fence = _FENCE.fullmatch(text)
+    api = _accepted(facts, "api.public_surface") if fence is not None else None
     if fence is not None:
         code = fence.group("body")
         required = {
             token for token in ("PdfLoadLimits", "PdfResourceLimitException") if token in code
         }
+        api_corpus = (
+            json.dumps(api.value, sort_keys=True).casefold() if required and api is not None else ""
+        )
         if not required or not all(
             token.casefold() in corpus or token.casefold() in api_corpus for token in required
         ):

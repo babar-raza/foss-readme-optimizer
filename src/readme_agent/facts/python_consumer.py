@@ -8,6 +8,7 @@ import shutil
 import tempfile
 from collections.abc import Callable
 from pathlib import Path
+from typing import Literal
 
 from readme_agent.ecosystems.python_api_schema import (
     ConsumerExampleV1,
@@ -63,7 +64,21 @@ install = subprocess.run(
     text=True, capture_output=True,
     env={**os.environ, "PYTHONPATH": str(target)},
 )
-if install.returncode:
+execution_mode = "installed_package"
+source_install_failure = None
+if install.returncode and (
+    "BackendUnavailable" in install.stderr
+    and "ModuleNotFoundError" in install.stderr
+):
+    package = json.loads(pathlib.Path(".readme-agent-package.json").read_text())
+    source_root = pathlib.Path("/workspace") / package["source_root"]
+    if not source_root.is_dir():
+        sys.stderr.write(install.stdout + install.stderr)
+        raise SystemExit(20)
+    execution_mode = "source_tree"
+    source_install_failure = "invalid_build_backend"
+    sys.path.insert(0, str(source_root))
+elif install.returncode:
     sys.stderr.write(install.stdout + install.stderr)
     raise SystemExit(20)
 sys.path.insert(0, str(target))
@@ -89,7 +104,11 @@ try:
 except Exception:
     traceback.print_exc()
     raise SystemExit(22)
-print("README_AGENT_PYTHON_CONSUMER=" + json.dumps({"verified_symbols": verified}, sort_keys=True))
+print("README_AGENT_PYTHON_CONSUMER=" + json.dumps({
+    "execution_mode": execution_mode,
+    "source_install_failure": source_install_failure,
+    "verified_symbols": verified,
+}, sort_keys=True))
 """.strip()
 
 IsolatedExecutor = Callable[[IsolatedExecutionRequestV1], IsolatedExecutionResultV1]
@@ -212,6 +231,11 @@ def prove_python_consumer(
             encoding="utf-8",
             newline="\n",
         )
+        (workspace / ".readme-agent-package.json").write_text(
+            json.dumps({"source_root": surface.package.source_root}, sort_keys=True),
+            encoding="utf-8",
+            newline="\n",
+        )
         request = IsolatedExecutionRequestV1(
             org_repo=snapshot.org_repo,
             source_revision=snapshot.source_revision,
@@ -234,10 +258,16 @@ def prove_python_consumer(
         if line.startswith(_RESULT_PREFIX)
     ]
     verified: list[str] = []
+    execution_mode: Literal["installed_package", "source_tree"] = "installed_package"
+    source_install_failure: Literal["invalid_build_backend"] | None = None
     if len(payloads) == 1:
         payload = json.loads(payloads[0])
         if isinstance(payload.get("verified_symbols"), list):
             verified = [str(name) for name in payload["verified_symbols"]]
+        if payload.get("execution_mode") in {"installed_package", "source_tree"}:
+            execution_mode = payload["execution_mode"]
+        if payload.get("source_install_failure") == "invalid_build_backend":
+            source_install_failure = "invalid_build_backend"
     accepted = (
         result.truth_eligible
         and result.return_code == 0
@@ -252,6 +282,8 @@ def prove_python_consumer(
         dependency_acquisition=(
             dependency_bundle.acquisition if dependency_bundle is not None else None
         ),
+        execution_mode=execution_mode,
+        source_install_failure=source_install_failure,
         verified_symbols=verified,
         isolated_execution=result,
         accepted=accepted,

@@ -37,6 +37,8 @@ class PythonConsumerProofV1(BaseModel):
     example: ConsumerExampleV1
     fixture_bindings: list[PythonFixtureBindingV1] = Field(default_factory=list)
     dependency_acquisition: PythonDependencyAcquisitionV1 | None = None
+    execution_mode: Literal["installed_package", "source_tree"] = "installed_package"
+    source_install_failure: Literal["invalid_build_backend"] | None = None
     verified_symbols: list[str]
     isolated_execution: IsolatedExecutionResultV1
     accepted: bool
@@ -53,4 +55,8 @@ class PythonConsumerProofV1(BaseModel):
             )
         ):
             raise ValueError("accepted Python proof requires every symbol and isolated success")
+        if self.execution_mode == "source_tree" and self.source_install_failure is None:
+            raise ValueError("source-tree proof requires one typed source-install failure")
+        if self.execution_mode == "installed_package" and self.source_install_failure is not None:
+            raise ValueError("installed-package proof cannot retain a source-install failure")
         return self

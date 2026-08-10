@@ -7,7 +7,10 @@ import hashlib
 import io
 import re
 import tokenize
+import weakref
+from collections import OrderedDict
 from dataclasses import dataclass
+from threading import RLock
 
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -49,6 +52,25 @@ _STRUCTURED_ONLY_FIELDS = {
     "installation.optional_extras",
     "installation.verified_acquisition",
 }
+_FACT_VARIANT_CACHE_MAX_GRAPHS = 16
+_FACT_VARIANT_CACHE: OrderedDict[
+    int,
+    tuple[weakref.ReferenceType[ProductFactsV2], dict[str, frozenset[str]]],
+] = OrderedDict()
+_FACT_VARIANT_CACHE_LOCK = RLock()
+_CLAIM_BINDING_CACHE_MAX_DOCUMENTS = 32
+_CLAIM_BINDING_CACHE: OrderedDict[
+    tuple[int, int],
+    tuple[
+        weakref.ReferenceType[ProductFactsV2],
+        str,
+        dict[
+            tuple[str, int, int, str],
+            CompleteSourceClaimFactBindingV1 | None,
+        ],
+    ],
+] = OrderedDict()
+_CLAIM_BINDING_CACHE_LOCK = RLock()
 
 
 @dataclass(frozen=True)
@@ -149,7 +171,7 @@ def verified_repository_example_code(
     return (fact_id, code) if len(exact) == 1 else None
 
 
-def _fact_variants(facts: ProductFactsV2, fact_id: str) -> set[str]:
+def _build_fact_variants(facts: ProductFactsV2, fact_id: str) -> frozenset[str]:
     fact = facts.fact_by_id(fact_id)
     view = visitor_fact_render_view(facts, fact.field)
     values: list[str] = []
@@ -157,14 +179,53 @@ def _fact_variants(facts: ProductFactsV2, fact_id: str) -> set[str]:
         values.extend(view.phrases)
     if fact.field in _EXACT_VALUE_FIELDS:
         values.extend(_strings(fact.value))
-    return {
+    return frozenset(
         normalized
         for raw in values
         if (normalized := _normalized(_FACT_PREFIX.sub("", raw))) and len(normalized) >= 2
-    }
+    )
 
 
-def _covered_by_fact_variants(claim: str, variants_by_fact: dict[str, set[str]]) -> set[str]:
+def _fact_variants(facts: ProductFactsV2, fact_id: str) -> frozenset[str]:
+    """Reuse normalized variants for one immutable product-fact graph."""
+
+    graph_key = id(facts)
+    with _FACT_VARIANT_CACHE_LOCK:
+        cached = _FACT_VARIANT_CACHE.get(graph_key)
+        if cached is not None and cached[0]() is facts:
+            variants = cached[1].get(fact_id)
+            if variants is not None:
+                _FACT_VARIANT_CACHE.move_to_end(graph_key)
+                return variants
+        elif cached is not None:
+            del _FACT_VARIANT_CACHE[graph_key]
+
+    variants = _build_fact_variants(facts, fact_id)
+    with _FACT_VARIANT_CACHE_LOCK:
+        cached = _FACT_VARIANT_CACHE.get(graph_key)
+        if cached is None or cached[0]() is not facts:
+            cached = (weakref.ref(facts), {})
+            _FACT_VARIANT_CACHE[graph_key] = cached
+        cached[1][fact_id] = variants
+        _FACT_VARIANT_CACHE.move_to_end(graph_key)
+        while len(_FACT_VARIANT_CACHE) > _FACT_VARIANT_CACHE_MAX_GRAPHS:
+            _FACT_VARIANT_CACHE.popitem(last=False)
+    return variants
+
+
+def _clear_fact_variant_cache() -> None:
+    """Clear the bounded cache for deterministic test isolation."""
+
+    with _FACT_VARIANT_CACHE_LOCK:
+        _FACT_VARIANT_CACHE.clear()
+    with _CLAIM_BINDING_CACHE_LOCK:
+        _CLAIM_BINDING_CACHE.clear()
+
+
+def _covered_by_fact_variants(
+    claim: str,
+    variants_by_fact: dict[str, frozenset[str]],
+) -> set[str]:
     covered = bytearray(len(claim))
     used: set[str] = set()
     ordered = sorted(
@@ -194,7 +255,7 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
     result: set[str] = set()
     if repository_example := verified_repository_example_code(claim_text, facts):
         result.add(repository_example[0])
-    variants_by_fact: dict[str, set[str]] = {}
+    variants_by_fact: dict[str, frozenset[str]] = {}
     normalized_claim = _normalized(claim_text)
     for fact_id in facts.selected_fact_ids.values():
         fact = facts.fact_by_id(fact_id)
@@ -214,12 +275,12 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
     return result
 
 
-def complete_source_claim_fact_binding(
+def _build_complete_source_claim_fact_binding(
     document: str,
     claim: ReadmeMaterialClaimAssessmentV1,
     facts: ProductFactsV2,
 ) -> CompleteSourceClaimFactBindingV1 | None:
-    """Bind only a hash-current claim completely covered by accepted evidence."""
+    """Build one hash-current claim binding from accepted evidence."""
 
     document_bytes = document.encode("utf-8")
     if claim.source_byte_end > len(document_bytes):
@@ -253,6 +314,42 @@ def complete_source_claim_fact_binding(
         fact_ids=fact_ids,
         fact_coordinates=tuple(coordinates),
     )
+
+
+def complete_source_claim_fact_binding(
+    document: str,
+    claim: ReadmeMaterialClaimAssessmentV1,
+    facts: ProductFactsV2,
+) -> CompleteSourceClaimFactBindingV1 | None:
+    """Bind one immutable claim once per facts/document pair."""
+
+    document_key = (id(facts), id(document))
+    claim_key = (
+        claim.claim_id,
+        claim.source_byte_start,
+        claim.source_byte_end,
+        claim.content_sha256,
+    )
+    with _CLAIM_BINDING_CACHE_LOCK:
+        cached = _CLAIM_BINDING_CACHE.get(document_key)
+        if cached is not None and cached[0]() is facts and cached[1] is document:
+            if claim_key in cached[2]:
+                _CLAIM_BINDING_CACHE.move_to_end(document_key)
+                return cached[2][claim_key]
+        elif cached is not None:
+            del _CLAIM_BINDING_CACHE[document_key]
+
+    binding = _build_complete_source_claim_fact_binding(document, claim, facts)
+    with _CLAIM_BINDING_CACHE_LOCK:
+        cached = _CLAIM_BINDING_CACHE.get(document_key)
+        if cached is None or cached[0]() is not facts or cached[1] is not document:
+            cached = (weakref.ref(facts), document, {})
+            _CLAIM_BINDING_CACHE[document_key] = cached
+        cached[2][claim_key] = binding
+        _CLAIM_BINDING_CACHE.move_to_end(document_key)
+        while len(_CLAIM_BINDING_CACHE) > _CLAIM_BINDING_CACHE_MAX_DOCUMENTS:
+            _CLAIM_BINDING_CACHE.popitem(last=False)
+    return binding
 
 
 def python_claim_has_comments(claim_text: str) -> bool:

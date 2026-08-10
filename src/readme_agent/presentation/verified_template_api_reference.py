@@ -9,8 +9,6 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_template_api_descriptions import (
     describe_api_export,
-    describe_api_member,
-    member_api_identifier,
     namespace_display_name,
 )
 
@@ -131,40 +129,6 @@ def _class_surface(name: str, item: dict[str, Any]) -> str:
     return name
 
 
-def _member_table_rows(owner: str, item: dict[str, Any]) -> list[str]:
-    members = item.get("members")
-    if not isinstance(members, list):
-        return []
-    rows: list[str] = []
-    seen: set[str] = set()
-    names = [
-        str(member.get("name") or "").strip()
-        for member in members
-        if isinstance(member, dict) and str(member.get("name") or "").strip()
-    ]
-    casefolded_names: dict[str, list[str]] = {}
-    for name in names:
-        casefolded_names.setdefault(re.sub(r"[^a-z0-9]", "", name.casefold()), []).append(name)
-    for member in members:
-        if not isinstance(member, dict):
-            continue
-        identifier = member_api_identifier(owner, member)
-        if not identifier or identifier in seen:
-            continue
-        seen.add(identifier)
-        name = str(member.get("name") or "").strip()
-        variants = casefolded_names.get(re.sub(r"[^a-z0-9]", "", name.casefold()), [])
-        case_variant_of = next(
-            (variant for variant in variants if variant != name and variant[:1].islower()),
-            None,
-        )
-        rows.append(
-            f"| `{_table_cell(identifier)}` | "
-            f"{describe_api_member(owner, member, case_variant_of=case_variant_of)} |"
-        )
-    return rows
-
-
 def _namespace_table(
     module: str,
     exports: list[object],
@@ -199,10 +163,6 @@ def _namespace_table(
         identifier = _class_surface(name, item) if item is not None else name
         rows.append(f"| `{_table_cell(identifier)}` | {description} |")
         count += 1
-        if item is not None and primary_module == module:
-            member_rows = _member_table_rows(name, item)
-            rows.extend(member_rows)
-            count += len(member_rows)
     return rows, count
 
 
@@ -279,6 +239,8 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         module: [
             export
             for export in exports
+            if not str(export).strip()[:1].islower()
+            if (module, str(export).strip()) not in function_keys
             if not _is_namespace_alias(
                 module,
                 str(export).strip(),
@@ -336,8 +298,9 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         ]
     )
     return (
-        f"The package documents {entry_count} public API entries across "
-        f"{namespace_count} namespaces.{namespace_context}\n\n{details}"
+        f"The package documents {entry_count} public types across "
+        f"{namespace_count} namespaces.{namespace_context} See the complete API reference under "
+        f"Documentation and Resources for members, signatures, and inherited APIs.\n\n{details}"
     )
 
 

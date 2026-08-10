@@ -177,6 +177,10 @@ def _repository_enriched_technical_facts(
     except KeyError:
         detail = None
     try:
+        implementation = base_facts.selected_fact("repository.implementation_components")
+    except KeyError:
+        implementation = None
+    try:
         boundaries = base_facts.selected_fact("repository.verified_boundaries")
     except KeyError:
         boundaries = None
@@ -188,6 +192,10 @@ def _repository_enriched_technical_facts(
         format_directions = base_facts.selected_fact("repository.format_directions")
     except KeyError:
         format_directions = None
+    try:
+        public_api = base_facts.selected_fact("api.public_surface")
+    except KeyError:
+        public_api = None
     detail_value = (
         detail.value
         if detail is not None
@@ -235,20 +243,71 @@ def _repository_enriched_technical_facts(
             affected_surfaces=SURFACE_DEPENDENCIES[field],
         )
 
-    groups = detail_value.get("capability_groups")
-    if detail is not None and isinstance(groups, list):
-        detailed = [
+    capability_extensions = [
+        extension
+        for extension in (detail, implementation)
+        if extension is not None
+        and extension.verification_state == "verified"
+        and not extension.has_unresolved_conflict
+        and isinstance(extension.value, dict)
+        and isinstance(extension.value.get("capability_groups"), list)
+    ]
+    detailed = list(
+        dict.fromkeys(
             str(item.get("label") or "").strip()
-            for item in groups
+            for extension in capability_extensions
+            for item in extension.value["capability_groups"]
             if isinstance(item, dict) and str(item.get("label") or "").strip()
+        )
+    )
+    api_capabilities: list[str] = []
+    if (
+        public_api is not None
+        and public_api.verification_state == "verified"
+        and not public_api.has_unresolved_conflict
+        and isinstance(public_api.value, dict)
+    ):
+        api_names = {
+            str(export).casefold()
+            for module in public_api.value.get("modules", [])
+            if isinstance(module, dict) and isinstance(module.get("exports"), list)
+            for export in module["exports"]
+            if isinstance(export, str)
+        }
+        api_names.update(
+            str(item.get("name") or "").casefold()
+            for item in public_api.value.get("classes", [])
+            if isinstance(item, dict) and str(item.get("name") or "").strip()
+        )
+        export_formats = [
+            label
+            for token, label in (("csv", "CSV"), ("json", "JSON"), ("markdown", "Markdown"))
+            if any(
+                name in api_names for name in (f"save_workbook_as_{token}", f"{token}saveoptions")
+            )
         ]
+        if len(export_formats) >= 2:
+            api_capabilities.append(
+                "Export workbooks to "
+                + ", ".join(export_formats[:-1])
+                + f", and {export_formats[-1]}"
+            )
+        if {"encrypt_xlsx", "decrypt_xlsx"}.issubset(api_names) or {
+            "agileencryptionparameters",
+            "standardencryptionparameters",
+        }.intersection(api_names):
+            api_capabilities.append(
+                "Encrypt and decrypt XLSX workbooks with AES password protection"
+            )
+    detailed.extend(item for item in api_capabilities if item not in detailed)
+    capability_source = capability_extensions[0] if capability_extensions else public_api
+    if detailed and capability_source is not None:
         existing = technical["product.capabilities"].value
         existing = existing if isinstance(existing, list) else [existing]
         capabilities = list(dict.fromkeys([*detailed, *(str(item) for item in existing)]))
-        if detailed:
-            technical["product.capabilities"] = extension_fact(
-                "product.capabilities", capabilities, detail
-            )
+        technical["product.capabilities"] = extension_fact(
+            "product.capabilities", capabilities, capability_source
+        )
 
     if detail is not None:
         input_formats = detail_value.get("input_formats")
@@ -404,7 +463,7 @@ def _example_fact_for_candidate(
     verified = bool(
         verification is not None
         and verification.truth_eligible
-        and verification.outcome == "SOURCE_BUILD_VERIFIED"
+        and verification.outcome in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
     )
     isolated_execution = (
         getattr(verification, "isolated_execution", None) if verification is not None else None

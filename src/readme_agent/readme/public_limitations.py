@@ -7,7 +7,8 @@ import json
 import re
 from dataclasses import dataclass
 
-from readme_agent.facts.render_views import visitor_fact_render_view
+from readme_agent.facts.limitation_rendering import limitation_phrases
+from readme_agent.facts.public_constraint_text import is_public_constraint_sentence
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.public_vocabulary import (
@@ -82,7 +83,9 @@ def _readable_requirement_object(value: str) -> str:
 
 def _readable_limitation_sentence(normalized: str) -> str:
     unsupported = _UNSUPPORTED_THING_RE.fullmatch(normalized)
-    if unsupported is not None:
+    if unsupported is not None and not re.search(
+        r"\b(?:are|is|return|returns|treated)\b", normalized, flags=re.IGNORECASE
+    ):
         thing = " ".join(unsupported.group("thing").split())
         return f"Unsupported {_pluralized(thing)} are rejected"
     requirement = _REQUIRES_RE.fullmatch(normalized)
@@ -130,7 +133,7 @@ def _public_limitation(
     canonical_terms: tuple[str, ...],
     source_value: object,
 ) -> _PublicLimitation:
-    normalized = " ".join(phrase.strip().rstrip(". ").split())
+    normalized = " ".join(re.sub(r"`{2,}", "`", phrase).strip().rstrip(". ").split())
     output_match = _ONLY_OUTPUT_RE.fullmatch(normalized) or _ONLY_FILE_TARGET_RE.fullmatch(
         normalized
     )
@@ -188,40 +191,53 @@ def _source_items(facts: ProductFactsV2) -> list[tuple[str, object]]:
 
 
 def _public_limitations(facts: ProductFactsV2) -> list[_PublicLimitation]:
-    view = visitor_fact_render_view(facts, "product.limitations")
-    if view is None or not view.phrases:
+    try:
+        fact = facts.selected_fact("product.limitations")
+    except KeyError:
+        return []
+    if (
+        fact.verification_state not in {"verified", "policy_approved"}
+        or fact.has_unresolved_conflict
+    ):
         return []
     sources = _source_items(facts)
-    source_by_phrase = {" ".join(phrase.split()): value for phrase, value in sources}
+    safe_sources = [
+        (phrases[0], value)
+        for phrase, value in sources
+        if (phrases := limitation_phrases([value]))
+        if is_public_constraint_sentence(phrases[0])
+    ]
+    if not safe_sources:
+        return []
     canonical_terms = canonical_abbreviations_from_facts(facts)
     limitations = [
         _public_limitation(
             phrase,
             canonical_terms,
-            source_by_phrase.get(" ".join(phrase.split()), phrase),
+            source_value,
         )
-        for phrase in view.phrases
+        for phrase, source_value in safe_sources
     ]
     if any(item.category == "output_restriction" for item in limitations):
         limitations = [
             item for item in limitations if item.category != "generic_output_restriction"
         ]
-    rendered: list[_PublicLimitation] = []
+    deduplicated: list[_PublicLimitation] = []
     by_key: dict[str, int] = {}
     for item in limitations:
         prior = by_key.get(item.equivalence_key)
         if prior is None:
-            by_key[item.equivalence_key] = len(rendered)
-            rendered.append(item)
+            by_key[item.equivalence_key] = len(deduplicated)
+            deduplicated.append(item)
             continue
-        existing = rendered[prior]
-        rendered[prior] = _PublicLimitation(
+        existing = deduplicated[prior]
+        deduplicated[prior] = _PublicLimitation(
             existing.category,
             existing.text,
             existing.equivalence_key,
             (*existing.source_values, *item.source_values),
         )
-    return rendered
+    return deduplicated
 
 
 def public_limitation_phrases(facts: ProductFactsV2) -> list[str]:
@@ -240,7 +256,7 @@ def public_limitation_fact_coordinates(
     normalized = " ".join(re.sub(r"[`*_~]", "", text).casefold().split())
     coordinates: list[StructuredFactCoordinateV1] = []
     for limitation in _public_limitations(facts):
-        phrase = " ".join(limitation.text.casefold().split())
+        phrase = " ".join(re.sub(r"[`*_~]", "", limitation.text).casefold().split())
         if phrase not in normalized:
             continue
         for value in limitation.source_values:

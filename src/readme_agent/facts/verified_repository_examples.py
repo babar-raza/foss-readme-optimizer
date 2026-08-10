@@ -72,7 +72,7 @@ class RepositoryExampleSelectionV2(BaseModel):
             raise ValueError("selected_rank cannot exceed candidate_count")
         if self.outcome == "VERIFIED" and not (
             self.verification is not None
-            and self.verification.outcome == "SOURCE_BUILD_VERIFIED"
+            and self.verification.outcome in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
             and self.verification.truth_eligible
             and self.verification.isolated_execution is not None
             and self.verification.isolated_execution.truth_eligible
@@ -141,7 +141,7 @@ def select_verified_repository_example(
         if (
             verification is not None
             and verification.truth_eligible
-            and verification.outcome == "SOURCE_BUILD_VERIFIED"
+            and verification.outcome in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         ):
             if expected_revision is not None and not _revision_matches(
                 repository_root, expected_revision

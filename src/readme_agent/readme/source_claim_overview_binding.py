@@ -91,16 +91,23 @@ def _product_positioning_overview_fact_ids(text: str, facts: ProductFactsV2) -> 
     capabilities = _accepted_fact(facts, "product.capabilities")
     problems = _accepted_fact(facts, "product.problems_solved")
     formats = _accepted_fact(facts, "product.formats")
-    if any(item is None for item in (identity, audience, capabilities, problems, formats)):
+    if identity is None:
         return set()
-    assert identity is not None
+    identity_value = identity.value if isinstance(identity.value, dict) else {}
+    product_name = str(identity_value.get("product_name") or "").casefold()
+    platform = str(identity_value.get("platform") or "").casefold()
+    identity_only_forms = {
+        f"foss version of {product_name} for {platform}",
+        f"{product_name} foss for {platform}",
+    }
+    if product_name and platform and folded in identity_only_forms:
+        return {identity.fact_id}
+    if any(item is None for item in (audience, capabilities, problems, formats)):
+        return set()
     assert audience is not None
     assert capabilities is not None
     assert problems is not None
     assert formats is not None
-    identity_value = identity.value if isinstance(identity.value, dict) else {}
-    product_name = str(identity_value.get("product_name") or "").casefold()
-    platform = str(identity_value.get("platform") or "").casefold()
     if (
         not product_name
         or not folded.startswith(product_name)

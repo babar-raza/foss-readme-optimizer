@@ -45,6 +45,7 @@ from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
     canonicalize_public_markdown,
 )
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 from readme_agent.readme.source_claim_repository_asset_binding import (
     repository_asset_source_claim_fact_ids,
 )
@@ -180,6 +181,60 @@ def build_template_provenance(
         )
         cursor = end_character
 
+    def bind_claims(
+        identifier: str,
+        markdown: str,
+        fact_ids: list[str],
+        standard_ids: list[str],
+    ) -> None:
+        """Bind independent prose claims without widening one fact span across another."""
+
+        nonlocal cursor
+        text = markdown.strip()
+        start_character = candidate.find(text, cursor)
+        if start_character < 0:
+            raise ValueError(f"compiled template content is absent: {identifier}")
+        base_byte = len(candidate[:start_character].encode("utf-8"))
+        claims = assess_material_claims(text)
+        for claim in claims:
+            claim_text = text.encode("utf-8")[
+                claim.source_byte_start : claim.source_byte_end
+            ].decode("utf-8")
+            accepted_fact_ids = set(literal_fact_ids(claim_text, facts, fact_ids))
+            coordinates = structured_fact_coordinates(
+                text,
+                claim,
+                facts,
+                list(accepted_fact_ids),
+            )
+            exact_binding = complete_source_claim_fact_binding(text, claim, facts)
+            if exact_binding is not None:
+                accepted_fact_ids.update(exact_binding.fact_ids)
+                coordinates = sorted(
+                    {*coordinates, *exact_binding.fact_coordinates},
+                    key=lambda item: (item.fact_id, item.path, item.value_sha256),
+                )
+            if len(claims) == 1:
+                # An atomic agentic summary was validated as one typed output
+                # against all of its declared supporting facts. Partition only
+                # multi-claim summaries, where widening one claim's authority
+                # across its neighbours would be ambiguous.
+                accepted_fact_ids.update(fact_ids)
+            if not accepted_fact_ids and not standard_ids:
+                continue
+            bindings.append(
+                CandidateContentProvenanceV1(
+                    provenance_id=f"{identifier}.{claim.claim_id}",
+                    candidate_byte_start=base_byte + claim.source_byte_start,
+                    candidate_byte_end=base_byte + claim.source_byte_end,
+                    fact_ids=sorted(accepted_fact_ids),
+                    fact_coordinates=coordinates,
+                    configured_standard_ids=standard_ids,
+                    rationale="Bind one exact compiled prose claim to its accepted inputs.",
+                )
+            )
+        cursor = start_character + len(text)
+
     bind(
         "template.title",
         template_input.title.markdown,
@@ -192,7 +247,7 @@ def build_template_provenance(
         template_input.badges.fact_ids,
         template_input.badges.standard_ids,
     )
-    bind(
+    bind_claims(
         "template.summary",
         template_input.summary.markdown,
         template_input.summary.fact_ids,

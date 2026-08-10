@@ -107,6 +107,16 @@ def resolve_source_claims(
     for claim_index, claim in enumerate(source_claims):
         claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
         fact_authorized_preserve = claim.claim_id in preserve_claim_ids
+        if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
+            # Exact, fact-authorized source bytes remain on the preservation
+            # path even when the canonical template independently cites the
+            # same facts. Otherwise a preserved support/resource line can be
+            # mislabeled as a generated equivalence and then fail the lineage
+            # invariant that correctly protects actual generated rewrites.
+            raw_candidate_occurrences[claim.content_sha256] -= 1
+            if candidate_hashes[claim.content_sha256] > 0:
+                candidate_hashes[claim.content_sha256] -= 1
+            continue
         if candidate_content_provenance:
             equivalent_resolution = equivalent_source_claim_resolution(
                 claim,
@@ -123,11 +133,6 @@ def resolve_source_claims(
                 if candidate_hashes[claim.content_sha256] > 0:
                     candidate_hashes[claim.content_sha256] -= 1
                 continue
-        if fact_authorized_preserve and raw_candidate_occurrences[claim.content_sha256] > 0:
-            raw_candidate_occurrences[claim.content_sha256] -= 1
-            if candidate_hashes[claim.content_sha256] > 0:
-                candidate_hashes[claim.content_sha256] -= 1
-            continue
         correction_candidate = claim.claim_id in correction_claim_ids
         if not correction_candidate and raw_candidate_occurrences[claim.content_sha256] > 0:
             raw_candidate_occurrences[claim.content_sha256] -= 1

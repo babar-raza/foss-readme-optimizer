@@ -35,7 +35,7 @@ def lint_readme_presentation(
     findings = (
         lint_api_reference(candidate_text)
         + lint_semantics(candidate_text, facts)
-        + lint_structure(candidate_text)
+        + lint_structure(candidate_text, facts)
         + lint_public_contract(candidate_text, facts)
     )
     findings.sort(key=lambda finding: (finding.spans[0].start, finding.rule_id, finding.finding_id))

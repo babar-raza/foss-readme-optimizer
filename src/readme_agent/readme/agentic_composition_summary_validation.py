@@ -9,6 +9,7 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import AgenticCompositionDraftV1
 from readme_agent.readme.fact_grounding import literal_fact_ids
+from readme_agent.readme.opening_summary_fallback import verified_identity_opening_summary
 
 
 def validate_opening_summary(
@@ -22,6 +23,11 @@ def validate_opening_summary(
         return
     if re.search(r"[.!?][ \t]*[,;:]", summary.text):
         raise LLMError("composition opening summary contains invalid sentence punctuation")
+    if re.search(
+        r"[.!?]\s+(?:a|an|developers?|for|it|the|they|this|that|users?)\b",
+        summary.text,
+    ):
+        raise LLMError("composition opening summary contains a lowercase sentence fragment")
     identity_id = facts.selected_fact_ids.get("product.identity")
     if identity_id not in summary.supporting_fact_ids:
         raise LLMError("composition opening summary does not cite the selected identity")
@@ -53,10 +59,14 @@ def validate_opening_summary(
             and not fact.has_unresolved_conflict
         ):
             purpose_ids.add(fact_id)
-    # Working-condition presentation: with no accepted purpose evidence at all,
-    # an identity-grounded summary is the honest maximum and is allowed.
     if purpose_ids and not purpose_ids.intersection(summary.supporting_fact_ids):
         raise LLMError("composition opening summary has no accepted purpose citation")
+    if not purpose_ids:
+        fallback = verified_identity_opening_summary(facts)
+        if fallback is None or summary != fallback:
+            raise LLMError(
+                "composition opening summary exceeds the identity-only evidence boundary"
+            )
     identity = visitor_fact_render_view(facts, "product.identity")
     title = identity.phrases[0] if identity and identity.phrases else ""
     if title not in summary.text:

@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
 from readme_agent.readme.claim_accountability_api_index import api_coordinate_index
 from readme_agent.readme.claim_accountability_api_shapes import coded_references
+from readme_agent.readme.claim_accountability_implementation_coordinates import (
+    implementation_component_coordinates,
+)
 from readme_agent.readme.source_claim_api_detail_binding import (
     technical_references_are_known,
 )
@@ -44,6 +48,17 @@ _FEATURE_DETAIL_WORDS = frozenset(
         "uses",
     }
 )
+_API_DETAIL_SYNONYMS = {
+    "arrow": frozenset({"arrowhead"}),
+    "byte": frozenset({"binary"}),
+    "create": frozenset({"add", "insert", "new"}),
+    "embed": frozenset({"add", "insert", "replace"}),
+    "iterate": frozenset({"array", "enumerable"}),
+    "threaded": frozenset({"parent"}),
+    "thread": frozenset({"parent"}),
+    "timestamp": frozenset({"created", "date", "time"}),
+}
+_FEATURE_SEPARATOR = re.compile(r"\s+(?:—|–|-)\s+")
 
 
 def _accepted_fact(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
@@ -57,7 +72,7 @@ def _accepted_fact(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
 
 
 def _anchor_words(value: str) -> frozenset[str]:
-    expanded = " ".join(_CAMEL_WORD.findall(re.sub(r"[`*_~]", "", value)))
+    expanded = " ".join(_CAMEL_WORD.findall(re.sub(r"[`*~]", "", value).replace("_", " ")))
     return frozenset(
         "number" if token == "numbered" else token.removesuffix("s")
         for token in re.findall(r"[a-z0-9]+", expanded.casefold())
@@ -65,14 +80,37 @@ def _anchor_words(value: str) -> frozenset[str]:
     )
 
 
-def _api_class_mentions(text: str, value: dict, *, exact_spelling: bool) -> frozenset[str]:
-    mentions = set()
-    for name in api_coordinate_index(value).classes_by_name:
+@lru_cache(maxsize=16)
+def _api_class_mention_index(
+    class_names: tuple[str, ...],
+    exact_spelling: bool,
+) -> tuple[re.Pattern[str] | None, dict[str, frozenset[str]]]:
+    phrases: dict[str, set[str]] = {}
+    for name in class_names:
         expanded = " ".join(_CAMEL_WORD.findall(name))
-        patterns = (name, expanded)
-        flags = 0 if exact_spelling else re.IGNORECASE
-        if any(re.search(rf"\b{re.escape(pattern)}(?:s)?\b", text, flags) for pattern in patterns):
-            mentions.add(name)
+        for phrase in {name, expanded} - {""}:
+            key = phrase if exact_spelling else phrase.casefold()
+            phrases.setdefault(key, set()).add(name)
+    if not phrases:
+        return None, {}
+    alternatives = "|".join(re.escape(phrase) for phrase in sorted(phrases, key=len, reverse=True))
+    flags = 0 if exact_spelling else re.IGNORECASE
+    pattern = re.compile(
+        rf"(?<![A-Za-z0-9_])(?P<name>{alternatives})(?:s)?(?![A-Za-z0-9_])",
+        flags,
+    )
+    return pattern, {key: frozenset(names) for key, names in phrases.items()}
+
+
+def _api_class_mentions(text: str, value: dict, *, exact_spelling: bool) -> frozenset[str]:
+    class_names = tuple(api_coordinate_index(value).classes_by_name)
+    pattern, phrases = _api_class_mention_index(class_names, exact_spelling)
+    if pattern is None:
+        return frozenset()
+    mentions: set[str] = set()
+    for match in pattern.finditer(text):
+        key = match.group("name") if exact_spelling else match.group("name").casefold()
+        mentions.update(phrases[key])
     return frozenset(mentions)
 
 
@@ -158,6 +196,62 @@ def _api_references_are_known(
     return True, has_api_reference
 
 
+def _public_api_feature_evidence(
+    text: str,
+    api_value: dict,
+) -> tuple[frozenset[str], frozenset[str], frozenset[str]]:
+    """Return relevant API types, material detail terms, and supported detail terms."""
+
+    visible = re.sub(r"[`*_~]", "", text.splitlines()[0]).strip().lstrip("-+ ")
+    parts = _FEATURE_SEPARATOR.split(visible, maxsplit=1)
+    if len(parts) != 2:
+        return frozenset(), frozenset(), frozenset()
+    label, detail = parts
+    label_words = _anchor_words(label)
+    if not label_words:
+        return frozenset(), frozenset(), frozenset()
+    index = api_coordinate_index(api_value)
+    relevant = frozenset(
+        name for name in index.classes_by_name if label_words.intersection(_anchor_words(name))
+    )
+    if not relevant:
+        return frozenset(), frozenset(), frozenset()
+    member_words = frozenset(
+        word
+        for name in relevant
+        for member in index.classes_by_name[name].get("members", [])
+        if isinstance(member, dict) and isinstance(member.get("name"), str)
+        for word in _anchor_words(member["name"])
+    )
+    detail_words = _anchor_words(detail) - label_words
+    supported = frozenset(
+        word
+        for word in detail_words
+        if word in member_words or bool(_API_DETAIL_SYNONYMS.get(word, frozenset()) & member_words)
+    )
+    return relevant, detail_words, supported
+
+
+def public_api_feature_is_anchored(text: str, facts: ProductFactsV2) -> bool:
+    """Return whether an inherited feature is narrowly related to accepted public API evidence."""
+
+    api = _accepted_fact(facts, "api.public_surface")
+    if api is None or not isinstance(api.value, dict):
+        return False
+    relevant, detail_words, supported = _public_api_feature_evidence(text, api.value)
+    return bool(relevant and len(detail_words) >= 3 and supported)
+
+
+def public_api_feature_is_entailed(text: str, facts: ProductFactsV2) -> bool:
+    """Accept only a multi-anchor feature whose every material detail has API support."""
+
+    api = _accepted_fact(facts, "api.public_surface")
+    if api is None or not isinstance(api.value, dict):
+        return False
+    relevant, detail_words, supported = _public_api_feature_evidence(text, api.value)
+    return bool(relevant and len(detail_words) >= 3 and detail_words == supported)
+
+
 def feature_detail_fact_ids(
     document: str,
     claim: ReadmeMaterialClaimAssessmentV1,
@@ -183,6 +277,35 @@ def feature_detail_fact_ids(
         result.add(capabilities.fact_id)
     if format_matches and formats is not None:
         result.add(formats.fact_id)
+    plain_api_mentions = (
+        _api_class_mentions(combined, api_value, exact_spelling=False)
+        if api_value is not None
+        else frozenset()
+    )
+    distinctive_api_mentions = {
+        name for name in plain_api_mentions if name.isupper() or len(_anchor_words(name)) >= 2
+    }
+    if len(plain_api_mentions) >= 2:
+        distinctive_api_mentions.update(plain_api_mentions)
+    if distinctive_api_mentions and api is not None:
+        result.add(api.fact_id)
+    if api is not None and public_api_feature_is_entailed(text, facts):
+        result.add(api.fact_id)
+    implementation = _accepted_fact(facts, "repository.implementation_components")
+    known_api_names: set[str] = set()
+    if api_value is not None:
+        api_index = api_coordinate_index(api_value)
+        known_api_names.update(api_index.classes_by_name)
+        known_api_names.update(api_index.all_member_names)
+        known_api_names.update(api_index.modules_by_export)
+        known_api_names.update(api_index.package_export_names)
+    if implementation is not None and implementation_component_coordinates(
+        combined,
+        implementation.fact_id,
+        implementation.value,
+        known_non_dependency_names=known_api_names,
+    ):
+        result.add(implementation.fact_id)
     if not result:
         return set()
 
@@ -211,4 +334,8 @@ def feature_detail_fact_ids(
     return result
 
 
-__all__ = ["feature_detail_fact_ids"]
+__all__ = [
+    "feature_detail_fact_ids",
+    "public_api_feature_is_anchored",
+    "public_api_feature_is_entailed",
+]

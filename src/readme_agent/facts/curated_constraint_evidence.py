@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 from readme_agent.facts.curated_python_development import distributed_python_source_roots
+from readme_agent.facts.public_constraint_text import is_public_constraint_sentence
 
 _CONSTRAINT_POLARITY = re.compile(
     r"\b(?:not\s+implemented|not\s+supported|only\b.+\bsupported|requires?|unsupported)\b",
@@ -330,6 +331,7 @@ def source_limitations(root: Path) -> tuple[object, list[str]] | None:
                 or not isinstance(message.value, str)
                 or _CONSTRAINT_POLARITY.search(message.value) is None
                 or _ABSTRACT_MESSAGE.search(message.value) is not None
+                or not is_public_constraint_sentence(message.value)
             ):
                 continue
             containing_classes = [

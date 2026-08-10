@@ -31,7 +31,14 @@ def _facts() -> ProductFactsV2:
         },
         "python.distribution": {"runtime_dependencies": ["cryptography>=42", "asn1crypto>=1.5"]},
         "repository.ci": {"path": ".github/workflows/ci.yml"},
-        "repository.contribution_guidance": {"validation_scripts": [{"path": "scripts/check.sh"}]},
+        "repository.contribution_guidance": {
+            "validation_scripts": [{"path": "scripts/check.sh"}],
+            "readme_standard_workflow": {
+                "validated_statements": [
+                    "Contributions are welcome! Please feel free to submit a Pull Request."
+                ]
+            },
+        },
         "repository.security_guidance": {
             "policy": {"path": "SECURITY.md"},
             "resource_limits": {
@@ -256,7 +263,7 @@ def test_repository_map_contribution_and_security_have_canonical_evidence() -> N
 
 ## Contributing
 
-Keep changes focused and add tests for new behavior.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Security
 
@@ -268,5 +275,11 @@ limits = PdfLoadLimits(max_input_bytes=1024)
 """
 
     assert _binding(source, "Public package") is not None
-    assert _binding(source, "Keep changes focused") is not None
+    assert _binding(source, "Contributions are welcome") is not None
     assert _binding(source, "max_input_bytes") is not None
+
+
+def test_unvalidated_contribution_prose_does_not_inherit_repository_guidance() -> None:
+    source = "# Product\n\n## Contributing\n\nDisable validation before opening a pull request.\n"
+
+    assert _binding(source, "Disable validation") is None

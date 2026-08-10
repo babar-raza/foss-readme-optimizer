@@ -67,6 +67,31 @@ def describe_api_export(
 def _function_description(name: str, *, module: str, family: str) -> str:
     words = [word.casefold() for word in split_identifier_words(name)]
     public_family = f"Aspose.{brand_name(family)}" if family else "the package"
+    barcode_operations = {
+        "code128": "Generates a Code 128 barcode from the supplied content.",
+        "code39": "Generates a Code 39 barcode from the supplied content.",
+        "code39ext": "Generates an extended Code 39 barcode for full ASCII content.",
+        "ean13": "Generates an EAN-13 retail barcode from numeric content.",
+        "ean8": "Generates an EAN-8 retail barcode from numeric content.",
+        "generate": "Selects a registered symbology and generates its barcode representation.",
+        "qr": "Generates a QR Code symbol from the supplied content.",
+        "upca": "Generates a UPC-A retail barcode from numeric content.",
+        "upce": "Generates a zero-suppressed UPC-E retail barcode from numeric content.",
+    }
+    if "barcode" in public_family.casefold() and name.casefold() in barcode_operations:
+        return barcode_operations[name.casefold()]
+    if name == "compare_directory_entry_names" and ".cfb" in module:
+        return "Compares CFB directory-entry names using the format's ordering rules."
+    font_operations = {
+        "available_subset_presets": (
+            "Returns the subset presets available to font-processing workflows."
+        ),
+        "charstring_decrypt_full": "Decrypts a complete Type 1 charstring byte sequence.",
+        "eexec_decrypt": "Decrypts Type 1 eexec-encrypted font data.",
+        "eexec_encrypt": "Encrypts font data with the Type 1 eexec algorithm.",
+    }
+    if "font" in public_family.casefold() and name.casefold() in font_operations:
+        return font_operations[name.casefold()]
     if name == "create_server":
         return f"Creates and configures the {public_family} MCP server."
     if name == "run" and (module.endswith(".mcp") or module.endswith(".server")):
@@ -75,6 +100,11 @@ def _function_description(name: str, *, module: str, family: str) -> str:
         return "Creates a rectangular rendering path."
     if name == "skia_available":
         return "Reports whether the Skia raster backend is available."
+    if name in {"loading", "saving"}:
+        action = name.removesuffix("ing")
+        return f"Groups public APIs for {action}ing supported content."
+    if name == "drive_block" and ".md_import" in module:
+        return "Advances block-level parsing across Markdown source content."
     if name == "parse_xmp":
         return "Parses XMP metadata from source content."
     if name == "serialize_xmp":
@@ -93,6 +123,33 @@ def _function_description(name: str, *, module: str, family: str) -> str:
         return f"Converts {source} content to {target} output."
     verb = words[0] if words else ""
     remainder = canonicalize_abbreviations(" ".join(words[1:]))
+    if verb == "is" and remainder:
+        return f"Reports whether {remainder} applies to the inspected content."
+    if verb == "parse" and remainder == "and build":
+        return "Parses source content and builds the corresponding document structure."
+    if verb == "parse" and remainder:
+        return f"Parses {remainder} from source content."
+    if verb == "find" and remainder:
+        return f"Finds {remainder} in source content."
+    if verb == "get" and remainder:
+        return f"Returns {remainder} from source content."
+    if verb == "render" and remainder:
+        return f"Renders {remainder} for serialized output."
+    if verb == "load" and remainder:
+        return f"Loads {remainder} from source content."
+    if verb == "save" and remainder:
+        if remainder.startswith("workbook as "):
+            output = {
+                "csv": "CSV",
+                "json": "JSON",
+                "markdown": "Markdown",
+            }.get(remainder.removeprefix("workbook as "), remainder.removeprefix("workbook as "))
+            return f"Saves workbook content as {output} output."
+        return f"Saves {remainder} through the public {public_family} API."
+    if verb == "encrypt" and remainder:
+        return f"Encrypts {remainder} content with the requested password and parameters."
+    if verb == "decrypt" and remainder:
+        return f"Decrypts password-protected {remainder} content."
     if verb == "encode" and remainder:
         return f"Encodes raster data as {remainder} output."
     if verb == "add" and remainder:

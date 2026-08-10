@@ -384,12 +384,30 @@ def run_poc_for_repo(org_repo: str) -> int:
             require_presentation_shell=True,
         )
         if plan is None:
-            _log(f"{org_repo}: composing via LLM (no deterministic preservation plan)")
-            try:
-                plan = plan_readme_composition(org_repo, source_text, facts, assessment)
-            except LLMError as exc:
-                _log(f"{org_repo}: composition plan rejected ({exc}); one retry")
-                plan = plan_readme_composition(org_repo, source_text, facts, assessment)
+            cached_plan_path = share_dir / "agentic-composition-plan.json"
+            cached_payload = None
+            if cached_plan_path.exists():
+                try:
+                    cached_payload = json.loads(cached_plan_path.read_text(encoding="utf-8"))
+                    plan = validate_readme_composition_plan(
+                        cached_payload,
+                        org_repo=org_repo,
+                        source_text=source_text,
+                        facts=facts,
+                        assessment=assessment,
+                    )
+                    _log(f"{org_repo}: reusing hash-bound composition plan")
+                except (json.JSONDecodeError, LLMError, OSError):
+                    cached_payload = None
+            if cached_payload is None:
+                _log(f"{org_repo}: composing via LLM (no valid reusable plan)")
+                try:
+                    plan = plan_readme_composition(org_repo, source_text, facts, assessment)
+                except LLMError as exc:
+                    _log(f"{org_repo}: composition plan rejected ({exc}); one retry")
+                    plan = plan_readme_composition(org_repo, source_text, facts, assessment)
+                _write_json(cached_plan_path, plan.model_dump(mode="json"))
+        assert plan is not None
         plan_payload = plan.model_dump(mode="json")
         validate_readme_composition_plan(
             plan_payload,

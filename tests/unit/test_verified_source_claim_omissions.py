@@ -9,6 +9,7 @@ import pytest
 
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 from readme_agent.presentation.verified_source_claim_omissions import (
+    _capability_anchor_matches,
     deferred_unverified_obligation_detail_resolution,
     deferred_withheld_source_resolution,
     verified_paired_example_intro_resolution,
@@ -22,6 +23,7 @@ from readme_agent.readme.assessment_claims import (
 )
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1, SourceClaimResolutionV1
 from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+from tests.unit.test_source_claim_capability_binding import _slides_api_facts
 
 ROOT = Path(__file__).resolve().parents[2]
 FACTS = (
@@ -109,15 +111,93 @@ def test_generic_content_group_defers_only_when_verified_capabilities_cover_cont
     assert resolution.resolution == "deferred_verification"
 
 
+def test_multirow_capability_table_can_defer_unverified_row_qualifiers() -> None:
+    facts = _facts()
+    capability = facts.selected_fact("product.capabilities")
+    replacement = capability.model_copy(
+        update={
+            "value": [
+                "Code 128 generation with automatic switching",
+                "QR Code generation",
+                "EAN-13 and EAN-8 generation",
+            ]
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == capability.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+    table = (
+        "| Symbology | Function | Accepted input |\n"
+        "| --- | --- | --- |\n"
+        "| Code 128 | `code128()` | 12 characters |\n"
+        "| QR Code | `qr()` | Versions 1-40 |\n"
+        "| EAN-13 | `ean13()` | 13 digits |\n"
+    )
+
+    assert _capability_anchor_matches(table, facts)
+
+
+def test_capability_anchor_ignores_markdown_link_destination_tokens() -> None:
+    facts = _facts()
+    capability = facts.selected_fact("product.capabilities")
+    replacement = capability.model_copy(update={"value": ["EmailMessage conversion"]})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                replacement if fact.fact_id == capability.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+    claim = (
+        "Convert between MSG and [`email.message.EmailMessage`]"
+        "(https://docs.python.org/3/library/email.message.html#email.message.EmailMessage)"
+    )
+
+    assert _capability_anchor_matches(claim, facts)
+
+
+def test_api_anchored_feature_can_defer_only_its_unverified_detail() -> None:
+    facts = _slides_api_facts()
+    for detail in (
+        "**Slides** — Add, remove, clone, reorder, and iterate slides",
+        "**Presentation I/O** — Open, create, and save `.pptx` files with full round-trip fidelity",
+    ):
+        source = f"# Product\n\n## Features\n\n- {detail}\n"
+        claim = assess_material_claims(source)[0]
+        claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+        risk = classify_source_claim_risk(source, claim)
+
+        resolution = deferred_unverified_obligation_detail_resolution(
+            claim,
+            claim_text,
+            b"# Candidate with independently verified capabilities\n",
+            risk,
+            facts,
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+            candidate_core_present=True,
+        )
+
+        assert resolution is not None
+        assert resolution.resolution == "deferred_verification"
+        assert resolution.fact_ids == []
+
+
 def _verified_example_case(
     *,
     source_execution_verified: bool = False,
+    source_static_verified: bool = True,
+    source_validation_reason: str = "accepted",
+    input_name: str = "model.obj",
     fixture_paths: list[dict[str, object]] | None = None,
     scan_status: str = "complete",
     minimal_outcome: str = "SOURCE_BUILD_VERIFIED",
 ) -> tuple[ProductFactsV2, str, str, list[CandidateContentProvenanceV1]]:
     facts = _facts()
-    code = 'from aspose.threed import Scene\n\nscene = Scene()\nscene.open("model.obj")'
+    code = f'from aspose.threed import Scene\n\nscene = Scene()\nscene.open("{input_name}")'
     source = f"# Product\n\n## Quick Start\n\n```python\n{code}\n```\n"
     source_revision = "a" * 40
     inventory = {
@@ -134,6 +214,7 @@ def _verified_example_case(
             ".doc",
             ".docx",
             ".eml",
+            ".eot",
             ".fbx",
             ".glb",
             ".gltf",
@@ -145,6 +226,7 @@ def _verified_example_case(
             ".msg",
             ".obj",
             ".one",
+            ".otf",
             ".pdf",
             ".ply",
             ".png",
@@ -154,6 +236,9 @@ def _verified_example_case(
             ".svg",
             ".tif",
             ".tiff",
+            ".ttf",
+            ".woff",
+            ".woff2",
             ".xls",
             ".xlsx",
         ],
@@ -171,9 +256,24 @@ def _verified_example_case(
                     "title": "Quick Start",
                     "code": code,
                     "language": "python",
-                    "static_api_verified": True,
+                    "static_api_verified": source_static_verified,
                     "execution_verified": source_execution_verified,
                     "evidence_modules": ["aspose.threed"],
+                }
+            ]
+            if source_static_verified
+            else [],
+            "withheld_inline_examples": []
+            if source_static_verified
+            else [
+                {
+                    "title": "Quick Start",
+                    "code": code,
+                    "language": "python",
+                    "static_api_verified": False,
+                    "execution_verified": False,
+                    "validation_reason": source_validation_reason,
+                    "evidence_modules": [],
                 }
             ],
             "result_assets": [],
@@ -350,6 +450,30 @@ def test_static_source_example_with_absent_fixture_is_explicitly_deferred() -> N
     assert "absent-input-fixture:model.obj" in resolution.evidence
     assert "disposition:static-only-source-example-deferred-v1" in resolution.evidence
     assert "without claiming falsity or execution" in resolution.rationale
+
+
+def test_rejected_source_example_with_absent_fixture_is_explicitly_deferred() -> None:
+    facts, source, candidate, provenance = _verified_example_case(
+        source_static_verified=False,
+        source_validation_reason="unknown_member:FontQaReporter.json_path",
+        input_name="Roboto-VariableFont_wdth,wght.ttf",
+    )
+    claim = assess_material_claims(source)[0]
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        authoritative_correction_ranges=[(claim.source_byte_start, claim.source_byte_end)],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert len(resolutions) == 1
+    resolution = resolutions[0]
+    assert resolution.resolution == "verified_omission"
+    assert "absent-input-fixture:Roboto-VariableFont_wdth,wght.ttf" in resolution.evidence
+    assert "recorded static validation decision" in resolution.rationale
 
 
 def test_paired_example_intro_is_omitted_only_with_fact_bound_adjacent_example() -> None:

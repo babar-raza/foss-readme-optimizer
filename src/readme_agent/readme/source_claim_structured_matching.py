@@ -27,6 +27,19 @@ from readme_agent.readme.source_claim_repository_asset_binding import (
 )
 
 _MARKDOWN = re.compile(r"[`*_>#\[\]()]")
+_REPOSITORY_ROUTE = re.compile(
+    r"^\s*[-+*]\s+(?:\*\*[^*]+\*\*:\s*)?\[(?P<label>[^\]]+)\]"
+    r"\((?P<url>https://github\.com/[^\s)]+)\)\s*$",
+    re.IGNORECASE,
+)
+_ROUTE_LABELS = {
+    "github issues",
+    "github repository",
+    "issue tracker",
+    "issues",
+    "open an issue",
+    "repository",
+}
 
 
 def _accepted_fact(facts: ProductFactsV2, field: str) -> FactRecordV2 | None:
@@ -75,7 +88,17 @@ def verified_issue_route_fact_ids(claim_text: str, facts: ProductFactsV2) -> set
     )
     normalized_claim = " ".join(_MARKDOWN.sub("", claim_text).casefold().split())
     normalized_expected = " ".join(_MARKDOWN.sub("", expected).casefold().split())
-    return {identity.fact_id} if normalized_claim == normalized_expected else set()
+    if normalized_claim == normalized_expected:
+        return {identity.fact_id}
+    match = _REPOSITORY_ROUTE.fullmatch(claim_text.strip())
+    if match is None or " ".join(match.group("label").casefold().split()) not in _ROUTE_LABELS:
+        return set()
+    target = match.group("url").rstrip("/")
+    permitted = {
+        f"https://github.com/{repository}",
+        f"https://github.com/{repository}/issues",
+    }
+    return {identity.fact_id} if target in permitted else set()
 
 
 __all__ = ["structured_source_claim_fact_ids", "verified_issue_route_fact_ids"]

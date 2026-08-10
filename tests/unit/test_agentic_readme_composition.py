@@ -26,8 +26,11 @@ from readme_agent.readme.agentic_composition_inputs import (
 )
 from readme_agent.readme.agentic_composition_models import (
     MAX_AUTHORING_ATTEMPTS,
+    AgenticCompositionDraftV1,
     AgenticDiagramNodeV1,
+    AgenticOverviewSentenceV1,
 )
+from readme_agent.readme.agentic_composition_summary_validation import validate_opening_summary
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
@@ -64,10 +67,10 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "a73ff306744157df88970db141cf61df13c23b61ab58c142abd9d44998a8ef1c"
+    "d45f3e0181ff9ec5c3158106688b1d1412043fdf767df72edeeb2d798e75b7e8"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "826b15a4e9bffe6dfc25d6fd35c1c5dba2ee236e33748b89ef570abfc09d5b05"
+    "ea9d3b43cac1042aab3855bae9cfc3c797930213f94c8e0b316819e5b7640a34"
 )
 
 
@@ -1494,7 +1497,11 @@ def test_real_3d_python_preserve_plan_keeps_exact_claims_and_corrects_only_owned
     assert b"".join(segment.content_text.encode("utf-8") for segment in ledger.segments) == (
         candidate.encode("utf-8")
     )
-    assert not ledger.source_placements
+    assert ledger.source_placements
+    assert all(
+        placement.source_content_sha256 == placement.final_content_sha256
+        for placement in ledger.source_placements
+    )
     assert all(
         segment.fact_ids or segment.configured_standard_ids
         for segment in ledger.segments
@@ -1880,6 +1887,86 @@ def test_agentic_plan_uses_fact_literal_format_fallback_after_repeated_raw_inven
         [facts.selected_fact("product.formats").fact_id],
     )
     assert plan.attempt_count == 2
+
+
+def test_agentic_plan_rejects_capability_prose_when_only_identity_and_audience_are_accepted():
+    facts, revision = _facts()
+    purpose_fields = {"product.problems_solved", "product.capabilities", "product.formats"}
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"verification_state": "missing"})
+                if fact.field in purpose_fields
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    audience = _first_text(facts.selected_fact("product.audience").value)
+    invalid = AgenticCompositionDraftV1.model_validate(
+        _cover_assessment(_draft(facts), assessment)
+    ).model_copy(
+        update={
+            "opening_summary": AgenticOverviewSentenceV1(
+                text=(
+                    "Aspose.Cells FOSS for Java reads, writes, and converts workbooks for "
+                    f"{audience.rstrip('.').casefold()}."
+                ),
+                supporting_fact_ids=[
+                    facts.selected_fact("product.identity").fact_id,
+                    facts.selected_fact("product.audience").fact_id,
+                ],
+            )
+        }
+    )
+
+    with pytest.raises(LLMError, match="exceeds the identity-only evidence boundary"):
+        validate_opening_summary(invalid, facts)
+    valid = invalid.model_copy(
+        update={
+            "opening_summary": AgenticOverviewSentenceV1(
+                text=(
+                    "Aspose.Cells FOSS for Java is an open-source library for "
+                    f"{audience.rstrip('.').casefold()}."
+                ),
+                supporting_fact_ids=[
+                    facts.selected_fact("product.identity").fact_id,
+                    facts.selected_fact("product.audience").fact_id,
+                ],
+            )
+        }
+    )
+    validate_opening_summary(valid, facts)
+
+
+def test_agentic_plan_rejects_lowercase_sentence_fragment_after_audience_phrase():
+    facts, _revision = _facts()
+    draft = AgenticCompositionDraftV1.model_validate(_draft(facts))
+    invalid = draft.model_copy(
+        update={
+            "opening_summary": AgenticOverviewSentenceV1(
+                text=(
+                    "Aspose.Cells FOSS for Java is a spreadsheet library. "
+                    "For developers using Java. it creates XLSX workbooks."
+                ),
+                supporting_fact_ids=[
+                    facts.selected_fact("product.identity").fact_id,
+                    facts.selected_fact("product.audience").fact_id,
+                    facts.selected_fact("product.capabilities").fact_id,
+                ],
+            )
+        }
+    )
+
+    with pytest.raises(LLMError, match="lowercase sentence fragment"):
+        validate_opening_summary(invalid, facts)
 
 
 def test_agentic_plan_repairs_opening_with_enterprise_comparison():

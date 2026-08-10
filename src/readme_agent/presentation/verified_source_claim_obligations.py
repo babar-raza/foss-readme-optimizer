@@ -21,7 +21,8 @@ def _primary_example_is_executed(facts: ProductFactsV2, fact_ids: set[str]) -> b
     example = facts.fact_by_id(example_id)
     return bool(
         isinstance(example.value, dict)
-        and example.value.get("verification_outcome") == "SOURCE_BUILD_VERIFIED"
+        and example.value.get("verification_outcome")
+        in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
     )
 
 

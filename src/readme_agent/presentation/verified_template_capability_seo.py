@@ -11,6 +11,7 @@ from readme_agent.readme.diagram_semantic_candidates import (
     input_node_candidates,
     output_node_candidates,
 )
+from readme_agent.readme.presentation_similarity import capability_discriminators
 
 
 @dataclass(frozen=True)
@@ -138,6 +139,12 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
         return "Create 3D animations with keyframes"
     if re.fullmatch(r"(?i).+\s+export", title):
         return f"Export {_destination(title[:-6].strip())} files"
+    if is_action_led_capability_title(title) and capability_discriminators(title):
+        # An explicit verified format capability already carries its own
+        # direction and subject. Replacing those with the repository-wide
+        # primary input/output can turn, for example, DOCX read/write into the
+        # different claim DOC-to-DOCX conversion and breaks exact provenance.
+        return title
     if subject:
         if "travers" in lowered:
             suffix = f" in {context.platform}" if context.platform else ""

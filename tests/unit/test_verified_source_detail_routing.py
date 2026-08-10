@@ -187,6 +187,98 @@ def test_directional_format_capability_is_not_repeated_as_source_detail() -> Non
     assert routed == {}
 
 
+def test_component_identical_capability_detail_is_not_repeated() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    identity = facts.selected_fact("product.identity")
+    label = "Read Word 97-2003 DOC binary documents with olefile"
+    capability = capability.model_copy(update={"value": [label]})
+    implementation = FactRecordV2(
+        fact_id="repository.implementation_components:python-test",
+        field="repository.implementation_components",
+        value={
+            "components": [],
+            "capability_groups": [
+                {
+                    "label": label,
+                    "format": "DOC",
+                    "roles": ["read"],
+                    "component_indexes": [0],
+                    "stdlib_imports": [],
+                    "runtime_imports": ["olefile"],
+                    "source_summary": "Core reader for Word 97-2003 DOC binary files.",
+                }
+            ],
+        },
+        source=identity.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                *[
+                    capability if fact.fact_id == capability.fact_id else fact
+                    for fact in facts.facts
+                ],
+                implementation,
+            ],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                implementation.field: implementation.fact_id,
+            },
+        }
+    )
+    source = (
+        "# Product\n\n## Features\n\n- **DOC Support**: Word 97-2003 binary reader via `olefile`\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    source_claim = assessment.material_claims[0]
+    source_bytes = source.encode("utf-8")
+    block = PreservedBlock(
+        markdown=source_bytes[source_claim.source_byte_start : source_claim.source_byte_end].decode(
+            "utf-8"
+        ),
+        source_owner_id=source_claim.claim_id,
+        source_byte_start=source_claim.source_byte_start,
+        source_byte_end=source_claim.source_byte_end,
+    )
+    candidate = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- **Read Word 97-2003 DOC binary documents with olefile** - "
+        "Parse legacy Word binary files through the repository's olefile-backed reader.\n"
+    )
+    candidate_claim = assess_material_claims(candidate)[0]
+    candidate_binding = complete_source_claim_fact_binding(candidate, candidate_claim, facts)
+    assert candidate_binding is not None
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:doc",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=sorted(candidate_binding.fact_ids),
+        fact_coordinates=list(candidate_binding.fact_coordinates),
+        rationale="Bind the canonical capability row to exact implementation evidence.",
+    )
+
+    routed = route_source_detail_blocks(
+        source,
+        assessment,
+        facts,
+        [block],
+        candidate,
+        [provenance],
+    )
+
+    assert routed == {}
+
+
 def test_verified_public_guidance_routes_by_enclosing_source_section() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     identity = facts.selected_fact("product.identity")

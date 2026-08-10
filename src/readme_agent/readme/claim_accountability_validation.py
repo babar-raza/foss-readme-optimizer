@@ -408,7 +408,7 @@ def validate_claim_accountability_map(
             and set(resolution.fact_ids).issubset(
                 candidate_by_id[resolution.candidate_claim_id].accepted_fact_ids
             )
-            and set(resolution.fact_ids) <= set(source_by_id[resolution.claim_id].accepted_fact_ids)
+            and set(resolution.fact_ids) == set(source_by_id[resolution.claim_id].accepted_fact_ids)
         )
         for resolution in resolutions.values()
     )

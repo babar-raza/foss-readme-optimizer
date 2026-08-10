@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterable
+from functools import lru_cache
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -150,14 +151,32 @@ _DYNAMIC_FIELDS = {
 }
 
 
-def compile_abbreviation_pattern(terms: Iterable[str]) -> re.Pattern[str]:
-    """Compile a boundary-aware case-insensitive pattern for canonical terms."""
+@lru_cache(maxsize=64)
+def _normalized_abbreviation_values(values: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(sorted(set(values), key=lambda item: (-len(item), item)))
 
-    values = sorted(set(terms), key=lambda item: (-len(item), item))
+
+@lru_cache(maxsize=64)
+def _compile_abbreviation_values(values: tuple[str, ...]) -> re.Pattern[str]:
+    if not values:
+        return re.compile(r"(?!x)x")
     return re.compile(
         r"(?<![A-Za-z0-9_-])(" + "|".join(map(re.escape, values)) + r")(?![A-Za-z0-9_-])",
         re.IGNORECASE,
     )
+
+
+@lru_cache(maxsize=64)
+def _canonical_abbreviation_map(values: tuple[str, ...]) -> dict[str, str]:
+    return {item.casefold(): item for item in values}
+
+
+def compile_abbreviation_pattern(terms: Iterable[str]) -> re.Pattern[str]:
+    """Return one cached boundary-aware pattern for a canonical vocabulary."""
+
+    raw = terms if isinstance(terms, tuple) else tuple(terms)
+    values = _normalized_abbreviation_values(raw)
+    return _compile_abbreviation_values(values)
 
 
 def canonical_abbreviations_from_facts(facts: ProductFactsV2 | None) -> tuple[str, ...]:
@@ -215,8 +234,10 @@ def canonicalize_abbreviations(
 ) -> str:
     """Use configured canonical casing for technical abbreviations in public text."""
 
-    canonical = {item.casefold(): item for item in canonical_terms}
-    return compile_abbreviation_pattern(canonical.values()).sub(
+    raw = canonical_terms if isinstance(canonical_terms, tuple) else tuple(canonical_terms)
+    values = _normalized_abbreviation_values(raw)
+    canonical = _canonical_abbreviation_map(values)
+    return _compile_abbreviation_values(values).sub(
         lambda match: canonical[match.group(0).casefold()], value
     )
 

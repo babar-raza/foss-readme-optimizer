@@ -465,6 +465,7 @@ def build_readme_claim_accountability_map(
                 for standard_id in binding.configured_standard_ids
             )
         resolution = resolutions.get(claim.claim_id)
+        resolution_fact_scope: set[str] | None = None
         if resolution is not None:
             if (
                 resolution.source_byte_start != claim.source_byte_start
@@ -482,6 +483,13 @@ def build_readme_claim_accountability_map(
                     raise ValueError(f"source claim resolution cites ineligible fact {fact_id!r}")
                 if fact_id in resolution.fact_ids:
                     fact_ids.add(fact_id)
+            if resolution.resolution == "verified_equivalence":
+                # An equivalence carries the exact accepted fact subset that
+                # the candidate claim replaces. Do not let broader contextual
+                # source binding inflate that subset and make the resulting
+                # map fail its own exact-equivalence validation.
+                resolution_fact_scope = set(resolution.fact_ids)
+                fact_ids = set(resolution_fact_scope)
         fact_coordinates = _merged_fact_coordinates(
             structured_fact_coordinates(source_text, claim, facts, fact_ids),
             [coordinate for binding in exact_bindings for coordinate in binding.fact_coordinates],
@@ -491,6 +499,12 @@ def build_readme_claim_accountability_map(
                 else []
             ),
         )
+        if resolution_fact_scope is not None:
+            fact_coordinates = [
+                coordinate
+                for coordinate in fact_coordinates
+                if coordinate.fact_id in resolution_fact_scope
+            ]
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
         if composition_ledger is not None:
             survives = _source_claim_has_candidate_placement(

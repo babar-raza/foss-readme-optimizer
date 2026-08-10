@@ -252,6 +252,34 @@ def test_public_surface_does_not_parse_private_modules(tmp_path):
     assert not any("_broken" in symbol.qualified_name for symbol in surface.symbols)
 
 
+def test_public_surface_resolves_members_from_an_explicit_private_reexport(tmp_path):
+    _write_package(tmp_path)
+    package = tmp_path / "src" / "aspose" / "widget"
+    (package / "__init__.py").write_text(
+        "from ._font_base import Font\n__all__ = ['Font']\n",
+        encoding="utf-8",
+    )
+    (package / "_font_base.py").write_text(
+        "class Font:\n    def save(self, path: str) -> None:\n        return None\n",
+        encoding="utf-8",
+    )
+
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo="acme/widget",
+        source_revision="revision-private-reexport",
+    )
+    symbols = {symbol.qualified_name: symbol for symbol in surface.symbols}
+
+    assert symbols["aspose.widget.Font"].kind == "class"
+    assert symbols["aspose.widget.Font"].source_path.endswith("_font_base.py")
+    assert symbols["aspose.widget.Font.save"].kind == "method"
+    assert symbols["aspose.widget.Font.save"].reexported_from == (
+        "aspose.widget._font_base.Font.save"
+    )
+    assert not any("aspose.widget._font_base" in name for name in symbols)
+
+
 def test_public_surface_records_and_skips_a_malformed_public_module(tmp_path):
     _write_package(tmp_path)
     public_module = tmp_path / "src" / "aspose" / "widget" / "broken.py"
@@ -355,6 +383,37 @@ def test_consumer_requires_public_symbols_and_installed_import_use(tmp_path):
     assert proof.isolated_execution.policy.network_mode == "none"
     assert proof.isolated_execution.policy.read_only_rootfs is True
     assert proof.isolated_execution.policy.tmpfs_mebibytes == 256
+
+
+def test_consumer_records_a_typed_source_tree_fallback(tmp_path):
+    _write_package(tmp_path)
+    snapshot = _git_snapshot(tmp_path)
+    surface = inspect_python_public_api(
+        tmp_path,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+    )
+    example = ConsumerExampleV1(
+        code="from aspose.widget import Widget\nprint(Widget.name)\n",
+        required_symbols=["aspose.widget.Widget", "aspose.widget.Widget.name"],
+    )
+
+    def source_tree_executor(request):
+        result = _successful_executor(request)
+        payload = {
+            "execution_mode": "source_tree",
+            "source_install_failure": "invalid_build_backend",
+            "verified_symbols": example.required_symbols,
+        }
+        return result.model_copy(
+            update={"stdout": "README_AGENT_PYTHON_CONSUMER=" + json.dumps(payload, sort_keys=True)}
+        )
+
+    proof = prove_python_consumer(snapshot, surface, example, executor=source_tree_executor)
+
+    assert proof.accepted is True
+    assert proof.execution_mode == "source_tree"
+    assert proof.source_install_failure == "invalid_build_backend"
 
 
 def test_consumer_selects_python_312_for_repository_requirement(tmp_path):

@@ -428,6 +428,65 @@ def test_repository_source_limitations_survive_an_empty_salvage_candidate() -> N
     assert enriched["product.limitations"] is limitations
 
 
+def test_public_spreadsheet_api_projects_export_and_encryption_capabilities() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://aspose/cells_foss",
+        source_revision=CURRENT_REVISION,
+    )
+    public_api = FactRecordV2(
+        fact_id="api.public_surface:python-exports",
+        field="api.public_surface",
+        value={
+            "modules": [
+                {
+                    "module": "aspose.cells_foss",
+                    "exports": ["CSVSaveOptions", "JsonSaveOptions", "MarkdownSaveOptions"],
+                }
+            ],
+            "classes": [
+                {"name": "encrypt_xlsx"},
+                {"name": "decrypt_xlsx"},
+                {"name": "save_workbook_as_csv"},
+            ],
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[public_api],
+        selected_fact_ids={public_api.field: public_api.fact_id},
+        package_root_roles=None,
+    )
+    technical = {
+        field: FactRecordV2(
+            fact_id=f"{field}:salvage",
+            field=field,
+            value=[],
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in ("product.capabilities", "product.formats", "product.limitations")
+    }
+
+    enriched = _repository_enriched_technical_facts(base, technical)
+
+    assert enriched["product.capabilities"].value == [
+        "Export workbooks to CSV, JSON, and Markdown",
+        "Encrypt and decrypt XLSX workbooks with AES password protection",
+    ]
+    assert enriched["product.capabilities"].source.location == source.location
+
+
 def test_repository_format_details_exclude_development_extractor_provenance() -> None:
     repository_source = FactSourceV2(
         source_type="mechanical_repository",

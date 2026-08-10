@@ -14,12 +14,114 @@ from readme_agent.facts.curated_python_readme import (
     verified_readme_examples,
 )
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
+from readme_agent.facts.curated_repository_guidance import repository_contribution_guidance
 
 
 def _write(root: Path, relative: str, text: str) -> None:
     path = root / relative
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def test_standard_readme_contribution_workflow_is_exact_validated_guidance(
+    tmp_path: Path,
+) -> None:
+    statements = [
+        "Contributions are welcome! Please feel free to submit a Pull Request.",
+        "1. Fork the repository",
+        "2. Create your feature branch (`git checkout -b feature/amazing-feature`)",
+        "3. Commit your changes (`git commit -m 'Add some amazing feature'`)",
+        "4. Push to the branch (`git push origin feature/amazing-feature`)",
+        "5. Open a Pull Request",
+    ]
+    _write(tmp_path, "README.md", "# Product\n\n## Contributing\n\n" + "\n".join(statements))
+
+    result = repository_contribution_guidance(tmp_path)
+
+    assert result is not None
+    value, locations = result
+    assert locations == ["README.md"]
+    assert value["readme_standard_workflow"]["validated_statements"] == statements
+
+
+def test_arbitrary_readme_contribution_advice_is_not_promoted_to_verified_guidance(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "README.md",
+        "# Product\n\n## Contributing\n\nDisable validation before submitting changes.\n",
+    )
+
+    assert repository_contribution_guidance(tmp_path) is None
+
+
+def test_repository_contribution_policy_preserves_only_supported_exact_statements(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "scripts/check.sh",
+        "python -m ruff check src/\npython -m pytest -q\n",
+    )
+    statements = [
+        "Issues and pull requests are welcome. Please:",
+        "1. Keep changes focused.",
+        "2. Add tests for new behavior and bug fixes.",
+        "3. Write code comments and docstrings in English.",
+        "4. Run `python -m ruff check src/` and `python -m pytest -q`.",
+        "5. Document public API changes and important limitations.",
+        (
+            "When reporting a parser or rendering problem, include a minimal PDF that can be "
+            "shared publicly whenever possible."
+        ),
+    ]
+    _write(
+        tmp_path,
+        "README.md",
+        "# Product\n\n## Contributing\n\n"
+        + "\n".join(statements[:-1])
+        + "\n\nWhen reporting a parser or rendering problem, include a minimal PDF that can be\n"
+        "shared publicly whenever possible.\n",
+    )
+
+    result = repository_contribution_guidance(tmp_path)
+
+    assert result is not None
+    value, locations = result
+    assert locations == ["README.md"]
+    assert value["readme_standard_workflow"]["validated_statements"] == statements
+
+
+def test_repository_contribution_policy_rejects_an_uncorroborated_command(
+    tmp_path: Path,
+) -> None:
+    _write(tmp_path, "scripts/check.sh", "python -m pytest -q\n")
+    _write(
+        tmp_path,
+        "README.md",
+        "# Product\n\n## Contributing\n\n1. Run `python -m unsafe_publish`.\n",
+    )
+
+    result = repository_contribution_guidance(tmp_path)
+
+    assert result is not None
+    value, locations = result
+    assert locations == ["scripts/check.sh"]
+    assert "readme_standard_workflow" not in value
+
+
+def test_public_api_and_changelog_are_checksum_bound_documentation_assets(tmp_path: Path) -> None:
+    _write(tmp_path, "PUBLIC_API.md", "# Public API\n")
+    _write(tmp_path, "CHANGELOG.md", "# Changelog\n")
+
+    selected = {
+        fact.field: fact
+        for fact in curated_repository_fact_candidates(tmp_path, "docs-revision", None)
+    }
+
+    paths = {item["path"] for item in selected["repository.documentation_assets"].value["entries"]}
+    assert paths == {"PUBLIC_API.md", "CHANGELOG.md"}
 
 
 def test_non_python_ecosystem_skips_incidental_python_collectors(tmp_path: Path) -> None:
@@ -290,6 +392,8 @@ def test_fixture_inventory_proves_absence_only_for_complete_immutable_git_tree(
     assert [item.path for item in inventory.fixture_paths] == ["testdata/scene.obj"]
     assert inventory.matching_paths("scene.obj") == ("testdata/scene.obj",)
     assert inventory.matching_paths("missing.stl") == ()
+    assert ".ttf" in inventory.recognized_extensions
+    assert ".woff2" in inventory.recognized_extensions
 
     _write(tmp_path, "src/acme.py", "VALUE = 2\n")
     unscanned = snapshot_fixture_inventory(tmp_path, revision)
@@ -310,7 +414,9 @@ def test_dynamic_python_all_is_not_promoted_to_public_surface(tmp_path: Path) ->
     assert curated_repository_fact_candidates(tmp_path, "abc123", None) == []
 
 
-def test_readme_example_with_unverified_api_is_not_promoted(tmp_path: Path) -> None:
+def test_readme_example_with_unverified_api_is_retained_only_as_withheld_evidence(
+    tmp_path: Path,
+) -> None:
     _write(tmp_path, "src/acme/__init__.py", '__all__ = ["Document"]\n')
     _write(tmp_path, "src/acme/model.py", "class Document:\n    pass\n")
     _write(
@@ -332,9 +438,33 @@ document = Document.open("input.bin")
         + "\n",
     )
 
-    facts = curated_repository_fact_candidates(tmp_path, "abc123", None)
+    result = verified_readme_examples(
+        tmp_path,
+        {
+            "modules": [{"module": "acme.model", "exports": ["Document"]}],
+            "classes": [
+                {
+                    "module": "acme.model",
+                    "name": "Document",
+                    "source_path": "src/acme/model.py",
+                    "members": [],
+                }
+            ],
+            "functions": [],
+        },
+    )
 
-    assert all(fact.field != "repository.examples" for fact in facts)
+    assert result is not None
+    value, locations = result
+    assert locations == ["README.md", "src/acme/model.py"]
+    assert value["inline_examples"] == []
+    withheld = value["withheld_inline_examples"]
+    assert len(withheld) == 1
+    assert withheld[0]["title"] == "Unsupported workflow"
+    assert withheld[0]["code"].endswith('document = Document.open("input.bin")')
+    assert withheld[0]["static_api_verified"] is False
+    assert withheld[0]["execution_verified"] is False
+    assert str(withheld[0]["validation_reason"]).startswith("unknown_product_member:")
 
 
 def test_direct_quick_start_function_result_is_verified_from_public_api(tmp_path: Path) -> None:
@@ -401,6 +531,38 @@ png = result.to_png()
     assert example["title"] == "Quick Start"
     assert example["static_api_verified"] is True
     assert "result.to_svg()" in example["code"]
+
+
+def test_direct_public_scalar_function_and_safe_str_are_verified(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "pyproject.toml",
+        "[project]\nname = 'acme'\n[tool.setuptools.packages.find]\nwhere = ['src']\n",
+    )
+    _write(
+        tmp_path,
+        "src/acme/__init__.py",
+        "from .api import render\n\n__all__ = ['render']\n",
+    )
+    _write(
+        tmp_path,
+        "src/acme/api.py",
+        "def render(value: object) -> str:\n    return str(value)\n",
+    )
+    _write(
+        tmp_path,
+        "README.md",
+        "# Acme\n\n## Quick Start\n\n"
+        "```python\nfrom acme import render\nprint(str(render('hello')))\n```\n",
+    )
+
+    selected = {
+        fact.field: fact for fact in curated_repository_fact_candidates(tmp_path, "abc123", None)
+    }
+
+    assert selected["api.public_surface"].value["functions"][0]["return_class"] is None
+    example = selected["repository.examples"].value["inline_examples"][0]
+    assert example["static_api_verified"] is True
 
 
 def test_name_only_internal_function_stays_in_catalog_but_not_readme_projection(
@@ -838,6 +1000,111 @@ widget.save("output.bin")
         "accepted_with_section_import_context",
     ]
     assert examples[1]["validation_context_imports"] == ["from acme import Widget"]
+
+
+def test_classmethod_return_annotation_controls_chained_api_validation() -> None:
+    surface = {
+        "modules": [
+            {"module": "acme", "exports": ["Builder", "Result"]},
+        ],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "Builder",
+                "source_path": "src/acme/builder.py",
+                "members": [
+                    {
+                        "name": "build",
+                        "surface": "build(value)",
+                        "return_annotation": "Result",
+                    }
+                ],
+            },
+            {
+                "module": "acme",
+                "name": "Result",
+                "source_path": "src/acme/result.py",
+                "members": [
+                    {"name": "write_to", "surface": "write_to(path)", "return_annotation": None}
+                ],
+            },
+        ],
+        "functions": [],
+    }
+    readme = """# Acme
+
+## Quick Start
+
+```python
+from acme import Builder
+result = Builder.build("input.bin")
+result.write_to("output.bin")
+```
+"""
+
+    examples, decisions = verified_python_examples(readme, surface)
+
+    assert len(examples) == 1
+    assert decisions[0].accepted is True
+    assert decisions[0].reason == "accepted"
+
+
+def test_file_factory_narrows_base_result_only_to_unique_suffix_named_subtype() -> None:
+    surface = {
+        "modules": [{"module": "acme", "exports": ["AssetLoader"]}],
+        "classes": [
+            {
+                "module": "acme",
+                "name": "AssetLoader",
+                "source_path": "src/acme/loader.py",
+                "members": [
+                    {"name": "open", "surface": "open(path)", "return_annotation": "Asset"}
+                ],
+            },
+            {
+                "module": "acme",
+                "name": "Asset",
+                "source_path": "src/acme/base.py",
+                "members": [{"name": "save", "surface": "save(path)", "return_annotation": None}],
+            },
+            {
+                "module": "acme",
+                "name": "TtfAsset",
+                "source_path": "src/acme/ttf.py",
+                "bases": ["Asset"],
+                "members": [
+                    {
+                        "name": "instantiate",
+                        "surface": "instantiate(values)",
+                        "return_annotation": "TtfAsset",
+                    },
+                    {"name": "save", "surface": "save(path)", "return_annotation": None},
+                ],
+            },
+        ],
+        "functions": [],
+    }
+    readme = """# Acme
+
+## Quick Start
+
+```python
+from acme import AssetLoader
+asset = AssetLoader.open("font.ttf")
+instance = asset.instantiate({"weight": 700})
+instance.save("output.ttf")
+```
+"""
+
+    examples, decisions = verified_python_examples(readme, surface)
+
+    assert len(examples) == 1
+    assert decisions[0].accepted is True
+
+    unmatched = readme.replace("font.ttf", "font.bin")
+    unmatched_examples, unmatched_decisions = verified_python_examples(unmatched, surface)
+    assert unmatched_examples == []
+    assert unmatched_decisions[0].reason == "unknown_product_member:Asset.instantiate"
 
 
 def test_decorated_and_product_specific_example_headings_are_discovered() -> None:

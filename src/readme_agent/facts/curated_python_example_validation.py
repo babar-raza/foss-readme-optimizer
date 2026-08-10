@@ -7,7 +7,16 @@ import re
 import sys
 from dataclasses import dataclass
 
-_SAFE_BUILTINS = {"RuntimeError", "enumerate", "len", "list", "open", "print", "range"}
+_SAFE_BUILTINS = {
+    "RuntimeError",
+    "enumerate",
+    "len",
+    "list",
+    "open",
+    "print",
+    "range",
+    "str",
+}
 _UNSAFE_CALLS = {"compile", "eval", "exec", "__import__"}
 _STDLIB_MODULES = {
     "io": {"BytesIO": "bytes_io", "StringIO": "text_io"},
@@ -33,6 +42,7 @@ class _ValueType:
 class _ClassContract:
     name: str
     members: dict[str, str | None]
+    bases: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -43,6 +53,7 @@ class ExampleDecision:
     accepted: bool
     reason: str
     evidence_modules: tuple[str, ...]
+    code: str = ""
 
 
 def _modules_from_source(path: str, class_name: str) -> set[str]:
@@ -56,8 +67,19 @@ def _modules_from_source(path: str, class_name: str) -> set[str]:
     return {module}
 
 
-def _type_name(surface: str, member: str, class_names: dict[str, str]) -> str | None:
-    annotation = surface.split("->", 1)[1].strip() if "->" in surface else None
+def _type_name(
+    surface: str,
+    member: str,
+    class_names: dict[str, str],
+    return_annotation: object = None,
+) -> str | None:
+    annotation = (
+        return_annotation.strip()
+        if isinstance(return_annotation, str) and return_annotation.strip()
+        else surface.split("->", 1)[1].strip()
+        if "->" in surface
+        else None
+    )
     if annotation is None and ":" in surface and "(" not in surface.split(":", 1)[0]:
         annotation = surface.split(":", 1)[1].strip()
     if annotation:
@@ -80,7 +102,7 @@ def _type_name(surface: str, member: str, class_names: dict[str, str]) -> str | 
 
 def _public_contract(
     value: object,
-) -> tuple[dict[str, set[str]], dict[str, _ClassContract], dict[str, str]]:
+) -> tuple[dict[str, set[str]], dict[str, _ClassContract], dict[str, str | None]]:
     if not isinstance(value, dict):
         return {}, {}, {}
     modules = {
@@ -113,12 +135,21 @@ def _public_contract(
             class_modules.add(str(row["module"]))
         members = {
             str(item["name"]): _type_name(
-                str(item.get("surface") or ""), str(item["name"]), class_names
+                str(item.get("surface") or ""),
+                str(item["name"]),
+                class_names,
+                item.get("return_annotation"),
             )
             for item in row.get("members", [])
             if isinstance(item, dict) and isinstance(item.get("name"), str)
         }
-        contract = _ClassContract(name=name, members=members)
+        raw_bases = row.get("bases")
+        bases = (
+            tuple(str(item).rsplit(".", 1)[-1] for item in raw_bases)
+            if isinstance(raw_bases, list)
+            else ()
+        )
+        contract = _ClassContract(name=name, members=members, bases=bases)
         contracts_by_name[name] = contract
         for module in class_modules:
             classes[f"{module}:{name}"] = contract
@@ -127,13 +158,15 @@ def _public_contract(
             if exported in contracts_by_name:
                 classes.setdefault(f"{module}:{exported}", contracts_by_name[exported])
     functions = {
-        f"{row['module']}:{row['name']}": str(row["return_class"])
+        f"{row['module']}:{row['name']}": (
+            str(row["return_class"])
+            if isinstance(row.get("return_class"), str) and str(row["return_class"]) in classes
+            else None
+        )
         for row in value.get("functions", [])
         if isinstance(row, dict)
         and isinstance(row.get("module"), str)
         and isinstance(row.get("name"), str)
-        and isinstance(row.get("return_class"), str)
-        and str(row["return_class"]) in classes
     }
     return modules, classes, functions
 
@@ -158,6 +191,38 @@ class _Validator:
         if len(member_sets) != 1:
             return None
         return min((key for key, _ in matches), key=lambda key: (key.count("."), len(key), key))
+
+    def narrow_file_factory_result(
+        self,
+        result: _ValueType,
+        node: ast.Call,
+    ) -> _ValueType:
+        """Narrow a file factory's base return only with a unique suffix-named subtype."""
+
+        if (
+            result.kind != "product_instance"
+            or not isinstance(node.func, ast.Attribute)
+            or node.func.attr.casefold() not in {"from_file", "load", "open", "read_file"}
+            or not node.args
+            or not isinstance(node.args[0], ast.Constant)
+            or not isinstance(node.args[0].value, str)
+        ):
+            return result
+        suffix = node.args[0].value.rpartition(".")[2].casefold()
+        if not suffix or not suffix.isalnum():
+            return result
+        base = self.classes[result.key].name
+        normalized_target = f"{suffix}{base}".replace("_", "").casefold()
+        candidate_names = {
+            contract.name
+            for contract in self.classes.values()
+            if base in contract.bases
+            and contract.name.replace("_", "").casefold() == normalized_target
+        }
+        if len(candidate_names) != 1:
+            return result
+        key = self.class_key(next(iter(candidate_names)))
+        return _ValueType("product_instance", key) if key is not None else result
 
     def resolve(self, node: ast.AST) -> _ValueType:
         if isinstance(node, ast.Name):
@@ -185,7 +250,7 @@ class _Validator:
                 if member_key in self.classes:
                     return _ValueType("product_class", member_key)
                 if member_key in self.functions:
-                    return _ValueType("product_function", self.functions[member_key])
+                    return _ValueType("product_function", self.functions[member_key] or "")
                 if submodule in self.modules:
                     return _ValueType("product_module", submodule)
                 return self.reject(f"unknown_product_member:{owner.key}.{node.attr}")
@@ -229,7 +294,11 @@ class _Validator:
                 if named_owner is not None and named_owner.kind == "product_class":
                     return _ValueType("product_instance", named_owner.key)
                 if named_owner is not None and named_owner.kind == "product_function":
-                    return _ValueType("product_instance", named_owner.key)
+                    return (
+                        _ValueType("product_instance", named_owner.key)
+                        if named_owner.key
+                        else _ValueType("scalar")
+                    )
                 if named_owner is not None and named_owner.kind == "local_function":
                     return _ValueType("scalar")
                 if named_owner is not None and named_owner.kind in {
@@ -252,8 +321,10 @@ class _Validator:
                     and class_owner.kind == "product_class"
                     and node.func.attr in self.classes[class_owner.key].members
                 ):
-                    self.resolve(node.func)
-                    return _ValueType("product_instance", class_owner.key)
+                    call_result = self.resolve(node.func)
+                    if call_result.kind == "product_unknown" and call_result.key == class_owner.key:
+                        call_result = _ValueType("product_instance", class_owner.key)
+                    return self.narrow_file_factory_result(call_result, node)
             if (
                 isinstance(node.func, ast.Attribute)
                 and node.func.attr == "GetChildNodes"
@@ -308,7 +379,7 @@ class _Validator:
                     key = f"{node.module}:{item.name}"
                     if key in self.functions:
                         self.names[item.asname or item.name] = _ValueType(
-                            "product_function", self.functions[key]
+                            "product_function", self.functions[key] or ""
                         )
                     elif key in self.classes:
                         self.names[item.asname or item.name] = _ValueType("product_class", key)

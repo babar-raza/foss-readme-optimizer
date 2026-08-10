@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import re
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
@@ -316,7 +315,7 @@ def test_api_reference_humanizes_underscore_root_without_repeating_product_famil
     ) in api
 
 
-def test_duplicate_function_exports_are_described_as_namespace_reexports() -> None:
+def test_function_only_namespace_is_not_mislabeled_as_a_type_table() -> None:
     facts = _facts()
     api_fact = facts.selected_fact("api.public_surface")
     replacement = api_fact.model_copy(
@@ -343,19 +342,7 @@ def test_duplicate_function_exports_are_described_as_namespace_reexports() -> No
 
     api = api_reference_markdown(facts)
 
-    assert api is not None
-    assert api.count("Creates and configures the Aspose.3D MCP server.") == 1
-    assert api.count("Starts the Aspose.3D MCP server.") == 1
-    assert (
-        "The `aspose.page.mcp.server` namespace re-exports `create_server` from the primary "
-        "`aspose.page.mcp` namespace."
-    ) in api
-    descriptions = [
-        match.group(1)
-        for line in api.splitlines()
-        if (match := re.fullmatch(r"\| `[^`]+` \| (.+) \|", line)) is not None
-    ]
-    assert len(descriptions) == len(set(descriptions))
+    assert api is None
 
 
 def test_capabilities_use_bold_features_with_same_line_explanations() -> None:

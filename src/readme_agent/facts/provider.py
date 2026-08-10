@@ -147,7 +147,7 @@ def _local_verification_facts(
         example_verified = (
             local_result is not None
             and local_result.truth_eligible
-            and example_outcome == "SOURCE_BUILD_VERIFIED"
+            and example_outcome in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         )
         facts.append(
             FactRecordV2(

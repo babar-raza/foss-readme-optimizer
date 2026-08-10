@@ -44,6 +44,7 @@ _CAPABILITY_COORDINATE_FIELDS = {
     "product.formats",
     "product.limitations",
     "product.problems_solved",
+    "repository.implementation_components",
 }
 
 
@@ -137,10 +138,18 @@ def fact_bound_capability_candidate_claims(
     """Find one fact-identical canonical capability that subsumes inherited wording."""
 
     capability_fact_id = facts.selected_fact_ids.get("product.capabilities")
+    implementation_fact_id = facts.selected_fact_ids.get("repository.implementation_components")
     source_fact_ids, source_coordinates = _complete_claim_fact_binding(source_claim_text, facts)
-    if capability_fact_id is None or capability_fact_id not in source_fact_ids:
+    if not ({capability_fact_id, implementation_fact_id} - {None}).intersection(source_fact_ids):
         return []
     required_source_fact_ids = _capability_equivalence_fact_ids(source_fact_ids, facts)
+    source_coordinate_fact_ids = {coordinate.fact_id for coordinate in source_coordinates}
+    required_source_fact_ids = {
+        fact_id
+        for fact_id in required_source_fact_ids
+        if facts.fact_by_id(fact_id).field not in _CAPABILITY_COORDINATE_FIELDS
+        or fact_id in source_coordinate_fact_ids
+    }
     required_source_coordinates = {
         coordinate
         for coordinate in source_coordinates
@@ -154,26 +163,50 @@ def fact_bound_capability_candidate_claims(
         return []
     matches: list[ReadmeMaterialClaimAssessmentV1] = []
     source_discriminators = capability_discriminators(source_claim_text)
+    capability_bindings_by_range: dict[
+        tuple[int, int],
+        list[CandidateContentProvenanceV1],
+    ] = {}
+    for binding in provenance:
+        if binding.provenance_id.startswith(_KEY_CAPABILITY_PROVENANCE) and (
+            capability_fact_id in binding.fact_ids or implementation_fact_id in binding.fact_ids
+        ):
+            capability_bindings_by_range.setdefault(
+                (binding.candidate_byte_start, binding.candidate_byte_end),
+                [],
+            ).append(binding)
     for claim in candidate_claims:
+        range_bindings = capability_bindings_by_range.get(
+            (claim.source_byte_start, claim.source_byte_end),
+            [],
+        )
+        if not range_bindings:
+            continue
         candidate_text = candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode(
             "utf-8"
         )
-        if not source_discriminators.issubset(capability_discriminators(candidate_text)):
-            continue
-        if not semantically_repeats(source_claim_text, candidate_text, threshold=0.6):
-            continue
         candidate_fact_ids, candidate_coordinates = _complete_claim_fact_binding(
             candidate_text,
             facts,
         )
+        structured_match = bool(required_source_coordinates) and _coordinates_cover(
+            required_source_coordinates,
+            candidate_coordinates,
+        )
+        if not structured_match and not source_discriminators.issubset(
+            capability_discriminators(candidate_text)
+        ):
+            continue
+        if not structured_match and not semantically_repeats(
+            source_claim_text,
+            candidate_text,
+            threshold=0.6,
+        ):
+            continue
         exact_bindings = [
             binding
-            for binding in provenance
-            if binding.provenance_id.startswith(_KEY_CAPABILITY_PROVENANCE)
-            and binding.candidate_byte_start == claim.source_byte_start
-            and binding.candidate_byte_end == claim.source_byte_end
-            and capability_fact_id in binding.fact_ids
-            and required_source_fact_ids.issubset(set(binding.fact_ids) | candidate_fact_ids)
+            for binding in range_bindings
+            if required_source_fact_ids.issubset(set(binding.fact_ids) | candidate_fact_ids)
             and _coordinates_cover(
                 required_source_coordinates,
                 set(binding.fact_coordinates) | candidate_coordinates,
@@ -305,7 +338,12 @@ def equivalent_source_claim_resolution(
         facts,
     ) or not _coordinates_cover(required_source_coordinates, candidate_coordinates):
         return None
-    fact_ids = sorted(candidate_fact_ids)
+    # An equivalence replaces the inherited claim, so its fact set must be the
+    # exact accepted subset expressed by that source claim. The canonical row
+    # may carry additional independently accountable API or audience facts;
+    # attributing those extras back to the narrower source claim makes a valid
+    # merge fail its own source-subset check.
+    fact_ids = sorted(required_source_fact_ids if capability_reformatted else candidate_fact_ids)
     return SourceClaimResolutionV1(
         claim_id=source_claim.claim_id,
         source_byte_start=source_claim.source_byte_start,

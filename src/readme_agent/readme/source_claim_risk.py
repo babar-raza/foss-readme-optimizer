@@ -99,6 +99,18 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale="Inherited badges require the fact-bound configured header badge slot.",
         )
+    if any(
+        marker in folded
+        for marker in ("github issues", "issue tracker", "open an issue", "feature request")
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="support_routes",
+            heading_path=path,
+            rationale=(
+                "Inherited issue guidance requires the canonical repository-derived support slot."
+            ),
+        )
     if primary == "navigation":
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
@@ -216,7 +228,7 @@ def classify_source_claim_risk(
                 "replacement regardless of the source section that contains them."
             ),
         )
-    if "installation" in primary or "getting started" in primary:
+    if primary == "install" or "installation" in primary or "getting started" in primary:
         return SourceClaimRiskV1(
             risk_class="mandatory_fact_resolution",
             obligation_id="verified_installation",
@@ -252,6 +264,43 @@ def classify_source_claim_risk(
             rationale=(
                 "Granular feature and format claims require claim-specific repository evidence; "
                 "a broad capability slot cannot replace them."
+            ),
+        )
+    if primary == "what you get":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="major_capabilities",
+            heading_path=path,
+            rationale="Inherited product-workflow detail requires the fact-bound capability slot.",
+        )
+    if primary == "why teams use it":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="product_overview",
+            heading_path=path,
+            rationale=(
+                "Inherited product-positioning detail requires independently verified overview "
+                "facts before publication."
+            ),
+        )
+    if primary == "variable-font-first workflows":
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
+            heading_path=path,
+            rationale=(
+                "Inherited detailed variable-font workflow claims require the repository-source-"
+                "backed public API slot."
+            ),
+        )
+    if primary in {"real outputs", "variable font discovery", "cli highlights"}:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
+            heading_path=path,
+            rationale=(
+                "Inherited output and command detail requires the repository-source-backed "
+                "public API slot."
             ),
         )
     if "quick start" in primary or "quickstart" in primary:
@@ -297,6 +346,56 @@ def classify_source_claim_risk(
             heading_path=path,
             rationale=(
                 "Inherited API detail requires the repository-source-backed public API slot."
+            ),
+        )
+    if any(
+        token in primary
+        for token in ("render option", "encoding option", "custom renderer", "error handling")
+    ):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
+            heading_path=path,
+            rationale=(
+                "Inherited API options, renderer, and error-handling detail requires the "
+                "repository-source-backed public API slot."
+            ),
+        )
+    if primary in {"package entry points", "compatibility"}:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="api_public_surface",
+            heading_path=path,
+            rationale=(
+                "Inherited package-entry and API-interoperability detail requires the "
+                "repository-source-backed public API slot."
+            ),
+        )
+    if primary == "links":
+        if "pypi.org/project/" in folded:
+            obligation: SourceClaimObligation = "verified_installation"
+        else:
+            obligation = "support_routes"
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id=obligation,
+            heading_path=path,
+            rationale="Inherited repository links require their canonical fact-bound slot.",
+        )
+    if "changelog" in primary:
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="documentation_resources",
+            heading_path=path,
+            rationale="A changelog link requires a checksum-bound repository document.",
+        )
+    if any(token in primary for token in ("supported symbolog", "supported format")):
+        return SourceClaimRiskV1(
+            risk_class="mandatory_fact_resolution",
+            obligation_id="major_capabilities",
+            heading_path=path,
+            rationale=(
+                "Inherited supported-format detail requires the fact-bound capability slot."
             ),
         )
     if "documentation" in primary or primary in {"resources", "documentation & resources"}:

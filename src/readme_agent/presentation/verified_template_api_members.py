@@ -47,6 +47,8 @@ _EXACT_METHOD_PHRASES = {
     "IsByteArray": "checking for byte-array results",
     "IsString": "checking for string results",
     "Process": "processing documents",
+    "QuerySelector": "querying elements with CSS selectors",
+    "QuerySelectorAll": "querying elements with CSS selectors",
     "Save": "saving document output",
     "SetLicense": "configuring package licensing",
     "SetMeteredKey": "configuring metered licensing keys",

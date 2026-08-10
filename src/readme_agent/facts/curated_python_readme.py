@@ -69,7 +69,9 @@ def verified_python_examples(
                     reason = "accepted_with_section_import_context"
                 else:
                     reason = contextual_reason
-            decisions.append(ExampleDecision(title, accepted, reason, modules))
+            decisions.append(
+                ExampleDecision(title, accepted, reason, modules, block.content.rstrip())
+            )
             if accepted:
                 try:
                     tree = ast.parse(block.content)
@@ -157,9 +159,22 @@ def verified_readme_examples(
         complete_surface = public_surface.get("coordinate_catalog")
         if isinstance(complete_surface, dict):
             validation_surface = complete_surface
-    inline_examples, _ = verified_python_examples(readme, validation_surface)
+    inline_examples, decisions = verified_python_examples(readme, validation_surface)
+    withheld_inline_examples = [
+        {
+            "title": decision.title,
+            "code": decision.code,
+            "language": "python",
+            "static_api_verified": False,
+            "execution_verified": False,
+            "validation_reason": decision.reason,
+            "evidence_modules": list(decision.evidence_modules),
+        }
+        for decision in decisions
+        if not decision.accepted and decision.code
+    ]
     result_assets = _result_assets(root, readme)
-    if not inline_examples and not result_assets:
+    if not inline_examples and not withheld_inline_examples and not result_assets:
         return None
     locations = ["README.md"]
     if isinstance(validation_surface, dict):
@@ -176,6 +191,7 @@ def verified_readme_examples(
     return (
         {
             "inline_examples": inline_examples,
+            "withheld_inline_examples": withheld_inline_examples,
             "result_assets": result_assets,
             "readme_sha256": _sha256(readme_path),
         },

@@ -26,6 +26,7 @@ from readme_agent.readme.source_claim_assurance import (
     verified_comment_free_python_example,
 )
 from readme_agent.readme.source_claim_contradiction import contradicted_source_claim_fact_ids
+from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 from readme_agent.readme.source_claim_risk import (
     classify_source_claim_risk,
     obligation_requires_source_entailment,
@@ -297,6 +298,47 @@ def test_source_build_and_404_cannot_authorize_the_inherited_pip_command() -> No
     )
 
 
+def test_identity_and_exact_repository_routes_bind_without_readme_trust() -> None:
+    facts = _facts()
+    identity = facts.selected_fact("product.identity")
+    repository = identity.value["repository"]
+
+    source = "# Aspose.3D FOSS for Python\n\nFOSS version of Aspose.3D for Python\n"
+    claim = assess_material_claims(source)[0]
+    binding = complete_source_claim_fact_binding(source, claim, facts)
+    assert binding is not None
+    assert binding.fact_ids == {identity.fact_id}
+    assert accepted_source_claim_fact_ids(
+        f"- **Issues**: [GitHub Issues](https://github.com/{repository}/issues)\n",
+        facts,
+    ) == {identity.fact_id}
+    assert accepted_source_claim_fact_ids(
+        f"- [GitHub Repository](https://github.com/{repository})\n",
+        facts,
+    ) == {identity.fact_id}
+    assert not accepted_source_claim_fact_ids(
+        "- [GitHub Repository](https://github.com/other/repository)\n",
+        facts,
+    )
+
+
+def test_stale_issue_route_requires_canonical_support_replacement() -> None:
+    source = (
+        "# Product\n\n"
+        "- **Issues**: [GitHub Issues](https://github.com/old-owner/old-repository/issues)\n"
+    )
+    claim = assess_material_claims(source)[0]
+
+    risk = classify_source_claim_risk(source, claim)
+
+    assert risk.risk_class == "mandatory_fact_resolution"
+    assert risk.obligation_id == "support_routes"
+    assert not accepted_source_claim_fact_ids(
+        "- **Issues**: [GitHub Issues](https://github.com/old-owner/old-repository/issues)\n",
+        _facts(),
+    )
+
+
 def test_source_build_package_extras_are_an_explicit_acquisition_contradiction() -> None:
     facts = _facts()
     source = (
@@ -457,6 +499,63 @@ def test_source_repository_detail_uses_specific_fact_obligations() -> None:
             "Third-party notices are in `THIRD_PARTY_NOTICES.md`.\n",
             "third_party_notices",
         ),
+        (
+            "Supported Symbologies",
+            "Each symbology has a dedicated helper.\n",
+            "major_capabilities",
+        ),
+        (
+            "Render Options",
+            "Rendering is controlled with `RenderOptions`.\n",
+            "api_public_surface",
+        ),
+        (
+            "Encoding Options",
+            "Each helper accepts a symbology-specific options type.\n",
+            "api_public_surface",
+        ),
+        (
+            "Custom Renderer",
+            "The `render()` method accepts a `Renderer` instance.\n",
+            "api_public_surface",
+        ),
+        (
+            "Error Handling",
+            "All public exceptions inherit from `BarcodeError`.\n",
+            "api_public_surface",
+        ),
+        (
+            "Package Entry Points",
+            "- `product.Reader`: low-level reader\n",
+            "api_public_surface",
+        ),
+        (
+            "Compatibility",
+            "API layers include a high-level message model.\n",
+            "api_public_surface",
+        ),
+        (
+            "Links",
+            "- PyPI: <https://pypi.org/project/product/>\n",
+            "verified_installation",
+        ),
+        (
+            "Links",
+            "- Issues: <https://github.com/example/product/issues>\n",
+            "support_routes",
+        ),
+        ("Changelog", "See [CHANGELOG.md](CHANGELOG.md).\n", "documentation_resources"),
+        ("Install", "Install the optional MCP dependencies.\n", "verified_installation"),
+        ("What You Get", "- Produce review artifacts.\n", "major_capabilities"),
+        ("Why Teams Use It", "- Pure Python workflows.\n", "product_overview"),
+        (
+            "Variable-Font-First Workflows",
+            "Variable axes support named instances.\n",
+            "api_public_surface",
+        ),
+        ("Real Outputs", "Generate a web handoff package.\n", "api_public_surface"),
+        ("Variable Font Discovery", "Inspect variable axes.\n", "api_public_surface"),
+        ("CLI Highlights", "Run the conversion command.\n", "api_public_surface"),
     ]
 
     for heading, claim_text, expected in cases:

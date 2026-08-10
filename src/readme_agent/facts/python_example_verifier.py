@@ -76,13 +76,23 @@ def verify(
         ConsumerExampleV1(code=example.code, required_symbols=required_symbols),
     )
     diagnostic = _diagnostic(proof.isolated_execution)
+    source_tree = proof.accepted and proof.execution_mode == "source_tree"
     return LocalProductVerificationV1(
         org_repo=snapshot.org_repo,
         source_revision=snapshot.source_revision,
         ecosystem="python",
-        outcome="SOURCE_BUILD_VERIFIED" if proof.accepted else "BUILD_FAILED",
+        outcome=(
+            "SOURCE_TREE_VERIFIED"
+            if source_tree
+            else "SOURCE_BUILD_VERIFIED"
+            if proof.accepted
+            else "BUILD_FAILED"
+        ),
         detail=(
-            "pinned package installed and exact public Python imports/example executed"
+            "exact public Python imports/example executed from the immutable source tree; "
+            "package installation is blocked by an invalid build backend"
+            if source_tree
+            else "pinned package installed and exact public Python imports/example executed"
             if proof.accepted
             else "pinned package installation or exact public Python example failed"
         ),
@@ -98,4 +108,6 @@ def verify(
             surface.package,
             proof.dependency_acquisition,
         ),
+        python_execution_mode=proof.execution_mode,
+        python_source_install_failure=proof.source_install_failure,
     )

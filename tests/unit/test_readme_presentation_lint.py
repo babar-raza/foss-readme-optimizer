@@ -7,13 +7,16 @@ from pathlib import Path
 
 from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.readme.opening_summary_fallback import verified_identity_opening_summary
 from readme_agent.readme.presentation_lint import lint_readme_presentation
+from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
     canonicalize_public_markdown,
     title_case_heading,
     visitor_capability_phrase,
 )
+from readme_agent.readme.public_vocabulary import compile_abbreviation_pattern
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORPUS_PATH = PROJECT_ROOT / "tests/fixtures/presentation_defects/corpus.json"
@@ -37,6 +40,33 @@ def _facts_for_case(case: dict) -> ProductFactsV2 | None:
     if "cells" in case["repository"].casefold():
         return _facts("aspose-cells-foss/Aspose.Cells-FOSS-for-Java")
     return _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+
+
+def _identity_only_facts() -> ProductFactsV2:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    purpose_fields = {"product.problems_solved", "product.capabilities", "product.formats"}
+    return facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"verification_state": "blocked"})
+                if fact.field in purpose_fields
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+
+def _identity_only_candidate(facts: ProductFactsV2, *, prefix: str = "", suffix: str = "") -> str:
+    opening = verified_identity_opening_summary(facts)
+    assert opening is not None
+    return (
+        "# Aspose.3D FOSS for Java\n\n"
+        f"{prefix}{opening.text}\n\n"
+        "## Scope and Limitations\n\n"
+        f"{suffix}For requirements beyond the FOSS scope, explore the "
+        "[Aspose.3D Enterprise Edition](https://products.aspose.com/3d/).\n"
+    )
 
 
 def test_complete_corpus_has_expected_verdicts_rules_and_exact_spans() -> None:
@@ -75,6 +105,55 @@ def test_finding_ids_and_spans_are_stable_across_identical_runs() -> None:
         for finding in first.findings
         for span in finding.spans
     )
+
+
+def test_identity_only_opening_allows_one_contextual_below_fold_enterprise_link() -> None:
+    facts = _identity_only_facts()
+
+    result = lint_readme_presentation(_identity_only_candidate(facts), facts)
+
+    assert "promotional_imbalance" not in {finding.rule_id for finding in result.findings}
+
+
+def test_identity_only_opening_does_not_allow_a_commercial_link_before_the_summary() -> None:
+    facts = _identity_only_facts()
+    candidate = _identity_only_candidate(
+        facts,
+        prefix="[Aspose.3D Enterprise Edition](https://products.aspose.com/3d/)\n\n",
+    )
+
+    result = lint_readme_presentation(candidate, facts)
+
+    assert "promotional_imbalance" in {finding.rule_id for finding in result.findings}
+
+
+def test_identity_only_opening_does_not_allow_commercial_calls_to_action() -> None:
+    facts = _identity_only_facts()
+
+    result = lint_readme_presentation(
+        _identity_only_candidate(facts, suffix="Upgrade now. "),
+        facts,
+    )
+
+    assert "promotional_imbalance" in {finding.rule_id for finding in result.findings}
+
+
+def test_identity_only_exception_is_disabled_when_purpose_evidence_exists() -> None:
+    original = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    facts = original.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"verification_state": "blocked"})
+                if fact.field == "product.audience"
+                else fact
+                for fact in original.facts
+            ]
+        }
+    )
+
+    result = lint_readme_presentation(_identity_only_candidate(facts), facts)
+
+    assert "promotional_imbalance" in {finding.rule_id for finding in result.findings}
 
 
 def test_visitor_capability_phrase_removes_enum_implementation_suffix() -> None:
@@ -442,6 +521,14 @@ format_name = "Pdf"
         for span in finding.spans
     ]
     assert abbreviation_spans == ["Ps", "eps", "xPs", "html", "PdF"]
+
+
+def test_abbreviation_pattern_is_reused_for_equivalent_vocabularies() -> None:
+    first = compile_abbreviation_pattern(["PDF", "HTML", "XLSX"])
+    second = compile_abbreviation_pattern(["XLSX", "PDF", "HTML", "PDF"])
+
+    assert first is second
+    assert first.sub(lambda match: match.group(0).upper(), "Pdf and html") == "PDF and HTML"
 
 
 def test_public_contract_canonicalizes_api_names_and_rejects_repeated_capability_copy() -> None:
@@ -827,3 +914,14 @@ def test_public_contract_requires_exact_fact_derived_api_identifier_casing() -> 
         finding.rule_id == "api_identifier_not_fact_exact"
         for finding in lint_readme_presentation(package_namespace, facts).findings
     )
+
+
+def test_emoji_stripping_handles_large_inline_code_inventory_without_touching_code() -> None:
+    inline_inventory = " ".join(f"`Type{index}`" for index in range(5_000))
+    source = f"Visible 🛠️ feature {inline_inventory} `🛠️ protected`\n"
+
+    rendered = strip_emoji_decorations(source)
+
+    assert "Visible feature" in rendered
+    assert "`🛠️ protected`" in rendered
+    assert "`Type4999`" in rendered

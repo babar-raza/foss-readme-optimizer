@@ -8,7 +8,7 @@ from readme_agent.presentation.verified_template_api_reference import api_refere
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_api_reference_uses_complete_catalog_and_lists_every_member_row() -> None:
+def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() -> None:
     facts = ProductFactsV2.model_validate_json(
         (
             ROOT
@@ -107,9 +107,9 @@ def test_api_reference_uses_complete_catalog_and_lists_every_member_row() -> Non
     assert "### Aspose Namespace (`aspose`)" not in markdown
     assert "Provides the threed operation" not in markdown
     assert "| `Scene(file_name=None)` |" in markdown
-    assert "| `Scene.open(file_name, options=None) -> None` |" in markdown
-    assert "| `Scene.Open(file_name, options=None) -> None` |" in markdown
-    assert "alongside `open` on `Scene`" in markdown
-    assert "| `Scene.root_node: Node` |" in markdown
-    assert "| `FileFormat.MS_ONE_NOTE` |" in markdown
-    assert "additional member" not in markdown.casefold()
+    assert "Supports opening content" in markdown
+    assert "| `FileFormat` | Enumerates file format values. |" in markdown
+    assert "Scene.open" not in markdown
+    assert "Scene.root_node" not in markdown
+    assert "FileFormat.MS_ONE_NOTE" not in markdown
+    assert "API reference under Documentation and Resources" in markdown

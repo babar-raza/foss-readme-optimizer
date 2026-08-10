@@ -23,6 +23,9 @@ from readme_agent.readme.claim_accountability_api_coordinates import (
 from readme_agent.readme.claim_accountability_coordinates import (
     structured_list_item_coordinate,
 )
+from readme_agent.readme.claim_accountability_implementation_coordinates import (
+    implementation_component_coordinates,
+)
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_SECTION_VISIBLE_LINE_LIMITS,
@@ -58,8 +61,40 @@ class CapabilityPresentationPlanV1:
 
 _CAPABILITY_EXPLANATIONS = (
     (
+        re.compile(r"(?i)\bword 97-2003\b.*\bdoc\b.*\bolefile\b"),
+        "Parse legacy Word binary files through the repository's olefile-backed reader",
+    ),
+    (
+        re.compile(r"(?i)\b(?:read|write)\b.*\bpython standard-library components\b"),
+        "Process this format through the repository's pure-Python reader and writer",
+    ),
+    (
+        re.compile(r"(?i)\bwrite\b.*\bpdf\b"),
+        "Render document content as a portable PDF file",
+    ),
+    (
+        re.compile(r"(?i)\b(?:document\s+)?loading\b.*\bfile path\b"),
+        "Load supported documents directly from filesystem paths",
+    ),
+    (
+        re.compile(r"(?i)\bsaveformat\b.*\boutput formats?\b"),
+        "Select the requested output format when saving a document",
+    ),
+    (
+        re.compile(r"(?i)\bloadoptions\b.*\binput format\b"),
+        "Choose or detect the source format before loading a document",
+    ),
+    (
         re.compile(r"(?i)\bworkbooks?\b.*\bworksheets?\b.*\b(?:save|modify)\b"),
         "Handle workbook and worksheet content through a complete create-to-save workflow",
+    ),
+    (
+        re.compile(r"(?i)\badd\b.*\bremove\b.*\brename\b.*\bworksheets?\b"),
+        "Organize workbook sheets by adding, removing, and renaming worksheet entries",
+    ),
+    (
+        re.compile(r"(?i)\bcreate\b.*\bmodify\b.*\bcharts?\b"),
+        "Build chart objects from worksheet data and update their presentation",
     ),
     (
         re.compile(r"(?i)\bcells?\b.*\bvalues?\b.*\bstyles?\b"),
@@ -340,7 +375,23 @@ def _description(capability: str, source_capability: str, related_types: list[st
         return f"Read EPS metadata through {api_reference}."
     subject = re.sub(r"(?i)^work with\s+", "", public_capability)
     if related_types:
-        return f"Use {_public_api_reference(related_types)} for {subject}."
+        api_reference = _public_api_reference(related_types)
+        action = capability_action_verb(exact_capability)
+        if action in {"read", "load", "parse", "import", "open", "extract"}:
+            return f"Build in-memory document structures through {api_reference}."
+        if action in {
+            "edit",
+            "inspect",
+            "modify",
+            "navigate",
+            "search",
+            "traverse",
+            "update",
+        }:
+            return f"Work directly with the public object model through {api_reference}."
+        if action in {"save", "export", "write", "convert", "render"}:
+            return f"Produce supported output through {api_reference}."
+        return f"Use {api_reference} in application workflows."
     action = capability_action_verb(exact_capability)
     if action is not None:
         if action in {"create", "generate", "build"}:
@@ -501,7 +552,7 @@ def _source_capability_coordinate_index(
         capability_keys = frozenset(
             (coordinate.fact_id, coordinate.path, coordinate.value_sha256)
             for coordinate in binding.fact_coordinates
-            if coordinate.field == "product.capabilities"
+            if coordinate.field in {"product.capabilities", "repository.implementation_components"}
         )
         if not capability_keys:
             continue
@@ -520,7 +571,7 @@ def _source_coordinates_for_capability_row(
     row_keys = {
         (coordinate.fact_id, coordinate.path, coordinate.value_sha256)
         for coordinate in row_coordinates
-        if coordinate.field == "product.capabilities"
+        if coordinate.field in {"product.capabilities", "repository.implementation_components"}
     }
     fact_ids: set[str] = set()
     coordinates: set[StructuredFactCoordinateV1] = set()
@@ -566,6 +617,15 @@ def _capability_rows(
         and not api_fact.has_unresolved_conflict
     ):
         api_fact_id = api_fact.fact_id
+    try:
+        implementation_fact = facts.selected_fact("repository.implementation_components")
+    except KeyError:
+        implementation_fact = None
+    if implementation_fact is not None and (
+        implementation_fact.verification_state not in {"verified", "policy_approved"}
+        or implementation_fact.has_unresolved_conflict
+    ):
+        implementation_fact = None
     rows: list[tuple[str, list[str], list[StructuredFactCoordinateV1]]] = []
     source_bindings = (
         _source_capability_bindings(source_text, facts) if source_text is not None else []
@@ -637,6 +697,16 @@ def _capability_rows(
                         seo_title,
                     )
                 )
+        if implementation_fact is not None:
+            implementation_coordinates = implementation_component_coordinates(
+                markdown,
+                implementation_fact.fact_id,
+                implementation_fact.value,
+                known_non_dependency_names=set(related_types),
+            )
+            if implementation_coordinates:
+                coordinates.extend(implementation_coordinates)
+                fact_ids.append(implementation_fact.fact_id)
         if source_coordinate_index:
             source_fact_ids, source_coordinates = _source_coordinates_for_capability_row(
                 source_coordinate_index,

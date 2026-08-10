@@ -12,6 +12,7 @@ from readme_agent.ecosystems.registry_request import registry_request_url
 AcquisitionOutcome = Literal[
     "REGISTRY_VERIFIED",
     "SOURCE_BUILD_VERIFIED",
+    "SOURCE_TREE_VERIFIED",
     "NOT_PUBLISHED",
     "BLOCKED_NETWORK",
     "BLOCKED_LOCAL_VERIFICATION",

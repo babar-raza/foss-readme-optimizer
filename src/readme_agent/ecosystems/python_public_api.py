@@ -153,6 +153,61 @@ def _module_symbols(
     return symbols, unresolved
 
 
+def _reexport_origin_symbols(
+    reexport: PublicSymbolV1,
+    source_root: Path,
+    repository_root: Path,
+) -> tuple[list[PublicSymbolV1], str | None]:
+    """Resolve the exact private definition of one explicitly public re-export."""
+
+    origin = reexport.reexported_from
+    if origin is None or "." not in origin:
+        return [], None
+    module, name = origin.rsplit(".", 1)
+    package_path = source_root / Path(*module.split("."))
+    path = next(
+        (
+            candidate
+            for candidate in (package_path.with_suffix(".py"), package_path / "__init__.py")
+            if candidate.is_file()
+        ),
+        None,
+    )
+    if path is None:
+        return [], None
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8-sig", errors="replace"), filename=str(path))
+    except SyntaxError as exc:
+        relative = path.relative_to(repository_root).as_posix()
+        return [], f"{origin}:{exc.lineno or 0}:syntax-error:{relative}:{exc.msg}"
+    node = next(
+        (
+            item
+            for item in tree.body
+            if isinstance(item, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef))
+            and item.name == name
+        ),
+        None,
+    )
+    if isinstance(node, ast.ClassDef):
+        return class_symbols(node, module, path, repository_root), None
+    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+        return [
+            python_symbol(
+                module=module,
+                name=node.name,
+                kind="function",
+                path=path,
+                repository_root=repository_root,
+                line=node.lineno,
+                public_by="name",
+                decorators_=decorators(node),
+                annotation_=annotation(node.returns),
+            )
+        ], None
+    return [], None
+
+
 def inspect_python_public_api(
     repository_root: Path,
     *,
@@ -190,11 +245,28 @@ def inspect_python_public_api(
     reexports = [symbol for symbol in symbols.values() if symbol.reexported_from]
     for reexport in reexports:
         origin_prefix = f"{reexport.reexported_from}."
-        for origin in list(symbols.values()):
-            if not origin.qualified_name.startswith(origin_prefix):
+        origin_symbols = [
+            origin
+            for origin in symbols.values()
+            if origin.qualified_name == reexport.reexported_from
+            or origin.qualified_name.startswith(origin_prefix)
+        ]
+        if not origin_symbols:
+            origin_symbols, origin_error = _reexport_origin_symbols(
+                reexport,
+                source_root,
+                repository_root,
+            )
+            if origin_error is not None:
+                unresolved.append(origin_error)
+        for origin in origin_symbols:
+            if origin.qualified_name == reexport.reexported_from:
+                alias_name = reexport.name
+            elif origin.qualified_name.startswith(origin_prefix):
+                member_suffix = origin.qualified_name.removeprefix(origin_prefix)
+                alias_name = f"{reexport.name}.{member_suffix}"
+            else:
                 continue
-            member_suffix = origin.qualified_name.removeprefix(origin_prefix)
-            alias_name = f"{reexport.name}.{member_suffix}"
             alias = origin.model_copy(
                 update={
                     "qualified_name": f"{reexport.import_module}.{alias_name}",
@@ -204,7 +276,7 @@ def inspect_python_public_api(
                     "public_by": "reexport",
                 }
             )
-            symbols.setdefault(alias.qualified_name, alias)
+            symbols[alias.qualified_name] = alias
     return PublicApiSurfaceV1(
         org_repo=org_repo,
         source_revision=source_revision,

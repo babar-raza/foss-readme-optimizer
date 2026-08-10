@@ -53,11 +53,16 @@ def emoji_decoration_spans(markdown: str) -> list[tuple[int, int]]:
     spans: list[tuple[int, int]] = []
     for line in visible_lines(markdown):
         protected = [match.span() for match in _INLINE_CODE.finditer(line.text)]
+        protected_index = 0
         index = 0
         while index < len(line.text):
-            if not _is_emoji_base(line.text[index]) or any(
-                start <= index < end for start, end in protected
-            ):
+            while protected_index < len(protected) and protected[protected_index][1] <= index:
+                protected_index += 1
+            inside_inline_code = (
+                protected_index < len(protected)
+                and protected[protected_index][0] <= index < protected[protected_index][1]
+            )
+            if not _is_emoji_base(line.text[index]) or inside_inline_code:
                 index += 1
                 continue
             start = index

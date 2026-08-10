@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from functools import lru_cache
 from typing import Literal
 
 from markdown_it import MarkdownIt
@@ -50,16 +51,23 @@ def _line_offsets(text: str) -> list[int]:
     return offsets
 
 
-def _byte_offset(text: str, character_offset: int) -> int:
-    return len(text[:character_offset].encode("utf-8"))
+def _line_byte_offsets(text: str) -> list[int]:
+    offsets = [0]
+    for line in text.splitlines(keepends=True):
+        offsets.append(offsets[-1] + len(line.encode("utf-8")))
+    return offsets
 
 
-def assess_material_claims(source_text: str) -> list[ReadmeMaterialClaimAssessmentV1]:
-    """Classify paragraphs and code blocks without treating their content as instructions."""
+@lru_cache(maxsize=32)
+def _assess_material_claims_cached(
+    source_text: str,
+) -> tuple[ReadmeMaterialClaimAssessmentV1, ...]:
+    """Parse one immutable Markdown value once across composition and validation passes."""
 
     tokens = MarkdownIt("commonmark").parse(source_text)
     line_offsets = _line_offsets(source_text)
-    claims = []
+    line_byte_offsets = _line_byte_offsets(source_text)
+    claims: list[ReadmeMaterialClaimAssessmentV1] = []
     for index, token in enumerate(tokens):
         if token.type not in {"inline", "fence", "code_block", "html_block"} or token.map is None:
             continue
@@ -68,6 +76,8 @@ def assess_material_claims(source_text: str) -> list[ReadmeMaterialClaimAssessme
         start_line, end_line = token.map
         character_start = line_offsets[start_line]
         character_end = line_offsets[end_line]
+        byte_start = line_byte_offsets[start_line]
+        byte_end = line_byte_offsets[end_line]
         source_slice = source_text[character_start:character_end]
         if not source_slice.strip():
             continue
@@ -87,13 +97,21 @@ def assess_material_claims(source_text: str) -> list[ReadmeMaterialClaimAssessme
         content_hash = hashlib.sha256(source_slice.encode("utf-8")).hexdigest()
         claims.append(
             ReadmeMaterialClaimAssessmentV1(
-                claim_id=f"claim:{_byte_offset(source_text, character_start)}:{content_hash[:16]}",
-                source_byte_start=_byte_offset(source_text, character_start),
-                source_byte_end=_byte_offset(source_text, character_end),
+                claim_id=f"claim:{byte_start}:{content_hash[:16]}",
+                source_byte_start=byte_start,
+                source_byte_end=byte_end,
                 content_sha256=content_hash,
                 disposition=disposition,
                 evidence=[f"README.md:{character_start}:{character_end}"],
                 rationale=rationale,
             )
         )
-    return claims
+    return tuple(claims)
+
+
+def assess_material_claims(source_text: str) -> list[ReadmeMaterialClaimAssessmentV1]:
+    """Classify paragraphs and code blocks without treating their content as instructions."""
+
+    # Return a fresh container so one consumer cannot mutate the cached collection used by
+    # another. The records themselves are frozen Pydantic values.
+    return list(_assess_material_claims_cached(source_text))

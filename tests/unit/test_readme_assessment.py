@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import readme_agent.readme.assessment_claims as assessment_claims_module
 from readme_agent.facts.schema_v2 import FactConflictV2, ProductFactsV2
 from readme_agent.readme.assessment import ReadmeAssessmentV1, assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -27,6 +28,68 @@ PROOF_PATH = (
     / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
     / "immutable-snapshot-and-product-facts-proof.json"
 )
+
+
+def test_material_claim_assessment_reuses_immutable_markdown_parse(monkeypatch) -> None:
+    assessment_claims_module._assess_material_claims_cached.cache_clear()
+    original_parse = assessment_claims_module.MarkdownIt.parse
+    calls = 0
+
+    def counting_parse(parser, source, *args, **kwargs):
+        nonlocal calls
+        calls += 1
+        return original_parse(parser, source, *args, **kwargs)
+
+    monkeypatch.setattr(assessment_claims_module.MarkdownIt, "parse", counting_parse)
+    source = "# Cache Probe\n\nA repository-specific material claim.\n"
+
+    first = assess_material_claims(source)
+    second = assess_material_claims(source)
+
+    assert first == second
+    assert first is not second
+    assert calls == 1
+
+
+def test_material_claim_assessment_invalidates_when_markdown_changes(monkeypatch) -> None:
+    assessment_claims_module._assess_material_claims_cached.cache_clear()
+    original_parse = assessment_claims_module.MarkdownIt.parse
+    calls = 0
+
+    def counting_parse(parser, source, *args, **kwargs):
+        nonlocal calls
+        calls += 1
+        return original_parse(parser, source, *args, **kwargs)
+
+    monkeypatch.setattr(assessment_claims_module.MarkdownIt, "parse", counting_parse)
+
+    first = assess_material_claims("# First\n\nFirst claim.\n")
+    second = assess_material_claims("# Second\n\nSecond claim.\n")
+
+    assert first != second
+    assert calls == 2
+
+
+def test_material_claim_assessment_cache_does_not_share_mutable_containers() -> None:
+    assessment_claims_module._assess_material_claims_cached.cache_clear()
+    source = "# Isolation Probe\n\nOne claim.\n\nAnother claim.\n"
+
+    first = assess_material_claims(source)
+    expected = list(first)
+    first.clear()
+
+    assert assess_material_claims(source) == expected
+
+
+def test_material_claim_offsets_remain_exact_for_utf8_content() -> None:
+    source = "# Café\n\nA 🛠️ verified claim.\n\nSecond claim.\n"
+    claims = assess_material_claims(source)
+    source_bytes = source.encode("utf-8")
+
+    assert [
+        source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+        for claim in claims
+    ] == ["A 🛠️ verified claim.\n", "Second claim.\n"]
 
 
 def _java_facts() -> tuple[ProductFactsV2, str]:

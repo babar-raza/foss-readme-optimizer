@@ -16,8 +16,12 @@ from readme_agent.readme.assessment_claims import (
 from readme_agent.readme.claim_accountability_api_coordinates import (
     api_structured_fact_coordinates,
 )
+from readme_agent.readme.claim_accountability_api_index import api_coordinate_index
 from readme_agent.readme.claim_accountability_golden_workflow_coordinates import (
     golden_workflow_fact_coordinates,
+)
+from readme_agent.readme.claim_accountability_implementation_coordinates import (
+    implementation_component_coordinates,
 )
 from readme_agent.readme.claim_accountability_installation_coordinates import (
     python_source_build_distribution_coordinates,
@@ -323,6 +327,16 @@ def structured_fact_coordinates(
     )
     context = _claim_context(document, claim)
     coordinates: list[StructuredFactCoordinateV1] = []
+    api_names: set[str] = set()
+    api_fact_id = facts.selected_fact_ids.get("api.public_surface")
+    if api_fact_id is not None:
+        api_fact = facts.fact_by_id(api_fact_id)
+        if isinstance(api_fact.value, dict):
+            api_index = api_coordinate_index(api_fact.value)
+            api_names.update(api_index.classes_by_name)
+            api_names.update(api_index.all_member_names)
+            api_names.update(api_index.modules_by_export)
+            api_names.update(api_index.package_export_names)
     for fact_id in selected:
         fact = facts.fact_by_id(fact_id)
         if facts.selected_fact_ids.get(fact.field) != fact_id:
@@ -365,6 +379,15 @@ def structured_fact_coordinates(
                     fact_id,
                     fact.value,
                     fact.source.source_revision,
+                )
+            )
+        elif fact.field == "repository.implementation_components":
+            coordinates.extend(
+                implementation_component_coordinates(
+                    text,
+                    fact_id,
+                    fact.value,
+                    known_non_dependency_names=api_names,
                 )
             )
     return sorted(

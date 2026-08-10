@@ -8,12 +8,16 @@ import re
 from pathlib import Path
 
 from readme_agent.facts.curated_constraint_evidence import source_limitations
+from readme_agent.facts.curated_contribution_policy import (
+    validated_readme_contribution_policy,
+)
 from readme_agent.facts.curated_python_development import (
     distributed_python_source_roots,
 )
 from readme_agent.facts.curated_python_development import (
     repository_development_commands as _python_development_commands,
 )
+from readme_agent.facts.public_constraint_text import is_public_constraint_sentence
 
 _PRIVATE_REPORT_URL = re.compile(
     r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/security/advisories/new"
@@ -44,6 +48,8 @@ def repository_documentation_assets(root: Path) -> tuple[object, list[str]] | No
 
     names = (
         "supported-features.md",
+        "PUBLIC_API.md",
+        "CHANGELOG.md",
         "SECURITY.md",
         "CONTRIBUTING.md",
         "CODE_OF_CONDUCT.md",
@@ -172,6 +178,10 @@ def repository_contribution_guidance(root: Path) -> tuple[object, list[str]] | N
             {"path": "CONTRIBUTING.md", "sha256": _sha256(contribution)},
             ["CONTRIBUTING.md"],
         )
+    readme = root / "README.md"
+    readme_policy = validated_readme_contribution_policy(root, readme)
+    if readme_policy is not None:
+        return {"readme_standard_workflow": readme_policy}, ["README.md"]
     scripts = [
         path
         for path in (root / "scripts").glob("*.sh")
@@ -233,6 +243,7 @@ def source_guidance_limitations(root: Path) -> tuple[object, list[str]] | None:
                     _CONSTRAINT.search(sentence) is None
                     or _ABSTRACT_CONSTRAINT.search(sentence) is not None
                     or sentence.rstrip().endswith(":")
+                    or not is_public_constraint_sentence(sentence)
                 ):
                     continue
                 if re.search(r"\brender", sentence, flags=re.IGNORECASE) and any(
@@ -252,7 +263,7 @@ def source_guidance_limitations(root: Path) -> tuple[object, list[str]] | None:
     if not found:
         return None
     substantial = [
-        item for item in found if len(re.findall(r"[A-Za-z0-9]+", str(item.get("statement")))) >= 4
+        item for item in found if is_public_constraint_sentence(str(item.get("statement")))
     ]
     prioritized = sorted(
         substantial,

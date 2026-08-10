@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.template_compiler import select_density_profile
 from readme_agent.presentation.template_schema import load_repository_presentation_template
 from readme_agent.readme.document_structure import (
@@ -12,6 +13,7 @@ from readme_agent.readme.document_structure import (
     heading_identity,
     parse_headings,
 )
+from readme_agent.readme.opening_summary_fallback import verified_identity_opening_summary
 from readme_agent.readme.presentation_contract import (
     PRESENTATION_SECTION_VISIBLE_LIMITS_BY_HEADING,
 )
@@ -60,7 +62,41 @@ def _heading_span(text: str, start: int, heading_end: int):
     return exact_span(text, start, newline if newline >= 0 else heading_end)
 
 
-def lint_structure(text: str) -> list[PresentationLintFindingV1]:
+def _accepted_purpose_exists(facts: ProductFactsV2) -> bool:
+    for field in ("product.problems_solved", "product.capabilities", "product.formats"):
+        fact_id = facts.selected_fact_ids.get(field)
+        if fact_id is None:
+            continue
+        fact = facts.fact_by_id(fact_id)
+        if (
+            fact.verification_state in {"verified", "policy_approved"}
+            and not fact.has_unresolved_conflict
+        ):
+            return True
+    return False
+
+
+def _identity_only_explanation_offset(text: str, facts: ProductFactsV2 | None) -> int | None:
+    """Recognize the exact fact-derived opening when richer purpose evidence is absent."""
+
+    if facts is None or _accepted_purpose_exists(facts):
+        return None
+    fallback = verified_identity_opening_summary(facts)
+    if fallback is None:
+        return None
+    offset = text.find(fallback.text)
+    if offset < 0:
+        return None
+    first_h2 = next((heading for heading in parse_headings(text) if heading.level == 2), None)
+    if first_h2 is not None and offset >= first_h2.start:
+        return None
+    return offset
+
+
+def lint_structure(
+    text: str,
+    facts: ProductFactsV2 | None = None,
+) -> list[PresentationLintFindingV1]:
     findings: list[PresentationLintFindingV1] = []
     headings = parse_headings(text)
     h1 = next((heading for heading in headings if heading.level == 1), None)
@@ -263,6 +299,8 @@ def lint_structure(text: str) -> list[PresentationLintFindingV1]:
         )
 
     explanation = product_explanation_offset(text)
+    if explanation is None:
+        explanation = _identity_only_explanation_offset(text, facts)
     promotional = []
     for line in visible_lines(text):
         commercial = _COMMERCIAL_LINK.search(line.text)

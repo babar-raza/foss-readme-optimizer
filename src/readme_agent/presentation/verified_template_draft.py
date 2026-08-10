@@ -125,7 +125,7 @@ def _source_owned_optional_slots(
     return owned
 
 
-def _source_opening_summary(
+def verified_source_opening_summary(
     source_text: str,
     facts: ProductFactsV2,
     title: str,
@@ -151,9 +151,36 @@ def _source_opening_summary(
         if binding is None:
             continue
         fields = sorted({facts.fact_by_id(fact_id).field for fact_id in binding.fact_ids})
-        if {"product.identity", "product.audience", "product.capabilities"}.issubset(fields):
+        purpose_fields = {
+            "product.capabilities",
+            "product.formats",
+            "product.problems_solved",
+            "repository.public_guidance",
+        }
+        if "product.identity" in fields and purpose_fields.intersection(fields):
             return text, fields
     return None
+
+
+def _complete_source_opening_overview(
+    summary: str,
+    fields: list[str],
+    facts: ProductFactsV2,
+) -> tuple[str, list[str]]:
+    """Add a concise accepted audience statement when source prose omits one."""
+
+    audience_view = visitor_fact_render_view(facts, "product.audience")
+    if audience_view is None or not audience_view.phrases:
+        return summary, fields
+    audience = audience_view.phrases[0].strip().rstrip(".")
+    if not audience or audience.casefold() in summary.casefold():
+        return summary, fields
+    visitor_phrase = audience[:1].lower() + audience[1:]
+    # Keep the verified source claim as its own Markdown paragraph. Claim
+    # accountability is sentence/paragraph-span based, so joining the audience
+    # sentence into that span would erase its exact source-fact binding.
+    completed = f"{summary.rstrip()}\n\nIt is designed for {visitor_phrase}."
+    return completed, sorted({*fields, "product.audience"})
 
 
 _SCOPE_TOPIC_RULES = (
@@ -411,9 +438,14 @@ def build_verified_template_draft(
     title = visual.title
     capabilities = _phrases(facts, "product.capabilities")
     problems = _phrases(facts, "product.problems_solved")
-    source_summary = _source_opening_summary(source_text, facts, title)
+    source_summary = verified_source_opening_summary(source_text, facts, title)
     if source_summary is not None:
         summary, summary_fields = source_summary
+        summary, summary_fields = _complete_source_opening_overview(
+            summary,
+            summary_fields,
+            facts,
+        )
     elif agentic_plan.opening_summary is not None:
         summary = agentic_plan.opening_summary.text.strip().rstrip(".") + "."
         summary_fact_ids = set(agentic_plan.opening_summary.supporting_fact_ids)
@@ -536,7 +568,7 @@ def build_verified_template_draft(
         ),
         "api_reference": (
             api_reference_markdown(facts),
-            ("api.public_surface",),
+            ("api.public_surface", *_accepted_fields(facts, "documentation.links")),
             ("readme.api_reference",),
         ),
         "documentation_resources": (

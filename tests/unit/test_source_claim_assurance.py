@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 
 import readme_agent.presentation.verified_template_capabilities as capabilities_module
+import readme_agent.readme.source_claim_fact_binding as fact_binding_module
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_source_claim_matching import (
@@ -100,6 +101,56 @@ def _facts() -> ProductFactsV2:
             },
         }
     )
+
+
+def test_fact_variants_are_reused_for_one_immutable_fact_graph(monkeypatch) -> None:
+    facts = _facts()
+    fact_binding_module._clear_fact_variant_cache()
+    original_build = fact_binding_module._build_fact_variants
+    calls: list[str] = []
+
+    def counting_build(graph: ProductFactsV2, fact_id: str):
+        calls.append(fact_id)
+        return original_build(graph, fact_id)
+
+    monkeypatch.setattr(fact_binding_module, "_build_fact_variants", counting_build)
+
+    assert facts.selected_fact("product.capabilities").fact_id in accepted_source_claim_fact_ids(
+        "Build verified meshes.", facts
+    )
+    first_calls = list(calls)
+    assert first_calls
+    assert facts.selected_fact("product.capabilities").fact_id in accepted_source_claim_fact_ids(
+        "Build verified meshes.", facts
+    )
+
+    assert calls == first_calls
+
+
+def test_complete_claim_binding_is_reused_for_one_immutable_document(monkeypatch) -> None:
+    facts = _facts()
+    source = "# Product\n\n- Build verified meshes\n"
+    claim = assess_material_claims(source)[0]
+    fact_binding_module._clear_fact_variant_cache()
+    original_build = fact_binding_module._build_complete_source_claim_fact_binding
+    calls = 0
+
+    def counting_build(document, material_claim, graph):
+        nonlocal calls
+        calls += 1
+        return original_build(document, material_claim, graph)
+
+    monkeypatch.setattr(
+        fact_binding_module,
+        "_build_complete_source_claim_fact_binding",
+        counting_build,
+    )
+
+    first = complete_source_claim_fact_binding(source, claim, facts)
+    second = complete_source_claim_fact_binding(source, claim, facts)
+
+    assert first == second
+    assert calls == 1
 
 
 def _page_mcp_facts() -> ProductFactsV2:

@@ -64,6 +64,7 @@ _FACT_FIELD_TARGETS = (
     ({"api.public_surface"}, _TARGETS["api_public_surface"]),
     ({"product.capabilities", "product.formats"}, _TARGETS["major_capabilities"]),
     ({"documentation.links"}, _TARGETS["documentation_resources"]),
+    ({"repository.documentation_assets"}, _TARGETS["documentation_resources"]),
     (
         {"development.assets", "development.commands", "development.golden_workflow"},
         _TARGETS["development_commands"],

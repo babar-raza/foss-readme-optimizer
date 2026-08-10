@@ -924,7 +924,10 @@ def test_positive_capability_slot_cannot_replace_unbound_negative_boundary_claim
 
     resolutions = build_source_claim_resolutions(source, candidate, facts, provenance)
 
-    assert resolutions == []
+    assert len(resolutions) == 1
+    assert resolutions[0].resolution == "deferred_verification"
+    assert resolutions[0].fact_ids == []
+    assert resolutions[0].replacement_provenance_ids == []
 
 
 def test_correction_owned_claim_requires_exact_fact_bound_slot_provenance() -> None:
@@ -1020,7 +1023,7 @@ def test_deferred_source_claim_cannot_approve_a_surviving_claim_or_cite_facts():
         )
 
 
-def test_excluded_deferred_source_claim_still_blocks_final_approval():
+def test_excluded_deferred_source_claim_is_approval_eligible_with_visible_accounting():
     _source, _candidate, facts, _plan, _accountability = _case("python")
     source = "# Product\n\nMaintainer-authored detail pending verification.\n"
     candidate = "# Product\n"
@@ -1057,9 +1060,10 @@ def test_excluded_deferred_source_claim_still_blocks_final_approval():
         source_claim_resolutions=[resolution],
     )
 
-    assert result.valid is False
-    assert result.approval_eligible is False
-    assert result.checks["no_deferred_source_claims_at_approval"] is False
+    assert result.valid is True
+    assert result.approval_eligible is True
+    assert result.checks["deferred_claims_are_excluded_and_unverified"] is True
+    assert result.checks["no_deferred_source_claims_at_approval"] is True
 
 
 def test_authoritative_correction_requires_an_overlapping_operation():

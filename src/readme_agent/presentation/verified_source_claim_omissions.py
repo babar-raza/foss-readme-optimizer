@@ -18,6 +18,7 @@ from readme_agent.readme.document_plan import (
     SourceClaimResolutionV1,
 )
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
+from readme_agent.readme.source_claim_capability_binding import public_api_feature_is_anchored
 from readme_agent.readme.source_claim_risk import SourceClaimRiskV1
 
 
@@ -150,7 +151,8 @@ _CAPABILITY_GENERIC_WORDS = {
 
 
 def _capability_words(value: str) -> set[str]:
-    expanded = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", strip_emoji_decorations(value))
+    visible_text = re.sub(r"\]\([^)]+\)", "]", strip_emoji_decorations(value))
+    expanded = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", visible_text)
     return {
         word[:-1] if word.endswith("s") and len(word) > 4 else word
         for word in re.findall(r"[A-Za-z0-9]+", expanded.casefold())
@@ -159,6 +161,8 @@ def _capability_words(value: str) -> set[str]:
 
 
 def _capability_anchor_matches(claim_text: str, facts: ProductFactsV2) -> bool:
+    if public_api_feature_is_anchored(claim_text, facts):
+        return True
     fact_id = facts.selected_fact_ids.get("product.capabilities")
     if fact_id is None:
         return False
@@ -171,12 +175,29 @@ def _capability_anchor_matches(claim_text: str, facts: ProductFactsV2) -> bool:
         return False
     claim_words = _capability_words(claim_text)
     claim_numbers = {word for word in claim_words if word.isdigit()}
+    capability_word_sets = [_capability_words(str(value)) for value in fact.value]
+    if (
+        re.search(r"(?m)^\s*\|.*\|\s*$", claim_text)
+        and sum(
+            bool(
+                (claim_words - claim_numbers).intersection(
+                    words - {word for word in words if word.isdigit()}
+                )
+            )
+            for words in capability_word_sets
+        )
+        >= 2
+    ):
+        # A multi-row table commonly carries unverified per-row qualifiers and
+        # numbers. Two independently accepted capability anchors are enough to
+        # classify the exact table as related detail for explicit deferral;
+        # they do not verify or publish the table itself.
+        return True
     normalized_claim = " ".join(
         re.findall(r"[a-z]+", strip_emoji_decorations(claim_text).casefold())
     ).removeprefix("content ")
     generic_content_group = normalized_claim == "extraction"
-    for value in fact.value:
-        fact_words = _capability_words(str(value))
+    for value, fact_words in zip(fact.value, capability_word_sets, strict=True):
         if generic_content_group and "content" in str(value).casefold():
             return True
         if claim_numbers - fact_words:
@@ -274,25 +295,31 @@ def deferred_unverified_source_example_resolution(
         or minimal.verification_state not in {"verified", "policy_approved"}
         or minimal.has_unresolved_conflict
         or not isinstance(minimal.value, dict)
-        or minimal.value.get("verification_outcome") != "SOURCE_BUILD_VERIFIED"
+        or minimal.value.get("verification_outcome")
+        not in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
     ):
         return None
     source_readme_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
     if examples.value.get("readme_sha256") != source_readme_hash:
         return None
     inline_examples = examples.value.get("inline_examples")
-    if not isinstance(inline_examples, list):
+    withheld_examples = examples.value.get("withheld_inline_examples")
+    if not isinstance(inline_examples, list) or not isinstance(withheld_examples, list):
         return None
     exact = [
-        item for item in inline_examples if isinstance(item, dict) and item.get("code") == code
+        item
+        for item in [*inline_examples, *withheld_examples]
+        if isinstance(item, dict) and item.get("code") == code
     ]
     if len(exact) != 1:
         return None
     example = exact[0]
-    if (
-        example.get("static_api_verified") is not True
-        or example.get("execution_verified") is not False
-    ):
+    static_decision_recorded = example.get("static_api_verified") is True or (
+        example.get("static_api_verified") is False
+        and isinstance(example.get("validation_reason"), str)
+        and bool(str(example["validation_reason"]).strip())
+    )
+    if not static_decision_recorded or example.get("execution_verified") is not False:
         return None
     raw_inventory = examples.value.get("fixture_inventory")
     try:
@@ -343,8 +370,9 @@ def deferred_unverified_source_example_resolution(
             "disposition:static-only-source-example-deferred-v1",
         ],
         rationale=(
-            "The exact inherited Python example is statically API-verified but not execution-"
-            "verified, and its literal input fixture is absent from the complete immutable Git "
+            "The exact inherited Python example has a recorded static validation decision but "
+            "is not execution-verified, and its literal input fixture is absent from the "
+            "complete immutable Git "
             "tree. It is deferred without claiming falsity or execution; the candidate primary "
             "example is independently source-build verified."
         ),
@@ -374,7 +402,7 @@ def verified_paired_example_intro_resolution(
         or paired_claim is None
         or paired_claim_text is None
         or paired_resolution is None
-        or paired_resolution.resolution != "verified_equivalence"
+        or paired_resolution.resolution not in {"verified_equivalence", "verified_omission"}
     ):
         return None
     if hashlib.sha256(claim_text.encode("utf-8")).hexdigest() != claim.content_sha256:
