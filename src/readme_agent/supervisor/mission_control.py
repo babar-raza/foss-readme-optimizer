@@ -382,7 +382,8 @@ def _derive_goal_selection(
         if goal.concurrent_when_earlier_primary
         and any(
             task.stage_goal_id == goal.goal_id
-            and task.concurrency_class == "read_only_assurance_isolated"
+            and task.concurrency_class
+            in {"read_only_assurance_isolated", "repository_local_write_isolated"}
             for task in ready
         )
         and admitted_lanes > 1
@@ -487,7 +488,10 @@ def evaluate_mission(
     )
     complete = delivery_complete and certification_complete
     active_goal_id, concurrent_goal_ids, capacity_allocation = _derive_goal_selection(graph, state)
-    selected = active or (eligible[0] if eligible else None)
+    selected = active or next(
+        (task for task in eligible if task.stage_goal_id == active_goal_id),
+        None,
+    )
     next_task = (
         MissionNextTaskV1(
             task_id=selected.task_id,
@@ -687,11 +691,22 @@ def claim_next_task(
     graph_sha256: str,
     *,
     claimed_by: str,
+    expected_task_id: str | None = None,
 ) -> RunStateV1:
+    if expected_task_id is not None and expected_task_id not in {
+        task.task_id for task in graph.taskcards
+    }:
+        raise ConfigError(f"unknown expected mission task_id {expected_task_id!r}")
+
     def claim(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
         now = datetime.now(UTC)
         state = _recover_expired_claim(state, now)
         if state.active_task_id is not None:
+            if expected_task_id is not None and state.active_task_id != expected_task_id:
+                raise ConfigError(
+                    f"expected mission task {expected_task_id!r}, but "
+                    f"{state.active_task_id!r} owns the active claim"
+                )
             active_task = next(
                 task for task in graph.taskcards if task.task_id == state.active_task_id
             )
@@ -725,14 +740,34 @@ def claim_next_task(
                 )
             return state
         ready = _ready_tasks(graph, state)
-        if not ready:
+        primary_goal, _concurrent_goals, _capacity = _derive_goal_selection(graph, state)
+        claimable = [task for task in ready if task.stage_goal_id == primary_goal]
+        if not claimable:
+            if expected_task_id is not None:
+                raise ConfigError(
+                    f"expected mission task {expected_task_id!r} is not dependency-ready "
+                    "or is blocked by primary-goal admission controls"
+                )
             return state.model_copy(
                 update={
                     "mission_complete": evaluate_mission(graph, state).mission_complete,
                     "last_evaluated_at": now.isoformat(),
                 }
             )
-        selected = ready[0]
+        if expected_task_id is None:
+            selected = claimable[0]
+        else:
+            expected = next(
+                (task for task in claimable if task.task_id == expected_task_id),
+                None,
+            )
+            if expected is None:
+                ready_ids = ", ".join(task.task_id for task in claimable) or "none"
+                raise ConfigError(
+                    f"expected mission task {expected_task_id!r} is not eligible; "
+                    f"primary-goal eligible tasks: {ready_ids}"
+                )
+            selected = expected
         try:
             approach_control = start_approach_attempt(
                 state.approach_control,

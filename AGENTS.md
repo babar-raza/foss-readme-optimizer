@@ -297,9 +297,11 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   mandatory.
 - **Verified Python is the immediate complete-platform POC.** Finish the current Aspose.3D FOSS for
   Python calibration README, then rebuild Note, qualify Page/PDF, and complete every dynamically
-  admitted Python repository. Only after the Python platform closes may current .NET and Java
-  vertical slices run; remaining-platform and Gate-A work follows the governed dependency and
-  platform order. No product effect occurs in these local stages. Continue source-complete
+  admitted Python repository. After repository-transaction isolation is proven, one disjoint
+  repository-local .NET qualification lane may run while Python remains the sole primary goal;
+  it has no shared-state, transition, aggregate, commit, or effect authority. Python production
+  transport is proven before .NET transport, and Java follows .NET. No product effect occurs in
+  these local stages. Continue source-complete
   discovery and the verified Gate A/B/C sequence afterwards. For every verified entry, capture the
   current
   default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
@@ -328,10 +330,17 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   A normal run must not ask a human to choose a template, capability, skill, or command sequence.
 - **Human review never replaces independent approval.** A trusted POC PR is itself the human review
   surface after trusted deterministic and independent fidelity approval. Verified Gate B still
-  begins only after every verified candidate goes through
+  begins only after every candidate in the proposed platform cohort goes through
   deterministic validation, independent agentic review, repair, and no-op proof before a human
   acceptance decision. Human acceptance is a separate recorded Gate-B state; it is never inferred from
-  agent approval.
+  agent approval. A complete human-accepted platform may enter separately authorized draft-PR
+  operation without promoting another platform or satisfying full-registry Gate A/B; every member
+  of the affected platform must be accepted first.
+- **Package resolution follows declared, sprint-bounded routes.** The active verified POC may use
+  pip/PyPI for repository-declared Python packages, NuGet, Maven, npm, Go modules/proxy, and
+  Cargo/crates.io. Conan and vcpkg remain inactive and non-blocking even if dormant resolver code
+  exists. C++ uses verified repository source/CMake acquisition unless a supported declared route
+  exists. Never guess a package registry merely because an ecosystem could use it.
 - **Trusted execution is suspended; compatible machinery remains reusable.** Trusted goals,
   candidate work, reviews, effects, and delivery may not be selected, claimed, or reserve capacity.
   Reuse proven code, tests, caches, retries, leases, workflow/staging/App/effect machinery, and
@@ -368,7 +377,8 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   `plans/master.md`, `plans/requirements.md`, and `plans/GOVERNANCE.md` are authoritative in their
   respective roles. Taskcard ledgers, roadmaps, handovers, and status reports are derived views:
   correct them when they conflict, and never let their numbering promote trusted evidence or
-  authorize verified Gate-C content work before verified Gates A/B.
+  authorize a product effect before the affected platform cohort is independently and human
+  accepted. Platform publication evidence never satisfies full-registry Gates A/B.
 
 ## Stage goals and accelerated execution
 
@@ -385,8 +395,9 @@ certification after production deployment and may never become primary or block 
 controller reports `delivery_complete` only after executable work through deployable Level 6 and
 `certification_complete` only after the Level-7/8 observations and audits close. Full
 `mission_complete` requires both; delivery completion is never a Level-7/8 claim. The
-controller also derives zero or more `concurrent_goal_ids` only for
-dependency-ready, read-only, assurance-isolated work admitted by the primary capacity policy. It
+controller also derives zero or more `concurrent_goal_ids` only for dependency-ready read-only or
+repository-local-write work admitted by the primary capacity policy after transaction isolation,
+with disjoint leases and no shared-state/effect authority. It
 advances only on current evidence, withdraws invalid concurrency, and reactivates the earliest
 affected goal after regression, invalidation, or denominator growth. Only a goal with
 `execution_required: true` may become primary. T0/TP/T0R/T1/T2/T3 remain inspectable but cannot be
@@ -416,9 +427,9 @@ repository-bound before rendering; coordinates, APIs, examples, limitations, lic
 and inherited claims remain per-repository proof. Use one repository lane for the current
 Aspose.3D Python end-to-end slice. After its complete lifecycle, promotion, recovery, cache, and
 serialized-aggregation proof passes, the sole supervisor may use two representative and later at
-most three isolated Python workers with separate leases/state/evidence and serialized aggregation.
-Current .NET/Java slices follow the
-complete Python platform. Follow the graph's seven-campaign mapping and one closure evidence package
+most three isolated repository workers with separate leases/state/evidence and serialized aggregation.
+While Python remains primary, one disjoint .NET lane may qualify the complete local cohort; Python
+transport closes before .NET transport, and the Java slice follows. Follow the graph's seven-campaign mapping and one closure evidence package
 per campaign. Run the pending optimized complete non-live suite on current committed HEAD before the
 first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
 gate or typed P0 exception; do not revive micro-fix evidence churn.
@@ -426,7 +437,9 @@ gate or typed P0 exception; do not revive micro-fix evidence churn.
 The completed historical small goals remain in durable state. The current executable sequence is
 `DELIVERY-PY-PDF-CURRENT` → `DELIVERY-PY-PAGE-CURRENT` →
 `DELIVERY-PY-NOTE-CURRENT` → `DELIVERY-PY-3D-CURRENT` →
-`DELIVERY-PY-REMAINING-COHORT` → `DELIVERY-POST-PYTHON-DOTNET-JAVA`. These are typed execution
+`DELIVERY-PY-REMAINING-COHORT`, with `DELIVERY-DOTNET-LOCAL-NO-OP` admitted concurrently after
+isolation, then `DELIVERY-PYTHON-PRODUCTION-TRANSPORT` →
+`DELIVERY-DOTNET-PRODUCTION-TRANSPORT` → `DELIVERY-JAVA-FIRST-CURRENT`. These are typed execution
 focuses on durable taskcards, not a second controller. Mission `status` prints the exact current
 focus and repository scope.
 

@@ -149,7 +149,11 @@ class TaskCardV1(_StrictModel):
     closeout_rules: list[str]
     stage_goal_id: StageGoalId
     campaign_id: ExecutionCampaignId | None = None
-    concurrency_class: Literal["primary_only", "read_only_assurance_isolated"] = "primary_only"
+    concurrency_class: Literal[
+        "primary_only",
+        "read_only_assurance_isolated",
+        "repository_local_write_isolated",
+    ] = "primary_only"
     goal_ids: list[SubordinateGoalId] = Field(min_length=1)
     core_contribution: CoreContributionV1
     requirement_ids: list[str] = Field(default_factory=list)

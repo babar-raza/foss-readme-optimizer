@@ -169,6 +169,8 @@ def _source_catalog_errors(
     ]
     if migrated_requirements != source_requirements:
         errors.append("typed requirement catalog is not an exact source-record migration")
+    source_decisions = _source_decision_records(_source_text(source_commit, MASTER_PATH))
+    source_decision_ids = {record["decision_id"] for record in source_decisions}
     migrated_decisions = [
         {
             **{
@@ -180,8 +182,8 @@ def _source_catalog_errors(
             "markdown": record.get("legacy_markdown") or record["markdown"],
         }
         for record in decisions
+        if record["decision_id"] in source_decision_ids
     ]
-    source_decisions = _source_decision_records(_source_text(source_commit, MASTER_PATH))
     if migrated_decisions != source_decisions:
         errors.append("typed decision catalog is not an exact source-record migration")
     return errors
@@ -228,8 +230,17 @@ def main() -> int:
         inventory["before"]["requirement_ids"]
     ):
         errors.append("requirement stable-ID set changed during migration")
-    if {record["decision_id"] for record in decisions} != set(inventory["before"]["decision_ids"]):
-        errors.append("decision stable-ID set changed during migration")
+    current_decision_ids = {record["decision_id"] for record in decisions}
+    source_decision_ids = set(inventory["before"]["decision_ids"])
+    if not source_decision_ids.issubset(current_decision_ids):
+        errors.append("a source decision stable ID was removed after migration")
+    appended_decision_ids = current_decision_ids - source_decision_ids
+    if appended_decision_ids:
+        expected_appended_ids = set(
+            range(max(source_decision_ids) + 1, max(current_decision_ids) + 1)
+        )
+        if appended_decision_ids != expected_appended_ids:
+            errors.append("post-migration decision IDs are not append-only and contiguous")
     if any(len(task.get("requirement_ids", [])) > 25 for task in graph["taskcards"]):
         errors.append("an active task exceeds the 25-requirement context budget")
 
@@ -256,7 +267,7 @@ def main() -> int:
         if actual != expected:
             errors.append(f"{label} hash mismatch: {actual} != {expected}")
 
-    if len(matrix["decisions"]) != len(decisions):
+    if len(matrix["decisions"]) != len(inventory["before"]["decision_ids"]):
         errors.append("decision migration matrix count mismatch")
     if len(matrix["requirements"]) != len(requirements):
         errors.append("requirement migration matrix count mismatch")

@@ -85,6 +85,23 @@ class TestCompactAuthoritySourceBinding:
             "typed decision catalog is not an exact source-record migration"
         ]
 
+    def test_append_only_current_decision_does_not_rewrite_the_source_migration(self):
+        source_commit, requirements, decisions = self._records()
+        appended = deepcopy(decisions)
+        appended.append(
+            {
+                "schema_version": 1,
+                "decision_id": max(item["decision_id"] for item in decisions) + 1,
+                "title": "A current append-only decision.",
+                "markdown": (
+                    "A current append-only decision remains outside the historical migration."
+                ),
+                "legacy_record_sha256": "0" * 64,
+            }
+        )
+
+        assert _source_catalog_errors(requirements, appended, source_commit) == []
+
 
 class TestRealRepoIsClean:
     """Smoke tests against the actual repo files -- these are the same checks that already run

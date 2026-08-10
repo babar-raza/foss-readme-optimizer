@@ -20,6 +20,8 @@ from readme_agent.facts.schema_v2 import (
 )
 from readme_agent.registry.loader import load_products
 from readme_agent.state.agile_execution_schema import (
+    ApproachAttemptV1,
+    ApproachControlStateV1,
     ParallelismControlStateV1,
     TaskCloseoutControlEvidenceV1,
 )
@@ -27,6 +29,7 @@ from readme_agent.state.backend import SaveResult
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.mission_goal_schema import MissionContributionEvidenceV1
 from readme_agent.state.schema import MissionExecutionStateV1, MissionTransitionV1, RunStateV1
+from readme_agent.supervisor.approach_control import task_approach_fingerprint
 from readme_agent.supervisor.mission_control import (
     claim_next_task,
     evaluate_mission,
@@ -183,6 +186,9 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-VPY-03D-NOTE-CURRENT-REFRESH",
         "L8-VPY-03E-3D-CURRENT-REFRESH",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+        "L8-VPY-04-PRODUCTION-TRANSPORT",
+        "L8-VNET-02-PRODUCTION-TRANSPORT",
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "L8-HORIZON-01-ACTIVATE-GATE-A",
     }
@@ -212,7 +218,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         == "DELIVERY-PY-PDF-CURRENT"
     )
     assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
-        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+        "L8-VNET-02-PRODUCTION-TRANSPORT"
     ]
     assert tasks["L8-HORIZON-01-ACTIVATE-GATE-A"].dependencies == [
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
@@ -344,6 +350,131 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert reopened.active_goal_id == "GOAL-V0A-FIRST-VERIFIED-README"
     assert reopened.next_task is not None
     assert reopened.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
+
+
+def test_dotnet_local_write_lane_is_concurrent_only_after_transaction_isolation():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "TODO",
+            "L8-VNET-01-ACCELERATED-LOCAL-NO-OP": "TODO",
+        }
+    )
+    base_state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    serial = evaluate_mission(graph, base_state)
+
+    assert serial.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert serial.concurrent_goal_ids == []
+    assert [task.task_id for task in serial.eligible_tasks] == [
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    ]
+
+    isolated = evaluate_mission(
+        graph,
+        base_state.model_copy(
+            update={
+                "parallelism_control": ParallelismControlStateV1(
+                    transaction_isolation_proven=True,
+                    calibration_active=False,
+                )
+            }
+        ),
+    )
+
+    assert isolated.concurrent_goal_ids == ["GOAL-V0B-POST-PYTHON-SLICES"]
+    assert [task.task_id for task in isolated.eligible_tasks] == [
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+    ]
+
+
+def test_concurrent_lane_cannot_replace_an_admission_blocked_primary_claim():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = _all_closed_statuses(graph)
+    primary_id = "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    concurrent_id = "L8-VNET-01-ACCELERATED-LOCAL-NO-OP"
+    statuses.update({primary_id: "REGRESSED", concurrent_id: "TODO"})
+    primary = next(task for task in graph.taskcards if task.task_id == primary_id)
+    fingerprint = task_approach_fingerprint(primary)
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+        approach_control=ApproachControlStateV1(
+            attempts=[
+                ApproachAttemptV1(
+                    task_id=primary_id,
+                    fingerprint=fingerprint,
+                    started_at=f"2026-08-10T00:0{index}:00+00:00",
+                    outcome="ineffective",
+                )
+                for index in range(2)
+            ]
+        ),
+        parallelism_control=ParallelismControlStateV1(
+            transaction_isolation_proven=True,
+            calibration_active=False,
+        ),
+    )
+    backend = _MemoryStateBackend()
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = RunStateV1(
+        org_repo=mission_state_key(graph.mission_authority.mission_id),
+        state_version=1,
+        mission_execution=state,
+    )
+
+    evaluation = evaluate_mission(graph, state)
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="coordinator")
+
+    assert evaluation.active_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
+    assert [task.task_id for task in evaluation.eligible_tasks] == [concurrent_id]
+    assert evaluation.next_task is None
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id is None
+    assert claimed.mission_execution.task_statuses[concurrent_id] == "TODO"
+
+
+def test_platform_production_admission_keeps_python_ahead_of_dotnet_and_java():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
+            "L8-VNET-02-PRODUCTION-TRANSPORT": "TODO",
+            "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "TODO",
+        }
+    )
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    python_transport = evaluate_mission(graph, state)
+
+    assert python_transport.next_task is not None
+    assert python_transport.next_task.task_id == "L8-VPY-04-PRODUCTION-TRANSPORT"
+
+    dotnet_transport = evaluate_mission(
+        graph,
+        state.model_copy(
+            update={
+                "task_statuses": {
+                    **statuses,
+                    "L8-VPY-04-PRODUCTION-TRANSPORT": "CLOSED",
+                }
+            }
+        ),
+    )
+
+    assert dotnet_transport.next_task is not None
+    assert dotnet_transport.next_task.task_id == "L8-VNET-02-PRODUCTION-TRANSPORT"
 
 
 def test_delivery_and_background_certification_have_distinct_closure_states():
@@ -1080,6 +1211,43 @@ def test_claim_is_idempotent_while_a_task_is_already_active():
     assert second.mission_execution.claim_id == first.mission_execution.claim_id
     assert second.mission_execution.claimed_by == first.mission_execution.claimed_by
     assert second.state_version == first.state_version
+
+
+def test_claim_rejects_substitution_when_expected_task_is_not_eligible():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+
+    with pytest.raises(ConfigError, match="is not eligible"):
+        claim_next_task(
+            backend,
+            graph,
+            graph_hash,
+            claimed_by="test-worker",
+            expected_task_id="L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+        )
+
+    record = backend.load(mission_state_key(graph.mission_authority.mission_id))
+    assert record is not None
+    assert record.mission_execution is not None
+    assert record.mission_execution.active_task_id is None
+
+
+def test_claim_rejects_expected_task_that_differs_from_live_claim():
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="primary-worker")
+    assert claimed.mission_execution is not None
+
+    with pytest.raises(ConfigError, match="owns the active claim"):
+        claim_next_task(
+            backend,
+            graph,
+            graph_hash,
+            claimed_by="secondary-worker",
+            expected_task_id="L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+        )
 
 
 def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path):

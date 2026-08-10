@@ -47,11 +47,11 @@ mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   mission_summary: Complete verified_repository_presentation through an automatically derived ordered
     stage-goal state machine. Preserve trusted_readme_transform assets only as lower-assurance reusable
-    inputs. Reconcile current lifecycle freshness, complete the graph-owned Python repository-focus
-    chain and dynamic Python denominator, then continue through the configured platform order, Gate A,
-    Gate B/C, Level 5, and deployable Level 6. Level 7 and Level 8 remain background certification
-    states after deployment and never block tangible delivery. Never promote trusted evidence into
-    verified acceptance or advance a dependent on a stale closed repository deliverable.
+    inputs. Reconcile current lifecycle freshness, complete the graph-owned Python repository-focus chain
+    and dynamic Python denominator, then continue through the configured platform order, Gate A, Gate
+    B/C, Level 5, and deployable Level 6. Level 7 and Level 8 remain background certification states after
+    deployment and never block tangible delivery. Never promote trusted evidence into verified acceptance
+    or advance a dependent on a stale closed repository deliverable.
   governing_plan_path: plans/master.md
   current_phase: Derived exclusively from durable mission status after lifecycle-freshness reconciliation;
     this declarative graph does not store a mutable current-task cursor.
@@ -74,18 +74,19 @@ mission_authority:
   - 'DELIVERY-FIRST SHORT-TERM HORIZON: mission evaluate first reconciles closed-task freshness; mission
     status then supplies exactly one TaskExecutionFocusV1 and repository scope. Complete that repository
     through current facts, composition, validation, independent review, unchanged no-op, promotion, and
-    reconstruction before advancing. One repository is partial progress; the complete dynamic Python
-    denominator is the first platform POC.'
+    reconstruction before advancing. One repository is partial progress; the complete dynamic Python denominator
+    is the first platform POC.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: after the verified Python POC, reconcile complete discovery/intake and finish
-    repository-verified Gate A in Python, .NET, Java, C++, TypeScript, Rust, Go order; then Gate B, Gate
-    C, and Level 5.'
-  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: pin the template-component versions per transaction; close
-    current Aspose.3D Python end to end with one lane; prove Note and Page/PDF; close the dynamic all-Python
-    milestone; prove current .NET and Java slices; then continue lower-priority platforms without omitting
-    any Gate-A task or repository.'
+  - 'MEDIUM-TERM HORIZON: qualify Python completely and prove its reusable workflow, disposable staging,
+    and hosted GitHub App transport first. After repository-transaction isolation is proven, qualify .NET
+    locally in a disjoint concurrent lane; then promote .NET through the same transport before Java, C++,
+    TypeScript, Rust, and Go. Product effects remain separately human-reviewed and authorized.'
+  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: pin the template-component versions per transaction; finish
+    the dynamic all-Python milestone; prove Python workflow/staging/App transport; qualify the complete
+    .NET cohort concurrently when isolation permits; promote .NET through the same transport; then continue
+    Java and lower-priority platforms without omitting any Gate-A task or repository.'
   - 'LONG-TERM HORIZON: deploy with Level-8-grade controls, then accumulate Level-7 and Level-8 evidence
     in the background without blocking usable output or subsequent repository delivery.'
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries. Work
@@ -115,9 +116,9 @@ mission_authority:
     and effects; trusted_inherited never satisfies repository_verified acceptance.
   - Exactly one primary stage goal is derived from the earliest incomplete gate, persisted atomically,
     advanced only by current evidence, and reactivated automatically after regression, invalidation, or
-    denominator growth. Zero or more concurrent goals are derived only for dependency-ready, read-only,
-    assurance-isolated work admitted by the primary capacity policy; only the primary owns stop/effect
-    authority.
+    denominator growth. Zero or more concurrent goals are derived only for dependency-ready read-only
+    or repository-local-write work with disjoint leases, assurance isolation, proven transaction isolation,
+    and capacity-policy admission; only the primary owns stop/effect authority.
   - Historical trusted facts, candidates, verdicts, no-op evidence, proposals, and PRs remain assurance-labelled
     and cannot satisfy or block verified facts, Gate A/B/C, or maturity; no trusted goal is executable
     or reserves capacity.
@@ -143,14 +144,14 @@ mission_authority:
     prove several adjacent tasks only when it contains per-task and per-requirement acceptance mappings.
   - Deterministic gates run before paid composition or review; unchanged work is reused only under a complete
     dependency fingerprint, and shared failures are repaired once at their earliest common owner.
-  - Content qualification remains coordinated by one supervisor. The same-revision comparative Note Python
-    slice uses one repository lane and has no product-effect authority. After its native transaction,
-    cache, sibling-isolation, cancellation, lifecycle, review, no-op, promotion, and serialized-aggregation
-    proof passes, the sole supervisor may use two and then at most three isolated Python lanes with serialized
-    aggregation when measured thresholds pass. Current .NET/Java slices and broader portfolio fan-out
-    remain behind Python closure and subject to platform priority and per-repository proof. Bounded control-repository
-    agents may work only through coordinator-issued disjoint path leases; shared files, integration, commits,
-    task state, final verification, and final evidence remain coordinator-only.
+  - Content qualification remains coordinated by one supervisor. After native transaction, cache, sibling-isolation,
+    cancellation, lifecycle, review, no-op, promotion, and serialized-aggregation proof passes, the supervisor
+    may use two and then at most three isolated repository lanes. Python retains the primary goal until
+    its complete platform proof closes; a disjoint .NET local-qualification lane may run concurrently
+    after isolation is proven, but it has no stop, transition, aggregate-state, or effect authority. Python
+    transport is proven before .NET transport, and Java follows .NET. Bounded workers use coordinator-issued
+    disjoint path leases; shared files, integration, commits, task state, final verification, and final
+    evidence remain coordinator-only.
   - Platform-scoped selection and cohort manifests preserve Python, .NET, Java, C++, TypeScript, Rust,
     Go order after dependency, live-claim, safety, and isolation constraints; a narrow external block
     may be bypassed temporarily but remains visible and regains priority immediately when cleared.
@@ -222,10 +223,12 @@ mission_authority:
     reserved_trusted_lanes: 0
   - goal_id: GOAL-V0B-POST-PYTHON-SLICES
     order: 14
-    summary: Prove one current .NET and one current Java repository through the frozen verified lifecycle
-      after the complete Python platform POC.
-    acceptance_boundary: Both current cross-platform slices are independently approved, unchanged-no-op-proven,
-      zero-effect, and reconstructable without invalidating accepted Python evidence.
+    summary: Qualify .NET locally beside the Python primary when isolation permits, then prove Python
+      and .NET production transport in platform order before the Java slice.
+    acceptance_boundary: Python and .NET are independently approved, fresh-transaction-no-op-proven, and
+      reproducible through workflow, staging, and hosted App transport without an unauthorized product
+      effect; the following Java slice remains zero-effect and reconstructable.
+    concurrent_when_earlier_primary: true
     max_concurrent_verified_lanes: 2
   - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
     order: 15
@@ -1122,22 +1125,300 @@ taskcards:
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   concurrency_class: primary_only
   campaign_id: CAMP-PYTHON-PORTFOLIO
+- task_id: L8-VNET-01-ACCELERATED-LOCAL-NO-OP
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Qualify the complete .NET cohort through the accelerated local transaction
+  source_audit_finding: All six .NET repositories have visible candidates, but missing public-API projection,
+    source-claim accountability, and fresh-transaction no-op keep every candidate below deterministic
+    acceptance. Existing .NET evidence and consumer-verification components make this the highest-coverage
+    next platform.
+  audit_classification: partially_done
+  priority: P1
+  lane: verified-dotnet-local-qualification
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: While Python remains the sole primary goal, use one disjoint .NET repository-local lane to
+    project existing .NET evidence into ProductFactsV2, verify repository-declared NuGet or source-build
+    acquisition, reconcile inherited claims, and advance all six .NET repositories through deterministic
+    acceptance, independent review, renderer reproducibility, and fresh-process transaction no-op.
+  why_it_matters: This overlaps high-value platform qualification with Python closure without allowing
+    the secondary lane to mutate shared authority, aggregate state, or product repositories.
+  allowed_paths:
+  - src/readme_agent/ecosystems/dotnet.py
+  - src/readme_agent/ecosystems/dotnet_public_types.py
+  - src/readme_agent/facts/aspose_org_dotnet_adapter.py
+  - src/readme_agent/facts/dotnet_3d_format_functionality.py
+  - src/readme_agent/facts/dotnet_dependency_acquisition.py
+  - src/readme_agent/facts/dotnet_dependency_schema.py
+  - src/readme_agent/facts/dotnet_email_format_functionality.py
+  - src/readme_agent/facts/dotnet_example_verifier.py
+  - src/readme_agent/facts/dotnet_legacy_reference_fallback.py
+  - src/readme_agent/facts/dotnet_lfs_acquisition.py
+  - src/readme_agent/facts/dotnet_project_closure.py
+  - src/readme_agent/facts/dotnet_repository_evidence.py
+  - src/readme_agent/facts/dotnet_repository_evidence_schema.py
+  - src/readme_agent/facts/dotnet_source_generator_fallback.py
+  - src/readme_agent/facts/dotnet_truth_selection.py
+  - tests/unit/test_dotnet_3d_format_functionality.py
+  - tests/unit/test_dotnet_dependency_acquisition.py
+  - tests/unit/test_dotnet_email_format_functionality.py
+  - tests/unit/test_dotnet_lfs_acquisition.py
+  - tests/unit/test_dotnet_public_types.py
+  - tests/unit/test_dotnet_repository_evidence.py
+  - tests/unit/test_dotnet_truth_selection.py
+  - runs/readme-poc/
+  - runs/multi-agent/L8-VNET-01-ACCELERATED-LOCAL-NO-OP/
+  forbidden_paths:
+  - plans/
+  - data/
+  - prompts/
+  - templates/
+  - shared supervisor, renderer, lifecycle, validator, and portfolio-summary files
+  - Python repository runtime paths
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  expected_outputs:
+  - Six repository-specific .NET fact, candidate, deterministic-validation, independent-review, and no-op
+    bundles
+  - One platform evidence-adapter receipt proving public API and source-claim projection
+  - Renderer reproducibility and fresh-process transaction no-op reported separately for every .NET repository
+  acceptance_checks:
+  - Every runtime-loaded .NET repository reaches deterministic and independent acceptance
+  - Repository-declared NuGet is the only .NET package-registry resolver used; an undeclared package route
+    is never guessed
+  - Missing Conan or vcpkg evidence never blocks, alters, or satisfies this task
+  - The lane writes only its exclusive .NET paths and repository-addressed runtime artifacts
+  - No shared state, aggregate summary, product branch, pull request, or default branch is changed
+  verification:
+  - Focused .NET evidence, acquisition, API-surface, example, and claim-accountability tests
+  - Per-repository deterministic validation and independent non-authoring review
+  - Renderer reproducibility, fresh-process no-op, cancellation/resume, and duplicate-work proof
+  negative_controls:
+  - Same-process recomposition cannot satisfy transaction no-op
+  - Reviewer acceptance cannot override deterministic rejection
+  - Raw XML documentation cannot be emitted as visitor-facing capability prose without distillation
+  regression_checks:
+  - .NET repository isolation
+  - NuGet/source-build truth
+  - no-write safety
+  - artifact redaction
+  evidence_requirements:
+  - Per-repository source, fact, candidate, patch, validation, review, no-op, call-ledger, and manifest
+    artifacts
+  - Lane timing, exclusive-path inventory, cache reuse, and checksum receipt
+  rollback_or_recovery: Reopen only the invalid .NET repository or .NET adapter dependency; retain accepted
+    Python and sibling .NET stages by their complete dependency hashes.
+  failure_reroute: Return a shared-contract defect to the coordinator instead of editing its owner; after
+    two equivalent failures or 15 minutes without narrowing, record a first-principles replan before retrying.
+  closeout_rules:
+  - All six .NET repositories are locally qualified and fresh-transaction-no-op-proven
+  - The coordinator independently verifies the lane and serially imports its accepted evidence
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-README
+  core_contribution:
+    kind: visible_deliverable
+    summary: Produce the complete .NET local platform cohort while Python retains primary delivery authority.
+  execution_focus:
+    goal_id: DELIVERY-DOTNET-LOCAL-NO-OP
+    immediate_outcome: Qualify and expose all .NET READMEs without delaying or mutating the Python primary
+      lane.
+    repository_scope:
+    - platform:.NET
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    next_goal_on_success: Promote .NET through the production transport already proven by Python.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  concurrency_class: repository_local_write_isolated
+  campaign_id: CAMP-THREE-SLICES
+- task_id: L8-VPY-04-PRODUCTION-TRANSPORT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Prove Python through the reusable production transport
+  source_audit_finding: Local Python candidate qualification alone does not prove the canonical GitHub
+    Actions, staging, hosted GitHub App, recovery, authorization, and effect-reconciliation path needed
+    for production use.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-python-production-transport
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: After every Python repository is locally qualified, run the same canonical supervisor through
+    act, disposable staging, and hosted GitHub App transport; prove token isolation, deduplication, recovery,
+    and proposal reconciliation, show the complete Python cohort for human review, and prepare exact separately
+    authorized draft-PR effects without writing a product repository during transport qualification.
+  why_it_matters: Python must become the first complete platform that can be safely admitted to production,
+    not remain a collection of locally generated files.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/
+  - tests/
+  - config/authorization/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - unauthorized production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  expected_outputs:
+  - Canonical Python act workflow receipt
+  - Disposable-staging GitHub App create, no-op, update, drift, deduplication, lost-response, and recovery
+    matrix
+  - Complete Python human-review package and exact per-repository publication authorization handoffs
+  acceptance_checks:
+  - The production supervisor is the only workflow runtime
+  - Analysis receives no write credential and effect jobs mint short-lived App tokens
+  - Default branches remain byte-identical and no unauthorized product effect occurs
+  - Every Python repository remains independently accepted and transaction-no-op-proven under transport
+  verification:
+  - Workflow syntax and actionlint
+  - act full-workflow reproduction
+  - staging App effect and recovery matrix
+  - independent transport and evidence review
+  negative_controls:
+  - PAT or ambient GH_TOKEN fallback is rejected by the production profile
+  - A local candidate, renderer no-op, or planning-only workflow cannot satisfy this task
+  regression_checks:
+  - Python lifecycle
+  - authorization
+  - token isolation
+  - effect deduplication
+  - default-branch protection
+  evidence_requirements:
+  - Workflow, staging, App-installation, authorization, effect-ledger, reconciliation, and checksum manifests
+  rollback_or_recovery: Resume the earliest failed transport checkpoint and preserve all accepted Python
+    content evidence.
+  failure_reroute: Classify missing external installation or authorization precisely and continue all
+    independent local work; repair every agent-fixable workflow or reconciliation defect.
+  closeout_rules:
+  - Python is transport-qualified for separately authorized draft-PR operation
+  - No product effect is inferred from transport qualification
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Prove Python through the actual autonomous workflow and GitHub App transport without an unauthorized
+      effect.
+  execution_focus:
+    goal_id: DELIVERY-PYTHON-PRODUCTION-TRANSPORT
+    immediate_outcome: Make the accepted Python platform safely operable through the production workflow
+      and App path.
+    repository_scope:
+    - platform:Python
+    allowed_change_classes:
+    - workflow
+    - effect
+    - safety
+    - mission_state
+    next_goal_on_success: Reuse the proven transport for the already qualified .NET cohort.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
+- task_id: L8-VNET-02-PRODUCTION-TRANSPORT
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Promote the qualified .NET cohort through the Python-proven transport
+  source_audit_finding: A locally qualified .NET cohort is not a production platform until the canonical
+    workflow, staging, App, recovery, authorization, and proposal contracts are proven for its ecosystem.
+  audit_classification: not_attempted
+  priority: P0
+  lane: verified-dotnet-production-transport
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Reuse the accepted Python production transport without reimplementing it, exercise all six
+    .NET repositories through the canonical platform workflow, and prepare the complete reviewed and separately
+    authorized draft-PR cohort while preserving every .NET content proof.
+  why_it_matters: Platform-by-platform admission must prove one reusable production system rather than
+    accumulate accelerated candidates that cannot be operated safely.
+  allowed_paths:
+  - .github/workflows/
+  - src/readme_agent/
+  - tests/
+  - config/authorization/
+  - runs/
+  - plans/investigations/evidence/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - unauthorized production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-VNET-01-ACCELERATED-LOCAL-NO-OP
+  - L8-VPY-04-PRODUCTION-TRANSPORT
+  expected_outputs:
+  - .NET canonical workflow and staging/App receipts
+  - Complete .NET human-review package and exact authorization handoffs
+  - Cross-platform Python/.NET transport-reuse proof
+  acceptance_checks:
+  - .NET uses the unchanged canonical production transport proven by Python
+  - All six .NET repositories retain deterministic and independent content acceptance
+  - No unauthorized product effect or default-branch write occurs
+  verification:
+  - .NET workflow matrix and recovery proof
+  - transport-reuse and effect-deduplication regression
+  - independent platform admission review
+  negative_controls:
+  - A platform-specific alternate workflow or effect path fails admission
+  regression_checks:
+  - Python transport
+  - .NET lifecycle
+  - GitHub App isolation
+  - authorization
+  evidence_requirements:
+  - Per-repository .NET transport/effect manifests and one platform checksum inventory
+  rollback_or_recovery: Reopen only the affected .NET transport stage; preserve Python transport and .NET
+    content receipts.
+  failure_reroute: Repair the first shared transport boundary once and replay only affected repositories.
+  closeout_rules:
+  - .NET is transport-qualified through the same production system as Python
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: acceptance_proof
+    summary: Admit .NET through the exact production transport already proven by Python.
+  execution_focus:
+    goal_id: DELIVERY-DOTNET-PRODUCTION-TRANSPORT
+    immediate_outcome: Make the complete accepted .NET cohort safely operable through the production workflow.
+    repository_scope:
+    - platform:.NET
+    allowed_change_classes:
+    - workflow
+    - effect
+    - safety
+    - mission_state
+    next_goal_on_success: Prove the first current Java vertical slice before Java cohort expansion.
+  requirement_ids: []
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 - task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Prove post-Python .NET and Java verified vertical slices
-  source_audit_finding: Cross-platform proof remains mandatory, but scheduling it before one complete
-    repository and the first complete platform delayed visible delivery and did not produce a POC.
+  title: Prove the first current Java verified vertical slice
+  source_audit_finding: Java remains the next platform after Python and .NET production transport; its
+    representative must expose cross-platform defects before Java cohort expansion.
   audit_classification: not_attempted
   priority: P0
   lane: verified-cross-platform-poc
   owner: readme-agent-supervisor
   status: TODO
-  objective: After the complete Python platform POC, run the readiness-selected .NET and Java repositories
+  objective: After Python and .NET transport qualification, run the readiness-selected Java repository
     through the frozen verified lifecycle from immutable source facts to unchanged no-op, repair shared
-    defects once, and preserve valid Python evidence.
-  why_it_matters: These slices expose cross-platform defects before remaining-portfolio fan-out without
-    delaying the first visible deliverable or the first complete platform.
+    defects once, and preserve valid Python and .NET evidence.
+  why_it_matters: The Java slice exposes the next ecosystem boundary without reopening or delaying the
+    two already qualified platforms.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -1151,10 +1432,10 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  - L8-VNET-02-PRODUCTION-TRANSPORT
   expected_outputs:
-  - Complete verified .NET and Java bundles
-  - Python-to-.NET/Java structural-consistency, product-specificity, cache, risk, LLM, and throughput
+  - Complete verified Java representative bundle
+  - Python/.NET-to-Java structural-consistency, product-specificity, cache, risk, LLM, and throughput
     scoreboard
   - Direct committed README review paths for the selected .NET and Java repositories
   acceptance_checks:
@@ -1187,19 +1468,18 @@ taskcards:
   failure_reroute: Stop repeating the same repair after two ineffective attempts; perform the recorded
     first-principles decomposition before a third approach.
   closeout_rules:
-  - The selected .NET and Java repositories are repository-verified, independently approved, no-op-proven,
-    measured, coherent, zero-effect, and product-specific after Python closure
+  - The selected Java repository is repository-verified, independently approved, no-op-proven, measured,
+    coherent, zero-effect, and product-specific after Python and .NET transport qualification
   goal_ids:
   - GOAL-TRUTH
   - GOAL-README
   core_contribution:
     kind: visible_deliverable
-    summary: Prove current .NET and Java reuse after the complete Python platform POC.
+    summary: Prove current Java reuse after Python and .NET production-transport qualification.
   execution_focus:
-    goal_id: DELIVERY-POST-PYTHON-DOTNET-JAVA
-    immediate_outcome: Show one current independently approved .NET README before starting the Java slice.
+    goal_id: DELIVERY-JAVA-FIRST-CURRENT
+    immediate_outcome: Show one current independently approved Java README before Java cohort expansion.
     repository_scope:
-    - platform:.NET
     - platform:Java
     allowed_change_classes:
     - repository_runtime
@@ -1284,13 +1564,13 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 87a08c071714d6b685bb54bb0b45c5ba5565ddc2d4cd399eea21af7490472c70
+  sha256: 8346e79ddfa5a1f5e68e38af3ef9494d6139401dad131b8142f3013f6a5a4035
   record_count: 475
-  mandatory_requirement_rows: 425
+  mandatory_requirement_rows: 424
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 4bb3c8648d8db7bf97e256017a172b602dba86245cf8d4569fc3f61db2a4cc61
+  sha256: f7f33ca99ee8d1fcc4ee2cc7e12868605228c4f7c9d72ac12dbbd535fa6e8f80
   record_count: 475
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl

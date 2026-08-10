@@ -72,6 +72,12 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-V0A-FIRST-VERIFIED-README", "primary_only"
     if task_id == "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES":
         return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
+    if task_id == "L8-VPY-04-PRODUCTION-TRANSPORT":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
+    if task_id == "L8-VNET-01-ACCELERATED-LOCAL-NO-OP":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "repository_local_write_isolated"
+    if task_id == "L8-VNET-02-PRODUCTION-TRANSPORT":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
     if task_id.startswith("L8-VPY-"):
         return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
     if task_id == "L8-ACCEL-00-PYTHON-READINESS":
@@ -169,8 +175,14 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
         return "CAMP-SHARED-ACCELERATION"
     if task_id in {
         "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
     }:
         return "CAMP-THREE-SLICES"
+    if task_id in {
+        "L8-VPY-04-PRODUCTION-TRANSPORT",
+        "L8-VNET-02-PRODUCTION-TRANSPORT",
+    }:
+        return "CAMP-GATE-B-AND-LATER"
     if task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY":
         return "CAMP-FIRST-PYTHON-SLICE"
     if task_id in {

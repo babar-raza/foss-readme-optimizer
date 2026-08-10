@@ -4,19 +4,19 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "4bb3c8648d8db7bf97e256017a172b602dba86245cf8d4569fc3f61db2a4cc61",
+  "source_sha256": "f7f33ca99ee8d1fcc4ee2cc7e12868605228c4f7c9d72ac12dbbd535fa6e8f80",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 475,
-  "mandatory_requirement_rows": 425,
+  "mandatory_requirement_rows": 424,
   "excluded_backlog_rows": 28,
-  "excluded_deprecated_rows": 22,
+  "excluded_deprecated_rows": 23,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 28,
-    "excluded_deprecated": 22,
-    "open_mandatory": 228,
-    "preserved_verified": 162
+    "excluded_deprecated": 23,
+    "open_mandatory": 229,
+    "preserved_verified": 160
   },
   "taskcard_counts": {
     "L8-AGILE-AUTHORITY-RESET": 8,
@@ -2714,9 +2714,9 @@
     {
       "requirement_id": "PKG-004",
       "priority": "P2",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "DEPRECATED",
       "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
-      "disposition": "preserved_verified",
+      "disposition": "excluded_deprecated",
       "semantic_findings": []
     },
     {
@@ -3818,9 +3818,9 @@
     {
       "requirement_id": "L8-048",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
+      "requirement_status": "PARTIAL",
       "task_id": "L8-AGILE-AUTHORITY-RESET",
-      "disposition": "preserved_verified",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {

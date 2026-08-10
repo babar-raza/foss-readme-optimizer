@@ -18,12 +18,12 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-The post-Claude checkpoint at `69b2af21d` produced reviewable candidates for 31 of 32 active
-registry entries. Codex completed the omitted disabled/read-only PSD Python intake without granting
-write authority, so the current local-review numerator is 32 of 32 candidates: five qualified and
-27 deterministically rejected with visible reasons. Renderer recomposition is proven for all 32;
-fresh-process complete-transaction no-op is not yet proven. The current review index is
-`runs/share/poc/REVIEW-INDEX.md`. This is complete candidate visibility, not verified Gate A.
+The post-Claude candidate lane produced reviewable candidates for all 32 active registry entries.
+Its same-process renderer reports are useful development evidence, but they are not canonical
+fresh-process transaction no-op. Durable supervisor state version 892 currently recognizes 13 raw
+`FACTS_READY` repositories but zero contract-current candidates, approvals, or no-op results; its
+first failing boundary is therefore `FACTS_READY`. The dirty Python repair tree is preserved pending
+focused reconciliation. This is complete candidate visibility, not verified Python closure or Gate A.
 
 Durable mission state owns the live task, immediate goal, repository scope,
 claim, transition history, and current contract-valid numerator. This document deliberately does
@@ -54,17 +54,19 @@ Binding current decisions:
   environments from pinned, verified inputs.
 - **#90 — Agile presentation.** Repository transactions pin component versions; later changes
   invalidate only semantic dependants. Non-critical improvements become `VALID_UPDATE_AVAILABLE`.
-- **#91 — Staged acceptance.** Facts, presentation, independent review, human acceptance, and
-  publication eligibility are separate states. All admitted repositories require final Gate-B
-  human acceptance before any product PR.
+- **#91 — Staged platform acceptance.** Facts, presentation, independent review, human acceptance,
+  transport qualification, and publication eligibility are separate states. A complete platform
+  cohort may enter separately authorized draft-PR operation after every repository in that platform
+  is accepted; this does not satisfy full-registry Gate A/B or authorize another platform.
 - **#92 — Just-in-time infrastructure.** Infrastructure enters the critical path only when the next
   visible vertical slice exercises or demonstrably needs it.
 - **#93 — Compact authority.** Active authority is query-scoped: no more than 15 active tasks, five
   ready tasks, or 25 requirements in one task context. Stable deferred work remains hashed.
 - **#94 — Risk-tiered proof.** Focused proof follows each repair; complete suites and canonical
   evidence occur at declared shared/repository/cohort boundaries.
-- **#95 — Adaptive parallelism.** Calibration and shared repair are serial. Repository workers
-  scale from two to at most three only after isolation and measured throughput proof.
+- **#95 — Adaptive parallelism.** Calibration and shared repair are serial. After transaction
+  isolation, a Python primary lane may admit one disjoint repository-local .NET lane; workers scale
+  from two to at most three only with exclusive paths and measured throughput proof.
 - **#96 — Background certification.** The 30/90-day windows are `OBSERVATION_RUNNING`, not blocked
   delivery tasks.
 - **#97 — Enforced execution focus.** Every visible-delivery task declares one small immediate goal,
@@ -173,7 +175,13 @@ The stable small-goal catalog is:
 3. `DELIVERY-PY-NOTE-CURRENT` — reconcile and show Note without sibling runtime dependence.
 4. `DELIVERY-PY-3D-CURRENT` — reconcile and show Aspose.3D using valid cached receipts.
 5. `DELIVERY-PY-REMAINING-COHORT` — finalize and expose each remaining Python README individually.
-6. `DELIVERY-POST-PYTHON-DOTNET-JAVA` — prove .NET first, then Java, after Python closes.
+6. `DELIVERY-DOTNET-LOCAL-NO-OP` — qualify all six .NET repositories in a disjoint local lane once
+   transaction isolation permits; Python remains primary.
+7. `DELIVERY-PYTHON-PRODUCTION-TRANSPORT` — prove the complete accepted Python platform through
+   the canonical workflow, disposable staging, and hosted GitHub App transport.
+8. `DELIVERY-DOTNET-PRODUCTION-TRANSPORT` — reuse the Python-proven transport for the complete
+   accepted .NET platform.
+9. `DELIVERY-JAVA-FIRST-CURRENT` — prove the first Java repository before Java cohort expansion.
 
 The exact current goal and repository scope are printed only by mission `status`. Mission
 `evaluate` first reconciles closed-task freshness; if an accepted repository becomes stale and no
@@ -196,6 +204,12 @@ delay showing an already accepted README.
 paginated, all-visibility discovery produces a revisioned observation set; exclusions and inaccessible
 sources remain visible. New matching repositories enter disabled/read-only preflight. Platform priority
 comes from `data/platform_priorities.json`.
+
+The accelerated POC resolves only repository-declared distribution routes. Active registry lookup
+is limited to pip/PyPI for declared Python packages, NuGet, Maven, npm, Go modules/proxy, and
+Cargo/crates.io. Conan and vcpkg are outside the active POC path: their existing code may remain,
+but it is not invoked, extended, or treated as required evidence. C++ uses verified repository
+source/CMake acquisition unless a supported declared route exists.
 
 Aspose link destinations come only from `data/aspose_com_links.json` and
 `plans/aspose_org_links.json`. Configured link slots override automatic size-based allocation.
@@ -240,14 +254,19 @@ skills, scripts, or caches.
 - [ ] **Python shared-cause qualification:** repair source-claim placement, component lineage, and
   recurring presentation-validation families once, then replay only the eight affected Python
   repositories until all 13 are deterministically and independently accepted.
-- [ ] **Portfolio shared-cause qualification:** apply the same component-bound repairs across .NET,
-  Java, C++, TypeScript, Rust, and Go; preserve every candidate during repair.
+- [ ] **Concurrent .NET local qualification:** after transaction isolation, project existing .NET
+  evidence through a disjoint lane and qualify all six repositories through fresh-transaction no-op.
 - [ ] **Complete-transaction no-op:** prove fresh-process byte stability, zero new provider work,
   recovery, and non-duplication separately from renderer recomposition.
 - [ ] **Canonical-state reconciliation:** make rapid POC and `supervise` consume the shared
   transaction and import checksum-valid accelerated artifacts into durable lifecycle state.
+- [ ] **Python production transport:** prove the accepted Python platform through the canonical
+  workflow, `act`, disposable staging, hosted App isolation, recovery, and effect reconciliation.
+- [ ] **.NET production transport:** reuse the same production system for the accepted .NET cohort.
+- [ ] **Remaining-platform qualification:** continue Java, C++, TypeScript, Rust, and Go in priority
+  order; preserve every candidate during repair.
 - [ ] **Verified Gate A:** reconcile source discovery and qualify every current admitted repository.
-- [ ] **Post-Python slices:** prove one current .NET and one current Java vertical slice.
+- [ ] **Post-.NET Java slice:** prove one current Java vertical slice before Java cohort expansion.
 - [ ] **Gate B:** independently approved portfolio package and explicit human acceptance per repository.
 - [ ] **Workflow/staging/Gate C:** prove `act`, disposable GitHub staging, and authorized draft proposals.
 - [ ] **Hosted system:** GitHub App token isolation, recovery, health, backlog, alerts, and dead-man monitor.
@@ -278,7 +297,11 @@ skills, scripts, or caches.
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
 - [ ] Mermaid validation proves semantic topology, not syntax alone, and independent review rejects
   a correct-but-unhelpful document.
-- [ ] Every admitted repository is human-accepted before Gate-C product effects.
+- [ ] Every product effect is limited to a complete, independently approved, explicitly human-accepted
+  platform cohort under fresh what/why/where authorization; platform publication cannot promote
+  another platform or satisfy full-registry Gate A/B.
+- [ ] A concurrent repository-local-write lane is admitted only after transaction isolation, under
+  disjoint paths, with no shared-state, aggregate, transition, commit, or effect authority.
 - [ ] No local/`act` run writes a product remote and no effect writes a default branch.
 - [ ] Recovery, deduplication, drift, lost-response, authorization, and corruption controls pass.
 - [ ] Full-registry evidence is checksum-complete and independently reproducible.

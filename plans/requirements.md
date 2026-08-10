@@ -10,10 +10,10 @@ still govern acceptance.
 The catalog contains **475** requirements:
 
 - `BACKLOG`: 28
-- `DEPRECATED`: 22
+- `DEPRECATED`: 23
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 162
-- `PARTIAL`: 99
+- `IMPLEMENTED`: 160
+- `PARTIAL`: 100
 - `PLANNED`: 123
 - `RESEARCH-GATED`: 6
 

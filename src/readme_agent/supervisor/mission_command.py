@@ -48,6 +48,7 @@ def run_mission_command(args: argparse.Namespace) -> int:
             graph,
             graph_sha256,
             claimed_by=args.mission_observer,
+            expected_task_id=args.mission_task_id,
         )
     elif action == "transition":
         if not args.mission_task_id or not args.mission_to_status or not args.mission_reason:
