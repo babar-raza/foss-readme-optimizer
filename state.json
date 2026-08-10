@@ -8496,7 +8496,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "90b154fe7df5b71040468a4ab208b06632d6291f7b29678cffdf3d156d761955",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -9504,14 +9504,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "b6a5536dbbec631f96f7ceb778651b2630c8be7af96ae022017f83927b9b8254",
+          "facts_hash": "fc5942d4585f174108bdc13e8ff484e283ccc653939da53c76b9bb98d124cf9d",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "3d22dca1077cec891ad7f94ff29684b5de70f7231cb4d9ac3dedba27bd812554",
-          "message": "['presentation.semantic_duplicate.8666016bb36c: Capability information is repeated across competing visitor sections.', 'presentation.semantic_duplicate.d24ea83969fa: The same visitor-facing code block is repeated.', 'presentation.semantic_duplicate.fc841f99cf21: The same visitor-facing limitation is expressed more than once.']",
-          "occurred_at": "2026-08-10T23:35:00.102095+00:00",
+          "message": "['presentation.semantic_duplicate.8666016bb36c: Capability information is repeated across competing visitor sections.']",
+          "occurred_at": "2026-08-10T23:57:26.937140+00:00",
           "schema_version": 1,
           "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
           "stage": "document_validation"
@@ -35110,7 +35110,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T23:35:00.103114+00:00",
+      "last_run_timestamp": "2026-08-10T23:57:26.938466+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70"
@@ -40153,7 +40153,7 @@
     "updated_at": "2026-08-10T23:53:11.387201+00:00"
   },
   "schema_version": 2,
-  "state_version": 2010,
+  "state_version": 2011,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
