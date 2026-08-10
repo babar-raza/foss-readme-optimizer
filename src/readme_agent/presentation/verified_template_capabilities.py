@@ -14,7 +14,9 @@ from readme_agent.presentation.verified_template_capability_seo import (
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.capability_semantics import (
     capability_action_verb,
+    capability_domains,
     normalize_capability_phrases,
+    same_public_capability,
 )
 from readme_agent.readme.claim_accountability_api_coordinates import (
     api_class_fact_coordinates,
@@ -262,7 +264,7 @@ def _same_capability_presentation(left: str, right: str) -> bool:
     right_discriminators = capability_discriminators(right)
     if left_discriminators and right_discriminators and left_discriminators != right_discriminators:
         return False
-    return semantically_repeats(left, right)
+    return same_public_capability(left, right)
 
 
 def _related_types(capability: str, type_names: list[str]) -> list[str]:
@@ -426,6 +428,10 @@ def _richer_source_capability_exists(
             and generated_discriminator_set != source_discriminator_set
         ):
             continue
+        source_domains = capability_domains(source_claim)
+        generated_domains = capability_domains(generated_markdown)
+        if source_domains and generated_domains and source_domains.isdisjoint(generated_domains):
+            continue
         if not semantically_repeats(source_claim, generated_markdown, threshold=0.6):
             continue
         if capability_fact_id in binding.fact_ids and bool(set(binding.fact_ids) - generated_ids):
@@ -459,6 +465,11 @@ def _richer_fact_bound_source_capability(
                 capability_discriminator_set
                 and source_discriminator_set
                 and capability_discriminator_set != source_discriminator_set
+            )
+            or (
+                capability_domains(capability)
+                and capability_domains(public_claim)
+                and capability_domains(capability).isdisjoint(capability_domains(public_claim))
             )
             or not semantically_repeats(capability, public_claim, threshold=0.6)
         ):

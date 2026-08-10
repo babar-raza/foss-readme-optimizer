@@ -8,6 +8,7 @@ from readme_agent.presentation.verified_source_claim_matching import (
     index_equivalent_candidate_claims,
 )
 from readme_agent.presentation.verified_source_detail_routing import route_source_detail_blocks
+from readme_agent.presentation.verified_template_capabilities import capability_highlights_markdown
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.capability_semantics import normalize_capability_phrases
@@ -44,6 +45,37 @@ def test_capability_normalization_keeps_distinct_pdf_domains() -> None:
     normalized = normalize_capability_phrases(values)
 
     assert normalized == values[:-1]
+
+
+def test_capability_renderer_keeps_document_lifecycle_and_signatures_distinct() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Create, load, save, merge, split, and inspect PDF documents",
+                            "Create and inspect PDF signatures",
+                            "Digital signature support",
+                        ]
+                    }
+                )
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "## Features\n\n- Create and inspect PDF signatures\n"
+
+    rendered = capability_highlights_markdown(facts, source_text=source)
+
+    assert rendered is not None
+    assert "**Create and manage PDF documents**" in rendered
+    assert "**Work with PDF digital signatures**" in rendered
+    assert rendered.count("signatures") == 1
 
 
 def test_fact_bound_canonical_limitation_suppresses_only_equivalent_source_detail() -> None:

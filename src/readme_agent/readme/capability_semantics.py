@@ -68,7 +68,9 @@ def _specificity(value: str) -> tuple[int, int, int, int]:
     )
 
 
-def _same_public_capability(left: str, right: str) -> bool:
+def same_public_capability(left: str, right: str) -> bool:
+    """Return whether two phrases represent one public capability."""
+
     left_actions = {item.casefold() for item in _ACTION_VERBS.findall(left)}
     right_actions = {item.casefold() for item in _ACTION_VERBS.findall(right)}
     if left_actions and right_actions and left_actions.isdisjoint(right_actions):
@@ -129,7 +131,7 @@ def normalize_capability_phrases(values: Iterable[str]) -> list[str]:
             (
                 index
                 for index, existing in enumerate(retained)
-                if _same_public_capability(existing, phrase)
+                if same_public_capability(existing, phrase)
             ),
             None,
         )
@@ -158,4 +160,5 @@ __all__ = [
     "capability_domains",
     "is_action_led_capability_title",
     "normalize_capability_phrases",
+    "same_public_capability",
 ]
