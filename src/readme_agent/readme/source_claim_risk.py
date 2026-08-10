@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
@@ -21,8 +22,12 @@ from readme_agent.readme.source_claim_obligations import (
 )
 
 __all__ = [
+    "SourceClaimRiskContext",
+    "SourceHeadingBoundary",
     "SourceClaimObligation",
     "applicable_product_overview_fact_ids",
+    "build_source_claim_risk_context",
+    "classify_source_claim_risk",
     "obligation_any_fact_fields",
     "obligation_provenance_prefixes",
     "obligation_requires_source_entailment",
@@ -49,6 +54,43 @@ class SourceClaimRiskV1(BaseModel):
     rationale: str
 
 
+@dataclass(frozen=True)
+class SourceHeadingBoundary:
+    level: int
+    title: str
+    start: int
+    heading_end: int
+    section_end: int
+
+
+@dataclass(frozen=True)
+class SourceClaimRiskContext:
+    """One parsed, byte-addressed source document shared by all claim classifications."""
+
+    document: str
+    document_bytes: bytes
+    headings: tuple[SourceHeadingBoundary, ...]
+
+
+def build_source_claim_risk_context(document: str) -> SourceClaimRiskContext:
+    """Parse one source README once for all claim-risk decisions in a transaction."""
+
+    return SourceClaimRiskContext(
+        document=document,
+        document_bytes=document.encode("utf-8"),
+        headings=tuple(
+            SourceHeadingBoundary(
+                level=heading.level,
+                title=_normalized(heading.title),
+                start=len(document[: heading.start].encode("utf-8")),
+                heading_end=len(document[: heading.heading_end].encode("utf-8")),
+                section_end=len(document[: heading.section_end].encode("utf-8")),
+            )
+            for heading in parse_headings(document)
+        ),
+    )
+
+
 def _normalized(value: str) -> str:
     return " ".join(strip_emoji_decorations(value).casefold().split())
 
@@ -69,27 +111,31 @@ def _is_atomic_license_claim(value: str) -> bool:
 
 
 def _heading_path(
-    document: str,
+    context: SourceClaimRiskContext,
     claim: ReadmeMaterialClaimAssessmentV1,
 ) -> list[str]:
-    character_start = len(document.encode("utf-8")[: claim.source_byte_start].decode("utf-8"))
     return [
-        _normalized(heading.title)
-        for heading in parse_headings(document)
-        if heading.heading_end <= character_start < heading.section_end
+        heading.title
+        for heading in context.headings
+        if heading.heading_end <= claim.source_byte_start < heading.section_end
     ]
 
 
 def classify_source_claim_risk(
     document: str,
     claim: ReadmeMaterialClaimAssessmentV1,
+    *,
+    context: SourceClaimRiskContext | None = None,
 ) -> SourceClaimRiskV1:
     """Return the fail-closed risk class derived from heading ancestry and claim shape."""
 
-    path = _heading_path(document, claim)
+    context = context or build_source_claim_risk_context(document)
+    if context.document != document:
+        raise ValueError("source claim risk context belongs to a different document")
+    path = _heading_path(context, claim)
     sections = path[1:] if path else []
     primary = sections[0] if sections else ""
-    text = document.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+    text = context.document_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
     folded = _normalized(text)
 
     if not primary and folded.startswith("[!["):

@@ -10,11 +10,18 @@ from readme_agent.presentation.verified_source_claim_matching import (
     fact_bound_capability_candidate_claims,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
-from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.assessment_claims import (
+    ReadmeMaterialClaimAssessmentV1,
+    assess_material_claims,
+)
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
-from readme_agent.readme.document_structure import heading_identity, parse_headings
+from readme_agent.readme.document_structure import heading_identity
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
-from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+from readme_agent.readme.source_claim_risk import (
+    SourceClaimRiskContext,
+    build_source_claim_risk_context,
+    classify_source_claim_risk,
+)
 
 _TARGETS = {
     "additional_examples": ("Additional Examples", "View Additional Source Examples"),
@@ -82,15 +89,14 @@ _GUIDANCE_SECTION_TARGETS = {
 
 
 def _guidance_target_for_source_context(
-    source_text: str,
+    source_context: SourceClaimRiskContext,
     source_byte_start: int,
 ) -> tuple[str, str]:
     """Route verified public guidance by its enclosing source H2."""
 
     enclosing_h2 = None
-    for heading in parse_headings(source_text):
-        heading_byte_start = len(source_text[: heading.start].encode("utf-8"))
-        if heading_byte_start > source_byte_start:
+    for heading in source_context.headings:
+        if heading.start > source_byte_start:
             break
         if heading.level == 2:
             enclosing_h2 = heading
@@ -135,14 +141,15 @@ def _api_reference_available(facts: ProductFactsV2) -> bool:
 
 def _target_for_claim(
     source_text: str,
-    assessment: ReadmeAssessmentV1,
     facts: ProductFactsV2,
-    claim_id: str,
+    claim: ReadmeMaterialClaimAssessmentV1,
+    source_context: SourceClaimRiskContext,
 ) -> tuple[str, str] | None:
-    claim = next((item for item in assessment.material_claims if item.claim_id == claim_id), None)
-    if claim is None:
-        return None
-    obligation = classify_source_claim_risk(source_text, claim).obligation_id
+    obligation = classify_source_claim_risk(
+        source_text,
+        claim,
+        context=source_context,
+    ).obligation_id
     target = _TARGETS.get(obligation or "")
     if target is not None:
         if target == _TARGETS["api_public_surface"] and not _api_reference_available(facts):
@@ -160,7 +167,7 @@ def _target_for_claim(
                 return None
             return fact_target
     if "repository.public_guidance" in fields:
-        return _guidance_target_for_source_context(source_text, claim.source_byte_start)
+        return _guidance_target_for_source_context(source_context, claim.source_byte_start)
     return None
 
 
@@ -182,17 +189,12 @@ def source_section_routes_to_canonical_contract(
     ]
     if not claims:
         return False
-    targets = [
-        _target_for_claim(source_text, assessment, facts, claim.claim_id) for claim in claims
-    ]
+    source_context = build_source_claim_risk_context(source_text)
+    targets = [_target_for_claim(source_text, facts, claim, source_context) for claim in claims]
     if any(target is None for target in targets):
         return False
     source_heading = next(
-        (
-            heading
-            for heading in parse_headings(source_text)
-            if len(source_text[: heading.start].encode("utf-8")) == source_byte_start
-        ),
+        (heading for heading in source_context.headings if heading.start == source_byte_start),
         None,
     )
     if source_heading is None:
@@ -214,6 +216,7 @@ def route_source_detail_blocks(
     """Group exact source blocks by their fact-governed canonical destination."""
 
     claims = {claim.claim_id: claim for claim in assessment.material_claims}
+    source_context = build_source_claim_risk_context(source_text)
     routed: dict[tuple[str, str], list[PreservedBlock]] = defaultdict(list)
     candidate_bytes = candidate_text.encode("utf-8")
     candidate_claims = assess_material_claims(candidate_text)
@@ -221,8 +224,12 @@ def route_source_detail_blocks(
         claim = claims.get(block.source_owner_id)
         if claim is None:
             raise ValueError(f"source detail has no material-claim owner: {block.source_owner_id}")
-        obligation = classify_source_claim_risk(source_text, claim).obligation_id
-        target = _target_for_claim(source_text, assessment, facts, claim.claim_id)
+        obligation = classify_source_claim_risk(
+            source_text,
+            claim,
+            context=source_context,
+        ).obligation_id
+        target = _target_for_claim(source_text, facts, claim, source_context)
         if target is None:
             raise ValueError(
                 "valuable source detail has no canonical presentation destination: "

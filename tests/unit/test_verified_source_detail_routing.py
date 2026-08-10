@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from unittest.mock import patch
+
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_preservation_sections import PreservedBlock
@@ -13,6 +15,7 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability_coordinates import structured_list_item_coordinate
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
+from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 
 
@@ -41,6 +44,41 @@ def test_major_capability_detail_routes_to_key_capabilities() -> None:
     routed = route_source_detail_blocks(source, assessment, facts, [block], "", [])
 
     assert routed == {("Key Capabilities", "View Detailed Capabilities"): [block]}
+
+
+def test_multiple_source_details_share_one_parsed_heading_context() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = (
+        "# Aspose.Widget FOSS for Python\n\n"
+        "## Currently Available Features\n\n"
+        "- Convert PS and EPS files to PDF while retaining page geometry.\n"
+        "- Extract text from text-based PDF pages.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    source_bytes = source.encode("utf-8")
+    blocks = [
+        PreservedBlock(
+            markdown=source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8"),
+            source_owner_id=claim.claim_id,
+            source_byte_start=claim.source_byte_start,
+            source_byte_end=claim.source_byte_end,
+        )
+        for claim in assessment.material_claims
+    ]
+
+    with patch(
+        "readme_agent.readme.source_claim_risk.parse_headings",
+        wraps=parse_headings,
+    ) as heading_parser:
+        routed = route_source_detail_blocks(source, assessment, facts, blocks, "", [])
+
+    assert sum(call.args == (source,) for call in heading_parser.call_args_list) == 1
+    assert routed == {("Key Capabilities", "View Detailed Capabilities"): blocks}
 
 
 def test_complete_capability_section_routes_into_canonical_contract() -> None:
