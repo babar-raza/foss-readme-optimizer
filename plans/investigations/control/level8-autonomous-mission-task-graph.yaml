@@ -742,16 +742,16 @@ taskcards:
   - Core uses one compact vertical column for at most five capabilities or exactly two balanced columns
     above five; endpoints use deterministic wrapping/common width and the required relationship topology
   - Every non-empty diagram is rendered by the pinned official Mermaid CLI; SVG geometry proves a compact
-    landscape, non-overlapping adaptive Core columns, uniform peer endpoint widths, and the required
-    product-to-Core-to-output connectors before deterministic promotion
+    landscape, non-overlapping adaptive Core columns, uniform peer endpoint widths, and the required product-to-Core-to-output
+    connectors before deterministic promotion
   - Repeated semantic blocks, examples, or workflows fail validation
   - Every retained source-information unit maps exactly once to a non-empty canonical candidate destination,
     correction, or justified omission; the template owns public tone, headings, organization, and formatting
   - Note passes deterministic and independent acceptance, unchanged transaction no-op, promotion, reconstruction,
     and visible review under the current contract
   verification:
-  - Focused template, visibility, code-fence, Mermaid source and official-render geometry,
-    semantic-uniqueness, and source-accountability tests
+  - Focused template, visibility, code-fence, Mermaid source and official-render geometry, semantic-uniqueness,
+    and source-accountability tests
   - Existing public-text, title-case, abbreviation, link, safety, and no-write regressions
   - Canonical bounded Note supervisor transaction through no-op
   - Independent non-authoring contract and artifact reconstruction review
@@ -1775,13 +1775,13 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 553f22cb7afd4a09c486aa3ccd3f7d1f7c6f14bb98544dcef3cd07b0a7d017a6
+  sha256: 64abce7e952e4c9a0c5cccdf7e43eef1dd8021fba0154b14857df5c1053831f9
   record_count: 475
   mandatory_requirement_rows: 424
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: e1561c2473865b5240c391840ce4c13b602b55d94d687b295a86d7dc0745a5b8
+  sha256: 70ad633d7d180367bf3fd42ca4d2d1bce792fb165043de1709d1506ef017464d
   record_count: 475
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
