@@ -525,9 +525,11 @@
           "task_id": "L8-VNET-01-ACCELERATED-LOCAL-NO-OP"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs\\mission-control\\L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES\\docker-readiness-recovery.json"
+          ],
           "fingerprint": "09c2f203ebebb019b12b64eb60ccf104b8f5805651636e28ce285fd00bc92b36",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-10T10:32:16.409050+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-10T10:18:34.025527+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -1280,7 +1282,7 @@
     ],
     "graph_sha256": "3ff0024e27e23fd30de178166255c5319d10582ed48a98d8981a0d9212309433",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T10:28:24.642731+00:00",
+    "last_evaluated_at": "2026-08-10T10:32:16.409081+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -8779,7 +8781,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 898,
+  "state_version": 899,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
