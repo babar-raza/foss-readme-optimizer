@@ -1344,9 +1344,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-10T18:25:39.595971+00:00",
-    "claim_id": "cdcebee327cb4d1f9967a18baf1aa89a",
-    "claimed_at": "2026-08-10T17:55:39.595971+00:00",
+    "claim_expires_at": "2026-08-10T18:46:31.548641+00:00",
+    "claim_id": "929201b9f70d4c94923ceb38d7443b09",
+    "claimed_at": "2026-08-10T18:16:31.548641+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -1553,7 +1553,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T18:02:49.318531+00:00",
+    "last_evaluated_at": "2026-08-10T18:16:31.548641+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -1585,9 +1585,7 @@
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "manifest_lifecycle_status_mismatch",
-          "manifest_no_op_stage_missing",
-          "manifest_not_complete"
+          "deterministic_acceptance_binding_missing_or_invalid"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -9130,7 +9128,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 930,
+  "state_version": 931,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
