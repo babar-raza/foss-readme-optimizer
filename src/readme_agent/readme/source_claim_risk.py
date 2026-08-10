@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
@@ -72,8 +73,9 @@ class SourceClaimRiskContext:
     headings: tuple[SourceHeadingBoundary, ...]
 
 
+@lru_cache(maxsize=32)
 def build_source_claim_risk_context(document: str) -> SourceClaimRiskContext:
-    """Parse one source README once for all claim-risk decisions in a transaction."""
+    """Return a bounded, exact-content context shared by every claim-risk caller."""
 
     return SourceClaimRiskContext(
         document=document,

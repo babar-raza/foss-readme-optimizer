@@ -17,6 +17,7 @@ from readme_agent.readme.claim_accountability_coordinates import structured_list
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
+from readme_agent.readme.source_claim_risk import classify_source_claim_risk
 
 
 def test_major_capability_detail_routes_to_key_capabilities() -> None:
@@ -79,6 +80,25 @@ def test_multiple_source_details_share_one_parsed_heading_context() -> None:
 
     assert sum(call.args == (source,) for call in heading_parser.call_args_list) == 1
     assert routed == {("Key Capabilities", "View Detailed Capabilities"): blocks}
+
+
+def test_independent_risk_callers_share_the_exact_content_context() -> None:
+    source = (
+        "# Cache Boundary Product\n\n"
+        "## Capabilities\n\n"
+        "- First independently classified capability.\n"
+        "- Second independently classified capability.\n"
+    )
+    claims = assess_material_claims(source)
+
+    with patch(
+        "readme_agent.readme.source_claim_risk.parse_headings",
+        wraps=parse_headings,
+    ) as heading_parser:
+        risks = [classify_source_claim_risk(source, claim) for claim in claims]
+
+    assert len(risks) == 2
+    assert heading_parser.call_count == 1
 
 
 def test_complete_capability_section_routes_into_canonical_contract() -> None:
