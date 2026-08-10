@@ -698,11 +698,21 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
+          "evidence_refs": [
+            "claim lease expired"
+          ],
+          "fingerprint": "66cd6446272afa5b0a86cb729ad8c48ad8b0a8a31fa4ed8283ce5f06d8aafe44",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
+          "started_at": "2026-08-10T21:09:58.923164+00:00",
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
           "evidence_refs": [],
           "fingerprint": "66cd6446272afa5b0a86cb729ad8c48ad8b0a8a31fa4ed8283ce5f06d8aafe44",
           "last_material_narrowing_at": null,
           "outcome": "in_progress",
-          "started_at": "2026-08-10T21:09:58.923164+00:00",
+          "started_at": "2026-08-10T21:40:46.596363+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ],
@@ -1473,9 +1483,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-10T21:39:58.923164+00:00",
-    "claim_id": "4ce5f3111e1b400caf89672993d29391",
-    "claimed_at": "2026-08-10T21:09:58.923164+00:00",
+    "claim_expires_at": "2026-08-10T22:10:46.596363+00:00",
+    "claim_id": "b4cbebd80855449da79f00ac82fa1251",
+    "claimed_at": "2026-08-10T21:40:46.596363+00:00",
     "claimed_by": "codex-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -1682,39 +1692,42 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T21:09:58.923164+00:00",
+    "last_evaluated_at": "2026-08-10T21:40:46.596363+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 32,
-      "derived_at": "2026-08-10T20:46:49.508522+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-10T21:23:48.814504+00:00",
+      "deterministic_validated": 2,
       "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 18,
-        "DETERMINISTIC_VALIDATION_FAILED": 1,
         "DISCOVERED": 1,
         "FACTS_READY": 11,
-        "NO_OP_PROVEN": 1
+        "NO_OP_PROVEN": 2
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 0,
-      "raw_agent_approved": 1,
+      "raw_agent_approved": 2,
       "raw_candidate_generated": 2,
-      "raw_deterministic_validated": 1,
+      "raw_deterministic_validated": 2,
       "raw_facts_ready": 13,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 1,
+      "raw_no_op_proven": 2,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "presentation_component_cosmetic_changed",
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
         ]
@@ -9351,6 +9364,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-10T21:40:46.596384+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-coordinator",
+        "occurred_at": "2026-08-10T21:40:46.596714+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -9360,7 +9391,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 952,
+  "state_version": 953,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
