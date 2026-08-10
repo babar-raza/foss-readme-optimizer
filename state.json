@@ -37466,6 +37466,18 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\3ca30f34f9191986d577\\r\\f62dc1a5ec302587\\s\\537b8273b185\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\537b8273b185e4f7440b201cacad56567e55b2f0\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-10T23:01:56.570876+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "to_status": "README_ASSESSED"
       }
     ],
     "human_acceptance_history": [],
@@ -37562,16 +37574,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 1,
-    "repair_budget_origin_hash": "226ccc9afb925998496fecff09abddc459a7f890a04d5c0a636ba63471debfb6",
+    "repair_attempts_for_revision": 0,
+    "repair_budget_origin_hash": "a9b908aad1ba5443af4dc2dccae6b1402226552ca288c9acbb27091f5b325b01",
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-10T22:45:21.212254+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-10T23:01:56.570876+00:00"
   },
   "schema_version": 2,
-  "state_version": 1727,
+  "state_version": 1728,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
