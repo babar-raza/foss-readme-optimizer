@@ -659,16 +659,29 @@
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/readme/header_visual_mermaid.py",
+            "tests/unit/test_readme_header_visual.py",
+            "runs/share/note-python-review/README.md",
+            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.md"
+          ],
           "fingerprint": "091a97718d03829ff822f111b488cb8fc23824d454eed88897559ca9c6adc0b2",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-10T19:25:51.204817+00:00",
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-10T19:43:44.951459+00:00",
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ],
       "proposed_fingerprints": {
-        "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "091a97718d03829ff822f111b488cb8fc23824d454eed88897559ca9c6adc0b2",
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "b667302e996940fdc6b5ea3978f329e6ad93222f1ccb65f954cbb2af2219443d",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
       },
@@ -1371,6 +1384,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-11T00:53:00+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/readme/header_visual_mermaid.py",
+            "tests/unit/test_readme_header_visual.py",
+            "runs/share/note-python-review/README.md",
+            "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.md"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "091a97718d03829ff822f111b488cb8fc23824d454eed88897559ca9c6adc0b2",
+          "rationale": "The user approved the exact Note/Python Mermaid presentation after identifying that linkStyle default made invisible Core layout constraints visible. Commit ad87708a6 changes the causal renderer boundary to style only external relationship edges. Reuse the current immutable snapshot, facts, and composition inputs; invalidate the candidate and downstream acceptance by the renderer dependency hash; resume at candidate generation, then run deterministic validation, official Mermaid rendering, independent review, and complete-transaction no-op without repeating unchanged fact collection or planning.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
         }
       ]
     },
@@ -1590,7 +1630,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T19:41:30.607855+00:00",
+    "last_evaluated_at": "2026-08-10T19:43:44.951547+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -9183,7 +9223,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 939,
+  "state_version": 940,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
