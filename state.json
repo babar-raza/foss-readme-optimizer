@@ -6965,7 +6965,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 3,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -8054,17 +8054,15 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "d50b1cfbf8566f8c39df77f8b23352bf078fdfee344cef425dcc51a96d6b9b43",
-          "message": "['presentation.collapsed_primary_content.9346249dfc6f: Key Capabilities is visitor-critical and must remain visible.', 'presentation.collapsed_primary_content.e48c93e38e04: Scope and Limitations is visitor-critical and must remain visible.', 'presentation.collapsed_primary_content.7a4a656fdb18: Development and Testing is visitor-critical and must remain visible.']",
-          "occurred_at": "2026-08-10T20:29:32.440714+00:00",
+          "error_type": "MermaidRenderError",
+          "failure_reason": "official_mermaid_render_rejected",
+          "message": " rendered Mermaid geometry failed: landscape_and_compact, output_peer_widths_uniform",
+          "occurred_at": "2026-08-10T20:46:59.372026+00:00",
           "schema_version": 1,
           "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-          "stage": "document_validation"
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -33526,9 +33524,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "presentation_plan",
+      "last_failure_reason": "official_mermaid_render_rejected",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-10T20:29:32.443927+00:00",
+      "last_run_timestamp": "2026-08-10T20:46:59.372026+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -36682,7 +36680,7 @@
     "updated_at": "2026-08-10T20:46:49.508522+00:00"
   },
   "schema_version": 2,
-  "state_version": 1560,
+  "state_version": 1561,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
