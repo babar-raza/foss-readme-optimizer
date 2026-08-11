@@ -243,6 +243,12 @@ def _repository_enriched_technical_facts(
             affected_surfaces=SURFACE_DEPENDENCIES[field],
         )
 
+    existing_capabilities = technical["product.capabilities"].value
+    existing_capabilities = (
+        existing_capabilities
+        if isinstance(existing_capabilities, list)
+        else [existing_capabilities]
+    )
     capability_extensions = [
         extension
         for extension in (detail, implementation)
@@ -259,6 +265,8 @@ def _repository_enriched_technical_facts(
     # parser or raster writer) beside the product workflows they implement.
     if capability_extensions and capability_extensions[0] is detail:
         capability_extensions = capability_extensions[:1]
+    elif existing_capabilities:
+        capability_extensions = []
     detailed = list(
         dict.fromkeys(
             str(item.get("label") or "").strip()
@@ -309,9 +317,9 @@ def _repository_enriched_technical_facts(
     detailed.extend(item for item in api_capabilities if item not in detailed)
     capability_source = capability_extensions[0] if capability_extensions else public_api
     if detailed and capability_source is not None:
-        existing = technical["product.capabilities"].value
-        existing = existing if isinstance(existing, list) else [existing]
-        capabilities = list(dict.fromkeys([*detailed, *(str(item) for item in existing)]))
+        capabilities = list(
+            dict.fromkeys([*detailed, *(str(item) for item in existing_capabilities)])
+        )
         technical["product.capabilities"] = extension_fact(
             "product.capabilities", capabilities, capability_source
         )

@@ -441,6 +441,58 @@ def test_product_capability_details_supersede_low_level_implementation_groups() 
     ]
 
 
+def test_implementation_groups_do_not_compete_with_existing_product_capabilities() -> None:
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://source.py",
+        source_revision=CURRENT_REVISION,
+    )
+    implementation = FactRecordV2(
+        fact_id="repository.implementation_components:page",
+        field="repository.implementation_components",
+        value={
+            "capability_groups": [
+                {"label": "Write RASTER documents using Python standard-library components"},
+                {"label": "Read TYPE1 documents using Python standard-library components"},
+            ]
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+    base = ProductFactsV2.model_construct(
+        schema_version=2,
+        content_assurance="repository_verified",
+        org_repo=ORG_REPO,
+        facts=[implementation],
+        selected_fact_ids={implementation.field: implementation.fact_id},
+        package_root_roles=None,
+    )
+    product_capabilities = FactRecordV2(
+        fact_id="product.capabilities:verified",
+        field="product.capabilities",
+        value=[
+            "PS/EPS to PDF conversion",
+            "PS/EPS to image conversion",
+            "XPS to PDF conversion",
+        ],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+
+    enriched = _repository_enriched_technical_facts(
+        base,
+        {"product.capabilities": product_capabilities},
+    )
+
+    assert enriched["product.capabilities"] == product_capabilities
+
+
 def test_repository_source_limitations_survive_an_empty_salvage_candidate() -> None:
     source = FactSourceV2(
         source_type="mechanical_repository",
