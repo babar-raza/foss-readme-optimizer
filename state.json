@@ -8005,70 +8005,16 @@
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
     },
     "presentation_benchmarking": {
-      "accepted_facts_hash": "e34ab15f7c4b38c3a4d4af5d5945b06aed993f493c9f3f989acf2fb31d66b12c",
+      "accepted_facts_hash": "7af0e703b008109b1dc49a2e8b94eb762e4b0a79233dfb091ff876e5f9c9f82b",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('creating, reading, editing, rendering, and validating PDF documents').",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The second sentence explicitly states the target audience ('developers using Python') and the domain (PDF documents), fitting the requirement.",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "A visible, GitHub-recognized MIT license badge is present and links to the LICENSE file, satisfying the top trust signal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The installation instructions use source installation (git clone + pip install .) instead of a real package registry coordinate (e.g., PyPI), which fails the requirement that install commands resolve against an actual registry.",
-            "satisfied": false
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "There are multiple runnable code blocks beyond the install snippet, including the Quick Start and Additional Examples sections with working Python examples.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "The navigation section uses consistent Markdown headers and provides a clear table of contents; the order follows the expected sequence of product understanding \u2192 getting started \u2192 reference/contributing/legal.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "The Mermaid diagram illustrates the product's workflow (input \u2192 transformation \u2192 output), which is directly useful for a document-processing library and not decorative.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "While LICENSE is present, the README does not confirm the presence of GitHub-recognized community files like CODE_OF_CONDUCT, CONTRIBUTING, or SECURITY, which are needed for the full quick-link row.",
-            "satisfied": false
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README does not include visible maintenance signals like recent releases or commit activity; it only shows a pinned commit hash, which is not sufficient.",
-            "satisfied": false
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual/capability-extension language, placed after the product description and under a dedicated 'Scope and Limitations' section, matching the SheetJS/iText patterns.",
-            "satisfied": true
-          }
-        ],
+        "criteria_results": [],
         "input_sha256": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
-        "input_source": "candidate_text",
-        "overall_summary": "The README satisfies most dimensions (product clarity, audience fit, trust signals via license, verified examples, navigation, visual usefulness, and natural commercial context), but fails on installation path (no real registry coordinate), contribution readiness (missing community files), and maintenance signals (no visible activity indicators).",
-        "structural_consistency": {
-          "contradictions": [],
-          "valid": true
-        },
+        "input_source": "verified_candidate_plan_and_merged_review",
+        "overall_summary": "Reused the verified presentation plan after merged independent approval.",
+        "review_reused": true,
         "structural_observations": {
           "ci_badge_count": 0,
           "has_mermaid": true
@@ -8077,7 +8023,7 @@
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T01:23:40.685017+00:00",
+      "last_run_timestamp": "2026-08-11T08:38:06.671870+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -38154,7 +38100,7 @@
     "updated_at": "2026-08-11T08:36:41.785908+00:00"
   },
   "schema_version": 2,
-  "state_version": 1830,
+  "state_version": 1831,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
