@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-from readme_agent.readme.capability_semantics import capability_domains
+from readme_agent.readme.capability_semantics import capability_domains, identifier_discriminators
 from readme_agent.readme.presentation_similarity import (
     capability_discriminators,
     semantic_content_words,
@@ -67,6 +67,14 @@ def public_limitations_equivalent(left: str, right: str) -> bool:
     left_discriminators = capability_discriminators(normalized_left)
     right_discriminators = capability_discriminators(normalized_right)
     if left_discriminators and right_discriminators and left_discriminators != right_discriminators:
+        return False
+    # Format-name discriminators above catch "PDF vs XPS"; a barcode symbology
+    # number, a version, or any other acronym/digit-bearing identifier is not in
+    # that fixed vocabulary but is exactly as distinguishing (e.g. "Code 128" vs
+    # "Code 39" -- see the shared identifier_discriminators() docstring).
+    left_identifiers = identifier_discriminators(normalized_left)
+    right_identifiers = identifier_discriminators(normalized_right)
+    if left_identifiers and right_identifiers and left_identifiers != right_identifiers:
         return False
     if bool(_LIMITING_LANGUAGE.search(normalized_left)) != bool(
         _LIMITING_LANGUAGE.search(normalized_right)

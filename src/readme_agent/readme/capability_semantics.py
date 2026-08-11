@@ -76,6 +76,17 @@ def _specificity(value: str) -> tuple[int, int, int, int]:
     )
 
 
+def identifier_discriminators(value: str) -> frozenset[str]:
+    """Return acronym- or digit-bearing identifier tokens (e.g. "PDF", "128", "A4").
+
+    These distinguish otherwise near-identical statements about different concrete
+    things -- a format name, a version, a symbology number -- that generic word-overlap
+    similarity would otherwise conflate (e.g. "Code 128" vs "Code 39").
+    """
+
+    return frozenset(item.upper() for item in _DISCRIMINATOR_TOKEN.findall(value))
+
+
 def same_public_capability(left: str, right: str) -> bool:
     """Return whether two phrases represent one public capability."""
 
@@ -83,8 +94,8 @@ def same_public_capability(left: str, right: str) -> bool:
     right_actions = {item.casefold() for item in _ACTION_VERBS.findall(right)}
     if left_actions and right_actions and left_actions.isdisjoint(right_actions):
         return False
-    left_discriminators = {item.upper() for item in _DISCRIMINATOR_TOKEN.findall(left)}
-    right_discriminators = {item.upper() for item in _DISCRIMINATOR_TOKEN.findall(right)}
+    left_discriminators = identifier_discriminators(left)
+    right_discriminators = identifier_discriminators(right)
     if left_discriminators and right_discriminators and left_discriminators != right_discriminators:
         return False
     left_reads = _READ_DIRECTION.search(left) is not None
@@ -174,6 +185,7 @@ def is_action_led_capability_title(value: str) -> bool:
 __all__ = [
     "capability_action_verb",
     "capability_domains",
+    "identifier_discriminators",
     "is_action_led_capability_title",
     "normalize_capability_phrases",
     "same_public_capability",

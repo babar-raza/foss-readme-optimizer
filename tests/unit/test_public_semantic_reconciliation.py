@@ -166,6 +166,32 @@ def test_limitation_equivalence_rejects_distinct_constraints() -> None:
     )
 
 
+def test_limitation_equivalence_keeps_per_symbology_constraints_distinct() -> None:
+    """Regression: content_words() dropped 2-character digit tokens ("39") while
+    keeping 3-character ones ("128"), and neither capability_discriminators() (a
+    fixed document-format vocabulary) nor identifier_discriminators() covered
+    barcode symbology numbers before this fix -- so BarCode's real, source-derived
+    "Code 128" and "Code 39" limitations were wrongly flagged as one duplicate
+    statement, blocking the presentation plan (aspose-barcode-foss/Aspose.BarCode-
+    FOSS-for-Python, L8-VPY-03-ALL-PYTHON-VERIFIED-POC).
+    """
+
+    assert not public_limitations_equivalent(
+        "Only the SVG backend is implemented for Code 128.",
+        "Only the SVG backend is implemented for Code 39.",
+    )
+    assert not public_limitations_equivalent(
+        "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; "
+        "enforcement is not implemented yet.",
+        "Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; "
+        "enforcement is not implemented.",
+    )
+    assert public_limitations_equivalent(
+        "Only the SVG backend is implemented for Code 128.",
+        "Only the SVG backend is currently implemented for Code 128.",
+    )
+
+
 def test_complementary_coverage_constraints_render_and_resolve_once() -> None:
     source_values = [
         "Compatibility surfaces may name features that are unavailable and must fail explicitly.",

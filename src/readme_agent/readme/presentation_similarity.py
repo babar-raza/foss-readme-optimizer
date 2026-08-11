@@ -27,9 +27,20 @@ def capability_discriminators(value: str) -> set[str]:
 
 
 def content_words(value: str) -> set[str]:
-    """Return stable visitor-significant words for overlap checks."""
+    """Return stable visitor-significant words for overlap checks.
 
-    return {token for token in re.findall(r"[a-z0-9]+", value.casefold()) if len(token) > 2}
+    A token survives the length-3 stopword-like floor if it is longer than 2
+    characters, OR if it contains a digit -- a short digit-bearing token (a
+    barcode symbology number, a page size, a format version) is almost never
+    noise and is exactly the kind of distinguishing identifier overlap checks
+    must not silently drop (e.g. "39" in "Code 39" vs "128" in "Code 128").
+    """
+
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]+", value.casefold())
+        if len(token) > 2 or any(character.isdigit() for character in token)
+    }
 
 
 def summaries_overlap(left: str, right: str, *, threshold: float = 0.8) -> bool:
