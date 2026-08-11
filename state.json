@@ -905,9 +905,11 @@
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "Diagnosed Cells' product.formats BLOCKED_MISSING_EVIDENCE as a one-off transient extractor failure (3/3 direct reproductions succeeded); reopened facts collection via the sanctioned BLOCKED_MISSING_EVIDENCE->FACTS_COLLECTING transition and retried the transaction."
+          ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-11T14:58:21.056770+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T14:53:00.836494+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2030,19 +2032,20 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T14:53:00.836494+00:00",
+    "last_evaluated_at": "2026-08-11T14:58:21.056806+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 5,
       "candidate_generated": 5,
       "denominator": 32,
-      "derived_at": "2026-08-11T14:36:16.825295+00:00",
+      "derived_at": "2026-08-11T14:57:39.190683+00:00",
       "deterministic_validated": 5,
       "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 18,
+        "BLOCKED_MISSING_EVIDENCE": 17,
         "DISCOVERED": 1,
+        "FACTS_COLLECTING": 1,
         "FACTS_READY": 8,
         "NO_OP_PROVEN": 5
       },
@@ -10432,7 +10435,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1042,
+  "state_version": 1043,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
