@@ -1,0 +1,159 @@
+{
+  "verdict": "accept",
+  "reason": null,
+  "checks": {
+    "candidate_matches_independent_render": true,
+    "source_document_hash": true,
+    "adoption_preserved_source": true,
+    "candidate_is_marker_free": true,
+    "candidate_has_no_comments": true,
+    "facts_hash_matches": true,
+    "template_hash_matches": true,
+    "candidate_hash_matches": true,
+    "source_span_hashes": true,
+    "fact_citations": true,
+    "document_reconstruction": true,
+    "composition_lineage": true,
+    "protected_content": true,
+    "verified_example_present": true,
+    "verified_overview_present": true,
+    "verified_limitations_present": true,
+    "example_assurance_claims_supported": true,
+    "no_introduced_duplicate_headings": true,
+    "header_visuals": true,
+    "enterprise_edition_terminology": true,
+    "contextual_links": true,
+    "claim_accountability_complete": true,
+    "claim_accountability_gaps_visible": true,
+    "presentation_lint": true,
+    "needs_write_matches": true
+  },
+  "requirement_map": {
+    "immutable_snapshot": true,
+    "fact_backed_document_plan": true,
+    "verified_example": true,
+    "protected_content": true
+  },
+  "nonce": "20260811-091546-b9ae",
+  "token": "402d95f75c8d7338fce951766629bc6679c2615e604ea8b1d727fb88bb5ebb77",
+  "official_mermaid_render": {
+    "status": "passed",
+    "schema_version": 1,
+    "contract_version": "3",
+    "renderer": "@mermaid-js/mermaid-cli@11.10.1",
+    "source_sha256": "39ec5a97c81f4726ea458de1a86fa4ea0995f296a76e8370680162c991214428",
+    "svg_sha256": "15772ee430d25213ac494b1a3e8728757e4182687765ede399d04807b2590101",
+    "view_box": [
+      0.0,
+      0.0,
+      2195.921875,
+      572.0
+    ],
+    "aspect_ratio": 3.839,
+    "node_geometry": [
+      {
+        "node_id": "PRODUCT",
+        "center_x": 497.2265625,
+        "center_y": 286.0,
+        "width": 193.515625,
+        "height": 78.0
+      },
+      {
+        "node_id": "I1",
+        "center_x": 98.6171875,
+        "center_y": 286.0,
+        "width": 111.234375,
+        "height": 78.0
+      },
+      {
+        "node_id": "I2",
+        "center_x": 259.8515625,
+        "center_y": 286.0,
+        "width": 111.234375,
+        "height": 78.0
+      },
+      {
+        "node_id": "C1",
+        "center_x": 821.0078125,
+        "center_y": 132.0,
+        "width": 161.90625,
+        "height": 54.0
+      },
+      {
+        "node_id": "C2",
+        "center_x": 821.0078125,
+        "center_y": 286.0,
+        "width": 209.046875,
+        "height": 54.0
+      },
+      {
+        "node_id": "C3",
+        "center_x": 821.0078125,
+        "center_y": 440.0,
+        "width": 137.234375,
+        "height": 54.0
+      },
+      {
+        "node_id": "C4",
+        "center_x": 1167.9765625,
+        "center_y": 120.0,
+        "width": 184.375,
+        "height": 54.0
+      },
+      {
+        "node_id": "C5",
+        "center_x": 1167.9765625,
+        "center_y": 274.0,
+        "width": 194.890625,
+        "height": 54.0
+      },
+      {
+        "node_id": "C6",
+        "center_x": 1167.9765625,
+        "center_y": 440.0,
+        "width": 158.84375,
+        "height": 78.0
+      },
+      {
+        "node_id": "O1",
+        "center_x": 1527.921875,
+        "center_y": 286.0,
+        "width": 210.0,
+        "height": 54.0
+      },
+      {
+        "node_id": "O2",
+        "center_x": 1787.921875,
+        "center_y": 286.0,
+        "width": 210.0,
+        "height": 54.0
+      },
+      {
+        "node_id": "O3",
+        "center_x": 2047.921875,
+        "center_y": 286.0,
+        "width": 210.0,
+        "height": 54.0
+      }
+    ],
+    "checks": {
+      "official_renderer_succeeded": true,
+      "all_semantic_nodes_rendered": true,
+      "landscape_and_compact": true,
+      "capability_columns_adaptive": true,
+      "capability_nodes_do_not_overlap": true,
+      "input_peer_widths_uniform": true,
+      "output_peer_widths_uniform": true,
+      "semantic_relationship_connectors_rendered": true
+    },
+    "errors": [],
+    "cached": true,
+    "render_duration_seconds": 0.0
+  },
+  "acceptance_binding": {
+    "schema_version": 1,
+    "candidate_hash": "e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832",
+    "candidate_stage_dependency_key": "32cb087291d8a0d261915477fd0b541b608845bd716ef3ee2f72a38459ead27f",
+    "mermaid_render_contract_version": "3"
+  }
+}
