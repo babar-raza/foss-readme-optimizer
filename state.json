@@ -939,9 +939,11 @@
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "Note re-approved and re-proven no-op (byte-identical) against rebound dependency key after Cells shared-code fixes; independent verification dispatched."
+          ],
           "fingerprint": "d1186476e3b515af16b14d952a1b0ce2a1de04e63a3b32a140071e75c31170de",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-11T17:01:43.387224+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T16:48:59.164368+00:00",
           "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH"
@@ -2064,14 +2066,14 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T16:48:59.164368+00:00",
+    "last_evaluated_at": "2026-08-11T17:01:43.387249+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 3,
-      "candidate_generated": 3,
+      "agent_approved": 4,
+      "candidate_generated": 4,
       "denominator": 32,
-      "derived_at": "2026-08-11T16:31:53.430274+00:00",
-      "deterministic_validated": 3,
-      "facts_ready": 3,
+      "derived_at": "2026-08-11T16:59:55.724841+00:00",
+      "deterministic_validated": 4,
+      "facts_ready": 4,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -2083,7 +2085,7 @@
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 3,
+      "no_op_proven": 4,
       "raw_agent_approved": 6,
       "raw_candidate_generated": 6,
       "raw_deterministic_validated": 6,
@@ -2124,10 +2126,6 @@
           "manifest_facts_hash_mismatch",
           "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -10646,7 +10644,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1059,
+  "state_version": 1060,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
