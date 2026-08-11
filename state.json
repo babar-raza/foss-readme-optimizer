@@ -895,9 +895,11 @@
           "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "BarCode promoted 5/13 (commit 4f316b990) using all three shared-code fixes; advancing to Cells (6/13) under the same claimed cohort task."
+          ],
           "fingerprint": "64a16b2667310aa1acb44d640806675f6a40fea9da1bc586ea2828a15b1c7457",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-11T14:34:14.265175+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T14:07:44.820660+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -1993,32 +1995,32 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T14:07:44.820660+00:00",
+    "last_evaluated_at": "2026-08-11T14:34:14.265208+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 4,
-      "candidate_generated": 4,
+      "agent_approved": 5,
+      "candidate_generated": 5,
       "denominator": 32,
-      "derived_at": "2026-08-11T13:46:52.956799+00:00",
-      "deterministic_validated": 4,
+      "derived_at": "2026-08-11T14:17:48.557816+00:00",
+      "deterministic_validated": 5,
       "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 18,
         "DISCOVERED": 1,
-        "FACTS_READY": 9,
-        "NO_OP_PROVEN": 4
+        "FACTS_READY": 8,
+        "NO_OP_PROVEN": 5
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 4,
-      "raw_agent_approved": 4,
-      "raw_candidate_generated": 4,
-      "raw_deterministic_validated": 4,
+      "no_op_proven": 5,
+      "raw_agent_approved": 5,
+      "raw_candidate_generated": 5,
+      "raw_deterministic_validated": 5,
       "raw_facts_ready": 13,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 4,
+      "raw_no_op_proven": 5,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -10377,7 +10379,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1037,
+  "state_version": 1038,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
