@@ -5,11 +5,34 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from pathlib import Path
 
-from readme_agent.errors import ConfigError
+from readme_agent.errors import ConfigError, NotAllowlistedError
+from readme_agent.registry.loader import require_listed
 from readme_agent.state.backend import StateBackend
 from readme_agent.supervisor.approach_control import decide_approach_admission
 from readme_agent.supervisor.mission_control import mission_state_key
 from readme_agent.supervisor.mission_graph import load_mission_graph
+
+_PLATFORM_SCOPE_PREFIX = "platform:"
+
+
+def _repository_matches_scope(repository: str, repository_scope: list[str]) -> bool:
+    """Match a literal ``org/repo`` entry or a ``platform:<name>`` cohort token."""
+
+    if repository in repository_scope:
+        return True
+    platform_tokens = {
+        token.removeprefix(_PLATFORM_SCOPE_PREFIX).casefold()
+        for token in repository_scope
+        if token.startswith(_PLATFORM_SCOPE_PREFIX)
+    }
+    if not platform_tokens:
+        return False
+    try:
+        entry = require_listed(repository)
+    except NotAllowlistedError:
+        return False
+    return entry.platform.casefold() in platform_tokens
+
 
 DEFAULT_MISSION_GRAPH = (
     Path(__file__).resolve().parents[3]
@@ -52,7 +75,7 @@ def require_visible_execution_binding(
     focus = task.execution_focus
     if focus is None:
         raise ConfigError(f"mission task {task_id!r} has no executable delivery focus")
-    if repository not in focus.repository_scope:
+    if not _repository_matches_scope(repository, focus.repository_scope):
         raise ConfigError(
             f"repository {repository!r} is outside immediate goal {focus.goal_id!r}: "
             f"{focus.repository_scope}"

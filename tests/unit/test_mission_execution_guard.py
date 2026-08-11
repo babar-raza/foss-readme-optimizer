@@ -31,11 +31,13 @@ class _LoadBackend:
         return self.record if org_repo == self.key else None
 
 
-def _backend(*, now: datetime, expires_in: timedelta = timedelta(minutes=30)):
+def _backend(
+    *, now: datetime, expires_in: timedelta = timedelta(minutes=30), task_id: str = TASK_ID
+):
     graph, graph_sha256 = load_mission_graph(GRAPH)
-    task = next(item for item in graph.taskcards if item.task_id == TASK_ID)
+    task = next(item for item in graph.taskcards if item.task_id == task_id)
     statuses = {item.task_id: "TODO" for item in graph.taskcards}
-    statuses[TASK_ID] = "IN_PROGRESS"
+    statuses[task_id] = "IN_PROGRESS"
     approach = start_approach_attempt(
         MissionExecutionStateV1(
             mission_id=graph.mission_authority.mission_id,
@@ -49,7 +51,7 @@ def _backend(*, now: datetime, expires_in: timedelta = timedelta(minutes=30)):
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_sha256,
         task_statuses=statuses,
-        active_task_id=TASK_ID,
+        active_task_id=task_id,
         claim_id="claim",
         claimed_by="codex",
         claimed_at=now.isoformat(),
@@ -109,6 +111,43 @@ def test_foreign_observer_is_rejected_before_runtime():
             task_id=TASK_ID,
             repository=REPOSITORY,
             observer="different-agent",
+            graph_path=GRAPH,
+            now=now,
+        )
+
+
+def test_platform_scoped_task_admits_a_python_repository_not_named_literally():
+    """Regression: L8-VPY-03-ALL-PYTHON-VERIFIED-POC scopes to `platform:Python`, not a
+    literal repository list. The guard used to do a plain `repository not in
+    repository_scope` membership check, so every real Python repository under this task
+    failed with "is outside immediate goal" even though the taskcard's own repository_scope
+    is `['platform:Python']` by design.
+    """
+
+    task_id = "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    now = datetime(2026, 8, 11, tzinfo=UTC)
+    assert (
+        require_visible_execution_binding(
+            _backend(now=now, task_id=task_id),
+            task_id=task_id,
+            repository="aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            observer="codex",
+            graph_path=GRAPH,
+            now=now,
+        )
+        == "DELIVERY-PY-REMAINING-COHORT"
+    )
+
+
+def test_platform_scoped_task_rejects_a_repository_on_a_different_platform():
+    task_id = "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    now = datetime(2026, 8, 11, tzinfo=UTC)
+    with pytest.raises(ConfigError, match="outside immediate goal"):
+        require_visible_execution_binding(
+            _backend(now=now, task_id=task_id),
+            task_id=task_id,
+            repository="aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+            observer="codex",
             graph_path=GRAPH,
             now=now,
         )
