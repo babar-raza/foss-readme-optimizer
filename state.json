@@ -35444,6 +35444,28 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "schema_version": 1,
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0"
+      },
+      {
+        "component_hashes": {
+          "acquisition_truth": "ab0d8351d3dd95277251a8e51cb04086649f4f29784291b692370b4fff6a1836",
+          "classification_semantics": "15dc5774d8e53cb28ea3ab3d001c17a7e41debe6ecc663a5fad4c1153986075e",
+          "conflict_semantics": "4c6e753e2d732ff60cf4ea017d7c84051a50a972155835e0de0ef4b962948fe1",
+          "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
+          "drafting_and_example_selection": "4120319e8393a88a1c22645a690a1318a881e6258a91f07d3ac5d726fd746c7f",
+          "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
+          "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
+          "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
+          "root_role_selection": "aa3078cd152e18304c8ba8d95290b0934e6703b99ccad204b1d0a1691ddf8604",
+          "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
+        },
+        "contract_hash": "fc4c3e4283f184aa5a9acfbd52ccac167a4db389376718ed8e6e4ccb184ec912",
+        "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-11T19:02:59.764507+00:00",
+        "outcome": "FACTS_READY",
+        "reason": "exact ProductFactsV2 graph accepted under the current contract",
+        "schema_version": 1,
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0"
       }
     ],
     "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
@@ -38784,10 +38806,10 @@
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-11T19:02:53.434592+00:00"
+    "updated_at": "2026-08-11T19:02:59.764507+00:00"
   },
   "schema_version": 2,
-  "state_version": 1926,
+  "state_version": 1927,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
