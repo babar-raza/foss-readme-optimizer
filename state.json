@@ -14949,7 +14949,7 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "91ba26f85839be638bbb738b76dc1c9b2d1431bbb57557041dff25e3cbc0d085",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -15168,7 +15168,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260811-100050-8651",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260811-125916-a83d",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -15220,48 +15220,48 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                  "claim": "README contains exactly one H1 heading.",
+                  "candidate_anchor_id": "candidate.anchor.9be1142cffd915e80246.1",
+                  "claim": "The summary clearly states the library's purpose and compatibility with Aspose.Note Enterprise Edition.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.h1_blocks",
+                  "finding_id": "quality.clarity.1",
                   "kind": "quality",
-                  "mechanical_check_id": "document.h1_blocks",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "# Aspose.Note FOSS for Python",
-                  "reported_observed_value": 1,
+                  "quoted_candidate_span": "Aspose.Note FOSS for Python is an open-source library for developers using Python. It reads Microsoft OneNote (.one) files.",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.8b5f140ea0e23c50efa5.1"
+                  "section": "Summary"
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "Installation section presents installation commands in a single, concise fenced code block.",
+                  "claim": "Installation is presented with a clear primary command and optional extras are listed with specific pip install commands.",
                   "criterion": "installation_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.installation_presentation.fenced_blocks",
+                  "finding_id": "quality.installation_presentation.1",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.fenced_blocks",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
                   "quoted_candidate_span": "## Installation",
-                  "reported_observed_value": 1,
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                  "section": "Installation"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.h1_blocks",
-                  "quality.installation_presentation.fenced_blocks"
+                  "quality.clarity.1",
+                  "quality.installation_presentation.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -15273,7 +15273,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H2 headings with required prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), includes a single H1, and avoids duplicate H2s. Navigation is complete with all required H2s listed in the table of contents. Installation and Quick Start sections are well presented with concise, correct fenced code blocks. Examples are clearly separated and labeled, and the license section includes required benefit terms. Markdown integrity is preserved, and internal terminology is consistent. There is no visible duplication, and promotional balance is appropriate with clear Enterprise Edition references.",
+              "reasoning": "The README demonstrates strong presentation quality: it uses clear, title-case headings, includes a single H1, and has no duplicate H2s. Navigation is comprehensive with all required H2s and a well-structured bullet list. Installation and Quick Start sections are presented with concise, compliant fenced code blocks. Examples are well-organized under Additional Examples with collapsible details, and the license section explicitly mentions required benefit terms. Markdown integrity is preserved, and internal terminology is consistent.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -15285,48 +15285,48 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                    "claim": "README contains exactly one H1 heading.",
+                    "candidate_anchor_id": "candidate.anchor.9be1142cffd915e80246.1",
+                    "claim": "The summary clearly states the library's purpose and compatibility with Aspose.Note Enterprise Edition.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.h1_blocks",
+                    "finding_id": "quality.clarity.1",
                     "kind": "quality",
-                    "mechanical_check_id": "document.h1_blocks",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "# Aspose.Note FOSS for Python",
-                    "reported_observed_value": 1,
+                    "quoted_candidate_span": "Aspose.Note FOSS for Python is an open-source library for developers using Python. It reads Microsoft OneNote (.one) files.",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.8b5f140ea0e23c50efa5.1"
+                    "section": "Summary"
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "Installation section presents installation commands in a single, concise fenced code block.",
+                    "claim": "Installation is presented with a clear primary command and optional extras are listed with specific pip install commands.",
                     "criterion": "installation_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.installation_presentation.fenced_blocks",
+                    "finding_id": "quality.installation_presentation.1",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.fenced_blocks",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
                     "quoted_candidate_span": "## Installation",
-                    "reported_observed_value": 1,
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                    "section": "Installation"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.installation_presentation.fenced_blocks"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -15338,7 +15338,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H2 headings with required prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), includes a single H1, and avoids duplicate H2s. Navigation is complete with all required H2s listed in the table of contents. Installation and Quick Start sections are well presented with concise, correct fenced code blocks. Examples are clearly separated and labeled, and the license section includes required benefit terms. Markdown integrity is preserved, and internal terminology is consistent. There is no visible duplication, and promotional balance is appropriate with clear Enterprise Edition references.",
+                "reasoning": "The README demonstrates strong presentation quality: it uses clear, title-case headings, includes a single H1, and has no duplicate H2s. Navigation is comprehensive with all required H2s and a well-structured bullet list. Installation and Quick Start sections are presented with concise, compliant fenced code blocks. Examples are well-organized under Additional Examples with collapsible details, and the license section explicitly mentions required benefit terms. Markdown integrity is preserved, and internal terminology is consistent.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -15351,26 +15351,26 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The package is named 'aspose-note' and is installed via 'python -m pip install aspose-note'.",
+                    "candidate_anchor_id": "candidate.anchor.a853597ebbef97615564.1",
+                    "claim": "The package name is 'aspose-note' and version is 26.3.2, as declared in pyproject.toml.",
                     "criterion": "installation.coordinates",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": ".",
                     "evidence_location": "repository://pyproject.toml",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.coordinates:manifest",
-                    "finding_id": "factual.installation.coordinates",
+                    "finding_id": "factual.installation.coordinates.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Installation",
+                    "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                    "section": "Installation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
+                    "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
                     "claim": "Password-protected documents are not supported, output is limited to PDF, and PDF exports require ReportLab.",
                     "criterion": "product.limitations",
                     "disposition": "supports_acceptance",
@@ -15378,21 +15378,21 @@
                     "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.limitations:source-guidance",
-                    "finding_id": "factual.product.limitations",
+                    "finding_id": "factual.product.limitations.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Scope and Limitations",
+                    "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.33bdb526f6cbea26e790.1"
+                    "section": "Scope and Limitations"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.installation.coordinates",
-                    "factual.product.limitations"
+                    "factual.installation.coordinates.1",
+                    "factual.product.limitations.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -15403,8 +15403,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9c7ca198b2a12ef3ebe75e7b8f81230fb0e6dc0f2e1a4609d85a5558b87f4d5c",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the supplied evidence. The scope and limitations section correctly reflects source constraints (password-protected documents unsupported, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented public API inventory and namespace structure. No contradictions or missing evidence were found.",
+                "input_sha256": "cb0e298f9a77db2f333de24f9821c54c997185f3900e1c9914c60d90793ac9d3",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the evidence. The limitations section correctly reflects source code constraints (no password-protected input, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented namespaces and public types.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -15412,14 +15412,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "788ee9f019d283feacc038484eb80841f2f83a0833309c1c0e5c61b6ba863a0b",
-                "factual_record_sha256": "d826e26284337f76ac3f1bfad9774ed99b515d3f70a3b1871ccde29c61d22726",
+                "blind_record_sha256": "d6c800b0d63bb4f5e44a324789778015914554ab2f2a430c36bed3ebd197764e",
+                "factual_record_sha256": "3821fab14c81b8c08024e208fc4dcd715134524d3fdf19c74d9f65211b61332a",
                 "input_sha256": "a8ff6764327fe51c089a4da9ea287c685a0b4330661b27a04b4ba83243b8f6a6",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-995046a00bbaafad",
-                "raw_output_sha256": "489620a3bd8e47e93b89fdee08da257affc132b68cebc2fd229778b8fd6da17a"
+                "provider_request_id": "chatcmpl-bc32b97fd9c3ad17",
+                "raw_output_sha256": "0bc8b2bf29ad5ec0d555773c97a154417f81ad399b603ff55137b59414bfea4d"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -15434,26 +15434,26 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The package is named 'aspose-note' and is installed via 'python -m pip install aspose-note'.",
+                  "candidate_anchor_id": "candidate.anchor.a853597ebbef97615564.1",
+                  "claim": "The package name is 'aspose-note' and version is 26.3.2, as declared in pyproject.toml.",
                   "criterion": "installation.coordinates",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": ".",
                   "evidence_location": "repository://pyproject.toml",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.coordinates:manifest",
-                  "finding_id": "factual.installation.coordinates",
+                  "finding_id": "factual.installation.coordinates.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Installation",
+                  "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                  "section": "Installation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
+                  "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
                   "claim": "Password-protected documents are not supported, output is limited to PDF, and PDF exports require ReportLab.",
                   "criterion": "product.limitations",
                   "disposition": "supports_acceptance",
@@ -15461,21 +15461,21 @@
                   "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.limitations:source-guidance",
-                  "finding_id": "factual.product.limitations",
+                  "finding_id": "factual.product.limitations.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Scope and Limitations",
+                  "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.33bdb526f6cbea26e790.1"
+                  "section": "Scope and Limitations"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.installation.coordinates",
-                  "factual.product.limitations"
+                  "factual.installation.coordinates.1",
+                  "factual.product.limitations.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -15486,8 +15486,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9c7ca198b2a12ef3ebe75e7b8f81230fb0e6dc0f2e1a4609d85a5558b87f4d5c",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the supplied evidence. The scope and limitations section correctly reflects source constraints (password-protected documents unsupported, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented public API inventory and namespace structure. No contradictions or missing evidence were found.",
+              "input_sha256": "cb0e298f9a77db2f333de24f9821c54c997185f3900e1c9914c60d90793ac9d3",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the evidence. The limitations section correctly reflects source code constraints (no password-protected input, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented namespaces and public types.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -15508,8 +15508,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.installation_presentation.fenced_blocks"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -15525,15 +15525,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation.coordinates",
-                  "factual.product.limitations"
+                  "factual.installation.coordinates.1",
+                  "factual.product.limitations.1"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.installation.coordinates",
-                    "factual.product.limitations"
+                    "factual.installation.coordinates.1",
+                    "factual.product.limitations.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -15579,10 +15579,10 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260811-100050-8651",
+                "nonce": "20260811-125916-a83d",
                 "official_mermaid_render": {
                   "aspect_ratio": 2.4718,
-                  "cached": false,
+                  "cached": true,
                   "checks": {
                     "all_semantic_nodes_rendered": true,
                     "capability_columns_adaptive": true,
@@ -15660,7 +15660,7 @@
                       "width": 89.015625
                     }
                   ],
-                  "render_duration_seconds": 16.077,
+                  "render_duration_seconds": 0.0,
                   "renderer": "@mermaid-js/mermaid-cli@11.10.1",
                   "schema_version": 1,
                   "source_sha256": "4a888972d40a22dd641f688cdc1f1fd063eea7f64b67d9561752b354af024192",
@@ -15680,11 +15680,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "81f240980e4527b2e57be80134c7f3987de8077f730be6de4c7130517323fc08",
+                "token": "cc61d390adf05a69b11bee095d72bc78d1693284a3c5560a43f6e1b095b30a7c",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260811-100050-8651"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260811-125916-a83d"
               ],
               "repair_attempt": 0,
               "review": {
@@ -15694,48 +15694,48 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                      "claim": "README contains exactly one H1 heading.",
+                      "candidate_anchor_id": "candidate.anchor.9be1142cffd915e80246.1",
+                      "claim": "The summary clearly states the library's purpose and compatibility with Aspose.Note Enterprise Edition.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.h1_blocks",
+                      "finding_id": "quality.clarity.1",
                       "kind": "quality",
-                      "mechanical_check_id": "document.h1_blocks",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "# Aspose.Note FOSS for Python",
-                      "reported_observed_value": 1,
+                      "quoted_candidate_span": "Aspose.Note FOSS for Python is an open-source library for developers using Python. It reads Microsoft OneNote (.one) files.",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.8b5f140ea0e23c50efa5.1"
+                      "section": "Summary"
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "Installation section presents installation commands in a single, concise fenced code block.",
+                      "claim": "Installation is presented with a clear primary command and optional extras are listed with specific pip install commands.",
                       "criterion": "installation_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.installation_presentation.fenced_blocks",
+                      "finding_id": "quality.installation_presentation.1",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.fenced_blocks",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
                       "quoted_candidate_span": "## Installation",
-                      "reported_observed_value": 1,
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                      "section": "Installation"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.h1_blocks",
-                      "quality.installation_presentation.fenced_blocks"
+                      "quality.clarity.1",
+                      "quality.installation_presentation.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -15747,7 +15747,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H2 headings with required prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), includes a single H1, and avoids duplicate H2s. Navigation is complete with all required H2s listed in the table of contents. Installation and Quick Start sections are well presented with concise, correct fenced code blocks. Examples are clearly separated and labeled, and the license section includes required benefit terms. Markdown integrity is preserved, and internal terminology is consistent. There is no visible duplication, and promotional balance is appropriate with clear Enterprise Edition references.",
+                  "reasoning": "The README demonstrates strong presentation quality: it uses clear, title-case headings, includes a single H1, and has no duplicate H2s. Navigation is comprehensive with all required H2s and a well-structured bullet list. Installation and Quick Start sections are presented with concise, compliant fenced code blocks. Examples are well-organized under Additional Examples with collapsible details, and the license section explicitly mentions required benefit terms. Markdown integrity is preserved, and internal terminology is consistent.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -15759,48 +15759,48 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                        "claim": "README contains exactly one H1 heading.",
+                        "candidate_anchor_id": "candidate.anchor.9be1142cffd915e80246.1",
+                        "claim": "The summary clearly states the library's purpose and compatibility with Aspose.Note Enterprise Edition.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.h1_blocks",
+                        "finding_id": "quality.clarity.1",
                         "kind": "quality",
-                        "mechanical_check_id": "document.h1_blocks",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "# Aspose.Note FOSS for Python",
-                        "reported_observed_value": 1,
+                        "quoted_candidate_span": "Aspose.Note FOSS for Python is an open-source library for developers using Python. It reads Microsoft OneNote (.one) files.",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.8b5f140ea0e23c50efa5.1"
+                        "section": "Summary"
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "Installation section presents installation commands in a single, concise fenced code block.",
+                        "claim": "Installation is presented with a clear primary command and optional extras are listed with specific pip install commands.",
                         "criterion": "installation_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.installation_presentation.fenced_blocks",
+                        "finding_id": "quality.installation_presentation.1",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.fenced_blocks",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
                         "quoted_candidate_span": "## Installation",
-                        "reported_observed_value": 1,
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                        "section": "Installation"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.installation_presentation.fenced_blocks"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -15812,7 +15812,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H2 headings with required prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), includes a single H1, and avoids duplicate H2s. Navigation is complete with all required H2s listed in the table of contents. Installation and Quick Start sections are well presented with concise, correct fenced code blocks. Examples are clearly separated and labeled, and the license section includes required benefit terms. Markdown integrity is preserved, and internal terminology is consistent. There is no visible duplication, and promotional balance is appropriate with clear Enterprise Edition references.",
+                    "reasoning": "The README demonstrates strong presentation quality: it uses clear, title-case headings, includes a single H1, and has no duplicate H2s. Navigation is comprehensive with all required H2s and a well-structured bullet list. Installation and Quick Start sections are presented with concise, compliant fenced code blocks. Examples are well-organized under Additional Examples with collapsible details, and the license section explicitly mentions required benefit terms. Markdown integrity is preserved, and internal terminology is consistent.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -15825,26 +15825,26 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The package is named 'aspose-note' and is installed via 'python -m pip install aspose-note'.",
+                        "candidate_anchor_id": "candidate.anchor.a853597ebbef97615564.1",
+                        "claim": "The package name is 'aspose-note' and version is 26.3.2, as declared in pyproject.toml.",
                         "criterion": "installation.coordinates",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": ".",
                         "evidence_location": "repository://pyproject.toml",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.coordinates:manifest",
-                        "finding_id": "factual.installation.coordinates",
+                        "finding_id": "factual.installation.coordinates.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Installation",
+                        "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                        "section": "Installation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
+                        "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
                         "claim": "Password-protected documents are not supported, output is limited to PDF, and PDF exports require ReportLab.",
                         "criterion": "product.limitations",
                         "disposition": "supports_acceptance",
@@ -15852,21 +15852,21 @@
                         "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.limitations:source-guidance",
-                        "finding_id": "factual.product.limitations",
+                        "finding_id": "factual.product.limitations.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Scope and Limitations",
+                        "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.33bdb526f6cbea26e790.1"
+                        "section": "Scope and Limitations"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.installation.coordinates",
-                        "factual.product.limitations"
+                        "factual.installation.coordinates.1",
+                        "factual.product.limitations.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -15877,8 +15877,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9c7ca198b2a12ef3ebe75e7b8f81230fb0e6dc0f2e1a4609d85a5558b87f4d5c",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the supplied evidence. The scope and limitations section correctly reflects source constraints (password-protected documents unsupported, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented public API inventory and namespace structure. No contradictions or missing evidence were found.",
+                    "input_sha256": "cb0e298f9a77db2f333de24f9821c54c997185f3900e1c9914c60d90793ac9d3",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the evidence. The limitations section correctly reflects source code constraints (no password-protected input, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented namespaces and public types.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -15886,14 +15886,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "788ee9f019d283feacc038484eb80841f2f83a0833309c1c0e5c61b6ba863a0b",
-                    "factual_record_sha256": "d826e26284337f76ac3f1bfad9774ed99b515d3f70a3b1871ccde29c61d22726",
+                    "blind_record_sha256": "d6c800b0d63bb4f5e44a324789778015914554ab2f2a430c36bed3ebd197764e",
+                    "factual_record_sha256": "3821fab14c81b8c08024e208fc4dcd715134524d3fdf19c74d9f65211b61332a",
                     "input_sha256": "a8ff6764327fe51c089a4da9ea287c685a0b4330661b27a04b4ba83243b8f6a6",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-995046a00bbaafad",
-                    "raw_output_sha256": "489620a3bd8e47e93b89fdee08da257affc132b68cebc2fd229778b8fd6da17a"
+                    "provider_request_id": "chatcmpl-bc32b97fd9c3ad17",
+                    "raw_output_sha256": "0bc8b2bf29ad5ec0d555773c97a154417f81ad399b603ff55137b59414bfea4d"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -15908,26 +15908,26 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The package is named 'aspose-note' and is installed via 'python -m pip install aspose-note'.",
+                      "candidate_anchor_id": "candidate.anchor.a853597ebbef97615564.1",
+                      "claim": "The package name is 'aspose-note' and version is 26.3.2, as declared in pyproject.toml.",
                       "criterion": "installation.coordinates",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": ".",
                       "evidence_location": "repository://pyproject.toml",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.coordinates:manifest",
-                      "finding_id": "factual.installation.coordinates",
+                      "finding_id": "factual.installation.coordinates.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Installation",
+                      "quoted_candidate_span": "[![PyPI: aspose-note](https://img.shields.io/pypi/v/aspose-note.svg?label=PyPI)](https://pypi.org/project/aspose-note/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-note.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-note-foss/Aspose.Note-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-note-foss/Aspose.Note-FOSS-for-Python.svg)](https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/graphs/contributors)",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                      "section": "Installation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.33bdb526f6cbea26e790.1",
+                      "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
                       "claim": "Password-protected documents are not supported, output is limited to PDF, and PDF exports require ReportLab.",
                       "criterion": "product.limitations",
                       "disposition": "supports_acceptance",
@@ -15935,21 +15935,21 @@
                       "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.limitations:source-guidance",
-                      "finding_id": "factual.product.limitations",
+                      "finding_id": "factual.product.limitations.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Scope and Limitations",
+                      "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.33bdb526f6cbea26e790.1"
+                      "section": "Scope and Limitations"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.installation.coordinates",
-                      "factual.product.limitations"
+                      "factual.installation.coordinates.1",
+                      "factual.product.limitations.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -15960,8 +15960,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9c7ca198b2a12ef3ebe75e7b8f81230fb0e6dc0f2e1a4609d85a5558b87f4d5c",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the supplied evidence. The scope and limitations section correctly reflects source constraints (password-protected documents unsupported, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented public API inventory and namespace structure. No contradictions or missing evidence were found.",
+                  "input_sha256": "cb0e298f9a77db2f333de24f9821c54c997185f3900e1c9914c60d90793ac9d3",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, installation commands, API surface, examples, and third-party notices are all verified by the evidence. The limitations section correctly reflects source code constraints (no password-protected input, PDF-only output, ReportLab dependency). The navigation and API reference sections align with the documented namespaces and public types.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -15982,8 +15982,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.installation_presentation.fenced_blocks"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -15999,15 +15999,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation.coordinates",
-                      "factual.product.limitations"
+                      "factual.installation.coordinates.1",
+                      "factual.product.limitations.1"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.installation.coordinates",
-                        "factual.product.limitations"
+                        "factual.installation.coordinates.1",
+                        "factual.product.limitations.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -16038,15 +16038,8 @@
           "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
           "stage": null
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "034ee59e2e223959e17b9ac6294de157a2a3dda0e176a84b654252d5fd8cfa0b",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "no_op_bundle_reused": true,
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
@@ -52155,7 +52148,7 @@
               }
             ],
             "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
-            "template_sha256": "d34dce12847762005697c20339d51f48b62ec1787dccbdb003f929ca390eb655"
+            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
           }
         },
         "proposal_only": true,
@@ -52195,10 +52188,10 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260811-100050-8651",
+          "nonce": "20260811-125916-a83d",
           "official_mermaid_render": {
             "aspect_ratio": 2.4718,
-            "cached": false,
+            "cached": true,
             "checks": {
               "all_semantic_nodes_rendered": true,
               "capability_columns_adaptive": true,
@@ -52276,7 +52269,7 @@
                 "width": 89.015625
               }
             ],
-            "render_duration_seconds": 16.077,
+            "render_duration_seconds": 0.0,
             "renderer": "@mermaid-js/mermaid-cli@11.10.1",
             "schema_version": 1,
             "source_sha256": "4a888972d40a22dd641f688cdc1f1fd063eea7f64b67d9561752b354af024192",
@@ -52296,7 +52289,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "81f240980e4527b2e57be80134c7f3987de8077f730be6de4c7130517323fc08",
+          "token": "cc61d390adf05a69b11bee095d72bc78d1693284a3c5560a43f6e1b095b30a7c",
           "verdict": "accept"
         },
         "written": false
@@ -52304,7 +52297,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T10:04:39.939042+00:00",
+      "last_run_timestamp": "2026-08-11T13:02:39.306420+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -63060,7 +63053,7 @@
     "updated_at": "2026-08-11T13:02:32.218519+00:00"
   },
   "schema_version": 2,
-  "state_version": 3767,
+  "state_version": 3768,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
