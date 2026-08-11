@@ -14,20 +14,20 @@
       "prompt_id": "merged_readme_review",
       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
     },
-    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
-    "input_sha256": "31e8c4b2458f342596deef9f5f9d3e512a06732a81a2b084c7a74669973d4efd",
+    "candidate_sha256": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
+    "input_sha256": "e992e206587d27cceed2a6f9d292f4412fb309d7d3dbab1ca81b60cdf15a3fa2",
     "verdict": "ACCEPT",
-    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a well-structured Quick Start section with one fenced block and only 2 non-blank code lines. The navigation list is complete, the At a Glance Mermaid diagram is properly rendered, and the license section includes required benefit terms. The document uses title case consistently, avoids comments, and presents installation and examples clearly.",
+    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), uses consistent title-case headings, and presents a well-structured navigation list. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. The license section explicitly includes required benefit terms (use, modification, distribution, commercial use). The enterprise edition terminology is correctly placed below the fold with appropriate scope context. Markdown integrity is preserved, with no visible duplication, forbidden comments, or template genericity issues.",
     "failed_criteria": [],
     "sections_affected": [],
     "required_repair": "",
     "findings": [
       {
-        "finding_id": "quality.finding.1",
+        "finding_id": "quality.clarity.nav",
         "kind": "quality",
-        "criterion": "navigation",
+        "criterion": "clarity",
         "section": "Navigation",
-        "claim": "The navigation section lists all required H2 headings in markdown bullet format.",
+        "claim": "The navigation list clearly maps to all required H2 sections.",
         "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
         "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
         "disposition": "supports_acceptance",
@@ -42,11 +42,11 @@
         "required_repair": ""
       },
       {
-        "finding_id": "quality.finding.2",
+        "finding_id": "quality.example.minimal",
         "kind": "quality",
         "criterion": "example_presentation",
         "section": "Quick Start",
-        "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, meeting the maximum non-blank code line constraint of 12.",
+        "claim": "The Quick Start section presents a minimal, single-fenced-block Python example with ≤12 nonblank lines.",
         "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
         "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
         "disposition": "supports_acceptance",
@@ -65,8 +65,8 @@
       "valid": true,
       "errors": [],
       "checked_finding_ids": [
-        "quality.finding.1",
-        "quality.finding.2"
+        "quality.clarity.nav",
+        "quality.example.minimal"
       ]
     }
   },
@@ -78,26 +78,26 @@
       "prompt_id": "merged_readme_review",
       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
     },
-    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
-    "input_sha256": "2c9b1efca568f1e75a1237f116de5ff262ce975d9edd92e050aa9ac4376b69c4",
+    "candidate_sha256": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
+    "input_sha256": "ab95053007d3a87dd2328cac18220ff9c13f04af798840f25a214b2bf54e6823",
     "verdict": "ACCEPT",
-    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (51 public types across 4 namespaces) matches the documented exports. The installation instructions align with the pyproject.toml coordinates and verified source build. The capabilities listed (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence. Limitations in the Scope and Limitations section are directly sourced from bootstrap.py. The license, compatibility, and release state claims are all verified by manifest data.",
+    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, compatibility, license, API surface, installation coordinates, and examples are all verified by repository evidence. The limitations section accurately reflects source guidance in `bootstrap.py`. The enterprise edition terminology and commercial context align with the relationship fact. The navigation list correctly maps to all required sections, and the Quick Start example matches the compiled salvaged example in the fact packet.",
     "failed_criteria": [],
     "sections_affected": [],
     "required_repair": "",
     "findings": [
       {
-        "finding_id": "factual.finding.1",
+        "finding_id": "factual.identity",
         "kind": "factual",
-        "criterion": "api.public_surface",
-        "section": "API Reference",
-        "claim": "The package documents 51 public types across 4 namespaces.",
-        "quoted_candidate_span": "## API Reference",
-        "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
+        "criterion": "product_identity",
+        "section": "Title",
+        "claim": "The product name and repository identity match the manifest and registry.",
+        "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
+        "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
         "disposition": "supports_acceptance",
-        "fact_id": "api.public_surface:python-exports",
-        "evidence_excerpt": "aspose_barcode_foss",
-        "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "fact_id": "product.identity:manifest-and-registry",
+        "evidence_excerpt": "barcode",
+        "evidence_location": "repository://pyproject.toml",
         "expected_polarity": "positive_implementation",
         "observed_polarity": "positive_implementation",
         "polarity_result": "supports",
@@ -106,13 +106,13 @@
         "required_repair": ""
       },
       {
-        "finding_id": "factual.finding.2",
+        "finding_id": "factual.capabilities",
         "kind": "factual",
-        "criterion": "product.capabilities",
+        "criterion": "product_capabilities",
         "section": "Key Capabilities",
-        "claim": "Key Capabilities section lists Code 128, Code 39, EAN/UPC, SVG/PNG rendering, and custom renderer support.",
-        "quoted_candidate_span": "## Key Capabilities",
-        "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+        "claim": "The listed capabilities (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence.",
+        "quoted_candidate_span": "- **Work with Code 128 generation with automatic optimal Code Set switching** - Build the corresponding content through the public object model.\n- **Work with Code 39 (base 43-character set) and Extended (full ASCII) generation** - Build the corresponding content through the public object model.\n- **Work with EAN-13, EAN-8, UPC-A, and UPC-E generation with optional check digit input** - Build the corresponding content through the public object model.\n- **Work with SVG rendering for all supported symbologies** - Produce supported output through the public API.\n- **Work with PNG rendering for all supported symbologies** - Produce supported output through the public API.\n- **Work with Custom renderer support via render() method** - Use the public `Renderer` API in application workflows.",
+        "candidate_anchor_id": "candidate.anchor.6d209bf3206622e0afa8.1",
         "disposition": "supports_acceptance",
         "fact_id": "product.capabilities:repository-evidence",
         "evidence_excerpt": "def code128(",
@@ -129,15 +129,15 @@
       "valid": true,
       "errors": [],
       "checked_finding_ids": [
-        "factual.finding.1",
-        "factual.finding.2"
+        "factual.capabilities",
+        "factual.identity"
       ]
     }
   },
   "combined_review": {
     "content_assurance": "repository_verified",
     "verdict": "ACCEPT",
-    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "candidate_sha256": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
     "blind_quality": {
       "content_assurance": "repository_verified",
       "identity": {
@@ -146,20 +146,20 @@
         "prompt_id": "merged_readme_review",
         "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
       },
-      "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
-      "input_sha256": "31e8c4b2458f342596deef9f5f9d3e512a06732a81a2b084c7a74669973d4efd",
+      "candidate_sha256": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
+      "input_sha256": "e992e206587d27cceed2a6f9d292f4412fb309d7d3dbab1ca81b60cdf15a3fa2",
       "verdict": "ACCEPT",
-      "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a well-structured Quick Start section with one fenced block and only 2 non-blank code lines. The navigation list is complete, the At a Glance Mermaid diagram is properly rendered, and the license section includes required benefit terms. The document uses title case consistently, avoids comments, and presents installation and examples clearly.",
+      "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), uses consistent title-case headings, and presents a well-structured navigation list. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. The license section explicitly includes required benefit terms (use, modification, distribution, commercial use). The enterprise edition terminology is correctly placed below the fold with appropriate scope context. Markdown integrity is preserved, with no visible duplication, forbidden comments, or template genericity issues.",
       "failed_criteria": [],
       "sections_affected": [],
       "required_repair": "",
       "findings": [
         {
-          "finding_id": "quality.finding.1",
+          "finding_id": "quality.clarity.nav",
           "kind": "quality",
-          "criterion": "navigation",
+          "criterion": "clarity",
           "section": "Navigation",
-          "claim": "The navigation section lists all required H2 headings in markdown bullet format.",
+          "claim": "The navigation list clearly maps to all required H2 sections.",
           "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
           "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
           "disposition": "supports_acceptance",
@@ -174,11 +174,11 @@
           "required_repair": ""
         },
         {
-          "finding_id": "quality.finding.2",
+          "finding_id": "quality.example.minimal",
           "kind": "quality",
           "criterion": "example_presentation",
           "section": "Quick Start",
-          "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, meeting the maximum non-blank code line constraint of 12.",
+          "claim": "The Quick Start section presents a minimal, single-fenced-block Python example with ≤12 nonblank lines.",
           "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
           "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
           "disposition": "supports_acceptance",
@@ -197,8 +197,8 @@
         "valid": true,
         "errors": [],
         "checked_finding_ids": [
-          "quality.finding.1",
-          "quality.finding.2"
+          "quality.clarity.nav",
+          "quality.example.minimal"
         ]
       }
     },
@@ -210,26 +210,26 @@
         "prompt_id": "merged_readme_review",
         "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
       },
-      "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
-      "input_sha256": "2c9b1efca568f1e75a1237f116de5ff262ce975d9edd92e050aa9ac4376b69c4",
+      "candidate_sha256": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
+      "input_sha256": "ab95053007d3a87dd2328cac18220ff9c13f04af798840f25a214b2bf54e6823",
       "verdict": "ACCEPT",
-      "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (51 public types across 4 namespaces) matches the documented exports. The installation instructions align with the pyproject.toml coordinates and verified source build. The capabilities listed (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence. Limitations in the Scope and Limitations section are directly sourced from bootstrap.py. The license, compatibility, and release state claims are all verified by manifest data.",
+      "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, capabilities, compatibility, license, API surface, installation coordinates, and examples are all verified by repository evidence. The limitations section accurately reflects source guidance in `bootstrap.py`. The enterprise edition terminology and commercial context align with the relationship fact. The navigation list correctly maps to all required sections, and the Quick Start example matches the compiled salvaged example in the fact packet.",
       "failed_criteria": [],
       "sections_affected": [],
       "required_repair": "",
       "findings": [
         {
-          "finding_id": "factual.finding.1",
+          "finding_id": "factual.identity",
           "kind": "factual",
-          "criterion": "api.public_surface",
-          "section": "API Reference",
-          "claim": "The package documents 51 public types across 4 namespaces.",
-          "quoted_candidate_span": "## API Reference",
-          "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
+          "criterion": "product_identity",
+          "section": "Title",
+          "claim": "The product name and repository identity match the manifest and registry.",
+          "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
+          "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
           "disposition": "supports_acceptance",
-          "fact_id": "api.public_surface:python-exports",
-          "evidence_excerpt": "aspose_barcode_foss",
-          "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+          "fact_id": "product.identity:manifest-and-registry",
+          "evidence_excerpt": "barcode",
+          "evidence_location": "repository://pyproject.toml",
           "expected_polarity": "positive_implementation",
           "observed_polarity": "positive_implementation",
           "polarity_result": "supports",
@@ -238,13 +238,13 @@
           "required_repair": ""
         },
         {
-          "finding_id": "factual.finding.2",
+          "finding_id": "factual.capabilities",
           "kind": "factual",
-          "criterion": "product.capabilities",
+          "criterion": "product_capabilities",
           "section": "Key Capabilities",
-          "claim": "Key Capabilities section lists Code 128, Code 39, EAN/UPC, SVG/PNG rendering, and custom renderer support.",
-          "quoted_candidate_span": "## Key Capabilities",
-          "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+          "claim": "The listed capabilities (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence.",
+          "quoted_candidate_span": "- **Work with Code 128 generation with automatic optimal Code Set switching** - Build the corresponding content through the public object model.\n- **Work with Code 39 (base 43-character set) and Extended (full ASCII) generation** - Build the corresponding content through the public object model.\n- **Work with EAN-13, EAN-8, UPC-A, and UPC-E generation with optional check digit input** - Build the corresponding content through the public object model.\n- **Work with SVG rendering for all supported symbologies** - Produce supported output through the public API.\n- **Work with PNG rendering for all supported symbologies** - Produce supported output through the public API.\n- **Work with Custom renderer support via render() method** - Use the public `Renderer` API in application workflows.",
+          "candidate_anchor_id": "candidate.anchor.6d209bf3206622e0afa8.1",
           "disposition": "supports_acceptance",
           "fact_id": "product.capabilities:repository-evidence",
           "evidence_excerpt": "def code128(",
@@ -261,8 +261,8 @@
         "valid": true,
         "errors": [],
         "checked_finding_ids": [
-          "factual.finding.1",
-          "factual.finding.2"
+          "factual.capabilities",
+          "factual.identity"
         ]
       }
     },
@@ -270,11 +270,11 @@
       "actor_id": "llm-route:merged-readme-review",
       "prompt_id": "merged_readme_review",
       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
-      "input_sha256": "66416508184fb43b28e3ee7f9c56fddce9f1fe9af36258badcd27517deb17f3b",
-      "raw_output_sha256": "bad936f1f2bce073036bdee9e98636c28e144f32f9933e1899a1954e74086f4c",
-      "blind_record_sha256": "724ee0f5eb4ad3332bcae1b814c1bea771f0c2f307ee4f00299c58175e752362",
-      "factual_record_sha256": "2005617b21f7275edf46454d3cb0cbbf41b882481a62db4600ea182fa75e4adc",
-      "provider_request_id": "chatcmpl-adf4849f07420fc3",
+      "input_sha256": "10420e46e74837b2440dfa111ec3a53b2a196a483580331ff40b9b033274e80b",
+      "raw_output_sha256": "49051e856a07863d66aa6d403b2d9c78e475856ab451b717f77889d107956cba",
+      "blind_record_sha256": "23b7bfbc00dab78a123c71535544b34d611f65ee44ecc76110f8c0a495e6765c",
+      "factual_record_sha256": "ba759cc222d45ad70529427c68ac86a611b7176e662825d9b59f8cda0a651474",
+      "provider_request_id": "chatcmpl-a59281f6876994cb",
       "provider_model": "qwen3-next"
     },
     "identity_separation_valid": true,
@@ -288,15 +288,15 @@
       "role": "blind_quality",
       "attempt": 1,
       "context_mode": "full_review_packet",
-      "input_character_count": 55486,
+      "input_character_count": 55584,
       "valid": true,
       "errors": [],
       "validation_result": {
         "valid": true,
         "errors": [],
         "checked_finding_ids": [
-          "quality.finding.1",
-          "quality.finding.2"
+          "quality.clarity.nav",
+          "quality.example.minimal"
         ]
       },
       "deterministically_dismissed_finding_ids": [],
@@ -309,22 +309,22 @@
       "role": "factual_plan",
       "attempt": 1,
       "context_mode": "full_review_packet",
-      "input_character_count": 55486,
+      "input_character_count": 55584,
       "valid": true,
       "errors": [],
       "validation_result": {
         "valid": true,
         "errors": [],
         "checked_finding_ids": [
-          "factual.finding.1",
-          "factual.finding.2"
+          "factual.capabilities",
+          "factual.identity"
         ]
       },
       "deterministically_dismissed_finding_ids": [],
       "reconciled_candidate_span_ids": [],
       "reconciled_factual_polarity_ids": [
-        "factual.finding.1",
-        "factual.finding.2"
+        "factual.identity",
+        "factual.capabilities"
       ],
       "pre_normalization_errors": [],
       "invalid_findings": []
@@ -333,10 +333,10 @@
   "review_contract_version": "2",
   "acceptance_binding": {
     "schema_version": 1,
-    "candidate_hash": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "candidate_hash": "3e11eff78a144dd64c79b5529a80a29c9acf653aff8def0b443459f187eb421e",
     "candidate_stage_dependency_key": "a28bb7d2026e430c1ea6f62740a739f5441ad96b0103a67e97db3614d2d07d65",
     "mermaid_render_contract_version": "3",
-    "deterministic_validation_hash": "b9e6e19c67cc5d0877064b52dd2491de5604030be95d80df32b69173c5452bea",
+    "deterministic_validation_hash": "7df1b022c0c2671cfdb84af04c8d494f8b979153b3db211424591595d07a89e3",
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
   }
 }

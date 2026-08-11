@@ -4,7 +4,7 @@
 
 ![Aspose.BarCode FOSS for Python](https://products.aspose.org/media/barcode/python/banner-readme.png)
 
-Aspose.BarCode FOSS for Python is an open-source library for developers using Python. It writes PNG (image/PNG) files and SVG (image/SVG+XML) files.
+Aspose.BarCode FOSS for Python is a pure-Python library for generating deterministic, standards-compliant barcodes and rendering them as SVG or PNG. For developers using Python, it supports Code 128, Code 39, EAN/UPC, and QR Code generation with optional encoding and rendering control, and outputs PNG (image/PNG) and SVG (image/SVG+XML) files.
 
 ## Navigation
 
@@ -52,8 +52,8 @@ flowchart LR
   end
   subgraph OUTPUTS["Outputs"]
     direction TB
-    O1["<div style='width:150px'>SVG (image/SVG+XML)</div>"]
-    O2["<div style='width:150px'>PNG (image/PNG)</div>"]
+    O1["<div style='width:150px'>PNG (image/PNG)</div>"]
+    O2["<div style='width:150px'>SVG (image/SVG+XML)</div>"]
   end
   I1 --> PRODUCT
   PRODUCT --> CORE

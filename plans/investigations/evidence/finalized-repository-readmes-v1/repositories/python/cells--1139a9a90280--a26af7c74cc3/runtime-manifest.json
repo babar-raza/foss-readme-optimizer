@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-  "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+  "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
   "lifecycle_status": "NO_OP_PROVEN",
-  "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+  "facts_hash": "3f5a1813f7d982b05e96fd970632d8876d99247fbbc42a0435565184becdc68d",
   "resolution_source": "deterministic_salvage",
   "prompt_hash": null,
   "local_verification_contract_hash": "443655d3f14e5f7a655796895ab900eee02054ad4742ee66ceaf29c593837395",
-  "fact_acceptance_contract_hash": "fc4c3e4283f184aa5a9acfbd52ccac167a4db389376718ed8e6e4ccb184ec912",
+  "fact_acceptance_contract_hash": "be7219827ac56b92a02e1171fce08c42adc786515d702592b1f5f8d11493704d",
   "fact_acceptance_component_hashes": {
     "acquisition_truth": "ab0d8351d3dd95277251a8e51cb04086649f4f29784291b692370b4fff6a1836",
     "classification_semantics": "15dc5774d8e53cb28ea3ab3d001c17a7e41debe6ecc663a5fad4c1153986075e",
@@ -17,7 +17,7 @@
     "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
     "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
     "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
-    "root_role_selection": "aa3078cd152e18304c8ba8d95290b0934e6703b99ccad204b1d0a1691ddf8604",
+    "root_role_selection": "ddb70f97a3ce2b060cf44acd2d329027cd91b76e11b047268c0f7682ce8fd427",
     "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
   },
   "complete": true,
@@ -69,9 +69,9 @@
   "llm_accounting_status": "EXACT",
   "llm_call_count": 3,
   "llm_call_ids": [
-    "9a26d34f-8a0c-4900-8140-bb948fff08ba",
-    "c9615cba-e628-4c19-b035-a12ae76d29d0",
-    "cab25834-ea7a-48a1-b0b8-f11e8c8398df"
+    "00f0ab74-0dc7-4210-b19a-454d2cd000f0",
+    "893b06f2-1eb7-4f21-ae7c-d76c010e1a37",
+    "efd36b29-fd55-4442-a42e-60d6532b4d21"
   ],
   "llm_calls_by_job": {
     "merged_readme_review": 1,
@@ -80,19 +80,19 @@
   },
   "llm_fixture_call_count": 0,
   "llm_cache_reuse_count": 1,
-  "llm_prompt_tokens": 79319,
-  "llm_completion_tokens": 3677,
-  "llm_total_tokens": 82996,
-  "llm_ledger_sha256": "adb96a909048d73c1669d5d18b534e7d0a6d6b0acd42ab0d8f62a3f9b2234a99",
-  "assessment_hash": "28863e37eb4551533cc1c888092878437ea3db64c4ddf2b8a6f8b6158bbda703",
-  "presentation_plan_hash": "03cdd53819aa11f6526521d3b3e10ef8c084676e5246740cf63bcd981135127a",
-  "agentic_composition_plan_hash": "191464718dd938082ec4bd8e218b62b01391738123f6d7dfd1c80130107b5b53",
-  "candidate_hash": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
-  "candidate_stage_dependency_key": "a55db92f889489fe875bce49ef68624726c6acfc8c13a7a005e84e18e2428035",
+  "llm_prompt_tokens": 35825,
+  "llm_completion_tokens": 2955,
+  "llm_total_tokens": 38780,
+  "llm_ledger_sha256": "f4101c7ed41feac335dd821140661beb304e8ededc5a57419fa8e7389f75779b",
+  "assessment_hash": "c7311989173849ab9fe87caa7bb2be6b3bbfe7bb8c4cb20f17c6369e4b7700c0",
+  "presentation_plan_hash": "d0cf470a376f3bea6b6690532b0e718fbfcc34cfc80bd42eab795cfdf7494359",
+  "agentic_composition_plan_hash": "7aae106c8aae6b746a672f8b80bff114d57ad444d53afda885d542d6cb641ef1",
+  "candidate_hash": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
+  "candidate_stage_dependency_key": "27556f63ba473702be81ae8dab9fc2830e275c1f21168ffd8233b5ca48570308",
   "candidate_stage_dependency_manifest": {
     "schema_version": "StageDependencyManifestV1",
-    "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-    "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+    "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+    "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
     "stage": "CANDIDATE",
     "ecosystem": "python",
     "upstream_receipt_ids": [],
@@ -377,11 +377,11 @@
       {
         "dependency_id": "repository_policy",
         "files": {
-          "config/policies/aspose-pdf-foss-python.yml": "c78b63382929285dfadab6a48aa2ce648bb332113850cb891f863ea4bf95c081"
+          "config/policies/aspose-cells-foss-python.yml": "e6e5e945f441ad2dd79c80084c2d208c56ea9cbc88efb2a335bd01b8fbf357af"
         },
         "semantic_scope": "factuality",
         "earliest_affected_stage": "FACTS_COLLECTING",
-        "component_version": "9e0713256e40e9254f7147bd317b56ce9f396cbdab8a4169db410bca4c0fe89b"
+        "component_version": "4fa6bf63ee230a6ef1b0b4e94070059a9a3ce382acaebb3d580352f3aa0d01e2"
       },
       {
         "dependency_id": "source_bound_plan_and_patch",
@@ -455,25 +455,25 @@
         "component_version": "e2a2959cf74ee2e5cebb8cd4e55464e2a1871fdb291d79141a65dce493b09e7a"
       }
     ],
-    "stage_key": "a55db92f889489fe875bce49ef68624726c6acfc8c13a7a005e84e18e2428035"
+    "stage_key": "27556f63ba473702be81ae8dab9fc2830e275c1f21168ffd8233b5ca48570308"
   },
-  "repair_budget_origin_hash": "46c68da90b460b1bb7c64f0456226d329f111c282b7503ae924d11d5a30069df",
-  "campaign_id": "06ea6fb6798edc23c8fff794877364e4156306a058380169dd2ae2ac62289555",
+  "repair_budget_origin_hash": "e2527994881fe7e4607bbc66d48f498c3e2079d1180751e8927bc28756762a18",
+  "campaign_id": "a5ff50ba27111ec7c44358e293f629d155ebd0573573c276355db7d3fb7bc50f",
   "acceptance_authority": "sealed_stage_receipts",
   "stage_receipts": {
     "CANDIDATE_GENERATED": {
-      "campaign_id": "3f917b73149ce73b1396e33a07e759fbb366f34d0c13aedb70b808db729d063c",
-      "work_id": "b1dfc02fb3045252bf78d1ae7c61abbef67f021ca89ea53ea7b244fd24115f9a",
-      "output_hash": "a383f9d475ac38eb54e3c6e3b4ca484a818d0ec5584ec4dbe012d40674db2f39",
+      "campaign_id": "f681bc7c8166d3596d2f7afea701f628de7af8201c4288031413e4d184a11362",
+      "work_id": "42b452b9f8078e7b8869058057ff5d49fb178a394165dedbaa6241f5ce391846",
+      "output_hash": "d5460d08dd545772ee9be223b460bdaa8252cd1b48e74b6a2b181cb811740896",
       "receipt_path": "receipts/CANDIDATE_GENERATED.json"
     },
     "DETERMINISTIC_VALIDATED": {
-      "campaign_id": "06ea6fb6798edc23c8fff794877364e4156306a058380169dd2ae2ac62289555",
-      "work_id": "c029ffd3357fdfe61debc60bcbec6770a01022e42555a976d6dd523a97724d5d",
-      "output_hash": "6ec434302f4ccb0480d9e5bd23406cbfabc2a26c545afe7670c39eb4044c9034",
+      "campaign_id": "a5ff50ba27111ec7c44358e293f629d155ebd0573573c276355db7d3fb7bc50f",
+      "work_id": "e6a31679371f93e3c952453eb2c9592462a2ee15327347ef60f1834a1e8f320e",
+      "output_hash": "5a7e13c89272c96659e777173678acd1d2f6a050627ff4016902ee650d97b4d9",
       "receipt_path": "receipts/DETERMINISTIC_VALIDATED.json"
     }
   },
-  "deterministic_validation_hash": "87e195afe4bdfb56aff11d90dd18311a280c1dbf39f358760b1f5a81381a32d3",
+  "deterministic_validation_hash": "da9ce5bdaa1c8730392898a2a3565fac39a163f42ddc25a48e6550cc3e59c741",
   "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
 }

@@ -3,17 +3,17 @@
   "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
   "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
   "lifecycle_status": "NO_OP_PROVEN",
-  "facts_hash": "53193be2af7ae6cf521fbf11e07b8de70601dfeee5de1cecdfcfc805cac8d99a",
+  "facts_hash": "48fa4b08433a9e3c846972bd795105b8de62ffc30d2616af7d6f5563c399b685",
   "resolution_source": "deterministic_salvage",
   "prompt_hash": null,
-  "local_verification_contract_hash": "5a9e014eb7c80beb21aaa5a9db7e0a8bef7fa2ca65b6f36d1c7fa25adb8d671b",
-  "fact_acceptance_contract_hash": "7e1f90210bd60a96a539631d56b1897df508457bf73f3634599a85d485c743b9",
+  "local_verification_contract_hash": "443655d3f14e5f7a655796895ab900eee02054ad4742ee66ceaf29c593837395",
+  "fact_acceptance_contract_hash": "be7219827ac56b92a02e1171fce08c42adc786515d702592b1f5f8d11493704d",
   "fact_acceptance_component_hashes": {
     "acquisition_truth": "ab0d8351d3dd95277251a8e51cb04086649f4f29784291b692370b4fff6a1836",
     "classification_semantics": "15dc5774d8e53cb28ea3ab3d001c17a7e41debe6ecc663a5fad4c1153986075e",
     "conflict_semantics": "4c6e753e2d732ff60cf4ea017d7c84051a50a972155835e0de0ef4b962948fe1",
     "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
-    "drafting_and_example_selection": "44ca8705384cac7656d45df450caf10b4c7fb50a601d0e46415bf91f38aaf94f",
+    "drafting_and_example_selection": "4120319e8393a88a1c22645a690a1318a881e6258a91f07d3ac5d726fd746c7f",
     "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
     "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
     "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
@@ -67,24 +67,26 @@
     "TRUSTED_REVIEWING": "b4078dbee6d17c76e8edf19b28be1249da35f451e518e086cd1d4e5c4411538e"
   },
   "llm_accounting_status": "EXACT",
-  "llm_call_count": 2,
+  "llm_call_count": 3,
   "llm_call_ids": [
-    "558c2cbf-e3b5-474a-b109-d797ccccf062",
-    "5ce04564-3e4e-4e21-a191-fa79dee6e005"
+    "27cee044-cb9d-4d30-bf07-3909b263155c",
+    "577f18e9-a4bd-45c7-8fab-fd71fa145de6",
+    "e7e9b65d-3073-42a5-9b94-b4bf5a0a1f73"
   ],
   "llm_calls_by_job": {
     "merged_readme_review": 1,
+    "plan_readme_composition": 1,
     "specialist_selection": 1
   },
   "llm_fixture_call_count": 0,
   "llm_cache_reuse_count": 1,
-  "llm_prompt_tokens": 17157,
-  "llm_completion_tokens": 1337,
-  "llm_total_tokens": 18494,
-  "llm_ledger_sha256": "98c04a6315723c5fc7ba276a301d26b11d949890324900af034a717bd3d437b3",
-  "assessment_hash": "43be6fae6238a1e00d475ff576e53dbadf5be5a9b3ea5eeb30e81b7ae8d9c61d",
-  "presentation_plan_hash": "1657bac20c327e082031f62497e3e0951a04f534a69e9179a13f41dd14a33d65",
-  "agentic_composition_plan_hash": "3a5fa09bb74ea0a0058f7e66fd63371a6dc75aa42bcef5e5966d5a6fe81d45ac",
+  "llm_prompt_tokens": 167181,
+  "llm_completion_tokens": 3295,
+  "llm_total_tokens": 170476,
+  "llm_ledger_sha256": "766cad3210fb4931ea9adb9b921bff1df64e6b3e1eed5bd5d3aa2e7efce95c05",
+  "assessment_hash": "f863cb82caecbfed145c3255ce847b2faf3f0d35ef442e44faf5bad840b82d05",
+  "presentation_plan_hash": "e02df3d8cee7d21a06c3c554553cac617ed61fcafb4ad21ff7fcc89449356be9",
+  "agentic_composition_plan_hash": "fcc38494251876f1917f46d238e5bb203a0d57e195b126e25cd688cb237f03be",
   "candidate_hash": "e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832",
   "candidate_stage_dependency_key": "89846281a56d56250dd5899244f6348b4c7eafba9433267f6f1cac332268f97e",
   "candidate_stage_dependency_manifest": {
@@ -455,23 +457,23 @@
     ],
     "stage_key": "89846281a56d56250dd5899244f6348b4c7eafba9433267f6f1cac332268f97e"
   },
-  "repair_budget_origin_hash": "84b1433e1d2e5e6ddc42ff2d58355eb5a95460ec4a1484968c6eb6ab30dcc799",
-  "campaign_id": "529c0660a243172820fe50429792cf693ec8cbd233ff8d57f04bc337de4f4e07",
+  "repair_budget_origin_hash": "1bf3b80f03902fa8461ad12c6919bf00caf639d5b43e5afc8cb386a5aeb8a1c9",
+  "campaign_id": "6627485b149d54e9145aae85eaeff7b644d8242ac6ebea5b13a6926473447b69",
   "acceptance_authority": "sealed_stage_receipts",
   "stage_receipts": {
     "CANDIDATE_GENERATED": {
-      "campaign_id": "fa949292ec3617e3a36a5e7e9dbf6c4dffddd1db0b86de34a9ceae1abc4eb5bc",
-      "work_id": "e3afdc8a74cf9cfc4ca0ef0ab82d6b05d6e36d4e78cddaa80622f1a9020cbacc",
-      "output_hash": "77abd04d6d9a4dfa9fc7afd2ee31e6ece70ade863c7e39375a5d90a88ecb45b7",
+      "campaign_id": "936c247db127243c1dbe563f7946280bf5423e2ec6c11c326393d6c3a84d556d",
+      "work_id": "4176cddfc5a61fd0bca011f95ce99129aa4a2d3a4518b919341cd441a46fcdb0",
+      "output_hash": "a2efef034d211008cd54ce4a0ebee74e0fa3943c27a1b1c04d3d953a9d024a37",
       "receipt_path": "receipts/CANDIDATE_GENERATED.json"
     },
     "DETERMINISTIC_VALIDATED": {
-      "campaign_id": "529c0660a243172820fe50429792cf693ec8cbd233ff8d57f04bc337de4f4e07",
-      "work_id": "02a22765ce3c5c7be4ca1ff4e2c729dd48f5d0ec56b74132f5026171b44c4d2c",
-      "output_hash": "777885e12553bb10a6eee27267a202dfbf31e872a2a7a2b62faefb2f773e1776",
+      "campaign_id": "6627485b149d54e9145aae85eaeff7b644d8242ac6ebea5b13a6926473447b69",
+      "work_id": "43c9dc164239000e64fb3996fe88a3be36543bb8e26ad7f6ecc455e45c899d07",
+      "output_hash": "64b1be9d9906fedba4daecf3b25bd9ec6438942cbbd6e19a41ab8b89e3aca206",
       "receipt_path": "receipts/DETERMINISTIC_VALIDATED.json"
     }
   },
-  "deterministic_validation_hash": "123052d8dd0014b9a504f8db016372339c9388421981f57242660faf1e03360a",
+  "deterministic_validation_hash": "b5031fb027692521b148bb8b16c2b4eaa93eabf7b150bcd6be62ff2f10c039c7",
   "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
 }

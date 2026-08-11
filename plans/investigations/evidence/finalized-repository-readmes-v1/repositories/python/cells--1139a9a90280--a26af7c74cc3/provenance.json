@@ -1,0 +1,395 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://License/LICENSE.txt",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/cells_foss/__init__.py,aspose/cells_foss/auto_filter.py,aspose/cells_foss/cell.py,aspose/cells_foss/cell_value_handler.py,aspose/cells_foss/cells.py,aspose/cells_foss/cfb_handler.py,aspose/cells_foss/cfb_writer.py,aspose/cells_foss/cfb_writer_minimal.py,aspose/cells_foss/chart.py,aspose/cells_foss/comment_xml.py,aspose/cells_foss/conditional_format.py,aspose/cells_foss/csv_handler.py,aspose/cells_foss/data_validation.py,aspose/cells_foss/document_properties.py,aspose/cells_foss/encryption_crypto.py,aspose/cells_foss/encryption_params.py,aspose/cells_foss/formula_evaluator.py,aspose/cells_foss/hyperlink.py,aspose/cells_foss/json_handler.py,aspose/cells_foss/markdown_handler.py,aspose/cells_foss/page_break.py,aspose/cells_foss/picture.py,aspose/cells_foss/shape.py,aspose/cells_foss/shared_strings.py,aspose/cells_foss/sparkline.py,aspose/cells_foss/style.py,aspose/cells_foss/table.py,aspose/cells_foss/workbook.py,aspose/cells_foss/workbook_hash_password.py,aspose/cells_foss/workbook_properties.py,aspose/cells_foss/worksheet.py,aspose/cells_foss/worksheet_properties.py,aspose/cells_foss/xlsx_encryptor.py,aspose/cells_foss/xml_autofilter_loader.py,aspose/cells_foss/xml_autofilter_saver.py,aspose/cells_foss/xml_chart_loader.py,aspose/cells_foss/xml_chart_saver.py,aspose/cells_foss/xml_conditional_format_loader.py,aspose/cells_foss/xml_conditional_format_saver.py,aspose/cells_foss/xml_datavalidation_loader.py,aspose/cells_foss/xml_datavalidation_saver.py,aspose/cells_foss/xml_hyperlink_handler.py,aspose/cells_foss/xml_loader.py,aspose/cells_foss/xml_picture_loader.py,aspose/cells_foss/xml_picture_saver.py,aspose/cells_foss/xml_properties_loader.py,aspose/cells_foss/xml_properties_saver.py,aspose/cells_foss/xml_saver.py,aspose/cells_foss/xml_shape_loader.py,aspose/cells_foss/xml_shape_saver.py,aspose/cells_foss/xml_sparkline_loader.py,aspose/cells_foss/xml_sparkline_saver.py,aspose/cells_foss/xml_table_loader.py,aspose/cells_foss/xml_table_saver.py,pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "installation.optional_extras:python-manifest": {
+    "field": "installation.optional_extras",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.development"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.contribution_guidance:repository-entry-points": {
+    "field": "repository.contribution_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.contributing"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/cells_foss/__init__.py,aspose/cells_foss/auto_filter.py,aspose/cells_foss/cell.py,aspose/cells_foss/cell_value_handler.py,aspose/cells_foss/cells.py,aspose/cells_foss/cfb_handler.py,aspose/cells_foss/cfb_writer.py,aspose/cells_foss/cfb_writer_minimal.py,aspose/cells_foss/chart.py,aspose/cells_foss/comment_xml.py,aspose/cells_foss/conditional_format.py,aspose/cells_foss/csv_handler.py,aspose/cells_foss/data_validation.py,aspose/cells_foss/document_properties.py,aspose/cells_foss/encryption_crypto.py,aspose/cells_foss/encryption_params.py,aspose/cells_foss/formula_evaluator.py,aspose/cells_foss/hyperlink.py,aspose/cells_foss/json_handler.py,aspose/cells_foss/markdown_handler.py,aspose/cells_foss/page_break.py,aspose/cells_foss/picture.py,aspose/cells_foss/shape.py,aspose/cells_foss/shared_strings.py,aspose/cells_foss/sparkline.py,aspose/cells_foss/style.py,aspose/cells_foss/table.py,aspose/cells_foss/workbook.py,aspose/cells_foss/workbook_hash_password.py,aspose/cells_foss/workbook_properties.py,aspose/cells_foss/worksheet.py,aspose/cells_foss/worksheet_properties.py,aspose/cells_foss/xlsx_encryptor.py,aspose/cells_foss/xml_autofilter_loader.py,aspose/cells_foss/xml_autofilter_saver.py,aspose/cells_foss/xml_chart_loader.py,aspose/cells_foss/xml_chart_saver.py,aspose/cells_foss/xml_conditional_format_loader.py,aspose/cells_foss/xml_conditional_format_saver.py,aspose/cells_foss/xml_datavalidation_loader.py,aspose/cells_foss/xml_datavalidation_saver.py,aspose/cells_foss/xml_hyperlink_handler.py,aspose/cells_foss/xml_loader.py,aspose/cells_foss/xml_picture_loader.py,aspose/cells_foss/xml_picture_saver.py,aspose/cells_foss/xml_properties_loader.py,aspose/cells_foss/xml_properties_saver.py,aspose/cells_foss/xml_saver.py,aspose/cells_foss/xml_shape_loader.py,aspose/cells_foss/xml_shape_saver.py,aspose/cells_foss/xml_sparkline_loader.py,aspose/cells_foss/xml_sparkline_saver.py,aspose/cells_foss/xml_table_loader.py,aspose/cells_foss/xml_table_saver.py,examples/__init__.py,examples/output_path_helper.py,examples/test_alignment_properties.py,examples/test_auto_filter.py,examples/test_border_settings.py,examples/test_cell_protection_locked.py,examples/test_cell_values.py,examples/test_comment_size.py,examples/test_comments.py,examples/test_conditional_formatting.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_create_picture.py,examples/test_create_shape.py,examples/test_create_sparkline.py,examples/test_csv_import_export.py,examples/test_data_validation.py,examples/test_document_properties.py,examples/test_encryption.py,examples/test_fill_settings.py,examples/test_font_settings.py,examples/test_hyperlinks.py,examples/test_manual_page_breaks.py,examples/test_merge_cells.py,examples/test_number_formats.py,examples/test_print_area.py,examples/test_workbook_protection.py,examples/test_worksheet_management.py,examples/test_worksheet_properties.py,examples/test_worksheet_protection.py,examples/test_xlsx_to_json.py,examples/test_xlsx_to_markdown.py,git-tree:5de711887f7418525cf5f2019933aac21fc8a23f",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.implementation_components:python-implementation-components": {
+    "field": "repository.implementation_components",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/cells_foss/cfb_writer.py,aspose/cells_foss/xml_loader.py",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "readme.api_reference"
+    ]
+  },
+  "product.capabilities:repository-extension": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py;repository://aspose/cells_foss/__init__.py,aspose/cells_foss/auto_filter.py,aspose/cells_foss/cell.py,aspose/cells_foss/cell_value_handler.py,aspose/cells_foss/cells.py,aspose/cells_foss/cfb_handler.py,aspose/cells_foss/cfb_writer.py,aspose/cells_foss/cfb_writer_minimal.py,aspose/cells_foss/chart.py,aspose/cells_foss/comment_xml.py,aspose/cells_foss/conditional_format.py,aspose/cells_foss/csv_handler.py,aspose/cells_foss/data_validation.py,aspose/cells_foss/document_properties.py,aspose/cells_foss/encryption_crypto.py,aspose/cells_foss/encryption_params.py,aspose/cells_foss/formula_evaluator.py,aspose/cells_foss/hyperlink.py,aspose/cells_foss/json_handler.py,aspose/cells_foss/markdown_handler.py,aspose/cells_foss/page_break.py,aspose/cells_foss/picture.py,aspose/cells_foss/shape.py,aspose/cells_foss/shared_strings.py,aspose/cells_foss/sparkline.py,aspose/cells_foss/style.py,aspose/cells_foss/table.py,aspose/cells_foss/workbook.py,aspose/cells_foss/workbook_hash_password.py,aspose/cells_foss/workbook_properties.py,aspose/cells_foss/worksheet.py,aspose/cells_foss/worksheet_properties.py,aspose/cells_foss/xlsx_encryptor.py,aspose/cells_foss/xml_autofilter_loader.py,aspose/cells_foss/xml_autofilter_saver.py,aspose/cells_foss/xml_chart_loader.py,aspose/cells_foss/xml_chart_saver.py,aspose/cells_foss/xml_conditional_format_loader.py,aspose/cells_foss/xml_conditional_format_saver.py,aspose/cells_foss/xml_datavalidation_loader.py,aspose/cells_foss/xml_datavalidation_saver.py,aspose/cells_foss/xml_hyperlink_handler.py,aspose/cells_foss/xml_loader.py,aspose/cells_foss/xml_picture_loader.py,aspose/cells_foss/xml_picture_saver.py,aspose/cells_foss/xml_properties_loader.py,aspose/cells_foss/xml_properties_saver.py,aspose/cells_foss/xml_saver.py,aspose/cells_foss/xml_shape_loader.py,aspose/cells_foss/xml_shape_saver.py,aspose/cells_foss/xml_sparkline_loader.py,aspose/cells_foss/xml_sparkline_saver.py,aspose/cells_foss/xml_table_loader.py,aspose/cells_foss/xml_table_saver.py,pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://aspose/cells_foss/workbook.py#L379;repository://aspose/cells_foss/workbook.py#L481;repository://aspose/cells_foss/workbook.py#L523;repository://aspose/cells_foss/workbook.py#L539;repository://aspose/cells_foss/workbook.py#L560;repository://aspose/cells_foss/workbook.py#L578",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/cells_foss/chart.py,aspose/cells_foss/xlsx_encryptor.py,aspose/cells_foss/xml_chart_saver.py",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/cells_foss/__init__.py,examples/test_cell_values.py,examples/test_create_all_charts.py,examples/test_create_exceltable.py,examples/test_data_validation.py,examples/test_worksheet_management.py;repository://aspose/cells_foss/__init__.py,aspose/cells_foss/auto_filter.py,aspose/cells_foss/cell.py,aspose/cells_foss/cell_value_handler.py,aspose/cells_foss/cells.py,aspose/cells_foss/cfb_handler.py,aspose/cells_foss/cfb_writer.py,aspose/cells_foss/cfb_writer_minimal.py,aspose/cells_foss/chart.py,aspose/cells_foss/comment_xml.py,aspose/cells_foss/conditional_format.py,aspose/cells_foss/csv_handler.py,aspose/cells_foss/data_validation.py,aspose/cells_foss/document_properties.py,aspose/cells_foss/encryption_crypto.py,aspose/cells_foss/encryption_params.py,aspose/cells_foss/formula_evaluator.py,aspose/cells_foss/hyperlink.py,aspose/cells_foss/json_handler.py,aspose/cells_foss/markdown_handler.py,aspose/cells_foss/page_break.py,aspose/cells_foss/picture.py,aspose/cells_foss/shape.py,aspose/cells_foss/shared_strings.py,aspose/cells_foss/sparkline.py,aspose/cells_foss/style.py,aspose/cells_foss/table.py,aspose/cells_foss/workbook.py,aspose/cells_foss/workbook_hash_password.py,aspose/cells_foss/workbook_properties.py,aspose/cells_foss/worksheet.py,aspose/cells_foss/worksheet_properties.py,aspose/cells_foss/xlsx_encryptor.py,aspose/cells_foss/xml_autofilter_loader.py,aspose/cells_foss/xml_autofilter_saver.py,aspose/cells_foss/xml_chart_loader.py,aspose/cells_foss/xml_chart_saver.py,aspose/cells_foss/xml_conditional_format_loader.py,aspose/cells_foss/xml_conditional_format_saver.py,aspose/cells_foss/xml_datavalidation_loader.py,aspose/cells_foss/xml_datavalidation_saver.py,aspose/cells_foss/xml_hyperlink_handler.py,aspose/cells_foss/xml_loader.py,aspose/cells_foss/xml_picture_loader.py,aspose/cells_foss/xml_picture_saver.py,aspose/cells_foss/xml_properties_loader.py,aspose/cells_foss/xml_properties_saver.py,aspose/cells_foss/xml_saver.py,aspose/cells_foss/xml_shape_loader.py,aspose/cells_foss/xml_shape_saver.py,aspose/cells_foss/xml_sparkline_loader.py,aspose/cells_foss/xml_sparkline_saver.py,aspose/cells_foss/xml_table_loader.py,aspose/cells_foss/xml_table_saver.py,pyproject.toml",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:registry-pypi": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "https://pypi.org/pypi/aspose-cells-foss/json",
+      "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+      "retrieved_at": "2026-08-11T15:14:25.914422+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}
