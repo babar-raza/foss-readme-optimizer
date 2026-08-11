@@ -1,0 +1,342 @@
+{
+  "content_assurance": "repository_verified",
+  "verdict": "ACCEPT",
+  "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+  "failed_criteria": [],
+  "sections_affected": [],
+  "required_repair": "",
+  "preserve": [],
+  "blind_quality_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "blind_quality_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "input_sha256": "31e8c4b2458f342596deef9f5f9d3e512a06732a81a2b084c7a74669973d4efd",
+    "verdict": "ACCEPT",
+    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a well-structured Quick Start section with one fenced block and only 2 non-blank code lines. The navigation list is complete, the At a Glance Mermaid diagram is properly rendered, and the license section includes required benefit terms. The document uses title case consistently, avoids comments, and presents installation and examples clearly.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "quality.finding.1",
+        "kind": "quality",
+        "criterion": "navigation",
+        "section": "Navigation",
+        "claim": "The navigation section lists all required H2 headings in markdown bullet format.",
+        "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
+        "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "quality.finding.2",
+        "kind": "quality",
+        "criterion": "example_presentation",
+        "section": "Quick Start",
+        "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, meeting the maximum non-blank code line constraint of 12.",
+        "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+        "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+        "reported_observed_value": 2,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "quality.finding.1",
+        "quality.finding.2"
+      ]
+    }
+  },
+  "factual_plan_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "factual_plan_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "input_sha256": "2c9b1efca568f1e75a1237f116de5ff262ce975d9edd92e050aa9ac4376b69c4",
+    "verdict": "ACCEPT",
+    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (51 public types across 4 namespaces) matches the documented exports. The installation instructions align with the pyproject.toml coordinates and verified source build. The capabilities listed (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence. Limitations in the Scope and Limitations section are directly sourced from bootstrap.py. The license, compatibility, and release state claims are all verified by manifest data.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "factual.finding.1",
+        "kind": "factual",
+        "criterion": "api.public_surface",
+        "section": "API Reference",
+        "claim": "The package documents 51 public types across 4 namespaces.",
+        "quoted_candidate_span": "## API Reference",
+        "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "api.public_surface:python-exports",
+        "evidence_excerpt": "aspose_barcode_foss",
+        "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "factual.finding.2",
+        "kind": "factual",
+        "criterion": "product.capabilities",
+        "section": "Key Capabilities",
+        "claim": "Key Capabilities section lists Code 128, Code 39, EAN/UPC, SVG/PNG rendering, and custom renderer support.",
+        "quoted_candidate_span": "## Key Capabilities",
+        "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "product.capabilities:repository-evidence",
+        "evidence_excerpt": "def code128(",
+        "evidence_location": "repository://README.md,src/aspose_barcode_foss/_internal/encoders/code128.py,src/aspose_barcode_foss/_internal/encoders/code39.py,src/aspose_barcode_foss/_internal/encoders/ean13.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "factual.finding.1",
+        "factual.finding.2"
+      ]
+    }
+  },
+  "combined_review": {
+    "content_assurance": "repository_verified",
+    "verdict": "ACCEPT",
+    "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "blind_quality": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "blind_quality_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+      "input_sha256": "31e8c4b2458f342596deef9f5f9d3e512a06732a81a2b084c7a74669973d4efd",
+      "verdict": "ACCEPT",
+      "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, compliant badge row with required badge kinds, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a well-structured Quick Start section with one fenced block and only 2 non-blank code lines. The navigation list is complete, the At a Glance Mermaid diagram is properly rendered, and the license section includes required benefit terms. The document uses title case consistently, avoids comments, and presents installation and examples clearly.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "quality.finding.1",
+          "kind": "quality",
+          "criterion": "navigation",
+          "section": "Navigation",
+          "claim": "The navigation section lists all required H2 headings in markdown bullet format.",
+          "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
+          "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "quality.finding.2",
+          "kind": "quality",
+          "criterion": "example_presentation",
+          "section": "Quick Start",
+          "claim": "The Quick Start section contains exactly one fenced block with 2 non-blank code lines, meeting the maximum non-blank code line constraint of 12.",
+          "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+          "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+          "reported_observed_value": 2,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.finding.1",
+          "quality.finding.2"
+        ]
+      }
+    },
+    "factual_plan": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "factual_plan_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+      "input_sha256": "2c9b1efca568f1e75a1237f116de5ff262ce975d9edd92e050aa9ac4376b69c4",
+      "verdict": "ACCEPT",
+      "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface (51 public types across 4 namespaces) matches the documented exports. The installation instructions align with the pyproject.toml coordinates and verified source build. The capabilities listed (Code 128, Code 39, EAN/UPC, SVG/PNG rendering, custom renderer) are verified by repository evidence. Limitations in the Scope and Limitations section are directly sourced from bootstrap.py. The license, compatibility, and release state claims are all verified by manifest data.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "factual.finding.1",
+          "kind": "factual",
+          "criterion": "api.public_surface",
+          "section": "API Reference",
+          "claim": "The package documents 51 public types across 4 namespaces.",
+          "quoted_candidate_span": "## API Reference",
+          "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "api.public_surface:python-exports",
+          "evidence_excerpt": "aspose_barcode_foss",
+          "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "factual.finding.2",
+          "kind": "factual",
+          "criterion": "product.capabilities",
+          "section": "Key Capabilities",
+          "claim": "Key Capabilities section lists Code 128, Code 39, EAN/UPC, SVG/PNG rendering, and custom renderer support.",
+          "quoted_candidate_span": "## Key Capabilities",
+          "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "product.capabilities:repository-evidence",
+          "evidence_excerpt": "def code128(",
+          "evidence_location": "repository://README.md,src/aspose_barcode_foss/_internal/encoders/code128.py,src/aspose_barcode_foss/_internal/encoders/code39.py,src/aspose_barcode_foss/_internal/encoders/ean13.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.finding.1",
+          "factual.finding.2"
+        ]
+      }
+    },
+    "merged_call_receipt": {
+      "actor_id": "llm-route:merged-readme-review",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+      "input_sha256": "66416508184fb43b28e3ee7f9c56fddce9f1fe9af36258badcd27517deb17f3b",
+      "raw_output_sha256": "bad936f1f2bce073036bdee9e98636c28e144f32f9933e1899a1954e74086f4c",
+      "blind_record_sha256": "724ee0f5eb4ad3332bcae1b814c1bea771f0c2f307ee4f00299c58175e752362",
+      "factual_record_sha256": "2005617b21f7275edf46454d3cb0cbbf41b882481a62db4600ea182fa75e4adc",
+      "provider_request_id": "chatcmpl-adf4849f07420fc3",
+      "provider_model": "qwen3-next"
+    },
+    "identity_separation_valid": true,
+    "reasons": [
+      "blind_quality:ACCEPT",
+      "factual_plan:ACCEPT"
+    ]
+  },
+  "grounding_retry_history": [
+    {
+      "role": "blind_quality",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 55486,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.finding.1",
+          "quality.finding.2"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    },
+    {
+      "role": "factual_plan",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 55486,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.finding.1",
+          "factual.finding.2"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [
+        "factual.finding.1",
+        "factual.finding.2"
+      ],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    }
+  ],
+  "review_contract_version": "2",
+  "acceptance_binding": {
+    "schema_version": 1,
+    "candidate_hash": "e07c62f6d07255bfaa152286e52fbc6a5a0a5a699d9d650eba4a994662d8d51a",
+    "candidate_stage_dependency_key": "a28bb7d2026e430c1ea6f62740a739f5441ad96b0103a67e97db3614d2d07d65",
+    "mermaid_render_contract_version": "3",
+    "deterministic_validation_hash": "b9e6e19c67cc5d0877064b52dd2491de5604030be95d80df32b69173c5452bea",
+    "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
+  }
+}

@@ -1,0 +1,4087 @@
+{
+  "schema_version": 2,
+  "content_assurance": "repository_verified",
+  "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+  "facts": [
+    {
+      "fact_id": "product.identity:manifest-and-registry",
+      "field": "product.identity",
+      "value": {
+        "family": "barcode",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "manifest_names": [
+          "aspose-barcode-foss"
+        ],
+        "product_name": "Aspose.BarCode"
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.platforms:manifest",
+      "field": "product.platforms",
+      "value": [
+        "python"
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "installation.coordinates:manifest",
+      "field": "installation.coordinates",
+      "value": [
+        {
+          "path": ".",
+          "ecosystem": "python",
+          "manifest_path": "pyproject.toml",
+          "name": "aspose-barcode-foss",
+          "version": "0.1.0",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:governed-aspose-org-catalog",
+      "field": "documentation.links",
+      "value": [
+        {
+          "surface": "docs",
+          "url": "https://docs.aspose.org/barcode/python/",
+          "title": "Aspose.BarCode FOSS for Python",
+          "record_id": "org:docs:barcode:python:ef9376062476532c",
+          "family": "barcode",
+          "platform": "python",
+          "product": "Aspose.BarCode-FOSS-for-Python",
+          "source_location": "content/docs.aspose.org/en/barcode/python/_index.md",
+          "source_revision_or_hash": "7873a5f1277a40146e4938aab24aab7e511f261c"
+        },
+        {
+          "surface": "kb",
+          "url": "https://kb.aspose.org/barcode/python/",
+          "title": "Aspose.BarCode FOSS for Python",
+          "record_id": "org:kb:barcode:python:e0d9d11751204167",
+          "family": "barcode",
+          "platform": "python",
+          "product": "Aspose.BarCode-FOSS-for-Python",
+          "source_location": "content/kb.aspose.org/en/barcode/python/_index.md",
+          "source_revision_or_hash": "7873a5f1277a40146e4938aab24aab7e511f261c"
+        },
+        {
+          "surface": "reference",
+          "url": "https://reference.aspose.org/barcode/python/",
+          "title": "Aspose.BarCode FOSS for Python",
+          "record_id": "org:reference:barcode:python:127b6bbcedcfbd91",
+          "family": "barcode",
+          "platform": "python",
+          "product": "Aspose.BarCode-FOSS-for-Python",
+          "source_location": "content/reference.aspose.org/en/barcode/python/_index.md",
+          "source_revision_or_hash": "7873a5f1277a40146e4938aab24aab7e511f261c"
+        }
+      ],
+      "source": {
+        "source_type": "external_registry",
+        "location": "data/aspose_org_links.json",
+        "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "documentation-catalog-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [
+        {
+          "conflicting_fact_id": "documentation.links:primary",
+          "conflicting_value": [
+            {
+              "url": "https://products.aspose.org/barcode/python/",
+              "family_url": "https://products.aspose.org/barcode/",
+              "label": "Aspose.BarCode FOSS for Python",
+              "utm": null
+            },
+            {
+              "url": "https://products.aspose.com/barcode/python/",
+              "family_url": "https://products.aspose.com/barcode",
+              "label": "Aspose.BarCode for Python",
+              "utm": {
+                "utm_source": "github",
+                "utm_medium": "readme",
+                "utm_campaign": "foss-readme-optimizer"
+              }
+            },
+            "docs.aspose.org",
+            "docs.aspose.com",
+            "reference.aspose.com",
+            "releases.aspose.com",
+            "blog.aspose.org",
+            "kb.aspose.org",
+            "forum.aspose.com"
+          ],
+          "conflicting_source": {
+            "source_type": "approved_policy",
+            "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+            "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+            "retrieved_at": null
+          },
+          "status": "resolved_by_precedence",
+          "reason": "higher-precedence source selected deterministically",
+          "authoritative_owner": "documentation-catalog-owner",
+          "affected_surfaces": [
+            "metadata.homepage",
+            "readme.resources"
+          ]
+        }
+      ],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "documentation.links:primary",
+      "field": "documentation.links",
+      "value": [
+        {
+          "url": "https://products.aspose.org/barcode/python/",
+          "family_url": "https://products.aspose.org/barcode/",
+          "label": "Aspose.BarCode FOSS for Python",
+          "utm": null
+        },
+        {
+          "url": "https://products.aspose.com/barcode/python/",
+          "family_url": "https://products.aspose.com/barcode",
+          "label": "Aspose.BarCode for Python",
+          "utm": {
+            "utm_source": "github",
+            "utm_medium": "readme",
+            "utm_campaign": "foss-readme-optimizer"
+          }
+        },
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "documentation-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "metadata.homepage"
+      ]
+    },
+    {
+      "fact_id": "release.state:manifest-and-registry",
+      "field": "release.state",
+      "value": [
+        {
+          "path": ".",
+          "manifest_path": "pyproject.toml",
+          "version": "0.1.0",
+          "active": true,
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "product.compatibility:manifest",
+      "field": "product.compatibility",
+      "value": [
+        {
+          "ecosystem": "python",
+          "runtime_label": "Python",
+          "minimum_runtime": ">=3.12",
+          "compatibility_kind": "minimum_runtime",
+          "manifest_path": "pyproject.toml",
+          "root_role": "product"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "readme.installation"
+      ]
+    },
+    {
+      "fact_id": "product.license:license-file",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://LICENSE",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "product.license:manifest",
+      "field": "product.license",
+      "value": "MIT",
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.license",
+        "community.license"
+      ]
+    },
+    {
+      "fact_id": "support.routes:primary",
+      "field": "support.routes",
+      "value": [
+        "docs.aspose.org",
+        "docs.aspose.com",
+        "reference.aspose.com",
+        "releases.aspose.com",
+        "blog.aspose.org",
+        "kb.aspose.org",
+        "forum.aspose.com"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "support-policy-owner",
+      "confidence": 0.75,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.resources",
+        "community.support"
+      ]
+    },
+    {
+      "fact_id": "relationship.commercial_foss:primary",
+      "field": "relationship.commercial_foss",
+      "value": [
+        "open_source_scope",
+        "commercial_upgrade_path"
+      ],
+      "source": {
+        "source_type": "approved_policy",
+        "location": "registry-policy://aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "policy_approved",
+      "authoritative_owner": "portfolio-policy-owner",
+      "confidence": 0.9,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.relationship"
+      ]
+    },
+    {
+      "fact_id": "api.public_surface:python-exports",
+      "field": "api.public_surface",
+      "value": {
+        "modules": [
+          {
+            "module": "aspose_barcode_foss",
+            "exports": [
+              "Barcode",
+              "BarcodeError",
+              "Code128EncodeMode",
+              "Code128Options",
+              "Code39EncodeMode",
+              "Code39Options",
+              "Ean13Options",
+              "Ean8Options",
+              "EncodeOptions",
+              "EncodingError",
+              "InvalidInputError",
+              "PdfRenderer",
+              "PngRenderer",
+              "QrEncodeMode",
+              "QrErrorCorrectionLevel",
+              "QrOptions",
+              "RenderOptions",
+              "Renderer",
+              "RenderingError",
+              "ResolvedRenderOptions",
+              "SvgRenderer",
+              "SymbologyNotFoundError",
+              "UnsupportedCapabilityError",
+              "UnsupportedFeatureError",
+              "UpcaOptions",
+              "UpceOptions",
+              "code128",
+              "code39",
+              "code39ext",
+              "ean13",
+              "ean8",
+              "generate",
+              "qr",
+              "upca",
+              "upce"
+            ],
+            "source_path": "src/aspose_barcode_foss/__init__.py",
+            "source_sha256": "d0f3caceb86bb0e4b4415bf457f510825c06678ca8a9dcc00f578f9cf00a9118"
+          },
+          {
+            "module": "aspose_barcode_foss.exceptions",
+            "exports": [
+              "BarcodeError",
+              "EncodingError",
+              "InvalidInputError",
+              "RenderingError",
+              "SymbologyNotFoundError",
+              "UnsupportedCapabilityError",
+              "UnsupportedFeatureError"
+            ],
+            "source_path": "src/aspose_barcode_foss/exceptions.py",
+            "source_sha256": "4b475c312c34e6d701f85e27a11b0bf391568edcb6016c4be187def4f0305d1e"
+          },
+          {
+            "module": "aspose_barcode_foss.options",
+            "exports": [
+              "Code128EncodeMode",
+              "Code128Options",
+              "Code39EncodeMode",
+              "Code39Options",
+              "Ean13Options",
+              "Ean8Options",
+              "EncodeOptions",
+              "QrEncodeMode",
+              "QrErrorCorrectionLevel",
+              "QrOptions",
+              "RenderOptions",
+              "ResolvedRenderOptions",
+              "UpcaOptions",
+              "UpceOptions"
+            ],
+            "source_path": "src/aspose_barcode_foss/options.py",
+            "source_sha256": "c22931cc798b4bbf3010929b50d9dde1ccf6de67e497f3ae741f27e00cdf9348"
+          },
+          {
+            "module": "aspose_barcode_foss.renderers",
+            "exports": [
+              "PdfRenderer",
+              "PngRenderer",
+              "Renderer",
+              "SvgRenderer"
+            ],
+            "source_path": "src/aspose_barcode_foss/renderers.py",
+            "source_sha256": "ec6ee0b0f8c992e07e8dd21d4fb59a38f5a7007aac75f83e3422498f188eca5a"
+          }
+        ],
+        "package_namespaces": [
+          "aspose_barcode_foss"
+        ],
+        "classes": [
+          {
+            "name": "RenderOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.RenderOptions",
+            "bases": [],
+            "constructor": null,
+            "members": [
+              {
+                "name": "background_color",
+                "kind": "typed_field",
+                "surface": "background_color: str | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 119
+              },
+              {
+                "name": "dpi",
+                "kind": "typed_field",
+                "surface": "dpi: int | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 114
+              },
+              {
+                "name": "font_family",
+                "kind": "typed_field",
+                "surface": "font_family: str | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 122
+              },
+              {
+                "name": "font_size",
+                "kind": "typed_field",
+                "surface": "font_size: float | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 123
+              },
+              {
+                "name": "foreground_color",
+                "kind": "typed_field",
+                "surface": "foreground_color: str | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 118
+              },
+              {
+                "name": "module_height",
+                "kind": "typed_field",
+                "surface": "module_height: float | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 116
+              },
+              {
+                "name": "module_width",
+                "kind": "typed_field",
+                "surface": "module_width: float | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 115
+              },
+              {
+                "name": "quiet_zone",
+                "kind": "typed_field",
+                "surface": "quiet_zone: float | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 117
+              },
+              {
+                "name": "scale",
+                "kind": "typed_field",
+                "surface": "scale: float | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 113
+              },
+              {
+                "name": "show_text",
+                "kind": "typed_field",
+                "surface": "show_text: bool | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 121
+              },
+              {
+                "name": "transparent_background",
+                "kind": "typed_field",
+                "surface": "transparent_background: bool | None",
+                "return_annotation": null,
+                "declared_by": "RenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 120
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 110
+          },
+          {
+            "name": "Code128EncodeMode",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Code128EncodeMode",
+            "bases": [
+              "Enum"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "AUTO",
+                "kind": "enum_member",
+                "surface": "AUTO",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 12
+              },
+              {
+                "name": "CODE_A",
+                "kind": "enum_member",
+                "surface": "CODE_A",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 13
+              },
+              {
+                "name": "CODE_AB",
+                "kind": "enum_member",
+                "surface": "CODE_AB",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 16
+              },
+              {
+                "name": "CODE_AC",
+                "kind": "enum_member",
+                "surface": "CODE_AC",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 17
+              },
+              {
+                "name": "CODE_B",
+                "kind": "enum_member",
+                "surface": "CODE_B",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 14
+              },
+              {
+                "name": "CODE_BC",
+                "kind": "enum_member",
+                "surface": "CODE_BC",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 18
+              },
+              {
+                "name": "CODE_C",
+                "kind": "enum_member",
+                "surface": "CODE_C",
+                "return_annotation": null,
+                "declared_by": "Code128EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 15
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 9
+          },
+          {
+            "name": "PdfRenderer",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.PdfRenderer",
+            "bases": [
+              "Renderer"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "render",
+                "kind": "method",
+                "surface": "render(symbol, layout, options)",
+                "return_annotation": "RenderedArtifact",
+                "declared_by": "PdfRenderer",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+                "source_sha256": "7628e1d07a6e6e284dda37021b8f4d1fe00e0b8125f960db40a4a19542806df4",
+                "line": 15
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+            "source_sha256": "7628e1d07a6e6e284dda37021b8f4d1fe00e0b8125f960db40a4a19542806df4",
+            "line": 12
+          },
+          {
+            "name": "PngRenderer",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.PngRenderer",
+            "bases": [
+              "Renderer"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "render",
+                "kind": "method",
+                "surface": "render(symbol, layout, options)",
+                "return_annotation": "RenderedArtifact",
+                "declared_by": "PngRenderer",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/renderers/png.py",
+                "source_sha256": "0070cd9e7d74a1e2864a4d75608b7c35c90a742e0981f7a021de54e611cfb9c1",
+                "line": 39
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/renderers/png.py",
+            "source_sha256": "0070cd9e7d74a1e2864a4d75608b7c35c90a742e0981f7a021de54e611cfb9c1",
+            "line": 28
+          },
+          {
+            "name": "Renderer",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Renderer",
+            "bases": [
+              "ABC"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "render",
+                "kind": "method",
+                "surface": "render(symbol, layout, options)",
+                "return_annotation": "RenderedArtifact",
+                "declared_by": "Renderer",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/renderers/base.py",
+                "source_sha256": "d5a3ee0687d12fa62404ba2f77d183c1874b17195e7f726080a8064afed01b32",
+                "line": 17
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/renderers/base.py",
+            "source_sha256": "d5a3ee0687d12fa62404ba2f77d183c1874b17195e7f726080a8064afed01b32",
+            "line": 13
+          },
+          {
+            "name": "SvgRenderer",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.SvgRenderer",
+            "bases": [
+              "Renderer"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "render",
+                "kind": "method",
+                "surface": "render(symbol, layout, options)",
+                "return_annotation": "RenderedArtifact",
+                "declared_by": "SvgRenderer",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+                "source_sha256": "4a9afdf1317f7cb7e5f8fbf60f0444952ea6136c11cccec191155b3959f4c73b",
+                "line": 49
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+            "source_sha256": "4a9afdf1317f7cb7e5f8fbf60f0444952ea6136c11cccec191155b3959f4c73b",
+            "line": 46
+          },
+          {
+            "name": "BarcodeError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.BarcodeError",
+            "bases": [
+              "Exception"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 4
+          },
+          {
+            "name": "EncodingError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.EncodingError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 12
+          },
+          {
+            "name": "InvalidInputError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.InvalidInputError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 20
+          },
+          {
+            "name": "RenderingError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.RenderingError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 16
+          },
+          {
+            "name": "SymbologyNotFoundError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.SymbologyNotFoundError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 8
+          },
+          {
+            "name": "UnsupportedCapabilityError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.UnsupportedCapabilityError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 28
+          },
+          {
+            "name": "UnsupportedFeatureError",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.UnsupportedFeatureError",
+            "bases": [
+              "BarcodeError"
+            ],
+            "constructor": null,
+            "members": [],
+            "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+            "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+            "line": 24
+          },
+          {
+            "name": "ResolvedRenderOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.ResolvedRenderOptions",
+            "bases": [],
+            "constructor": null,
+            "members": [
+              {
+                "name": "background_color",
+                "kind": "typed_field",
+                "surface": "background_color: str | None",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 136
+              },
+              {
+                "name": "dpi",
+                "kind": "typed_field",
+                "surface": "dpi: int | None",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 131
+              },
+              {
+                "name": "font_family",
+                "kind": "typed_field",
+                "surface": "font_family: str",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 139
+              },
+              {
+                "name": "font_size",
+                "kind": "typed_field",
+                "surface": "font_size: float",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 140
+              },
+              {
+                "name": "foreground_color",
+                "kind": "typed_field",
+                "surface": "foreground_color: str",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 135
+              },
+              {
+                "name": "module_height",
+                "kind": "typed_field",
+                "surface": "module_height: float",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 133
+              },
+              {
+                "name": "module_width",
+                "kind": "typed_field",
+                "surface": "module_width: float",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 132
+              },
+              {
+                "name": "quiet_zone",
+                "kind": "typed_field",
+                "surface": "quiet_zone: float",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 134
+              },
+              {
+                "name": "scale",
+                "kind": "typed_field",
+                "surface": "scale: float",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 130
+              },
+              {
+                "name": "show_text",
+                "kind": "typed_field",
+                "surface": "show_text: bool",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 138
+              },
+              {
+                "name": "transparent_background",
+                "kind": "typed_field",
+                "surface": "transparent_background: bool",
+                "return_annotation": null,
+                "declared_by": "ResolvedRenderOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 137
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 127
+          },
+          {
+            "name": "Barcode",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Barcode",
+            "bases": [],
+            "constructor": null,
+            "members": [
+              {
+                "name": "render",
+                "kind": "method",
+                "surface": "render(renderer, options)",
+                "return_annotation": "RenderedArtifact",
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 27
+              },
+              {
+                "name": "to_pdf",
+                "kind": "method",
+                "surface": "to_pdf(options)",
+                "return_annotation": "bytes",
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 86
+              },
+              {
+                "name": "to_png",
+                "kind": "method",
+                "surface": "to_png(options)",
+                "return_annotation": "bytes",
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 74
+              },
+              {
+                "name": "to_svg",
+                "kind": "method",
+                "surface": "to_svg(options)",
+                "return_annotation": "str",
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 62
+              },
+              {
+                "name": "default_render_options",
+                "kind": "typed_field",
+                "surface": "default_render_options: RenderOptions | None",
+                "return_annotation": null,
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 25
+              },
+              {
+                "name": "profile",
+                "kind": "typed_field",
+                "surface": "profile: SymbologyProfile",
+                "return_annotation": null,
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 24
+              },
+              {
+                "name": "symbol",
+                "kind": "typed_field",
+                "surface": "symbol: EncodedSymbol",
+                "return_annotation": null,
+                "declared_by": "Barcode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/result.py",
+                "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                "line": 23
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/result.py",
+            "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+            "line": 20
+          },
+          {
+            "name": "QrEncodeMode",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.QrEncodeMode",
+            "bases": [
+              "Enum"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "AUTO",
+                "kind": "enum_member",
+                "surface": "AUTO",
+                "return_annotation": null,
+                "declared_by": "QrEncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 31
+              },
+              {
+                "name": "ALPHANUMERIC",
+                "kind": "enum_member",
+                "surface": "ALPHANUMERIC",
+                "return_annotation": null,
+                "declared_by": "QrEncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 33
+              },
+              {
+                "name": "BYTE",
+                "kind": "enum_member",
+                "surface": "BYTE",
+                "return_annotation": null,
+                "declared_by": "QrEncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 34
+              },
+              {
+                "name": "KANJI",
+                "kind": "enum_member",
+                "surface": "KANJI",
+                "return_annotation": null,
+                "declared_by": "QrEncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 35
+              },
+              {
+                "name": "NUMERIC",
+                "kind": "enum_member",
+                "surface": "NUMERIC",
+                "return_annotation": null,
+                "declared_by": "QrEncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 32
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 28
+          },
+          {
+            "name": "QrErrorCorrectionLevel",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.QrErrorCorrectionLevel",
+            "bases": [
+              "Enum"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "H",
+                "kind": "enum_member",
+                "surface": "H",
+                "return_annotation": null,
+                "declared_by": "QrErrorCorrectionLevel",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 44
+              },
+              {
+                "name": "L",
+                "kind": "enum_member",
+                "surface": "L",
+                "return_annotation": null,
+                "declared_by": "QrErrorCorrectionLevel",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 41
+              },
+              {
+                "name": "M",
+                "kind": "enum_member",
+                "surface": "M",
+                "return_annotation": null,
+                "declared_by": "QrErrorCorrectionLevel",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 42
+              },
+              {
+                "name": "Q",
+                "kind": "enum_member",
+                "surface": "Q",
+                "return_annotation": null,
+                "declared_by": "QrErrorCorrectionLevel",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 43
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 38
+          },
+          {
+            "name": "QrOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.QrOptions",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "encoding_mode",
+                "kind": "typed_field",
+                "surface": "encoding_mode: QrEncodeMode | str | None",
+                "return_annotation": null,
+                "declared_by": "QrOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 77
+              },
+              {
+                "name": "error_correction_level",
+                "kind": "typed_field",
+                "surface": "error_correction_level: QrErrorCorrectionLevel | str | None",
+                "return_annotation": null,
+                "declared_by": "QrOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 74
+              },
+              {
+                "name": "mask",
+                "kind": "typed_field",
+                "surface": "mask: int | None",
+                "return_annotation": null,
+                "declared_by": "QrOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 76
+              },
+              {
+                "name": "version",
+                "kind": "typed_field",
+                "surface": "version: int | None",
+                "return_annotation": null,
+                "declared_by": "QrOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 75
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 71
+          },
+          {
+            "name": "Code39EncodeMode",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Code39EncodeMode",
+            "bases": [
+              "Enum"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "BASE",
+                "kind": "enum_member",
+                "surface": "BASE",
+                "return_annotation": null,
+                "declared_by": "Code39EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 24
+              },
+              {
+                "name": "FULL_ASCII",
+                "kind": "enum_member",
+                "surface": "FULL_ASCII",
+                "return_annotation": null,
+                "declared_by": "Code39EncodeMode",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 25
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 21
+          },
+          {
+            "name": "Code39Options",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Code39Options",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "add_check_digit",
+                "kind": "typed_field",
+                "surface": "add_check_digit: bool | None",
+                "return_annotation": null,
+                "declared_by": "Code39Options",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 67
+              },
+              {
+                "name": "full_ascii",
+                "kind": "typed_field",
+                "surface": "full_ascii: bool | None",
+                "return_annotation": null,
+                "declared_by": "Code39Options",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 66
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 63
+          },
+          {
+            "name": "EncodeOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.EncodeOptions",
+            "bases": [],
+            "constructor": null,
+            "members": [
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 48
+          },
+          {
+            "name": "UpceOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.UpceOptions",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "allow_check_digit_input",
+                "kind": "typed_field",
+                "surface": "allow_check_digit_input: bool | None",
+                "return_annotation": null,
+                "declared_by": "UpceOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 106
+              },
+              {
+                "name": "number_system",
+                "kind": "typed_field",
+                "surface": "number_system: str | None",
+                "return_annotation": null,
+                "declared_by": "UpceOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 105
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 102
+          },
+          {
+            "name": "Code128Options",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Code128Options",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "encode_mode",
+                "kind": "typed_field",
+                "surface": "encode_mode: Code128EncodeMode",
+                "return_annotation": null,
+                "declared_by": "Code128Options",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 59
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 56
+          },
+          {
+            "name": "Ean13Options",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Ean13Options",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "allow_check_digit_input",
+                "kind": "typed_field",
+                "surface": "allow_check_digit_input: bool | None",
+                "return_annotation": null,
+                "declared_by": "Ean13Options",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 84
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 81
+          },
+          {
+            "name": "Ean8Options",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.Ean8Options",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "allow_check_digit_input",
+                "kind": "typed_field",
+                "surface": "allow_check_digit_input: bool | None",
+                "return_annotation": null,
+                "declared_by": "Ean8Options",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 91
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 88
+          },
+          {
+            "name": "UpcaOptions",
+            "module": "aspose_barcode_foss",
+            "qualified_name": "aspose_barcode_foss.UpcaOptions",
+            "bases": [
+              "EncodeOptions"
+            ],
+            "constructor": null,
+            "members": [
+              {
+                "name": "allow_check_digit_input",
+                "kind": "typed_field",
+                "surface": "allow_check_digit_input: bool | None",
+                "return_annotation": null,
+                "declared_by": "UpcaOptions",
+                "inherited": false,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 98
+              },
+              {
+                "name": "eci_assignment_number",
+                "kind": "typed_field",
+                "surface": "eci_assignment_number: int | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 52
+              },
+              {
+                "name": "gs1_enabled",
+                "kind": "typed_field",
+                "surface": "gs1_enabled: bool | None",
+                "return_annotation": null,
+                "declared_by": "EncodeOptions",
+                "inherited": true,
+                "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                "line": 51
+              }
+            ],
+            "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+            "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+            "line": 95
+          }
+        ],
+        "functions": [
+          {
+            "module": "aspose_barcode_foss",
+            "name": "code128",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "code39",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "code39ext",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "ean13",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "ean8",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "generate",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "qr",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "upca",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          },
+          {
+            "module": "aspose_barcode_foss",
+            "name": "upce",
+            "return_class": "aspose_barcode_foss.result:Barcode",
+            "source_path": "src/aspose_barcode_foss/api.py",
+            "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+          }
+        ],
+        "package": {
+          "schema_version": 1,
+          "manifest_path": "pyproject.toml",
+          "distribution_name": "aspose-barcode-foss",
+          "version": "0.1.0",
+          "requires_python": ">=3.12",
+          "source_root": "src",
+          "package_paths": [
+            "aspose_barcode_foss",
+            "aspose_barcode_foss/_internal",
+            "aspose_barcode_foss/_internal/encoders",
+            "aspose_barcode_foss/_internal/models",
+            "aspose_barcode_foss/_internal/parsers",
+            "aspose_barcode_foss/_internal/profiles",
+            "aspose_barcode_foss/_internal/renderers",
+            "aspose_barcode_foss/_internal/standards",
+            "aspose_barcode_foss/_internal/text",
+            "aspose_barcode_foss/_internal/standards/qr"
+          ],
+          "canonical_import": "aspose_barcode_foss",
+          "namespace_packages": [],
+          "source_sha256": "24c708053f50f17ee521c6fb206057d06ecf29e76f1144cfec6a71ad908a3a49"
+        },
+        "public_api_source_sha256": "be34762543561492618308c5ddfa707eec9039d282ecc3bac9ea6dc197584618",
+        "unresolved_reexports": [],
+        "inventory_counts": {
+          "typed_symbols": 148,
+          "distributed_symbols": 148,
+          "modules": 6,
+          "presentation_eligible_modules": 4,
+          "presentation_excluded_symbols": 0,
+          "classes": 26,
+          "ambiguous_classes": 0,
+          "max_members": 11,
+          "readme_target_classes": 13,
+          "projected_readme_target_classes": 13
+        },
+        "projection_limits": {
+          "modules": 16,
+          "exports_per_module": 48,
+          "classes": 96,
+          "members_per_class": 24,
+          "functions": 24,
+          "json_bytes": 262144
+        },
+        "coordinate_catalog": {
+          "schema_version": 1,
+          "public_api_source_sha256": "be34762543561492618308c5ddfa707eec9039d282ecc3bac9ea6dc197584618",
+          "modules": [
+            {
+              "module": "aspose_barcode_foss",
+              "exports": [
+                "Barcode",
+                "BarcodeError",
+                "Code128EncodeMode",
+                "Code128Options",
+                "Code39EncodeMode",
+                "Code39Options",
+                "Ean13Options",
+                "Ean8Options",
+                "EncodeOptions",
+                "EncodingError",
+                "InvalidInputError",
+                "PdfRenderer",
+                "PngRenderer",
+                "QrEncodeMode",
+                "QrErrorCorrectionLevel",
+                "QrOptions",
+                "RenderOptions",
+                "Renderer",
+                "RenderingError",
+                "ResolvedRenderOptions",
+                "SvgRenderer",
+                "SymbologyNotFoundError",
+                "UnsupportedCapabilityError",
+                "UnsupportedFeatureError",
+                "UpcaOptions",
+                "UpceOptions",
+                "code128",
+                "code39",
+                "code39ext",
+                "ean13",
+                "ean8",
+                "generate",
+                "qr",
+                "upca",
+                "upce"
+              ],
+              "source_path": "src/aspose_barcode_foss/__init__.py",
+              "source_sha256": "d0f3caceb86bb0e4b4415bf457f510825c06678ca8a9dcc00f578f9cf00a9118"
+            },
+            {
+              "module": "aspose_barcode_foss.api",
+              "exports": [
+                "code128",
+                "code39",
+                "code39ext",
+                "ean13",
+                "ean8",
+                "generate",
+                "qr",
+                "upca",
+                "upce"
+              ],
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss.exceptions",
+              "exports": [
+                "BarcodeError",
+                "EncodingError",
+                "InvalidInputError",
+                "RenderingError",
+                "SymbologyNotFoundError",
+                "UnsupportedCapabilityError",
+                "UnsupportedFeatureError"
+              ],
+              "source_path": "src/aspose_barcode_foss/exceptions.py",
+              "source_sha256": "4b475c312c34e6d701f85e27a11b0bf391568edcb6016c4be187def4f0305d1e"
+            },
+            {
+              "module": "aspose_barcode_foss.options",
+              "exports": [
+                "Code128EncodeMode",
+                "Code128Options",
+                "Code39EncodeMode",
+                "Code39Options",
+                "Ean13Options",
+                "Ean8Options",
+                "EncodeOptions",
+                "QrEncodeMode",
+                "QrErrorCorrectionLevel",
+                "QrOptions",
+                "RenderOptions",
+                "ResolvedRenderOptions",
+                "UpcaOptions",
+                "UpceOptions"
+              ],
+              "source_path": "src/aspose_barcode_foss/options.py",
+              "source_sha256": "c22931cc798b4bbf3010929b50d9dde1ccf6de67e497f3ae741f27e00cdf9348"
+            },
+            {
+              "module": "aspose_barcode_foss.renderers",
+              "exports": [
+                "PdfRenderer",
+                "PngRenderer",
+                "Renderer",
+                "SvgRenderer"
+              ],
+              "source_path": "src/aspose_barcode_foss/renderers.py",
+              "source_sha256": "ec6ee0b0f8c992e07e8dd21d4fb59a38f5a7007aac75f83e3422498f188eca5a"
+            },
+            {
+              "module": "aspose_barcode_foss.result",
+              "exports": [
+                "Barcode"
+              ],
+              "source_path": "src/aspose_barcode_foss/result.py",
+              "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7"
+            }
+          ],
+          "classes": [
+            {
+              "name": "RenderOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.RenderOptions",
+              "bases": [],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "background_color",
+                  "kind": "typed_field",
+                  "surface": "background_color: str | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 119
+                },
+                {
+                  "name": "dpi",
+                  "kind": "typed_field",
+                  "surface": "dpi: int | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 114
+                },
+                {
+                  "name": "font_family",
+                  "kind": "typed_field",
+                  "surface": "font_family: str | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 122
+                },
+                {
+                  "name": "font_size",
+                  "kind": "typed_field",
+                  "surface": "font_size: float | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 123
+                },
+                {
+                  "name": "foreground_color",
+                  "kind": "typed_field",
+                  "surface": "foreground_color: str | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 118
+                },
+                {
+                  "name": "module_height",
+                  "kind": "typed_field",
+                  "surface": "module_height: float | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 116
+                },
+                {
+                  "name": "module_width",
+                  "kind": "typed_field",
+                  "surface": "module_width: float | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 115
+                },
+                {
+                  "name": "quiet_zone",
+                  "kind": "typed_field",
+                  "surface": "quiet_zone: float | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 117
+                },
+                {
+                  "name": "scale",
+                  "kind": "typed_field",
+                  "surface": "scale: float | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 113
+                },
+                {
+                  "name": "show_text",
+                  "kind": "typed_field",
+                  "surface": "show_text: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 121
+                },
+                {
+                  "name": "transparent_background",
+                  "kind": "typed_field",
+                  "surface": "transparent_background: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "RenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 120
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 110
+            },
+            {
+              "name": "Code128EncodeMode",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Code128EncodeMode",
+              "bases": [
+                "Enum"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "AUTO",
+                  "kind": "enum_member",
+                  "surface": "AUTO",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 12
+                },
+                {
+                  "name": "CODE_A",
+                  "kind": "enum_member",
+                  "surface": "CODE_A",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 13
+                },
+                {
+                  "name": "CODE_AB",
+                  "kind": "enum_member",
+                  "surface": "CODE_AB",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 16
+                },
+                {
+                  "name": "CODE_AC",
+                  "kind": "enum_member",
+                  "surface": "CODE_AC",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 17
+                },
+                {
+                  "name": "CODE_B",
+                  "kind": "enum_member",
+                  "surface": "CODE_B",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 14
+                },
+                {
+                  "name": "CODE_BC",
+                  "kind": "enum_member",
+                  "surface": "CODE_BC",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 18
+                },
+                {
+                  "name": "CODE_C",
+                  "kind": "enum_member",
+                  "surface": "CODE_C",
+                  "return_annotation": null,
+                  "declared_by": "Code128EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 15
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 9
+            },
+            {
+              "name": "PdfRenderer",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.PdfRenderer",
+              "bases": [
+                "Renderer"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "render",
+                  "kind": "method",
+                  "surface": "render(symbol, layout, options)",
+                  "return_annotation": "RenderedArtifact",
+                  "declared_by": "PdfRenderer",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+                  "source_sha256": "7628e1d07a6e6e284dda37021b8f4d1fe00e0b8125f960db40a4a19542806df4",
+                  "line": 15
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+              "source_sha256": "7628e1d07a6e6e284dda37021b8f4d1fe00e0b8125f960db40a4a19542806df4",
+              "line": 12
+            },
+            {
+              "name": "PngRenderer",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.PngRenderer",
+              "bases": [
+                "Renderer"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "render",
+                  "kind": "method",
+                  "surface": "render(symbol, layout, options)",
+                  "return_annotation": "RenderedArtifact",
+                  "declared_by": "PngRenderer",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/renderers/png.py",
+                  "source_sha256": "0070cd9e7d74a1e2864a4d75608b7c35c90a742e0981f7a021de54e611cfb9c1",
+                  "line": 39
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/renderers/png.py",
+              "source_sha256": "0070cd9e7d74a1e2864a4d75608b7c35c90a742e0981f7a021de54e611cfb9c1",
+              "line": 28
+            },
+            {
+              "name": "Renderer",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Renderer",
+              "bases": [
+                "ABC"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "render",
+                  "kind": "method",
+                  "surface": "render(symbol, layout, options)",
+                  "return_annotation": "RenderedArtifact",
+                  "declared_by": "Renderer",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/renderers/base.py",
+                  "source_sha256": "d5a3ee0687d12fa62404ba2f77d183c1874b17195e7f726080a8064afed01b32",
+                  "line": 17
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/renderers/base.py",
+              "source_sha256": "d5a3ee0687d12fa62404ba2f77d183c1874b17195e7f726080a8064afed01b32",
+              "line": 13
+            },
+            {
+              "name": "SvgRenderer",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.SvgRenderer",
+              "bases": [
+                "Renderer"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "render",
+                  "kind": "method",
+                  "surface": "render(symbol, layout, options)",
+                  "return_annotation": "RenderedArtifact",
+                  "declared_by": "SvgRenderer",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+                  "source_sha256": "4a9afdf1317f7cb7e5f8fbf60f0444952ea6136c11cccec191155b3959f4c73b",
+                  "line": 49
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+              "source_sha256": "4a9afdf1317f7cb7e5f8fbf60f0444952ea6136c11cccec191155b3959f4c73b",
+              "line": 46
+            },
+            {
+              "name": "BarcodeError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.BarcodeError",
+              "bases": [
+                "Exception"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 4
+            },
+            {
+              "name": "EncodingError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.EncodingError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 12
+            },
+            {
+              "name": "InvalidInputError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.InvalidInputError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 20
+            },
+            {
+              "name": "RenderingError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.RenderingError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 16
+            },
+            {
+              "name": "SymbologyNotFoundError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.SymbologyNotFoundError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 8
+            },
+            {
+              "name": "UnsupportedCapabilityError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.UnsupportedCapabilityError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 28
+            },
+            {
+              "name": "UnsupportedFeatureError",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.UnsupportedFeatureError",
+              "bases": [
+                "BarcodeError"
+              ],
+              "constructor": null,
+              "members": [],
+              "source_path": "src/aspose_barcode_foss/_internal/exceptions.py",
+              "source_sha256": "5e46a35132db7f5aa7744810773b2aa06b9492996290a17f258164496196f39d",
+              "line": 24
+            },
+            {
+              "name": "ResolvedRenderOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.ResolvedRenderOptions",
+              "bases": [],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "background_color",
+                  "kind": "typed_field",
+                  "surface": "background_color: str | None",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 136
+                },
+                {
+                  "name": "dpi",
+                  "kind": "typed_field",
+                  "surface": "dpi: int | None",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 131
+                },
+                {
+                  "name": "font_family",
+                  "kind": "typed_field",
+                  "surface": "font_family: str",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 139
+                },
+                {
+                  "name": "font_size",
+                  "kind": "typed_field",
+                  "surface": "font_size: float",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 140
+                },
+                {
+                  "name": "foreground_color",
+                  "kind": "typed_field",
+                  "surface": "foreground_color: str",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 135
+                },
+                {
+                  "name": "module_height",
+                  "kind": "typed_field",
+                  "surface": "module_height: float",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 133
+                },
+                {
+                  "name": "module_width",
+                  "kind": "typed_field",
+                  "surface": "module_width: float",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 132
+                },
+                {
+                  "name": "quiet_zone",
+                  "kind": "typed_field",
+                  "surface": "quiet_zone: float",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 134
+                },
+                {
+                  "name": "scale",
+                  "kind": "typed_field",
+                  "surface": "scale: float",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 130
+                },
+                {
+                  "name": "show_text",
+                  "kind": "typed_field",
+                  "surface": "show_text: bool",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 138
+                },
+                {
+                  "name": "transparent_background",
+                  "kind": "typed_field",
+                  "surface": "transparent_background: bool",
+                  "return_annotation": null,
+                  "declared_by": "ResolvedRenderOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 137
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 127
+            },
+            {
+              "name": "Barcode",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Barcode",
+              "bases": [],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "render",
+                  "kind": "method",
+                  "surface": "render(renderer, options)",
+                  "return_annotation": "RenderedArtifact",
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 27
+                },
+                {
+                  "name": "to_pdf",
+                  "kind": "method",
+                  "surface": "to_pdf(options)",
+                  "return_annotation": "bytes",
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 86
+                },
+                {
+                  "name": "to_png",
+                  "kind": "method",
+                  "surface": "to_png(options)",
+                  "return_annotation": "bytes",
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 74
+                },
+                {
+                  "name": "to_svg",
+                  "kind": "method",
+                  "surface": "to_svg(options)",
+                  "return_annotation": "str",
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 62
+                },
+                {
+                  "name": "default_render_options",
+                  "kind": "typed_field",
+                  "surface": "default_render_options: RenderOptions | None",
+                  "return_annotation": null,
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 25
+                },
+                {
+                  "name": "profile",
+                  "kind": "typed_field",
+                  "surface": "profile: SymbologyProfile",
+                  "return_annotation": null,
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 24
+                },
+                {
+                  "name": "symbol",
+                  "kind": "typed_field",
+                  "surface": "symbol: EncodedSymbol",
+                  "return_annotation": null,
+                  "declared_by": "Barcode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/result.py",
+                  "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+                  "line": 23
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/result.py",
+              "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7",
+              "line": 20
+            },
+            {
+              "name": "QrEncodeMode",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.QrEncodeMode",
+              "bases": [
+                "Enum"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "AUTO",
+                  "kind": "enum_member",
+                  "surface": "AUTO",
+                  "return_annotation": null,
+                  "declared_by": "QrEncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 31
+                },
+                {
+                  "name": "ALPHANUMERIC",
+                  "kind": "enum_member",
+                  "surface": "ALPHANUMERIC",
+                  "return_annotation": null,
+                  "declared_by": "QrEncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 33
+                },
+                {
+                  "name": "BYTE",
+                  "kind": "enum_member",
+                  "surface": "BYTE",
+                  "return_annotation": null,
+                  "declared_by": "QrEncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 34
+                },
+                {
+                  "name": "KANJI",
+                  "kind": "enum_member",
+                  "surface": "KANJI",
+                  "return_annotation": null,
+                  "declared_by": "QrEncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 35
+                },
+                {
+                  "name": "NUMERIC",
+                  "kind": "enum_member",
+                  "surface": "NUMERIC",
+                  "return_annotation": null,
+                  "declared_by": "QrEncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 32
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 28
+            },
+            {
+              "name": "QrErrorCorrectionLevel",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.QrErrorCorrectionLevel",
+              "bases": [
+                "Enum"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "H",
+                  "kind": "enum_member",
+                  "surface": "H",
+                  "return_annotation": null,
+                  "declared_by": "QrErrorCorrectionLevel",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 44
+                },
+                {
+                  "name": "L",
+                  "kind": "enum_member",
+                  "surface": "L",
+                  "return_annotation": null,
+                  "declared_by": "QrErrorCorrectionLevel",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 41
+                },
+                {
+                  "name": "M",
+                  "kind": "enum_member",
+                  "surface": "M",
+                  "return_annotation": null,
+                  "declared_by": "QrErrorCorrectionLevel",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 42
+                },
+                {
+                  "name": "Q",
+                  "kind": "enum_member",
+                  "surface": "Q",
+                  "return_annotation": null,
+                  "declared_by": "QrErrorCorrectionLevel",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 43
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 38
+            },
+            {
+              "name": "QrOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.QrOptions",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "encoding_mode",
+                  "kind": "typed_field",
+                  "surface": "encoding_mode: QrEncodeMode | str | None",
+                  "return_annotation": null,
+                  "declared_by": "QrOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 77
+                },
+                {
+                  "name": "error_correction_level",
+                  "kind": "typed_field",
+                  "surface": "error_correction_level: QrErrorCorrectionLevel | str | None",
+                  "return_annotation": null,
+                  "declared_by": "QrOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 74
+                },
+                {
+                  "name": "mask",
+                  "kind": "typed_field",
+                  "surface": "mask: int | None",
+                  "return_annotation": null,
+                  "declared_by": "QrOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 76
+                },
+                {
+                  "name": "version",
+                  "kind": "typed_field",
+                  "surface": "version: int | None",
+                  "return_annotation": null,
+                  "declared_by": "QrOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 75
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 71
+            },
+            {
+              "name": "Code39EncodeMode",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Code39EncodeMode",
+              "bases": [
+                "Enum"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "BASE",
+                  "kind": "enum_member",
+                  "surface": "BASE",
+                  "return_annotation": null,
+                  "declared_by": "Code39EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 24
+                },
+                {
+                  "name": "FULL_ASCII",
+                  "kind": "enum_member",
+                  "surface": "FULL_ASCII",
+                  "return_annotation": null,
+                  "declared_by": "Code39EncodeMode",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 25
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 21
+            },
+            {
+              "name": "Code39Options",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Code39Options",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "add_check_digit",
+                  "kind": "typed_field",
+                  "surface": "add_check_digit: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "Code39Options",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 67
+                },
+                {
+                  "name": "full_ascii",
+                  "kind": "typed_field",
+                  "surface": "full_ascii: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "Code39Options",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 66
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 63
+            },
+            {
+              "name": "EncodeOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.EncodeOptions",
+              "bases": [],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 48
+            },
+            {
+              "name": "UpceOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.UpceOptions",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "allow_check_digit_input",
+                  "kind": "typed_field",
+                  "surface": "allow_check_digit_input: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "UpceOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 106
+                },
+                {
+                  "name": "number_system",
+                  "kind": "typed_field",
+                  "surface": "number_system: str | None",
+                  "return_annotation": null,
+                  "declared_by": "UpceOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 105
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 102
+            },
+            {
+              "name": "Code128Options",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Code128Options",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "encode_mode",
+                  "kind": "typed_field",
+                  "surface": "encode_mode: Code128EncodeMode",
+                  "return_annotation": null,
+                  "declared_by": "Code128Options",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 59
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 56
+            },
+            {
+              "name": "Ean13Options",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Ean13Options",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "allow_check_digit_input",
+                  "kind": "typed_field",
+                  "surface": "allow_check_digit_input: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "Ean13Options",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 84
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 81
+            },
+            {
+              "name": "Ean8Options",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.Ean8Options",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "allow_check_digit_input",
+                  "kind": "typed_field",
+                  "surface": "allow_check_digit_input: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "Ean8Options",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 91
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 88
+            },
+            {
+              "name": "UpcaOptions",
+              "module": "aspose_barcode_foss",
+              "qualified_name": "aspose_barcode_foss.UpcaOptions",
+              "bases": [
+                "EncodeOptions"
+              ],
+              "constructor": null,
+              "members": [
+                {
+                  "name": "allow_check_digit_input",
+                  "kind": "typed_field",
+                  "surface": "allow_check_digit_input: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "UpcaOptions",
+                  "inherited": false,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 98
+                },
+                {
+                  "name": "eci_assignment_number",
+                  "kind": "typed_field",
+                  "surface": "eci_assignment_number: int | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 52
+                },
+                {
+                  "name": "gs1_enabled",
+                  "kind": "typed_field",
+                  "surface": "gs1_enabled: bool | None",
+                  "return_annotation": null,
+                  "declared_by": "EncodeOptions",
+                  "inherited": true,
+                  "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+                  "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+                  "line": 51
+                }
+              ],
+              "source_path": "src/aspose_barcode_foss/_internal/models/options.py",
+              "source_sha256": "9cd27833d4ea116278d1fbf07e7f45f05619904ad19d16d8864e9fd498ef272f",
+              "line": 95
+            }
+          ],
+          "functions": [
+            {
+              "module": "aspose_barcode_foss",
+              "name": "code128",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "code39",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "code39ext",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "ean13",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "ean8",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "generate",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "qr",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "upca",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            },
+            {
+              "module": "aspose_barcode_foss",
+              "name": "upce",
+              "return_class": "aspose_barcode_foss.result:Barcode",
+              "source_path": "src/aspose_barcode_foss/api.py",
+              "source_sha256": "84bc8326aa7a7c9f4982cdb2f72722ab45e5bb631db900c415562b877eabef23"
+            }
+          ],
+          "presentation_exclusions": [],
+          "content_sha256": "270c2cce2f9ebcaaeb52365801bad165312410555be8d0ff368825ea91fd704e"
+        },
+        "projection_truncated": false
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.api_reference"
+      ]
+    },
+    {
+      "fact_id": "development.assets:repository-inventory",
+      "field": "development.assets",
+      "value": {
+        "tests": {
+          "count": 48,
+          "inventory_sha256": "fe87c933049db7ea35b06a4c42780b3ded536c7004705b1f23fa0ec79a5c4c5d",
+          "representative_paths": [
+            {
+              "path": "tests/__init__.py",
+              "sha256": "302d382bc654f769424047e1ca8a93ae9c1e7a3e8330df39451445accc502970"
+            },
+            {
+              "path": "tests/api/test_api_entrypoints.py",
+              "sha256": "efa6ec0a46dda462d5a7838f9c0e603412674bdf490b3f3789df89920d1052c5"
+            },
+            {
+              "path": "tests/api/test_barcode_service.py",
+              "sha256": "62bef2d5e7022bb32bef9d2d94c2fc0b0e1af55a4227a14365ef7bc5f84cfa44"
+            },
+            {
+              "path": "tests/api/test_code128_api_success.py",
+              "sha256": "6317e889ccc484e6182e2b8ff007e2a525c484fda6ddfce1096aa8c370eeda6b"
+            },
+            {
+              "path": "tests/api/test_symbology_registry.py",
+              "sha256": "f606b72ae97659cd4beba722fa8ce66560293e977e8f9e365682b619cfc0b72b"
+            },
+            {
+              "path": "tests/conftest.py",
+              "sha256": "0806a6a8b8ef46fe2d6e4d4b524bb67d97916c787eec2dc0ff1ac19327a9c753"
+            },
+            {
+              "path": "tests/encoding/__init__.py",
+              "sha256": "dcc36f50141cfc08f17a575e37530ff5272e25b73276e5193c0ec14261c7233c"
+            },
+            {
+              "path": "tests/encoding/test_code128_golden_vectors.py",
+              "sha256": "8c0f7075a5b0fb1683819f09f4cbf382482589c85783edd316522942ed7da625"
+            }
+          ]
+        }
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://tests/__init__.py,tests/api/test_api_entrypoints.py,tests/api/test_barcode_service.py,tests/api/test_code128_api_success.py,tests/api/test_symbology_registry.py,tests/conftest.py,tests/encoding/__init__.py,tests/encoding/test_code128_golden_vectors.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.development"
+      ]
+    },
+    {
+      "fact_id": "development.commands:repository-guidance",
+      "field": "development.commands",
+      "value": {
+        "entries": [
+          {
+            "kind": "editable_install",
+            "command": "python -m pip install -e .",
+            "sources": [
+              {
+                "path": "pyproject.toml",
+                "sha256": "c5a5d0c2a03aa81d7c1d78a7cb43d6ba7b4a0be0db4b631a9c4b5df22ea0aa2f"
+              }
+            ],
+            "evidence_kind": "source_derived",
+            "execution_verified": false
+          }
+        ]
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.development",
+        "readme.contributing"
+      ]
+    },
+    {
+      "fact_id": "python.distribution:pyproject-manifest",
+      "field": "python.distribution",
+      "value": {
+        "manifest_path": "pyproject.toml",
+        "requires_python": ">=3.12",
+        "runtime_dependencies": [
+          "Pillow>=10.1.0"
+        ],
+        "development_status": "Beta",
+        "typed_classifier": true,
+        "typed_marker": {
+          "path": "src/aspose_barcode_foss/py.typed",
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        }
+      },
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml,src/aspose_barcode_foss/py.typed",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.release"
+      ]
+    },
+    {
+      "fact_id": "repository.examples:repository-inventory",
+      "field": "repository.examples",
+      "value": {
+        "files": [
+          {
+            "path": "examples/all_symbologies.py",
+            "sha256": "b63145876b4625fb755a2801f9e19bcb97e00fabf027f7685a41831e88a65882",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/error_handling.py",
+            "sha256": "4c694454f8747beee291f958ec68678765bf8d7c4046ae34c2c73c06899678ec",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/quickstart.py",
+            "sha256": "bf37474e551ce57248386b34bed18de70781976a586134b5f04efb71a7090d94",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/render_options.py",
+            "sha256": "753dc105e2f9f8db53b868f2ea5aa2666586a93e9ef790bb77fd3ea9644750f5",
+            "execution_verified": false
+          },
+          {
+            "path": "examples/README.md",
+            "sha256": "34c1e7a4f4cf3453ae107c7bd18672a04201894c74fe9c7acf42498ba9e7ac61",
+            "execution_verified": false
+          }
+        ],
+        "execution_policy": "inventory_only",
+        "inline_examples": [
+          {
+            "title": "Quick Start",
+            "code": "from aspose_barcode_foss import code128\n\nbarcode = code128(\"Hello-World\")\nsvg = barcode.to_svg()       # -> str\npng = barcode.to_png()       # -> bytes",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128"
+            ]
+          },
+          {
+            "title": "Quick Start",
+            "code": "with open(\"barcode.svg\", \"w\", encoding=\"utf-8\") as f:\n    f.write(barcode.to_svg())\n\nwith open(\"barcode.png\", \"wb\") as f:\n    f.write(barcode.to_png())",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128"
+            ]
+          },
+          {
+            "title": "Quick Start",
+            "code": "from aspose_barcode_foss import qr\n\npng = qr(\"https://example.com\").to_png()",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128",
+              "from aspose_barcode_foss import qr"
+            ]
+          },
+          {
+            "title": "Supported Symbologies",
+            "code": "from aspose_barcode_foss import generate\n\nbarcode = generate(\"code128\", \"ABC-123\")\nbarcode = generate(\"qr\", \"https://example.com\")",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import generate"
+            ]
+          },
+          {
+            "title": "Render Options",
+            "code": "from aspose_barcode_foss import code128, RenderOptions\n\nbarcode = code128(\"Hello-World\")\nsvg = barcode.to_svg(options=RenderOptions(scale=2.0, show_text=True))\npng = barcode.to_png(options=RenderOptions(dpi=300, module_width=3.0))",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128, RenderOptions"
+            ]
+          },
+          {
+            "title": "Code 128",
+            "code": "from aspose_barcode_foss import code128, Code128Options, Code128EncodeMode\n\n# AUTO (default) selects the optimal Code Set sequence.\nbarcode = code128(\"Mixed123ABC\", encode=Code128Options(encode_mode=Code128EncodeMode.AUTO))\n\n# Force a specific Code Set.\nbarcode = code128(\"12345678\", encode=Code128Options(encode_mode=Code128EncodeMode.CODE_C))",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128, Code128Options, Code128EncodeMode"
+            ]
+          },
+          {
+            "title": "QR Code",
+            "code": "from aspose_barcode_foss import qr, QrOptions, QrErrorCorrectionLevel, QrEncodeMode\n\nbarcode = qr(\n    \"PAYLOAD\",\n    encode=QrOptions(\n        error_correction_level=QrErrorCorrectionLevel.H,  # L / M / Q / H\n        version=None,                                      # 1-40, or None to auto-fit\n        mask=None,                                         # 0-7, or None to auto-select\n        encoding_mode=QrEncodeMode.AUTO,                   # AUTO / NUMERIC / ALPHANUMERIC / BYTE / KANJI\n    ),\n)",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import qr, QrOptions, QrErrorCorrectionLevel, QrEncodeMode"
+            ]
+          },
+          {
+            "title": "Code 39",
+            "code": "from aspose_barcode_foss import code39, code39ext, Code39Options\n\n# Optional modulo-43 check character.\nbarcode = code39(\"ABC-123\", encode=Code39Options(add_check_digit=True))\n\n# code39ext() encodes the full ASCII set.\nbarcode = code39ext(\"Item #42\")",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code39, code39ext, Code39Options"
+            ]
+          },
+          {
+            "title": "EAN / UPC",
+            "code": "from aspose_barcode_foss import ean13, Ean13Options\n\n# Pass 12 digits and let the check digit be computed.\nbarcode = ean13(\"590123412345\")\n\n# Or pass all 13 digits and opt in to validating the supplied check digit.\nbarcode = ean13(\"5901234123457\", encode=Ean13Options(allow_check_digit_input=True))",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import ean13, Ean13Options"
+            ]
+          },
+          {
+            "title": "Error Handling",
+            "code": "from aspose_barcode_foss import code128, generate, InvalidInputError, SymbologyNotFoundError\n\ntry:\n    code128(\"\")                       # empty input\nexcept InvalidInputError as e:\n    print(e)\n\ntry:\n    generate(\"datamatrix\", \"data\")    # unknown symbology\nexcept SymbologyNotFoundError as e:\n    print(e)",
+            "language": "python",
+            "static_api_verified": true,
+            "execution_verified": false,
+            "evidence_modules": [
+              "aspose_barcode_foss"
+            ],
+            "validation_context_imports": [
+              "from aspose_barcode_foss import code128, generate, InvalidInputError, SymbologyNotFoundError"
+            ]
+          }
+        ],
+        "withheld_inline_examples": [
+          {
+            "title": "Custom Renderer",
+            "code": "from aspose_barcode_foss import code128, SvgRenderer, RenderOptions\n\nrenderer = SvgRenderer()\nbarcode = code128(\"Hello-World\")\nartifact = barcode.render(renderer, options=RenderOptions(scale=3.0))\nsvg = artifact.data",
+            "language": "python",
+            "static_api_verified": false,
+            "execution_verified": false,
+            "validation_reason": "unresolved_chained_product_member:Barcode.data",
+            "evidence_modules": []
+          }
+        ],
+        "result_assets": [],
+        "readme_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
+        "fixture_inventory": {
+          "schema_version": 1,
+          "scan_status": "complete",
+          "scan_root": ".",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "tree_id": "cea837c16bd700d2acb429cd0852d591f6654410",
+          "inventory_sha256": "7e15f627e9d2bae9e90d352d9a170ae98bf33e8d7f818a85cd888c39a5a65c59",
+          "tracked_file_count": 136,
+          "recognized_extensions": [
+            ".3ds",
+            ".dae",
+            ".doc",
+            ".docx",
+            ".eml",
+            ".eot",
+            ".fbx",
+            ".glb",
+            ".gltf",
+            ".htm",
+            ".html",
+            ".jpeg",
+            ".jpg",
+            ".mbox",
+            ".msg",
+            ".obj",
+            ".one",
+            ".otf",
+            ".pdf",
+            ".ply",
+            ".png",
+            ".ppt",
+            ".pptx",
+            ".stl",
+            ".svg",
+            ".tif",
+            ".tiff",
+            ".ttf",
+            ".woff",
+            ".woff2",
+            ".xls",
+            ".xlsx"
+          ],
+          "fixture_paths": [],
+          "failure_reason": null
+        }
+      },
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,examples/README.md,examples/all_symbologies.py,examples/error_handling.py,examples/quickstart.py,examples/render_options.py,git-tree:cea837c16bd700d2acb429cd0852d591f6654410,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.examples"
+      ]
+    },
+    {
+      "fact_id": "product.capabilities:repository-evidence",
+      "field": "product.capabilities",
+      "value": [
+        "Code 128 generation with automatic optimal Code Set switching.",
+        "Code 39 (base 43-character set) and Extended (full ASCII) generation.",
+        "EAN-13, EAN-8, UPC-A, and UPC-E generation with optional check digit input.",
+        "SVG rendering for all supported symbologies.",
+        "PNG rendering for all supported symbologies.",
+        "Custom renderer support via render() method."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/aspose_barcode_foss/_internal/encoders/code128.py,src/aspose_barcode_foss/_internal/encoders/code39.py,src/aspose_barcode_foss/_internal/encoders/ean13.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-08-11T11:19:08.541931+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": [
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Code 128 generation with automatic optimal Code Set switching.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/api.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 45,
+          "anchor": "code128",
+          "exact_excerpt": "def code128(",
+          "context_excerpt": "render=render,\n    )\n\n\ndef code128(\n    data: str | bytes,\n    *,\n    encode: Code128Options | None = None,\n    render: RenderOptions | None = None,",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Code 39 (base 43-character set) and Extended (full ASCII) generation.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/api.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 65,
+          "anchor": "code39ext",
+          "exact_excerpt": "def code39ext(",
+          "context_excerpt": "\"\"\"Create a Code 39 (base, 43-character set) barcode.\"\"\"\n    return generate(\"code39\", data, encode=encode, render=render)\n\n\ndef code39ext(\n    data: str | bytes,\n    *,\n    encode: Code39Options | None = None,\n    render: RenderOptions | None = None,",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "EAN-13, EAN-8, UPC-A, and UPC-E generation with optional check digit input.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/api.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 75,
+          "anchor": "ean13",
+          "exact_excerpt": "def ean13(",
+          "context_excerpt": "\"\"\"Create an Extended / Full-ASCII Code 39 barcode.\"\"\"\n    return generate(\"code39ext\", data, encode=encode, render=render)\n\n\ndef ean13(\n    data: str | bytes,\n    *,\n    encode: Ean13Options | None = None,\n    render: RenderOptions | None = None,",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "SVG rendering for all supported symbologies.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/result.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 62,
+          "anchor": "to_svg",
+          "exact_excerpt": "def to_svg(",
+          "context_excerpt": "layout=layout,\n            options=resolved_options,\n        )\n\n    def to_svg(\n        self,\n        *,\n        options: RenderOptions | None = None,\n    ) -> str:",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "PNG rendering for all supported symbologies.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/result.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 74,
+          "anchor": "to_png",
+          "exact_excerpt": "def to_png(",
+          "context_excerpt": "msg = \"SVG renderer returned an invalid artifact\"\n            raise RenderingError(msg)\n        return artifact.data\n\n    def to_png(\n        self,\n        *,\n        options: RenderOptions | None = None,\n    ) -> bytes:",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        },
+        {
+          "schema_version": 1,
+          "fact_id": "product.capabilities:repository-evidence",
+          "claim_text": "Custom renderer support via render() method.",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "source_path": "src/aspose_barcode_foss/result.py",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "observed_at": "2026-08-11T11:19:08.541931+00:00",
+          "line_number": 27,
+          "anchor": "render",
+          "exact_excerpt": "def render(",
+          "context_excerpt": "symbol: EncodedSymbol\n    profile: SymbologyProfile\n    default_render_options: RenderOptions | None = None\n\n    def render(\n        self,\n        renderer: Renderer,\n        *,\n        options: RenderOptions | None = None,",
+          "accepted": true,
+          "reason": "observed positive_implementation matches expected positive_implementation"
+        }
+      ],
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.description",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.formats:native-direction-evidence",
+      "field": "product.formats",
+      "value": [
+        "Output format: PNG (image/png)",
+        "Output format: SVG (image/svg+xml)"
+      ],
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "repository://src/aspose_barcode_foss/result.py#L62;repository://src/aspose_barcode_foss/result.py#L74",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.capabilities",
+        "metadata.topics"
+      ]
+    },
+    {
+      "fact_id": "product.limitations:source-guidance",
+      "field": "product.limitations",
+      "value": [
+        {
+          "statement": "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 86,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "A fixed 3:1 wide:narrow ratio is used; the spec's configurable 2.0:1–3.0:1 range is not implemented.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 107,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "The nominal 1X inter-character gap is used; the spec's gap-widening allowances are not implemented.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 108,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; enforcement is not implemented.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 109,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "Bar/space compensation (ISO/IEC 15420:2009 4.3.6, Table 8) is not implemented.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 192,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "text layout is not implemented for symbology",
+          "path": "src/aspose_barcode_foss/result.py",
+          "line": 51,
+          "source_sha256": "0c3ff42e087fc7d579143c72003e68fecefedb3e5c3697d81a5f0936a9e060e7"
+        },
+        {
+          "statement": "GS1, ECI, bytes / binary input, FNC handling, Code Set A/C, Shift, and code-set switching are unsupported.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 84,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "Only the SVG backend is implemented for Code 128 .",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 85,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "GS1, ECI, bytes / binary input, and structured append are unsupported.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 105,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        },
+        {
+          "statement": "Only the SVG backend is implemented for Code 39.",
+          "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+          "line": 106,
+          "source_sha256": "61f0e16a532f8b0b1155bb5f459c88fed699f386e9645c25ac907a33b680dc97"
+        }
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://src/aspose_barcode_foss/_internal/bootstrap.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.limitations"
+      ]
+    },
+    {
+      "fact_id": "product.audience:platform-derived",
+      "field": "product.audience",
+      "value": [
+        "Developers using Python."
+      ],
+      "source": {
+        "source_type": "mechanical_manifest",
+        "location": "repository://pyproject.toml",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.platforms:manifest"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "product.problems_solved:capability-derived",
+      "field": "product.problems_solved",
+      "value": [
+        "Code 128 generation with automatic optimal Code Set switching.",
+        "Code 39 (base 43-character set) and Extended (full ASCII) generation.",
+        "EAN-13, EAN-8, UPC-A, and UPC-E generation with optional check digit input.",
+        "SVG rendering for all supported symbologies."
+      ],
+      "source": {
+        "source_type": "mechanical_repository",
+        "location": "repository://README.md,src/aspose_barcode_foss/_internal/encoders/code128.py,src/aspose_barcode_foss/_internal/encoders/code39.py,src/aspose_barcode_foss/_internal/encoders/ean13.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-08-11T11:19:08.541931+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [
+        "product.capabilities:repository-evidence"
+      ],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.opening",
+        "metadata.description"
+      ]
+    },
+    {
+      "fact_id": "example.minimal:compiled-salvaged-example",
+      "field": "example.minimal",
+      "value": {
+        "language": "python",
+        "class_name": "readme_example",
+        "code": "from aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n",
+        "verification_outcome": "SOURCE_BUILD_VERIFIED",
+        "verification_detail": "pinned package installed and exact public Python imports/example executed",
+        "repairable_by_example_change": false,
+        "blocked_category": "agent_fixable",
+        "verified_public_symbols": [
+          "aspose_barcode_foss.SvgRenderer"
+        ],
+        "input_fixture_bindings": [],
+        "public_api_sha256": "826962215c25c51446cbe16b9f64ea57c382269ef6786ca7e6be8ebfe19ea0c1",
+        "python_package": {
+          "schema_version": 1,
+          "manifest_path": "pyproject.toml",
+          "distribution_name": "aspose-barcode-foss",
+          "version": "0.1.0",
+          "requires_python": ">=3.12",
+          "source_root": "src",
+          "package_paths": [
+            "aspose_barcode_foss",
+            "aspose_barcode_foss/_internal",
+            "aspose_barcode_foss/_internal/encoders",
+            "aspose_barcode_foss/_internal/models",
+            "aspose_barcode_foss/_internal/parsers",
+            "aspose_barcode_foss/_internal/profiles",
+            "aspose_barcode_foss/_internal/renderers",
+            "aspose_barcode_foss/_internal/standards",
+            "aspose_barcode_foss/_internal/text",
+            "aspose_barcode_foss/_internal/standards/qr"
+          ],
+          "canonical_import": "aspose_barcode_foss",
+          "namespace_packages": [],
+          "source_sha256": "24c708053f50f17ee521c6fb206057d06ecf29e76f1144cfec6a71ad908a3a49"
+        },
+        "typescript_package": null,
+        "rust_package": null,
+        "rust_formats": [],
+        "rust_source_dependency": null,
+        "acquisition_dependency_pins": [
+          "python_package_source_sha256=24c708053f50f17ee521c6fb206057d06ecf29e76f1144cfec6a71ad908a3a49",
+          "python_dependency_inventory_sha256=30c7d1d5a56730eba3dc3267346f7ee59f4187c633d02f21fb8ad068d4729807",
+          "python_dependency_pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl_sha256=78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91",
+          "python_dependency_setuptools-83.0.0-py3-none-any.whl_sha256=29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3"
+        ],
+        "python_execution_mode": "installed_package",
+        "python_source_install_failure": null,
+        "compiled_consumer": null
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "local-verifier://example.minimal",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": null
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.example"
+      ]
+    },
+    {
+      "fact_id": "installation.verified_acquisition:disposable-source-build",
+      "field": "installation.verified_acquisition",
+      "value": {
+        "schema_version": 1,
+        "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "ecosystem": "python",
+        "method": "source_build",
+        "outcome": "SOURCE_BUILD_VERIFIED",
+        "detail": "pinned package installed and exact public Python imports/example executed",
+        "coordinate": {
+          "name": "aspose-barcode-foss"
+        },
+        "registry_receipt": {
+          "schema_version": 1,
+          "resolver_ecosystem": "python",
+          "registry_label": "PyPI",
+          "coordinate": {
+            "name": "aspose-barcode-foss"
+          },
+          "request_url": "https://pypi.org/pypi/aspose-barcode-foss/json",
+          "status_code": 404,
+          "response_sha256": "b82014934f66beeb9e05a37f65357c4b50db0349d25d68d818ed0319dd4feb40",
+          "retrieved_at": "2026-08-11T11:19:08.497415Z",
+          "found": false,
+          "detail": "PyPI: aspose-barcode-foss NOT FOUND (404)"
+        },
+        "source_build_receipt": {
+          "schema_version": 1,
+          "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+          "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "argv": [
+            "python",
+            "-I",
+            ".readme-agent-consumer-driver.py"
+          ],
+          "input_sha256": "2213ed156e858455f32f61c629c87449c78d7f107b9226ec4f271b31f3496d6e",
+          "policy_sha256": "5426d0215229763b42976fb0658e41ae092726c6cc7e81d6905a15220e282f44",
+          "immutable_image": "python@sha256:a9e4190f02729f01e5b3719bd8b3ea0f8d9350dc17d01a1ce1ca6e3fbfcf7a99",
+          "network_mode": "none",
+          "dependency_pins": [
+            "container_image=python@sha256:a9e4190f02729f01e5b3719bd8b3ea0f8d9350dc17d01a1ce1ca6e3fbfcf7a99",
+            "input_sha256=2213ed156e858455f32f61c629c87449c78d7f107b9226ec4f271b31f3496d6e",
+            "public_api_sha256=826962215c25c51446cbe16b9f64ea57c382269ef6786ca7e6be8ebfe19ea0c1",
+            "python_dependency_inventory_sha256=30c7d1d5a56730eba3dc3267346f7ee59f4187c633d02f21fb8ad068d4729807",
+            "python_dependency_pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl_sha256=78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91",
+            "python_dependency_setuptools-83.0.0-py3-none-any.whl_sha256=29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3",
+            "python_package_source_sha256=24c708053f50f17ee521c6fb206057d06ecf29e76f1144cfec6a71ad908a3a49",
+            "source_revision=53f2c3350b8171f2c8275e7b1a178f218695ac45"
+          ],
+          "cleanup_complete": true,
+          "return_code": 0,
+          "truth_eligible": true
+        },
+        "truth_eligible": true
+      },
+      "source": {
+        "source_type": "mechanical_test",
+        "location": "https://pypi.org/pypi/aspose-barcode-foss/json",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "retrieved_at": "2026-08-11T11:19:08.541931+00:00"
+      },
+      "verification_state": "verified",
+      "authoritative_owner": "repository-owner",
+      "confidence": 1.0,
+      "supporting_fact_ids": [],
+      "conflicts": [],
+      "evidence_assessments": null,
+      "affected_surfaces": [
+        "readme.installation",
+        "readme.example"
+      ]
+    }
+  ],
+  "selected_fact_ids": {
+    "product.identity": "product.identity:manifest-and-registry",
+    "product.audience": "product.audience:platform-derived",
+    "product.problems_solved": "product.problems_solved:capability-derived",
+    "product.capabilities": "product.capabilities:repository-evidence",
+    "product.formats": "product.formats:native-direction-evidence",
+    "product.platforms": "product.platforms:manifest",
+    "installation.coordinates": "installation.coordinates:manifest",
+    "installation.verified_acquisition": "installation.verified_acquisition:disposable-source-build",
+    "example.minimal": "example.minimal:compiled-salvaged-example",
+    "documentation.links": "documentation.links:governed-aspose-org-catalog",
+    "release.state": "release.state:manifest-and-registry",
+    "product.limitations": "product.limitations:source-guidance",
+    "product.compatibility": "product.compatibility:manifest",
+    "product.license": "product.license:license-file",
+    "support.routes": "support.routes:primary",
+    "relationship.commercial_foss": "relationship.commercial_foss:primary",
+    "api.public_surface": "api.public_surface:python-exports",
+    "development.assets": "development.assets:repository-inventory",
+    "development.commands": "development.commands:repository-guidance",
+    "python.distribution": "python.distribution:pyproject-manifest",
+    "repository.examples": "repository.examples:repository-inventory"
+  },
+  "package_root_roles": {
+    "schema_version": 1,
+    "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+    "selection_state": "selected",
+    "selected_product_manifest_path": "pyproject.toml",
+    "selection_rationale": [
+      "the sole non-secondary root matching the registry ecosystem was selected",
+      "manifest identity matches registry product family",
+      "manifest identity declares the FOSS package",
+      "manifest declares a distributable package identity",
+      "repository-root manifest"
+    ],
+    "roots": [
+      {
+        "path": ".",
+        "ecosystem": "python",
+        "manifest_path": "pyproject.toml",
+        "role": "product",
+        "confidence": 1.0,
+        "parsed_identity": {
+          "name": "aspose-barcode-foss",
+          "version": "0.1.0"
+        },
+        "referenced_manifest_paths": [],
+        "rationale": [
+          "selected as the canonical distributed product manifest",
+          "the sole non-secondary root matching the registry ecosystem was selected",
+          "manifest identity matches registry product family",
+          "manifest identity declares the FOSS package",
+          "manifest declares a distributable package identity",
+          "repository-root manifest"
+        ]
+      }
+    ]
+  }
+}
