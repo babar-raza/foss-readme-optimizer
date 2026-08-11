@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Aspose.3D Python README before cohort fan-out."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Aspose.3D receipts are reused and only invalid dependencies rerun",
+    "Aspose.3D is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Aspose.3D README is shown before the remaining Python cohort begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/no-op-proof.json",
+    "runs/multi-agent/L8-VPY-03E-3D-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "3c256b2c50feb0e936dd0489a6fea87d22f222f51a7312109395405af681bd18",
+  "scoreboard_after_sha256": "3c256b2c50feb0e936dd0489a6fea87d22f222f51a7312109395405af681bd18",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "Aspose.3D's acceptance chain was regressed to stale by two shared-code fixes made while processing Cells (commits 55d520aa7 expired-claim narrowing preservation, 93d41ebfd Cells format corroborator), which advanced the shared fact-acceptance contract for every Python repository even though neither fix touches Aspose.3D's own format family.",
+  "contribution_boundary_after": "Aspose.3D Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (5735c3f66e57...), independently PASS-verified a third time, including a positive re-derivation of current_fact_acceptance_contract(ecosystem='python', family='3d') confirming the bundle genuinely reflects post-fix code state. This closes the five-repository Cells-shared-code-reopen re-verification pass (PDF, Page, Note, Aspose.3D, and BarCode remaining); mission graph advances to L8-VPY-03-ALL-PYTHON-VERIFIED-POC.",
+  "independently_verified": true
+}
