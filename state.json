@@ -800,7 +800,7 @@
       ],
       "proposed_fingerprints": {
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "5f46d8cecd42cbb530f3d2fff6adbe3c48bf67764c7dded33d192fdab20eafe5",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH": "6b3a77ff6f60fd0f01867ffa1311ea9455d376df93bd28d4e6ddb7caca2ff09d"
       },
       "replans": [
@@ -1608,6 +1608,37 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-11T13:25:18+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/supervisor/local_poc_evidence.py",
+            "tests/unit/test_local_poc_evidence.py",
+            "src/readme_agent/readme/capability_semantics.py",
+            "tests/unit/test_readme_header_visual.py",
+            "src/readme_agent/supervisor/mission_control.py",
+            "tests/unit/test_mission_control.py",
+            "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json",
+            "logs/2026-08-11.md"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "5f46d8cecd42cbb530f3d2fff6adbe3c48bf67764c7dded33d192fdab20eafe5",
+          "rationale": "Move the causal owner from repeated candidate/review regeneration cycling to the acceptance-chain rebinding boundary itself: write_local_poc_readme_candidate's same_candidate check keyed only on candidate_hash, so a shared rendering/component change (commit e0b26d8c3's Mermaid mixed-endpoint width fix) that left the composed README bytes unchanged still preserved the prior AGENT_APPROVED/NO_OP_PROVEN lifecycle while silently stamping the manifest's candidate_stage_dependency_key forward -- producing exactly the deterministic_manifest_dependency_key_mismatch FAIL the independent receipt reported, and exactly matching the repeated NO_OP_PROVEN/invalidate/regenerate cycles visible across this task's transition history. same_candidate now also requires the stored dependency key to match, so a key change reopens the bundle at CANDIDATE_GENERATED regardless of byte equality (commit 20faecced). Also fixed a related PDF Mermaid capability-normalization duplicate blocking the presentation gate (commit f02f7642a) and a claim_next_task() defect that discarded expired-claim recovery whenever the requested task was not immediately reclaimable, which was independently keeping this exact task stuck under a claim expired since 2026-08-11T01:44:24Z (commit e203c26f4).",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         }
       ]
     },
@@ -1827,7 +1858,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T08:23:35.860368+00:00",
+    "last_evaluated_at": "2026-08-11T08:26:16.299548+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -1929,7 +1960,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+      "core_contribution": {
+        "kind": "visible_deliverable",
+        "summary": "Deliver the current PDF Python README before any further Python fan-out."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-README"
+      ],
+      "immediate_goal_id": "DELIVERY-PY-PDF-CURRENT",
+      "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
+      "repository_scope": [
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+      "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -9716,7 +9764,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 982,
+  "state_version": 983,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
