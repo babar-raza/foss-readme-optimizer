@@ -3,8 +3,8 @@
   "content_assurance": "repository_verified",
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
   "immutable_base_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-  "facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
-  "template_sha256": "d2da6a240c8544f9e4989801d0e6fa3323bd647964639598f5b6eb23ae6feebc",
+  "facts_hash": "e6c1246a312d272a90599585b493add3a7b693dcf8bd0fa41da8e6714cc3a704",
+  "template_sha256": "d34dce12847762005697c20339d51f48b62ec1787dccbdb003f929ca390eb655",
   "source_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
   "adoption": {
     "marker_schema_version": null,
@@ -274,7 +274,7 @@
   "claim_accountability": {
     "schema_version": 1,
     "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-    "facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
+    "facts_hash": "e6c1246a312d272a90599585b493add3a7b693dcf8bd0fa41da8e6714cc3a704",
     "source_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
     "candidate_sha256": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
     "claims": [
@@ -1458,11 +1458,16 @@
         "content_sha256": "6defa1521ca54a98447f694c6c9d35a71371d275e01503d3d7bee7fef325aa4c",
         "current_disposition": "preserve",
         "accepted_fact_ids": [
-          "product.limitations:repository-extension"
+          "product.identity:manifest-and-registry",
+          "product.limitations:repository-extension",
+          "python.distribution:pyproject-manifest",
+          "relationship.commercial_foss:primary",
+          "repository.documentation_assets:root-documents"
         ],
         "accepted_fact_coordinates": [],
         "configured_standard_ids": [],
         "authoritative_owners": [
+          "portfolio-policy-owner",
           "repository-owner"
         ],
         "equivalence_group_id": null,
@@ -1470,9 +1475,9 @@
         "equivalent_candidate_claims": [],
         "equivalence_normalization_version": null,
         "survives_in_candidate": false,
-        "expected_disposition": "verified_equivalence",
+        "expected_disposition": "verified_obligation_replacement",
         "currently_accountable": true,
-        "rationale": "The exact source claim is bound to an exact independently accountable candidate claim with the same accepted facts; final validation rejects surviving bytes when any exact source placement owns that candidate claim."
+        "rationale": "The exact inherited claim is replaced by a mandatory golden-contract slot whose exact candidate span is bound to accepted repository facts."
       },
       {
         "claim_id": "source:claim:5364:2a6318fb3384e8ce",
@@ -3271,7 +3276,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],
@@ -3307,7 +3312,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],
@@ -3350,7 +3355,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],
@@ -6335,7 +6340,7 @@
           "fact_id": "installation.verified_acquisition:disposable-source-build",
           "field": "installation.verified_acquisition",
           "path": "/verified-rendered-acquisition",
-          "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+          "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
           "normalization_version": "structured-fact-coordinate-v1"
         }
       ],
@@ -6359,7 +6364,7 @@
           "fact_id": "installation.verified_acquisition:disposable-source-build",
           "field": "installation.verified_acquisition",
           "path": "/verified-rendered-acquisition",
-          "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+          "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
           "normalization_version": "structured-fact-coordinate-v1"
         }
       ],
@@ -6390,7 +6395,7 @@
           "fact_id": "installation.verified_acquisition:disposable-source-build",
           "field": "installation.verified_acquisition",
           "path": "/verified-rendered-acquisition",
-          "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+          "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
           "normalization_version": "structured-fact-coordinate-v1"
         }
       ],
@@ -9446,26 +9451,54 @@
       "source_byte_start": 5319,
       "source_byte_end": 5364,
       "content_sha256": "6defa1521ca54a98447f694c6c9d35a71371d275e01503d3d7bee7fef325aa4c",
-      "resolution": "verified_equivalence",
-      "obligation_id": null,
+      "resolution": "verified_obligation_replacement",
+      "obligation_id": "scope_and_limitations",
       "fact_ids": [
-        "product.limitations:repository-extension"
+        "product.identity:manifest-and-registry",
+        "product.limitations:repository-extension",
+        "python.distribution:pyproject-manifest",
+        "relationship.commercial_foss:primary",
+        "repository.documentation_assets:root-documents"
       ],
       "contradiction_fact_ids": [],
-      "replacement_provenance_ids": [],
-      "policy_corrections": [],
-      "candidate_claim_id": "claim:35262:c3ec5fca92464e13",
-      "candidate_byte_start": 35262,
-      "candidate_byte_end": 35344,
-      "candidate_content_sha256": "c3ec5fca92464e1360fa9010f5cc75e405948766c81083e3afc40eccd13200bc",
-      "evidence": [
-        "source-content-sha256:6defa1521ca54a98447f694c6c9d35a71371d275e01503d3d7bee7fef325aa4c",
-        "candidate-content-sha256:c3ec5fca92464e1360fa9010f5cc75e405948766c81083e3afc40eccd13200bc",
-        "candidate-provenance:template.section.scope_and_limitations.claim:283:c3ec5fca92464e13",
-        "accepted-fact:product.limitations:repository-extension",
-        "accepted-coordinate:product.limitations:repository-extension:/items/9676d4fd2fda6780:9676d4fd2fda678064f9100829f6525a34422f80035cab2cdfd4f08d936ed181"
+      "replacement_provenance_ids": [
+        "template.section.scope_and_limitations.claim:0:f96ddf06029b5558",
+        "template.section.scope_and_limitations.claim:197:ce436ecb2a11202f",
+        "template.section.scope_and_limitations.claim:283:c3ec5fca92464e13",
+        "template.section.scope_and_limitations.claim:365:9580faaa151806f1",
+        "template.section.scope_and_limitations.claim:458:9eb7a2b2ef2146fa",
+        "template.section.scope_and_limitations.claim:535:9700b0fa48622059",
+        "template.section.scope_and_limitations.claim:691:6f9bf738a4bbb8fb",
+        "template.section.scope_and_limitations.claim:805:a2aac234e8de2808",
+        "template.section.scope_and_limitations.claim:93:172dc743adeef2c5"
       ],
-      "rationale": "Bind this inherited limitation to one fact-bound canonical constraint instead of repeating the same boundary in preserved source detail."
+      "policy_corrections": [],
+      "candidate_claim_id": null,
+      "candidate_byte_start": null,
+      "candidate_byte_end": null,
+      "candidate_content_sha256": null,
+      "evidence": [
+        "source-claim:claim:5319:6defa1521ca54a98",
+        "source-content-sha256:6defa1521ca54a98447f694c6c9d35a71371d275e01503d3d7bee7fef325aa4c",
+        "obligation:scope_and_limitations",
+        "authority:verified-source-assurance:correction-candidate",
+        "authority:deterministic-claim-disposition:preserve",
+        "candidate-provenance:template.section.scope_and_limitations.claim:0:f96ddf06029b5558",
+        "candidate-provenance:template.section.scope_and_limitations.claim:197:ce436ecb2a11202f",
+        "candidate-provenance:template.section.scope_and_limitations.claim:283:c3ec5fca92464e13",
+        "candidate-provenance:template.section.scope_and_limitations.claim:365:9580faaa151806f1",
+        "candidate-provenance:template.section.scope_and_limitations.claim:458:9eb7a2b2ef2146fa",
+        "candidate-provenance:template.section.scope_and_limitations.claim:535:9700b0fa48622059",
+        "candidate-provenance:template.section.scope_and_limitations.claim:691:6f9bf738a4bbb8fb",
+        "candidate-provenance:template.section.scope_and_limitations.claim:805:a2aac234e8de2808",
+        "candidate-provenance:template.section.scope_and_limitations.claim:93:172dc743adeef2c5",
+        "accepted-fact:product.identity:manifest-and-registry",
+        "accepted-fact:product.limitations:repository-extension",
+        "accepted-fact:python.distribution:pyproject-manifest",
+        "accepted-fact:relationship.commercial_foss:primary",
+        "accepted-fact:repository.documentation_assets:root-documents"
+      ],
+      "rationale": "Limitations cannot be deferred or silently removed. The exact replacement slot is bound to selected, accepted repository facts under an explicit hash-bound correction range."
     },
     {
       "claim_id": "claim:5364:2a6318fb3384e8ce",
@@ -11011,7 +11044,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],
@@ -11035,7 +11068,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],
@@ -11066,7 +11099,7 @@
             "fact_id": "installation.verified_acquisition:disposable-source-build",
             "field": "installation.verified_acquisition",
             "path": "/verified-rendered-acquisition",
-            "value_sha256": "5e0e658b67e62fd70624b98654744d93a6971e5e4947b6e373aa2e5b22afde27",
+            "value_sha256": "fc3f0d0a17d8e4c005d47708fc80b46fa547ff3285ed96e712786f5f656bcfd0",
             "normalization_version": "structured-fact-coordinate-v1"
           }
         ],

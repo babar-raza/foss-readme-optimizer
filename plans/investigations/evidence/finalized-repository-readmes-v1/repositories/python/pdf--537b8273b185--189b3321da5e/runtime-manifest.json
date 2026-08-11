@@ -3,17 +3,17 @@
   "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
   "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
   "lifecycle_status": "NO_OP_PROVEN",
-  "facts_hash": "df82c2a51c7c40216acfb11a3cadba9a2cb240e3d72575daba9dceb0e35464cb",
+  "facts_hash": "e6c1246a312d272a90599585b493add3a7b693dcf8bd0fa41da8e6714cc3a704",
   "resolution_source": "deterministic_salvage",
   "prompt_hash": null,
-  "local_verification_contract_hash": "5cb0455cce6b047c6991426b6b9e6288e3a0183efae3156d914ea8eed9659689",
-  "fact_acceptance_contract_hash": "015a48ab77e84f1c67dc9bad28a99e4cb82ae7afac24a6bcad8ae4968be491cf",
+  "local_verification_contract_hash": "5a9e014eb7c80beb21aaa5a9db7e0a8bef7fa2ca65b6f36d1c7fa25adb8d671b",
+  "fact_acceptance_contract_hash": "951e1533dc17fb3a605147609f545bcea0a1d368aab7e5c857dfc994406da4f4",
   "fact_acceptance_component_hashes": {
     "acquisition_truth": "ab0d8351d3dd95277251a8e51cb04086649f4f29784291b692370b4fff6a1836",
     "classification_semantics": "15dc5774d8e53cb28ea3ab3d001c17a7e41debe6ecc663a5fad4c1153986075e",
     "conflict_semantics": "4c6e753e2d732ff60cf4ea017d7c84051a50a972155835e0de0ef4b962948fe1",
     "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
-    "drafting_and_example_selection": "6a414dd8e9d9a65ec1a126e2e33cea374a5ce4afab1f3bbf3e64e1b1852b0b79",
+    "drafting_and_example_selection": "44ca8705384cac7656d45df450caf10b4c7fb50a601d0e46415bf91f38aaf94f",
     "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
     "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
     "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
@@ -67,28 +67,28 @@
     "TRUSTED_REVIEWING": "b4078dbee6d17c76e8edf19b28be1249da35f451e518e086cd1d4e5c4411538e"
   },
   "llm_accounting_status": "EXACT",
-  "llm_call_count": 4,
+  "llm_call_count": 3,
   "llm_call_ids": [
-    "5e5e24b9-038f-4f57-8c3f-6b3c9c5b8a6c",
-    "d097090e-2c98-47b3-b8f9-440335f8cd90",
-    "e51fa0d0-90f8-49d7-be62-8e48394c34ab",
-    "fda36fef-f040-4fed-8e7a-ba03ad65b80a"
+    "b5af041c-8b63-43bd-b309-41efc5dea77e",
+    "e3d7c11c-ca4c-45a7-b7af-bb90c6cae074",
+    "e7430581-7d96-4458-96a1-b95b20671c82"
   ],
   "llm_calls_by_job": {
     "merged_readme_review": 1,
-    "specialist_selection": 3
+    "plan_readme_composition": 1,
+    "specialist_selection": 1
   },
   "llm_fixture_call_count": 0,
   "llm_cache_reuse_count": 1,
-  "llm_prompt_tokens": null,
-  "llm_completion_tokens": null,
-  "llm_total_tokens": null,
-  "llm_ledger_sha256": "61c3a6f5285590da88a39d53222b3994db0a690a821724ea889a60709881c935",
-  "assessment_hash": "686de6e17d7a9ec1b37c77423b4a6a7d8964e911605235917e87a10bfefcdcd1",
-  "presentation_plan_hash": "2ba1f7c54e1ac513e53171eecd287b7dc388f9c3e176ccab2c3156aa41ac6ef1",
-  "agentic_composition_plan_hash": "71758b8da04d8e09ddf526b4d30eaabd74c0d086e2c06c1693841402a7ada1f4",
+  "llm_prompt_tokens": 79319,
+  "llm_completion_tokens": 5123,
+  "llm_total_tokens": 84442,
+  "llm_ledger_sha256": "f35fe1d4a3eae3b9e7f67cb8cd45db2614adf62d278b2cdb40e6ad0d1cda8f17",
+  "assessment_hash": "c64ebd3bfec4324dbac742ab1ddfca03d4e7cb6a9b5c82ea91027fab6eeac454",
+  "presentation_plan_hash": "0f28733f99c9f862b61c35611318fbe19052eb116bdf06c12c4f2f1929fb4072",
+  "agentic_composition_plan_hash": "c6e8e024497be9bc36386c52445f470f3e1c47295db49f5711fcdb5a922c7f3c",
   "candidate_hash": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
-  "candidate_stage_dependency_key": "e2e9ea68076bba9d73300cc504837e49008d90394d836656e10a358c79d6c2f5",
+  "candidate_stage_dependency_key": "fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904",
   "candidate_stage_dependency_manifest": {
     "schema_version": "StageDependencyManifestV1",
     "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
@@ -166,7 +166,7 @@
           "src/readme_agent/presentation/verified_template_example_presentation.py": "4f33b7dce463601b93608d5adbd3e80e2989e75aceaa07a5209995ee97c6c0db",
           "src/readme_agent/presentation/verified_template_golden_workflow.py": "485ce23eb2f7beb2d6fe0c08fd177f43592dda1d836e0642c626f3cfd0982ee4",
           "src/readme_agent/presentation/verified_template_runtime.py": "e490739dc6c909d15f75c9ac06afdc665a25bdd96c6c7acc3cff49d894e63e5b",
-          "src/readme_agent/presentation/verified_template_sections.py": "045970598c7adad840ecb73e338ae391003dac209c075c266f045e31be0aa3c9",
+          "src/readme_agent/presentation/verified_template_sections.py": "2346584c8885fe11541472ccb7b6c57ac0ba1c28b9ec4062712350b6fc2feeb8",
           "src/readme_agent/readme/acquisition_contracts.py": "0d8df22bdafb26384220ccbbd1a8452d917d3557fa3f7210ffbc99bf890f31fd",
           "src/readme_agent/readme/document_acquisition.py": "f82aa331cfb434f38cf13875ec582267e02070db28e19523e183978cb5f90d74",
           "src/readme_agent/readme/document_renderer.py": "aa48dfaec3c403152cfc6a5404c854535fabe5ffd606db336f6f7b8408cf8a88",
@@ -192,7 +192,7 @@
         },
         "semantic_scope": "structural",
         "earliest_affected_stage": "PLAN_READY",
-        "component_version": "e389dc05353ce24a1023a4028702078152e9ef454df964dee683acc1d2a89f1a"
+        "component_version": "7dc03b7eea1a9dd8e9d15aca7b7ebcb3d3b0bccede959629fecc7a102acb530b"
       },
       {
         "dependency_id": "header_visual",
@@ -226,7 +226,7 @@
           "src/readme_agent/readme/claim_accountability_validation.py": "68b2322a6df98a0336d1549928e3c478f6ba1d7dd9f4eb59a31b3d50a6737eb0",
           "src/readme_agent/readme/document_validation.py": "b7fb78b49a60d274ebc919bc4eb2be86f8540ce9036ebf45dee93d58afb0402b",
           "src/readme_agent/readme/header_visual_validation.py": "0abb03dc508a8d10fd1f89a79b2bf158fc13b7df8f71fd7382aadda41d49ca60",
-          "src/readme_agent/readme/limitation_semantics.py": "9190b8afb957a69bcdf7d494ebafe4e3d9100c4081850cb61fc549ebfca58115",
+          "src/readme_agent/readme/limitation_semantics.py": "dfc7e05cc5adc4670781bb5487ef5c9346bb914f25726544400dc23cf5490fc7",
           "src/readme_agent/readme/limitation_validation.py": "0e2e2f172aebd102fa6a7c1856eb3921c7ebf119331770ec66eb348ea8a82f30",
           "src/readme_agent/readme/presentation_lint.py": "97be5ebebd753139e4ad3d89ae5dd70f81e0060944a74c6734498c9179c407ee",
           "src/readme_agent/readme/presentation_lint_api_reference.py": "f179ea567b1023e21a8268c6d1ae2ecf214e4a536484dbcc77420bf07fb42115",
@@ -237,7 +237,7 @@
         },
         "semantic_scope": "severe_acceptance",
         "earliest_affected_stage": "CANDIDATE_GENERATED",
-        "component_version": "0ed8b456dbfb7d3d87b2b380934665e22746aad580b35bab7b408ad2a62bdbe2"
+        "component_version": "49c842f74d074ffdf9a89ae12a4a245f933ec78b36b4f893217f1cf32d6f8bcd"
       },
       {
         "dependency_id": "prompt:blind_readme_quality_review",
@@ -416,7 +416,7 @@
           "src/readme_agent/readme/claim_accountability_golden_workflow_coordinates.py": "1097e881c3994c9f11e5a018c1be13e1ac512ff6df2ab945648a10da841f999d",
           "src/readme_agent/readme/claim_replacement_validation.py": "d7b6879cc891c9f05ff012f4d76151edd6f177de11220c42a6f08fce95f5ade3",
           "src/readme_agent/readme/example_assurance_validation.py": "2c3c90048b361ad37df1899d59b28ca6e90f43b8a6f9bb40d28e554e0ed5b7c2",
-          "src/readme_agent/readme/limitation_semantics.py": "9190b8afb957a69bcdf7d494ebafe4e3d9100c4081850cb61fc549ebfca58115",
+          "src/readme_agent/readme/limitation_semantics.py": "dfc7e05cc5adc4670781bb5487ef5c9346bb914f25726544400dc23cf5490fc7",
           "src/readme_agent/readme/source_claim_assurance.py": "9a6c0f8ddfcbd4e4a5a795ca48204443d4d418d4663dfd3ec82d842f45a94135",
           "src/readme_agent/readme/source_claim_conversion_binding.py": "a13e433757deb4c804f08c27c307e259457140b2b32e98534e44e30b711f0840",
           "src/readme_agent/readme/source_claim_fact_binding.py": "5ca234b5a2e73b8875451ea287562987937d55262a7a0f674641fbddd61fdb96",
@@ -428,7 +428,7 @@
         },
         "semantic_scope": "protected_content",
         "earliest_affected_stage": "README_ASSESSED",
-        "component_version": "a56ac8b88fbabd450e62588de4d28cf24e8c796ac6bcf51ff4cfad4983ce4761"
+        "component_version": "d5ded7cb8bc020d2f0928d706d5d77858b093ef252afdc240cfc02fda3e8358d"
       },
       {
         "dependency_id": "stage_bundle_persistence",
@@ -455,25 +455,25 @@
         "component_version": "e2a2959cf74ee2e5cebb8cd4e55464e2a1871fdb291d79141a65dce493b09e7a"
       }
     ],
-    "stage_key": "e2e9ea68076bba9d73300cc504837e49008d90394d836656e10a358c79d6c2f5"
+    "stage_key": "fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904"
   },
-  "repair_budget_origin_hash": "a9b908aad1ba5443af4dc2dccae6b1402226552ca288c9acbb27091f5b325b01",
-  "campaign_id": "e072f8bab9c738f325a1a983dfd87d37d1e6796becfb76d57fc9683e02f3f33e",
+  "repair_budget_origin_hash": "ad7d4d31e179e30f6019476dd2abc8b1bcbd51c322f8599dea6d4bd2be7e52e8",
+  "campaign_id": "298a3f8f2d5a53e5af23fb5618cf919c9098f54d76b82ed74464109d245c81c4",
   "acceptance_authority": "sealed_stage_receipts",
   "stage_receipts": {
     "CANDIDATE_GENERATED": {
-      "campaign_id": "3ca30f34f9191986d5778a3a6bc473e469953067bf45b477d2dfe50cbf717cab",
-      "work_id": "daf1620b608a479c93de44a4c6ca41ee8a465c2708c91f14691ed62cf6985963",
-      "output_hash": "c9c9f6542de80ee31c1ce6766ce5afd94aab3b2069b75fdbe231dd23525b16b8",
+      "campaign_id": "373a877a72dafdc4188f76b8dcfc47fd4c99fb1e3185667de662d5de25f4c8bb",
+      "work_id": "7849209bfd5c1222ed86b7b7e9f1fb60de411d5258f238bc7dba0349af6c3336",
+      "output_hash": "e8dbcc0d77b852da304f143673ab72b592aeb070b206f348c149363dffbbe6ae",
       "receipt_path": "receipts/CANDIDATE_GENERATED.json"
     },
     "DETERMINISTIC_VALIDATED": {
-      "campaign_id": "e072f8bab9c738f325a1a983dfd87d37d1e6796becfb76d57fc9683e02f3f33e",
-      "work_id": "4aa3d8f5af69b16fb24511b60ffec02e76be605357fa02fb821874381733f190",
-      "output_hash": "f76fcab14e6b2e3f091c2f7099a748dc999ead4213af4cb3b22dd0c5e9ecb5b5",
+      "campaign_id": "298a3f8f2d5a53e5af23fb5618cf919c9098f54d76b82ed74464109d245c81c4",
+      "work_id": "8574f34db1699eb320ef22e4ecab8c8de89732e00b47860fb7ba7ece200fb7d9",
+      "output_hash": "809f0fd6884bbce87f6be5ee53e3f99088a76797ec1441627ed6156018465b7a",
       "receipt_path": "receipts/DETERMINISTIC_VALIDATED.json"
     }
   },
-  "deterministic_validation_hash": "b8195987f6c95dff92dd61ad9b6dc0c6908e2e7259fa2ce1e3764baaa6f13521",
+  "deterministic_validation_hash": "f70f4835dda57999c9e664378e0c215f4d6a1ea48d47a0bd185679a8c3578505",
   "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
 }
