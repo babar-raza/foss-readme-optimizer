@@ -14886,7 +14886,7 @@
     "updated_at": "2026-08-11T11:19:31.321394+00:00"
   },
   "schema_version": 2,
-  "state_version": 471,
+  "state_version": 472,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
@@ -15365,13 +15365,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['presentation.capability_description_repeats_title.7f262efb6748: Key-capability explanations must add visitor-facing detail.', 'presentation.semantic_duplicate.4649ba062351: The same visitor-facing limitation is expressed more than once.']",
       "last_checkpoint_id": "e4697408caf1e814d5e4640b5146408c6ba43f9a7053c78fc5a2b96f1f15daa4",
-      "lease_expires_at": "2026-08-11T11:33:18.595321+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-11T11:24:00.965157+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-11T11:24:28.912873+00:00"
     }
   },
   "trigger_records": {},
