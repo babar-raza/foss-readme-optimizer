@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+  "verification_plan_sha256": "5f88ce063b6c522ad5634bdb21045d036899bacb793356bf6fda6e42854b5002",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/sha256sums.txt",
+    "runs/evidence/20260811-130403-ee9d/manifest.json",
+    "runs/evidence/20260811-130612-a77f/manifest.json",
+    "runs/multi-agent/L8-VPY-03D-NOTE-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "independently_verified": true
+}

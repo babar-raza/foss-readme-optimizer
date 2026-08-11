@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Note Python README without broad rework."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Note receipts are reused and only invalid dependencies rerun",
+    "Note is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Note README is shown before another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/no-op-proof.json",
+    "runs/multi-agent/L8-VPY-03D-NOTE-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "1b0bb1f2653c98b853e7ce4a7531fb9d6d5015c70fc9b98a1f8303fe9b3da703",
+  "scoreboard_after_sha256": "1b0bb1f2653c98b853e7ce4a7531fb9d6d5015c70fc9b98a1f8303fe9b3da703",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "Note's acceptance chain was regressed to stale by shared-code fixes made while processing BarCode (commits 2471652df, 76c5bf1a6, c905c04e6), which advanced the shared candidate_stage_dependency_key for every Python repository.",
+  "contribution_boundary_after": "Note Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op against the current dependency key c2420b19f4544139e60d2a4bf5772fc0f6c99069fdf68018105acf7ee5894bcc with byte-identical candidate content (2333e0c29565...), independently PASS-verified a second time, re-promoted.",
+  "independently_verified": true
+}
