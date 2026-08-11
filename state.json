@@ -62728,7 +62728,7 @@
     "updated_at": "2026-08-11T09:43:25.426350+00:00"
   },
   "schema_version": 2,
-  "state_version": 3708,
+  "state_version": 3709,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
@@ -67341,13 +67341,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:IsolatedExecutionError:container registry acquisition remained unavailable after bounded retry",
       "last_checkpoint_id": "ba0f3b866a2b28ee93589b12d5e080bef1434209cf3e945112bb139d2a0eeed7",
-      "lease_expires_at": "2026-08-11T10:04:13.036057+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-11T09:50:00.772598+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-11T09:50:22.182198+00:00"
     }
   },
   "trigger_records": {},
