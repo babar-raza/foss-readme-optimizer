@@ -36,6 +36,7 @@ from readme_agent.supervisor.mission_control import (
     has_graph_drift,
     mission_state_key,
     persist_evaluation,
+    record_task_material_narrowing,
     transition_task,
 )
 from readme_agent.supervisor.mission_goal_guard import (
@@ -1381,6 +1382,68 @@ def test_expired_claim_is_recovered_before_the_next_claim():
         transition.to_status == "REGRESSED"
         for transition in claimed.mission_execution.transition_history
     )
+
+
+def test_expired_claim_recovery_preserves_prior_material_narrowing():
+    """A lease timeout must not erase narrowing recorded before it expired.
+
+    Regression: _recover_expired_claim() unconditionally closed the active approach
+    attempt as ineffective with evidence_refs=["claim lease expired"], discarding any
+    last_material_narrowing_at/evidence_refs a prior record-narrowing call had already
+    stamped on that same in-progress attempt. A long-running but genuinely progressing
+    task (multiple real transactions plus an independent-verification pass, each easily
+    exceeding the 30-minute claim lease) would then accumulate "ineffective" attempts
+    purely from lease timeouts and eventually trip the two-equivalent-failures gate even
+    though real narrowing had occurred throughout.
+    """
+
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+    record = claim_next_task(backend, graph, graph_hash, claimed_by="lost-worker")
+    assert record.mission_execution is not None
+    task_id = record.mission_execution.active_task_id
+    assert task_id is not None
+
+    narrowed = record_task_material_narrowing(
+        backend,
+        graph,
+        graph_hash,
+        task_id=task_id,
+        evidence_refs=["genuine forward progress before the lease lapsed"],
+    )
+    assert narrowed.mission_execution is not None
+    live_attempt = next(
+        attempt
+        for attempt in narrowed.mission_execution.approach_control.attempts
+        if attempt.task_id == task_id and attempt.outcome == "in_progress"
+    )
+    assert live_attempt.last_material_narrowing_at is not None
+
+    expired = narrowed.mission_execution.model_copy(
+        update={
+            "claim_id": "expired-claim",
+            "claimed_by": "lost-worker",
+            "claimed_at": "2020-01-01T00:00:00+00:00",
+            "claim_expires_at": "2020-01-01T00:30:00+00:00",
+        }
+    )
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = record.model_copy(
+        update={"mission_execution": expired}
+    )
+
+    claimed = claim_next_task(backend, graph, graph_hash, claimed_by="recovery-worker")
+
+    assert claimed.mission_execution is not None
+    closed_attempt = next(
+        attempt
+        for attempt in claimed.mission_execution.approach_control.attempts
+        if attempt.task_id == task_id and attempt.started_at == live_attempt.started_at
+    )
+    assert closed_attempt.outcome == "effective"
+    assert closed_attempt.last_material_narrowing_at == live_attempt.last_material_narrowing_at
+    assert "genuine forward progress before the lease lapsed" in closed_attempt.evidence_refs
+    assert "claim lease expired" in closed_attempt.evidence_refs
 
 
 def test_expired_claim_recovery_persists_even_when_expected_task_stays_unclaimable():

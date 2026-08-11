@@ -184,11 +184,22 @@ def _recover_expired_claim(
         observed_by="mission-claim-recovery",
         reason="claim lease expired before a terminal verification state",
     )
+    latest_attempt = next(
+        (
+            attempt
+            for attempt in reversed(state.approach_control.attempts)
+            if attempt.task_id == task_id and attempt.outcome == "in_progress"
+        ),
+        None,
+    )
+    prior_narrowing = latest_attempt.last_material_narrowing_at if latest_attempt else None
+    prior_evidence = list(latest_attempt.evidence_refs) if latest_attempt else []
     approach_control = finish_latest_attempt(
         state.approach_control,
         task_id,
-        effective=False,
-        evidence_refs=["claim lease expired"],
+        effective=prior_narrowing is not None,
+        evidence_refs=list(dict.fromkeys([*prior_evidence, "claim lease expired"])),
+        narrowed_at=prior_narrowing,
     )
     return state.model_copy(
         update={
