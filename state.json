@@ -1933,7 +1933,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T11:10:32.926962+00:00",
+    "last_evaluated_at": "2026-08-11T11:10:56.364415+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 4,
       "candidate_generated": 4,
@@ -2122,7 +2122,7 @@
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "CLOSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03E-3D-CURRENT-REFRESH": "VERIFIED",
+      "L8-VPY-03E-3D-CURRENT-REFRESH": "SCORED",
       "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-05-PRODUCTION-ADMISSION": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -9989,6 +9989,17 @@
         "reason": "Independent non-authoring subagent PASS confirms dependency key byte-identical across manifest and all four review artifacts, recomputed independently, checksum inventory self-consistent (155/155), and both back-to-back transactions match the zero-provider-call no-op proof.",
         "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-11T11:10:56.364476+00:00",
+        "reason": "Deterministic gates, independent review, and unchanged no-op all accepted against the current dependency key; portfolio scoreboard reconciled.",
+        "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -9998,7 +10009,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1006,
+  "state_version": 1007,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
