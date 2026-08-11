@@ -33,6 +33,14 @@ _DOMAIN_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("extraction", re.compile(r"(?i)\bextract")),
     ("text_images", re.compile(r"(?i)\btext\b.*\bimages?\b|\bimages?\b.*\btext\b")),
 )
+# Domains whose pattern matches an operation verb (what is being done), as opposed to an
+# object/content-type noun (what is being acted on, e.g. "metadata" or "text_images"). Only
+# an operation domain is strong enough evidence, alone, to fold a generic restatement into a
+# more specific phrase that also names it -- a shared object noun alone is not (two phrases
+# extracting different unrelated things can each mention "metadata" without being one capability).
+_OPERATION_DOMAINS = frozenset(
+    {"document_lifecycle", "editing", "rendering", "security", "extraction", "validation"}
+)
 _GENERIC_NOUNS = re.compile(
     r"(?i)\b(?:configuration|handling|lifecycle management|operations|support|validation)\b"
 )
@@ -106,7 +114,15 @@ def same_public_capability(left: str, right: str) -> bool:
         concrete = right if "lifecycle management" in left.casefold() else left
         if re.search(r"(?i)\bdocuments?\b", concrete) and len(_ACTION_VERBS.findall(concrete)) >= 2:
             return True
-    comparable_domains = left_domains == right_domains
+    if left_domains <= right_domains:
+        narrower = left_domains
+    elif right_domains <= left_domains:
+        narrower = right_domains
+    else:
+        narrower = None
+    comparable_domains = left_domains == right_domains or (
+        narrower is not None and bool(narrower & _OPERATION_DOMAINS)
+    )
     return bool(
         left_domains
         and right_domains
