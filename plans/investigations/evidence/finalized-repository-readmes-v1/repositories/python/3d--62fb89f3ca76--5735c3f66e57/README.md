@@ -1,0 +1,793 @@
+# Aspose.3D FOSS for Python
+
+[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)
+
+![Aspose.3D FOSS for Python](https://products.aspose.org/media/3d/python/banner-readme.png)
+
+Aspose.3D FOSS for Python is an open-source library for developers using Python. It reads OBJ files, GLTF files, STL files, and 3MF files and writes GLTF files, STL files, and 3MF files.
+
+## Navigation
+
+- [At a Glance](#at-a-glance)
+- [Key Capabilities](#key-capabilities)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Additional Examples](#additional-examples)
+- [API Reference](#api-reference)
+- [Documentation and Resources](#documentation-and-resources)
+- [Scope and Limitations](#scope-and-limitations)
+- [Development and Testing](#development-and-testing)
+- [License](#license)
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  subgraph INPUTS["Inputs & Formats"]
+    direction TB
+    I1["OBJ<br/>Format"]
+    I2["GLTF<br/>Format"]
+    I3["STL<br/>Format"]
+    I4["3MF<br/>Format"]
+  end
+  PRODUCT["Aspose.3D FOSS<br/>for Python"]
+  subgraph CORE["Core Capabilities"]
+    direction TB
+    C1["3D primitives<br/>including Box"]
+    C2["File format import and<br/>export"]
+    C3["Animation system with<br/>keyframe"]
+    C1 ~~~ C2
+    C2 ~~~ C3
+  end
+  subgraph OUTPUTS["Outputs"]
+    direction TB
+    O1["GLTF<br/>Format"]
+    O2["STL<br/>Format"]
+    O3["3MF<br/>Format"]
+    O4["OBJ<br/>Format"]
+  end
+  I1 --> PRODUCT
+  PRODUCT --> CORE
+  CORE --> O1
+  classDef product fill:#1F4E79,color:#FFFFFF,stroke:#163A5B,stroke-width:2px,font-weight:bold;
+  classDef input fill:#EAF2F8,color:#17324D,stroke:#7EA6C4,stroke-width:1.5px;
+  classDef capability fill:#F7F9FC,color:#243447,stroke:#AAB7C4,stroke-width:1.25px;
+  classDef output fill:#EAF6EF,color:#244A32,stroke:#78A889,stroke-width:1.5px,font-weight:bold;
+  class PRODUCT product;
+  class I1,I2,I3,I4 input;
+  class C1,C2,C3 capability;
+  class O1,O2,O3,O4 output;
+  style INPUTS fill:#F8FBFD,stroke:#7EA6C4,stroke-width:1.5px
+  style CORE fill:#FFFFFF,stroke:#5F7791,stroke-width:2px
+  style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px
+  linkStyle 2,3,4 stroke:#526D82,stroke-width:2px
+```
+
+## Key Capabilities
+
+- **Create 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, Frustum** - Build reusable scene geometry from the listed primitive types. Available through the public `Box`, `Dish`, and `Plane` APIs.
+- **Import and export OBJ, GLTF, STL, and 3MF files** - Exchange content across the listed supported file formats. Available through the public `ObjFormat`, `StlFormat`, and `FileFormat` APIs.
+- **Create 3D animations with keyframes** - Animate scene properties with time-based keyframe data.
+
+- Export the same `Scene` model back out to OBJ, STL, GLTF/GLB, or 3MF with `Scene.save(...)`
+  (COLLADA import is supported; COLLADA export is not currently reachable through the public
+  API — see [Scope and limitations](#scope-and-limitations)).
+
+## Installation
+
+Install the package directly from its source repository:
+
+```bash
+git clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git
+cd Aspose.3D-FOSS-for-Python
+git checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba
+python -m pip install .
+```
+
+Use source installation for the `aspose-3d-foss` distribution.
+
+## Quick Start
+
+```python
+from aspose.threed import Scene
+
+scene = Scene()
+```
+
+## Additional Examples
+
+Expand this section to view examples for exploring the scene and ObjLoadOptions APIs, assigning a PBR material and exporting to GLTF, import a COLLADA file, and converting a parametric primitive to a mesh, plus 2 more workflows.
+
+<details>
+<summary>View additional examples and results</summary>
+
+### Explore the Scene and ObjLoadOptions APIs
+
+```python
+from aspose.threed import Scene
+from aspose.threed.formats.obj import ObjLoadOptions
+
+scene = Scene()
+options = ObjLoadOptions()
+options.enable_materials = True
+scene.open("model.obj", options)
+
+for node in scene.root_node.child_nodes:
+    if node.entity:
+        mesh = node.entity
+        print(f"Mesh: {node.name}")
+        print(f"  Vertices: {len(mesh.control_points)}")
+        print(f"  Polygons: {mesh.polygon_count}")
+```
+
+### Explore the Scene and GltfSaveOptions APIs
+
+```python
+from aspose.threed import Scene
+from aspose.threed.formats.gltf import GltfSaveOptions
+
+scene = Scene()
+scene.open("mesh.stl")
+
+options = GltfSaveOptions()
+options.binary_mode = True
+scene.save("mesh.glb", options)
+```
+
+### Assign a PBR Material and Export to GLTF
+
+```python
+import io
+import json
+from aspose.threed import Scene, FileFormat
+from aspose.threed.entities import Mesh
+from aspose.threed.utilities import Vector3, Vector4
+from aspose.threed.formats.gltf import GltfSaveOptions
+from aspose.threed.shading import PbrMaterial
+
+scene = Scene()
+mesh = Mesh("TestMesh")
+mesh.control_points.add(Vector4(0.0, 0.0, 0.0, 1.0))
+mesh.control_points.add(Vector4(1.0, 0.0, 0.0, 1.0))
+mesh.control_points.add(Vector4(0.0, 1.0, 0.0, 1.0))
+mesh.create_polygon(0, 1, 2)
+
+albedo = Vector3(0.8, 0.2, 0.3)
+material = PbrMaterial("RedMaterial", albedo)
+material.metallic_factor = 0.5
+material.roughness_factor = 0.7
+
+node = scene.root_node.create_child_node("TestNode")
+node.entity = mesh
+node.material = material
+
+stream = io.BytesIO()
+
+options = GltfSaveOptions(FileFormat.get_format_by_extension(".gltf"))
+options.binary_mode = False
+scene.save(stream, options)
+
+stream.seek(0)
+gltf_data = json.loads(stream.read().decode("utf-8"))
+print(gltf_data["materials"][0]["pbrMetallicRoughness"])
+```
+
+### Import a COLLADA File
+
+```python
+from aspose.threed import Scene
+from aspose.threed.formats.collada.ColladaLoadOptions import ColladaLoadOptions
+
+scene = Scene()
+options = ColladaLoadOptions()
+scene.open("model.dae", options)
+
+print(f"Child nodes: {len(scene.root_node.child_nodes)}")
+```
+
+### Convert a Parametric Primitive to a Mesh
+
+```python
+from aspose.threed.entities import Box
+
+box = Box(10, 20, 30)
+mesh = box.to_mesh()
+print(f"Control points: {len(mesh.control_points)}")
+```
+
+### Build a Cube and Export It to 3MF
+
+```python
+import io
+from aspose.threed import Scene
+from aspose.threed.entities import Mesh
+from aspose.threed.utilities import Vector4
+from aspose.threed.formats import ThreeMfSaveOptions
+
+scene = Scene()
+mesh = Mesh("cube")
+for point in [
+    Vector4(0, 0, 0, 1), Vector4(1, 0, 0, 1), Vector4(1, 1, 0, 1), Vector4(0, 1, 0, 1),
+    Vector4(0, 0, 1, 1), Vector4(1, 0, 1, 1), Vector4(1, 1, 1, 1), Vector4(0, 1, 1, 1),
+]:
+    mesh.control_points.add(point)
+
+mesh.create_polygon(0, 1, 2)
+mesh.create_polygon(0, 2, 3)
+mesh.create_polygon(4, 7, 6)
+mesh.create_polygon(4, 6, 5)
+mesh.create_polygon(0, 4, 5)
+mesh.create_polygon(0, 5, 1)
+mesh.create_polygon(2, 6, 7)
+mesh.create_polygon(2, 7, 3)
+mesh.create_polygon(0, 3, 7)
+mesh.create_polygon(0, 7, 4)
+mesh.create_polygon(1, 5, 6)
+mesh.create_polygon(1, 6, 2)
+
+node = scene.root_node.create_child_node("cube")
+node.entity = mesh
+
+stream = io.BytesIO()
+options = ThreeMfSaveOptions()
+options.enable_compression = False
+scene.save(stream, options)
+```
+
+</details>
+
+## API Reference
+
+The package documents 354 public types across 13 namespaces. Package namespaces include `aspose.threed`, `aspose.threed.animation`, `aspose.threed.deformers`, `aspose.threed.entities`, `aspose.threed.formats`, `aspose.threed.formats.gltf`, `aspose.threed.formats.obj`, `aspose.threed.formats.stl`, `aspose.threed.formats.threemf`, `aspose.threed.profiles`, `aspose.threed.render`, `aspose.threed.shading`, `aspose.threed.utilities`. See the complete API reference under Documentation and Resources for members, signatures, and inherited APIs.
+
+<details>
+<summary>View public API by namespace</summary>
+
+### Aspose.3D Namespace (`aspose.threed`)
+
+| Type | Description |
+| --- | --- |
+| `threed.A3DObject.A3DObject(name=None)` | Represents an A3 D Object in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `INamedObject`. |
+| `threed.animation.AnimationChannel.AnimationChannel(name=None)` | Represents an Animation Channel in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `KeyframeSequence`. |
+| `threed.animation.AnimationClip.AnimationClip(name=None)` | Represents an Animation Clip in the public threed API for Aspose.3D. Supports creating animation node, finding property, and retrieving property. Inherits from `SceneObject`. |
+| `threed.animation.AnimationNode.AnimationNode(name=None)` | Represents an Animation Node in the public threed API for Aspose.3D. Supports creating bind point, finding bind point, and retrieving bind point. Inherits from `A3DObject`. |
+| `threed.utilities.ArrayList.ArrayListAdapter(data=None)` | Represents an Array List Adapter in the public threed API for Aspose.3D. Supports adding ranges, appending content, and clearing content. Inherits from `Generic[T]`. |
+| `threed.AssetInfo.AssetInfo(name=None)` | Represents an Asset Info in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `Axis` | Represents an Axis in the public threed API for Aspose.3D. |
+| `threed.AxisSystem.AxisSystem(*args)` | Represents an Axis System in the public threed API for Aspose.3D. Supports loading content from asset info. |
+| `threed.animation.BindPoint.BindPoint(scene, prop)` | Represents a Bind Point in the public threed API for Aspose.3D. Supports adding channels, binding keyframe sequence, and channelsing count. Inherits from `A3DObject`. |
+| `threed.BonePose.BonePose()` | Represents a Bone Pose in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `threed.utilities.BoundingBox2D.BoundingBox2D(minimum=None, maximum=None)` | Represents a Bounding Box2 D in the public threed API for Aspose.3D. |
+| `BoundingBoxExtent` | Represents a Bounding Box Extent in the public threed API for Aspose.3D. |
+| `threed.entities.Box.Box(name=None, length=1.0, width=1.0, height=1.0, length_segments=1, width_segments=1, height_segments=1)` | Represents a Box in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.entities.Camera.Camera(name=None, projection_type=None)` | Represents a Camera in the public threed API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `threed.entities.Circle.Circle(name=None, radius=1.0, segments=16, theta_start=0.0, theta_length=math.pi * 2)` | Represents a Circle in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `ComposeOrder` | Represents a Compose Order in the public threed API for Aspose.3D. |
+| `CoordinateSystem` | Represents a Coordinate System in the public threed API for Aspose.3D. |
+| `threed.entities.Curve.Curve(name=None)` | Represents a Curve in the public threed API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `threed.CustomObject.CustomObject(name=None)` | Represents a Custom Object in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `threed.entities.Cylinder.Cylinder(name=None, radius_top=1.0, radius_bottom=1.0, height=1.0, radial_segments=32, height_segments=1, open_ended=False, theta_start=0.0, theta_length=math.pi * 2)` | Represents a Cylinder in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.entities.Dish.Dish(name=None, radius=10.0, height=5.0, width_segments=32, height_segments=16)` | Represents a Dish in the public threed API for Aspose.3D. Supports retrieving bounding box, converting content to mesh, and adding elements. Inherits from `Primitive`. |
+| `threed.entities.Ellipse.Ellipse(name=None, radius_x=1.0, radius_y=1.0, segments=16, theta_start=0.0, theta_length=math.pi * 2)` | Represents an Ellipse in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.Entity.Entity(name=None)` | Represents an Entity in the public threed API for Aspose.3D. Supports retrieving bounding box, retrieving entity renderer key, and finding property. Inherits from `SceneObject`. |
+| `threed.ExportException.ExportException(msg)` | Signals an export condition; derives from `Exception`. |
+| `threed.animation.Extrapolation.Extrapolation()` | Represents an Extrapolation in the public threed API for Aspose.3D. |
+| `ExtrapolationType` | Enumerates extrapolation type values. |
+| `threed.utilities.FMatrix4.FMatrix4(m00=0.0, m01=0.0, m02=0.0, m03=0.0, m10=0.0, m11=0.0, m12=0.0, m13=0.0, m20=0.0, m21=0.0, m22=0.0, m23=0.0, m30=0.0, m31=0.0, m32=0.0, m33=0.0)` | Represents an F Matrix4 in the public threed API for Aspose.3D. Supports loading content from matrix. |
+| `threed.FileContentType.FileContentType(value=None, name=None)` | Represents a File Content Type in the public threed API for Aspose.3D. |
+| `threed.FileFormat.FileFormat()` | Represents a File Format in the public threed API for Aspose.3D. Supports creating load options, creating save options, and detecting changes. |
+| `threed.FileFormatType.FileFormatType(extension=None)` | Represents a File Format Type in the public threed API for Aspose.3D. |
+| `threed.entities.Frustum.Frustum(name=None, radius_top=1.0, radius_bottom=1.0, height=1.0, radial_segments=32, height_segments=1, theta_start=0.0, theta_length=math.pi * 2)` | Represents a Frustum in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.entities.Geometry.Geometry(name=None)` | Represents a Geometry in the public threed API for Aspose.3D. Supports adding elements, creating element, and creating element uv. Inherits from `Entity`. |
+| `threed.GlobalTransform.GlobalTransform(matrix)` | Represents a Global Transform in the public threed API for Aspose.3D. |
+| `threed.Group.Group(name)` | Represents a Group in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `INamedObject` | Represents an I Named Object in the public threed API for Aspose.3D. |
+| `IOExtension` | Represents an IO Extension in the public threed API for Aspose.3D. Supports writing output. |
+| `threed.ImageRenderOptions.ImageRenderOptions()` | Configures Image Render operations through the Aspose.3D API. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `threed.ImportException.ImportException(msg)` | Signals an import condition; derives from `Exception`. |
+| `Interpolation` | Enumerates interpolation values. |
+| `threed.animation.KeyFrame.KeyFrame(curve, time)` | Represents a Key Frame in the public threed API for Aspose.3D. |
+| `threed.animation.KeyframeSequence.KeyframeSequence(name=None)` | Represents a Keyframe Sequence in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `threed.entities.Light.Light(name=None, light_type=None)` | Represents a Light in the public threed API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Camera`. |
+| `threed.entities.LinearExtrusion.LinearExtrusion(name=None, shape=None, height=1.0)` | Represents a Linear Extrusion in the public threed API for Aspose.3D. Supports converting content to mesh, finding property, and retrieving bounding box. Inherits from `Entity`. |
+| `MathUtils` | Represents a Math Utils in the public threed API for Aspose.3D. |
+| `threed.entities.Mesh.Mesh(name=None, height_map=None, transform=None, tri_mesh=None)` | Represents a Mesh in the public threed API for Aspose.3D. Supports creating polygon, doing boolean, and retrieving bounding box. Inherits from `Geometry`. |
+| `threed.Node.Node(name=None, entity=None)` | Represents a Node in the public threed API for Aspose.3D. Supports adding child nodes, adding entities, and creating child node. Inherits from `SceneObject`. |
+| `threed.utilities.ParseException.ParseException(msg)` | Signals a parse condition; derives from `Exception`. |
+| `threed.entities.Plane.Plane(name=None, length=1.0, width=1.0, length_segments=1, width_segments=1)` | Represents a Plane in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.Transform.Transform(name=None)` | Represents a Transform in the public threed API for Aspose.3D. Supports setting euler angles, setting geometric rotation, and setting geometric scaling. Inherits from `A3DObject`. |
+| `threed.Scene.Scene(entity=None, parent_scene=None, name=None)` | Represents a Scene in the public threed API for Aspose.3D. Supports clearing content, creating animation clip, and loading content from file. Inherits from `SceneObject`. |
+| `threed.entities.Sphere.Sphere(name=None, radius=1.0, width_segments=16, height_segments=16, phi_start=0.0, phi_length=math.pi * 2, theta_start=0.0, theta_length=math.pi * 2)` | Represents a Sphere in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `WeightedMode` | Enumerates weighted mode values. |
+| `StepMode` | Enumerates step mode values. |
+| `threed.utilities.TransformBuilder.TransformBuilder(initial=None, order=None)` | Builds Transform through the Aspose.3D API. Supports appending content, rotating degree, and rotating euler degree. |
+| `threed.utilities.Rect.Rect(x=0, y=0, width=0, height=0)` | Represents a Rect in the public threed API for Aspose.3D. |
+| `threed.utilities.RelativeRectangle.RelativeRectangle(left=0, top=0, width=0, height=0)` | Represents a Relative Rectangle in the public threed API for Aspose.3D. Supports converting content to absolute. |
+| `Vertex` | Represents a Vertex in the public threed API for Aspose.3D. Supports reading double, reading f vector2, and reading f vector3. |
+| `threed.Property.Property(name, value=None)` | Represents a Property in the public threed API for Aspose.3D. Supports retrieving bind point, retrieving extra, and retrieving keyframe sequence. |
+| `threed.utilities.VertexDeclaration.VertexDeclaration()` | Represents a Vertex Declaration in the public threed API for Aspose.3D. Supports adding fields, clearing content, and loading content from geometry. |
+| `VertexField` | Represents a Vertex Field in the public threed API for Aspose.3D. |
+| `threed.PropertyCollection.PropertyCollection()` | Represents a Property Collection in the public threed API for Aspose.3D. Supports finding property and removing property. |
+| `threed.entities.PolygonBuilder.PolygonBuilder(mesh)` | Builds Polygon through the Aspose.3D API. Supports adding vertexs. |
+| `threed.Pose.Pose(name=None)` | Represents a Pose in the public threed API for Aspose.3D. Supports adding bone poses, finding property, and retrieving property. Inherits from `A3DObject`, `INamedObject`. |
+| `threed.entities.Primitive.Primitive(name=None)` | Represents a Primitive in the public threed API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Geometry`. |
+| `PoseType` | Enumerates pose type values. |
+| `threed.utilities.SemanticAttribute.SemanticAttribute(semantic, alias=None)` | Represents a Semantic Attribute in the public threed API for Aspose.3D. |
+| `threed.TrialException.TrialException(msg=None)` | Signals a trial condition; derives from `Exception`. |
+| `threed.SceneObject.SceneObject(name=None)` | Represents a Scene Object in the public threed API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `PropertyFlags` | Represents a Property Flags in the public threed API for Aspose.3D. |
+| `RotationOrder` | Represents a Rotation Order in the public threed API for Aspose.3D. |
+| `VertexFieldDataType` | Represents a Vertex Field Data Type in the public threed API for Aspose.3D. |
+| `VertexFieldSemantic` | Represents a Vertex Field Semantic in the public threed API for Aspose.3D. |
+
+### Aspose.3D.Animation Namespace (`aspose.threed.animation`)
+
+| Type | Description |
+| --- | --- |
+| `threed.animation.AnimationChannel.AnimationChannel(name=None)` | The `aspose.threed.animation` namespace re-exports `AnimationChannel` from the primary `aspose.threed` namespace. |
+| `threed.animation.AnimationClip.AnimationClip(name=None)` | The `aspose.threed.animation` namespace re-exports `AnimationClip` from the primary `aspose.threed` namespace. |
+| `threed.animation.AnimationNode.AnimationNode(name=None)` | The `aspose.threed.animation` namespace re-exports `AnimationNode` from the primary `aspose.threed` namespace. |
+| `threed.animation.BindPoint.BindPoint(scene, prop)` | The `aspose.threed.animation` namespace re-exports `BindPoint` from the primary `aspose.threed` namespace. |
+| `threed.animation.Extrapolation.Extrapolation()` | The `aspose.threed.animation` namespace re-exports `Extrapolation` from the primary `aspose.threed` namespace. |
+| `ExtrapolationType` | The `aspose.threed.animation` namespace re-exports `ExtrapolationType` from the primary `aspose.threed` namespace. |
+| `Interpolation` | The `aspose.threed.animation` namespace re-exports `Interpolation` from the primary `aspose.threed` namespace. |
+| `threed.animation.KeyFrame.KeyFrame(curve, time)` | The `aspose.threed.animation` namespace re-exports `KeyFrame` from the primary `aspose.threed` namespace. |
+| `threed.animation.KeyframeSequence.KeyframeSequence(name=None)` | The `aspose.threed.animation` namespace re-exports `KeyframeSequence` from the primary `aspose.threed` namespace. |
+| `StepMode` | The `aspose.threed.animation` namespace re-exports `StepMode` from the primary `aspose.threed` namespace. |
+| `WeightedMode` | The `aspose.threed.animation` namespace re-exports `WeightedMode` from the primary `aspose.threed` namespace. |
+
+### Aspose.3D.Deformers Namespace (`aspose.threed.deformers`)
+
+| Type | Description |
+| --- | --- |
+| `threed.deformers.Bone.Bone(name=None)` | Represents a Bone in the public deformers API for Aspose.3D. Supports retrieving weight, setting weight, and finding property. Inherits from `A3DObject`. |
+| `BoneLinkMode` | Represents a Bone Link Mode in the public deformers API for Aspose.3D. |
+| `threed.deformers.Deformer.Deformer(name=None)` | Represents a Deformer in the public deformers API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `A3DObject`. |
+| `threed.deformers.MorphTargetChannel.MorphTargetChannel(name=None)` | Represents a Morph Target Channel in the public deformers API for Aspose.3D. Supports retrieving weight, setting weight, and finding property. Inherits from `A3DObject`. |
+| `threed.deformers.MorphTargetDeformer.MorphTargetDeformer(name=None)` | Represents a Morph Target Deformer in the public deformers API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `Deformer`. |
+| `threed.deformers.SkinDeformer.SkinDeformer(name=None)` | Represents a Skin Deformer in the public deformers API for Aspose.3D. Supports finding property, retrieving property, and removing property. Inherits from `Deformer`. |
+
+### Aspose.3D.Entities Namespace (`aspose.threed.entities`)
+
+| Type | Description |
+| --- | --- |
+| `threed.entities.ApertureMode.ApertureMode(name=None)` | Represents an Aperture Mode in the public entities API for Aspose.3D. |
+| `threed.entities.BooleanOperand.BooleanOperand(operand=None)` | Represents a Boolean Operand in the public entities API for Aspose.3D. |
+| `BooleanOperation` | Represents a Boolean Operation in the public entities API for Aspose.3D. |
+| `threed.entities.BooleanOperator.BooleanOperator(operation=None, first=None, second=None)` | Represents a Boolean Operator in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `threed.entities.Box.Box(name=None, length=1.0, width=1.0, height=1.0, length_segments=1, width_segments=1, height_segments=1)` | The `aspose.threed.entities` namespace re-exports `Box` from the primary `aspose.threed` namespace. |
+| `threed.entities.Camera.Camera(name=None, projection_type=None)` | The `aspose.threed.entities` namespace re-exports `Camera` from the primary `aspose.threed` namespace. |
+| `threed.entities.Circle.Circle(name=None, radius=1.0, segments=16, theta_start=0.0, theta_length=math.pi * 2)` | The `aspose.threed.entities` namespace re-exports `Circle` from the primary `aspose.threed` namespace. |
+| `threed.entities.CompositeCurve.CompositeCurve()` | Represents a Composite Curve in the public entities API for Aspose.3D. Supports adding segments, finding property, and retrieving bounding box. Inherits from `Curve`. |
+| `threed.entities.Curve.Curve(name=None)` | The `aspose.threed.entities` namespace re-exports `Curve` from the primary `aspose.threed` namespace. |
+| `CurveDimension` | Represents a Curve Dimension in the public entities API for Aspose.3D. |
+| `threed.entities.Cylinder.Cylinder(name=None, radius_top=1.0, radius_bottom=1.0, height=1.0, radial_segments=32, height_segments=1, open_ended=False, theta_start=0.0, theta_length=math.pi * 2)` | The `aspose.threed.entities` namespace re-exports `Cylinder` from the primary `aspose.threed` namespace. |
+| `threed.entities.Dish.Dish(name=None, radius=10.0, height=5.0, width_segments=32, height_segments=16)` | The `aspose.threed.entities` namespace re-exports `Dish` from the primary `aspose.threed` namespace. |
+| `threed.entities.Ellipse.Ellipse(name=None, radius_x=1.0, radius_y=1.0, segments=16, theta_start=0.0, theta_length=math.pi * 2)` | The `aspose.threed.entities` namespace re-exports `Ellipse` from the primary `aspose.threed` namespace. |
+| `threed.entities.EndPoint.EndPoint(*args)` | Represents an End Point in the public entities API for Aspose.3D. Supports loading content from degree and loading content from radian. |
+| `threed.entities.Frustum.Frustum(name=None, radius_top=1.0, radius_bottom=1.0, height=1.0, radial_segments=32, height_segments=1, theta_start=0.0, theta_length=math.pi * 2)` | The `aspose.threed.entities` namespace re-exports `Frustum` from the primary `aspose.threed` namespace. |
+| `threed.entities.Geometry.Geometry(name=None)` | The `aspose.threed.entities` namespace re-exports `Geometry` from the primary `aspose.threed` namespace. |
+| `threed.entities.HalfSpace.HalfSpace(*args)` | Represents a Half Space in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. |
+| `IIndexedVertexElement` | Represents an I Indexed Vertex Element in the public entities API for Aspose.3D. |
+| `IMeshConvertible` | Represents an I Mesh Convertible in the public entities API for Aspose.3D. Supports converting content to mesh. |
+| `threed.Entity.Entity(name=None)` | Represents an I Orientable in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `threed.entities.Light.Light(name=None, light_type=None)` | The `aspose.threed.entities` namespace re-exports `Light` from the primary `aspose.threed` namespace. |
+| `threed.entities.LightType.LightType(name=None)` | Represents a Light Type in the public entities API for Aspose.3D. |
+| `threed.entities.Line.Line(name=None)` | Represents a Line in the public entities API for Aspose.3D. Supports loading content from points, making default indices, and finding property. Inherits from `Curve`. |
+| `threed.entities.LinearExtrusion.LinearExtrusion(name=None, shape=None, height=1.0)` | The `aspose.threed.entities` namespace re-exports `LinearExtrusion` from the primary `aspose.threed` namespace. |
+| `MappingMode` | Represents a Mapping Mode in the public entities API for Aspose.3D. |
+| `threed.entities.Mesh.Mesh(name=None, height_map=None, transform=None, tri_mesh=None)` | The `aspose.threed.entities` namespace re-exports `Mesh` from the primary `aspose.threed` namespace. |
+| `threed.entities.NurbsCurve.NurbsCurve(name=None)` | Represents a Nurbs Curve in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.NurbsDirection.NurbsDirection()` | Represents a Nurbs Direction in the public entities API for Aspose.3D. |
+| `threed.entities.NurbsSurface.NurbsSurface(name=None)` | Represents a Nurbs Surface in the public entities API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Geometry`. |
+| `NurbsType` | Represents a Nurbs Type in the public entities API for Aspose.3D. |
+| `threed.entities.Patch.Patch(name=None)` | Represents a Patch in the public entities API for Aspose.3D. Supports adding elements, creating element, and creating element uv. Inherits from `Geometry`. |
+| `threed.entities.PatchDirection.PatchDirection()` | Represents a Patch Direction in the public entities API for Aspose.3D. |
+| `PatchDirectionType` | Represents a Patch Direction Type in the public entities API for Aspose.3D. |
+| `threed.entities.Plane.Plane(name=None, length=1.0, width=1.0, length_segments=1, width_segments=1)` | The `aspose.threed.entities` namespace re-exports `Plane` from the primary `aspose.threed` namespace. |
+| `threed.entities.PointCloud.PointCloud(name=None)` | Represents a Point Cloud in the public entities API for Aspose.3D. Supports loading content from geometry, loading content from geometry with density, and retrieving entity renderer key. |
+| `threed.entities.PolygonBuilder.PolygonBuilder(mesh)` | The `aspose.threed.entities` namespace re-exports `PolygonBuilder` from the primary `aspose.threed` namespace. |
+| `PolygonModifier` | Represents a Polygon Modifier in the public entities API for Aspose.3D. |
+| `threed.entities.Primitive.Primitive(name=None)` | The `aspose.threed.entities` namespace re-exports `Primitive` from the primary `aspose.threed` namespace. |
+| `threed.entities.ProjectionType.ProjectionType(name=None)` | Represents a Projection Type in the public entities API for Aspose.3D. |
+| `threed.entities.Pyramid.Pyramid(name=None, xbottom=10.0, ybottom=10.0, xtop=5.0, ytop=5.0, height=5.0)` | Represents a Pyramid in the public entities API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.entities.RectangularTorus.RectangularTorus(name=None, inner_radius=17.0, outer_radius=20.0, height=20.0, arc=math.pi, angle_start=0.0, radial_segments=10)` | Represents a Rectangular Torus in the public entities API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `ReferenceMode` | Represents a Reference Mode in the public entities API for Aspose.3D. |
+| `threed.entities.RevolvedAreaSolid.RevolvedAreaSolid(name=None)` | Represents a Revolved Area Solid in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.RotationMode.RotationMode(name=None)` | Represents a Rotation Mode in the public entities API for Aspose.3D. |
+| `threed.entities.Shape.Shape(name=None)` | Represents a Shape in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.Skeleton.Skeleton(name=None)` | Represents a Skeleton in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `SkeletonType` | Represents a Skeleton Type in the public entities API for Aspose.3D. |
+| `threed.entities.Sphere.Sphere(name=None, radius=1.0, width_segments=16, height_segments=16, phi_start=0.0, phi_length=math.pi * 2, theta_start=0.0, theta_length=math.pi * 2)` | The `aspose.threed.entities` namespace re-exports `Sphere` from the primary `aspose.threed` namespace. |
+| `threed.entities.Torus.Torus(name=None, radius=1.0, tube=0.25, radial_segments=32, tubular_segments=16, arc=math.pi * 2)` | Represents a Torus in the public entities API for Aspose.3D. Supports converting content to mesh, adding elements, and creating element. Inherits from `Primitive`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element in the public entities API for Aspose.3D. Supports clearing content and setting indices. |
+| `threed.entities.VertexElementFVector.VertexElementFVector(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element F Vector in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElementIntsTemplate.VertexElementIntsTemplate(element_type=None, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Ints Template in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Vector4 in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElementDoublesTemplate.VertexElementDoublesTemplate(element_type=None, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Doubles Template in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Edge Crease in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Hole in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Material in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Polygon Group in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Specular in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElementTemplate.VertexElementTemplate(mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Template in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`, `Generic[T]`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element User Data in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Vertex Crease in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Visibility in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.VertexElement.VertexElement(element_type, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Weight in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElement`. |
+| `threed.entities.TrimmedCurve.TrimmedCurve(name=None)` | Represents a Trimmed Curve in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.SweptAreaSolid.SweptAreaSolid(name=None)` | Represents a Swept Area Solid in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.TransformedCurve.TransformedCurve(name=None)` | Represents a Transformed Curve in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Curve`. |
+| `threed.entities.TriMesh.TriMesh(name=None)` | Represents a Tri Mesh in the public entities API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Entity`. |
+| `threed.entities.VertexElementUV.VertexElementUV(texture_mapping=None, name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element UV in the public entities API for Aspose.3D. Supports adding datas, clearing content, and copying the current value to a destination. Inherits from `VertexElementFVector`. |
+| `threed.entities.SplitMeshPolicy.SplitMeshPolicy(name=None)` | Represents a Split Mesh Policy in the public entities API for Aspose.3D. |
+| `TextureMapping` | Represents a Texture Mapping in the public entities API for Aspose.3D. |
+| `threed.entities.VertexElementBinormal.VertexElementBinormal(name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Binormal in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElementFVector`. |
+| `threed.entities.VertexElementNormal.VertexElementNormal(name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Normal in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElementFVector`. |
+| `threed.entities.VertexElementSmoothingGroup.VertexElementSmoothingGroup(name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Smoothing Group in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElementIntsTemplate`. |
+| `threed.entities.VertexElementTangent.VertexElementTangent(name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Tangent in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElementFVector`. |
+| `VertexElementType` | Represents a Vertex Element Type in the public entities API for Aspose.3D. |
+| `threed.entities.VertexElementVertexColor.VertexElementVertexColor(name='', mapping_mode=None, reference_mode=None)` | Represents a Vertex Element Vertex Color in the public entities API for Aspose.3D. Supports clearing content, copying the current value to a destination, and setting data. Inherits from `VertexElementFVector`. |
+
+### Aspose.3D.Formats Namespace (`aspose.threed.formats`)
+
+| Type | Description |
+| --- | --- |
+| `A3dwSaveOptions` | Configures A3dw output through the Aspose.3D API. |
+| `AmfSaveOptions` | Configures Amf output through the Aspose.3D API. |
+| `threed.formats.collada.ColladaLoadOptions.ColladaLoadOptions()` | Configures COLLADA Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.collada.ColladaSaveOptions.ColladaSaveOptions()` | Configures COLLADA output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `ColladaTransformStyle` | Represents a COLLADA Transform Style in the public formats API for Aspose.3D. |
+| `Discreet3dsLoadOptions` | Configures Discreet3ds Load operations through the Aspose.3D API. |
+| `Discreet3dsSaveOptions` | Configures Discreet3ds output through the Aspose.3D API. |
+| `DracoCompressionLevel` | Represents a Draco Compression Level in the public formats API for Aspose.3D. |
+| `DracoFormat` | Represents a Draco Format in the public formats API for Aspose.3D. |
+| `DracoSaveOptions` | Configures Draco output through the Aspose.3D API. |
+| `threed.formats.Exporter.Exporter()` | Represents an Exporter in the public formats API for Aspose.3D. Supports supportsing format. |
+| `threed.formats.fbx.FbxLoadOptions.FbxLoadOptions(format=None)` | Configures FBX Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.fbx.FbxSaveOptions.FbxSaveOptions(format=None)` | Configures FBX output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `threed.formats.FormatDetector.FormatDetector()` | Represents a Format Detector in the public formats API for Aspose.3D. Supports detecting changes. |
+| `GltfEmbeddedImageFormat` | Represents a GLTF Embedded Image Format in the public formats API for Aspose.3D. |
+| `threed.formats.gltf.GltfLoadOptions.GltfLoadOptions()` | Configures GLTF Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.gltf.GltfSaveOptions.GltfSaveOptions(file_format=None)` | Configures GLTF output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `Html5SaveOptions` | Configures Html5 output through the Aspose.3D API. |
+| `threed.formats.IOConfig.IOConfig()` | Represents an IO Config in the public formats API for Aspose.3D. |
+| `threed.formats.IOService.IOService()` | Represents an IO Service in the public formats API for Aspose.3D. Supports creating exporter, creating importer, and detecting format. |
+| `threed.formats.Importer.Importer()` | Represents an Importer in the public formats API for Aspose.3D. Supports importing scene and supportsing format. |
+| `JtLoadOptions` | Configures Jt Load operations through the Aspose.3D API. |
+| `threed.formats.LoadOptions.LoadOptions()` | Configures Load operations through the Aspose.3D API. Inherits from `IOConfig`. |
+| `Microsoft3MFFormat` | Represents a Microsoft3 MF Format in the public formats API for Aspose.3D. |
+| `Microsoft3MFSaveOptions` | Configures Microsoft3 MF output through the Aspose.3D API. |
+| `threed.formats.obj.ObjLoadOptions.ObjLoadOptions()` | Configures OBJ Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.obj.ObjSaveOptions.ObjSaveOptions()` | Configures OBJ output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `PdfFormat` | Represents a PDF Format in the public formats API for Aspose.3D. |
+| `PdfLightingScheme` | Represents a PDF Lighting Scheme in the public formats API for Aspose.3D. |
+| `PdfLoadOptions` | Configures PDF Load operations through the Aspose.3D API. |
+| `PdfRenderMode` | Represents a PDF Render Mode in the public formats API for Aspose.3D. |
+| `threed.formats.PdfSaveOptions.PdfSaveOptions()` | Configures PDF output through the Aspose.3D API. |
+| `Plugin` | Represents a Plugin in the public formats API for Aspose.3D. Supports creating load options, creating save options, and retrieving exporter. Inherits from `ABC`. |
+| `PlyFormat` | Represents a Ply Format in the public formats API for Aspose.3D. |
+| `PlyLoadOptions` | Configures Ply Load operations through the Aspose.3D API. |
+| `PlySaveOptions` | Configures Ply output through the Aspose.3D API. |
+| `RvmFormat` | Represents a Rvm Format in the public formats API for Aspose.3D. |
+| `RvmLoadOptions` | Configures Rvm Load operations through the Aspose.3D API. |
+| `RvmSaveOptions` | Configures Rvm output through the Aspose.3D API. |
+| `threed.formats.SaveOptions.SaveOptions()` | Configures 3D output through the Aspose.3D API. Inherits from `IOConfig`. |
+| `threed.formats.stl.StlLoadOptions.StlLoadOptions()` | Configures STL Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.stl.StlSaveOptions.StlSaveOptions(file_format=None)` | Configures STL output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `ThreeMfFormat` | Represents a Three Mf Format in the public formats API for Aspose.3D. Supports creating load options, creating save options, and retrieving object type. |
+| `threed.formats.threemf.ThreeMfLoadOptions.ThreeMfLoadOptions()` | Configures Three Mf Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
+| `threed.formats.threemf.ThreeMfSaveOptions.ThreeMfSaveOptions()` | Configures Three Mf output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `UsdSaveOptions` | Configures Usd output through the Aspose.3D API. |
+
+### Aspose.3D.Profiles Namespace (`aspose.threed.profiles`)
+
+| Type | Description |
+| --- | --- |
+| `threed.profiles.ArbitraryProfile.ArbitraryProfile(name=None)` | Represents an Arbitrary Profile in the public profiles API for Aspose.3D. Supports adding holes, finding property, and retrieving bounding box. Inherits from `Profile`. |
+| `threed.profiles.CShape.CShape(name=None)` | Represents a C Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.CenterLineProfile.CenterLineProfile(name=None, curve=None, thickness=1.0)` | Represents a Center Line Profile in the public profiles API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Profile`. |
+| `threed.profiles.CircleShape.CircleShape(name=None, radius=5.0)` | Represents a Circle Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.EllipseShape.EllipseShape(name=None, semi_axis1=5.0, semi_axis2=5.0)` | Represents an Ellipse Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.FontFile.FontFile(name=None)` | Represents a Font File in the public profiles API for Aspose.3D. Supports loading content from file, finding property, and retrieving property. Inherits from `A3DObject`. |
+| `threed.profiles.HShape.HShape(name=None, width=10.0, depth=10.0, web_thickness=1.0, flange_thickness=1.0)` | Represents an H Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.HollowCircleShape.HollowCircleShape(name=None)` | Represents a Hollow Circle Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `CircleShape`. |
+| `threed.profiles.HollowRectangleShape.HollowRectangleShape(name=None)` | Represents a Hollow Rectangle Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `RectangleShape`. |
+| `threed.profiles.LShape.LShape(name=None)` | Represents an L Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.MirroredProfile.MirroredProfile(base_profile=None)` | Represents a Mirrored Profile in the public profiles API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Profile`. |
+| `threed.profiles.ParameterizedProfile.ParameterizedProfile(name=None)` | Represents a Parameterized Profile in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `Profile`. |
+| `threed.profiles.Profile.Profile(name=None)` | Represents a Profile in the public profiles API for Aspose.3D. Supports retrieving entity renderer key, finding property, and retrieving bounding box. Inherits from `Entity`. |
+| `threed.profiles.RectangleShape.RectangleShape(name=None, width=10.0, depth=10.0)` | Represents a Rectangle Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.TShape.TShape(name=None)` | Represents a T Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.Text.Text(name=None)` | Represents a Text in the public profiles API for Aspose.3D. Supports finding property, retrieving bounding box, and retrieving entity renderer key. Inherits from `Profile`. |
+| `threed.profiles.TrapeziumShape.TrapeziumShape(name=None)` | Represents a Trapezium Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.UShape.UShape(name=None)` | Represents an U Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+| `threed.profiles.ZShape.ZShape(name=None)` | Represents a Z Shape in the public profiles API for Aspose.3D. Supports retrieving extent, finding property, and retrieving bounding box. Inherits from `ParameterizedProfile`. |
+
+### Aspose.3D.Render Namespace (`aspose.threed.render`)
+
+| Type | Description |
+| --- | --- |
+| `BlendFactor` | Represents a Blend Factor in the public render API for Aspose.3D. |
+| `CompareFunction` | Represents a Compare Function in the public render API for Aspose.3D. |
+| `CubeFace` | Represents a Cube Face in the public render API for Aspose.3D. |
+| `CullFaceMode` | Represents a Cull Face Mode in the public render API for Aspose.3D. |
+| `threed.render.DescriptorSetUpdater.DescriptorSetUpdater()` | Represents a Descriptor Set Updater in the public render API for Aspose.3D. |
+| `DrawOperation` | Represents a Draw Operation in the public render API for Aspose.3D. |
+| `DriverException` | Signals a driver condition; derives from `Exception`. |
+| `threed.render.EntityRenderer.EntityRenderer()` | Renders Entity content through the Aspose.3D API. |
+| `threed.render.EntityRendererFeatures.EntityRendererFeatures()` | Represents an Entity Renderer Features in the public render API for Aspose.3D. |
+| `threed.render.EntityRendererKey.EntityRendererKey(name)` | Represents an Entity Renderer Key in the public render API for Aspose.3D. |
+| `FrontFace` | Represents a Front Face in the public render API for Aspose.3D. |
+| `threed.render.GLSLSource.GLSLSource(source)` | Represents a GLSL Source in the public render API for Aspose.3D. |
+| `threed.render.IBuffer.IBuffer()` | Represents an I Buffer in the public render API for Aspose.3D. |
+| `threed.render.ICommandList.ICommandList()` | Represents an I Command List in the public render API for Aspose.3D. Supports drawing indexed, setting index buffer, and setting vertex buffer. |
+| `threed.render.IDescriptorSet.IDescriptorSet()` | Represents an I Descriptor Set in the public render API for Aspose.3D. Supports setting buffer and setting texture. |
+| `threed.render.IIndexBuffer.IIndexBuffer()` | Represents an I Index Buffer in the public render API for Aspose.3D. |
+| `threed.render.IPipeline.IPipeline()` | Represents an I Pipeline in the public render API for Aspose.3D. |
+| `threed.render.IRenderQueue.IRenderQueue()` | Represents an I Render Queue in the public render API for Aspose.3D. Supports adding draw calls. |
+| `threed.render.IRenderTarget.IRenderTarget()` | Represents an I Render Target in the public render API for Aspose.3D. |
+| `threed.render.IRenderTexture.IRenderTexture()` | Represents an I Render Texture in the public render API for Aspose.3D. |
+| `threed.render.IRenderWindow.IRenderWindow()` | Represents an I Render Window in the public render API for Aspose.3D. |
+| `threed.render.ITexture1D.ITexture1D()` | Represents an I Texture1 D in the public render API for Aspose.3D. |
+| `threed.render.ITexture2D.ITexture2D()` | Represents an I Texture2 D in the public render API for Aspose.3D. |
+| `threed.render.ITextureCodec.ITextureCodec()` | Represents an I Texture Codec in the public render API for Aspose.3D. |
+| `threed.render.ITextureCubemap.ITextureCubemap()` | Represents an I Texture Cubemap in the public render API for Aspose.3D. |
+| `threed.render.ITextureDecoder.ITextureDecoder()` | Represents an I Texture Decoder in the public render API for Aspose.3D. |
+| `threed.render.ITextureEncoder.ITextureEncoder()` | Represents an I Texture Encoder in the public render API for Aspose.3D. |
+| `threed.render.ITextureUnit.ITextureUnit()` | Represents an I Texture Unit in the public render API for Aspose.3D. |
+| `threed.render.IVertexBuffer.IVertexBuffer()` | Represents an I Vertex Buffer in the public render API for Aspose.3D. |
+| `IndexDataType` | Represents an Index Data Type in the public render API for Aspose.3D. |
+| `InitializationException` | Signals an initialization condition; derives from `Exception`. |
+| `PixelFormat` | Represents a Pixel Format in the public render API for Aspose.3D. |
+| `PixelMapMode` | Represents a Pixel Map Mode in the public render API for Aspose.3D. |
+| `threed.render.PixelMapping.PixelMapping()` | Represents a Pixel Mapping in the public render API for Aspose.3D. |
+| `PolygonMode` | Represents a Polygon Mode in the public render API for Aspose.3D. |
+| `threed.render.PostProcessing.PostProcessing()` | Represents a Post Processing in the public render API for Aspose.3D. |
+| `threed.render.PresetShaders.PresetShaders()` | Represents a Preset Shaders in the public render API for Aspose.3D. |
+| `threed.render.PushConstant.PushConstant()` | Represents a Push Constant in the public render API for Aspose.3D. |
+| `threed.render.RenderFactory.RenderFactory()` | Represents a Render Factory in the public render API for Aspose.3D. Supports creating cube render texture, creating descriptor set, and creating index buffer. |
+| `threed.render.RenderParameters.RenderParameters()` | Represents a Render Parameters in the public render API for Aspose.3D. |
+| `RenderQueueGroupId` | Represents a Render Queue Group Id in the public render API for Aspose.3D. |
+| `threed.render.RenderResource.RenderResource()` | Stores Render resource data through the Aspose.3D API. |
+| `threed.render.RenderStage.RenderStage()` | Represents a Render Stage in the public render API for Aspose.3D. |
+| `threed.render.RenderState.RenderState()` | Stores Render state through the Aspose.3D API. |
+| `threed.render.Renderer.Renderer()` | Renders 3D content through the Aspose.3D API. Supports clearing cache, creating renderer, and retrieving post processing. |
+| `threed.render.RendererVariableManager.RendererVariableManager()` | Represents a Renderer Variable Manager in the public render API for Aspose.3D. |
+| `threed.render.SPIRVSource.SPIRVSource()` | Represents an SPIRV Source in the public render API for Aspose.3D. |
+| `ShaderException` | Signals a shader condition; derives from `Exception`. |
+| `threed.render.ShaderProgram.ShaderProgram()` | Represents a Shader Program in the public render API for Aspose.3D. |
+| `threed.render.ShaderSet.ShaderSet()` | Represents a Shader Set in the public render API for Aspose.3D. |
+| `threed.render.ShaderSource.ShaderSource()` | Represents a Shader Source in the public render API for Aspose.3D. |
+| `ShaderStage` | Represents a Shader Stage in the public render API for Aspose.3D. |
+| `threed.render.ShaderVariable.ShaderVariable()` | Represents a Shader Variable in the public render API for Aspose.3D. |
+| `StencilAction` | Represents a Stencil Action in the public render API for Aspose.3D. |
+| `threed.render.StencilState.StencilState()` | Stores Stencil state through the Aspose.3D API. |
+| `threed.render.TextureCodec.TextureCodec()` | Represents a Texture Codec in the public render API for Aspose.3D. |
+| `threed.render.TextureData.TextureData()` | Represents a Texture Data in the public render API for Aspose.3D. |
+| `TextureType` | Represents a Texture Type in the public render API for Aspose.3D. |
+| `threed.render.Viewport.Viewport(x, y, width, height, min_depth=0.0, max_depth=1.0)` | Represents a Viewport in the public render API for Aspose.3D. |
+| `threed.render.WindowHandle.WindowHandle()` | Represents a Window Handle in the public render API for Aspose.3D. |
+
+### Aspose.3D.Shading Namespace (`aspose.threed.shading`)
+
+| Type | Description |
+| --- | --- |
+| `AlphaSource` | Represents an Alpha Source in the public shading API for Aspose.3D. |
+| `threed.shading.LambertMaterial.LambertMaterial(name=None)` | Represents a Lambert Material in the public shading API for Aspose.3D. Supports finding property, retrieving property, and retrieving texture. Inherits from `Material`. |
+| `threed.shading.Material.Material(name=None)` | Represents a Material in the public shading API for Aspose.3D. Supports retrieving texture, setting texture, and finding property. Inherits from `A3DObject`. |
+| `threed.shading.PbrMaterial.PbrMaterial(name=None, albedo=None)` | Represents a PBR Material in the public shading API for Aspose.3D. Supports loading content from material, finding property, and retrieving property. Inherits from `Material`. |
+| `threed.shading.PbrSpecularMaterial.PbrSpecularMaterial(*args)` | Represents a PBR Specular Material in the public shading API for Aspose.3D. Supports finding property, retrieving property, and retrieving texture. |
+| `threed.shading.PhongMaterial.PhongMaterial(name=None)` | Represents a Phong Material in the public shading API for Aspose.3D. Supports finding property, retrieving property, and retrieving texture. Inherits from `LambertMaterial`. |
+| `threed.shading.ShaderMaterial.ShaderMaterial(*args)` | Represents a Shader Material in the public shading API for Aspose.3D. Supports finding property, retrieving property, and retrieving texture. |
+| `threed.shading.ShaderTechnique.ShaderTechnique()` | Represents a Shader Technique in the public shading API for Aspose.3D. |
+| `threed.shading.Texture.Texture(*args)` | Represents a Texture in the public shading API for Aspose.3D. Supports setting rotation, setting scale, and setting translation. |
+| `threed.shading.TextureBase.TextureBase()` | Represents a Texture Base in the public shading API for Aspose.3D. |
+| `TextureFilter` | Represents a Texture Filter in the public shading API for Aspose.3D. |
+| `TextureSlot` | Represents a Texture Slot in the public shading API for Aspose.3D. |
+| `WrapMode` | Represents a Wrap Mode in the public shading API for Aspose.3D. |
+
+### Aspose.3D.Utilities Namespace (`aspose.threed.utilities`)
+
+| Type | Description |
+| --- | --- |
+| `threed.utilities.ArrayList.ArrayListAdapter(data=None)` | The `aspose.threed.utilities` namespace re-exports `ArrayListAdapter` from the primary `aspose.threed` namespace. |
+| `threed.utilities.BoundingBox.BoundingBox(*args)` | Represents a Bounding Box in the public utilities API for Aspose.3D. Supports loading content from geometry, retrieving infinite, and retrieving null. |
+| `threed.utilities.BoundingBox2D.BoundingBox2D(minimum=None, maximum=None)` | The `aspose.threed.utilities` namespace re-exports `BoundingBox2D` from the primary `aspose.threed` namespace. |
+| `BoundingBoxExtent` | The `aspose.threed.utilities` namespace re-exports `BoundingBoxExtent` from the primary `aspose.threed` namespace. |
+| `ComposeOrder` | The `aspose.threed.utilities` namespace re-exports `ComposeOrder` from the primary `aspose.threed` namespace. |
+| `threed.utilities.FMatrix4.FMatrix4(m00=0.0, m01=0.0, m02=0.0, m03=0.0, m10=0.0, m11=0.0, m12=0.0, m13=0.0, m20=0.0, m21=0.0, m22=0.0, m23=0.0, m30=0.0, m31=0.0, m32=0.0, m33=0.0)` | The `aspose.threed.utilities` namespace re-exports `FMatrix4` from the primary `aspose.threed` namespace. |
+| `threed.utilities.FVector2.FVector2(x=None, y=0.0)` | Represents an F Vector2 in the public utilities API for Aspose.3D. |
+| `threed.utilities.FVector3.FVector3(x=None, y=0.0, z=0.0)` | Represents an F Vector3 in the public utilities API for Aspose.3D. Supports uniting x, uniting y, and uniting z. |
+| `threed.utilities.FVector4.FVector4(x=None, y=0.0, z=0.0, w=0.0)` | Represents an F Vector4 in the public utilities API for Aspose.3D. |
+| `threed.utilities.FileSystem.FileSystem()` | Represents a File System in the public utilities API for Aspose.3D. Supports creating dummy file system, creating local file system, and creating ZIP file system. |
+| `IOExtension` | The `aspose.threed.utilities` namespace re-exports `IOExtension` from the primary `aspose.threed` namespace. |
+| `MathUtils` | The `aspose.threed.utilities` namespace re-exports `MathUtils` from the primary `aspose.threed` namespace. |
+| `threed.utilities.Matrix4.Matrix4(*args)` | Represents a Matrix4 in the public utilities API for Aspose.3D. Supports retrieving identity, rotating from euler, and setting trs. |
+| `threed.utilities.ParseException.ParseException(msg)` | The `aspose.threed.utilities` namespace re-exports `ParseException` from the primary `aspose.threed` namespace. |
+| `threed.utilities.Quaternion.Quaternion(w=None, x=0.0, y=0.0, z=0.0)` | Represents a Quaternion in the public utilities API for Aspose.3D. Supports eulering angles, loading content from angle axis, and loading content from euler angle. |
+| `threed.utilities.Rect.Rect(x=0, y=0, width=0, height=0)` | The `aspose.threed.utilities` namespace re-exports `Rect` from the primary `aspose.threed` namespace. |
+| `threed.utilities.RelativeRectangle.RelativeRectangle(left=0, top=0, width=0, height=0)` | The `aspose.threed.utilities` namespace re-exports `RelativeRectangle` from the primary `aspose.threed` namespace. |
+| `RotationOrder` | The `aspose.threed.utilities` namespace re-exports `RotationOrder` from the primary `aspose.threed` namespace. |
+| `threed.utilities.SemanticAttribute.SemanticAttribute(semantic, alias=None)` | The `aspose.threed.utilities` namespace re-exports `SemanticAttribute` from the primary `aspose.threed` namespace. |
+| `threed.utilities.TransformBuilder.TransformBuilder(initial=None, order=None)` | The `aspose.threed.utilities` namespace re-exports `TransformBuilder` from the primary `aspose.threed` namespace. |
+| `threed.utilities.Vector2.Vector2(x=0.0, y=0.0)` | Represents a Vector2 in the public utilities API for Aspose.3D. |
+| `threed.utilities.Vector3.Vector3(x=None, y=0.0, z=0.0)` | Represents a Vector3 in the public utilities API for Aspose.3D. Supports angling between. |
+| `threed.utilities.Vector4.Vector4(*args)` | Represents a Vector4 in the public utilities API for Aspose.3D. |
+| `Vertex` | The `aspose.threed.utilities` namespace re-exports `Vertex` from the primary `aspose.threed` namespace. |
+| `threed.utilities.VertexDeclaration.VertexDeclaration()` | The `aspose.threed.utilities` namespace re-exports `VertexDeclaration` from the primary `aspose.threed` namespace. |
+| `VertexField` | The `aspose.threed.utilities` namespace re-exports `VertexField` from the primary `aspose.threed` namespace. |
+| `VertexFieldDataType` | The `aspose.threed.utilities` namespace re-exports `VertexFieldDataType` from the primary `aspose.threed` namespace. |
+| `VertexFieldSemantic` | The `aspose.threed.utilities` namespace re-exports `VertexFieldSemantic` from the primary `aspose.threed` namespace. |
+| `Watermark` | Represents a Watermark in the public utilities API for Aspose.3D. Supports decoding watermark and encoding watermark. |
+
+### Aspose.3D.Formats.GLTF Namespace (`aspose.threed.formats.gltf`)
+
+| Type | Description |
+| --- | --- |
+| `threed.formats.gltf.GltfExporter.GltfExporter()` | Represents a GLTF Exporter in the public GLTF API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
+| `GltfFormat` | Represents a GLTF Format in the public GLTF API for Aspose.3D. Supports creating load options and creating save options. |
+| `threed.formats.gltf.GltfFormatDetector.GltfFormatDetector()` | Represents a GLTF Format Detector in the public GLTF API for Aspose.3D. Supports detecting changes. Inherits from `FormatDetector`. |
+| `threed.formats.gltf.GltfImporter.GltfImporter()` | Represents a GLTF Importer in the public GLTF API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.gltf.GltfLoadOptions.GltfLoadOptions()` | The `aspose.threed.formats.gltf` namespace re-exports `GltfLoadOptions` from the primary `aspose.threed.formats` namespace. |
+| `threed.formats.gltf.GltfPlugin.GltfPlugin()` | Represents a GLTF Plugin in the public GLTF API for Aspose.3D. Supports creating load options, creating save options, and retrieving exporter. Inherits from `Plugin`. |
+| `threed.formats.gltf.GltfSaveOptions.GltfSaveOptions(file_format=None)` | The `aspose.threed.formats.gltf` namespace re-exports `GltfSaveOptions` from the primary `aspose.threed.formats` namespace. |
+
+### Aspose.3D.Formats.OBJ Namespace (`aspose.threed.formats.obj`)
+
+| Type | Description |
+| --- | --- |
+| `threed.formats.obj.ObjExporter.ObjExporter()` | Represents an OBJ Exporter in the public OBJ API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
+| `threed.FileFormat.FileFormat()` | Represents an OBJ Format in the public OBJ API for Aspose.3D. Supports creating load options, creating save options, and detecting changes. Inherits from `FileFormat`. |
+| `threed.formats.obj.ObjFormatDetector.ObjFormatDetector()` | Represents an OBJ Format Detector in the public OBJ API for Aspose.3D. Supports detecting changes. Inherits from `FormatDetector`. |
+| `threed.formats.obj.ObjImporter.ObjImporter()` | Represents an OBJ Importer in the public OBJ API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.obj.ObjLoadOptions.ObjLoadOptions()` | The `aspose.threed.formats.obj` namespace re-exports `ObjLoadOptions` from the primary `aspose.threed.formats` namespace. |
+| `threed.formats.obj.ObjSaveOptions.ObjSaveOptions()` | The `aspose.threed.formats.obj` namespace re-exports `ObjSaveOptions` from the primary `aspose.threed.formats` namespace. |
+
+### Aspose.3D.Formats.STL Namespace (`aspose.threed.formats.stl`)
+
+| Type | Description |
+| --- | --- |
+| `threed.formats.stl.StlExporter.StlExporter()` | Represents an STL Exporter in the public STL API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
+| `StlFormat` | Represents an STL Format in the public STL API for Aspose.3D. Supports creating load options and creating save options. |
+| `threed.formats.stl.StlImporter.StlImporter()` | Represents an STL Importer in the public STL API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.stl.StlLoadOptions.StlLoadOptions()` | The `aspose.threed.formats.stl` namespace re-exports `StlLoadOptions` from the primary `aspose.threed.formats` namespace. |
+| `threed.formats.stl.StlSaveOptions.StlSaveOptions(file_format=None)` | The `aspose.threed.formats.stl` namespace re-exports `StlSaveOptions` from the primary `aspose.threed.formats` namespace. |
+
+### Aspose.3D.Formats.3MF Namespace (`aspose.threed.formats.threemf`)
+
+| Type | Description |
+| --- | --- |
+| `threed.formats.threemf.ThreeMfFormatDetector.ThreeMfFormatDetector()` | Represents a Three Mf Format Detector in the public threemf API for Aspose.3D. Supports detecting changes. Inherits from `FormatDetector`. |
+| `threed.formats.threemf.ThreeMfLoadOptions.ThreeMfLoadOptions()` | The `aspose.threed.formats.threemf` namespace re-exports `ThreeMfLoadOptions` from the primary `aspose.threed.formats` namespace. |
+| `threed.formats.threemf.ThreeMfSaveOptions.ThreeMfSaveOptions()` | The `aspose.threed.formats.threemf` namespace re-exports `ThreeMfSaveOptions` from the primary `aspose.threed.formats` namespace. |
+
+- `Scene`
+
+  - `open(file_or_stream, options)`, `save(file_or_stream, format_or_options)`, `from_file(file_name)`
+
+  - `root_node`, `sub_scenes`, `asset_info`, `animation_clips`
+
+  - `create_animation_clip(name)`, `clear()`
+
+- `Node`
+
+  - `create_child_node(node_name, entity, material) -> 'Node'`
+
+  - `add_entity(entity)`, `add_child_node(node)`, `merge(node)`
+
+  - `entity`, `entities`, `material`, `materials`, `child_nodes`, `parent_node`
+
+  - `transform`, `global_transform`, `visible`, `excluded`
+
+  - `evaluate_global_transform(with_geometric_transform)`, `get_bounding_box()`
+
+  - `get_bounding_box()`, `parent_node`, `parent_nodes`, `excluded`, `name`
+
+- `Transform` / `GlobalTransform`
+
+- `Box`, `Cylinder`, `Sphere`, `Torus`, `Pyramid`, `Dish`, `Circle`, `Ellipse`, `Frustum`
+
+  - each exposes `to_mesh() -> 'Mesh'` to convert the parameterized primitive into a concrete mesh
+
+- `Camera`, `Light`
+
+  - `near_plane`, `far_plane`, `field_of_view`, `direction`, `target`, `up`
+
+- `Material` (base) — `get_texture(slot_name)`, `set_texture(slot_name, texture)`
+
+- `LambertMaterial` — `emissive_color`, `ambient_color`, `diffuse_color`, `transparent_color`, `transparency`
+
+- `PhongMaterial(LambertMaterial)` — adds `specular_color`, `specular_factor`, `shininess`, `reflection_color`
+
+- `PbrMaterial` — `albedo`, `metallic_factor`, `roughness_factor`, `albedo_texture`, `normal_texture`, `occlusion_texture`, `emissive_texture`, `emissive_color`
+
+- `ObjLoadOptions` — `flip_coordinate_system`, `enable_materials`, `scale`, `normalize_normal`
+
+- `ObjSaveOptions` — `apply_unit_scale`, `point_cloud`, `verbose`, `serialize_w`,
+  `enable_materials`, `flip_coordinate_system`, `axis_system`
+
+- `StlLoadOptions` / `StlSaveOptions` — `binary_mode` (save only), `scale`, `flip_coordinate_system`
+
+- `GltfLoadOptions` / `GltfSaveOptions` — `binary_mode` (save only), `flip_tex_coord_v`
+
+- `ColladaLoadOptions` / `ColladaSaveOptions` — `flip_coordinate_system`, `enable_materials`
+  (save only), `indented` (save only)
+
+- `ThreeMfLoadOptions` / `ThreeMfSaveOptions` — `flip_coordinate_system`, `enable_compression`
+  (save only), `build_all` (save only), `pretty_print` (save only), `unit` (save only)
+
+- `FbxLoadOptions` / `FbxSaveOptions` — `compatible_mode`, `export_textures`, `embed_textures` (see [Scope and limitations](#scope-and-limitations))
+
+- `FileFormat` — `detect(stream, file_name)`, `get_format_by_extension(extension_name)`, `can_import`, `can_export`
+
+- `Matrix4` — `translate()`, `scale()`, `rotate()`, `decompose()`, `inverse()`, `get_identity()`
+
+- `Quaternion` — `slerp(t, v1, v2)`, `to_matrix()`, `from_euler_angle()`, `from_angle_axis()`
+
+- `BoundingBox` — `minimum`, `maximum`, `center`, `size`, `merge()`, `contains()`
+
+- `AnimationNode` — `create_bind_point(obj, prop_name)`, `get_keyframe_sequence(target, prop_name,
+  channel_name, create)`, `bind_points`, `sub_animations`
+
+- `AnimationChannel` (extends `KeyframeSequence`) — `component_type`, `default_value`,
+  `keyframe_sequence`
+
+- `KeyframeSequence` — `add(time, value, interpolation)`, `key_frames`, `pre_behavior`/
+  `post_behavior` (`Extrapolation`)
+
+- `KeyFrame` — `time`, `value`, `interpolation` (`Interpolation`), tangent/weight fields
+  (`tangent_weight_mode`, `step_mode`, `tension`, `continuity`, `bias`)
+
+- `BindPoint`, `Interpolation`, `Extrapolation`/`ExtrapolationType`, `StepMode`, `WeightedMode`
+
+</details>
+
+## Documentation and Resources
+
+- **[Getting started guide](https://docs.aspose.org/3d/python/)** - installation, walkthroughs, and feature guides for this library.
+- **[How-to guides and FAQ](https://kb.aspose.org/3d/python/)** - task-focused answers for common product questions.
+- **[Full API reference](https://reference.aspose.org/3d/python/)** - the complete browsable reference for the public API.
+- Found a bug or have a feature request? [Open an issue](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues) on GitHub.
+
+## Scope and Limitations
+
+The library targets the workflows listed above. Five specific constraints are listed below.
+
+- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.
+- NURBS curve evaluation and surface-to-mesh conversion are not implemented.
+- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.
+- FBX export is not implemented.
+- Scene and renderer output generation are not implemented.
+
+This repository contains [Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/). For requirements beyond the FOSS scope described above, explore the [full-featured Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/). It is a separate product, so features and APIs may differ.
+
+## Development and Testing
+
+The repository includes 34 test files.
+
+### Tests
+
+- [`tests/test_3mf_exporter.py`](tests/test_3mf_exporter.py)
+- [`tests/test_3mf_importer.py`](tests/test_3mf_importer.py)
+- [`tests/test_3mf_material_export.py`](tests/test_3mf_material_export.py)
+- [`tests/test_3mf_materials.py`](tests/test_3mf_materials.py)
+- [`tests/test_3mf_roundtrip.py`](tests/test_3mf_roundtrip.py)
+- [`tests/test_array_list_adapter.py`](tests/test_array_list_adapter.py)
+- [`tests/test_collada_exporter.py`](tests/test_collada_exporter.py)
+- [`tests/test_collada_importer.py`](tests/test_collada_importer.py)
+- [Browse all test files](tests)
+
+### Focused Commands and Repository Scripts
+
+```bash
+python -m pip install -e .
+```
+
+```bash
+python -m pytest tests
+```
+
+## License
+
+This project is available under the [MIT License](LICENSE). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.

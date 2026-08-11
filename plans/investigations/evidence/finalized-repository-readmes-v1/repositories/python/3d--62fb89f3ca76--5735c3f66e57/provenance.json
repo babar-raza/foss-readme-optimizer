@@ -1,0 +1,361 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:isolated-generated-python-metadata": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://setup.py#isolated-generated-PKG-INFO:616432b91e67603cf8b94525d54b8ae2dddc127022e2efacec5c889b72f0cd41",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/__init__.py,aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/Axis.py,aspose/threed/AxisSystem.py,aspose/threed/BonePose.py,aspose/threed/CoordinateSystem.py,aspose/threed/CustomObject.py,aspose/threed/Entity.py,aspose/threed/ExportException.py,aspose/threed/FileContentType.py,aspose/threed/FileFormat.py,aspose/threed/FileFormatType.py,aspose/threed/GlobalTransform.py,aspose/threed/Group.py,aspose/threed/INamedObject.py,aspose/threed/ImageRenderOptions.py,aspose/threed/ImportException.py,aspose/threed/Node.py,aspose/threed/Pose.py,aspose/threed/PoseType.py,aspose/threed/Property.py,aspose/threed/PropertyCollection.py,aspose/threed/PropertyFlags.py,aspose/threed/Scene.py,aspose/threed/SceneObject.py,aspose/threed/Transform.py,aspose/threed/TrialException.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationChannel.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/AnimationNode.py,aspose/threed/animation/BindPoint.py,aspose/threed/animation/Extrapolation.py,aspose/threed/animation/ExtrapolationType.py,aspose/threed/animation/Interpolation.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/KeyframeSequence.py,aspose/threed/animation/StepMode.py,aspose/threed/animation/WeightedMode.py,aspose/threed/animation/__init__.py,aspose/threed/deformers/Bone.py,aspose/threed/deformers/BoneLinkMode.py,aspose/threed/deformers/Deformer.py,aspose/threed/deformers/MorphTargetChannel.py,aspose/threed/deformers/MorphTargetDeformer.py,aspose/threed/deformers/SkinDeformer.py,aspose/threed/deformers/__init__.py,aspose/threed/entities/ApertureMode.py,aspose/threed/entities/BooleanOperand.py,aspose/threed/entities/BooleanOperation.py,aspose/threed/entities/BooleanOperator.py,aspose/threed/entities/Box.py,aspose/threed/entities/Camera.py,aspose/threed/entities/Circle.py,aspose/threed/entities/CompositeCurve.py,aspose/threed/entities/Curve.py,aspose/threed/entities/CurveDimension.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Dish.py,aspose/threed/entities/Ellipse.py,aspose/threed/entities/EndPoint.py,aspose/threed/entities/Frustum.py,aspose/threed/entities/Geometry.py,aspose/threed/entities/HalfSpace.py,aspose/threed/entities/IIndexedVertexElement.py,aspose/threed/entities/IMeshConvertible.py,aspose/threed/entities/IOrientable.py,aspose/threed/entities/Light.py,aspose/threed/entities/LightType.py,aspose/threed/entities/Line.py,aspose/threed/entities/LinearExtrusion.py,aspose/threed/entities/MappingMode.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/entities/NurbsDirection.py,aspose/threed/entities/NurbsSurface.py,aspose/threed/entities/NurbsType.py,aspose/threed/entities/Patch.py,aspose/threed/entities/PatchDirection.py,aspose/threed/entities/PatchDirectionType.py,aspose/threed/entities/Plane.py,aspose/threed/entities/PointCloud.py,aspose/threed/entities/PolygonBuilder.py,aspose/threed/entities/PolygonModifier.py,aspose/threed/entities/Primitive.py,aspose/threed/entities/ProjectionType.py,aspose/threed/entities/Pyramid.py,aspose/threed/entities/RectangularTorus.py,aspose/threed/entities/ReferenceMode.py,aspose/threed/entities/RevolvedAreaSolid.py,aspose/threed/entities/RotationMode.py,aspose/threed/entities/Shape.py,aspose/threed/entities/Skeleton.py,aspose/threed/entities/SkeletonType.py,aspose/threed/entities/Sphere.py,aspose/threed/entities/SplitMeshPolicy.py,aspose/threed/entities/SweptAreaSolid.py,aspose/threed/entities/TextureMapping.py,aspose/threed/entities/Torus.py,aspose/threed/entities/TransformedCurve.py,aspose/threed/entities/TriMesh.py,aspose/threed/entities/TrimmedCurve.py,aspose/threed/entities/VertexElement.py,aspose/threed/entities/VertexElementBinormal.py,aspose/threed/entities/VertexElementDoublesTemplate.py,aspose/threed/entities/VertexElementEdgeCrease.py,aspose/threed/entities/VertexElementFVector.py,aspose/threed/entities/VertexElementHole.py,aspose/threed/entities/VertexElementIntsTemplate.py,aspose/threed/entities/VertexElementMaterial.py,aspose/threed/entities/VertexElementNormal.py,aspose/threed/entities/VertexElementPolygonGroup.py,aspose/threed/entities/VertexElementSmoothingGroup.py,aspose/threed/entities/VertexElementSpecular.py,aspose/threed/entities/VertexElementTangent.py,aspose/threed/entities/VertexElementTemplate.py,aspose/threed/entities/VertexElementType.py,aspose/threed/entities/VertexElementUV.py,aspose/threed/entities/VertexElementUserData.py,aspose/threed/entities/VertexElementVector4.py,aspose/threed/entities/VertexElementVertexColor.py,aspose/threed/entities/VertexElementVertexCrease.py,aspose/threed/entities/VertexElementVisibility.py,aspose/threed/entities/VertexElementWeight.py,aspose/threed/entities/__init__.py,aspose/threed/formats/A3dwSaveOptions.py,aspose/threed/formats/AmfSaveOptions.py,aspose/threed/formats/ColladaTransformStyle.py,aspose/threed/formats/Discreet3dsLoadOptions.py,aspose/threed/formats/Discreet3dsSaveOptions.py,aspose/threed/formats/DracoCompressionLevel.py,aspose/threed/formats/DracoFormat.py,aspose/threed/formats/DracoSaveOptions.py,aspose/threed/formats/Exporter.py,aspose/threed/formats/FormatDetector.py,aspose/threed/formats/GltfEmbeddedImageFormat.py,aspose/threed/formats/Html5SaveOptions.py,aspose/threed/formats/IOConfig.py,aspose/threed/formats/IOService.py,aspose/threed/formats/Importer.py,aspose/threed/formats/JtLoadOptions.py,aspose/threed/formats/LoadOptions.py,aspose/threed/formats/Microsoft3MFFormat.py,aspose/threed/formats/Microsoft3MFSaveOptions.py,aspose/threed/formats/PdfFormat.py,aspose/threed/formats/PdfLightingScheme.py,aspose/threed/formats/PdfLoadOptions.py,aspose/threed/formats/PdfRenderMode.py,aspose/threed/formats/PdfSaveOptions.py,aspose/threed/formats/Plugin.py,aspose/threed/formats/PlyFormat.py,aspose/threed/formats/PlyLoadOptions.py,aspose/threed/formats/PlySaveOptions.py,aspose/threed/formats/RvmFormat.py,aspose/threed/formats/RvmLoadOptions.py,aspose/threed/formats/RvmSaveOptions.py,aspose/threed/formats/SaveOptions.py,aspose/threed/formats/UsdSaveOptions.py,aspose/threed/formats/__init__.py,aspose/threed/formats/collada/ColladaLoadOptions.py,aspose/threed/formats/collada/ColladaSaveOptions.py,aspose/threed/formats/fbx/FbxLoadOptions.py,aspose/threed/formats/fbx/FbxSaveOptions.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfFormat.py,aspose/threed/formats/gltf/GltfFormatDetector.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/gltf/GltfLoadOptions.py,aspose/threed/formats/gltf/GltfPlugin.py,aspose/threed/formats/gltf/GltfSaveOptions.py,aspose/threed/formats/gltf/__init__.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjFormat.py,aspose/threed/formats/obj/ObjFormatDetector.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/obj/ObjLoadOptions.py,aspose/threed/formats/obj/ObjSaveOptions.py,aspose/threed/formats/obj/__init__.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlFormat.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/stl/StlLoadOptions.py,aspose/threed/formats/stl/StlSaveOptions.py,aspose/threed/formats/stl/__init__.py,aspose/threed/formats/threemf/ThreeMfFormat.py,aspose/threed/formats/threemf/ThreeMfFormatDetector.py,aspose/threed/formats/threemf/ThreeMfLoadOptions.py,aspose/threed/formats/threemf/ThreeMfSaveOptions.py,aspose/threed/formats/threemf/__init__.py,aspose/threed/profiles/ArbitraryProfile.py,aspose/threed/profiles/CShape.py,aspose/threed/profiles/CenterLineProfile.py,aspose/threed/profiles/CircleShape.py,aspose/threed/profiles/EllipseShape.py,aspose/threed/profiles/FontFile.py,aspose/threed/profiles/HShape.py,aspose/threed/profiles/HollowCircleShape.py,aspose/threed/profiles/HollowRectangleShape.py,aspose/threed/profiles/LShape.py,aspose/threed/profiles/MirroredProfile.py,aspose/threed/profiles/ParameterizedProfile.py,aspose/threed/profiles/Profile.py,aspose/threed/profiles/RectangleShape.py,aspose/threed/profiles/TShape.py,aspose/threed/profiles/Text.py,aspose/threed/profiles/TrapeziumShape.py,aspose/threed/profiles/UShape.py,aspose/threed/profiles/ZShape.py,aspose/threed/profiles/__init__.py,aspose/threed/render/BlendFactor.py,aspose/threed/render/CompareFunction.py,aspose/threed/render/CubeFace.py,aspose/threed/render/CullFaceMode.py,aspose/threed/render/DescriptorSetUpdater.py,aspose/threed/render/DrawOperation.py,aspose/threed/render/DriverException.py,aspose/threed/render/EntityRenderer.py,aspose/threed/render/EntityRendererFeatures.py,aspose/threed/render/EntityRendererKey.py,aspose/threed/render/FrontFace.py,aspose/threed/render/GLSLSource.py,aspose/threed/render/IBuffer.py,aspose/threed/render/ICommandList.py,aspose/threed/render/IDescriptorSet.py,aspose/threed/render/IIndexBuffer.py,aspose/threed/render/IPipeline.py,aspose/threed/render/IRenderQueue.py,aspose/threed/render/IRenderTarget.py,aspose/threed/render/IRenderTexture.py,aspose/threed/render/IRenderWindow.py,aspose/threed/render/ITexture1D.py,aspose/threed/render/ITexture2D.py,aspose/threed/render/ITextureCodec.py,aspose/threed/render/ITextureCubemap.py,aspose/threed/render/ITextureDecoder.py,aspose/threed/render/ITextureEncoder.py,aspose/threed/render/ITextureUnit.py,aspose/threed/render/IVertexBuffer.py,aspose/threed/render/IndexDataType.py,aspose/threed/render/InitializationException.py,aspose/threed/render/PixelFormat.py,aspose/threed/render/PixelMapMode.py,aspose/threed/render/PixelMapping.py,aspose/threed/render/PolygonMode.py,aspose/threed/render/PostProcessing.py,aspose/threed/render/PresetShaders.py,aspose/threed/render/PushConstant.py,aspose/threed/render/RenderFactory.py,aspose/threed/render/RenderParameters.py,aspose/threed/render/RenderQueueGroupId.py,aspose/threed/render/RenderResource.py,aspose/threed/render/RenderStage.py,aspose/threed/render/RenderState.py,aspose/threed/render/Renderer.py,aspose/threed/render/RendererVariableManager.py,aspose/threed/render/SPIRVSource.py,aspose/threed/render/ShaderException.py,aspose/threed/render/ShaderProgram.py,aspose/threed/render/ShaderSet.py,aspose/threed/render/ShaderSource.py,aspose/threed/render/ShaderStage.py,aspose/threed/render/ShaderVariable.py,aspose/threed/render/StencilAction.py,aspose/threed/render/StencilState.py,aspose/threed/render/TextureCodec.py,aspose/threed/render/TextureData.py,aspose/threed/render/TextureType.py,aspose/threed/render/Viewport.py,aspose/threed/render/WindowHandle.py,aspose/threed/render/__init__.py,aspose/threed/shading/AlphaSource.py,aspose/threed/shading/LambertMaterial.py,aspose/threed/shading/Material.py,aspose/threed/shading/PbrMaterial.py,aspose/threed/shading/PbrSpecularMaterial.py,aspose/threed/shading/PhongMaterial.py,aspose/threed/shading/ShaderMaterial.py,aspose/threed/shading/ShaderTechnique.py,aspose/threed/shading/Texture.py,aspose/threed/shading/TextureBase.py,aspose/threed/shading/TextureFilter.py,aspose/threed/shading/TextureSlot.py,aspose/threed/shading/WrapMode.py,aspose/threed/shading/__init__.py,aspose/threed/utilities/ArrayList.py,aspose/threed/utilities/BoundingBox.py,aspose/threed/utilities/BoundingBox2D.py,aspose/threed/utilities/BoundingBoxExtent.py,aspose/threed/utilities/ComposeOrder.py,aspose/threed/utilities/FMatrix4.py,aspose/threed/utilities/FVector2.py,aspose/threed/utilities/FVector3.py,aspose/threed/utilities/FVector4.py,aspose/threed/utilities/FileSystem.py,aspose/threed/utilities/IOExtension.py,aspose/threed/utilities/MathUtils.py,aspose/threed/utilities/Matrix4.py,aspose/threed/utilities/ParseException.py,aspose/threed/utilities/Quaternion.py,aspose/threed/utilities/Rect.py,aspose/threed/utilities/RelativeRectangle.py,aspose/threed/utilities/RotationOrder.py,aspose/threed/utilities/SemanticAttribute.py,aspose/threed/utilities/TransformBuilder.py,aspose/threed/utilities/Vector2.py,aspose/threed/utilities/Vector3.py,aspose/threed/utilities/Vector4.py,aspose/threed/utilities/Vertex.py,aspose/threed/utilities/VertexDeclaration.py,aspose/threed/utilities/VertexField.py,aspose/threed/utilities/VertexFieldDataType.py,aspose/threed/utilities/VertexFieldSemantic.py,aspose/threed/utilities/Watermark.py,aspose/threed/utilities/__init__.py,setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/test_3mf_exporter.py,tests/test_3mf_importer.py,tests/test_3mf_material_export.py,tests/test_3mf_materials.py,tests/test_3mf_roundtrip.py,tests/test_array_list_adapter.py,tests/test_collada_exporter.py,tests/test_collada_importer.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://setup.py,tests/test_3mf_exporter.py,tests/test_3mf_importer.py,tests/test_3mf_material_export.py,tests/test_3mf_materials.py,tests/test_3mf_roundtrip.py,tests/test_array_list_adapter.py,tests/test_collada_exporter.py,tests/test_collada_importer.py,tests/test_collada_materials.py,tests/test_collada_multiple_files.py,tests/test_ear_clipping.py,tests/test_fbx_simple.py,tests/test_fbx_tokenizer.py,tests/test_formats.py,tests/test_geometry_to_mesh.py,tests/test_gltf_attributes.py,tests/test_gltf_exporter.py,tests/test_gltf_import.py,tests/test_gltf_importer.py,tests/test_gltf_materials.py,tests/test_imports.py,tests/test_material_import.py,tests/test_mesh.py,tests/test_mesh_triangulate.py,tests/test_multiple_meshes_export.py,tests/test_obj_importer.py,tests/test_plugin_system.py,tests/test_polygon_modifier.py,tests/test_scene_open_stl.py,tests/test_scene_save_stl.py,tests/test_stl_exporter.py,tests/test_stl_importer.py,tests/test_triangulate_consistency.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/__init__.py,aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/Axis.py,aspose/threed/AxisSystem.py,aspose/threed/BonePose.py,aspose/threed/CoordinateSystem.py,aspose/threed/CustomObject.py,aspose/threed/Entity.py,aspose/threed/ExportException.py,aspose/threed/FileContentType.py,aspose/threed/FileFormat.py,aspose/threed/FileFormatType.py,aspose/threed/GlobalTransform.py,aspose/threed/Group.py,aspose/threed/INamedObject.py,aspose/threed/ImageRenderOptions.py,aspose/threed/ImportException.py,aspose/threed/Node.py,aspose/threed/Pose.py,aspose/threed/PoseType.py,aspose/threed/Property.py,aspose/threed/PropertyCollection.py,aspose/threed/PropertyFlags.py,aspose/threed/Scene.py,aspose/threed/SceneObject.py,aspose/threed/Transform.py,aspose/threed/TrialException.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationChannel.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/AnimationNode.py,aspose/threed/animation/BindPoint.py,aspose/threed/animation/Extrapolation.py,aspose/threed/animation/ExtrapolationType.py,aspose/threed/animation/Interpolation.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/KeyframeSequence.py,aspose/threed/animation/StepMode.py,aspose/threed/animation/WeightedMode.py,aspose/threed/animation/__init__.py,aspose/threed/deformers/Bone.py,aspose/threed/deformers/BoneLinkMode.py,aspose/threed/deformers/Deformer.py,aspose/threed/deformers/MorphTargetChannel.py,aspose/threed/deformers/MorphTargetDeformer.py,aspose/threed/deformers/SkinDeformer.py,aspose/threed/deformers/__init__.py,aspose/threed/entities/ApertureMode.py,aspose/threed/entities/BooleanOperand.py,aspose/threed/entities/BooleanOperation.py,aspose/threed/entities/BooleanOperator.py,aspose/threed/entities/Box.py,aspose/threed/entities/Camera.py,aspose/threed/entities/Circle.py,aspose/threed/entities/CompositeCurve.py,aspose/threed/entities/Curve.py,aspose/threed/entities/CurveDimension.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Dish.py,aspose/threed/entities/Ellipse.py,aspose/threed/entities/EndPoint.py,aspose/threed/entities/Frustum.py,aspose/threed/entities/Geometry.py,aspose/threed/entities/HalfSpace.py,aspose/threed/entities/IIndexedVertexElement.py,aspose/threed/entities/IMeshConvertible.py,aspose/threed/entities/IOrientable.py,aspose/threed/entities/Light.py,aspose/threed/entities/LightType.py,aspose/threed/entities/Line.py,aspose/threed/entities/LinearExtrusion.py,aspose/threed/entities/MappingMode.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/entities/NurbsDirection.py,aspose/threed/entities/NurbsSurface.py,aspose/threed/entities/NurbsType.py,aspose/threed/entities/Patch.py,aspose/threed/entities/PatchDirection.py,aspose/threed/entities/PatchDirectionType.py,aspose/threed/entities/Plane.py,aspose/threed/entities/PointCloud.py,aspose/threed/entities/PolygonBuilder.py,aspose/threed/entities/PolygonModifier.py,aspose/threed/entities/Primitive.py,aspose/threed/entities/ProjectionType.py,aspose/threed/entities/Pyramid.py,aspose/threed/entities/RectangularTorus.py,aspose/threed/entities/ReferenceMode.py,aspose/threed/entities/RevolvedAreaSolid.py,aspose/threed/entities/RotationMode.py,aspose/threed/entities/Shape.py,aspose/threed/entities/Skeleton.py,aspose/threed/entities/SkeletonType.py,aspose/threed/entities/Sphere.py,aspose/threed/entities/SplitMeshPolicy.py,aspose/threed/entities/SweptAreaSolid.py,aspose/threed/entities/TextureMapping.py,aspose/threed/entities/Torus.py,aspose/threed/entities/TransformedCurve.py,aspose/threed/entities/TriMesh.py,aspose/threed/entities/TrimmedCurve.py,aspose/threed/entities/VertexElement.py,aspose/threed/entities/VertexElementBinormal.py,aspose/threed/entities/VertexElementDoublesTemplate.py,aspose/threed/entities/VertexElementEdgeCrease.py,aspose/threed/entities/VertexElementFVector.py,aspose/threed/entities/VertexElementHole.py,aspose/threed/entities/VertexElementIntsTemplate.py,aspose/threed/entities/VertexElementMaterial.py,aspose/threed/entities/VertexElementNormal.py,aspose/threed/entities/VertexElementPolygonGroup.py,aspose/threed/entities/VertexElementSmoothingGroup.py,aspose/threed/entities/VertexElementSpecular.py,aspose/threed/entities/VertexElementTangent.py,aspose/threed/entities/VertexElementTemplate.py,aspose/threed/entities/VertexElementType.py,aspose/threed/entities/VertexElementUV.py,aspose/threed/entities/VertexElementUserData.py,aspose/threed/entities/VertexElementVector4.py,aspose/threed/entities/VertexElementVertexColor.py,aspose/threed/entities/VertexElementVertexCrease.py,aspose/threed/entities/VertexElementVisibility.py,aspose/threed/entities/VertexElementWeight.py,aspose/threed/entities/__init__.py,aspose/threed/formats/A3dwSaveOptions.py,aspose/threed/formats/AmfSaveOptions.py,aspose/threed/formats/ColladaTransformStyle.py,aspose/threed/formats/Discreet3dsLoadOptions.py,aspose/threed/formats/Discreet3dsSaveOptions.py,aspose/threed/formats/DracoCompressionLevel.py,aspose/threed/formats/DracoFormat.py,aspose/threed/formats/DracoSaveOptions.py,aspose/threed/formats/Exporter.py,aspose/threed/formats/FormatDetector.py,aspose/threed/formats/GltfEmbeddedImageFormat.py,aspose/threed/formats/Html5SaveOptions.py,aspose/threed/formats/IOConfig.py,aspose/threed/formats/IOService.py,aspose/threed/formats/Importer.py,aspose/threed/formats/JtLoadOptions.py,aspose/threed/formats/LoadOptions.py,aspose/threed/formats/Microsoft3MFFormat.py,aspose/threed/formats/Microsoft3MFSaveOptions.py,aspose/threed/formats/PdfFormat.py,aspose/threed/formats/PdfLightingScheme.py,aspose/threed/formats/PdfLoadOptions.py,aspose/threed/formats/PdfRenderMode.py,aspose/threed/formats/PdfSaveOptions.py,aspose/threed/formats/Plugin.py,aspose/threed/formats/PlyFormat.py,aspose/threed/formats/PlyLoadOptions.py,aspose/threed/formats/PlySaveOptions.py,aspose/threed/formats/RvmFormat.py,aspose/threed/formats/RvmLoadOptions.py,aspose/threed/formats/RvmSaveOptions.py,aspose/threed/formats/SaveOptions.py,aspose/threed/formats/UsdSaveOptions.py,aspose/threed/formats/__init__.py,aspose/threed/formats/collada/ColladaLoadOptions.py,aspose/threed/formats/collada/ColladaSaveOptions.py,aspose/threed/formats/fbx/FbxLoadOptions.py,aspose/threed/formats/fbx/FbxSaveOptions.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfFormat.py,aspose/threed/formats/gltf/GltfFormatDetector.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/gltf/GltfLoadOptions.py,aspose/threed/formats/gltf/GltfPlugin.py,aspose/threed/formats/gltf/GltfSaveOptions.py,aspose/threed/formats/gltf/__init__.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjFormat.py,aspose/threed/formats/obj/ObjFormatDetector.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/obj/ObjLoadOptions.py,aspose/threed/formats/obj/ObjSaveOptions.py,aspose/threed/formats/obj/__init__.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlFormat.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/stl/StlLoadOptions.py,aspose/threed/formats/stl/StlSaveOptions.py,aspose/threed/formats/stl/__init__.py,aspose/threed/formats/threemf/ThreeMfFormat.py,aspose/threed/formats/threemf/ThreeMfFormatDetector.py,aspose/threed/formats/threemf/ThreeMfLoadOptions.py,aspose/threed/formats/threemf/ThreeMfSaveOptions.py,aspose/threed/formats/threemf/__init__.py,aspose/threed/profiles/ArbitraryProfile.py,aspose/threed/profiles/CShape.py,aspose/threed/profiles/CenterLineProfile.py,aspose/threed/profiles/CircleShape.py,aspose/threed/profiles/EllipseShape.py,aspose/threed/profiles/FontFile.py,aspose/threed/profiles/HShape.py,aspose/threed/profiles/HollowCircleShape.py,aspose/threed/profiles/HollowRectangleShape.py,aspose/threed/profiles/LShape.py,aspose/threed/profiles/MirroredProfile.py,aspose/threed/profiles/ParameterizedProfile.py,aspose/threed/profiles/Profile.py,aspose/threed/profiles/RectangleShape.py,aspose/threed/profiles/TShape.py,aspose/threed/profiles/Text.py,aspose/threed/profiles/TrapeziumShape.py,aspose/threed/profiles/UShape.py,aspose/threed/profiles/ZShape.py,aspose/threed/profiles/__init__.py,aspose/threed/render/BlendFactor.py,aspose/threed/render/CompareFunction.py,aspose/threed/render/CubeFace.py,aspose/threed/render/CullFaceMode.py,aspose/threed/render/DescriptorSetUpdater.py,aspose/threed/render/DrawOperation.py,aspose/threed/render/DriverException.py,aspose/threed/render/EntityRenderer.py,aspose/threed/render/EntityRendererFeatures.py,aspose/threed/render/EntityRendererKey.py,aspose/threed/render/FrontFace.py,aspose/threed/render/GLSLSource.py,aspose/threed/render/IBuffer.py,aspose/threed/render/ICommandList.py,aspose/threed/render/IDescriptorSet.py,aspose/threed/render/IIndexBuffer.py,aspose/threed/render/IPipeline.py,aspose/threed/render/IRenderQueue.py,aspose/threed/render/IRenderTarget.py,aspose/threed/render/IRenderTexture.py,aspose/threed/render/IRenderWindow.py,aspose/threed/render/ITexture1D.py,aspose/threed/render/ITexture2D.py,aspose/threed/render/ITextureCodec.py,aspose/threed/render/ITextureCubemap.py,aspose/threed/render/ITextureDecoder.py,aspose/threed/render/ITextureEncoder.py,aspose/threed/render/ITextureUnit.py,aspose/threed/render/IVertexBuffer.py,aspose/threed/render/IndexDataType.py,aspose/threed/render/InitializationException.py,aspose/threed/render/PixelFormat.py,aspose/threed/render/PixelMapMode.py,aspose/threed/render/PixelMapping.py,aspose/threed/render/PolygonMode.py,aspose/threed/render/PostProcessing.py,aspose/threed/render/PresetShaders.py,aspose/threed/render/PushConstant.py,aspose/threed/render/RenderFactory.py,aspose/threed/render/RenderParameters.py,aspose/threed/render/RenderQueueGroupId.py,aspose/threed/render/RenderResource.py,aspose/threed/render/RenderStage.py,aspose/threed/render/RenderState.py,aspose/threed/render/Renderer.py,aspose/threed/render/RendererVariableManager.py,aspose/threed/render/SPIRVSource.py,aspose/threed/render/ShaderException.py,aspose/threed/render/ShaderProgram.py,aspose/threed/render/ShaderSet.py,aspose/threed/render/ShaderSource.py,aspose/threed/render/ShaderStage.py,aspose/threed/render/ShaderVariable.py,aspose/threed/render/StencilAction.py,aspose/threed/render/StencilState.py,aspose/threed/render/TextureCodec.py,aspose/threed/render/TextureData.py,aspose/threed/render/TextureType.py,aspose/threed/render/Viewport.py,aspose/threed/render/WindowHandle.py,aspose/threed/render/__init__.py,aspose/threed/shading/AlphaSource.py,aspose/threed/shading/LambertMaterial.py,aspose/threed/shading/Material.py,aspose/threed/shading/PbrMaterial.py,aspose/threed/shading/PbrSpecularMaterial.py,aspose/threed/shading/PhongMaterial.py,aspose/threed/shading/ShaderMaterial.py,aspose/threed/shading/ShaderTechnique.py,aspose/threed/shading/Texture.py,aspose/threed/shading/TextureBase.py,aspose/threed/shading/TextureFilter.py,aspose/threed/shading/TextureSlot.py,aspose/threed/shading/WrapMode.py,aspose/threed/shading/__init__.py,aspose/threed/utilities/ArrayList.py,aspose/threed/utilities/BoundingBox.py,aspose/threed/utilities/BoundingBox2D.py,aspose/threed/utilities/BoundingBoxExtent.py,aspose/threed/utilities/ComposeOrder.py,aspose/threed/utilities/FMatrix4.py,aspose/threed/utilities/FVector2.py,aspose/threed/utilities/FVector3.py,aspose/threed/utilities/FVector4.py,aspose/threed/utilities/FileSystem.py,aspose/threed/utilities/IOExtension.py,aspose/threed/utilities/MathUtils.py,aspose/threed/utilities/Matrix4.py,aspose/threed/utilities/ParseException.py,aspose/threed/utilities/Quaternion.py,aspose/threed/utilities/Rect.py,aspose/threed/utilities/RelativeRectangle.py,aspose/threed/utilities/RotationOrder.py,aspose/threed/utilities/SemanticAttribute.py,aspose/threed/utilities/TransformBuilder.py,aspose/threed/utilities/Vector2.py,aspose/threed/utilities/Vector3.py,aspose/threed/utilities/Vector4.py,aspose/threed/utilities/Vertex.py,aspose/threed/utilities/VertexDeclaration.py,aspose/threed/utilities/VertexField.py,aspose/threed/utilities/VertexFieldDataType.py,aspose/threed/utilities/VertexFieldSemantic.py,aspose/threed/utilities/Watermark.py,aspose/threed/utilities/__init__.py,git-tree:ea70688971f17c8273494ee4047dd29b59ca57b7",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.format_directions:python-source-directions": {
+    "field": "repository.format_directions",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/formats/collada/ColladaExporter.py,aspose/threed/formats/collada/ColladaImporter.py,aspose/threed/formats/fbx/FbxImporter.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/threemf/ThreeMfExporter.py,aspose/threed/formats/threemf/ThreeMfImporter.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities"
+    ]
+  },
+  "repository.python_import_shadowing:python-package-export-overrides": {
+    "field": "repository.python_import_shadowing",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/Axis.py,aspose/threed/AxisSystem.py,aspose/threed/BonePose.py,aspose/threed/CoordinateSystem.py,aspose/threed/CustomObject.py,aspose/threed/Entity.py,aspose/threed/ExportException.py,aspose/threed/FileContentType.py,aspose/threed/FileFormat.py,aspose/threed/FileFormatType.py,aspose/threed/GlobalTransform.py,aspose/threed/Group.py,aspose/threed/INamedObject.py,aspose/threed/ImageRenderOptions.py,aspose/threed/ImportException.py,aspose/threed/Node.py,aspose/threed/Pose.py,aspose/threed/PoseType.py,aspose/threed/Property.py,aspose/threed/PropertyCollection.py,aspose/threed/PropertyFlags.py,aspose/threed/Scene.py,aspose/threed/SceneObject.py,aspose/threed/Transform.py,aspose/threed/TrialException.py,aspose/threed/animation/AnimationChannel.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/AnimationNode.py,aspose/threed/animation/BindPoint.py,aspose/threed/animation/Extrapolation.py,aspose/threed/animation/ExtrapolationType.py,aspose/threed/animation/Interpolation.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/KeyframeSequence.py,aspose/threed/animation/StepMode.py,aspose/threed/animation/WeightedMode.py,aspose/threed/deformers/Bone.py,aspose/threed/deformers/BoneLinkMode.py,aspose/threed/deformers/Deformer.py,aspose/threed/deformers/MorphTargetChannel.py,aspose/threed/deformers/MorphTargetDeformer.py,aspose/threed/deformers/SkinDeformer.py,aspose/threed/entities/ApertureMode.py,aspose/threed/entities/BooleanOperand.py,aspose/threed/entities/BooleanOperation.py,aspose/threed/entities/BooleanOperator.py,aspose/threed/entities/Box.py,aspose/threed/entities/Camera.py,aspose/threed/entities/Circle.py,aspose/threed/entities/CompositeCurve.py,aspose/threed/entities/Curve.py,aspose/threed/entities/CurveDimension.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Dish.py,aspose/threed/entities/Ellipse.py,aspose/threed/entities/EndPoint.py,aspose/threed/entities/Frustum.py,aspose/threed/entities/Geometry.py,aspose/threed/entities/HalfSpace.py,aspose/threed/entities/IIndexedVertexElement.py,aspose/threed/entities/IMeshConvertible.py,aspose/threed/entities/IOrientable.py,aspose/threed/entities/Light.py,aspose/threed/entities/LightType.py,aspose/threed/entities/Line.py,aspose/threed/entities/LinearExtrusion.py,aspose/threed/entities/MappingMode.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/entities/NurbsDirection.py,aspose/threed/entities/NurbsSurface.py,aspose/threed/entities/NurbsType.py,aspose/threed/entities/Patch.py,aspose/threed/entities/PatchDirection.py,aspose/threed/entities/PatchDirectionType.py,aspose/threed/entities/Plane.py,aspose/threed/entities/PointCloud.py,aspose/threed/entities/PolygonBuilder.py,aspose/threed/entities/PolygonModifier.py,aspose/threed/entities/Primitive.py,aspose/threed/entities/ProjectionType.py,aspose/threed/entities/Pyramid.py,aspose/threed/entities/RectangularTorus.py,aspose/threed/entities/ReferenceMode.py,aspose/threed/entities/RevolvedAreaSolid.py,aspose/threed/entities/RotationMode.py,aspose/threed/entities/Shape.py,aspose/threed/entities/Skeleton.py,aspose/threed/entities/SkeletonType.py,aspose/threed/entities/Sphere.py,aspose/threed/entities/SplitMeshPolicy.py,aspose/threed/entities/SweptAreaSolid.py,aspose/threed/entities/TextureMapping.py,aspose/threed/entities/Torus.py,aspose/threed/entities/TransformedCurve.py,aspose/threed/entities/TriMesh.py,aspose/threed/entities/TrimmedCurve.py,aspose/threed/entities/VertexElement.py,aspose/threed/entities/VertexElementBinormal.py,aspose/threed/entities/VertexElementDoublesTemplate.py,aspose/threed/entities/VertexElementEdgeCrease.py,aspose/threed/entities/VertexElementFVector.py,aspose/threed/entities/VertexElementHole.py,aspose/threed/entities/VertexElementIntsTemplate.py,aspose/threed/entities/VertexElementMaterial.py,aspose/threed/entities/VertexElementNormal.py,aspose/threed/entities/VertexElementPolygonGroup.py,aspose/threed/entities/VertexElementSmoothingGroup.py,aspose/threed/entities/VertexElementSpecular.py,aspose/threed/entities/VertexElementTangent.py,aspose/threed/entities/VertexElementTemplate.py,aspose/threed/entities/VertexElementType.py,aspose/threed/entities/VertexElementUV.py,aspose/threed/entities/VertexElementUserData.py,aspose/threed/entities/VertexElementVector4.py,aspose/threed/entities/VertexElementVertexColor.py,aspose/threed/entities/VertexElementVertexCrease.py,aspose/threed/entities/VertexElementVisibility.py,aspose/threed/entities/VertexElementWeight.py,aspose/threed/formats/A3dwSaveOptions.py,aspose/threed/formats/AmfSaveOptions.py,aspose/threed/formats/BasicLoadOptions.py,aspose/threed/formats/ColladaLoadOptions.py,aspose/threed/formats/ColladaSaveOptions.py,aspose/threed/formats/ColladaTransformStyle.py,aspose/threed/formats/Discreet3dsLoadOptions.py,aspose/threed/formats/Discreet3dsSaveOptions.py,aspose/threed/formats/DracoCompressionLevel.py,aspose/threed/formats/DracoFormat.py,aspose/threed/formats/DracoSaveOptions.py,aspose/threed/formats/Exporter.py,aspose/threed/formats/FbxLoadOptions.py,aspose/threed/formats/FbxSaveOptions.py,aspose/threed/formats/FormatDetector.py,aspose/threed/formats/GltfEmbeddedImageFormat.py,aspose/threed/formats/GltfLoadOptions.py,aspose/threed/formats/GltfSaveOptions.py,aspose/threed/formats/Html5SaveOptions.py,aspose/threed/formats/IOConfig.py,aspose/threed/formats/IOService.py,aspose/threed/formats/Importer.py,aspose/threed/formats/JtLoadOptions.py,aspose/threed/formats/LoadOptions.py,aspose/threed/formats/Microsoft3MFFormat.py,aspose/threed/formats/Microsoft3MFSaveOptions.py,aspose/threed/formats/ObjLoadOptions.py,aspose/threed/formats/ObjSaveOptions.py,aspose/threed/formats/PdfFormat.py,aspose/threed/formats/PdfLightingScheme.py,aspose/threed/formats/PdfLoadOptions.py,aspose/threed/formats/PdfRenderMode.py,aspose/threed/formats/PdfSaveOptions.py,aspose/threed/formats/Plugin.py,aspose/threed/formats/PlyFormat.py,aspose/threed/formats/PlyLoadOptions.py,aspose/threed/formats/PlySaveOptions.py,aspose/threed/formats/RvmFormat.py,aspose/threed/formats/RvmLoadOptions.py,aspose/threed/formats/RvmSaveOptions.py,aspose/threed/formats/SaveOptions.py,aspose/threed/formats/StlLoadOptions.py,aspose/threed/formats/StlSaveOptions.py,aspose/threed/formats/U3dLoadOptions.py,aspose/threed/formats/U3dSaveOptions.py,aspose/threed/formats/UsdSaveOptions.py,aspose/threed/formats/XLoadOptions.py,aspose/threed/formats/__init__.py,aspose/threed/formats/collada/ColladaLoadOptions.py,aspose/threed/formats/collada/ColladaPlugin.py,aspose/threed/formats/collada/ColladaSaveOptions.py,aspose/threed/formats/fbx/FbxLoadOptions.py,aspose/threed/formats/fbx/FbxPlugin.py,aspose/threed/formats/fbx/FbxSaveOptions.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfFormat.py,aspose/threed/formats/gltf/GltfFormatDetector.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/gltf/GltfLoadOptions.py,aspose/threed/formats/gltf/GltfPlugin.py,aspose/threed/formats/gltf/GltfSaveOptions.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjFormat.py,aspose/threed/formats/obj/ObjFormatDetector.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/obj/ObjLoadOptions.py,aspose/threed/formats/obj/ObjPlugin.py,aspose/threed/formats/obj/ObjSaveOptions.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlFormat.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/stl/StlLoadOptions.py,aspose/threed/formats/stl/StlPlugin.py,aspose/threed/formats/stl/StlSaveOptions.py,aspose/threed/formats/threemf/ThreeMfFormat.py,aspose/threed/formats/threemf/ThreeMfFormatDetector.py,aspose/threed/formats/threemf/ThreeMfLoadOptions.py,aspose/threed/formats/threemf/ThreeMfPlugin.py,aspose/threed/formats/threemf/ThreeMfSaveOptions.py,aspose/threed/profiles/ArbitraryProfile.py,aspose/threed/profiles/CShape.py,aspose/threed/profiles/CenterLineProfile.py,aspose/threed/profiles/CircleShape.py,aspose/threed/profiles/EllipseShape.py,aspose/threed/profiles/FontFile.py,aspose/threed/profiles/HShape.py,aspose/threed/profiles/HollowCircleShape.py,aspose/threed/profiles/HollowRectangleShape.py,aspose/threed/profiles/LShape.py,aspose/threed/profiles/MirroredProfile.py,aspose/threed/profiles/ParameterizedProfile.py,aspose/threed/profiles/Profile.py,aspose/threed/profiles/RectangleShape.py,aspose/threed/profiles/TShape.py,aspose/threed/profiles/Text.py,aspose/threed/profiles/TrapeziumShape.py,aspose/threed/profiles/UShape.py,aspose/threed/profiles/ZShape.py,aspose/threed/render/BlendFactor.py,aspose/threed/render/CompareFunction.py,aspose/threed/render/CubeFace.py,aspose/threed/render/CullFaceMode.py,aspose/threed/render/DescriptorSetUpdater.py,aspose/threed/render/DrawOperation.py,aspose/threed/render/DriverException.py,aspose/threed/render/EntityRenderer.py,aspose/threed/render/EntityRendererFeatures.py,aspose/threed/render/EntityRendererKey.py,aspose/threed/render/FrontFace.py,aspose/threed/render/GLSLSource.py,aspose/threed/render/IBuffer.py,aspose/threed/render/ICommandList.py,aspose/threed/render/IDescriptorSet.py,aspose/threed/render/IIndexBuffer.py,aspose/threed/render/IPipeline.py,aspose/threed/render/IRenderQueue.py,aspose/threed/render/IRenderTarget.py,aspose/threed/render/IRenderTexture.py,aspose/threed/render/IRenderWindow.py,aspose/threed/render/ITexture1D.py,aspose/threed/render/ITexture2D.py,aspose/threed/render/ITextureCodec.py,aspose/threed/render/ITextureCubemap.py,aspose/threed/render/ITextureDecoder.py,aspose/threed/render/ITextureEncoder.py,aspose/threed/render/ITextureUnit.py,aspose/threed/render/IVertexBuffer.py,aspose/threed/render/IndexDataType.py,aspose/threed/render/InitializationException.py,aspose/threed/render/PixelFormat.py,aspose/threed/render/PixelMapMode.py,aspose/threed/render/PixelMapping.py,aspose/threed/render/PolygonMode.py,aspose/threed/render/PostProcessing.py,aspose/threed/render/PresetShaders.py,aspose/threed/render/PushConstant.py,aspose/threed/render/RenderFactory.py,aspose/threed/render/RenderParameters.py,aspose/threed/render/RenderQueueGroupId.py,aspose/threed/render/RenderResource.py,aspose/threed/render/RenderStage.py,aspose/threed/render/RenderState.py,aspose/threed/render/Renderer.py,aspose/threed/render/RendererVariableManager.py,aspose/threed/render/SPIRVSource.py,aspose/threed/render/ShaderException.py,aspose/threed/render/ShaderProgram.py,aspose/threed/render/ShaderSet.py,aspose/threed/render/ShaderSource.py,aspose/threed/render/ShaderStage.py,aspose/threed/render/ShaderVariable.py,aspose/threed/render/StencilAction.py,aspose/threed/render/StencilState.py,aspose/threed/render/TextureCodec.py,aspose/threed/render/TextureData.py,aspose/threed/render/TextureType.py,aspose/threed/render/Viewport.py,aspose/threed/render/WindowHandle.py,aspose/threed/shading/AlphaSource.py,aspose/threed/shading/LambertMaterial.py,aspose/threed/shading/Material.py,aspose/threed/shading/PbrMaterial.py,aspose/threed/shading/PbrSpecularMaterial.py,aspose/threed/shading/PhongMaterial.py,aspose/threed/shading/ShaderMaterial.py,aspose/threed/shading/ShaderTechnique.py,aspose/threed/shading/Texture.py,aspose/threed/shading/TextureBase.py,aspose/threed/shading/TextureFilter.py,aspose/threed/shading/TextureSlot.py,aspose/threed/shading/WrapMode.py,aspose/threed/utilities/ArrayList.py,aspose/threed/utilities/BoundingBox.py,aspose/threed/utilities/BoundingBox2D.py,aspose/threed/utilities/BoundingBoxExtent.py,aspose/threed/utilities/ComposeOrder.py,aspose/threed/utilities/FMatrix4.py,aspose/threed/utilities/FVector2.py,aspose/threed/utilities/FVector3.py,aspose/threed/utilities/FVector4.py,aspose/threed/utilities/FileSystem.py,aspose/threed/utilities/IOExtension.py,aspose/threed/utilities/MathUtils.py,aspose/threed/utilities/Matrix4.py,aspose/threed/utilities/ParseException.py,aspose/threed/utilities/Quaternion.py,aspose/threed/utilities/Rect.py,aspose/threed/utilities/RelativeRectangle.py,aspose/threed/utilities/RotationOrder.py,aspose/threed/utilities/SemanticAttribute.py,aspose/threed/utilities/TransformBuilder.py,aspose/threed/utilities/Vector2.py,aspose/threed/utilities/Vector3.py,aspose/threed/utilities/Vector4.py,aspose/threed/utilities/Vertex.py,aspose/threed/utilities/VertexDeclaration.py,aspose/threed/utilities/VertexField.py,aspose/threed/utilities/VertexFieldDataType.py,aspose/threed/utilities/VertexFieldSemantic.py,aspose/threed/utilities/Watermark.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": "2026-08-11T10:41:40.925531+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:repository-extension": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/formats/collada/ColladaExporter.py,aspose/threed/formats/collada/ColladaImporter.py,aspose/threed/formats/fbx/FbxImporter.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/threemf/ThreeMfExporter.py,aspose/threed/formats/threemf/ThreeMfImporter.py;repository://aspose/threed/formats/gltf/GltfExporter.py#L23;repository://aspose/threed/formats/gltf/GltfImporter.py#L21;repository://aspose/threed/formats/obj/ObjImporter.py#L19;repository://aspose/threed/formats/stl/StlExporter.py#L21;repository://aspose/threed/formats/stl/StlImporter.py#L20;repository://aspose/threed/formats/threemf/ThreeMfExporter.py#L23;repository://aspose/threed/formats/threemf/ThreeMfImporter.py#L26",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://setup.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": "2026-08-11T10:41:40.925531+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:disposable-source-build": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "https://pypi.org/pypi/aspose-3d-foss/json",
+      "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "retrieved_at": "2026-08-11T10:41:40.925531+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}

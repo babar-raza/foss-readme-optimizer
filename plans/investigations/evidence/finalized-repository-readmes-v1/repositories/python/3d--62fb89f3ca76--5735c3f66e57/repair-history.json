@@ -1,0 +1,582 @@
+[
+  {
+    "review_pass": 1,
+    "repair_attempt": 0,
+    "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+    "review": {
+      "content_assurance": "repository_verified",
+      "verdict": "ACCEPT",
+      "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "preserve": [],
+      "blind_quality_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "blind_quality_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
+        "verdict": "ACCEPT",
+        "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is complete and correctly renders inputs, product, capabilities, and outputs. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The installation and example sections are clearly presented with appropriate code blocks. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed in the Scope and Limitations section. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "quality.h1_blocks",
+            "kind": "quality",
+            "criterion": "clarity",
+            "section": "Header",
+            "claim": "The README contains exactly one H1 heading.",
+            "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "document.h1_blocks",
+            "reported_observed_value": 1,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "quality.badge_rows",
+            "kind": "quality",
+            "criterion": "navigation",
+            "section": "Header",
+            "claim": "The README contains badges in a single row.",
+            "quoted_candidate_span": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
+            "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "header.badge_rows",
+            "reported_observed_value": 1,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "quality.badge_rows",
+            "quality.h1_blocks"
+          ]
+        }
+      },
+      "factual_plan_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "factual_plan_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "input_sha256": "adab22078689886d6aa5d22fce89b72970d5447074bd9ca141814ce9b3f53d7e",
+        "verdict": "ACCEPT",
+        "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience are correctly stated and match the manifest and registry data. The installation instructions align with the repository's setup.py and verified source build. The capabilities (primitives, file format import/export, keyframe animation) are verified by source code evidence. The limitations (mesh boolean unimplemented, NURBS evaluation blocked, COLLADA/FBX export blocked, rendering unimplemented) are explicitly confirmed by source code excerpts. The API reference section accurately reflects the 354 public types across 13 namespaces, and the documentation links match the governed aspose.org catalog. The license is correctly identified as MIT, and the Enterprise Edition terminology is appropriately used in the Scope and Limitations section. No conflicts exist between candidate claims and accepted facts.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "factual.product_identity",
+            "kind": "factual",
+            "criterion": "product_identity",
+            "section": "Header",
+            "claim": "The product is Aspose.3D FOSS for Python, version 26.1.0, targeting Python developers.",
+            "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "product.identity:manifest-and-registry",
+            "evidence_excerpt": "3d",
+            "evidence_location": "repository://setup.py",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "factual.installation_verified",
+            "kind": "factual",
+            "criterion": "installation_verified_acquisition",
+            "section": "Installation",
+            "claim": "The installation instructions permit disposable source builds and match the repository's setup.py.",
+            "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
+            "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "installation.verified_acquisition:disposable-source-build",
+            "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "factual.limited_capabilities",
+            "kind": "factual",
+            "criterion": "product_limitations",
+            "section": "Scope and Limitations",
+            "claim": "The documented limitations (mesh boolean unimplemented, NURBS evaluation blocked, COLLADA/FBX export blocked, rendering unimplemented) are accurate.",
+            "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+            "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "product.limitations:source-guidance",
+            "evidence_excerpt": "mesh_boolean_unimplemented",
+            "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "factual.api_surface",
+            "kind": "factual",
+            "criterion": "api_public_surface",
+            "section": "API Reference",
+            "claim": "The package documents 354 public types across 13 namespaces.",
+            "quoted_candidate_span": "The package documents 354 public types across 13 namespaces. Package namespaces include `aspose.threed`, `aspose.threed.animation`, `aspose.threed.deformers`, `aspose.threed.entities`, `aspose.threed.formats`, `aspose.threed.formats.gltf`, `aspose.threed.formats.obj`, `aspose.threed.formats.stl`, `aspose.threed.formats.threemf`, `aspose.threed.profiles`, `aspose.threed.render`, `aspose.threed.shading`, `aspose.threed.utilities`. See the complete API reference under Documentation and Resources for members, signatures, and inherited APIs.",
+            "candidate_anchor_id": "candidate.anchor.9a1b6fa45a71eac5a5b0.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "api.public_surface:python-exports",
+            "evidence_excerpt": "aspose.threed",
+            "evidence_location": "repository://aspose/__init__.py,aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/Axis.py,aspose/threed/AxisSystem.py,aspose/threed/BonePose.py,aspose/threed/CoordinateSystem.py,aspose/threed/CustomObject.py,aspose/threed/Entity.py,aspose/threed/ExportException.py,aspose/threed/FileContentType.py,aspose/threed/FileFormat.py,aspose/threed/FileFormatType.py,aspose/threed/GlobalTransform.py,aspose/threed/Group.py,aspose/threed/INamedObject.py,aspose/threed/ImageRenderOptions.py,aspose/threed/ImportException.py,aspose/threed/Node.py,aspose/threed/Pose.py,aspose/threed/PoseType.py,aspose/threed/Property.py,aspose/threed/PropertyCollection.py,aspose/threed/PropertyFlags.py,aspose/threed/Scene.py,aspose/threed/SceneObject.py,aspose/threed/Transform.py,aspose/threed/TrialException.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationChannel.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/AnimationNode.py,aspose/threed/animation/BindPoint.py,aspose/threed/animation/Extrapolation.py,aspose/threed/animation/ExtrapolationType.py,aspose/threed/animation/Interpolation.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/KeyframeSequence.py,aspose/threed/animation/StepMode.py,aspose/threed/animation/WeightedMode.py,aspose/threed/animation/__init__.py,aspose/threed/deformers/Bone.py,aspose/threed/deformers/BoneLinkMode.py,aspose/threed/deformers/Deformer.py,aspose/threed/deformers/MorphTargetChannel.py,aspose/threed/deformers/MorphTargetDeformer.py,aspose/threed/deformers/SkinDeformer.py,aspose/threed/deformers/__init__.py,aspose/threed/entities/ApertureMode.py,aspose/threed/entities/BooleanOperand.py,aspose/threed/entities/BooleanOperation.py,aspose/threed/entities/BooleanOperator.py,aspose/threed/entities/Box.py,aspose/threed/entities/Camera.py,aspose/threed/entities/Circle.py,aspose/threed/entities/CompositeCurve.py,aspose/threed/entities/Curve.py,aspose/threed/entities/CurveDimension.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Dish.py,aspose/threed/entities/Ellipse.py,aspose/threed/entities/EndPoint.py,aspose/threed/entities/Frustum.py,aspose/threed/entities/Geometry.py,aspose/threed/entities/HalfSpace.py,aspose/threed/entities/IIndexedVertexElement.py,aspose/threed/entities/IMeshConvertible.py,aspose/threed/entities/IOrientable.py,aspose/threed/entities/Light.py,aspose/threed/entities/LightType.py,aspose/threed/entities/Line.py,aspose/threed/entities/LinearExtrusion.py,aspose/threed/entities/MappingMode.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/entities/NurbsDirection.py,aspose/threed/entities/NurbsSurface.py,aspose/threed/entities/NurbsType.py,aspose/threed/entities/Patch.py,aspose/threed/entities/PatchDirection.py,aspose/threed/entities/PatchDirectionType.py,aspose/threed/entities/Plane.py,aspose/threed/entities/PointCloud.py,aspose/threed/entities/PolygonBuilder.py,aspose/threed/entities/PolygonModifier.py,aspose/threed/entities/Primitive.py,aspose/threed/entities/ProjectionType.py,aspose/threed/entities/Pyramid.py,aspose/threed/entities/RectangularTorus.py,aspose/threed/entities/ReferenceMode.py,aspose/threed/entities/RevolvedAreaSolid.py,aspose/threed/entities/RotationMode.py,aspose/threed/entities/Shape.py,aspose/threed/entities/Skeleton.py,aspose/threed/entities/SkeletonType.py,aspose/threed/entities/Sphere.py,aspose/threed/entities/SplitMeshPolicy.py,aspose/threed/entities/SweptAreaSolid.py,aspose/threed/entities/TextureMapping.py,aspose/threed/entities/Torus.py,aspose/threed/entities/TransformedCurve.py,aspose/threed/entities/TriMesh.py,aspose/threed/entities/TrimmedCurve.py,aspose/threed/entities/VertexElement.py,aspose/threed/entities/VertexElementBinormal.py,aspose/threed/entities/VertexElementDoublesTemplate.py,aspose/threed/entities/VertexElementEdgeCrease.py,aspose/threed/entities/VertexElementFVector.py,aspose/threed/entities/VertexElementHole.py,aspose/threed/entities/VertexElementIntsTemplate.py,aspose/threed/entities/VertexElementMaterial.py,aspose/threed/entities/VertexElementNormal.py,aspose/threed/entities/VertexElementPolygonGroup.py,aspose/threed/entities/VertexElementSmoothingGroup.py,aspose/threed/entities/VertexElementSpecular.py,aspose/threed/entities/VertexElementTangent.py,aspose/threed/entities/VertexElementTemplate.py,aspose/threed/entities/VertexElementType.py,aspose/threed/entities/VertexElementUV.py,aspose/threed/entities/VertexElementUserData.py,aspose/threed/entities/VertexElementVector4.py,aspose/threed/entities/VertexElementVertexColor.py,aspose/threed/entities/VertexElementVertexCrease.py,aspose/threed/entities/VertexElementVisibility.py,aspose/threed/entities/VertexElementWeight.py,aspose/threed/entities/__init__.py,aspose/threed/formats/A3dwSaveOptions.py,aspose/threed/formats/AmfSaveOptions.py,aspose/threed/formats/ColladaTransformStyle.py,aspose/threed/formats/Discreet3dsLoadOptions.py,aspose/threed/formats/Discreet3dsSaveOptions.py,aspose/threed/formats/DracoCompressionLevel.py,aspose/threed/formats/DracoFormat.py,aspose/threed/formats/DracoSaveOptions.py,aspose/threed/formats/Exporter.py,aspose/threed/formats/FormatDetector.py,aspose/threed/formats/GltfEmbeddedImageFormat.py,aspose/threed/formats/Html5SaveOptions.py,aspose/threed/formats/IOConfig.py,aspose/threed/formats/IOService.py,aspose/threed/formats/Importer.py,aspose/threed/formats/JtLoadOptions.py,aspose/threed/formats/LoadOptions.py,aspose/threed/formats/Microsoft3MFFormat.py,aspose/threed/formats/Microsoft3MFSaveOptions.py,aspose/threed/formats/PdfFormat.py,aspose/threed/formats/PdfLightingScheme.py,aspose/threed/formats/PdfLoadOptions.py,aspose/threed/formats/PdfRenderMode.py,aspose/threed/formats/PdfSaveOptions.py,aspose/threed/formats/Plugin.py,aspose/threed/formats/PlyFormat.py,aspose/threed/formats/PlyLoadOptions.py,aspose/threed/formats/PlySaveOptions.py,aspose/threed/formats/RvmFormat.py,aspose/threed/formats/RvmLoadOptions.py,aspose/threed/formats/RvmSaveOptions.py,aspose/threed/formats/SaveOptions.py,aspose/threed/formats/UsdSaveOptions.py,aspose/threed/formats/__init__.py,aspose/threed/formats/collada/ColladaLoadOptions.py,aspose/threed/formats/collada/ColladaSaveOptions.py,aspose/threed/formats/fbx/FbxLoadOptions.py,aspose/threed/formats/fbx/FbxSaveOptions.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfFormat.py,aspose/threed/formats/gltf/GltfFormatDetector.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/gltf/GltfLoadOptions.py,aspose/threed/formats/gltf/GltfPlugin.py,aspose/threed/formats/gltf/GltfSaveOptions.py,aspose/threed/formats/gltf/__init__.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjFormat.py,aspose/threed/formats/obj/ObjFormatDetector.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/obj/ObjLoadOptions.py,aspose/threed/formats/obj/ObjSaveOptions.py,aspose/threed/formats/obj/__init__.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlFormat.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/stl/StlLoadOptions.py,aspose/threed/formats/stl/StlSaveOptions.py,aspose/threed/formats/stl/__init__.py,aspose/threed/formats/threemf/ThreeMfFormat.py,aspose/threed/formats/threemf/ThreeMfFormatDetector.py,aspose/threed/formats/threemf/ThreeMfLoadOptions.py,aspose/threed/formats/threemf/ThreeMfSaveOptions.py,aspose/threed/formats/threemf/__init__.py,aspose/threed/profiles/ArbitraryProfile.py,aspose/threed/profiles/CShape.py,aspose/threed/profiles/CenterLineProfile.py,aspose/threed/profiles/CircleShape.py,aspose/threed/profiles/EllipseShape.py,aspose/threed/profiles/FontFile.py,aspose/threed/profiles/HShape.py,aspose/threed/profiles/HollowCircleShape.py,aspose/threed/profiles/HollowRectangleShape.py,aspose/threed/profiles/LShape.py,aspose/threed/profiles/MirroredProfile.py,aspose/threed/profiles/ParameterizedProfile.py,aspose/threed/profiles/Profile.py,aspose/threed/profiles/RectangleShape.py,aspose/threed/profiles/TShape.py,aspose/threed/profiles/Text.py,aspose/threed/profiles/TrapeziumShape.py,aspose/threed/profiles/UShape.py,aspose/threed/profiles/ZShape.py,aspose/threed/profiles/__init__.py,aspose/threed/render/BlendFactor.py,aspose/threed/render/CompareFunction.py,aspose/threed/render/CubeFace.py,aspose/threed/render/CullFaceMode.py,aspose/threed/render/DescriptorSetUpdater.py,aspose/threed/render/DrawOperation.py,aspose/threed/render/DriverException.py,aspose/threed/render/EntityRenderer.py,aspose/threed/render/EntityRendererFeatures.py,aspose/threed/render/EntityRendererKey.py,aspose/threed/render/FrontFace.py,aspose/threed/render/GLSLSource.py,aspose/threed/render/IBuffer.py,aspose/threed/render/ICommandList.py,aspose/threed/render/IDescriptorSet.py,aspose/threed/render/IIndexBuffer.py,aspose/threed/render/IPipeline.py,aspose/threed/render/IRenderQueue.py,aspose/threed/render/IRenderTarget.py,aspose/threed/render/IRenderTexture.py,aspose/threed/render/IRenderWindow.py,aspose/threed/render/ITexture1D.py,aspose/threed/render/ITexture2D.py,aspose/threed/render/ITextureCodec.py,aspose/threed/render/ITextureCubemap.py,aspose/threed/render/ITextureDecoder.py,aspose/threed/render/ITextureEncoder.py,aspose/threed/render/ITextureUnit.py,aspose/threed/render/IVertexBuffer.py,aspose/threed/render/IndexDataType.py,aspose/threed/render/InitializationException.py,aspose/threed/render/PixelFormat.py,aspose/threed/render/PixelMapMode.py,aspose/threed/render/PixelMapping.py,aspose/threed/render/PolygonMode.py,aspose/threed/render/PostProcessing.py,aspose/threed/render/PresetShaders.py,aspose/threed/render/PushConstant.py,aspose/threed/render/RenderFactory.py,aspose/threed/render/RenderParameters.py,aspose/threed/render/RenderQueueGroupId.py,aspose/threed/render/RenderResource.py,aspose/threed/render/RenderStage.py,aspose/threed/render/RenderState.py,aspose/threed/render/Renderer.py,aspose/threed/render/RendererVariableManager.py,aspose/threed/render/SPIRVSource.py,aspose/threed/render/ShaderException.py,aspose/threed/render/ShaderProgram.py,aspose/threed/render/ShaderSet.py,aspose/threed/render/ShaderSource.py,aspose/threed/render/ShaderStage.py,aspose/threed/render/ShaderVariable.py,aspose/threed/render/StencilAction.py,aspose/threed/render/StencilState.py,aspose/threed/render/TextureCodec.py,aspose/threed/render/TextureData.py,aspose/threed/render/TextureType.py,aspose/threed/render/Viewport.py,aspose/threed/render/WindowHandle.py,aspose/threed/render/__init__.py,aspose/threed/shading/AlphaSource.py,aspose/threed/shading/LambertMaterial.py,aspose/threed/shading/Material.py,aspose/threed/shading/PbrMaterial.py,aspose/threed/shading/PbrSpecularMaterial.py,aspose/threed/shading/PhongMaterial.py,aspose/threed/shading/ShaderMaterial.py,aspose/threed/shading/ShaderTechnique.py,aspose/threed/shading/Texture.py,aspose/threed/shading/TextureBase.py,aspose/threed/shading/TextureFilter.py,aspose/threed/shading/TextureSlot.py,aspose/threed/shading/WrapMode.py,aspose/threed/shading/__init__.py,aspose/threed/utilities/ArrayList.py,aspose/threed/utilities/BoundingBox.py,aspose/threed/utilities/BoundingBox2D.py,aspose/threed/utilities/BoundingBoxExtent.py,aspose/threed/utilities/ComposeOrder.py,aspose/threed/utilities/FMatrix4.py,aspose/threed/utilities/FVector2.py,aspose/threed/utilities/FVector3.py,aspose/threed/utilities/FVector4.py,aspose/threed/utilities/FileSystem.py,aspose/threed/utilities/IOExtension.py,aspose/threed/utilities/MathUtils.py,aspose/threed/utilities/Matrix4.py,aspose/threed/utilities/ParseException.py,aspose/threed/utilities/Quaternion.py,aspose/threed/utilities/Rect.py,aspose/threed/utilities/RelativeRectangle.py,aspose/threed/utilities/RotationOrder.py,aspose/threed/utilities/SemanticAttribute.py,aspose/threed/utilities/TransformBuilder.py,aspose/threed/utilities/Vector2.py,aspose/threed/utilities/Vector3.py,aspose/threed/utilities/Vector4.py,aspose/threed/utilities/Vertex.py,aspose/threed/utilities/VertexDeclaration.py,aspose/threed/utilities/VertexField.py,aspose/threed/utilities/VertexFieldDataType.py,aspose/threed/utilities/VertexFieldSemantic.py,aspose/threed/utilities/Watermark.py,aspose/threed/utilities/__init__.py,setup.py",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "factual.api_surface",
+            "factual.installation_verified",
+            "factual.limited_capabilities",
+            "factual.product_identity"
+          ]
+        }
+      },
+      "combined_review": {
+        "content_assurance": "repository_verified",
+        "verdict": "ACCEPT",
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "blind_quality": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "blind_quality_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+          "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
+          "verdict": "ACCEPT",
+          "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is complete and correctly renders inputs, product, capabilities, and outputs. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The installation and example sections are clearly presented with appropriate code blocks. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed in the Scope and Limitations section. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved.",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "quality.h1_blocks",
+              "kind": "quality",
+              "criterion": "clarity",
+              "section": "Header",
+              "claim": "The README contains exactly one H1 heading.",
+              "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "document.h1_blocks",
+              "reported_observed_value": 1,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "quality.badge_rows",
+              "kind": "quality",
+              "criterion": "navigation",
+              "section": "Header",
+              "claim": "The README contains badges in a single row.",
+              "quoted_candidate_span": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
+              "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "header.badge_rows",
+              "reported_observed_value": 1,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.badge_rows",
+              "quality.h1_blocks"
+            ]
+          }
+        },
+        "factual_plan": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "factual_plan_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+          "input_sha256": "adab22078689886d6aa5d22fce89b72970d5447074bd9ca141814ce9b3f53d7e",
+          "verdict": "ACCEPT",
+          "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity, version, and audience are correctly stated and match the manifest and registry data. The installation instructions align with the repository's setup.py and verified source build. The capabilities (primitives, file format import/export, keyframe animation) are verified by source code evidence. The limitations (mesh boolean unimplemented, NURBS evaluation blocked, COLLADA/FBX export blocked, rendering unimplemented) are explicitly confirmed by source code excerpts. The API reference section accurately reflects the 354 public types across 13 namespaces, and the documentation links match the governed aspose.org catalog. The license is correctly identified as MIT, and the Enterprise Edition terminology is appropriately used in the Scope and Limitations section. No conflicts exist between candidate claims and accepted facts.",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "factual.product_identity",
+              "kind": "factual",
+              "criterion": "product_identity",
+              "section": "Header",
+              "claim": "The product is Aspose.3D FOSS for Python, version 26.1.0, targeting Python developers.",
+              "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "product.identity:manifest-and-registry",
+              "evidence_excerpt": "3d",
+              "evidence_location": "repository://setup.py",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "factual.installation_verified",
+              "kind": "factual",
+              "criterion": "installation_verified_acquisition",
+              "section": "Installation",
+              "claim": "The installation instructions permit disposable source builds and match the repository's setup.py.",
+              "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
+              "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "installation.verified_acquisition:disposable-source-build",
+              "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+              "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "factual.limited_capabilities",
+              "kind": "factual",
+              "criterion": "product_limitations",
+              "section": "Scope and Limitations",
+              "claim": "The documented limitations (mesh boolean unimplemented, NURBS evaluation blocked, COLLADA/FBX export blocked, rendering unimplemented) are accurate.",
+              "quoted_candidate_span": "- Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.",
+              "candidate_anchor_id": "candidate.anchor.ddaa538d5a025b5d60c4.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "product.limitations:source-guidance",
+              "evidence_excerpt": "mesh_boolean_unimplemented",
+              "evidence_location": "repository://aspose/threed/Scene.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/formats/fbx/FbxExporter.py,aspose/threed/render/Renderer.py",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "factual.api_surface",
+              "kind": "factual",
+              "criterion": "api_public_surface",
+              "section": "API Reference",
+              "claim": "The package documents 354 public types across 13 namespaces.",
+              "quoted_candidate_span": "The package documents 354 public types across 13 namespaces. Package namespaces include `aspose.threed`, `aspose.threed.animation`, `aspose.threed.deformers`, `aspose.threed.entities`, `aspose.threed.formats`, `aspose.threed.formats.gltf`, `aspose.threed.formats.obj`, `aspose.threed.formats.stl`, `aspose.threed.formats.threemf`, `aspose.threed.profiles`, `aspose.threed.render`, `aspose.threed.shading`, `aspose.threed.utilities`. See the complete API reference under Documentation and Resources for members, signatures, and inherited APIs.",
+              "candidate_anchor_id": "candidate.anchor.9a1b6fa45a71eac5a5b0.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "api.public_surface:python-exports",
+              "evidence_excerpt": "aspose.threed",
+              "evidence_location": "repository://aspose/__init__.py,aspose/threed/A3DObject.py,aspose/threed/AssetInfo.py,aspose/threed/Axis.py,aspose/threed/AxisSystem.py,aspose/threed/BonePose.py,aspose/threed/CoordinateSystem.py,aspose/threed/CustomObject.py,aspose/threed/Entity.py,aspose/threed/ExportException.py,aspose/threed/FileContentType.py,aspose/threed/FileFormat.py,aspose/threed/FileFormatType.py,aspose/threed/GlobalTransform.py,aspose/threed/Group.py,aspose/threed/INamedObject.py,aspose/threed/ImageRenderOptions.py,aspose/threed/ImportException.py,aspose/threed/Node.py,aspose/threed/Pose.py,aspose/threed/PoseType.py,aspose/threed/Property.py,aspose/threed/PropertyCollection.py,aspose/threed/PropertyFlags.py,aspose/threed/Scene.py,aspose/threed/SceneObject.py,aspose/threed/Transform.py,aspose/threed/TrialException.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationChannel.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/AnimationNode.py,aspose/threed/animation/BindPoint.py,aspose/threed/animation/Extrapolation.py,aspose/threed/animation/ExtrapolationType.py,aspose/threed/animation/Interpolation.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/KeyframeSequence.py,aspose/threed/animation/StepMode.py,aspose/threed/animation/WeightedMode.py,aspose/threed/animation/__init__.py,aspose/threed/deformers/Bone.py,aspose/threed/deformers/BoneLinkMode.py,aspose/threed/deformers/Deformer.py,aspose/threed/deformers/MorphTargetChannel.py,aspose/threed/deformers/MorphTargetDeformer.py,aspose/threed/deformers/SkinDeformer.py,aspose/threed/deformers/__init__.py,aspose/threed/entities/ApertureMode.py,aspose/threed/entities/BooleanOperand.py,aspose/threed/entities/BooleanOperation.py,aspose/threed/entities/BooleanOperator.py,aspose/threed/entities/Box.py,aspose/threed/entities/Camera.py,aspose/threed/entities/Circle.py,aspose/threed/entities/CompositeCurve.py,aspose/threed/entities/Curve.py,aspose/threed/entities/CurveDimension.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Dish.py,aspose/threed/entities/Ellipse.py,aspose/threed/entities/EndPoint.py,aspose/threed/entities/Frustum.py,aspose/threed/entities/Geometry.py,aspose/threed/entities/HalfSpace.py,aspose/threed/entities/IIndexedVertexElement.py,aspose/threed/entities/IMeshConvertible.py,aspose/threed/entities/IOrientable.py,aspose/threed/entities/Light.py,aspose/threed/entities/LightType.py,aspose/threed/entities/Line.py,aspose/threed/entities/LinearExtrusion.py,aspose/threed/entities/MappingMode.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/NurbsCurve.py,aspose/threed/entities/NurbsDirection.py,aspose/threed/entities/NurbsSurface.py,aspose/threed/entities/NurbsType.py,aspose/threed/entities/Patch.py,aspose/threed/entities/PatchDirection.py,aspose/threed/entities/PatchDirectionType.py,aspose/threed/entities/Plane.py,aspose/threed/entities/PointCloud.py,aspose/threed/entities/PolygonBuilder.py,aspose/threed/entities/PolygonModifier.py,aspose/threed/entities/Primitive.py,aspose/threed/entities/ProjectionType.py,aspose/threed/entities/Pyramid.py,aspose/threed/entities/RectangularTorus.py,aspose/threed/entities/ReferenceMode.py,aspose/threed/entities/RevolvedAreaSolid.py,aspose/threed/entities/RotationMode.py,aspose/threed/entities/Shape.py,aspose/threed/entities/Skeleton.py,aspose/threed/entities/SkeletonType.py,aspose/threed/entities/Sphere.py,aspose/threed/entities/SplitMeshPolicy.py,aspose/threed/entities/SweptAreaSolid.py,aspose/threed/entities/TextureMapping.py,aspose/threed/entities/Torus.py,aspose/threed/entities/TransformedCurve.py,aspose/threed/entities/TriMesh.py,aspose/threed/entities/TrimmedCurve.py,aspose/threed/entities/VertexElement.py,aspose/threed/entities/VertexElementBinormal.py,aspose/threed/entities/VertexElementDoublesTemplate.py,aspose/threed/entities/VertexElementEdgeCrease.py,aspose/threed/entities/VertexElementFVector.py,aspose/threed/entities/VertexElementHole.py,aspose/threed/entities/VertexElementIntsTemplate.py,aspose/threed/entities/VertexElementMaterial.py,aspose/threed/entities/VertexElementNormal.py,aspose/threed/entities/VertexElementPolygonGroup.py,aspose/threed/entities/VertexElementSmoothingGroup.py,aspose/threed/entities/VertexElementSpecular.py,aspose/threed/entities/VertexElementTangent.py,aspose/threed/entities/VertexElementTemplate.py,aspose/threed/entities/VertexElementType.py,aspose/threed/entities/VertexElementUV.py,aspose/threed/entities/VertexElementUserData.py,aspose/threed/entities/VertexElementVector4.py,aspose/threed/entities/VertexElementVertexColor.py,aspose/threed/entities/VertexElementVertexCrease.py,aspose/threed/entities/VertexElementVisibility.py,aspose/threed/entities/VertexElementWeight.py,aspose/threed/entities/__init__.py,aspose/threed/formats/A3dwSaveOptions.py,aspose/threed/formats/AmfSaveOptions.py,aspose/threed/formats/ColladaTransformStyle.py,aspose/threed/formats/Discreet3dsLoadOptions.py,aspose/threed/formats/Discreet3dsSaveOptions.py,aspose/threed/formats/DracoCompressionLevel.py,aspose/threed/formats/DracoFormat.py,aspose/threed/formats/DracoSaveOptions.py,aspose/threed/formats/Exporter.py,aspose/threed/formats/FormatDetector.py,aspose/threed/formats/GltfEmbeddedImageFormat.py,aspose/threed/formats/Html5SaveOptions.py,aspose/threed/formats/IOConfig.py,aspose/threed/formats/IOService.py,aspose/threed/formats/Importer.py,aspose/threed/formats/JtLoadOptions.py,aspose/threed/formats/LoadOptions.py,aspose/threed/formats/Microsoft3MFFormat.py,aspose/threed/formats/Microsoft3MFSaveOptions.py,aspose/threed/formats/PdfFormat.py,aspose/threed/formats/PdfLightingScheme.py,aspose/threed/formats/PdfLoadOptions.py,aspose/threed/formats/PdfRenderMode.py,aspose/threed/formats/PdfSaveOptions.py,aspose/threed/formats/Plugin.py,aspose/threed/formats/PlyFormat.py,aspose/threed/formats/PlyLoadOptions.py,aspose/threed/formats/PlySaveOptions.py,aspose/threed/formats/RvmFormat.py,aspose/threed/formats/RvmLoadOptions.py,aspose/threed/formats/RvmSaveOptions.py,aspose/threed/formats/SaveOptions.py,aspose/threed/formats/UsdSaveOptions.py,aspose/threed/formats/__init__.py,aspose/threed/formats/collada/ColladaLoadOptions.py,aspose/threed/formats/collada/ColladaSaveOptions.py,aspose/threed/formats/fbx/FbxLoadOptions.py,aspose/threed/formats/fbx/FbxSaveOptions.py,aspose/threed/formats/gltf/GltfExporter.py,aspose/threed/formats/gltf/GltfFormat.py,aspose/threed/formats/gltf/GltfFormatDetector.py,aspose/threed/formats/gltf/GltfImporter.py,aspose/threed/formats/gltf/GltfLoadOptions.py,aspose/threed/formats/gltf/GltfPlugin.py,aspose/threed/formats/gltf/GltfSaveOptions.py,aspose/threed/formats/gltf/__init__.py,aspose/threed/formats/obj/ObjExporter.py,aspose/threed/formats/obj/ObjFormat.py,aspose/threed/formats/obj/ObjFormatDetector.py,aspose/threed/formats/obj/ObjImporter.py,aspose/threed/formats/obj/ObjLoadOptions.py,aspose/threed/formats/obj/ObjSaveOptions.py,aspose/threed/formats/obj/__init__.py,aspose/threed/formats/stl/StlExporter.py,aspose/threed/formats/stl/StlFormat.py,aspose/threed/formats/stl/StlImporter.py,aspose/threed/formats/stl/StlLoadOptions.py,aspose/threed/formats/stl/StlSaveOptions.py,aspose/threed/formats/stl/__init__.py,aspose/threed/formats/threemf/ThreeMfFormat.py,aspose/threed/formats/threemf/ThreeMfFormatDetector.py,aspose/threed/formats/threemf/ThreeMfLoadOptions.py,aspose/threed/formats/threemf/ThreeMfSaveOptions.py,aspose/threed/formats/threemf/__init__.py,aspose/threed/profiles/ArbitraryProfile.py,aspose/threed/profiles/CShape.py,aspose/threed/profiles/CenterLineProfile.py,aspose/threed/profiles/CircleShape.py,aspose/threed/profiles/EllipseShape.py,aspose/threed/profiles/FontFile.py,aspose/threed/profiles/HShape.py,aspose/threed/profiles/HollowCircleShape.py,aspose/threed/profiles/HollowRectangleShape.py,aspose/threed/profiles/LShape.py,aspose/threed/profiles/MirroredProfile.py,aspose/threed/profiles/ParameterizedProfile.py,aspose/threed/profiles/Profile.py,aspose/threed/profiles/RectangleShape.py,aspose/threed/profiles/TShape.py,aspose/threed/profiles/Text.py,aspose/threed/profiles/TrapeziumShape.py,aspose/threed/profiles/UShape.py,aspose/threed/profiles/ZShape.py,aspose/threed/profiles/__init__.py,aspose/threed/render/BlendFactor.py,aspose/threed/render/CompareFunction.py,aspose/threed/render/CubeFace.py,aspose/threed/render/CullFaceMode.py,aspose/threed/render/DescriptorSetUpdater.py,aspose/threed/render/DrawOperation.py,aspose/threed/render/DriverException.py,aspose/threed/render/EntityRenderer.py,aspose/threed/render/EntityRendererFeatures.py,aspose/threed/render/EntityRendererKey.py,aspose/threed/render/FrontFace.py,aspose/threed/render/GLSLSource.py,aspose/threed/render/IBuffer.py,aspose/threed/render/ICommandList.py,aspose/threed/render/IDescriptorSet.py,aspose/threed/render/IIndexBuffer.py,aspose/threed/render/IPipeline.py,aspose/threed/render/IRenderQueue.py,aspose/threed/render/IRenderTarget.py,aspose/threed/render/IRenderTexture.py,aspose/threed/render/IRenderWindow.py,aspose/threed/render/ITexture1D.py,aspose/threed/render/ITexture2D.py,aspose/threed/render/ITextureCodec.py,aspose/threed/render/ITextureCubemap.py,aspose/threed/render/ITextureDecoder.py,aspose/threed/render/ITextureEncoder.py,aspose/threed/render/ITextureUnit.py,aspose/threed/render/IVertexBuffer.py,aspose/threed/render/IndexDataType.py,aspose/threed/render/InitializationException.py,aspose/threed/render/PixelFormat.py,aspose/threed/render/PixelMapMode.py,aspose/threed/render/PixelMapping.py,aspose/threed/render/PolygonMode.py,aspose/threed/render/PostProcessing.py,aspose/threed/render/PresetShaders.py,aspose/threed/render/PushConstant.py,aspose/threed/render/RenderFactory.py,aspose/threed/render/RenderParameters.py,aspose/threed/render/RenderQueueGroupId.py,aspose/threed/render/RenderResource.py,aspose/threed/render/RenderStage.py,aspose/threed/render/RenderState.py,aspose/threed/render/Renderer.py,aspose/threed/render/RendererVariableManager.py,aspose/threed/render/SPIRVSource.py,aspose/threed/render/ShaderException.py,aspose/threed/render/ShaderProgram.py,aspose/threed/render/ShaderSet.py,aspose/threed/render/ShaderSource.py,aspose/threed/render/ShaderStage.py,aspose/threed/render/ShaderVariable.py,aspose/threed/render/StencilAction.py,aspose/threed/render/StencilState.py,aspose/threed/render/TextureCodec.py,aspose/threed/render/TextureData.py,aspose/threed/render/TextureType.py,aspose/threed/render/Viewport.py,aspose/threed/render/WindowHandle.py,aspose/threed/render/__init__.py,aspose/threed/shading/AlphaSource.py,aspose/threed/shading/LambertMaterial.py,aspose/threed/shading/Material.py,aspose/threed/shading/PbrMaterial.py,aspose/threed/shading/PbrSpecularMaterial.py,aspose/threed/shading/PhongMaterial.py,aspose/threed/shading/ShaderMaterial.py,aspose/threed/shading/ShaderTechnique.py,aspose/threed/shading/Texture.py,aspose/threed/shading/TextureBase.py,aspose/threed/shading/TextureFilter.py,aspose/threed/shading/TextureSlot.py,aspose/threed/shading/WrapMode.py,aspose/threed/shading/__init__.py,aspose/threed/utilities/ArrayList.py,aspose/threed/utilities/BoundingBox.py,aspose/threed/utilities/BoundingBox2D.py,aspose/threed/utilities/BoundingBoxExtent.py,aspose/threed/utilities/ComposeOrder.py,aspose/threed/utilities/FMatrix4.py,aspose/threed/utilities/FVector2.py,aspose/threed/utilities/FVector3.py,aspose/threed/utilities/FVector4.py,aspose/threed/utilities/FileSystem.py,aspose/threed/utilities/IOExtension.py,aspose/threed/utilities/MathUtils.py,aspose/threed/utilities/Matrix4.py,aspose/threed/utilities/ParseException.py,aspose/threed/utilities/Quaternion.py,aspose/threed/utilities/Rect.py,aspose/threed/utilities/RelativeRectangle.py,aspose/threed/utilities/RotationOrder.py,aspose/threed/utilities/SemanticAttribute.py,aspose/threed/utilities/TransformBuilder.py,aspose/threed/utilities/Vector2.py,aspose/threed/utilities/Vector3.py,aspose/threed/utilities/Vector4.py,aspose/threed/utilities/Vertex.py,aspose/threed/utilities/VertexDeclaration.py,aspose/threed/utilities/VertexField.py,aspose/threed/utilities/VertexFieldDataType.py,aspose/threed/utilities/VertexFieldSemantic.py,aspose/threed/utilities/Watermark.py,aspose/threed/utilities/__init__.py,setup.py",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.api_surface",
+              "factual.installation_verified",
+              "factual.limited_capabilities",
+              "factual.product_identity"
+            ]
+          }
+        },
+        "merged_call_receipt": {
+          "actor_id": "llm-route:merged-readme-review",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+          "input_sha256": "69103c77be2a92b31f18cfb519bee022e9ec01b8ba9f3d2ed684664ec1ce9a10",
+          "raw_output_sha256": "3045ee54ffb1611f6891309917d637890ea531559731e9a4057c570e7b15e9d7",
+          "blind_record_sha256": "3390be90021ca85a3717170290f27b491e2392d121fbf287e27cb973dab79a16",
+          "factual_record_sha256": "1750c06b01924f6b22f692a3880639a4ff5a6ece50feb65f9d4e6858ccd5e03f",
+          "provider_request_id": "chatcmpl-9ee9b3597c8b6b13",
+          "provider_model": "qwen3-next"
+        },
+        "identity_separation_valid": true,
+        "reasons": [
+          "blind_quality:ACCEPT",
+          "factual_plan:ACCEPT"
+        ]
+      },
+      "grounding_retry_history": [
+        {
+          "role": "blind_quality",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 151468,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.badge_rows",
+              "quality.h1_blocks"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        },
+        {
+          "role": "factual_plan",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 151468,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.api_surface",
+              "factual.installation_verified",
+              "factual.limited_capabilities",
+              "factual.product_identity"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [
+            "factual.product_identity",
+            "factual.installation_verified",
+            "factual.limited_capabilities",
+            "factual.api_surface"
+          ],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        }
+      ],
+      "review_contract_version": "2"
+    },
+    "deterministic_validation": {
+      "verdict": "accept",
+      "reason": null,
+      "checks": {
+        "candidate_matches_independent_render": true,
+        "source_document_hash": true,
+        "adoption_preserved_source": true,
+        "candidate_is_marker_free": true,
+        "candidate_has_no_comments": true,
+        "facts_hash_matches": true,
+        "template_hash_matches": true,
+        "candidate_hash_matches": true,
+        "source_span_hashes": true,
+        "fact_citations": true,
+        "document_reconstruction": true,
+        "composition_lineage": true,
+        "protected_content": true,
+        "verified_example_present": true,
+        "verified_overview_present": true,
+        "verified_limitations_present": true,
+        "example_assurance_claims_supported": true,
+        "no_introduced_duplicate_headings": true,
+        "header_visuals": true,
+        "enterprise_edition_terminology": true,
+        "contextual_links": true,
+        "claim_accountability_complete": true,
+        "claim_accountability_gaps_visible": true,
+        "presentation_lint": true,
+        "needs_write_matches": true
+      },
+      "requirement_map": {
+        "immutable_snapshot": true,
+        "fact_backed_document_plan": true,
+        "verified_example": true,
+        "protected_content": true
+      },
+      "nonce": "20260811-133739-c600",
+      "token": "bad21a2f8fabbaf27fe90ec4408666ede7137bce1c73b9f5027411293bfd1b88",
+      "official_mermaid_render": {
+        "status": "passed",
+        "schema_version": 1,
+        "contract_version": "3",
+        "renderer": "@mermaid-js/mermaid-cli@11.10.1",
+        "source_sha256": "2a3fb5959e4737c9b07366ed28fa6efc337e1e3eaf6103e2d3182158e50b7571",
+        "svg_sha256": "91369cfbeec7b249e90b3ccab37d14d0c7df834b61e33519aebe36677b171260",
+        "view_box": [
+          0.0,
+          0.0,
+          1975.6875,
+          475.0
+        ],
+        "aspect_ratio": 4.1593,
+        "node_geometry": [
+          {
+            "node_id": "PRODUCT",
+            "center_x": 812.328125,
+            "center_y": 237.5,
+            "width": 178.78125,
+            "height": 78.0
+          },
+          {
+            "node_id": "I1",
+            "center_x": 98.6171875,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I2",
+            "center_x": 259.8515625,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I3",
+            "center_x": 421.0859375,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I4",
+            "center_x": 582.3203125,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "C1",
+            "center_x": 1098.515625,
+            "center_y": 84.5,
+            "width": 155.421875,
+            "height": 78.0
+          },
+          {
+            "node_id": "C2",
+            "center_x": 1098.515625,
+            "center_y": 237.5,
+            "width": 223.59375,
+            "height": 78.0
+          },
+          {
+            "node_id": "C3",
+            "center_x": 1098.515625,
+            "center_y": 390.5,
+            "width": 223.0625,
+            "height": 78.0
+          },
+          {
+            "node_id": "O1",
+            "center_x": 1386.859375,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O2",
+            "center_x": 1549.953125,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O3",
+            "center_x": 1713.046875,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O4",
+            "center_x": 1876.140625,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          }
+        ],
+        "checks": {
+          "official_renderer_succeeded": true,
+          "all_semantic_nodes_rendered": true,
+          "landscape_and_compact": true,
+          "capability_columns_adaptive": true,
+          "capability_nodes_do_not_overlap": true,
+          "input_peer_widths_uniform": true,
+          "output_peer_widths_uniform": true,
+          "semantic_relationship_connectors_rendered": true
+        },
+        "errors": [],
+        "cached": true,
+        "render_duration_seconds": 0.0
+      }
+    },
+    "evidence_refs": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260811-133739-c600"
+    ],
+    "reviewer_call_count": 1
+  }
+]
