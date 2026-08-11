@@ -2301,12 +2301,12 @@
   },
   "domain_states": {
     "community_files_presentation": {
-      "accepted_facts_hash": "8979b283fde6ef9640398714980bce1d6c0166a1ae910ac5fd2b2e4e9d053671",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "37dc24a925b87b88d9c723069d3df0585cd31e68e7e69e3d340b6eecb6c7a876",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "community_profile_health_percentage": 37,
+        "community_profile_health_percentage": 50,
         "detected_license": "MIT",
         "missing_files": [
           "CODE_OF_CONDUCT",
@@ -2338,7 +2338,7 @@
       "domain": "community_files_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T15:02:30.931690+00:00",
+      "last_run_timestamp": "2026-08-11T11:21:31.154386+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -14851,7 +14851,7 @@
     "updated_at": "2026-08-11T11:19:31.321394+00:00"
   },
   "schema_version": 2,
-  "state_version": 463,
+  "state_version": 464,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "8c68236ee4cc0ce42027350283c929345d0384e6180221249ac23006c984d877",
