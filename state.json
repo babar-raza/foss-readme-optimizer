@@ -994,9 +994,11 @@
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "PDF re-approved and re-proven no-op (6th cycle) against rebound dependency key after Font/Slides/TeX/Words corroborator commit; independent verification dispatched."
+          ],
           "fingerprint": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-11T19:47:28.263614+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T19:31:23.237814+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
@@ -2119,33 +2121,32 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T19:31:23.237814+00:00",
+    "last_evaluated_at": "2026-08-11T19:47:28.263646+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
-      "candidate_generated": 0,
+      "agent_approved": 1,
+      "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-11T19:10:54.385018+00:00",
-      "deterministic_validated": 0,
-      "facts_ready": 0,
+      "derived_at": "2026-08-11T19:45:41.276970+00:00",
+      "deterministic_validated": 1,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 16,
         "DISCOVERED": 1,
         "FACTS_READY": 8,
-        "NO_OP_PROVEN": 6
+        "NO_OP_PROVEN": 7
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 0,
+      "no_op_proven": 1,
       "raw_agent_approved": 7,
       "raw_candidate_generated": 7,
       "raw_deterministic_validated": 7,
       "raw_facts_ready": 15,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 6,
+      "raw_no_op_proven": 7,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -2194,10 +2195,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -10922,7 +10919,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1080,
+  "state_version": 1081,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
