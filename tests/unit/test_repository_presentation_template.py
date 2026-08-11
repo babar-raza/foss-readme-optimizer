@@ -489,6 +489,45 @@ def test_capability_renderer_keeps_first_rich_row_and_omits_semantic_repeats() -
     assert "Run heuristic checks" in rendered
 
 
+@pytest.mark.parametrize(
+    "capability_text",
+    [
+        "SVG rendering for all supported symbologies",
+        "PNG rendering for all supported symbologies",
+    ],
+)
+def test_capability_renderer_does_not_echo_title_for_noun_first_phrasing(
+    capability_text: str,
+) -> None:
+    """Regression: _description()'s fallback only recognized an exact leading verb
+    ("render"), not a noun-first phrasing beginning with the output format ("SVG
+    rendering ..."), so it fell through to `Supports <capability>.` -- an
+    explanation that just echoes the title and fails the presentation lint's
+    capability_description_repeats_title check. Found live blocking
+    aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python's presentation plan under
+    L8-VPY-03-ALL-PYTHON-VERIFIED-POC.
+    """
+
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    capability = facts.selected_fact("product.capabilities")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [capability_text]})
+                if fact.fact_id == capability.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    rendered = capability_highlights_markdown(facts)
+
+    assert rendered is not None
+    assert "Supports" not in rendered
+    assert "Produce supported output through the public API." in rendered
+
+
 def test_capability_renderer_applies_the_same_semantic_contract_after_seo_rendering() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     capability = facts.selected_fact("product.capabilities")

@@ -328,6 +328,51 @@ def _public_api_reference(related_types: list[str]) -> str:
     return f"the public {rendered} {noun}"
 
 
+_ACTION_NOMINALIZATIONS: dict[str, str] = {
+    "building": "build",
+    "conversion": "convert",
+    "creation": "create",
+    "editing": "edit",
+    "exporting": "export",
+    "extraction": "extract",
+    "generation": "generate",
+    "importing": "import",
+    "inspection": "inspect",
+    "loading": "load",
+    "modification": "modify",
+    "navigation": "navigate",
+    "parsing": "parse",
+    "reading": "read",
+    "rendering": "render",
+    "searching": "search",
+    "updating": "update",
+    "validation": "validate",
+    "writing": "write",
+}
+_WORD = re.compile(r"[A-Za-z]+")
+
+
+def _embedded_action_verb(value: str) -> str | None:
+    """Return a base action verb found anywhere in the text, including a
+    nominalized noun form (e.g. "rendering" -> "render").
+
+    Unlike capability_action_verb(), which only recognizes an exact verb as
+    the very first word (used elsewhere to validate title formatting), this
+    searches the whole phrase so the description branches below can still
+    pick a specific, non-generic description for capabilities phrased noun
+    first (e.g. "SVG rendering for all supported symbologies.") instead of
+    falling through to the generic "Supports <capability>." branch, which
+    just echoes the title back and fails the capability_description_repeats_
+    title presentation check.
+    """
+
+    for word in _WORD.findall(value.casefold()):
+        base = _ACTION_NOMINALIZATIONS.get(word)
+        if base is not None:
+            return base
+    return None
+
+
 def _description(capability: str, source_capability: str, related_types: list[str]) -> str:
     exact_capability = capability.strip().rstrip(".")
     public_capability = exact_capability
@@ -375,7 +420,7 @@ def _description(capability: str, source_capability: str, related_types: list[st
     subject = re.sub(r"(?i)^work with\s+", "", public_capability)
     if related_types:
         api_reference = _public_api_reference(related_types)
-        action = capability_action_verb(exact_capability)
+        action = _embedded_action_verb(exact_capability) or capability_action_verb(exact_capability)
         if action in {"read", "load", "parse", "import", "open", "extract"}:
             return f"Build in-memory document structures through {api_reference}."
         if action in {
@@ -391,7 +436,7 @@ def _description(capability: str, source_capability: str, related_types: list[st
         if action in {"save", "export", "write", "convert", "render"}:
             return f"Produce supported output through {api_reference}."
         return f"Use {api_reference} in application workflows."
-    action = capability_action_verb(exact_capability)
+    action = _embedded_action_verb(exact_capability) or capability_action_verb(exact_capability)
     if action is not None:
         if action in {"create", "generate", "build"}:
             return "Build the corresponding content through the public object model."
