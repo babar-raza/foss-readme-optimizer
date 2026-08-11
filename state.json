@@ -1825,9 +1825,9 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T01:14:24.721837+00:00",
+    "last_evaluated_at": "2026-08-11T08:13:00.051256+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
+      "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 32,
       "derived_at": "2026-08-11T01:10:18.666516+00:00",
@@ -1856,7 +1856,18 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": []
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
+          "presentation_component_safety_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "deterministic_manifest_dependency_key_mismatch",
+          "manifest_lifecycle_status_mismatch",
+          "manifest_no_op_stage_missing",
+          "manifest_not_complete",
+          "presentation_component_safety_changed",
+          "presentation_component_severe_acceptance_changed"
+        ]
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
@@ -9711,7 +9722,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 980,
+  "state_version": 981,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
