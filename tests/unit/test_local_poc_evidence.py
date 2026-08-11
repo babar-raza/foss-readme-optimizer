@@ -25,12 +25,17 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
-from readme_agent.supervisor import local_poc_snapshot_evidence
+from readme_agent.supervisor import local_poc_evidence, local_poc_snapshot_evidence
 from readme_agent.supervisor.local_poc_evidence import (
     mark_local_poc_profiled,
     write_local_poc_product_facts,
     write_local_poc_readme_candidate,
     write_local_poc_snapshot,
+)
+from readme_agent.supervisor.presentation_component_versions import SelectedDependencyV1
+from readme_agent.supervisor.stage_dependencies import (
+    build_stage_dependency_manifest,
+    current_candidate_stage_dependency_manifest,
 )
 
 
@@ -598,3 +603,150 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert "stage_receipts" not in receipt_only_manifest
     assert verify_sha256sums(bundle)
     assert [path.name for path in (bundle / "superseded").iterdir()] == [candidate_hash[:16]]
+
+
+def test_unchanged_candidate_bytes_with_new_dependency_key_reopens_stale_acceptance(
+    tmp_path, monkeypatch
+):
+    """Regression for L8-VPY-03A `deterministic_manifest_dependency_key_mismatch`.
+
+    A shared rendering/component dependency (e.g. the Mermaid renderer) can change
+    without altering the composed README bytes. `same_candidate` previously keyed only
+    on `candidate_hash`, so it preserved a stale `AGENT_APPROVED`/`NO_OP_PROVEN`
+    lifecycle while still stamping the manifest's `candidate_stage_dependency_key`
+    forward -- leaving the review/no-op artifacts bound to the superseded key with no
+    signal to regenerate them. The manifest must instead reopen at CANDIDATE_GENERATED
+    whenever the dependency key moves, independent of candidate byte equality.
+    """
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://acme/product",
+        source_revision=snapshot.source_revision,
+    )
+    values = {
+        "product.identity": {"name": "Product", "family": "cells", "ecosystem": "java"},
+        "product.audience": ["Java developers"],
+        "product.problems_solved": ["Read product files"],
+        "product.capabilities": ["Read files"],
+        "product.formats": ["Product files"],
+        "product.compatibility": {"minimum_runtime": "Java 11"},
+        "product.limitations": ["Read-only fixture"],
+        "example.minimal": {"language": "java", "code": "public class Example {}"},
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "dependency-key-drift-test"),
+            field=field,
+            value=values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=snapshot.org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
+    candidate, document_plan = build_readme_document_candidate(
+        snapshot.org_repo,
+        source_text,
+        facts,
+        base_revision=snapshot.source_revision,
+    )
+    assessment = assess_readme_document(
+        snapshot.org_repo,
+        source_text,
+        facts,
+        base_revision=snapshot.source_revision,
+    )
+    claim_map = build_readme_claim_map(
+        document_plan,
+        facts,
+        source_text=source_text,
+        candidate_text=candidate,
+    )
+    render_result = {"source_revision": snapshot.source_revision, "final_text": candidate}
+    presentation_plan = {
+        "readme_assessment": assessment.model_dump(mode="json"),
+        "readme_document_plan": document_plan.model_dump(mode="json"),
+        "claim_map": claim_map.model_dump(mode="json"),
+        "presentation_plan": {"repository": snapshot.org_repo},
+        "git_patch_proof": {"patch": "fixture patch\n"},
+        "executable": True,
+    }
+
+    bundle, *_ = write_local_poc_readme_candidate(snapshot, render_result, presentation_plan)
+
+    manifest_path = bundle / "manifest.json"
+    approved_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    approved_manifest["lifecycle_status"] = "NO_OP_PROVEN"
+    approved_manifest["complete"] = True
+    approved_manifest["completed_stages"] = [
+        *approved_manifest["completed_stages"],
+        "DETERMINISTIC_VALIDATED",
+        "AGENT_REVIEWING",
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+    ]
+    manifest_path.write_text(json.dumps(approved_manifest, indent=2) + "\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
+
+    real_dependency_manifest = current_candidate_stage_dependency_manifest(
+        repository=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        ecosystem="unknown",
+    )
+    changed_dependency_manifest = build_stage_dependency_manifest(
+        repository=real_dependency_manifest.repository,
+        source_revision=real_dependency_manifest.source_revision,
+        stage=real_dependency_manifest.stage,
+        ecosystem=real_dependency_manifest.ecosystem,
+        dependencies=[
+            *real_dependency_manifest.dependencies,
+            SelectedDependencyV1(
+                dependency_id="header_visual_synthetic_change",
+                files={"src/readme_agent/verification/mermaid_render.py": "f" * 64},
+                semantic_scope="cosmetic",
+                earliest_affected_stage="PLAN_READY",
+            ),
+        ],
+    )
+    assert changed_dependency_manifest.stage_key != real_dependency_manifest.stage_key
+    monkeypatch.setattr(
+        local_poc_evidence,
+        "current_candidate_stage_dependency_manifest",
+        lambda **_kwargs: changed_dependency_manifest,
+    )
+
+    reopened_bundle, *_ = write_local_poc_readme_candidate(
+        snapshot, render_result, presentation_plan
+    )
+
+    assert reopened_bundle == bundle
+    reopened_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert reopened_manifest["candidate_hash"] == approved_manifest["candidate_hash"]
+    assert (
+        reopened_manifest["candidate_stage_dependency_key"] == changed_dependency_manifest.stage_key
+    )
+    assert reopened_manifest["lifecycle_status"] == "CANDIDATE_GENERATED"
+    assert reopened_manifest["complete"] is False
+    assert "AGENT_APPROVED" not in reopened_manifest["completed_stages"]
+    assert "NO_OP_PROVEN" not in reopened_manifest["completed_stages"]
+    assert verify_sha256sums(bundle)

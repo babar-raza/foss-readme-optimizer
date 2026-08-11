@@ -419,7 +419,11 @@ def write_local_poc_readme_candidate(
         if candidate_role == "repair"
         else initial_origin_hash
     )
-    same_candidate = prior_manifest.get("candidate_hash") == candidate_hash
+    same_candidate = (
+        prior_manifest.get("candidate_hash") == candidate_hash
+        and prior_manifest.get("candidate_stage_dependency_key")
+        == candidate_component_manifest.stage_key
+    )
     completed_stages = [
         "SNAPSHOTTED",
         "PROFILED",
