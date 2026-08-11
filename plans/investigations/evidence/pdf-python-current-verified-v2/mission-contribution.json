@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the current PDF Python README before any further Python fan-out."
+  },
+  "acceptance_checks_passed": [
+    "PDF uses the frozen structure without copied product prose",
+    "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+    "The PDF candidate passes deterministic gates and independent non-authoring review",
+    "The unchanged PDF rerun is byte-identical and makes zero provider calls and effects",
+    "The exact PDF README path is reported before a broad suite or another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/no-op-proof.json",
+    "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "73b50c8fc27b98237e5fdfc8429977e698b50533423b66f44c6cd9cb011dc0ed",
+  "scoreboard_after_sha256": "73b50c8fc27b98237e5fdfc8429977e698b50533423b66f44c6cd9cb011dc0ed",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "PDF acceptance chain invalidated by deterministic_manifest_dependency_key_mismatch: manifest.candidate_stage_dependency_key advanced past commit e0b26d8c3 but review/deterministic-validation.json, independent-agent-review.json, final-verdict.json, and no-op-proof.json still bound the superseded key.",
+  "contribution_boundary_after": "PDF Python lifecycle: NO_OP_PROVEN, complete, all acceptance-chain artifacts bound to current dependency key 3e65e7d6ff2d9b0d0d3c50909e9bec18c81073da98efc4a3887787a840140f72, independently PASS-verified by a non-authoring subagent, promoted to plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/README.md.",
+  "independently_verified": true
+}
