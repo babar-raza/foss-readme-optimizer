@@ -87,6 +87,15 @@ def test_missing_eml_example_withholds_only_eml_export(tmp_path: Path) -> None:
 
 
 def test_unsafe_and_unrecognized_preapproved_records_are_sanitized(tmp_path: Path) -> None:
+    """Unsafe/unproven pre-seeded records never get upgraded to functional=True.
+
+    The seeded repository fully proves CFB, MSG, and EML export (same fixture as
+    test_corroborates_only_source_and_test_proven_directions), so the corroborator
+    independently appends those 5 proven directions regardless of what was
+    pre-seeded -- only the two specific pre-seeded records under test here (an
+    unsafe path-traversal file, and a real file claiming an unproven direction)
+    must stay unproven.
+    """
     revision = _seed_repository(tmp_path)
     records = [
         AsposeOrgFormatEvidenceV1(
@@ -111,7 +120,12 @@ def test_unsafe_and_unrecognized_preapproved_records_are_sanitized(tmp_path: Pat
         formats=records,
     )
 
-    assert all(item.functional is None for item in result)
+    unsafe_pdf = next(item for item in result if item.format == "PDF")
+    unproven_eml_import = next(
+        item for item in result if item.format == "eml" and item.direction == "import"
+    )
+    assert unsafe_pdf.functional is None
+    assert unproven_eml_import.functional is None
 
 
 def _records() -> list[AsposeOrgFormatEvidenceV1]:

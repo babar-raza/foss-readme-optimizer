@@ -6,8 +6,11 @@ import ast
 import re
 import subprocess
 from pathlib import Path
+from typing import Literal
 
 from readme_agent.facts.aspose_org_format_contract import AsposeOrgFormatEvidenceV1
+
+_Direction = Literal["import", "export", "both", "detect", "enum_only", "none"]
 
 _REVISION = re.compile(r"[0-9a-f]{40}")
 _CFB_READER = "aspose/email_foss/cfb/reader.py"
@@ -23,7 +26,14 @@ def corroborate_python_email_format_directions(
     source_revision: str,
     formats: list[AsposeOrgFormatEvidenceV1],
 ) -> list[AsposeOrgFormatEvidenceV1]:
-    """Upgrade only source-and-test-proven CFB, MSG, and EML directions."""
+    """Add only source-and-test-proven CFB, MSG, and EML format records.
+
+    The repository-format extraction path always calls this with an empty
+    ``formats`` seed (see ``extract_repository_format_directions``), so a
+    prior version of this function -- which only ever *upgraded* entries
+    already present in ``formats`` -- could never emit any evidence
+    regardless of proof outcome. Proven directions are now appended fresh.
+    """
 
     root = repository_root.resolve()
     original = [item.model_copy(update={"functional": None}) for item in formats]
@@ -45,9 +55,70 @@ def corroborate_python_email_format_directions(
         else item
         for item in original
     ]
+
+    existing: set[tuple[str, _Direction, str]] = {
+        (item.format.casefold(), item.direction, item.file) for item in result
+    }
+    if cfb_proven:
+        result = _append_proven_format(
+            result, existing, root, "CFB", "import", _CFB_READER, "CFBReader", "from_file"
+        )
+        result = _append_proven_format(
+            result, existing, root, "CFB", "export", _CFB_WRITER, "CFBWriter", "to_bytes"
+        )
+    if msg_proven:
+        result = _append_proven_format(
+            result, existing, root, "MSG", "import", _MSG_READER, "MsgReader", "from_file"
+        )
+        result = _append_proven_format(
+            result, existing, root, "MSG", "export", _MSG_WRITER, "MsgWriter", "to_bytes"
+        )
+    if eml_export_proven:
+        result = _append_proven_format(
+            result,
+            existing,
+            root,
+            "EML",
+            "export",
+            _MAPI_MESSAGE,
+            "MapiMessage",
+            "to_email_message",
+        )
+
     if not _revision_matches(root, source_revision):
         return original
     return result
+
+
+def _append_proven_format(
+    result: list[AsposeOrgFormatEvidenceV1],
+    existing: set[tuple[str, _Direction, str]],
+    root: Path,
+    format_name: str,
+    direction: _Direction,
+    file_path: str,
+    class_name: str,
+    method_name: str,
+) -> list[AsposeOrgFormatEvidenceV1]:
+    identity = (format_name.casefold(), direction, file_path)
+    if identity in existing:
+        return result
+    module = _parse_relative(root, file_path)
+    owner = _unique_class(module, class_name) if module is not None else None
+    method = _unique_method_in_class(owner, method_name) if owner is not None else None
+    if method is None:
+        return result
+    existing.add(identity)
+    return [
+        *result,
+        AsposeOrgFormatEvidenceV1(
+            format=format_name,
+            direction=direction,
+            file=file_path,
+            line=method.lineno,
+            functional=True,
+        ),
+    ]
 
 
 def _record_is_proven(
