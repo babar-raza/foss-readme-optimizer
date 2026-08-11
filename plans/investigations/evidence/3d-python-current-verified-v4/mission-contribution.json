@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Aspose.3D Python README before cohort fan-out."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Aspose.3D receipts are reused and only invalid dependencies rerun",
+    "Aspose.3D is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Aspose.3D README is shown before the remaining Python cohort begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/no-op-proof.json",
+    "runs/multi-agent/L8-VPY-03E-3D-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "5662e409dd19be76bae70613a41f0983a3a35079501a5bc6bccc9014a9aa1012",
+  "scoreboard_after_sha256": "5662e409dd19be76bae70613a41f0983a3a35079501a5bc6bccc9014a9aa1012",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "Aspose.3D's acceptance chain was regressed to stale by commit 03d050442 (format corroborators added for Font, Slides, TeX, Words), which advanced the shared fact-acceptance contract for every Python repository even though none of the four new corroborators touch Aspose.3D's own format family.",
+  "contribution_boundary_after": "Aspose.3D Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (5735c3f66e57...), independently PASS-verified a fourth time, including a positive re-derivation of current_fact_acceptance_contract(ecosystem='python', family='3d') confirming the corroborator batch does not affect Aspose.3D. This closes the four-repository (PDF, Page, Note, Aspose.3D) corroborator-batch reopen re-verification pass; BarCode, Cells, and Email remain under the cohort task.",
+  "independently_verified": true
+}
