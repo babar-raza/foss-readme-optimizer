@@ -2715,7 +2715,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "5e708b61aebbae56df2ca4df11018c652ad23c485fefb395fabd0682b7f9dd10",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3732,14 +3732,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
           "facts_hash": "984c578ce44a86a36d9b63bdbf4468bf5bd6527f01173c2e1b21dfd62545b657",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "9558ad02bac368f5e11dde192c960375fd07bc6f33b3ecb2b139b292046a2c33",
-          "message": "['presentation.capability_description_repeats_title.7f262efb6748: Key-capability explanations must add visitor-facing detail.', 'presentation.semantic_duplicate.4649ba062351: The same visitor-facing limitation is expressed more than once.']",
-          "occurred_at": "2026-08-11T11:22:59.670237+00:00",
+          "message": "['presentation.capability_description_repeats_title.7aa2476b4ad0: Key-capability explanations must add visitor-facing detail.', 'presentation.capability_description_repeats_title.cf1ab356d0f4: Key-capability explanations must add visitor-facing detail.']",
+          "occurred_at": "2026-08-11T11:42:53.575541+00:00",
           "schema_version": 1,
           "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
           "stage": "document_validation"
@@ -13147,7 +13147,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T11:22:59.671516+00:00",
+      "last_run_timestamp": "2026-08-11T11:42:53.576796+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -14954,7 +14954,7 @@
     "updated_at": "2026-08-11T11:19:31.321394+00:00"
   },
   "schema_version": 2,
-  "state_version": 485,
+  "state_version": 486,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
