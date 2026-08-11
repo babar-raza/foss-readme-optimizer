@@ -8488,13 +8488,13 @@
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+      "accepted_facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "28863e37eb4551533cc1c888092878437ea3db64c4ddf2b8a6f8b6158bbda703",
+          "assessment_hash": "d4dce8deff33b246e28b450aecf7d0def0cf4d2cd26737aafb8d650f3c46fbcd",
           "attempt_count": 1,
           "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"Create, load, save, merge, split, and inspect PDF documents\", \"Extract text, images, attachments, metadata, and bookmarks\", \"Render pages to PNG or TIFF\", \"Replace or redact text in supported content streams\", \"Concatenate, extract, insert, delete, and append PDF pages\", \"Create and manage interactive form fields\", \"Add, update, and remove PDF annotations\", \"Create and inspect PDF signatures\", \"Optimize streams, images, fonts, and unused objects\", \"Apply configurable resource limits when processing untrusted PDFs\", \"Perform heuristic PDF/A and PDF/UA checks and conversions\", \"Add Standard-14 or embedded Unicode text, including shaped bidirectional text\", \"Encrypt and decrypt documents with RC4 or AES\", \"XMP metadata handling\"], \"input\": [\"PDF files\"], \"output\": [\"PDF files\", \"PNG files\", \"TIFF files\"]}",
           "diagram": {
@@ -8571,16 +8571,16 @@
               }
             ]
           },
-          "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
-          "input_sha256": "706951d5251c245a2d70034d13c9967b8081b218dc61a90b6f56c7dca048ad7d",
+          "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
+          "input_sha256": "ddc8bbd1cefca41280c26ad6f7e7b745175808d7f254ea724628a114f6d1ce13",
           "model": "qwen3-next",
           "opening_summary": {
             "supporting_fact_ids": [
               "product.identity:manifest-and-registry",
               "product.audience:platform-derived",
-              "product.capabilities:repository-extension"
+              "product.formats:repository-extension"
             ],
-            "text": "Aspose.PDF FOSS for Python is an open-source Python library for creating, reading, editing, rendering, and validating PDF documents. For developers using Python, it enables PDF document lifecycle management, text and image authoring, form and annotation handling, signature support, and heuristic PDF/A and PDF/UA validation."
+            "text": "Aspose.PDF FOSS for Python is an open-source library for developers using Python. It reads PDF files and writes PDF files, PNG files, and TIFF files."
           },
           "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
           "overview_sentences": [
@@ -8628,14 +8628,14 @@
             }
           ],
           "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-          "repository_summary": "Aspose.PDF FOSS for Python is an open-source Python library for creating, reading, editing, rendering, and validating PDF documents. It supports text, images, annotations, forms, signatures, and metadata, with configurable resource limits and heuristic PDF/A and PDF/UA checks.",
+          "repository_summary": "Aspose.PDF FOSS for Python is an open-source, type-annotated Python library for creating, reading, editing, rendering, and validating PDF documents. It supports text (including shaped bidirectional text), images, annotations, forms, signatures, encryption, and resource-limited processing of untrusted PDFs.",
           "review_repair": null,
           "schema_version": 1,
           "section_decisions": [
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The opening section accurately reflects the product identity and relationship to the commercial offering, supported by manifest and registry facts.",
+              "rationale": "The opening section accurately reflects the product identity and its relationship to the commercial offering, supported by the manifest and registry policy.",
               "section_id": "opening",
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
@@ -8645,7 +8645,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The main heading 'Aspose.PDF FOSS for Python' is the canonical product name and should be preserved.",
+              "rationale": "The main heading 'Aspose.PDF FOSS for Python' is consistent with the product identity and requires no changes.",
               "section_id": "heading:0",
               "supporting_fact_ids": []
             },
@@ -8672,7 +8672,7 @@
             {
               "disposition": "repair",
               "priority": 0,
-              "rationale": "A registry-install claim conflicts with the verified source-build acquisition; the installation instructions should be corrected to reflect the verified source build.",
+              "rationale": "The Installation section incorrectly suggests installing a published prerelease, while the verified acquisition method is source build. The registry claim conflicts with the source-build evidence.",
               "section_id": "heading:1812",
               "supporting_fact_ids": [
                 "installation.coordinates:manifest",
@@ -8683,7 +8683,7 @@
             {
               "disposition": "repair",
               "priority": 0,
-              "rationale": "The section does not contain the exact locally verified minimal example; the Quick Start examples should be updated to match the verified example code.",
+              "rationale": "The Quick Start example does not match the exact verified minimal example, which uses 'Hello from Aspose.PDF FOSS for Python!' instead of 'Hello from Aspose.PDF FOSS!'.",
               "section_id": "heading:2184",
               "supporting_fact_ids": [
                 "example.minimal:compiled-salvaged-example"
@@ -8701,7 +8701,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The Development section correctly describes the test suite and development commands as verified in the repository.",
+              "rationale": "The Development section correctly describes the standard workflow and test suite size as verified in the repository.",
               "section_id": "heading:5674",
               "supporting_fact_ids": [
                 "development.assets:repository-inventory"
@@ -8710,7 +8710,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The Repository Map section accurately describes the repository structure as verified in the inventory.",
+              "rationale": "The Repository Map section accurately describes the directory structure and key files as verified in the repository.",
               "section_id": "heading:6117",
               "supporting_fact_ids": [
                 "development.assets:repository-inventory"
@@ -8719,28 +8719,28 @@
             {
               "disposition": "investigate",
               "priority": 0,
-              "rationale": "The Contributing section requires dedicated repository-source evidence to verify its accuracy against the contribution guidance.",
+              "rationale": "The Contributing section lacks dedicated repository-source evidence and requires verification against contribution guidance.",
               "section_id": "heading:6624",
               "supporting_fact_ids": []
             },
             {
               "disposition": "investigate",
               "priority": 0,
-              "rationale": "The Security section requires dedicated repository-source evidence to verify its accuracy against the security policy and resource limits.",
+              "rationale": "The Security section lacks dedicated repository-source evidence and requires verification against security policy and resource limits.",
               "section_id": "heading:7045",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The License section correctly states the MIT license and copyright.",
+              "rationale": "The License section correctly states the MIT license and copyright, which is consistent with the LICENSE file.",
               "section_id": "heading:8342",
               "supporting_fact_ids": []
             },
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+              "rationale": "A fact-backed overview section is missing and should be added using verified audience, problems solved, and capabilities.",
               "section_id": "missing:at-a-glance",
               "supporting_fact_ids": [
                 "product.audience:platform-derived",
@@ -8751,7 +8751,7 @@
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "Add limitations that are explicitly supported by verified repository evidence.",
+              "rationale": "A dedicated limitations section is missing and should be added using verified limitations from the repository.",
               "section_id": "missing:limitations",
               "supporting_fact_ids": [
                 "product.limitations:repository-extension"
@@ -8761,9 +8761,9 @@
           "source_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa",
           "tool_schema_sha256": "72bf427ed96fd689a8135254483632c82163e2be0fbd3b8a7d523680604b3743"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\20260811-154637-f9c8",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\20260811-190658-5063",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -8800,7 +8800,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+          "product_facts_v2_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
           "protected_content_losses": [],
           "valid": true
         },
@@ -8815,48 +8815,48 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
-                  "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
+                  "candidate_anchor_id": "candidate.anchor.855a92a51fc1b0c17b6b.1",
+                  "claim": "The opening paragraph clearly describes the library's purpose and target audience.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.h1_blocks",
+                  "finding_id": "quality.clarity.1",
                   "kind": "quality",
-                  "mechanical_check_id": "document.h1_blocks",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
-                  "reported_observed_value": 1,
+                  "quoted_candidate_span": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Header"
+                  "section": "candidate.anchor.855a92a51fc1b0c17b6b.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section contains a single, minimal, fenced Python example that fits within the 12 non-blank line limit and demonstrates core usage.",
-                  "criterion": "example_presentation",
+                  "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                  "claim": "Installation instructions are presented clearly with a primary example block and optional extras listed.",
+                  "criterion": "installation_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_presentation.quick_start",
+                  "finding_id": "quality.installation_presentation.1",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                  "mechanical_check_id": null,
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "## Quick Start",
-                  "reported_observed_value": 10,
+                  "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+                  "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Quick Start"
+                  "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.h1_blocks",
-                  "quality.example_presentation.quick_start"
+                  "quality.clarity.1",
+                  "quality.installation_presentation.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -8868,7 +8868,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "a36df1e5db64a3378eef82c1b5baeae881c59fa63d4d578d399f845bba3f9a5a",
-              "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure (one H1, required H2 prefixes), includes a single badge row with allowed badge kinds, and provides a concise summary, navigation, At a Glance Mermaid diagram, Key Capabilities list, Installation instructions, and a minimal Quick Start example. The Additional Examples section is expandable, API Reference is detailed, and all required sections (Scope and Limitations, Development and Testing, Security, Contributing, License) are present. The license section includes the required benefit terms and a clear MIT summary. There is no visible duplication, internal terminology is consistent, and markdown integrity is preserved.",
+              "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with correct prefixes. The 'At a Glance' Mermaid diagram is well-formed and matches the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 10 non-blank lines, meeting the 12-line limit. Installation and examples are presented clearly with appropriate code blocks and explanations. The license section includes required benefit terms and a benefits summary. The 'Scope and Limitations' section explicitly mentions 'Enterprise Edition' as required. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -8880,48 +8880,48 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
-                    "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
+                    "candidate_anchor_id": "candidate.anchor.855a92a51fc1b0c17b6b.1",
+                    "claim": "The opening paragraph clearly describes the library's purpose and target audience.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.h1_blocks",
+                    "finding_id": "quality.clarity.1",
                     "kind": "quality",
-                    "mechanical_check_id": "document.h1_blocks",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
-                    "reported_observed_value": 1,
+                    "quoted_candidate_span": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Header"
+                    "section": "candidate.anchor.855a92a51fc1b0c17b6b.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section contains a single, minimal, fenced Python example that fits within the 12 non-blank line limit and demonstrates core usage.",
-                    "criterion": "example_presentation",
+                    "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                    "claim": "Installation instructions are presented clearly with a primary example block and optional extras listed.",
+                    "criterion": "installation_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_presentation.quick_start",
+                    "finding_id": "quality.installation_presentation.1",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                    "mechanical_check_id": null,
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "## Quick Start",
-                    "reported_observed_value": 10,
+                    "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+                    "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Quick Start"
+                    "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example_presentation.quick_start"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -8933,7 +8933,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "a36df1e5db64a3378eef82c1b5baeae881c59fa63d4d578d399f845bba3f9a5a",
-                "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure (one H1, required H2 prefixes), includes a single badge row with allowed badge kinds, and provides a concise summary, navigation, At a Glance Mermaid diagram, Key Capabilities list, Installation instructions, and a minimal Quick Start example. The Additional Examples section is expandable, API Reference is detailed, and all required sections (Scope and Limitations, Development and Testing, Security, Contributing, License) are present. The license section includes the required benefit terms and a clear MIT summary. There is no visible duplication, internal terminology is consistent, and markdown integrity is preserved.",
+                "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with correct prefixes. The 'At a Glance' Mermaid diagram is well-formed and matches the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 10 non-blank lines, meeting the 12-line limit. Installation and examples are presented clearly with appropriate code blocks and explanations. The license section includes required benefit terms and a benefits summary. The 'Scope and Limitations' section explicitly mentions 'Enterprise Edition' as required. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -8954,7 +8954,7 @@
                     "evidence_location": "repository://pyproject.toml,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "api.public_surface:python-exports",
-                    "finding_id": "factual.api_surface.python-exports",
+                    "finding_id": "factual.api_surface.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -8962,32 +8962,32 @@
                     "quoted_candidate_span": "## API Reference",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "API Reference"
+                    "section": "candidate.anchor.9ef018b6267c1dd5586b.1"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The package can be installed from source with a disposable build, matching the pinned revision.",
+                    "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                    "claim": "The installation instructions correctly reference the source repository and pinned SHA.",
                     "criterion": "installation.verified_acquisition",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
                     "evidence_location": "https://pypi.org/pypi/aspose-pdf-foss/json",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.verified_acquisition:disposable-source-build",
-                    "finding_id": "factual.installation.verified_acquisition",
+                    "finding_id": "factual.installation.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Installation",
+                    "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Installation"
+                    "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.api_surface.python-exports",
-                    "factual.installation.verified_acquisition"
+                    "factual.api_surface.1",
+                    "factual.installation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -8998,8 +8998,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "6395538a3ca8fe0cea1b658224b42821b018989ebda8c3867e553c0c40b1fe21",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, license, capabilities, limitations, distribution state (Alpha, typed), and repository structure are accurately reflected. Installation instructions match the source-based acquisition and optional extras defined in pyproject.toml. The API surface count (174 public types) aligns with the inventory of exports. Development assets (187 tests) and commands (scripts/build.sh, scripts/check.sh) are correctly described. The documentation links and examples are consistent with the repository inventory and governed catalog.",
+                "input_sha256": "97e2c0f3459c279d9620ce74b55f9db46819b4e8508e561836bdadb2f58c4efc",
+                "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, version, and compatibility match the manifest. The API surface count (174 public types) aligns with the inventory. Installation instructions correctly reference the source repository and pinned SHA. The 'At a Glance' Mermaid diagram accurately reflects the documented capabilities. The license is MIT as per the LICENSE file. The 'Scope and Limitations' section correctly reflects the documented limitations. The 'Enterprise Edition' terminology is appropriately used. The development commands and test inventory match the repository scripts and test files. The public examples match the compiled salvaged example. No contradictions or missing evidence were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -9007,14 +9007,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "5d865db3dc22ccad147713f3dad18b50815d8ee0c8f15100ccec78750f77d611",
-                "factual_record_sha256": "27d503e9f9a704e72e33dfd49da0f1c068391cf54650b317e843c5ee7cc55c57",
-                "input_sha256": "37e8b46acd05716b44be4188562c31eb2a89b5256686dc7c7dd4588b45aae8dd",
+                "blind_record_sha256": "55162677320390c9332b9112a6a43eaf0c21c75daa40291ccc0084031ea853aa",
+                "factual_record_sha256": "d32e06e394d84665fd177a03a97b82d668be37b4e47a20d7b58f09966abffa7f",
+                "input_sha256": "02440f6736f9fca14baf26c4d5f4f54a218a12ce917169320852b15133a133ef",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-8b87ec10bbc6538f",
-                "raw_output_sha256": "20b9ca3b70109f5e403f225294fa2dad63f8e01349031b5abad87b8bd457a378"
+                "provider_request_id": "chatcmpl-96dd9c2feb1e5cf2",
+                "raw_output_sha256": "ada6dcb9f4be0702cc34f34107d1e1bc239b563f021cc7f54bd2bf0e21e7ddad"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -9037,7 +9037,7 @@
                   "evidence_location": "repository://pyproject.toml,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "api.public_surface:python-exports",
-                  "finding_id": "factual.api_surface.python-exports",
+                  "finding_id": "factual.api_surface.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -9045,32 +9045,32 @@
                   "quoted_candidate_span": "## API Reference",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "API Reference"
+                  "section": "candidate.anchor.9ef018b6267c1dd5586b.1"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The package can be installed from source with a disposable build, matching the pinned revision.",
+                  "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                  "claim": "The installation instructions correctly reference the source repository and pinned SHA.",
                   "criterion": "installation.verified_acquisition",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
                   "evidence_location": "https://pypi.org/pypi/aspose-pdf-foss/json",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.verified_acquisition:disposable-source-build",
-                  "finding_id": "factual.installation.verified_acquisition",
+                  "finding_id": "factual.installation.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Installation",
+                  "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Installation"
+                  "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.api_surface.python-exports",
-                  "factual.installation.verified_acquisition"
+                  "factual.api_surface.1",
+                  "factual.installation.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -9081,8 +9081,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "6395538a3ca8fe0cea1b658224b42821b018989ebda8c3867e553c0c40b1fe21",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, license, capabilities, limitations, distribution state (Alpha, typed), and repository structure are accurately reflected. Installation instructions match the source-based acquisition and optional extras defined in pyproject.toml. The API surface count (174 public types) aligns with the inventory of exports. Development assets (187 tests) and commands (scripts/build.sh, scripts/check.sh) are correctly described. The documentation links and examples are consistent with the repository inventory and governed catalog.",
+              "input_sha256": "97e2c0f3459c279d9620ce74b55f9db46819b4e8508e561836bdadb2f58c4efc",
+              "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, version, and compatibility match the manifest. The API surface count (174 public types) aligns with the inventory. Installation instructions correctly reference the source repository and pinned SHA. The 'At a Glance' Mermaid diagram accurately reflects the documented capabilities. The license is MIT as per the LICENSE file. The 'Scope and Limitations' section correctly reflects the documented limitations. The 'Enterprise Edition' terminology is appropriately used. The development commands and test inventory match the repository scripts and test files. The public examples match the compiled salvaged example. No contradictions or missing evidence were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -9103,8 +9103,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example_presentation.quick_start"
+                    "quality.clarity.1",
+                    "quality.installation_presentation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -9120,15 +9120,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.api_surface.python-exports",
-                  "factual.installation.verified_acquisition"
+                  "factual.api_surface.1",
+                  "factual.installation.1"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.api_surface.python-exports",
-                    "factual.installation.verified_acquisition"
+                    "factual.api_surface.1",
+                    "factual.installation.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -9174,7 +9174,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260811-154637-f9c8",
+                "nonce": "20260811-190658-5063",
                 "official_mermaid_render": {
                   "aspect_ratio": 2.841,
                   "cached": true,
@@ -9289,11 +9289,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "5b7ef475f5a69ae07b31a6d44a50f94be71d076902dd26f6e88c2b2396e86d75",
+                "token": "0f958255a2b88b1caff301657ec7446101456f0b0f49d9467d62be06d50b5938",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\20260811-154637-f9c8"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\20260811-190658-5063"
               ],
               "repair_attempt": 0,
               "review": {
@@ -9303,48 +9303,48 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
-                      "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
+                      "candidate_anchor_id": "candidate.anchor.855a92a51fc1b0c17b6b.1",
+                      "claim": "The opening paragraph clearly describes the library's purpose and target audience.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.h1_blocks",
+                      "finding_id": "quality.clarity.1",
                       "kind": "quality",
-                      "mechanical_check_id": "document.h1_blocks",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
-                      "reported_observed_value": 1,
+                      "quoted_candidate_span": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Header"
+                      "section": "candidate.anchor.855a92a51fc1b0c17b6b.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section contains a single, minimal, fenced Python example that fits within the 12 non-blank line limit and demonstrates core usage.",
-                      "criterion": "example_presentation",
+                      "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                      "claim": "Installation instructions are presented clearly with a primary example block and optional extras listed.",
+                      "criterion": "installation_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_presentation.quick_start",
+                      "finding_id": "quality.installation_presentation.1",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                      "mechanical_check_id": null,
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "## Quick Start",
-                      "reported_observed_value": 10,
+                      "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+                      "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Quick Start"
+                      "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.h1_blocks",
-                      "quality.example_presentation.quick_start"
+                      "quality.clarity.1",
+                      "quality.installation_presentation.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -9356,7 +9356,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "a36df1e5db64a3378eef82c1b5baeae881c59fa63d4d578d399f845bba3f9a5a",
-                  "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure (one H1, required H2 prefixes), includes a single badge row with allowed badge kinds, and provides a concise summary, navigation, At a Glance Mermaid diagram, Key Capabilities list, Installation instructions, and a minimal Quick Start example. The Additional Examples section is expandable, API Reference is detailed, and all required sections (Scope and Limitations, Development and Testing, Security, Contributing, License) are present. The license section includes the required benefit terms and a clear MIT summary. There is no visible duplication, internal terminology is consistent, and markdown integrity is preserved.",
+                  "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with correct prefixes. The 'At a Glance' Mermaid diagram is well-formed and matches the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 10 non-blank lines, meeting the 12-line limit. Installation and examples are presented clearly with appropriate code blocks and explanations. The license section includes required benefit terms and a benefits summary. The 'Scope and Limitations' section explicitly mentions 'Enterprise Edition' as required. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -9368,48 +9368,48 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.badf7547c58feb0052fd.1",
-                        "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
+                        "candidate_anchor_id": "candidate.anchor.855a92a51fc1b0c17b6b.1",
+                        "claim": "The opening paragraph clearly describes the library's purpose and target audience.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.h1_blocks",
+                        "finding_id": "quality.clarity.1",
                         "kind": "quality",
-                        "mechanical_check_id": "document.h1_blocks",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "# Aspose.PDF FOSS for Python",
-                        "reported_observed_value": 1,
+                        "quoted_candidate_span": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Header"
+                        "section": "candidate.anchor.855a92a51fc1b0c17b6b.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section contains a single, minimal, fenced Python example that fits within the 12 non-blank line limit and demonstrates core usage.",
-                        "criterion": "example_presentation",
+                        "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                        "claim": "Installation instructions are presented clearly with a primary example block and optional extras listed.",
+                        "criterion": "installation_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_presentation.quick_start",
+                        "finding_id": "quality.installation_presentation.1",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                        "mechanical_check_id": null,
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "## Quick Start",
-                        "reported_observed_value": 10,
+                        "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+                        "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Quick Start"
+                        "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example_presentation.quick_start"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -9421,7 +9421,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "a36df1e5db64a3378eef82c1b5baeae881c59fa63d4d578d399f845bba3f9a5a",
-                    "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure (one H1, required H2 prefixes), includes a single badge row with allowed badge kinds, and provides a concise summary, navigation, At a Glance Mermaid diagram, Key Capabilities list, Installation instructions, and a minimal Quick Start example. The Additional Examples section is expandable, API Reference is detailed, and all required sections (Scope and Limitations, Development and Testing, Security, Contributing, License) are present. The license section includes the required benefit terms and a clear MIT summary. There is no visible duplication, internal terminology is consistent, and markdown integrity is preserved.",
+                    "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.PDF FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings in title case with correct prefixes. The 'At a Glance' Mermaid diagram is well-formed and matches the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 10 non-blank lines, meeting the 12-line limit. Installation and examples are presented clearly with appropriate code blocks and explanations. The license section includes required benefit terms and a benefits summary. The 'Scope and Limitations' section explicitly mentions 'Enterprise Edition' as required. There is no visible duplication, internal terminology conflicts, or markdown integrity issues.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -9442,7 +9442,7 @@
                         "evidence_location": "repository://pyproject.toml,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "api.public_surface:python-exports",
-                        "finding_id": "factual.api_surface.python-exports",
+                        "finding_id": "factual.api_surface.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -9450,32 +9450,32 @@
                         "quoted_candidate_span": "## API Reference",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "API Reference"
+                        "section": "candidate.anchor.9ef018b6267c1dd5586b.1"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The package can be installed from source with a disposable build, matching the pinned revision.",
+                        "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                        "claim": "The installation instructions correctly reference the source repository and pinned SHA.",
                         "criterion": "installation.verified_acquisition",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
                         "evidence_location": "https://pypi.org/pypi/aspose-pdf-foss/json",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.verified_acquisition:disposable-source-build",
-                        "finding_id": "factual.installation.verified_acquisition",
+                        "finding_id": "factual.installation.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Installation",
+                        "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Installation"
+                        "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.api_surface.python-exports",
-                        "factual.installation.verified_acquisition"
+                        "factual.api_surface.1",
+                        "factual.installation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -9486,8 +9486,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "6395538a3ca8fe0cea1b658224b42821b018989ebda8c3867e553c0c40b1fe21",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, license, capabilities, limitations, distribution state (Alpha, typed), and repository structure are accurately reflected. Installation instructions match the source-based acquisition and optional extras defined in pyproject.toml. The API surface count (174 public types) aligns with the inventory of exports. Development assets (187 tests) and commands (scripts/build.sh, scripts/check.sh) are correctly described. The documentation links and examples are consistent with the repository inventory and governed catalog.",
+                    "input_sha256": "97e2c0f3459c279d9620ce74b55f9db46819b4e8508e561836bdadb2f58c4efc",
+                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, version, and compatibility match the manifest. The API surface count (174 public types) aligns with the inventory. Installation instructions correctly reference the source repository and pinned SHA. The 'At a Glance' Mermaid diagram accurately reflects the documented capabilities. The license is MIT as per the LICENSE file. The 'Scope and Limitations' section correctly reflects the documented limitations. The 'Enterprise Edition' terminology is appropriately used. The development commands and test inventory match the repository scripts and test files. The public examples match the compiled salvaged example. No contradictions or missing evidence were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -9495,14 +9495,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "5d865db3dc22ccad147713f3dad18b50815d8ee0c8f15100ccec78750f77d611",
-                    "factual_record_sha256": "27d503e9f9a704e72e33dfd49da0f1c068391cf54650b317e843c5ee7cc55c57",
-                    "input_sha256": "37e8b46acd05716b44be4188562c31eb2a89b5256686dc7c7dd4588b45aae8dd",
+                    "blind_record_sha256": "55162677320390c9332b9112a6a43eaf0c21c75daa40291ccc0084031ea853aa",
+                    "factual_record_sha256": "d32e06e394d84665fd177a03a97b82d668be37b4e47a20d7b58f09966abffa7f",
+                    "input_sha256": "02440f6736f9fca14baf26c4d5f4f54a218a12ce917169320852b15133a133ef",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-8b87ec10bbc6538f",
-                    "raw_output_sha256": "20b9ca3b70109f5e403f225294fa2dad63f8e01349031b5abad87b8bd457a378"
+                    "provider_request_id": "chatcmpl-96dd9c2feb1e5cf2",
+                    "raw_output_sha256": "ada6dcb9f4be0702cc34f34107d1e1bc239b563f021cc7f54bd2bf0e21e7ddad"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -9525,7 +9525,7 @@
                       "evidence_location": "repository://pyproject.toml,src/aspose_pdf/__init__.py,src/aspose_pdf/annotations/__init__.py,src/aspose_pdf/annotations/pdf3d.py,src/aspose_pdf/attachments.py,src/aspose_pdf/cgm.py,src/aspose_pdf/clustering/__init__.py,src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py,src/aspose_pdf/color.py,src/aspose_pdf/document.py,src/aspose_pdf/drawing.py,src/aspose_pdf/engine/agl.py,src/aspose_pdf/engine/appearance.py,src/aspose_pdf/engine/auto_tag.py,src/aspose_pdf/engine/ccitt.py,src/aspose_pdf/engine/cert_chain.py,src/aspose_pdf/engine/cff_outlines.py,src/aspose_pdf/engine/cms.py,src/aspose_pdf/engine/conformance.py,src/aspose_pdf/engine/content_authoring.py,src/aspose_pdf/engine/content_stream_parser.py,src/aspose_pdf/engine/cos.py,src/aspose_pdf/engine/data/__init__.py,src/aspose_pdf/engine/data/number.py,src/aspose_pdf/engine/data/types.py,src/aspose_pdf/engine/data/xmp.py,src/aspose_pdf/engine/dct.py,src/aspose_pdf/engine/dss.py,src/aspose_pdf/engine/encryption.py,src/aspose_pdf/engine/field_appearance.py,src/aspose_pdf/engine/filters.py,src/aspose_pdf/engine/font_authoring.py,src/aspose_pdf/engine/font_subset.py,src/aspose_pdf/engine/font_subset_cff.py,src/aspose_pdf/engine/font_subset_type1.py,src/aspose_pdf/engine/glyph_outlines.py,src/aspose_pdf/engine/image_export.py,src/aspose_pdf/engine/image_resample.py,src/aspose_pdf/engine/incremental_update.py,src/aspose_pdf/engine/io.py,src/aspose_pdf/engine/jbig2.py,src/aspose_pdf/engine/jpeg_encoder.py,src/aspose_pdf/engine/jpx.py,src/aspose_pdf/engine/logging.py,src/aspose_pdf/engine/parser_exceptions.py,src/aspose_pdf/engine/pdf_matrix.py,src/aspose_pdf/engine/pdf_parser_cos.py,src/aspose_pdf/engine/pdf_writer_cos.py,src/aspose_pdf/engine/predefined_cmaps.py,src/aspose_pdf/engine/primitives/__init__.py,src/aspose_pdf/engine/primitives/matrix.py,src/aspose_pdf/engine/rasterizer.py,src/aspose_pdf/engine/rename_resources.py,src/aspose_pdf/engine/revocation.py,src/aspose_pdf/engine/rich_text.py,src/aspose_pdf/engine/sfnt.py,src/aspose_pdf/engine/shading.py,src/aspose_pdf/engine/signature_validator.py,src/aspose_pdf/engine/signing.py,src/aspose_pdf/engine/simple_pdf.py,src/aspose_pdf/engine/std_font_data.py,src/aspose_pdf/engine/std_fonts.py,src/aspose_pdf/engine/text_edit.py,src/aspose_pdf/engine/text_layout.py,src/aspose_pdf/engine/text_locate.py,src/aspose_pdf/engine/text_metrics.py,src/aspose_pdf/engine/timestamp.py,src/aspose_pdf/engine/type1_outlines.py,src/aspose_pdf/engine/woff.py,src/aspose_pdf/engine/woff2.py,src/aspose_pdf/exceptions.py,src/aspose_pdf/facades.py,src/aspose_pdf/font_registry.py,src/aspose_pdf/font_repository.py,src/aspose_pdf/forms.py,src/aspose_pdf/generated/__init__.py,src/aspose_pdf/generated/document.py,src/aspose_pdf/generated/forms.py,src/aspose_pdf/generated/pdfa.py,src/aspose_pdf/generated/security.py,src/aspose_pdf/geometry.py,src/aspose_pdf/graphics.py,src/aspose_pdf/html.py,src/aspose_pdf/images.py,src/aspose_pdf/interactive.py,src/aspose_pdf/latex.py,src/aspose_pdf/license_management.py,src/aspose_pdf/load_limits.py,src/aspose_pdf/load_options.py,src/aspose_pdf/logical_structure.py,src/aspose_pdf/lowcode.py,src/aspose_pdf/markdown.py,src/aspose_pdf/ofd.py,src/aspose_pdf/optimization.py,src/aspose_pdf/outlines.py,src/aspose_pdf/pages.py,src/aspose_pdf/pdf_consts.py,src/aspose_pdf/pdfa.py,src/aspose_pdf/pdfua.py,src/aspose_pdf/presentation.py,src/aspose_pdf/primitives.py,src/aspose_pdf/printing.py,src/aspose_pdf/save_format.py,src/aspose_pdf/save_options.py,src/aspose_pdf/security/__init__.py,src/aspose_pdf/signature.py,src/aspose_pdf/svg.py,src/aspose_pdf/tagged.py,src/aspose_pdf/text.py,src/aspose_pdf/text_layout.py,src/aspose_pdf/utils.py,src/aspose_pdf/validation.py,src/aspose_pdf/visualization.py,src/aspose_pdf/xmp.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "api.public_surface:python-exports",
-                      "finding_id": "factual.api_surface.python-exports",
+                      "finding_id": "factual.api_surface.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -9533,32 +9533,32 @@
                       "quoted_candidate_span": "## API Reference",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "API Reference"
+                      "section": "candidate.anchor.9ef018b6267c1dd5586b.1"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The package can be installed from source with a disposable build, matching the pinned revision.",
+                      "candidate_anchor_id": "candidate.anchor.4c12c57f4658f4907e78.1",
+                      "claim": "The installation instructions correctly reference the source repository and pinned SHA.",
                       "criterion": "installation.verified_acquisition",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
                       "evidence_location": "https://pypi.org/pypi/aspose-pdf-foss/json",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.verified_acquisition:disposable-source-build",
-                      "finding_id": "factual.installation.verified_acquisition",
+                      "finding_id": "factual.installation.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Installation",
+                      "quoted_candidate_span": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Installation"
+                      "section": "candidate.anchor.4c12c57f4658f4907e78.1"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.api_surface.python-exports",
-                      "factual.installation.verified_acquisition"
+                      "factual.api_surface.1",
+                      "factual.installation.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -9569,8 +9569,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "6395538a3ca8fe0cea1b658224b42821b018989ebda8c3867e553c0c40b1fe21",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, license, capabilities, limitations, distribution state (Alpha, typed), and repository structure are accurately reflected. Installation instructions match the source-based acquisition and optional extras defined in pyproject.toml. The API surface count (174 public types) aligns with the inventory of exports. Development assets (187 tests) and commands (scripts/build.sh, scripts/check.sh) are correctly described. The documentation links and examples are consistent with the repository inventory and governed catalog.",
+                  "input_sha256": "97e2c0f3459c279d9620ce74b55f9db46819b4e8508e561836bdadb2f58c4efc",
+                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The package identity, version, and compatibility match the manifest. The API surface count (174 public types) aligns with the inventory. Installation instructions correctly reference the source repository and pinned SHA. The 'At a Glance' Mermaid diagram accurately reflects the documented capabilities. The license is MIT as per the LICENSE file. The 'Scope and Limitations' section correctly reflects the documented limitations. The 'Enterprise Edition' terminology is appropriately used. The development commands and test inventory match the repository scripts and test files. The public examples match the compiled salvaged example. No contradictions or missing evidence were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -9591,8 +9591,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example_presentation.quick_start"
+                        "quality.clarity.1",
+                        "quality.installation_presentation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -9608,15 +9608,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.api_surface.python-exports",
-                      "factual.installation.verified_acquisition"
+                      "factual.api_surface.1",
+                      "factual.installation.1"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.api_surface.python-exports",
-                        "factual.installation.verified_acquisition"
+                        "factual.api_surface.1",
+                        "factual.installation.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -9650,7 +9650,7 @@
         "llm_called": true,
         "llm_calls": [
           {
-            "input_sha256": "706951d5251c245a2d70034d13c9967b8081b218dc61a90b6f56c7dca048ad7d",
+            "input_sha256": "ddc8bbd1cefca41280c26ad6f7e7b745175808d7f254ea724628a114f6d1ce13",
             "job": "plan_readme_composition",
             "model": "qwen3-next",
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
@@ -9660,7 +9660,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "28863e37eb4551533cc1c888092878437ea3db64c4ddf2b8a6f8b6158bbda703",
+            "assessment_hash": "d4dce8deff33b246e28b450aecf7d0def0cf4d2cd26737aafb8d650f3c46fbcd",
             "attempt_count": 1,
             "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"Create, load, save, merge, split, and inspect PDF documents\", \"Extract text, images, attachments, metadata, and bookmarks\", \"Render pages to PNG or TIFF\", \"Replace or redact text in supported content streams\", \"Concatenate, extract, insert, delete, and append PDF pages\", \"Create and manage interactive form fields\", \"Add, update, and remove PDF annotations\", \"Create and inspect PDF signatures\", \"Optimize streams, images, fonts, and unused objects\", \"Apply configurable resource limits when processing untrusted PDFs\", \"Perform heuristic PDF/A and PDF/UA checks and conversions\", \"Add Standard-14 or embedded Unicode text, including shaped bidirectional text\", \"Encrypt and decrypt documents with RC4 or AES\", \"XMP metadata handling\"], \"input\": [\"PDF files\"], \"output\": [\"PDF files\", \"PNG files\", \"TIFF files\"]}",
             "diagram": {
@@ -9737,16 +9737,16 @@
                 }
               ]
             },
-            "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
-            "input_sha256": "706951d5251c245a2d70034d13c9967b8081b218dc61a90b6f56c7dca048ad7d",
+            "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
+            "input_sha256": "ddc8bbd1cefca41280c26ad6f7e7b745175808d7f254ea724628a114f6d1ce13",
             "model": "qwen3-next",
             "opening_summary": {
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
                 "product.audience:platform-derived",
-                "product.capabilities:repository-extension"
+                "product.formats:repository-extension"
               ],
-              "text": "Aspose.PDF FOSS for Python is an open-source Python library for creating, reading, editing, rendering, and validating PDF documents. For developers using Python, it enables PDF document lifecycle management, text and image authoring, form and annotation handling, signature support, and heuristic PDF/A and PDF/UA validation."
+              "text": "Aspose.PDF FOSS for Python is an open-source library for developers using Python. It reads PDF files and writes PDF files, PNG files, and TIFF files."
             },
             "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
             "overview_sentences": [
@@ -9794,14 +9794,14 @@
               }
             ],
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-            "repository_summary": "Aspose.PDF FOSS for Python is an open-source Python library for creating, reading, editing, rendering, and validating PDF documents. It supports text, images, annotations, forms, signatures, and metadata, with configurable resource limits and heuristic PDF/A and PDF/UA checks.",
+            "repository_summary": "Aspose.PDF FOSS for Python is an open-source, type-annotated Python library for creating, reading, editing, rendering, and validating PDF documents. It supports text (including shaped bidirectional text), images, annotations, forms, signatures, encryption, and resource-limited processing of untrusted PDFs.",
             "review_repair": null,
             "schema_version": 1,
             "section_decisions": [
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The opening section accurately reflects the product identity and relationship to the commercial offering, supported by manifest and registry facts.",
+                "rationale": "The opening section accurately reflects the product identity and its relationship to the commercial offering, supported by the manifest and registry policy.",
                 "section_id": "opening",
                 "supporting_fact_ids": [
                   "product.identity:manifest-and-registry",
@@ -9811,7 +9811,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The main heading 'Aspose.PDF FOSS for Python' is the canonical product name and should be preserved.",
+                "rationale": "The main heading 'Aspose.PDF FOSS for Python' is consistent with the product identity and requires no changes.",
                 "section_id": "heading:0",
                 "supporting_fact_ids": []
               },
@@ -9838,7 +9838,7 @@
               {
                 "disposition": "repair",
                 "priority": 0,
-                "rationale": "A registry-install claim conflicts with the verified source-build acquisition; the installation instructions should be corrected to reflect the verified source build.",
+                "rationale": "The Installation section incorrectly suggests installing a published prerelease, while the verified acquisition method is source build. The registry claim conflicts with the source-build evidence.",
                 "section_id": "heading:1812",
                 "supporting_fact_ids": [
                   "installation.coordinates:manifest",
@@ -9849,7 +9849,7 @@
               {
                 "disposition": "repair",
                 "priority": 0,
-                "rationale": "The section does not contain the exact locally verified minimal example; the Quick Start examples should be updated to match the verified example code.",
+                "rationale": "The Quick Start example does not match the exact verified minimal example, which uses 'Hello from Aspose.PDF FOSS for Python!' instead of 'Hello from Aspose.PDF FOSS!'.",
                 "section_id": "heading:2184",
                 "supporting_fact_ids": [
                   "example.minimal:compiled-salvaged-example"
@@ -9867,7 +9867,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The Development section correctly describes the test suite and development commands as verified in the repository.",
+                "rationale": "The Development section correctly describes the standard workflow and test suite size as verified in the repository.",
                 "section_id": "heading:5674",
                 "supporting_fact_ids": [
                   "development.assets:repository-inventory"
@@ -9876,7 +9876,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The Repository Map section accurately describes the repository structure as verified in the inventory.",
+                "rationale": "The Repository Map section accurately describes the directory structure and key files as verified in the repository.",
                 "section_id": "heading:6117",
                 "supporting_fact_ids": [
                   "development.assets:repository-inventory"
@@ -9885,28 +9885,28 @@
               {
                 "disposition": "investigate",
                 "priority": 0,
-                "rationale": "The Contributing section requires dedicated repository-source evidence to verify its accuracy against the contribution guidance.",
+                "rationale": "The Contributing section lacks dedicated repository-source evidence and requires verification against contribution guidance.",
                 "section_id": "heading:6624",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "investigate",
                 "priority": 0,
-                "rationale": "The Security section requires dedicated repository-source evidence to verify its accuracy against the security policy and resource limits.",
+                "rationale": "The Security section lacks dedicated repository-source evidence and requires verification against security policy and resource limits.",
                 "section_id": "heading:7045",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The License section correctly states the MIT license and copyright.",
+                "rationale": "The License section correctly states the MIT license and copyright, which is consistent with the LICENSE file.",
                 "section_id": "heading:8342",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "Add a fact-backed overview when verified descriptive facts are available.",
+                "rationale": "A fact-backed overview section is missing and should be added using verified audience, problems solved, and capabilities.",
                 "section_id": "missing:at-a-glance",
                 "supporting_fact_ids": [
                   "product.audience:platform-derived",
@@ -9917,7 +9917,7 @@
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "Add limitations that are explicitly supported by verified repository evidence.",
+                "rationale": "A dedicated limitations section is missing and should be added using verified limitations from the repository.",
                 "section_id": "missing:limitations",
                 "supporting_fact_ids": [
                   "product.limitations:repository-extension"
@@ -9965,7 +9965,7 @@
                 "claim_text_sha256": "38d4408296a3e958a6a721ac6350e4e6e4b7b08b758691fdf918dfbdbf7c019c",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394",
+                "fact_value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "69989851cfee228edae2afc25218c7c3510de70ea47ddc54e9301977611dcd63",
                 "operation_id": "template.badges",
@@ -10497,7 +10497,7 @@
                 "claim_text_sha256": "9199f3bcf04307f747806e56a6ae1ae8038065b7810ace6e0ec76217c0b86c06",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394",
+                "fact_value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "d46365124a69f92a8c2812aaa7d6fa436fd285583c0eca4a12bddc9cc6956da0",
                 "operation_id": "template.section.installation.claim:58:d46365124a69f92a",
@@ -10525,7 +10525,7 @@
                 "claim_text_sha256": "d476cabdc7a2d1e4bb1c30956ac1c7f422dfee9818a5a8d5ac0e82135535725f",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:disposable-source-build",
-                "fact_value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394",
+                "fact_value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "2f15cae98585dfce0f2e9532fa9dcdfead7d828d080a00cc7ccf7812dc65baa2",
                 "operation_id": "template.section.installation.claim:264:2f15cae98585dfce",
@@ -12199,7 +12199,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+            "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
             "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
             "schema_version": 1
           },
@@ -14025,7 +14025,7 @@
             "archetype": "python-library",
             "candidate_sha256": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
             "content_assurance": "repository_verified",
-            "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+            "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -14134,7 +14134,7 @@
             "source_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa"
           },
           "readme_assessment": {
-            "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+            "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
             "immutable_base_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
             "material_claims": [
               {
@@ -15972,7 +15972,7 @@
                     "field": "installation.verified_acquisition",
                     "normalization_version": "structured-fact-coordinate-v1",
                     "path": "/verified-rendered-acquisition",
-                    "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                    "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                   }
                 ],
                 "fact_ids": [
@@ -15996,7 +15996,7 @@
                     "field": "installation.verified_acquisition",
                     "normalization_version": "structured-fact-coordinate-v1",
                     "path": "/verified-rendered-acquisition",
-                    "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                    "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                   }
                 ],
                 "fact_ids": [
@@ -16027,7 +16027,7 @@
                     "field": "installation.verified_acquisition",
                     "normalization_version": "structured-fact-coordinate-v1",
                     "path": "/verified-rendered-acquisition",
-                    "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                    "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                   }
                 ],
                 "fact_ids": [
@@ -20690,7 +20690,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -20726,7 +20726,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -20769,7 +20769,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -23132,7 +23132,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+              "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
               "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "f523a848f565b51dddacd1c09e3a0b2426b9291271d2ef955815bebbab5d99fa"
@@ -23768,7 +23768,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "fact_ids": [
@@ -23792,7 +23792,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "fact_ids": [
@@ -23823,7 +23823,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "62b331e1284bc96fba918e4dc1e266292abc6df8c401f02bb18d318451941394"
+                      "value_sha256": "652ee2d2f402e578bb670e07d355b9e34aec6327badab728cf74bca6e39e074f"
                     }
                   ],
                   "fact_ids": [
@@ -32349,7 +32349,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "325b8318f71bfe04ae95c280f5c3fe0ee024dcf2ed06b388aa3a671fcea9ee45",
+            "facts_hash": "91f205017ef442e6365de719c368d03f6b3250f2102b91b18da5b63cd2ea8fc6",
             "header_visuals": {
               "badge_markdown": "[![Version: 0.1.0a0](https://img.shields.io/badge/Version-0.1.0a0-blue)](https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/tree/537b8273b185e4f7440b201cacad56567e55b2f0) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.11](https://img.shields.io/badge/Requires-Python%20%3E%3D3.11-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-pdf-foss/Aspose-PDF-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.svg)](https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -34714,7 +34714,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260811-154637-f9c8",
+          "nonce": "20260811-190658-5063",
           "official_mermaid_render": {
             "aspect_ratio": 2.841,
             "cached": true,
@@ -34829,7 +34829,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "5b7ef475f5a69ae07b31a6d44a50f94be71d076902dd26f6e88c2b2396e86d75",
+          "token": "0f958255a2b88b1caff301657ec7446101456f0b0f49d9467d62be06d50b5938",
           "verdict": "accept"
         },
         "written": false
@@ -34837,7 +34837,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T15:50:03.991528+00:00",
+      "last_run_timestamp": "2026-08-11T19:11:00.976933+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "537b8273b185e4f7440b201cacad56567e55b2f0"
@@ -38894,7 +38894,7 @@
     "updated_at": "2026-08-11T19:10:54.385018+00:00"
   },
   "schema_version": 2,
-  "state_version": 1941,
+  "state_version": 1942,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
