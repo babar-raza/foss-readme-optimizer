@@ -1,0 +1,498 @@
+[
+  {
+    "review_pass": 1,
+    "repair_attempt": 0,
+    "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+    "review": {
+      "content_assurance": "repository_verified",
+      "verdict": "ACCEPT",
+      "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "preserve": [],
+      "blind_quality_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "blind_quality_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
+        "verdict": "ACCEPT",
+        "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and matches the input-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved throughout.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "quality.h1_blocks",
+            "kind": "quality",
+            "criterion": "clarity",
+            "section": "Header",
+            "claim": "Document has exactly one H1 heading.",
+            "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "document.h1_blocks",
+            "reported_observed_value": 1,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "quality.badge_rows",
+            "kind": "quality",
+            "criterion": "navigation",
+            "section": "Header",
+            "claim": "Badges appear in a single row and use only allowed kinds.",
+            "quoted_candidate_span": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
+            "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "header.badge_rows",
+            "reported_observed_value": 1,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "quality.badge_rows",
+            "quality.h1_blocks"
+          ]
+        }
+      },
+      "factual_plan_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "factual_plan_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "input_sha256": "4e19f4a84669ec15b7b9137efaeb551e77ef3820c77aaeeb05edb2688efa7540",
+        "verdict": "ACCEPT",
+        "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, repository) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source-based acquisition verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are directly supported by repository evidence. The limitations (mesh boolean, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly confirmed by source code guidance. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated and verified. The documentation links (docs, KB, reference) match the governed aspose.org catalog. The test inventory (34 files) and development commands (pip install -e, pytest) are consistent with repository guidance. The example examples (Quick Start and Additional Examples) are",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "factual.product_identity",
+            "kind": "factual",
+            "criterion": "product_identity",
+            "section": "Header",
+            "claim": "Product identity (name, version, repository) is correctly stated.",
+            "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "product.identity:manifest-and-registry",
+            "evidence_excerpt": "3d",
+            "evidence_location": "repository://setup.py",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "factual.installation_verified",
+            "kind": "factual",
+            "criterion": "installation_path",
+            "section": "Installation",
+            "claim": "Installation instructions match verified source-based acquisition.",
+            "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
+            "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "installation.verified_acquisition:disposable-source-build",
+            "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "factual.installation_verified",
+            "factual.product_identity"
+          ]
+        }
+      },
+      "combined_review": {
+        "content_assurance": "repository_verified",
+        "verdict": "ACCEPT",
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "blind_quality": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "blind_quality_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+          "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
+          "verdict": "ACCEPT",
+          "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and matches the input-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is correctly placed below the fold in Scope and Limitations. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved throughout.",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "quality.h1_blocks",
+              "kind": "quality",
+              "criterion": "clarity",
+              "section": "Header",
+              "claim": "Document has exactly one H1 heading.",
+              "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "document.h1_blocks",
+              "reported_observed_value": 1,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "quality.badge_rows",
+              "kind": "quality",
+              "criterion": "navigation",
+              "section": "Header",
+              "claim": "Badges appear in a single row and use only allowed kinds.",
+              "quoted_candidate_span": "[![Version: 26.1.0](https://img.shields.io/badge/Version-26.1.0-blue)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-3d-foss/Aspose.3D-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-3d-foss/Aspose.3D-FOSS-for-Python.svg)](https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/graphs/contributors)",
+              "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "header.badge_rows",
+              "reported_observed_value": 1,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.badge_rows",
+              "quality.h1_blocks"
+            ]
+          }
+        },
+        "factual_plan": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "factual_plan_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+          "input_sha256": "4e19f4a84669ec15b7b9137efaeb551e77ef3820c77aaeeb05edb2688efa7540",
+          "verdict": "ACCEPT",
+          "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, repository) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source-based acquisition verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are directly supported by repository evidence. The limitations (mesh boolean, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly confirmed by source code guidance. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated and verified. The documentation links (docs, KB, reference) match the governed aspose.org catalog. The test inventory (34 files) and development commands (pip install -e, pytest) are consistent with repository guidance. The example examples (Quick Start and Additional Examples) are",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "factual.product_identity",
+              "kind": "factual",
+              "criterion": "product_identity",
+              "section": "Header",
+              "claim": "Product identity (name, version, repository) is correctly stated.",
+              "quoted_candidate_span": "# Aspose.3D FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "product.identity:manifest-and-registry",
+              "evidence_excerpt": "3d",
+              "evidence_location": "repository://setup.py",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "factual.installation_verified",
+              "kind": "factual",
+              "criterion": "installation_path",
+              "section": "Installation",
+              "claim": "Installation instructions match verified source-based acquisition.",
+              "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
+              "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "installation.verified_acquisition:disposable-source-build",
+              "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+              "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.installation_verified",
+              "factual.product_identity"
+            ]
+          }
+        },
+        "merged_call_receipt": {
+          "actor_id": "llm-route:merged-readme-review",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+          "input_sha256": "69103c77be2a92b31f18cfb519bee022e9ec01b8ba9f3d2ed684664ec1ce9a10",
+          "raw_output_sha256": "0ff939ffe3d42306cbb61a4474f59d683489ed2e5eaf9cb1051953243073da96",
+          "blind_record_sha256": "7e37e794c1d04a92487466fe2d3a4fb45134c97bd961a78494ed77e01aff25d3",
+          "factual_record_sha256": "f6a07ee82823c2982b827aa7f290ae8ab0160251f56b76e5dc986b7079f038e2",
+          "provider_request_id": "chatcmpl-8958cf8afbe6cc0c",
+          "provider_model": "qwen3-next"
+        },
+        "identity_separation_valid": true,
+        "reasons": [
+          "blind_quality:ACCEPT",
+          "factual_plan:ACCEPT"
+        ]
+      },
+      "grounding_retry_history": [
+        {
+          "role": "blind_quality",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 151468,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.badge_rows",
+              "quality.h1_blocks"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        },
+        {
+          "role": "factual_plan",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 151468,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.installation_verified",
+              "factual.product_identity"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [
+            "factual.product_identity",
+            "factual.installation_verified"
+          ],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        }
+      ],
+      "review_contract_version": "2"
+    },
+    "deterministic_validation": {
+      "verdict": "accept",
+      "reason": null,
+      "checks": {
+        "candidate_matches_independent_render": true,
+        "source_document_hash": true,
+        "adoption_preserved_source": true,
+        "candidate_is_marker_free": true,
+        "candidate_has_no_comments": true,
+        "facts_hash_matches": true,
+        "template_hash_matches": true,
+        "candidate_hash_matches": true,
+        "source_span_hashes": true,
+        "fact_citations": true,
+        "document_reconstruction": true,
+        "composition_lineage": true,
+        "protected_content": true,
+        "verified_example_present": true,
+        "verified_overview_present": true,
+        "verified_limitations_present": true,
+        "example_assurance_claims_supported": true,
+        "no_introduced_duplicate_headings": true,
+        "header_visuals": true,
+        "enterprise_edition_terminology": true,
+        "contextual_links": true,
+        "claim_accountability_complete": true,
+        "claim_accountability_gaps_visible": true,
+        "presentation_lint": true,
+        "needs_write_matches": true
+      },
+      "requirement_map": {
+        "immutable_snapshot": true,
+        "fact_backed_document_plan": true,
+        "verified_example": true,
+        "protected_content": true
+      },
+      "nonce": "20260811-104556-bcae",
+      "token": "34f17ef95fc6ab4c639c30fc65d02bd25d6281b8846ff50bcc6e5d083fe35836",
+      "official_mermaid_render": {
+        "status": "passed",
+        "schema_version": 1,
+        "contract_version": "3",
+        "renderer": "@mermaid-js/mermaid-cli@11.10.1",
+        "source_sha256": "2a3fb5959e4737c9b07366ed28fa6efc337e1e3eaf6103e2d3182158e50b7571",
+        "svg_sha256": "91369cfbeec7b249e90b3ccab37d14d0c7df834b61e33519aebe36677b171260",
+        "view_box": [
+          0.0,
+          0.0,
+          1975.6875,
+          475.0
+        ],
+        "aspect_ratio": 4.1593,
+        "node_geometry": [
+          {
+            "node_id": "PRODUCT",
+            "center_x": 812.328125,
+            "center_y": 237.5,
+            "width": 178.78125,
+            "height": 78.0
+          },
+          {
+            "node_id": "I1",
+            "center_x": 98.6171875,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I2",
+            "center_x": 259.8515625,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I3",
+            "center_x": 421.0859375,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I4",
+            "center_x": 582.3203125,
+            "center_y": 237.5,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "C1",
+            "center_x": 1098.515625,
+            "center_y": 84.5,
+            "width": 155.421875,
+            "height": 78.0
+          },
+          {
+            "node_id": "C2",
+            "center_x": 1098.515625,
+            "center_y": 237.5,
+            "width": 223.59375,
+            "height": 78.0
+          },
+          {
+            "node_id": "C3",
+            "center_x": 1098.515625,
+            "center_y": 390.5,
+            "width": 223.0625,
+            "height": 78.0
+          },
+          {
+            "node_id": "O1",
+            "center_x": 1386.859375,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O2",
+            "center_x": 1549.953125,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O3",
+            "center_x": 1713.046875,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O4",
+            "center_x": 1876.140625,
+            "center_y": 237.5,
+            "width": 113.09375,
+            "height": 78.0
+          }
+        ],
+        "checks": {
+          "official_renderer_succeeded": true,
+          "all_semantic_nodes_rendered": true,
+          "landscape_and_compact": true,
+          "capability_columns_adaptive": true,
+          "capability_nodes_do_not_overlap": true,
+          "input_peer_widths_uniform": true,
+          "output_peer_widths_uniform": true,
+          "semantic_relationship_connectors_rendered": true
+        },
+        "errors": [],
+        "cached": false,
+        "render_duration_seconds": 12.763
+      }
+    },
+    "evidence_refs": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260811-104556-bcae"
+    ],
+    "reviewer_call_count": 1
+  }
+]
