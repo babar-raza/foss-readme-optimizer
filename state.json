@@ -845,10 +845,12 @@
         {
           "evidence_refs": [
             "src/readme_agent/supervisor/mission_execution_guard.py",
-            "src/readme_agent/readme/limitation_semantics.py"
+            "src/readme_agent/readme/limitation_semantics.py",
+            "src/readme_agent/presentation/verified_template_capabilities.py",
+            "tests/unit/test_repository_presentation_template.py"
           ],
           "fingerprint": "64a16b2667310aa1acb44d640806675f6a40fea9da1bc586ea2828a15b1c7457",
-          "last_material_narrowing_at": "2026-08-11T11:38:17.999769+00:00",
+          "last_material_narrowing_at": "2026-08-11T11:55:04.392650+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T11:13:22.123277+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -1944,7 +1946,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T11:38:17.999795+00:00",
+    "last_evaluated_at": "2026-08-11T11:55:04.392670+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 4,
@@ -1976,19 +1978,23 @@
       "stale_acceptance_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ],
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ],
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -10105,7 +10111,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1010,
+  "state_version": 1011,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
