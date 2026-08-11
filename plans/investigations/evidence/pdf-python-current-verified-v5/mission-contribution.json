@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the current PDF Python README before any further Python fan-out."
+  },
+  "acceptance_checks_passed": [
+    "PDF uses the frozen structure without copied product prose",
+    "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+    "The PDF candidate passes deterministic gates and independent non-authoring review",
+    "The unchanged PDF rerun is byte-identical and makes zero provider calls and effects",
+    "The exact PDF README path is reported before a broad suite or another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/no-op-proof.json",
+    "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "9a20adfcbd872ba210867a9878ab094626ef35af3700d5c87cc01bc850d228b3",
+  "scoreboard_after_sha256": "9a20adfcbd872ba210867a9878ab094626ef35af3700d5c87cc01bc850d228b3",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "PDF's acceptance chain was regressed to stale by commit 03d050442 (format corroborators added for Font, Slides, TeX, Words), which advanced the shared fact-acceptance contract for every Python repository even though none of the four new corroborators touch PDF's own format family.",
+  "contribution_boundary_after": "PDF Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (189b3321d...), independently PASS-verified a sixth time.",
+  "independently_verified": true
+}

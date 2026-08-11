@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "verification_plan_sha256": "19fd9a7a77f5ba231f9150fe2c0e003cffb3ac940fa263474d34d59cb4128bd3",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/sha256sums.txt",
+    "runs/evidence/20260811-194353-fc19/manifest.json",
+    "runs/evidence/20260811-194610-8725/manifest.json",
+    "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json"
+  ],
+  "independently_verified": true
+}
