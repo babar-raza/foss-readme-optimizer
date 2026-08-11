@@ -1383,6 +1383,73 @@ def test_expired_claim_is_recovered_before_the_next_claim():
     )
 
 
+def test_expired_claim_recovery_persists_even_when_expected_task_stays_unclaimable():
+    """An expired claim must release even when the requested task cannot be reclaimed.
+
+    Regression: claim_next_task() used to compute the expired-claim recovery and the
+    "expected task is not claimable" rejection inside the same all-or-nothing mutator, so
+    raising the rejection discarded the recovery too -- every retry recomputed and lost the
+    same recovery, leaving the task permanently stuck under its expired claim.
+    """
+
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+    record = claim_next_task(backend, graph, graph_hash, claimed_by="lost-worker")
+    assert record.mission_execution is not None
+    task_id = record.mission_execution.active_task_id
+    assert task_id is not None
+    task = next(t for t in graph.taskcards if t.task_id == task_id)
+    fingerprint = task_approach_fingerprint(task)
+
+    expired = record.mission_execution.model_copy(
+        update={
+            "claim_id": "expired-claim",
+            "claimed_by": "lost-worker",
+            "claimed_at": "2020-01-01T00:00:00+00:00",
+            "claim_expires_at": "2020-01-01T00:30:00+00:00",
+            "approach_control": ApproachControlStateV1(
+                attempts=[
+                    ApproachAttemptV1(
+                        task_id=task_id,
+                        fingerprint=fingerprint,
+                        started_at="2020-01-01T00:00:00+00:00",
+                        outcome="ineffective",
+                    ),
+                    ApproachAttemptV1(
+                        task_id=task_id,
+                        fingerprint=fingerprint,
+                        started_at="2020-01-01T00:10:00+00:00",
+                        outcome="ineffective",
+                    ),
+                ]
+            ),
+        }
+    )
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = record.model_copy(
+        update={"mission_execution": expired}
+    )
+
+    with pytest.raises(ConfigError, match="is not dependency-ready"):
+        claim_next_task(
+            backend,
+            graph,
+            graph_hash,
+            claimed_by="recovery-worker",
+            expected_task_id=task_id,
+        )
+
+    persisted = backend.load(mission_state_key(graph.mission_authority.mission_id))
+    assert persisted is not None
+    assert persisted.mission_execution is not None
+    assert persisted.mission_execution.active_task_id is None
+    assert persisted.mission_execution.claimed_by is None
+    assert any(
+        transition.to_status == "REGRESSED"
+        for transition in persisted.mission_execution.transition_history
+    )
+
+
 def test_direct_close_and_closure_without_evidence_fail_closed():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()

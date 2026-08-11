@@ -742,32 +742,26 @@ def claim_next_task(
         ready = _ready_tasks(graph, state)
         primary_goal, _concurrent_goals, _capacity = _derive_goal_selection(graph, state)
         claimable = [task for task in ready if task.stage_goal_id == primary_goal]
-        if not claimable:
-            if expected_task_id is not None:
-                raise ConfigError(
-                    f"expected mission task {expected_task_id!r} is not dependency-ready "
-                    "or is blocked by primary-goal admission controls"
-                )
+        if not claimable or (
+            expected_task_id is not None
+            and expected_task_id not in {task.task_id for task in claimable}
+        ):
+            # A just-recovered expired claim (above) must persist even when the
+            # specifically requested task cannot be claimed this attempt --
+            # otherwise every retry recomputes and discards the same recovery
+            # forever. claim_next_task() reports the mismatch to the caller
+            # from this already-persisted state instead of raising here.
             return state.model_copy(
                 update={
                     "mission_complete": evaluate_mission(graph, state).mission_complete,
                     "last_evaluated_at": now.isoformat(),
                 }
             )
-        if expected_task_id is None:
-            selected = claimable[0]
-        else:
-            expected = next(
-                (task for task in claimable if task.task_id == expected_task_id),
-                None,
-            )
-            if expected is None:
-                ready_ids = ", ".join(task.task_id for task in claimable) or "none"
-                raise ConfigError(
-                    f"expected mission task {expected_task_id!r} is not eligible; "
-                    f"primary-goal eligible tasks: {ready_ids}"
-                )
-            selected = expected
+        selected = (
+            claimable[0]
+            if expected_task_id is None
+            else next(task for task in claimable if task.task_id == expected_task_id)
+        )
         try:
             approach_control = start_approach_attempt(
                 state.approach_control,
@@ -808,7 +802,27 @@ def claim_next_task(
             }
         )
 
-    return _save_with_retry(backend, graph, graph_sha256, claim)
+    record = _save_with_retry(backend, graph, graph_sha256, claim)
+    if expected_task_id is not None and (
+        record.mission_execution is None
+        or record.mission_execution.active_task_id != expected_task_id
+    ):
+        state = record.mission_execution
+        assert state is not None
+        ready = _ready_tasks(graph, state)
+        primary_goal, _concurrent_goals, _capacity = _derive_goal_selection(graph, state)
+        claimable = [task for task in ready if task.stage_goal_id == primary_goal]
+        if not claimable:
+            raise ConfigError(
+                f"expected mission task {expected_task_id!r} is not dependency-ready "
+                "or is blocked by primary-goal admission controls"
+            )
+        ready_ids = ", ".join(task.task_id for task in claimable) or "none"
+        raise ConfigError(
+            f"expected mission task {expected_task_id!r} is not eligible; "
+            f"primary-goal eligible tasks: {ready_ids}"
+        )
+    return record
 
 
 def transition_task(
