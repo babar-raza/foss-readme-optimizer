@@ -1870,7 +1870,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T09:05:46.277411+00:00",
+    "last_evaluated_at": "2026-08-11T09:07:52.332620+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
@@ -2069,7 +2069,7 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "SCORED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "REGRESSED",
@@ -9786,6 +9786,18 @@
         "reason": "Deterministic gates, independent review, and unchanged no-op all accepted against the current dependency key; portfolio scoreboard reconciled via evaluate.",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/pdf-python-current-verified-v2/mission-contribution.json",
+          "plans/investigations/evidence/pdf-python-current-verified-v2/closeout-control.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-11T09:08:02.078534+00:00",
+        "reason": "PDF Python current README is independently approved (non-authoring subagent PASS), unchanged-no-op-proven with zero provider calls and zero effects, promoted to plans/investigations/evidence/finalized-repository-readmes-v1, and shown at repositories/python/pdf--537b8273b185--189b3321da5e/README.md.",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -9795,7 +9807,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 987,
+  "state_version": 988,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
