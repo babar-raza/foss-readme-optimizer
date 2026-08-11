@@ -279,6 +279,22 @@ def test_mermaid_uses_equal_width_labels_for_multiple_format_outputs():
     assert 'O3["TIFF<br/>Format"]' in source
 
 
+def test_mermaid_uses_fixed_width_boxes_for_mixed_semantic_outputs():
+    nodes = [
+        MermaidNodeV1(node_id="PRODUCT", role="product", label="Product", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="C1", role="capability", label="Render", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O1", role="output", label="PDF files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O2", role="output", label="PNG/JPEG images", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O3", role="output", label="EPS metadata", fact_ids=["fact"]),
+    ]
+
+    source = render_capability_landscape(nodes)
+
+    assert "O1[\"<div style='width:150px'>PDF</div>\"]" in source
+    assert "O2[\"<div style='width:150px'>PNG/JPEG images</div>\"]" in source
+    assert "O3[\"<div style='width:150px'>EPS metadata</div>\"]" in source
+
+
 @pytest.mark.parametrize("count", [1, 2, 4, 5, 6, 7, 12])
 def test_mermaid_columns_stay_short_and_balanced(count: int):
     nodes = [
