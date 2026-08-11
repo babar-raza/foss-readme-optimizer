@@ -18,8 +18,20 @@ from readme_agent.facts.python_cells_format_functionality import (
 from readme_agent.facts.python_email_format_functionality import (
     corroborate_python_email_format_directions,
 )
+from readme_agent.facts.python_font_format_functionality import (
+    corroborate_python_font_format_directions,
+)
 from readme_agent.facts.python_html_format_functionality import (
     corroborate_python_html_format_directions,
+)
+from readme_agent.facts.python_slides_format_functionality import (
+    corroborate_python_slides_format_directions,
+)
+from readme_agent.facts.python_tex_format_functionality import (
+    corroborate_python_tex_format_directions,
+)
+from readme_agent.facts.python_words_format_functionality import (
+    corroborate_python_words_format_directions,
 )
 
 _Corroborator = Callable[
@@ -88,12 +100,64 @@ def _corroborate_cells(
     )
 
 
+def _corroborate_font(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_font_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
+def _corroborate_slides(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_slides_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
+def _corroborate_tex(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_tex_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
+def _corroborate_words(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_words_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
 _CORROBORATORS: dict[str, _Corroborator] = {
     "3d": _corroborate_3d,
     "barcode": _corroborate_barcode,
     "cells": _corroborate_cells,
     "email": _corroborate_email,
+    "font": _corroborate_font,
     "html": _corroborate_html,
+    "slides": _corroborate_slides,
+    "tex": _corroborate_tex,
+    "words": _corroborate_words,
 }
 
 
