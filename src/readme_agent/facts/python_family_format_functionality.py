@@ -12,6 +12,9 @@ from readme_agent.facts.python_3d_format_functionality import (
 from readme_agent.facts.python_barcode_format_functionality import (
     corroborate_python_barcode_format_directions,
 )
+from readme_agent.facts.python_cells_format_functionality import (
+    corroborate_python_cells_format_directions,
+)
 from readme_agent.facts.python_email_format_functionality import (
     corroborate_python_email_format_directions,
 )
@@ -73,9 +76,22 @@ def _corroborate_html(
     )
 
 
+def _corroborate_cells(
+    root: Path,
+    revision: str,
+    formats: list[AsposeOrgFormatEvidenceV1],
+) -> list[AsposeOrgFormatEvidenceV1]:
+    return corroborate_python_cells_format_directions(
+        root,
+        source_revision=revision,
+        formats=formats,
+    )
+
+
 _CORROBORATORS: dict[str, _Corroborator] = {
     "3d": _corroborate_3d,
     "barcode": _corroborate_barcode,
+    "cells": _corroborate_cells,
     "email": _corroborate_email,
     "html": _corroborate_html,
 }
