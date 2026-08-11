@@ -11374,6 +11374,15 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-11T14:57:39.190683+00:00",
+        "reason": "product.formats was blocked by a one-off transient failure in the Aspose.org native format extractor subprocess (extract_aspose_org_formats), not a genuine content gap: directly re-invoking the same extractor against the same source_revision 1139a9a90280783cd91a7d3747adfdaa97a9cb47 three times in isolation consistently returned status=available with 4 functional export formats (XLSX, CSV, MARKDOWN, JSON). Reopening facts collection so the next transaction recollects instead of reusing the stale cached blocked verdict.",
+        "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -11430,11 +11439,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-11T14:36:16.825295+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-11T14:57:39.190683+00:00"
   },
   "schema_version": 2,
-  "state_version": 394,
+  "state_version": 395,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c6cd0efeb211ae6c4c598d1d63a763aee223e0d3da9a3f0c32a79b3027f0e3fc",
