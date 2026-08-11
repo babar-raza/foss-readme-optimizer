@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
-    "active_task_id": null,
+    "active_task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
     "approach_control": {
       "attempts": [
         {
@@ -776,6 +776,14 @@
           "outcome": "effective",
           "started_at": "2026-08-11T00:05:05.727949+00:00",
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "6b3a77ff6f60fd0f01867ffa1311ea9455d376df93bd28d4e6ddb7caca2ff09d",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-11T00:41:23.358635+00:00",
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ],
       "proposed_fingerprints": {
@@ -1598,10 +1606,10 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-11T01:11:23.358635+00:00",
+    "claim_id": "605f5d7a370548f6bd6ddae63c2e801b",
+    "claimed_at": "2026-08-11T00:41:23.358635+00:00",
+    "claimed_by": "codex-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
@@ -1807,7 +1815,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T00:40:56.098536+00:00",
+    "last_evaluated_at": "2026-08-11T00:41:23.358635+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -2023,7 +2031,7 @@
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "REGRESSED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "IN_PROGRESS",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-03E-3D-CURRENT-REFRESH": "TODO",
       "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
@@ -9649,6 +9657,15 @@
         "reason": "Current PDF/Python fact-contract refresh is CLOSED with deterministic acceptance, independent PASS, exact zero-provider no-op, and zero effects.",
         "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-coordinator",
+        "occurred_at": "2026-08-11T00:41:23.359080+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -9658,7 +9675,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 976,
+  "state_version": 977,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
