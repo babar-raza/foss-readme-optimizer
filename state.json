@@ -10636,6 +10636,15 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-11T18:32:44.150280+00:00",
+        "reason": "Root-caused product.formats BLOCKED_MISSING_EVIDENCE to a genuine shared-code bug: corroborate_python_email_format_directions() could never emit evidence via its only real caller (always seeded with formats=[]). Fixed by appending fresh proven entries (commit a68ef2253), verified against the real repository to find 5 real directions. Reopening facts collection to pick up the fix.",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -10692,11 +10701,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-11T18:22:25.256165+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-11T18:32:44.150280+00:00"
   },
   "schema_version": 2,
-  "state_version": 343,
+  "state_version": 344,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c218d252a5ed363bfe7b42d496e48e135a69aa72fc2499bf72cce4213c9b12e3",
