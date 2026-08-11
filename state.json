@@ -973,10 +973,11 @@
         },
         {
           "evidence_refs": [
-            "Root-caused Email's BLOCKED_MISSING_EVIDENCE to a structural bug in its format corroborator (only upgraded pre-seeded formats, never emitted new ones, but its only caller always seeds an empty list); fixed (commit a68ef2253), verified against the real repository to find 5 real directions."
+            "Root-caused Email's BLOCKED_MISSING_EVIDENCE to a structural bug in its format corroborator (only upgraded pre-seeded formats, never emitted new ones, but its only caller always seeds an empty list); fixed (commit a68ef2253), verified against the real repository to find 5 real directions.",
+            "Email cleared its BLOCKED_MISSING_EVIDENCE via the corroborator fix; approved and re-proven no-op; independent verification dispatched."
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": "2026-08-11T18:32:21.198428+00:00",
+          "last_material_narrowing_at": "2026-08-11T18:45:46.412228+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-11T18:20:23.552013+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2099,32 +2100,32 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T18:32:21.198450+00:00",
+    "last_evaluated_at": "2026-08-11T18:45:46.412264+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
-      "candidate_generated": 0,
+      "agent_approved": 1,
+      "candidate_generated": 1,
       "denominator": 32,
-      "derived_at": "2026-08-11T18:22:25.256165+00:00",
-      "deterministic_validated": 0,
-      "facts_ready": 0,
+      "derived_at": "2026-08-11T18:43:42.542976+00:00",
+      "deterministic_validated": 1,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 17,
+        "BLOCKED_MISSING_EVIDENCE": 16,
         "DISCOVERED": 1,
         "FACTS_READY": 8,
-        "NO_OP_PROVEN": 6
+        "NO_OP_PROVEN": 7
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 0,
-      "raw_agent_approved": 6,
-      "raw_candidate_generated": 6,
-      "raw_deterministic_validated": 6,
-      "raw_facts_ready": 14,
+      "no_op_proven": 1,
+      "raw_agent_approved": 7,
+      "raw_candidate_generated": 7,
+      "raw_deterministic_validated": 7,
+      "raw_facts_ready": 15,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 6,
+      "raw_no_op_proven": 7,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -10855,7 +10856,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1075,
+  "state_version": 1076,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
