@@ -67,28 +67,26 @@
     "TRUSTED_REVIEWING": "b4078dbee6d17c76e8edf19b28be1249da35f451e518e086cd1d4e5c4411538e"
   },
   "llm_accounting_status": "EXACT",
-  "llm_call_count": 3,
+  "llm_call_count": 2,
   "llm_call_ids": [
-    "b5af041c-8b63-43bd-b309-41efc5dea77e",
-    "e3d7c11c-ca4c-45a7-b7af-bb90c6cae074",
-    "e7430581-7d96-4458-96a1-b95b20671c82"
+    "62a87568-8aad-475f-95a4-b87fa1c0b443",
+    "6f424b73-39f8-461b-ac6a-454e039af8f4"
   ],
   "llm_calls_by_job": {
     "merged_readme_review": 1,
-    "plan_readme_composition": 1,
     "specialist_selection": 1
   },
   "llm_fixture_call_count": 0,
   "llm_cache_reuse_count": 1,
-  "llm_prompt_tokens": 79319,
-  "llm_completion_tokens": 5123,
-  "llm_total_tokens": 84442,
-  "llm_ledger_sha256": "f35fe1d4a3eae3b9e7f67cb8cd45db2614adf62d278b2cdb40e6ad0d1cda8f17",
+  "llm_prompt_tokens": 41988,
+  "llm_completion_tokens": 1536,
+  "llm_total_tokens": 43524,
+  "llm_ledger_sha256": "a2f6d2e90717cf6af36178c9a589d0188f06fd3cc35e7cd9fe19c3746d66ca16",
   "assessment_hash": "c64ebd3bfec4324dbac742ab1ddfca03d4e7cb6a9b5c82ea91027fab6eeac454",
   "presentation_plan_hash": "0f28733f99c9f862b61c35611318fbe19052eb116bdf06c12c4f2f1929fb4072",
   "agentic_composition_plan_hash": "c6e8e024497be9bc36386c52445f470f3e1c47295db49f5711fcdb5a922c7f3c",
   "candidate_hash": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
-  "candidate_stage_dependency_key": "fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904",
+  "candidate_stage_dependency_key": "3e65e7d6ff2d9b0d0d3c50909e9bec18c81073da98efc4a3887787a840140f72",
   "candidate_stage_dependency_manifest": {
     "schema_version": "StageDependencyManifestV1",
     "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
@@ -128,14 +126,14 @@
           "src/readme_agent/readme/agentic_composition_inputs.py": "6b58c8f788212a49ad726354e2eb55d8d083fb6237388c14116a2e54580d87ba",
           "src/readme_agent/readme/agentic_composition_models.py": "8a64a1aece7adf1266eaa7ffb283dbdf81d6f06d9142e139544ad2fbf8cc7f87",
           "src/readme_agent/readme/agentic_composition_validation.py": "3c87d8a33ebe33e05c4a240091f3dc6d45ee620c43157c051897b2fb4497b50d",
-          "src/readme_agent/readme/capability_semantics.py": "ea225fd75f93f377b33687d6efbe764d2c30e6fab52dd035a67ca2fc331b9712",
+          "src/readme_agent/readme/capability_semantics.py": "a0f19102874a1a3b1072b1dc292e2a8614b6d9007727442bfc1541c3030ea352",
           "src/readme_agent/readme/diagram_role_semantics.py": "4e8b0d9fd7306dbc3f4ac6ba47c32e3966bfe307da206393849c81fb3fe367ff",
           "src/readme_agent/readme/diagram_semantic_candidates.py": "0f3f2d0a341c53c98f5ac4c3817de5f7de50b3af26ac12812fc8656a3122aee4",
           "src/readme_agent/readme/opening_summary_fallback.py": "e4c1734fa2e09ef31f807518f949e0f8a61c02163c2546bea48d723f130e31f8"
         },
         "semantic_scope": "severe_acceptance",
         "earliest_affected_stage": "PLAN_READY",
-        "component_version": "aacb5db96f2698700bf4345283affccdfe37137cbed39b71bbc5de93329a4aea"
+        "component_version": "5cb0c5d4a8e3d8e03a49e5c6043e583337572ee969d958d6dde02d358b4dac68"
       },
       {
         "dependency_id": "contextual_link_policy",
@@ -200,7 +198,7 @@
           "src/readme_agent/readme/header_badges.py": "e9276166f41abd3a674d9e104b5d70155cdd2e098b525d9a17ea4ad5592041cd",
           "src/readme_agent/readme/header_visual.py": "66cdadce6a2cf94d2f7faf4df7f5220c1774bc8faae5d5746fd8959fa460fc77",
           "src/readme_agent/readme/header_visual_layout.py": "273361634c397c9ee8032339c406bf768ab65c9a93550ff5a9ed56a586d1f4a3",
-          "src/readme_agent/readme/header_visual_mermaid.py": "961eebabb38029aca752d3ff8e8f96407d50febe261ffd32974edb831477cdcb",
+          "src/readme_agent/readme/header_visual_mermaid.py": "af0e59b1661265e1e64e48e9d3d34f92de80eaa7f55008746080f8b5c9079d06",
           "src/readme_agent/readme/header_visual_models.py": "628c8734c5bd9bb220f3e48d46de01c5ad66043891dedb9886f776244eb21ae1",
           "src/readme_agent/readme/header_visual_validation.py": "0abb03dc508a8d10fd1f89a79b2bf158fc13b7df8f71fd7382aadda41d49ca60",
           "src/readme_agent/specialists/readme_visual_render_gate.py": "f5acbe31f1dee8130af15ae404bb3f63727279144ee7c2cd42110f349707c86d",
@@ -208,7 +206,7 @@
         },
         "semantic_scope": "cosmetic",
         "earliest_affected_stage": "PLAN_READY",
-        "component_version": "7e2d72d3cafc5a351177e6aa203d6f8e586dc44c446e44f0b33594087ec64bd4"
+        "component_version": "624d5d03b4e863ae84df3f5ea17d7e377fde6f0fbd0226312c72c8cd48f85d44"
       },
       {
         "dependency_id": "presentation_template",
@@ -435,7 +433,7 @@
         "files": {
           "src/readme_agent/evidence/redaction.py": "4d852adb1a55af8ab06e101def5af9c9c2c654de98442c387002afb061830364",
           "src/readme_agent/evidence/writer.py": "ae4a0b322d2d645148d116ee60a1eb65019622801dd1dcb73896d174d24c92b6",
-          "src/readme_agent/supervisor/local_poc_evidence.py": "73a274f12cbe6c4e0fa704f57a7bd5d6ba25525579bdd4c8e77597e8fd13a039",
+          "src/readme_agent/supervisor/local_poc_evidence.py": "82f2da179e909751118da5019e371275a9f0b65f66fa57e63f62f97ecadd01dc",
           "src/readme_agent/supervisor/local_poc_snapshot_evidence.py": "9ad591bc46f559f4e60c41523489833b74ce92236848192deb98a7051cda28a2",
           "src/readme_agent/supervisor/portfolio_scheduler/contracts.py": "b3abb4990de53f5209b2760d94208bb8e047516bc0c20810c48b4f4c178a618d",
           "src/readme_agent/supervisor/portfolio_scheduler/lane.py": "5d95e216baa47dabc8685c4d243fe3214b0f9b93a63417b648a25b4cd8a249d0",
@@ -443,7 +441,7 @@
         },
         "semantic_scope": "safety",
         "earliest_affected_stage": "CANDIDATE_GENERATED",
-        "component_version": "05a0824f4ee624fab829d82a8f0cc505da228e58c12523708a36660a31de1042"
+        "component_version": "80e647defdbb61340d44f6a6c2894165e97e778a1b9c27216bd1dd5953e1cdd7"
       },
       {
         "dependency_id": "validation_ruleset",
@@ -455,25 +453,25 @@
         "component_version": "e2a2959cf74ee2e5cebb8cd4e55464e2a1871fdb291d79141a65dce493b09e7a"
       }
     ],
-    "stage_key": "fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904"
+    "stage_key": "3e65e7d6ff2d9b0d0d3c50909e9bec18c81073da98efc4a3887787a840140f72"
   },
   "repair_budget_origin_hash": "ad7d4d31e179e30f6019476dd2abc8b1bcbd51c322f8599dea6d4bd2be7e52e8",
-  "campaign_id": "298a3f8f2d5a53e5af23fb5618cf919c9098f54d76b82ed74464109d245c81c4",
+  "campaign_id": "ec8fc23306d361e356f6a35e6ecc468be4836f866fb0efed5bbdfbb710873920",
   "acceptance_authority": "sealed_stage_receipts",
   "stage_receipts": {
     "CANDIDATE_GENERATED": {
-      "campaign_id": "373a877a72dafdc4188f76b8dcfc47fd4c99fb1e3185667de662d5de25f4c8bb",
-      "work_id": "7849209bfd5c1222ed86b7b7e9f1fb60de411d5258f238bc7dba0349af6c3336",
-      "output_hash": "e8dbcc0d77b852da304f143673ab72b592aeb070b206f348c149363dffbbe6ae",
+      "campaign_id": "ff5c35e56b54e25735e6aea6231fb5f5c6946553741acb73ae5f3983bb7e224b",
+      "work_id": "b980f5042fc33e238550253167f4d6c3116340f890597ca9d4b97cab56657d7c",
+      "output_hash": "ad6ebd57c684ea8ee90fad4938bd83fd07f729ed072db24d2a29d3ef8e6b6c5e",
       "receipt_path": "receipts/CANDIDATE_GENERATED.json"
     },
     "DETERMINISTIC_VALIDATED": {
-      "campaign_id": "298a3f8f2d5a53e5af23fb5618cf919c9098f54d76b82ed74464109d245c81c4",
-      "work_id": "8574f34db1699eb320ef22e4ecab8c8de89732e00b47860fb7ba7ece200fb7d9",
-      "output_hash": "809f0fd6884bbce87f6be5ee53e3f99088a76797ec1441627ed6156018465b7a",
+      "campaign_id": "ec8fc23306d361e356f6a35e6ecc468be4836f866fb0efed5bbdfbb710873920",
+      "work_id": "b94becffe318292ce05913fc8092d7866d56005555bf3f80917089181a6122e4",
+      "output_hash": "0da808847a1f82beafcf6a7f148f76b8d0b61c7e4ba6db9f44ae6b859d4f2741",
       "receipt_path": "receipts/DETERMINISTIC_VALIDATED.json"
     }
   },
-  "deterministic_validation_hash": "f70f4835dda57999c9e664378e0c215f4d6a1ea48d47a0bd185679a8c3578505",
+  "deterministic_validation_hash": "862f32692ca942305405d432ae6ab93eed5b1976efdaf25ee646eb48a78b7052",
   "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
 }
