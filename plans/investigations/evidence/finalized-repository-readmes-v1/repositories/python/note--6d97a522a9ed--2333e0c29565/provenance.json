@@ -1,0 +1,456 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/exceptions.py,src/aspose/note/model.py,src/aspose/note/saving/__init__.py,src/aspose/note/saving/options.py,src/aspose/note/saving/pdf_writer.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/__init__.py,tests/_bootstrap.py,tests/_pdf_goldens.py,tests/test_aspose_note_compat_smoke.py,tests/test_aspose_note_dom_content.py,tests/test_aspose_note_dom_document.py,tests/test_aspose_note_exceptions_and_stubs.py,tests/test_aspose_note_history.py,tools/regenerate_pdf_goldens.py,tests/goldens/pdf/attached_file_with_tag.manifest.json,tests/goldens/pdf/formatted_richtext.manifest.json,tests/goldens/pdf/image_with_tag.manifest.json,tests/goldens/pdf/images_with_alignment.manifest.json,tests/goldens/pdf/numbered_list_with_tags.manifest.json,tests/goldens/pdf/one_page_with_file.manifest.json,tests/goldens/pdf/page_with_subpage.manifest.json,tests/goldens/pdf/page_with_subpage.pdf",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,tests/test_aspose_note_compat_smoke.py,tests/test_aspose_note_dom_content.py,tests/test_aspose_note_dom_document.py,tests/test_aspose_note_exceptions_and_stubs.py,tests/test_aspose_note_history.py,tests/test_aspose_note_pdf_goldens.py,tests/test_aspose_note_richtext_formatting.py,tests/test_aspose_note_save_options.py,tests/test_aspose_note_tags.py,tests/test_imports_smoke.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "development.golden_workflow:python-source": {
+    "field": "development.golden_workflow",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://README.md,pyproject.toml,src/aspose/note/saving/pdf_writer.py,tests/_pdf_goldens.py,tests/test_aspose_note_pdf_goldens.py,tools/regenerate_pdf_goldens.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development_and_testing"
+    ]
+  },
+  "distribution.license_expression:manifest": {
+    "field": "distribution.license_expression",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "readme.third_party_notices"
+    ]
+  },
+  "installation.capability_dependencies:python-source": {
+    "field": "installation.capability_dependencies",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose/note/saving/pdf_writer.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.api_reference"
+    ]
+  },
+  "installation.optional_extras:python-manifest": {
+    "field": "installation.optional_extras",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.development"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.ci:canonical-workflow": {
+    "field": "repository.ci",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://.github/workflows/ci.yml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.header"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,examples/README.md,examples/export_pdf.py,examples/extract_text.py,examples/save_images.py,git-tree:4237a5f245882fe6698aaeea3ce329cf9b9fa9ba,src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/exceptions.py,src/aspose/note/model.py,src/aspose/note/saving/__init__.py,src/aspose/note/saving/options.py,src/aspose/note/saving/pdf_writer.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.implementation_components:python-implementation-components": {
+    "field": "repository.implementation_components",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose/note/_internal/ms_one/loader.py,src/aspose/note/_internal/onestore/parser.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "readme.api_reference"
+    ]
+  },
+  "repository.third_party_notices:root-notices-file": {
+    "field": "repository.third_party_notices",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://THIRD_PARTY_NOTICES.md",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.third_party_notices"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": "2026-08-11T09:56:46.806440+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": "2026-08-11T09:56:46.806440+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:registry-pypi": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "https://pypi.org/pypi/aspose-note/json",
+      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "retrieved_at": "2026-08-11T09:56:46.806440+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}
