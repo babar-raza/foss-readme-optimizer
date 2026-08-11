@@ -744,20 +744,29 @@
         },
         {
           "evidence_refs": [
-            "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/coordinator/duplicate-boundary-repair.json",
-            "2697611edb5d93420747d29570bfee54a6baaea1"
+            "runs/evidence/20260810-235924-f420",
+            "src/readme_agent/facts/deterministic_truth_salvage.py",
+            "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/coordinator/duplicate-boundary-repair.json"
           ],
           "fingerprint": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314",
-          "last_material_narrowing_at": "2026-08-10T23:49:44.919053+00:00",
-          "outcome": "in_progress",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
           "started_at": "2026-08-10T23:26:52.196876+00:00",
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "6b3a77ff6f60fd0f01867ffa1311ea9455d376df93bd28d4e6ddb7caca2ff09d",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-11T00:02:58.412890+00:00",
           "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ],
       "proposed_fingerprints": {
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "5f46d8cecd42cbb530f3d2fff6adbe3c48bf67764c7dded33d192fdab20eafe5",
-        "L8-VPY-03C-PAGE-CURRENT-REFRESH": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314"
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH": "6b3a77ff6f60fd0f01867ffa1311ea9455d376df93bd28d4e6ddb7caca2ff09d"
       },
       "replans": [
         {
@@ -1538,6 +1547,32 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+        },
+        {
+          "causal_owner_changed": false,
+          "created_at": "2026-08-11T05:02:00.3153114+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/evidence/20260810-235924-f420",
+            "src/readme_agent/facts/deterministic_truth_salvage.py",
+            "runs/multi-agent/L8-VPY-03C-PAGE-CURRENT-REFRESH/coordinator/duplicate-boundary-repair.json"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "6b3a77ff6f60fd0f01867ffa1311ea9455d376df93bd28d4e6ddb7caca2ff09d",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "c7628a11ce484ae8cc6fb38cc0c3e0b6d6c6b86ef332d3f50bda3d62ee8b5314",
+          "rationale": "The first repair assumed a product-level repository capability record would always outrank implementation evidence. Current Page evidence disproved that assumption: the high-level product capability set existed in the technical draft while the separate detail record was absent. Preserve the successful MCP and limitation repairs, but change capability enrichment so low-level implementation groups seed only an empty product capability set and never compete with an already populated verified set.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH"
         }
       ]
     },
@@ -1757,12 +1792,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-10T23:49:44.919068+00:00",
+    "last_evaluated_at": "2026-08-11T00:02:58.412940+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 32,
-      "derived_at": "2026-08-10T23:30:45.972189+00:00",
+      "derived_at": "2026-08-10T23:53:11.387201+00:00",
       "deterministic_validated": 0,
       "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
@@ -9538,7 +9573,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 967,
+  "state_version": 968,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
