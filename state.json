@@ -8351,6 +8351,15 @@
         "reason": "product facts persisted with a narrowly scoped unresolved evidence boundary",
         "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "to_status": "BLOCKED_MISSING_EVIDENCE"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "BLOCKED_MISSING_EVIDENCE",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-12T10:29:32.445135+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -8407,11 +8416,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
-    "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-09T08:21:03.152461+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-12T10:29:32.445135+00:00"
   },
   "schema_version": 2,
-  "state_version": 160,
+  "state_version": 161,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6d5cfda776031d560921b50509af7b254b82f19b445369061f23223696cf9dbe",
