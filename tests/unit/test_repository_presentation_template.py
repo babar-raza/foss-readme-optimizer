@@ -1023,6 +1023,40 @@ def test_no_op_uses_source_lineage_and_changed_candidate_uses_verified_equivalen
     assert resolutions[0].candidate_claim_id == candidate_claim.claim_id
 
 
+def test_eof_boundary_relocation_does_not_become_verified_equivalence() -> None:
+    """Regression: a source claim at true end-of-file (no trailing newline) that gets
+
+    relocated to a non-terminal position in the candidate picks up a trailing newline
+    from the assessor there, so its content_sha256 no longer matches the source claim's
+    even though the underlying text is byte-identical. With no fact provenance bound to
+    it, this spurious hash mismatch defeated the "identical content, no provenance ->
+    plain preservation" escape hatch in equivalent_source_claim_resolution(), so the
+    claim was wrongly classified as verified_equivalence (implying a semantic rewrite)
+    instead of being left to ordinary literal-preservation tracking. The downstream
+    claim_accountability_validation.py check verified_equivalences_have_exact_candidate_claims
+    then correctly detected the mismatch and blocked the whole presentation plan
+    (aspose-words-foss/Aspose.Words-FOSS-for-Python, L8-VPY-03-ALL-PYTHON-VERIFIED-POC) --
+    a real source-repository README ending without a trailing newline, whose final
+    support/issues line was relocated by the "brief-then-collapse" composer feature.
+    """
+
+    source = "## Key capabilities\n\nVerified public capability."
+    candidate = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Key capabilities\n\nVerified public capability.\n\n"
+        "## More\n\nOther content.\n"
+    )
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        _verified_3d_inputs(include_api_surface=True)[1],
+        fail_on_unresolved_preserve=False,
+    )
+
+    assert not any(item.resolution == "verified_equivalence" for item in resolutions)
+
+
 @pytest.mark.parametrize(
     ("source", "candidate", "with_fact_provenance"),
     [

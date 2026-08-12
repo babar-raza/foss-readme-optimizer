@@ -326,7 +326,10 @@ def equivalent_source_claim_resolution(
     )
     if provenance_ids and uncovered.strip():
         return None
-    if candidate_claim.content_sha256 == source_claim.content_sha256 and not provenance_ids:
+    if not provenance_ids and (
+        candidate_claim.content_sha256 == source_claim.content_sha256
+        or candidate_text.strip() == source_claim_text.strip()
+    ):
         return None
     required_source_fact_ids = (
         _capability_equivalence_fact_ids(source_fact_ids, facts)
