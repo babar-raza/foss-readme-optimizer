@@ -2304,7 +2304,7 @@
     ],
     "graph_sha256": "279c2ee66bb4f0bfac04dc8cdfd57ce448b9fab473fd29d268c957774f300ce1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T19:38:48.823370+00:00",
+    "last_evaluated_at": "2026-08-12T19:39:21.342196+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 10,
@@ -2473,7 +2473,7 @@
       "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "CLOSED",
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
-      "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "VERIFIED",
+      "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "SCORED",
       "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "CLOSED",
@@ -11895,6 +11895,17 @@
         "reason": "Static/focused/complete-suite verification complete: ruff/mypy/plan-structure clean; complete non-live pytest suite run clean of tree drift (9 pre-existing, already-documented failures, zero new); multi-agent execution-plan admitted.",
         "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "Independent review verdict: CONDITIONAL PASS -> both findings fixed; see plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/closeout-semantics-amendment-report.md"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-12T19:39:21.342209+00:00",
+        "reason": "Independent non-authoring review complete: CONDITIONAL PASS, two findings (stale decision count, missing PSD disposition record), both fixed and re-confirmed. Ready for closeout evidence submission.",
+        "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -11904,7 +11915,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1194,
+  "state_version": 1195,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
