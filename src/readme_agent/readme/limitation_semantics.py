@@ -51,6 +51,39 @@ def _constraint_subject(value: str) -> frozenset[str]:
     return frozenset(word[:-1] if len(word) > 4 and word.endswith("s") else word for word in words)
 
 
+# Quantifier/determiner scaffolding a "requires at least N ..." style sentence
+# shares regardless of what is actually being counted -- stripping it (and bare
+# numerals) from the constraint object isolates the noun that actually
+# discriminates two same-subject constraints (e.g. "steps" vs "frames").
+_QUANTIFIER_WORDS = {
+    "a",
+    "an",
+    "the",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "exactly",
+    "at",
+    "least",
+    "most",
+    "no",
+    "any",
+    "all",
+}
+
+
+def _constraint_object(value: str) -> frozenset[str]:
+    """Return the normalized entity required by one public limitation's constraint."""
+
+    parts = _CONSTRAINT_PREDICATE.split(value, maxsplit=1)
+    suffix = parts[1] if len(parts) > 1 else ""
+    words = semantic_content_words(suffix) - _GENERIC_LIMITATION_WORDS - _QUANTIFIER_WORDS
+    words = {word for word in words if not word.isdigit()}
+    return frozenset(word[:-1] if len(word) > 4 and word.endswith("s") else word for word in words)
+
+
 def public_limitations_equivalent(left: str, right: str) -> bool:
     """Return whether two statements express one constraint at the same assurance."""
 
@@ -91,6 +124,17 @@ def public_limitations_equivalent(left: str, right: str) -> bool:
         if left_subject and right_subject and left_subject != right_subject:
             return False
         if not left_subject.intersection(right_subject):
+            return False
+        # A shared subject alone is not enough: "Animation path requires at
+        # least two steps" and "Animation path requires at least 2 frames per
+        # segment" share their subject but constrain different things (path
+        # waypoint count vs. interpolation density). Require the object --
+        # what is actually required -- to overlap too, once quantifier
+        # scaffolding shared by any "requires at least N ..." phrasing is
+        # stripped away.
+        left_object = _constraint_object(normalized_left)
+        right_object = _constraint_object(normalized_right)
+        if left_object and right_object and not left_object.intersection(right_object):
             return False
     threshold = 0.5 if left_domains else 0.65
     return semantically_repeats(normalized_left, normalized_right, threshold=threshold)

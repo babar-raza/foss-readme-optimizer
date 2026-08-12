@@ -192,6 +192,27 @@ def test_limitation_equivalence_keeps_per_symbology_constraints_distinct() -> No
     )
 
 
+def test_limitation_equivalence_keeps_same_subject_different_object_distinct() -> None:
+    """Regression: two format-less limitations sharing an identical subject
+    prefix (both start "Animation path requires...") fell through the domain
+    and subject checks unblocked, then scored above the fuzzy-similarity
+    threshold on shared scaffolding words ("at least"), wrongly merging two
+    real, source-derived, independently-triggerable constraints -- minimum
+    animation path waypoint count vs. minimum interpolation frames per
+    segment (aspose-font-foss/Aspose.Font-FOSS-for-Python, animation.py lines
+    693/797 and 808, L8-VPY-03-ALL-PYTHON-VERIFIED-POC).
+    """
+
+    assert not public_limitations_equivalent(
+        "Animation path requires at least two steps",
+        "Animation path requires at least 2 frames per segment",
+    )
+    assert public_limitations_equivalent(
+        "Animation path requires at least two steps",
+        "Animation path currently requires at least two steps.",
+    )
+
+
 def test_complementary_coverage_constraints_render_and_resolve_once() -> None:
     source_values = [
         "Compatibility surfaces may name features that are unavailable and must fail explicitly.",
