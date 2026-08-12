@@ -1166,10 +1166,11 @@
         {
           "evidence_refs": [
             "Words processed fresh: two-transaction no-op proof complete with the claim-matching fix in place (first-ever AGENT_APPROVED then NO_OP_PROVEN); independent verifier dispatched. BarCode transaction 1 converged (2 provider calls, dependency-key bump from Words fix); transaction 2 pending.",
-            "BarCode independently verified PASS (cycle 4, same content as cycle 3). Cells transactions converged (0 provider calls on run 2); independent verifier dispatched. Font transaction 1 converged (2 provider calls, dependency-key bump); transaction 2 pending."
+            "BarCode independently verified PASS (cycle 4, same content as cycle 3). Cells transactions converged (0 provider calls on run 2); independent verifier dispatched. Font transaction 1 converged (2 provider calls, dependency-key bump); transaction 2 pending.",
+            "Font and Cells independently verified PASS (cycles 2 and 5, both byte-identical). Email transaction 2 reached NO_OP_PROVEN despite a transient GitHub-side lock-release error (self-healing, non-blocking per the tool's own warning); independent verifier dispatched. Slides transaction 1 pending."
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": "2026-08-12T14:29:58.488191+00:00",
+          "last_material_narrowing_at": "2026-08-12T14:46:11.697488+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T13:42:39.016235+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2292,7 +2293,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T14:44:33.810855+00:00",
+    "last_evaluated_at": "2026-08-12T14:46:11.697522+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 9,
       "candidate_generated": 10,
@@ -11873,7 +11874,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1183,
+  "state_version": 1184,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
