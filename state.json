@@ -11769,7 +11769,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260812-094245-df7c",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260812-131200-7ca0",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -11858,7 +11858,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                  "claim": "The README uses a single H1 heading that clearly identifies the product.",
+                  "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -11877,7 +11877,7 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section provides a minimal, executable Python example that demonstrates basic usage.",
+                  "claim": "The Quick Start section contains a single minimal, executable Python example that fits within the 12-line non-blank limit.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -11910,7 +11910,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
-              "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists capabilities with concrete APIs, and clearly separates installation, examples, API reference, and limitations. The navigation section is complete and accurate, and the license and scope sections are properly balanced and compliant with the visitor contract. No mechanical violations were detected, and all required sections are present and correctly titled.",
+              "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and aligns with the inputs-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is appropriately placed below the fold in Scope and Limitations. There are no visible duplications, forbidden comments, or markdown integrity issues.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -11923,7 +11923,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                    "claim": "The README uses a single H1 heading that clearly identifies the product.",
+                    "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -11942,7 +11942,7 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section provides a minimal, executable Python example that demonstrates basic usage.",
+                    "claim": "The Quick Start section contains a single minimal, executable Python example that fits within the 12-line non-blank limit.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -11975,7 +11975,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
-                "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists capabilities with concrete APIs, and clearly separates installation, examples, API reference, and limitations. The navigation section is complete and accurate, and the license and scope sections are properly balanced and compliant with the visitor contract. No mechanical violations were detected, and all required sections are present and correctly titled.",
+                "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and aligns with the inputs-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is appropriately placed below the fold in Scope and Limitations. There are no visible duplications, forbidden comments, or markdown integrity issues.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -11989,14 +11989,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
-                    "claim": "The product is correctly identified as Aspose.3D FOSS for Python, version 26.1.0, under the MIT License.",
+                    "claim": "The product name 'Aspose.3D FOSS for Python' and version '26.1.0' match the manifest and registry.",
                     "criterion": "product_identity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "3d",
                     "evidence_location": "repository://setup.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.identity:manifest-and-registry",
-                    "finding_id": "factual.product_identity",
+                    "finding_id": "factual.product_identity.manifest",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -12007,29 +12007,29 @@
                     "section": "Header"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                    "claim": "The README accurately describes the product's capabilities: 3D primitives, file format import/export, and animation with keyframes.",
-                    "criterion": "product_capabilities",
+                    "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+                    "claim": "The installation instructions (git clone, checkout, pip install) are consistent with the verified source build.",
+                    "criterion": "installation_coordinates",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "class Box(Primitive):",
-                    "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+                    "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+                    "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities",
+                    "fact_id": "installation.verified_acquisition:disposable-source-build",
+                    "finding_id": "factual.installation.source_build",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Key Capabilities",
+                    "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Key Capabilities"
+                    "section": "Installation"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities",
-                    "factual.product_identity"
+                    "factual.installation.source_build",
+                    "factual.product_identity.manifest"
                   ],
                   "errors": [],
                   "valid": true
@@ -12040,8 +12040,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "a09788294db864e121d63cb558cdb3a62faa3b6501a66a99fb261615aa32225b",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, audience, capabilities, formats, license, installation coordinates, and limitations are all verified by the evidence. The API reference section accurately reflects the public surface (354 types across 13 namespaces), and the examples align with the repository inventory. The limitations section correctly cites unimplemented features (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) as confirmed by source code evidence. No contradictions or missing evidence were found.",
+                "input_sha256": "f8e7bc328c4158e2942c5962f72a63dd738445f9e3ed3c1679126eabf2fe73a2",
+                "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, platform) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source build verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are confirmed by repository evidence. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly supported by source code evidence. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated. The documentation links and test inventory match the governed aspose.org catalog and repository inventory.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -12049,14 +12049,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "f7528cbf333b03e945de7722240f479a5a0ec4f7bb0a0e0d318561b95c7430d8",
-                "factual_record_sha256": "24cbec86ed1cceac365a8542c198a4d4dd14c5d231fb63e36eaf09c3a72cf062",
+                "blind_record_sha256": "2cc9bd72e1362bfc3e3385deedca51f7c1c0087343d4a061e6ad610bd5b93238",
+                "factual_record_sha256": "da25bbd32171e72ee72a3c6770197ac2b3d2877f1b96eadd88c420e8ac8053b7",
                 "input_sha256": "b430c34e530a176fd864583ef1974a2ea4ca38b651b3f815d56af790d3a5de93",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-8ab9d6786feaafeb",
-                "raw_output_sha256": "96a284872ab48e1d2985066aecfd9a12e08d547c8f36a0497f4a0b955ccc76eb"
+                "provider_request_id": "chatcmpl-87f927baffe3cc89",
+                "raw_output_sha256": "8a386edc0ea33c6d632935e087741bd1df505a5adac088308ad370df43fc71cb"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -12072,14 +12072,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
-                  "claim": "The product is correctly identified as Aspose.3D FOSS for Python, version 26.1.0, under the MIT License.",
+                  "claim": "The product name 'Aspose.3D FOSS for Python' and version '26.1.0' match the manifest and registry.",
                   "criterion": "product_identity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "3d",
                   "evidence_location": "repository://setup.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.identity:manifest-and-registry",
-                  "finding_id": "factual.product_identity",
+                  "finding_id": "factual.product_identity.manifest",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -12090,29 +12090,29 @@
                   "section": "Header"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                  "claim": "The README accurately describes the product's capabilities: 3D primitives, file format import/export, and animation with keyframes.",
-                  "criterion": "product_capabilities",
+                  "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+                  "claim": "The installation instructions (git clone, checkout, pip install) are consistent with the verified source build.",
+                  "criterion": "installation_coordinates",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "class Box(Primitive):",
-                  "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+                  "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+                  "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities",
+                  "fact_id": "installation.verified_acquisition:disposable-source-build",
+                  "finding_id": "factual.installation.source_build",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Key Capabilities",
+                  "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Key Capabilities"
+                  "section": "Installation"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities",
-                  "factual.product_identity"
+                  "factual.installation.source_build",
+                  "factual.product_identity.manifest"
                 ],
                 "errors": [],
                 "valid": true
@@ -12123,8 +12123,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "a09788294db864e121d63cb558cdb3a62faa3b6501a66a99fb261615aa32225b",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, audience, capabilities, formats, license, installation coordinates, and limitations are all verified by the evidence. The API reference section accurately reflects the public surface (354 types across 13 namespaces), and the examples align with the repository inventory. The limitations section correctly cites unimplemented features (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) as confirmed by source code evidence. No contradictions or missing evidence were found.",
+              "input_sha256": "f8e7bc328c4158e2942c5962f72a63dd738445f9e3ed3c1679126eabf2fe73a2",
+              "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, platform) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source build verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are confirmed by repository evidence. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly supported by source code evidence. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated. The documentation links and test inventory match the governed aspose.org catalog and repository inventory.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -12162,15 +12162,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.product_identity",
-                  "factual.capabilities"
+                  "factual.product_identity.manifest",
+                  "factual.installation.source_build"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities",
-                    "factual.product_identity"
+                    "factual.installation.source_build",
+                    "factual.product_identity.manifest"
                   ],
                   "errors": [],
                   "valid": true
@@ -12216,7 +12216,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260812-094245-df7c",
+                "nonce": "20260812-131200-7ca0",
                 "official_mermaid_render": {
                   "aspect_ratio": 4.1593,
                   "cached": true,
@@ -12338,11 +12338,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "0de5d92090334ab3ab7618ee28fc8e5f4916a67cdc027b40af0c88273143663c",
+                "token": "9584b9bfd824b73ea8d813b3e43759aa4c668c2a276843e21e87082a0646b2df",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260812-094245-df7c"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\20260812-131200-7ca0"
               ],
               "repair_attempt": 0,
               "review": {
@@ -12353,7 +12353,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                      "claim": "The README uses a single H1 heading that clearly identifies the product.",
+                      "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -12372,7 +12372,7 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section provides a minimal, executable Python example that demonstrates basic usage.",
+                      "claim": "The Quick Start section contains a single minimal, executable Python example that fits within the 12-line non-blank limit.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -12405,7 +12405,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
-                  "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists capabilities with concrete APIs, and clearly separates installation, examples, API reference, and limitations. The navigation section is complete and accurate, and the license and scope sections are properly balanced and compliant with the visitor contract. No mechanical violations were detected, and all required sections are present and correctly titled.",
+                  "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and aligns with the inputs-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is appropriately placed below the fold in Scope and Limitations. There are no visible duplications, forbidden comments, or markdown integrity issues.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -12418,7 +12418,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.8eeecd3b7304393171eb.1",
-                        "claim": "The README uses a single H1 heading that clearly identifies the product.",
+                        "claim": "The README contains exactly one H1 heading, providing a single clear product title.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -12437,7 +12437,7 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section provides a minimal, executable Python example that demonstrates basic usage.",
+                        "claim": "The Quick Start section contains a single minimal, executable Python example that fits within the 12-line non-blank limit.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -12470,7 +12470,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "7452f348f77b3bcdd722711fa4d7b15a301a5318489beb28068690f183ac0455",
-                    "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists capabilities with concrete APIs, and clearly separates installation, examples, API reference, and limitations. The navigation section is complete and accurate, and the license and scope sections are properly balanced and compliant with the visitor contract. No mechanical violations were detected, and all required sections are present and correctly titled.",
+                    "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.3D FOSS for Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start). The Mermaid diagram in At a Glance is correctly rendered and aligns with the inputs-product-capabilities-outputs topology. The Quick Start section contains exactly one fenced block with only 2 non-blank lines, satisfying the primary example constraints. All H2 headings are unique and in title case. The license section includes the required benefit terms (use, modification, distribution, commercial use). The Enterprise Edition terminology is appropriately placed below the fold in Scope and Limitations. There are no visible duplications, forbidden comments, or markdown integrity issues.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -12484,14 +12484,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
-                        "claim": "The product is correctly identified as Aspose.3D FOSS for Python, version 26.1.0, under the MIT License.",
+                        "claim": "The product name 'Aspose.3D FOSS for Python' and version '26.1.0' match the manifest and registry.",
                         "criterion": "product_identity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "3d",
                         "evidence_location": "repository://setup.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.identity:manifest-and-registry",
-                        "finding_id": "factual.product_identity",
+                        "finding_id": "factual.product_identity.manifest",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -12502,29 +12502,29 @@
                         "section": "Header"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                        "claim": "The README accurately describes the product's capabilities: 3D primitives, file format import/export, and animation with keyframes.",
-                        "criterion": "product_capabilities",
+                        "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+                        "claim": "The installation instructions (git clone, checkout, pip install) are consistent with the verified source build.",
+                        "criterion": "installation_coordinates",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "class Box(Primitive):",
-                        "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+                        "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+                        "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities",
+                        "fact_id": "installation.verified_acquisition:disposable-source-build",
+                        "finding_id": "factual.installation.source_build",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Key Capabilities",
+                        "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Key Capabilities"
+                        "section": "Installation"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities",
-                        "factual.product_identity"
+                        "factual.installation.source_build",
+                        "factual.product_identity.manifest"
                       ],
                       "errors": [],
                       "valid": true
@@ -12535,8 +12535,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "a09788294db864e121d63cb558cdb3a62faa3b6501a66a99fb261615aa32225b",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, audience, capabilities, formats, license, installation coordinates, and limitations are all verified by the evidence. The API reference section accurately reflects the public surface (354 types across 13 namespaces), and the examples align with the repository inventory. The limitations section correctly cites unimplemented features (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) as confirmed by source code evidence. No contradictions or missing evidence were found.",
+                    "input_sha256": "f8e7bc328c4158e2942c5962f72a63dd738445f9e3ed3c1679126eabf2fe73a2",
+                    "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, platform) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source build verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are confirmed by repository evidence. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly supported by source code evidence. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated. The documentation links and test inventory match the governed aspose.org catalog and repository inventory.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -12544,14 +12544,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "f7528cbf333b03e945de7722240f479a5a0ec4f7bb0a0e0d318561b95c7430d8",
-                    "factual_record_sha256": "24cbec86ed1cceac365a8542c198a4d4dd14c5d231fb63e36eaf09c3a72cf062",
+                    "blind_record_sha256": "2cc9bd72e1362bfc3e3385deedca51f7c1c0087343d4a061e6ad610bd5b93238",
+                    "factual_record_sha256": "da25bbd32171e72ee72a3c6770197ac2b3d2877f1b96eadd88c420e8ac8053b7",
                     "input_sha256": "b430c34e530a176fd864583ef1974a2ea4ca38b651b3f815d56af790d3a5de93",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-8ab9d6786feaafeb",
-                    "raw_output_sha256": "96a284872ab48e1d2985066aecfd9a12e08d547c8f36a0497f4a0b955ccc76eb"
+                    "provider_request_id": "chatcmpl-87f927baffe3cc89",
+                    "raw_output_sha256": "8a386edc0ea33c6d632935e087741bd1df505a5adac088308ad370df43fc71cb"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -12567,14 +12567,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.a6ebf63f1e78f064bc8e.1",
-                      "claim": "The product is correctly identified as Aspose.3D FOSS for Python, version 26.1.0, under the MIT License.",
+                      "claim": "The product name 'Aspose.3D FOSS for Python' and version '26.1.0' match the manifest and registry.",
                       "criterion": "product_identity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "3d",
                       "evidence_location": "repository://setup.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.identity:manifest-and-registry",
-                      "finding_id": "factual.product_identity",
+                      "finding_id": "factual.product_identity.manifest",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -12585,29 +12585,29 @@
                       "section": "Header"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                      "claim": "The README accurately describes the product's capabilities: 3D primitives, file format import/export, and animation with keyframes.",
-                      "criterion": "product_capabilities",
+                      "candidate_anchor_id": "candidate.anchor.368e06cc318a8c1538be.1",
+                      "claim": "The installation instructions (git clone, checkout, pip install) are consistent with the verified source build.",
+                      "criterion": "installation_coordinates",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "class Box(Primitive):",
-                      "evidence_location": "repository://aspose/threed/FileFormat.py,aspose/threed/Scene.py,aspose/threed/__init__.py,aspose/threed/animation/AnimationClip.py,aspose/threed/animation/KeyFrame.py,aspose/threed/animation/__init__.py,aspose/threed/entities/Box.py,aspose/threed/entities/Cylinder.py,aspose/threed/entities/Mesh.py,aspose/threed/entities/Sphere.py",
+                      "evidence_excerpt": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+                      "evidence_location": "https://pypi.org/pypi/aspose-3d-foss/json",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities",
+                      "fact_id": "installation.verified_acquisition:disposable-source-build",
+                      "finding_id": "factual.installation.source_build",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Key Capabilities",
+                      "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\ncd Aspose.3D-FOSS-for-Python\ngit checkout --detach 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\npython -m pip install .\n```",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Key Capabilities"
+                      "section": "Installation"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities",
-                      "factual.product_identity"
+                      "factual.installation.source_build",
+                      "factual.product_identity.manifest"
                     ],
                     "errors": [],
                     "valid": true
@@ -12618,8 +12618,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "a09788294db864e121d63cb558cdb3a62faa3b6501a66a99fb261615aa32225b",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, version, audience, capabilities, formats, license, installation coordinates, and limitations are all verified by the evidence. The API reference section accurately reflects the public surface (354 types across 13 namespaces), and the examples align with the repository inventory. The limitations section correctly cites unimplemented features (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) as confirmed by source code evidence. No contradictions or missing evidence were found.",
+                  "input_sha256": "f8e7bc328c4158e2942c5962f72a63dd738445f9e3ed3c1679126eabf2fe73a2",
+                  "reasoning": "All material claims in the README are supported by the selected fact evidence. The product identity (name, version, platform) matches the manifest and registry. The installation instructions (git clone, checkout, pip install) align with the source build verification. The API surface (354 public types across 13 namespaces) is verified by the Python exports inventory. The capabilities (primitives, file format I/O, keyframe animation) are confirmed by repository evidence. The limitations (mesh booleans, NURBS evaluation, COLLADA/FBX export, rendering) are explicitly supported by source code evidence. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are correctly stated. The documentation links and test inventory match the governed aspose.org catalog and repository inventory.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -12657,15 +12657,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.product_identity",
-                      "factual.capabilities"
+                      "factual.product_identity.manifest",
+                      "factual.installation.source_build"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities",
-                        "factual.product_identity"
+                        "factual.installation.source_build",
+                        "factual.product_identity.manifest"
                       ],
                       "errors": [],
                       "valid": true
@@ -39389,7 +39389,7 @@
               }
             ],
             "source_sha256": "3c89d297c654120e1733507d725ec58d629d0246dc6174b7a586c7b034f08fa9",
-            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
+            "template_sha256": "20f8dd555a810b1f231ab32edac05bd87ba43bec0498c2f52be375ae334debc4"
           }
         },
         "proposal_only": true,
@@ -109992,7 +109992,7 @@
               }
             ],
             "source_sha256": "3c89d297c654120e1733507d725ec58d629d0246dc6174b7a586c7b034f08fa9",
-            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
+            "template_sha256": "20f8dd555a810b1f231ab32edac05bd87ba43bec0498c2f52be375ae334debc4"
           },
           "skip_regeneration": false,
           "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
@@ -110030,7 +110030,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260812-094245-df7c",
+          "nonce": "20260812-131200-7ca0",
           "official_mermaid_render": {
             "aspect_ratio": 4.1593,
             "cached": true,
@@ -110152,7 +110152,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "0de5d92090334ab3ab7618ee28fc8e5f4916a67cdc027b40af0c88273143663c",
+          "token": "9584b9bfd824b73ea8d813b3e43759aa4c668c2a276843e21e87082a0646b2df",
           "verdict": "accept"
         },
         "written": false
@@ -110160,7 +110160,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T09:46:40.219856+00:00",
+      "last_run_timestamp": "2026-08-12T13:16:24.897373+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
@@ -117029,7 +117029,7 @@
     "updated_at": "2026-08-12T13:16:15.964115+00:00"
   },
   "schema_version": 2,
-  "state_version": 2372,
+  "state_version": 2373,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
