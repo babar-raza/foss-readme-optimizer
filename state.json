@@ -24519,7 +24519,7 @@
     "updated_at": "2026-08-12T10:24:10.935741+00:00"
   },
   "schema_version": 2,
-  "state_version": 374,
+  "state_version": 375,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
@@ -24527,9 +24527,9 @@
     "in_flight_domains": [],
     "in_flight_run_id": null,
     "last_observed_upstream_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
-    "last_run_id": "20260812-102233-36a3",
-    "last_run_timestamp": "2026-08-12T10:22:33.306464+00:00",
-    "last_status": "CONVERGED_PROPOSAL_READY",
+    "last_run_id": null,
+    "last_run_timestamp": "2026-08-12T10:24:30.360783+00:00",
+    "last_status": "CONVERGED_NO_TRACKED_CHANGE",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
@@ -24561,9 +24561,7 @@
         "ttl_seconds": 86400
       }
     },
-    "task_graph_snapshot": {
-      "tasks": []
-    }
+    "task_graph_snapshot": null
   },
   "trigger_lifecycles": {
     "delivery:registry:1230713255:bdd91b5beef3d8fec9ec4ae63f06b6d19014a79701005e9f9ef059f22daa6089": {
