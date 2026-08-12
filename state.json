@@ -2609,7 +2609,7 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -2903,7 +2903,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-030534-998b",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-143804-e268",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -2956,7 +2956,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                  "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
+                  "claim": "Single H1 block provides clear product title.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
@@ -2975,14 +2975,14 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
+                  "claim": "Quick Start provides a single, concise, runnable example within line limits.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_presentation.quick_start",
+                  "finding_id": "quality.example.minimal",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
@@ -2996,7 +2996,7 @@
               "grounding_validation": {
                 "checked_finding_ids": [
                   "quality.clarity.h1_blocks",
-                  "quality.example_presentation.quick_start"
+                  "quality.example.minimal"
                 ],
                 "errors": [],
                 "valid": true
@@ -3008,7 +3008,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
+              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3021,7 +3021,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                    "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
+                    "claim": "Single H1 block provides clear product title.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
@@ -3040,14 +3040,14 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
+                    "claim": "Quick Start provides a single, concise, runnable example within line limits.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_presentation.quick_start",
+                    "finding_id": "quality.example.minimal",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
@@ -3061,7 +3061,7 @@
                 "grounding_validation": {
                   "checked_finding_ids": [
                     "quality.clarity.h1_blocks",
-                    "quality.example_presentation.quick_start"
+                    "quality.example.minimal"
                   ],
                   "errors": [],
                   "valid": true
@@ -3073,7 +3073,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
+                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -3087,7 +3087,7 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
+                    "claim": "Package name and version in installation match pyproject.toml and PyPI.",
                     "criterion": "installation.coordinates",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": ".",
@@ -3105,29 +3105,29 @@
                     "section": "Installation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
-                    "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
-                    "criterion": "product.license",
+                    "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                    "claim": "Quick Start example is compiled/salvaged and verified.",
+                    "criterion": "example.minimal",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "MIT",
-                    "evidence_location": "repository://LICENSE",
+                    "evidence_excerpt": "python",
+                    "evidence_location": "local-verifier://example.minimal",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "product.license:license-file",
-                    "finding_id": "factual.product.license",
+                    "fact_id": "example.minimal:compiled-salvaged-example",
+                    "finding_id": "factual.example.verified",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## License",
+                    "quoted_candidate_span": "## Quick Start",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "License"
+                    "section": "Quick Start"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.installation.coordinates",
-                    "factual.product.license"
+                    "factual.example.verified",
+                    "factual.installation.coordinates"
                   ],
                   "errors": [],
                   "valid": true
@@ -3138,8 +3138,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
+                "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -3147,14 +3147,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "8b5de5cdba6e5fead4cebe3a40452d2d8c7217642ef4c43b29b5f27004232352",
-                "factual_record_sha256": "195234894ecc091a177060121d20b50f5aaf3233607c32b7192ec2190f015eaa",
+                "blind_record_sha256": "0437e86334ef2b9c034deaf794c58c2c4913d507adb61cd88b59722081807e95",
+                "factual_record_sha256": "2e6ca37947581072e728dc6e931c7dee4312b1c76160f82b4df5e1647542eff4",
                 "input_sha256": "73df7d8c070e7f50fd4276665f116126db1e412c2fd21fb1f6e88ee327da41f6",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-9ae4f435ac70d3ab",
-                "raw_output_sha256": "bd39835b46faaf5c84e21dadba9d42b006426e350ead02e388b035bd7791df90"
+                "provider_request_id": "chatcmpl-a24f01841fafd94f",
+                "raw_output_sha256": "e44acf889b87e22a2c0c4d9f93c616c33eadbb8ab021ce35e91d23236fab6c31"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -3170,7 +3170,7 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
+                  "claim": "Package name and version in installation match pyproject.toml and PyPI.",
                   "criterion": "installation.coordinates",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": ".",
@@ -3188,29 +3188,29 @@
                   "section": "Installation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
-                  "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
-                  "criterion": "product.license",
+                  "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                  "claim": "Quick Start example is compiled/salvaged and verified.",
+                  "criterion": "example.minimal",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "MIT",
-                  "evidence_location": "repository://LICENSE",
+                  "evidence_excerpt": "python",
+                  "evidence_location": "local-verifier://example.minimal",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "product.license:license-file",
-                  "finding_id": "factual.product.license",
+                  "fact_id": "example.minimal:compiled-salvaged-example",
+                  "finding_id": "factual.example.verified",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## License",
+                  "quoted_candidate_span": "## Quick Start",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "License"
+                  "section": "Quick Start"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.installation.coordinates",
-                  "factual.product.license"
+                  "factual.example.verified",
+                  "factual.installation.coordinates"
                 ],
                 "errors": [],
                 "valid": true
@@ -3221,8 +3221,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
+              "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3244,7 +3244,7 @@
                 "validation_result": {
                   "checked_finding_ids": [
                     "quality.clarity.h1_blocks",
-                    "quality.example_presentation.quick_start"
+                    "quality.example.minimal"
                   ],
                   "errors": [],
                   "valid": true
@@ -3260,14 +3260,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation.coordinates"
+                  "factual.installation.coordinates",
+                  "factual.example.verified"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.installation.coordinates",
-                    "factual.product.license"
+                    "factual.example.verified",
+                    "factual.installation.coordinates"
                   ],
                   "errors": [],
                   "valid": true
@@ -3313,7 +3314,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260812-030534-998b",
+                "nonce": "20260812-143804-e268",
                 "official_mermaid_render": {
                   "aspect_ratio": 5.1924,
                   "cached": true,
@@ -3456,11 +3457,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "6f14c4bd71fa1ca6d5e0ace6fc027c5a69107d9025ba7c31c73402e6fccd441c",
+                "token": "47cad9d6a4bb6d32b5c46f3b8e4d56016a375c54f7a1fc6df2f2224a22fb1c08",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-030534-998b"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-143804-e268"
               ],
               "repair_attempt": 0,
               "review": {
@@ -3471,7 +3472,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                      "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
+                      "claim": "Single H1 block provides clear product title.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
@@ -3490,14 +3491,14 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
+                      "claim": "Quick Start provides a single, concise, runnable example within line limits.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_presentation.quick_start",
+                      "finding_id": "quality.example.minimal",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
@@ -3511,7 +3512,7 @@
                   "grounding_validation": {
                     "checked_finding_ids": [
                       "quality.clarity.h1_blocks",
-                      "quality.example_presentation.quick_start"
+                      "quality.example.minimal"
                     ],
                     "errors": [],
                     "valid": true
@@ -3523,7 +3524,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
+                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3536,7 +3537,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                        "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
+                        "claim": "Single H1 block provides clear product title.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
@@ -3555,14 +3556,14 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
+                        "claim": "Quick Start provides a single, concise, runnable example within line limits.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_presentation.quick_start",
+                        "finding_id": "quality.example.minimal",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
@@ -3576,7 +3577,7 @@
                     "grounding_validation": {
                       "checked_finding_ids": [
                         "quality.clarity.h1_blocks",
-                        "quality.example_presentation.quick_start"
+                        "quality.example.minimal"
                       ],
                       "errors": [],
                       "valid": true
@@ -3588,7 +3589,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
+                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3602,7 +3603,7 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
+                        "claim": "Package name and version in installation match pyproject.toml and PyPI.",
                         "criterion": "installation.coordinates",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": ".",
@@ -3620,29 +3621,29 @@
                         "section": "Installation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
-                        "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
-                        "criterion": "product.license",
+                        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                        "claim": "Quick Start example is compiled/salvaged and verified.",
+                        "criterion": "example.minimal",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "MIT",
-                        "evidence_location": "repository://LICENSE",
+                        "evidence_excerpt": "python",
+                        "evidence_location": "local-verifier://example.minimal",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "product.license:license-file",
-                        "finding_id": "factual.product.license",
+                        "fact_id": "example.minimal:compiled-salvaged-example",
+                        "finding_id": "factual.example.verified",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## License",
+                        "quoted_candidate_span": "## Quick Start",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "License"
+                        "section": "Quick Start"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.installation.coordinates",
-                        "factual.product.license"
+                        "factual.example.verified",
+                        "factual.installation.coordinates"
                       ],
                       "errors": [],
                       "valid": true
@@ -3653,8 +3654,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
+                    "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3662,14 +3663,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "8b5de5cdba6e5fead4cebe3a40452d2d8c7217642ef4c43b29b5f27004232352",
-                    "factual_record_sha256": "195234894ecc091a177060121d20b50f5aaf3233607c32b7192ec2190f015eaa",
+                    "blind_record_sha256": "0437e86334ef2b9c034deaf794c58c2c4913d507adb61cd88b59722081807e95",
+                    "factual_record_sha256": "2e6ca37947581072e728dc6e931c7dee4312b1c76160f82b4df5e1647542eff4",
                     "input_sha256": "73df7d8c070e7f50fd4276665f116126db1e412c2fd21fb1f6e88ee327da41f6",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-9ae4f435ac70d3ab",
-                    "raw_output_sha256": "bd39835b46faaf5c84e21dadba9d42b006426e350ead02e388b035bd7791df90"
+                    "provider_request_id": "chatcmpl-a24f01841fafd94f",
+                    "raw_output_sha256": "e44acf889b87e22a2c0c4d9f93c616c33eadbb8ab021ce35e91d23236fab6c31"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -3685,7 +3686,7 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
+                      "claim": "Package name and version in installation match pyproject.toml and PyPI.",
                       "criterion": "installation.coordinates",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": ".",
@@ -3703,29 +3704,29 @@
                       "section": "Installation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
-                      "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
-                      "criterion": "product.license",
+                      "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+                      "claim": "Quick Start example is compiled/salvaged and verified.",
+                      "criterion": "example.minimal",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "MIT",
-                      "evidence_location": "repository://LICENSE",
+                      "evidence_excerpt": "python",
+                      "evidence_location": "local-verifier://example.minimal",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "product.license:license-file",
-                      "finding_id": "factual.product.license",
+                      "fact_id": "example.minimal:compiled-salvaged-example",
+                      "finding_id": "factual.example.verified",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## License",
+                      "quoted_candidate_span": "## Quick Start",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "License"
+                      "section": "Quick Start"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.installation.coordinates",
-                      "factual.product.license"
+                      "factual.example.verified",
+                      "factual.installation.coordinates"
                     ],
                     "errors": [],
                     "valid": true
@@ -3736,8 +3737,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
+                  "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3759,7 +3760,7 @@
                     "validation_result": {
                       "checked_finding_ids": [
                         "quality.clarity.h1_blocks",
-                        "quality.example_presentation.quick_start"
+                        "quality.example.minimal"
                       ],
                       "errors": [],
                       "valid": true
@@ -3775,14 +3776,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation.coordinates"
+                      "factual.installation.coordinates",
+                      "factual.example.verified"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.installation.coordinates",
-                        "factual.product.license"
+                        "factual.example.verified",
+                        "factual.installation.coordinates"
                       ],
                       "errors": [],
                       "valid": true
@@ -3802,15 +3804,8 @@
           ],
           "review_call_count": 1
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "0ee096e4d62d50043c2ebebe2f284dcaffc2fd37dfbd253aa51906f1cd903827",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "no_op_bundle_reused": true,
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
@@ -16548,7 +16543,7 @@
               }
             ],
             "source_sha256": "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35",
-            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
+            "template_sha256": "20f8dd555a810b1f231ab32edac05bd87ba43bec0498c2f52be375ae334debc4"
           }
         },
         "proposal_only": true,
@@ -16590,7 +16585,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260812-030534-998b",
+          "nonce": "20260812-143804-e268",
           "official_mermaid_render": {
             "aspect_ratio": 5.1924,
             "cached": true,
@@ -16733,7 +16728,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "6f14c4bd71fa1ca6d5e0ace6fc027c5a69107d9025ba7c31c73402e6fccd441c",
+          "token": "47cad9d6a4bb6d32b5c46f3b8e4d56016a375c54f7a1fc6df2f2224a22fb1c08",
           "verdict": "accept"
         },
         "written": false
@@ -16741,7 +16736,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T03:07:27.916893+00:00",
+      "last_run_timestamp": "2026-08-12T14:40:08.828175+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -18171,7 +18166,7 @@
     "updated_at": "2026-08-12T14:40:02.638847+00:00"
   },
   "schema_version": 2,
-  "state_version": 444,
+  "state_version": 445,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
