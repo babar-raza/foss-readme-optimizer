@@ -18885,7 +18885,7 @@
       "accepted_facts_hash": "fb1fa9b7d4b203941da30524ba2fa052d7574b650f154234c1d06b64a285fcf8",
       "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
-      "consecutive_skip_count": 0,
+      "consecutive_skip_count": 1,
       "details": {
         "alt_text": "slides FOSS for python logo",
         "concerns": [],
@@ -18901,6 +18901,8 @@
         },
         "size_bytes": 2327,
         "size_within_reasonable_bounds": true,
+        "skip_reason": "llm_selected",
+        "skipped_at_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
         "visual_accuracy_review": {
           "asset_source": "generated_candidate",
           "concerns": [],
@@ -18913,9 +18915,9 @@
       "domain": "visual_preparation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T10:42:48.918337+00:00",
+      "last_run_timestamp": "2026-08-12T10:37:46.841961+00:00",
       "owned_span_present_at_accept": false,
-      "skipped_this_run": false,
+      "skipped_this_run": true,
       "upstream_revision_at_accept": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f"
     }
   },
@@ -19688,7 +19690,7 @@
     "updated_at": "2026-08-12T10:37:17.559566+00:00"
   },
   "schema_version": 2,
-  "state_version": 177,
+  "state_version": 178,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "6d5cfda776031d560921b50509af7b254b82f19b445369061f23223696cf9dbe",
