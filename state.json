@@ -2082,9 +2082,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-12T14:37:30.867843+00:00",
-    "claim_id": "da253bdc686d4c22a6340c02939195a5",
-    "claimed_at": "2026-08-12T14:07:30.867843+00:00",
+    "claim_expires_at": "2026-08-12T14:48:22.408961+00:00",
+    "claim_id": "cedaf6f8e11b4efa8bfea6f3740fe1e3",
+    "claimed_at": "2026-08-12T14:18:22.408961+00:00",
     "claimed_by": "claude-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -2291,12 +2291,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T14:07:30.867843+00:00",
+    "last_evaluated_at": "2026-08-12T14:18:22.408961+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 6,
+      "agent_approved": 7,
       "candidate_generated": 10,
       "denominator": 32,
-      "derived_at": "2026-08-12T14:05:40.543142+00:00",
+      "derived_at": "2026-08-12T14:16:33.923823+00:00",
       "deterministic_validated": 10,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
@@ -2307,7 +2307,7 @@
         "NO_OP_PROVEN": 10
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 6,
+      "no_op_proven": 7,
       "raw_agent_approved": 10,
       "raw_candidate_generated": 10,
       "raw_deterministic_validated": 10,
@@ -2318,10 +2318,6 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
-          "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
-        ],
         "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
@@ -11883,7 +11879,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1178,
+  "state_version": 1179,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
