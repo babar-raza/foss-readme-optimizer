@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "manifest_type": "WorkingConditionExceptionManifestV1",
+  "scope": "HUMAN_ACCEPTED_EXCEPTIONS_NOT_NO_OP_PROVEN",
+  "registry_path": "data/working_condition_exceptions.json",
+  "registry_sha256": "be8be01a80895630b357137d06337efd8a05e13b7b4834cc704ef65b86958763",
+  "decision_reference": "plans/decisions/catalog.jsonl#101",
+  "registry_denominator": 1,
+  "exception_count": 1,
+  "repositories": [
+    {
+      "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+      "platform": "python",
+      "family": "html",
+      "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+      "candidate_sha256": "5ee3042d2b09f55a8725437044cf8300cd98643182b64d459aa74b96a3c19497",
+      "committed_readme": "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/README.md",
+      "verdict": "HUMAN_ACCEPTED_WORKING_CONDITION_EXCEPTION",
+      "accepted_date": "2026-08-12",
+      "accepted_by": "product owner",
+      "resume_predicate": "Upstream corrects pyproject.toml's build-backend (or an equivalent working PEP 517 backend) and/or publishes a working release to PyPI, so that `installation.verified_acquisition` can pass the strict `supervise` pipeline. Once that happens this repository re-enters the standard NO_OP_PROVEN lane and this entry is removed from this registry.",
+      "committed_artifacts": {
+        "UPSTREAM-DEFECTS.md": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/UPSTREAM-DEFECTS.md",
+          "8f0beb988e6cdbec52398ab5c2c4733116382ba87bd6034fb8c3a2c6786d0d25"
+        ],
+        "validation.json": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/validation.json",
+          "d9e5aae2c93e0bfaf8e6485aa7d01bd8d3513b8f8b5856a282e4762815672b32"
+        ],
+        "dispositions.json": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/dispositions.json",
+          "8294e31b5c852c9a3e6b10ba1386f04951880aed6dfadeaa2a61f19f66315908"
+        ],
+        "noop.json": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/noop.json",
+          "58a976c7bd18264b2e387086d05a444db36308692a9778640bc3baa77eaa71b9"
+        ],
+        "agentic-composition-plan.json": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/agentic-composition-plan.json",
+          "a53102cdaa373d463f5953de335a69699282070c1eaeec8f2d116670247ee512"
+        ],
+        "ACCEPTANCE-RECORD.json": [
+          "plans/investigations/evidence/working-condition-presentation-exceptions-v1/repositories/python/html--c2356ec872fd--5ee3042d2b09/ACCEPTANCE-RECORD.json",
+          "8124bbbe1d6639d568e25bb8e73d3b376a8db17a3da384ccb19000d4634ef9c0"
+        ]
+      }
+    }
+  ],
+  "promotion_exclusions": []
+}

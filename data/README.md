@@ -216,6 +216,41 @@ The catalogs are refreshed on demand. A newly discovered source page remains non
 (`http_status == -1`) until explicitly verified. Configured runtime allocation ceilings determine
 whether any eligible target is used; catalog presence is never a quota or permission to add a link.
 
+## `data/working_condition_exceptions.json` — human-accepted working-condition exceptions
+
+The explicit, per-repository gate for the working-condition-presentation exception lane (Decision
+#101). `readme-agent poc` output is diagnostic-only by default (Decision #100) — it cannot
+independently issue delivery, approval, or no-op states. A human may still explicitly accept a
+specific poc-delivered README for a specific repository when the strict `supervise` pipeline
+cannot currently pass because of a genuine, evidence-backed *upstream* defect (not an agent-fixable
+gap) — for example, a broken PEP 517 build backend with no PyPI release, verified only by running
+the repository's own example directly against its pinned source tree. Only a repository listed here
+is eligible for promotion by
+[`scripts/governance/promote_working_condition_exceptions.py`](../scripts/governance/promote_working_condition_exceptions.py);
+everything else stays governed strictly by Decision #100.
+
+```json
+{
+  "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+  "platform": "python",
+  "family": "html",
+  "accepted_date": "2026-08-12",
+  "accepted_by": "product owner",
+  "acceptance_basis": "the exact human instruction that authorized this exception",
+  "blocking_defect_summary": "what's broken upstream and what was verified anyway",
+  "resume_predicate": "what upstream must fix for this repository to re-enter the strict lane, after which this entry is removed"
+}
+```
+
+Each entry is added or removed only by hand, following an explicit human acceptance decision —
+never by automation, and never as a blanket policy for a family or platform. A repository whose
+*source itself* is non-importable or missing (no verified working content exists to present at
+all) does not qualify for this lane; its defect goes to
+`report/findings/<family>/<platform>/upstream-issues.md` for the owning product team instead. See
+`plans/decisions/catalog.jsonl` decision #101 for the full policy and
+`plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md` for the
+promoted evidence this registry currently gates.
+
 ## `data/template_clone_findings.json` — periodic embedding-similarity findings (Wave 8.6)
 
 Pairwise cosine-similarity findings across the enabled portfolio's real READMEs (owned spans

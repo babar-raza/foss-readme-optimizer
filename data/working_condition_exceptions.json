@@ -1,0 +1,12 @@
+[
+  {
+    "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "platform": "python",
+    "family": "html",
+    "accepted_date": "2026-08-12",
+    "accepted_by": "product owner",
+    "acceptance_basis": "HTML is entirely a different case. It currently has some things broken which can be workaround, as we did with the readme-poc lane. We can accept that readme and use it.",
+    "blocking_defect_summary": "pyproject.toml declares the nonexistent PEP 517 backend `setuptools.backends.legacy:build` (valid values are `setuptools.build_meta` or `setuptools.build_meta:__legacy__`), and the package is not published on PyPI (HTTP 404), so `pip install` cannot succeed. The repository's own public Quick Start example runs and passes when executed directly against the pinned source tree; only the pip-installable acquisition claim is unverifiable, and it is hidden rather than shown broken.",
+    "resume_predicate": "Upstream corrects pyproject.toml's build-backend (or an equivalent working PEP 517 backend) and/or publishes a working release to PyPI, so that `installation.verified_acquisition` can pass the strict `supervise` pipeline. Once that happens this repository re-enters the standard NO_OP_PROVEN lane and this entry is removed from this registry."
+  }
+]

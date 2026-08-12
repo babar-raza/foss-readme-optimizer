@@ -37,7 +37,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 100 stable decisions in
+The complete typed ledger contains 101 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -92,6 +92,14 @@ Binding current decisions:
   `RENDER_REPRODUCIBLE`. `TRANSACTION_NO_OP_PROVEN` requires a fresh-process replay of the complete
   transaction with byte-identical artifacts, no new provider work, and no duplicate lifecycle
   effects. Changed component hashes invalidate only dependent stages.
+- **#101 — Working-condition-presentation exceptions.** A human may explicitly accept a specific
+  poc-delivered README, per repository, when the strict pipeline cannot currently pass because of
+  a genuine upstream defect — recorded in `data/working_condition_exceptions.json` and promoted by
+  `scripts/governance/promote_working_condition_exceptions.py` into a tree kept structurally
+  separate from the `NO_OP_PROVEN` cohort, always labeled `HUMAN_ACCEPTED_WORKING_CONDITION_
+  EXCEPTION`, never counted toward Gate A/B or full-registry closure. A repository whose source
+  itself is non-importable or missing does not qualify; its defect goes to
+  `report/findings/<family>/<platform>/upstream-issues.md` for the owning product team instead.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
