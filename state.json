@@ -1165,10 +1165,11 @@
         },
         {
           "evidence_refs": [
-            "Words processed fresh: two-transaction no-op proof complete with the claim-matching fix in place (first-ever AGENT_APPROVED then NO_OP_PROVEN); independent verifier dispatched. BarCode transaction 1 converged (2 provider calls, dependency-key bump from Words fix); transaction 2 pending."
+            "Words processed fresh: two-transaction no-op proof complete with the claim-matching fix in place (first-ever AGENT_APPROVED then NO_OP_PROVEN); independent verifier dispatched. BarCode transaction 1 converged (2 provider calls, dependency-key bump from Words fix); transaction 2 pending.",
+            "BarCode independently verified PASS (cycle 4, same content as cycle 3). Cells transactions converged (0 provider calls on run 2); independent verifier dispatched. Font transaction 1 converged (2 provider calls, dependency-key bump); transaction 2 pending."
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": "2026-08-12T14:03:55.330858+00:00",
+          "last_material_narrowing_at": "2026-08-12T14:29:58.488191+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T13:42:39.016235+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2291,20 +2292,21 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T14:18:22.408961+00:00",
+    "last_evaluated_at": "2026-08-12T14:29:58.488225+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 7,
+      "agent_approved": 8,
       "candidate_generated": 10,
       "denominator": 32,
-      "derived_at": "2026-08-12T14:16:33.923823+00:00",
+      "derived_at": "2026-08-12T14:26:11.996212+00:00",
       "deterministic_validated": 10,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 15,
         "FACTS_READY": 7,
-        "NO_OP_PROVEN": 10
+        "NO_OP_PROVEN": 9
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 7,
@@ -2313,7 +2315,7 @@
       "raw_deterministic_validated": 10,
       "raw_facts_ready": 17,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 10,
+      "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -2321,9 +2323,6 @@
         "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
-        ],
-        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
-          "presentation_component_protected_content_changed"
         ],
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
           "presentation_component_protected_content_changed"
@@ -11879,7 +11878,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1179,
+  "state_version": 1180,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
