@@ -3253,7 +3253,7 @@
     },
     "readme_presentation": {
       "accepted_facts_hash": "5aa791343985b30b7858e7cc6977b0904614f730c532c7a71b5ae62163279351",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -3516,7 +3516,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260811-212736-f72b",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260812-135842-9de2",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -3568,34 +3568,15 @@
               "failed_criteria": [],
               "findings": [
                 {
-                  "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                  "claim": "The README has exactly one H1 heading, providing clear document identity.",
+                  "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                  "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the primary workflow.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.h1_blocks",
-                  "kind": "quality",
-                  "mechanical_check_id": "document.h1_blocks",
-                  "observed_polarity": null,
-                  "polarity_result": "not_applicable",
-                  "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
-                  "reported_observed_value": 1,
-                  "required_repair": "",
-                  "section": "document header"
-                },
-                {
-                  "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                  "claim": "The Quick Start section contains exactly one fenced block with 2 nonblank code lines, satisfying the primary example constraint.",
-                  "criterion": "example_presentation",
-                  "disposition": "supports_acceptance",
-                  "evidence_excerpt": null,
-                  "evidence_location": null,
-                  "expected_polarity": null,
-                  "fact_id": null,
-                  "finding_id": "quality.example_presentation.primary_example",
+                  "finding_id": "quality.clarity.supports_acceptance.1",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
@@ -3604,12 +3585,31 @@
                   "reported_observed_value": 2,
                   "required_repair": "",
                   "section": "Quick Start"
+                },
+                {
+                  "candidate_anchor_id": "candidate.anchor.36175e781b4996496dd3.1",
+                  "claim": "The Installation section clearly presents source-based installation steps with a single fenced code block.",
+                  "criterion": "installation_presentation",
+                  "disposition": "supports_acceptance",
+                  "evidence_excerpt": null,
+                  "evidence_location": null,
+                  "expected_polarity": null,
+                  "fact_id": null,
+                  "finding_id": "quality.installation_presentation.supports_acceptance.1",
+                  "kind": "quality",
+                  "mechanical_check_id": null,
+                  "observed_polarity": null,
+                  "polarity_result": "not_applicable",
+                  "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git\ncd Aspose.BarCode-FOSS-for-Python\ngit checkout --detach 53f2c3350b8171f2c8275e7b1a178f218695ac45\npython -m pip install .\n```",
+                  "reported_observed_value": null,
+                  "required_repair": "",
+                  "section": "Installation"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.h1_blocks",
-                  "quality.example_presentation.primary_example"
+                  "quality.clarity.supports_acceptance.1",
+                  "quality.installation_presentation.supports_acceptance.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -3621,7 +3621,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "96df10f1546aa8cd0eddce20484ed9aa52685089006c3320a29e144df6f49c4a",
-              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and no duplicate H2 headings. Navigation is complete with all required labels and proper anchor links. Installation and Quick Start sections are well presented with correct fenced blocks and minimal nonblank code lines. Examples are clearly separated and labeled. There is no visible duplication, internal terminology conflicts, or promotional imbalance. Markdown integrity is intact, and the template is followed without generic filler.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), a single badge row with required badge kinds, a clear navigation list, a valid Mermaid At a Glance diagram, a minimal Quick Start example (2 non-blank lines, 1 fenced block), no comments, title-case headings, and a complete license section with required benefit terms. The structure is logical, the examples are concrete and well-formatted, and the API reference is comprehensive. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3633,34 +3633,15 @@
                 "failed_criteria": [],
                 "findings": [
                   {
-                    "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                    "claim": "The README has exactly one H1 heading, providing clear document identity.",
+                    "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                    "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the primary workflow.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.h1_blocks",
-                    "kind": "quality",
-                    "mechanical_check_id": "document.h1_blocks",
-                    "observed_polarity": null,
-                    "polarity_result": "not_applicable",
-                    "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
-                    "reported_observed_value": 1,
-                    "required_repair": "",
-                    "section": "document header"
-                  },
-                  {
-                    "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                    "claim": "The Quick Start section contains exactly one fenced block with 2 nonblank code lines, satisfying the primary example constraint.",
-                    "criterion": "example_presentation",
-                    "disposition": "supports_acceptance",
-                    "evidence_excerpt": null,
-                    "evidence_location": null,
-                    "expected_polarity": null,
-                    "fact_id": null,
-                    "finding_id": "quality.example_presentation.primary_example",
+                    "finding_id": "quality.clarity.supports_acceptance.1",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
@@ -3669,12 +3650,31 @@
                     "reported_observed_value": 2,
                     "required_repair": "",
                     "section": "Quick Start"
+                  },
+                  {
+                    "candidate_anchor_id": "candidate.anchor.36175e781b4996496dd3.1",
+                    "claim": "The Installation section clearly presents source-based installation steps with a single fenced code block.",
+                    "criterion": "installation_presentation",
+                    "disposition": "supports_acceptance",
+                    "evidence_excerpt": null,
+                    "evidence_location": null,
+                    "expected_polarity": null,
+                    "fact_id": null,
+                    "finding_id": "quality.installation_presentation.supports_acceptance.1",
+                    "kind": "quality",
+                    "mechanical_check_id": null,
+                    "observed_polarity": null,
+                    "polarity_result": "not_applicable",
+                    "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git\ncd Aspose.BarCode-FOSS-for-Python\ngit checkout --detach 53f2c3350b8171f2c8275e7b1a178f218695ac45\npython -m pip install .\n```",
+                    "reported_observed_value": null,
+                    "required_repair": "",
+                    "section": "Installation"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example_presentation.primary_example"
+                    "quality.clarity.supports_acceptance.1",
+                    "quality.installation_presentation.supports_acceptance.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -3686,7 +3686,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "96df10f1546aa8cd0eddce20484ed9aa52685089006c3320a29e144df6f49c4a",
-                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and no duplicate H2 headings. Navigation is complete with all required labels and proper anchor links. Installation and Quick Start sections are well presented with correct fenced blocks and minimal nonblank code lines. Examples are clearly separated and labeled. There is no visible duplication, internal terminology conflicts, or promotional imbalance. Markdown integrity is intact, and the template is followed without generic filler.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), a single badge row with required badge kinds, a clear navigation list, a valid Mermaid At a Glance diagram, a minimal Quick Start example (2 non-blank lines, 1 fenced block), no comments, title-case headings, and a complete license section with required benefit terms. The structure is logical, the examples are concrete and well-formatted, and the API reference is comprehensive. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -3700,14 +3700,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
-                    "claim": "The README documents 51 public types across 4 namespaces, matching the inventory of 35 exports, 26 classes, and 4 modules in the source.",
+                    "claim": "The README documents 51 public types across 4 namespaces, including `aspose_barcode_foss`, `aspose_barcode_foss.exceptions`, `aspose_barcode_foss.options`, and `aspose_barcode_foss.renderers`.",
                     "criterion": "api.public_surface",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "aspose_barcode_foss",
                     "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "api.public_surface:python-exports",
-                    "finding_id": "factual.api_surface.verified",
+                    "finding_id": "factual.api.public_surface.supports_acceptance.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -3718,29 +3718,29 @@
                     "section": "API Reference"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                    "claim": "The Quick Start example `from aspose_barcode_foss import SvgRenderer` is compiled-salvaged and verified.",
-                    "criterion": "example.minimal",
+                    "candidate_anchor_id": "candidate.anchor.0fa4af17815c865f84bf.1",
+                    "claim": "The README accurately lists ten specific constraints, including quiet_zone enforcement, wide:narrow ratio, inter-character gap, and backend support for Code 128 and Code 39.",
+                    "criterion": "product.limitations",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "python",
-                    "evidence_location": "local-verifier://example.minimal",
+                    "evidence_excerpt": "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.",
+                    "evidence_location": "repository://src/aspose_barcode_foss/_internal/bootstrap.py,src/aspose_barcode_foss/result.py",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "example.minimal:compiled-salvaged-example",
-                    "finding_id": "factual.example.minimal.verified",
+                    "fact_id": "product.limitations:source-guidance",
+                    "finding_id": "factual.product.limitations.supports_acceptance.1",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+                    "quoted_candidate_span": "- Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.\n- A fixed 3:1 wide:narrow ratio is used; the spec's configurable 2.0:1\u20133.0:1 range is not implemented.\n- The nominal 1X inter-character gap is used; the spec's gap-widening allowances are not implemented.\n- Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; enforcement is not implemented.\n- Bar/space compensation (ISO/IEC 15420:2009 4.3.6, Table 8) is not implemented.\n- Text layout is not implemented for symbology.\n- GS1, ECI, bytes / binary input, FNC handling, Code Set A/C, Shift, and code-set switching are unsupported.\n- Only the SVG backend is implemented for Code 128.\n- GS1, ECI, bytes / binary input, and structured append are unsupported.\n- Only the SVG backend is implemented for Code 39.",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "Quick Start"
+                    "section": "Scope and Limitations"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.api_surface.verified",
-                    "factual.example.minimal.verified"
+                    "factual.api.public_surface.supports_acceptance.1",
+                    "factual.product.limitations.supports_acceptance.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -3751,8 +3751,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "6e89b78ec64d11bbdd705c8c308495706e3aeea6911f8c5db35304a5afbecf87",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface, capabilities, installation coordinates, license, compatibility, and limitations are all verified by source evidence. The Quick Start example is compiled-salvaged and verified. The navigation links and documentation links match the governed aspose.org catalog. The repository examples inventory matches the Additional Examples section. No conflicts or missing evidence were found.",
+                "input_sha256": "a46e7ae5dbf9f849a53d8633275422146b27803a65a290a07007de8234fa3ec4",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, formats, license, and release state are correctly stated and verified by manifest and registry facts. Capabilities and limitations are accurately reflected in the repository evidence and source guidance facts. Installation coordinates, verified acquisition, API surface, development assets, documentation links, and repository examples all align with the README content. No unsupported or contradictory claims were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -3760,14 +3760,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "665bd7d767c09f0fc2376fa860444f592a2deb0d3ead6e5e566a1a5bf86c180e",
-                "factual_record_sha256": "1ba2b8c7b0b83db8dc62d46aad84ec444ff6ee76c40a61ad3d5a30e5199dbed4",
+                "blind_record_sha256": "ae58a9502565358746665306d7a3d195db957af2b3a58e9a6ba1dc8894e0810e",
+                "factual_record_sha256": "e30cb3e46eaa57d4a9e8ee2b4a30e79406a0552a21e8b523848ec8b21e2e519c",
                 "input_sha256": "16a9c495acb48df4981207f23da5098cab84ca2bbfca1584d1068ae5fc051c52",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-bf1a0079788eb16a",
-                "raw_output_sha256": "6a338004a19f6596887cd0617feafb276445dfd36577bffe71082ebfd2c2af7d"
+                "provider_request_id": "chatcmpl-bd5c94cd8e30ec9e",
+                "raw_output_sha256": "653031894f9a19f56090ba923c995d0382ccae21fd784456d66191751e47846b"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -3783,14 +3783,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
-                  "claim": "The README documents 51 public types across 4 namespaces, matching the inventory of 35 exports, 26 classes, and 4 modules in the source.",
+                  "claim": "The README documents 51 public types across 4 namespaces, including `aspose_barcode_foss`, `aspose_barcode_foss.exceptions`, `aspose_barcode_foss.options`, and `aspose_barcode_foss.renderers`.",
                   "criterion": "api.public_surface",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "aspose_barcode_foss",
                   "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "api.public_surface:python-exports",
-                  "finding_id": "factual.api_surface.verified",
+                  "finding_id": "factual.api.public_surface.supports_acceptance.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -3801,29 +3801,29 @@
                   "section": "API Reference"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                  "claim": "The Quick Start example `from aspose_barcode_foss import SvgRenderer` is compiled-salvaged and verified.",
-                  "criterion": "example.minimal",
+                  "candidate_anchor_id": "candidate.anchor.0fa4af17815c865f84bf.1",
+                  "claim": "The README accurately lists ten specific constraints, including quiet_zone enforcement, wide:narrow ratio, inter-character gap, and backend support for Code 128 and Code 39.",
+                  "criterion": "product.limitations",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "python",
-                  "evidence_location": "local-verifier://example.minimal",
+                  "evidence_excerpt": "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.",
+                  "evidence_location": "repository://src/aspose_barcode_foss/_internal/bootstrap.py,src/aspose_barcode_foss/result.py",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "example.minimal:compiled-salvaged-example",
-                  "finding_id": "factual.example.minimal.verified",
+                  "fact_id": "product.limitations:source-guidance",
+                  "finding_id": "factual.product.limitations.supports_acceptance.1",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+                  "quoted_candidate_span": "- Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.\n- A fixed 3:1 wide:narrow ratio is used; the spec's configurable 2.0:1\u20133.0:1 range is not implemented.\n- The nominal 1X inter-character gap is used; the spec's gap-widening allowances are not implemented.\n- Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; enforcement is not implemented.\n- Bar/space compensation (ISO/IEC 15420:2009 4.3.6, Table 8) is not implemented.\n- Text layout is not implemented for symbology.\n- GS1, ECI, bytes / binary input, FNC handling, Code Set A/C, Shift, and code-set switching are unsupported.\n- Only the SVG backend is implemented for Code 128.\n- GS1, ECI, bytes / binary input, and structured append are unsupported.\n- Only the SVG backend is implemented for Code 39.",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "Quick Start"
+                  "section": "Scope and Limitations"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.api_surface.verified",
-                  "factual.example.minimal.verified"
+                  "factual.api.public_surface.supports_acceptance.1",
+                  "factual.product.limitations.supports_acceptance.1"
                 ],
                 "errors": [],
                 "valid": true
@@ -3834,8 +3834,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "6e89b78ec64d11bbdd705c8c308495706e3aeea6911f8c5db35304a5afbecf87",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface, capabilities, installation coordinates, license, compatibility, and limitations are all verified by source evidence. The Quick Start example is compiled-salvaged and verified. The navigation links and documentation links match the governed aspose.org catalog. The repository examples inventory matches the Additional Examples section. No conflicts or missing evidence were found.",
+              "input_sha256": "a46e7ae5dbf9f849a53d8633275422146b27803a65a290a07007de8234fa3ec4",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, formats, license, and release state are correctly stated and verified by manifest and registry facts. Capabilities and limitations are accurately reflected in the repository evidence and source guidance facts. Installation coordinates, verified acquisition, API surface, development assets, documentation links, and repository examples all align with the README content. No unsupported or contradictory claims were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3856,8 +3856,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example_presentation.primary_example"
+                    "quality.clarity.supports_acceptance.1",
+                    "quality.installation_presentation.supports_acceptance.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -3873,15 +3873,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.api_surface.verified",
-                  "factual.example.minimal.verified"
+                  "factual.api.public_surface.supports_acceptance.1",
+                  "factual.product.limitations.supports_acceptance.1"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.api_surface.verified",
-                    "factual.example.minimal.verified"
+                    "factual.api.public_surface.supports_acceptance.1",
+                    "factual.product.limitations.supports_acceptance.1"
                   ],
                   "errors": [],
                   "valid": true
@@ -3927,7 +3927,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260811-212736-f72b",
+                "nonce": "20260812-135842-9de2",
                 "official_mermaid_render": {
                   "aspect_ratio": 3.9581,
                   "cached": true,
@@ -4049,11 +4049,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "684680f0cb466b57926956162b50f0f735b11c6b277ee49413f5d71625706ffa",
+                "token": "48008722cde0c4fbfed72aadcdb5b41bb279f278704377548656e38b4bb0ffb5",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260811-212736-f72b"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python\\20260812-135842-9de2"
               ],
               "repair_attempt": 0,
               "review": {
@@ -4063,34 +4063,15 @@
                   "failed_criteria": [],
                   "findings": [
                     {
-                      "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                      "claim": "The README has exactly one H1 heading, providing clear document identity.",
+                      "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                      "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the primary workflow.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.h1_blocks",
-                      "kind": "quality",
-                      "mechanical_check_id": "document.h1_blocks",
-                      "observed_polarity": null,
-                      "polarity_result": "not_applicable",
-                      "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
-                      "reported_observed_value": 1,
-                      "required_repair": "",
-                      "section": "document header"
-                    },
-                    {
-                      "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                      "claim": "The Quick Start section contains exactly one fenced block with 2 nonblank code lines, satisfying the primary example constraint.",
-                      "criterion": "example_presentation",
-                      "disposition": "supports_acceptance",
-                      "evidence_excerpt": null,
-                      "evidence_location": null,
-                      "expected_polarity": null,
-                      "fact_id": null,
-                      "finding_id": "quality.example_presentation.primary_example",
+                      "finding_id": "quality.clarity.supports_acceptance.1",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
@@ -4099,12 +4080,31 @@
                       "reported_observed_value": 2,
                       "required_repair": "",
                       "section": "Quick Start"
+                    },
+                    {
+                      "candidate_anchor_id": "candidate.anchor.36175e781b4996496dd3.1",
+                      "claim": "The Installation section clearly presents source-based installation steps with a single fenced code block.",
+                      "criterion": "installation_presentation",
+                      "disposition": "supports_acceptance",
+                      "evidence_excerpt": null,
+                      "evidence_location": null,
+                      "expected_polarity": null,
+                      "fact_id": null,
+                      "finding_id": "quality.installation_presentation.supports_acceptance.1",
+                      "kind": "quality",
+                      "mechanical_check_id": null,
+                      "observed_polarity": null,
+                      "polarity_result": "not_applicable",
+                      "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git\ncd Aspose.BarCode-FOSS-for-Python\ngit checkout --detach 53f2c3350b8171f2c8275e7b1a178f218695ac45\npython -m pip install .\n```",
+                      "reported_observed_value": null,
+                      "required_repair": "",
+                      "section": "Installation"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.h1_blocks",
-                      "quality.example_presentation.primary_example"
+                      "quality.clarity.supports_acceptance.1",
+                      "quality.installation_presentation.supports_acceptance.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -4116,7 +4116,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "96df10f1546aa8cd0eddce20484ed9aa52685089006c3320a29e144df6f49c4a",
-                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and no duplicate H2 headings. Navigation is complete with all required labels and proper anchor links. Installation and Quick Start sections are well presented with correct fenced blocks and minimal nonblank code lines. Examples are clearly separated and labeled. There is no visible duplication, internal terminology conflicts, or promotional imbalance. Markdown integrity is intact, and the template is followed without generic filler.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), a single badge row with required badge kinds, a clear navigation list, a valid Mermaid At a Glance diagram, a minimal Quick Start example (2 non-blank lines, 1 fenced block), no comments, title-case headings, and a complete license section with required benefit terms. The structure is logical, the examples are concrete and well-formatted, and the API reference is comprehensive. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -4128,34 +4128,15 @@
                     "failed_criteria": [],
                     "findings": [
                       {
-                        "candidate_anchor_id": "candidate.anchor.62046b9f1de5bdd9525f.1",
-                        "claim": "The README has exactly one H1 heading, providing clear document identity.",
+                        "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
+                        "claim": "The Quick Start section provides a minimal, executable example that clearly demonstrates the primary workflow.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.h1_blocks",
-                        "kind": "quality",
-                        "mechanical_check_id": "document.h1_blocks",
-                        "observed_polarity": null,
-                        "polarity_result": "not_applicable",
-                        "quoted_candidate_span": "# Aspose.BarCode FOSS for Python",
-                        "reported_observed_value": 1,
-                        "required_repair": "",
-                        "section": "document header"
-                      },
-                      {
-                        "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                        "claim": "The Quick Start section contains exactly one fenced block with 2 nonblank code lines, satisfying the primary example constraint.",
-                        "criterion": "example_presentation",
-                        "disposition": "supports_acceptance",
-                        "evidence_excerpt": null,
-                        "evidence_location": null,
-                        "expected_polarity": null,
-                        "fact_id": null,
-                        "finding_id": "quality.example_presentation.primary_example",
+                        "finding_id": "quality.clarity.supports_acceptance.1",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
@@ -4164,12 +4145,31 @@
                         "reported_observed_value": 2,
                         "required_repair": "",
                         "section": "Quick Start"
+                      },
+                      {
+                        "candidate_anchor_id": "candidate.anchor.36175e781b4996496dd3.1",
+                        "claim": "The Installation section clearly presents source-based installation steps with a single fenced code block.",
+                        "criterion": "installation_presentation",
+                        "disposition": "supports_acceptance",
+                        "evidence_excerpt": null,
+                        "evidence_location": null,
+                        "expected_polarity": null,
+                        "fact_id": null,
+                        "finding_id": "quality.installation_presentation.supports_acceptance.1",
+                        "kind": "quality",
+                        "mechanical_check_id": null,
+                        "observed_polarity": null,
+                        "polarity_result": "not_applicable",
+                        "quoted_candidate_span": "```bash\ngit clone https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git\ncd Aspose.BarCode-FOSS-for-Python\ngit checkout --detach 53f2c3350b8171f2c8275e7b1a178f218695ac45\npython -m pip install .\n```",
+                        "reported_observed_value": null,
+                        "required_repair": "",
+                        "section": "Installation"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example_presentation.primary_example"
+                        "quality.clarity.supports_acceptance.1",
+                        "quality.installation_presentation.supports_acceptance.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -4181,7 +4181,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "96df10f1546aa8cd0eddce20484ed9aa52685089006c3320a29e144df6f49c4a",
-                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 prefixes, a single H1, and no duplicate H2 headings. Navigation is complete with all required labels and proper anchor links. Installation and Quick Start sections are well presented with correct fenced blocks and minimal nonblank code lines. Examples are clearly separated and labeled. There is no visible duplication, internal terminology conflicts, or promotional imbalance. Markdown integrity is intact, and the template is followed without generic filler.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, etc.), a single badge row with required badge kinds, a clear navigation list, a valid Mermaid At a Glance diagram, a minimal Quick Start example (2 non-blank lines, 1 fenced block), no comments, title-case headings, and a complete license section with required benefit terms. The structure is logical, the examples are concrete and well-formatted, and the API reference is comprehensive. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -4195,14 +4195,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
-                        "claim": "The README documents 51 public types across 4 namespaces, matching the inventory of 35 exports, 26 classes, and 4 modules in the source.",
+                        "claim": "The README documents 51 public types across 4 namespaces, including `aspose_barcode_foss`, `aspose_barcode_foss.exceptions`, `aspose_barcode_foss.options`, and `aspose_barcode_foss.renderers`.",
                         "criterion": "api.public_surface",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "aspose_barcode_foss",
                         "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "api.public_surface:python-exports",
-                        "finding_id": "factual.api_surface.verified",
+                        "finding_id": "factual.api.public_surface.supports_acceptance.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -4213,29 +4213,29 @@
                         "section": "API Reference"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                        "claim": "The Quick Start example `from aspose_barcode_foss import SvgRenderer` is compiled-salvaged and verified.",
-                        "criterion": "example.minimal",
+                        "candidate_anchor_id": "candidate.anchor.0fa4af17815c865f84bf.1",
+                        "claim": "The README accurately lists ten specific constraints, including quiet_zone enforcement, wide:narrow ratio, inter-character gap, and backend support for Code 128 and Code 39.",
+                        "criterion": "product.limitations",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "python",
-                        "evidence_location": "local-verifier://example.minimal",
+                        "evidence_excerpt": "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.",
+                        "evidence_location": "repository://src/aspose_barcode_foss/_internal/bootstrap.py,src/aspose_barcode_foss/result.py",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "example.minimal:compiled-salvaged-example",
-                        "finding_id": "factual.example.minimal.verified",
+                        "fact_id": "product.limitations:source-guidance",
+                        "finding_id": "factual.product.limitations.supports_acceptance.1",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+                        "quoted_candidate_span": "- Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.\n- A fixed 3:1 wide:narrow ratio is used; the spec's configurable 2.0:1\u20133.0:1 range is not implemented.\n- The nominal 1X inter-character gap is used; the spec's gap-widening allowances are not implemented.\n- Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; enforcement is not implemented.\n- Bar/space compensation (ISO/IEC 15420:2009 4.3.6, Table 8) is not implemented.\n- Text layout is not implemented for symbology.\n- GS1, ECI, bytes / binary input, FNC handling, Code Set A/C, Shift, and code-set switching are unsupported.\n- Only the SVG backend is implemented for Code 128.\n- GS1, ECI, bytes / binary input, and structured append are unsupported.\n- Only the SVG backend is implemented for Code 39.",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "Quick Start"
+                        "section": "Scope and Limitations"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.api_surface.verified",
-                        "factual.example.minimal.verified"
+                        "factual.api.public_surface.supports_acceptance.1",
+                        "factual.product.limitations.supports_acceptance.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -4246,8 +4246,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "6e89b78ec64d11bbdd705c8c308495706e3aeea6911f8c5db35304a5afbecf87",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface, capabilities, installation coordinates, license, compatibility, and limitations are all verified by source evidence. The Quick Start example is compiled-salvaged and verified. The navigation links and documentation links match the governed aspose.org catalog. The repository examples inventory matches the Additional Examples section. No conflicts or missing evidence were found.",
+                    "input_sha256": "a46e7ae5dbf9f849a53d8633275422146b27803a65a290a07007de8234fa3ec4",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, formats, license, and release state are correctly stated and verified by manifest and registry facts. Capabilities and limitations are accurately reflected in the repository evidence and source guidance facts. Installation coordinates, verified acquisition, API surface, development assets, documentation links, and repository examples all align with the README content. No unsupported or contradictory claims were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -4255,14 +4255,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "665bd7d767c09f0fc2376fa860444f592a2deb0d3ead6e5e566a1a5bf86c180e",
-                    "factual_record_sha256": "1ba2b8c7b0b83db8dc62d46aad84ec444ff6ee76c40a61ad3d5a30e5199dbed4",
+                    "blind_record_sha256": "ae58a9502565358746665306d7a3d195db957af2b3a58e9a6ba1dc8894e0810e",
+                    "factual_record_sha256": "e30cb3e46eaa57d4a9e8ee2b4a30e79406a0552a21e8b523848ec8b21e2e519c",
                     "input_sha256": "16a9c495acb48df4981207f23da5098cab84ca2bbfca1584d1068ae5fc051c52",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-bf1a0079788eb16a",
-                    "raw_output_sha256": "6a338004a19f6596887cd0617feafb276445dfd36577bffe71082ebfd2c2af7d"
+                    "provider_request_id": "chatcmpl-bd5c94cd8e30ec9e",
+                    "raw_output_sha256": "653031894f9a19f56090ba923c995d0382ccae21fd784456d66191751e47846b"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -4278,14 +4278,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.9ef018b6267c1dd5586b.1",
-                      "claim": "The README documents 51 public types across 4 namespaces, matching the inventory of 35 exports, 26 classes, and 4 modules in the source.",
+                      "claim": "The README documents 51 public types across 4 namespaces, including `aspose_barcode_foss`, `aspose_barcode_foss.exceptions`, `aspose_barcode_foss.options`, and `aspose_barcode_foss.renderers`.",
                       "criterion": "api.public_surface",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "aspose_barcode_foss",
                       "evidence_location": "repository://pyproject.toml,src/aspose_barcode_foss/__init__.py,src/aspose_barcode_foss/_internal/exceptions.py,src/aspose_barcode_foss/_internal/models/options.py,src/aspose_barcode_foss/_internal/renderers/base.py,src/aspose_barcode_foss/_internal/renderers/pdf.py,src/aspose_barcode_foss/_internal/renderers/png.py,src/aspose_barcode_foss/_internal/renderers/svg.py,src/aspose_barcode_foss/api.py,src/aspose_barcode_foss/exceptions.py,src/aspose_barcode_foss/options.py,src/aspose_barcode_foss/renderers.py,src/aspose_barcode_foss/result.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "api.public_surface:python-exports",
-                      "finding_id": "factual.api_surface.verified",
+                      "finding_id": "factual.api.public_surface.supports_acceptance.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -4296,29 +4296,29 @@
                       "section": "API Reference"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.199d733530f4fcfeabdc.1",
-                      "claim": "The Quick Start example `from aspose_barcode_foss import SvgRenderer` is compiled-salvaged and verified.",
-                      "criterion": "example.minimal",
+                      "candidate_anchor_id": "candidate.anchor.0fa4af17815c865f84bf.1",
+                      "claim": "The README accurately lists ten specific constraints, including quiet_zone enforcement, wide:narrow ratio, inter-character gap, and backend support for Code 128 and Code 39.",
+                      "criterion": "product.limitations",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "python",
-                      "evidence_location": "local-verifier://example.minimal",
+                      "evidence_excerpt": "Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.",
+                      "evidence_location": "repository://src/aspose_barcode_foss/_internal/bootstrap.py,src/aspose_barcode_foss/result.py",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "example.minimal:compiled-salvaged-example",
-                      "finding_id": "factual.example.minimal.verified",
+                      "fact_id": "product.limitations:source-guidance",
+                      "finding_id": "factual.product.limitations.supports_acceptance.1",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "```python\nfrom aspose_barcode_foss import SvgRenderer\n\nrenderer = SvgRenderer()\n```",
+                      "quoted_candidate_span": "- Explicit quiet_zone overrides can shrink below the Code 128 10X minimum; enforcement is not implemented yet.\n- A fixed 3:1 wide:narrow ratio is used; the spec's configurable 2.0:1\u20133.0:1 range is not implemented.\n- The nominal 1X inter-character gap is used; the spec's gap-widening allowances are not implemented.\n- Explicit quiet_zone overrides can shrink below the Code 39 10X minimum; enforcement is not implemented.\n- Bar/space compensation (ISO/IEC 15420:2009 4.3.6, Table 8) is not implemented.\n- Text layout is not implemented for symbology.\n- GS1, ECI, bytes / binary input, FNC handling, Code Set A/C, Shift, and code-set switching are unsupported.\n- Only the SVG backend is implemented for Code 128.\n- GS1, ECI, bytes / binary input, and structured append are unsupported.\n- Only the SVG backend is implemented for Code 39.",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "Quick Start"
+                      "section": "Scope and Limitations"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.api_surface.verified",
-                      "factual.example.minimal.verified"
+                      "factual.api.public_surface.supports_acceptance.1",
+                      "factual.product.limitations.supports_acceptance.1"
                     ],
                     "errors": [],
                     "valid": true
@@ -4329,8 +4329,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "6e89b78ec64d11bbdd705c8c308495706e3aeea6911f8c5db35304a5afbecf87",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The API surface, capabilities, installation coordinates, license, compatibility, and limitations are all verified by source evidence. The Quick Start example is compiled-salvaged and verified. The navigation links and documentation links match the governed aspose.org catalog. The repository examples inventory matches the Additional Examples section. No conflicts or missing evidence were found.",
+                  "input_sha256": "a46e7ae5dbf9f849a53d8633275422146b27803a65a290a07007de8234fa3ec4",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, compatibility, formats, license, and release state are correctly stated and verified by manifest and registry facts. Capabilities and limitations are accurately reflected in the repository evidence and source guidance facts. Installation coordinates, verified acquisition, API surface, development assets, documentation links, and repository examples all align with the README content. No unsupported or contradictory claims were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -4351,8 +4351,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example_presentation.primary_example"
+                        "quality.clarity.supports_acceptance.1",
+                        "quality.installation_presentation.supports_acceptance.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -4368,15 +4368,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.api_surface.verified",
-                      "factual.example.minimal.verified"
+                      "factual.api.public_surface.supports_acceptance.1",
+                      "factual.product.limitations.supports_acceptance.1"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.api_surface.verified",
-                        "factual.example.minimal.verified"
+                        "factual.api.public_surface.supports_acceptance.1",
+                        "factual.product.limitations.supports_acceptance.1"
                       ],
                       "errors": [],
                       "valid": true
@@ -4409,15 +4409,8 @@
           "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
           "stage": "document_validation"
         },
-        "llm_called": true,
-        "llm_calls": [
-          {
-            "input_sha256": "95ae7b294b8098dc8e8ef402420db6658aeefa02cd591ec8916ee3f3e91c0c9f",
-            "job": "plan_readme_composition",
-            "model": "qwen3-next",
-            "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
-          }
-        ],
+        "llm_called": false,
+        "llm_calls": [],
         "no_op_bundle_reused": true,
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
@@ -19836,7 +19829,7 @@
               }
             ],
             "source_sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68",
-            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
+            "template_sha256": "20f8dd555a810b1f231ab32edac05bd87ba43bec0498c2f52be375ae334debc4"
           }
         },
         "proposal_only": true,
@@ -19876,7 +19869,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260811-212736-f72b",
+          "nonce": "20260812-135842-9de2",
           "official_mermaid_render": {
             "aspect_ratio": 3.9581,
             "cached": true,
@@ -19998,7 +19991,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "684680f0cb466b57926956162b50f0f735b11c6b277ee49413f5d71625706ffa",
+          "token": "48008722cde0c4fbfed72aadcdb5b41bb279f278704377548656e38b4bb0ffb5",
           "verdict": "accept"
         },
         "written": false
@@ -20006,7 +19999,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T21:29:35.577017+00:00",
+      "last_run_timestamp": "2026-08-12T14:00:45.912835+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -22209,7 +22202,7 @@
     "updated_at": "2026-08-12T14:00:38.887937+00:00"
   },
   "schema_version": 2,
-  "state_version": 623,
+  "state_version": 624,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
