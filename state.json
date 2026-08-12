@@ -1059,9 +1059,11 @@
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "Cells re-verification: two-transaction no-op proof completed (AGENT_APPROVED then CONVERGED_NO_TRACKED_CHANGE, provider_calls=0, cache_reuse=1); independent verifier dispatched. Email transaction 1 blocked on container registry acquisition (Docker daemon not running); diagnosed and resolved by starting Docker Desktop, confirmed ready via docker info."
+          ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-12T02:59:59.383078+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T02:43:31.436786+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2184,30 +2186,31 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T02:43:31.436786+00:00",
+    "last_evaluated_at": "2026-08-12T02:59:59.383110+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 5,
-      "candidate_generated": 5,
+      "agent_approved": 6,
+      "candidate_generated": 6,
       "denominator": 32,
-      "derived_at": "2026-08-11T21:58:13.754328+00:00",
-      "deterministic_validated": 5,
+      "derived_at": "2026-08-12T02:56:52.384174+00:00",
+      "deterministic_validated": 6,
       "facts_ready": 6,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 16,
         "DISCOVERED": 1,
-        "FACTS_READY": 9,
+        "FACTS_COLLECTING": 1,
+        "FACTS_READY": 8,
         "NO_OP_PROVEN": 6
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 5,
+      "no_op_proven": 6,
       "raw_agent_approved": 6,
       "raw_candidate_generated": 6,
       "raw_deterministic_validated": 6,
-      "raw_facts_ready": 15,
+      "raw_facts_ready": 14,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 6,
       "registry_path": "data/products.json",
@@ -2228,10 +2231,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -11226,7 +11225,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1109,
+  "state_version": 1110,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
